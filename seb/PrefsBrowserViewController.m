@@ -58,8 +58,9 @@
 
 - (NSImage *)image
 {
-    NSImage *browserIcon = [[NSImage alloc] initWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/BrowserIcon.png"]];
-    if (browserIcon) return browserIcon; else return [NSImage imageNamed:@"NSAdvanced"];
+    //NSImage *browserIcon = [[NSImage alloc] initWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/BrowserIcon.png"]];
+    //if (browserIcon) return browserIcon; else return [NSImage imageNamed:@"NSAdvanced"];
+    return [NSImage imageNamed:@"BrowserIcon"];
 }
 
 
