@@ -93,7 +93,7 @@ bool insideMatrix();
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]], @"org_safeexambrowser_SEB_allowQuit",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]], @"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_allowDownUploads",
-                                     [preferences secureDataForObject:(id)[NSHomeDirectory() stringByAppendingPathComponent: @"org_safeexambrowser_SEB_Downloads"]], @"org_safeexambrowser_SEB_downloadDirectory",
+                                     [preferences secureDataForObject:(id)[NSHomeDirectory() stringByAppendingPathComponent: @"Downloads"]], @"org_safeexambrowser_SEB_downloadDirectory",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_openDownloads",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithInt:manuallyWithFileRequester]], @"org_safeexambrowser_SEB_chooseFileToUploadPolicy",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_downloadPDFFiles",

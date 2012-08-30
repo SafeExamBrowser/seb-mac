@@ -792,7 +792,7 @@
 				PRODUCT_NAME = "Safe Exam Browser";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
-				SYMROOT = build;
+				SYMROOT = ../build;
 				VALID_ARCHS = "x86_64 i386";
 			};
 			name = Debug;
@@ -821,7 +821,7 @@
 				PRODUCT_NAME = "Safe Exam Browser";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
-				SYMROOT = build;
+				SYMROOT = ../build;
 				VALID_ARCHS = "x86_64 i386";
 			};
 			name = Release;
@@ -852,7 +852,7 @@
 				PRODUCT_NAME = "Safe Exam Browser";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
-				SYMROOT = build;
+				SYMROOT = ../build;
 				VALID_ARCHS = "x86_64 i386";
 			};
 			name = Debug;
@@ -881,7 +881,7 @@
 				PRODUCT_NAME = "Safe Exam Browser";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
-				SYMROOT = build;
+				SYMROOT = ../build;
 				VALID_ARCHS = "x86_64 i386";
 			};
 			name = Release;
@@ -913,7 +913,7 @@
 				PRODUCT_NAME = "Safe Exam Browser";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
-				SYMROOT = build;
+				SYMROOT = ../build;
 				VALID_ARCHS = "x86_64 i386";
 			};
 			name = Debug;
@@ -943,7 +943,7 @@
 				PRODUCT_NAME = "Safe Exam Browser";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
-				SYMROOT = build;
+				SYMROOT = ../build;
 				VALID_ARCHS = "x86_64 i386";
 			};
 			name = Release;
@@ -966,6 +966,7 @@
 				PRODUCT_NAME = "Safe Exam Browser";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
+				SYMROOT = ../build;
 			};
 			name = Debug;
 		};
@@ -984,6 +985,7 @@
 				PRODUCT_NAME = "Safe Exam Browser";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
+				SYMROOT = ../build;
 				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Release;
