@@ -337,9 +337,8 @@
         // Build a new name for the file using the current name and
     // the filename extension associated with the specified UTI.
     //CFStringRef newExtension = UTTypeCopyPreferredTagWithClass((CFStringRef)@"org.safeexambrowser.seb", kUTTagClassFilenameExtension);
-    NSString* newExtension = @"seb";
-    NSString* newName = [NSLocalizedString(@"Untitled", nil)
-                         stringByAppendingPathExtension:(NSString*)newExtension];
+    //NSString* newExtension = @"seb";
+    //NSString* newName = [NSLocalizedString(@"Untitled", nil) stringByAppendingPathExtension:(NSString*)newExtension];
     //CFRelease(newExtension);
     
     // Set the default name for the file and show the panel.
