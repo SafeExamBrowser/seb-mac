@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SEBController.m"
-         timestampString = "368551682.116664"
+         timestampString = "368614195.008351"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "91"
-         endingLineNumber = "91"
+         startingLineNumber = "97"
+         endingLineNumber = "97"
          landmarkName = "-init"
          landmarkType = "5">
       </FileBreakpoint>
@@ -86,11 +86,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PrefsGeneralViewController.m"
-         timestampString = "368543416.753209"
+         timestampString = "368614195.008351"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "339"
-         endingLineNumber = "339"
+         startingLineNumber = "341"
+         endingLineNumber = "341"
          landmarkName = "-saveSEBPrefs:"
          landmarkType = "5">
       </FileBreakpoint>
