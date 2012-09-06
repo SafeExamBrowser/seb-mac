@@ -39,6 +39,7 @@
 #import "PrefsGeneralViewController.h"
 #import "NSWindow+SEBWindow.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
+#import "Constants.h"
 
 //#import "MyGlobals.h"
 
@@ -330,7 +331,8 @@
                                }];
     NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:[filteredPrefsSet count]];
     for (NSString *key in filteredPrefsSet) {
-        [filteredPrefsDict setObject:[preferences secureObjectForKey:key] forKey:key];
+        [filteredPrefsDict setObject:[preferences secureObjectForKey:key] forKey:[key substringFromIndex:24]];
+        
     }
     // Save initialValues to a SEB preferences file into the application bundle
 

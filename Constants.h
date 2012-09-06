@@ -50,5 +50,6 @@ enum {
 };
 typedef NSUInteger chooseFileToUploadPolicies;
 
+//NSString *sebUserDefaultsPrefix = @"org_safeexambrowser_SEB_";
 
 #endif

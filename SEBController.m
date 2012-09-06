@@ -73,9 +73,19 @@ bool insideMatrix();
 
 - (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename {
     NSURL *sebFileURL = [NSURL fileURLWithPath:filename];
+#ifdef DEBUG
     NSLog(@"Loading .seb settings file with URL %@",sebFileURL);
-    NSDictionary *initialValuesDict=[NSDictionary dictionaryWithContentsOfURL:sebFileURL];
+#endif
+    NSDictionary *sebPreferencesDict=[NSDictionary dictionaryWithContentsOfURL:sebFileURL];
+    NSMutableDictionary *initialValuesDict = [NSMutableDictionary dictionaryWithCapacity:[sebPreferencesDict count]];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    for (NSString *key in sebPreferencesDict) {
+        NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
+        [initialValuesDict setObject:[preferences secureDataForObject:[sebPreferencesDict objectForKey:key]] forKey:keyWithPrefix];
+    }
+#ifdef DEBUG
     NSLog(@"Loading .seb settings dictionary: %@",initialValuesDict);
+#endif
     // Set the initial values in the shared user defaults controller
     [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:initialValuesDict];
     // Replace the values of all the user default properties with any corresponding values in the initialValues dictionary
