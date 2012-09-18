@@ -22,6 +22,9 @@
 
 @interface NSUserDefaults (SEBEncryptedUserDefaults)
 
+// Return (and allocate if necessary) shared secure UserDefaults
++ (NSUserDefaults *)secureUserDefaults;
+
 /**
  * Sets the secret. Make sure that your secret is stored in a save place, it is recommanded to write it
  * directly into your code. Required property.

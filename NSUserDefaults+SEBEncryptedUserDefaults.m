@@ -35,6 +35,48 @@
 static NSData *_secretData           = nil;
 static NSData *_deviceIdentifierData = nil;
 
+static NSUserDefaults *secureUserDefaults = nil;
+
++ (NSUserDefaults *)secureUserDefaults
+{
+    @synchronized(self)
+    {
+        if (secureUserDefaults == nil)
+        {
+            secureUserDefaults = [[self alloc] init];
+            //    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+            
+        }
+    }
+    
+    return secureUserDefaults;
+}
+
++ (id)allocWithZone:(NSZone *)zone
+{
+    @synchronized(self)
+    {
+        if (secureUserDefaults == nil)
+        {
+            secureUserDefaults = [super allocWithZone:zone];
+            return secureUserDefaults;
+        }
+    }
+    
+    return nil;
+}
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    return self;
+}
+
+- (NSUInteger)retainCount
+{
+    return NSUIntegerMax;
+}
+
+
 + (void)setSecret:(NSString *)secret
 {
 	if (_secretData == nil) {
