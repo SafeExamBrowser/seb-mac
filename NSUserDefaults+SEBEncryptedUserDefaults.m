@@ -85,7 +85,14 @@ static BOOL _usePrivateUserDefaults = NO;
 // Set user defaults to be stored privately in memory instead of StandardUserDefaults
 + (void)setUserDefaultsPrivate:(BOOL)flag
 {
-    _usePrivateUserDefaults=flag;
+    if (flag != _usePrivateUserDefaults) {
+        _usePrivateUserDefaults = flag;
+        secureUserDefaults = nil;
+        
+    }
+#ifdef DEBUG
+    NSLog(@"SetUserDefaultsPrivate: %@, secureUserDefaults: %@",[NSNumber numberWithBool:_usePrivateUserDefaults], secureUserDefaults);
+#endif
 }
 
 
