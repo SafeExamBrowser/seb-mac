@@ -36,6 +36,8 @@ static NSData *_secretData           = nil;
 static NSData *_deviceIdentifierData = nil;
 
 static NSUserDefaults *secureUserDefaults = nil;
+static BOOL _usePrivateUserDefaults = NO;
+
 
 + (NSUserDefaults *)secureUserDefaults
 {
@@ -43,9 +45,13 @@ static NSUserDefaults *secureUserDefaults = nil;
     {
         if (secureUserDefaults == nil)
         {
-            secureUserDefaults = [[self alloc] init];
-            //    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-            
+            if (_usePrivateUserDefaults) {
+                // private UserDefaults will be saved in memory
+                secureUserDefaults = [[self alloc] init];
+            } else {
+                // StandardUserDefaults are saved in Preferences/org.safeexambrowser.Safe-Exam-Browser.plist
+                secureUserDefaults = [NSUserDefaults secureUserDefaults];
+            }
         }
     }
     
@@ -74,6 +80,12 @@ static NSUserDefaults *secureUserDefaults = nil;
 - (NSUInteger)retainCount
 {
     return NSUIntegerMax;
+}
+
+// Set user defaults to be stored privately in memory instead of StandardUserDefaults
++ (void)setUserDefaultsPrivate:(BOOL)flag
+{
+    _usePrivateUserDefaults=flag;
 }
 
 

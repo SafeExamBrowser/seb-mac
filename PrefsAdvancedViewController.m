@@ -66,7 +66,7 @@
 
 //  
 - (void) setDownloadDirectory {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
 	//NSMenuItem *downloadDirectory = [[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""];
     NSString *downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectory"];
     if (!downloadPath) {
@@ -104,7 +104,7 @@
                               // files and directories selected.
                               NSArray* files = [openFilePanel URLs];
                               NSString* fileName = [[files objectAtIndex:0] path];
-                              NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+                              NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
                               [preferences setSecureObject:fileName forKey:@"org_safeexambrowser_SEB_downloadDirectory"];
                               [self setDownloadDirectory];
                           } else {

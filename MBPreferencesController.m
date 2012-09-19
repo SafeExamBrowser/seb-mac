@@ -217,7 +217,7 @@ static MBPreferencesController *sharedPreferencesController = nil;
 			id<MBPreferencesModule> defaultModule = nil;
 			
 			// Check the autosave info
-			NSString *savedIdentifier = [[NSUserDefaults standardUserDefaults] stringForKey:MBPreferencesSelectionAutosaveKey];
+			NSString *savedIdentifier = [[NSUserDefaults secureUserDefaults] stringForKey:MBPreferencesSelectionAutosaveKey];
 			defaultModule = [self moduleForIdentifier:savedIdentifier];
 			
 			if (!defaultModule) {
@@ -270,7 +270,7 @@ static MBPreferencesController *sharedPreferencesController = nil;
 	[[self.window contentView] addSubview:[_currentModule view]];
 	
 	// Autosave the selection
-	[[NSUserDefaults standardUserDefaults] setObject:[module identifier] forKey:MBPreferencesSelectionAutosaveKey];
+	[[NSUserDefaults secureUserDefaults] setObject:[module identifier] forKey:MBPreferencesSelectionAutosaveKey];
 }
 
 @end

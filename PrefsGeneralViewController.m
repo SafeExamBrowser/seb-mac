@@ -194,7 +194,7 @@
 
 - (void) loadPrefs:(id)sender {
 	// Loads preferences from the system's user defaults database
-	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+	NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
     //NSString *url = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
     NSString *url = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
     if (url) { //if there is no preferences file yet, startURL can be nil during first execution of this method
@@ -224,7 +224,7 @@
 
 - (void) savePrefs:(id)sender {
 	// Saves preferences to the system's user defaults database
-	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+	NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
     /*/ Load start URL from the system's user defaults database
     if (![[preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"] isEqualToString:startURL.stringValue]) {
         [preferences setSecureObject:[startURL stringValue] forKey:@"org_safeexambrowser_SEB_startURL"];
@@ -254,7 +254,7 @@
 - (IBAction) savePrefsToAppBundle:(id)sender {
     [self savePrefs:self];	//save preferences (which are not saved automatically by bindings)
     // Copy preferences to a dictionary
-	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+	NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
     [preferences synchronize];
     //[preferences addSuiteNamed:@"NSRegistrationDomain"];
     
@@ -297,7 +297,7 @@
     } else {
         // Prefs got successfully written to app bundle
         // Set flag for preferences in app bundle (bindings enable the remove button in prefs same time)
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
         [preferences setSecureObject:[NSNumber numberWithBool:YES] forKey:@"org_safeexambrowser_SEB_prefsInBundle"];
         NSRunAlertPanel(NSLocalizedString(@"Writing Settings to App Bundle Succeeded", nil), NSLocalizedString(@"WritingToAppBundleSucceeded", nil), NSLocalizedString(@"OK", nil), nil, nil);
     }
@@ -308,7 +308,7 @@
 - (IBAction) saveSEBPrefs:(id)sender {
     [self savePrefs:self];	//save preferences (which are not saved automatically by bindings)
     // Copy preferences to a dictionary
-	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+	NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
     [preferences synchronize];
     NSDictionary *prefsDict;
     
@@ -361,7 +361,7 @@
                           } else {
                               // Prefs got successfully written to app bundle
                               // Set flag for preferences in app bundle (bindings enable the remove button in prefs same time)
-                              NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+                              NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
                               [preferences setSecureObject:[NSNumber numberWithBool:YES] forKey:@"org_safeexambrowser_SEB_prefsInBundle"];
                               NSRunAlertPanel(NSLocalizedString(@"Writing Settings Succeeded", nil), NSLocalizedString(@"WritingToAppBundleSucceeded", nil), NSLocalizedString(@"OK", nil), nil, nil);
                           }
@@ -384,7 +384,7 @@
         } else {
             // Prefs got successfully deleted from app bundle
             // Reset flag for preferences in app bundle (bindings disable the remove button in prefs same time)
-            NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+            NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
             [preferences setSecureObject:[NSNumber numberWithBool:NO] forKey:@"org_safeexambrowser_SEB_prefsInBundle"];
         }
     }
@@ -394,7 +394,7 @@
 - (IBAction) pasteSavedStringFromPasteboard:(id)sender {
     NSString *pasteboardString = [[MyGlobals sharedMyGlobals] pasteboardString];
     if (![pasteboardString isEqualToString:@""]) {
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
         [preferences setSecureObject:pasteboardString forKey:@"org_safeexambrowser_SEB_startURL"];
     }
 }

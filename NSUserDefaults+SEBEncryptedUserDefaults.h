@@ -25,6 +25,9 @@
 // Return (and allocate if necessary) shared secure UserDefaults
 + (NSUserDefaults *)secureUserDefaults;
 
+// Set user defaults to be stored privately in memory instead of StandardUserDefaults
++ (void)setUserDefaultsPrivate:(BOOL)flag;
+
 /**
  * Sets the secret. Make sure that your secret is stored in a save place, it is recommanded to write it
  * directly into your code. Required property.

@@ -78,7 +78,9 @@ bool insideMatrix();
 #endif
     NSDictionary *sebPreferencesDict=[NSDictionary dictionaryWithContentsOfURL:sebFileURL];
     NSMutableDictionary *initialValuesDict = [NSMutableDictionary dictionaryWithCapacity:[sebPreferencesDict count]];
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    // Use private UserDefaults
+    [NSUserDefaults setUserDefaultsPrivate:YES];
+    NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
     for (NSString *key in sebPreferencesDict) {
         NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
         [initialValuesDict setObject:[preferences secureDataForObject:[sebPreferencesDict objectForKey:key]] forKey:keyWithPrefix];
@@ -102,7 +104,7 @@ bool insideMatrix();
         // Add your subclass-specific initialization here.
         // If an error occurs here, send a [self release] message and return nil.
         
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
         // Set flag for displaying alert to new users
         if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"] == nil) {
             firstStart = YES;
@@ -135,7 +137,9 @@ bool insideMatrix();
                                      [preferences secureDataForObject:(id)@"http://www.safeexambrowser.org/macosx"], @"org_safeexambrowser_SEB_startURL",
                                      nil];
         [preferences registerDefaults:appDefaults];
-                
+#ifdef DEBUG
+        NSLog(@"Registred Defaults");
+#endif        
         // Load initialValues from application bundle
         NSString *initialValuesPath;
         NSDictionary *initialValuesDict;
@@ -431,7 +435,7 @@ bool insideMatrix();
     [aboutWindow setStyleMask:NSBorderlessWindowMask];
     [aboutWindow center];
     //[aboutWindow setLevel:NSStatusWindowLevel];
-    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"]) {
+    if (![[NSUserDefaults secureUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"]) {
         [aboutWindow setLevel:NSScreenSaverWindowLevel];
     }
 	[aboutWindow orderFront:self];
@@ -549,7 +553,7 @@ bool insideMatrix(){
 	[capWindows retain];	// don't autorelease the array
     NSScreen *iterScreen;
     NSUInteger screenIndex = 1;
-	BOOL allowSwitchToThirdPartyApps = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"];
+	BOOL allowSwitchToThirdPartyApps = [[NSUserDefaults secureUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"];
     for (iterScreen in screens)
     {
 		//NSRect frame = size of the current screen;
@@ -601,7 +605,7 @@ bool insideMatrix(){
 #ifndef DEBUG
     //NSLog(@"regainActiveStatus!");
     // Load preferences from the system's user defaults database
-	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+	NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
 	BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"];
     if (!allowSwitchToThirdPartyApps) {
 		// if switching to ThirdPartyApps not allowed
@@ -619,7 +623,7 @@ bool insideMatrix(){
 - (void) startKioskMode {
 	// Switch to kiosk mode by setting the proper presentation options
     // Load preferences from the system's user defaults database
-	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+	NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
 	BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"];
     if (!allowSwitchToThirdPartyApps) {
 		// if switching to ThirdPartyApps not allowed
@@ -681,7 +685,7 @@ bool insideMatrix(){
 	 setFrame:[browserWindow frameRectForContentRect:[[browserWindow screen] frame]]
 	 display:YES]; // REMOVE wrong frame for window!*/
 	[browserWindow setFrame:[[browserWindow screen] frame] display:YES];
-    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"allowSwitchToThirdPartyApps"]) {
+    if (![[NSUserDefaults secureUserDefaults] secureBoolForKey:@"allowSwitchToThirdPartyApps"]) {
         [browserWindow newSetLevel:NSModalPanelWindowLevel];
         //[browserWindow newSetLevel:NSScreenSaverWindowLevel];
 #ifdef DEBUG
@@ -703,7 +707,7 @@ bool insideMatrix(){
 	[browserWindow makeKeyAndOrderFront:self];
     
 	// Load start URL from the system's user defaults database
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
 	//NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
     NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
 
@@ -749,7 +753,7 @@ bool insideMatrix(){
 
 - (IBAction) exitSEB:(id)sender {
 	// Load quitting preferences from the system's user defaults database
-	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+	NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
 	NSData *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"] == YES) {
 		// if quitting SEB is allowed
@@ -781,7 +785,7 @@ bool insideMatrix(){
 
 
 - (void) openPreferences:(id)sender {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
     if (![preferencesController preferencesAreOpen]) {
         // Load admin password from the system's user defaults database
         NSData *hashedAdminPW = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
@@ -803,7 +807,7 @@ bool insideMatrix(){
 
 - (void)preferencesClosed:(NSNotification *)notification
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
     if (savedAllowSwitchToThirdPartyAppsFlag != [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"]) {
         //preferences were closed and the third party app setting was changed
         //so we adjust the kiosk settings
@@ -964,7 +968,7 @@ bool insideMatrix(){
     if ([keyPath isEqual:@"currentSystemPresentationOptions"]) {
 		//the current Presentation Options changed, so make SEB active and reset them
         // Load preferences from the system's user defaults database
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
         BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"];
 #ifdef DEBUG
         NSLog(@"currentSystemPresentationOptions changed!");
