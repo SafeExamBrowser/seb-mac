@@ -277,11 +277,6 @@ bool insideMatrix();
                                              selector:@selector(preferencesClosed:)
                                                  name:@"preferencesClosed" object:nil];
 
-    // Add an observer for the notification to close a document
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(requestedCloseDocument:)
-                                                 name:@"closeDocument" object:nil];
-    
 // Prevent display sleep
 #ifndef DEBUG
     IOPMAssertionCreateWithName(
@@ -432,16 +427,7 @@ bool insideMatrix();
 						GetApplicationEventTarget(), 0, &gMyHotKeyRef);
     
 // Show the About SEB Window
-    [aboutWindow setStyleMask:NSBorderlessWindowMask];
-    [aboutWindow center];
-    //[aboutWindow setLevel:NSStatusWindowLevel];
-    if (![[NSUserDefaults secureUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"]) {
-        [aboutWindow setLevel:NSScreenSaverWindowLevel];
-    }
-	[aboutWindow orderFront:self];
-    
-    // Close the About SEB Window after a delay
-    [self performSelector:@selector(closeAboutWindow) withObject: nil afterDelay: 3];
+    [aboutWindow showAboutWindowForMinutes:3];
           
 }
 
@@ -864,17 +850,6 @@ bool insideMatrix(){
 	[[webView mainFrame] loadRequest:
      [NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];
     
-}
-
-
-- (void)requestedCloseDocument:(NSNotification *)notification
-{
-    //[webView stopLoading:self];
-    NSDocument *documentToClose = [notification object];
-    // Close the About SEB Window after a delay
-    [self performSelector:@selector(closeDocument:) withObject: documentToClose afterDelay: 1];
-
-    //[documentToClose close];
 }
 
 

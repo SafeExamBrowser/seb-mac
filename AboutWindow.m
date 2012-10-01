@@ -34,6 +34,7 @@
 
 #import "AboutWindow.h"
 #import "MyGlobals.h"
+#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 @implementation AboutWindow
 
@@ -66,5 +67,29 @@
     [[NSApplication sharedApplication] stopModal];
 }
 
+
+- (void)showAboutWindowForMinutes:(NSInteger)minutes {
+    // Show the About SEB Window
+    [self setStyleMask:NSBorderlessWindowMask];
+    [self center];
+    [self setLevel:NSStatusWindowLevel];
+    if (![[NSUserDefaults secureUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"]) {
+        [self setLevel:NSScreenSaverWindowLevel];
+    }
+	[self orderFront:self];
+    
+    // Close the About SEB Window after a delay
+    [self performSelector:@selector(closeAboutWindow) withObject: nil afterDelay: minutes];
+
+}
+
+
+// Close the About Window
+- (void) closeAboutWindow {
+#ifdef DEBUG
+    NSLog(@"Attempting to close about window %@", self);
+#endif
+    [self orderOut:self];
+}
 
 @end

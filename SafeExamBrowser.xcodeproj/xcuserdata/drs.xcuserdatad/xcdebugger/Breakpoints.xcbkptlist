@@ -43,15 +43,28 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SEBController.m"
+         timestampString = "369761957.31084"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "98"
+         endingLineNumber = "98"
+         landmarkName = "@implementation SEBController"
+         landmarkType = "3">
+      </FileBreakpoint>
+      <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BrowserWindow.m"
-         timestampString = "368528882.777569"
+         timestampString = "370789036.682951"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "374"
-         endingLineNumber = "374"
+         startingLineNumber = "346"
+         endingLineNumber = "346"
          landmarkName = "-webView:decidePolicyForNewWindowAction:request:newFrameName:decisionListener:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -60,11 +73,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BrowserWindow.m"
-         timestampString = "368528882.777569"
+         timestampString = "370789036.682951"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "398"
-         endingLineNumber = "398"
+         startingLineNumber = "370"
+         endingLineNumber = "370"
          landmarkName = "-webViewShow:"
          landmarkType = "5">
       </FileBreakpoint>

@@ -41,6 +41,7 @@
 #import "PreferencesController.h"
 #import "CapView.h"
 #import "MainBrowserWindow.h"
+#import "AboutWindow.h"
 #import "SEBEncryptedUserDefaultsController.h"
 
 	
@@ -58,7 +59,7 @@
     WebView *webView;
     IBOutlet MainBrowserWindow *mainBrowserWindow;
 	IBOutlet id preferencesController;
-	IBOutlet NSWindow *aboutWindow;
+	IBOutlet AboutWindow *aboutWindow;
 	IBOutlet NSView *passwordView;
 	IBOutlet NSSecureTextField *enterPassword;
     IBOutlet NSWindow *enterPasswordDialog;

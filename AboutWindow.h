@@ -44,4 +44,7 @@
   
 }
 
+- (void) showAboutWindowForMinutes:(NSInteger)minutes;
+- (void) closeAboutWindow;
+
 @end

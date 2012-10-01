@@ -52,7 +52,6 @@
 
 @property (nonatomic, assign) SEBEncryptedUserDefaultsController *sebEncryptedUDController;
 
-//- (void)closeDocument:(id)sender;
 
 - (void)startDownloadingURL:(NSURL *)url;
 

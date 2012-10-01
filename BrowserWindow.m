@@ -94,12 +94,6 @@
        withKeyPath:@"values.org_safeexambrowser_SEB_enableBrowsingBackForward"
            options:nil];
 
-    /*/ Add an observer for the request to close this window's document
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(closeDocument:)
-                                                 name:@"requestDocumentClose" 
-                                               object:nil];
-	*/
 /*#ifdef DEBUG
     // Display all MIME types the WebView can display as HTML
     NSArray* MIMETypes = [WebView MIMETypesShownAsHTML];
@@ -134,28 +128,6 @@
 }
 
 
-/*- (void)closeDocument:(id)sender {
-    // Get document for my web view
-    id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:[webView window]];
-    // Close document and therefore also window
-    //Workaround: Flash crashes after closing window and then clicking some other link
-    [[webView preferences] setPlugInsEnabled:NO];
-    [webView setPreferences:nil];
-    [webView unbind:@"maintainsBackForwardList"];
-	// Suppress right-click with own delegate method for context menu
-	[webView setUIDelegate:nil];
-	
-	// The Policy Delegate is needed to catch opening links in new windows
-	[webView setPolicyDelegate:nil];
-	
-	// The Frame Load Delegate is needed to monitor frame loads
-	[webView setFrameLoadDelegate:nil];
-
-    [myDocument close];
-    // Send notification to switch plugins on again
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"switchPluginsOn" object:self];
-}
-*/    
 #pragma mark Delegates
 
 // Delegate method for disabling right-click context menu
