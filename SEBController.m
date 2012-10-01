@@ -542,6 +542,9 @@ bool insideMatrix(){
 
 // Close the About Window
 - (void) closeAboutWindow {
+#ifdef DEBUG
+    NSLog(@"Attempting to close about window %@", aboutWindow);
+#endif
     [aboutWindow orderOut:self];
 }
 
