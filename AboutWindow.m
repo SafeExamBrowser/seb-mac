@@ -68,28 +68,33 @@
 }
 
 
-- (void)showAboutWindowForMinutes:(NSInteger)minutes {
+- (void)showAboutWindowForSeconds:(NSInteger)minutes {
     // Show the About SEB Window
+    [self setDelegate:self];
     [self setStyleMask:NSBorderlessWindowMask];
     [self center];
     [self setLevel:NSStatusWindowLevel];
     if (![[NSUserDefaults secureUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"]) {
         [self setLevel:NSScreenSaverWindowLevel];
     }
+#ifdef DEBUG
+    NSLog(@"orderFront About Window");
+#endif
 	[self orderFront:self];
     
     // Close the About SEB Window after a delay
-    [self performSelector:@selector(closeAboutWindow) withObject: nil afterDelay: minutes];
+    [self performSelector:@selector(closeAboutWindow:) withObject: nil afterDelay: minutes];
 
 }
 
 
 // Close the About Window
-- (void) closeAboutWindow {
+- (void) closeAboutWindow:(NSNotification *)notification {
 #ifdef DEBUG
-    NSLog(@"Attempting to close about window %@", self);
+    NSLog(@"Attempting to close About Window %@", self);
 #endif
     [self orderOut:self];
 }
+
 
 @end

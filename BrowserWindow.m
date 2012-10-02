@@ -45,6 +45,11 @@
 
 @synthesize sebEncryptedUDController;
 
+-(void)setWebView:(WebView *)newWebView
+{
+    webView = newWebView;
+}
+
 // Setup browser window and webView delegates
 - (void) awakeFromNib
 {    
@@ -104,6 +109,21 @@
 #endif*/
 
 }
+
+
+- (void)windowDidBecomeMain:(NSNotification *)notification {
+#ifdef DEBUG
+    NSLog(@"BrowserWindow %@ did become main", self);
+#endif
+}
+
+
+- (void)windowDidBecomeKey:(NSNotification *)notification {
+#ifdef DEBUG
+    NSLog(@"BrowserWindow %@ did become key", self);
+#endif
+}
+
 
 // Overriding the sendEvent method allows blocking the context menu
 // in the whole WebView, even in plugins
@@ -506,6 +526,9 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         
         if ([error code] !=  WebKitErrorFrameLoadInterruptedByPolicyChange) //this error can be ignored
         {
+            //Close the About Window first, because it would hide the error alert
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"requestCloseAboutWindowNotification" object:self];
+
             NSString *titleString = NSLocalizedString(@"Error Loading Page",nil);
             NSString *messageString = [error localizedDescription];
             //NSPanel *alertPanel = NSGetAlertPanel(titleString, messageString, NSLocalizedString(@"Retry",nil), NSLocalizedString(@"Cancel",nil), nil, nil);

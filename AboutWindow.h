@@ -37,14 +37,14 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface AboutWindow : NSWindow {
+@interface AboutWindow : NSWindow <NSWindowDelegate> {
 
   	IBOutlet NSTextField *version;
 	IBOutlet NSTextField *copyright;
   
 }
 
-- (void) showAboutWindowForMinutes:(NSInteger)minutes;
-- (void) closeAboutWindow;
+- (void) showAboutWindowForSeconds:(NSInteger)minutes;
+- (void) closeAboutWindow:(NSNotification *)notification;
 
 @end

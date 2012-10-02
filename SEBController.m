@@ -262,6 +262,11 @@ bool insideMatrix();
                                              selector:@selector(requestedShowAbout:)
                                                  name:@"requestShowAboutNotification" object:nil];
 	
+    // Add an observer for the request to close about panel
+    [[NSNotificationCenter defaultCenter] addObserver:aboutWindow
+                                             selector:@selector(closeAboutWindow:)
+                                                 name:@"requestCloseAboutWindowNotification" object:nil];
+	
     // Add an observer for the request to show help
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(requestedShowHelp:)
@@ -426,9 +431,8 @@ bool insideMatrix();
 	RegisterEventHotKey(97, 0, gMyHotKeyID,
 						GetApplicationEventTarget(), 0, &gMyHotKeyRef);
     
-// Show the About SEB Window
-    [aboutWindow showAboutWindowForMinutes:3];
-          
+    // Show the About SEB Window
+    [aboutWindow showAboutWindowForSeconds:3];
 }
 
 
@@ -668,6 +672,7 @@ bool insideMatrix(){
 #endif
     // Set window and webView delegates to the main browser window
     [browserWindow setDelegate:mainBrowserWindow];
+    [mainBrowserWindow setWebView:webView];
     [webView setFrameLoadDelegate:mainBrowserWindow];
 	[webView setPolicyDelegate:mainBrowserWindow];
     /*	[browserWindow
@@ -694,7 +699,7 @@ bool insideMatrix(){
               options:nil];
     
 	[browserWindow makeKeyAndOrderFront:self];
-    
+        
 	// Load start URL from the system's user defaults database
     NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
 	//NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];

@@ -57,5 +57,7 @@
 
 - (NSView*)findFlashViewInView:(NSView*)view;
 
+- (void)setWebView:(WebView *)newWebView;
+
 
 @end
