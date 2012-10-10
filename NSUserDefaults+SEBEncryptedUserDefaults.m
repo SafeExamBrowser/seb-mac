@@ -53,7 +53,7 @@ static BOOL _usePrivateUserDefaults = NO;
 #endif
             } else {
                 // StandardUserDefaults are saved in Preferences/org.safeexambrowser.Safe-Exam-Browser.plist
-                secureUserDefaults = [NSUserDefaults secureUserDefaults];
+                secureUserDefaults = [NSUserDefaults standardUserDefaults];
 #ifdef DEBUG
                 NSLog(@"Now using standard UserDefaults, secureUserDefaults: %@", secureUserDefaults);
 #endif

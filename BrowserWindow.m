@@ -225,7 +225,7 @@ initiatedByFrame:(WebFrame *)frame {
 - (WebView *)webView:(WebView *)sender createWebViewWithRequest:(NSURLRequest *)request {
     // Single browser window: [[webView mainFrame] loadRequest:request];
     // Multiple browser windows
-    NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] != getGenerallyBlocked) {
         NSApplicationPresentationOptions presentationOptions = [NSApp currentSystemPresentationOptions];
 #ifdef DEBUG
@@ -272,7 +272,7 @@ initiatedByFrame:(WebFrame *)frame {
           frame:(WebFrame *)frame 
 decisionListener:(id <WebPolicyDecisionListener>)listener {
 
-    NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *currentMainHost = [[MyGlobals sharedMyGlobals] currentMainHost];
     if (currentMainHost && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == getGenerallyBlocked) {
         [listener ignore];
@@ -352,7 +352,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
 		request:(NSURLRequest *)request 
    newFrameName:(NSString *)frameName 
 decisionListener:(id <WebPolicyDecisionListener>)listener {
-    NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     // First check if links requesting to be opened in a new windows are generally blocked
     if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] != getGenerallyBlocked) {
         // load link only if it's on the same host like the one of the current page
@@ -387,7 +387,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
 {
     id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:[sender window]];
     [[sender window] setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-    if (![[NSUserDefaults secureUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"]) {
+    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"]) {
         [[sender window] newSetLevel:NSModalPanelWindowLevel];
     }
     [myDocument showWindows];
@@ -434,7 +434,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
 - (void)webView:(WebView *)sender runOpenPanelForFileButtonWithResultListener:(id < WebOpenPanelResultListener >)resultListener
 // Choose file for upload
 {
-    NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] == YES) {
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_chooseFileToUploadPolicy"] != manuallyWithFileRequester) {
             // If the policy isn't "manually with file requester"
@@ -502,7 +502,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
           frame:(WebFrame *)frame
 decisionListener:(id < WebPolicyDecisionListener >)listener
 {
-    NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (![type isEqualToString:@"application/pdf"] || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"]) {
         if ([WebView canShowMIMEType:type]) {
             [listener use];
@@ -552,7 +552,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 
 - (void)startDownloadingURL:(NSURL *)url
 {
-    NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] == YES) {
         // If downloading is allowed
         // Create the request.
@@ -570,7 +570,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 
 - (void)download:(NSURLDownload *)download decideDestinationWithSuggestedFilename:(NSString *)filename
 {
-    NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectory"];
     if (!downloadPath) {
         //if there's no path saved in preferences, set standard path
@@ -602,7 +602,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     [download release];
     
     NSLog(@"Download of File %@ did finish.",downloadPath);
-    NSUserDefaults *preferences = [NSUserDefaults secureUserDefaults];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_openDownloads"] == YES) {
     // Open downloaded file
     [[NSWorkspace sharedWorkspace] openFile:downloadPath];

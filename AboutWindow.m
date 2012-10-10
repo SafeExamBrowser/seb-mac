@@ -74,7 +74,7 @@
     [self setStyleMask:NSBorderlessWindowMask];
     [self center];
     [self setLevel:NSStatusWindowLevel];
-    if (![[NSUserDefaults secureUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"]) {
+    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"]) {
         [self setLevel:NSScreenSaverWindowLevel];
     }
 #ifdef DEBUG
