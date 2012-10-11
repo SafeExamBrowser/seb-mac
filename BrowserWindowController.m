@@ -34,6 +34,7 @@
 
 #import "BrowserWindowController.h"
 #import "MyGlobals.h"
+#import <WebKit/WebKit.h>
 
 
 @implementation BrowserWindowController

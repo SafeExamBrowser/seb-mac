@@ -62,7 +62,6 @@ NSString *MBPreferencesSelectionAutosaveKey = @"MBPreferencesSelection";
 - (void)dealloc
 {
 	self.modules = nil;
-	[super dealloc];
 }
 
 static MBPreferencesController *sharedPreferencesController = nil;
@@ -159,14 +158,14 @@ static MBPreferencesController *sharedPreferencesController = nil;
 	
 	NSToolbarItem *item = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
 	if (!module)
-		return [item autorelease];
+		return item;
 	
 	
 	[item setLabel:[module title]];
 	[item setImage:[module image]];
 	[item setTarget:self];
 	[item setAction:@selector(_selectModule:)];
-	return [item autorelease];
+	return item;
 }
 
 - (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar
@@ -190,12 +189,11 @@ static MBPreferencesController *sharedPreferencesController = nil;
 - (void)setModules:(NSArray *)newModules
 {
 	if (_modules) {
-		[_modules release];
 		_modules = nil;
 	}
 	
 	if (newModules != _modules) {
-		_modules = [newModules retain];
+		_modules = newModules;
 		
 		// Reset the toolbar items
 		NSToolbar *toolbar = [self.window toolbar];

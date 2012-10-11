@@ -585,7 +585,6 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 - (void)download:(NSURLDownload *)download didFailWithError:(NSError *)error
 {
     // Release the download.
-    [download release];
     
     // Inform the user
     //[self presentError:error modalForWindow:[self windowForSheet] delegate:nil didPresentSelector:NULL contextInfo:NULL];
@@ -599,7 +598,6 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 - (void)downloadDidFinish:(NSURLDownload *)download
 {
     // Release the download.
-    [download release];
     
     NSLog(@"Download of File %@ did finish.",downloadPath);
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];

@@ -372,7 +372,7 @@
 
 // Action removing the preferences plist-file in application bundle Contents/Resources/ directory
 - (IBAction) removePrefsFromAppBundle:(id)sender {
-    error = nil;
+    NSError *error = nil;
     NSString *fullPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/org.safeexambrowser.Safe-Exam-Browser.plist"];
     if ([[NSFileManager defaultManager] fileExistsAtPath:fullPath]) {
         BOOL itemRemoved = [[NSFileManager defaultManager] removeItemAtPath:fullPath error:&error];

@@ -47,8 +47,3 @@ static classname *shared##classname = nil; \
 { \
 	return self; \
 } \
-\
-- (NSUInteger)retainCount \
-{ \
-	return NSUIntegerMax; \
-} \

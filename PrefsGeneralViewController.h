@@ -54,7 +54,6 @@
     
 	IBOutlet NSObjectController *controller;
 	MyGlobals *myGlobals;
-    NSError *error; 
 }
 
 - (NSString *)identifier;

@@ -83,11 +83,6 @@ static BOOL _usePrivateUserDefaults = NO;
     return self;
 }
 
-- (NSUInteger)retainCount
-{
-    return NSUIntegerMax;
-}
-
 // Set user defaults to be stored privately in memory instead of StandardUserDefaults
 + (void)setUserDefaultsPrivate:(BOOL)flag
 {
@@ -105,7 +100,7 @@ static BOOL _usePrivateUserDefaults = NO;
 + (void)setSecret:(NSString *)secret
 {
 	if (_secretData == nil) {
-		_secretData = [[secret dataUsingEncoding:NSUTF8StringEncoding] retain];
+		_secretData = [secret dataUsingEncoding:NSUTF8StringEncoding];
 	} else {
 		NSAssert(NO, @"The secret has already been set");
 	}
@@ -114,7 +109,7 @@ static BOOL _usePrivateUserDefaults = NO;
 + (void)setDeviceIdentifier:(NSString *)deviceIdentifier
 {
 	if (_deviceIdentifierData == nil) {
-		_deviceIdentifierData = [[deviceIdentifier dataUsingEncoding:NSUTF8StringEncoding] retain];
+		_deviceIdentifierData = [deviceIdentifier dataUsingEncoding:NSUTF8StringEncoding];
 	} else {
 		NSAssert(NO, @"The device identifier has already been set");
 	}
@@ -356,7 +351,7 @@ static BOOL _usePrivateUserDefaults = NO;
 	}
     
     // Copy object to make sure it is immutable (thanks Stephen)
-    object = [[object copy] autorelease];
+    object = [object copy];
 	
 	// Archive & hash
 	NSMutableData *archivedData = [[NSKeyedArchiver archivedDataWithRootObject:object] mutableCopy];
@@ -365,7 +360,6 @@ static BOOL _usePrivateUserDefaults = NO;
 		[archivedData appendData:_deviceIdentifierData];
 	}
 	NSString *hash = [self _hashData:archivedData];
-	[archivedData release];
 	
 	return hash;
 }

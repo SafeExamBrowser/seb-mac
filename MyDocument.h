@@ -38,10 +38,10 @@
 
 @interface MyDocument : NSDocument {
 @private
-    BrowserWindowController *browserWindowController;
+    BrowserWindowController *__strong browserWindowController;
 }
 
-@property (nonatomic, assign) BrowserWindowController *browserWindowController;
+@property (nonatomic, strong) BrowserWindowController *browserWindowController;
 
 - (BrowserWindowController*)mainWindowController;
 //- (void)document:(NSDocument *)doc shouldClose:(BOOL)shouldClose contextInfo:(void  *)contextInfo;

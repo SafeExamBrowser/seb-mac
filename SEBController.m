@@ -190,7 +190,6 @@ bool insideMatrix();
 	NSArray *runningApps = [[NSWorkspace sharedWorkspace] runningApplications];
     NSRunningApplication *iterApp;
     visibleApps = [NSMutableArray array]; //array for storing bundleIDs of visible apps
-    [visibleApps retain];
 
     for (iterApp in runningApps) 
     {
@@ -418,7 +417,7 @@ bool insideMatrix();
 	EventTypeSpec eventType;
 	eventType.eventClass=kEventClassKeyboard;
 	eventType.eventKind=kEventHotKeyPressed;
-	InstallApplicationEventHandler((void*)MyHotKeyHandler, 1, &eventType, (void*)self, NULL);	
+	InstallApplicationEventHandler((void*)MyHotKeyHandler, 1, &eventType, (__bridge void*)(SEBController*)self, NULL);
     //Pass pointer to flag for F3 key to the event handler
 	// Register F3 as a hotkey
 	gMyHotKeyID.signature='htk1';
@@ -543,7 +542,7 @@ bool insideMatrix(){
 	// Open background windows on all available screens to prevent Finder becoming active when clicking on the desktop background
 	NSArray *screens = [NSScreen screens];	// get all available screens
     capWindows = [NSMutableArray array];	// array for storing our cap (covering) background windows
-	[capWindows retain];	// don't autorelease the array
+		// don't autorelease the array
     NSScreen *iterScreen;
     NSUInteger screenIndex = 1;
 	BOOL allowSwitchToThirdPartyApps = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"];
@@ -567,7 +566,6 @@ bool insideMatrix(){
         NSView *superview = [window contentView];
         CapView *capview = [[CapView alloc] initWithFrame:rect];
         [superview addSubview:capview];
-        [capview release];
 		
         screenIndex++;
     }
@@ -587,7 +585,6 @@ bool insideMatrix(){
 		[[capWindows objectAtIndex:windowIndex] close];
 
 	}
-	[capWindows release];
 	// Open new covering background windows on all currently available screens
 	[self coverScreens];
 }

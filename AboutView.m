@@ -45,11 +45,6 @@
     return self;
 }
 
-- (void)dealloc {
-    // Clean-up code here.
-    
-    [super dealloc];
-}
 
 - (void)drawRect:(NSRect)dirtyRect {
     // Load the image.
