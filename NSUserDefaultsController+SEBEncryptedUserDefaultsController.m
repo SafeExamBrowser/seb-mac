@@ -7,6 +7,7 @@
 //
 
 #import "NSUserDefaultsController+SEBEncryptedUserDefaultsController.h"
+#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "RNCryptor.h"
 
 @implementation NSUserDefaultsController (SEBEncryptedUserDefaultsController)
@@ -14,16 +15,20 @@
 
 - (id)secureValueForKeyPath:(NSString *)keyPath
 {
-    NSData *encrypted = [super valueForKeyPath:keyPath];
-    
-	if (encrypted == nil) {
-		// Value = nil -> invalid
-		return nil;
-	}
-    NSError *error;
-    NSData *decrypted = [[RNCryptor AES256Cryptor] decryptData:encrypted password:@"password" error:&error];
-    id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
-	return value;
+    //if ([NSUserDefaults userDefaultsPrivate]) {
+    //    return nil;
+    //} else {
+        NSData *encrypted = [super valueForKeyPath:keyPath];
+        
+        if (encrypted == nil) {
+            // Value = nil -> invalid
+            return nil;
+        }
+        NSError *error;
+        NSData *decrypted = [[RNCryptor AES256Cryptor] decryptData:encrypted password:@"password" error:&error];
+        id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
+        return value;
+    //}
 }
 
 

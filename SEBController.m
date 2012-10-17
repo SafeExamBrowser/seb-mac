@@ -77,21 +77,22 @@ bool insideMatrix();
     NSLog(@"Loading .seb settings file with URL %@",sebFileURL);
 #endif
     NSDictionary *sebPreferencesDict=[NSDictionary dictionaryWithContentsOfURL:sebFileURL];
-    NSMutableDictionary *initialValuesDict = [NSMutableDictionary dictionaryWithCapacity:[sebPreferencesDict count]];
+//    NSMutableDictionary *initialValuesDict = [NSMutableDictionary dictionaryWithCapacity:[sebPreferencesDict count]];
     // Use private UserDefaults
     [NSUserDefaults setUserDefaultsPrivate:YES];
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     for (NSString *key in sebPreferencesDict) {
         NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
-        [initialValuesDict setObject:[preferences secureDataForObject:[sebPreferencesDict objectForKey:key]] forKey:keyWithPrefix];
+        [preferences setSecureObject:[sebPreferencesDict objectForKey:key] forKey:keyWithPrefix];
+//        [initialValuesDict setObject:[preferences secureDataForObject:[sebPreferencesDict objectForKey:key]] forKey:keyWithPrefix];
     }
 #ifdef DEBUG
-    NSLog(@"Loading .seb settings dictionary: %@",initialValuesDict);
+//    NSLog(@"Loading .seb settings dictionary: %@",initialValuesDict);
 #endif
     // Set the initial values in the shared user defaults controller
-    [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:initialValuesDict];
+//    [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:initialValuesDict];
     // Replace the values of all the user default properties with any corresponding values in the initialValues dictionary
-    [[NSUserDefaultsController sharedUserDefaultsController] revertToInitialValues:self];
+//    [[NSUserDefaultsController sharedUserDefaultsController] revertToInitialValues:self];
     return YES;
 }
 

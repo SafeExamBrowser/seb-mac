@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 {
     // Swizzle NSWindow setLevel: Method
     [NSWindow setupChangingWindowLevels];
-    
+    [NSUserDefaults setupPrivateUserDefaults];
     [NSUserDefaults setSecret:@"shh, this is secret!"];
 
         

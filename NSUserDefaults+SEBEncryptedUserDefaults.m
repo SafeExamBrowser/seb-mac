@@ -17,6 +17,7 @@
 //
 
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
+#import "MethodSwizzling.h"
 #import "RNCryptor.h"
 
 
@@ -36,6 +37,7 @@ static NSData *_secretData           = nil;
 static NSData *_deviceIdentifierData = nil;
 
 static NSUserDefaults *secureUserDefaults = nil;
+static NSMutableDictionary *localUserDefaults;
 static BOOL _usePrivateUserDefaults = NO;
 
 
@@ -83,17 +85,32 @@ static BOOL _usePrivateUserDefaults = NO;
     return self;
 }
 
-// Set user defaults to be stored privately in memory instead of StandardUserDefaults
-+ (void)setUserDefaultsPrivate:(BOOL)flag
++ (void)setupPrivateUserDefaults
 {
-    if (flag != _usePrivateUserDefaults) {
-        _usePrivateUserDefaults = flag;
+    [self swizzleMethod:@selector(setObject: forKey:)
+             withMethod:@selector(setSecureObject:forKey:)];
+}
+
+
+// Set user defaults to be stored privately in memory instead of StandardUserDefaults
++ (void)setUserDefaultsPrivate:(BOOL)privateUserDefaults
+{
+    if (privateUserDefaults != _usePrivateUserDefaults) {
+        _usePrivateUserDefaults = privateUserDefaults;
         secureUserDefaults = nil;
-        
+    }
+    if (privateUserDefaults) {
+        localUserDefaults = [NSMutableDictionary dictionaryWithCapacity:21];
     }
 #ifdef DEBUG
     NSLog(@"SetUserDefaultsPrivate: %@, secureUserDefaults: %@",[NSNumber numberWithBool:_usePrivateUserDefaults], secureUserDefaults);
 #endif
+}
+
+
++ (BOOL)userDefaultsPrivate
+{
+    return _usePrivateUserDefaults;
 }
 
 
@@ -245,16 +262,20 @@ static BOOL _usePrivateUserDefaults = NO;
 
 - (void)setSecureObject:(id)value forKey:(NSString *)key
 {
-	if (value == nil || key == nil) {
-		// Use non-secure method
-		[self setObject:value forKey:key];
-		
-	} else if ([self _isValidPropertyListObject:value]) {
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
-        NSError *error;
-        NSData *encryptedData = [[RNCryptor AES256Cryptor] encryptData:data password:@"password" error:&error];
-        [self setObject:encryptedData forKey:key];
-	}
+    if (_usePrivateUserDefaults) {
+        [localUserDefaults setObject:value forKey:key];
+    } else {
+        if (value == nil || key == nil) {
+            // Use non-secure method
+            [self setSecureObject:value forKey:key];
+            
+        } else if ([self _isValidPropertyListObject:value]) {
+            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
+            NSError *error;
+            NSData *encryptedData = [[RNCryptor AES256Cryptor] encryptData:data password:@"password" error:&error];
+            [self setSecureObject:encryptedData forKey:key];
+        }
+    }
 }
 
 
@@ -329,16 +350,20 @@ static BOOL _usePrivateUserDefaults = NO;
 
 - (id)_objectForKey:(NSString *)key
 {
-    NSData *encrypted = [self objectForKey:key];
+    if (_usePrivateUserDefaults) {
+        return [localUserDefaults objectForKey:key];
+    } else {
+        NSData *encrypted = [self objectForKey:key];
 		
-	if (encrypted == nil) {
-		// Value = nil -> invalid
-		return nil;
-	}
-    NSError *error;
-    NSData *decrypted = [[RNCryptor AES256Cryptor] decryptData:encrypted password:@"password" error:&error];
-    id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
-	return value;
+        if (encrypted == nil) {
+            // Value = nil -> invalid
+            return nil;
+        }
+        NSError *error;
+        NSData *decrypted = [[RNCryptor AES256Cryptor] decryptData:encrypted password:@"password" error:&error];
+        id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
+        return value;
+    }
 }
 
 

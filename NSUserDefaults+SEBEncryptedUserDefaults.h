@@ -25,8 +25,13 @@
 // Return (and allocate if necessary) shared secure UserDefaults
 + (NSUserDefaults *)secureUserDefaults;
 
+// Set up method swizzling for private UserDefaults
++ (void)setupPrivateUserDefaults;
+
 // Set user defaults to be stored privately in memory instead of StandardUserDefaults
 + (void)setUserDefaultsPrivate:(BOOL)flag;
+
++ (BOOL)userDefaultsPrivate;
 
 /**
  * Sets the secret. Make sure that your secret is stored in a save place, it is recommanded to write it
@@ -40,7 +45,6 @@
  * to store product license information. Optional property.
  */
 + (void)setDeviceIdentifier:(NSString *)deviceIdentifier;
-
 
 // Read data from user defaults. If key doesn't exist, valid is YES and the function mimics
 // the return behavior of the respective non-secure method.
