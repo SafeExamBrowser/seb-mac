@@ -41,54 +41,20 @@ static NSMutableDictionary *localUserDefaults;
 static BOOL _usePrivateUserDefaults = NO;
 
 
-+ (NSUserDefaults *)secureUserDefaults
++ (NSMutableDictionary *)privateUserDefaults
 {
-    @synchronized(self)
-    {
-        if (secureUserDefaults == nil)
-        {
-            if (_usePrivateUserDefaults) {
-                // private UserDefaults will be saved in memory
-                secureUserDefaults = [[self alloc] init];
-#ifdef DEBUG
-                NSLog(@"Now using private UserDefaults, secureUserDefaults: %@", secureUserDefaults);
-#endif
-            } else {
-                // StandardUserDefaults are saved in Preferences/org.safeexambrowser.Safe-Exam-Browser.plist
-                secureUserDefaults = [NSUserDefaults standardUserDefaults];
-#ifdef DEBUG
-                NSLog(@"Now using standard UserDefaults, secureUserDefaults: %@", secureUserDefaults);
-#endif
-            }
-        }
+    if (!localUserDefaults) {
+        localUserDefaults = [NSMutableDictionary dictionaryWithCapacity:21];
     }
-    
-    return secureUserDefaults;
-}
-
-+ (id)allocWithZone:(NSZone *)zone
-{
-    @synchronized(self)
-    {
-        if (secureUserDefaults == nil)
-        {
-            secureUserDefaults = [super allocWithZone:zone];
-            return secureUserDefaults;
-        }
-    }
-    
-    return nil;
-}
-
-- (id)copyWithZone:(NSZone *)zone
-{
-    return self;
+    return localUserDefaults;
 }
 
 + (void)setupPrivateUserDefaults
 {
     [self swizzleMethod:@selector(setObject: forKey:)
              withMethod:@selector(setSecureObject:forKey:)];
+    [self swizzleMethod:@selector(objectForKey:)
+             withMethod:@selector(_objectForKey:)];
 }
 
 
@@ -98,9 +64,6 @@ static BOOL _usePrivateUserDefaults = NO;
     if (privateUserDefaults != _usePrivateUserDefaults) {
         _usePrivateUserDefaults = privateUserDefaults;
         secureUserDefaults = nil;
-    }
-    if (privateUserDefaults) {
-        localUserDefaults = [NSMutableDictionary dictionaryWithCapacity:21];
     }
 #ifdef DEBUG
     NSLog(@"SetUserDefaultsPrivate: %@, secureUserDefaults: %@",[NSNumber numberWithBool:_usePrivateUserDefaults], secureUserDefaults);
@@ -267,13 +230,13 @@ static BOOL _usePrivateUserDefaults = NO;
     } else {
         if (value == nil || key == nil) {
             // Use non-secure method
-            [self setSecureObject:value forKey:key];
+            [self setObject:value forKey:key];
             
         } else if ([self _isValidPropertyListObject:value]) {
             NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
             NSError *error;
             NSData *encryptedData = [[RNCryptor AES256Cryptor] encryptData:data password:@"password" error:&error];
-            [self setSecureObject:encryptedData forKey:key];
+            [self setObject:encryptedData forKey:key];
         }
     }
 }

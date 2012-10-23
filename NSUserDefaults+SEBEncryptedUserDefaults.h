@@ -23,7 +23,7 @@
 @interface NSUserDefaults (SEBEncryptedUserDefaults)
 
 // Return (and allocate if necessary) shared secure UserDefaults
-+ (NSUserDefaults *)secureUserDefaults;
++ (NSMutableDictionary *)privateUserDefaults;
 
 // Set up method swizzling for private UserDefaults
 + (void)setupPrivateUserDefaults;

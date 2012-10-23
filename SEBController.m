@@ -79,16 +79,16 @@ bool insideMatrix();
     NSDictionary *sebPreferencesDict=[NSDictionary dictionaryWithContentsOfURL:sebFileURL];
 //    NSMutableDictionary *initialValuesDict = [NSMutableDictionary dictionaryWithCapacity:[sebPreferencesDict count]];
     // Use private UserDefaults
-    [NSUserDefaults setUserDefaultsPrivate:YES];
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults];
     for (NSString *key in sebPreferencesDict) {
         NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
-        [preferences setSecureObject:[sebPreferencesDict objectForKey:key] forKey:keyWithPrefix];
+        [privatePreferences setObject:[sebPreferencesDict objectForKey:key] forKey:keyWithPrefix];
 //        [initialValuesDict setObject:[preferences secureDataForObject:[sebPreferencesDict objectForKey:key]] forKey:keyWithPrefix];
     }
 #ifdef DEBUG
-//    NSLog(@"Loading .seb settings dictionary: %@",initialValuesDict);
+    NSLog(@"Private preferences set: %@",privatePreferences);
 #endif
+    [NSUserDefaults setUserDefaultsPrivate:YES];
     // Set the initial values in the shared user defaults controller
 //    [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:initialValuesDict];
     // Replace the values of all the user default properties with any corresponding values in the initialValues dictionary
@@ -677,7 +677,7 @@ bool insideMatrix(){
 	 setFrame:[browserWindow frameRectForContentRect:[[browserWindow screen] frame]]
 	 display:YES]; // REMOVE wrong frame for window!*/
 	[browserWindow setFrame:[[browserWindow screen] frame] display:YES];
-    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"allowSwitchToThirdPartyApps"]) {
+    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"]) {
         [browserWindow newSetLevel:NSModalPanelWindowLevel];
         //[browserWindow newSetLevel:NSScreenSaverWindowLevel];
 #ifdef DEBUG
