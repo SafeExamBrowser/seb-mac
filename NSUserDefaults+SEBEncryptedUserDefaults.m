@@ -36,7 +36,6 @@
 static NSData *_secretData           = nil;
 static NSData *_deviceIdentifierData = nil;
 
-static NSUserDefaults *secureUserDefaults = nil;
 static NSMutableDictionary *localUserDefaults;
 static BOOL _usePrivateUserDefaults = NO;
 
@@ -63,10 +62,9 @@ static BOOL _usePrivateUserDefaults = NO;
 {
     if (privateUserDefaults != _usePrivateUserDefaults) {
         _usePrivateUserDefaults = privateUserDefaults;
-        secureUserDefaults = nil;
     }
 #ifdef DEBUG
-    NSLog(@"SetUserDefaultsPrivate: %@, secureUserDefaults: %@",[NSNumber numberWithBool:_usePrivateUserDefaults], secureUserDefaults);
+    NSLog(@"SetUserDefaultsPrivate: %@, localUserDefaults: %@",[NSNumber numberWithBool:_usePrivateUserDefaults], localUserDefaults);
 #endif
 }
 

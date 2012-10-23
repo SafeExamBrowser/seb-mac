@@ -93,6 +93,8 @@ bool insideMatrix();
 //    [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:initialValuesDict];
     // Replace the values of all the user default properties with any corresponding values in the initialValues dictionary
 //    [[NSUserDefaultsController sharedUserDefaultsController] revertToInitialValues:self];
+    [self startKioskMode];
+    [self requestedRestart:nil];
     return YES;
 }
 
@@ -187,7 +189,12 @@ bool insideMatrix();
 	// Flag initializing
 	quittingMyself = FALSE; //flag to know if quit application was called externally
     
-// Save the bundle ID of all currently running apps which are visible in a array 
+    // Terminate invisibly running applications
+    if ([NSRunningApplication respondsToSelector:@selector(terminateAutomaticallyTerminableApplications)]) {
+        [NSRunningApplication terminateAutomaticallyTerminableApplications];
+    }
+
+    // Save the bundle ID of all currently running apps which are visible in a array
 	NSArray *runningApps = [[NSWorkspace sharedWorkspace] runningApplications];
     NSRunningApplication *iterApp;
     visibleApps = [NSMutableArray array]; //array for storing bundleIDs of visible apps
@@ -830,6 +837,9 @@ bool insideMatrix(){
     //[[NSNotificationCenter defaultCenter] postNotificationName:@"requestDocumentClose" object:self];
     [[MyGlobals sharedMyGlobals] setCurrentMainHost:nil];
     // Adjust screen locking
+#ifdef DEBUG
+    NSLog(@"Requested Restart");
+#endif
     [self adjustScreenLocking:self];
     // Reopen main browser window and load start URL
     [self openMainBrowserWindow];
