@@ -210,10 +210,6 @@ bool insideMatrix();
 
 // Setup Notifications and Kiosk Mode    
     
-    // Hide all other applications
-	[[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications) 
-													withObject:NULL waitUntilDone:NO];
-	
     // Add an observer for the notification that another application became active (SEB got inactive)
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(regainActiveStatus:) 
 												 name:NSApplicationDidResignActiveNotification 
@@ -221,16 +217,32 @@ bool insideMatrix();
 	
     // Add an observer for the notification that another application was unhidden by the finder
 	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
-	[[workspace notificationCenter] addObserver:self 
-                                       selector:@selector(regainActiveStatus:) 
-                                           name:NSWorkspaceDidUnhideApplicationNotification 
+	[[workspace notificationCenter] addObserver:self
+                                       selector:@selector(regainActiveStatus:)
+                                           name:NSWorkspaceDidActivateApplicationNotification
                                          object:workspace];
 	
-    // Add an observer for the notification that SEB became active 
+    // Add an observer for the notification that another application was unhidden by the finder
+	[[workspace notificationCenter] addObserver:self
+                                       selector:@selector(regainActiveStatus:)
+                                           name:NSWorkspaceDidUnhideApplicationNotification
+                                         object:workspace];
+	
+    // Add an observer for the notification that another application was unhidden by the finder
+	[[workspace notificationCenter] addObserver:self
+                                       selector:@selector(regainActiveStatus:)
+                                           name:NSWorkspaceDidLaunchApplicationNotification
+                                         object:workspace];
+	
+    // Add an observer for the notification that SEB became active
     // With third party apps and Flash fullscreen it can happen that SEB looses its 
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SEBgotActive:) 
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SEBgotActive:)
 												 name:NSApplicationDidBecomeActiveNotification 
                                                object:NSApp];
+	
+    // Hide all other applications
+	[[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
+													withObject:NULL waitUntilDone:NO];
 	
 // Switch to kiosk mode by setting the proper presentation options
 	[self startKioskMode];
@@ -288,6 +300,7 @@ bool insideMatrix();
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(preferencesClosed:)
                                                  name:@"preferencesClosed" object:nil];
+    //[self startTask];
 
 // Prevent display sleep
 #ifndef DEBUG
@@ -598,23 +611,78 @@ bool insideMatrix(){
 }
 
 
+- (void) startTask {
+	// Start third party application from within SEB
+	
+	// Path to Excel
+	NSString *pathToTask=@"/Applications/Preview.app/Contents/MacOS/Preview";
+	
+	// Parameter and path to XUL-SEB Application
+	NSArray *taskArguments=[NSArray arrayWithObjects:nil];
+	
+	// Allocate and initialize a new NSTask
+    NSTask *task=[[NSTask alloc] init];
+	
+	// Tell the NSTask what the path is to the binary it should launch
+    [task setLaunchPath:pathToTask];
+    
+    // The argument that we pass to XULRunner (in the form of an array) is the path to the SEB-XUL-App
+    [task setArguments:taskArguments];
+    	
+	// Launch the process asynchronously
+	@try {
+		[task launch];
+	}
+	@catch (NSException * e) {
+		NSLog(@"Error.  Make sure you have a valid path and arguments.");
+		
+	}
+	
+}
+
+
 - (void) regainActiveStatus: (id)sender {
 	// hide all other applications if not in debug build setting
-#ifndef DEBUG
     //NSLog(@"regainActiveStatus!");
+#ifdef DEBUG
+    NSLog(@"Regain active status");
+#endif
     // Load preferences from the system's user defaults database
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 	BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"];
     if (!allowSwitchToThirdPartyApps) {
 		// if switching to ThirdPartyApps not allowed
+#ifndef DEBUG
         [NSApp activateIgnoringOtherApps: YES];
         [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications) withObject:NULL waitUntilDone:NO];
-    }
 #endif
+    } else {
+        // Save the bundle ID of all currently running apps which are visible in a array
+        NSArray *runningApps = [[NSWorkspace sharedWorkspace] runningApplications];
+        NSRunningApplication *iterApp;
+        NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
+        NSString *bundleId = [bundleInfo objectForKey: @"CFBundleIdentifier"];
+        for (iterApp in runningApps)
+        {
+            BOOL isActive = [iterApp isActive];
+            NSString *appBundleID = [iterApp valueForKey:@"bundleIdentifier"];
+            if ((appBundleID != nil) & ![appBundleID isEqualToString:bundleId] & ![appBundleID isEqualToString:@"com.apple.Preview"]) {
+                //& isActive
+                BOOL successfullyHidden = [iterApp hide]; //hide the active app
+#ifdef DEBUG
+                NSLog(@"Successfully hidden app %@: %@", appBundleID, [NSNumber numberWithBool:successfullyHidden]);
+#endif
+            }
+        }
+
+    }
 }
 
 
 - (void) SEBgotActive: (id)sender {
+#ifdef DEBUG
+    NSLog(@"SEB got active");
+#endif
     [self startKioskMode];
 }
 

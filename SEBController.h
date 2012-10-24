@@ -78,6 +78,7 @@
 - (void) closeDocument: (id)sender;
 - (void) coverScreens;
 - (void) adjustScreenLocking: (id)sender;
+- (void) startTask;
 - (void) regainActiveStatus: (id)sender;
 - (void) SEBgotActive: (id)sender;
 - (void) startKioskMode;
