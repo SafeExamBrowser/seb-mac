@@ -39,6 +39,9 @@
 
 @implementation BrowserWindowController
 
+@synthesize webView;
+
+
 - (id)initWithWindow:(NSWindow *)window
 {
     self = [super initWithWindow:window];
@@ -57,11 +60,11 @@
 }
 
 
-- (id)webView
+/*- (id)webView
 {
     return webView;
 }
-
+*/
 
 - (BOOL)shouldCloseDocument
 {

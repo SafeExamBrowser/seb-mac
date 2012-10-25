@@ -68,7 +68,7 @@
 }
 
 
-- (void)showAboutWindowForSeconds:(NSInteger)minutes {
+- (void)showAboutWindowForSeconds:(NSInteger)seconds {
     // Show the About SEB Window
     [self setDelegate:self];
     [self setStyleMask:NSBorderlessWindowMask];
@@ -83,7 +83,7 @@
 	[self orderFront:self];
     
     // Close the About SEB Window after a delay
-    [self performSelector:@selector(closeAboutWindow:) withObject: nil afterDelay: minutes];
+    [self performSelector:@selector(closeAboutWindow:) withObject: nil afterDelay: seconds];
 
 }
 

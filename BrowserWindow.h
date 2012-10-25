@@ -44,20 +44,17 @@
 
 {
 	IBOutlet SEBEncryptedUserDefaultsController *__strong sebEncryptedUDController;
-    IBOutlet WebView *webView;
     WebView *requestingWebView;
     NSString *currentURL;
     NSString *downloadPath;
 }
 
 @property (nonatomic, strong) SEBEncryptedUserDefaultsController *sebEncryptedUDController;
-
+@property (assign) IBOutlet WebView *webView;
 
 - (void)startDownloadingURL:(NSURL *)url;
 
 - (NSView*)findFlashViewInView:(NSView*)view;
-
-- (void)setWebView:(WebView *)newWebView;
 
 
 @end

@@ -48,6 +48,7 @@ NSString *MBPreferencesSelectionAutosaveKey = @"MBPreferencesSelection";
 {
 	if (self == [super init]) {
 		NSWindow *prefsWindow = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 300, 200) styleMask:(NSTitledWindowMask | NSClosableWindowMask) backing:NSBackingStoreBuffered defer:YES];
+        [prefsWindow setReleasedWhenClosed:YES];
 		[prefsWindow setShowsToolbarButton:NO];
         //[prefsWindow setLevel:NSModalPanelWindowLevel];
         //[prefsWindow setLevel:NSNormalWindowLevel];

@@ -36,7 +36,6 @@
 		6949B33214F40AAD009E1775 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C52802136AFDBD00F9F000 /* PreferencesController.m */; };
 		6949B33314F40AAD009E1775 /* PrefsAdvancedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C52805136AFE9500F9F000 /* PrefsAdvancedViewController.m */; };
 		6949B33414F40AAD009E1775 /* MyDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F684CB143653880091CDA7 /* MyDocument.m */; };
-		6949B33514F40AAD009E1775 /* MainBrowserWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 69821798143A0DC300656350 /* MainBrowserWindow.m */; };
 		6949B33614F40AAD009E1775 /* MyGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 6991A79114471F8C00F9149D /* MyGlobals.m */; };
 		6949B33714F40AAD009E1775 /* PrefsBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690D23471451EF2400CCCFF9 /* PrefsBrowserViewController.m */; };
 		6949B33814F40AAD009E1775 /* SEBEncryptedUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 691CD9AB1468947E00B43CDC /* SEBEncryptedUserDefaultsController.m */; };
@@ -80,7 +79,6 @@
 		69903B0914CD7624007E7DF7 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C52802136AFDBD00F9F000 /* PreferencesController.m */; };
 		69903B0A14CD7624007E7DF7 /* PrefsAdvancedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C52805136AFE9500F9F000 /* PrefsAdvancedViewController.m */; };
 		69903B0B14CD7624007E7DF7 /* MyDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F684CB143653880091CDA7 /* MyDocument.m */; };
-		69903B0C14CD7624007E7DF7 /* MainBrowserWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 69821798143A0DC300656350 /* MainBrowserWindow.m */; };
 		69903B0D14CD7624007E7DF7 /* MyGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 6991A79114471F8C00F9149D /* MyGlobals.m */; };
 		69903B0F14CD7624007E7DF7 /* PrefsBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690D23471451EF2400CCCFF9 /* PrefsBrowserViewController.m */; };
 		69903B1014CD7624007E7DF7 /* SEBEncryptedUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 691CD9AB1468947E00B43CDC /* SEBEncryptedUserDefaultsController.m */; };
@@ -121,7 +119,6 @@
 		69F7B61114F411FB00FD0761 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C52802136AFDBD00F9F000 /* PreferencesController.m */; };
 		69F7B61214F411FB00FD0761 /* PrefsAdvancedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C52805136AFE9500F9F000 /* PrefsAdvancedViewController.m */; };
 		69F7B61314F411FB00FD0761 /* MyDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F684CB143653880091CDA7 /* MyDocument.m */; };
-		69F7B61414F411FB00FD0761 /* MainBrowserWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 69821798143A0DC300656350 /* MainBrowserWindow.m */; };
 		69F7B61514F411FB00FD0761 /* MyGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 6991A79114471F8C00F9149D /* MyGlobals.m */; };
 		69F7B61614F411FB00FD0761 /* PrefsBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690D23471451EF2400CCCFF9 /* PrefsBrowserViewController.m */; };
 		69F7B61714F411FB00FD0761 /* SEBEncryptedUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 691CD9AB1468947E00B43CDC /* SEBEncryptedUserDefaultsController.m */; };
@@ -211,8 +208,6 @@
 		6970CF9A12BFC73300559EA4 /* de */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6970CF9F12BFC82200559EA4 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6970CFA012BFC84600559EA4 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		69821797143A0DC300656350 /* MainBrowserWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MainBrowserWindow.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		69821798143A0DC300656350 /* MainBrowserWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MainBrowserWindow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69903B1E14CD7624007E7DF7 /* Safe Exam Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Safe Exam Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6991A78F14471F5A00F9149D /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		6991A79014471F8C00F9149D /* MyGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGlobals.h; sourceTree = "<group>"; };
@@ -305,8 +300,6 @@
 				693D5A1614C59B4300E37C68 /* BrowserWindowController.m */,
 				692891B012ACEBDC00EEE7C9 /* BrowserWindow.h */,
 				692891B112ACEBDC00EEE7C9 /* BrowserWindow.m */,
-				69821797143A0DC300656350 /* MainBrowserWindow.h */,
-				69821798143A0DC300656350 /* MainBrowserWindow.m */,
 				69DD2FCF1201C416009B1005 /* CapView.h */,
 				69DD2FD01201C416009B1005 /* CapView.m */,
 				69E13AEE127C812900CB81E1 /* AboutView.h */,
@@ -622,7 +615,6 @@
 				6949B33214F40AAD009E1775 /* PreferencesController.m in Sources */,
 				6949B33314F40AAD009E1775 /* PrefsAdvancedViewController.m in Sources */,
 				6949B33414F40AAD009E1775 /* MyDocument.m in Sources */,
-				6949B33514F40AAD009E1775 /* MainBrowserWindow.m in Sources */,
 				6949B33614F40AAD009E1775 /* MyGlobals.m in Sources */,
 				6949B33714F40AAD009E1775 /* PrefsBrowserViewController.m in Sources */,
 				6949B33814F40AAD009E1775 /* SEBEncryptedUserDefaultsController.m in Sources */,
@@ -653,7 +645,6 @@
 				69903B0914CD7624007E7DF7 /* PreferencesController.m in Sources */,
 				69903B0A14CD7624007E7DF7 /* PrefsAdvancedViewController.m in Sources */,
 				69903B0B14CD7624007E7DF7 /* MyDocument.m in Sources */,
-				69903B0C14CD7624007E7DF7 /* MainBrowserWindow.m in Sources */,
 				69903B0D14CD7624007E7DF7 /* MyGlobals.m in Sources */,
 				69903B0F14CD7624007E7DF7 /* PrefsBrowserViewController.m in Sources */,
 				69903B1014CD7624007E7DF7 /* SEBEncryptedUserDefaultsController.m in Sources */,
@@ -684,7 +675,6 @@
 				69F7B61114F411FB00FD0761 /* PreferencesController.m in Sources */,
 				69F7B61214F411FB00FD0761 /* PrefsAdvancedViewController.m in Sources */,
 				69F7B61314F411FB00FD0761 /* MyDocument.m in Sources */,
-				69F7B61414F411FB00FD0761 /* MainBrowserWindow.m in Sources */,
 				69F7B61514F411FB00FD0761 /* MyGlobals.m in Sources */,
 				69F7B61614F411FB00FD0761 /* PrefsBrowserViewController.m in Sources */,
 				69F7B61714F411FB00FD0761 /* SEBEncryptedUserDefaultsController.m in Sources */,
@@ -902,20 +892,19 @@
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_GC = unsupported;
-				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SEB_Prefix.pch;
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CODE_SIGN_FLAGS = "-o kill --signature-size=6400";
 				PRODUCT_NAME = "Safe Exam Browser";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				SYMROOT = ../build;
-				VALID_ARCHS = "x86_64 i386";
+				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
 		};
@@ -934,30 +923,29 @@
 					"\"$(SRCROOT)\"",
 				);
 				GCC_ENABLE_OBJC_GC = unsupported;
-				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SEB_Prefix.pch;
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CODE_SIGN_FLAGS = "-o kill --signature-size=6400";
 				PRODUCT_NAME = "Safe Exam Browser";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				SYMROOT = ../build;
-				VALID_ARCHS = "x86_64 i386";
+				VALID_ARCHS = x86_64;
 			};
 			name = Release;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Developer ID Application: Daniel Schneider";
 				CURRENT_PROJECT_VERSION = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_OBJC_GC = supported;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -969,17 +957,18 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				SYMROOT = ../build;
+				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Developer ID Application: Daniel Schneider";
 				CURRENT_PROJECT_VERSION = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_OBJC_GC = supported;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = /Installer;
@@ -988,7 +977,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				SYMROOT = ../build;
-				VALID_ARCHS = "i386 x86_64";
+				VALID_ARCHS = x86_64;
 			};
 			name = Release;
 		};

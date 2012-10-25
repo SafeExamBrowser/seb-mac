@@ -1,4 +1,4 @@
-    //
+//
 //  SEBController.m
 //  Safe Exam Browser
 //
@@ -49,6 +49,7 @@
 #include <IOKit/IOMessage.h>
 
 #import "MyDocument.h"
+#import "BrowserWindow.h"
 #import "PrefsBrowserViewController.h"
 #import "RNCryptor.h"
 #import "NSWindow+SEBWindow.h"
@@ -67,7 +68,8 @@ bool insideMatrix();
 
 @synthesize f3Pressed;	//create getter and setter for F3 key pressed flag
 @synthesize quittingMyself;	//create getter and setter for flag that SEB is quitting itself
-
+@synthesize webView;
+@synthesize capWindows;
 
 #pragma mark Application Delegate Methods
 
@@ -413,7 +415,7 @@ bool insideMatrix();
     
 	// Due to the infamous Flash plugin we completely disable plugins in the 32-bit build
 #ifdef __i386__        // 32-bit Intel build
-	[[webView preferences] setPlugInsEnabled:NO];
+	[[self.webView preferences] setPlugInsEnabled:NO];
 #endif
 	
 	if (firstStart) {
@@ -562,48 +564,49 @@ bool insideMatrix(){
 - (void) coverScreens {
 	// Open background windows on all available screens to prevent Finder becoming active when clicking on the desktop background
 	NSArray *screens = [NSScreen screens];	// get all available screens
-    capWindows = [NSMutableArray array];	// array for storing our cap (covering) background windows
-		// don't autorelease the array
+    if (!self.capWindows) {
+        self.capWindows = [NSMutableArray arrayWithCapacity:1];	// array for storing our cap (covering) background windows
+    } else {
+        [self.capWindows removeAllObjects];
+    }
     NSScreen *iterScreen;
-    NSUInteger screenIndex = 1;
-	BOOL allowSwitchToThirdPartyApps = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"];
+    BOOL allowSwitchToThirdPartyApps = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"];
     for (iterScreen in screens)
     {
-		//NSRect frame = size of the current screen;
-		NSRect frame = [iterScreen frame];
-		NSUInteger styleMask = NSBorderlessWindowMask;
-		NSRect rect = [NSWindow contentRectForFrameRect:frame styleMask:styleMask];
-		//set origin of the window rect to left bottom corner (important for non-main screens, since they have offsets)
-		rect.origin.x = 0;
-		rect.origin.y = 0;
-		NSWindow *window =  [[NSWindow alloc] initWithContentRect:rect styleMask:styleMask backing: NSBackingStoreBuffered defer:false screen:iterScreen];
-		[window setBackgroundColor:[NSColor blackColor]];
-		[window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+        //NSRect frame = size of the current screen;
+        NSRect frame = [iterScreen frame];
+        NSUInteger styleMask = NSBorderlessWindowMask;
+        NSRect rect = [NSWindow contentRectForFrameRect:frame styleMask:styleMask];
+        //set origin of the window rect to left bottom corner (important for non-main screens, since they have offsets)
+        rect.origin.x = 0;
+        rect.origin.y = 0;
+        NSWindow *window = [[NSWindow alloc] initWithContentRect:rect styleMask:styleMask backing: NSBackingStoreBuffered defer:NO screen:iterScreen];
+        [window setReleasedWhenClosed:NO];
+        [window setBackgroundColor:[NSColor blackColor]];
+        [window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
         if (!allowSwitchToThirdPartyApps) {
             [window newSetLevel:NSModalPanelWindowLevel];
         }
-		[window orderBack:self];
-		[capWindows addObject: window];
+        [window orderBack:self];
+        [self.capWindows addObject: window];
         NSView *superview = [window contentView];
         CapView *capview = [[CapView alloc] initWithFrame:rect];
         [superview addSubview:capview];
-		
-        screenIndex++;
     }
-}	
+}
 
 
-// Called when changes of the screen configuration occur 
+// Called when changes of the screen configuration occur
 // (new display is contected or removed or display mirroring activated)
 
 - (void) adjustScreenLocking: (id)sender {
     // Close the covering windows
 	// (which most likely are no longer there where they should be)
 	int windowIndex;
-	int windowCount = [capWindows count];
+	int windowCount = [self.capWindows count];
     for (windowIndex = 0; windowIndex < windowCount; windowIndex++ )
     {
-		[[capWindows objectAtIndex:windowIndex] close];
+		[(NSWindow *)[self.capWindows objectAtIndex:windowIndex] close];
 
 	}
 	// Open new covering background windows on all currently available screens
@@ -657,7 +660,7 @@ bool insideMatrix(){
         [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications) withObject:NULL waitUntilDone:NO];
 #endif
     } else {
-        // Save the bundle ID of all currently running apps which are visible in a array
+        /*/ Save the bundle ID of all currently running apps which are visible in a array
         NSArray *runningApps = [[NSWorkspace sharedWorkspace] runningApplications];
         NSRunningApplication *iterApp;
         NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
@@ -674,7 +677,7 @@ bool insideMatrix(){
 #endif
             }
         }
-
+*/
     }
 }
 
@@ -734,8 +737,9 @@ bool insideMatrix(){
     // (this is done here, after presentation options are set,
     // because otherwise menu bar and dock are deducted from screen size)
     MyDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
-    webView = myDocument.mainWindowController.webView;
+    self.webView = myDocument.mainWindowController.webView;
     browserWindow = myDocument.mainWindowController.window;
+    [[MyGlobals sharedMyGlobals] setMainBrowserWindow:browserWindow]; //save a reference to this main browser window
 #ifdef DEBUG
     NSLog(@"MainBrowserWindow (1) sharingType: %lx",(long)[browserWindow sharingType]);
 #endif
@@ -743,18 +747,12 @@ bool insideMatrix(){
 #ifdef DEBUG
     NSLog(@"MainBrowserWindow (2) sharingType: %lx",(long)[browserWindow sharingType]);
 #endif
-    // Set window and webView delegates to the main browser window
-    [browserWindow setDelegate:mainBrowserWindow];
-    [mainBrowserWindow setWebView:webView];
-    [webView setFrameLoadDelegate:mainBrowserWindow];
-	[webView setPolicyDelegate:mainBrowserWindow];
     /*	[browserWindow
 	 setFrame:[browserWindow frameRectForContentRect:[[browserWindow screen] frame]]
 	 display:YES]; // REMOVE wrong frame for window!*/
 	[browserWindow setFrame:[[browserWindow screen] frame] display:YES];
     if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"]) {
         [browserWindow newSetLevel:NSModalPanelWindowLevel];
-        //[browserWindow newSetLevel:NSScreenSaverWindowLevel];
 #ifdef DEBUG
         NSLog(@"MainBrowserWindow (3) sharingType: %lx",(long)[browserWindow sharingType]);
 #endif
@@ -779,14 +777,11 @@ bool insideMatrix(){
     NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
 
     // Add "SEB" to the browser's user agent, so the LMS SEB plugins recognize us
-	NSString *customUserAgent = [webView userAgentForURL:[NSURL URLWithString:urlText]];
-	[webView setCustomUserAgent:[customUserAgent stringByAppendingString:@" SEB"]];
-    
-    // We prevent the web view from maintaining any history, cache, or AutoFill information for the pages being visited
-    [[webView preferences] setPrivateBrowsingEnabled:NO];
+	NSString *customUserAgent = [self.webView userAgentForURL:[NSURL URLWithString:urlText]];
+	[self.webView setCustomUserAgent:[customUserAgent stringByAppendingString:@" SEB"]];
     
 	// Load start URL into browser window
-	[[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];
+	[[self.webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];
 }
 
 
@@ -899,8 +894,10 @@ bool insideMatrix(){
 
 - (void)requestedRestart:(NSNotification *)notification
 {
+    
     // Close all browser windows (documents)
-    [[NSDocumentController sharedDocumentController] closeAllDocumentsWithDelegate:nil 
+
+    [[NSDocumentController sharedDocumentController] closeAllDocumentsWithDelegate:nil
                                                                didCloseAllSelector:nil contextInfo: nil];
     //[[NSNotificationCenter defaultCenter] postNotificationName:@"requestDocumentClose" object:self];
     [[MyGlobals sharedMyGlobals] setCurrentMainHost:nil];
@@ -913,6 +910,12 @@ bool insideMatrix(){
     [self openMainBrowserWindow];
 }
 
+/*- (void)documentController:(NSDocumentController *)docController  didCloseAll: (BOOL)didCloseAll contextInfo:(void *)contextInfo {
+#ifdef DEBUG
+    NSLog(@"All documents closed: %@", [NSNumber numberWithBool:didCloseAll]);
+#endif
+    return;
+}*/
 
 - (void)requestedShowAbout:(NSNotification *)notification
 {
@@ -928,7 +931,7 @@ bool insideMatrix(){
 {
     // Load manual page URL into browser window
     NSString *urlText = @"http://www.safeexambrowser.org/macosx";
-	[[webView mainFrame] loadRequest:
+	[[self.webView mainFrame] loadRequest:
      [NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];
     
 }
@@ -942,7 +945,7 @@ bool insideMatrix(){
 - (void)switchPluginsOn:(NSNotification *)notification
 {
 #ifndef __i386__        // Plugins can't be switched on in the 32-bit Intel build
-    [[webView preferences] setPlugInsEnabled:YES];
+    [[self.webView preferences] setPlugInsEnabled:YES];
 #endif
 }
 
@@ -1033,16 +1036,16 @@ bool insideMatrix(){
         NSLog(@"currentSystemPresentationOptions changed!");
 #endif
         // If plugins are enabled and there is a Flash view in the webview ...
-        if ([[webView preferences] arePlugInsEnabled]) {
-            NSView* flashView = [mainBrowserWindow findFlashViewInView:webView];
+        if ([[self.webView preferences] arePlugInsEnabled]) {
+            NSView* flashView = [(BrowserWindow*)[[MyGlobals sharedMyGlobals] mainBrowserWindow] findFlashViewInView:webView];
             if (flashView) {
                 if (!allowSwitchToThirdPartyApps || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowFlashFullscreen"]) {
                     // and either third party Apps or Flash fullscreen is allowed
                     //... then we switch plugins off and on again to prevent 
                     //the security risk Flash full screen video
 #ifndef __i386__        // Plugins can't be switched on in the 32-bit Intel build
-                    [[webView preferences] setPlugInsEnabled:NO];
-                    [[webView preferences] setPlugInsEnabled:YES];
+                    [[self.webView preferences] setPlugInsEnabled:NO];
+                    [[self.webView preferences] setPlugInsEnabled:YES];
 #endif
                 } else {
                     //or we set the flag that Flash tried to switch presentation options

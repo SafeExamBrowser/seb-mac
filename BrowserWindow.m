@@ -33,7 +33,6 @@
 //
 
 #import "BrowserWindow.h"
-#import "MainBrowserWindow.h"
 #import "MyGlobals.h"
 #import "Constants.h"
 #import "MyDocument.h"
@@ -44,29 +43,38 @@
 @implementation BrowserWindow
 
 @synthesize sebEncryptedUDController;
+@synthesize webView;
 
--(void)setWebView:(WebView *)newWebView
+// Closing of SEB Browser Window //
+- (BOOL)windowShouldClose:(id)sender
 {
-    webView = newWebView;
+    if (self == [[MyGlobals sharedMyGlobals] mainBrowserWindow]) {
+        // Post a notification that SEB should conditionally quit
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"requestExitNotification" object:self];
+        
+        return NO; //but don't close the window (that will happen anyways in case quitting is confirmed)
+    } else return YES;
 }
+
 
 // Setup browser window and webView delegates
 - (void) awakeFromNib
 {    
 	// Suppress right-click with own delegate method for context menu
-	[webView setUIDelegate:self];
+	[self.webView setUIDelegate:self];
 	
 	// The Policy Delegate is needed to catch opening links in new windows
-	[webView setPolicyDelegate:self];
+	[self.webView setPolicyDelegate:self];
 	
 	// The Frame Load Delegate is needed to monitor frame loads
-	[webView setFrameLoadDelegate:self];
+	[self.webView setFrameLoadDelegate:self];
     
     // Set group name to group related frames (so not to open several new windows)
-    [webView setGroupName:@"MyDocument"];
+    [self.webView setGroupName:@"MyDocument"];
 
     // Close webView when the last document window is closed
-    [webView setShouldCloseWithWindow:YES];
+    [self.webView setShouldCloseWithWindow:YES];
     
     // Set bindings to web preferences
     WebPreferences *webPrefs = [WebPreferences standardPreferences];
@@ -92,9 +100,9 @@
        withKeyPath:@"values.org_safeexambrowser_SEB_blockPopUpWindows"
            options:bindingOptions];
     
-    [webView setPreferences:webPrefs];
-
-    [webView bind:@"maintainsBackForwardList"
+    [self.webView setPreferences:webPrefs];
+    
+    [self.webView bind:@"maintainsBackForwardList"
           toObject:self.sebEncryptedUDController
        withKeyPath:@"values.org_safeexambrowser_SEB_enableBrowsingBackForward"
            options:nil];
@@ -111,17 +119,27 @@
 }
 
 
-- (void)windowDidBecomeMain:(NSNotification *)notification {
-#ifdef DEBUG
-    NSLog(@"BrowserWindow %@ did become main", self);
-#endif
-}
-
-
-- (void)windowDidBecomeKey:(NSNotification *)notification {
-#ifdef DEBUG
-    NSLog(@"BrowserWindow %@ did become key", self);
-#endif
+- (NSView*)findFlashViewInView:(NSView*)view
+{
+    NSString* className = [view className];
+    
+    // WebHostedNetscapePluginView showed up in Safari 4.x,
+    // WebNetscapePluginDocumentView is Safari 3.x.
+    if ([className isEqual:@"WebHostedNetscapePluginView"] ||
+        [className isEqual:@"WebNetscapePluginDocumentView"])
+    {
+        // Do any checks to make sure you've got the right player
+        return view;
+    }
+    
+    // Okay, this view isn't a plugin, keep going
+    for (NSView* subview in [view subviews])
+    {
+        NSView* result = [self findFlashViewInView:subview];
+        if (result) return result;
+    }
+    
+    return nil;
 }
 
 
@@ -149,6 +167,26 @@
 
 
 #pragma mark Delegates
+
+- (void)windowDidBecomeMain:(NSNotification *)notification {
+#ifdef DEBUG
+    NSLog(@"BrowserWindow %@ did become main", self);
+#endif
+}
+
+
+- (void)windowDidBecomeKey:(NSNotification *)notification {
+#ifdef DEBUG
+    NSLog(@"BrowserWindow %@ did become key", self);
+#endif
+}
+
+
+- (void)windowWillClose:(NSNotification *)notification {
+    self.webView = nil;
+}
+
+
 
 // Delegate method for disabling right-click context menu
 - (NSArray *)webView:(WebView *)sender contextMenuItemsForElement:(NSDictionary *)element 
@@ -223,7 +261,7 @@ initiatedByFrame:(WebFrame *)frame {
 
 // Handling of requests to open a link in a new window (including Javascript commands)
 - (WebView *)webView:(WebView *)sender createWebViewWithRequest:(NSURLRequest *)request {
-    // Single browser window: [[webView mainFrame] loadRequest:request];
+    // Single browser window: [[self.webView mainFrame] loadRequest:request];
     // Multiple browser windows
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] != getGenerallyBlocked) {
@@ -288,23 +326,23 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         if (currentMainHost && (!requestedHost || ![currentMainHost isEqualToString:requestedHost])) {
             [listener ignore];
             // If the new page is supposed to open in a new browser window
-            if (requestedHost && webView && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
+            if (requestedHost && self.webView && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
                 // we have to close the new browser window which already has been openend by WebKit
                 // Get the document for my web view
 #ifdef DEBUG
                 NSLog(@"Originating browser window %@", sender);
 #endif
-                id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:[webView window]];
+                id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:[self.webView window]];
                 // Close document and therefore also window
                 //Workaround: Flash crashes after closing window and then clicking some other link
-                [[webView preferences] setPlugInsEnabled:NO];
+                [[self.webView preferences] setPlugInsEnabled:NO];
 #ifdef DEBUG
-                NSLog(@"Now closing new document browser window. %@", webView);
+                NSLog(@"Now closing new document browser window. %@", self.webView);
 #endif
                 [myDocument close];
             }
             if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
-                if (webView) {
+                if (self.webView) {
                     [sender close]; //close the temporary webview
                 }
             }
@@ -313,10 +351,10 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
     }
     // Check if the new page is supposed to be opened in the same browser window
     if (currentMainHost && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
-        if (webView && ![sender isEqual:webView]) {
+        if (self.webView && ![sender isEqual:self.webView]) {
             // If the request's sender is the temporary webview, then we have to load the request now in the current webview
             [listener ignore]; // ignore listener
-            [[webView mainFrame] loadRequest:request]; //load the new page in the same browser window
+            [[self.webView mainFrame] loadRequest:request]; //load the new page in the same browser window
             [sender close]; //close the temporary webview
             return; //and return from here
         }
@@ -361,7 +399,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
             if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] == openInNewWindow) {
                 // Multiple browser windows
                 MyDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
-                //WebView *newWindowWebView = myDocument.mainWindowController.webView;
+                //WebView *newWindowWebView = myDocument.mainWindowController.self.webView;
                 [myDocument.mainWindowController.window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
                 if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"]) {
                     // Order new browser window to the front of our level
@@ -404,30 +442,6 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
     //we prevent the browser window to be hidden
 }
 */
-
-- (NSView*)findFlashViewInView:(NSView*)view 
-{
-    NSString* className = [view className];
-    
-    // WebHostedNetscapePluginView showed up in Safari 4.x,
-    // WebNetscapePluginDocumentView is Safari 3.x.
-    if ([className isEqual:@"WebHostedNetscapePluginView"] ||
-        [className isEqual:@"WebNetscapePluginDocumentView"]) 
-    {
-        // Do any checks to make sure you've got the right player
-        return view;
-    }
-    
-    // Okay, this view isn't a plugin, keep going
-    for (NSView* subview in [view subviews]) 
-    {
-        NSView* result = [self findFlashViewInView:subview];
-        if (result) return result;
-    }
-    
-    return nil;
-}
-
 
 // Downloading and Uploading of Files //
 
@@ -534,7 +548,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
             //NSPanel *alertPanel = NSGetAlertPanel(titleString, messageString, NSLocalizedString(@"Retry",nil), NSLocalizedString(@"Cancel",nil), nil, nil);
             //[alertPanel setLevel:NSScreenSaverWindowLevel];
 
-            int answer = NSRunAlertPanel(titleString, messageString, NSLocalizedString(@"Retry",nil), NSLocalizedString(@"Cancel",nil), nil, nil); //[NSApp runModalForWindow:alertPanel];
+            int answer = NSRunAlertPanel(titleString, messageString, NSLocalizedString(@"Retry",nil), NSLocalizedString(@"Cancel",nil), nil, nil); 
             switch(answer) {
                 case NSAlertDefaultReturn:
                     //Retry: try reloading
@@ -623,6 +637,5 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     [[MyGlobals sharedMyGlobals] setDownloadPath:downloadPaths];
     [[MyGlobals sharedMyGlobals] setLastDownloadPath:[downloadPaths count]-1];
 }
-
 
 @end

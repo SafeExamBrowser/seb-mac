@@ -33,6 +33,7 @@
 //
 
 #import "MyDocument.h"
+#import "BrowserWindow.h"
 
 @implementation MyDocument
 
@@ -129,7 +130,7 @@
 }
 
 
-/* 
+/*
 - (void)canCloseDocumentWithDelegate:(id)delegate shouldCloseSelector:(SEL)shouldClose contextInfo:(void *)contextInfo
 {
     [self document:self shouldClose:YES contextInfo:nil];
@@ -142,8 +143,9 @@
         NSLog(@"Closing document!");
         NSArray *windowControllers = [self windowControllers];
         // Get first window controller
-        id  windowController;
+        NSWindowController *windowController;
         windowController = [windowControllers objectAtIndex:0];
+        [[(BrowserWindow*)[windowController window] webView] close];
         [self removeWindowController:windowController];
         [windowController close];
 

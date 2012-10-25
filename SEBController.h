@@ -40,7 +40,6 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "PreferencesController.h"
 #import "CapView.h"
-#import "MainBrowserWindow.h"
 #import "AboutWindow.h"
 #import "SEBEncryptedUserDefaultsController.h"
 
@@ -49,15 +48,13 @@
 	
     NSArray *runningAppsWhileTerminating;
     NSMutableArray *visibleApps;
-	NSMutableArray *capWindows;
-	//NSPoint testpoint;
+	//NSMutableArray *capWindows;
 	BOOL f3Pressed;
 	BOOL firstStart;
     BOOL quittingMyself;
 
 	NSWindow *browserWindow;
-    WebView *webView;
-    IBOutlet MainBrowserWindow *mainBrowserWindow;
+    //WebView *webView;
 	IBOutlet id preferencesController;
 	IBOutlet AboutWindow *aboutWindow;
 	IBOutlet NSView *passwordView;
@@ -71,7 +68,6 @@
 	IOPMAssertionID assertionID1;
 	IOPMAssertionID assertionID2;
        
-    //BOOL isThereAPasteboardString;
 }
 
 - (void) closeAboutWindow;
@@ -82,7 +78,7 @@
 - (void) regainActiveStatus: (id)sender;
 - (void) SEBgotActive: (id)sender;
 - (void) startKioskMode;
-- (void )openMainBrowserWindow;
+- (void) openMainBrowserWindow;
 
 - (NSString *) showEnterPasswordDialog: (NSWindow *)window;
 - (IBAction) okEnterPassword: (id)sender;
@@ -100,6 +96,7 @@
 
 @property(readwrite) BOOL f3Pressed;
 @property(readwrite) BOOL quittingMyself;
-
+@property(strong) WebView *webView;
+@property(strong) NSMutableArray *capWindows;
 
 @end

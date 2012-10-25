@@ -46,11 +46,6 @@
 }
 
 
-- (void)drawRect:(NSRect)dirtyRect {
-    // Drawing code here.
-}
-
-
 - (BOOL)shouldDelayWindowOrderingForEvent:(NSEvent *)theEvent {
 	return YES;
 }

@@ -36,6 +36,7 @@
 
 @interface MyGlobals : NSObjectController {
     
+    NSWindow *__strong mainBrowserWindow;
     NSString *currentMainHost;
     NSMutableArray *downloadPath;
     NSInteger lastDownloadPath;
@@ -46,6 +47,7 @@
 
 + (MyGlobals*)sharedMyGlobals;
 
+@property(nonatomic, strong) NSWindow *mainBrowserWindow;
 @property(copy, readwrite) NSString *currentMainHost;
 @property(copy, readwrite) NSMutableArray *downloadPath;
 @property(readwrite) NSInteger lastDownloadPath;

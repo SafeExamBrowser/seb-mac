@@ -37,9 +37,11 @@
 
 @interface BrowserWindowController : NSWindowController {
 @private
-    IBOutlet WebView *webView;
+     //IBOutlet WebView *webView;
 }
 
-- (id) webView;
+@property (assign) IBOutlet WebView *webView;
+
+//- (id) webView;
 
 @end
