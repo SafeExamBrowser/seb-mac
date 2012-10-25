@@ -42,7 +42,6 @@
 
 @implementation BrowserWindow
 
-@synthesize sebEncryptedUDController;
 @synthesize webView;
 
 // Closing of SEB Browser Window //
@@ -80,30 +79,30 @@
     WebPreferences *webPrefs = [WebPreferences standardPreferences];
 #ifndef __i386__        // Plugins can't be switched on in the 32-bit Intel build
     [webPrefs bind:@"plugInsEnabled"
-          toObject:self.sebEncryptedUDController
+          toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
        withKeyPath:@"values.org_safeexambrowser_SEB_enablePlugins"
            options:nil];
 #endif
     [webPrefs bind:@"javaEnabled"
-          toObject:self.sebEncryptedUDController
+          toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
        withKeyPath:@"values.org_safeexambrowser_SEB_enableJava"
            options:nil];
     
     [webPrefs bind:@"javaScriptEnabled"
-          toObject:self.sebEncryptedUDController
+          toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
        withKeyPath:@"values.org_safeexambrowser_SEB_enableJavaScript"
            options:nil];
 
     NSDictionary *bindingOptions = [NSDictionary dictionaryWithObjectsAndKeys:@"NSNegateBoolean",NSValueTransformerNameBindingOption,nil];
     [webPrefs bind:@"javaScriptCanOpenWindowsAutomatically"
-          toObject:self.sebEncryptedUDController
+          toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
        withKeyPath:@"values.org_safeexambrowser_SEB_blockPopUpWindows"
            options:bindingOptions];
     
     [self.webView setPreferences:webPrefs];
     
     [self.webView bind:@"maintainsBackForwardList"
-          toObject:self.sebEncryptedUDController
+          toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
        withKeyPath:@"values.org_safeexambrowser_SEB_enableBrowsingBackForward"
            options:nil];
 

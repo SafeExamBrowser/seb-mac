@@ -48,19 +48,16 @@
 	
     NSArray *runningAppsWhileTerminating;
     NSMutableArray *visibleApps;
-	//NSMutableArray *capWindows;
 	BOOL f3Pressed;
 	BOOL firstStart;
     BOOL quittingMyself;
 
 	NSWindow *browserWindow;
-    //WebView *webView;
 	IBOutlet id preferencesController;
 	IBOutlet AboutWindow *aboutWindow;
 	IBOutlet NSView *passwordView;
 	IBOutlet NSSecureTextField *enterPassword;
     IBOutlet NSWindow *enterPasswordDialog;
-	IBOutlet SEBEncryptedUserDefaultsController *sebEncryptedUDController;
     
     NSString *savedStartURL;
     BOOL savedAllowSwitchToThirdPartyAppsFlag;

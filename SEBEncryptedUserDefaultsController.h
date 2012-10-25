@@ -36,4 +36,6 @@
 
 @interface SEBEncryptedUserDefaultsController : NSUserDefaultsController
 
++ (SEBEncryptedUserDefaultsController *)sharedSEBEncryptedUserDefaultsController;
+
 @end

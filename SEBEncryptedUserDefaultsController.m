@@ -40,6 +40,41 @@
 @implementation SEBEncryptedUserDefaultsController
 
 
+static SEBEncryptedUserDefaultsController *sharedSEBEncryptedUserDefaultsController = nil;
+
++ (SEBEncryptedUserDefaultsController *)sharedSEBEncryptedUserDefaultsController
+{
+	@synchronized(self)
+	{
+		if (sharedSEBEncryptedUserDefaultsController == nil)
+		{
+			sharedSEBEncryptedUserDefaultsController = [[self alloc] init];
+		}
+	}
+
+	return sharedSEBEncryptedUserDefaultsController;
+}
+/*
++ (id)allocWithZone:(NSZone *)zone
+{
+	@synchronized(self)
+	{
+		if (sharedSEBEncryptedUserDefaultsController == nil)
+		{
+			sharedSEBEncryptedUserDefaultsController = [super allocWithZone:zone];
+			return sharedSEBEncryptedUserDefaultsController;
+		}
+	}
+
+	return nil;
+}
+
+- (id)copyWithZone:(NSZone *)zone
+{
+	return self;
+} */
+
+
 // Getter Method used by bindings
 - (id)valueForKeyPath:(NSString *)keyPath
 {

@@ -761,11 +761,9 @@ bool insideMatrix(){
     
     // Setup bindings to the preferences window close button
     NSButton *closeButton = [browserWindow standardWindowButton:NSWindowCloseButton];
-    //NSDictionary *bindingOptions = [NSDictionary dictionaryWithObjectsAndKeys:nil];
-    //NSDictionary *bindingOptions = [NSDictionary dictionaryWithObjectsAndKeys:
-    //@"NSIsNil",NSValueTransformerNameBindingOption,nil];
+
     [closeButton bind:@"enabled"
-             toObject:sebEncryptedUDController 
+             toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
           withKeyPath:@"values.org_safeexambrowser_SEB_allowQuit" 
               options:nil];
     
@@ -773,7 +771,6 @@ bool insideMatrix(){
         
 	// Load start URL from the system's user defaults database
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-	//NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
     NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
 
     // Add "SEB" to the browser's user agent, so the LMS SEB plugins recognize us

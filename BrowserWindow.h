@@ -43,13 +43,11 @@
 @interface BrowserWindow : NSWindow <NSWindowDelegate, NSURLDownloadDelegate>
 
 {
-	IBOutlet SEBEncryptedUserDefaultsController *__strong sebEncryptedUDController;
     WebView *requestingWebView;
     NSString *currentURL;
     NSString *downloadPath;
 }
 
-@property (nonatomic, strong) SEBEncryptedUserDefaultsController *sebEncryptedUDController;
 @property (assign) IBOutlet WebView *webView;
 
 - (void)startDownloadingURL:(NSURL *)url;
