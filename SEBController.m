@@ -78,25 +78,45 @@ bool insideMatrix();
 #ifdef DEBUG
     NSLog(@"Loading .seb settings file with URL %@",sebFileURL);
 #endif
-    NSDictionary *sebPreferencesDict=[NSDictionary dictionaryWithContentsOfURL:sebFileURL];
-//    NSMutableDictionary *initialValuesDict = [NSMutableDictionary dictionaryWithCapacity:[sebPreferencesDict count]];
-    // Use private UserDefaults
-    NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults];
-    for (NSString *key in sebPreferencesDict) {
-        NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
-        [privatePreferences setObject:[sebPreferencesDict objectForKey:key] forKey:keyWithPrefix];
-//        [initialValuesDict setObject:[preferences secureDataForObject:[sebPreferencesDict objectForKey:key]] forKey:keyWithPrefix];
-    }
+    const char utfString[2];
+    //= [@"pw" UTF8String];
+    NSMutableData *sebData = [NSMutableData dataWithContentsOfURL:sebFileURL];
+    [sebData getBytes:(void *)utfString length:2];
 #ifdef DEBUG
-    NSLog(@"Private preferences set: %@",privatePreferences);
+    NSLog(@"Dump of encypted .seb settings file: %@",sebData);
+    NSLog(@"Prefix of .seb settings file: %s",utfString);
+    NSLog(@"Prefix of .seb settings file: %@",[NSString stringWithUTF8String:utfString]);
 #endif
-    [NSUserDefaults setUserDefaultsPrivate:YES];
-    // Set the initial values in the shared user defaults controller
-//    [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:initialValuesDict];
-    // Replace the values of all the user default properties with any corresponding values in the initialValues dictionary
-//    [[NSUserDefaultsController sharedUserDefaultsController] revertToInitialValues:self];
-    [self startKioskMode];
-    [self requestedRestart:nil];
+    if (utfString /*== [@"pw" UTF8String]*/) {
+        NSRange range = {2, [sebData length]-2};
+        NSData *encryptedSebData = [sebData subdataWithRange:range];
+#ifdef DEBUG
+        NSLog(@"Dump of encypted .seb settings (without prefix): %@",encryptedSebData);
+#endif
+        NSError *error;
+        NSData *decryptedSebData = [[RNCryptor AES256Cryptor] decryptData:encryptedSebData password:@"password" error:&error];
+        NSDictionary *sebPreferencesDict = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedSebData];
+
+        //NSDictionary *sebPreferencesDict=[NSDictionary dictionaryWithContentsOfURL:sebFileURL];
+        //    NSMutableDictionary *initialValuesDict = [NSMutableDictionary dictionaryWithCapacity:[sebPreferencesDict count]];
+        // Use private UserDefaults
+        NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults];
+        for (NSString *key in sebPreferencesDict) {
+            NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
+            [privatePreferences setObject:[sebPreferencesDict objectForKey:key] forKey:keyWithPrefix];
+            //        [initialValuesDict setObject:[preferences secureDataForObject:[sebPreferencesDict objectForKey:key]] forKey:keyWithPrefix];
+        }
+#ifdef DEBUG
+        NSLog(@"Private preferences set: %@",privatePreferences);
+#endif
+        [NSUserDefaults setUserDefaultsPrivate:YES];
+        // Set the initial values in the shared user defaults controller
+        //    [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:initialValuesDict];
+        // Replace the values of all the user default properties with any corresponding values in the initialValues dictionary
+        //    [[NSUserDefaultsController sharedUserDefaultsController] revertToInitialValues:self];
+        [self startKioskMode];
+        [self requestedRestart:nil];
+    }
     return YES;
 }
 

@@ -39,6 +39,7 @@
 #import "PrefsGeneralViewController.h"
 #import "NSWindow+SEBWindow.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
+#import "RNCryptor.h"
 #import "Constants.h"
 
 //#import "MyGlobals.h"
@@ -256,23 +257,14 @@
     // Copy preferences to a dictionary
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences synchronize];
-    //[preferences addSuiteNamed:@"NSRegistrationDomain"];
-    
-    //[preferences removePersistentDomainForName:@"NSArgumentDomain"];
-    //[preferences removePersistentDomainForName:@"NSGlobalDomain"];
     NSDictionary *prefsDict;
-    //prefsDict = [preferences dictionaryRepresentation];
-    
     // Get CFBundleIdentifier of the application
     NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
     NSString *bundleId = [bundleInfo objectForKey: @"CFBundleIdentifier"];
-    
+    // Include UserDefaults from NSRegistrationDomain and the applications domain
     NSUserDefaults *appUserDefaults = [[NSUserDefaults alloc] init];
     [appUserDefaults addSuiteNamed:@"NSRegistrationDomain"];
     [appUserDefaults addSuiteNamed: bundleId];
-    //NSArray *currentDomainNames = [appUserDefaults persistentDomainNames];
-    //prefsDict = [appUserDefaults persistentDomainForName: bundleId];
-    //prefsDict = [appUserDefaults volatileDomainForName:@"NSRegistrationDomain"];
     prefsDict = [appUserDefaults dictionaryRepresentation];
     // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
     NSSet *filteredPrefsSet = [prefsDict keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop)
@@ -287,7 +279,6 @@
     NSDictionary *filteredPrefsDict = [NSDictionary dictionaryWithObjects:allSEBValues forKeys:allSEBKeys];
     // Save initialValues to a SEB preferences file into the application bundle
     NSString *prefsPath;
-    //prefsPath=[[NSBundle mainBundle] pathForResource:@"org.safeexambrowser.Safe-Exam-Browser" ofType:@"plist"];
     prefsPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/org.safeexambrowser.Safe-Exam-Browser.plist"];
     if (![filteredPrefsDict writeToFile:prefsPath atomically:YES]) {
         // If the prefs file couldn't be written to app bundle
@@ -316,6 +307,7 @@
     NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
     NSString *bundleId = [bundleInfo objectForKey: @"CFBundleIdentifier"];
     
+    // Include UserDefaults from NSRegistrationDomain and the applications domain
     NSUserDefaults *appUserDefaults = [[NSUserDefaults alloc] init];
     [appUserDefaults addSuiteNamed:@"NSRegistrationDomain"];
     [appUserDefaults addSuiteNamed: bundleId];
@@ -330,10 +322,20 @@
                                        return NO;
                                }];
     NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:[filteredPrefsSet count]];
+    
+    // Remove prefix "org_safeexambrowser_SEB_" from keys
     for (NSString *key in filteredPrefsSet) {
         [filteredPrefsDict setObject:[preferences secureObjectForKey:key] forKey:[key substringFromIndex:24]];
-        
     }
+    
+    // Encrypt preferences using a password
+    const char *utfString = [@"pw" UTF8String];
+    NSMutableData *encryptedSebData = [NSMutableData dataWithBytes:utfString length:2];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];
+    NSError *error;
+    NSData *encryptedData = [[RNCryptor AES256Cryptor] encryptData:data password:@"password" error:&error];
+    [encryptedSebData appendData:encryptedData];
+    
     // Save initialValues to a SEB preferences file into the application bundle
 
         // Build a new name for the file using the current name and
@@ -353,7 +355,8 @@
                       {
                           NSURL*  prefsFileURL = [panel URL];
                           // Write the contents in the new format.
-                          if (![filteredPrefsDict writeToURL:prefsFileURL atomically:YES]) {
+                          if (![encryptedSebData writeToURL:prefsFileURL atomically:YES]) {
+                              //if (![filteredPrefsDict writeToURL:prefsFileURL atomically:YES]) {
                               // If the prefs file couldn't be written to app bundle
                               NSRunAlertPanel(NSLocalizedString(@"Writing Settings Failed", nil),
                                               NSLocalizedString(@"Make sure you have write permissions in the chosen directory", nil),
