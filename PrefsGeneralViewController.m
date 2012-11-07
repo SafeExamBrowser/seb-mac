@@ -40,6 +40,7 @@
 #import "NSWindow+SEBWindow.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "RNCryptor.h"
+#import "SEBKeychainManager.h"
 #import "Constants.h"
 
 //#import "MyGlobals.h"
@@ -327,6 +328,13 @@
     for (NSString *key in filteredPrefsSet) {
         [filteredPrefsDict setObject:[preferences secureObjectForKey:key] forKey:[key substringFromIndex:24]];
     }
+    
+    // Encrypt preferences using a certificate
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    NSArray *certificatesInKeychain = [keychainManager getCertificates];
+#ifdef DEBUG
+    NSLog(@"Certificates in default keychain: %@", certificatesInKeychain);
+#endif
     
     // Encrypt preferences using a password
     const char *utfString = [@"pw" UTF8String];
