@@ -650,6 +650,7 @@
 				693EB53F15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */,
 				699C540915EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */,
 				6943D0781655054600AB6B1D /* PrefsExamViewController.m in Sources */,
+				69F293AF164A324B00875C00 /* SEBKeychainManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -681,6 +682,7 @@
 				693EB54015EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */,
 				699C540A15EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */,
 				6943D0791655054600AB6B1D /* PrefsExamViewController.m in Sources */,
+				69F293B0164A324B00875C00 /* SEBKeychainManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -712,6 +714,7 @@
 				693EB53E15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */,
 				699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */,
 				6943D0771655054600AB6B1D /* PrefsExamViewController.m in Sources */,
+				69F293AE164A324B00875C00 /* SEBKeychainManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
