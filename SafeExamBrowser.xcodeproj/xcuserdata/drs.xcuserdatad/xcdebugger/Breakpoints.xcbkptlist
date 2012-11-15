@@ -51,9 +51,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "343"
-         endingLineNumber = "343"
-         landmarkName = "-saveSEBPrefs:"
-         landmarkType = "5">
+         endingLineNumber = "343">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
