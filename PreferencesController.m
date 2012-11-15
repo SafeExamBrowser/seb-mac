@@ -38,6 +38,7 @@
 #import "PrefsGeneralViewController.h"
 #import "PrefsBrowserViewController.h"
 #import "PrefsAdvancedViewController.h"
+#import "PrefsExamViewController.h"
 
 #import "MBPreferencesController.h"
 
@@ -50,10 +51,8 @@
 	PrefsGeneralViewController *general = [[PrefsGeneralViewController alloc] initWithNibName:@"PreferencesGeneral" bundle:nil];
 	PrefsBrowserViewController *browser = [[PrefsBrowserViewController alloc] initWithNibName:@"PreferencesBrowser" bundle:nil];
 	PrefsAdvancedViewController *advanced = [[PrefsAdvancedViewController alloc] initWithNibName:@"PreferencesAdvanced" bundle:nil];
-	[[MBPreferencesController sharedController] setModules:[NSArray arrayWithObjects:general, browser, advanced, nil]];
-	//[general release];
-	//[browser release];
-	//[advanced release];
+	PrefsAdvancedViewController *exam = [[PrefsAdvancedViewController alloc] initWithNibName:@"PreferencesExam" bundle:nil];
+	[[MBPreferencesController sharedController] setModules:[NSArray arrayWithObjects:general, browser, advanced, exam, nil]];
     // Set self as the window delegate to be able to post a notification when preferences window is closing
     // will be overridden when the general pane is displayed (loaded from nib)
     if (![[MBPreferencesController sharedController].window delegate]) {

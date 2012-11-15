@@ -7,7 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "MBPreferencesController.h"
 
-@interface PrefsExamViewController : NSViewController
+@interface PrefsExamViewController : NSViewController <MBPreferencesModule>
+
+- (IBAction) saveSEBPrefs;
 
 @end

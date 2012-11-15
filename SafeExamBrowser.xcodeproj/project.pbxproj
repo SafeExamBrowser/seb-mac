@@ -421,18 +421,18 @@
 				69C52802136AFDBD00F9F000 /* PreferencesController.m */,
 				69A9A232136AF6E000840AE1 /* PrefsGeneralViewController.h */,
 				69A9A233136AF6E000840AE1 /* PrefsGeneralViewController.m */,
-				690D23471451EF2400CCCFF9 /* PrefsBrowserViewController.m */,
 				690D23461451EF2300CCCFF9 /* PrefsBrowserViewController.h */,
+				690D23471451EF2400CCCFF9 /* PrefsBrowserViewController.m */,
 				69A9A234136AF6E000840AE1 /* PrefsAdvancedViewController.h */,
 				69C52805136AFE9500F9F000 /* PrefsAdvancedViewController.m */,
+				6943D0741655054600AB6B1D /* PrefsExamViewController.h */,
+				6943D0751655054600AB6B1D /* PrefsExamViewController.m */,
 				69A9A22A1368784500840AE1 /* MBPreferencesController.h */,
 				69A9A22B1368784500840AE1 /* MBPreferencesController.m */,
 				691CD9AA1468947E00B43CDC /* SEBEncryptedUserDefaultsController.h */,
 				691CD9AB1468947E00B43CDC /* SEBEncryptedUserDefaultsController.m */,
 				699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */,
 				699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */,
-				6943D0741655054600AB6B1D /* PrefsExamViewController.h */,
-				6943D0751655054600AB6B1D /* PrefsExamViewController.m */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
