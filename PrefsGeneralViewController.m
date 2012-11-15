@@ -332,9 +332,17 @@
     // Encrypt preferences using a certificate
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     NSArray *certificatesInKeychain = [keychainManager getCertificates];
+    //SecCertificateRef certificate;
+    int i, count = [certificatesInKeychain count];
+    for (i=0; i<count; i++) {
+        SecCertificateRef certificate = (__bridge SecCertificateRef)([certificatesInKeychain objectAtIndex:i]);
+        CFStringRef commonName = NULL;
+        SecCertificateCopyCommonName(certificate, &commonName);
 #ifdef DEBUG
-    NSLog(@"Certificates in default keychain: %@", certificatesInKeychain);
+        NSLog(@"common name = %@", (__bridge NSString *)commonName);
 #endif
+        if (commonName) CFRelease(commonName);
+    }
     
     // Encrypt preferences using a password
     const char *utfString = [@"pw" UTF8String];
