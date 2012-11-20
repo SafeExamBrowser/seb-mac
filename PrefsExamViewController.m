@@ -16,6 +16,7 @@
 @end
 
 @implementation PrefsExamViewController
+@synthesize examKey;
 
 
 - (NSString *)title

@@ -37,4 +37,14 @@
 
 }
 
+- (id) extractPublicKeyFromCertificate:(SecCertificateRef)certificate {
+    OSStatus status = SecTrustCopyPublicKey((__bridge_retained CFDictionaryRef)query, (CFTypeRef *)&items);
+    if (status) {
+        if (status != errSecItemNotFound)
+            //LKKCReportError(status, @"Can't search keychain");
+            return nil;
+    }
+    return (__bridge  NSArray*)(items); // items contains all SecCertificateRefs in keychain
+}
+
 @end

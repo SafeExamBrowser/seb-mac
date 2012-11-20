@@ -9,7 +9,11 @@
 #import <Cocoa/Cocoa.h>
 #import "MBPreferencesController.h"
 
-@interface PrefsExamViewController : NSViewController <MBPreferencesModule>
+@interface PrefsExamViewController : NSViewController <MBPreferencesModule> {
+    NSTextField *examKey;
+}
+
+@property (strong) IBOutlet NSTextField *examKey;
 
 - (IBAction) saveSEBPrefs;
 
