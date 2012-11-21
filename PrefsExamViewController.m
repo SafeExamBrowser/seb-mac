@@ -75,6 +75,7 @@
     NSArray *certificatesInKeychain = [keychainManager getCertificates];
     //SecCertificateRef certificate;
     int i, count = [certificatesInKeychain count];
+    SecKeyRef *publicKeyETH = NULL;
     for (i=0; i<count; i++) {
         SecCertificateRef certificate = (__bridge SecCertificateRef)([certificatesInKeychain objectAtIndex:i]);
         SecKeyRef *key = [keychainManager copyPublicKeyFromCertificate:certificate];
@@ -83,19 +84,26 @@
         NSString *privateKey = (identityRef ? @"found" : @"not found");
         CFStringRef commonName = NULL;
         SecCertificateCopyCommonName(certificate, &commonName);
+        if ([(__bridge NSString *)commonName isEqualToString:@"ETH Zuerich"]) {
+            publicKeyETH = key;
+        }
 #ifdef DEBUG
         NSLog(@"Common name = %@, public key = %@, private key = %@", (__bridge NSString *)commonName, publicKey, privateKey);
 #endif
         if (commonName) CFRelease(commonName);
     }
     
-    // Encrypt preferences using a password
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];
+    /*/ Encrypt preferences using a password
     const char *utfString = [@"pw" UTF8String];
     NSMutableData *encryptedSebData = [NSMutableData dataWithBytes:utfString length:2];
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];
     NSError *error;
     NSData *encryptedData = [[RNCryptor AES256Cryptor] encryptData:data password:@"password" error:&error];
     [encryptedSebData appendData:encryptedData];
+    */
+    
+    NSData *encryptedSebData = [keychainManager encryptData:data withPublicKey:publicKeyETH];
+
     
     // Save initialValues to a SEB preferences file into the application bundle
     
@@ -107,7 +115,7 @@
     //CFRelease(newExtension);
     
     // Set the default name for the file and show the panel.
-    NSSavePanel*    panel = [NSSavePanel savePanel];
+    NSSavePanel *panel = [NSSavePanel savePanel];
     //[panel setNameFieldStringValue:newName];
     [panel setAllowedFileTypes:[NSArray arrayWithObject:@"seb"]];
     [panel beginSheetModalForWindow:[MBPreferencesController sharedController].window

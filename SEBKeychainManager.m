@@ -61,4 +61,41 @@
     }
     return identityRef; // public key contained in certificate
 }
+
+
+- (NSData*)encryptData:(NSData*)inputData withPublicKey:(SecKeyRef*)publicKey {
+
+    OSStatus status = noErr;
+    
+    // Convert input data into a buffer
+    const void *bytes = [inputData bytes];
+    int length = [inputData length];
+    uint8_t *plainText = malloc(length);
+    memcpy(plainText, bytes, length);
+
+    // Allocate a buffer to hold the cipher text
+    size_t cipherBufferSize;
+    uint8_t *cipherBuffer;
+    cipherBufferSize = SecKeyGetBlockSize(*publicKey);
+    cipherBuffer = malloc(cipherBufferSize);
+
+    // Encrypt using the public key
+    status = SecKeyEncrypt(publicKey,
+                           kSecPaddingPKCS1,
+                           plainText,
+                           length,
+                           cipherBuffer,
+                           &cipherBufferSize
+                           );
+    
+    NSData *cipherData = [NSData dataWithBytes:cipherBuffer length:cipherBufferSize];
+    
+    /* Free the Security Framework Five! */
+    CFRelease(publicKey);
+    free(cipherBuffer);
+    return cipherData;
+    //[cipherData encodeBase64ForData];
+}
+
+
 @end

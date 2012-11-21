@@ -17,4 +17,6 @@
 - (SecKeyRef*)copyPublicKeyFromCertificate:(SecCertificateRef)certificate;
 - (SecIdentityRef*)createIdentityWithCertificate:(SecCertificateRef)certificate;
 
+- (NSData*)encryptData:(NSData*)inputData withPublicKey:(SecKeyRef*)publicKey;
+
 @end
