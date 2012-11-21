@@ -15,6 +15,6 @@
 
 @property (strong) IBOutlet NSTextField *examKey;
 
-- (IBAction) saveSEBPrefs;
+- (IBAction) saveSEBPrefs:(id)sender;
 
 @end

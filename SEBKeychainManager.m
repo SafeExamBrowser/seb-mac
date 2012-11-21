@@ -10,7 +10,7 @@
 
 @implementation SEBKeychainManager
 
-- (NSArray*) getCertificates {
+- (NSArray*)getCertificates {
     SecKeychainRef keychain;
     OSStatus error;
     error = SecKeychainCopyDefault(&keychain);
@@ -37,14 +37,28 @@
 
 }
 
-- (id) extractPublicKeyFromCertificate:(SecCertificateRef)certificate {
-    OSStatus status = SecTrustCopyPublicKey((__bridge_retained CFDictionaryRef)query, (CFTypeRef *)&items);
+- (SecKeyRef*)copyPublicKeyFromCertificate:(SecCertificateRef)certificate {
+    SecKeyRef key = NULL;
+    OSStatus status = SecCertificateCopyPublicKey(certificate, &key);
     if (status) {
-        if (status != errSecItemNotFound)
-            //LKKCReportError(status, @"Can't search keychain");
+        if (status == errSecItemNotFound) {
+            NSLog(@"No public key found in certificate.");
+            if (key) CFRelease(key);
             return nil;
+        }
     }
-    return (__bridge  NSArray*)(items); // items contains all SecCertificateRefs in keychain
+    return (SecKeyRef*)key; // public key contained in certificate
 }
 
+- (SecIdentityRef*)createIdentityWithCertificate:(SecCertificateRef)certificate {
+    SecIdentityRef *identityRef;
+    OSStatus status = SecIdentityCreateWithCertificate(NULL, certificate, identityRef);
+    if (status) {
+        if (status == errSecItemNotFound) {
+            NSLog(@"No associated private key found for certificate.");
+            return nil;
+        }
+    }
+    return identityRef; // public key contained in certificate
+}
 @end

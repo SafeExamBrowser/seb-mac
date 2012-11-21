@@ -14,5 +14,7 @@
 @interface SEBKeychainManager : NSObject
 
 - (NSArray*) getCertificates;
+- (SecKeyRef*)copyPublicKeyFromCertificate:(SecCertificateRef)certificate;
+- (SecIdentityRef*)createIdentityWithCertificate:(SecCertificateRef)certificate;
 
 @end

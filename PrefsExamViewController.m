@@ -38,7 +38,7 @@
 
 
 // Action saving current preferences to a plist-file in application bundle Contents/Resources/ directory
-- (IBAction) saveSEBPrefs {
+- (IBAction) saveSEBPrefs:(id)sender {
     //[self savePrefs:self];	//save preferences (which are not saved automatically by bindings)
     // Copy preferences to a dictionary
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -77,10 +77,14 @@
     int i, count = [certificatesInKeychain count];
     for (i=0; i<count; i++) {
         SecCertificateRef certificate = (__bridge SecCertificateRef)([certificatesInKeychain objectAtIndex:i]);
+        SecKeyRef *key = [keychainManager copyPublicKeyFromCertificate:certificate];
+        SecIdentityRef *identityRef = [keychainManager createIdentityWithCertificate:certificate];
+        NSString *publicKey = (key ? @"found" : @"not found");
+        NSString *privateKey = (identityRef ? @"found" : @"not found");
         CFStringRef commonName = NULL;
         SecCertificateCopyCommonName(certificate, &commonName);
 #ifdef DEBUG
-        NSLog(@"common name = %@", (__bridge NSString *)commonName);
+        NSLog(@"Common name = %@, public key = %@, private key = %@", (__bridge NSString *)commonName, publicKey, privateKey);
 #endif
         if (commonName) CFRelease(commonName);
     }
