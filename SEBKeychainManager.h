@@ -10,6 +10,8 @@
 #include <CoreFoundation/CoreFoundation.h>
 #include <Security/Security.h>
 #include <CoreServices/CoreServices.h>
+#import <SSCrypto/SSCrypto.h>
+#import "libCdsaCrypt.h"
 
 @interface SEBKeychainManager : NSObject
 
