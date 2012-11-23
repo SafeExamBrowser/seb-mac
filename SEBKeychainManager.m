@@ -76,10 +76,35 @@ OSStatus SecKeyDecrypt(
  @discussion If for example key is an RSA key the value returned by
  this function is the size of the modulus.
  */
-size_t SecKeyGetBlockSize(SecKeyRef key);
+//size_t SecKeyGetBlockSize(SecKeyRef key);
+
+
+// CSSM
+
+#define DEFAULT_KEY_SIZE_BITS		512
+
+typedef struct {
+	CSSM_ALGORITHMS		keyAlg;
+	uint32				keySizeInBits;
+	CSSM_CSP_HANDLE		cspHandle;
+	char				*keyFileName;
+	char				*plainFileName;
+	char				*sigFileName;
+	char				*cipherFileName;
+} opParams;
 
 
 #import "SEBKeychainManager.h"
+
+/*#include <unistd.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <strings.h>
+*/
+#import "libCdsaCrypt.h"
 
 @implementation SEBKeychainManager
 
@@ -136,10 +161,20 @@ size_t SecKeyGetBlockSize(SecKeyRef key);
 }
 
 
-- (NSData*)encryptData:(NSData*)inputData withPublicKey:(SecKeyRef*)publicKey {
+- (NSData*)encryptData:(NSData*)inputData withPublicKeyFromCertificate:(SecCertificateRef)certificate {
+    //- (NSData*)encryptData:(NSData*)inputData withPublicKey:(SecKeyRef*)publicKey {
+    SecKeyRef publicKey = NULL;
+    OSStatus status = SecCertificateCopyPublicKey(certificate, &publicKey);
+    if (status) {
+        if (status == errSecItemNotFound) {
+            NSLog(@"No public key found in certificate.");
+            if (publicKey) CFRelease(publicKey);
+            return nil;
+        }
+    }
 
 
-    OSStatus status = noErr;
+    status = noErr;
     
     // Convert input data into a buffer
     const void *bytes = [inputData bytes];
@@ -150,11 +185,11 @@ size_t SecKeyGetBlockSize(SecKeyRef key);
     // Allocate a buffer to hold the cipher text
     size_t cipherBufferSize;
     uint8_t *cipherBuffer;
-    cipherBufferSize = SecKeyGetBlockSize(*publicKey);
+    cipherBufferSize = SecKeyGetBlockSize(publicKey);
     cipherBuffer = malloc(cipherBufferSize);
 
     // Encrypt using the public key
-    status = SecKeyEncrypt(*publicKey,
+    status = SecKeyEncrypt(publicKey,
                            kSecPaddingPKCS1,
                            plainText,
                            length,
@@ -170,6 +205,69 @@ size_t SecKeyGetBlockSize(SecKeyRef key);
     free(cipherBuffer);
     return cipherData;
     //[cipherData encodeBase64ForData];
+ 
+    
+    /*/ Encrypting using CSSM/CDSA
+    CSSM_KEY 		pubKey;
+	CSSM_DATA		ptext;
+	CSSM_DATA		ctext;
+	CSSM_RETURN		crtn;
+	CSSM_KEYHEADER_PTR	hdr = &pubKey.KeyHeader;
+	CSSM_KEY_SIZE 		keySize;
+	opParams			op;
+    
+	memset(&pubKey, 0, sizeof(CSSM_KEY));
+    
+	op.keySizeInBits = DEFAULT_KEY_SIZE_BITS;
+	op.keyAlg = CSSM_ALGID_RSA;
+    
+	crtn = cdsaCspAttach(&op.cspHandle);
+	if(crtn) {
+		cssmPerror("Attach to CSP", crtn);
+		return nil;
+	}
+    
+	pubKey.KeyData.Data = (char *)[key bytes];
+	pubKey.KeyData.Length = [key length];
+	
+	hdr->Format = CSSM_KEYBLOB_RAW_FORMAT_PKCS1;
+	hdr->HeaderVersion = CSSM_KEYHEADER_VERSION;
+	hdr->BlobType = CSSM_KEYBLOB_RAW;
+	hdr->AlgorithmId = CSSM_ALGID_RSA;
+	hdr->KeyClass = CSSM_KEYCLASS_PUBLIC_KEY;
+	hdr->KeyAttr = CSSM_KEYATTR_EXTRACTABLE;
+	hdr->KeyUsage = CSSM_KEYUSE_ANY;
+    
+	crtn = CSSM_QueryKeySizeInBits(op.cspHandle, NULL, &pubKey, &keySize);
+	if(crtn) {
+		cssmPerror("CSSM_QueryKeySizeInBits", crtn);
+		return nil;
+	}
+    
+	hdr->LogicalKeySizeInBits = keySize.LogicalKeySizeInBits;
+    
+	ctext.Data = NULL;
+	ctext.Length = 0;
+	ptext.Data = (char *)[text cString];
+	ptext.Length = [text length];
+    
+	crtn = cdsaEncrypt(op.cspHandle,
+                       &pubKey,
+                       &ptext,
+                       &ctext);
+    
+	if(crtn) {
+		cssmPerror("cdsaEncrypt", crtn);
+		return nil;
+	}
+    
+	NSString * cipherText = [[NSData dataWithBytes: ctext.Data length: ctext.Length] description];
+    
+    //	cdsaFreeKey(op.cspHandle, &pubKey);
+    //	free(ptext.Data);				// allocd by readFile
+	free(ctext.Data);				// allocd by CSP
+    
+	return cipherText;*/
 }
 
 

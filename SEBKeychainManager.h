@@ -11,7 +11,6 @@
 #include <Security/Security.h>
 #include <CoreServices/CoreServices.h>
 #import <SSCrypto/SSCrypto.h>
-#import "libCdsaCrypt.h"
 
 @interface SEBKeychainManager : NSObject
 
@@ -19,6 +18,7 @@
 - (SecKeyRef*)copyPublicKeyFromCertificate:(SecCertificateRef)certificate;
 - (SecIdentityRef*)createIdentityWithCertificate:(SecCertificateRef)certificate;
 
-- (NSData*)encryptData:(NSData*)inputData withPublicKey:(SecKeyRef*)publicKey;
+//- (NSData*)encryptData:(NSData*)inputData withPublicKey:(SecKeyRef*)publicKey;
+- (NSData*)encryptData:(NSData*)inputData withPublicKeyFromCertificate:(SecCertificateRef)certificate;
 
 @end

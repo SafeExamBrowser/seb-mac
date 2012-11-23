@@ -76,6 +76,7 @@
     //SecCertificateRef certificate;
     int i, count = [certificatesInKeychain count];
     SecKeyRef *publicKeyETH = NULL;
+    SecCertificateRef certificateETH = NULL;
     for (i=0; i<count; i++) {
         SecCertificateRef certificate = (__bridge SecCertificateRef)([certificatesInKeychain objectAtIndex:i]);
         SecKeyRef *key = [keychainManager copyPublicKeyFromCertificate:certificate];
@@ -86,6 +87,7 @@
         SecCertificateCopyCommonName(certificate, &commonName);
         if ([(__bridge NSString *)commonName isEqualToString:@"ETH Zuerich"]) {
             publicKeyETH = key;
+            certificateETH = certificate;
         }
 #ifdef DEBUG
         NSLog(@"Common name = %@, public key = %@, private key = %@", (__bridge NSString *)commonName, publicKey, privateKey);
@@ -102,7 +104,8 @@
     [encryptedSebData appendData:encryptedData];
     */
     
-    NSData *encryptedSebData = [keychainManager encryptData:data withPublicKey:publicKeyETH];
+    //NSData *encryptedSebData = [keychainManager encryptData:data withPublicKey:publicKeyETH];
+    NSData *encryptedSebData = [keychainManager encryptData:data withPublicKeyFromCertificate:certificateETH];
 
     
     // Save initialValues to a SEB preferences file into the application bundle

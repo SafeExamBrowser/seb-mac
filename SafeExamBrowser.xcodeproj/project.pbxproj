@@ -98,7 +98,6 @@
 		69903B1714CD7624007E7DF7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		69903B1814CD7624007E7DF7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A94D711B68D8A0083C66D /* Carbon.framework */; };
 		69903B1914CD7624007E7DF7 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6947949C12B050AA00651933 /* IOKit.framework */; };
-		69993657165E9BBA00910D9F /* libCdsaCrypt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69993655165E9BBA00910D9F /* libCdsaCrypt.cpp */; };
 		69993658165E9BBA00910D9F /* libCdsaCrypt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69993655165E9BBA00910D9F /* libCdsaCrypt.cpp */; };
 		69993659165E9BBA00910D9F /* libCdsaCrypt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69993655165E9BBA00910D9F /* libCdsaCrypt.cpp */; };
 		699C540415EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */ = {isa = PBXBuildFile; fileRef = 699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */; };
@@ -107,6 +106,8 @@
 		699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */; };
 		699C540915EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */; };
 		699C540A15EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */; };
+		69A0BF70166023B200A866C4 /* libCdsaCrypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 69993656165E9BBA00910D9F /* libCdsaCrypt.h */; };
+		69A0BF7316603B0B00A866C4 /* libCdsaCrypt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69993655165E9BBA00910D9F /* libCdsaCrypt.cpp */; };
 		69C8F0EB165E45FA002F3B59 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C8F0E9165E45FA002F3B59 /* libcrypto.dylib */; };
 		69C8F0EC165E45FA002F3B59 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C8F0E9165E45FA002F3B59 /* libcrypto.dylib */; };
 		69C8F0ED165E45FA002F3B59 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C8F0E9165E45FA002F3B59 /* libcrypto.dylib */; };
@@ -510,6 +511,17 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		69A0BF6F1660239400A866C4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69A0BF70166023B200A866C4 /* libCdsaCrypt.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		6949B31B14F40AAD009E1775 /* Safe Exam Browser DevID */ = {
 			isa = PBXNativeTarget;
@@ -557,6 +569,7 @@
 				69F7B60814F411FB00FD0761 /* Sources */,
 				69F7B61C14F411FB00FD0761 /* Frameworks */,
 				69F7B62114F411FB00FD0761 /* CopyFiles */,
+				69A0BF6F1660239400A866C4 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -758,7 +771,7 @@
 				699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */,
 				6943D0771655054600AB6B1D /* PrefsExamViewController.m in Sources */,
 				69F293AE164A324B00875C00 /* SEBKeychainManager.m in Sources */,
-				69993657165E9BBA00910D9F /* libCdsaCrypt.cpp in Sources */,
+				69A0BF7316603B0B00A866C4 /* libCdsaCrypt.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

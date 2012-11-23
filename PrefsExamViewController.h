@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 #import "MBPreferencesController.h"
 
 @interface PrefsExamViewController : NSViewController <MBPreferencesModule> {

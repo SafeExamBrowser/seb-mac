@@ -50,26 +50,27 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <strings.h>
+//#include <Security/cssm.h>
 
 #pragma mark --- static session data and private functions ----
 
 static CSSM_VERSION vers = {2, 0};
 static const CSSM_GUID testGuid = { 0xFADE, 0, 0, { 1,2,3,4,5,6,7,0 }};
-
+//CSSM_SIZE CSSM_SIZE;
 /*
  * Standard app-level memory functions required by CDSA.
  */
-void * appMalloc (uint32 size, void *allocRef) {
+void * appMalloc (CSSM_SIZE size, void *allocRef) {
 	return( malloc(size) );
 }
 void appFree (void *mem_ptr, void *allocRef) {
 	free(mem_ptr);
  	return;
 }
-void * appRealloc (void *ptr, uint32 size, void *allocRef) {
+void * appRealloc (void *ptr, CSSM_SIZE size, void *allocRef) {
 	return( realloc( ptr, size ) );
 }
-void * appCalloc (uint32 num, uint32 size, void *allocRef) {
+void * appCalloc (uint32 num, CSSM_SIZE size, void *allocRef) {
 	return( calloc( num, size ) );
 }
 static CSSM_API_MEMORY_FUNCS memFuncs = {
@@ -270,7 +271,7 @@ CSSM_RETURN cdsaDeriveKey(
 	const void 			*rawKey,
 	size_t				rawKeyLen,
 	CSSM_ALGORITHMS		keyAlg,			// e.g., CSSM_ALGID_AES
-	uint32				keySizeInBits,
+	CSSM_SIZE				keySizeInBits,
 	CSSM_KEY_PTR		key)
 {
 	CSSM_RETURN					crtn;
@@ -323,7 +324,7 @@ CSSM_RETURN cdsaDeriveKey(
 CSSM_RETURN cdsaGenerateKeyPair(
 	CSSM_CSP_HANDLE 	cspHandle,
 	CSSM_ALGORITHMS		keyAlg,			// e.g., CSSM_ALGID_RSA
-	uint32				keySizeInBits,
+	CSSM_SIZE				keySizeInBits,
 	CSSM_KEY_PTR		publicKey,
 	CSSM_KEY_PTR		privateKey)
 {
@@ -412,7 +413,7 @@ CSSM_RETURN cdsaDhGenerateKeyPair(
 	CSSM_CSP_HANDLE	cspHandle,
 	CSSM_KEY_PTR	publicKey,
 	CSSM_KEY_PTR	privateKey,
-	uint32			keySizeInBits,
+	CSSM_SIZE			keySizeInBits,
 	const CSSM_DATA	*inParams,		// optional 
 	CSSM_DATA_PTR	outParams)		// optional, we malloc
 {
@@ -479,9 +480,9 @@ CSSM_RETURN cdsaDhKeyExchange(
 	CSSM_CSP_HANDLE	cspHandle,
 	CSSM_KEY_PTR	myPrivateKey,			// from cdsaDhGenerateKeyPair
 	const void		*theirPubKey,
-	uint32			theirPubKeyLen,
+	CSSM_SIZE			theirPubKeyLen,
 	CSSM_KEY_PTR	derivedKey,				// RETURNED
-	uint32			deriveKeySizeInBits,
+	CSSM_SIZE			deriveKeySizeInBits,
 	CSSM_ALGORITHMS	derivedKeyAlg)			// e.g., CSSM_ALGID_AES
 {
 	CSSM_RETURN 			crtn;
@@ -545,7 +546,7 @@ CSSM_RETURN cdsaEncrypt(
 	CSSM_RETURN 	crtn;
 	CSSM_CC_HANDLE	ccHandle;
 	CSSM_DATA		remData = {0, NULL};
-	uint32			bytesEncrypted;
+	CSSM_SIZE			bytesEncrypted;
 	
 	crtn = genCryptHandle(cspHandle, key, &ivCommon, &ccHandle);
 	if(crtn) {
@@ -568,7 +569,7 @@ CSSM_RETURN cdsaEncrypt(
 	cipherText->Length = bytesEncrypted;
 	if(remData.Length != 0) {
 		/* append remaining data to cipherText */
-		uint32 newLen = cipherText->Length + remData.Length;
+		CSSM_SIZE newLen = cipherText->Length + remData.Length;
 		cipherText->Data = (uint8 *)appRealloc(cipherText->Data,
 			newLen,
 			NULL);
@@ -594,7 +595,7 @@ CSSM_RETURN cdsaDecrypt(
 	CSSM_RETURN 	crtn;
 	CSSM_CC_HANDLE	ccHandle;
 	CSSM_DATA		remData = {0, NULL};
-	uint32			bytesDecrypted;
+	CSSM_SIZE			bytesDecrypted;
 	
 	crtn = genCryptHandle(cspHandle, key, &ivCommon, &ccHandle);
 	if(crtn) {
@@ -617,7 +618,7 @@ CSSM_RETURN cdsaDecrypt(
 	plainText->Length = bytesDecrypted;
 	if(remData.Length != 0) {
 		/* append remaining data to plainText */
-		uint32 newLen = plainText->Length + remData.Length;
+		CSSM_SIZE newLen = plainText->Length + remData.Length;
 		plainText->Data = (uint8 *)appRealloc(plainText->Data,
 			newLen,
 			NULL);
@@ -685,7 +686,7 @@ CSSM_RETURN cdsaStagedEncrypt(
 
 	/* 1. any more data to encrypt? */
 	if(plainText && plainText->Length) {
-		uint32 bytesEncrypted;
+		CSSM_SIZE bytesEncrypted;
 		
 		crtn = CSSM_EncryptDataUpdate(ccHandle,
 			plainText,
@@ -709,7 +710,7 @@ CSSM_RETURN cdsaStagedEncrypt(
 		}
 		
 		/* append remaining data to plainText */
-		uint32 newLen = cipherText->Length + remData.Length;
+		CSSM_SIZE newLen = cipherText->Length + remData.Length;
 		cipherText->Data = (uint8 *)appRealloc(cipherText->Data,
 			newLen,
 			NULL);
@@ -744,7 +745,7 @@ CSSM_RETURN cdsaStagedDecrypt(
 
 	/* 1. any more data to decrypt? */
 	if(cipherText && cipherText->Length) {
-		uint32 bytesDecrypted;
+		CSSM_SIZE bytesDecrypted;
 		
 		crtn = CSSM_DecryptDataUpdate(ccHandle,
 			cipherText,
@@ -768,7 +769,7 @@ CSSM_RETURN cdsaStagedDecrypt(
 		}
 		
 		/* append remaining data to plainText */
-		uint32 newLen = plainText->Length + remData.Length;
+		CSSM_SIZE newLen = plainText->Length + remData.Length;
 		plainText->Data = (uint8 *)appRealloc(plainText->Data,
 			newLen,
 			NULL);
