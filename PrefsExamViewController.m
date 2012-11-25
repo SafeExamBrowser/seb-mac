@@ -77,6 +77,7 @@
     int i, count = [certificatesInKeychain count];
     SecKeyRef *publicKeyETH = NULL;
     SecCertificateRef certificateETH = NULL;
+    SecIdentityRef *identityRefETH = NULL;
     for (i=0; i<count; i++) {
         SecCertificateRef certificate = (__bridge SecCertificateRef)([certificatesInKeychain objectAtIndex:i]);
         SecKeyRef *key = [keychainManager copyPublicKeyFromCertificate:certificate];
@@ -85,9 +86,11 @@
         NSString *privateKey = (identityRef ? @"found" : @"not found");
         CFStringRef commonName = NULL;
         SecCertificateCopyCommonName(certificate, &commonName);
+        //if ([(__bridge NSString *)commonName isEqualToString:@"3rd Party Mac Developer Installer: Daniel Schneider"]) {
         if ([(__bridge NSString *)commonName isEqualToString:@"ETH Zuerich"]) {
             publicKeyETH = key;
             certificateETH = certificate;
+            identityRefETH = identityRef;
         }
 #ifdef DEBUG
         NSLog(@"Common name = %@, public key = %@, private key = %@", (__bridge NSString *)commonName, publicKey, privateKey);
@@ -107,7 +110,12 @@
     //NSData *encryptedSebData = [keychainManager encryptData:data withPublicKey:publicKeyETH];
     NSData *encryptedSebData = [keychainManager encryptData:data withPublicKeyFromCertificate:certificateETH];
 
-    
+    // Test decryption
+    SecKeyRef privateKey = [keychainManager privateKeyFromIdentity:identityRefETH];
+    NSData *decryptedSebData = [keychainManager decryptData:encryptedSebData withPrivateKey:privateKey];
+    NSLog(@"Decrypted .seb file: %@",decryptedSebData);
+    NSMutableDictionary *loadedPrefsDict = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedSebData];
+    NSLog(@"Decrypted .seb dictionary: %@",loadedPrefsDict);
     // Save initialValues to a SEB preferences file into the application bundle
     
     // Build a new name for the file using the current name and

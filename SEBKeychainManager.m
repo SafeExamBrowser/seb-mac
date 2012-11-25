@@ -94,6 +94,9 @@ typedef struct {
 } opParams;
 
 
+#include <Security/cssmapple.h>
+#include <Security/cssm.h>
+
 #import "SEBKeychainManager.h"
 
 /*#include <unistd.h>
@@ -135,6 +138,7 @@ typedef struct {
 
 }
 
+
 - (SecKeyRef*)copyPublicKeyFromCertificate:(SecCertificateRef)certificate {
     SecKeyRef key = NULL;
     OSStatus status = SecCertificateCopyPublicKey(certificate, &key);
@@ -148,6 +152,7 @@ typedef struct {
     return (SecKeyRef*)key; // public key contained in certificate
 }
 
+
 - (SecIdentityRef*)createIdentityWithCertificate:(SecCertificateRef)certificate {
     SecIdentityRef *identityRef;
     OSStatus status = SecIdentityCreateWithCertificate(NULL, certificate, identityRef);
@@ -158,6 +163,17 @@ typedef struct {
         }
     }
     return identityRef; // public key contained in certificate
+}
+
+
+- (SecKeyRef)privateKeyFromIdentity:(SecIdentityRef*)identityRef {
+    SecKeyRef privateKeyRef = NULL;
+    OSStatus status = SecIdentityCopyPrivateKey (*identityRef, &privateKeyRef);
+    if (status != errSecSuccess) {
+        NSLog(@"No associated private key found for identity.");
+        return nil;
+    }
+    return privateKeyRef;
 }
 
 
@@ -201,7 +217,8 @@ typedef struct {
     //crtn = cdsaDecrypt(cspHand,privKeyPtr,&ctext,&ptext);
 
     /* Free the Security Framework Five! */
-    CFRelease(publicKey);
+    //CFRelease(publicKey);
+    free(plainText);
     free(cipherBuffer);
     return cipherData;
     //[cipherData encodeBase64ForData];
@@ -270,5 +287,600 @@ typedef struct {
 	return cipherText;*/
 }
 
+- (NSData*)decryptData:(NSData*)cipherData withPrivateKey:(SecKeyRef)privateKeyRef
+{
+    OSStatus status = noErr;
+        
+    //SecKeyRef privKey = NULL;
+    //SecKeychainRef keychain = NULL;
+    
+    //status = SecIdentityCopyPrivateKey(ident, &privKey);
+    /*status = SecKeychainItemCopyKeychain((SecKeychainItemRef)privateKeyRef,
+                                              &keychain);
+    
+    //
+    // The remaining objects' lifetimes are controlled by privKey and
+    // keychain above, and don't need to be released on their own.
+    
+    CSSM_CSP_HANDLE csp;
+    status = SecKeychainGetCSPHandle(keychain, &csp);
+    
+    const CSSM_ACCESS_CREDENTIALS *creds;
+    status = SecKeyGetCredentials(privateKeyRef,
+                                       CSSM_ACL_AUTHORIZATION_DECRYPT,
+                                       kSecCredentialTypeWithUI,
+                                       &creds);
+    
+    const CSSM_KEY *key;
+    status = SecKeyGetCSSMKey(privateKeyRef, &key);
+    
+    // Convert input cipher data into a buffer
+    const void *bytes = [cipherData bytes];
+    int cipherBufferSize = [cipherData length];
+    CSSM_DATA *cipherBuffer = malloc(cipherBufferSize);
+    memcpy(cipherBuffer, bytes, cipherBufferSize);
+    
+    // Allocate a buffer to hold the plain text
+    size_t plainBufferSize;
+    uint8_t *plainBuffer;
+    plainBufferSize = SecKeyGetBlockSize(privateKeyRef);
+    plainBuffer = malloc(plainBufferSize);
+
+    
+    CSSM_KEY 		pubKey;
+    CSSM_DATA		ptext;
+    CSSM_DATA		ctext;
+    CSSM_RETURN		crtn;
+    CSSM_KEY_SIZE 		keySize;
+    opParams			op;
+    CSSM_CC_HANDLE  ccHandle = 0;
+    
+    memset(&pubKey, 0, sizeof(CSSM_KEY));
+    pubKey = *(CSSM_KEY*)key;
+    
+    op.keySizeInBits = DEFAULT_KEY_SIZE_BITS;
+    op.keyAlg = CSSM_ALGID_RSA;
+    
+    crtn = cdsaCspAttach(&op.cspHandle);
+    if(crtn) {
+		cssmPerror("Attach to CSP", crtn);
+		return nil;
+    }
+	    
+    crtn = CSSM_QueryKeySizeInBits(op.cspHandle, ccHandle, &pubKey, &keySize);
+    if(crtn) {
+		cssmPerror("CSSM_QueryKeySizeInBits", crtn);
+		return nil;
+    }
+        
+    ctext.Data = (uint8 *)[cipherData bytes];
+    ctext.Length = [cipherData length];
+    ptext.Data = NULL;
+    ptext.Length = 0;
+    
+    crtn = cdsaDecrypt(op.cspHandle,
+					   &pubKey,
+					   &ctext,
+					   &ptext);
+    if(crtn) {
+		cssmPerror("cdsaEncrypt", crtn);
+		return nil;
+    }
+    
+    //NSString *plainText = [NSString stringWithCString: ptext.Data length: ptext.Length];
+    NSData *plainData = [NSData dataWithBytes:ptext.Data length:ptext.Length];
+	
+    free(ptext.Data);				// allocd by readFile
+    //	free(ctext.Data);				// allocd by CSP
+    return plainData;*/
+
+    
+    // Convert input cipher data into a buffer
+    const void *bytes = [cipherData bytes];
+    int cipherBufferSize = [cipherData length];
+    uint8_t *cipherBuffer = malloc(cipherBufferSize);
+    memcpy(cipherBuffer, bytes, cipherBufferSize);
+    
+    // Allocate a buffer to hold the plain text
+    size_t plainBufferSize;
+    uint8_t *plainBuffer;
+    plainBufferSize = SecKeyGetBlockSize(privateKeyRef);
+    plainBuffer = malloc(plainBufferSize);
+        
+    if (plainBufferSize < cipherBufferSize) {
+        // Ordinarily, you would split the data up into blocks
+        // equal to plainBufferSize, with the last block being
+        // shorter. For simplicity, this example assumes that
+        // the data is short enough to fit.
+        printf("Could not decrypt.  Packet too large.\n");
+        return nil;
+    }
+    
+    //  Error handling
+    
+    status = SecKeyDecrypt(
+                           privateKeyRef,
+                           kSecPaddingPKCS1,
+                           cipherBuffer,
+                           cipherBufferSize,
+                           plainBuffer,
+                           &plainBufferSize
+                           );                              // 3
+    
+    //  Error handling
+    if (status != errSecSuccess) {
+        NSLog(@"Decryption failed.");
+        return nil;
+    }
+
+    NSData *plainData = [NSData dataWithBytes:plainBuffer length:plainBufferSize];
+
+    //if(privateKeyRef) CFRelease(privateKeyRef);
+    free(cipherBuffer);
+    free(plainBuffer);
+    
+    return plainData;
+}
+
+/*
+ - (NSData*)decryptData:(NSData*)cipherData withPrivateKey:(SecKeyRef)privateKeyRef
+ {
+ OSStatus status = noErr;
+ 
+ SecKeyRef privKey = NULL;
+ SecKeychainRef keychain = NULL;
+ 
+ //status = SecIdentityCopyPrivateKey(ident, &privKey);
+ status = SecKeychainItemCopyKeychain((SecKeychainItemRef)privateKeyRef,
+ &keychain);
+ 
+ //
+ // The remaining objects' lifetimes are controlled by privKey and
+ // keychain above, and don't need to be released on their own.
+ 
+ CSSM_CSP_HANDLE csp;
+ status = SecKeychainGetCSPHandle(keychain, &csp);
+ 
+ const CSSM_ACCESS_CREDENTIALS *creds;
+ status = SecKeyGetCredentials(privateKeyRef,
+ CSSM_ACL_AUTHORIZATION_DECRYPT,
+ kSecCredentialTypeWithUI,
+ &creds);
+ 
+ const CSSM_KEY *key;
+ status = SecKeyGetCSSMKey(privateKeyRef, &key);
+ 
+ // Convert input cipher data into a buffer
+ const void *bytes = [cipherData bytes];
+ int cipherBufferSize = [cipherData length];
+ CSSM_DATA *cipherBuffer = malloc(cipherBufferSize);
+ memcpy(cipherBuffer, bytes, cipherBufferSize);
+ 
+ // Allocate a buffer to hold the plain text
+ size_t plainBufferSize;
+ uint8_t *plainBuffer;
+ plainBufferSize = SecKeyGetBlockSize(privateKeyRef);
+ plainBuffer = malloc(plainBufferSize);
+ 
+ 
+ CSSM_KEY 		pubKey;
+ CSSM_DATA		ptext;
+ CSSM_DATA		ctext;
+ CSSM_RETURN		crtn;
+ CSSM_KEY_SIZE 		keySize;
+ opParams			op;
+ CSSM_CC_HANDLE  ccHandle = 0;
+ 
+ memset(&pubKey, 0, sizeof(CSSM_KEY));
+ pubKey = *(CSSM_KEY*)key;
+ 
+ op.keySizeInBits = DEFAULT_KEY_SIZE_BITS;
+ op.keyAlg = CSSM_ALGID_RSA;
+ 
+ crtn = cdsaCspAttach(&op.cspHandle);
+ if(crtn) {
+ cssmPerror("Attach to CSP", crtn);
+ return nil;
+ }
+ 
+ crtn = CSSM_QueryKeySizeInBits(op.cspHandle, ccHandle, &pubKey, &keySize);
+ if(crtn) {
+ cssmPerror("CSSM_QueryKeySizeInBits", crtn);
+ return nil;
+ }
+ 
+ ctext.Data = (uint8 *)[cipherData bytes];
+ ctext.Length = [cipherData length];
+ ptext.Data = NULL;
+ ptext.Length = 0;
+ 
+ crtn = cdsaDecrypt(op.cspHandle,
+ &pubKey,
+ &ctext,
+ &ptext);
+ if(crtn) {
+ cssmPerror("cdsaEncrypt", crtn);
+ return nil;
+ }
+ 
+ //NSString *plainText = [NSString stringWithCString: ptext.Data length: ptext.Length];
+ NSData *plainData = [NSData dataWithBytes:ptext.Data length:ptext.Length];
+ 
+ free(ptext.Data);				// allocd by readFile
+ //	free(ctext.Data);				// allocd by CSP
+ return plainData;
+
+
+// Convert input cipher data into a buffer
+const void *bytes = [cipherData bytes];
+int cipherBufferSize = [cipherData length];
+uint8_t *cipherBuffer = malloc(cipherBufferSize);
+memcpy(cipherBuffer, bytes, cipherBufferSize);
+
+// Allocate a buffer to hold the plain text
+size_t plainBufferSize;
+uint8_t *plainBuffer;
+plainBufferSize = SecKeyGetBlockSize(privateKeyRef);
+plainBuffer = malloc(plainBufferSize);
+
+ if (plainBufferSize < cipherBufferSize) {
+ // Ordinarily, you would split the data up into blocks
+ // equal to plainBufferSize, with the last block being
+ // shorter. For simplicity, this example assumes that
+ // the data is short enough to fit.
+ printf("Could not decrypt.  Packet too large.\n");
+ return nil;
+ }
+ 
+ //  Error handling
+ 
+ status = SecKeyDecrypt(
+ privateKeyRef,
+ kSecPaddingPKCS1,
+ cipherBuffer,
+ cipherBufferSize,
+ plainBuffer,
+ &plainBufferSize
+ );                              // 3
+ 
+ //  Error handling
+ if (status != errSecSuccess) {
+ NSLog(@"Decryption failed.");
+ return nil;
+ }
+
+crtn = CSSM_CSP_CreateAsymmetricContext(cspHandle,
+                                        CSSM_ALGID_RSA,
+                                        &creds, privkey,
+                                        CSSM_PADDING_PKCS1, &ccHandle);
+cssmPerror("decrypt context", crtn);
+assert(crtn == CSSM_OK);
+
+crtn = CSSM_DecryptData(ccHandle, &cipherText, 1,
+                        &decipherText, 1, &bytesEncrypted, &remData);
+cssmPerror("decryptdata", crtn);
+assert(crtn == CSSM_OK);
+CSSM_DeleteContext(ccHandle);
+
+fprintf(stderr, "DecryptData output %ld bytes\n",
+        decipherText.Length);
+fprintf(stderr, "[%s]\n", decipherText.Data);
+
+
+NSData *plainData = [NSData dataWithBytes:plainBuffer length:plainBufferSize];
+
+//if(privateKeyRef) CFRelease(privateKeyRef);
+free(cipherBuffer);
+free(plainBuffer);
+
+return plainData;
+}
+
+
+*/
+
+#define InfoLog(x) fprintf(stderr, "%s\n", (x))
+#define ErrLog(x) fprintf(stderr, "%s\n", (x))
+
+
+typedef void *(*MallocFunc)(uint32, void*);
+typedef void (*FreeFunc)(void*, void*);
+typedef void *(*ReallocFunc)(void*, uint32, void*);
+typedef void *(*CallocFunc)(uint32, uint32, void*);
+static CSSM_API_MEMORY_FUNCS memFuncs = {
+    (MallocFunc)malloc,
+    (FreeFunc)free,
+    (ReallocFunc)realloc,
+    (CallocFunc)calloc,
+    NULL
+};
+
+- (int)test {
+    OSStatus status;
+    CSSM_RETURN crtn;
+    
+    CSSM_CSP_HANDLE cspHandle;
+    CSSM_KEY_PTR privkey, pubkey;
+    CSSM_KEY key;
+    
+#if 1 // retrieve certificate from keychain
+    
+    SecCertificateRef certRef;
+    SecKeyRef keyRef;
+    
+    SecKeychainRef keychain;
+    status = SecKeychainCopyDefault(&keychain);
+    if (status != noErr) {
+        ErrLog( "Cannot open default keychain" );
+        assert(0);
+        return 0;
+    }
+    
+    SecIdentitySearchRef searchRef = NULL;
+    status = SecIdentitySearchCreate(keychain,
+                                       CSSM_KEYUSE_ANY, &searchRef);
+    if (status != noErr) {
+        ErrLog( "Cannot search default keychain" );
+        assert(0);
+        return 0;
+    }
+    
+    while (1) {
+        
+        SecIdentityRef identityRef;
+        status = SecIdentitySearchCopyNext(searchRef,
+                                             &identityRef);
+        if (status == errSecItemNotFound)
+            break;
+        if (status != noErr) {
+            assert(0);
+            continue;
+        }
+        
+        status = SecIdentityCopyCertificate(identityRef,
+                                              &certRef);
+        if (status != noErr) {
+            ErrLog( "Error obtaining certificate reference" );
+            CFRelease(identityRef);
+            assert(0);
+            continue;
+        }
+        
+        status = SecIdentityCopyPrivateKey(identityRef,
+                                             &keyRef);
+        CFRelease(identityRef);
+        if (status != noErr) {
+            ErrLog( "Error obtaining key reference" );
+            assert(0);
+            continue;
+        }
+        
+        status = SecKeychainGetCSPHandle(keychain,
+                                           &cspHandle);
+        assert(status == noErr);
+        
+        // this is what libCDSA does, but it seems bogus
+        pubkey = &key;
+        CSSM_DATA_PTR certData = &pubkey->KeyData;
+        status = SecCertificateGetData(certRef, certData);
+        assert(status == noErr);
+        CSSM_KEYHEADER_PTR hdr = &pubkey->KeyHeader;
+        hdr->HeaderVersion = CSSM_KEYHEADER_VERSION;
+        hdr->BlobType = CSSM_KEYBLOB_RAW;
+        hdr->Format = CSSM_KEYBLOB_RAW_FORMAT_PKCS1;
+        hdr->AlgorithmId = CSSM_ALGID_RSA;
+        hdr->KeyClass = CSSM_KEYCLASS_PUBLIC_KEY;
+        hdr->KeyUsage = CSSM_KEYUSE_ANY;
+        hdr->KeyAttr = CSSM_KEYATTR_EXTRACTABLE;
+        hdr->LogicalKeySizeInBits = 2048;
+        
+#if 0
+        // this is what the mailing list recommends - equally
+        bogus
+        CSSM_CL_HANDLE clHandle;
+        status = SecCertificateGetCLHandle(certRef,
+                                             &clHandle);
+        assert(status == noErr);
+        crtn = CSSM_CL_CertGetKeyInfo(clHandle, certData,
+                                        (CSSM_KEY_PTR *)&pubkey);
+        assert(crtn == CSSM_OK);
+#endif
+        
+        status = SecKeyGetCSSMKey(keyRef, (const CSSM_KEY
+                                             **)&privkey);
+        assert(status == noErr);
+        assert(privkey->KeyHeader.AlgorithmId ==
+               CSSM_ALGID_RSA);
+        assert(privkey->KeyHeader.KeyClass ==
+               CSSM_KEYCLASS_PRIVATE_KEY);
+        
+        break;
+        
+    }
+    
+    CFRelease(keychain);
+    
+#else // generate a public/private key pair
+    
+    CSSM_VERSION vers = {2, 0};
+    const CSSM_GUID testGuid = { 0xFADE, 0, 0, {
+        1,2,3,4,5,6,7,0 }};
+    
+    CSSM_PVC_MODE policy = CSSM_PVC_NONE;
+    crtn = CSSM_Init(&vers,
+                       CSSM_PRIVILEGE_SCOPE_NONE,
+                       &testGuid,
+                       CSSM_KEY_HIERARCHY_NONE,
+                       &policy,
+                       NULL);
+    assert(crtn == CSSM_OK);
+    
+    crtn = CSSM_ModuleLoad(&gGuidAppleCSP,
+                             CSSM_KEY_HIERARCHY_NONE,
+                             NULL,                   // eventHandler
+                             NULL);                  //
+    AppNotifyCallbackCtx
+    assert(crtn == CSSM_OK);
+    
+    crtn = CSSM_ModuleAttach(&gGuidAppleCSP,
+                               &vers,
+                               &memFuncs,                      // memFuncs
+                               0,                                      //
+                               SubserviceID
+                               CSSM_SERVICE_CSP,
+                               0,                                      //
+                               AttachFlags
+                               CSSM_KEY_HIERARCHY_NONE,
+                               NULL,                           //
+                               FunctionTable
+                               0,                                      //
+                               NumFuncTable
+                               NULL,                           // reserved
+                               &cspHandle);
+    assert(crtn == CSSM_OK);
+    
+    SecKeyRef publicKeyRef;
+    SecKeyRef privateKeyRef;
+    status = SecKeyCreatePair(NULL, CSSM_ALGID_RSA, 512,
+                                NULL,
+                                CSSM_KEYUSE_ENCRYPT |
+                                CSSM_KEYUSE_VERIFY,
+                                CSSM_KEYATTR_RETURN_REF |
+                                CSSM_KEYATTR_EXTRACTABLE | CSSM_KEYATTR_PERMANENT,
+                                CSSM_KEYUSE_DECRYPT |
+                                CSSM_KEYUSE_SIGN,
+                                CSSM_KEYATTR_RETURN_REF |
+                                CSSM_KEYATTR_EXTRACTABLE | CSSM_KEYATTR_PERMANENT |
+                                CSSM_KEYATTR_SENSITIVE,
+                                NULL,
+                                &publicKeyRef,
+                                &privateKeyRef);
+    cssmPerror("SecKeyCreatePair", status);
+    assert(status == noErr);
+    
+    status = SecKeyGetCSSMKey(privateKeyRef, (const CSSM_KEY
+                                                **)&privkey);
+    assert(status == noErr);
+    assert(privkey->KeyHeader.AlgorithmId == CSSM_ALGID_RSA);
+    assert(privkey->KeyHeader.KeyClass ==
+           CSSM_KEYCLASS_PRIVATE_KEY);
+    
+    status = SecKeyGetCSSMKey(publicKeyRef, (const CSSM_KEY
+                                               **)&pubkey);
+    assert(status == noErr);
+    assert(pubkey->KeyHeader.AlgorithmId == CSSM_ALGID_RSA);
+    assert(pubkey->KeyHeader.KeyClass ==
+           CSSM_KEYCLASS_PUBLIC_KEY);
+    
+    // this only works after calling SecKeyCreatePair ???
+    status = SecKeychainGetCSPHandle(NULL, &cspHandle);
+    assert(status == noErr);
+    
+#endif
+    
+    const char *plaintext = "ABCDEABCDEABCDEABCDE";
+    
+    CSSM_DATA plainText = { strlen(plaintext),
+        (uint8*)plaintext };
+    CSSM_DATA cipherText = {0, NULL};
+    CSSM_DATA decipherText = {0, NULL};
+    CSSM_DATA signatureText = { 256, (uint8*)malloc(256) };
+    CSSM_DATA remData = {0, NULL};
+    
+    CSSM_ACCESS_CREDENTIALS creds;
+    memset(&creds, 0, sizeof(CSSM_ACCESS_CREDENTIALS));
+    
+    CSSM_CC_HANDLE ccHandle;
+    
+    uint32 bytesEncrypted;
+    
+#if 1
+    
+    //
+    // Encrypt Test
+    //
+    InfoLog( "Doing Encrypt Test" );
+    
+    crtn = CSSM_CSP_CreateAsymmetricContext(cspHandle,
+                                            CSSM_ALGID_RSA,
+                                            &creds, pubkey,
+                                            CSSM_PADDING_PKCS1, &ccHandle);
+    cssmPerror("encrypt context", crtn);
+    assert(crtn == CSSM_OK);
+    
+    crtn = CSSM_EncryptData(ccHandle, &plainText, 1,
+                              &cipherText, 1, &bytesEncrypted, &remData);
+    cssmPerror("encryptdata", crtn);
+    assert(crtn == CSSM_OK);
+    CSSM_DeleteContext(ccHandle);
+    
+    fprintf(stderr, "EncryptData output %ld bytes\n",
+            cipherText.Length);
+    //fprintf(stderr, "[%s]\n", cipherText.Data);
+    
+    InfoLog( "Encrypt Test successful!" );
+    
+#endif
+    
+#if 1
+    
+    //
+    // Decrypt Test
+    //
+    InfoLog( "Doing Decrypt Test" );
+    
+    crtn = CSSM_CSP_CreateAsymmetricContext(cspHandle,
+                                              CSSM_ALGID_RSA,
+                                              &creds, privkey,
+                                              CSSM_PADDING_PKCS1, &ccHandle);
+    cssmPerror("decrypt context", crtn);
+    assert(crtn == CSSM_OK);
+    
+    crtn = CSSM_DecryptData(ccHandle, &cipherText, 1,
+                              &decipherText, 1, &bytesEncrypted, &remData);
+    cssmPerror("decryptdata", crtn);
+    assert(crtn == CSSM_OK);
+    CSSM_DeleteContext(ccHandle);
+    
+    fprintf(stderr, "DecryptData output %ld bytes\n",
+            decipherText.Length);
+    fprintf(stderr, "[%s]\n", decipherText.Data);
+    
+    InfoLog( "Decrypt Test successful!" );
+    
+#endif
+    
+#if 1
+    
+    //
+    // Sign Test
+    //
+    InfoLog( "Doing Sign Test" );
+    
+    crtn = CSSM_CSP_CreateSignatureContext(cspHandle,
+                                             CSSM_ALGID_RSA, NULL, privkey, &ccHandle);
+    cssmPerror("sign", crtn);
+    assert(crtn == CSSM_OK);
+    
+    //crtn = CSSM_SignData(ccHandle, &plainText, 1,
+    CSSM_ALGID_SHA1, &signatureText;
+    crtn = CSSM_SignData(ccHandle, &plainText, 1,
+                           CSSM_ALGID_NONE, &signatureText);
+    cssmPerror("signdata", crtn);
+    assert(crtn == CSSM_OK);
+    CSSM_DeleteContext(ccHandle);
+    
+    fprintf(stderr, "SignData output %ld bytes\n",
+            signatureText.Length);
+    fprintf(stderr, "[%s]\n", signatureText.Data);
+    
+    InfoLog( "Sign Test successful!" );
+    
+#endif
+    
+    //delete signatureText.Data;
+    return 1;
+
+}
 
 @end
