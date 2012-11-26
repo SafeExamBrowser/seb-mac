@@ -81,7 +81,7 @@ OSStatus SecKeyDecrypt(
 
 // CSSM
 
-#define DEFAULT_KEY_SIZE_BITS		512
+#define DEFAULT_KEY_SIZE_BITS		2048
 
 typedef struct {
 	CSSM_ALGORITHMS		keyAlg;
@@ -292,10 +292,10 @@ typedef struct {
     OSStatus status = noErr;
         
     //SecKeyRef privKey = NULL;
-    //SecKeychainRef keychain = NULL;
+    SecKeychainRef keychain = NULL;
     
     //status = SecIdentityCopyPrivateKey(ident, &privKey);
-    /*status = SecKeychainItemCopyKeychain((SecKeychainItemRef)privateKeyRef,
+    status = SecKeychainItemCopyKeychain((SecKeychainItemRef)privateKeyRef,
                                               &keychain);
     
     //
@@ -347,21 +347,30 @@ typedef struct {
 		return nil;
     }
 	    
-    crtn = CSSM_QueryKeySizeInBits(op.cspHandle, ccHandle, &pubKey, &keySize);
-    if(crtn) {
-		cssmPerror("CSSM_QueryKeySizeInBits", crtn);
-		return nil;
-    }
-        
     ctext.Data = (uint8 *)[cipherData bytes];
     ctext.Length = [cipherData length];
     ptext.Data = NULL;
     ptext.Length = 0;
     
-    crtn = cdsaDecrypt(op.cspHandle,
-					   &pubKey,
-					   &ctext,
-					   &ptext);
+    crtn = CSSM_CSP_CreateAsymmetricContext(csp,
+                                            CSSM_ALGID_RSA,
+                                            creds, &pubKey,
+                                            CSSM_PADDING_PKCS1, &ccHandle);
+    cssmPerror("decrypt context", crtn);
+    assert(crtn == CSSM_OK);
+    
+    CSSM_SIZE bytesEncrypted;
+    CSSM_DATA remData = {0, NULL};
+
+    crtn = CSSM_DecryptData(ccHandle, &ctext, 1,
+                            &ptext, 1, &bytesEncrypted, &remData);
+    cssmPerror("decryptdata", crtn);
+    assert(crtn == CSSM_OK);
+    CSSM_DeleteContext(ccHandle);
+    
+    fprintf(stderr, "DecryptData output %ld bytes\n",
+            ptext.Length);
+    fprintf(stderr, "[%s]\n", ptext.Data);
     if(crtn) {
 		cssmPerror("cdsaEncrypt", crtn);
 		return nil;
@@ -372,54 +381,17 @@ typedef struct {
 	
     free(ptext.Data);				// allocd by readFile
     //	free(ctext.Data);				// allocd by CSP
-    return plainData;*/
+    return plainData;
 
     
-    // Convert input cipher data into a buffer
-    const void *bytes = [cipherData bytes];
-    int cipherBufferSize = [cipherData length];
-    uint8_t *cipherBuffer = malloc(cipherBufferSize);
-    memcpy(cipherBuffer, bytes, cipherBufferSize);
-    
-    // Allocate a buffer to hold the plain text
-    size_t plainBufferSize;
-    uint8_t *plainBuffer;
-    plainBufferSize = SecKeyGetBlockSize(privateKeyRef);
-    plainBuffer = malloc(plainBufferSize);
-        
-    if (plainBufferSize < cipherBufferSize) {
-        // Ordinarily, you would split the data up into blocks
-        // equal to plainBufferSize, with the last block being
-        // shorter. For simplicity, this example assumes that
-        // the data is short enough to fit.
-        printf("Could not decrypt.  Packet too large.\n");
-        return nil;
-    }
-    
-    //  Error handling
-    
-    status = SecKeyDecrypt(
-                           privateKeyRef,
-                           kSecPaddingPKCS1,
-                           cipherBuffer,
-                           cipherBufferSize,
-                           plainBuffer,
-                           &plainBufferSize
-                           );                              // 3
-    
-    //  Error handling
-    if (status != errSecSuccess) {
-        NSLog(@"Decryption failed.");
-        return nil;
-    }
-
+/*
     NSData *plainData = [NSData dataWithBytes:plainBuffer length:plainBufferSize];
 
     //if(privateKeyRef) CFRelease(privateKeyRef);
     free(cipherBuffer);
     free(plainBuffer);
     
-    return plainData;
+    return plainData;*/
 }
 
 /*

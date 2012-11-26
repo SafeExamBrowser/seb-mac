@@ -137,26 +137,13 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "PrefsExamViewController.m"
-         timestampString = "375537794.475714"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "114"
-         endingLineNumber = "114"
-         landmarkName = "-saveSEBPrefs:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "SEBKeychainManager.m"
-         timestampString = "375564740.717124"
+         timestampString = "375574025.82912"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "171"
-         endingLineNumber = "171"
-         landmarkName = "-privateKeyFromIdentity:"
+         startingLineNumber = "365"
+         endingLineNumber = "365"
+         landmarkName = "-decryptData:withPrivateKey:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
