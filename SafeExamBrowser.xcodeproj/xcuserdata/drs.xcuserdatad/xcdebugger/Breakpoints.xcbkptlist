@@ -138,11 +138,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SEBKeychainManager.m"
-         timestampString = "375671398.522131"
+         timestampString = "375720138.776577"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "278"
-         endingLineNumber = "278"
+         startingLineNumber = "282"
+         endingLineNumber = "282"
          landmarkName = "-decryptData:withPrivateKey:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -151,11 +151,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SEBKeychainManager.m"
-         timestampString = "375671390.112419"
+         timestampString = "375720138.776577"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "200"
-         endingLineNumber = "200"
+         startingLineNumber = "204"
+         endingLineNumber = "204"
          landmarkName = "-encryptData:withPublicKeyFromCertificate:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -164,13 +164,26 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SEBKeychainManager.m"
-         timestampString = "375671398.522131"
+         timestampString = "375720138.776577"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1178"
-         endingLineNumber = "1178"
+         startingLineNumber = "1198"
+         endingLineNumber = "1198"
          landmarkName = "cspStagedEncrypt()"
          landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SEBKeychainManager.m"
+         timestampString = "375720132.955143"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "579"
+         endingLineNumber = "579"
+         landmarkName = "-test"
+         landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>
