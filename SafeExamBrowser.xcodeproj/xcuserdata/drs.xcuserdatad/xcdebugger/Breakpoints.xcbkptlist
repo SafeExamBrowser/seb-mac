@@ -138,13 +138,39 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SEBKeychainManager.m"
-         timestampString = "375636642.18867"
+         timestampString = "375671398.522131"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "298"
-         endingLineNumber = "298"
+         startingLineNumber = "278"
+         endingLineNumber = "278"
          landmarkName = "-decryptData:withPrivateKey:"
          landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SEBKeychainManager.m"
+         timestampString = "375671390.112419"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "200"
+         endingLineNumber = "200"
+         landmarkName = "-encryptData:withPublicKeyFromCertificate:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SEBKeychainManager.m"
+         timestampString = "375671398.522131"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1178"
+         endingLineNumber = "1178"
+         landmarkName = "cspStagedEncrypt()"
+         landmarkType = "7">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>

@@ -177,22 +177,65 @@ typedef struct {
 }
 
 
-- (NSData*)encryptData:(NSData*)inputData withPublicKeyFromCertificate:(SecCertificateRef)certificate {
+- (NSData*)encryptData:(NSData*)plainData withPublicKeyFromCertificate:(SecCertificateRef)certificate {
     //- (NSData*)encryptData:(NSData*)inputData withPublicKey:(SecKeyRef*)publicKey {
-    SecKeyRef publicKey = NULL;
-    OSStatus status = SecCertificateCopyPublicKey(certificate, &publicKey);
-    if (status) {
-        if (status == errSecItemNotFound) {
+    SecKeyRef publicKeyRef = NULL;
+    OSStatus status = SecCertificateCopyPublicKey(certificate, &publicKeyRef);
+    if (status != errSecSuccess) {
             NSLog(@"No public key found in certificate.");
-            if (publicKey) CFRelease(publicKey);
+            if (publicKeyRef) CFRelease(publicKeyRef);
             return nil;
-        }
     }
 
-
-    status = noErr;
+    SecKeychainRef keychainRef = NULL;
     
-    // Convert input data into a buffer
+    //status = SecKeychainItemCopyKeychain((SecKeychainItemRef)publicKeyRef,&keychainRef);
+    status = SecKeychainCopyDefault(&keychainRef);
+
+    //
+    // The remaining objects' lifetimes are controlled by privKey and
+    // keychain above, and don't need to be released on their own.
+    
+    CSSM_CSP_HANDLE cspHandle;
+    status = SecKeychainGetCSPHandle(keychainRef, &cspHandle);
+    
+
+    CSSM_RETURN cssm_status;
+    //CSSM_DATA		ptext;
+    CSSM_DATA		ctext;
+    
+    const char *plaintext = "ABCDEABCDEABCDEABCDE";
+    
+    CSSM_DATA ptext = { strlen(plaintext),
+        (uint8*)plaintext };
+
+    //ptext.Data = (uint8 *)[plainData bytes];
+    //ptext.Length = [plainData length];
+    ctext.Data = NULL;
+    ctext.Length = 0;
+    
+    const CSSM_KEY *pubKey;
+    //CSSM_KEY_PTR privkey;
+    
+    status = SecKeyGetCSSMKey(publicKeyRef, &pubKey);
+    //status = SecKeyGetCSSMKey(publicKeyRef, (const CSSM_KEY**)&pubKey);
+
+    cssm_status = cspStagedEncrypt(cspHandle,
+                                 CSSM_ALGID_RSA,					// CSSM_ALGID_FEED, etc.
+                                 0,						// CSSM_ALGMODE_CBC, etc. - only for symmetric algs
+                                 CSSM_PADDING_PKCS1,				// CSSM_PADDING_PKCS1, etc.
+                                 pubKey,				// public or session key
+                                 NULL,				// for CSSM_ALGID_FEED, CSSM_ALGID_FEECFILE only
+                                 0,		// 0 means skip this attribute
+                                 0,				// ditto
+                                 0,						// ditto
+                                 NULL,				// init vector, optional
+                                 &ptext,
+                                 &ctext,				// RETURNED, we malloc
+                                 false);				// false:single update, true:multi updates
+
+    
+    /*/ Convert input data into a buffer
     const void *bytes = [inputData bytes];
     int length = [inputData length];
     uint8_t *plainText = malloc(length);
@@ -212,79 +255,16 @@ typedef struct {
                            cipherBuffer,
                            &cipherBufferSize
                            );
-    
-    NSData *cipherData = [NSData dataWithBytes:cipherBuffer length:cipherBufferSize];
+     */
+    NSData *cipherData = [NSData dataWithBytes:ctext.Data length:ctext.Length];
     //crtn = cdsaDecrypt(cspHand,privKeyPtr,&ctext,&ptext);
 
-    /* Free the Security Framework Five! */
     //CFRelease(publicKey);
-    free(plainText);
-    free(cipherBuffer);
+    free(ptext.Data);
+    //free(ctext.Data);
     return cipherData;
     //[cipherData encodeBase64ForData];
- 
-    
-    /*/ Encrypting using CSSM/CDSA
-    CSSM_KEY 		pubKey;
-	CSSM_DATA		ptext;
-	CSSM_DATA		ctext;
-	CSSM_RETURN		crtn;
-	CSSM_KEYHEADER_PTR	hdr = &pubKey.KeyHeader;
-	CSSM_KEY_SIZE 		keySize;
-	opParams			op;
-    
-	memset(&pubKey, 0, sizeof(CSSM_KEY));
-    
-	op.keySizeInBits = DEFAULT_KEY_SIZE_BITS;
-	op.keyAlg = CSSM_ALGID_RSA;
-    
-	crtn = cdsaCspAttach(&op.cspHandle);
-	if(crtn) {
-		cssmPerror("Attach to CSP", crtn);
-		return nil;
-	}
-    
-	pubKey.KeyData.Data = (char *)[key bytes];
-	pubKey.KeyData.Length = [key length];
-	
-	hdr->Format = CSSM_KEYBLOB_RAW_FORMAT_PKCS1;
-	hdr->HeaderVersion = CSSM_KEYHEADER_VERSION;
-	hdr->BlobType = CSSM_KEYBLOB_RAW;
-	hdr->AlgorithmId = CSSM_ALGID_RSA;
-	hdr->KeyClass = CSSM_KEYCLASS_PUBLIC_KEY;
-	hdr->KeyAttr = CSSM_KEYATTR_EXTRACTABLE;
-	hdr->KeyUsage = CSSM_KEYUSE_ANY;
-    
-	crtn = CSSM_QueryKeySizeInBits(op.cspHandle, NULL, &pubKey, &keySize);
-	if(crtn) {
-		cssmPerror("CSSM_QueryKeySizeInBits", crtn);
-		return nil;
-	}
-    
-	hdr->LogicalKeySizeInBits = keySize.LogicalKeySizeInBits;
-    
-	ctext.Data = NULL;
-	ctext.Length = 0;
-	ptext.Data = (char *)[text cString];
-	ptext.Length = [text length];
-    
-	crtn = cdsaEncrypt(op.cspHandle,
-                       &pubKey,
-                       &ptext,
-                       &ctext);
-    
-	if(crtn) {
-		cssmPerror("cdsaEncrypt", crtn);
-		return nil;
-	}
-    
-	NSString * cipherText = [[NSData dataWithBytes: ctext.Data length: ctext.Length] description];
-    
-    //	cdsaFreeKey(op.cspHandle, &pubKey);
-    //	free(ptext.Data);				// allocd by readFile
-	free(ctext.Data);				// allocd by CSP
-    
-	return cipherText;*/
+
 }
 
 - (NSData*)decryptData:(NSData*)cipherData withPrivateKey:(SecKeyRef)privateKeyRef
