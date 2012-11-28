@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		693B83BD165E656A0016F097 /* SSCrypto.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 693B83BC165E656A0016F097 /* SSCrypto.framework */; };
-		693B83BE165E65830016F097 /* SSCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693B83BC165E656A0016F097 /* SSCrypto.framework */; };
 		693EB53E15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693EB53D15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m */; };
 		693EB53F15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693EB53D15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m */; };
 		693EB54015EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693EB53D15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m */; };
@@ -98,24 +96,12 @@
 		69903B1714CD7624007E7DF7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		69903B1814CD7624007E7DF7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A94D711B68D8A0083C66D /* Carbon.framework */; };
 		69903B1914CD7624007E7DF7 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6947949C12B050AA00651933 /* IOKit.framework */; };
-		69993658165E9BBA00910D9F /* libCdsaCrypt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69993655165E9BBA00910D9F /* libCdsaCrypt.cpp */; };
-		69993659165E9BBA00910D9F /* libCdsaCrypt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69993655165E9BBA00910D9F /* libCdsaCrypt.cpp */; };
 		699C540415EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */ = {isa = PBXBuildFile; fileRef = 699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */; };
 		699C540515EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */ = {isa = PBXBuildFile; fileRef = 699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */; };
 		699C540615EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */ = {isa = PBXBuildFile; fileRef = 699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */; };
 		699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */; };
 		699C540915EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */; };
 		699C540A15EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */; };
-		69A0BF70166023B200A866C4 /* libCdsaCrypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 69993656165E9BBA00910D9F /* libCdsaCrypt.h */; };
-		69A0BF7316603B0B00A866C4 /* libCdsaCrypt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 69993655165E9BBA00910D9F /* libCdsaCrypt.cpp */; };
-		69C8F0EB165E45FA002F3B59 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C8F0E9165E45FA002F3B59 /* libcrypto.dylib */; };
-		69C8F0EC165E45FA002F3B59 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C8F0E9165E45FA002F3B59 /* libcrypto.dylib */; };
-		69C8F0ED165E45FA002F3B59 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C8F0E9165E45FA002F3B59 /* libcrypto.dylib */; };
-		69C8F0EE165E45FA002F3B59 /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C8F0EA165E45FA002F3B59 /* libssl.dylib */; };
-		69C8F0EF165E45FA002F3B59 /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C8F0EA165E45FA002F3B59 /* libssl.dylib */; };
-		69C8F0F0165E45FA002F3B59 /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C8F0EA165E45FA002F3B59 /* libssl.dylib */; };
-		69C8F0F1165E564E002F3B59 /* libcrypto.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69C8F0E9165E45FA002F3B59 /* libcrypto.dylib */; };
-		69C8F0F2165E564E002F3B59 /* libssl.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 69C8F0EA165E45FA002F3B59 /* libssl.dylib */; };
 		69F293AE164A324B00875C00 /* SEBKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F293AD164A324B00875C00 /* SEBKeychainManager.m */; };
 		69F293AF164A324B00875C00 /* SEBKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F293AD164A324B00875C00 /* SEBKeychainManager.m */; };
 		69F293B0164A324B00875C00 /* SEBKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F293AD164A324B00875C00 /* SEBKeychainManager.m */; };
@@ -180,9 +166,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				693B83BD165E656A0016F097 /* SSCrypto.framework in CopyFiles */,
-				69C8F0F1165E564E002F3B59 /* libcrypto.dylib in CopyFiles */,
-				69C8F0F2165E564E002F3B59 /* libssl.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,7 +189,6 @@
 		692F53D614AD03F300011C84 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		6932C9671191B7FE00688EBB /* SEBicon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = SEBicon.icns; sourceTree = "<group>"; };
 		693A94D711B68D8A0083C66D /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
-		693B83BC165E656A0016F097 /* SSCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SSCrypto.framework; sourceTree = "<group>"; };
 		693D5A1514C59B4300E37C68 /* BrowserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserWindowController.h; sourceTree = "<group>"; };
 		693D5A1614C59B4300E37C68 /* BrowserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserWindowController.m; sourceTree = "<group>"; };
 		693EB53C15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaultsController+SEBEncryptedUserDefaultsController.h"; sourceTree = "<group>"; };
@@ -242,8 +224,6 @@
 		6991A78F14471F5A00F9149D /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		6991A79014471F8C00F9149D /* MyGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGlobals.h; sourceTree = "<group>"; };
 		6991A79114471F8C00F9149D /* MyGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGlobals.m; sourceTree = "<group>"; };
-		69993655165E9BBA00910D9F /* libCdsaCrypt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = libCdsaCrypt.cpp; sourceTree = "<group>"; };
-		69993656165E9BBA00910D9F /* libCdsaCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libCdsaCrypt.h; sourceTree = "<group>"; };
 		699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBUIUserDefaultsController.h; sourceTree = "<group>"; };
 		699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBUIUserDefaultsController.m; sourceTree = "<group>"; };
 		69A9A22A1368784500840AE1 /* MBPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBPreferencesController.h; sourceTree = "<group>"; };
@@ -257,8 +237,6 @@
 		69BE8664145872DF00E87C22 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/PreferencesBrowser.xib; sourceTree = "<group>"; };
 		69C52802136AFDBD00F9F000 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
 		69C52805136AFE9500F9F000 /* PrefsAdvancedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsAdvancedViewController.m; sourceTree = "<group>"; };
-		69C8F0E9165E45FA002F3B59 /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libcrypto.dylib; sourceTree = "<group>"; };
-		69C8F0EA165E45FA002F3B59 /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libssl.dylib; sourceTree = "<group>"; };
 		69CB8AFD136AFC6E00C08450 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		69CE5A67131E5C3C0030F0F2 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		69D5881F1189EB8F005AE3F1 /* SEBController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SEBController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -295,8 +273,6 @@
 				6949B34014F40AAD009E1775 /* Carbon.framework in Frameworks */,
 				6949B34114F40AAD009E1775 /* IOKit.framework in Frameworks */,
 				696F28E915751F1200780DA8 /* Security.framework in Frameworks */,
-				69C8F0EC165E45FA002F3B59 /* libcrypto.dylib in Frameworks */,
-				69C8F0EF165E45FA002F3B59 /* libssl.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,8 +285,6 @@
 				69903B1814CD7624007E7DF7 /* Carbon.framework in Frameworks */,
 				69903B1914CD7624007E7DF7 /* IOKit.framework in Frameworks */,
 				696F28EA15751F1900780DA8 /* Security.framework in Frameworks */,
-				69C8F0ED165E45FA002F3B59 /* libcrypto.dylib in Frameworks */,
-				69C8F0F0165E45FA002F3B59 /* libssl.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,14 +292,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				693B83BE165E65830016F097 /* SSCrypto.framework in Frameworks */,
 				69F7B61D14F411FB00FD0761 /* WebKit.framework in Frameworks */,
 				69F7B61E14F411FB00FD0761 /* Cocoa.framework in Frameworks */,
 				69F7B61F14F411FB00FD0761 /* Carbon.framework in Frameworks */,
 				69F7B62014F411FB00FD0761 /* IOKit.framework in Frameworks */,
 				696F28E815751ED600780DA8 /* Security.framework in Frameworks */,
-				69C8F0EB165E45FA002F3B59 /* libcrypto.dylib in Frameworks */,
-				69C8F0EE165E45FA002F3B59 /* libssl.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,9 +334,6 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				693B83BC165E656A0016F097 /* SSCrypto.framework */,
-				69C8F0E9165E45FA002F3B59 /* libcrypto.dylib */,
-				69C8F0EA165E45FA002F3B59 /* libssl.dylib */,
 				696F28E715751ED600780DA8 /* Security.framework */,
 				6962F88D13A8C21B007C16F0 /* WebKit.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
@@ -489,7 +457,6 @@
 		696F28D815751DF600780DA8 /* Cryptography */ = {
 			isa = PBXGroup;
 			children = (
-				69993654165E9BBA00910D9F /* libCdsaCrypt */,
 				696F28DD15751E4700780DA8 /* RNOpenSSLCryptor.h */,
 				696F28DE15751E4700780DA8 /* RNOpenSSLCryptor.m */,
 				696F28DF15751E4700780DA8 /* RNCryptor.h */,
@@ -500,15 +467,6 @@
 			name = Cryptography;
 			sourceTree = "<group>";
 		};
-		69993654165E9BBA00910D9F /* libCdsaCrypt */ = {
-			isa = PBXGroup;
-			children = (
-				69993655165E9BBA00910D9F /* libCdsaCrypt.cpp */,
-				69993656165E9BBA00910D9F /* libCdsaCrypt.h */,
-			);
-			path = libCdsaCrypt;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -516,7 +474,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69A0BF70166023B200A866C4 /* libCdsaCrypt.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -705,7 +662,6 @@
 				699C540915EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */,
 				6943D0781655054600AB6B1D /* PrefsExamViewController.m in Sources */,
 				69F293AF164A324B00875C00 /* SEBKeychainManager.m in Sources */,
-				69993658165E9BBA00910D9F /* libCdsaCrypt.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -738,7 +694,6 @@
 				699C540A15EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */,
 				6943D0791655054600AB6B1D /* PrefsExamViewController.m in Sources */,
 				69F293B0164A324B00875C00 /* SEBKeychainManager.m in Sources */,
-				69993659165E9BBA00910D9F /* libCdsaCrypt.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -771,7 +726,6 @@
 				699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */,
 				6943D0771655054600AB6B1D /* PrefsExamViewController.m in Sources */,
 				69F293AE164A324B00875C00 /* SEBKeychainManager.m in Sources */,
-				69A0BF7316603B0B00A866C4 /* libCdsaCrypt.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
