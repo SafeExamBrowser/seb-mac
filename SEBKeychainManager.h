@@ -19,7 +19,7 @@
 - (SecKeyRef) privateKeyFromIdentity:(SecIdentityRef*)identityRef;
 
 //- (NSData*)encryptData:(NSData*)inputData withPublicKey:(SecKeyRef*)publicKey;
-- (NSData*) encryptData:(NSData*)inputData withPublicKeyFromCertificate:(SecCertificateRef)certificate;
+- (NSData*) encryptData:(NSData*)plainData withPublicKeyFromCertificate:(SecCertificateRef)certificate;
 - (NSData*) decryptData:(NSData*)cipherData withPrivateKey:(SecKeyRef)privateKey;
 
 @end

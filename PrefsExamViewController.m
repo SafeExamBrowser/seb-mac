@@ -103,7 +103,7 @@
     //SecCertificateRef certificate;
     int i, count = [identitiesInKeychain count];
     SecCertificateRef certificateRefETH = NULL;
-    SecIdentityRef identityRefETH = NULL;
+    SecIdentityRef *identityRefETH = NULL;
     for (i=0; i<count; i++) {
         SecIdentityRef identityRef = (__bridge SecIdentityRef)[identitiesInKeychain objectAtIndex:i];
         CFStringRef commonName = NULL;
@@ -113,7 +113,7 @@
         //if ([(__bridge NSString *)commonName isEqualToString:@"Daniel R. Schneider"]) {
         if ([(__bridge NSString *)commonName isEqualToString:@"SEB-Configuration"]) {
             certificateRefETH = certificateRef;
-            identityRefETH = identityRef;
+            identityRefETH = &identityRef;
         }
 #ifdef DEBUG
         NSLog(@"Common name = %@", (__bridge NSString *)commonName);
@@ -136,7 +136,7 @@
     NSData *encryptedSebData = [keychainManager encryptData:data withPublicKeyFromCertificate:certificateRefETH];
 
     // Test decryption
-    SecKeyRef privateKey = [keychainManager privateKeyFromIdentity:&identityRefETH];
+    SecKeyRef privateKey = [keychainManager privateKeyFromIdentity:identityRefETH];
     NSData *decryptedSebData = [keychainManager decryptData:encryptedSebData withPrivateKey:privateKey];
     NSLog(@"Decrypted .seb file: %@",decryptedSebData);
     NSMutableDictionary *loadedPrefsDict = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedSebData];

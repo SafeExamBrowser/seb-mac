@@ -75,7 +75,9 @@
             count--;
         }
     }
-    return [identities copy]; // items contains all SecIdentityRefs in keychain
+    NSArray *foundIdentities;
+    foundIdentities = [NSArray arrayWithArray:identities];
+    return foundIdentities; // items contains all SecIdentityRefs in keychain
 }
 
 
@@ -145,7 +147,7 @@
 }
 
 
-- (NSData*)encryptData:(NSData*)plainData withPublicKeyFromCertificate:(SecCertificateRef)certificate {
+- (NSData*) encryptData:(NSData*)plainData withPublicKeyFromCertificate:(SecCertificateRef)certificate {
     //- (NSData*)encryptData:(NSData*)inputData withPublicKey:(SecKeyRef*)publicKey {
     SecKeyRef publicKeyRef = NULL;
     OSStatus status = SecCertificateCopyPublicKey(certificate, &publicKeyRef);
