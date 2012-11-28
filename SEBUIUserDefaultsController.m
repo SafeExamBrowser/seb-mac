@@ -50,4 +50,9 @@
 }
 
 
+- (NSArray *) org_safeexambrowser_SEB_cryptoIdentities {
+    return [NSArray arrayWithObjects:NSLocalizedString(@"Fetching identities", nil), nil];
+}
+
+
 @end

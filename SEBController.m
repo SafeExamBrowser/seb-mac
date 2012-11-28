@@ -159,6 +159,7 @@ bool insideMatrix();
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_newBrowserWindowByLinkBlockForeign",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithInt:openInNewWindow]], @"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_newBrowserWindowByScriptBlockForeign",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:0]], @"org_safeexambrowser_SEB_cryptoIdentity",
                                      [preferences secureDataForObject:(id)@"http://www.safeexambrowser.org/macosx"], @"org_safeexambrowser_SEB_startURL",
                                      nil];
         [preferences registerDefaults:appDefaults];

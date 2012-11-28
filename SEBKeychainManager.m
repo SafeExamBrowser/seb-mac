@@ -31,13 +31,51 @@
     //NSArray *items = nil;
     CFTypeRef items = NULL;
     OSStatus status = SecItemCopyMatching((__bridge_retained CFDictionaryRef)query, (CFTypeRef *)&items);
-    if (status) {
-        if (status != errSecItemNotFound)
+    if (status != errSecSuccess) {
             //LKKCReportError(status, @"Can't search keychain");
             return nil;
     }
-    return (__bridge  NSArray*)(items); // items contains all SecIdentityRefs in keychain
+    NSMutableArray *identities = [NSMutableArray arrayWithArray:(__bridge  NSArray*)(items)];
     
+    int i, count = [identities count];
+    for (i=0; i<count; i++) {
+        SecIdentityRef identityRef = (__bridge SecIdentityRef)[identities objectAtIndex:i];
+        CFStringRef commonName;
+        SecCertificateRef certificateRef;
+        SecKeyRef publicKeyRef;
+        SecKeyRef privateKeyRef;
+        SecIdentityCopyCertificate(identityRef, &certificateRef);
+        SecIdentityCopyPrivateKey(identityRef, &privateKeyRef);
+        const CSSM_KEY *pubKey;
+        status = SecCertificateCopyPublicKey(certificateRef, &publicKeyRef);
+        status = SecKeyGetCSSMKey(publicKeyRef, &pubKey);
+        const CSSM_KEY *privKey;
+        status = SecKeyGetCSSMKey(privateKeyRef, &privKey);
+        if (((pubKey->KeyHeader.AlgorithmId ==
+            CSSM_ALGID_RSA) &&
+            ((pubKey->KeyHeader.KeyUsage & CSSM_KEYUSE_ENCRYPT) ||
+             (pubKey->KeyHeader.KeyUsage & CSSM_KEYUSE_WRAP) ||
+             (pubKey->KeyHeader.KeyUsage & CSSM_KEYUSE_ANY)))
+            && ((privKey->KeyHeader.AlgorithmId ==
+                 CSSM_ALGID_RSA) &&
+                ((privKey->KeyHeader.KeyUsage & CSSM_KEYUSE_DECRYPT) ||
+                 (privKey->KeyHeader.KeyUsage & CSSM_KEYUSE_WRAP) ||
+                 (privKey->KeyHeader.KeyUsage & CSSM_KEYUSE_ANY))))
+        {
+            SecCertificateCopyCommonName(certificateRef, &commonName);
+            CFArrayRef *emailAddresses;
+            SecCertificateCopyEmailAddresses(certificateRef, emailAddresses);
+#ifdef DEBUG
+            NSLog(@"Common name: %@ %@", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , CFArrayGetCount(*emailAddresses) ? (__bridge NSString *)CFArrayGetValueAtIndex(*emailAddresses, 0) : @"");
+            NSLog(@"Public key can be used for encryption, private key can be used for decryption");
+#endif
+        } else {
+            [identities removeObjectAtIndex:i];
+            i--;
+            count--;
+        }
+    }
+    return [identities copy]; // items contains all SecIdentityRefs in keychain
 }
 
 

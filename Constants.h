@@ -50,6 +50,11 @@ enum {
 };
 typedef NSUInteger chooseFileToUploadPolicies;
 
+enum {
+    FetchingIdentities                   = 0
+};
+typedef NSUInteger cryptoIdentities;
+
 //NSString *sebUserDefaultsPrefix = @"org_safeexambrowser_SEB_";
 
 #endif

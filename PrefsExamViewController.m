@@ -119,6 +119,8 @@
         NSLog(@"Common name = %@", (__bridge NSString *)commonName);
 #endif
         if (commonName) CFRelease(commonName);
+        if (certificateRef) CFRelease(certificateRef);
+        if (identityRef) CFRelease(identityRef);
     }
     
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];

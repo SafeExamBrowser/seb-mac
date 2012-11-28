@@ -40,4 +40,6 @@
 - (NSArray *) org_safeexambrowser_SEB_newBrowserWindowByScriptPolicies;
 - (NSArray *) org_safeexambrowser_SEB_chooseFileToUploadPolicies;
 
+- (NSArray *) org_safeexambrowser_SEB_cryptoIdentities;
+
 @end
