@@ -48,24 +48,23 @@
         SecIdentityCopyCertificate(identityRef, &certificateRef);
         SecIdentityCopyPrivateKey(identityRef, &privateKeyRef);
         /*SecPolicyRef policyRef = SecPolicyCreateBasicX509();
+        //status = SecPolicySetValue(policyRef, )
         SecTrustRef trustRef;
         status = SecTrustCreateWithCertificates((CFArrayRef)certificateRef, policyRef, &trustRef);
         SecTrustResultType trustResult;
         if (status == noErr) {
             status = SecTrustEvaluate(trustRef, &trustResult);
-        }
-         */
-
+        }*/
         const CSSM_KEY *pubKey;
         status = SecCertificateCopyPublicKey(certificateRef, &publicKeyRef);
         status = SecKeyGetCSSMKey(publicKeyRef, &pubKey);
         const CSSM_KEY *privKey;
         status = SecKeyGetCSSMKey(privateKeyRef, &privKey);
         if (((pubKey->KeyHeader.AlgorithmId ==
-            CSSM_ALGID_RSA) &&
-            ((pubKey->KeyHeader.KeyUsage & CSSM_KEYUSE_ENCRYPT) ||
-             (pubKey->KeyHeader.KeyUsage & CSSM_KEYUSE_WRAP) ||
-             (pubKey->KeyHeader.KeyUsage & CSSM_KEYUSE_ANY)))
+              CSSM_ALGID_RSA) &&
+             ((pubKey->KeyHeader.KeyUsage & CSSM_KEYUSE_ENCRYPT) ||
+              (pubKey->KeyHeader.KeyUsage & CSSM_KEYUSE_WRAP) ||
+              (pubKey->KeyHeader.KeyUsage & CSSM_KEYUSE_ANY)))
             && ((privKey->KeyHeader.AlgorithmId ==
                  CSSM_ALGID_RSA) &&
                 ((privKey->KeyHeader.KeyUsage & CSSM_KEYUSE_DECRYPT) ||
@@ -85,6 +84,7 @@
             i--;
             count--;
         }
+
         if (certificateRef) CFRelease(certificateRef);
         if (privateKeyRef) CFRelease(privateKeyRef);
         if (publicKeyRef) CFRelease(publicKeyRef);
