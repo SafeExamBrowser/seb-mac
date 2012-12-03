@@ -37,15 +37,25 @@
     }
     NSMutableArray *identities = [NSMutableArray arrayWithArray:(__bridge  NSArray*)(items)];
     
+    CFStringRef commonName;
+    SecCertificateRef certificateRef;
+    SecKeyRef publicKeyRef;
+    SecKeyRef privateKeyRef;
+    CFArrayRef emailAddressesRef;
     int i, count = [identities count];
     for (i=0; i<count; i++) {
         SecIdentityRef identityRef = (__bridge SecIdentityRef)[identities objectAtIndex:i];
-        CFStringRef commonName;
-        SecCertificateRef certificateRef;
-        SecKeyRef publicKeyRef;
-        SecKeyRef privateKeyRef;
         SecIdentityCopyCertificate(identityRef, &certificateRef);
         SecIdentityCopyPrivateKey(identityRef, &privateKeyRef);
+        /*SecPolicyRef policyRef = SecPolicyCreateBasicX509();
+        SecTrustRef trustRef;
+        status = SecTrustCreateWithCertificates((CFArrayRef)certificateRef, policyRef, &trustRef);
+        SecTrustResultType trustResult;
+        if (status == noErr) {
+            status = SecTrustEvaluate(trustRef, &trustResult);
+        }
+         */
+
         const CSSM_KEY *pubKey;
         status = SecCertificateCopyPublicKey(certificateRef, &publicKeyRef);
         status = SecKeyGetCSSMKey(publicKeyRef, &pubKey);
@@ -63,17 +73,21 @@
                  (privKey->KeyHeader.KeyUsage & CSSM_KEYUSE_ANY))))
         {
             SecCertificateCopyCommonName(certificateRef, &commonName);
-            CFArrayRef *emailAddresses;
-            SecCertificateCopyEmailAddresses(certificateRef, emailAddresses);
+            SecCertificateCopyEmailAddresses(certificateRef, &emailAddressesRef);
 #ifdef DEBUG
-            NSLog(@"Common name: %@ %@", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , CFArrayGetCount(*emailAddresses) ? (__bridge NSString *)CFArrayGetValueAtIndex(*emailAddresses, 0) : @"");
+            NSLog(@"Common name: %@ %@", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , CFArrayGetCount(emailAddressesRef) ? (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) : @"");
             NSLog(@"Public key can be used for encryption, private key can be used for decryption");
 #endif
+            if (commonName) CFRelease(commonName);
+            if (emailAddressesRef) CFRelease(emailAddressesRef);
         } else {
             [identities removeObjectAtIndex:i];
             i--;
             count--;
         }
+        if (certificateRef) CFRelease(certificateRef);
+        if (privateKeyRef) CFRelease(privateKeyRef);
+        if (publicKeyRef) CFRelease(publicKeyRef);
     }
     NSArray *foundIdentities;
     foundIdentities = [NSArray arrayWithArray:identities];

@@ -110,8 +110,8 @@
         SecCertificateRef certificateRef;
         SecIdentityCopyCertificate(identityRef, &certificateRef);
         SecCertificateCopyCommonName(certificateRef, &commonName);
-        //if ([(__bridge NSString *)commonName isEqualToString:@"Daniel R. Schneider"]) {
-        if ([(__bridge NSString *)commonName isEqualToString:@"SEB-Configuration"]) {
+        //if ([(__bridge NSString *)commonName isEqualToString:@"Daniel Schneider"]) {
+        if ([(__bridge NSString *)commonName isEqualToString:@"com.apple.idms.appleid.prd.6c5049496868562f7432717769454249346c634f76513d3d"]) {
             certificateRefETH = certificateRef;
             identityRefETH = &identityRef;
         }
