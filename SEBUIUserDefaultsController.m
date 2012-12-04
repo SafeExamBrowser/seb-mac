@@ -37,6 +37,31 @@
 
 @implementation SEBUIUserDefaultsController
 
+static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
+
+//@synthesize org_safeexambrowser_SEB_cryptoIdentities = _org_safeexambrowser_SEB_cryptoIdentities;
+
+
++ (SEBUIUserDefaultsController *)sharedSEBUIUserDefaultsController
+{
+	@synchronized(self)
+	{
+		if (sharedSEBUIUserDefaultsController == nil)
+		{
+			sharedSEBUIUserDefaultsController = [[self alloc] init];
+		}
+	}
+    
+	return sharedSEBUIUserDefaultsController;
+}
+
+/*- (id) init {
+    self = [super init];
+    [self setOrg_safeexambrowser_SEB_cryptoIdentities:[NSArray arrayWithObjects:NSLocalizedString(@"Fetching identities", nil), nil]];
+    return self;
+}
+*/
+
 - (NSArray *) org_safeexambrowser_SEB_newBrowserWindowByLinkPolicies {
     return [NSArray arrayWithObjects:NSLocalizedString(@"get generally blocked", nil), NSLocalizedString(@"open in same window", nil), NSLocalizedString(@"open in new window", nil), nil];
 }

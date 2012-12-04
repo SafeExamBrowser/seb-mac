@@ -8,6 +8,7 @@
 
 #import "PrefsExamViewController.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
+#import "SEBUIUserDefaultsController.h"
 #import "RNCryptor.h"
 #import "SEBKeychainManager.h"
 
@@ -36,6 +37,11 @@
 	return [NSImage imageNamed:@"NSPreferencesGeneral"];
 }
 
+- (void)willBeDisplayed {
+    //[[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] setOrg_safeexambrowser_SEB_cryptoIdentities:[NSArray arrayWithObjects:NSLocalizedString(@"Fetching identities", nil), nil]];
+    //[chooseIdentity synchronizeTitleAndSelectedItem];
+    NSLog(@"Array with Identities: %@", [[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_cryptoIdentities]);
+}
 
 // Action saving current preferences to a plist-file in application bundle Contents/Resources/ directory
 - (IBAction) saveSEBPrefs:(id)sender {
@@ -111,7 +117,8 @@
         SecIdentityCopyCertificate(identityRef, &certificateRef);
         SecCertificateCopyCommonName(certificateRef, &commonName);
         //if ([(__bridge NSString *)commonName isEqualToString:@"Daniel Schneider"]) {
-        if ([(__bridge NSString *)commonName isEqualToString:@"com.apple.idms.appleid.prd.6c5049496868562f7432717769454249346c634f76513d3d"]) {
+        if ([(__bridge NSString *)commonName isEqualToString:@"SEB-Configuration"]) {
+        //if ([(__bridge NSString *)commonName isEqualToString:@"com.apple.idms.appleid.prd.6c5049496868562f7432717769454249346c634f76513d3d"]) {
             certificateRefETH = certificateRef;
             identityRefETH = &identityRef;
         }

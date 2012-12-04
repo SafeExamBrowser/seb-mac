@@ -12,6 +12,7 @@
 
 @interface PrefsExamViewController : NSViewController <MBPreferencesModule> {
     NSTextField *examKey;
+    IBOutlet NSPopUpButton *chooseIdentity;
 }
 
 @property (strong) IBOutlet NSTextField *examKey;

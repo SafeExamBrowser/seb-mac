@@ -34,7 +34,14 @@
 
 
 
-@interface SEBUIUserDefaultsController : NSUserDefaultsController
+@interface SEBUIUserDefaultsController : NSUserDefaultsController {
+    NSArray *org_safeexambrowser_SEB_cryptoIdentities;
+}
+
+//@property(nonatomic, strong) NSArray *org_safeexambrowser_SEB_cryptoIdentities;
+
+
++ (SEBUIUserDefaultsController *)sharedSEBUIUserDefaultsController;
 
 - (NSArray *) org_safeexambrowser_SEB_newBrowserWindowByLinkPolicies;
 - (NSArray *) org_safeexambrowser_SEB_newBrowserWindowByScriptPolicies;
