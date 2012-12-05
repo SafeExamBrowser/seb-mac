@@ -18,6 +18,8 @@
 
 @implementation PrefsExamViewController
 @synthesize examKey;
+@synthesize identitiesName;
+@synthesize identities;
 
 
 - (NSString *)title
@@ -38,9 +40,43 @@
 }
 
 - (void)willBeDisplayed {
-    //[[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] setOrg_safeexambrowser_SEB_cryptoIdentities:[NSArray arrayWithObjects:NSLocalizedString(@"Fetching identities", nil), nil]];
     //[chooseIdentity synchronizeTitleAndSelectedItem];
-    NSLog(@"Array with Identities: %@", [[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_cryptoIdentities]);
+    if (!self.identitiesName) { //no identities available yet, get them from keychain
+        //first display placeholder in popupbutton list
+        //[chooseIdentity addItemsWithTitles:[NSArray arrayWithObjects:NSLocalizedString(@"Fetching identities", nil), nil]];
+        SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+        NSArray *identitiesInKeychain = [keychainManager getIdentities];
+        //SecCertificateRef certificate;
+        int i, count = [identitiesInKeychain count];
+        self.identitiesName = [NSMutableArray arrayWithCapacity:count];
+        SecCertificateRef certificateRef;
+        CFStringRef commonName = NULL;
+        CFArrayRef emailAddressesRef;
+        [self.identitiesName removeAllObjects];
+        for (i=0; i<count; i++) {
+            SecIdentityRef identityRef = (__bridge SecIdentityRef)[identitiesInKeychain objectAtIndex:i];
+            SecIdentityCopyCertificate(identityRef, &certificateRef);
+            SecCertificateCopyCommonName(certificateRef, &commonName);
+            SecCertificateCopyEmailAddresses(certificateRef, &emailAddressesRef);
+            [self.identitiesName addObject:
+             [NSString stringWithFormat:@"%@%@",
+              (__bridge NSString *)commonName ?
+                [NSString stringWithFormat:@"%@ ",(__bridge NSString *)commonName] :
+                @"" ,
+              CFArrayGetCount(emailAddressesRef) ?
+                (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) :
+                @""]
+             ];
+
+            if (emailAddressesRef) CFRelease(emailAddressesRef);
+            if (commonName) CFRelease(commonName);
+            if (certificateRef) CFRelease(certificateRef);
+            if (identityRef) CFRelease(identityRef);
+        }
+        self.identities = identitiesInKeychain;
+        [chooseIdentity removeAllItems];
+        [chooseIdentity addItemsWithTitles: self.identitiesName];
+    }
 }
 
 // Action saving current preferences to a plist-file in application bundle Contents/Resources/ directory
@@ -78,58 +114,13 @@
     
     // Encrypt preferences using a certificate
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    /*
-    NSArray *certificatesInKeychain = [keychainManager getCertificates];
-    //SecCertificateRef certificate;
-    int i, count = [certificatesInKeychain count];
-    SecKeyRef *publicKeyETH = NULL;
-    SecCertificateRef certificateETH = NULL;
-    SecIdentityRef *identityRefETH = NULL;
-    for (i=0; i<count; i++) {
-        SecCertificateRef certificate = (__bridge SecCertificateRef)([certificatesInKeychain objectAtIndex:i]);
-        SecKeyRef *key = [keychainManager copyPublicKeyFromCertificate:certificate];
-        SecIdentityRef *identityRef = [keychainManager createIdentityWithCertificate:certificate];
-        NSString *publicKey = (key ? @"found" : @"not found");
-        NSString *privateKey = (identityRef ? @"found" : @"not found");
-        CFStringRef commonName = NULL;
-        SecCertificateCopyCommonName(certificate, &commonName);
-        //if ([(__bridge NSString *)commonName isEqualToString:@"Daniel R. Schneider"]) {
-        if ([(__bridge NSString *)commonName isEqualToString:@"SEB-Configuration"]) {
-            publicKeyETH = key;
-            certificateETH = certificate;
-            identityRefETH = identityRef;
-        }
-#ifdef DEBUG
-        NSLog(@"Common name = %@, public key = %@, private key = %@", (__bridge NSString *)commonName, publicKey, privateKey);
-#endif
-        if (commonName) CFRelease(commonName);
-    }*/
     
-    NSArray *identitiesInKeychain = [keychainManager getIdentities];
-    //SecCertificateRef certificate;
-    int i, count = [identitiesInKeychain count];
-    SecCertificateRef certificateRefETH = NULL;
-    SecIdentityRef *identityRefETH = NULL;
-    for (i=0; i<count; i++) {
-        SecIdentityRef identityRef = (__bridge SecIdentityRef)[identitiesInKeychain objectAtIndex:i];
-        CFStringRef commonName = NULL;
-        SecCertificateRef certificateRef;
-        SecIdentityCopyCertificate(identityRef, &certificateRef);
-        SecCertificateCopyCommonName(certificateRef, &commonName);
-        //if ([(__bridge NSString *)commonName isEqualToString:@"Daniel Schneider"]) {
-        if ([(__bridge NSString *)commonName isEqualToString:@"SEB-Configuration"]) {
-        //if ([(__bridge NSString *)commonName isEqualToString:@"com.apple.idms.appleid.prd.6c5049496868562f7432717769454249346c634f76513d3d"]) {
-            certificateRefETH = certificateRef;
-            identityRefETH = &identityRef;
-        }
-#ifdef DEBUG
-        NSLog(@"Common name = %@", (__bridge NSString *)commonName);
-#endif
-        if (commonName) CFRelease(commonName);
-        if (certificateRef) CFRelease(certificateRef);
-        if (identityRef) CFRelease(identityRef);
-    }
-    
+    //SecIdentityRef identityRef = (__bridge SecIdentityRef)[identitiesInKeychain objectAtIndex:i];
+    NSUInteger selectedIdentity = [chooseIdentity indexOfSelectedItem];
+    SecIdentityRef identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:selectedIdentity]);
+    SecCertificateRef certificateRef;
+    SecIdentityCopyCertificate(identityRef, &certificateRef);
+
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];
     /*/ Encrypt preferences using a password
     const char *utfString = [@"pw" UTF8String];
@@ -139,15 +130,19 @@
     [encryptedSebData appendData:encryptedData];
     */
     
-    //NSData *encryptedSebData = [keychainManager encryptData:data withPublicKey:publicKeyETH];
-    NSData *encryptedSebData = [keychainManager encryptData:data withPublicKeyFromCertificate:certificateRefETH];
+    NSData *encryptedSebData = [keychainManager encryptData:data withPublicKeyFromCertificate:certificateRef];
 
     // Test decryption
-    SecKeyRef privateKey = [keychainManager privateKeyFromIdentity:identityRefETH];
-    NSData *decryptedSebData = [keychainManager decryptData:encryptedSebData withPrivateKey:privateKey];
+    SecKeyRef privateKeyRef = [keychainManager privateKeyFromIdentity:&identityRef];
+    NSData *decryptedSebData = [keychainManager decryptData:encryptedSebData withPrivateKey:privateKeyRef];
     NSLog(@"Decrypted .seb file: %@",decryptedSebData);
     NSMutableDictionary *loadedPrefsDict = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedSebData];
     NSLog(@"Decrypted .seb dictionary: %@",loadedPrefsDict);
+
+    if (certificateRef) CFRelease(certificateRef);
+    //if (identityRef) CFRelease(identityRef);
+    if (privateKeyRef) CFRelease(privateKeyRef);
+
     // Save initialValues to a SEB preferences file into the application bundle
     
     // Build a new name for the file using the current name and
@@ -178,7 +173,7 @@
                               // Set flag for preferences in app bundle (bindings enable the remove button in prefs same time)
                               NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
                               [preferences setSecureObject:[NSNumber numberWithBool:YES] forKey:@"org_safeexambrowser_SEB_prefsInBundle"];
-                              NSRunAlertPanel(NSLocalizedString(@"Writing Settings Succeeded", nil), NSLocalizedString(@"WritingToAppBundleSucceeded", nil), NSLocalizedString(@"OK", nil), nil, nil);
+                              NSRunAlertPanel(NSLocalizedString(@"Writing Settings Succeeded", nil), NSLocalizedString(@"Encrypted settings have been saved, use this file to start the exam with SEB.", nil), NSLocalizedString(@"OK", nil), nil, nil);
                           }
                       }
                   }];

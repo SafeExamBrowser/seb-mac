@@ -15,7 +15,9 @@
     IBOutlet NSPopUpButton *chooseIdentity;
 }
 
-@property (strong) IBOutlet NSTextField *examKey;
+@property (strong, nonatomic) IBOutlet NSTextField *examKey;
+@property (strong, nonatomic) NSMutableArray *identitiesName;
+@property (strong, nonatomic) NSArray *identities;
 
 - (IBAction) saveSEBPrefs:(id)sender;
 
