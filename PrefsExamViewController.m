@@ -127,8 +127,8 @@
     NSData* publicKeyHash = [keychainManager getPublicKeyHashFromCertificate:certificateRef];
 
     /*/ Encrypt preferences using a password
-    const char *utfString = [@"pw" UTF8String];
-    NSMutableData *encryptedSebData = [NSMutableData dataWithBytes:utfString length:2];
+    const char *utfString = [@"pswd" UTF8String];
+    NSMutableData *encryptedSebData = [NSMutableData dataWithBytes:utfString length:4];
     NSError *error;
     NSData *encryptedData = [[RNCryptor AES256Cryptor] encryptData:data password:@"password" error:&error];
     [encryptedSebData appendData:encryptedData];
@@ -140,6 +140,10 @@
     SecKeyRef privateKeyRef = [keychainManager privateKeyFromIdentity:&identityRef];
     NSData *decryptedSebData = [keychainManager decryptData:encryptedData withPrivateKey:privateKeyRef];
 
+    // Test
+    SecKeyRef privateKeyRef2 = [keychainManager getPrivateKeyFromPublicKeyHash:publicKeyHash];
+    NSLog(@"Private key from identity %@ and retrieved with hash: %@", privateKeyRef, privateKeyRef2);
+    
     NSMutableDictionary *loadedPrefsDict = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedSebData];
     NSLog(@"Decrypted .seb dictionary: %@",loadedPrefsDict);
 

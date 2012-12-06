@@ -15,8 +15,9 @@
 - (NSArray*) getIdentities;
 - (NSArray*) getCertificates;
 - (NSData*) getPublicKeyHashFromCertificate:(SecCertificateRef)certificate;
+- (SecKeyRef) getPrivateKeyFromPublicKeyHash:(NSData*)publicKeyHash;
 - (SecKeyRef*) copyPublicKeyFromCertificate:(SecCertificateRef)certificate;
-- (SecIdentityRef*) createIdentityWithCertificate:(SecCertificateRef)certificate;
+- (SecIdentityRef) createIdentityWithCertificate:(SecCertificateRef)certificate;
 - (SecKeyRef) privateKeyFromIdentity:(SecIdentityRef*)identityRef;
 
 //- (NSData*)encryptData:(NSData*)inputData withPublicKey:(SecKeyRef*)publicKey;

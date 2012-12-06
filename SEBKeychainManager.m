@@ -162,7 +162,38 @@
 }
 
 
-                                            
+- (SecKeyRef)getPrivateKeyFromPublicKeyHash:(NSData*)publicKeyHash {
+    SecKeychainRef keychain;
+    OSStatus error;
+    error = SecKeychainCopyDefault(&keychain);
+    if (error) {
+        //certReqDbg("GetResult: SecKeychainCopyDefault failure");
+        /* oh well, there's nothing we can do about this */
+    }
+    
+    NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
+                           kSecClassCertificate, kSecClass,
+                           (CFDataRef)publicKeyHash, kSecAttrPublicKeyHash,
+                           [NSArray arrayWithObject:(__bridge id)keychain], kSecMatchSearchList,
+                           kCFBooleanTrue, kSecReturnRef,
+                           nil];
+    //NSArray *items = nil;
+    SecCertificateRef certificateRef = NULL;
+    OSStatus status = SecItemCopyMatching((__bridge_retained CFDictionaryRef)query, (CFTypeRef *)&certificateRef);
+    if (status != errSecSuccess) {
+        //LKKCReportError(status, @"Can't search keychain");
+        return nil;
+    }
+    //NSMutableArray *identities = [NSMutableArray arrayWithArray:(__bridge  NSArray*)(items)];
+    
+    //SecKeyRef publicKeyRef;
+    SecKeyRef privateKeyRef;
+    SecIdentityRef identityRef = [self createIdentityWithCertificate:certificateRef];
+    status = SecIdentityCopyPrivateKey(identityRef, &privateKeyRef);
+    return privateKeyRef;
+}
+
+
 - (SecKeyRef*)copyPublicKeyFromCertificate:(SecCertificateRef)certificate {
     SecKeyRef key = NULL;
     OSStatus status = SecCertificateCopyPublicKey(certificate, &key);
@@ -177,9 +208,9 @@
 }
 
 
-- (SecIdentityRef*)createIdentityWithCertificate:(SecCertificateRef)certificate {
-    SecIdentityRef *identityRef;
-    OSStatus status = SecIdentityCreateWithCertificate(NULL, certificate, identityRef);
+- (SecIdentityRef)createIdentityWithCertificate:(SecCertificateRef)certificate {
+    SecIdentityRef identityRef;
+    OSStatus status = SecIdentityCreateWithCertificate(NULL, certificate, &identityRef);
     if (status) {
         if (status == errSecItemNotFound) {
             NSLog(@"No associated private key found for certificate.");
