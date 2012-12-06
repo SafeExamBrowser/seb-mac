@@ -111,17 +111,21 @@
     for (NSString *key in filteredPrefsSet) {
         [filteredPrefsDict setObject:[preferences secureObjectForKey:key] forKey:[key substringFromIndex:24]];
     }
-    
+
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];
+
     // Encrypt preferences using a certificate
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     
-    //SecIdentityRef identityRef = (__bridge SecIdentityRef)[identitiesInKeychain objectAtIndex:i];
+    //get certificate from selected identity
     NSUInteger selectedIdentity = [chooseIdentity indexOfSelectedItem];
     SecIdentityRef identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:selectedIdentity]);
     SecCertificateRef certificateRef;
     SecIdentityCopyCertificate(identityRef, &certificateRef);
+    
+    //get public key hash from selected identity's certificate
+    NSData* publicKeyHash = [keychainManager getPublicKeyHashFromCertificate:certificateRef];
 
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];
     /*/ Encrypt preferences using a password
     const char *utfString = [@"pw" UTF8String];
     NSMutableData *encryptedSebData = [NSMutableData dataWithBytes:utfString length:2];
@@ -130,12 +134,12 @@
     [encryptedSebData appendData:encryptedData];
     */
     
-    NSData *encryptedSebData = [keychainManager encryptData:data withPublicKeyFromCertificate:certificateRef];
+    NSData *encryptedData = [keychainManager encryptData:data withPublicKeyFromCertificate:certificateRef];
 
     // Test decryption
     SecKeyRef privateKeyRef = [keychainManager privateKeyFromIdentity:&identityRef];
-    NSData *decryptedSebData = [keychainManager decryptData:encryptedSebData withPrivateKey:privateKeyRef];
-    NSLog(@"Decrypted .seb file: %@",decryptedSebData);
+    NSData *decryptedSebData = [keychainManager decryptData:encryptedData withPrivateKey:privateKeyRef];
+
     NSMutableDictionary *loadedPrefsDict = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedSebData];
     NSLog(@"Decrypted .seb dictionary: %@",loadedPrefsDict);
 
@@ -143,6 +147,10 @@
     //if (identityRef) CFRelease(identityRef);
     if (privateKeyRef) CFRelease(privateKeyRef);
 
+    // Append encrypted data to the public key hash
+    NSMutableData *encryptedSebData = [NSMutableData dataWithData:publicKeyHash];
+    [encryptedSebData appendData:encryptedData];
+    
     // Save initialValues to a SEB preferences file into the application bundle
     
     // Build a new name for the file using the current name and
