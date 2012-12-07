@@ -161,6 +161,7 @@ bool insideMatrix();
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_newBrowserWindowByScriptBlockForeign",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithInt:0]], @"org_safeexambrowser_SEB_cryptoIdentity",
                                      [preferences secureDataForObject:(id)@"http://www.safeexambrowser.org/macosx"], @"org_safeexambrowser_SEB_startURL",
+                                     [preferences secureDataForObject:(id)@""], @"org_safeexambrowser_SEB_quitURL",
                                      nil];
         [preferences registerDefaults:appDefaults];
 #ifdef DEBUG
@@ -288,6 +289,11 @@ bool insideMatrix();
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(exitSEB:)
                                                  name:@"requestExitNotification" object:nil];
+	
+    // Add an observer for the request to conditionally quit SEB without asking quit password
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(requestedQuitWoPwd:)
+                                                 name:@"requestQuitWoPwdNotification" object:nil];
 	
     // Add an observer for the request to unconditionally quit SEB
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -899,6 +905,21 @@ bool insideMatrix(){
         {
             [self requestedRestart:nil];
         }
+    }
+}
+
+
+- (void)requestedQuitWoPwd:(NSNotification *)notification
+{
+    int answer = NSRunAlertPanel(NSLocalizedString(@"Quit",nil), NSLocalizedString(@"Are you sure you want to quit SEB?",nil),
+                                 NSLocalizedString(@"Cancel",nil), NSLocalizedString(@"Quit",nil), nil);
+    switch(answer)
+    {
+        case NSAlertDefaultReturn:
+            return; //Cancel: don't quit
+        default:
+            quittingMyself = TRUE; //SEB is terminating itself
+            [NSApp terminate: nil]; //quit SEB
     }
 }
 
