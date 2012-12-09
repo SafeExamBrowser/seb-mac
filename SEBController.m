@@ -139,6 +139,7 @@ bool insideMatrix();
         // Set default preferences for the case there are no user prefs yet
         //SEBnewBrowserWindowLink newBrowserWindowLinkPolicy = openInNewWindow;
         NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys:
+                                     [preferences secureDataForObject:(id)@"http://www.safeexambrowser.org/macosx"], @"org_safeexambrowser_SEB_startURL",
                                      [preferences secureDataForObject:(id)[NSData data]], @"org_safeexambrowser_SEB_hashedAdminPassword",
                                      [preferences secureDataForObject:(id)[NSData data]], @"org_safeexambrowser_SEB_hashedQuitPassword",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]], @"org_safeexambrowser_SEB_allowQuit",
@@ -159,10 +160,11 @@ bool insideMatrix();
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_newBrowserWindowByLinkBlockForeign",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithInt:openInNewWindow]], @"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_newBrowserWindowByScriptBlockForeign",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_copyExamKeyToClipboardWhenQuitting",
+                                     [preferences secureDataForObject:(id)@""], @"org_safeexambrowser_SEB_quitURL",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_allowPreferencesWindow",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithInt:0]], @"org_safeexambrowser_SEB_cryptoIdentity",
                                      [preferences secureDataForObject:(id)@""], @"org_safeexambrowser_SEB_settingsPassword",
-                                     [preferences secureDataForObject:(id)@""], @"org_safeexambrowser_SEB_quitURL",
-                                     [preferences secureDataForObject:(id)@"http://www.safeexambrowser.org/macosx"], @"org_safeexambrowser_SEB_startURL",
                                      nil];
         [preferences registerDefaults:appDefaults];
 #ifdef DEBUG

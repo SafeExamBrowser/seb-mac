@@ -47,11 +47,6 @@
 }
 
 
-// Definitition of the dependent keys for matching settings passwords
-+ (NSSet *)keyPathsForValuesAffectingMatchingSettingsPasswords {
-    return [NSSet setWithObjects:@"settingsPassword", @"confirmSettingsPassword", nil];
-}
-
 // Method called by the bindings object controller for comparing the settings passwords
 - (NSString*) compareSettingsPasswords {
 	if ((settingsPassword != nil) | (confirmSettingsPassword != nil)) {
@@ -68,14 +63,16 @@
        	if (![settingsPassword isEqualToString:confirmSettingsPassword]) {
 			//if the two passwords don't match, show it in the label
             return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please confirm password",nil)]);
-		} 
+		} else {
+            [self savePrefs];
+        }
     }
     return nil;
 }
 
 
 // Method called by the bindings object controller which returns the settings password if it matches with the confirm password field
-- (NSString*) matchingSettingsPassword {
+- (NSString*) matchingSettingsPasswords {
 	if ((settingsPassword != nil) | (confirmSettingsPassword != nil)) {
        	if ([settingsPassword isEqualToString:confirmSettingsPassword]) {
 			//if the two passwords match, return the password
@@ -85,7 +82,7 @@
     return @"";
 }
 
-- (void) setMatchingSettingsPassword:(NSString*)settingsPwd {
+- (void) setMatchingSettingsPasswords:(NSString*)settingsPwd {
     if ([settingsPwd isEqualToString:@""]) {
         //empty passwords need to be set to NIL because of the text fields' bindings
         [self setValue:nil forKey:@"settingsPassword"];
@@ -98,33 +95,18 @@
 }
 
 - (void) awakeFromNib {
-    [self bind:@"matchingSettingsPassword"
-      toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
-   withKeyPath:@"values.org_safeexambrowser_SEB_settingsPassword"
-       options:[NSDictionary dictionaryWithObjectsAndKeys:
-                [NSNumber numberWithBool:YES],NSAllowsEditingMultipleValuesSelectionBindingOption,
-                [NSNumber numberWithBool:YES],NSConditionallySetsEditableBindingOption,
-                [NSNumber numberWithBool:YES],NSContinuouslyUpdatesValueBindingOption,
-                [NSNumber numberWithBool:YES],NSRaisesForNotApplicableKeysBindingOption,
-                [NSNumber numberWithBool:YES],NSValidatesImmediatelyBindingOption,
-                nil]];
-
-    /*[[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController] bind:@"values.org_safeexambrowser_SEB_settingsPassword"
-      toObject:self
-   withKeyPath:@"matchingSettingsPassword"
-       options:[NSDictionary dictionaryWithObjectsAndKeys:
-                [NSNumber numberWithBool:YES],NSAllowsEditingMultipleValuesSelectionBindingOption,
-                [NSNumber numberWithBool:YES],NSConditionallySetsEditableBindingOption,
-                [NSNumber numberWithBool:YES],NSContinuouslyUpdatesValueBindingOption,
-                [NSNumber numberWithBool:YES],NSRaisesForNotApplicableKeysBindingOption,
-                //[NSNumber numberWithBool:YES],NSValidatesImmediatelyBindingOption,
-                nil]];*/
+    /*[self bind:@"matchingSettingsPasswords"
+     toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
+     withKeyPath:@"values.org_safeexambrowser_SEB_settingsPassword"
+     options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES]
+     forKey:@"NSContinuouslyUpdatesValue"]];*/
+    
 }
 
 
 - (void)willBeDisplayed {
     //Load settings password from user defaults
-    //[self loadPrefs];
+    [self loadPrefs];
     //[chooseIdentity synchronizeTitleAndSelectedItem];
     if (!self.identitiesName) { //no identities available yet, get them from keychain
         SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
@@ -301,7 +283,7 @@
     NSData *encryptedData = [keychainManager encryptData:data withPublicKeyFromCertificate:certificateRef];
     
     // Test decryption
-    SecKeyRef privateKeyRef = [keychainManager privateKeyFromIdentity:&identityRef];
+    /*SecKeyRef privateKeyRef = [keychainManager privateKeyFromIdentity:&identityRef];
     NSData *decryptedSebData = [keychainManager decryptData:encryptedData withPrivateKey:privateKeyRef];
     
     // Test
@@ -310,10 +292,10 @@
     
     NSMutableDictionary *loadedPrefsDict = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedSebData];
     NSLog(@"Decrypted .seb dictionary: %@",loadedPrefsDict);
-    
+    */
     if (certificateRef) CFRelease(certificateRef);
     //if (identityRef) CFRelease(identityRef);
-    if (privateKeyRef) CFRelease(privateKeyRef);
+    //if (privateKeyRef) CFRelease(privateKeyRef);
     
     //Prefix indicating data has been encrypted with a public key identified by hash
     const char *utfString = [@"pkhs" UTF8String];
