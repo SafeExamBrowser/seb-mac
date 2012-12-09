@@ -24,7 +24,6 @@
 @property (strong, nonatomic) NSMutableArray *identitiesName;
 @property (strong, nonatomic) NSArray *identities;
 
-- (NSString*) matchingSettingsPasswords;
 - (IBAction) saveSEBPrefs:(id)sender;
 - (NSData*) encryptDataUsingSelectedIdentity:(NSData*)data;
 - (NSData*) encryptDataUsingPassword:(NSData*)data;
