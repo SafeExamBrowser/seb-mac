@@ -50,16 +50,6 @@
 // Method called by the bindings object controller for comparing the settings passwords
 - (NSString*) compareSettingsPasswords {
 	if ((settingsPassword != nil) | (confirmSettingsPassword != nil)) {
-        //if at least one of the fields is defined
-        /*if ((confirmSettingsPassword != @"") & (settingsPassword != @"")) {
-         //when the settings password was changed (user started to edit it), then the
-         //placeholder string in the confirm settings password field needs to be removed
-         [self setValue:nil forKey:@"confirmSettingsPassword"];
-         if (settingsPassword == nil) {
-         //if admin pw was deleted completely, we have to return nil (pw's match)
-         return nil;
-         }
-         }*/
        	if (![settingsPassword isEqualToString:confirmSettingsPassword]) {
 			//if the two passwords don't match, show it in the label
             return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please confirm password",nil)]);
@@ -68,39 +58,6 @@
         }
     }
     return nil;
-}
-
-
-// Method called by the bindings object controller which returns the settings password if it matches with the confirm password field
-- (NSString*) matchingSettingsPasswords {
-	if ((settingsPassword != nil) | (confirmSettingsPassword != nil)) {
-       	if ([settingsPassword isEqualToString:confirmSettingsPassword]) {
-			//if the two passwords match, return the password
-            return settingsPassword;
-        }
-    }
-    return @"";
-}
-
-- (void) setMatchingSettingsPasswords:(NSString*)settingsPwd {
-    if ([settingsPwd isEqualToString:@""]) {
-        //empty passwords need to be set to NIL because of the text fields' bindings
-        [self setValue:nil forKey:@"settingsPassword"];
-        [self setValue:nil forKey:@"confirmSettingsPassword"];
-    } else {
-        //if there actually was a hashed password set, use a placeholder string
-        [self setValue:settingsPwd forKey:@"settingsPassword"];
-        [self setValue:settingsPwd forKey:@"confirmSettingsPassword"];
-    }
-}
-
-- (void) awakeFromNib {
-    /*[self bind:@"matchingSettingsPasswords"
-     toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
-     withKeyPath:@"values.org_safeexambrowser_SEB_settingsPassword"
-     options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES]
-     forKey:@"NSContinuouslyUpdatesValue"]];*/
-    
 }
 
 
@@ -146,12 +103,6 @@
     }
 }
 
-/*- (void)willBeHidden
-{
-    if ([self compareSettingsPasswords]) {
-        [self savePrefs];	//save preferences when pane is switched
-    }
-}*/
 
 - (void) loadPrefs {
 	// Loads preferences from the system's user defaults database
