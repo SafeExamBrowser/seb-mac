@@ -12,10 +12,14 @@
 
 @interface PrefsExamViewController : NSViewController <MBPreferencesModule> {
     NSTextField *examKey;
+	IBOutlet NSTextField *quitURL;
     IBOutlet NSPopUpButton *chooseIdentity;
 
 	NSMutableString *settingsPassword;
 	NSMutableString *confirmSettingsPassword;
+	IBOutlet NSMatrix *sebPurpose;
+	//IBOutlet NSButtonCell *sebStartsExam;
+	//IBOutlet NSButtonCell *sebConfiguresClient;
 	IBOutlet NSButton *saveSEBPrefsButton;
     IBOutlet NSObjectController *controller;
 }
@@ -26,6 +30,6 @@
 
 - (IBAction) saveSEBPrefs:(id)sender;
 - (NSData*) encryptDataUsingSelectedIdentity:(NSData*)data;
-- (NSData*) encryptDataUsingPassword:(NSData*)data;
+- (NSData*) encryptData:(NSData*)data usingPassword:password;
 
 @end

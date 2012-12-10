@@ -54,7 +54,7 @@
 			//if the two passwords don't match, show it in the label
             return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please confirm password",nil)]);
 		} else {
-            [self savePrefs];
+            //[self savePrefs];
         }
     }
     return nil;
@@ -63,7 +63,10 @@
 
 - (void)willBeDisplayed {
     //Load settings password from user defaults
-    [self loadPrefs];
+    //[self loadPrefs];
+	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *url = [preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"];
+    [quitURL setStringValue:url];
     //[chooseIdentity synchronizeTitleAndSelectedItem];
     if (!self.identitiesName) { //no identities available yet, get them from keychain
         SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
@@ -169,16 +172,42 @@
     // Convert preferences directory to data
     NSData *encryptedSebData = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];
 
+    NSString *encryptingPassword = nil;
+
+    // Check for special case: .seb configures client, empty password
+    if (!settingsPassword && [sebPurpose selectedRow] == 1) {
+        encryptingPassword = @"";
+    } else {
+        // in all other cases:
+        // Check if no password entered and no identity selected
+        if (!settingsPassword && ![chooseIdentity indexOfSelectedItem]) {
+            NSRunAlertPanel(NSLocalizedString(@"No encryption chosen", nil),
+                            NSLocalizedString(@"You have to either enter a password or choose a cryptographic identity with which the SEB settings file will be encrypted.", nil),
+                            NSLocalizedString(@"OK", nil), nil, nil);
+            return;
+        }
+    }
     // Check if password for encryption is entered
-    if (settingsPassword && ![self compareSettingsPasswords]) {
-        encryptedSebData = [self encryptDataUsingPassword:encryptedSebData];
+    if (settingsPassword) {
+        encryptingPassword = settingsPassword;
+    }
+    // So if password is empty (special case) or entered
+    if (encryptingPassword) {
+        // encrypt with password
+        encryptedSebData = [self encryptData:encryptedSebData usingPassword:encryptingPassword];
+    } else {
+        // if no encryption with password: add a spare 4-char prefix identifying plain data
+        const char *utfString = [@"plnd" UTF8String];
+        NSMutableData *encryptedData = [NSMutableData dataWithBytes:utfString length:4];
+        //append encrypted data
+        [encryptedData appendData:encryptedSebData];
+        encryptedSebData = [NSData dataWithData:encryptedData];
     }
     // Check if cryptographic identity for encryption is selected
     if ([chooseIdentity indexOfSelectedItem]) {
         // Encrypt preferences using a cryptographic identity
         encryptedSebData = [self encryptDataUsingSelectedIdentity:encryptedSebData];
     }
-
     
     // Save initialValues to a SEB preferences file into the application bundle
     
@@ -261,11 +290,20 @@
 
 
 // Encrypt preferences using a password
-- (NSData*) encryptDataUsingPassword:(NSData*)data {
-    const char *utfString = [@"pswd" UTF8String];
+- (NSData*) encryptData:(NSData*)data usingPassword:password {
+    const char *utfString;
+    // Check if .seb file should start exam or configure client
+    if ([sebPurpose selectedRow] == 0) {
+        // prefix string for starting exam: normal password will be prompted
+        utfString = [@"pswd" UTF8String];
+    } else {
+        // prefix string for configuring client: configuring password will either be admin pw on client
+        // or if no admin pw on client set: empty pw or prompt pw before configuring
+        utfString = [@"pwcc" UTF8String];
+    }
     NSMutableData *encryptedSebData = [NSMutableData dataWithBytes:utfString length:4];
     NSError *error;
-    NSData *encryptedData = [[RNCryptor AES256Cryptor] encryptData:data password:@"password" error:&error];
+    NSData *encryptedData = [[RNCryptor AES256Cryptor] encryptData:data password:password error:&error];
     [encryptedSebData appendData:encryptedData];
     
     return encryptedSebData;
