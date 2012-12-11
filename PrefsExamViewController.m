@@ -64,9 +64,6 @@
 - (void)willBeDisplayed {
     //Load settings password from user defaults
     //[self loadPrefs];
-	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *url = [preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"];
-    [quitURL setStringValue:url];
     //[chooseIdentity synchronizeTitleAndSelectedItem];
     if (!self.identitiesName) { //no identities available yet, get them from keychain
         SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
