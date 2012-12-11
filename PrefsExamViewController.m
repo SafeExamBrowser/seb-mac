@@ -252,7 +252,7 @@
     
     //get certificate from selected identity
     NSUInteger selectedIdentity = [chooseIdentity indexOfSelectedItem];
-    SecIdentityRef identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:selectedIdentity+1]);
+    SecIdentityRef identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:selectedIdentity-1]);
     SecCertificateRef certificateRef;
     SecIdentityCopyCertificate(identityRef, &certificateRef);
     
