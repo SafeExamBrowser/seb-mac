@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">11E53</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2829</string>
-		<string key="IBDocument.AppKitVersion">1138.47</string>
-		<string key="IBDocument.HIToolboxVersion">569.00</string>
+		<string key="IBDocument.SystemVersion">12C60</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2844</string>
+		<string key="IBDocument.AppKitVersion">1187.34</string>
+		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">2829</string>
+			<string key="NS.object.0">2844</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSButton</string>
@@ -53,7 +53,7 @@
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="479819985">
-							<int key="NSCellFlags">67239424</int>
+							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">134217728</int>
 							<string key="NSContents">Einstellungen speichern als...</string>
 							<object class="NSFont" key="NSSupport" id="366768821">
@@ -63,13 +63,14 @@
 							</object>
 							<string key="NSCellIdentifier">_NS:9</string>
 							<reference key="NSControlView" ref="602914955"/>
-							<int key="NSButtonFlags">-2038284033</int>
+							<int key="NSButtonFlags">-2038284288</int>
 							<int key="NSButtonFlags2">129</int>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
 							<int key="NSPeriodicDelay">200</int>
 							<int key="NSPeriodicInterval">25</int>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSButton" id="782272183">
 						<reference key="NSNextResponder" ref="965820046"/>
@@ -80,7 +81,7 @@
 						<reference key="NSNextKeyView" ref="37782408"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="132871334">
-							<int key="NSCellFlags">-2080244224</int>
+							<int key="NSCellFlags">-2080374784</int>
 							<int key="NSCellFlags2">67108864</int>
 							<string key="NSContents">Einfügen aus gesicherter Zwischenablage</string>
 							<object class="NSFont" key="NSSupport" id="704784627">
@@ -89,13 +90,14 @@
 								<int key="NSfFlags">16</int>
 							</object>
 							<reference key="NSControlView" ref="782272183"/>
-							<int key="NSButtonFlags">-2046541569</int>
+							<int key="NSButtonFlags">-2046541824</int>
 							<int key="NSButtonFlags2">173</int>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
 							<int key="NSPeriodicDelay">400</int>
 							<int key="NSPeriodicInterval">75</int>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSTextField" id="39488456">
 						<reference key="NSNextResponder" ref="965820046"/>
@@ -106,7 +108,7 @@
 						<reference key="NSNextKeyView" ref="174825247"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="759218030">
-							<int key="NSCellFlags">68288064</int>
+							<int key="NSCellFlags">68157504</int>
 							<int key="NSCellFlags2">272630784</int>
 							<string key="NSContents">Einstellungen ins App-Bundle speichern für vorkonfigurierten SEB:</string>
 							<reference key="NSSupport" ref="366768821"/>
@@ -130,6 +132,7 @@
 								</object>
 							</object>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSButton" id="98899224">
 						<reference key="NSNextResponder" ref="965820046"/>
@@ -140,18 +143,19 @@
 						<reference key="NSNextKeyView" ref="602914955"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="865972937">
-							<int key="NSCellFlags">67239424</int>
+							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">134217728</int>
 							<string key="NSContents">Aus App-Bundle entfernen</string>
 							<reference key="NSSupport" ref="366768821"/>
 							<reference key="NSControlView" ref="98899224"/>
-							<int key="NSButtonFlags">-2038284033</int>
+							<int key="NSButtonFlags">-2038284288</int>
 							<int key="NSButtonFlags2">129</int>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
 							<int key="NSPeriodicDelay">200</int>
 							<int key="NSPeriodicInterval">25</int>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSButton" id="174825247">
 						<reference key="NSNextResponder" ref="965820046"/>
@@ -162,18 +166,19 @@
 						<reference key="NSNextKeyView" ref="98899224"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="43005727">
-							<int key="NSCellFlags">67239424</int>
+							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">134217728</int>
 							<string key="NSContents">In App-Bundle schreiben</string>
 							<reference key="NSSupport" ref="366768821"/>
 							<reference key="NSControlView" ref="174825247"/>
-							<int key="NSButtonFlags">-2038284033</int>
+							<int key="NSButtonFlags">-2038284288</int>
 							<int key="NSButtonFlags2">129</int>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
 							<int key="NSPeriodicDelay">200</int>
 							<int key="NSPeriodicInterval">25</int>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSButton" id="353999373">
 						<reference key="NSNextResponder" ref="965820046"/>
@@ -183,18 +188,19 @@
 						<reference key="NSWindow"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="345435435">
-							<int key="NSCellFlags">67239424</int>
+							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">134217728</int>
 							<string key="NSContents">Neu starten</string>
 							<reference key="NSSupport" ref="366768821"/>
 							<reference key="NSControlView" ref="353999373"/>
-							<int key="NSButtonFlags">-2038284033</int>
+							<int key="NSButtonFlags">-2038284288</int>
 							<int key="NSButtonFlags2">129</int>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
 							<int key="NSPeriodicDelay">200</int>
 							<int key="NSPeriodicInterval">25</int>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSButton" id="913540441">
 						<reference key="NSNextResponder" ref="965820046"/>
@@ -205,18 +211,19 @@
 						<reference key="NSNextKeyView" ref="272628799"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="422576881">
-							<int key="NSCellFlags">67239424</int>
+							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">134217728</int>
 							<string key="NSContents"/>
 							<reference key="NSSupport" ref="366768821"/>
 							<reference key="NSControlView" ref="913540441"/>
-							<int key="NSButtonFlags">-2038415105</int>
+							<int key="NSButtonFlags">-2038415360</int>
 							<int key="NSButtonFlags2">161</int>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
 							<int key="NSPeriodicDelay">200</int>
 							<int key="NSPeriodicInterval">25</int>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSButton" id="48455932">
 						<reference key="NSNextResponder" ref="965820046"/>
@@ -227,18 +234,19 @@
 						<reference key="NSNextKeyView" ref="913540441"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="417529352">
-							<int key="NSCellFlags">67239424</int>
+							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">134217728</int>
 							<string key="NSContents">Über SEB</string>
 							<reference key="NSSupport" ref="366768821"/>
 							<reference key="NSControlView" ref="48455932"/>
-							<int key="NSButtonFlags">-2038284033</int>
+							<int key="NSButtonFlags">-2038284288</int>
 							<int key="NSButtonFlags2">129</int>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
 							<int key="NSPeriodicDelay">200</int>
 							<int key="NSPeriodicInterval">25</int>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSSecureTextField" id="351398252">
 						<reference key="NSNextResponder" ref="965820046"/>
@@ -249,7 +257,7 @@
 						<reference key="NSNextKeyView" ref="657256542"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSSecureTextFieldCell" key="NSCell" id="204706552">
-							<int key="NSCellFlags">343014976</int>
+							<int key="NSCellFlags">342884416</int>
 							<int key="NSCellFlags2">272630848</int>
 							<string key="NSContents"/>
 							<reference key="NSSupport" ref="366768821"/>
@@ -274,22 +282,23 @@
 								<string>NSAllRomanInputSourcesLocaleIdentifier</string>
 							</array>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSButton" id="1064892255">
 						<reference key="NSNextResponder" ref="965820046"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{19, 229}, {306, 18}}</string>
+						<string key="NSFrame">{{19, 229}, {464, 18}}</string>
 						<reference key="NSSuperview" ref="965820046"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="802262550"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="1056999937">
-							<int key="NSCellFlags">-2080244224</int>
+							<int key="NSCellFlags">-2080374784</int>
 							<int key="NSCellFlags2">0</int>
 							<string key="NSContents">Beenden von SEB erlauben</string>
 							<reference key="NSSupport" ref="366768821"/>
 							<reference key="NSControlView" ref="1064892255"/>
-							<int key="NSButtonFlags">1211912703</int>
+							<int key="NSButtonFlags">1211912448</int>
 							<int key="NSButtonFlags2">2</int>
 							<object class="NSCustomResource" key="NSNormalImage">
 								<string key="NSClassName">NSImage</string>
@@ -303,6 +312,7 @@
 							<int key="NSPeriodicDelay">200</int>
 							<int key="NSPeriodicInterval">25</int>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSTextField" id="663435541">
 						<reference key="NSNextResponder" ref="965820046"/>
@@ -313,7 +323,7 @@
 						<reference key="NSNextKeyView" ref="39488456"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="465072204">
-							<int key="NSCellFlags">68288064</int>
+							<int key="NSCellFlags">68157504</int>
 							<int key="NSCellFlags2">272630784</int>
 							<string key="NSContents">Bitte Passwort bestätigen</string>
 							<reference key="NSSupport" ref="704784627"/>
@@ -324,6 +334,7 @@
 								<bytes key="NSRGB">MC43MjE1Njg2NDQgMC4yNTg4MjM1NDM4IDAuMTc2NDcwNTkyNgA</bytes>
 							</object>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSTextField" id="1031248500">
 						<reference key="NSNextResponder" ref="965820046"/>
@@ -334,7 +345,7 @@
 						<reference key="NSNextKeyView" ref="1064892255"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="786486549">
-							<int key="NSCellFlags">68288064</int>
+							<int key="NSCellFlags">68157504</int>
 							<int key="NSCellFlags2">272630784</int>
 							<string key="NSContents">Bitte Passwort bestätigen</string>
 							<reference key="NSSupport" ref="704784627"/>
@@ -345,6 +356,7 @@
 								<bytes key="NSRGB">MC43MjE1Njg2NDQgMC4yNTg4MjM1NDM4IDAuMTc2NDcwNTkyNgA</bytes>
 							</object>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSButton" id="272628799">
 						<reference key="NSNextResponder" ref="965820046"/>
@@ -355,18 +367,19 @@
 						<reference key="NSNextKeyView" ref="353999373"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="393565395">
-							<int key="NSCellFlags">67239424</int>
+							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">134217728</int>
 							<string key="NSContents">Beenden</string>
 							<reference key="NSSupport" ref="366768821"/>
 							<reference key="NSControlView" ref="272628799"/>
-							<int key="NSButtonFlags">-2038284033</int>
+							<int key="NSButtonFlags">-2038284288</int>
 							<int key="NSButtonFlags2">129</int>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
 							<int key="NSPeriodicDelay">200</int>
 							<int key="NSPeriodicInterval">25</int>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSTextField" id="447548069">
 						<reference key="NSNextResponder" ref="965820046"/>
@@ -377,7 +390,7 @@
 						<reference key="NSNextKeyView" ref="880133117"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="473921774">
-							<int key="NSCellFlags">68288064</int>
+							<int key="NSCellFlags">68157504</int>
 							<int key="NSCellFlags2">71304192</int>
 							<string key="NSContents">Start-URL</string>
 							<reference key="NSSupport" ref="366768821"/>
@@ -385,6 +398,7 @@
 							<reference key="NSBackgroundColor" ref="85335138"/>
 							<reference key="NSTextColor" ref="172957293"/>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSTextField" id="865986926">
 						<reference key="NSNextResponder" ref="965820046"/>
@@ -395,7 +409,7 @@
 						<reference key="NSNextKeyView" ref="462625146"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="1057967822">
-							<int key="NSCellFlags">68288064</int>
+							<int key="NSCellFlags">68157504</int>
 							<int key="NSCellFlags2">71304192</int>
 							<string key="NSContents">Beenden-Passwort bestätigen</string>
 							<reference key="NSSupport" ref="366768821"/>
@@ -403,6 +417,7 @@
 							<reference key="NSBackgroundColor" ref="85335138"/>
 							<reference key="NSTextColor" ref="172957293"/>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSSecureTextField" id="462625146">
 						<reference key="NSNextResponder" ref="965820046"/>
@@ -413,7 +428,7 @@
 						<reference key="NSNextKeyView" ref="663435541"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSSecureTextFieldCell" key="NSCell" id="42168143">
-							<int key="NSCellFlags">343014976</int>
+							<int key="NSCellFlags">342884416</int>
 							<int key="NSCellFlags2">272630848</int>
 							<string key="NSContents"/>
 							<reference key="NSSupport" ref="366768821"/>
@@ -425,6 +440,7 @@
 								<string>NSAllRomanInputSourcesLocaleIdentifier</string>
 							</array>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSTextField" id="802262550">
 						<reference key="NSNextResponder" ref="965820046"/>
@@ -435,7 +451,7 @@
 						<reference key="NSNextKeyView" ref="287856347"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="890409055">
-							<int key="NSCellFlags">68288064</int>
+							<int key="NSCellFlags">68157504</int>
 							<int key="NSCellFlags2">71304192</int>
 							<string key="NSContents">Beenden-Passwort</string>
 							<reference key="NSSupport" ref="366768821"/>
@@ -443,6 +459,7 @@
 							<reference key="NSBackgroundColor" ref="85335138"/>
 							<reference key="NSTextColor" ref="172957293"/>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSTextField" id="657256542">
 						<reference key="NSNextResponder" ref="965820046"/>
@@ -453,7 +470,7 @@
 						<reference key="NSNextKeyView" ref="47473207"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="1009514888">
-							<int key="NSCellFlags">68288064</int>
+							<int key="NSCellFlags">68157504</int>
 							<int key="NSCellFlags2">71304192</int>
 							<string key="NSContents">Administrator-Passwort bestätigen</string>
 							<reference key="NSSupport" ref="366768821"/>
@@ -461,6 +478,7 @@
 							<reference key="NSBackgroundColor" ref="85335138"/>
 							<reference key="NSTextColor" ref="172957293"/>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSTextField" id="37782408">
 						<reference key="NSNextResponder" ref="965820046"/>
@@ -471,7 +489,7 @@
 						<reference key="NSNextKeyView" ref="351398252"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="202369527">
-							<int key="NSCellFlags">68288064</int>
+							<int key="NSCellFlags">68157504</int>
 							<int key="NSCellFlags2">71304192</int>
 							<string key="NSContents">Administrator-Passwort</string>
 							<reference key="NSSupport" ref="366768821"/>
@@ -479,6 +497,7 @@
 							<reference key="NSBackgroundColor" ref="85335138"/>
 							<reference key="NSTextColor" ref="172957293"/>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSSecureTextField" id="287856347">
 						<reference key="NSNextResponder" ref="965820046"/>
@@ -489,7 +508,7 @@
 						<reference key="NSNextKeyView" ref="865986926"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSSecureTextFieldCell" key="NSCell" id="617783254">
-							<int key="NSCellFlags">343014976</int>
+							<int key="NSCellFlags">342884416</int>
 							<int key="NSCellFlags2">272630848</int>
 							<string key="NSContents"/>
 							<reference key="NSSupport" ref="366768821"/>
@@ -501,6 +520,7 @@
 								<string>NSAllRomanInputSourcesLocaleIdentifier</string>
 							</array>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSSecureTextField" id="47473207">
 						<reference key="NSNextResponder" ref="965820046"/>
@@ -511,7 +531,7 @@
 						<reference key="NSNextKeyView" ref="1031248500"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSSecureTextFieldCell" key="NSCell" id="222761783">
-							<int key="NSCellFlags">343014976</int>
+							<int key="NSCellFlags">342884416</int>
 							<int key="NSCellFlags2">272630848</int>
 							<string key="NSContents"/>
 							<reference key="NSSupport" ref="366768821"/>
@@ -523,6 +543,7 @@
 								<string>NSAllRomanInputSourcesLocaleIdentifier</string>
 							</array>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSTextField" id="880133117">
 						<reference key="NSNextResponder" ref="965820046"/>
@@ -533,7 +554,7 @@
 						<reference key="NSNextKeyView" ref="782272183"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="774072847">
-							<int key="NSCellFlags">-1804468671</int>
+							<int key="NSCellFlags">-1804599231</int>
 							<int key="NSCellFlags2">272630784</int>
 							<string key="NSContents">Start-URL</string>
 							<reference key="NSSupport" ref="366768821"/>
@@ -543,6 +564,7 @@
 							<reference key="NSBackgroundColor" ref="2433470"/>
 							<reference key="NSTextColor" ref="485983446"/>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 				</array>
 				<string key="NSFrameSize">{500, 402}</string>

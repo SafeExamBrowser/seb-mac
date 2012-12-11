@@ -52,6 +52,7 @@
 #import "BrowserWindow.h"
 #import "PrefsBrowserViewController.h"
 #import "RNCryptor.h"
+#import "SEBKeychainManager.h"
 #import "NSWindow+SEBWindow.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "MyGlobals.h"
@@ -78,45 +79,102 @@ bool insideMatrix();
 #ifdef DEBUG
     NSLog(@"Loading .seb settings file with URL %@",sebFileURL);
 #endif
-    const char utfString[2];
-    //= [@"pw" UTF8String];
-    NSMutableData *sebData = [NSMutableData dataWithContentsOfURL:sebFileURL];
-    [sebData getBytes:(void *)utfString length:2];
+    NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL];
+    //NSData *decryptedSebData = nil;
+
+    // Getting 4-char prefix
+    const char *utfString = [@"    " UTF8String];
+    [sebData getBytes:(void *)utfString length:4];
+
+    // Get data without the prefix
+    NSRange range = {4, [sebData length]-4};
+    sebData = [sebData subdataWithRange:range];
 #ifdef DEBUG
-    NSLog(@"Dump of encypted .seb settings file: %@",sebData);
-    NSLog(@"Prefix of .seb settings file: %s",utfString);
-    NSLog(@"Prefix of .seb settings file: %@",[NSString stringWithUTF8String:utfString]);
+    NSLog(@"Outer prefix of .seb settings file: %s",utfString);
+    //NSLog(@"Prefix of .seb settings file: %@",[NSString stringWithUTF8String:utfString]);
 #endif
-    if (utfString /*== [@"pw" UTF8String]*/) {
-        NSRange range = {2, [sebData length]-2};
-        NSData *encryptedSebData = [sebData subdataWithRange:range];
+    
+    //
+    // Decrypt with cryptographic identity/private key
+    //
+    if ([[NSString stringWithUTF8String:utfString] isEqualToString:@"pkhs"]) {
+        // Get 20 bytes public key hash
+        NSRange hashRange = {0, 20};
+        NSData *publicKeyHash = [sebData subdataWithRange:hashRange];
+    
+        SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+        SecKeyRef privateKeyRef = [keychainManager getPrivateKeyFromPublicKeyHash:publicKeyHash];
 #ifdef DEBUG
-        NSLog(@"Dump of encypted .seb settings (without prefix): %@",encryptedSebData);
+        NSLog(@"Private key retrieved with hash: %@", privateKeyRef);
+#endif
+        NSRange dataRange = {20, [sebData length]-20};
+        sebData = [sebData subdataWithRange:dataRange];
+
+        sebData = [keychainManager decryptData:sebData withPrivateKey:privateKeyRef];
+
+        // Getting 4-char prefix again
+        [sebData getBytes:(void *)utfString length:4];
+#ifdef DEBUG
+        NSLog(@"Inner prefix of .seb settings file: %s",utfString);
+        //NSLog(@"Prefix of .seb settings file: %@",[NSString stringWithUTF8String:utfString]);
+#endif
+        // Get remaining data without prefix, which is either plain or still encoded with password
+        NSRange range = {4, [sebData length]-4};
+        sebData = [sebData subdataWithRange:range];
+}
+    
+    //
+    // Decrypt with password
+    //
+
+    if ([[NSString stringWithUTF8String:utfString] isEqualToString:@"pswd"]) {
+#ifdef DEBUG
+        //NSLog(@"Dump of encypted .seb settings (without prefix): %@",encryptedSebData);
 #endif
         NSError *error;
-        NSData *decryptedSebData = [[RNCryptor AES256Cryptor] decryptData:encryptedSebData password:@"password" error:&error];
-        NSDictionary *sebPreferencesDict = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedSebData];
-
-        //NSDictionary *sebPreferencesDict=[NSDictionary dictionaryWithContentsOfURL:sebFileURL];
-        //    NSMutableDictionary *initialValuesDict = [NSMutableDictionary dictionaryWithCapacity:[sebPreferencesDict count]];
-        // Use private UserDefaults
-        NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults];
-        for (NSString *key in sebPreferencesDict) {
-            NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
-            [privatePreferences setObject:[sebPreferencesDict objectForKey:key] forKey:keyWithPrefix];
-            //        [initialValuesDict setObject:[preferences secureDataForObject:[sebPreferencesDict objectForKey:key]] forKey:keyWithPrefix];
-        }
-#ifdef DEBUG
-        NSLog(@"Private preferences set: %@",privatePreferences);
-#endif
-        [NSUserDefaults setUserDefaultsPrivate:YES];
-        // Set the initial values in the shared user defaults controller
-        //    [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:initialValuesDict];
-        // Replace the values of all the user default properties with any corresponding values in the initialValues dictionary
-        //    [[NSUserDefaultsController sharedUserDefaultsController] revertToInitialValues:self];
-        [self startKioskMode];
-        [self requestedRestart:nil];
+        // Allow up to 3 trials for entering decoding password
+        int i = 3;
+        do {
+            i--;
+            // Prompt for password
+            NSString *password = [self showEnterPasswordDialog:nil];
+            if (!password) {
+                //no password entered or clicked cancel: stop reading .seb file
+                return YES;
+            }
+            error = nil;
+            sebData = [[RNCryptor AES256Cryptor] decryptData:sebData password:password error:&error];
+            // in case we get an error we allow the user to try it again
+        } while (error && i>0);
     }
+    //if decrypting wasn't successfull then stop here
+    if (!sebData) return YES;
+
+    // Get preferences dictionary from decrypted data
+    NSDictionary *sebPreferencesDict = [NSKeyedUnarchiver unarchiveObjectWithData:sebData];
+    
+    //NSDictionary *sebPreferencesDict=[NSDictionary dictionaryWithContentsOfURL:sebFileURL];
+    //    NSMutableDictionary *initialValuesDict = [NSMutableDictionary dictionaryWithCapacity:[sebPreferencesDict count]];
+    // Use private UserDefaults
+
+    // Add prefix to all keys and copy key/values to private preferences
+    NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults];
+    for (NSString *key in sebPreferencesDict) {
+        NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
+        [privatePreferences setObject:[sebPreferencesDict objectForKey:key] forKey:keyWithPrefix];
+        //        [initialValuesDict setObject:[preferences secureDataForObject:[sebPreferencesDict objectForKey:key]] forKey:keyWithPrefix];
+    }
+#ifdef DEBUG
+    NSLog(@"Private preferences set: %@",privatePreferences);
+#endif
+    [NSUserDefaults setUserDefaultsPrivate:YES];
+    // Set the initial values in the shared user defaults controller
+    //    [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:initialValuesDict];
+    // Replace the values of all the user default properties with any corresponding values in the initialValues dictionary
+    //    [[NSUserDefaultsController sharedUserDefaultsController] revertToInitialValues:self];
+    [self startKioskMode];
+    [self requestedRestart:nil];
+    
     return YES;
 }
 
@@ -139,6 +197,7 @@ bool insideMatrix();
         // Set default preferences for the case there are no user prefs yet
         //SEBnewBrowserWindowLink newBrowserWindowLinkPolicy = openInNewWindow;
         NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys:
+                                     [preferences secureDataForObject:(id)@"http://www.safeexambrowser.org/macosx"], @"org_safeexambrowser_SEB_startURL",
                                      [preferences secureDataForObject:(id)[NSData data]], @"org_safeexambrowser_SEB_hashedAdminPassword",
                                      [preferences secureDataForObject:(id)[NSData data]], @"org_safeexambrowser_SEB_hashedQuitPassword",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]], @"org_safeexambrowser_SEB_allowQuit",
@@ -159,8 +218,12 @@ bool insideMatrix();
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_newBrowserWindowByLinkBlockForeign",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithInt:openInNewWindow]], @"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_newBrowserWindowByScriptBlockForeign",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_copyExamKeyToClipboardWhenQuitting",
+                                     [preferences secureDataForObject:(id)@""], @"org_safeexambrowser_SEB_quitURL",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:0]], @"org_safeexambrowser_SEB_SebPurpose",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_allowPreferencesWindow",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithInt:0]], @"org_safeexambrowser_SEB_cryptoIdentity",
-                                     [preferences secureDataForObject:(id)@"http://www.safeexambrowser.org/macosx"], @"org_safeexambrowser_SEB_startURL",
+                                     [preferences secureDataForObject:(id)@""], @"org_safeexambrowser_SEB_settingsPassword",
                                      nil];
         [preferences registerDefaults:appDefaults];
 #ifdef DEBUG
@@ -201,8 +264,6 @@ bool insideMatrix();
             // Reset the flag for preferences in app bundle
             [preferences setSecureObject:[NSNumber numberWithBool:NO] forKey:@"org_safeexambrowser_SEB_prefsInBundle"];
         }
-        
-
     }
     return self;
 }
@@ -288,6 +349,11 @@ bool insideMatrix();
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(exitSEB:)
                                                  name:@"requestExitNotification" object:nil];
+	
+    // Add an observer for the request to conditionally quit SEB without asking quit password
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(requestedQuitWoPwd:)
+                                                 name:@"requestQuitWoPwdNotification" object:nil];
 	
     // Add an observer for the request to unconditionally quit SEB
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -804,7 +870,24 @@ bool insideMatrix(){
 
 
 - (NSString*) showEnterPasswordDialog: (NSWindow *)window {
-// User has asked to see the dialog. Display it.
+    // User has asked to see the dialog. Display it.
+    [enterPassword setStringValue:@""]; //reset the enterPassword NSSecureTextField
+    
+    [NSApp beginSheet: enterPasswordDialog
+       modalForWindow: window
+        modalDelegate: nil
+       didEndSelector: nil
+          contextInfo: nil];
+    [NSApp runModalForWindow: enterPasswordDialog];
+    // Dialog is up here.
+    [NSApp endSheet: enterPasswordDialog];
+    [enterPasswordDialog orderOut: self];
+    return ([enterPassword stringValue]);
+}
+
+
+- (NSString*) showModalPasswordDialog: (NSWindow *)window {
+    // User has asked to see the dialog. Display it.
     [enterPassword setStringValue:@""]; //reset the enterPassword NSSecureTextField
     
     [NSApp beginSheet: enterPasswordDialog
@@ -899,6 +982,21 @@ bool insideMatrix(){
         {
             [self requestedRestart:nil];
         }
+    }
+}
+
+
+- (void)requestedQuitWoPwd:(NSNotification *)notification
+{
+    int answer = NSRunAlertPanel(NSLocalizedString(@"Quit",nil), NSLocalizedString(@"Are you sure you want to quit SEB?",nil),
+                                 NSLocalizedString(@"Cancel",nil), NSLocalizedString(@"Quit",nil), nil);
+    switch(answer)
+    {
+        case NSAlertDefaultReturn:
+            return; //Cancel: don't quit
+        default:
+            quittingMyself = TRUE; //SEB is terminating itself
+            [NSApp terminate: nil]; //quit SEB
     }
 }
 

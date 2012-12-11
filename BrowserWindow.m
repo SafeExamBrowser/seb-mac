@@ -310,6 +310,15 @@ initiatedByFrame:(WebFrame *)frame {
 decisionListener:(id <WebPolicyDecisionListener>)listener {
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    // Check if quit URL has been clicked
+    if ([[[request URL] absoluteString] isEqualTo:[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"]]) {
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"requestQuitWoPwdNotification" object:self];
+        [listener ignore];
+        return;
+    }
+    
     NSString *currentMainHost = [[MyGlobals sharedMyGlobals] currentMainHost];
     if (currentMainHost && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == getGenerallyBlocked) {
         [listener ignore];

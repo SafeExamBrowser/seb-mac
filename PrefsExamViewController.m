@@ -9,6 +9,7 @@
 #import "PrefsExamViewController.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "SEBUIUserDefaultsController.h"
+#import "SEBEncryptedUserDefaultsController.h"
 #import "RNCryptor.h"
 #import "SEBKeychainManager.h"
 
@@ -39,11 +40,35 @@
 	return [NSImage imageNamed:@"NSPreferencesGeneral"];
 }
 
+
+// Definitition of the dependent keys for comparing settings passwords
++ (NSSet *)keyPathsForValuesAffectingCompareSettingsPasswords {
+    return [NSSet setWithObjects:@"settingsPassword", @"confirmSettingsPassword", nil];
+}
+
+
+// Method called by the bindings object controller for comparing the settings passwords
+- (NSString*) compareSettingsPasswords {
+	if ((settingsPassword != nil) | (confirmSettingsPassword != nil)) {
+       	if (![settingsPassword isEqualToString:confirmSettingsPassword]) {
+			//if the two passwords don't match, show it in the label
+            return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please confirm password",nil)]);
+		} else {
+            //[self savePrefs];
+        }
+    }
+    return nil;
+}
+
+
 - (void)willBeDisplayed {
+    //Load settings password from user defaults
+    //[self loadPrefs];
+	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *url = [preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"];
+    [quitURL setStringValue:url];
     //[chooseIdentity synchronizeTitleAndSelectedItem];
     if (!self.identitiesName) { //no identities available yet, get them from keychain
-        //first display placeholder in popupbutton list
-        //[chooseIdentity addItemsWithTitles:[NSArray arrayWithObjects:NSLocalizedString(@"Fetching identities", nil), nil]];
         SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
         NSArray *identitiesInKeychain = [keychainManager getIdentities];
         //SecCertificateRef certificate;
@@ -75,9 +100,41 @@
         }
         self.identities = identitiesInKeychain;
         [chooseIdentity removeAllItems];
+        //first put "None" item in popupbutton list
+        [chooseIdentity addItemWithTitle:NSLocalizedString(@"None", nil)];
         [chooseIdentity addItemsWithTitles: self.identitiesName];
     }
 }
+
+
+- (void) loadPrefs {
+	// Loads preferences from the system's user defaults database
+	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *settingsPwd = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_settingsPassword"];
+    if ([settingsPwd isEqualToString:@""]) {
+        //empty passwords need to be set to NIL because of the text fields' bindings
+        [self setValue:nil forKey:@"settingsPassword"];
+        [self setValue:nil forKey:@"confirmSettingsPassword"];
+    } else {
+        //if there actually was a hashed password set, use a placeholder string
+        [self setValue:settingsPwd forKey:@"settingsPassword"];
+        [self setValue:settingsPwd forKey:@"confirmSettingsPassword"];
+    }
+}
+
+
+- (void) savePrefs {
+	// Saves preferences to the system's user defaults database
+	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    if (settingsPassword == nil) {
+        //if no settings pw was entered, save a empty NSData object in preferences
+        [preferences setSecureObject:@"" forKey:@"org_safeexambrowser_SEB_settingsPassword"];
+    } else
+        //if password was changed, save the new password in preferences
+        [preferences setSecureObject:settingsPassword forKey:@"org_safeexambrowser_SEB_settingsPassword"];
+}
+
 
 // Action saving current preferences to a plist-file in application bundle Contents/Resources/ directory
 - (IBAction) saveSEBPrefs:(id)sender {
@@ -112,44 +169,45 @@
         [filteredPrefsDict setObject:[preferences secureObjectForKey:key] forKey:[key substringFromIndex:24]];
     }
 
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];
+    // Convert preferences directory to data
+    NSData *encryptedSebData = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];
 
-    // Encrypt preferences using a certificate
-    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    
-    //get certificate from selected identity
-    NSUInteger selectedIdentity = [chooseIdentity indexOfSelectedItem];
-    SecIdentityRef identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:selectedIdentity]);
-    SecCertificateRef certificateRef;
-    SecIdentityCopyCertificate(identityRef, &certificateRef);
-    
-    //get public key hash from selected identity's certificate
-    NSData* publicKeyHash = [keychainManager getPublicKeyHashFromCertificate:certificateRef];
+    NSString *encryptingPassword = nil;
 
-    /*/ Encrypt preferences using a password
-    const char *utfString = [@"pw" UTF8String];
-    NSMutableData *encryptedSebData = [NSMutableData dataWithBytes:utfString length:2];
-    NSError *error;
-    NSData *encryptedData = [[RNCryptor AES256Cryptor] encryptData:data password:@"password" error:&error];
-    [encryptedSebData appendData:encryptedData];
-    */
-    
-    NSData *encryptedData = [keychainManager encryptData:data withPublicKeyFromCertificate:certificateRef];
-
-    // Test decryption
-    SecKeyRef privateKeyRef = [keychainManager privateKeyFromIdentity:&identityRef];
-    NSData *decryptedSebData = [keychainManager decryptData:encryptedData withPrivateKey:privateKeyRef];
-
-    NSMutableDictionary *loadedPrefsDict = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedSebData];
-    NSLog(@"Decrypted .seb dictionary: %@",loadedPrefsDict);
-
-    if (certificateRef) CFRelease(certificateRef);
-    //if (identityRef) CFRelease(identityRef);
-    if (privateKeyRef) CFRelease(privateKeyRef);
-
-    // Append encrypted data to the public key hash
-    NSMutableData *encryptedSebData = [NSMutableData dataWithData:publicKeyHash];
-    [encryptedSebData appendData:encryptedData];
+    // Check for special case: .seb configures client, empty password
+    if (!settingsPassword && [sebPurpose selectedRow] == 1) {
+        encryptingPassword = @"";
+    } else {
+        // in all other cases:
+        // Check if no password entered and no identity selected
+        if (!settingsPassword && ![chooseIdentity indexOfSelectedItem]) {
+            NSRunAlertPanel(NSLocalizedString(@"No encryption chosen", nil),
+                            NSLocalizedString(@"You have to either enter a password or choose a cryptographic identity with which the SEB settings file will be encrypted.", nil),
+                            NSLocalizedString(@"OK", nil), nil, nil);
+            return;
+        }
+    }
+    // Check if password for encryption is entered
+    if (settingsPassword) {
+        encryptingPassword = settingsPassword;
+    }
+    // So if password is empty (special case) or entered
+    if (encryptingPassword) {
+        // encrypt with password
+        encryptedSebData = [self encryptData:encryptedSebData usingPassword:encryptingPassword];
+    } else {
+        // if no encryption with password: add a spare 4-char prefix identifying plain data
+        const char *utfString = [@"plnd" UTF8String];
+        NSMutableData *encryptedData = [NSMutableData dataWithBytes:utfString length:4];
+        //append encrypted data
+        [encryptedData appendData:encryptedSebData];
+        encryptedSebData = [NSData dataWithData:encryptedData];
+    }
+    // Check if cryptographic identity for encryption is selected
+    if ([chooseIdentity indexOfSelectedItem]) {
+        // Encrypt preferences using a cryptographic identity
+        encryptedSebData = [self encryptDataUsingSelectedIdentity:encryptedSebData];
+    }
     
     // Save initialValues to a SEB preferences file into the application bundle
     
@@ -187,5 +245,68 @@
                   }];
 }
 
+
+// Encrypt preferences using a certificate
+- (NSData*) encryptDataUsingSelectedIdentity:(NSData*)data {
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    
+    //get certificate from selected identity
+    NSUInteger selectedIdentity = [chooseIdentity indexOfSelectedItem];
+    SecIdentityRef identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:selectedIdentity+1]);
+    SecCertificateRef certificateRef;
+    SecIdentityCopyCertificate(identityRef, &certificateRef);
+    
+    //get public key hash from selected identity's certificate
+    NSData* publicKeyHash = [keychainManager getPublicKeyHashFromCertificate:certificateRef];
+    
+    //encrypt data using public key
+    NSData *encryptedData = [keychainManager encryptData:data withPublicKeyFromCertificate:certificateRef];
+    
+    // Test decryption
+    /*SecKeyRef privateKeyRef = [keychainManager privateKeyFromIdentity:&identityRef];
+    NSData *decryptedSebData = [keychainManager decryptData:encryptedData withPrivateKey:privateKeyRef];
+    
+    // Test
+    SecKeyRef privateKeyRef2 = [keychainManager getPrivateKeyFromPublicKeyHash:publicKeyHash];
+    NSLog(@"Private key from identity %@ and retrieved with hash: %@", privateKeyRef, privateKeyRef2);
+    
+    NSMutableDictionary *loadedPrefsDict = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedSebData];
+    NSLog(@"Decrypted .seb dictionary: %@",loadedPrefsDict);
+    */
+    if (certificateRef) CFRelease(certificateRef);
+    //if (identityRef) CFRelease(identityRef);
+    //if (privateKeyRef) CFRelease(privateKeyRef);
+    
+    //Prefix indicating data has been encrypted with a public key identified by hash
+    const char *utfString = [@"pkhs" UTF8String];
+    NSMutableData *encryptedSebData = [NSMutableData dataWithBytes:utfString length:4];
+    //append public key hash
+    [encryptedSebData appendData:publicKeyHash];
+    //append encrypted data
+    [encryptedSebData appendData:encryptedData];
+
+    return encryptedSebData;
+}
+
+
+// Encrypt preferences using a password
+- (NSData*) encryptData:(NSData*)data usingPassword:password {
+    const char *utfString;
+    // Check if .seb file should start exam or configure client
+    if ([sebPurpose selectedRow] == 0) {
+        // prefix string for starting exam: normal password will be prompted
+        utfString = [@"pswd" UTF8String];
+    } else {
+        // prefix string for configuring client: configuring password will either be admin pw on client
+        // or if no admin pw on client set: empty pw or prompt pw before configuring
+        utfString = [@"pwcc" UTF8String];
+    }
+    NSMutableData *encryptedSebData = [NSMutableData dataWithBytes:utfString length:4];
+    NSError *error;
+    NSData *encryptedData = [[RNCryptor AES256Cryptor] encryptData:data password:password error:&error];
+    [encryptedSebData appendData:encryptedData];
+    
+    return encryptedSebData;
+}
 
 @end
