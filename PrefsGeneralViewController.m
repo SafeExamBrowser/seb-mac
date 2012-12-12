@@ -202,7 +202,7 @@
     if (url) { //if there is no preferences file yet, startURL can be nil during first execution of this method
        	[startURL setStringValue:url];
         
-        if ([[preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"] isEqualToData:[NSData data]]) {
+        if ([[preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"] isEqualToString:@""]) {
             //empty passwords need to be set to NIL because of the text fields' bindings 
             //([NSData data] produces an empty NSData object)
             [self setValue:nil forKey:@"adminPassword"];
@@ -213,7 +213,7 @@
             [self setValue:@"𝈭𝈖𝈒𝉇𝈁𝉈" forKey:@"confirmAdminPassword"];
         }
         
-        if ([[preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"] isEqualToData:[NSData data]]) {
+        if ([[preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"] isEqualToString:@""]) {
             [self setValue:nil forKey:@"quitPassword"];
             [self setValue:nil forKey:@"confirmQuitPassword"];
         } else {
@@ -227,6 +227,7 @@
 - (void) savePrefs:(id)sender {
 	// Saves preferences to the system's user defaults database
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     /*/ Load start URL from the system's user defaults database
     if (![[preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"] isEqualToString:startURL.stringValue]) {
         [preferences setSecureObject:[startURL stringValue] forKey:@"org_safeexambrowser_SEB_startURL"];
@@ -237,17 +238,17 @@
 
     if (adminPassword == nil) {
         //if no admin pw was entered, save a empty NSData object in preferences
-        [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+        [preferences setSecureObject:@"" forKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
     } else if (adminPassword != @"𝈭𝈖𝈒𝉇𝈁𝉈") {
         //if password was changed, save the new hashed password in preferences
-        [preferences setSecureObject:[self generateSHAHash:adminPassword] forKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+        [preferences setSecureObject:[keychainManager generateSHAHashString:adminPassword] forKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
     }
     if (quitPassword == nil) {
         //if no quit pw was entered, save a empty NSData object in preferences
-        [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+        [preferences setSecureObject:@"" forKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     } else if (quitPassword != @"𝈭𝈖𝈒𝉇𝈁𝉈") {
         //if password was changed, save the new hashed password in preferences
-        [preferences setSecureObject:[self generateSHAHash:quitPassword] forKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+        [preferences setSecureObject:[keychainManager generateSHAHashString:quitPassword] forKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     }
 }
 

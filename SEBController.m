@@ -154,12 +154,23 @@ bool insideMatrix();
     if ([[NSString stringWithUTF8String:utfString] isEqualToString:@"pwcc"]) {
         //get admin password hash
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        NSData *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-        NSString *password = [[hashedAdminPassword description] stringByReplacingOccurrencesOfString:@" " withString:@""];
-        password = [password substringWithRange:NSMakeRange(1, [password length] - 2)];
+        NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+        //if (!hashedAdminPassword) {
+        //   hashedAdminPassword = @"";
+        //}
         NSError *error;
         error = nil;
-        sebData = [[RNCryptor AES256Cryptor] decryptData:sebData password:password error:&error];
+        sebData = [[RNCryptor AES256Cryptor] decryptData:sebData password:hashedAdminPassword error:&error];
+        if (!error) {
+            // Get preferences dictionary from decrypted data
+            NSDictionary *sebPreferencesDict = [NSKeyedUnarchiver unarchiveObjectWithData:sebData];
+            for (NSString *key in sebPreferencesDict) {
+                NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
+                [preferences setSecureObject:[sebPreferencesDict objectForKey:key] forKey:keyWithPrefix];
+            }
+            [self requestedRestart:nil];
+        }
+        return YES; //we're done here
     }
     
     //if decrypting wasn't successfull then stop here
@@ -213,8 +224,8 @@ bool insideMatrix();
         //SEBnewBrowserWindowLink newBrowserWindowLinkPolicy = openInNewWindow;
         NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys:
                                      [preferences secureDataForObject:(id)@"http://www.safeexambrowser.org/macosx"], @"org_safeexambrowser_SEB_startURL",
-                                     [preferences secureDataForObject:(id)[NSData data]], @"org_safeexambrowser_SEB_hashedAdminPassword",
-                                     [preferences secureDataForObject:(id)[NSData data]], @"org_safeexambrowser_SEB_hashedQuitPassword",
+                                     [preferences secureDataForObject:(id)@""], @"org_safeexambrowser_SEB_hashedAdminPassword",
+                                     [preferences secureDataForObject:(id)@""], @"org_safeexambrowser_SEB_hashedQuitPassword",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]], @"org_safeexambrowser_SEB_allowQuit",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]], @"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_allowDownUploads",
@@ -932,15 +943,16 @@ bool insideMatrix(){
 - (IBAction) exitSEB:(id)sender {
 	// Load quitting preferences from the system's user defaults database
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-	NSData *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+	NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"] == YES) {
 		// if quitting SEB is allowed
 		
-        if (![hashedQuitPassword isEqualToData:[NSData data]]) {
+        if (![hashedQuitPassword isEqualToString:@""]) {
 			// if quit password is set, then restrict quitting
             NSString *password = [self showEnterPasswordDialog:browserWindow];
 			
-            if ([hashedQuitPassword isEqualToData:[self generateSHAHash:password]]) {
+            SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+            if ([hashedQuitPassword isEqualToString:[keychainManager generateSHAHashString:password]]) {
 				// if the correct quit password was entered
 				quittingMyself = TRUE; //SEB is terminating itself
                 [NSApp terminate: nil]; //quit SEB
@@ -966,11 +978,12 @@ bool insideMatrix(){
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (![preferencesController preferencesAreOpen]) {
         // Load admin password from the system's user defaults database
-        NSData *hashedAdminPW = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-        if (![hashedAdminPW isEqualToData:[NSData data]]) {
+        NSString *hashedAdminPW = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+        if (![hashedAdminPW isEqualToString:@""]) {
             // If admin password is set, then restrict access to the preferences window  
             NSString *password = [self showEnterPasswordDialog:browserWindow];
-            if (![hashedAdminPW isEqualToData:[self generateSHAHash:password]]) {
+            SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+            if (![hashedAdminPW isEqualToString:[keychainManager generateSHAHashString:password]]) {
                 //if hash of entered password is not equal to the one in preferences
                 return;
             }         
