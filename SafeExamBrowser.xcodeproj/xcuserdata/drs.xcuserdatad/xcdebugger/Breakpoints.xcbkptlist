@@ -30,107 +30,29 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "No"
+         shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "SEBController.m"
-         timestampString = "373153965.15289"
+         filePath = "PrefsExamViewController.m"
+         timestampString = "376963149.061298"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "121"
-         endingLineNumber = "121"
-         landmarkName = "-application:openFile:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "PrefsGeneralViewController.m"
-         timestampString = "374709529.654105"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "359"
-         endingLineNumber = "359"
-         landmarkName = "-saveSEBPrefs:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "NSUserDefaultsController+SEBEncryptedUserDefaultsController.m"
-         timestampString = "372675978.537103"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "19"
-         endingLineNumber = "19"
-         landmarkName = "-secureValueForKeyPath:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "NSUserDefaultsController+SEBEncryptedUserDefaultsController.m"
-         timestampString = "372675456.973853"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "40"
-         endingLineNumber = "40"
-         landmarkName = "-setSecureValue:forKeyPath:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "NSUserDefaults+SEBEncryptedUserDefaults.m"
-         timestampString = "372691330.618985"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "227"
-         endingLineNumber = "227"
-         landmarkName = "-setSecureObject:forKey:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "NSUserDefaults+SEBEncryptedUserDefaults.m"
-         timestampString = "372691330.618985"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "315"
-         endingLineNumber = "315"
-         landmarkName = "-_objectForKey:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "NSUserDefaults+SEBEncryptedUserDefaults.m"
-         timestampString = "372691330.618985"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "45"
-         endingLineNumber = "45"
-         landmarkName = "+privateUserDefaults"
+         startingLineNumber = "301"
+         endingLineNumber = "301"
+         landmarkName = "-encryptData:usingPassword:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "PrefsGeneralViewController.m"
-         timestampString = "374709529.654105"
+         filePath = "SEBController.m"
+         timestampString = "376964230.287162"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "347"
-         endingLineNumber = "347"
-         landmarkName = "-saveSEBPrefs:"
+         startingLineNumber = "159"
+         endingLineNumber = "159"
+         landmarkName = "-application:openFile:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

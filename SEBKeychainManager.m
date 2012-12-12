@@ -361,4 +361,17 @@
     return plainData;
 }
 
+
+- (NSString*) generateSHAHashString:(NSString*)inputString {
+    unsigned char hashedChars[32];
+    CC_SHA256([inputString UTF8String],
+              [inputString lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+              hashedChars);
+    NSMutableString* hashedString = [[NSMutableString alloc] init];
+    for (int i = 0 ; i < 32 ; ++i) {
+        [hashedString appendFormat: @"%02x", hashedChars[i]];
+    }
+    return hashedString;
+}
+
 @end

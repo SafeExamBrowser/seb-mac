@@ -297,6 +297,8 @@
         // prefix string for configuring client: configuring password will either be admin pw on client
         // or if no admin pw on client set: empty pw or prompt pw before configuring
         utfString = [@"pwcc" UTF8String];
+        SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+        password = [keychainManager generateSHAHashString:password];
     }
     NSMutableData *encryptedSebData = [NSMutableData dataWithBytes:utfString length:4];
     NSError *error;

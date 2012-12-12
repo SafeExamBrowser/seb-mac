@@ -7,6 +7,7 @@
 //
 
 #include <Security/Security.h>
+#import <CommonCrypto/CommonDigest.h>
 //#import <Security/SecRandom.h> //for SecRandom
 
 
@@ -23,5 +24,6 @@
 //- (NSData*)encryptData:(NSData*)inputData withPublicKey:(SecKeyRef*)publicKey;
 - (NSData*) encryptData:(NSData*)plainData withPublicKeyFromCertificate:(SecCertificateRef)certificate;
 - (NSData*) decryptData:(NSData*)cipherData withPrivateKey:(SecKeyRef)privateKey;
+- (NSString*) generateSHAHashString:(NSString*)inputString;
 
 @end

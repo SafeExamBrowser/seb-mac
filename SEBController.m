@@ -147,6 +147,21 @@ bool insideMatrix();
             // in case we get an error we allow the user to try it again
         } while (error && i>0);
     }
+    
+    //
+    // Configure local client settings
+    //
+    if ([[NSString stringWithUTF8String:utfString] isEqualToString:@"pwcc"]) {
+        //get admin password hash
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        NSData *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+        NSString *password = [[hashedAdminPassword description] stringByReplacingOccurrencesOfString:@" " withString:@""];
+        password = [password substringWithRange:NSMakeRange(1, [password length] - 2)];
+        NSError *error;
+        error = nil;
+        sebData = [[RNCryptor AES256Cryptor] decryptData:sebData password:password error:&error];
+    }
+    
     //if decrypting wasn't successfull then stop here
     if (!sebData) return YES;
 
