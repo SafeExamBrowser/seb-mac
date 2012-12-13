@@ -154,7 +154,7 @@
     // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
     NSSet *filteredPrefsSet = [prefsDict keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop)
                                {
-                                   if ([key hasPrefix:@"org_safeexambrowser_SEB_"])
+                                   if ([key hasPrefix:@"org_safeexambrowser_SEB_"] && ![key isEqualToString:@"org_safeexambrowser_SEB_enablePreferencesWindow"])
                                        return YES;
                                    else
                                        return NO;

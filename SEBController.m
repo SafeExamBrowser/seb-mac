@@ -165,8 +165,14 @@ bool insideMatrix();
             // Get preferences dictionary from decrypted data
             NSDictionary *sebPreferencesDict = [NSKeyedUnarchiver unarchiveObjectWithData:sebData];
             for (NSString *key in sebPreferencesDict) {
-                NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
-                [preferences setSecureObject:[sebPreferencesDict objectForKey:key] forKey:keyWithPrefix];
+                if ([key isEqualToString:@"allowPreferencesWindow"]) {
+                    [preferences setSecureObject:
+                     [[sebPreferencesDict objectForKey:key] copy]
+                                        forKey:@"org_safeexambrowser_SEB_enablePreferencesWindow"];
+                } else {
+                    NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
+                    [preferences setSecureObject:[sebPreferencesDict objectForKey:key] forKey:keyWithPrefix];
+                }
             }
             [self requestedRestart:nil];
         }
@@ -186,18 +192,19 @@ bool insideMatrix();
     // Add prefix to all keys and copy key/values to private preferences
     NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults];
     for (NSString *key in sebPreferencesDict) {
-        NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
-        [privatePreferences setObject:[sebPreferencesDict objectForKey:key] forKey:keyWithPrefix];
-        //        [initialValuesDict setObject:[preferences secureDataForObject:[sebPreferencesDict objectForKey:key]] forKey:keyWithPrefix];
+        if ([key isEqualToString:@"allowPreferencesWindow"]) {
+            [privatePreferences setObject:
+             [[sebPreferencesDict objectForKey:key] copy]
+                                  forKey:@"org_safeexambrowser_SEB_enablePreferencesWindow"];
+        } else {
+            NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
+            [privatePreferences setObject:[sebPreferencesDict objectForKey:key] forKey:keyWithPrefix];
+        }
     }
 #ifdef DEBUG
     NSLog(@"Private preferences set: %@",privatePreferences);
 #endif
     [NSUserDefaults setUserDefaultsPrivate:YES];
-    // Set the initial values in the shared user defaults controller
-    //    [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:initialValuesDict];
-    // Replace the values of all the user default properties with any corresponding values in the initialValues dictionary
-    //    [[NSUserDefaultsController sharedUserDefaultsController] revertToInitialValues:self];
     [self startKioskMode];
     [self requestedRestart:nil];
     
@@ -223,33 +230,62 @@ bool insideMatrix();
         // Set default preferences for the case there are no user prefs yet
         //SEBnewBrowserWindowLink newBrowserWindowLinkPolicy = openInNewWindow;
         NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys:
-                                     [preferences secureDataForObject:(id)@"http://www.safeexambrowser.org/macosx"], @"org_safeexambrowser_SEB_startURL",
-                                     [preferences secureDataForObject:(id)@""], @"org_safeexambrowser_SEB_hashedAdminPassword",
-                                     [preferences secureDataForObject:(id)@""], @"org_safeexambrowser_SEB_hashedQuitPassword",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]], @"org_safeexambrowser_SEB_allowQuit",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]], @"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_allowDownUploads",
-                                     [preferences secureDataForObject:(id)[NSHomeDirectory() stringByAppendingPathComponent: @"Downloads"]], @"org_safeexambrowser_SEB_downloadDirectory",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_openDownloads",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:manuallyWithFileRequester]], @"org_safeexambrowser_SEB_chooseFileToUploadPolicy",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_downloadPDFFiles",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_prefsInBundle",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]], @"org_safeexambrowser_SEB_enablePlugins",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]], @"org_safeexambrowser_SEB_enableJava",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]], @"org_safeexambrowser_SEB_enableJavaScript",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_blockPopUpWindows",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_allowFlashFullscreen",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_enableBrowsingBackForward",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:openInNewWindow]], @"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_newBrowserWindowByLinkBlockForeign",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:openInNewWindow]], @"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_newBrowserWindowByScriptBlockForeign",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_copyExamKeyToClipboardWhenQuitting",
-                                     [preferences secureDataForObject:(id)@""], @"org_safeexambrowser_SEB_quitURL",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:0]], @"org_safeexambrowser_SEB_SebPurpose",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]], @"org_safeexambrowser_SEB_allowPreferencesWindow",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:0]], @"org_safeexambrowser_SEB_cryptoIdentity",
-                                     [preferences secureDataForObject:(id)@""], @"org_safeexambrowser_SEB_settingsPassword",
+                                     [preferences secureDataForObject:(id)@"http://www.safeexambrowser.org/macosx"],
+                                     @"org_safeexambrowser_SEB_startURL",
+                                     [preferences secureDataForObject:(id)@""],
+                                     @"org_safeexambrowser_SEB_hashedAdminPassword",
+                                     [preferences secureDataForObject:(id)@""],
+                                     @"org_safeexambrowser_SEB_hashedQuitPassword",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
+                                     @"org_safeexambrowser_SEB_allowQuit",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
+                                     @"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
+                                     @"org_safeexambrowser_SEB_allowDownUploads",
+                                     [preferences secureDataForObject:(id)[NSHomeDirectory() stringByAppendingPathComponent: @"Downloads"]],
+                                     @"org_safeexambrowser_SEB_downloadDirectory",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
+                                     @"org_safeexambrowser_SEB_openDownloads",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:manuallyWithFileRequester]],
+                                     @"org_safeexambrowser_SEB_chooseFileToUploadPolicy",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
+                                     @"org_safeexambrowser_SEB_downloadPDFFiles",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
+                                     @"org_safeexambrowser_SEB_prefsInBundle",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
+                                     @"org_safeexambrowser_SEB_enablePlugins",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
+                                     @"org_safeexambrowser_SEB_enableJava",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
+                                     @"org_safeexambrowser_SEB_enableJavaScript",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
+                                     @"org_safeexambrowser_SEB_blockPopUpWindows",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
+                                     @"org_safeexambrowser_SEB_allowFlashFullscreen",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
+                                     @"org_safeexambrowser_SEB_enableBrowsingBackForward",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:openInNewWindow]],
+                                     @"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
+                                     @"org_safeexambrowser_SEB_newBrowserWindowByLinkBlockForeign",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:openInNewWindow]],
+                                     @"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
+                                     @"org_safeexambrowser_SEB_newBrowserWindowByScriptBlockForeign",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
+                                     @"org_safeexambrowser_SEB_copyExamKeyToClipboardWhenQuitting",
+                                     [preferences secureDataForObject:(id)@""],
+                                     @"org_safeexambrowser_SEB_quitURL",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:0]],
+                                     @"org_safeexambrowser_SEB_SebPurpose",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
+                                     @"org_safeexambrowser_SEB_allowPreferencesWindow",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
+                                     @"org_safeexambrowser_SEB_enablePreferencesWindow",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:0]],
+                                     @"org_safeexambrowser_SEB_cryptoIdentity",
+                                     [preferences secureDataForObject:(id)@""],
+                                     @"org_safeexambrowser_SEB_settingsPassword",
                                      nil];
         [preferences registerDefaults:appDefaults];
 #ifdef DEBUG
@@ -976,23 +1012,25 @@ bool insideMatrix(){
 
 - (void) openPreferences:(id)sender {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (![preferencesController preferencesAreOpen]) {
-        // Load admin password from the system's user defaults database
-        NSString *hashedAdminPW = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-        if (![hashedAdminPW isEqualToString:@""]) {
-            // If admin password is set, then restrict access to the preferences window  
-            NSString *password = [self showEnterPasswordDialog:browserWindow];
-            SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-            if (![hashedAdminPW isEqualToString:[keychainManager generateSHAHashString:password]]) {
-                //if hash of entered password is not equal to the one in preferences
-                return;
-            }         
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePreferencesWindow"]) {
+        if (![preferencesController preferencesAreOpen]) {
+            // Load admin password from the system's user defaults database
+            NSString *hashedAdminPW = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+            if (![hashedAdminPW isEqualToString:@""]) {
+                // If admin password is set, then restrict access to the preferences window
+                NSString *password = [self showEnterPasswordDialog:browserWindow];
+                SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+                if (![hashedAdminPW isEqualToString:[keychainManager generateSHAHashString:password]]) {
+                    //if hash of entered password is not equal to the one in preferences
+                    return;
+                }
+            }
         }
+        //savedStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+        savedStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+        savedAllowSwitchToThirdPartyAppsFlag = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"];
+        [preferencesController showPreferences:self];
     }
-    //savedStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-    savedStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-    savedAllowSwitchToThirdPartyAppsFlag = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"];
-	[preferencesController showPreferences:self];
 }
 
 
