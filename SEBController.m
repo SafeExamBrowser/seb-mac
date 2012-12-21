@@ -169,10 +169,9 @@ bool insideMatrix();
                     [preferences setSecureObject:
                      [[sebPreferencesDict objectForKey:key] copy]
                                         forKey:@"org_safeexambrowser_SEB_enablePreferencesWindow"];
-                } else {
-                    NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
-                    [preferences setSecureObject:[sebPreferencesDict objectForKey:key] forKey:keyWithPrefix];
-                }
+                } 
+                NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
+                [preferences setSecureObject:[sebPreferencesDict objectForKey:key] forKey:keyWithPrefix];
             }
             [self requestedRestart:nil];
         }
@@ -196,10 +195,9 @@ bool insideMatrix();
             [privatePreferences setObject:
              [[sebPreferencesDict objectForKey:key] copy]
                                   forKey:@"org_safeexambrowser_SEB_enablePreferencesWindow"];
-        } else {
-            NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
-            [privatePreferences setObject:[sebPreferencesDict objectForKey:key] forKey:keyWithPrefix];
         }
+        NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
+        [privatePreferences setObject:[sebPreferencesDict objectForKey:key] forKey:keyWithPrefix];
     }
 #ifdef DEBUG
     NSLog(@"Private preferences set: %@",privatePreferences);
