@@ -181,14 +181,16 @@
     SecCertificateRef certificateRef = NULL;
     OSStatus status = SecItemCopyMatching((__bridge_retained CFDictionaryRef)query, (CFTypeRef *)&certificateRef);
     if (status != errSecSuccess) {
-        //LKKCReportError(status, @"Can't search keychain");
         return nil;
     }
     //NSMutableArray *identities = [NSMutableArray arrayWithArray:(__bridge  NSArray*)(items)];
     
     //SecKeyRef publicKeyRef;
-    SecKeyRef privateKeyRef;
+    SecKeyRef privateKeyRef = nil;
     SecIdentityRef identityRef = [self createIdentityWithCertificate:certificateRef];
+    if (status != errSecSuccess) {
+        return nil;
+    }
     status = SecIdentityCopyPrivateKey(identityRef, &privateKeyRef);
     return privateKeyRef;
 }
@@ -263,11 +265,11 @@
     status = SecKeyGetCSPHandle(publicKeyRef, &cspHandle);
     
     status = SecKeyGetCSSMKey(publicKeyRef, &pubKey);
-    assert(pubKey->KeyHeader.AlgorithmId ==
+    /*assert(pubKey->KeyHeader.AlgorithmId ==
            CSSM_ALGID_RSA);
     assert(pubKey->KeyHeader.KeyClass ==
            CSSM_KEYCLASS_PUBLIC_KEY);
-    /*assert(pubKey->KeyHeader.KeyUsage ==
+    assert(pubKey->KeyHeader.KeyUsage ==
            CSSM_KEYUSE_ENCRYPT ||
            pubKey->KeyHeader.KeyUsage ==
            CSSM_KEYUSE_ANY);*/
@@ -300,23 +302,23 @@
 {
     OSStatus status = noErr;
             
-    CSSM_CSP_HANDLE cspHandle;
-    status = SecKeyGetCSPHandle(privateKeyRef, &cspHandle);
-    
     const CSSM_ACCESS_CREDENTIALS *creds;
     status = SecKeyGetCredentials(privateKeyRef,
                                        CSSM_ACL_AUTHORIZATION_DECRYPT,
                                        kSecCredentialTypeWithUI,
                                        &creds);
     
+    CSSM_CSP_HANDLE cspHandle;
+    status = SecKeyGetCSPHandle(privateKeyRef, &cspHandle);
+    
     const CSSM_KEY *privKey;
     
     status = SecKeyGetCSSMKey(privateKeyRef, &privKey);
-    assert(privKey->KeyHeader.AlgorithmId ==
+    /*assert(privKey->KeyHeader.AlgorithmId ==
            CSSM_ALGID_RSA);
     assert(privKey->KeyHeader.KeyClass ==
            CSSM_KEYCLASS_PRIVATE_KEY);
-    /*assert(privKey->KeyHeader.KeyUsage ==
+    assert(privKey->KeyHeader.KeyUsage ==
            CSSM_KEYUSE_DECRYPT ||
            privKey->KeyHeader.KeyUsage ==
            CSSM_KEYUSE_ANY);*/

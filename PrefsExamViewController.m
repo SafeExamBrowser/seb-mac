@@ -196,7 +196,7 @@
         // if no encryption with password: add a spare 4-char prefix identifying plain data
         const char *utfString = [@"plnd" UTF8String];
         NSMutableData *encryptedData = [NSMutableData dataWithBytes:utfString length:4];
-        //append encrypted data
+        //append plain data
         [encryptedData appendData:encryptedSebData];
         encryptedSebData = [NSData dataWithData:encryptedData];
     }

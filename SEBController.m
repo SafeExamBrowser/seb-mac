@@ -104,6 +104,12 @@ bool insideMatrix();
     
         SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
         SecKeyRef privateKeyRef = [keychainManager getPrivateKeyFromPublicKeyHash:publicKeyHash];
+        if (!privateKeyRef) {
+            NSRunAlertPanel(NSLocalizedString(@"Error Decrypting Settings", nil),
+                            NSLocalizedString(@"The private key needed to decrypt settings has not been found in the keychain!", nil),
+                            NSLocalizedString(@"OK", nil), nil, nil);
+            return YES;
+        }
 #ifdef DEBUG
         NSLog(@"Private key retrieved with hash: %@", privateKeyRef);
 #endif
@@ -513,7 +519,7 @@ bool insideMatrix();
 #ifdef DEBUG
             NSLog(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine! gestaltX86AdditionalFeatures = %X", myAttrs);
 #endif
-            NSRunAlertPanel(NSLocalizedString(@"Virtual Machine detected!", nil), 
+            NSRunAlertPanel(NSLocalizedString(@"Virtual Machine detected!", nil),
                             NSLocalizedString(@"You are not allowed to run SEB inside a virtual machine!", nil), 
                             NSLocalizedString(@"Quit", nil), nil, nil);
             quittingMyself = TRUE; //SEB is terminating itself
