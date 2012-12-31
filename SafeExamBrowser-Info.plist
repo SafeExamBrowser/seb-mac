@@ -78,6 +78,10 @@
 			<string>org.safeexambrowser.seb</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
+				<key>org.safeexambrowser.seb</key>
+				<string>SEB</string>
+				<key>public.mime-type</key>
+				<string>application/seb</string>
 				<key>public.filename-extension</key>
 				<array>
 					<string>seb</string>

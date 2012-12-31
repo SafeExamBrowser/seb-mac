@@ -524,6 +524,11 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
           frame:(WebFrame *)frame
 decisionListener:(id < WebPolicyDecisionListener >)listener
 {
+    if ([type isEqualToString:@"application/seb"]) {
+        [listener download];
+        [self startDownloadingURL:request.URL];
+        return;
+    }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (![type isEqualToString:@"application/pdf"] || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"]) {
         if ([WebView canShowMIMEType:type]) {

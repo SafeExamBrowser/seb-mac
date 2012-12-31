@@ -51,7 +51,7 @@
 #import "MyDocument.h"
 #import "BrowserWindow.h"
 #import "PrefsBrowserViewController.h"
-#import "RNCryptor.h"
+#import "RNDecryptor.h"
 #import "SEBKeychainManager.h"
 #import "NSWindow+SEBWindow.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
@@ -138,20 +138,22 @@ bool insideMatrix();
         //NSLog(@"Dump of encypted .seb settings (without prefix): %@",encryptedSebData);
 #endif
         NSError *error;
+        NSData *sebDataDecrypted = nil;
         // Allow up to 3 trials for entering decoding password
-        int i = 3;
+        int i = 5;
         do {
             i--;
             // Prompt for password
             NSString *password = [self showEnterPasswordDialog:nil];
-            if (!password) {
-                //no password entered or clicked cancel: stop reading .seb file
-                return YES;
-            }
             error = nil;
-            sebData = [[RNCryptor AES256Cryptor] decryptData:sebData password:password error:&error];
+            sebDataDecrypted = [RNDecryptor decryptData:sebData withPassword:password error:&error];
             // in case we get an error we allow the user to try it again
         } while (error && i>0);
+        if (error) {
+            //wrong password entered in 5th try: stop reading .seb file
+            return YES;
+        }
+        sebData = sebDataDecrypted;
     }
     
     //
@@ -166,7 +168,7 @@ bool insideMatrix();
         //}
         NSError *error;
         error = nil;
-        sebData = [[RNCryptor AES256Cryptor] decryptData:sebData password:hashedAdminPassword error:&error];
+        sebData = [RNDecryptor decryptData:sebData withPassword:hashedAdminPassword error:&error];
         if (!error) {
             // Get preferences dictionary from decrypted data
             NSDictionary *sebPreferencesDict = [NSKeyedUnarchiver unarchiveObjectWithData:sebData];

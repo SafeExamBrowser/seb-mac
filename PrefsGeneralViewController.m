@@ -39,7 +39,7 @@
 #import "PrefsGeneralViewController.h"
 #import "NSWindow+SEBWindow.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
-#import "RNCryptor.h"
+#import "RNEncryptor.h"
 #import "SEBKeychainManager.h"
 #import "Constants.h"
 
@@ -350,7 +350,10 @@
     NSMutableData *encryptedSebData = [NSMutableData dataWithBytes:utfString length:2];
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];
     NSError *error;
-    NSData *encryptedData = [[RNCryptor AES256Cryptor] encryptData:data password:@"password" error:&error];
+    NSData *encryptedData = [RNEncryptor encryptData:data
+                                        withSettings:kRNCryptorAES256Settings
+                                            password:@"password"
+                                               error:&error];;
     [encryptedSebData appendData:encryptedData];
     
     // Save initialValues to a SEB preferences file into the application bundle

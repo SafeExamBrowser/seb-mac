@@ -8,7 +8,8 @@
 
 #import "NSUserDefaultsController+SEBEncryptedUserDefaultsController.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
-#import "RNCryptor.h"
+#import "RNEncryptor.h"
+#import "RNDecryptor.h"
 
 @implementation NSUserDefaultsController (SEBEncryptedUserDefaultsController)
 
@@ -28,7 +29,9 @@
             return nil;
         }
         NSError *error;
-        NSData *decrypted = [[RNCryptor AES256Cryptor] decryptData:encrypted password:@"password" error:&error];
+        NSData *decrypted = [RNDecryptor decryptData:encrypted
+                                        withPassword:@"password"
+                                               error:&error];
         id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
         return value;
     }
@@ -49,7 +52,10 @@
         } else {
             NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
             NSError *error;
-            NSData *encryptedData = [[RNCryptor AES256Cryptor] encryptData:data password:@"password" error:&error];
+            NSData *encryptedData = [RNEncryptor encryptData:data
+                                                withSettings:kRNCryptorAES256Settings
+                                                    password:@"password"
+                                                       error:&error];;
             [super setValue:encryptedData forKeyPath:keyPath];
         }
     }

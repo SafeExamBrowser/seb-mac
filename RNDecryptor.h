@@ -1,5 +1,5 @@
 //
-//  RNOpenSSLCryptor
+//  RNDecryptor
 //
 //  Copyright (c) 2012 Rob Napier
 //
@@ -24,32 +24,20 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+#import <Foundation/Foundation.h>
 #import "RNCryptor.h"
 
 
-@interface RNOpenSSLCryptor : NSObject
-+ (RNOpenSSLCryptor *)openSSLCryptor;
+@interface RNDecryptor : RNCryptor
 
-- (BOOL)encryptFromStream:(NSInputStream *)fromStream
-                 toStream:(NSOutputStream *)toStream
-                 password:(NSString *)password
-                    error:(NSError **)error;
+- (RNDecryptor *)initWithEncryptionKey:(NSData *)encryptionKey
+                               HMACKey:(NSData *)HMACKey
+                               handler:(RNCryptorHandler)handler;
 
-- (BOOL)decryptFromStream:(NSInputStream *)fromStream
-                 toStream:(NSOutputStream *)toStream
-                 password:(NSString *)password
-                    error:(NSError **)error;
+- (RNDecryptor *)initWithPassword:(NSString *)password
+                          handler:(RNCryptorHandler)handler;
+
++ (NSData *)decryptData:(NSData *)data withPassword:(NSString *)password error:(NSError **)error;
++ (NSData *)decryptData:(NSData *)data withEncryptionKey:(NSData *)encryptionKey HMACKey:(NSData *)HMACKey error:(NSError **)error;
 
 @end
-
-static const RNCryptorSettings kRNCryptorOpenSSLSettings = {
-    .algorithm = kCCAlgorithmAES128,
-    .keySize = kCCKeySizeAES256,
-    .blockSize = kCCBlockSizeAES128,
-    .IVSize = kCCBlockSizeAES128,
-    .padding = kCCOptionPKCS7Padding,
-    .saltSize = 8,
-    .PBKDFRounds = 0,
-    .HMACAlgorithm = 0,
-    .HMACLength= 0,
-};

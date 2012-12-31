@@ -10,7 +10,7 @@
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "SEBUIUserDefaultsController.h"
 #import "SEBEncryptedUserDefaultsController.h"
-#import "RNCryptor.h"
+#import "RNEncryptor.h"
 #import "SEBKeychainManager.h"
 
 @interface PrefsExamViewController ()
@@ -305,7 +305,10 @@
     }
     NSMutableData *encryptedSebData = [NSMutableData dataWithBytes:utfString length:4];
     NSError *error;
-    NSData *encryptedData = [[RNCryptor AES256Cryptor] encryptData:data password:password error:&error];
+    NSData *encryptedData = [RNEncryptor encryptData:data
+                                        withSettings:kRNCryptorAES256Settings
+                                            password:password
+                                               error:&error];;
     [encryptedSebData appendData:encryptedData];
     
     return encryptedSebData;

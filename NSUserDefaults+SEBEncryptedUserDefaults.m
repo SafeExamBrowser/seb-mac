@@ -18,7 +18,9 @@
 
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "MethodSwizzling.h"
-#import "RNCryptor.h"
+//#import "RNCryptor.h"
+#import "RNEncryptor.h"
+#import "RNDecryptor.h"
 
 
 @interface NSUserDefaults (SEBEncryptedUserDefaultsPrivate)
@@ -233,7 +235,10 @@ static BOOL _usePrivateUserDefaults = NO;
         } else if ([self _isValidPropertyListObject:value]) {
             NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
             NSError *error;
-            NSData *encryptedData = [[RNCryptor AES256Cryptor] encryptData:data password:@"password" error:&error];
+            NSData *encryptedData = [RNEncryptor encryptData:data
+                                                withSettings:kRNCryptorAES256Settings
+                                                    password:@"password"
+                                                       error:&error];
             [self setObject:encryptedData forKey:key];
         }
     }
@@ -259,7 +264,10 @@ static BOOL _usePrivateUserDefaults = NO;
 	if ([self _isValidPropertyListObject:value]) {
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
         NSError *error;
-        NSData *encryptedData = [[RNCryptor AES256Cryptor] encryptData:data password:@"password" error:&error];
+        NSData *encryptedData = [RNEncryptor encryptData:data
+                                            withSettings:kRNCryptorAES256Settings
+                                                password:@"password"
+                                                   error:&error];
         return encryptedData;
 	} else {
         return nil;
@@ -321,7 +329,9 @@ static BOOL _usePrivateUserDefaults = NO;
             return nil;
         }
         NSError *error;
-        NSData *decrypted = [[RNCryptor AES256Cryptor] decryptData:encrypted password:@"password" error:&error];
+        NSData *decrypted = [RNDecryptor decryptData:encrypted
+                                            withPassword:@"password"
+                                               error:&error];
         id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
         return value;
     }
