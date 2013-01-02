@@ -260,7 +260,7 @@ bool insideMatrix();
                                      @"org_safeexambrowser_SEB_prefsInBundle",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
                                      @"org_safeexambrowser_SEB_enablePlugins",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
                                      @"org_safeexambrowser_SEB_enableJava",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
                                      @"org_safeexambrowser_SEB_enableJavaScript",
@@ -297,41 +297,9 @@ bool insideMatrix();
 #ifdef DEBUG
         NSLog(@"Registred Defaults");
 #endif        
-        // Load initialValues from application bundle
-        NSString *initialValuesPath;
-        NSDictionary *initialValuesDict;
-        // load the initialValues from a SEB preferences file optionally located in the application bundle
-        initialValuesPath=[[NSBundle mainBundle] pathForResource:@"org.safeexambrowser.Safe-Exam-Browser"
-                                                          ofType:@"plist"];
-        if (initialValuesPath != nil) {
-            // If there actually was a SEB preferences file in the app bundle
-            initialValuesDict=[NSDictionary dictionaryWithContentsOfFile:initialValuesPath];
-            
-            /*/ Test for swizzled dataWithPropertyList
-             NSData *xmlData;
-             NSError **error;
-             
-             xmlData = [NSPropertyListSerialization dataWithPropertyList:initialValuesDict
-             format:NSPropertyListXMLFormat_v1_0
-             options:0
-             error:error];
-             NSPropertyListFormat format;
-             NSError **error2;
-             id plist;
-             
-             plist = [NSPropertyListSerialization propertyListWithData:xmlData options:NSPropertyListImmutable format:&format error:error2];
-             */
-            // Set the initial values in the shared user defaults controller
-            [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:initialValuesDict];
-            // Replace the values of all the user default properties with any corresponding values in the initialValues dictionary
-            [[NSUserDefaultsController sharedUserDefaultsController] revertToInitialValues:self];
-            // Set the flag for preferences in app bundle
-            [preferences setSecureObject:[NSNumber numberWithBool:YES] forKey:@"org_safeexambrowser_SEB_prefsInBundle"];
-        } else {
-            // No preferences were saved in the app bundle
-            // Reset the flag for preferences in app bundle
-            [preferences setSecureObject:[NSNumber numberWithBool:NO] forKey:@"org_safeexambrowser_SEB_prefsInBundle"];
-        }
+        // No preferences were saved in the app bundle
+        // Reset the flag for preferences in app bundle
+        [preferences setSecureObject:[NSNumber numberWithBool:NO] forKey:@"org_safeexambrowser_SEB_prefsInBundle"];
     }
     return self;
 }

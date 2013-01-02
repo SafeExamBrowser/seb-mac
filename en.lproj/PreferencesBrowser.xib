@@ -41,7 +41,7 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSCustomView" id="1005">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSButton" id="112906899">
@@ -49,8 +49,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 18}, {464, 18}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="1054962804">
 							<int key="NSCellFlags">-2080374784</int>
@@ -83,7 +81,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{260, 56}, {222, 18}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="112906899"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="479864930">
@@ -108,7 +105,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{260, 76}, {222, 18}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="757459876"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="208935632">
@@ -133,7 +129,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 56}, {222, 18}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="111138735"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="462336544">
@@ -158,7 +153,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 76}, {222, 18}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1033996842"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="202630441">
@@ -183,7 +177,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 114}, {464, 18}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="314399886"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="724945072">
@@ -208,7 +201,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 201}, {464, 18}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="799313333"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="637864118">
@@ -233,7 +225,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{17, 136}, {466, 26}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="740291254"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="660697723">
@@ -305,7 +296,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{17, 168}, {466, 17}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="263187913"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="302850956">
@@ -344,7 +334,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{17, 223}, {466, 26}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="393367333"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="402550747">
@@ -410,7 +399,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{17, 255}, {466, 17}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="238170194"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="229791228">
@@ -426,15 +414,13 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{500, 292}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="766661602"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSUserDefaultsController" id="8980178">
 				<bool key="NSAppliesImmediately">YES</bool>
 			</object>
-			<object class="NSUserDefaultsController" id="602835161">
+			<object class="NSUserDefaultsController" id="739181108">
 				<bool key="NSAppliesImmediately">YES</bool>
 			</object>
 			<object class="NSUserDefaultsController" id="345466092">
@@ -463,17 +449,17 @@
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">contentValues: org_safeexambrowser_SEB_newBrowserWindowByLinkPolicies</string>
 						<reference key="source" ref="238170194"/>
-						<reference key="destination" ref="602835161"/>
-						<object class="NSNibBindingConnector" key="connector" id="768301271">
+						<reference key="destination" ref="739181108"/>
+						<object class="NSNibBindingConnector" key="connector" id="808885767">
 							<reference key="NSSource" ref="238170194"/>
-							<reference key="NSDestination" ref="602835161"/>
+							<reference key="NSDestination" ref="739181108"/>
 							<string key="NSLabel">contentValues: org_safeexambrowser_SEB_newBrowserWindowByLinkPolicies</string>
 							<string key="NSBinding">contentValues</string>
 							<string key="NSKeyPath">org_safeexambrowser_SEB_newBrowserWindowByLinkPolicies</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">220</int>
+					<int key="connectionID">238</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -486,27 +472,27 @@
 							<string key="NSLabel">selectedIndex: values.org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy</string>
 							<string key="NSBinding">selectedIndex</string>
 							<string key="NSKeyPath">values.org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy</string>
-							<reference key="NSPreviousConnector" ref="768301271"/>
+							<reference key="NSPreviousConnector" ref="808885767"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">221</int>
+					<int key="connectionID">239</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">contentValues: org_safeexambrowser_SEB_newBrowserWindowByScriptPolicies</string>
 						<reference key="source" ref="263187913"/>
-						<reference key="destination" ref="602835161"/>
-						<object class="NSNibBindingConnector" key="connector" id="107818687">
+						<reference key="destination" ref="739181108"/>
+						<object class="NSNibBindingConnector" key="connector" id="916473222">
 							<reference key="NSSource" ref="263187913"/>
-							<reference key="NSDestination" ref="602835161"/>
+							<reference key="NSDestination" ref="739181108"/>
 							<string key="NSLabel">contentValues: org_safeexambrowser_SEB_newBrowserWindowByScriptPolicies</string>
 							<string key="NSBinding">contentValues</string>
 							<string key="NSKeyPath">org_safeexambrowser_SEB_newBrowserWindowByScriptPolicies</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">230</int>
+					<int key="connectionID">250</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -519,11 +505,11 @@
 							<string key="NSLabel">selectedIndex: values.org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy</string>
 							<string key="NSBinding">selectedIndex</string>
 							<string key="NSKeyPath">values.org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy</string>
-							<reference key="NSPreviousConnector" ref="107818687"/>
+							<reference key="NSPreviousConnector" ref="916473222"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">231</int>
+					<int key="connectionID">251</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -539,7 +525,7 @@
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">199</int>
+					<int key="connectionID">200</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -555,7 +541,7 @@
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">209</int>
+					<int key="connectionID">210</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -571,7 +557,7 @@
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">203</int>
+					<int key="connectionID">201</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -587,7 +573,7 @@
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">210</int>
+					<int key="connectionID">211</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -603,7 +589,7 @@
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">204</int>
+					<int key="connectionID">205</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -619,7 +605,7 @@
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">206</int>
+					<int key="connectionID">207</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -635,7 +621,7 @@
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">205</int>
+					<int key="connectionID">206</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -651,7 +637,7 @@
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">207</int>
+					<int key="connectionID">208</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -667,7 +653,7 @@
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">208</int>
+					<int key="connectionID">209</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -926,8 +912,8 @@
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">211</int>
-						<reference key="object" ref="602835161"/>
+						<int key="objectID">227</int>
+						<reference key="object" ref="739181108"/>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">SEB UI User Defaults Controller</string>
 					</object>
@@ -1012,8 +998,8 @@
 				<string key="180.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="181.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="185.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="211.CustomClassName">SEBUIUserDefaultsController</string>
-				<string key="211.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="227.CustomClassName">SEBUIUserDefaultsController</string>
+				<string key="227.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="84.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="85.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="86.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1034,7 +1020,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">231</int>
+			<int key="maxID">251</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

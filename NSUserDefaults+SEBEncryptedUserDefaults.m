@@ -21,6 +21,7 @@
 //#import "RNCryptor.h"
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
+#import "Constants.h"
 
 
 @interface NSUserDefaults (SEBEncryptedUserDefaultsPrivate)
@@ -237,7 +238,7 @@ static BOOL _usePrivateUserDefaults = NO;
             NSError *error;
             NSData *encryptedData = [RNEncryptor encryptData:data
                                                 withSettings:kRNCryptorAES256Settings
-                                                    password:@"password"
+                                                    password:userDefaultsMasala
                                                        error:&error];
             [self setObject:encryptedData forKey:key];
         }
@@ -266,7 +267,7 @@ static BOOL _usePrivateUserDefaults = NO;
         NSError *error;
         NSData *encryptedData = [RNEncryptor encryptData:data
                                             withSettings:kRNCryptorAES256Settings
-                                                password:@"password"
+                                                password:userDefaultsMasala
                                                    error:&error];
         return encryptedData;
 	} else {
@@ -330,7 +331,7 @@ static BOOL _usePrivateUserDefaults = NO;
         }
         NSError *error;
         NSData *decrypted = [RNDecryptor decryptData:encrypted
-                                            withPassword:@"password"
+                                            withPassword:userDefaultsMasala
                                                error:&error];
         id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
         return value;

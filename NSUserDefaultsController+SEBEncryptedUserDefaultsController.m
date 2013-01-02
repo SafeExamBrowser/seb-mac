@@ -10,6 +10,7 @@
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
+#import "Constants.h"
 
 @implementation NSUserDefaultsController (SEBEncryptedUserDefaultsController)
 
@@ -30,7 +31,7 @@
         }
         NSError *error;
         NSData *decrypted = [RNDecryptor decryptData:encrypted
-                                        withPassword:@"password"
+                                        withPassword:userDefaultsMasala
                                                error:&error];
         id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
         return value;
@@ -54,7 +55,7 @@
             NSError *error;
             NSData *encryptedData = [RNEncryptor encryptData:data
                                                 withSettings:kRNCryptorAES256Settings
-                                                    password:@"password"
+                                                    password:userDefaultsMasala
                                                        error:&error];;
             [super setValue:encryptedData forKeyPath:keyPath];
         }
