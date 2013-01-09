@@ -74,6 +74,9 @@ bool insideMatrix();
 
 #pragma mark Application Delegate Methods
 
+// Tells the application delegate to open a single file.
+// Returning YES if the file is successfully opened, and NO otherwise.
+//
 - (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename {
     NSURL *sebFileURL = [NSURL fileURLWithPath:filename];
 #ifdef DEBUG

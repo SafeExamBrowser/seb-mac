@@ -61,6 +61,7 @@
 }
 
 
+// Delegate called before the Exam settings preferences pane will be displayed
 - (void)willBeDisplayed {
     //Load settings password from user defaults
     //[self loadPrefs];
@@ -133,9 +134,9 @@
 }
 
 
-// Action saving current preferences to a plist-file in application bundle Contents/Resources/ directory
+// Action formating and saving current preferences to an encrypted .seb file
+//
 - (IBAction) saveSEBPrefs:(id)sender {
-    //[self savePrefs:self];	//save preferences (which are not saved automatically by bindings)
     // Copy preferences to a dictionary
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences synchronize];
@@ -205,16 +206,7 @@
         // Encrypt preferences using a cryptographic identity
         encryptedSebData = [self encryptDataUsingSelectedIdentity:encryptedSebData];
     }
-    
-    // Save initialValues to a SEB preferences file into the application bundle
-    
-    // Build a new name for the file using the current name and
-    // the filename extension associated with the specified UTI.
-    //CFStringRef newExtension = UTTypeCopyPreferredTagWithClass((CFStringRef)@"org.safeexambrowser.seb", kUTTagClassFilenameExtension);
-    //NSString* newExtension = @"seb";
-    //NSString* newName = [NSLocalizedString(@"Untitled", nil) stringByAppendingPathExtension:(NSString*)newExtension];
-    //CFRelease(newExtension);
-    
+        
     // Set the default name for the file and show the panel.
     NSSavePanel *panel = [NSSavePanel savePanel];
     //[panel setNameFieldStringValue:newName];
