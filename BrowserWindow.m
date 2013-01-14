@@ -256,6 +256,12 @@ initiatedByFrame:(WebFrame *)frame {
 }
 
 
+- (NSURLRequest *)webView:(WebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource
+{
+    return request;
+}
+
+
 // Opening Links in New Windows //
 
 // Handling of requests to open a link in a new window (including Javascript commands)
