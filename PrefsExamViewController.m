@@ -157,13 +157,21 @@
                                {
                                    if ([key hasPrefix:@"org_safeexambrowser_SEB_"] && ![key isEqualToString:@"org_safeexambrowser_SEB_enablePreferencesWindow"])
                                        return YES;
-                                   else
-                                       return NO;
+                                   
+                                   else return NO;
                                }];
     NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:[filteredPrefsSet count]];
     
     // Remove prefix "org_safeexambrowser_SEB_" from keys
     for (NSString *key in filteredPrefsSet) {
+        if ([key isEqualToString:@"org_safeexambrowser_SEB_downloadDirectory"]) {
+            NSString *downloadPath = [preferences secureStringForKey:key];
+            // generate a path with a tilde (~) substituted for the full path to the current user’s home directory
+            // so that the path is portable to SEB clients with other user's home directories
+            downloadPath = [downloadPath stringByAbbreviatingWithTildeInPath];
+            [filteredPrefsDict setObject:downloadPath forKey:[key substringFromIndex:24]];
+        } else
+
         [filteredPrefsDict setObject:[preferences secureObjectForKey:key] forKey:[key substringFromIndex:24]];
     }
 
