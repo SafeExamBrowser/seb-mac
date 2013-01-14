@@ -249,7 +249,7 @@ bool insideMatrix();
                                      @"org_safeexambrowser_SEB_allowQuit",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
                                      @"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
                                      @"org_safeexambrowser_SEB_allowDownUploads",
                                      [preferences secureDataForObject:(id)[NSHomeDirectory() stringByAppendingPathComponent: @"Downloads"]],
                                      @"org_safeexambrowser_SEB_downloadDirectory",
