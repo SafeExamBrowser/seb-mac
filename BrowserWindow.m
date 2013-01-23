@@ -415,7 +415,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
                 MyDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
                 //WebView *newWindowWebView = myDocument.mainWindowController.self.webView;
                 [myDocument.mainWindowController.window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-                if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"]) {
+                if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"]) {
                     // Order new browser window to the front of our level
                     [myDocument.mainWindowController.window newSetLevel:NSModalPanelWindowLevel];
                 }
@@ -439,7 +439,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
 {
     id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:[sender window]];
     [[sender window] setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"]) {
+    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"]) {
         [[sender window] newSetLevel:NSModalPanelWindowLevel];
     }
     [myDocument showWindows];
@@ -507,7 +507,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         [openFilePanel setPrompt:NSLocalizedString(@"Choose",nil)];
         
         // Change default directory in file dialog
-        [openFilePanel setDirectoryURL:[NSURL fileURLWithPath:[preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectory"]]];
+        [openFilePanel setDirectoryURL:[NSURL fileURLWithPath:[preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"]]];
         
         // Display the dialog.  If the OK button was pressed,
         // process the files.
@@ -604,11 +604,11 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 - (void)download:(NSURLDownload *)download decideDestinationWithSuggestedFilename:(NSString *)filename
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectory"];
+    downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
     if (!downloadPath) {
         //if there's no path saved in preferences, set standard path
         downloadPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Downloads"];
-        [preferences setSecureObject:downloadPath forKey:@"org_safeexambrowser_SEB_downloadDirectory"];
+        [preferences setSecureObject:downloadPath forKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
     }
     NSString *destinationFilename = [downloadPath stringByAppendingPathComponent:filename];
     [download setDestination:destinationFilename allowOverwrite:NO];

@@ -248,11 +248,11 @@ bool insideMatrix();
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
                                      @"org_safeexambrowser_SEB_allowQuit",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
-                                     @"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps",
+                                     @"org_safeexambrowser_SEB_allowSwitchToApplications",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
                                      @"org_safeexambrowser_SEB_allowDownUploads",
                                      [preferences secureDataForObject:(id)[NSHomeDirectory() stringByAppendingPathComponent: @"Downloads"]],
-                                     @"org_safeexambrowser_SEB_downloadDirectory",
+                                     @"org_safeexambrowser_SEB_downloadDirectoryOSX",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
                                      @"org_safeexambrowser_SEB_openDownloads",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithInt:manuallyWithFileRequester]],
@@ -295,6 +295,10 @@ bool insideMatrix();
                                      @"org_safeexambrowser_SEB_cryptoIdentity",
                                      [preferences secureDataForObject:(id)@""],
                                      @"org_safeexambrowser_SEB_settingsPassword",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:forceSebService]],
+                                     @"org_safeexambrowser_SEB_sebServicePolicy",
+                                     [preferences secureDataForObject:(id)[NSData data]],
+                                     @"org_safeexambrowser_SEB_examKeySalt",
                                      nil];
         [preferences registerDefaults:appDefaults];
 #ifdef DEBUG
@@ -696,7 +700,7 @@ bool insideMatrix(){
         [self.capWindows removeAllObjects];
     }
     NSScreen *iterScreen;
-    BOOL allowSwitchToThirdPartyApps = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"];
+    BOOL allowSwitchToThirdPartyApps = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
     for (iterScreen in screens)
     {
         //NSRect frame = size of the current screen;
@@ -778,7 +782,7 @@ bool insideMatrix(){
 #endif
     // Load preferences from the system's user defaults database
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-	BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"];
+	BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
     if (!allowSwitchToThirdPartyApps) {
 		// if switching to ThirdPartyApps not allowed
 #ifndef DEBUG
@@ -819,7 +823,7 @@ bool insideMatrix(){
 	// Switch to kiosk mode by setting the proper presentation options
     // Load preferences from the system's user defaults database
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-	BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"];
+	BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
     if (!allowSwitchToThirdPartyApps) {
 		// if switching to ThirdPartyApps not allowed
 	@try {
@@ -877,7 +881,7 @@ bool insideMatrix(){
 	 setFrame:[browserWindow frameRectForContentRect:[[browserWindow screen] frame]]
 	 display:YES]; // REMOVE wrong frame for window!*/
 	[browserWindow setFrame:[[browserWindow screen] frame] display:YES];
-    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"]) {
+    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"]) {
         [browserWindow newSetLevel:NSModalPanelWindowLevel];
 #ifdef DEBUG
         NSLog(@"MainBrowserWindow (3) sharingType: %lx",(long)[browserWindow sharingType]);
@@ -1005,7 +1009,7 @@ bool insideMatrix(){
         }
         //savedStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
         savedStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-        savedAllowSwitchToThirdPartyAppsFlag = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"];
+        savedAllowSwitchToThirdPartyAppsFlag = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
         [preferencesController showPreferences:self];
     }
 }
@@ -1014,7 +1018,7 @@ bool insideMatrix(){
 - (void)preferencesClosed:(NSNotification *)notification
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (savedAllowSwitchToThirdPartyAppsFlag != [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"]) {
+    if (savedAllowSwitchToThirdPartyAppsFlag != [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"]) {
         //preferences were closed and the third party app setting was changed
         //so we adjust the kiosk settings
         [self startKioskMode];
@@ -1190,7 +1194,7 @@ bool insideMatrix(){
 		//the current Presentation Options changed, so make SEB active and reset them
         // Load preferences from the system's user defaults database
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToThirdPartyApps"];
+        BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
 #ifdef DEBUG
         NSLog(@"currentSystemPresentationOptions changed!");
 #endif

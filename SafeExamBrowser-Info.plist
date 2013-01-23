@@ -48,11 +48,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.0pre1</string>
+	<string>2.0pre2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>2.0pre1</string>
+	<string>2.0pre2</string>
 	<key>ClickToFlashOptOut</key>
 	<true/>
 	<key>LSApplicationCategoryType</key>
@@ -80,12 +80,12 @@
 			<dict>
 				<key>org.safeexambrowser.seb</key>
 				<string>SEB</string>
-				<key>public.mime-type</key>
-				<string>application/seb</string>
 				<key>public.filename-extension</key>
 				<array>
 					<string>seb</string>
 				</array>
+				<key>public.mime-type</key>
+				<string>application/seb</string>
 			</dict>
 		</dict>
 	</array>

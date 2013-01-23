@@ -57,6 +57,11 @@ typedef NSUInteger cryptoIdentities;
 
 static NSString *userDefaultsMasala = @"D𝈭il𝈖Ch𝈒a𝉇ht𝈁a𝉈Hai1972";
 
-//NSString *sebUserDefaultsPrefix = @"org_safeexambrowser_SEB_";
+enum {
+    ignoreService                               = 0,
+    indicateMissingService                      = 1,
+    forceSebService                             = 2
+};
+typedef NSUInteger sebServicePolicies;
 
 #endif

@@ -164,7 +164,7 @@
     
     // Remove prefix "org_safeexambrowser_SEB_" from keys
     for (NSString *key in filteredPrefsSet) {
-        if ([key isEqualToString:@"org_safeexambrowser_SEB_downloadDirectory"]) {
+        if ([key isEqualToString:@"org_safeexambrowser_SEB_downloadDirectoryOSX"]) {
             NSString *downloadPath = [preferences secureStringForKey:key];
             // generate a path with a tilde (~) substituted for the full path to the current user’s home directory
             // so that the path is portable to SEB clients with other user's home directories
@@ -237,6 +237,12 @@
                               NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
                               [preferences setSecureObject:[NSNumber numberWithBool:YES] forKey:@"org_safeexambrowser_SEB_prefsInBundle"];
                               NSRunAlertPanel(NSLocalizedString(@"Writing Settings Succeeded", nil), NSLocalizedString(@"Encrypted settings have been saved, use this file to start the exam with SEB.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+#ifdef DEBUG
+                              prefsFileURL = [[prefsFileURL URLByDeletingPathExtension] URLByAppendingPathExtension:@"plist"];
+                              if ([filteredPrefsDict writeToURL:prefsFileURL atomically:YES]) {
+                                  NSLog(@"Unencrypted preferences saved as plist");
+                              }
+#endif
                           }
                       }
                   }];
