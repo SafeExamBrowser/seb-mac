@@ -53,6 +53,10 @@
 		6949B33F14F40AAD009E1775 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		6949B34014F40AAD009E1775 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A94D711B68D8A0083C66D /* Carbon.framework */; };
 		6949B34114F40AAD009E1775 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6947949C12B050AA00651933 /* IOKit.framework */; };
+		694B08A316B14ABF00E4997C /* SEBCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 694B08A116B14ABF00E4997C /* SEBCryptor.h */; };
+		694B08A416B14ABF00E4997C /* SEBCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 694B08A216B14ABF00E4997C /* SEBCryptor.m */; };
+		694B08A516B14ABF00E4997C /* SEBCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 694B08A216B14ABF00E4997C /* SEBCryptor.m */; };
+		694B08A616B14ABF00E4997C /* SEBCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 694B08A216B14ABF00E4997C /* SEBCryptor.m */; };
 		696F28E815751ED600780DA8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696F28E715751ED600780DA8 /* Security.framework */; };
 		696F28E915751F1200780DA8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696F28E715751ED600780DA8 /* Security.framework */; };
 		696F28EA15751F1900780DA8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696F28E715751ED600780DA8 /* Security.framework */; };
@@ -217,6 +221,8 @@
 		6946373F1498FEF000C896D0 /* WebKit+WebKitExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WebKit+WebKitExtensions.m"; sourceTree = "<group>"; };
 		6947949C12B050AA00651933 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		6949B34614F40AAD009E1775 /* Safe Exam Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Safe Exam Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		694B08A116B14ABF00E4997C /* SEBCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBCryptor.h; sourceTree = "<group>"; };
+		694B08A216B14ABF00E4997C /* SEBCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBCryptor.m; sourceTree = "<group>"; };
 		6962F88D13A8C21B007C16F0 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		6969B1CC127B80410027FF8D /* AboutSEB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AboutSEB.png; sourceTree = "<group>"; };
 		6969B1D1127C7AB60027FF8D /* AboutWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutWindow.h; sourceTree = "<group>"; };
@@ -487,6 +493,8 @@
 				69ACA4F51690B10E007BD517 /* RNEncryptor.m */,
 				69F293AC164A324B00875C00 /* SEBKeychainManager.h */,
 				69F293AD164A324B00875C00 /* SEBKeychainManager.m */,
+				694B08A116B14ABF00E4997C /* SEBCryptor.h */,
+				694B08A216B14ABF00E4997C /* SEBCryptor.m */,
 			);
 			name = Cryptography;
 			sourceTree = "<group>";
@@ -504,6 +512,7 @@
 				69ACA4F61690B10E007BD517 /* RNDecryptor.h in Headers */,
 				69ACA4FA1690B10E007BD517 /* RNEncryptor.h in Headers */,
 				69ACA5001690DE28007BD517 /* RNCryptorEngine.h in Headers */,
+				694B08A316B14ABF00E4997C /* SEBCryptor.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -694,6 +703,7 @@
 				69ACA4F81690B10E007BD517 /* RNDecryptor.m in Sources */,
 				69ACA4FC1690B10E007BD517 /* RNEncryptor.m in Sources */,
 				69ACA5021690DE28007BD517 /* RNCryptorEngine.m in Sources */,
+				694B08A516B14ABF00E4997C /* SEBCryptor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -728,6 +738,7 @@
 				69ACA4F91690B10E007BD517 /* RNDecryptor.m in Sources */,
 				69ACA4FD1690B10E007BD517 /* RNEncryptor.m in Sources */,
 				69ACA5031690DE28007BD517 /* RNCryptorEngine.m in Sources */,
+				694B08A616B14ABF00E4997C /* SEBCryptor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -762,6 +773,7 @@
 				69ACA4F71690B10E007BD517 /* RNDecryptor.m in Sources */,
 				69ACA4FB1690B10E007BD517 /* RNEncryptor.m in Sources */,
 				69ACA5011690DE28007BD517 /* RNCryptorEngine.m in Sources */,
+				694B08A416B14ABF00E4997C /* SEBCryptor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
