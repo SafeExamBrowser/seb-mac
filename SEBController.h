@@ -64,7 +64,7 @@
 	
 	IOPMAssertionID assertionID1;
 	IOPMAssertionID assertionID2;
-       
+    
 }
 
 - (void) closeAboutWindow;
@@ -72,6 +72,7 @@
 - (void) coverScreens;
 - (void) adjustScreenLocking: (id)sender;
 - (void) startTask;
+- (void) terminateScreencapture;
 - (void) regainActiveStatus: (id)sender;
 - (void) SEBgotActive: (id)sender;
 - (void) startKioskMode;

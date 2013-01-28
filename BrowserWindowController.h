@@ -40,7 +40,7 @@
      //IBOutlet WebView *webView;
 }
 
-@property (assign) IBOutlet WebView *webView;
+@property (weak) IBOutlet WebView *webView;
 
 //- (id) webView;
 

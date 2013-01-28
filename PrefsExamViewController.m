@@ -82,7 +82,8 @@
             SecCertificateCopyCommonName(certificateRef, &commonName);
             SecCertificateCopyEmailAddresses(certificateRef, &emailAddressesRef);
             [self.identitiesName addObject:
-             [NSString stringWithFormat:@"%@%@",
+             [NSString stringWithFormat:@"%d %@%@",
+              i+1,
               (__bridge NSString *)commonName ?
                 [NSString stringWithFormat:@"%@ ",(__bridge NSString *)commonName] :
                 @"" ,
@@ -139,44 +140,21 @@
 - (IBAction) saveSEBPrefs:(id)sender {
     // Copy preferences to a dictionary
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    [preferences synchronize];
-    NSDictionary *prefsDict;
-    
-    // Get CFBundleIdentifier of the application
-    NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
-    NSString *bundleId = [bundleInfo objectForKey: @"CFBundleIdentifier"];
-    
-    // Include UserDefaults from NSRegistrationDomain and the applications domain
-    NSUserDefaults *appUserDefaults = [[NSUserDefaults alloc] init];
-    [appUserDefaults addSuiteNamed:@"NSRegistrationDomain"];
-    [appUserDefaults addSuiteNamed: bundleId];
-    prefsDict = [appUserDefaults dictionaryRepresentation];
-    
-    // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
-    NSSet *filteredPrefsSet = [prefsDict keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop)
-                               {
-                                   if ([key hasPrefix:@"org_safeexambrowser_SEB_"] && ![key isEqualToString:@"org_safeexambrowser_SEB_enablePreferencesWindow"])
-                                       return YES;
-                                   
-                                   else return NO;
-                               }];
-    NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:[filteredPrefsSet count]];
-    
-    // Remove prefix "org_safeexambrowser_SEB_" from keys
-    for (NSString *key in filteredPrefsSet) {
-        if ([key isEqualToString:@"org_safeexambrowser_SEB_downloadDirectoryOSX"]) {
-            NSString *downloadPath = [preferences secureStringForKey:key];
-            // generate a path with a tilde (~) substituted for the full path to the current user’s home directory
-            // so that the path is portable to SEB clients with other user's home directories
-            downloadPath = [downloadPath stringByAbbreviatingWithTildeInPath];
-            [filteredPrefsDict setObject:downloadPath forKey:[key substringFromIndex:24]];
-        } else
-
-        [filteredPrefsDict setObject:[preferences secureObjectForKey:key] forKey:[key substringFromIndex:24]];
-    }
+    NSDictionary *filteredPrefsDict;
+    filteredPrefsDict = [preferences dictionaryRepresentationSEB];
 
     // Convert preferences directory to data
+    
     NSData *encryptedSebData = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];
+    NSString *sebXML = [[NSString alloc]initWithData:encryptedSebData encoding:NSUTF8StringEncoding];
+    NSLog(@"XML: %@", sebXML);
+    //sebXML = [sebXML initWithData:encryptedSebData encoding:NSUTF8StringEncoding];
+    /*NSMutableData *encryptedSebDataXML;
+    NSKeyedArchiver *keyedArchiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:encryptedSebDataXML];
+    [keyedArchiver setOutputFormat:NSPropertyListXMLFormat_v1_0];
+    [keyedArchiver encodeObject:filteredPrefsDict];
+    [keyedArchiver finishEncoding];*/
+
 
     NSString *encryptingPassword = nil;
 
@@ -254,8 +232,8 @@
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     
     //get certificate from selected identity
-    NSUInteger selectedIdentity = [chooseIdentity indexOfSelectedItem];
-    SecIdentityRef identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:selectedIdentity-1]);
+    NSUInteger selectedIdentity = [chooseIdentity indexOfSelectedItem]-1;
+    SecIdentityRef identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:selectedIdentity]);
     SecCertificateRef certificateRef;
     SecIdentityCopyCertificate(identityRef, &certificateRef);
     

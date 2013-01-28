@@ -96,6 +96,49 @@ static BOOL _usePrivateUserDefaults = NO;
 	}
 }
 
+
+- (NSDictionary *)dictionaryRepresentationSEB
+{
+    // Copy preferences to a dictionary
+	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences synchronize];
+    NSDictionary *prefsDict;
+    
+    // Get CFBundleIdentifier of the application
+    NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
+    NSString *bundleId = [bundleInfo objectForKey: @"CFBundleIdentifier"];
+    
+    // Include UserDefaults from NSRegistrationDomain and the applications domain
+    NSUserDefaults *appUserDefaults = [[NSUserDefaults alloc] init];
+    [appUserDefaults addSuiteNamed:@"NSRegistrationDomain"];
+    [appUserDefaults addSuiteNamed: bundleId];
+    prefsDict = [appUserDefaults dictionaryRepresentation];
+    
+    // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
+    NSSet *filteredPrefsSet = [prefsDict keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop)
+                               {
+                                   if ([key hasPrefix:@"org_safeexambrowser_SEB_"] && ![key isEqualToString:@"org_safeexambrowser_SEB_enablePreferencesWindow"])
+                                       return YES;
+                                   
+                                   else return NO;
+                               }];
+    NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:[filteredPrefsSet count]];
+    
+    // Remove prefix "org_safeexambrowser_SEB_" from keys
+    for (NSString *key in filteredPrefsSet) {
+        if ([key isEqualToString:@"org_safeexambrowser_SEB_downloadDirectoryOSX"]) {
+            NSString *downloadPath = [preferences secureStringForKey:key];
+            // generate a path with a tilde (~) substituted for the full path to the current user’s home directory
+            // so that the path is portable to SEB clients with other user's home directories
+            downloadPath = [downloadPath stringByAbbreviatingWithTildeInPath];
+            [filteredPrefsDict setObject:downloadPath forKey:[key substringFromIndex:24]];
+        } else
+            
+            [filteredPrefsDict setObject:[preferences secureObjectForKey:key] forKey:[key substringFromIndex:24]];
+    }
+    return filteredPrefsDict;
+}
+
 #pragma mark -
 #pragma mark Read accessors
 

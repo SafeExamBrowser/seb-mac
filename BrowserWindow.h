@@ -48,7 +48,7 @@
     NSString *downloadPath;
 }
 
-@property (assign) IBOutlet WebView *webView;
+@property (weak) IBOutlet WebView *webView;
 
 - (void)startDownloadingURL:(NSURL *)url;
 

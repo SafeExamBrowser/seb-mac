@@ -73,4 +73,7 @@
 // Convert property list object to secure data
 - (NSData *)secureDataForObject:(id)value;
 
+// Get dictionary representation of all SEB user defaults
+- (NSDictionary *)dictionaryRepresentationSEB;
+
 @end

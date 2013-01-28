@@ -358,6 +358,12 @@ bool insideMatrix();
     // Add an observer for the notification that another application was unhidden by the finder
 	[[workspace notificationCenter] addObserver:self
                                        selector:@selector(regainActiveStatus:)
+                                           name:NSWorkspaceWillLaunchApplicationNotification
+                                         object:workspace];
+	
+    // Add an observer for the notification that another application was unhidden by the finder
+	[[workspace notificationCenter] addObserver:self
+                                       selector:@selector(regainActiveStatus:)
                                            name:NSWorkspaceDidLaunchApplicationNotification
                                          object:workspace];
 	
@@ -387,8 +393,8 @@ bool insideMatrix();
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(adjustScreenLocking:) 
 												 name:NSApplicationDidChangeScreenParametersNotification 
                                                object:NSApp];
-	
-    // Add an observer for the request to conditionally exit SEB
+
+	// Add an observer for the request to conditionally exit SEB
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(exitSEB:)
                                                  name:@"requestExitNotification" object:nil];
@@ -773,13 +779,34 @@ bool insideMatrix(){
 	
 }
 
+- (void) terminateScreencapture {
+#ifdef DEBUG
+    NSLog(@"screencapture terminated");
+#endif
+}
 
 - (void) regainActiveStatus: (id)sender {
 	// hide all other applications if not in debug build setting
     //NSLog(@"regainActiveStatus!");
 #ifdef DEBUG
-    NSLog(@"Regain active status");
+    NSLog(@"Regain active status after %@", [sender name]);
 #endif
+    /*/ Check if the
+    if ([[sender name] isEqualToString:@"NSWorkspaceDidLaunchApplicationNotification"]) {
+        NSDictionary *userInfo = [sender userInfo];
+        if (userInfo) {
+            NSRunningApplication *launchedApp = [userInfo objectForKey:NSWorkspaceApplicationKey];
+#ifdef DEBUG
+            NSLog(@"launched app localizedName: %@, executableURL: %@", [launchedApp localizedName], [launchedApp executableURL]);
+#endif
+            if ([[launchedApp localizedName] isEqualToString:@"iCab"]) {
+                [launchedApp forceTerminate];
+#ifdef DEBUG
+                NSLog(@"screencapture terminated");
+#endif
+            }
+        }
+    }*/
     // Load preferences from the system's user defaults database
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 	BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
