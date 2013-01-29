@@ -151,11 +151,27 @@
                                                                   error:&error];
 
     NSMutableString *sebXML = [[NSMutableString alloc] initWithData:dataRep encoding:NSUTF8StringEncoding];
+#ifdef DEBUG
+    NSLog(@".seb XML plist: %@", sebXML);
+#endif
     
     // Remove property list XML header
-    NSRange endOfHeader = [sebXML rangeOfString:@"<dict>"];
+    NSRange rootDictOpeningTag = [sebXML rangeOfString:@"<dict>"];
+    NSRange headerRange;
+    headerRange.location = rootDictOpeningTag.location-1;
+    headerRange.length = rootDictOpeningTag.location;
+    [sebXML deleteCharactersInRange:headerRange];
     
-    NSLog(@"XML: %@", sebXML);
+    // Remove property list XML footer
+    NSRange rootDictClosingTag = [sebXML rangeOfString:@"</dict>" options:NSBackwardsSearch];
+    NSRange footerRange;
+    footerRange.location = rootDictClosingTag.location + rootDictClosingTag.length;
+    footerRange.length = sebXML.length - footerRange.location;
+    [sebXML deleteCharactersInRange:footerRange];
+    
+#ifdef DEBUG
+    NSLog(@".seb XML after striping header and footer: %@", sebXML);
+#endif
     NSData *encryptedSebData = [sebXML dataUsingEncoding:NSUTF8StringEncoding];
     //NSData *encryptedSebData = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];
 
