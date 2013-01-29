@@ -34,12 +34,25 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SEBController.m"
-         timestampString = "381113825.804087"
+         timestampString = "381171245.018289"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "198"
-         endingLineNumber = "198"
+         startingLineNumber = "197"
+         endingLineNumber = "197"
          landmarkName = "-application:openFile:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "PrefsExamViewController.m"
+         timestampString = "381172476.59716"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "172"
+         endingLineNumber = "172"
+         landmarkName = "-saveSEBPrefs:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

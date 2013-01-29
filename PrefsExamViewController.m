@@ -158,14 +158,17 @@
     // Remove property list XML header
     NSRange rootDictOpeningTag = [sebXML rangeOfString:@"<dict>"];
     NSRange headerRange;
-    headerRange.location = rootDictOpeningTag.location-1;
+    headerRange.location = 0;
     headerRange.length = rootDictOpeningTag.location;
     [sebXML deleteCharactersInRange:headerRange];
     
     // Remove property list XML footer
-    NSRange rootDictClosingTag = [sebXML rangeOfString:@"</dict>" options:NSBackwardsSearch];
+    /*NSRange rootDictClosingTag = [sebXML rangeOfString:@"</dict>" options:NSBackwardsSearch];
     NSRange footerRange;
     footerRange.location = rootDictClosingTag.location + rootDictClosingTag.length;
+    footerRange.length = sebXML.length - footerRange.location;
+    [sebXML deleteCharactersInRange:footerRange];*/
+    NSRange footerRange = [sebXML rangeOfString:@"</plist>" options:NSBackwardsSearch];
     footerRange.length = sebXML.length - footerRange.location;
     [sebXML deleteCharactersInRange:footerRange];
     

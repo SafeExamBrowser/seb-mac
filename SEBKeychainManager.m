@@ -374,9 +374,11 @@
     assert(crtn == CSSM_OK);
     CSSM_DeleteContext(ccHandle);
     
+#ifdef DEBUG
     fprintf(stderr, "DecryptData output %ld bytes\n",
             ptext.Length);
     fprintf(stderr, "[%s]\n", ptext.Data);
+#endif
     if(crtn) {
 		cssmPerror("cdsaEncrypt", crtn);
 		return nil;
