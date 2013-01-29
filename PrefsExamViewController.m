@@ -143,17 +143,15 @@
     NSDictionary *filteredPrefsDict;
     filteredPrefsDict = [preferences dictionaryRepresentationSEB];
 
-    // Convert preferences directory to data
-    
-    NSData *encryptedSebData = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];
-    NSString *sebXML = [[NSString alloc]initWithData:encryptedSebData encoding:NSUTF8StringEncoding];
+    // Convert preferences directory to XML property list
+    NSString *errorStr;
+    NSData *dataRep = [NSPropertyListSerialization dataFromPropertyList:filteredPrefsDict
+                                                                 format:NSPropertyListXMLFormat_v1_0
+                                                       errorDescription:&errorStr];
+
+    NSString *sebXML = [[NSString alloc] initWithData:dataRep encoding:NSUTF8StringEncoding];
     NSLog(@"XML: %@", sebXML);
-    //sebXML = [sebXML initWithData:encryptedSebData encoding:NSUTF8StringEncoding];
-    /*NSMutableData *encryptedSebDataXML;
-    NSKeyedArchiver *keyedArchiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:encryptedSebDataXML];
-    [keyedArchiver setOutputFormat:NSPropertyListXMLFormat_v1_0];
-    [keyedArchiver encodeObject:filteredPrefsDict];
-    [keyedArchiver finishEncoding];*/
+    NSData *encryptedSebData = [sebXML dataUsingEncoding:NSUTF8StringEncoding];
 
 
     NSString *encryptingPassword = nil;
