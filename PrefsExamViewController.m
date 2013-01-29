@@ -150,7 +150,11 @@
                                                                 options:0
                                                                   error:&error];
 
-    NSString *sebXML = [[NSString alloc] initWithData:dataRep encoding:NSUTF8StringEncoding];
+    NSMutableString *sebXML = [[NSMutableString alloc] initWithData:dataRep encoding:NSUTF8StringEncoding];
+    
+    // Remove property list XML header
+    NSRange endOfHeader = [sebXML rangeOfString:@"<dict>"];
+    
     NSLog(@"XML: %@", sebXML);
     NSData *encryptedSebData = [sebXML dataUsingEncoding:NSUTF8StringEncoding];
     //NSData *encryptedSebData = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];
