@@ -193,7 +193,12 @@ bool insideMatrix();
     if (!sebData) return YES;
 
     // Get preferences dictionary from decrypted data
-    NSDictionary *sebPreferencesDict = [NSKeyedUnarchiver unarchiveObjectWithData:sebData];
+    //NSDictionary *sebPreferencesDict = [NSKeyedUnarchiver unarchiveObjectWithData:sebData];
+    NSError *error;
+    NSDictionary *sebPreferencesDict = [NSPropertyListSerialization propertyListWithData:sebData
+                                                                                 options:0
+                                                                                  format:NULL
+                                                                                   error:&error];
     
     //NSDictionary *sebPreferencesDict=[NSDictionary dictionaryWithContentsOfURL:sebFileURL];
     //    NSMutableDictionary *initialValuesDict = [NSMutableDictionary dictionaryWithCapacity:[sebPreferencesDict count]];

@@ -30,16 +30,16 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "No"
+         shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SEBController.m"
-         timestampString = "381015454.794202"
+         timestampString = "381113825.804087"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "811"
-         endingLineNumber = "811"
-         landmarkName = "-regainActiveStatus:"
+         startingLineNumber = "198"
+         endingLineNumber = "198"
+         landmarkName = "-application:openFile:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
