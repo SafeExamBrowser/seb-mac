@@ -146,7 +146,7 @@
 - (NSString*) compareAdminPasswords {
 	if ((adminPassword != nil) | (confirmAdminPassword != nil)) { 
         //if at least one of the fields is defined
-        if ((confirmAdminPassword == @"𝈭𝈖𝈒𝉇𝈁𝉈") & (adminPassword != @"𝈭𝈖𝈒𝉇𝈁𝉈")) {
+        if (([confirmAdminPassword isEqual:@"𝈭𝈖𝈒𝉇𝈁𝉈"]) & (![adminPassword isEqual:@"𝈭𝈖𝈒𝉇𝈁𝉈"])) {
             //when the admin password was changed (user started to edit it), then the  
             //placeholder string in the confirm admin password field needs to be removed
             [self setValue:nil forKey:@"confirmAdminPassword"];
@@ -168,7 +168,7 @@
 - (NSString*) compareQuitPasswords {
 	if ((quitPassword != nil) | (confirmQuitPassword != nil)) { 
         //if at least one of the fields is defined
-        if ((confirmQuitPassword == @"𝈭𝈖𝈒𝉇𝈁𝉈") & (quitPassword != @"𝈭𝈖𝈒𝉇𝈁𝉈")) {
+        if (([confirmQuitPassword isEqual:@"𝈭𝈖𝈒𝉇𝈁𝉈"]) & (![quitPassword isEqual:@"𝈭𝈖𝈒𝉇𝈁𝉈"])) {
             //when the quit password was changed (user started to edit it), then the  
             //placeholder string in the confirm quit password field needs to be removed
             [self setValue:nil forKey:@"confirmQuitPassword"];
@@ -239,14 +239,14 @@
     if (adminPassword == nil) {
         //if no admin pw was entered, save a empty NSData object in preferences
         [preferences setSecureObject:@"" forKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-    } else if (adminPassword != @"𝈭𝈖𝈒𝉇𝈁𝉈") {
+    } else if (![adminPassword isEqual: @"𝈭𝈖𝈒𝉇𝈁𝉈"]) {
         //if password was changed, save the new hashed password in preferences
         [preferences setSecureObject:[keychainManager generateSHAHashString:adminPassword] forKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
     }
     if (quitPassword == nil) {
         //if no quit pw was entered, save a empty NSData object in preferences
         [preferences setSecureObject:@"" forKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-    } else if (quitPassword != @"𝈭𝈖𝈒𝉇𝈁𝉈") {
+    } else if (![quitPassword isEqual: @"𝈭𝈖𝈒𝉇𝈁𝉈"]) {
         //if password was changed, save the new hashed password in preferences
         [preferences setSecureObject:[keychainManager generateSHAHashString:quitPassword] forKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     }

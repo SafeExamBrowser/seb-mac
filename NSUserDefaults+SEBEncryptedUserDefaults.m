@@ -270,6 +270,7 @@ static BOOL _usePrivateUserDefaults = NO;
 - (void)setSecureObject:(id)value forKey:(NSString *)key
 {
     if (_usePrivateUserDefaults) {
+        if (value == nil) value = NULL;
         [localUserDefaults setObject:value forKey:key];
     } else {
         if (value == nil || key == nil) {
