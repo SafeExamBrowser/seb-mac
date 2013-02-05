@@ -44,6 +44,7 @@
     if ([NSUserDefaults userDefaultsPrivate]) {
         NSArray *pathElements = [keyPath componentsSeparatedByString:@"."];
         NSString *key = [pathElements objectAtIndex:[pathElements count]-1];
+        if (value == nil) value = NULL;
         [[NSUserDefaults privateUserDefaults] setValue:value forKey:key];
     } else {
         if (value == nil || keyPath == nil) {

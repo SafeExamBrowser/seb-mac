@@ -172,9 +172,16 @@ bool insideMatrix();
         NSError *error;
         error = nil;
         sebData = [RNDecryptor decryptData:sebData withPassword:hashedAdminPassword error:&error];
+        // if decryption with admin password worked
         if (!error) {
+            //switch to system's UserDefaults
+            [NSUserDefaults setUserDefaultsPrivate:NO];
             // Get preferences dictionary from decrypted data
-            NSDictionary *sebPreferencesDict = [NSKeyedUnarchiver unarchiveObjectWithData:sebData];
+            NSError *error;
+            NSDictionary *sebPreferencesDict = [NSPropertyListSerialization propertyListWithData:sebData
+                                                                                         options:0
+                                                                                          format:NULL
+                                                                                           error:&error];
             for (NSString *key in sebPreferencesDict) {
                 if ([key isEqualToString:@"allowPreferencesWindow"]) {
                     [preferences setSecureObject:
@@ -184,6 +191,7 @@ bool insideMatrix();
                 NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
                 [preferences setSecureObject:[sebPreferencesDict objectForKey:key] forKey:keyWithPrefix];
             }
+            [self startKioskMode];
             [self requestedRestart:nil];
         }
         return YES; //we're done here
@@ -218,6 +226,7 @@ bool insideMatrix();
 #ifdef DEBUG
     NSLog(@"Private preferences set: %@",privatePreferences);
 #endif
+    //switch to private UserDefaults (saved non-persistantly in memory besides in Library/Preferences/ )
     [NSUserDefaults setUserDefaultsPrivate:YES];
     [self startKioskMode];
     [self requestedRestart:nil];
