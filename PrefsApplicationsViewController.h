@@ -1,9 +1,9 @@
 //
-//  Constants.h
-//  SafeExamBrowser
+//  SEBController.h
+//  Safe Exam Browser
 //
-//  Created by Daniel Schneider on 29.12.11.
-//  Copyright (c) 2010-2013 Daniel R. Schneider, ETH Zurich, 
+//  Created by Daniel R. Schneider on 08.02.13.
+//  Copyright (c) 2010-2013 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
@@ -32,36 +32,18 @@
 //  Contributor(s): ______________________________________.
 //
 
-#ifndef SafeExamBrowser_Constants_h
-#define SafeExamBrowser_Constants_h
+// Preferences Applications Pane
+// Settings use of third party applications together with SEB
 
-enum {
-    getGenerallyBlocked                         = 0,
-    openInSameWindow                            = 1,
-    openInNewWindow                             = 2
-};
-typedef NSUInteger newBrowserWindowPolicies;
+#import <Cocoa/Cocoa.h>
+#import "MBPreferencesController.h"
+
+@interface PrefsApplicationsViewController : NSViewController <MBPreferencesModule> {
+
+}
+
+- (NSString *)identifier;
+- (NSImage *)image;
 
 
-enum {
-    manuallyWithFileRequester                   = 0,
-    attemptUploadSameFileDownloadedBefore       = 1,
-    onlyAllowUploadSameFileDownloadedBefore     = 2
-};
-typedef NSUInteger chooseFileToUploadPolicies;
-
-enum {
-    FetchingIdentities                   = 0
-};
-typedef NSUInteger cryptoIdentities;
-
-static NSString __unused *userDefaultsMasala = @"D𝈭il𝈖Ch𝈒a𝉇ht𝈁a𝉈Hai1972";
-
-enum {
-    ignoreService                               = 0,
-    indicateMissingService                      = 1,
-    forceSebService                             = 2
-};
-typedef NSUInteger sebServicePolicies;
-
-#endif
+@end

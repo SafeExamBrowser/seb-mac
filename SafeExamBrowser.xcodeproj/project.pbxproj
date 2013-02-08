@@ -94,6 +94,20 @@
 		69903B1714CD7624007E7DF7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		69903B1814CD7624007E7DF7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A94D711B68D8A0083C66D /* Carbon.framework */; };
 		69903B1914CD7624007E7DF7 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6947949C12B050AA00651933 /* IOKit.framework */; };
+		6992498D16C3AE9C00DF6B53 /* PreferencesSEBConfig.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6992498C16C3AE9C00DF6B53 /* PreferencesSEBConfig.xib */; };
+		6992498E16C3AE9C00DF6B53 /* PreferencesSEBConfig.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6992498C16C3AE9C00DF6B53 /* PreferencesSEBConfig.xib */; };
+		6992498F16C3AE9C00DF6B53 /* PreferencesSEBConfig.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6992498C16C3AE9C00DF6B53 /* PreferencesSEBConfig.xib */; };
+		6992499216C3B18B00DF6B53 /* PrefsSEBConfigViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992499016C3B18B00DF6B53 /* PrefsSEBConfigViewController.h */; };
+		6992499316C3B18B00DF6B53 /* PrefsSEBConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992499116C3B18B00DF6B53 /* PrefsSEBConfigViewController.m */; };
+		6992499416C3B18B00DF6B53 /* PrefsSEBConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992499116C3B18B00DF6B53 /* PrefsSEBConfigViewController.m */; };
+		6992499516C3B18B00DF6B53 /* PrefsSEBConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992499116C3B18B00DF6B53 /* PrefsSEBConfigViewController.m */; };
+		6992499716C5B5D400DF6B53 /* PreferencesApplications.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6992499616C5B5D300DF6B53 /* PreferencesApplications.xib */; };
+		6992499816C5B5D400DF6B53 /* PreferencesApplications.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6992499616C5B5D300DF6B53 /* PreferencesApplications.xib */; };
+		6992499916C5B5D400DF6B53 /* PreferencesApplications.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6992499616C5B5D300DF6B53 /* PreferencesApplications.xib */; };
+		6992499C16C5B62000DF6B53 /* PrefsApplicationsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992499A16C5B62000DF6B53 /* PrefsApplicationsViewController.h */; };
+		6992499D16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992499B16C5B62000DF6B53 /* PrefsApplicationsViewController.m */; };
+		6992499E16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992499B16C5B62000DF6B53 /* PrefsApplicationsViewController.m */; };
+		6992499F16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992499B16C5B62000DF6B53 /* PrefsApplicationsViewController.m */; };
 		699C540415EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */ = {isa = PBXBuildFile; fileRef = 699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */; };
 		699C540515EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */ = {isa = PBXBuildFile; fileRef = 699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */; };
 		699C540615EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */ = {isa = PBXBuildFile; fileRef = 699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */; };
@@ -238,6 +252,12 @@
 		6991A78F14471F5A00F9149D /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		6991A79014471F8C00F9149D /* MyGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGlobals.h; sourceTree = "<group>"; };
 		6991A79114471F8C00F9149D /* MyGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGlobals.m; sourceTree = "<group>"; };
+		6992498C16C3AE9C00DF6B53 /* PreferencesSEBConfig.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesSEBConfig.xib; sourceTree = "<group>"; };
+		6992499016C3B18B00DF6B53 /* PrefsSEBConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsSEBConfigViewController.h; sourceTree = "<group>"; };
+		6992499116C3B18B00DF6B53 /* PrefsSEBConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsSEBConfigViewController.m; sourceTree = "<group>"; };
+		6992499616C5B5D300DF6B53 /* PreferencesApplications.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesApplications.xib; sourceTree = "<group>"; };
+		6992499A16C5B62000DF6B53 /* PrefsApplicationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsApplicationsViewController.h; sourceTree = "<group>"; };
+		6992499B16C5B62000DF6B53 /* PrefsApplicationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsApplicationsViewController.m; sourceTree = "<group>"; };
 		699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBUIUserDefaultsController.h; sourceTree = "<group>"; };
 		699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBUIUserDefaultsController.m; sourceTree = "<group>"; };
 		69A9A22A1368784500840AE1 /* MBPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBPreferencesController.h; sourceTree = "<group>"; };
@@ -421,9 +441,11 @@
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				69F684CE1436550F0091CDA7 /* BrowserWindow.xib */,
 				69FC9057136C9A00009B55CB /* PreferencesGeneral.xib */,
+				6992498C16C3AE9C00DF6B53 /* PreferencesSEBConfig.xib */,
 				69BE8662145872C900E87C22 /* PreferencesBrowser.xib */,
-				69FC905C136CA80F009B55CB /* PreferencesAdvanced.xib */,
 				6943D0761655054600AB6B1D /* PreferencesExam.xib */,
+				6992499616C5B5D300DF6B53 /* PreferencesApplications.xib */,
+				69FC905C136CA80F009B55CB /* PreferencesAdvanced.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -445,12 +467,16 @@
 				69C52802136AFDBD00F9F000 /* PreferencesController.m */,
 				69A9A232136AF6E000840AE1 /* PrefsGeneralViewController.h */,
 				69A9A233136AF6E000840AE1 /* PrefsGeneralViewController.m */,
+				6992499016C3B18B00DF6B53 /* PrefsSEBConfigViewController.h */,
+				6992499116C3B18B00DF6B53 /* PrefsSEBConfigViewController.m */,
 				690D23461451EF2300CCCFF9 /* PrefsBrowserViewController.h */,
 				690D23471451EF2400CCCFF9 /* PrefsBrowserViewController.m */,
-				69A9A234136AF6E000840AE1 /* PrefsAdvancedViewController.h */,
-				69C52805136AFE9500F9F000 /* PrefsAdvancedViewController.m */,
 				6943D0741655054600AB6B1D /* PrefsExamViewController.h */,
 				6943D0751655054600AB6B1D /* PrefsExamViewController.m */,
+				6992499A16C5B62000DF6B53 /* PrefsApplicationsViewController.h */,
+				6992499B16C5B62000DF6B53 /* PrefsApplicationsViewController.m */,
+				69A9A234136AF6E000840AE1 /* PrefsAdvancedViewController.h */,
+				69C52805136AFE9500F9F000 /* PrefsAdvancedViewController.m */,
 				69A9A22A1368784500840AE1 /* MBPreferencesController.h */,
 				69A9A22B1368784500840AE1 /* MBPreferencesController.m */,
 				691CD9AA1468947E00B43CDC /* SEBEncryptedUserDefaultsController.h */,
@@ -513,6 +539,8 @@
 				69ACA4FA1690B10E007BD517 /* RNEncryptor.h in Headers */,
 				69ACA5001690DE28007BD517 /* RNCryptorEngine.h in Headers */,
 				694B08A316B14ABF00E4997C /* SEBCryptor.h in Headers */,
+				6992499216C3B18B00DF6B53 /* PrefsSEBConfigViewController.h in Headers */,
+				6992499C16C5B62000DF6B53 /* PrefsApplicationsViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -624,6 +652,8 @@
 				6949B32814F40AAD009E1775 /* PreferencesBrowser.xib in Resources */,
 				699C540515EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */,
 				6943D07B1655054600AB6B1D /* PreferencesExam.xib in Resources */,
+				6992498E16C3AE9C00DF6B53 /* PreferencesSEBConfig.xib in Resources */,
+				6992499816C5B5D400DF6B53 /* PreferencesApplications.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,6 +675,8 @@
 				69903AFF14CD7624007E7DF7 /* PreferencesBrowser.xib in Resources */,
 				699C540615EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */,
 				6943D07C1655054600AB6B1D /* PreferencesExam.xib in Resources */,
+				6992498F16C3AE9C00DF6B53 /* PreferencesSEBConfig.xib in Resources */,
+				6992499916C5B5D400DF6B53 /* PreferencesApplications.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -666,6 +698,8 @@
 				69F7B60714F411FB00FD0761 /* PreferencesBrowser.xib in Resources */,
 				699C540415EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */,
 				6943D07A1655054600AB6B1D /* PreferencesExam.xib in Resources */,
+				6992498D16C3AE9C00DF6B53 /* PreferencesSEBConfig.xib in Resources */,
+				6992499716C5B5D400DF6B53 /* PreferencesApplications.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -704,6 +738,8 @@
 				69ACA4FC1690B10E007BD517 /* RNEncryptor.m in Sources */,
 				69ACA5021690DE28007BD517 /* RNCryptorEngine.m in Sources */,
 				694B08A516B14ABF00E4997C /* SEBCryptor.m in Sources */,
+				6992499416C3B18B00DF6B53 /* PrefsSEBConfigViewController.m in Sources */,
+				6992499E16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -739,6 +775,8 @@
 				69ACA4FD1690B10E007BD517 /* RNEncryptor.m in Sources */,
 				69ACA5031690DE28007BD517 /* RNCryptorEngine.m in Sources */,
 				694B08A616B14ABF00E4997C /* SEBCryptor.m in Sources */,
+				6992499516C3B18B00DF6B53 /* PrefsSEBConfigViewController.m in Sources */,
+				6992499F16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -774,6 +812,8 @@
 				69ACA4FB1690B10E007BD517 /* RNEncryptor.m in Sources */,
 				69ACA5011690DE28007BD517 /* RNCryptorEngine.m in Sources */,
 				694B08A416B14ABF00E4997C /* SEBCryptor.m in Sources */,
+				6992499316C3B18B00DF6B53 /* PrefsSEBConfigViewController.m in Sources */,
+				6992499D16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

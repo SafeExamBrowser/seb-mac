@@ -37,6 +37,11 @@
 
 @implementation SEBKeychainManager
 
+// We ignore "deprecated" warnings for CSSM methods, since Apple doesn't provide any replacement
+// for asymetric public key cryptography as for OS X 10.8
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 - (NSArray*)getIdentities {
     SecKeychainRef keychain;
     OSStatus error;
@@ -391,6 +396,8 @@
     return plainData;
 }
 
+// Switch diagnostics for "deprecated" on again
+#pragma clang diagnostic pop
 
 - (NSString*) generateSHAHashString:(NSString*)inputString {
     unsigned char hashedChars[32];
