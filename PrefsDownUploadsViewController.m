@@ -35,19 +35,19 @@
 // Preferences Advanced Pane
 // Settings use of third party applications together with SEB
 
-#import "PrefsAdvancedViewController.h"
+#import "PrefsDownUploadsViewController.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
-@implementation PrefsAdvancedViewController
+@implementation PrefsDownUploadsViewController
 
 - (NSString *)title
 {
-	return NSLocalizedString(@"Advanced", @"Title of 'Advanced' preference pane");
+	return NSLocalizedString(@"Down/Uploads", @"Title of 'Down/Uploads' preference pane");
 }
 
 - (NSString *)identifier
 {
-	return @"AdvancedPane";
+	return @"DownUploadsPane";
 }
 
 - (NSImage *)image

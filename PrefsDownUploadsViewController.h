@@ -38,7 +38,7 @@
 #import <Cocoa/Cocoa.h>
 #import "MBPreferencesController.h"
 
-@interface PrefsAdvancedViewController : NSViewController <MBPreferencesModule> {
+@interface PrefsDownUploadsViewController : NSViewController <MBPreferencesModule> {
 
     //IBOutlet NSButton *allowThirdPartyApps;
     //NSButton *allowDownUploads;

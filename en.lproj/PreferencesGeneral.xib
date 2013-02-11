@@ -3,12 +3,12 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
 		<string key="IBDocument.SystemVersion">12C60</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2844</string>
+		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1187.34</string>
 		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">2844</string>
+			<string key="NS.object.0">3084</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSButton</string>
@@ -119,7 +119,6 @@
 						<string key="NSFrame">{{366, 13}, {120, 32}}</string>
 						<reference key="NSSuperview" ref="965820046"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="345435435">
 							<int key="NSCellFlags">67108864</int>
@@ -1236,7 +1235,7 @@
 					<object class="IBToolTipAttribute" key="NS.object.0">
 						<string key="name">ToolTip</string>
 						<reference key="object" ref="287856347"/>
-						<string key="toolTip">This password is prompted when users try to quit SEB with Command+Q.</string>
+						<string key="toolTip">This password is prompted when users try to quit SEB with Command+Q/Window closing button. The password is not prompted when using a quit link in the exam system.</string>
 					</object>
 				</object>
 				<string key="79.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1275,7 +1274,7 @@
 					<object class="IBToolTipAttribute" key="NS.object.0">
 						<string key="name">ToolTip</string>
 						<reference key="object" ref="1064892255"/>
-						<string key="toolTip">If selected, users can quit SEB with Command+Q. Otherwise you can shutdown or reset the computer or use the "Quit SEB" button in this preferences window.</string>
+						<string key="toolTip">If selected, users can quit SEB with Command+Q. Otherwise you can use a quit link in your exam system, shutdown or reset the computer or use the "Quit SEB" button in this preferences window.</string>
 					</object>
 				</object>
 				<string key="92.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>

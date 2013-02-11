@@ -21,7 +21,7 @@
 		6943D07C1655054600AB6B1D /* PreferencesExam.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6943D0761655054600AB6B1D /* PreferencesExam.xib */; };
 		6949B31D14F40AAD009E1775 /* LICENCE in Resources */ = {isa = PBXBuildFile; fileRef = 69A9A22E1369AF9600840AE1 /* LICENCE */; };
 		6949B31E14F40AAD009E1775 /* PreferencesGeneral.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FC9057136C9A00009B55CB /* PreferencesGeneral.xib */; };
-		6949B31F14F40AAD009E1775 /* PreferencesAdvanced.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FC905C136CA80F009B55CB /* PreferencesAdvanced.xib */; };
+		6949B31F14F40AAD009E1775 /* PreferencesDownUploads.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FC905C136CA80F009B55CB /* PreferencesDownUploads.xib */; };
 		6949B32014F40AAD009E1775 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		6949B32114F40AAD009E1775 /* SEBicon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 6932C9671191B7FE00688EBB /* SEBicon.icns */; };
 		6949B32214F40AAD009E1775 /* AboutSEB.png in Resources */ = {isa = PBXBuildFile; fileRef = 6969B1CC127B80410027FF8D /* AboutSEB.png */; };
@@ -40,7 +40,7 @@
 		6949B33014F40AAD009E1775 /* BrowserWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 692891B112ACEBDC00EEE7C9 /* BrowserWindow.m */; };
 		6949B33114F40AAD009E1775 /* MBPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A9A22B1368784500840AE1 /* MBPreferencesController.m */; };
 		6949B33214F40AAD009E1775 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C52802136AFDBD00F9F000 /* PreferencesController.m */; };
-		6949B33314F40AAD009E1775 /* PrefsAdvancedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C52805136AFE9500F9F000 /* PrefsAdvancedViewController.m */; };
+		6949B33314F40AAD009E1775 /* PrefsDownUploadsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C52805136AFE9500F9F000 /* PrefsDownUploadsViewController.m */; };
 		6949B33414F40AAD009E1775 /* MyDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F684CB143653880091CDA7 /* MyDocument.m */; };
 		6949B33614F40AAD009E1775 /* MyGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 6991A79114471F8C00F9149D /* MyGlobals.m */; };
 		6949B33714F40AAD009E1775 /* PrefsBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690D23471451EF2400CCCFF9 /* PrefsBrowserViewController.m */; };
@@ -62,7 +62,7 @@
 		696F28EA15751F1900780DA8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696F28E715751ED600780DA8 /* Security.framework */; };
 		69903AF414CD7624007E7DF7 /* LICENCE in Resources */ = {isa = PBXBuildFile; fileRef = 69A9A22E1369AF9600840AE1 /* LICENCE */; };
 		69903AF514CD7624007E7DF7 /* PreferencesGeneral.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FC9057136C9A00009B55CB /* PreferencesGeneral.xib */; };
-		69903AF614CD7624007E7DF7 /* PreferencesAdvanced.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FC905C136CA80F009B55CB /* PreferencesAdvanced.xib */; };
+		69903AF614CD7624007E7DF7 /* PreferencesDownUploads.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FC905C136CA80F009B55CB /* PreferencesDownUploads.xib */; };
 		69903AF714CD7624007E7DF7 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		69903AF814CD7624007E7DF7 /* SEBicon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 6932C9671191B7FE00688EBB /* SEBicon.icns */; };
 		69903AF914CD7624007E7DF7 /* AboutSEB.png in Resources */ = {isa = PBXBuildFile; fileRef = 6969B1CC127B80410027FF8D /* AboutSEB.png */; };
@@ -81,7 +81,7 @@
 		69903B0714CD7624007E7DF7 /* BrowserWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 692891B112ACEBDC00EEE7C9 /* BrowserWindow.m */; };
 		69903B0814CD7624007E7DF7 /* MBPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A9A22B1368784500840AE1 /* MBPreferencesController.m */; };
 		69903B0914CD7624007E7DF7 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C52802136AFDBD00F9F000 /* PreferencesController.m */; };
-		69903B0A14CD7624007E7DF7 /* PrefsAdvancedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C52805136AFE9500F9F000 /* PrefsAdvancedViewController.m */; };
+		69903B0A14CD7624007E7DF7 /* PrefsDownUploadsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C52805136AFE9500F9F000 /* PrefsDownUploadsViewController.m */; };
 		69903B0B14CD7624007E7DF7 /* MyDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F684CB143653880091CDA7 /* MyDocument.m */; };
 		69903B0D14CD7624007E7DF7 /* MyGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 6991A79114471F8C00F9149D /* MyGlobals.m */; };
 		69903B0F14CD7624007E7DF7 /* PrefsBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690D23471451EF2400CCCFF9 /* PrefsBrowserViewController.m */; };
@@ -137,7 +137,7 @@
 		69F293B0164A324B00875C00 /* SEBKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F293AD164A324B00875C00 /* SEBKeychainManager.m */; };
 		69F7B5FC14F411FB00FD0761 /* LICENCE in Resources */ = {isa = PBXBuildFile; fileRef = 69A9A22E1369AF9600840AE1 /* LICENCE */; };
 		69F7B5FD14F411FB00FD0761 /* PreferencesGeneral.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FC9057136C9A00009B55CB /* PreferencesGeneral.xib */; };
-		69F7B5FE14F411FB00FD0761 /* PreferencesAdvanced.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FC905C136CA80F009B55CB /* PreferencesAdvanced.xib */; };
+		69F7B5FE14F411FB00FD0761 /* PreferencesDownUploads.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FC905C136CA80F009B55CB /* PreferencesDownUploads.xib */; };
 		69F7B5FF14F411FB00FD0761 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		69F7B60014F411FB00FD0761 /* SEBicon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 6932C9671191B7FE00688EBB /* SEBicon.icns */; };
 		69F7B60114F411FB00FD0761 /* AboutSEB.png in Resources */ = {isa = PBXBuildFile; fileRef = 6969B1CC127B80410027FF8D /* AboutSEB.png */; };
@@ -156,7 +156,7 @@
 		69F7B60F14F411FB00FD0761 /* BrowserWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 692891B112ACEBDC00EEE7C9 /* BrowserWindow.m */; };
 		69F7B61014F411FB00FD0761 /* MBPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A9A22B1368784500840AE1 /* MBPreferencesController.m */; };
 		69F7B61114F411FB00FD0761 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C52802136AFDBD00F9F000 /* PreferencesController.m */; };
-		69F7B61214F411FB00FD0761 /* PrefsAdvancedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C52805136AFE9500F9F000 /* PrefsAdvancedViewController.m */; };
+		69F7B61214F411FB00FD0761 /* PrefsDownUploadsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C52805136AFE9500F9F000 /* PrefsDownUploadsViewController.m */; };
 		69F7B61314F411FB00FD0761 /* MyDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F684CB143653880091CDA7 /* MyDocument.m */; };
 		69F7B61514F411FB00FD0761 /* MyGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 6991A79114471F8C00F9149D /* MyGlobals.m */; };
 		69F7B61614F411FB00FD0761 /* PrefsBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690D23471451EF2400CCCFF9 /* PrefsBrowserViewController.m */; };
@@ -265,7 +265,7 @@
 		69A9A22E1369AF9600840AE1 /* LICENCE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
 		69A9A232136AF6E000840AE1 /* PrefsGeneralViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsGeneralViewController.h; sourceTree = "<group>"; };
 		69A9A233136AF6E000840AE1 /* PrefsGeneralViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsGeneralViewController.m; sourceTree = "<group>"; };
-		69A9A234136AF6E000840AE1 /* PrefsAdvancedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsAdvancedViewController.h; sourceTree = "<group>"; };
+		69A9A234136AF6E000840AE1 /* PrefsDownUploadsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsDownUploadsViewController.h; sourceTree = "<group>"; };
 		69ACA4E81690AB8A007BD517 /* RNCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCryptor.h; sourceTree = "<group>"; };
 		69ACA4E91690AB8A007BD517 /* RNCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCryptor.m; sourceTree = "<group>"; };
 		69ACA4EE1690ABC2007BD517 /* RNCryptor+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNCryptor+Private.h"; sourceTree = "<group>"; };
@@ -280,7 +280,7 @@
 		69BE8663145872DB00E87C22 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesBrowser.xib; sourceTree = "<group>"; };
 		69BE8664145872DF00E87C22 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/PreferencesBrowser.xib; sourceTree = "<group>"; };
 		69C52802136AFDBD00F9F000 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
-		69C52805136AFE9500F9F000 /* PrefsAdvancedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsAdvancedViewController.m; sourceTree = "<group>"; };
+		69C52805136AFE9500F9F000 /* PrefsDownUploadsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsDownUploadsViewController.m; sourceTree = "<group>"; };
 		69CB8AFD136AFC6E00C08450 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		69CE5A67131E5C3C0030F0F2 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		69D5881F1189EB8F005AE3F1 /* SEBController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SEBController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -302,9 +302,9 @@
 		69FC9056136C9A00009B55CB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PreferencesGeneral.xib; sourceTree = "<group>"; };
 		69FC9058136C9A10009B55CB /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesGeneral.xib; sourceTree = "<group>"; };
 		69FC9059136C9A13009B55CB /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/PreferencesGeneral.xib; sourceTree = "<group>"; };
-		69FC905B136CA80F009B55CB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PreferencesAdvanced.xib; sourceTree = "<group>"; };
-		69FC905D136CA81B009B55CB /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesAdvanced.xib; sourceTree = "<group>"; };
-		69FC905E136CA81E009B55CB /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/PreferencesAdvanced.xib; sourceTree = "<group>"; };
+		69FC905B136CA80F009B55CB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PreferencesDownUploads.xib; sourceTree = "<group>"; };
+		69FC905D136CA81B009B55CB /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesDownUploads.xib; sourceTree = "<group>"; };
+		69FC905E136CA81E009B55CB /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/PreferencesDownUploads.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -445,7 +445,7 @@
 				69BE8662145872C900E87C22 /* PreferencesBrowser.xib */,
 				6943D0761655054600AB6B1D /* PreferencesExam.xib */,
 				6992499616C5B5D300DF6B53 /* PreferencesApplications.xib */,
-				69FC905C136CA80F009B55CB /* PreferencesAdvanced.xib */,
+				69FC905C136CA80F009B55CB /* PreferencesDownUploads.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -475,8 +475,8 @@
 				6943D0751655054600AB6B1D /* PrefsExamViewController.m */,
 				6992499A16C5B62000DF6B53 /* PrefsApplicationsViewController.h */,
 				6992499B16C5B62000DF6B53 /* PrefsApplicationsViewController.m */,
-				69A9A234136AF6E000840AE1 /* PrefsAdvancedViewController.h */,
-				69C52805136AFE9500F9F000 /* PrefsAdvancedViewController.m */,
+				69A9A234136AF6E000840AE1 /* PrefsDownUploadsViewController.h */,
+				69C52805136AFE9500F9F000 /* PrefsDownUploadsViewController.m */,
 				69A9A22A1368784500840AE1 /* MBPreferencesController.h */,
 				69A9A22B1368784500840AE1 /* MBPreferencesController.m */,
 				691CD9AA1468947E00B43CDC /* SEBEncryptedUserDefaultsController.h */,
@@ -640,7 +640,7 @@
 			files = (
 				6949B31D14F40AAD009E1775 /* LICENCE in Resources */,
 				6949B31E14F40AAD009E1775 /* PreferencesGeneral.xib in Resources */,
-				6949B31F14F40AAD009E1775 /* PreferencesAdvanced.xib in Resources */,
+				6949B31F14F40AAD009E1775 /* PreferencesDownUploads.xib in Resources */,
 				6949B32014F40AAD009E1775 /* MainMenu.xib in Resources */,
 				6949B32114F40AAD009E1775 /* SEBicon.icns in Resources */,
 				6949B32214F40AAD009E1775 /* AboutSEB.png in Resources */,
@@ -663,7 +663,7 @@
 			files = (
 				69903AF414CD7624007E7DF7 /* LICENCE in Resources */,
 				69903AF514CD7624007E7DF7 /* PreferencesGeneral.xib in Resources */,
-				69903AF614CD7624007E7DF7 /* PreferencesAdvanced.xib in Resources */,
+				69903AF614CD7624007E7DF7 /* PreferencesDownUploads.xib in Resources */,
 				69903AF714CD7624007E7DF7 /* MainMenu.xib in Resources */,
 				69903AF814CD7624007E7DF7 /* SEBicon.icns in Resources */,
 				69903AF914CD7624007E7DF7 /* AboutSEB.png in Resources */,
@@ -686,7 +686,7 @@
 			files = (
 				69F7B5FC14F411FB00FD0761 /* LICENCE in Resources */,
 				69F7B5FD14F411FB00FD0761 /* PreferencesGeneral.xib in Resources */,
-				69F7B5FE14F411FB00FD0761 /* PreferencesAdvanced.xib in Resources */,
+				69F7B5FE14F411FB00FD0761 /* PreferencesDownUploads.xib in Resources */,
 				69F7B5FF14F411FB00FD0761 /* MainMenu.xib in Resources */,
 				69F7B60014F411FB00FD0761 /* SEBicon.icns in Resources */,
 				69F7B60114F411FB00FD0761 /* AboutSEB.png in Resources */,
@@ -719,7 +719,7 @@
 				6949B33014F40AAD009E1775 /* BrowserWindow.m in Sources */,
 				6949B33114F40AAD009E1775 /* MBPreferencesController.m in Sources */,
 				6949B33214F40AAD009E1775 /* PreferencesController.m in Sources */,
-				6949B33314F40AAD009E1775 /* PrefsAdvancedViewController.m in Sources */,
+				6949B33314F40AAD009E1775 /* PrefsDownUploadsViewController.m in Sources */,
 				6949B33414F40AAD009E1775 /* MyDocument.m in Sources */,
 				6949B33614F40AAD009E1775 /* MyGlobals.m in Sources */,
 				6949B33714F40AAD009E1775 /* PrefsBrowserViewController.m in Sources */,
@@ -756,7 +756,7 @@
 				69903B0714CD7624007E7DF7 /* BrowserWindow.m in Sources */,
 				69903B0814CD7624007E7DF7 /* MBPreferencesController.m in Sources */,
 				69903B0914CD7624007E7DF7 /* PreferencesController.m in Sources */,
-				69903B0A14CD7624007E7DF7 /* PrefsAdvancedViewController.m in Sources */,
+				69903B0A14CD7624007E7DF7 /* PrefsDownUploadsViewController.m in Sources */,
 				69903B0B14CD7624007E7DF7 /* MyDocument.m in Sources */,
 				69903B0D14CD7624007E7DF7 /* MyGlobals.m in Sources */,
 				69903B0F14CD7624007E7DF7 /* PrefsBrowserViewController.m in Sources */,
@@ -793,7 +793,7 @@
 				69F7B60F14F411FB00FD0761 /* BrowserWindow.m in Sources */,
 				69F7B61014F411FB00FD0761 /* MBPreferencesController.m in Sources */,
 				69F7B61114F411FB00FD0761 /* PreferencesController.m in Sources */,
-				69F7B61214F411FB00FD0761 /* PrefsAdvancedViewController.m in Sources */,
+				69F7B61214F411FB00FD0761 /* PrefsDownUploadsViewController.m in Sources */,
 				69F7B61314F411FB00FD0761 /* MyDocument.m in Sources */,
 				69F7B61514F411FB00FD0761 /* MyGlobals.m in Sources */,
 				69F7B61614F411FB00FD0761 /* PrefsBrowserViewController.m in Sources */,
@@ -870,14 +870,14 @@
 			name = PreferencesGeneral.xib;
 			sourceTree = "<group>";
 		};
-		69FC905C136CA80F009B55CB /* PreferencesAdvanced.xib */ = {
+		69FC905C136CA80F009B55CB /* PreferencesDownUploads.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				69FC905B136CA80F009B55CB /* en */,
 				69FC905D136CA81B009B55CB /* de */,
 				69FC905E136CA81E009B55CB /* fr */,
 			);
-			name = PreferencesAdvanced.xib;
+			name = PreferencesDownUploads.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

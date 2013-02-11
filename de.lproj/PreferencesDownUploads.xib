@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">11G63</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2843</string>
-		<string key="IBDocument.AppKitVersion">1138.51</string>
-		<string key="IBDocument.HIToolboxVersion">569.00</string>
+		<string key="IBDocument.SystemVersion">12C60</string>
+		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
+		<string key="IBDocument.AppKitVersion">1187.34</string>
+		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">2843</string>
+			<string key="NS.object.0">3084</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSButton</string>
@@ -33,7 +33,7 @@
 		</object>
 		<array class="NSMutableArray" key="IBDocument.RootObjects" id="1000">
 			<object class="NSCustomObject" id="1001">
-				<string key="NSClassName">PrefsAdvancedViewController</string>
+				<string key="NSClassName">PrefsDownUploadsViewController</string>
 			</object>
 			<object class="NSCustomObject" id="1003">
 				<string key="NSClassName">FirstResponder</string>
@@ -42,7 +42,7 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSCustomView" id="381403324">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSButton" id="1031440401">
@@ -53,7 +53,7 @@
 						<reference key="NSNextKeyView" ref="545007090"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="705335809">
-							<int key="NSCellFlags">-2080244224</int>
+							<int key="NSCellFlags">-2080374784</int>
 							<int key="NSCellFlags2">0</int>
 							<string key="NSContents">Flash erlauben, in den Vollbildmodus zu schalten</string>
 							<object class="NSFont" key="NSSupport" id="973533274">
@@ -62,7 +62,7 @@
 								<int key="NSfFlags">1044</int>
 							</object>
 							<reference key="NSControlView" ref="1031440401"/>
-							<int key="NSButtonFlags">1211912703</int>
+							<int key="NSButtonFlags">1211912448</int>
 							<int key="NSButtonFlags2">2</int>
 							<object class="NSCustomResource" key="NSNormalImage" id="384911045">
 								<string key="NSClassName">NSImage</string>
@@ -76,6 +76,7 @@
 							<int key="NSPeriodicDelay">200</int>
 							<int key="NSPeriodicInterval">25</int>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSTextField" id="495717156">
 						<reference key="NSNextResponder" ref="381403324"/>
@@ -86,7 +87,7 @@
 						<string key="NSReuseIdentifierKey">_NS:3944</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="796313696">
-							<int key="NSCellFlags">68288064</int>
+							<int key="NSCellFlags">68157504</int>
 							<int key="NSCellFlags2">272630784</int>
 							<string key="NSContents">Datei für Upload auswählen …</string>
 							<reference key="NSSupport" ref="973533274"/>
@@ -111,6 +112,7 @@
 								</object>
 							</object>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSPopUpButton" id="697019350">
 						<reference key="NSNextResponder" ref="381403324"/>
@@ -120,11 +122,11 @@
 						<reference key="NSNextKeyView" ref="368450533"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="2185352">
-							<int key="NSCellFlags">67239488</int>
+							<int key="NSCellFlags">67108928</int>
 							<int key="NSCellFlags2">2048</int>
 							<reference key="NSSupport" ref="973533274"/>
 							<reference key="NSControlView" ref="697019350"/>
-							<int key="NSButtonFlags">112345343</int>
+							<int key="NSButtonFlags">112345088</int>
 							<int key="NSButtonFlags2">129</int>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
@@ -181,21 +183,21 @@
 							<bool key="NSUsesItemFromMenu">YES</bool>
 							<int key="NSArrowPosition">2</int>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSButton" id="368450533">
 						<reference key="NSNextResponder" ref="381403324"/>
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{38, 18}, {545, 18}}</string>
 						<reference key="NSSuperview" ref="381403324"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="404131349">
-							<int key="NSCellFlags">-2080244224</int>
+							<int key="NSCellFlags">-2080374784</int>
 							<int key="NSCellFlags2">0</int>
 							<string key="NSContents">PDF-Dateien herunterladen und öffnen anstatt direkt anzeigen</string>
 							<reference key="NSSupport" ref="973533274"/>
 							<reference key="NSControlView" ref="368450533"/>
-							<int key="NSButtonFlags">1211912703</int>
+							<int key="NSButtonFlags">1211912448</int>
 							<int key="NSButtonFlags2">2</int>
 							<reference key="NSNormalImage" ref="384911045"/>
 							<reference key="NSAlternateImage" ref="405428311"/>
@@ -204,6 +206,7 @@
 							<int key="NSPeriodicDelay">200</int>
 							<int key="NSPeriodicInterval">25</int>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSButton" id="96116875">
 						<reference key="NSNextResponder" ref="381403324"/>
@@ -213,12 +216,12 @@
 						<reference key="NSNextKeyView" ref="495717156"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="155228431">
-							<int key="NSCellFlags">-2080244224</int>
+							<int key="NSCellFlags">-2080374784</int>
 							<int key="NSCellFlags2">0</int>
 							<string key="NSContents">Dateien nach dem Laden öffnen</string>
 							<reference key="NSSupport" ref="973533274"/>
 							<reference key="NSControlView" ref="96116875"/>
-							<int key="NSButtonFlags">1211912703</int>
+							<int key="NSButtonFlags">1211912448</int>
 							<int key="NSButtonFlags2">2</int>
 							<reference key="NSNormalImage" ref="384911045"/>
 							<reference key="NSAlternateImage" ref="405428311"/>
@@ -227,6 +230,7 @@
 							<int key="NSPeriodicDelay">200</int>
 							<int key="NSPeriodicInterval">25</int>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSPopUpButton" id="166000531">
 						<reference key="NSNextResponder" ref="381403324"/>
@@ -236,11 +240,11 @@
 						<reference key="NSNextKeyView" ref="96116875"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="669020158">
-							<int key="NSCellFlags">-2076049856</int>
+							<int key="NSCellFlags">-2076180416</int>
 							<int key="NSCellFlags2">2048</int>
 							<reference key="NSSupport" ref="973533274"/>
 							<reference key="NSControlView" ref="166000531"/>
-							<int key="NSButtonFlags">112345343</int>
+							<int key="NSButtonFlags">112345088</int>
 							<int key="NSButtonFlags2">129</int>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
@@ -293,6 +297,7 @@
 							<bool key="NSUsesItemFromMenu">YES</bool>
 							<int key="NSArrowPosition">2</int>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSTextField" id="862120953">
 						<reference key="NSNextResponder" ref="381403324"/>
@@ -302,7 +307,7 @@
 						<reference key="NSNextKeyView" ref="166000531"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="519191083">
-							<int key="NSCellFlags">67239424</int>
+							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">71303168</int>
 							<string key="NSContents">Downloads sichern in:</string>
 							<object class="NSFont" key="NSSupport">
@@ -314,6 +319,7 @@
 							<reference key="NSBackgroundColor" ref="16652753"/>
 							<reference key="NSTextColor" ref="644553880"/>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSButton" id="545007090">
 						<reference key="NSNextResponder" ref="381403324"/>
@@ -323,12 +329,12 @@
 						<reference key="NSNextKeyView" ref="862120953"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="121967150">
-							<int key="NSCellFlags">-2080244224</int>
+							<int key="NSCellFlags">-2080374784</int>
 							<int key="NSCellFlags2">0</int>
 							<string key="NSContents">Download und Upload erlauben</string>
 							<reference key="NSSupport" ref="973533274"/>
 							<reference key="NSControlView" ref="545007090"/>
-							<int key="NSButtonFlags">1211912703</int>
+							<int key="NSButtonFlags">1211912448</int>
 							<int key="NSButtonFlags2">2</int>
 							<reference key="NSNormalImage" ref="384911045"/>
 							<reference key="NSAlternateImage" ref="405428311"/>
@@ -337,6 +343,7 @@
 							<int key="NSPeriodicDelay">200</int>
 							<int key="NSPeriodicInterval">25</int>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSTextField" id="469842269">
 						<reference key="NSNextResponder" ref="381403324"/>
@@ -346,7 +353,7 @@
 						<reference key="NSNextKeyView" ref="1031440401"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="515123962">
-							<int key="NSCellFlags">67239424</int>
+							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">272629760</int>
 							<string key="NSContents">Diese Option sollte nur benutzt werden, wenn SEB in einem Benutzerkonto verwaltet mit der OS X Kindersicherung läuft. Dort dürfen nur SEB und die gewünschten zusätzlichen Programme erlaubt sein, ausserdem sollte der einfache Finder verwendet werden. Andere Benutzer dürfen keine Administrator-Rechte auf dem Computer haben.</string>
 							<object class="NSFont" key="NSSupport">
@@ -358,6 +365,7 @@
 							<reference key="NSBackgroundColor" ref="16652753"/>
 							<reference key="NSTextColor" ref="644553880"/>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 					<object class="NSButton" id="411503001">
 						<reference key="NSNextResponder" ref="381403324"/>
@@ -367,12 +375,12 @@
 						<reference key="NSNextKeyView" ref="469842269"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="852751825">
-							<int key="NSCellFlags">-2080244224</int>
+							<int key="NSCellFlags">-2080374784</int>
 							<int key="NSCellFlags2">0</int>
 							<string key="NSContents">Umschalten auf Drittapplikationen erlauben</string>
 							<reference key="NSSupport" ref="973533274"/>
 							<reference key="NSControlView" ref="411503001"/>
-							<int key="NSButtonFlags">1211912703</int>
+							<int key="NSButtonFlags">1211912448</int>
 							<int key="NSButtonFlags2">2</int>
 							<reference key="NSNormalImage" ref="384911045"/>
 							<reference key="NSAlternateImage" ref="405428311"/>
@@ -381,10 +389,10 @@
 							<int key="NSPeriodicDelay">200</int>
 							<int key="NSPeriodicInterval">25</int>
 						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 				</array>
 				<string key="NSFrameSize">{600, 324}</string>
-				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="411503001"/>
 				<string key="NSClassName">NSView</string>
 			</object>

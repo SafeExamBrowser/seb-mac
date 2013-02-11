@@ -40,7 +40,7 @@
 #import "PrefsBrowserViewController.h"
 #import "PrefsExamViewController.h"
 #import "PrefsApplicationsViewController.h"
-#import "PrefsAdvancedViewController.h"
+#import "PrefsDownUploadsViewController.h"
 
 #import "MBPreferencesController.h"
 
@@ -53,10 +53,10 @@
 	PrefsGeneralViewController *general = [[PrefsGeneralViewController alloc] initWithNibName:@"PreferencesGeneral" bundle:nil];
 	PrefsSEBConfigViewController *config = [[PrefsSEBConfigViewController alloc] initWithNibName:@"PreferencesSEBConfig" bundle:nil];
 	PrefsBrowserViewController *browser = [[PrefsBrowserViewController alloc] initWithNibName:@"PreferencesBrowser" bundle:nil];
+	PrefsDownUploadsViewController *downuploads = [[PrefsDownUploadsViewController alloc] initWithNibName:@"PreferencesDownUploads" bundle:nil];
 	PrefsExamViewController *exam = [[PrefsExamViewController alloc] initWithNibName:@"PreferencesExam" bundle:nil];
 	PrefsApplicationsViewController *applications = [[PrefsApplicationsViewController alloc] initWithNibName:@"PreferencesApplications" bundle:nil];
-	PrefsAdvancedViewController *advanced = [[PrefsAdvancedViewController alloc] initWithNibName:@"PreferencesAdvanced" bundle:nil];
-	[[MBPreferencesController sharedController] setModules:[NSArray arrayWithObjects:general, config, browser, exam, applications, advanced, nil]];
+	[[MBPreferencesController sharedController] setModules:[NSArray arrayWithObjects:general, config, browser, downuploads, exam, applications, nil]];
     // Set self as the window delegate to be able to post a notification when preferences window is closing
     // will be overridden when the general pane is displayed (loaded from nib)
     if (![[MBPreferencesController sharedController].window delegate]) {
