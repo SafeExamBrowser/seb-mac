@@ -287,6 +287,8 @@ bool insideMatrix();
                                      @"org_safeexambrowser_SEB_allowFlashFullscreen",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
                                      @"org_safeexambrowser_SEB_enableBrowsingBackForward",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
+                                     @"org_safeexambrowser_SEB_monitorProcesses",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithInt:openInNewWindow]],
                                      @"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
