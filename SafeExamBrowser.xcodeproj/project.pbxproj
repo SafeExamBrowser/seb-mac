@@ -57,6 +57,12 @@
 		694B08A416B14ABF00E4997C /* SEBCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 694B08A216B14ABF00E4997C /* SEBCryptor.m */; };
 		694B08A516B14ABF00E4997C /* SEBCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 694B08A216B14ABF00E4997C /* SEBCryptor.m */; };
 		694B08A616B14ABF00E4997C /* SEBCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 694B08A216B14ABF00E4997C /* SEBCryptor.m */; };
+		696EB10216CAAFF600707B0F /* ApplicationsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 696EB10016CAAFF600707B0F /* ApplicationsIcon.png */; };
+		696EB10316CAAFF600707B0F /* ApplicationsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 696EB10016CAAFF600707B0F /* ApplicationsIcon.png */; };
+		696EB10416CAAFF600707B0F /* ApplicationsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 696EB10016CAAFF600707B0F /* ApplicationsIcon.png */; };
+		696EB10516CAAFF600707B0F /* ApplicationsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */; };
+		696EB10616CAAFF600707B0F /* ApplicationsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */; };
+		696EB10716CAAFF600707B0F /* ApplicationsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */; };
 		696F28E815751ED600780DA8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696F28E715751ED600780DA8 /* Security.framework */; };
 		696F28E915751F1200780DA8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696F28E715751ED600780DA8 /* Security.framework */; };
 		696F28EA15751F1900780DA8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696F28E715751ED600780DA8 /* Security.framework */; };
@@ -248,6 +254,8 @@
 		6969B1CC127B80410027FF8D /* AboutSEB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AboutSEB.png; sourceTree = "<group>"; };
 		6969B1D1127C7AB60027FF8D /* AboutWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutWindow.h; sourceTree = "<group>"; };
 		6969B1D2127C7AB60027FF8D /* AboutWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AboutWindow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		696EB10016CAAFF600707B0F /* ApplicationsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ApplicationsIcon.png; sourceTree = "<group>"; };
+		696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ApplicationsIcon@2x.png"; sourceTree = "<group>"; };
 		696F28E715751ED600780DA8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		6970CEF812BE31A300559EA4 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		6970CF3A12BE969800559EA4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -441,6 +449,8 @@
 			isa = PBXGroup;
 			children = (
 				693FDEF214FB9D200020FA96 /* SafeExamBrowser-Info.plist */,
+				696EB10016CAAFF600707B0F /* ApplicationsIcon.png */,
+				696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */,
 				690D234A1452000800CCCFF9 /* BrowserIcon.png */,
 				690D234B1452000800CCCFF9 /* BrowserIcon@2x.png */,
 				69A9A22E1369AF9600840AE1 /* LICENCE */,
@@ -669,6 +679,8 @@
 				6992498E16C3AE9C00DF6B53 /* PreferencesSEBConfig.xib in Resources */,
 				6992499816C5B5D400DF6B53 /* PreferencesApplications.xib in Resources */,
 				69F910FC16CA5C1C0041EA38 /* PreferencesNetwork.xib in Resources */,
+				696EB10316CAAFF600707B0F /* ApplicationsIcon.png in Resources */,
+				696EB10616CAAFF600707B0F /* ApplicationsIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -693,6 +705,8 @@
 				6992498F16C3AE9C00DF6B53 /* PreferencesSEBConfig.xib in Resources */,
 				6992499916C5B5D400DF6B53 /* PreferencesApplications.xib in Resources */,
 				69F910FD16CA5C1C0041EA38 /* PreferencesNetwork.xib in Resources */,
+				696EB10416CAAFF600707B0F /* ApplicationsIcon.png in Resources */,
+				696EB10716CAAFF600707B0F /* ApplicationsIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -717,6 +731,8 @@
 				6992498D16C3AE9C00DF6B53 /* PreferencesSEBConfig.xib in Resources */,
 				6992499716C5B5D400DF6B53 /* PreferencesApplications.xib in Resources */,
 				69F910FB16CA5C1C0041EA38 /* PreferencesNetwork.xib in Resources */,
+				696EB10216CAAFF600707B0F /* ApplicationsIcon.png in Resources */,
+				696EB10516CAAFF600707B0F /* ApplicationsIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

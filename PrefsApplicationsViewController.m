@@ -52,7 +52,7 @@
 
 - (NSImage *)image
 {
-	return [NSImage imageNamed:@"NSAdvanced"];
+	return [NSImage imageNamed:@"ApplicationsIcon"];
 }
 
 
