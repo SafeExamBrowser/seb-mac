@@ -38,9 +38,10 @@
 #import "PrefsGeneralViewController.h"
 #import "PrefsSEBConfigViewController.h"
 #import "PrefsBrowserViewController.h"
+#import "PrefsDownUploadsViewController.h"
 #import "PrefsExamViewController.h"
 #import "PrefsApplicationsViewController.h"
-#import "PrefsDownUploadsViewController.h"
+#import "PrefsNetworkViewController.h"
 
 #import "MBPreferencesController.h"
 
@@ -56,7 +57,8 @@
 	PrefsDownUploadsViewController *downuploads = [[PrefsDownUploadsViewController alloc] initWithNibName:@"PreferencesDownUploads" bundle:nil];
 	PrefsExamViewController *exam = [[PrefsExamViewController alloc] initWithNibName:@"PreferencesExam" bundle:nil];
 	PrefsApplicationsViewController *applications = [[PrefsApplicationsViewController alloc] initWithNibName:@"PreferencesApplications" bundle:nil];
-	[[MBPreferencesController sharedController] setModules:[NSArray arrayWithObjects:general, config, browser, downuploads, exam, applications, nil]];
+	PrefsNetworkViewController *network = [[PrefsNetworkViewController alloc] initWithNibName:@"PreferencesNetwork" bundle:nil];
+	[[MBPreferencesController sharedController] setModules:[NSArray arrayWithObjects:general, config, browser, downuploads, exam, applications, network, nil]];
     // Set self as the window delegate to be able to post a notification when preferences window is closing
     // will be overridden when the general pane is displayed (loaded from nib)
     if (![[MBPreferencesController sharedController].window delegate]) {
