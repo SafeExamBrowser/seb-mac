@@ -64,12 +64,6 @@
 		695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */; };
 		695283DF16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */; };
 		695283E016CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */; };
-		695283E316CDB5FE0055AF6F /* SecurityIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695283E116CDB5FE0055AF6F /* SecurityIcon.png */; };
-		695283E416CDB5FE0055AF6F /* SecurityIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695283E116CDB5FE0055AF6F /* SecurityIcon.png */; };
-		695283E516CDB5FE0055AF6F /* SecurityIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695283E116CDB5FE0055AF6F /* SecurityIcon.png */; };
-		695283E616CDB5FE0055AF6F /* SecurityIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695283E216CDB5FE0055AF6F /* SecurityIcon@2x.png */; };
-		695283E716CDB5FE0055AF6F /* SecurityIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695283E216CDB5FE0055AF6F /* SecurityIcon@2x.png */; };
-		695283E816CDB5FE0055AF6F /* SecurityIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695283E216CDB5FE0055AF6F /* SecurityIcon@2x.png */; };
 		695C5CAD16CB210E008FC401 /* ExamIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAB16CB210E008FC401 /* ExamIcon.png */; };
 		695C5CAE16CB210E008FC401 /* ExamIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAB16CB210E008FC401 /* ExamIcon.png */; };
 		695C5CAF16CB210E008FC401 /* ExamIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAB16CB210E008FC401 /* ExamIcon.png */; };
@@ -85,6 +79,12 @@
 		696F28E815751ED600780DA8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696F28E715751ED600780DA8 /* Security.framework */; };
 		696F28E915751F1200780DA8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696F28E715751ED600780DA8 /* Security.framework */; };
 		696F28EA15751F1900780DA8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696F28E715751ED600780DA8 /* Security.framework */; };
+		6977E97716CEF8FF00E66910 /* SecurityIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6977E97516CEF8FF00E66910 /* SecurityIcon.png */; };
+		6977E97816CEF8FF00E66910 /* SecurityIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6977E97516CEF8FF00E66910 /* SecurityIcon.png */; };
+		6977E97916CEF8FF00E66910 /* SecurityIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6977E97516CEF8FF00E66910 /* SecurityIcon.png */; };
+		6977E97A16CEF8FF00E66910 /* SecurityIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6977E97616CEF8FF00E66910 /* SecurityIcon@2x.png */; };
+		6977E97B16CEF8FF00E66910 /* SecurityIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6977E97616CEF8FF00E66910 /* SecurityIcon@2x.png */; };
+		6977E97C16CEF8FF00E66910 /* SecurityIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6977E97616CEF8FF00E66910 /* SecurityIcon@2x.png */; };
 		69903AF414CD7624007E7DF7 /* LICENCE in Resources */ = {isa = PBXBuildFile; fileRef = 69A9A22E1369AF9600840AE1 /* LICENCE */; };
 		69903AF514CD7624007E7DF7 /* PreferencesGeneral.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FC9057136C9A00009B55CB /* PreferencesGeneral.xib */; };
 		69903AF614CD7624007E7DF7 /* PreferencesDownUploads.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FC905C136CA80F009B55CB /* PreferencesDownUploads.xib */; };
@@ -166,6 +166,16 @@
 		69F293AE164A324B00875C00 /* SEBKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F293AD164A324B00875C00 /* SEBKeychainManager.m */; };
 		69F293AF164A324B00875C00 /* SEBKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F293AD164A324B00875C00 /* SEBKeychainManager.m */; };
 		69F293B0164A324B00875C00 /* SEBKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F293AD164A324B00875C00 /* SEBKeychainManager.m */; };
+		69F32DBE16D232C0003C9502 /* Appearance.icns in Resources */ = {isa = PBXBuildFile; fileRef = 69F32DBD16D232C0003C9502 /* Appearance.icns */; };
+		69F32DBF16D232C0003C9502 /* Appearance.icns in Resources */ = {isa = PBXBuildFile; fileRef = 69F32DBD16D232C0003C9502 /* Appearance.icns */; };
+		69F32DC016D232C0003C9502 /* Appearance.icns in Resources */ = {isa = PBXBuildFile; fileRef = 69F32DBD16D232C0003C9502 /* Appearance.icns */; };
+		69F32DC316D23374003C9502 /* PrefsAppearanceViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F32DC116D23374003C9502 /* PrefsAppearanceViewController.h */; };
+		69F32DC416D23374003C9502 /* PrefsAppearanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F32DC216D23374003C9502 /* PrefsAppearanceViewController.m */; };
+		69F32DC516D23374003C9502 /* PrefsAppearanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F32DC216D23374003C9502 /* PrefsAppearanceViewController.m */; };
+		69F32DC616D23374003C9502 /* PrefsAppearanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F32DC216D23374003C9502 /* PrefsAppearanceViewController.m */; };
+		69F32DC816D23397003C9502 /* PreferencesAppearance.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69F32DC716D23397003C9502 /* PreferencesAppearance.xib */; };
+		69F32DC916D23397003C9502 /* PreferencesAppearance.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69F32DC716D23397003C9502 /* PreferencesAppearance.xib */; };
+		69F32DCA16D23397003C9502 /* PreferencesAppearance.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69F32DC716D23397003C9502 /* PreferencesAppearance.xib */; };
 		69F7B5FC14F411FB00FD0761 /* LICENCE in Resources */ = {isa = PBXBuildFile; fileRef = 69A9A22E1369AF9600840AE1 /* LICENCE */; };
 		69F7B5FD14F411FB00FD0761 /* PreferencesGeneral.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FC9057136C9A00009B55CB /* PreferencesGeneral.xib */; };
 		69F7B5FE14F411FB00FD0761 /* PreferencesDownUploads.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FC905C136CA80F009B55CB /* PreferencesDownUploads.xib */; };
@@ -278,8 +288,6 @@
 		695283D716CDB5020055AF6F /* PreferencesSecurity.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesSecurity.xib; sourceTree = "<group>"; };
 		695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsSecurityViewController.h; sourceTree = "<group>"; };
 		695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsSecurityViewController.m; sourceTree = "<group>"; };
-		695283E116CDB5FE0055AF6F /* SecurityIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SecurityIcon.png; sourceTree = "<group>"; };
-		695283E216CDB5FE0055AF6F /* SecurityIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SecurityIcon@2x.png"; sourceTree = "<group>"; };
 		695C5CAB16CB210E008FC401 /* ExamIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ExamIcon.png; sourceTree = "<group>"; };
 		695C5CAC16CB210E008FC401 /* ExamIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ExamIcon@2x.png"; sourceTree = "<group>"; };
 		6962F88D13A8C21B007C16F0 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -295,6 +303,8 @@
 		6970CF9A12BFC73300559EA4 /* de */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6970CF9F12BFC82200559EA4 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6970CFA012BFC84600559EA4 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6977E97516CEF8FF00E66910 /* SecurityIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SecurityIcon.png; sourceTree = "<group>"; };
+		6977E97616CEF8FF00E66910 /* SecurityIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SecurityIcon@2x.png"; sourceTree = "<group>"; };
 		69903B1E14CD7624007E7DF7 /* Safe Exam Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Safe Exam Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6991A78F14471F5A00F9149D /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		6991A79014471F8C00F9149D /* MyGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGlobals.h; sourceTree = "<group>"; };
@@ -344,6 +354,10 @@
 		69EFA36916CB121200E967B4 /* DownUploadIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DownUploadIcon@2x.png"; sourceTree = "<group>"; };
 		69F293AC164A324B00875C00 /* SEBKeychainManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBKeychainManager.h; sourceTree = "<group>"; };
 		69F293AD164A324B00875C00 /* SEBKeychainManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBKeychainManager.m; sourceTree = "<group>"; };
+		69F32DBD16D232C0003C9502 /* Appearance.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Appearance.icns; sourceTree = "<group>"; };
+		69F32DC116D23374003C9502 /* PrefsAppearanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsAppearanceViewController.h; sourceTree = "<group>"; };
+		69F32DC216D23374003C9502 /* PrefsAppearanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsAppearanceViewController.m; sourceTree = "<group>"; };
+		69F32DC716D23397003C9502 /* PreferencesAppearance.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesAppearance.xib; sourceTree = "<group>"; };
 		69F684CA143653880091CDA7 /* MyDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDocument.h; sourceTree = "<group>"; };
 		69F684CB143653880091CDA7 /* MyDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDocument.m; sourceTree = "<group>"; };
 		69F684CE1436550F0091CDA7 /* BrowserWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowserWindow.xib; sourceTree = "<group>"; };
@@ -485,14 +499,15 @@
 				693FDEF214FB9D200020FA96 /* SafeExamBrowser-Info.plist */,
 				696EB10016CAAFF600707B0F /* ApplicationsIcon.png */,
 				696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */,
+				69F32DBD16D232C0003C9502 /* Appearance.icns */,
 				690D234A1452000800CCCFF9 /* BrowserIcon.png */,
 				690D234B1452000800CCCFF9 /* BrowserIcon@2x.png */,
 				69EFA36816CB121200E967B4 /* DownUploadIcon.png */,
 				69EFA36916CB121200E967B4 /* DownUploadIcon@2x.png */,
 				695C5CAB16CB210E008FC401 /* ExamIcon.png */,
 				695C5CAC16CB210E008FC401 /* ExamIcon@2x.png */,
-				695283E116CDB5FE0055AF6F /* SecurityIcon.png */,
-				695283E216CDB5FE0055AF6F /* SecurityIcon@2x.png */,
+				6977E97516CEF8FF00E66910 /* SecurityIcon.png */,
+				6977E97616CEF8FF00E66910 /* SecurityIcon@2x.png */,
 				69A9A22E1369AF9600840AE1 /* LICENCE */,
 				6970CF9912BFC73300559EA4 /* InfoPlist.strings */,
 				6970CF4C12BEA67100559EA4 /* Localizable.strings */,
@@ -502,6 +517,7 @@
 				69F684CE1436550F0091CDA7 /* BrowserWindow.xib */,
 				69FC9057136C9A00009B55CB /* PreferencesGeneral.xib */,
 				6992498C16C3AE9C00DF6B53 /* PreferencesSEBConfig.xib */,
+				69F32DC716D23397003C9502 /* PreferencesAppearance.xib */,
 				69BE8662145872C900E87C22 /* PreferencesBrowser.xib */,
 				69FC905C136CA80F009B55CB /* PreferencesDownUploads.xib */,
 				6943D0761655054600AB6B1D /* PreferencesExam.xib */,
@@ -531,6 +547,8 @@
 				69A9A233136AF6E000840AE1 /* PrefsGeneralViewController.m */,
 				6992499016C3B18B00DF6B53 /* PrefsSEBConfigViewController.h */,
 				6992499116C3B18B00DF6B53 /* PrefsSEBConfigViewController.m */,
+				69F32DC116D23374003C9502 /* PrefsAppearanceViewController.h */,
+				69F32DC216D23374003C9502 /* PrefsAppearanceViewController.m */,
 				690D23461451EF2300CCCFF9 /* PrefsBrowserViewController.h */,
 				690D23471451EF2400CCCFF9 /* PrefsBrowserViewController.m */,
 				6943D0741655054600AB6B1D /* PrefsExamViewController.h */,
@@ -579,8 +597,8 @@
 				69ACA4EE1690ABC2007BD517 /* RNCryptor+Private.h */,
 				69ACA4E81690AB8A007BD517 /* RNCryptor.h */,
 				69ACA4E91690AB8A007BD517 /* RNCryptor.m */,
-				69ACA4F21690B10E007BD517 /* RNDecryptor.h */,
 				69ACA4F31690B10E007BD517 /* RNDecryptor.m */,
+				69ACA4F21690B10E007BD517 /* RNDecryptor.h */,
 				69ACA4F41690B10E007BD517 /* RNEncryptor.h */,
 				69ACA4F51690B10E007BD517 /* RNEncryptor.m */,
 				69F293AC164A324B00875C00 /* SEBKeychainManager.h */,
@@ -609,6 +627,7 @@
 				6992499C16C5B62000DF6B53 /* PrefsApplicationsViewController.h in Headers */,
 				69F9110016CA5C720041EA38 /* PrefsNetworkViewController.h in Headers */,
 				695283DD16CDB54C0055AF6F /* PrefsSecurityViewController.h in Headers */,
+				69F32DC316D23374003C9502 /* PrefsAppearanceViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -730,8 +749,10 @@
 				695C5CAE16CB210E008FC401 /* ExamIcon.png in Resources */,
 				695C5CB116CB210E008FC401 /* ExamIcon@2x.png in Resources */,
 				695283D916CDB5020055AF6F /* PreferencesSecurity.xib in Resources */,
-				695283E416CDB5FE0055AF6F /* SecurityIcon.png in Resources */,
-				695283E716CDB5FE0055AF6F /* SecurityIcon@2x.png in Resources */,
+				6977E97816CEF8FF00E66910 /* SecurityIcon.png in Resources */,
+				6977E97B16CEF8FF00E66910 /* SecurityIcon@2x.png in Resources */,
+				69F32DBF16D232C0003C9502 /* Appearance.icns in Resources */,
+				69F32DC916D23397003C9502 /* PreferencesAppearance.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -763,8 +784,10 @@
 				695C5CAF16CB210E008FC401 /* ExamIcon.png in Resources */,
 				695C5CB216CB210E008FC401 /* ExamIcon@2x.png in Resources */,
 				695283DA16CDB5020055AF6F /* PreferencesSecurity.xib in Resources */,
-				695283E516CDB5FE0055AF6F /* SecurityIcon.png in Resources */,
-				695283E816CDB5FE0055AF6F /* SecurityIcon@2x.png in Resources */,
+				6977E97916CEF8FF00E66910 /* SecurityIcon.png in Resources */,
+				6977E97C16CEF8FF00E66910 /* SecurityIcon@2x.png in Resources */,
+				69F32DC016D232C0003C9502 /* Appearance.icns in Resources */,
+				69F32DCA16D23397003C9502 /* PreferencesAppearance.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -796,8 +819,10 @@
 				695C5CAD16CB210E008FC401 /* ExamIcon.png in Resources */,
 				695C5CB016CB210E008FC401 /* ExamIcon@2x.png in Resources */,
 				695283D816CDB5020055AF6F /* PreferencesSecurity.xib in Resources */,
-				695283E316CDB5FE0055AF6F /* SecurityIcon.png in Resources */,
-				695283E616CDB5FE0055AF6F /* SecurityIcon@2x.png in Resources */,
+				6977E97716CEF8FF00E66910 /* SecurityIcon.png in Resources */,
+				6977E97A16CEF8FF00E66910 /* SecurityIcon@2x.png in Resources */,
+				69F32DBE16D232C0003C9502 /* Appearance.icns in Resources */,
+				69F32DC816D23397003C9502 /* PreferencesAppearance.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -840,6 +865,7 @@
 				6992499E16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */,
 				69F9110216CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */,
 				695283DF16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */,
+				69F32DC516D23374003C9502 /* PrefsAppearanceViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -879,6 +905,7 @@
 				6992499F16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */,
 				69F9110316CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */,
 				695283E016CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */,
+				69F32DC616D23374003C9502 /* PrefsAppearanceViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -918,6 +945,7 @@
 				6992499D16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */,
 				69F9110116CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */,
 				695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */,
+				69F32DC416D23374003C9502 /* PrefsAppearanceViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
