@@ -49,4 +49,6 @@
 
 - (NSArray *) org_safeexambrowser_SEB_cryptoIdentities;
 
+- (NSArray *) org_safeexambrowser_SEB_sebServicePolicies;
+
 @end

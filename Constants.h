@@ -64,4 +64,13 @@ enum {
 };
 typedef NSUInteger sebServicePolicies;
 
+enum {
+    urlFilterActionBlock                        = 0,
+    urlFilterActionAllow                        = 1,
+    urlFilterActionSkip                         = 2,
+    urlFilterActionContinue                     = 3,
+    urlFilterActionOr                           = 4
+};
+typedef NSUInteger urlFilterRuleActions;
+
 #endif

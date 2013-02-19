@@ -74,4 +74,12 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
 }
 
 
+- (NSArray *) org_safeexambrowser_SEB_sebServicePolicies {
+    return [NSArray arrayWithObjects:
+            NSLocalizedString(@"allow to use SEB without service", nil),
+            NSLocalizedString(@"warn when service is not running", nil),
+            NSLocalizedString(@"allow to use SEB only with service", nil),
+            nil];
+}
+
 @end
