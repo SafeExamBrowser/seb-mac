@@ -55,16 +55,6 @@
 	return [NSImage imageNamed:NSImageNameNetwork];
 }
 
-- (NSArray *) urlFilterRuleActions {
-    return [NSArray arrayWithObjects:
-            NSLocalizedString(@"block", nil),
-            NSLocalizedString(@"allow", nil),
-            NSLocalizedString(@"skip", nil),
-            NSLocalizedString(@"continue", nil),
-            NSLocalizedString(@"or", nil),
-            nil];
-}
-
 // Before displaying pane set the download directory
 - (void)willBeDisplayed
 {

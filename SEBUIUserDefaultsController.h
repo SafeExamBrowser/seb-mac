@@ -51,4 +51,6 @@
 
 - (NSArray *) org_safeexambrowser_SEB_sebServicePolicies;
 
+- (NSArray *)urlFilterRuleActions;
+
 @end

@@ -69,6 +69,9 @@
 	// The Frame Load Delegate is needed to monitor frame loads
 	[self.webView setFrameLoadDelegate:self];
     
+	// The Frame Load Delegate is needed to monitor frame loads
+	[self.webView setResourceLoadDelegate:self];
+    
     // Set group name to group related frames (so not to open several new windows)
     [self.webView setGroupName:@"MyDocument"];
 
@@ -213,6 +216,9 @@ initiatedByFrame:(WebFrame *)frame {
 
 // Get the URL of the page being loaded
 - (void)webView:(WebView *)sender didStartProvisionalLoadForFrame:(WebFrame *)frame {
+#ifdef DEBUG
+    NSLog(@"didStartProvisionalLoadForFrame request URL: %@", [[[[frame provisionalDataSource] request] URL] absoluteString]);
+#endif
     // Only report feedback for the main frame.
     if (frame == [sender mainFrame]){
         [[MyGlobals sharedMyGlobals] setCurrentMainHost:[[[[frame provisionalDataSource] request] URL] host]];
@@ -258,6 +264,9 @@ initiatedByFrame:(WebFrame *)frame {
 
 - (NSURLRequest *)webView:(WebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource
 {
+#ifdef DEBUG
+    NSLog(@"Request URL: %@", [[request URL] absoluteString]);
+#endif
     return request;
 }
 
@@ -316,7 +325,9 @@ initiatedByFrame:(WebFrame *)frame {
 decisionListener:(id <WebPolicyDecisionListener>)listener {
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-
+#ifdef DEBUG
+    NSLog(@"decidePolicyForNavigationAction request URL: %@", [[request URL] absoluteString]);
+#endif
     // Check if quit URL has been clicked
     if ([[[request URL] absoluteString] isEqualTo:[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"]]) {
         [[NSNotificationCenter defaultCenter]

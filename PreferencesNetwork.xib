@@ -103,16 +103,16 @@
 										<object class="NSButton" id="993837643">
 											<reference key="NSNextResponder" ref="1070826792"/>
 											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{34, 371}, {125, 18}}</string>
+											<string key="NSFrame">{{34, 371}, {207, 18}}</string>
 											<reference key="NSSuperview" ref="1070826792"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="567900918"/>
+											<reference key="NSNextKeyView" ref="1007612519"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="880812057">
 												<int key="NSCellFlags">67108864</int>
 												<int key="NSCellFlags2">268435456</int>
-												<string key="NSContents">Filter all content</string>
+												<string key="NSContents">Filter also embedded content</string>
 												<reference key="NSSupport" ref="467571861"/>
 												<string key="NSCellIdentifier">_NS:9</string>
 												<reference key="NSControlView" ref="993837643"/>
@@ -199,7 +199,7 @@
 															<string key="NSFrameSize">{568, 301}</string>
 															<reference key="NSSuperview" ref="480137338"/>
 															<reference key="NSWindow"/>
-															<reference key="NSNextKeyView" ref="713154884"/>
+															<reference key="NSNextKeyView" ref="569146525"/>
 															<string key="NSReuseIdentifierKey">_NS:13</string>
 															<bool key="NSEnabled">YES</bool>
 															<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -362,6 +362,7 @@
 													<string key="NSFrame">{{1, 119}, {223, 15}}</string>
 													<reference key="NSSuperview" ref="1007612519"/>
 													<reference key="NSWindow"/>
+													<reference key="NSNextKeyView" ref="567900918"/>
 													<string key="NSReuseIdentifierKey">_NS:60</string>
 													<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 													<int key="NSsFlags">1</int>
@@ -389,7 +390,7 @@
 											<string key="NSFrame">{{17, 46}, {570, 319}}</string>
 											<reference key="NSSuperview" ref="1070826792"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="480137338"/>
+											<reference key="NSNextKeyView" ref="713154884"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<int key="NSsFlags">133682</int>
 											<reference key="NSVScroller" ref="569146525"/>
@@ -435,6 +436,7 @@
 									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">256</int>
 									<string key="NSFrame">{{10, 33}, {604, 420}}</string>
+									<reference key="NSNextKeyView" ref="1008414915"/>
 								</object>
 								<string key="NSLabel">Proxies</string>
 								<reference key="NSColor" ref="512558308"/>
@@ -492,6 +494,58 @@
 						<reference key="destination" ref="1001"/>
 					</object>
 					<int key="connectionID">54</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: values.org_safeexambrowser_SEB_enableUrlFilter</string>
+						<reference key="source" ref="924874885"/>
+						<reference key="destination" ref="412846208"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="924874885"/>
+							<reference key="NSDestination" ref="412846208"/>
+							<string key="NSLabel">value: values.org_safeexambrowser_SEB_enableUrlFilter</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">values.org_safeexambrowser_SEB_enableUrlFilter</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">681</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: values.org_safeexambrowser_SEB_enableUrlContentFilter</string>
+						<reference key="source" ref="993837643"/>
+						<reference key="destination" ref="412846208"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="993837643"/>
+							<reference key="NSDestination" ref="412846208"/>
+							<string key="NSLabel">value: values.org_safeexambrowser_SEB_enableUrlContentFilter</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">values.org_safeexambrowser_SEB_enableUrlContentFilter</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">683</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: values.org_safeexambrowser_SEB_enableUrlFilter</string>
+						<reference key="source" ref="993837643"/>
+						<reference key="destination" ref="412846208"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="993837643"/>
+							<reference key="NSDestination" ref="412846208"/>
+							<string key="NSLabel">enabled: values.org_safeexambrowser_SEB_enableUrlFilter</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">values.org_safeexambrowser_SEB_enableUrlFilter</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSRaisesForNotApplicableKeys</string>
+								<boolean value="NO" key="NS.object.0"/>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">686</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1236,7 +1290,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">679</int>
+			<int key="maxID">686</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

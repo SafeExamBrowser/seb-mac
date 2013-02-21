@@ -44,6 +44,5 @@
 
 - (NSString *)identifier;
 - (NSImage *)image;
-- (NSArray *)urlFilterRuleActions;
 
 @end

@@ -68,7 +68,7 @@ enum {
     urlFilterActionBlock                        = 0,
     urlFilterActionAllow                        = 1,
     urlFilterActionSkip                         = 2,
-    urlFilterActionContinue                     = 3,
+    urlFilterActionAnd                          = 3,
     urlFilterActionOr                           = 4
 };
 typedef NSUInteger urlFilterRuleActions;

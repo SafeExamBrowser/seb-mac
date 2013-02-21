@@ -58,26 +58,26 @@
 // Before displaying pane set the download directory
 - (void)willBeDisplayed
 {
-    [self setDownloadDirectory];
+    [self setLogDirectory];
     
 }
 
 
 //  
-- (void) setDownloadDirectory {
+- (void) setLogDirectory {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 	//NSMenuItem *downloadDirectory = [[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""];
-    NSString *downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
-    if (!downloadPath) {
+    NSString *logPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
+    if (!logPath) {
         //if there's no path saved in preferences, set standard path
-        downloadPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Downloads"];
-        [preferences setSecureObject:downloadPath forKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
+        logPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+        [preferences setSecureObject:logPath forKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
     }    
     // display the download directory path in the menu
-    [downloadDirectory setTitle:[[NSFileManager defaultManager] displayNameAtPath:downloadPath]];
-    [downloadDirectory setImage:[[NSWorkspace sharedWorkspace] iconForFile:downloadPath]];
-    [chooseDownloadDirectory selectItemAtIndex:0];
-    [chooseDownloadDirectory synchronizeTitleAndSelectedItem];
+    [logDirectory setTitle:[[NSFileManager defaultManager] displayNameAtPath:logPath]];
+    [logDirectory setImage:[[NSWorkspace sharedWorkspace] iconForFile:logPath]];
+    [chooseLogDirectory selectItemAtIndex:0];
+    [chooseLogDirectory synchronizeTitleAndSelectedItem];
 }
 
 
@@ -104,11 +104,11 @@
                               NSArray* files = [openFilePanel URLs];
                               NSString* fileName = [[files objectAtIndex:0] path];
                               NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-                              [preferences setSecureObject:fileName forKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
-                              [self setDownloadDirectory];
+                              [preferences setSecureObject:fileName forKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
+                              [self setLogDirectory];
                           } else {
-                              [chooseDownloadDirectory selectItemAtIndex:0];
-                              [chooseDownloadDirectory synchronizeTitleAndSelectedItem];
+                              [chooseLogDirectory selectItemAtIndex:0];
+                              [chooseLogDirectory synchronizeTitleAndSelectedItem];
                           }
                       }];
 }

@@ -82,4 +82,15 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
             nil];
 }
 
+
+- (NSArray *) urlFilterRuleActions {
+    return [NSArray arrayWithObjects:
+            NSLocalizedString(@"block", nil),
+            NSLocalizedString(@"allow", nil),
+            NSLocalizedString(@"skip", nil),
+            NSLocalizedString(@"and", nil),
+            NSLocalizedString(@"or", nil),
+            nil];
+}
+
 @end

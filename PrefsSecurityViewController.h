@@ -43,15 +43,15 @@
     //NSButton *allowDownUploads;
     //IBOutlet NSPopUpButton *downloadPath;
     //IBOutlet NSButton *openDownloads;
-    IBOutlet NSPopUpButton *chooseDownloadDirectory;
-    IBOutlet NSMenuItem *downloadDirectory;
+    IBOutlet NSPopUpButton *chooseLogDirectory;
+    IBOutlet NSMenuItem *logDirectory;
 
 }
 
 - (NSString *)identifier;
 - (NSImage *)image;
 
-- (void) setDownloadDirectory;
+- (void) setLogDirectory;
 
 - (IBAction) chooseDirectory:(id)sender;
 

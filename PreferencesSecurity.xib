@@ -106,28 +106,28 @@
 							<string key="NSKeyEquivalent"/>
 							<int key="NSPeriodicDelay">400</int>
 							<int key="NSPeriodicInterval">75</int>
-							<nil key="NSMenuItem"/>
+							<object class="NSMenuItem" key="NSMenuItem" id="979208629">
+								<reference key="NSMenu" ref="182748077"/>
+								<string key="NSTitle"/>
+								<string key="NSKeyEquiv"/>
+								<int key="NSKeyEquivModMask">1048576</int>
+								<int key="NSMnemonicLoc">2147483647</int>
+								<object class="NSCustomResource" key="NSOnImage" id="451149156">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">NSMenuCheckmark</string>
+								</object>
+								<object class="NSCustomResource" key="NSMixedImage" id="201935493">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">NSMenuMixedState</string>
+								</object>
+								<string key="NSAction">_popUpItemAction:</string>
+								<reference key="NSTarget" ref="2185352"/>
+							</object>
 							<bool key="NSMenuItemRespectAlignment">YES</bool>
 							<object class="NSMenu" key="NSMenu" id="182748077">
 								<string key="NSTitle">OtherViews</string>
 								<array class="NSMutableArray" key="NSMenuItems">
-									<object class="NSMenuItem" id="979208629">
-										<reference key="NSMenu" ref="182748077"/>
-										<string key="NSTitle"/>
-										<string key="NSKeyEquiv"/>
-										<int key="NSKeyEquivModMask">1048576</int>
-										<int key="NSMnemonicLoc">2147483647</int>
-										<object class="NSCustomResource" key="NSOnImage" id="451149156">
-											<string key="NSClassName">NSImage</string>
-											<string key="NSResourceName">NSMenuCheckmark</string>
-										</object>
-										<object class="NSCustomResource" key="NSMixedImage" id="201935493">
-											<string key="NSClassName">NSImage</string>
-											<string key="NSResourceName">NSMenuMixedState</string>
-										</object>
-										<string key="NSAction">_popUpItemAction:</string>
-										<reference key="NSTarget" ref="2185352"/>
-									</object>
+									<reference ref="979208629"/>
 									<object class="NSMenuItem" id="607982450">
 										<reference key="NSMenu" ref="182748077"/>
 										<string key="NSTitle"/>
@@ -233,22 +233,22 @@
 							<string key="NSKeyEquivalent"/>
 							<int key="NSPeriodicDelay">400</int>
 							<int key="NSPeriodicInterval">75</int>
-							<object class="NSMenuItem" key="NSMenuItem" id="659252818">
-								<reference key="NSMenu" ref="353373144"/>
-								<string key="NSTitle">Directory</string>
-								<string key="NSKeyEquiv"/>
-								<int key="NSKeyEquivModMask">1048576</int>
-								<int key="NSMnemonicLoc">2147483647</int>
-								<reference key="NSOnImage" ref="451149156"/>
-								<reference key="NSMixedImage" ref="201935493"/>
-								<string key="NSAction">_popUpItemAction:</string>
-								<reference key="NSTarget" ref="669020158"/>
-							</object>
+							<nil key="NSMenuItem"/>
 							<bool key="NSMenuItemRespectAlignment">YES</bool>
 							<object class="NSMenu" key="NSMenu" id="353373144">
 								<string key="NSTitle">OtherViews</string>
 								<array class="NSMutableArray" key="NSMenuItems">
-									<reference ref="659252818"/>
+									<object class="NSMenuItem" id="659252818">
+										<reference key="NSMenu" ref="353373144"/>
+										<string key="NSTitle">Directory</string>
+										<string key="NSKeyEquiv"/>
+										<int key="NSKeyEquivModMask">1048576</int>
+										<int key="NSMnemonicLoc">2147483647</int>
+										<reference key="NSOnImage" ref="451149156"/>
+										<reference key="NSMixedImage" ref="201935493"/>
+										<string key="NSAction">_popUpItemAction:</string>
+										<reference key="NSTarget" ref="669020158"/>
+									</object>
 									<object class="NSMenuItem" id="227807385">
 										<reference key="NSMenu" ref="353373144"/>
 										<bool key="NSIsDisabled">YES</bool>
@@ -370,65 +370,65 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">chooseDirectory:</string>
 						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="760628526"/>
-					</object>
-					<int key="connectionID">57</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">downloadDirectory</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="659252818"/>
-					</object>
-					<int key="connectionID">58</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">chooseDirectory:</string>
-						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="166000531"/>
 					</object>
 					<int key="connectionID">59</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">chooseDownloadDirectory</string>
+						<string key="label">logDirectory</string>
 						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="669020158"/>
+						<reference key="destination" ref="659252818"/>
 					</object>
-					<int key="connectionID">62</int>
+					<int key="connectionID">344</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">chooseDirectory:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="760628526"/>
+					</object>
+					<int key="connectionID">345</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">chooseLogDirectory</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="166000531"/>
+					</object>
+					<int key="connectionID">346</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: values.org_safeexambrowser_SEB_allowDownUploads</string>
+						<string key="label">value: values.org_safeexambrowser_SEB_enableLog</string>
 						<reference key="source" ref="545007090"/>
 						<reference key="destination" ref="412846208"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="545007090"/>
 							<reference key="NSDestination" ref="412846208"/>
-							<string key="NSLabel">value: values.org_safeexambrowser_SEB_allowDownUploads</string>
+							<string key="NSLabel">value: values.org_safeexambrowser_SEB_enableLog</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">values.org_safeexambrowser_SEB_allowDownUploads</string>
+							<string key="NSKeyPath">values.org_safeexambrowser_SEB_enableLog</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">169</int>
+					<int key="connectionID">340</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: values.org_safeexambrowser_SEB_allowDownUploads</string>
+						<string key="label">enabled: values.org_safeexambrowser_SEB_enableLog</string>
 						<reference key="source" ref="166000531"/>
 						<reference key="destination" ref="412846208"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="166000531"/>
 							<reference key="NSDestination" ref="412846208"/>
-							<string key="NSLabel">enabled: values.org_safeexambrowser_SEB_allowDownUploads</string>
+							<string key="NSLabel">enabled: values.org_safeexambrowser_SEB_enableLog</string>
 							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">values.org_safeexambrowser_SEB_allowDownUploads</string>
+							<string key="NSKeyPath">values.org_safeexambrowser_SEB_enableLog</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">172</int>
+					<int key="connectionID">343</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -440,51 +440,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: values.org_safeexambrowser_SEB_downloadPDFFiles</string>
+						<string key="label">value: values.org_safeexambrowser_SEB_allowVirtualMachine</string>
 						<reference key="source" ref="368450533"/>
 						<reference key="destination" ref="412846208"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="368450533"/>
 							<reference key="NSDestination" ref="412846208"/>
-							<string key="NSLabel">value: values.org_safeexambrowser_SEB_downloadPDFFiles</string>
+							<string key="NSLabel">value: values.org_safeexambrowser_SEB_allowVirtualMachine</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">values.org_safeexambrowser_SEB_downloadPDFFiles</string>
+							<string key="NSKeyPath">values.org_safeexambrowser_SEB_allowVirtualMachine</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">181</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: values.org_safeexambrowser_SEB_allowDownUploads</string>
-						<reference key="source" ref="368450533"/>
-						<reference key="destination" ref="412846208"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="368450533"/>
-							<reference key="NSDestination" ref="412846208"/>
-							<string key="NSLabel">enabled: values.org_safeexambrowser_SEB_allowDownUploads</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">values.org_safeexambrowser_SEB_allowDownUploads</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">187</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: values.org_safeexambrowser_SEB_allowDownUploads</string>
-						<reference key="source" ref="697019350"/>
-						<reference key="destination" ref="412846208"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="697019350"/>
-							<reference key="NSDestination" ref="412846208"/>
-							<string key="NSLabel">enabled: values.org_safeexambrowser_SEB_allowDownUploads</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">values.org_safeexambrowser_SEB_allowDownUploads</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">178</int>
+					<int key="connectionID">341</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -521,35 +489,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: values.org_safeexambrowser_SEB_allowDownUploads</string>
+						<string key="label">value: values.org_safeexambrowser_SEB_allowUserSwitching</string>
 						<reference key="source" ref="589943424"/>
 						<reference key="destination" ref="412846208"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="589943424"/>
 							<reference key="NSDestination" ref="412846208"/>
-							<string key="NSLabel">enabled: values.org_safeexambrowser_SEB_allowDownUploads</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">values.org_safeexambrowser_SEB_allowDownUploads</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">294</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: values.org_safeexambrowser_SEB_downloadPDFFiles</string>
-						<reference key="source" ref="589943424"/>
-						<reference key="destination" ref="412846208"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="589943424"/>
-							<reference key="NSDestination" ref="412846208"/>
-							<string key="NSLabel">value: values.org_safeexambrowser_SEB_downloadPDFFiles</string>
+							<string key="NSLabel">value: values.org_safeexambrowser_SEB_allowUserSwitching</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">values.org_safeexambrowser_SEB_downloadPDFFiles</string>
+							<string key="NSKeyPath">values.org_safeexambrowser_SEB_allowUserSwitching</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">295</int>
+					<int key="connectionID">342</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1334,7 +1286,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">339</int>
+			<int key="maxID">346</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1361,16 +1313,16 @@
 						</object>
 					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="chooseDownloadDirectory">NSPopUpButton</string>
-						<string key="downloadDirectory">NSMenuItem</string>
+						<string key="chooseLogDirectory">NSPopUpButton</string>
+						<string key="logDirectory">NSMenuItem</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="chooseDownloadDirectory">
-							<string key="name">chooseDownloadDirectory</string>
+						<object class="IBToOneOutletInfo" key="chooseLogDirectory">
+							<string key="name">chooseLogDirectory</string>
 							<string key="candidateClassName">NSPopUpButton</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="downloadDirectory">
-							<string key="name">downloadDirectory</string>
+						<object class="IBToOneOutletInfo" key="logDirectory">
+							<string key="name">logDirectory</string>
 							<string key="candidateClassName">NSMenuItem</string>
 						</object>
 					</dictionary>
