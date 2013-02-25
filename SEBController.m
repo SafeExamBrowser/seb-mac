@@ -55,6 +55,7 @@
 #import "SEBKeychainManager.h"
 #import "NSWindow+SEBWindow.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
+#import "SEBWindowSizeValueTransformer.h"
 #import "MyGlobals.h"
 #import "Constants.h"
 
@@ -73,6 +74,14 @@ bool insideMatrix();
 @synthesize capWindows;
 
 #pragma mark Application Delegate Methods
+
++ (void) initialize
+{
+        SEBWindowSizeValueTransformer *windowSizeTransformer = [[SEBWindowSizeValueTransformer alloc] init];
+        [NSValueTransformer setValueTransformer:windowSizeTransformer
+                                        forName:@"SEBWindowSizeTransformer"];
+}
+
 
 // Tells the application delegate to open a single file.
 // Returning YES if the file is successfully opened, and NO otherwise.
@@ -260,11 +269,19 @@ bool insideMatrix();
                                      [preferences secureDataForObject:(id)@""],
                                      @"org_safeexambrowser_SEB_hashedQuitPassword",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
+                                     @"org_safeexambrowser_SEB_allowDownUploads",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
+                                     @"org_safeexambrowser_SEB_allowPreferencesWindow",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
                                      @"org_safeexambrowser_SEB_allowQuit",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
                                      @"org_safeexambrowser_SEB_allowSwitchToApplications",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
-                                     @"org_safeexambrowser_SEB_allowDownUploads",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
+                                     @"org_safeexambrowser_SEB_allowVirtualMachine",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
+                                     @"org_safeexambrowser_SEB_copyExamKeyToClipboardWhenQuitting",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:0]],
+                                     @"org_safeexambrowser_SEB_cryptoIdentity",
                                      [preferences secureDataForObject:(id)[NSHomeDirectory() stringByAppendingPathComponent: @"Downloads"]],
                                      @"org_safeexambrowser_SEB_downloadDirectoryOSX",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
@@ -276,11 +293,19 @@ bool insideMatrix();
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
                                      @"org_safeexambrowser_SEB_prefsInBundle",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
-                                     @"org_safeexambrowser_SEB_enablePlugins",
+                                     @"org_safeexambrowser_SEB_enablePreferencesWindow",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
                                      @"org_safeexambrowser_SEB_enableJava",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
                                      @"org_safeexambrowser_SEB_enableJavaScript",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
+                                     @"org_safeexambrowser_SEB_enablePlugins",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
+                                     @"org_safeexambrowser_SEB_enableUrlContentFilter",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
+                                     @"org_safeexambrowser_SEB_enableUrlFilter",
+                                     [preferences secureDataForObject:(id)[NSData data]],
+                                     @"org_safeexambrowser_SEB_examKeySalt",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
                                      @"org_safeexambrowser_SEB_blockPopUpWindows",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
@@ -289,6 +314,10 @@ bool insideMatrix();
                                      @"org_safeexambrowser_SEB_enableBrowsingBackForward",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
                                      @"org_safeexambrowser_SEB_monitorProcesses",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:0]],
+                                     @"org_safeexambrowser_SEB_mainBrowserWindowWidth",
+                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:0]],
+                                     @"org_safeexambrowser_SEB_mainBrowserWindowHeight",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithInt:openInNewWindow]],
                                      @"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
@@ -297,24 +326,14 @@ bool insideMatrix();
                                      @"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
                                      @"org_safeexambrowser_SEB_newBrowserWindowByScriptBlockForeign",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
-                                     @"org_safeexambrowser_SEB_copyExamKeyToClipboardWhenQuitting",
                                      [preferences secureDataForObject:(id)@""],
                                      @"org_safeexambrowser_SEB_quitURL",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithInt:0]],
-                                     @"org_safeexambrowser_SEB_SebPurpose",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
-                                     @"org_safeexambrowser_SEB_allowPreferencesWindow",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
-                                     @"org_safeexambrowser_SEB_enablePreferencesWindow",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:0]],
-                                     @"org_safeexambrowser_SEB_cryptoIdentity",
-                                     [preferences secureDataForObject:(id)@""],
-                                     @"org_safeexambrowser_SEB_settingsPassword",
+                                     @"org_safeexambrowser_SEB_sebPurpose",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithInt:forceSebService]],
                                      @"org_safeexambrowser_SEB_sebServicePolicy",
-                                     [preferences secureDataForObject:(id)[NSData data]],
-                                     @"org_safeexambrowser_SEB_examKeySalt",
+                                     [preferences secureDataForObject:(id)@""],
+                                     @"org_safeexambrowser_SEB_settingsPassword",
                                      nil];
         [preferences registerDefaults:appDefaults];
 #ifdef DEBUG

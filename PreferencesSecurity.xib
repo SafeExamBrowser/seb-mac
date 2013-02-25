@@ -198,7 +198,7 @@
 						<reference key="NSNextKeyView" ref="589943424"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="404131349">
-							<int key="NSCellFlags">-2080374784</int>
+							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">0</int>
 							<string key="NSContents">Allow SEB to run inside virtual machine</string>
 							<reference key="NSSupport" ref="973533274"/>
@@ -217,7 +217,7 @@
 					<object class="NSPopUpButton" id="166000531">
 						<reference key="NSNextResponder" ref="381403324"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{328, 68}, {305, 26}}</string>
+						<string key="NSFrame">{{328, 66}, {305, 26}}</string>
 						<reference key="NSSuperview" ref="381403324"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -233,22 +233,22 @@
 							<string key="NSKeyEquivalent"/>
 							<int key="NSPeriodicDelay">400</int>
 							<int key="NSPeriodicInterval">75</int>
-							<nil key="NSMenuItem"/>
+							<object class="NSMenuItem" key="NSMenuItem" id="659252818">
+								<reference key="NSMenu" ref="353373144"/>
+								<string key="NSTitle">Directory</string>
+								<string key="NSKeyEquiv"/>
+								<int key="NSKeyEquivModMask">1048576</int>
+								<int key="NSMnemonicLoc">2147483647</int>
+								<reference key="NSOnImage" ref="451149156"/>
+								<reference key="NSMixedImage" ref="201935493"/>
+								<string key="NSAction">_popUpItemAction:</string>
+								<reference key="NSTarget" ref="669020158"/>
+							</object>
 							<bool key="NSMenuItemRespectAlignment">YES</bool>
 							<object class="NSMenu" key="NSMenu" id="353373144">
 								<string key="NSTitle">OtherViews</string>
 								<array class="NSMutableArray" key="NSMenuItems">
-									<object class="NSMenuItem" id="659252818">
-										<reference key="NSMenu" ref="353373144"/>
-										<string key="NSTitle">Directory</string>
-										<string key="NSKeyEquiv"/>
-										<int key="NSKeyEquivModMask">1048576</int>
-										<int key="NSMnemonicLoc">2147483647</int>
-										<reference key="NSOnImage" ref="451149156"/>
-										<reference key="NSMixedImage" ref="201935493"/>
-										<string key="NSAction">_popUpItemAction:</string>
-										<reference key="NSTarget" ref="669020158"/>
-									</object>
+									<reference ref="659252818"/>
 									<object class="NSMenuItem" id="227807385">
 										<reference key="NSMenu" ref="353373144"/>
 										<bool key="NSIsDisabled">YES</bool>
@@ -285,7 +285,7 @@
 					<object class="NSTextField" id="862120953">
 						<reference key="NSNextResponder" ref="381403324"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{61, 74}, {264, 17}}</string>
+						<string key="NSFrame">{{61, 72}, {264, 17}}</string>
 						<reference key="NSSuperview" ref="381403324"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="166000531"/>
@@ -309,13 +309,13 @@
 					<object class="NSButton" id="545007090">
 						<reference key="NSNextResponder" ref="381403324"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{18, 98}, {564, 18}}</string>
+						<string key="NSFrame">{{18, 96}, {564, 18}}</string>
 						<reference key="NSSuperview" ref="381403324"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="862120953"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="121967150">
-							<int key="NSCellFlags">-2080374784</int>
+							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">0</int>
 							<string key="NSContents">Enable logging</string>
 							<reference key="NSSupport" ref="973533274"/>
@@ -598,20 +598,20 @@
 								<float key="scoringTypeFloat">24</float>
 								<int key="contentType">2</int>
 							</object>
-							<object class="IBNSLayoutConstraint" id="242797493">
+							<object class="IBNSLayoutConstraint" id="1054726244">
 								<reference key="firstItem" ref="545007090"/>
 								<int key="firstAttribute">3</int>
 								<int key="relation">0</int>
-								<reference key="secondItem" ref="381403324"/>
-								<int key="secondAttribute">3</int>
+								<reference key="secondItem" ref="589943424"/>
+								<int key="secondAttribute">4</int>
 								<float key="multiplier">1</float>
 								<object class="IBLayoutConstant" key="constant">
-									<double key="value">136</double>
+									<double key="value">20</double>
 								</object>
 								<float key="priority">1000</float>
 								<reference key="containingView" ref="381403324"/>
-								<int key="scoringType">3</int>
-								<float key="scoringTypeFloat">9</float>
+								<int key="scoringType">9</int>
+								<float key="scoringTypeFloat">40</float>
 								<int key="contentType">3</int>
 							</object>
 							<object class="IBNSLayoutConstraint" id="1000746535">
@@ -1146,14 +1146,14 @@
 						<reference key="parent" ref="381403324"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">338</int>
-						<reference key="object" ref="242797493"/>
-						<reference key="parent" ref="381403324"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">339</int>
 						<reference key="object" ref="275531427"/>
 						<reference key="parent" ref="166000531"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">347</int>
+						<reference key="object" ref="1054726244"/>
+						<reference key="parent" ref="381403324"/>
 					</object>
 				</array>
 			</object>
@@ -1175,7 +1175,7 @@
 					<reference ref="667404336"/>
 					<reference ref="32548119"/>
 					<reference ref="1000746535"/>
-					<reference ref="242797493"/>
+					<reference ref="1054726244"/>
 					<reference ref="39446930"/>
 					<reference ref="612597943"/>
 					<reference ref="547440648"/>
@@ -1244,9 +1244,9 @@
 				<boolean value="NO" key="32.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="32.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="33.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="338.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="339.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="34.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="347.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="35.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="36.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="45.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1286,7 +1286,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">346</int>
+			<int key="maxID">348</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

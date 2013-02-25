@@ -36,11 +36,10 @@
 #define SafeExamBrowser_Constants_h
 
 enum {
-    getGenerallyBlocked                         = 0,
-    openInSameWindow                            = 1,
-    openInNewWindow                             = 2
+    browserViewModeWindow                       = 0,
+    browserViewModeFullscreen                   = 1
 };
-typedef NSUInteger newBrowserWindowPolicies;
+typedef NSUInteger browserViewModes;
 
 
 enum {
@@ -50,12 +49,30 @@ enum {
 };
 typedef NSUInteger chooseFileToUploadPolicies;
 
+
 enum {
     FetchingIdentities                   = 0
 };
 typedef NSUInteger cryptoIdentities;
 
+
 static NSString __unused *userDefaultsMasala = @"D𝈭il𝈖Ch𝈒a𝉇ht𝈁a𝉈Hai1972";
+
+
+enum {
+    getGenerallyBlocked                         = 0,
+    openInSameWindow                            = 1,
+    openInNewWindow                             = 2
+};
+typedef NSUInteger newBrowserWindowPolicies;
+
+
+enum {
+    sebPurposePolicyStartingExam                = 0,
+    sebPurposePolicyConfiguringClient           = 1
+};
+typedef NSUInteger sebPurposePolicies;
+
 
 enum {
     ignoreService                               = 0,
