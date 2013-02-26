@@ -90,7 +90,6 @@
 						<string key="NSFrame">{{13, 0}, {624, 536}}</string>
 						<reference key="NSSuperview" ref="381403324"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1070826792"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<array class="NSMutableArray" key="NSTabViewItems">
 							<object class="NSTabViewItem" id="970183352">
@@ -108,7 +107,7 @@
 											<reference key="NSNextKeyView" ref="1031440401"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="852751825">
-												<int key="NSCellFlags">-2080374784</int>
+												<int key="NSCellFlags">67108864</int>
 												<int key="NSCellFlags2">0</int>
 												<string key="NSContents">Allow switching to third party applications</string>
 												<reference key="NSSupport" ref="467571861"/>
@@ -133,7 +132,7 @@
 											<reference key="NSNextKeyView" ref="969455920"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="705335809">
-												<int key="NSCellFlags">-2080374784</int>
+												<int key="NSCellFlags">67108864</int>
 												<int key="NSCellFlags2">131072</int>
 												<string key="NSContents">Allow Flash to switch to full screen mode</string>
 												<object class="NSFont" key="NSSupport">
@@ -167,7 +166,7 @@
 															<string key="NSFrameSize">{568, 172}</string>
 															<reference key="NSSuperview" ref="622558113"/>
 															<reference key="NSWindow"/>
-															<reference key="NSNextKeyView" ref="25849373"/>
+															<reference key="NSNextKeyView" ref="1065777595"/>
 															<string key="NSReuseIdentifierKey">_NS:13</string>
 															<bool key="NSEnabled">YES</bool>
 															<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -413,7 +412,7 @@
 											<string key="NSFrame">{{17, 243}, {570, 190}}</string>
 											<reference key="NSSuperview" ref="1070826792"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="1065777595"/>
+											<reference key="NSNextKeyView" ref="622558113"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<int key="NSsFlags">133682</int>
 											<reference key="NSVScroller" ref="25849373"/>
@@ -436,7 +435,6 @@
 													<string key="NSFrame">{{1, 1}, {574, 185}}</string>
 													<reference key="NSSuperview" ref="999896200"/>
 													<reference key="NSWindow"/>
-													<reference key="NSNextKeyView"/>
 													<string key="NSReuseIdentifierKey">_NS:11</string>
 												</object>
 											</array>

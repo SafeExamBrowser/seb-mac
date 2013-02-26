@@ -54,7 +54,7 @@
 						<object class="NSButtonCell" key="NSCell" id="560293210">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">268435456</int>
-							<string key="NSContents">Send Browser Exam Key in HTTP header</string>
+							<string key="NSContents">Send Browser Exam Key in HTTP header to authenticate the SEB client and its settings to a compatible exam system.</string>
 							<object class="NSFont" key="NSSupport" id="939205662">
 								<string key="NSName">LucidaGrande</string>
 								<double key="NSSize">13</double>

@@ -1191,7 +1191,7 @@
 					<object class="IBToolTipAttribute" key="NS.object.0">
 						<string key="name">ToolTip</string>
 						<reference key="object" ref="545007090"/>
-						<string key="toolTip">Usually to be used when switching to third party applications is enabled.</string>
+						<string key="toolTip">The log can help in debugging SEB (send it to the developers) and to find out about possible manipulations.</string>
 					</object>
 				</object>
 				<array key="13.IBNSViewMetadataConstraints">
@@ -1229,7 +1229,7 @@
 					<object class="IBToolTipAttribute" key="NS.object.0">
 						<string key="name">ToolTip</string>
 						<reference key="object" ref="589943424"/>
-						<string key="toolTip">PDF files will not be displayed by SEB but downloaded and openend (if "Open files after downloading" is active!) by the application set in Finder (usually Preview or Adobe Acrobat).</string>
+						<string key="toolTip">Indicates if fast user switching is allowed. When using SEB on students’ own computers this key should be set to false. Otherwise when the computer is put to sleep and woken up again, in the lock screen “Switch user” is shown and when using a third party application the fast user switching option is displayed on the right side of the menu bar.</string>
 					</object>
 				</object>
 				<boolean value="NO" key="292.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
@@ -1256,7 +1256,7 @@
 					<object class="IBToolTipAttribute" key="NS.object.0">
 						<string key="name">ToolTip</string>
 						<reference key="object" ref="368450533"/>
-						<string key="toolTip">PDF files will not be displayed by SEB but downloaded and openend (if "Open files after downloading" is active!) by the application set in Finder (usually Preview or Adobe Acrobat).</string>
+						<string key="toolTip">Indicates if SEB is allowed to run in a virtual machine or not (in order to prevent potential manipulations)</string>
 					</object>
 				</object>
 				<boolean value="NO" key="76.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
@@ -1290,14 +1290,6 @@
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">NSLayoutConstraint</string>
-					<string key="superclassName">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/NSLayoutConstraint.h</string>
-					</object>
-				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">PrefsSecurityViewController</string>
 					<string key="superclassName">NSViewController</string>
