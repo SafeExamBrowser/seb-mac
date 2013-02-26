@@ -234,7 +234,6 @@
                               // Prefs got successfully written to app bundle
                               // Set flag for preferences in app bundle (bindings enable the remove button in prefs same time)
                               NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-                              [preferences setSecureObject:[NSNumber numberWithBool:YES] forKey:@"org_safeexambrowser_SEB_prefsInBundle"];
                               NSRunAlertPanel(NSLocalizedString(@"Writing Settings Succeeded", nil), NSLocalizedString(@"Encrypted settings have been saved, use this file to start the exam with SEB.", nil), NSLocalizedString(@"OK", nil), nil, nil);
 #ifdef DEBUG
                               prefsFileURL = [[prefsFileURL URLByDeletingPathExtension] URLByAppendingPathExtension:@"plist"];
