@@ -180,9 +180,14 @@ bool insideMatrix();
         //}
         NSError *error;
         error = nil;
-        sebData = [RNDecryptor decryptData:sebData withPassword:hashedAdminPassword error:&error];
-        // if decryption with admin password worked
+        NSData *decryptedSebData = [RNDecryptor decryptData:sebData withPassword:hashedAdminPassword error:&error];
+        if (error) {
+            // if decryption with admin password didn't worked, try with empty password
+            decryptedSebData = [RNDecryptor decryptData:sebData withPassword:@"" error:&error];
+        }
+        sebData = decryptedSebData;
         if (!error) {
+            // if decryption worked
             //switch to system's UserDefaults
             [NSUserDefaults setUserDefaultsPrivate:NO];
             // Get preferences dictionary from decrypted data
@@ -199,6 +204,16 @@ bool insideMatrix();
                 } 
                 NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
                 [preferences setSecureObject:[sebPreferencesDict objectForKey:key] forKey:keyWithPrefix];
+            }
+            int answer = NSRunAlertPanel(NSLocalizedString(@"SEB Re-Configured",nil), NSLocalizedString(@"The local settings of this SEB have been reconfigured. Do you want to continue working with SEB or quit?",nil),
+                                         NSLocalizedString(@"Quit",nil), NSLocalizedString(@"Continue",nil), nil);
+            switch(answer)
+            {
+                case NSAlertDefaultReturn:
+                    break; //Cancel: don't quit
+                default:
+					quittingMyself = TRUE; //SEB is terminating itself
+                    [NSApp terminate: nil]; //quit SEB
             }
             [self startKioskMode];
             [self requestedRestart:nil];
