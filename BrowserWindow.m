@@ -267,6 +267,20 @@ initiatedByFrame:(WebFrame *)frame {
 #ifdef DEBUG
     NSLog(@"Request URL: %@", [[request URL] absoluteString]);
 #endif
+
+/*    if ([[[request URL] pathExtension] isEqualToString:@"seb"]) {
+        NSDictionary *headerFields = [request allHTTPHeaderFields];
+#ifdef DEBUG
+        NSLog(@"All HTTP header fields: %@", headerFields);
+#endif
+        NSMutableURLRequest *modifiedRequest = [request copy];
+        [modifiedRequest setValue:@"application/seb" forHTTPHeaderField:@"content-type"];
+        headerFields = [modifiedRequest allHTTPHeaderFields];
+#ifdef DEBUG
+        NSLog(@"All HTTP header fields from modified request: %@", headerFields);
+#endif
+        return modifiedRequest;
+    }*/
     return request;
 }
 
@@ -541,7 +555,14 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
           frame:(WebFrame *)frame
 decisionListener:(id < WebPolicyDecisionListener >)listener
 {
-    if ([type isEqualToString:@"application/seb"]) {
+    /*NSDictionary *headerFields = [request allHTTPHeaderFields];
+#ifdef DEBUG
+    NSLog(@"Request URL: %@", [[request URL] absoluteString]);
+    NSLog(@"All HTTP header fields: %@", headerFields);
+#endif*/
+
+    //if ([type isEqualToString:@"application/seb"]) {
+    if (([type isEqualToString:@"application/seb"]) | ([[[request URL] pathExtension] isEqualToString:@"seb"])) {
         [listener download];
         [self startDownloadingURL:request.URL];
         return;
@@ -621,6 +642,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         downloadPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Downloads"];
         [preferences setSecureObject:downloadPath forKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
     }
+    downloadPath = [downloadPath stringByExpandingTildeInPath];
     NSString *destinationFilename = [downloadPath stringByAppendingPathComponent:filename];
     [download setDestination:destinationFilename allowOverwrite:NO];
 }

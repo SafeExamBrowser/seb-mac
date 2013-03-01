@@ -144,12 +144,12 @@ bool insideMatrix();
     //
     // Decrypt with password
     //
+    NSError *error;
 
     if ([[NSString stringWithUTF8String:utfString] isEqualToString:@"pswd"]) {
 #ifdef DEBUG
         //NSLog(@"Dump of encypted .seb settings (without prefix): %@",encryptedSebData);
 #endif
-        NSError *error;
         NSData *sebDataDecrypted = nil;
         // Allow up to 3 trials for entering decoding password
         int i = 5;
@@ -178,11 +178,12 @@ bool insideMatrix();
         //if (!hashedAdminPassword) {
         //   hashedAdminPassword = @"";
         //}
-        NSError *error;
         error = nil;
         NSData *decryptedSebData = [RNDecryptor decryptData:sebData withPassword:hashedAdminPassword error:&error];
         if (error) {
-            // if decryption with admin password didn't worked, try with empty password
+            // if decryption with admin password didn't work, try with empty password
+            //empty password means no admin pw on clients and should not be hashed
+            error = nil;
             decryptedSebData = [RNDecryptor decryptData:sebData withPassword:@"" error:&error];
         }
         sebData = decryptedSebData;
@@ -205,8 +206,8 @@ bool insideMatrix();
                 NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
                 [preferences setSecureObject:[sebPreferencesDict objectForKey:key] forKey:keyWithPrefix];
             }
-            int answer = NSRunAlertPanel(NSLocalizedString(@"SEB Re-Configured",nil), NSLocalizedString(@"The local settings of this SEB have been reconfigured. Do you want to continue working with SEB or quit?",nil),
-                                         NSLocalizedString(@"Quit",nil), NSLocalizedString(@"Continue",nil), nil);
+            int answer = NSRunAlertPanel(NSLocalizedString(@"SEB Re-Configured",nil), NSLocalizedString(@"The local settings of SEB have been reconfigured. Do you want to continue working with SEB or quit?",nil),
+                                         NSLocalizedString(@"Continue",nil), NSLocalizedString(@"Quit",nil), nil);
             switch(answer)
             {
                 case NSAlertDefaultReturn:
@@ -226,7 +227,6 @@ bool insideMatrix();
 
     // Get preferences dictionary from decrypted data
     //NSDictionary *sebPreferencesDict = [NSKeyedUnarchiver unarchiveObjectWithData:sebData];
-    NSError *error;
     NSDictionary *sebPreferencesDict = [NSPropertyListSerialization propertyListWithData:sebData
                                                                                  options:0
                                                                                   format:NULL
