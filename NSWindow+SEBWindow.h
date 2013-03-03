@@ -40,4 +40,10 @@
 
 - (void)newSetLevel:(NSInteger)windowLevel;
 
+-(void)addViewToTitleBar:(NSView*)viewToAdd atLeftOffset:(CGFloat)x;
+
+-(void)addViewToTitleBar:(NSView*)viewToAdd atRightOffset:(CGFloat)x;
+
+-(CGFloat)heightOfTitleBar;
+
 @end

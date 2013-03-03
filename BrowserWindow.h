@@ -46,9 +46,13 @@
     WebView *requestingWebView;
     NSString *currentURL;
     NSString *downloadPath;
+    NSView *progressIndicatorHolder;
 }
 
 @property (weak) IBOutlet WebView *webView;
+
+- (void) startProgressIndicatorAnimation;
+- (void) stopProgressIndicatorAnimation;
 
 - (void)startDownloadingURL:(NSURL *)url;
 

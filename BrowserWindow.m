@@ -168,6 +168,48 @@
 }
 
 
+- (void) startProgressIndicatorAnimation {
+    
+    if (!progressIndicatorHolder) {
+        progressIndicatorHolder = [[NSView alloc] init];
+        
+        NSProgressIndicator *progressIndicator = [[NSProgressIndicator alloc] init];
+        
+        [progressIndicator setBezeled: NO];
+        [progressIndicator setStyle: NSProgressIndicatorSpinningStyle];
+        [progressIndicator setControlSize: NSSmallControlSize];
+        [progressIndicator sizeToFit];
+        //[progressIndicator setUsesThreadedAnimation:YES];
+        
+        [progressIndicatorHolder addSubview:progressIndicator];
+        [progressIndicatorHolder setFrame:progressIndicator.frame];
+        [progressIndicator startAnimation:self];
+        
+        [self addViewToTitleBar:progressIndicatorHolder atRightOffset:5];
+        
+        [progressIndicator setFrame:NSMakeRect(
+                                               
+                                               0.5 * ([progressIndicator superview].frame.size.width - progressIndicator.frame.size.width),
+                                               0.5 * ([progressIndicator superview].frame.size.height - progressIndicator.frame.size.height),
+                                               
+                                               progressIndicator.frame.size.width,
+                                               progressIndicator.frame.size.height
+                                               
+                                               )];
+        
+        [progressIndicator setNextResponder:progressIndicatorHolder];
+        [progressIndicatorHolder setNextResponder:self];
+    }
+}
+
+- (void) stopProgressIndicatorAnimation {
+    
+    [progressIndicatorHolder removeFromSuperview];
+    progressIndicatorHolder = nil;
+    
+}
+
+
 #pragma mark Delegates
 
 - (void)windowDidBecomeMain:(NSNotification *)notification {
@@ -219,6 +261,7 @@ initiatedByFrame:(WebFrame *)frame {
 #ifdef DEBUG
     NSLog(@"didStartProvisionalLoadForFrame request URL: %@", [[[[frame provisionalDataSource] request] URL] absoluteString]);
 #endif
+    [self startProgressIndicatorAnimation];
     // Only report feedback for the main frame.
     if (frame == [sender mainFrame]){
         [[MyGlobals sharedMyGlobals] setCurrentMainHost:[[[[frame provisionalDataSource] request] URL] host]];
@@ -228,8 +271,14 @@ initiatedByFrame:(WebFrame *)frame {
 }
 
 
+- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
+    [self stopProgressIndicatorAnimation];
+}
+
+
 // Update the URL of the current page in case of a server redirect
 - (void)webView:(WebView *)sender didReceiveServerRedirectForProvisionalLoadForFrame:(WebFrame *)frame {
+    [self stopProgressIndicatorAnimation];
     // Only report feedback for the main frame.
     if (frame == [sender mainFrame]){
         [[MyGlobals sharedMyGlobals] setCurrentMainHost:[[[[frame provisionalDataSource] request] URL] host]];
@@ -586,6 +635,8 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 // Handle WebView load errors
 - (void)webView:(WebView *)sender didFailProvisionalLoadWithError:(NSError *)error
        forFrame:(WebFrame *)frame {
+
+    [self stopProgressIndicatorAnimation];
     
 	if ([error code] != -999) {
         
@@ -600,6 +651,36 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
             //[alertPanel setLevel:NSScreenSaverWindowLevel];
 
             int answer = NSRunAlertPanel(titleString, messageString, NSLocalizedString(@"Retry",nil), NSLocalizedString(@"Cancel",nil), nil, nil); 
+            switch(answer) {
+                case NSAlertDefaultReturn:
+                    //Retry: try reloading
+                    //[[MyGlobals sharedMyGlobals] setCurrentMainHost:nil];
+                    [[sender mainFrame] loadRequest:
+                     [NSURLRequest requestWithURL:[NSURL URLWithString:[[MyGlobals sharedMyGlobals] currentMainHost]]]];
+                    return;
+                default:
+                    return;
+            }
+        }
+	}
+}
+
+
+- (void)webView:(WebView *)sender didFailLoadWithError:(NSError *)error forFrame:(WebFrame *)frame {
+
+    [self stopProgressIndicatorAnimation];
+    
+	if ([error code] != -999) {
+        
+        if ([error code] !=  WebKitErrorFrameLoadInterruptedByPolicyChange) //this error can be ignored
+        {
+            //Close the About Window first, because it would hide the error alert
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"requestCloseAboutWindowNotification" object:self];
+            
+            NSString *titleString = NSLocalizedString(@"Error Loading Page",nil);
+            NSString *messageString = [error localizedDescription];
+            
+            int answer = NSRunAlertPanel(titleString, messageString, NSLocalizedString(@"Retry",nil), NSLocalizedString(@"Cancel",nil), nil, nil);
             switch(answer) {
                 case NSAlertDefaultReturn:
                     //Retry: try reloading
