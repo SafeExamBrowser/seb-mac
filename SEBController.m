@@ -151,7 +151,7 @@ bool insideMatrix();
         //NSLog(@"Dump of encypted .seb settings (without prefix): %@",encryptedSebData);
 #endif
         NSData *sebDataDecrypted = nil;
-        // Allow up to 3 trials for entering decoding password
+        // Allow up to 5 trials for entering decoding password
         int i = 5;
         do {
             i--;
@@ -1009,23 +1009,6 @@ bool insideMatrix(){
 
 
 - (NSString*) showEnterPasswordDialog: (NSWindow *)window {
-    // User has asked to see the dialog. Display it.
-    [enterPassword setStringValue:@""]; //reset the enterPassword NSSecureTextField
-    
-    [NSApp beginSheet: enterPasswordDialog
-       modalForWindow: window
-        modalDelegate: nil
-       didEndSelector: nil
-          contextInfo: nil];
-    [NSApp runModalForWindow: enterPasswordDialog];
-    // Dialog is up here.
-    [NSApp endSheet: enterPasswordDialog];
-    [enterPasswordDialog orderOut: self];
-    return ([enterPassword stringValue]);
-}
-
-
-- (NSString*) showModalPasswordDialog: (NSWindow *)window {
     // User has asked to see the dialog. Display it.
     [enterPassword setStringValue:@""]; //reset the enterPassword NSSecureTextField
     

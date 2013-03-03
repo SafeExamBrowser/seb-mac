@@ -62,9 +62,6 @@
 - (void) loadPrefs:(id)sender;
 - (void) savePrefs:(id)sender;
 
-- (IBAction) savePrefsToAppBundle:(id)sender;
-- (IBAction) removePrefsFromAppBundle:(id)sender;
-
 - (IBAction) pasteSavedStringFromPasteboard:(id)sender;
 
 - (IBAction) restartSEB:(id)sender;

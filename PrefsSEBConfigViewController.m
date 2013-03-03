@@ -231,9 +231,7 @@
                                               NSLocalizedString(@"Make sure you have write permissions in the chosen directory", nil),
                                               NSLocalizedString(@"OK", nil), nil, nil);
                           } else {
-                              // Prefs got successfully written to app bundle
-                              // Set flag for preferences in app bundle (bindings enable the remove button in prefs same time)
-                              NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+                              // Prefs got successfully written to file
                               NSRunAlertPanel(NSLocalizedString(@"Writing Settings Succeeded", nil), NSLocalizedString(@"Encrypted settings have been saved, use this file to start the exam with SEB.", nil), NSLocalizedString(@"OK", nil), nil, nil);
 #ifdef DEBUG
                               prefsFileURL = [[prefsFileURL URLByDeletingPathExtension] URLByAppendingPathExtension:@"plist"];
