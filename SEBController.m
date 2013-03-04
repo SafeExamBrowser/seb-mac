@@ -156,7 +156,9 @@ bool insideMatrix();
         do {
             i--;
             // Prompt for password
-            NSString *password = [self showEnterPasswordDialog:nil];
+            if ([self showEnterPasswordDialog:nil] == SEBEnterPasswordCancel) return YES;
+            NSString *password = [enterPassword stringValue];
+            if (!password) return YES;
             error = nil;
             sebDataDecrypted = [RNDecryptor decryptData:sebData withPassword:password error:&error];
             // in case we get an error we allow the user to try it again
@@ -1008,7 +1010,7 @@ bool insideMatrix(){
 }
 
 
-- (NSString*) showEnterPasswordDialog: (NSWindow *)window {
+- (NSInteger) showEnterPasswordDialog: (NSWindow *)window {
     // User has asked to see the dialog. Display it.
     [enterPassword setStringValue:@""]; //reset the enterPassword NSSecureTextField
     
@@ -1017,22 +1019,27 @@ bool insideMatrix(){
         modalDelegate: nil
        didEndSelector: nil
           contextInfo: nil];
-    [NSApp runModalForWindow: enterPasswordDialog];
+    NSInteger returnCode = [NSApp runModalForWindow: enterPasswordDialog];
     // Dialog is up here.
     [NSApp endSheet: enterPasswordDialog];
     [enterPasswordDialog orderOut: self];
-    return ([enterPassword stringValue]);
+    return returnCode;
 }
 
 
 - (IBAction) okEnterPassword: (id)sender {
-    [NSApp stopModal];
+    [NSApp stopModalWithCode:SEBEnterPasswordOK];
 }
 
 
 - (IBAction) cancelEnterPassword: (id)sender {
-    [NSApp stopModal];
+    [NSApp stopModalWithCode:SEBEnterPasswordCancel];
     [enterPassword setStringValue:@""];
+}
+
+
+- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    
 }
 
 
@@ -1045,7 +1052,8 @@ bool insideMatrix(){
 		
         if (![hashedQuitPassword isEqualToString:@""]) {
 			// if quit password is set, then restrict quitting
-            NSString *password = [self showEnterPasswordDialog:browserWindow];
+            if ([self showEnterPasswordDialog:nil] == SEBEnterPasswordCancel) return;
+            NSString *password = [enterPassword stringValue];
 			
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
             if ([hashedQuitPassword isEqualToString:[keychainManager generateSHAHashString:password]]) {
@@ -1078,7 +1086,8 @@ bool insideMatrix(){
             NSString *hashedAdminPW = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
             if (![hashedAdminPW isEqualToString:@""]) {
                 // If admin password is set, then restrict access to the preferences window
-                NSString *password = [self showEnterPasswordDialog:browserWindow];
+                if ([self showEnterPasswordDialog:nil] == SEBEnterPasswordCancel) return;
+                NSString *password = [enterPassword stringValue];
                 SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
                 if (![hashedAdminPW isEqualToString:[keychainManager generateSHAHashString:password]]) {
                     //if hash of entered password is not equal to the one in preferences

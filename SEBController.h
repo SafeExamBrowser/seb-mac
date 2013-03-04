@@ -78,7 +78,7 @@
 - (void) startKioskMode;
 - (void) openMainBrowserWindow;
 
-- (NSString *) showEnterPasswordDialog: (NSWindow *)window;
+- (NSInteger) showEnterPasswordDialog: (NSWindow *)window;
 - (IBAction) okEnterPassword: (id)sender;
 - (IBAction) cancelEnterPassword: (id)sender;
 

@@ -81,6 +81,7 @@ enum {
 };
 typedef NSUInteger sebServicePolicies;
 
+
 enum {
     urlFilterActionBlock                        = 0,
     urlFilterActionAllow                        = 1,
@@ -89,5 +90,13 @@ enum {
     urlFilterActionOr                           = 4
 };
 typedef NSUInteger urlFilterRuleActions;
+
+
+enum {
+    SEBEnterPasswordCancel                      = 0,
+    SEBEnterPasswordOK                          = 1
+};
+typedef NSUInteger SEBEnterPasswordResponse;
+
 
 #endif
