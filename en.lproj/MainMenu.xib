@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">11G63</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2843</string>
-		<string key="IBDocument.AppKitVersion">1138.51</string>
-		<string key="IBDocument.HIToolboxVersion">569.00</string>
+		<int key="IBDocument.SystemTarget">1080</int>
+		<string key="IBDocument.SystemVersion">12D74</string>
+		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
+		<string key="IBDocument.AppKitVersion">1187.37</string>
+		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">2843</string>
+			<string key="NS.object.0">3084</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSButton</string>
@@ -1332,10 +1332,11 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{20, 53}, {360, 22}}</string>
 							<reference key="NSSuperview" ref="292982850"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="809752790"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSSecureTextFieldCell" key="NSCell" id="1040905158">
-								<int key="NSCellFlags">343014976</int>
+								<int key="NSCellFlags">342884416</int>
 								<int key="NSCellFlags2">4195392</int>
 								<string key="NSContents"/>
 								<object class="NSFont" key="NSSupport" id="101494885">
@@ -1368,16 +1369,18 @@
 									<string>NSAllRomanInputSourcesLocaleIdentifier</string>
 								</array>
 							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 						<object class="NSTextField" id="646135842">
 							<reference key="NSNextResponder" ref="292982850"/>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{17, 83}, {366, 17}}</string>
 							<reference key="NSSuperview" ref="292982850"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="43658989"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="924728306">
-								<int key="NSCellFlags">68288064</int>
+								<int key="NSCellFlags">68157504</int>
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents">Enter password:</string>
 								<reference key="NSSupport" ref="101494885"/>
@@ -1398,51 +1401,57 @@
 									<reference key="NSColor" ref="111766489"/>
 								</object>
 							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 						<object class="NSButton" id="981384738">
 							<reference key="NSNextResponder" ref="292982850"/>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{290, 12}, {96, 32}}</string>
 							<reference key="NSSuperview" ref="292982850"/>
+							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="666546950">
-								<int key="NSCellFlags">-2080244224</int>
+								<int key="NSCellFlags">-2080374784</int>
 								<int key="NSCellFlags2">134217728</int>
 								<string key="NSContents">OK</string>
 								<reference key="NSSupport" ref="101494885"/>
 								<reference key="NSControlView" ref="981384738"/>
-								<int key="NSButtonFlags">-2038284033</int>
+								<int key="NSButtonFlags">-2038284288</int>
 								<int key="NSButtonFlags2">129</int>
 								<string key="NSAlternateContents"/>
 								<string type="base64-UTF8" key="NSKeyEquivalent">DQ</string>
 								<int key="NSPeriodicDelay">200</int>
 								<int key="NSPeriodicInterval">25</int>
 							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 						<object class="NSButton" id="809752790">
 							<reference key="NSNextResponder" ref="292982850"/>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{194, 12}, {96, 32}}</string>
 							<reference key="NSSuperview" ref="292982850"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="981384738"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="539509169">
-								<int key="NSCellFlags">67239424</int>
+								<int key="NSCellFlags">67108864</int>
 								<int key="NSCellFlags2">134217728</int>
 								<string key="NSContents">Cancel</string>
 								<reference key="NSSupport" ref="101494885"/>
 								<reference key="NSControlView" ref="809752790"/>
-								<int key="NSButtonFlags">-2038284033</int>
+								<int key="NSButtonFlags">-2038284288</int>
 								<int key="NSButtonFlags2">129</int>
 								<string key="NSAlternateContents"/>
 								<string type="base64-UTF8" key="NSKeyEquivalent">Gw</string>
 								<int key="NSPeriodicDelay">200</int>
 								<int key="NSPeriodicInterval">25</int>
 							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 					</array>
 					<string key="NSFrameSize">{400, 120}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="646135842"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {2560, 1578}}</string>
@@ -1459,7 +1468,7 @@
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="683535155">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSTextField" id="244396775">
@@ -1469,7 +1478,7 @@
 							<reference key="NSSuperview" ref="683535155"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="1013383801">
-								<int key="NSCellFlags">67239424</int>
+								<int key="NSCellFlags">67108864</int>
 								<int key="NSCellFlags2">272891904</int>
 								<string type="base64-UTF8" key="NSContents">wqkgMjAxMC0yMDEyIERhbmllbCBSLiBTY2huZWlkZXIsIEVUSCBaw7xyaWNoLCBFZHVjYXRpb25hbCBE
 ZXZlbG9wbWVudCBhbmQgVGVjaG5vbG9neSAoTEVUKSwgYmFzZWQgb24gdGhlIG9yaWdpbmFsIGlkZWEg
@@ -1491,6 +1500,7 @@ LCBhbmQgd2FzIHN1cHBvcnRlZCBieSBmdW5kcyBmcm9tIHRoZSBFVEggQm9hcmQuA</string>
 									<bytes key="NSRGB">MC4xNDY3MzkxMzA0IDAuMTQ2NzM5MTMwNCAwLjE0NjczOTEzMDQAA</bytes>
 								</object>
 							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 						<object class="NSTextField" id="867659151">
 							<reference key="NSNextResponder" ref="683535155"/>
@@ -1499,7 +1509,7 @@ LCBhbmQgd2FzIHN1cHBvcnRlZCBieSBmdW5kcyBmcm9tIHRoZSBFVEggQm9hcmQuA</string>
 							<reference key="NSSuperview" ref="683535155"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="110845173">
-								<int key="NSCellFlags">68288064</int>
+								<int key="NSCellFlags">68157504</int>
 								<int key="NSCellFlags2">272892928</int>
 								<string key="NSContents"/>
 								<object class="NSFont" key="NSSupport">
@@ -1511,20 +1521,21 @@ LCBhbmQgd2FzIHN1cHBvcnRlZCBieSBmdW5kcyBmcm9tIHRoZSBFVEggQm9hcmQuA</string>
 								<reference key="NSBackgroundColor" ref="19971454"/>
 								<reference key="NSTextColor" ref="395786096"/>
 							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 					</array>
 					<string key="NSFrameSize">{550, 300}</string>
-					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {2560, 1578}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
 			<object class="NSCustomView" id="309956017">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<string key="NSFrameSize">{550, 300}</string>
-				<int key="NSViewLayerContentsRedrawPolicy">2</int>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<string key="NSClassName">AboutView</string>
 			</object>
 			<object class="NSUserDefaultsController" id="987639253">
@@ -2214,14 +2225,6 @@ LCBhbmQgd2FzIHN1cHBvcnRlZCBieSBmdW5kcyBmcm9tIHRoZSBFVEggQm9hcmQuA</string>
 					<int key="connectionID">724</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">enterPasswordDialog</string>
-						<reference key="source" ref="492418548"/>
-						<reference key="destination" ref="99446253"/>
-					</object>
-					<int key="connectionID">725</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">cancelEnterPassword:</string>
 						<reference key="source" ref="492418548"/>
@@ -2260,6 +2263,22 @@ LCBhbmQgd2FzIHN1cHBvcnRlZCBieSBmdW5kcyBmcm9tIHRoZSBFVEggQm9hcmQuA</string>
 						<reference key="destination" ref="987639253"/>
 					</object>
 					<int key="connectionID">900</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">enterPasswordDialog</string>
+						<reference key="source" ref="492418548"/>
+						<reference key="destination" ref="646135842"/>
+					</object>
+					<int key="connectionID">902</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">enterPasswordDialogWindow</string>
+						<reference key="source" ref="492418548"/>
+						<reference key="destination" ref="99446253"/>
+					</object>
+					<int key="connectionID">903</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -3589,9 +3608,180 @@ LCBhbmQgd2FzIHN1cHBvcnRlZCBieSBmdW5kcyBmcm9tIHRoZSBFVEggQm9hcmQuA</string>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">901</int>
+			<int key="maxID">903</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">AboutView</string>
+					<string key="superclassName">NSView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/AboutView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">AboutWindow</string>
+					<string key="superclassName">NSWindow</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="copyright">NSTextField</string>
+						<string key="version">NSTextField</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="copyright">
+							<string key="name">copyright</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="version">
+							<string key="name">version</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/AboutWindow.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PreferencesController</string>
+					<string key="superclassName">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/PreferencesController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PrefsGeneralViewController</string>
+					<string key="superclassName">NSViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="aboutSEB:">id</string>
+						<string key="pasteSavedStringFromPasteboard:">id</string>
+						<string key="quitSEB:">id</string>
+						<string key="restartSEB:">id</string>
+						<string key="showHelp:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="aboutSEB:">
+							<string key="name">aboutSEB:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="pasteSavedStringFromPasteboard:">
+							<string key="name">pasteSavedStringFromPasteboard:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="quitSEB:">
+							<string key="name">quitSEB:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="restartSEB:">
+							<string key="name">restartSEB:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showHelp:">
+							<string key="name">showHelp:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="controller">NSObjectController</string>
+						<string key="pasteSavedStringFromPasteboardButton">NSButton</string>
+						<string key="prefsQuitSEB">NSButton</string>
+						<string key="startURL">NSTextField</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="controller">
+							<string key="name">controller</string>
+							<string key="candidateClassName">NSObjectController</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="pasteSavedStringFromPasteboardButton">
+							<string key="name">pasteSavedStringFromPasteboardButton</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="prefsQuitSEB">
+							<string key="name">prefsQuitSEB</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="startURL">
+							<string key="name">startURL</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/PrefsGeneralViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">SEBController</string>
+					<string key="superclassName">NSObject</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="cancelEnterPassword:">id</string>
+						<string key="exitSEB:">id</string>
+						<string key="okEnterPassword:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="cancelEnterPassword:">
+							<string key="name">cancelEnterPassword:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="exitSEB:">
+							<string key="name">exitSEB:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="okEnterPassword:">
+							<string key="name">okEnterPassword:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="aboutWindow">AboutWindow</string>
+						<string key="enterPassword">NSSecureTextField</string>
+						<string key="enterPasswordDialog">NSTextField</string>
+						<string key="enterPasswordDialogWindow">NSWindow</string>
+						<string key="passwordView">NSView</string>
+						<string key="preferencesController">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="aboutWindow">
+							<string key="name">aboutWindow</string>
+							<string key="candidateClassName">AboutWindow</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="enterPassword">
+							<string key="name">enterPassword</string>
+							<string key="candidateClassName">NSSecureTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="enterPasswordDialog">
+							<string key="name">enterPasswordDialog</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="enterPasswordDialogWindow">
+							<string key="name">enterPasswordDialogWindow</string>
+							<string key="candidateClassName">NSWindow</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="passwordView">
+							<string key="name">passwordView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="preferencesController">
+							<string key="name">preferencesController</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/SEBController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">SEBEncryptedUserDefaultsController</string>
+					<string key="superclassName">NSUserDefaultsController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/SEBEncryptedUserDefaultsController.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>

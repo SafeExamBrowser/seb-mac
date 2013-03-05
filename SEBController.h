@@ -57,7 +57,8 @@
 	IBOutlet AboutWindow *aboutWindow;
 	IBOutlet NSView *passwordView;
 	IBOutlet NSSecureTextField *enterPassword;
-    IBOutlet NSWindow *enterPasswordDialog;
+    IBOutlet NSWindow *enterPasswordDialogWindow;
+    IBOutlet NSTextField *enterPasswordDialog;
     
     NSString *savedStartURL;
     BOOL savedAllowSwitchToThirdPartyAppsFlag;
@@ -78,7 +79,7 @@
 - (void) startKioskMode;
 - (void) openMainBrowserWindow;
 
-- (NSInteger) showEnterPasswordDialog: (NSWindow *)window;
+- (NSInteger) showEnterPasswordDialog:(NSString *)text modalForWindow:(NSWindow *)window windowTitle:(NSString *)title;
 - (IBAction) okEnterPassword: (id)sender;
 - (IBAction) cancelEnterPassword: (id)sender;
 
