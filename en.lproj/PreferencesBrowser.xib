@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">12D68</string>
+		<string key="IBDocument.SystemVersion">12D74</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1187.37</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
@@ -50,7 +50,7 @@
 					<object class="NSTextField" id="44395455">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{17, 25}, {616, 29}}</string>
+						<string key="NSFrame">{{17, 25}, {615, 29}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -143,8 +143,9 @@
 							<bool key="NSHasVerticalScroller">YES</bool>
 							<array class="NSMutableArray" key="NSPopUpListData">
 								<string>Screen</string>
+								<string>600</string>
+								<string>700</string>
 								<string>800</string>
-								<string>1000</string>
 							</array>
 							<reference key="NSDelegate" ref="867088951"/>
 							<object class="NSComboTableView" key="NSTableView" id="1030731162">
@@ -991,6 +992,46 @@
 						</object>
 					</object>
 					<int key="connectionID">209</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: values.org_safeexambrowser_SEB_newBrowserWindowByLinkWidth</string>
+						<reference key="source" ref="1005088037"/>
+						<reference key="destination" ref="8980178"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="1005088037"/>
+							<reference key="NSDestination" ref="8980178"/>
+							<string key="NSLabel">value: values.org_safeexambrowser_SEB_newBrowserWindowByLinkWidth</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">values.org_safeexambrowser_SEB_newBrowserWindowByLinkWidth</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">SEBWindowSizeValueTransformer</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">460</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: values.org_safeexambrowser_SEB_newBrowserWindowByLinkHeight</string>
+						<reference key="source" ref="867088951"/>
+						<reference key="destination" ref="8980178"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="867088951"/>
+							<reference key="NSDestination" ref="8980178"/>
+							<string key="NSLabel">value: values.org_safeexambrowser_SEB_newBrowserWindowByLinkHeight</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">values.org_safeexambrowser_SEB_newBrowserWindowByLinkHeight</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">SEBWindowSizeValueTransformer</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">464</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -2801,8 +2842,9 @@
 				<string key="342.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<array key="343.IBComboBoxObjectValuesKey.objectValues">
 					<string>Screen</string>
+					<string>600</string>
+					<string>700</string>
 					<string>800</string>
-					<string>1000</string>
 				</array>
 				<string key="343.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="344.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2877,7 +2919,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">456</int>
+			<int key="maxID">464</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

@@ -53,6 +53,8 @@ static SEBCryptor *sharedSEBCryptor = nil;
 }
 
 
+// Method called when a value is written into the UserDefaults
+// Calculates a checksum hash to 
 - (void)updateEncryptedUserDefaults
 {
     // Copy preferences to a dictionary
