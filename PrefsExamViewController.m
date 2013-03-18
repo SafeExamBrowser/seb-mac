@@ -11,6 +11,7 @@
 #import "SEBUIUserDefaultsController.h"
 #import "SEBEncryptedUserDefaultsController.h"
 #import "RNEncryptor.h"
+#import "SEBCryptor.h"
 #import "SEBKeychainManager.h"
 
 @interface PrefsExamViewController ()
@@ -43,6 +44,17 @@
 - (void)willBeDisplayed {
 }
 
+- (void)willBeHidden {
+    [examKey setStringValue:@""];
+}
+
+
+- (IBAction) generateBrowserExamKey:(id)sender {
+    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
+	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *browserExamKey = [preferences objectForKey:@"currentData"];
+    [examKey setStringValue:browserExamKey];
+}
 
 
 

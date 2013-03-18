@@ -34,8 +34,14 @@
 
 
 #import "SEBCryptor.h"
+#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
+#import "RNCryptor.h"
+#import "RNEncryptor.h"
+#import "RNDecryptor.h"
 
 @implementation SEBCryptor
+
+@synthesize HMACKey = _HMACKey;
 
 static SEBCryptor *sharedSEBCryptor = nil;
 
@@ -75,12 +81,25 @@ static SEBCryptor *sharedSEBCryptor = nil;
     // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
     NSSet *filteredPrefsSet = [prefsDict keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop)
                                {
-                                   if ([key hasPrefix:@"org_safeexambrowser_SEB_"] && ![key isEqualToString:@"org_safeexambrowser_SEB_enablePreferencesWindow"])
+                                   if ([key hasPrefix:@"org_safeexambrowser_SEB_"])
                                        return YES;
                                    
                                    else return NO;
                                }];
     NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:[filteredPrefsSet count]];
+    // iterate keys and read all values
+    for (NSString *key in filteredPrefsSet) {
+            [filteredPrefsDict setObject:[preferences secureObjectForKey:key] forKey:key];
+    }
+	NSMutableData *archivedPrefs = [[NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict] mutableCopy];
 
+    if (!self.HMACKey) {
+        self.HMACKey = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
+    }
+    NSMutableData *HMACData = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
+
+    CCHmac(kCCHmacAlgSHA256, self.HMACKey.bytes, self.HMACKey.length, archivedPrefs.mutableBytes, archivedPrefs.length, [HMACData mutableBytes]);
+    [preferences setValue:HMACData forKey:@"currentData"];
 }
+
 @end

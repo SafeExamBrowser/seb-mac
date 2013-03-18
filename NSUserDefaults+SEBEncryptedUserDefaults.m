@@ -21,6 +21,7 @@
 //#import "RNCryptor.h"
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
+#import "SEBCryptor.h"
 #import "Constants.h"
 
 
@@ -388,6 +389,7 @@ static BOOL _usePrivateUserDefaults = NO;
                                                        error:&error];
             [self setObject:encryptedData forKey:key];
         }
+        //[[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
     }
 }
 

@@ -357,6 +357,8 @@ bool insideMatrix();
                                      @"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
                                      @"org_safeexambrowser_SEB_openDownloads",
+                                     [preferences secureDataForObject:(id)[NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"active", (id)@"TextEdit", @"title", nil]]],
+                                     @"org_safeexambrowser_SEB_permittedProcesses",
                                      [preferences secureDataForObject:(id)@""],
                                      @"org_safeexambrowser_SEB_quitURL",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithInt:0]],
@@ -413,6 +415,7 @@ bool insideMatrix();
 												 name:NSApplicationDidResignActiveNotification 
                                                object:NSApp];
 	
+#ifndef DEBUG
     // Add an observer for the notification that another application was unhidden by the finder
 	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
 	[[workspace notificationCenter] addObserver:self
@@ -438,6 +441,7 @@ bool insideMatrix();
                                            name:NSWorkspaceDidLaunchApplicationNotification
                                          object:workspace];
 	
+#endif
     // Add an observer for the notification that SEB became active
     // With third party apps and Flash fullscreen it can happen that SEB looses its 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SEBgotActive:)
@@ -625,18 +629,14 @@ bool insideMatrix();
 	[[self.webView preferences] setPlugInsEnabled:NO];
 #endif
 	
-	if (firstStart) {
+/*	if (firstStart) {
 		NSString *titleString = NSLocalizedString(@"Important Notice for First Time Users", nil);
-#ifdef __i386__        // 32-bit Intel build needs more information
-		NSString *messageString = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"32bitDisclaimer", nil), NSLocalizedString(@"FirstTimeUserNotice", nil)];
-#else
 		NSString *messageString = NSLocalizedString(@"FirstTimeUserNotice", nil);
-#endif
 		NSRunAlertPanel(titleString, messageString, NSLocalizedString(@"OK", nil), nil, nil);
 #ifdef DEBUG
         NSLog(@"%@\n%@",titleString, messageString);
 #endif
-	}
+	}*/
     
 // Handling of Hotkeys for Preferences-Window
 	

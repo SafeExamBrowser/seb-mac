@@ -11,13 +11,15 @@
 #import "MBPreferencesController.h"
 
 @interface PrefsExamViewController : NSViewController <MBPreferencesModule> {
-    NSTextField *examKey;
+    IBOutlet NSTextField *examKey;
 	IBOutlet NSTextField *quitURL;
 
     IBOutlet NSObjectController *controller;
 }
 
 @property (strong, nonatomic) IBOutlet NSTextField *examKey;
+
+- (IBAction) generateBrowserExamKey:(id)sender;
 
 
 @end
