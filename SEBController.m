@@ -357,7 +357,8 @@ bool insideMatrix();
                                      @"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy",
                                      [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
                                      @"org_safeexambrowser_SEB_openDownloads",
-                                     [preferences secureDataForObject:(id)[NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"active",
+                                     [preferences secureDataForObject:(id)[NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                                                    (id)[NSNumber numberWithBool:YES], @"active",
                                                                                                     (id)@"TextEdit", @"title",
                                                                                                     (id)@"TextEdit.app", @"nameOSX",
                                                                                                     nil]]],

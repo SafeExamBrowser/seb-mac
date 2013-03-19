@@ -1338,22 +1338,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: arrangedObjects.active</string>
-						<reference key="source" ref="681140606"/>
-						<reference key="destination" ref="574625451"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="681140606"/>
-							<reference key="NSDestination" ref="574625451"/>
-							<string key="NSLabel">value: arrangedObjects.active</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">arrangedObjects.active</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">1047</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: arrangedObjects.nameOSX</string>
 						<reference key="source" ref="864393508"/>
 						<reference key="destination" ref="574625451"/>
@@ -1438,15 +1422,15 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: selection.active</string>
+						<string key="label">value: selection.active.boolValue</string>
 						<reference key="source" ref="910739038"/>
 						<reference key="destination" ref="574625451"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="910739038"/>
 							<reference key="NSDestination" ref="574625451"/>
-							<string key="NSLabel">value: selection.active</string>
+							<string key="NSLabel">value: selection.active.boolValue</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">selection.active</string>
+							<string key="NSKeyPath">selection.active.boolValue</string>
 							<dictionary key="NSOptions">
 								<boolean value="NO" key="NSConditionallySetsEnabled"/>
 								<boolean value="YES" key="NSConditionallySetsHidden"/>
@@ -1454,7 +1438,7 @@
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1076</int>
+					<int key="connectionID">1158</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1469,13 +1453,12 @@
 							<string key="NSKeyPath">selection.title</string>
 							<dictionary key="NSOptions">
 								<integer value="1" key="NSNoSelectionPlaceholder"/>
-								<integer value="1" key="NSNullPlaceholder"/>
 								<string key="NSValueTransformerName">NSIsNil</string>
 							</dictionary>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1108</int>
+					<int key="connectionID">1156</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -4697,7 +4680,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1151</int>
+			<int key="maxID">1158</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
