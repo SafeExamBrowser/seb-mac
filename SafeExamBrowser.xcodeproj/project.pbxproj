@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6921294216F91C6600AFC3B0 /* BoolValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6921294016F91C6600AFC3B0 /* BoolValueTransformer.h */; };
+		6921294316F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6921294116F91C6600AFC3B0 /* BoolValueTransformer.m */; };
+		6921294416F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6921294116F91C6600AFC3B0 /* BoolValueTransformer.m */; };
+		6921294716F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6921294516F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h */; };
+		6921294816F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6921294616F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m */; };
+		6921294916F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6921294616F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m */; };
 		693EB53E15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693EB53D15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m */; };
 		693EB54015EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693EB53D15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m */; };
 		693F135315767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 693F135215767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m */; };
@@ -190,6 +196,10 @@
 		690D234B1452000800CCCFF9 /* BrowserIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BrowserIcon@2x.png"; sourceTree = "<group>"; };
 		691CD9AA1468947E00B43CDC /* SEBEncryptedUserDefaultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBEncryptedUserDefaultsController.h; sourceTree = "<group>"; };
 		691CD9AB1468947E00B43CDC /* SEBEncryptedUserDefaultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBEncryptedUserDefaultsController.m; sourceTree = "<group>"; };
+		6921294016F91C6600AFC3B0 /* BoolValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoolValueTransformer.h; sourceTree = "<group>"; };
+		6921294116F91C6600AFC3B0 /* BoolValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoolValueTransformer.m; sourceTree = "<group>"; };
+		6921294516F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IsEmptyCollectionValueTransformer.h; sourceTree = "<group>"; };
+		6921294616F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IsEmptyCollectionValueTransformer.m; sourceTree = "<group>"; };
 		692891B012ACEBDC00EEE7C9 /* BrowserWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserWindow.h; sourceTree = "<group>"; };
 		692891B112ACEBDC00EEE7C9 /* BrowserWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BrowserWindow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		692F53D614AD03F300011C84 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -485,6 +495,10 @@
 				699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */,
 				6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */,
 				6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */,
+				6921294016F91C6600AFC3B0 /* BoolValueTransformer.h */,
+				6921294116F91C6600AFC3B0 /* BoolValueTransformer.m */,
+				6921294516F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h */,
+				6921294616F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -547,6 +561,8 @@
 				695283DD16CDB54C0055AF6F /* PrefsSecurityViewController.h in Headers */,
 				69F32DC316D23374003C9502 /* PrefsAppearanceViewController.h in Headers */,
 				6986652E16DAE184009C0226 /* SEBWindowSizeValueTransformer.h in Headers */,
+				6921294216F91C6600AFC3B0 /* BoolValueTransformer.h in Headers */,
+				6921294716F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -731,6 +747,8 @@
 				695283E016CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */,
 				69F32DC616D23374003C9502 /* PrefsAppearanceViewController.m in Sources */,
 				6986653116DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */,
+				6921294416F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */,
+				6921294916F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -772,6 +790,8 @@
 				695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */,
 				69F32DC416D23374003C9502 /* PrefsAppearanceViewController.m in Sources */,
 				6986652F16DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */,
+				6921294316F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */,
+				6921294816F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -33,39 +33,26 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "NSUserDefaultsController+SEBEncryptedUserDefaultsController.m"
-         timestampString = "384556805.343807"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "44"
-         endingLineNumber = "44"
-         landmarkName = "-setSecureValue:forKeyPath:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "NSUserDefaults+SEBEncryptedUserDefaults.m"
-         timestampString = "385339184.304827"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "375"
-         endingLineNumber = "375"
-         landmarkName = "-setSecureObject:forKey:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "NSUserDefaults+SEBEncryptedUserDefaults.m"
-         timestampString = "385339209.236422"
+         timestampString = "385427320.53173"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "471"
          endingLineNumber = "471"
          landmarkName = "-_objectForKey:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "NSUserDefaultsController+SEBEncryptedUserDefaultsController.m"
+         timestampString = "385428753.691595"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "45"
+         endingLineNumber = "45"
+         landmarkName = "-setSecureValue:forKeyPath:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

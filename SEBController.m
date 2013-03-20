@@ -56,6 +56,8 @@
 #import "NSWindow+SEBWindow.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "SEBWindowSizeValueTransformer.h"
+#import "BoolValueTransformer.h"
+#import "IsEmptyCollectionValueTransformer.h"
 #import "MyGlobals.h"
 #import "Constants.h"
 
@@ -77,9 +79,18 @@ bool insideMatrix();
 
 + (void) initialize
 {
-        SEBWindowSizeValueTransformer *windowSizeTransformer = [[SEBWindowSizeValueTransformer alloc] init];
-        [NSValueTransformer setValueTransformer:windowSizeTransformer
-                                        forName:@"SEBWindowSizeTransformer"];
+    SEBWindowSizeValueTransformer *windowSizeTransformer = [[SEBWindowSizeValueTransformer alloc] init];
+    [NSValueTransformer setValueTransformer:windowSizeTransformer
+                                    forName:@"SEBWindowSizeTransformer"];
+
+    BoolValueTransformer *boolValueTransformer = [[BoolValueTransformer alloc] init];
+    [NSValueTransformer setValueTransformer:boolValueTransformer
+                                    forName:@"BoolValueTransformer"];
+    
+    IsEmptyCollectionValueTransformer *isEmptyCollectionValueTransformer = [[IsEmptyCollectionValueTransformer alloc] init];
+    [NSValueTransformer setValueTransformer:isEmptyCollectionValueTransformer
+                                    forName:@"isEmptyCollectionValueTransformer"];
+    
 }
 
 
@@ -278,108 +289,7 @@ bool insideMatrix();
         }
         // Set default preferences for the case there are no user prefs yet
         //SEBnewBrowserWindowLink newBrowserWindowLinkPolicy = openInNewWindow;
-        NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys:
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
-                                     @"org_safeexambrowser_SEB_allowDownUploads",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
-                                     @"org_safeexambrowser_SEB_allowFlashFullscreen",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
-                                     @"org_safeexambrowser_SEB_allowPreferencesWindow",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
-                                     @"org_safeexambrowser_SEB_allowQuit",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
-                                     @"org_safeexambrowser_SEB_allowSwitchToApplications",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
-                                     @"org_safeexambrowser_SEB_allowUserSwitching",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
-                                     @"org_safeexambrowser_SEB_allowVirtualMachine",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
-                                     @"org_safeexambrowser_SEB_blockPopUpWindows",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:browserViewModeWindow]],
-                                     @"org_safeexambrowser_SEB_browserViewMode",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:manuallyWithFileRequester]],
-                                     @"org_safeexambrowser_SEB_chooseFileToUploadPolicy",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
-                                     @"org_safeexambrowser_SEB_copyExamKeyToClipboardWhenQuitting",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:0]],
-                                     @"org_safeexambrowser_SEB_cryptoIdentity",
-                                     [preferences secureDataForObject:(id)[NSHomeDirectory() stringByAppendingPathComponent: @"Downloads"]],
-                                     @"org_safeexambrowser_SEB_downloadDirectoryOSX",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
-                                     @"org_safeexambrowser_SEB_downloadPDFFiles",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
-                                     @"org_safeexambrowser_SEB_enableBrowserWindowToolbar",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
-                                     @"org_safeexambrowser_SEB_enableBrowsingBackForward",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
-                                     @"org_safeexambrowser_SEB_enableJava",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
-                                     @"org_safeexambrowser_SEB_enableJavaScript",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
-                                     @"org_safeexambrowser_SEB_enableLog",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
-                                     @"org_safeexambrowser_SEB_enablePlugins",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
-                                     @"org_safeexambrowser_SEB_enablePreferencesWindow",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:YES]],
-                                     @"org_safeexambrowser_SEB_enableSebBrowser",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
-                                     @"org_safeexambrowser_SEB_enableUrlContentFilter",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
-                                     @"org_safeexambrowser_SEB_enableUrlFilter",
-                                     [preferences secureDataForObject:(id)[NSData data]],
-                                     @"org_safeexambrowser_SEB_examKeySalt",
-                                     [preferences secureDataForObject:(id)@""],
-                                     @"org_safeexambrowser_SEB_hashedAdminPassword",
-                                     [preferences secureDataForObject:(id)@""],
-                                     @"org_safeexambrowser_SEB_hashedQuitPassword",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
-                                     @"org_safeexambrowser_SEB_hideBrowserWindowToolbar",
-                                     [preferences secureDataForObject:(id)NSTemporaryDirectory()],
-                                     @"org_safeexambrowser_SEB_logDirectoryOSX",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:0]],
-                                     @"org_safeexambrowser_SEB_mainBrowserWindowHeight",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:0]],
-                                     @"org_safeexambrowser_SEB_mainBrowserWindowWidth",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
-                                     @"org_safeexambrowser_SEB_monitorProcesses",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
-                                     @"org_safeexambrowser_SEB_newBrowserWindowByLinkBlockForeign",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:0]],
-                                     @"org_safeexambrowser_SEB_newBrowserWindowByLinkHeight",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:openInNewWindow]],
-                                     @"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:800]],
-                                     @"org_safeexambrowser_SEB_newBrowserWindowByLinkWidth",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
-                                     @"org_safeexambrowser_SEB_newBrowserWindowByScriptBlockForeign",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:openInNewWindow]],
-                                     @"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
-                                     @"org_safeexambrowser_SEB_openDownloads",
-                                     [preferences secureDataForObject:(id)[NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                                                    (id)[NSNumber numberWithBool:YES], @"active",
-                                                                                                    (id)@"TextEdit", @"title",
-                                                                                                    (id)@"TextEdit.app", @"nameOSX",
-                                                                                                    nil]]],
-                                     @"org_safeexambrowser_SEB_permittedProcesses",
-                                     [preferences secureDataForObject:(id)@""],
-                                     @"org_safeexambrowser_SEB_quitURL",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:0]],
-                                     @"org_safeexambrowser_SEB_sebPurpose",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithInt:forceSebService]],
-                                     @"org_safeexambrowser_SEB_sebServicePolicy",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
-                                     @"org_safeexambrowser_SEB_sendBrowserExamKey",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
-                                     @"org_safeexambrowser_SEB_showMenuBar",
-                                     [preferences secureDataForObject:(id)[NSNumber numberWithBool:NO]],
-                                     @"org_safeexambrowser_SEB_showTaskBar",
-                                     [preferences secureDataForObject:(id)@""],
-                                     @"org_safeexambrowser_SEB_settingsPassword",
-                                     [preferences secureDataForObject:(id)@"http://www.safeexambrowser.org/macosx"],
-                                     @"org_safeexambrowser_SEB_startURL",
-                                     nil];
+        NSDictionary *appDefaults = [preferences sebDefaultSettings];
         [preferences registerDefaults:appDefaults];
 #ifdef DEBUG
         NSLog(@"Registred Defaults");
