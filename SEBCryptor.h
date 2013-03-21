@@ -37,7 +37,7 @@
 
 @interface SEBCryptor : NSObject
 
-@property (nonatomic, readwrite, strong) NSData *HMACKey;
+//@property (nonatomic, readwrite, strong) NSData *HMACKey;
 
 + (SEBCryptor *)sharedSEBCryptor;
 

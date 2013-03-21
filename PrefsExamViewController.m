@@ -52,8 +52,15 @@
 - (IBAction) generateBrowserExamKey:(id)sender {
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *browserExamKey = [preferences objectForKey:@"currentData"];
-    [examKey setStringValue:browserExamKey];
+    NSData *browserExamKey = [preferences objectForKey:@"currentData"];
+    unsigned char hashedChars[32];
+    [browserExamKey getBytes:hashedChars length:32];
+    
+    NSMutableString* hashedString = [[NSMutableString alloc] init];
+    for (int i = 0 ; i < 32 ; ++i) {
+        [hashedString appendFormat: @"%02x", hashedChars[i]];
+    }
+    [examKey setStringValue:hashedString];
 }
 
 

@@ -41,7 +41,7 @@
 
 @implementation SEBCryptor
 
-@synthesize HMACKey = _HMACKey;
+//@synthesize HMACKey = _HMACKey;
 
 static SEBCryptor *sharedSEBCryptor = nil;
 
@@ -93,12 +93,13 @@ static SEBCryptor *sharedSEBCryptor = nil;
     }
 	NSMutableData *archivedPrefs = [[NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict] mutableCopy];
 
-    if (!self.HMACKey) {
-        self.HMACKey = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
-    }
+    // Generate and store salt for exam key
+    NSData *HMACKey = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
+    [preferences setSecureObject:HMACKey forKey:@"org_safeexambrowser_SEB_examKeySalt"];
+
     NSMutableData *HMACData = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
 
-    CCHmac(kCCHmacAlgSHA256, self.HMACKey.bytes, self.HMACKey.length, archivedPrefs.mutableBytes, archivedPrefs.length, [HMACData mutableBytes]);
+    CCHmac(kCCHmacAlgSHA256, HMACKey.bytes, HMACKey.length, archivedPrefs.mutableBytes, archivedPrefs.length, [HMACData mutableBytes]);
     [preferences setValue:HMACData forKey:@"currentData"];
 }
 

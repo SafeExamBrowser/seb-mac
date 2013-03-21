@@ -1605,19 +1605,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: arrangedObjects.arguments</string>
+						<string key="label">value: arrangedObjects.argument</string>
 						<reference key="source" ref="732121664"/>
 						<reference key="destination" ref="443402393"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="732121664"/>
 							<reference key="NSDestination" ref="443402393"/>
-							<string key="NSLabel">value: arrangedObjects.arguments</string>
+							<string key="NSLabel">value: arrangedObjects.argument</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">arrangedObjects.arguments</string>
+							<string key="NSKeyPath">arrangedObjects.argument</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1250</int>
+					<int key="connectionID">1286</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1837,15 +1837,15 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">contentArray: values.org_safeexambrowser_SEB_permittedProcesses.arguments</string>
+						<string key="label">contentArray: selection.arguments</string>
 						<reference key="source" ref="443402393"/>
-						<reference key="destination" ref="412846208"/>
+						<reference key="destination" ref="574625451"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="443402393"/>
-							<reference key="NSDestination" ref="412846208"/>
-							<string key="NSLabel">contentArray: values.org_safeexambrowser_SEB_permittedProcesses.arguments</string>
+							<reference key="NSDestination" ref="574625451"/>
+							<string key="NSLabel">contentArray: selection.arguments</string>
 							<string key="NSBinding">contentArray</string>
-							<string key="NSKeyPath">values.org_safeexambrowser_SEB_permittedProcesses.arguments</string>
+							<string key="NSKeyPath">selection.arguments</string>
 							<object class="NSDictionary" key="NSOptions">
 								<string key="NS.key.0">NSHandlesContentAsCompoundValue</string>
 								<boolean value="YES" key="NS.object.0"/>
@@ -1853,7 +1853,7 @@
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1251</int>
+					<int key="connectionID">1289</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -4671,7 +4671,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1251</int>
+			<int key="maxID">1289</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

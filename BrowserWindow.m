@@ -313,24 +313,57 @@ initiatedByFrame:(WebFrame *)frame {
 
 - (NSURLRequest *)webView:(WebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource
 {
+    NSString *absoluteRequestURL = [[request URL] absoluteString];
 #ifdef DEBUG
-    NSLog(@"Request URL: %@", [[request URL] absoluteString]);
+    NSLog(@"Request URL: %@", absoluteRequestURL);
 #endif
 
-/*    if ([[[request URL] pathExtension] isEqualToString:@"seb"]) {
-        NSDictionary *headerFields = [request allHTTPHeaderFields];
 #ifdef DEBUG
-        NSLog(@"All HTTP header fields: %@", headerFields);
+    NSDictionary *headerFields = [request allHTTPHeaderFields];
+    NSLog(@"All HTTP header fields: %@", headerFields);
 #endif
-        NSMutableURLRequest *modifiedRequest = [request copy];
-        [modifiedRequest setValue:@"application/seb" forHTTPHeaderField:@"content-type"];
-        headerFields = [modifiedRequest allHTTPHeaderFields];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"]) {
+        
+        NSMutableURLRequest *modifiedRequest = [request mutableCopy];
+        
+        /*/ Generate and store salt for exam key
+         NSData *HMACKey = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
+         [preferences setSecureObject:HMACKey forKey:@"org_safeexambrowser_SEB_examKeySalt"];
+         
+         NSMutableData *HMACData = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
+         
+         CCHmac(kCCHmacAlgSHA256, HMACKey.bytes, HMACKey.length, archivedPrefs.mutableBytes, archivedPrefs.length, [HMACData mutableBytes]);
+         */
+        NSMutableData *browserExamKey = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
+        browserExamKey = [preferences objectForKey:@"currentData"];
+        
+        unsigned char hashedChars[32];
+        
+        NSData *requestURLData = [absoluteRequestURL dataUsingEncoding:NSUTF8StringEncoding];
+        
+        //[browserExamKey appendData:requestURLData];
+        CC_SHA256(browserExamKey.mutableBytes,
+                  browserExamKey.length,
+                  hashedChars);
+        //[browserExamKey getBytes:hashedChars length:32];
+        //browserExamKey = nil;
+
+        NSMutableString* hashedString = [[NSMutableString alloc] init];
+        for (int i = 0 ; i < 32 ; ++i) {
+            [hashedString appendFormat: @"%02x", hashedChars[i]];
+        }
+        [modifiedRequest setValue:hashedString forHTTPHeaderField:@"X-SafeExamBrowser-RequestHash"];
 #ifdef DEBUG
-        NSLog(@"All HTTP header fields from modified request: %@", headerFields);
+        headerFields = [modifiedRequest allHTTPHeaderFields];
+        NSLog(@"All HTTP header fields in modified request: %@", headerFields);
 #endif
         return modifiedRequest;
-    }*/
-    return request;
+        
+    } else {
+        
+        return request;
+    }
 }
 
 

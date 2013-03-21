@@ -53,6 +53,7 @@
 #import "PrefsBrowserViewController.h"
 #import "RNDecryptor.h"
 #import "SEBKeychainManager.h"
+#import "SEBCryptor.h"
 #import "NSWindow+SEBWindow.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "SEBWindowSizeValueTransformer.h"
@@ -229,6 +230,7 @@ bool insideMatrix();
 					quittingMyself = TRUE; //SEB is terminating itself
                     [NSApp terminate: nil]; //quit SEB
             }
+            [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
             [self startKioskMode];
             [self requestedRestart:nil];
         }
@@ -265,6 +267,7 @@ bool insideMatrix();
 #endif
     //switch to private UserDefaults (saved non-persistantly in memory besides in Library/Preferences/ )
     [NSUserDefaults setUserDefaultsPrivate:YES];
+    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
     [self startKioskMode];
     [self requestedRestart:nil];
     
@@ -291,6 +294,7 @@ bool insideMatrix();
         //SEBnewBrowserWindowLink newBrowserWindowLinkPolicy = openInNewWindow;
         NSDictionary *appDefaults = [preferences sebDefaultSettings];
         [preferences registerDefaults:appDefaults];
+        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
 #ifdef DEBUG
         NSLog(@"Registred Defaults");
 #endif        
@@ -1025,6 +1029,7 @@ bool insideMatrix(){
     if (savedAllowSwitchToThirdPartyAppsFlag != [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"]) {
         //preferences were closed and the third party app setting was changed
         //so we adjust the kiosk settings
+        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
         [self startKioskMode];
         [self requestedRestart:nil];
     } else {
