@@ -335,7 +335,7 @@ initiatedByFrame:(WebFrame *)frame {
          
          CCHmac(kCCHmacAlgSHA256, HMACKey.bytes, HMACKey.length, archivedPrefs.mutableBytes, archivedPrefs.length, [HMACData mutableBytes]);
          */
-        NSMutableData *browserExamKey = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
+        NSData *browserExamKey = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
         browserExamKey = [preferences objectForKey:@"currentData"];
         
         unsigned char hashedChars[32];
@@ -343,7 +343,7 @@ initiatedByFrame:(WebFrame *)frame {
         NSData *requestURLData = [absoluteRequestURL dataUsingEncoding:NSUTF8StringEncoding];
         
         //[browserExamKey appendData:requestURLData];
-        CC_SHA256(browserExamKey.mutableBytes,
+        CC_SHA256(browserExamKey.bytes,
                   browserExamKey.length,
                   hashedChars);
         //[browserExamKey getBytes:hashedChars length:32];
@@ -354,6 +354,7 @@ initiatedByFrame:(WebFrame *)frame {
             [hashedString appendFormat: @"%02x", hashedChars[i]];
         }
         [modifiedRequest setValue:hashedString forHTTPHeaderField:@"X-SafeExamBrowser-RequestHash"];
+
 #ifdef DEBUG
         headerFields = [modifiedRequest allHTTPHeaderFields];
         NSLog(@"All HTTP header fields in modified request: %@", headerFields);
