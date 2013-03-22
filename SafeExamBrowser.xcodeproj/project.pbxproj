@@ -108,6 +108,9 @@
 		69ACA5001690DE28007BD517 /* RNCryptorEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 69ACA4FE1690DE27007BD517 /* RNCryptorEngine.h */; };
 		69ACA5011690DE28007BD517 /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 69ACA4FF1690DE27007BD517 /* RNCryptorEngine.m */; };
 		69ACA5031690DE28007BD517 /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 69ACA4FF1690DE27007BD517 /* RNCryptorEngine.m */; };
+		69CF8A1416FD0B550096625C /* SEBFilterRuleTableColumn.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CF8A1216FD0B550096625C /* SEBFilterRuleTableColumn.h */; };
+		69CF8A1516FD0B550096625C /* SEBFilterRuleTableColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CF8A1316FD0B550096625C /* SEBFilterRuleTableColumn.m */; };
+		69CF8A1616FD0B550096625C /* SEBFilterRuleTableColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CF8A1316FD0B550096625C /* SEBFilterRuleTableColumn.m */; };
 		69EFA36A16CB121200E967B4 /* DownUploadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EFA36816CB121200E967B4 /* DownUploadIcon.png */; };
 		69EFA36C16CB121200E967B4 /* DownUploadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EFA36816CB121200E967B4 /* DownUploadIcon.png */; };
 		69EFA36D16CB121200E967B4 /* DownUploadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EFA36916CB121200E967B4 /* DownUploadIcon@2x.png */; };
@@ -279,6 +282,8 @@
 		69C52805136AFE9500F9F000 /* PrefsDownUploadsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsDownUploadsViewController.m; sourceTree = "<group>"; };
 		69CB8AFD136AFC6E00C08450 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		69CE5A67131E5C3C0030F0F2 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		69CF8A1216FD0B550096625C /* SEBFilterRuleTableColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBFilterRuleTableColumn.h; sourceTree = "<group>"; };
+		69CF8A1316FD0B550096625C /* SEBFilterRuleTableColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBFilterRuleTableColumn.m; sourceTree = "<group>"; };
 		69D5881F1189EB8F005AE3F1 /* SEBController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SEBController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		69D588201189EB8F005AE3F1 /* SEBController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SEBController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69D5983214C81FEA005FE98C /* NSWindow+SEBWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSWindow+SEBWindow.h"; sourceTree = "<group>"; };
@@ -499,6 +504,8 @@
 				6921294116F91C6600AFC3B0 /* BoolValueTransformer.m */,
 				6921294516F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h */,
 				6921294616F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m */,
+				69CF8A1216FD0B550096625C /* SEBFilterRuleTableColumn.h */,
+				69CF8A1316FD0B550096625C /* SEBFilterRuleTableColumn.m */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -563,6 +570,7 @@
 				6986652E16DAE184009C0226 /* SEBWindowSizeValueTransformer.h in Headers */,
 				6921294216F91C6600AFC3B0 /* BoolValueTransformer.h in Headers */,
 				6921294716F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h in Headers */,
+				69CF8A1416FD0B550096625C /* SEBFilterRuleTableColumn.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -749,6 +757,7 @@
 				6986653116DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */,
 				6921294416F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */,
 				6921294916F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */,
+				69CF8A1616FD0B550096625C /* SEBFilterRuleTableColumn.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -792,6 +801,7 @@
 				6986652F16DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */,
 				6921294316F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */,
 				6921294816F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */,
+				69CF8A1516FD0B550096625C /* SEBFilterRuleTableColumn.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
