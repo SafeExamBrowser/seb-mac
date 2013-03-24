@@ -62,4 +62,16 @@
 }
 
 
+#pragma mark Some NSOutlineView data source methods (rest is done using bindings to a NSTreeController)
+
+// To get the "group row" look, we implement this method.
+- (BOOL)outlineView:(NSOutlineView *)outlineView isGroupItem:(id)item {
+    if ([outlineView parentForItem:item]) {
+        // If not nil; then the item has a parent.
+        return NO;
+    }
+    return YES;
+}
+
+
 @end

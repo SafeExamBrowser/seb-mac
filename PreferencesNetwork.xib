@@ -380,27 +380,28 @@
 																		<string key="NSKeyEquivalent"/>
 																		<int key="NSPeriodicDelay">400</int>
 																		<int key="NSPeriodicInterval">75</int>
-																		<nil key="NSMenuItem"/>
+																		<object class="NSMenuItem" key="NSMenuItem" id="910517313">
+																			<reference key="NSMenu" ref="5141678"/>
+																			<string key="NSTitle">block</string>
+																			<string key="NSKeyEquiv"/>
+																			<int key="NSMnemonicLoc">2147483647</int>
+																			<int key="NSState">1</int>
+																			<object class="NSCustomResource" key="NSOnImage" id="1066528058">
+																				<string key="NSClassName">NSImage</string>
+																				<string key="NSResourceName">NSMenuCheckmark</string>
+																			</object>
+																			<object class="NSCustomResource" key="NSMixedImage" id="487402859">
+																				<string key="NSClassName">NSImage</string>
+																				<string key="NSResourceName">NSMenuMixedState</string>
+																			</object>
+																			<string key="NSAction">_popUpItemAction:</string>
+																			<reference key="NSTarget" ref="423389842"/>
+																		</object>
 																		<bool key="NSMenuItemRespectAlignment">YES</bool>
 																		<object class="NSMenu" key="NSMenu" id="5141678">
 																			<string key="NSTitle">OtherViews</string>
 																			<array class="NSMutableArray" key="NSMenuItems">
-																				<object class="NSMenuItem" id="910517313">
-																					<reference key="NSMenu" ref="5141678"/>
-																					<string key="NSTitle">block</string>
-																					<string key="NSKeyEquiv"/>
-																					<int key="NSMnemonicLoc">2147483647</int>
-																					<object class="NSCustomResource" key="NSOnImage" id="1066528058">
-																						<string key="NSClassName">NSImage</string>
-																						<string key="NSResourceName">NSMenuCheckmark</string>
-																					</object>
-																					<object class="NSCustomResource" key="NSMixedImage" id="487402859">
-																						<string key="NSClassName">NSImage</string>
-																						<string key="NSResourceName">NSMenuMixedState</string>
-																					</object>
-																					<string key="NSAction">_popUpItemAction:</string>
-																					<reference key="NSTarget" ref="423389842"/>
-																				</object>
+																				<reference ref="910517313"/>
 																				<object class="NSMenuItem" id="453278987">
 																					<reference key="NSMenu" ref="5141678"/>
 																					<string key="NSTitle">allow</string>
@@ -728,6 +729,22 @@
 						</object>
 					</object>
 					<int key="connectionID">686</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">dataSource</string>
+						<reference key="source" ref="913712450"/>
+						<reference key="destination" ref="1001"/>
+					</object>
+					<int key="connectionID">741</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="913712450"/>
+						<reference key="destination" ref="1001"/>
+					</object>
+					<int key="connectionID">742</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1793,7 +1810,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">740</int>
+			<int key="maxID">742</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
