@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">12D68</string>
+		<string key="IBDocument.SystemVersion">12D78</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1187.37</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
@@ -902,14 +902,14 @@
 							<string key="NSLabel">value: values.org_safeexambrowser_SEB_startURL</string>
 							<string key="NSBinding">value</string>
 							<string key="NSKeyPath">values.org_safeexambrowser_SEB_startURL</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSContinuouslyUpdatesValue</string>
-								<boolean value="YES" key="NS.object.0"/>
-							</object>
+							<dictionary key="NSOptions">
+								<boolean value="YES" key="NSContinuouslyUpdatesValue"/>
+								<boolean value="YES" key="NSValidatesImmediately"/>
+							</dictionary>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">261</int>
+					<int key="connectionID">389</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2729,7 +2729,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">388</int>
+			<int key="maxID">389</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2748,9 +2748,7 @@
 						<string key="aboutSEB:">id</string>
 						<string key="pasteSavedStringFromPasteboard:">id</string>
 						<string key="quitSEB:">id</string>
-						<string key="removePrefsFromAppBundle:">id</string>
 						<string key="restartSEB:">id</string>
-						<string key="savePrefsToAppBundle:">id</string>
 						<string key="showHelp:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
@@ -2766,16 +2764,8 @@
 							<string key="name">quitSEB:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="removePrefsFromAppBundle:">
-							<string key="name">removePrefsFromAppBundle:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="restartSEB:">
 							<string key="name">restartSEB:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="savePrefsToAppBundle:">
-							<string key="name">savePrefsToAppBundle:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="showHelp:">

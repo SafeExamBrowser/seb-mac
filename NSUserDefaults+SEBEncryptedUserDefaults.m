@@ -66,6 +66,11 @@ static BOOL _usePrivateUserDefaults = NO;
 {
     if (privateUserDefaults != _usePrivateUserDefaults) {
         _usePrivateUserDefaults = privateUserDefaults;
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        BOOL success = [preferences synchronize];
+#ifdef DEBUG
+        NSLog(@"[preferences synchronize] = %@",[NSNumber numberWithBool:success]);
+#endif
     }
 #ifdef DEBUG
     NSLog(@"SetUserDefaultsPrivate: %@, localUserDefaults: %@",[NSNumber numberWithBool:_usePrivateUserDefaults], localUserDefaults);
@@ -382,6 +387,9 @@ static BOOL _usePrivateUserDefaults = NO;
     if (_usePrivateUserDefaults) {
         if (value) value = [NSNull null];
         [localUserDefaults setObject:value forKey:key];
+#ifdef DEBUG
+        NSLog(@"[localUserDefaults setObject:%@ forKey:%@]", value, key);
+#endif
     } else {
         if (value == nil || key == nil) {
             // Use non-secure method
@@ -395,6 +403,9 @@ static BOOL _usePrivateUserDefaults = NO;
                                                     password:userDefaultsMasala
                                                        error:&error];
             [self setObject:encryptedData forKey:key];
+#ifdef DEBUG
+            NSLog(@"[self setObject:(encrypted %@) forKey:%@]", value, key);
+#endif
         }
         //[[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
     }
@@ -477,6 +488,9 @@ static BOOL _usePrivateUserDefaults = NO;
 {
     if (_usePrivateUserDefaults) {
         return [localUserDefaults objectForKey:key];
+#ifdef DEBUG
+        NSLog(@"return [localUserDefaults objectForKey:%@]", key);
+#endif
     } else {
         NSData *encrypted = [self objectForKey:key];
 		
@@ -490,6 +504,9 @@ static BOOL _usePrivateUserDefaults = NO;
                                                error:&error];
         id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
         return value;
+#ifdef DEBUG
+        NSLog(@"return [self objectForKey:%@]", key);
+#endif
     }
 }
 

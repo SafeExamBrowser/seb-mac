@@ -21,6 +21,9 @@
         NSArray *pathElements = [keyPath componentsSeparatedByString:@"."];
         NSString *key = [pathElements objectAtIndex:[pathElements count]-1];
         id value = [[NSUserDefaults privateUserDefaults] valueForKey:key];
+#ifdef DEBUG
+        NSLog(@"keypath: %@ [[NSUserDefaults privateUserDefaults] valueForKey:%@]] = %@", keyPath, key, value);
+#endif
         return value;
     } else {
         NSData *encrypted = [super valueForKeyPath:keyPath];
@@ -34,6 +37,9 @@
                                         withPassword:userDefaultsMasala
                                                error:&error];
         id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
+#ifdef DEBUG
+        NSLog(@"[super valueForKeyPath:%@] = %@ (decrypted)", keyPath, value);
+#endif
         return value;
     }
 }
@@ -46,6 +52,9 @@
         NSString *key = [pathElements objectAtIndex:[pathElements count]-1];
         if (value == nil) value = [NSNull null];
         [[NSUserDefaults privateUserDefaults] setValue:value forKey:key];
+#ifdef DEBUG
+        NSLog(@"keypath: %@ [[NSUserDefaults privateUserDefaults] setValue:%@ forKey:%@]", keyPath, value, key);
+#endif
     } else {
         if (value == nil || keyPath == nil) {
             // Use non-secure method
@@ -58,6 +67,9 @@
                                                 withSettings:kRNCryptorAES256Settings
                                                     password:userDefaultsMasala
                                                        error:&error];;
+#ifdef DEBUG
+            NSLog(@"[super setValue:(encrypted %@) forKeyPath:%@]", value, keyPath);
+#endif
             [super setValue:encryptedData forKeyPath:keyPath];
         }
     }
