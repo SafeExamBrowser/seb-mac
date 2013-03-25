@@ -88,8 +88,11 @@ static SEBCryptor *sharedSEBCryptor = nil;
                                }];
     NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:[filteredPrefsSet count]];
     // iterate keys and read all values
+    (id)value;
     for (NSString *key in filteredPrefsSet) {
-            [filteredPrefsDict setObject:[preferences secureObjectForKey:key] forKey:key];
+        value = [preferences secureObjectForKey:key];
+        if (value == nil) value = NULL;
+        [filteredPrefsDict setObject:value forKey:key];
     }
 	NSMutableData *archivedPrefs = [[NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict] mutableCopy];
 

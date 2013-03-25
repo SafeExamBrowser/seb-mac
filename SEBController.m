@@ -253,6 +253,10 @@ bool insideMatrix();
 
     // Add prefix to all keys and copy key/values to private preferences
     NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults];
+    //write SEB default values to the private preferences
+    //NSDictionary *appDefaults = [[NSUserDefaults standardUserDefaults] sebDefaultSettings];
+    //[privatePreferences setDictionary:appDefaults];
+
     for (NSString *key in sebPreferencesDict) {
         if ([key isEqualToString:@"allowPreferencesWindow"]) {
             [privatePreferences setObject:

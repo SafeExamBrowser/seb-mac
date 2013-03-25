@@ -179,6 +179,10 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy",
                                  [self secureDataForObject:(id)[NSNumber numberWithBool:NO]],
                                  @"org_safeexambrowser_SEB_openDownloads",
+                                 [self secureDataForObject:(id)[NSArray array]],
+                                 @"org_safeexambrowser_SEB_permittedProcesses",
+                                 [self secureDataForObject:(id)[NSArray array]],
+                                 @"org_safeexambrowser_SEB_prohibitedProcesses",
                                  [self secureDataForObject:(id)@""],
                                  @"org_safeexambrowser_SEB_quitURL",
                                  [self secureDataForObject:(id)[NSNumber numberWithInt:0]],
@@ -195,6 +199,8 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_settingsPassword",
                                  [self secureDataForObject:(id)@"http://www.safeexambrowser.org/macosx"],
                                  @"org_safeexambrowser_SEB_startURL",
+                                 [self secureDataForObject:(id)[NSArray array]],
+                                 @"org_safeexambrowser_SEB_urlFilterRules",
                                  nil];
     return appDefaults;
 }

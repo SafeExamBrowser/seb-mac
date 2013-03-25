@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NSUserDefaults+SEBEncryptedUserDefaults.m"
-         timestampString = "385427320.53173"
+         timestampString = "385864115.323008"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "471"
-         endingLineNumber = "471"
+         startingLineNumber = "477"
+         endingLineNumber = "477"
          landmarkName = "-_objectForKey:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -60,24 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BrowserWindow.m"
-         timestampString = "385648794.339996"
+         timestampString = "385859943.967909"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "341"
-         endingLineNumber = "341"
-         landmarkName = "-webView:resource:willSendRequest:redirectResponse:fromDataSource:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "BrowserWindow.m"
-         timestampString = "385648794.339996"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "352"
-         endingLineNumber = "352"
+         startingLineNumber = "360"
+         endingLineNumber = "360"
          landmarkName = "-webView:resource:willSendRequest:redirectResponse:fromDataSource:"
          landmarkType = "5">
       </FileBreakpoint>
