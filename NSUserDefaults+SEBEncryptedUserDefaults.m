@@ -241,9 +241,10 @@ static BOOL _usePrivateUserDefaults = NO;
             // so that the path is portable to SEB clients with other user's home directories
             downloadPath = [downloadPath stringByAbbreviatingWithTildeInPath];
             [filteredPrefsDict setObject:downloadPath forKey:[key substringFromIndex:24]];
-        } else
-            
-            [filteredPrefsDict setObject:[preferences secureObjectForKey:key] forKey:[key substringFromIndex:24]];
+        } else {
+            id value = [preferences secureObjectForKey:key];
+            if (value) [filteredPrefsDict setObject:value forKey:[key substringFromIndex:24]];
+        }
     }
     return filteredPrefsDict;
 }
@@ -379,7 +380,7 @@ static BOOL _usePrivateUserDefaults = NO;
 - (void)setSecureObject:(id)value forKey:(NSString *)key
 {
     if (_usePrivateUserDefaults) {
-        if (value == nil) value = NULL;
+        if (value) value = [NSNull null];
         [localUserDefaults setObject:value forKey:key];
     } else {
         if (value == nil || key == nil) {

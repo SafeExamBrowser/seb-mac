@@ -335,8 +335,8 @@ initiatedByFrame:(WebFrame *)frame {
          
          CCHmac(kCCHmacAlgSHA256, HMACKey.bytes, HMACKey.length, archivedPrefs.mutableBytes, archivedPrefs.length, [HMACData mutableBytes]);
          */
-        NSMutableData *browserExamKey = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
-        browserExamKey = [preferences objectForKey:@"currentData"];
+        //NSMutableData *browserExamKey = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
+        NSData *browserExamKey = [preferences objectForKey:@"currentData"];
         
         //unsigned char hashedChars[32];
         unsigned char hashedChars[CC_SHA256_DIGEST_LENGTH];
@@ -347,7 +347,7 @@ initiatedByFrame:(WebFrame *)frame {
         CC_SHA256_CTX sha256;
         CC_SHA256_Init(&sha256);
         CC_SHA256_Update(&sha256, urlString, strlen(urlString));
-        CC_SHA256_Update(&sha256, browserExamKey.mutableBytes, browserExamKey.length);
+        CC_SHA256_Update(&sha256, browserExamKey.bytes, browserExamKey.length);
 
         CC_SHA256_Final(hashedChars, &sha256);
 

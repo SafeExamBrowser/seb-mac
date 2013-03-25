@@ -264,7 +264,8 @@ bool insideMatrix();
                                   forKey:@"org_safeexambrowser_SEB_enablePreferencesWindow"];
         }
         NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
-        [privatePreferences setObject:[sebPreferencesDict objectForKey:key] forKey:keyWithPrefix];
+        id value = [sebPreferencesDict objectForKey:key];
+        if (value) [privatePreferences setObject:value forKey:keyWithPrefix];
     }
 #ifdef DEBUG
     NSLog(@"Private preferences set: %@",privatePreferences);
