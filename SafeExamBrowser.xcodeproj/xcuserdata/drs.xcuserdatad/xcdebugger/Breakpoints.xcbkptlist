@@ -34,12 +34,25 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NSUserDefaults+SEBEncryptedUserDefaults.m"
-         timestampString = "385926079.127699"
+         timestampString = "385864115.323008"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "489"
-         endingLineNumber = "489"
-         landmarkName = "-_objectForKey:"
+         startingLineNumber = "477"
+         endingLineNumber = "477"
+         landmarkName = "-_isValidPropertyListObject:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "NSUserDefaultsController+SEBEncryptedUserDefaultsController.m"
+         timestampString = "385428753.691595"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "45"
+         endingLineNumber = "45"
+         landmarkName = "-secureValueForKeyPath:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint

@@ -65,7 +65,15 @@ static SEBCryptor *sharedSEBCryptor = nil;
 {
     // Copy preferences to a dictionary
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSUserDefaultsController *userDefaultsController = [NSUserDefaultsController sharedUserDefaultsController];
+#ifdef DEBUG
+    NSLog(@"[sharedUserDefaultsController hasUnappliedChanges] = %@",[NSNumber numberWithBool:[userDefaultsController hasUnappliedChanges]]);
+#endif  
     [preferences synchronize];
+    [userDefaultsController save:self];
+#ifdef DEBUG
+    NSLog(@"After preferences synchronize: [sharedUserDefaultsController hasUnappliedChanges] = %@",[NSNumber numberWithBool:[userDefaultsController hasUnappliedChanges]]);
+#endif
     NSDictionary *prefsDict;
     
     // Get CFBundleIdentifier of the application

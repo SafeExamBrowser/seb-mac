@@ -487,10 +487,10 @@ static BOOL _usePrivateUserDefaults = NO;
 - (id)_objectForKey:(NSString *)key
 {
     if (_usePrivateUserDefaults) {
-        return [localUserDefaults objectForKey:key];
 #ifdef DEBUG
-        NSLog(@"return [localUserDefaults objectForKey:%@]", key);
+        NSLog(@"%@ = [localUserDefaults objectForKey:%@]", [localUserDefaults objectForKey:key], key);
 #endif
+        return [localUserDefaults objectForKey:key];
     } else {
         NSData *encrypted = [self objectForKey:key];
 		
@@ -503,10 +503,10 @@ static BOOL _usePrivateUserDefaults = NO;
                                             withPassword:userDefaultsMasala
                                                error:&error];
         id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
-        return value;
 #ifdef DEBUG
-        NSLog(@"return [self objectForKey:%@]", key);
+        NSLog(@"%@ (decrypted) = [self objectForKey:%@]", value, key);
 #endif
+        return value;
     }
 }
 

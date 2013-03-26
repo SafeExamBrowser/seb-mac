@@ -249,29 +249,32 @@ bool insideMatrix();
     
     //NSDictionary *sebPreferencesDict=[NSDictionary dictionaryWithContentsOfURL:sebFileURL];
     //    NSMutableDictionary *initialValuesDict = [NSMutableDictionary dictionaryWithCapacity:[sebPreferencesDict count]];
-    // Use private UserDefaults
 
     // Add prefix to all keys and copy key/values to private preferences
-    NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults];
-    //write SEB default values to the private preferences
+
     //NSDictionary *appDefaults = [[NSUserDefaults standardUserDefaults] sebDefaultSettings];
     //[privatePreferences setDictionary:appDefaults];
 
+    // Switch to private UserDefaults (saved non-persistantly in memory besides in Library/Preferences/ )
+    NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults];
+    // Use private UserDefaults
+    [NSUserDefaults setUserDefaultsPrivate:YES];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    // Write SEB default values to the private preferences
     for (NSString *key in sebPreferencesDict) {
         if ([key isEqualToString:@"allowPreferencesWindow"]) {
-            [privatePreferences setObject:
+            [preferences setSecureObject:
              [[sebPreferencesDict objectForKey:key] copy]
                                   forKey:@"org_safeexambrowser_SEB_enablePreferencesWindow"];
         }
         NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
         id value = [sebPreferencesDict objectForKey:key];
-        if (value) [privatePreferences setObject:value forKey:keyWithPrefix];
+        if (value) [preferences setSecureObject:value forKey:keyWithPrefix];
     }
 #ifdef DEBUG
-    NSLog(@"Private preferences set: %@",privatePreferences);
+    NSLog(@"Private preferences set: %@", privatePreferences);
 #endif
-    //switch to private UserDefaults (saved non-persistantly in memory besides in Library/Preferences/ )
-    [NSUserDefaults setUserDefaultsPrivate:YES];
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
     [self startKioskMode];
     [self requestedRestart:nil];
