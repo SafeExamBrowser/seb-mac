@@ -278,7 +278,7 @@ initiatedByFrame:(WebFrame *)frame {
 
 // Update the URL of the current page in case of a server redirect
 - (void)webView:(WebView *)sender didReceiveServerRedirectForProvisionalLoadForFrame:(WebFrame *)frame {
-    [self stopProgressIndicatorAnimation];
+    //[self stopProgressIndicatorAnimation];
     // Only report feedback for the main frame.
     if (frame == [sender mainFrame]){
         [[MyGlobals sharedMyGlobals] setCurrentMainHost:[[[[frame provisionalDataSource] request] URL] host]];
@@ -293,12 +293,12 @@ initiatedByFrame:(WebFrame *)frame {
     // Report feedback only for the main frame.
     if (frame == [sender mainFrame]){
         NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
-        NSString* appTitleString = [NSString stringWithFormat:@"Safe Exam Browser %@ • %@",
+        NSString* appTitleString = [NSString stringWithFormat:@"Safe Exam Browser %@  —  %@",
                                     versionString,
                                     title];
         CGFloat windowWidth = [NSWindow minFrameWidthWithTitle:appTitleString styleMask:NSTitledWindowMask|NSClosableWindowMask|NSMiniaturizableWindowMask];
         if (windowWidth > [[sender window] frame].size.width) {
-            appTitleString = [NSString stringWithFormat:@"SEB %@ • %@", 
+            appTitleString = [NSString stringWithFormat:@"SEB %@  —  %@",
                                         [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"], 
                                         title];
         }
