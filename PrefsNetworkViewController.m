@@ -40,6 +40,9 @@
 
 @implementation PrefsNetworkViewController
 
+@synthesize groupRowTableColumn;
+
+
 - (NSString *)title
 {
 	return NSLocalizedString(@"Network", @"Title of 'Network' preference pane");
@@ -73,5 +76,14 @@
     return YES;
 }
 
-
+/*
+- (NSCell *)outlineView:(NSOutlineView *)outlineView dataCellForTableColumn:(NSTableColumn *)tableColumn item:(id)item {
+    if (tableColumn && ![outlineView parentForItem:item] && [[tableColumn identifier] isEqualToString:@"expression"]) {
+        NSCell *descriptionTableColumn = [groupRowTableColumn dataCell];
+        return descriptionTableColumn;
+    }
+    NSInteger row = [outlineView rowForItem:item];
+    return [tableColumn dataCellForRow:row];
+}
+*/
 @end

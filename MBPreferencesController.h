@@ -132,4 +132,7 @@
  */
 - (id<MBPreferencesModule>)moduleForIdentifier:(NSString *)identifier;
 
+- (void) openWindow;
+- (void) unloadNibs;
+
 @end

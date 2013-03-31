@@ -43,5 +43,8 @@
 
 - (void) showPreferences:(id)sender;
 - (BOOL) preferencesAreOpen;
+- (void) initPreferencesWindow;
+- (void) releasePreferencesWindow;
+
 
 @end

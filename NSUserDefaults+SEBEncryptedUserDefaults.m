@@ -17,6 +17,8 @@
 //
 
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
+#import "NSUserDefaultsController+SEBEncryptedUserDefaultsController.h"
+#import "SEBEncryptedUserDefaultsController.h"
 #import "MethodSwizzling.h"
 //#import "RNCryptor.h"
 #import "RNEncryptor.h"
@@ -385,10 +387,12 @@ static BOOL _usePrivateUserDefaults = NO;
 - (void)setSecureObject:(id)value forKey:(NSString *)key
 {
     if (_usePrivateUserDefaults) {
-        if (value) value = [NSNull null];
-        [localUserDefaults setObject:value forKey:key];
+        if (value == nil) value = [NSNull null];
+        [localUserDefaults setValue:value forKey:key];
+        //NSString *keypath = [NSString stringWithFormat:@"values.%@", key];
+        //[[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController] setValue:value forKeyPath:keypath];
 #ifdef DEBUG
-        NSLog(@"[localUserDefaults setObject:%@ forKey:%@]", value, key);
+        NSLog(@"[localUserDefaults setObject:%@ forKey:%@]", [localUserDefaults valueForKey:key], key);
 #endif
     } else {
         if (value == nil || key == nil) {
@@ -488,9 +492,11 @@ static BOOL _usePrivateUserDefaults = NO;
 {
     if (_usePrivateUserDefaults) {
 #ifdef DEBUG
-        NSLog(@"%@ = [localUserDefaults objectForKey:%@]", [localUserDefaults objectForKey:key], key);
+        NSLog(@"%@ = [localUserDefaults objectForKey:%@]", [localUserDefaults valueForKey:key], key);
 #endif
-        return [localUserDefaults objectForKey:key];
+        return [localUserDefaults valueForKey:key];
+        //NSString *keypath = [NSString stringWithFormat:@"values.%@", key];
+        //return [[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController] valueForKeyPath:keypath];
     } else {
         NSData *encrypted = [self objectForKey:key];
 		

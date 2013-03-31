@@ -35,6 +35,7 @@
 
 #import "SEBCryptor.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
+#import "SEBEncryptedUserDefaultsController.h"
 #import "RNCryptor.h"
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
@@ -65,7 +66,8 @@ static SEBCryptor *sharedSEBCryptor = nil;
 {
     // Copy preferences to a dictionary
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSUserDefaultsController *userDefaultsController = [NSUserDefaultsController sharedUserDefaultsController];
+    //NSUserDefaultsController *userDefaultsController = [NSUserDefaultsController sharedUserDefaultsController];
+    SEBEncryptedUserDefaultsController *userDefaultsController = [SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController];
 #ifdef DEBUG
     NSLog(@"[sharedUserDefaultsController hasUnappliedChanges] = %@",[NSNumber numberWithBool:[userDefaultsController hasUnappliedChanges]]);
 #endif  

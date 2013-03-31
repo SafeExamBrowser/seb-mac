@@ -47,22 +47,36 @@ NSString *MBPreferencesSelectionAutosaveKey = @"MBPreferencesSelection";
 - (id)init
 {
 	if (self == [super init]) {
-		NSWindow *prefsWindow = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 300, 200) styleMask:(NSTitledWindowMask | NSClosableWindowMask) backing:NSBackingStoreBuffered defer:YES];
-        [prefsWindow setReleasedWhenClosed:YES];
-		[prefsWindow setShowsToolbarButton:NO];
-        //[prefsWindow setLevel:NSModalPanelWindowLevel];
-        //[prefsWindow setLevel:NSNormalWindowLevel];
-		self.window = prefsWindow;
-        [self.window newSetLevel:NSModalPanelWindowLevel];
-		
-		[self _setupToolbar];
+        [self openWindow];
 	}
 	return self;
+}
+
+- (void)openWindow
+{
+    if (!self.window) {
+        NSWindow *prefsWindow = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 300, 200) styleMask:(NSTitledWindowMask | NSClosableWindowMask) backing:NSBackingStoreBuffered defer:YES];
+        [prefsWindow setReleasedWhenClosed:YES];
+        [prefsWindow setShowsToolbarButton:NO];
+        //[prefsWindow setLevel:NSModalPanelWindowLevel];
+        //[prefsWindow setLevel:NSNormalWindowLevel];
+        self.window = prefsWindow;
+        [self.window newSetLevel:NSModalPanelWindowLevel];
+        
+        [self _setupToolbar];
+    }
 }
 
 - (void)dealloc
 {
 	self.modules = nil;
+}
+
+- (void)unloadNibs
+{
+	self.modules = nil;
+    [self.window close];
+    self.window = nil;
 }
 
 static MBPreferencesController *sharedPreferencesController = nil;
@@ -243,8 +257,9 @@ static MBPreferencesController *sharedPreferencesController = nil;
 
 - (void)_changeToModule:(id<MBPreferencesModule>)module
 {
+   // NSView *currentModuleView = [_currentModule view];
     // Send currently displayed module message that it's about to be hidden
-    if ([(NSObject *)_currentModule respondsToSelector:@selector(willBeHidden)]) {
+    if (self.window.isVisible && [(NSObject *)_currentModule respondsToSelector:@selector(willBeHidden)]) {
 		[_currentModule willBeHidden];
 	}
 	

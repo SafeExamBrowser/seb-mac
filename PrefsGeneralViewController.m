@@ -1,5 +1,5 @@
 //
-//  SEBController.h
+//  PrefsGeneralViewController.h
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 18.04.11.
@@ -169,11 +169,11 @@
 	if ((quitPassword != nil) | (confirmQuitPassword != nil)) { 
         //if at least one of the fields is defined
         if (([confirmQuitPassword isEqual:@"𝈭𝈖𝈒𝉇𝈁𝉈"]) & (![quitPassword isEqual:@"𝈭𝈖𝈒𝉇𝈁𝉈"])) {
-            //when the quit password was changed (user started to edit it), then the  
+            //when the quit password was changed (user started to edit it), then the
             //placeholder string in the confirm quit password field needs to be removed
             [self setValue:nil forKey:@"confirmQuitPassword"];
             if (quitPassword == nil) {
-                //if admin pw was deleted completely, we have to return nil (pw's match)
+                //if quit pw was deleted completely, we have to return nil (pw's match)
                 return nil;
             }
         }
@@ -340,6 +340,12 @@
 #ifdef DEBUG
         NSLog(@"windowWillClose: stopModal");
 #endif
+        // Unbind all programmatically set bindings
+        NSButton *closeButton = [[MBPreferencesController sharedController].window standardWindowButton:NSWindowCloseButton];
+        [closeButton unbind:@"enabled"];
+        [closeButton unbind:@"enabled2"];
+        [pasteSavedStringFromPasteboardButton unbind:@"enabled"];
+        
         // Post a notification that preferences were closed
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"preferencesClosed" object:self];

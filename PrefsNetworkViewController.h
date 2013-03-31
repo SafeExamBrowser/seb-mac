@@ -40,9 +40,14 @@
 
 @interface PrefsNetworkViewController : NSViewController <MBPreferencesModule> {
 
+	IBOutlet NSTableColumn *groupRowTableColumn;
+
 }
+
+@property(strong) NSTableColumn *groupRowTableColumn;
 
 - (NSString *)identifier;
 - (NSImage *)image;
+
 
 @end

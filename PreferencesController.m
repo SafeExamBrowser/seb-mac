@@ -50,8 +50,38 @@
 
 @implementation PreferencesController
 
+
 - (void)awakeFromNib
 {
+    [self initPreferencesWindow];
+}
+
+
+- (void)showPreferences:(id)sender
+{
+	[[MBPreferencesController sharedController] showWindow:sender];
+}
+
+
+- (BOOL)preferencesAreOpen {
+    return [[MBPreferencesController sharedController].window isVisible];
+}
+
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+    [[NSApplication sharedApplication] stopModal];
+    // Post a notification that preferences were closed
+    if (self.preferencesAreOpen) {
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"preferencesClosed" object:self];
+    }
+}
+
+
+- (void)initPreferencesWindow
+{
+    [[MBPreferencesController sharedController] openWindow];
     // Set the modules for preferences panes
 	PrefsGeneralViewController *general = [[PrefsGeneralViewController alloc] initWithNibName:@"PreferencesGeneral" bundle:nil];
 	PrefsSEBConfigViewController *config = [[PrefsSEBConfigViewController alloc] initWithNibName:@"PreferencesSEBConfig" bundle:nil];
@@ -72,28 +102,12 @@
         NSLog(@"Set PreferencesController as delegate for preferences window");
 #endif
     }
-
 }
 
-- (void)showPreferences:(id)sender
+
+- (void)releasePreferencesWindow
 {
-	[[MBPreferencesController sharedController] showWindow:sender];
-}
-
-
-- (BOOL) preferencesAreOpen {
-    return [[MBPreferencesController sharedController].window isVisible];
-}
-
-
-- (void)windowWillClose:(NSNotification *)notification
-{
-    [[NSApplication sharedApplication] stopModal];
-    // Post a notification that preferences were closed
-    if (self.preferencesAreOpen) {
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"preferencesClosed" object:self];
-    }
+    [[MBPreferencesController sharedController] unloadNibs];
 }
 
 

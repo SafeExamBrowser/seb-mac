@@ -7,6 +7,7 @@
 //
 
 #import "SEBFilterRuleExpressionTableColumn.h"
+#import "PrefsNetworkViewController.h"
 
 @implementation SEBFilterRuleExpressionTableColumn
 
@@ -21,7 +22,9 @@
                options:nil];
 
     }*/
-	return [self dataCell];
+    PrefsNetworkViewController *viewController = (PrefsNetworkViewController*)[outlineView delegate];
+    NSCell *groupRowDataCell = [[viewController groupRowTableColumn] dataCell];
+	return ( level == 0 ) ? (id)groupRowDataCell : (id)[self dataCell];
 }
 
 @end
