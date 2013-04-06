@@ -77,6 +77,7 @@ NSString *MBPreferencesSelectionAutosaveKey = @"MBPreferencesSelection";
 	self.modules = nil;
     [self.window close];
     self.window = nil;
+    [self close];
 }
 
 static MBPreferencesController *sharedPreferencesController = nil;

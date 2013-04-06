@@ -56,15 +56,26 @@ enum {
 typedef NSUInteger cryptoIdentities;
 
 
-static NSString __unused *userDefaultsMasala = @"D𝈭il𝈖Ch𝈒a𝉇ht𝈁a𝉈Hai1972";
-
-
 enum {
     getGenerallyBlocked                         = 0,
     openInSameWindow                            = 1,
     openInNewWindow                             = 2
 };
 typedef NSUInteger newBrowserWindowPolicies;
+
+
+enum {
+    operatingSystemOSX                       = 0,
+    operatingSystemWin                       = 1,
+};
+typedef NSUInteger operatingSystems;
+
+
+enum {
+    SEBEnterPasswordCancel                      = 0,
+    SEBEnterPasswordOK                          = 1
+};
+typedef NSUInteger SEBEnterPasswordResponse;
 
 
 enum {
@@ -92,11 +103,7 @@ enum {
 typedef NSUInteger urlFilterRuleActions;
 
 
-enum {
-    SEBEnterPasswordCancel                      = 0,
-    SEBEnterPasswordOK                          = 1
-};
-typedef NSUInteger SEBEnterPasswordResponse;
+static NSString __unused *userDefaultsMasala = @"D𝈭il𝈖Ch𝈒a𝉇ht𝈁a𝉈Hai1972";
 
 
 #endif

@@ -45,12 +45,15 @@
 
 - (NSArray *) org_safeexambrowser_SEB_newBrowserWindowByLinkPolicies;
 - (NSArray *) org_safeexambrowser_SEB_newBrowserWindowByScriptPolicies;
+
 - (NSArray *) org_safeexambrowser_SEB_chooseFileToUploadPolicies;
 
 - (NSArray *) org_safeexambrowser_SEB_cryptoIdentities;
 
 - (NSArray *) org_safeexambrowser_SEB_sebServicePolicies;
 
-- (NSArray *)urlFilterRuleActions;
+- (NSArray *) org_safeexambrowser_SEB_urlFilterRuleActions;
+
+- (NSArray *) org_safeexambrowser_SEB_operatingSystems;
 
 @end
