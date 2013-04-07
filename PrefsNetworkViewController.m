@@ -64,6 +64,36 @@
     
 }
 
+#pragma mark -
+#pragma mark DropDownButton
+
+// -------------------------------------------------------------------------------
+//	dropDownAction:sender
+//
+//	User clicked the DropDownButton.
+// -------------------------------------------------------------------------------
+- (IBAction)dropDownAction:(id)sender
+{
+	// Drop down button clicked
+}
+
+
+- (IBAction)addRuleItem:(id)sender
+{
+    NSMenu *addRuleItemMenu = [[NSMenu alloc] initWithTitle:@""];
+    [addRuleItemMenu insertItemWithTitle:NSLocalizedString(@"Add Rule",nil) action:@selector(addRule:) keyEquivalent:@"" atIndex:0];
+    [addRuleItemMenu insertItemWithTitle:NSLocalizedString(@"Add Action to Rule",nil) action:@selector(addAction:) keyEquivalent:@"" atIndex:1];
+}
+
+- (void)addRule:(id)sender
+{
+    [treeController add:self];
+}
+
+- (void)addAction:(id)sender
+{
+    [treeController addChild:self];
+}
 
 #pragma mark Some NSOutlineView data source methods (rest is done using bindings to a NSTreeController)
 
@@ -74,6 +104,13 @@
         return NO;
     }
     return YES;
+}
+
+- (void)outlineView:(NSOutlineView *)outlineView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn item:(id)item
+{
+    if (![outlineView parentForItem:item]) {
+        [cell setFont:[NSFont fontWithName:@"Lucida Grande" size:12]];
+    }
 }
 
 /*

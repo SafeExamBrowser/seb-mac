@@ -37,10 +37,13 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MBPreferencesController.h"
+#import "DropDownButton.h"
 
 @interface PrefsNetworkViewController : NSViewController <MBPreferencesModule> {
 
 	IBOutlet NSTableColumn *groupRowTableColumn;
+    IBOutlet NSTreeController *treeController;
+	IBOutlet DropDownButton *dropDownButton;
 
 }
 
@@ -48,6 +51,9 @@
 
 - (NSString *)identifier;
 - (NSImage *)image;
+
+- (IBAction) dropDownAction:(id)sender;
+- (IBAction) addRuleItem:(id)sender;
 
 
 @end
