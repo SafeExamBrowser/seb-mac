@@ -858,12 +858,13 @@ bool insideMatrix(){
     // Load preferences from the system's user defaults database
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 	BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
+	BOOL showMenuBar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
     if (!allowSwitchToThirdPartyApps) {
 		// if switching to ThirdPartyApps not allowed
 	@try {
-		NSApplicationPresentationOptions options = 
+		NSApplicationPresentationOptions options =
 		NSApplicationPresentationHideDock + 
-		NSApplicationPresentationHideMenuBar + 
+        (showMenuBar ? NSApplicationPresentationDisableAppleMenu : NSApplicationPresentationHideMenuBar) +
 		NSApplicationPresentationDisableProcessSwitching + 
 		NSApplicationPresentationDisableForceQuit + 
 		NSApplicationPresentationDisableSessionTermination;
@@ -876,7 +877,7 @@ bool insideMatrix(){
     } else {
         @try {
             NSApplicationPresentationOptions options =
-            NSApplicationPresentationHideMenuBar +
+            (showMenuBar ? NSApplicationPresentationDisableAppleMenu : NSApplicationPresentationHideMenuBar) +
             NSApplicationPresentationHideDock +
             NSApplicationPresentationDisableForceQuit + 
             NSApplicationPresentationDisableSessionTermination;
