@@ -74,6 +74,15 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
 }
 
 
+- (NSArray *) org_safeexambrowser_SEB_mainBrowserWindowPositionings {
+    return [NSArray arrayWithObjects:
+            NSLocalizedString(@"Left", nil),
+            NSLocalizedString(@"Center", nil),
+            NSLocalizedString(@"Right", nil),
+            nil];
+}
+
+
 - (NSArray *) org_safeexambrowser_SEB_sebServicePolicies {
     return [NSArray arrayWithObjects:
             NSLocalizedString(@"allow to use SEB without service", nil),
