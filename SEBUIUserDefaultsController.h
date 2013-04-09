@@ -50,7 +50,7 @@
 
 - (NSArray *) org_safeexambrowser_SEB_cryptoIdentities;
 
-- (NSArray *) org_safeexambrowser_SEB_mainBrowserWindowPositionings;
+- (NSArray *) org_safeexambrowser_SEB_browserWindowPositionings;
 
 - (NSArray *) org_safeexambrowser_SEB_sebServicePolicies;
 
