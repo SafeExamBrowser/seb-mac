@@ -87,7 +87,7 @@
 {
     // Check data source of web view
     if (![[[self webView] mainFrame] dataSource]) {
-        NSString* appTitleString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
+        NSString* appTitleString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
         appTitleString = [NSString stringWithFormat:@"Safe Exam Browser %@", appTitleString];
 #ifdef DEBUG
         NSLog(@"BrowserWindow %@: Title of current Page: %@", self.window, appTitleString);

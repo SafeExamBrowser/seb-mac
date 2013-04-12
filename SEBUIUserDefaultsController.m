@@ -83,6 +83,54 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
 }
 
 
+- (NSArray *) org_safeexambrowser_SEB_proxyProtocols {
+    return [NSArray arrayWithObjects:
+            [NSDictionary dictionaryWithObjectsAndKeys:
+             [NSNumber numberWithBool:NO],
+             @"active",
+             NSLocalizedString(@"Auto Proxy Discovery", nil),
+             @"name",
+             nil],
+            [NSDictionary dictionaryWithObjectsAndKeys:
+             [NSNumber numberWithBool:NO],
+             @"active",
+             NSLocalizedString(@"Automatic Proxy Configuration", nil),
+             @"name",
+             nil],
+            [NSDictionary dictionaryWithObjectsAndKeys:
+             [NSNumber numberWithBool:NO],
+             @"active",
+             NSLocalizedString(@"Web Proxy (HTTP)", nil),
+             @"name",
+             nil],
+            [NSDictionary dictionaryWithObjectsAndKeys:
+             [NSNumber numberWithBool:NO],
+             @"active",
+             NSLocalizedString(@"Secure Web Proxy (HTTP)", nil),
+             @"name",
+             nil],
+            [NSDictionary dictionaryWithObjectsAndKeys:
+             [NSNumber numberWithBool:NO],
+             @"active",
+             NSLocalizedString(@"FTP Proxy", nil),
+             @"name",
+             nil],
+            [NSDictionary dictionaryWithObjectsAndKeys:
+             [NSNumber numberWithBool:NO],
+             @"active",
+             NSLocalizedString(@"SOCKS Proxy", nil),
+             @"name",
+             nil],
+            [NSDictionary dictionaryWithObjectsAndKeys:
+             [NSNumber numberWithBool:NO],
+             @"active",
+             NSLocalizedString(@"Streaming Proxy (RTSP)", nil),
+             @"name",
+             nil],
+            nil];
+}
+
+
 - (NSArray *) org_safeexambrowser_SEB_sebServicePolicies {
     return [NSArray arrayWithObjects:
             NSLocalizedString(@"allow to use SEB without service", nil),

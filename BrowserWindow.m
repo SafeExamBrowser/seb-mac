@@ -292,14 +292,14 @@ initiatedByFrame:(WebFrame *)frame {
 {
     // Report feedback only for the main frame.
     if (frame == [sender mainFrame]){
-        NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
+        NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
         NSString* appTitleString = [NSString stringWithFormat:@"Safe Exam Browser %@  —  %@",
                                     versionString,
                                     title];
         CGFloat windowWidth = [NSWindow minFrameWidthWithTitle:appTitleString styleMask:NSTitledWindowMask|NSClosableWindowMask|NSMiniaturizableWindowMask];
         if (windowWidth > [[sender window] frame].size.width) {
             appTitleString = [NSString stringWithFormat:@"SEB %@  —  %@",
-                                        [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"], 
+                                        [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"], 
                                         title];
         }
 #ifdef DEBUG

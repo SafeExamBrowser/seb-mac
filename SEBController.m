@@ -598,6 +598,7 @@ bool insideMatrix();
     
     // Show the About SEB Window
     [aboutWindow showAboutWindowForSeconds:3];
+
 }
 
 

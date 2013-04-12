@@ -43,7 +43,7 @@
 - (void) awakeFromNib
 {
 	// Write application version and localized copyright into text label fields 
-	NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
+	NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
 	versionString = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Version",nil), versionString];
 	[version setStringValue: versionString];
 	

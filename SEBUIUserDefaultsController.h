@@ -52,6 +52,8 @@
 
 - (NSArray *) org_safeexambrowser_SEB_browserWindowPositionings;
 
+- (NSArray *) org_safeexambrowser_SEB_proxyProtocols;
+
 - (NSArray *) org_safeexambrowser_SEB_sebServicePolicies;
 
 - (NSArray *) org_safeexambrowser_SEB_urlFilterRuleActions;
