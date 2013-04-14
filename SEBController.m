@@ -100,6 +100,15 @@ bool insideMatrix();
 //
 - (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename {
     NSURL *sebFileURL = [NSURL fileURLWithPath:filename];
+
+    // Check if SEB is in exam mode = private UserDefauls are switched on
+    if (NSUserDefaults.userDefaultsPrivate) {
+        NSRunAlertPanel(NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil),
+                        NSLocalizedString(@"SEB is already running in exam mode at the moment (started by a .seb file) and it is not allowed to interupt this by opening another .seb file. Finish the exam and quit SEB before starting another exam by opening a .seb file.", nil),
+                        NSLocalizedString(@"OK", nil), nil, nil);
+        return YES;
+    }
+
 #ifdef DEBUG
     NSLog(@"Loading .seb settings file with URL %@",sebFileURL);
 #endif
@@ -192,6 +201,7 @@ bool insideMatrix();
         //if (!hashedAdminPassword) {
         //   hashedAdminPassword = @"";
         //}
+        NSDictionary *sebPreferencesDict = nil;
         error = nil;
         NSData *decryptedSebData = [RNDecryptor decryptData:sebData withPassword:hashedAdminPassword error:&error];
         if (error) {
@@ -199,29 +209,58 @@ bool insideMatrix();
             error = nil;
             decryptedSebData = [RNDecryptor decryptData:sebData withPassword:@"" error:&error];
             if (!error) {
-                //Decrypting with empty password worked: Now we have to ask for the current admin password and
-                //allow reconfiguring only if the user enters the right one
-                
-                //ask here for admin pw
-            }
-            //if decryption with admin password didn't work, ask for the password the .seb file was encrypted with
-            //empty password means no admin pw on clients and should not be hashed
-            //NSData *sebDataDecrypted = nil;
-            // Allow up to 3 attempts for entering decoding password
-            int i = 3;
-            do {
-                i--;
-                // Prompt for password
-                if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter Password:",nil) modalForWindow:nil windowTitle:NSLocalizedString(@"Reconfiguring Local SEB Settings",nil)] == SEBEnterPasswordCancel) return YES;
-                NSString *password = [enterPassword stringValue];
-                if (!password) return YES;
-                error = nil;
-                decryptedSebData = [RNDecryptor decryptData:sebData withPassword:password error:&error];
-                // in case we get an error we allow the user to try it again
-            } while (error && i>0);
-            if (error) {
-                //wrong password entered in 5th try: stop reading .seb file
-                return YES;
+                //Decrypting with empty password worked:                 
+                //Check if the openend reconfiguring seb file has the same admin password inside like the current one
+                sebPreferencesDict = [NSPropertyListSerialization propertyListWithData:decryptedSebData
+                                                                                             options:0
+                                                                                              format:NULL
+                                                                                               error:&error];
+                NSString *sebFileHashedAdminPassword = [sebPreferencesDict objectForKey:@"hashedAdminPassword"];
+                if (![hashedAdminPassword isEqualToString:sebFileHashedAdminPassword]) {
+                    //No: The admin password inside the .seb file wasn't the same like the current one
+                    //now we have to ask for the current admin password and
+                    //allow reconfiguring only if the user enters the right one
+                    // Allow up to 5 attempts for entering current admin password
+                    int i = 5;
+                    NSString *password = nil;
+                    NSString *hashedPassword;
+                    BOOL passwordsMatch;
+                    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+                    do {
+                        i--;
+                        // Prompt for password
+                        if ([self showEnterPasswordDialog:NSLocalizedString(@"You are trying to reconfigure local SEB settings to an initial configuration, but there is already an administrator password set. You can only reset SEB to the initial configuration if you enter the current SEB administrator password:",nil) modalForWindow:nil windowTitle:NSLocalizedString(@"Reconfiguring Local SEB Settings",nil)] == SEBEnterPasswordCancel) return YES;
+                        password = [enterPassword stringValue];
+                        hashedPassword = [keychainManager generateSHAHashString:password];
+                        passwordsMatch = [hashedAdminPassword isEqualToString:hashedPassword];
+                        // in case we get an error we allow the user to try it again
+                    } while ((!password || !passwordsMatch) && i>0);
+                    if (!passwordsMatch) {
+                        //wrong password entered in 5th try: stop reading .seb file
+                        return YES;
+                    }
+                }
+
+            } else {
+                //if decryption with admin password didn't work, ask for the password the .seb file was encrypted with
+                //empty password means no admin pw on clients and should not be hashed
+                //NSData *sebDataDecrypted = nil;
+                // Allow up to 3 attempts for entering decoding password
+                int i = 3;
+                do {
+                    i--;
+                    // Prompt for password
+                    if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter password used to encrypt .seb file:",nil) modalForWindow:nil windowTitle:NSLocalizedString(@"Reconfiguring Local SEB Settings",nil)] == SEBEnterPasswordCancel) return YES;
+                    NSString *password = [enterPassword stringValue];
+                    if (!password) return YES;
+                    error = nil;
+                    decryptedSebData = [RNDecryptor decryptData:sebData withPassword:password error:&error];
+                    // in case we get an error we allow the user to try it again
+                } while (error && i>0);
+                if (error) {
+                    //wrong password entered in 5th try: stop reading .seb file
+                    return YES;
+                }
             }
         }
         sebData = decryptedSebData;
@@ -231,7 +270,7 @@ bool insideMatrix();
             [NSUserDefaults setUserDefaultsPrivate:NO];
             // Get preferences dictionary from decrypted data
             NSError *error;
-            NSDictionary *sebPreferencesDict = [NSPropertyListSerialization propertyListWithData:sebData
+            if (!sebPreferencesDict) sebPreferencesDict = [NSPropertyListSerialization propertyListWithData:sebData
                                                                                          options:0
                                                                                           format:NULL
                                                                                            error:&error];
@@ -271,26 +310,13 @@ bool insideMatrix();
                                                                                   format:NULL
                                                                                    error:&error];
     
-    //NSDictionary *sebPreferencesDict=[NSDictionary dictionaryWithContentsOfURL:sebFileURL];
-    //    NSMutableDictionary *initialValuesDict = [NSMutableDictionary dictionaryWithCapacity:[sebPreferencesDict count]];
-
-    // Add prefix to all keys and copy key/values to private preferences
-
-    //NSDictionary *appDefaults = [[NSUserDefaults standardUserDefaults] sebDefaultSettings];
-    //[privatePreferences setDictionary:appDefaults];
-
-    //SEBEncryptedUserDefaultsController *sharedSEBUserDefaultsController = [SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController];
-    //[sharedSEBUserDefaultsController revert:self];
-    //[[NSUserDefaultsController sharedUserDefaultsController] revert:self];
     [preferencesController releasePreferencesWindow];
 
-    // Switch to private UserDefaults (saved non-persistantly in memory besides in Library/Preferences/ )
+    // Switch to private UserDefaults (saved non-persistantly in memory instead in ~/Library/Preferences)
     NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults];
     // Use private UserDefaults
     [NSUserDefaults setUserDefaultsPrivate:YES];
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    //[sebPreferencesDict setValue:[[sebPreferencesDict objectForKey:@"allowPreferencesWindow"] copy] forKey:@"org_safeexambrowser_SEB_enablePreferencesWindow"];
-    //[sharedSEBUserDefaultsController setInitialValues:sebPreferencesDict];
     // Write SEB default values to the private preferences
     for (NSString *key in sebPreferencesDict) {
         if ([key isEqualToString:@"allowPreferencesWindow"]) {

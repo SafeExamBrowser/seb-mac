@@ -24,7 +24,7 @@
 
 - (NSString *)title
 {
-	return NSLocalizedString(@"SEB Config", @"Title of 'SEB Config' preference pane");
+	return NSLocalizedString(@".seb Config", @"Title of 'SEB Config' preference pane");
 }
 
 
@@ -36,7 +36,7 @@
 
 - (NSImage *)image
 {
-	return [NSImage imageNamed:@"NSAdvanced"];
+	return [NSImage imageNamed:@"sebConfigIcon"];
 }
 
 
@@ -74,22 +74,33 @@
         SecCertificateRef certificateRef;
         CFStringRef commonName = NULL;
         CFArrayRef emailAddressesRef;
+        NSString *identityName;
         [self.identitiesName removeAllObjects];
         for (i=0; i<count; i++) {
             SecIdentityRef identityRef = (__bridge SecIdentityRef)[identitiesInKeychain objectAtIndex:i];
             SecIdentityCopyCertificate(identityRef, &certificateRef);
             SecCertificateCopyCommonName(certificateRef, &commonName);
             SecCertificateCopyEmailAddresses(certificateRef, &emailAddressesRef);
-            [self.identitiesName addObject:
-             [NSString stringWithFormat:@"%d %@%@",
-              i+1,
-              (__bridge NSString *)commonName ?
-                [NSString stringWithFormat:@"%@ ",(__bridge NSString *)commonName] :
-                @"" ,
-              CFArrayGetCount(emailAddressesRef) ?
-                (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) :
-                @""]
-             ];
+            identityName = [NSString stringWithFormat:@"%@%@",
+                            (__bridge NSString *)commonName ?
+                            [NSString stringWithFormat:@"%@ ",(__bridge NSString *)commonName] :
+                            @"" ,
+                            CFArrayGetCount(emailAddressesRef) ?
+                            (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) :
+                            @""];
+            if ([self.identitiesName containsObject:identityName]) {
+                //get public key hash from selected identity's certificate
+                NSData* publicKeyHash = [keychainManager getPublicKeyHashFromCertificate:certificateRef];
+                unsigned char hashedChars[20];
+                [publicKeyHash getBytes:hashedChars length:20];
+                NSMutableString* hashedString = [[NSMutableString alloc] init];
+                for (int i = 0 ; i < 20 ; ++i) {
+                    [hashedString appendFormat: @"%02x", hashedChars[i]];
+                }
+                [self.identitiesName addObject:[NSString stringWithFormat:@"%@ %@",identityName, hashedString]];
+            } else {
+                [self.identitiesName addObject:identityName];
+            }
 
             if (emailAddressesRef) CFRelease(emailAddressesRef);
             if (commonName) CFRelease(commonName);
@@ -232,7 +243,7 @@
                                               NSLocalizedString(@"OK", nil), nil, nil);
                           } else {
                               // Prefs got successfully written to file
-                              NSRunAlertPanel(NSLocalizedString(@"Writing Settings Succeeded", nil), NSLocalizedString(@"Encrypted settings have been saved, use this file to start the exam with SEB.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+                              NSRunAlertPanel(NSLocalizedString(@"Writing Settings Succeeded", nil), ([sebPurpose selectedRow]) ? NSLocalizedString(@"Encrypted settings have been saved, use this file to reconfigure local settings of a SEB client.", nil) : NSLocalizedString(@"Encrypted settings have been saved, use this file to start the exam with SEB.", nil), NSLocalizedString(@"OK", nil), nil, nil);
 #ifdef DEBUG
                               prefsFileURL = [[prefsFileURL URLByDeletingPathExtension] URLByAppendingPathExtension:@"plist"];
                               if ([filteredPrefsDict writeToURL:prefsFileURL atomically:YES]) {

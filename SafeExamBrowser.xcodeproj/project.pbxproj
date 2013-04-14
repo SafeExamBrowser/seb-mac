@@ -97,6 +97,10 @@
 		699C540615EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */ = {isa = PBXBuildFile; fileRef = 699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */; };
 		699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */; };
 		699C540A15EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */; };
+		69A79DA4171B695B005B06CD /* sebConfigIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A79DA2171B695B005B06CD /* sebConfigIcon.png */; };
+		69A79DA5171B695B005B06CD /* sebConfigIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A79DA2171B695B005B06CD /* sebConfigIcon.png */; };
+		69A79DA6171B695B005B06CD /* sebConfigIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A79DA3171B695B005B06CD /* sebConfigIcon@2x.png */; };
+		69A79DA7171B695B005B06CD /* sebConfigIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A79DA3171B695B005B06CD /* sebConfigIcon@2x.png */; };
 		69ACA4EA1690AB8B007BD517 /* RNCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 69ACA4E81690AB8A007BD517 /* RNCryptor.h */; };
 		69ACA4EB1690AB8B007BD517 /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69ACA4E91690AB8A007BD517 /* RNCryptor.m */; };
 		69ACA4ED1690AB8B007BD517 /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69ACA4E91690AB8A007BD517 /* RNCryptor.m */; };
@@ -267,6 +271,8 @@
 		6992499B16C5B62000DF6B53 /* PrefsApplicationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsApplicationsViewController.m; sourceTree = "<group>"; };
 		699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBUIUserDefaultsController.h; sourceTree = "<group>"; };
 		699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBUIUserDefaultsController.m; sourceTree = "<group>"; };
+		69A79DA2171B695B005B06CD /* sebConfigIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sebConfigIcon.png; sourceTree = "<group>"; };
+		69A79DA3171B695B005B06CD /* sebConfigIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sebConfigIcon@2x.png"; sourceTree = "<group>"; };
 		69A9A22A1368784500840AE1 /* MBPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBPreferencesController.h; sourceTree = "<group>"; };
 		69A9A22B1368784500840AE1 /* MBPreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBPreferencesController.m; sourceTree = "<group>"; };
 		69A9A22E1369AF9600840AE1 /* LICENCE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
@@ -437,6 +443,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				69A79DA2171B695B005B06CD /* sebConfigIcon.png */,
+				69A79DA3171B695B005B06CD /* sebConfigIcon@2x.png */,
 				693FDEF214FB9D200020FA96 /* SafeExamBrowser-Info.plist */,
 				696EB10016CAAFF600707B0F /* ApplicationsIcon.png */,
 				696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */,
@@ -717,6 +725,8 @@
 				6977E97C16CEF8FF00E66910 /* SecurityIcon@2x.png in Resources */,
 				69F32DC016D232C0003C9502 /* Appearance.icns in Resources */,
 				69F32DCA16D23397003C9502 /* PreferencesAppearance.xib in Resources */,
+				69A79DA5171B695B005B06CD /* sebConfigIcon.png in Resources */,
+				69A79DA7171B695B005B06CD /* sebConfigIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -752,6 +762,8 @@
 				6977E97A16CEF8FF00E66910 /* SecurityIcon@2x.png in Resources */,
 				69F32DBE16D232C0003C9502 /* Appearance.icns in Resources */,
 				69F32DC816D23397003C9502 /* PreferencesAppearance.xib in Resources */,
+				69A79DA4171B695B005B06CD /* sebConfigIcon.png in Resources */,
+				69A79DA6171B695B005B06CD /* sebConfigIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -27,6 +27,14 @@
 			<string>MyDocument</string>
 		</dict>
 		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>seb</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>sebConfigIcon</string>
+			<key>CFBundleTypeName</key>
+			<string>SEBSettings</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSItemContentTypes</key>
@@ -51,8 +59,15 @@
 	<string>2.0pre2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>102F</string>
+	<string>1047</string>
 	<key>ClickToFlashOptOut</key>
 	<true/>
 	<key>LSApplicationCategoryType</key>
@@ -74,12 +89,12 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Safe Exam Browser Configuration</string>
+			<key>UTTypeIconFile</key>
+			<string>sebConfigIcon</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.safeexambrowser.seb</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
-				<key>org.safeexambrowser.seb</key>
-				<string>SEB</string>
 				<key>public.filename-extension</key>
 				<array>
 					<string>seb</string>
