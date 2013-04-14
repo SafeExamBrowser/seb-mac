@@ -163,7 +163,7 @@ bool insideMatrix();
         //NSLog(@"Dump of encypted .seb settings (without prefix): %@",encryptedSebData);
 #endif
         NSData *sebDataDecrypted = nil;
-        // Allow up to 5 trials for entering decoding password
+        // Allow up to 5 attempts for entering decoding password
         int i = 5;
         do {
             i--;
@@ -195,10 +195,34 @@ bool insideMatrix();
         error = nil;
         NSData *decryptedSebData = [RNDecryptor decryptData:sebData withPassword:hashedAdminPassword error:&error];
         if (error) {
-            // if decryption with admin password didn't work, try with empty password
-            //empty password means no admin pw on clients and should not be hashed
+            //if decryption with admin password didn't work, try it with an empty password
             error = nil;
             decryptedSebData = [RNDecryptor decryptData:sebData withPassword:@"" error:&error];
+            if (!error) {
+                //Decrypting with empty password worked: Now we have to ask for the current admin password and
+                //allow reconfiguring only if the user enters the right one
+                
+                //ask here for admin pw
+            }
+            //if decryption with admin password didn't work, ask for the password the .seb file was encrypted with
+            //empty password means no admin pw on clients and should not be hashed
+            //NSData *sebDataDecrypted = nil;
+            // Allow up to 3 attempts for entering decoding password
+            int i = 3;
+            do {
+                i--;
+                // Prompt for password
+                if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter Password:",nil) modalForWindow:nil windowTitle:NSLocalizedString(@"Reconfiguring Local SEB Settings",nil)] == SEBEnterPasswordCancel) return YES;
+                NSString *password = [enterPassword stringValue];
+                if (!password) return YES;
+                error = nil;
+                decryptedSebData = [RNDecryptor decryptData:sebData withPassword:password error:&error];
+                // in case we get an error we allow the user to try it again
+            } while (error && i>0);
+            if (error) {
+                //wrong password entered in 5th try: stop reading .seb file
+                return YES;
+            }
         }
         sebData = decryptedSebData;
         if (!error) {

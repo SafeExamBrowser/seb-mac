@@ -51,7 +51,7 @@ typedef NSUInteger chooseFileToUploadPolicies;
 
 
 enum {
-    FetchingIdentities                   = 0
+    FetchingIdentities                          = 0
 };
 typedef NSUInteger cryptoIdentities;
 
@@ -65,10 +65,17 @@ typedef NSUInteger newBrowserWindowPolicies;
 
 
 enum {
-    operatingSystemOSX                       = 0,
-    operatingSystemWin                       = 1,
+    operatingSystemOSX                          = 0,
+    operatingSystemWin                          = 1,
 };
 typedef NSUInteger operatingSystems;
+
+
+enum {
+    useSystemProxySettings                      = 0,
+    useSEBProxySettings                         = 1,
+};
+typedef NSUInteger proxySettingsPolicies;
 
 
 enum {
