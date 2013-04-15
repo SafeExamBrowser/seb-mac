@@ -290,8 +290,6 @@
 		69ACA4FE1690DE27007BD517 /* RNCryptorEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCryptorEngine.h; sourceTree = "<group>"; };
 		69ACA4FF1690DE27007BD517 /* RNCryptorEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCryptorEngine.m; sourceTree = "<group>"; };
 		69BE8661145872C900E87C22 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PreferencesBrowser.xib; sourceTree = "<group>"; };
-		69BE8663145872DB00E87C22 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesBrowser.xib; sourceTree = "<group>"; };
-		69BE8664145872DF00E87C22 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/PreferencesBrowser.xib; sourceTree = "<group>"; };
 		69C52802136AFDBD00F9F000 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
 		69C52805136AFE9500F9F000 /* PrefsDownUploadsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsDownUploadsViewController.m; sourceTree = "<group>"; };
 		69CB8AFD136AFC6E00C08450 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
@@ -326,11 +324,7 @@
 		69F910FE16CA5C720041EA38 /* PrefsNetworkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsNetworkViewController.h; sourceTree = "<group>"; };
 		69F910FF16CA5C720041EA38 /* PrefsNetworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsNetworkViewController.m; sourceTree = "<group>"; };
 		69FC9056136C9A00009B55CB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PreferencesGeneral.xib; sourceTree = "<group>"; };
-		69FC9058136C9A10009B55CB /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesGeneral.xib; sourceTree = "<group>"; };
-		69FC9059136C9A13009B55CB /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/PreferencesGeneral.xib; sourceTree = "<group>"; };
 		69FC905B136CA80F009B55CB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PreferencesDownUploads.xib; sourceTree = "<group>"; };
-		69FC905D136CA81B009B55CB /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesDownUploads.xib; sourceTree = "<group>"; };
-		69FC905E136CA81E009B55CB /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/PreferencesDownUploads.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -915,8 +909,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				69BE8661145872C900E87C22 /* en */,
-				69BE8663145872DB00E87C22 /* de */,
-				69BE8664145872DF00E87C22 /* fr */,
 			);
 			name = PreferencesBrowser.xib;
 			sourceTree = "<group>";
@@ -925,8 +917,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				69FC9056136C9A00009B55CB /* en */,
-				69FC9058136C9A10009B55CB /* de */,
-				69FC9059136C9A13009B55CB /* fr */,
 			);
 			name = PreferencesGeneral.xib;
 			sourceTree = "<group>";
@@ -935,8 +925,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				69FC905B136CA80F009B55CB /* en */,
-				69FC905D136CA81B009B55CB /* de */,
-				69FC905E136CA81E009B55CB /* fr */,
 			);
 			name = PreferencesDownUploads.xib;
 			sourceTree = "<group>";

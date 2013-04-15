@@ -1337,7 +1337,7 @@
 															<array class="NSMutableArray" key="NSSubviews"/>
 															<string key="NSFrameSize">{568, 266}</string>
 															<reference key="NSSuperview" ref="137414497"/>
-															<reference key="NSNextKeyView" ref="712820929"/>
+															<reference key="NSNextKeyView" ref="67642294"/>
 															<string key="NSReuseIdentifierKey">_NS:13</string>
 															<bool key="NSEnabled">YES</bool>
 															<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -1571,14 +1571,13 @@
 											</array>
 											<string key="NSFrame">{{17, 222}, {570, 284}}</string>
 											<reference key="NSSuperview" ref="1029942225"/>
-											<reference key="NSNextKeyView" ref="67642294"/>
+											<reference key="NSNextKeyView" ref="137414497"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<int key="NSsFlags">133682</int>
 											<reference key="NSVScroller" ref="712820929"/>
 											<reference key="NSHScroller" ref="239615529"/>
 											<reference key="NSContentView" ref="137414497"/>
 											<reference key="NSHeaderClipView" ref="67642294"/>
-											<reference key="NSCornerView" ref="157009367"/>
 											<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
 											<double key="NSMinMagnification">0.25</double>
 											<double key="NSMaxMagnification">4</double>
@@ -1839,7 +1838,6 @@
 															<int key="NSvFlags">268</int>
 															<string key="NSFrame">{{413, 7}, {149, 32}}</string>
 															<reference key="NSSuperview" ref="529498641"/>
-															<reference key="NSNextKeyView"/>
 															<string key="NSReuseIdentifierKey">_NS:9</string>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSButtonCell" key="NSCell" id="757445631">
@@ -8327,7 +8325,7 @@
 					<object class="IBToolTipAttribute" key="NS.object.0">
 						<string key="name">ToolTip</string>
 						<reference key="object" ref="140626007"/>
-						<string key="toolTip">Path to the process executable’s directory (excluding the file name, see field name). If the path is not given or relative, then SEB searches the current and system provided paths for applications.</string>
+						<string key="toolTip">Filesystem path (formatted system specific) to the process executable’s directory (excluding the file name, see field name). If the path is not given or relative, then SEB searches the current and system provided paths for applications.</string>
 					</object>
 				</object>
 				<boolean value="NO" key="687.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
