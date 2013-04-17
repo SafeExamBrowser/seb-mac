@@ -51,6 +51,8 @@
 
 @property (weak) IBOutlet WebView *webView;
 
+- (void) setCalculatedFrame;
+
 - (void) startProgressIndicatorAnimation;
 - (void) stopProgressIndicatorAnimation;
 

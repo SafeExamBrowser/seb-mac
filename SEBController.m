@@ -49,7 +49,6 @@
 #include <IOKit/IOMessage.h>
 
 #import "MyDocument.h"
-#import "BrowserWindow.h"
 #import "PrefsBrowserViewController.h"
 #import "RNDecryptor.h"
 #import "SEBKeychainManager.h"
@@ -966,7 +965,8 @@ bool insideMatrix(){
     /*	[browserWindow
 	 setFrame:[browserWindow frameRectForContentRect:[[browserWindow screen] frame]]
 	 display:YES]; // REMOVE wrong frame for window!*/
-	[browserWindow setFrame:[[browserWindow screen] frame] display:YES];
+	//[browserWindow setFrame:[[browserWindow screen] frame] display:YES];
+	[(BrowserWindow *)browserWindow setCalculatedFrame];
     if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"]) {
         [browserWindow newSetLevel:NSModalPanelWindowLevel];
 #ifdef DEBUG
@@ -1296,7 +1296,7 @@ bool insideMatrix(){
             }
         }
         [self startKioskMode];
-        [browserWindow setFrame:[[browserWindow screen] frame] display:YES];
+        [(BrowserWindow*)browserWindow setCalculatedFrame];
         if (!allowSwitchToThirdPartyApps) {
             // If third party Apps are not allowed, we switch back to SEB
             [NSApp activateIgnoringOtherApps: YES];

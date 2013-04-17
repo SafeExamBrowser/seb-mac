@@ -35,6 +35,7 @@
 #import "BrowserWindowController.h"
 #import "MyGlobals.h"
 #import <WebKit/WebKit.h>
+#import "BrowserWindow.h"
 
 
 @implementation BrowserWindowController
@@ -56,7 +57,7 @@
 {
     [super windowDidLoad];
     
-    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.    
 }
 
 

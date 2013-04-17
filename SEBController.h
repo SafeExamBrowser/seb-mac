@@ -41,6 +41,7 @@
 #import "PreferencesController.h"
 #import "CapView.h"
 #import "AboutWindow.h"
+#import "BrowserWindow.h"
 #import "SEBEncryptedUserDefaultsController.h"
 
 	

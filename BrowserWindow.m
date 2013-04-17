@@ -108,7 +108,7 @@
           toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
        withKeyPath:@"values.org_safeexambrowser_SEB_enableBrowsingBackForward"
            options:nil];
-
+    
 /*#ifdef DEBUG
     // Display all MIME types the WebView can display as HTML
     NSArray* MIMETypes = [WebView MIMETypesShownAsHTML];
@@ -117,6 +117,45 @@
         NSLog(@"MIME type shown as HTML: %@", [MIMETypes objectAtIndex:i]);
     }
 #endif*/
+
+}
+
+
+- (void) setCalculatedFrame
+{
+    //[browserWindow setFrame:[[browserWindow screen] frame] display:YES];
+    //get frame of the whole screen
+    NSRect screenFrame = self.screen.frame;
+    NSRect windowFrame;
+    NSString *windowWidth;
+    NSString *windowHeight;
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if (self == [[MyGlobals sharedMyGlobals] mainBrowserWindow]) {
+        // This is the main browser window
+        windowWidth = [preferences secureStringForKey:@"org_safeexambrowser_SEB_mainBrowserWindowWidth"];
+        windowHeight = [preferences secureStringForKey:@"org_safeexambrowser_SEB_mainBrowserWindowHeight"];
+    } else {
+        // This is another browser window
+        windowWidth = [preferences secureStringForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkWidth"];
+        windowHeight = [preferences secureStringForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkHeight"];
+    }
+    if ([windowWidth rangeOfString:@"%"].location == NSNotFound) {
+        // Width is in pixels
+        windowFrame.size.width = [windowWidth integerValue];
+    } else {
+        // Width is in percent
+        windowFrame.size.width = ([windowWidth integerValue] * screenFrame.size.width) / 100;
+    }
+    if ([windowHeight rangeOfString:@"%"].location == NSNotFound) {
+        // Height is in pixels
+        windowFrame.size.height = [windowHeight integerValue];
+    } else {
+        // Height is in percent
+        windowFrame.size.height = ([windowHeight integerValue] * screenFrame.size.height) / 100;
+    }
+    windowFrame.origin.y = screenFrame.origin.y + screenFrame.size.height - windowFrame.size.height;
+    
+    [self setFrame:windowFrame display:YES];
 
 }
 
@@ -315,7 +354,7 @@ initiatedByFrame:(WebFrame *)frame {
 {
     NSString *absoluteRequestURL = [[request URL] absoluteString];
 #ifdef DEBUG
-    NSLog(@"Request URL: %@", absoluteRequestURL);
+    NSLog(@"Request URL used to calculate RequestHash: %@", absoluteRequestURL);
 #endif
 
 #ifdef DEBUG
@@ -337,6 +376,9 @@ initiatedByFrame:(WebFrame *)frame {
          */
         //NSMutableData *browserExamKey = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
         NSData *browserExamKey = [preferences objectForKey:@"currentData"];
+#ifdef DEBUG
+        NSLog(@"Current Browser Exam Key: %@", browserExamKey);
+#endif
         
         //unsigned char hashedChars[32];
         unsigned char hashedChars[CC_SHA256_DIGEST_LENGTH];
