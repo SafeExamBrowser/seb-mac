@@ -47,7 +47,7 @@ enum {
     browserWindowPositioningCenter              = 1,
     browserWindowPositioningRight               = 2
 };
-typedef NSUInteger browserWindowPositioning;
+typedef NSUInteger browserWindowPositionings;
 
 
 enum {
