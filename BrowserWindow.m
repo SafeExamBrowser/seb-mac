@@ -129,15 +129,18 @@
     NSRect windowFrame;
     NSString *windowWidth;
     NSString *windowHeight;
+    NSInteger windowPositioning;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (self == [[MyGlobals sharedMyGlobals] mainBrowserWindow]) {
         // This is the main browser window
         windowWidth = [preferences secureStringForKey:@"org_safeexambrowser_SEB_mainBrowserWindowWidth"];
         windowHeight = [preferences secureStringForKey:@"org_safeexambrowser_SEB_mainBrowserWindowHeight"];
+        windowPositioning = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mainBrowserWindowPositioning"];
     } else {
         // This is another browser window
         windowWidth = [preferences secureStringForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkWidth"];
         windowHeight = [preferences secureStringForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkHeight"];
+        windowPositioning = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPositioning"];
     }
     if ([windowWidth rangeOfString:@"%"].location == NSNotFound) {
         // Width is in pixels
@@ -153,8 +156,26 @@
         // Height is in percent
         windowFrame.size.height = ([windowHeight integerValue] * screenFrame.size.height) / 100;
     }
+    // Calculate x position according to positioning flag
+    switch (windowPositioning) {
+        case browserWindowPositioningLeft:
+            windowFrame.origin.x = screenFrame.origin.x;
+            break;
+        case browserWindowPositioningCenter:
+            windowFrame.origin.x = screenFrame.origin.x+(screenFrame.origin.x+screenFrame.size.width-windowFrame.size.width) / 2;
+            break;
+        case browserWindowPositioningRight:
+            windowFrame.origin.x = screenFrame.origin.x+screenFrame.size.width-windowFrame.size.width;
+            break;
+            
+        default:
+            //just in case set screen origin
+            windowFrame.origin.x = screenFrame.origin.x;
+            break;
+    }
+    // Calculate y position: On top
     windowFrame.origin.y = screenFrame.origin.y + screenFrame.size.height - windowFrame.size.height;
-    
+    // Change Window size
     [self setFrame:windowFrame display:YES];
 
 }

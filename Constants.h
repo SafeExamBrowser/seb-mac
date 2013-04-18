@@ -43,6 +43,14 @@ typedef NSUInteger browserViewModes;
 
 
 enum {
+    browserWindowPositioningLeft                = 0,
+    browserWindowPositioningCenter              = 1,
+    browserWindowPositioningRight               = 2
+};
+typedef NSUInteger browserWindowPositioning;
+
+
+enum {
     manuallyWithFileRequester                   = 0,
     attemptUploadSameFileDownloadedBefore       = 1,
     onlyAllowUploadSameFileDownloadedBefore     = 2
