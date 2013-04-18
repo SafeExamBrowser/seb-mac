@@ -69,6 +69,14 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
 }
 
 
+- (NSArray *) org_safeexambrowser_SEB_certificateTypes {
+    return [NSArray arrayWithObjects:
+            NSLocalizedString(@"SSL Certificate", nil),
+            NSLocalizedString(@"Identity", nil),
+            nil];
+}
+
+
 - (NSArray *) org_safeexambrowser_SEB_cryptoIdentities {
     return [NSArray arrayWithObjects:NSLocalizedString(@"Fetching identities", nil), nil];
 }

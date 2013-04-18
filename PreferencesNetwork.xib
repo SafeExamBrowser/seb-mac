@@ -170,7 +170,6 @@
 											<int key="NSvFlags">268</int>
 											<string key="NSFrame">{{38, 14}, {22, 21}}</string>
 											<reference key="NSSuperview" ref="1070826792"/>
-											<reference key="NSNextKeyView"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="73765058">
@@ -206,7 +205,7 @@
 															<int key="NSvFlags">256</int>
 															<string key="NSFrameSize">{568, 323}</string>
 															<reference key="NSSuperview" ref="480137338"/>
-															<reference key="NSNextKeyView" ref="569146525"/>
+															<reference key="NSNextKeyView" ref="317790154"/>
 															<string key="NSReuseIdentifierKey">_NS:13</string>
 															<bool key="NSEnabled">YES</bool>
 															<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -540,14 +539,13 @@
 											</array>
 											<string key="NSFrame">{{17, 43}, {570, 341}}</string>
 											<reference key="NSSuperview" ref="1070826792"/>
-											<reference key="NSNextKeyView" ref="317790154"/>
+											<reference key="NSNextKeyView" ref="480137338"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<int key="NSsFlags">133650</int>
 											<reference key="NSVScroller" ref="569146525"/>
 											<reference key="NSHScroller" ref="317790154"/>
 											<reference key="NSContentView" ref="480137338"/>
 											<reference key="NSHeaderClipView" ref="713154884"/>
-											<reference key="NSCornerView" ref="372997440"/>
 											<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
 											<double key="NSMinMagnification">0.25</double>
 											<double key="NSMaxMagnification">4</double>
@@ -770,7 +768,6 @@
 																	</object>
 																	<int key="NSResizingMask">3</int>
 																	<bool key="NSIsResizeable">YES</bool>
-																	<bool key="NSIsEditable">YES</bool>
 																	<reference key="NSTableView" ref="375891382"/>
 																</object>
 																<object class="NSTableColumn" id="288666801">
@@ -796,7 +793,6 @@
 																	</object>
 																	<int key="NSResizingMask">3</int>
 																	<bool key="NSIsResizeable">YES</bool>
-																	<bool key="NSIsEditable">YES</bool>
 																	<reference key="NSTableView" ref="375891382"/>
 																</object>
 															</array>
@@ -1104,7 +1100,6 @@
 											<int key="NSvFlags">12</int>
 											<string key="NSFrame">{{275, 208}, {312, 160}}</string>
 											<reference key="NSSuperview" ref="402094784"/>
-											<reference key="NSNextKeyView" ref="327866034"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<array class="NSMutableArray" key="NSTabViewItems">
 												<object class="NSTabViewItem" id="442801313">
@@ -2509,7 +2504,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 											<int key="NSvFlags">268</int>
 											<string key="NSFrame">{{15, 15}, {204, 18}}</string>
 											<reference key="NSSuperview" ref="402094784"/>
-											<reference key="NSNextKeyView"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="341660365">
@@ -3109,6 +3103,14 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<int key="connectionID">1885</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">remove:</string>
+						<reference key="source" ref="188158864"/>
+						<reference key="destination" ref="448324267"/>
+					</object>
+					<int key="connectionID">1886</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">contentArray: values.org_safeexambrowser_SEB_embeddedCertificates</string>
 						<reference key="source" ref="188158864"/>
@@ -3119,18 +3121,14 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string key="NSLabel">contentArray: values.org_safeexambrowser_SEB_embeddedCertificates</string>
 							<string key="NSBinding">contentArray</string>
 							<string key="NSKeyPath">values.org_safeexambrowser_SEB_embeddedCertificates</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSHandlesContentAsCompoundValue</string>
+								<boolean value="YES" key="NS.object.0"/>
+							</object>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1877</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">remove:</string>
-						<reference key="source" ref="188158864"/>
-						<reference key="destination" ref="448324267"/>
-					</object>
-					<int key="connectionID">1886</int>
+					<int key="connectionID">1887</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -9333,7 +9331,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1886</int>
+			<int key="maxID">1887</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

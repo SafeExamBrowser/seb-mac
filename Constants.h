@@ -51,6 +51,13 @@ typedef NSUInteger browserWindowPositionings;
 
 
 enum {
+    certificateTypeSSLClientCertificate   = 0,
+    certificateTypeIdentity               = 1,
+};
+typedef NSUInteger certificateTypes;
+
+
+enum {
     manuallyWithFileRequester                   = 0,
     attemptUploadSameFileDownloadedBefore       = 1,
     onlyAllowUploadSameFileDownloadedBefore     = 2
