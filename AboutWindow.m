@@ -73,7 +73,7 @@
     [self setDelegate:self];
     [self setStyleMask:NSBorderlessWindowMask];
     [self center];
-    [self setLevel:NSStatusWindowLevel];
+    [self setLevel:NSFloatingWindowLevel];
     if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"]) {
         [self setLevel:NSScreenSaverWindowLevel];
     }

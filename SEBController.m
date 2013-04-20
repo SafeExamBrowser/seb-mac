@@ -1225,7 +1225,10 @@ bool insideMatrix(){
             [iterApp unhide]; //unhide the originally visible application
         }
     }
-	
+	// Clear the current Browser Exam Key
+	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setValue:[NSData data] forKey:@"currentData"];
+
 	// Clear the browser cache in ~/Library/Caches/org.safeexambrowser.SEB.Safe-Exam-Browser/
 	NSURLCache *cache = [NSURLCache sharedURLCache];
 	[cache removeAllCachedResponses];

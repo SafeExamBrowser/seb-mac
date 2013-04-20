@@ -104,14 +104,27 @@ static SEBCryptor *sharedSEBCryptor = nil;
     }
 	NSMutableData *archivedPrefs = [[NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict] mutableCopy];
 
-    // Generate and store salt for exam key
-    NSData *HMACKey = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
-    [preferences setSecureObject:HMACKey forKey:@"org_safeexambrowser_SEB_examKeySalt"];
+    // Get salt for exam key
+    NSData *HMACKey = [preferences secureDataForKey:@"org_safeexambrowser_SEB_examKeySalt"];
+    if ([HMACKey isEqualToData:[NSData data]]) {
+        [self generateExamKeySalt];
+#ifdef DEBUG
+        NSLog(@"Generated new exam key salt");
+#endif
+    }
 
     NSMutableData *HMACData = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
 
     CCHmac(kCCHmacAlgSHA256, HMACKey.bytes, HMACKey.length, archivedPrefs.mutableBytes, archivedPrefs.length, [HMACData mutableBytes]);
     [preferences setValue:HMACData forKey:@"currentData"];
+}
+
+// Calculate a random salt value for the Browser Exam Key and save it to UserDefaults
+- (void)generateExamKeySalt
+{
+	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSData *HMACKey = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
+    [preferences setSecureObject:HMACKey forKey:@"org_safeexambrowser_SEB_examKeySalt"];
 }
 
 @end

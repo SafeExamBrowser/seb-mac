@@ -43,5 +43,7 @@
 
 - (void)updateEncryptedUserDefaults;
 
+- (void)generateExamKeySalt;
+
 
 @end

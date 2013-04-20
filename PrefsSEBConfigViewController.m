@@ -245,10 +245,10 @@
                               // Prefs got successfully written to file
                               NSRunAlertPanel(NSLocalizedString(@"Writing Settings Succeeded", nil), ([sebPurpose selectedRow]) ? NSLocalizedString(@"Encrypted settings have been saved, use this file to reconfigure local settings of a SEB client.", nil) : NSLocalizedString(@"Encrypted settings have been saved, use this file to start the exam with SEB.", nil), NSLocalizedString(@"OK", nil), nil, nil);
 #ifdef DEBUG
-                              prefsFileURL = [[prefsFileURL URLByDeletingPathExtension] URLByAppendingPathExtension:@"plist"];
+                              /*prefsFileURL = [[prefsFileURL URLByDeletingPathExtension] URLByAppendingPathExtension:@"plist"];
                               if ([filteredPrefsDict writeToURL:prefsFileURL atomically:YES]) {
                                   NSLog(@"Unencrypted preferences saved as plist");
-                              }
+                              }*/
 #endif
                           }
                       }
