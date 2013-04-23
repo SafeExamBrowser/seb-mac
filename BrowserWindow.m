@@ -59,7 +59,17 @@
 
 // Setup browser window and webView delegates
 - (void) awakeFromNib
-{    
+{
+    // Display or don't display toolbar
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"])
+    {
+        [self.toolbar setVisible:NO];
+    } else {
+        [self.toolbar setVisible:YES];
+    }
+        
+
 	// Suppress right-click with own delegate method for context menu
 	[self.webView setUIDelegate:self];
 	

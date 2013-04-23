@@ -86,7 +86,8 @@
 
 -(void)addViewToTitleBar:(NSView*)viewToAdd atRightOffset:(CGFloat)x
 {
-    viewToAdd.frame = NSMakeRect(self.frame.size.width-x-viewToAdd.frame.size.width, [[self contentView] frame].size.height, viewToAdd.frame.size.width, [self heightOfTitleBar]);
+    //viewToAdd.frame = NSMakeRect(self.frame.size.width-x-viewToAdd.frame.size.width, [[self contentView] frame].size.height, viewToAdd.frame.size.width, [self heightOfTitleBar]);
+    viewToAdd.frame = NSMakeRect(self.frame.size.width-x-viewToAdd.frame.size.width, [[[self contentView] superview] frame].size.height - viewToAdd.frame.size.height - 3, viewToAdd.frame.size.width, viewToAdd.frame.size.height);
     
     NSUInteger mask = 0;
     if( x > self.frame.size.width / 2.0 )
@@ -98,6 +99,7 @@
         mask |= NSViewMinXMargin;
     }
     [viewToAdd setAutoresizingMask:mask | NSViewMinYMargin];
+    //[viewToAdd setAutoresizingMask:mask | NSViewMaxYMargin];
     
     [[[self contentView] superview] addSubview:viewToAdd];
 }

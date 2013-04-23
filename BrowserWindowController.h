@@ -42,6 +42,9 @@
 
 @property (weak) IBOutlet WebView *webView;
 
+- (IBAction) backForward: (id)sender;
+- (IBAction) zoomText: (id)sender;
+
 //- (id) webView;
 
 @end

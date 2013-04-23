@@ -103,4 +103,24 @@
 }
 
 
+- (IBAction) backForward: (id)sender
+{
+    if ([sender selectedSegment] == 0) {
+        [self.webView goBack:self];
+    } else {
+        [self.webView goForward:self];
+    }
+}
+
+
+- (IBAction) zoomText: (id)sender
+{
+    if ([sender selectedSegment] == 0) {
+        [self.webView makeTextSmaller:self];
+    } else {
+        [self.webView makeTextLarger:self];
+    }
+}
+
+
 @end

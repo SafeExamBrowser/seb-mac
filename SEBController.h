@@ -63,6 +63,9 @@
     
     NSString *savedStartURL;
     BOOL savedAllowSwitchToThirdPartyAppsFlag;
+    BOOL savedShowMenuBarFlag;
+    BOOL savedEnableBrowserWindowToolbar;
+    BOOL savedHideBrowserWindowToolbar;
 	
 	IOPMAssertionID assertionID1;
 	IOPMAssertionID assertionID2;
@@ -87,7 +90,7 @@
 - (IBAction) exitSEB:(id)sender;
 - (void)requestedQuitWoPwd:(id)sender;
 
-- (void) openPreferences:(id)sender;
+- (IBAction) openPreferences:(id)sender;
 
 - (void) requestedRestart:(NSNotification *)notification;
 

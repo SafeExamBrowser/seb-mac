@@ -1068,7 +1068,7 @@ bool insideMatrix(){
 }
 
 
-- (void) openPreferences:(id)sender {
+- (IBAction) openPreferences:(id)sender {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePreferencesWindow"]) {
         if (![preferencesController preferencesAreOpen]) {
@@ -1088,6 +1088,9 @@ bool insideMatrix(){
         //savedStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
         savedStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
         savedAllowSwitchToThirdPartyAppsFlag = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
+        savedShowMenuBarFlag = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
+        savedEnableBrowserWindowToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"];
+        savedHideBrowserWindowToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"];
         [preferencesController showPreferences:self];
     }
 }
@@ -1096,7 +1099,10 @@ bool insideMatrix(){
 - (void)preferencesClosed:(NSNotification *)notification
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (savedAllowSwitchToThirdPartyAppsFlag != [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"]) {
+    if (savedAllowSwitchToThirdPartyAppsFlag != [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"] ||
+        savedShowMenuBarFlag != [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"] ||
+        savedEnableBrowserWindowToolbar != [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] ||
+        savedHideBrowserWindowToolbar != [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"]) {
         //preferences were closed and the third party app setting was changed
         //so we adjust the kiosk settings
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
