@@ -20,6 +20,14 @@
 		693EB54015EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693EB53D15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m */; };
 		693F135315767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 693F135215767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m */; };
 		693F135515767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 693F135215767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m */; };
+		693FAECE17273FB30002AE60 /* ZoomTextIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 693FAECA17273FB30002AE60 /* ZoomTextIn.png */; };
+		693FAECF17273FB30002AE60 /* ZoomTextIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 693FAECA17273FB30002AE60 /* ZoomTextIn.png */; };
+		693FAED017273FB30002AE60 /* ZoomTextIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 693FAECB17273FB30002AE60 /* ZoomTextIn@2x.png */; };
+		693FAED117273FB30002AE60 /* ZoomTextIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 693FAECB17273FB30002AE60 /* ZoomTextIn@2x.png */; };
+		693FAED217273FB30002AE60 /* ZoomTextOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 693FAECC17273FB30002AE60 /* ZoomTextOut.png */; };
+		693FAED317273FB30002AE60 /* ZoomTextOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 693FAECC17273FB30002AE60 /* ZoomTextOut.png */; };
+		693FAED417273FB30002AE60 /* ZoomTextOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 693FAECD17273FB30002AE60 /* ZoomTextOut@2x.png */; };
+		693FAED517273FB30002AE60 /* ZoomTextOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 693FAECD17273FB30002AE60 /* ZoomTextOut@2x.png */; };
 		6943D0771655054600AB6B1D /* PrefsExamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6943D0751655054600AB6B1D /* PrefsExamViewController.m */; };
 		6943D0791655054600AB6B1D /* PrefsExamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6943D0751655054600AB6B1D /* PrefsExamViewController.m */; };
 		6943D07A1655054600AB6B1D /* PreferencesExam.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6943D0761655054600AB6B1D /* PreferencesExam.xib */; };
@@ -226,6 +234,10 @@
 		693EB53D15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaultsController+SEBEncryptedUserDefaultsController.m"; sourceTree = "<group>"; };
 		693F135115767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+SEBEncryptedUserDefaults.h"; sourceTree = "<group>"; };
 		693F135215767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+SEBEncryptedUserDefaults.m"; sourceTree = "<group>"; };
+		693FAECA17273FB30002AE60 /* ZoomTextIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZoomTextIn.png; sourceTree = "<group>"; };
+		693FAECB17273FB30002AE60 /* ZoomTextIn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZoomTextIn@2x.png"; sourceTree = "<group>"; };
+		693FAECC17273FB30002AE60 /* ZoomTextOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZoomTextOut.png; sourceTree = "<group>"; };
+		693FAECD17273FB30002AE60 /* ZoomTextOut@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZoomTextOut@2x.png"; sourceTree = "<group>"; };
 		693FDEF214FB9D200020FA96 /* SafeExamBrowser-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SafeExamBrowser-Info.plist"; sourceTree = "<group>"; };
 		6941F9A1131E6400005C51DC /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6941F9A2131E6426005C51DC /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -437,6 +449,10 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				693FAECA17273FB30002AE60 /* ZoomTextIn.png */,
+				693FAECB17273FB30002AE60 /* ZoomTextIn@2x.png */,
+				693FAECC17273FB30002AE60 /* ZoomTextOut.png */,
+				693FAECD17273FB30002AE60 /* ZoomTextOut@2x.png */,
 				69A79DA2171B695B005B06CD /* sebConfigIcon.png */,
 				69A79DA3171B695B005B06CD /* sebConfigIcon@2x.png */,
 				693FDEF214FB9D200020FA96 /* SafeExamBrowser-Info.plist */,
@@ -721,6 +737,10 @@
 				69F32DCA16D23397003C9502 /* PreferencesAppearance.xib in Resources */,
 				69A79DA5171B695B005B06CD /* sebConfigIcon.png in Resources */,
 				69A79DA7171B695B005B06CD /* sebConfigIcon@2x.png in Resources */,
+				693FAECF17273FB30002AE60 /* ZoomTextIn.png in Resources */,
+				693FAED117273FB30002AE60 /* ZoomTextIn@2x.png in Resources */,
+				693FAED317273FB30002AE60 /* ZoomTextOut.png in Resources */,
+				693FAED517273FB30002AE60 /* ZoomTextOut@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -758,6 +778,10 @@
 				69F32DC816D23397003C9502 /* PreferencesAppearance.xib in Resources */,
 				69A79DA4171B695B005B06CD /* sebConfigIcon.png in Resources */,
 				69A79DA6171B695B005B06CD /* sebConfigIcon@2x.png in Resources */,
+				693FAECE17273FB30002AE60 /* ZoomTextIn.png in Resources */,
+				693FAED017273FB30002AE60 /* ZoomTextIn@2x.png in Resources */,
+				693FAED217273FB30002AE60 /* ZoomTextOut.png in Resources */,
+				693FAED417273FB30002AE60 /* ZoomTextOut@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -254,7 +254,7 @@
 
 
 - (IBAction) pasteSavedStringFromPasteboard:(id)sender {
-    NSString *pasteboardString = [[MyGlobals sharedMyGlobals] pasteboardString];
+    NSString *pasteboardString = [[MyGlobals sharedMyGlobals] valueForKey:@"pasteboardString"];
     if (![pasteboardString isEqualToString:@""]) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         [preferences setSecureObject:pasteboardString forKey:@"org_safeexambrowser_SEB_startURL"];

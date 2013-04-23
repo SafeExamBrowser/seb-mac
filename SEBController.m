@@ -600,7 +600,7 @@ bool insideMatrix();
         [[MyGlobals sharedMyGlobals] setValue:@"" forKey:@"pasteboardString"];
     }
 #ifdef DEBUG
-    NSString *stringFromPasteboard = [[MyGlobals sharedMyGlobals] pasteboardString];
+    NSString *stringFromPasteboard = [[MyGlobals sharedMyGlobals] valueForKey:@"pasteboardString"];
     NSLog(@"Saved string from Pasteboard: %@", stringFromPasteboard);
 #endif
     //NSInteger changeCount = [pasteboard clearContents];
