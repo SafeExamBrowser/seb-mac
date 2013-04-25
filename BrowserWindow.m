@@ -407,20 +407,31 @@ initiatedByFrame:(WebFrame *)frame {
          */
         //NSMutableData *browserExamKey = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
         NSData *browserExamKey = [preferences objectForKey:@"currentData"];
+        unsigned char hashedChars[32];
+        [browserExamKey getBytes:hashedChars length:32];
+        
+        NSMutableString* browserExamKeyString = [[NSMutableString alloc] init];
+        [browserExamKeyString appendString:absoluteRequestURL];
+        for (int i = 0 ; i < 32 ; ++i) {
+            [browserExamKeyString appendFormat: @"%02x", hashedChars[i]];
+        }
+        
+
 #ifdef DEBUG
-        NSLog(@"Current Browser Exam Key: %@", browserExamKey);
+        NSLog(@"Current request URL + Browser Exam Key: %@", browserExamKeyString);
 #endif
         
         //unsigned char hashedChars[32];
-        unsigned char hashedChars[CC_SHA256_DIGEST_LENGTH];
         
         //NSData *requestURLData = [absoluteRequestURL dataUsingEncoding:NSUTF8StringEncoding];
-        const char *urlString = [absoluteRequestURL UTF8String];
+        //const char *urlString = [absoluteRequestURL UTF8String];
+        const char *urlString = [browserExamKeyString UTF8String];
         
         CC_SHA256_CTX sha256;
         CC_SHA256_Init(&sha256);
+        //CC_SHA256_Update(&sha256, urlString, strlen(urlString));
         CC_SHA256_Update(&sha256, urlString, strlen(urlString));
-        CC_SHA256_Update(&sha256, browserExamKey.bytes, browserExamKey.length);
+        //CC_SHA256_Update(&sha256, browserExamKey.bytes, browserExamKey.length);
 
         CC_SHA256_Final(hashedChars, &sha256);
 
