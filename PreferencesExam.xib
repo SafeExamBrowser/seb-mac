@@ -357,19 +357,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: values.org_safeexambrowser_SEB_copyExamKeyToClipboardWhenQuitting</string>
+						<string key="label">value: values.org_safeexambrowser_SEB_copyBrowserExamKeyToClipboardWhenQuitting</string>
 						<reference key="source" ref="320421052"/>
 						<reference key="destination" ref="946899287"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="320421052"/>
 							<reference key="NSDestination" ref="946899287"/>
-							<string key="NSLabel">value: values.org_safeexambrowser_SEB_copyExamKeyToClipboardWhenQuitting</string>
+							<string key="NSLabel">value: values.org_safeexambrowser_SEB_copyBrowserExamKeyToClipboardWhenQuitting</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">values.org_safeexambrowser_SEB_copyExamKeyToClipboardWhenQuitting</string>
+							<string key="NSKeyPath">values.org_safeexambrowser_SEB_copyBrowserExamKeyToClipboardWhenQuitting</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">215</int>
+					<int key="connectionID">1017</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -1404,7 +1404,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1016</int>
+			<int key="maxID">1017</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

@@ -129,7 +129,7 @@ static BOOL _usePrivateUserDefaults = NO;
                                  [self secureDataForObject:(id)[NSNumber numberWithInt:manuallyWithFileRequester]],
                                  @"org_safeexambrowser_SEB_chooseFileToUploadPolicy",
                                  [self secureDataForObject:(id)[NSNumber numberWithBool:NO]],
-                                 @"org_safeexambrowser_SEB_copyExamKeyToClipboardWhenQuitting",
+                                 @"org_safeexambrowser_SEB_copyBrowserExamKeyToClipboardWhenQuitting",
                                  [self secureDataForObject:(id)[NSNumber numberWithInt:0]],
                                  @"org_safeexambrowser_SEB_cryptoIdentity",
                                  [self secureDataForObject:(id)[NSHomeDirectory() stringByAppendingPathComponent: @"Downloads"]],

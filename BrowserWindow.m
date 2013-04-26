@@ -411,7 +411,7 @@ initiatedByFrame:(WebFrame *)frame {
         [browserExamKey getBytes:hashedChars length:32];
         
         NSMutableString* browserExamKeyString = [[NSMutableString alloc] init];
-        [browserExamKeyString appendString:absoluteRequestURL];
+        [browserExamKeyString setString:absoluteRequestURL];
         for (int i = 0 ; i < 32 ; ++i) {
             [browserExamKeyString appendFormat: @"%02x", hashedChars[i]];
         }
