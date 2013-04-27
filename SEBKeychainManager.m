@@ -42,7 +42,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
-- (NSArray*)getIdentities {
+- (NSArray*)getIdentitiesAndNames:(NSArray **)names {
     SecKeychainRef keychain;
     OSStatus error;
     error = SecKeychainCopyDefault(&keychain);
@@ -67,12 +67,14 @@
             return nil;
     }
     NSMutableArray *identities = [NSMutableArray arrayWithArray:(__bridge  NSArray*)(items)];
+    NSMutableArray *identitiesNames = [NSMutableArray arrayWithCapacity:[identities count]];
     
     CFStringRef commonName;
     SecCertificateRef certificateRef;
     SecKeyRef publicKeyRef;
     SecKeyRef privateKeyRef;
     CFArrayRef emailAddressesRef;
+    NSString *identityName;
     int i, count = [identities count];
     for (i=0; i<count; i++) {
         SecIdentityRef identityRef = (__bridge SecIdentityRef)[identities objectAtIndex:i];
@@ -104,6 +106,27 @@
         {
             SecCertificateCopyCommonName(certificateRef, &commonName);
             SecCertificateCopyEmailAddresses(certificateRef, &emailAddressesRef);
+            identityName = [NSString stringWithFormat:@"%@%@",
+                            (__bridge NSString *)commonName ?
+                            [NSString stringWithFormat:@"%@ ",(__bridge NSString *)commonName] :
+                            @"" ,
+                            CFArrayGetCount(emailAddressesRef) ?
+                            (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) :
+                            @""];
+            if ([identitiesNames containsObject:identityName]) {
+                //get public key hash from selected identity's certificate
+                NSData* publicKeyHash = [self getPublicKeyHashFromCertificate:certificateRef];
+                unsigned char hashedChars[20];
+                [publicKeyHash getBytes:hashedChars length:20];
+                NSMutableString* hashedString = [[NSMutableString alloc] init];
+                for (int i = 0 ; i < 20 ; ++i) {
+                    [hashedString appendFormat: @"%02x", hashedChars[i]];
+                }
+                [identitiesNames addObject:[NSString stringWithFormat:@"%@ %@",identityName, hashedString]];
+            } else {
+                [identitiesNames addObject:identityName];
+            }
+            
 #ifdef DEBUG
             NSLog(@"Common name: %@ %@", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , CFArrayGetCount(emailAddressesRef) ? (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) : @"");
             NSLog(@"Public key can be used for encryption, private key can be used for decryption");
@@ -122,6 +145,10 @@
     }
     NSArray *foundIdentities;
     foundIdentities = [NSArray arrayWithArray:identities];
+    // return array of identity names
+    if (names) {
+        *names = [NSArray arrayWithArray:identitiesNames];
+    }
     return foundIdentities; // items contains all SecIdentityRefs in keychain
 }
 

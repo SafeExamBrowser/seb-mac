@@ -22,7 +22,7 @@
     IBOutlet NSObjectController *controller;
 }
 
-@property (strong, nonatomic) NSMutableArray *identitiesName;
+@property (strong, nonatomic) NSMutableArray *identitiesNames;
 @property (strong, nonatomic) NSArray *identities;
 
 - (IBAction) saveSEBPrefs:(id)sender;

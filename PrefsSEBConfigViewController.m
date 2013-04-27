@@ -18,7 +18,7 @@
 @end
 
 @implementation PrefsSEBConfigViewController
-@synthesize identitiesName;
+@synthesize identitiesNames;
 @synthesize identities;
 
 
@@ -65,53 +65,16 @@
     //Load settings password from user defaults
     //[self loadPrefs];
     //[chooseIdentity synchronizeTitleAndSelectedItem];
-    if (!self.identitiesName) { //no identities available yet, get them from keychain
+    if (!self.identitiesNames) { //no identities available yet, get them from keychain
         SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-        NSArray *identitiesInKeychain = [keychainManager getIdentities];
-        //SecCertificateRef certificate;
-        int i, count = [identitiesInKeychain count];
-        self.identitiesName = [NSMutableArray arrayWithCapacity:count];
-        SecCertificateRef certificateRef;
-        CFStringRef commonName = NULL;
-        CFArrayRef emailAddressesRef;
-        NSString *identityName;
-        [self.identitiesName removeAllObjects];
-        for (i=0; i<count; i++) {
-            SecIdentityRef identityRef = (__bridge SecIdentityRef)[identitiesInKeychain objectAtIndex:i];
-            SecIdentityCopyCertificate(identityRef, &certificateRef);
-            SecCertificateCopyCommonName(certificateRef, &commonName);
-            SecCertificateCopyEmailAddresses(certificateRef, &emailAddressesRef);
-            identityName = [NSString stringWithFormat:@"%@%@",
-                            (__bridge NSString *)commonName ?
-                            [NSString stringWithFormat:@"%@ ",(__bridge NSString *)commonName] :
-                            @"" ,
-                            CFArrayGetCount(emailAddressesRef) ?
-                            (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) :
-                            @""];
-            if ([self.identitiesName containsObject:identityName]) {
-                //get public key hash from selected identity's certificate
-                NSData* publicKeyHash = [keychainManager getPublicKeyHashFromCertificate:certificateRef];
-                unsigned char hashedChars[20];
-                [publicKeyHash getBytes:hashedChars length:20];
-                NSMutableString* hashedString = [[NSMutableString alloc] init];
-                for (int i = 0 ; i < 20 ; ++i) {
-                    [hashedString appendFormat: @"%02x", hashedChars[i]];
-                }
-                [self.identitiesName addObject:[NSString stringWithFormat:@"%@ %@",identityName, hashedString]];
-            } else {
-                [self.identitiesName addObject:identityName];
-            }
-
-            if (emailAddressesRef) CFRelease(emailAddressesRef);
-            if (commonName) CFRelease(commonName);
-            if (certificateRef) CFRelease(certificateRef);
-            if (identityRef) CFRelease(identityRef);
-        }
+        NSArray *names;
+        NSArray *identitiesInKeychain = [keychainManager getIdentitiesAndNames:&names];
         self.identities = identitiesInKeychain;
+        self.identitiesNames = [names copy];
         [chooseIdentity removeAllItems];
         //first put "None" item in popupbutton list
         [chooseIdentity addItemWithTitle:NSLocalizedString(@"None", nil)];
-        [chooseIdentity addItemsWithTitles: self.identitiesName];
+        [chooseIdentity addItemsWithTitles: self.identitiesNames];
     }
 }
 
