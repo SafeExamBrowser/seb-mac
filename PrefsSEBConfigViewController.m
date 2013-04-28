@@ -226,8 +226,7 @@
     //get certificate from selected identity
     NSUInteger selectedIdentity = [chooseIdentity indexOfSelectedItem]-1;
     SecIdentityRef identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:selectedIdentity]);
-    SecCertificateRef certificateRef;
-    SecIdentityCopyCertificate(identityRef, &certificateRef);
+    SecCertificateRef certificateRef = [keychainManager getCertificateFromIdentity:identityRef];
     
     //get public key hash from selected identity's certificate
     NSData* publicKeyHash = [keychainManager getPublicKeyHashFromCertificate:certificateRef];
@@ -246,9 +245,7 @@
     NSMutableDictionary *loadedPrefsDict = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedSebData];
     NSLog(@"Decrypted .seb dictionary: %@",loadedPrefsDict);
     */
-    if (certificateRef) CFRelease(certificateRef);
-    //if (identityRef) CFRelease(identityRef);
-    //if (privateKeyRef) CFRelease(privateKeyRef);
+    //if (certificateRef) CFRelease(certificateRef);
     
     //Prefix indicating data has been encrypted with a public key identified by hash
     const char *utfString = [@"pkhs" UTF8String];

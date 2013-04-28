@@ -34,6 +34,7 @@
 
 
 #import "SEBKeychainManager.h"
+#import "Constants.h"
 
 @implementation SEBKeychainManager
 
@@ -153,7 +154,7 @@
 }
 
 
-- (NSArray*)getCertificates {
+- (NSArray*)getCertificatesAndNames:(NSArray **)names {
     SecKeychainRef keychain;
     OSStatus error;
     error = SecKeychainCopyDefault(&keychain);
@@ -176,7 +177,70 @@
             //LKKCReportError(status, @"Can't search keychain");
             return nil;
     }
-    return (__bridge  NSArray*)(items); // items contains all SecCertificateRefs in keychain
+    NSMutableArray *certificates = [NSMutableArray arrayWithArray:(__bridge  NSArray*)(items)];
+    NSMutableArray *certificatesNames = [NSMutableArray arrayWithCapacity:[certificates count]];
+    
+    CFStringRef commonName;
+    CFArrayRef emailAddressesRef;
+    //NSDictionary *values;
+    //NSDictionary *value;
+    NSString *certificateName;
+    int i, count = [certificates count];
+    for (i=0; i<count; i++) {
+        SecCertificateRef certificateRef = (__bridge SecCertificateRef)[certificates objectAtIndex:i];
+        SecCertificateCopyCommonName(certificateRef, &commonName);
+        SecCertificateCopyEmailAddresses(certificateRef, &emailAddressesRef);
+        NSDictionary *values = (NSDictionary *)CFBridgingRelease(SecCertificateCopyValues (certificateRef, (__bridge CFArrayRef)[NSArray arrayWithObject:(__bridge id)(kSecOIDExtendedKeyUsage)], NULL));
+        // For the moment we use the email address field as an indicator if the certificate is
+        // meant for signing and encrypting mail or for server authentification
+        if ([values count]) {
+            NSDictionary *value = [values objectForKey:(__bridge id)(kSecOIDExtendedKeyUsage)];
+            NSArray *extendedKeyUsages = [value objectForKey:(__bridge id)(kSecPropertyKeyValue)];
+            if ([extendedKeyUsages containsObject:[NSData dataWithBytes:keyUsageServerAuthentication length:8]]) {
+                certificateName = [NSString stringWithFormat:@"%@",
+                                   (__bridge NSString *)commonName ?
+                                   //There is a commonName: just take that as a name
+                                   [NSString stringWithFormat:@"%@ ",(__bridge NSString *)commonName] :
+                                   //there is no common name: take the e-mail address (if it exists)
+                                   CFArrayGetCount(emailAddressesRef) ?
+                                   (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) :
+                                   @""];
+                if ([certificateName isEqualToString:@""] || [certificatesNames containsObject:certificateName]) {
+                    //get public key hash from selected identity's certificate
+                    NSData* publicKeyHash = [self getPublicKeyHashFromCertificate:certificateRef];
+                    unsigned char hashedChars[20];
+                    [publicKeyHash getBytes:hashedChars length:20];
+                    NSMutableString* hashedString = [[NSMutableString alloc] init];
+                    for (int i = 0 ; i < 20 ; ++i) {
+                        [hashedString appendFormat: @"%02x", hashedChars[i]];
+                    }
+                    [certificatesNames addObject:[NSString stringWithFormat:@"%@ %@",certificateName, hashedString]];
+                } else {
+                    [certificatesNames addObject:certificateName];
+                }
+                
+#ifdef DEBUG
+                NSLog(@"Common name: %@ %@", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , CFArrayGetCount(emailAddressesRef) ? (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) : @"");
+#endif
+            }
+        } else {
+            [certificates removeObjectAtIndex:i];
+            i--;
+            count--;
+        }
+        if (commonName) CFRelease(commonName);
+        if (emailAddressesRef) CFRelease(emailAddressesRef);
+        
+        if (certificateRef) CFRelease(certificateRef);
+    }
+    NSArray *foundCertificates;
+    foundCertificates = [NSArray arrayWithArray:certificates];
+    // return array of identity names
+    if (names) {
+        *names = [NSArray arrayWithArray:certificatesNames];
+    }
+    return foundCertificates; // items contains all SecIdentityRefs in keychain
+    //return (__bridge  NSArray*)(items); // items contains all SecCertificateRefs in keychain
     
 }
 
@@ -289,6 +353,19 @@
         return nil;
     }
     return privateKeyRef;
+}
+
+
+- (SecCertificateRef)getCertificateFromIdentity:(SecIdentityRef)identityRef {
+    SecCertificateRef certificateRef;
+    SecIdentityCopyCertificate(identityRef, &certificateRef);
+    return certificateRef;
+}
+
+
+- (NSData*) getDataForCertificate:(SecCertificateRef)certificate {
+
+    return (NSData*)CFBridgingRelease(SecCertificateCopyData (certificate));
 }
 
 

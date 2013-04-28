@@ -1,5 +1,5 @@
 //
-//  SEBController.h
+//  PrefsNetworkViewController.h
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 12.02.13.
@@ -45,15 +45,30 @@
     IBOutlet NSTreeController *treeController;
 	IBOutlet DropDownButton *dropDownButton;
 
+    // Certificates section
+    IBOutlet NSPopUpButton *chooseCertificate;
+    IBOutlet NSPopUpButton *chooseIdentity;
+    IBOutlet NSArrayController *certificatesArrayController;
+
 }
 
 @property(strong) NSTableColumn *groupRowTableColumn;
+
+@property (strong, nonatomic) NSMutableArray *certificatesNames;
+@property (strong, nonatomic) NSArray *certificates;
+@property (strong, nonatomic) NSMutableArray *identitiesNames;
+@property (strong, nonatomic) NSArray *identities;
+
 
 - (NSString *)identifier;
 - (NSImage *)image;
 
 - (IBAction) dropDownAction:(id)sender;
 - (IBAction) addRuleItem:(id)sender;
+
+// Certificates section
+- (IBAction) identitySelected:(id)sender;
+- (IBAction) certificateSelected:(id)sender;
 
 
 @end

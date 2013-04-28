@@ -1,5 +1,5 @@
 //
-//  SEBController.h
+//  PrefsNetworkViewController.m
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 12.02.13.
@@ -37,10 +37,17 @@
 
 #import "PrefsNetworkViewController.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
+#import "SEBKeychainManager.h"
+#import "Constants.h"
 
 @implementation PrefsNetworkViewController
 
 @synthesize groupRowTableColumn;
+
+@synthesize certificatesNames;
+@synthesize certificates;
+@synthesize identitiesNames;
+@synthesize identities;
 
 
 - (NSString *)title
@@ -58,11 +65,38 @@
 	return [NSImage imageNamed:NSImageNameNetwork];
 }
 
-// Before displaying pane set the download directory
-- (void)willBeDisplayed
-{
-    
+// Delegate called before the Network settings preferences pane will be displayed
+- (void)willBeDisplayed {
+    //Load settings password from user defaults
+    //[self loadPrefs];
+    //[chooseIdentity synchronizeTitleAndSelectedItem];
+    if (!self.certificatesNames)
+    { //no certificates available yet, get them from keychain
+        SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+        NSArray *names;
+        NSArray *certificatesInKeychain = [keychainManager getCertificatesAndNames:&names];
+        self.certificates = certificatesInKeychain;
+        self.certificatesNames = [names copy];
+        [chooseCertificate removeAllItems];
+        //first put "None" item in popupbutton list
+        [chooseCertificate addItemWithTitle:NSLocalizedString(@"None", nil)];
+        [chooseCertificate addItemsWithTitles: self.certificatesNames];
+    }
+    if (!self.identitiesNames)
+    { //no identities available yet, get them from keychain
+        SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+        NSArray *names;
+        NSArray *identitiesInKeychain = [keychainManager getIdentitiesAndNames:&names];
+        self.identities = identitiesInKeychain;
+        self.identitiesNames = [names copy];
+        [chooseIdentity removeAllItems];
+        //first put "None" item in popupbutton list
+        [chooseIdentity addItemWithTitle:NSLocalizedString(@"None", nil)];
+        [chooseIdentity addItemsWithTitles: self.identitiesNames];
+    }
 }
+
+
 
 #pragma mark -
 #pragma mark DropDownButton
@@ -132,4 +166,49 @@
  NSLog(@"type=%@", [settings objectForKey:(NSString *)kCFProxyTypeKey]);
  
  */
+
+
+// Certificates Section
+
+// A certificate was selected in the drop down menu
+- (IBAction) certificateSelected:(id)sender
+{
+    //get certificate from selected identity
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    NSUInteger selectedCertificate = [sender indexOfSelectedItem]-1;
+    SecCertificateRef certificate = (__bridge SecCertificateRef)([self.certificates objectAtIndex:selectedCertificate]);
+    NSData *certificateData = [keychainManager getDataForCertificate:certificate];
+    
+    NSDictionary *certificateToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
+                                        [NSNumber numberWithInt:certificateTypeSSLClientCertificate], @"type",
+                                        [sender titleOfSelectedItem], @"name",
+                                        certificateData, @"certificateData",
+                                        nil];
+    [certificatesArrayController addObject:certificateToEmbed];
+    
+    [chooseCertificate selectItemAtIndex:0];
+    [chooseCertificate synchronizeTitleAndSelectedItem];
+}
+
+// An identity was selected in the drop down menu
+- (IBAction)identitySelected:(id)sender
+{
+    //get certificate from selected identity
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    NSUInteger selectedIdentity = [sender indexOfSelectedItem]-1;
+    SecIdentityRef identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:selectedIdentity]);
+    SecCertificateRef certificate = [keychainManager getCertificateFromIdentity:identityRef];
+    NSData *certificateData = [keychainManager getDataForCertificate:certificate];
+    
+    NSDictionary *identityToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
+                                     [NSNumber numberWithInt:certificateTypeIdentity], @"type",
+                                     [sender titleOfSelectedItem], @"name",
+                                     certificateData, @"certificateData",
+                                     nil];
+    [certificatesArrayController addObject:identityToEmbed];
+    
+    [chooseIdentity selectItemAtIndex:0];
+    [chooseIdentity synchronizeTitleAndSelectedItem];
+}
+
 @end
