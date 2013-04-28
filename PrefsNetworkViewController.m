@@ -175,19 +175,21 @@
 {
     //get certificate from selected identity
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    NSUInteger selectedCertificate = [sender indexOfSelectedItem]-1;
-    SecCertificateRef certificate = (__bridge SecCertificateRef)([self.certificates objectAtIndex:selectedCertificate]);
-    NSData *certificateData = [keychainManager getDataForCertificate:certificate];
-    
-    NSDictionary *certificateToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        [NSNumber numberWithInt:certificateTypeSSLClientCertificate], @"type",
-                                        [sender titleOfSelectedItem], @"name",
-                                        certificateData, @"certificateData",
-                                        nil];
-    [certificatesArrayController addObject:certificateToEmbed];
-    
-    [chooseCertificate selectItemAtIndex:0];
-    [chooseCertificate synchronizeTitleAndSelectedItem];
+    NSUInteger indexOfSelectedItem = [sender indexOfSelectedItem];
+    if (indexOfSelectedItem) {
+        SecCertificateRef certificate = (__bridge SecCertificateRef)([self.certificates objectAtIndex:indexOfSelectedItem-1]);
+        NSData *certificateData = [keychainManager getDataForCertificate:certificate];
+        
+        NSDictionary *certificateToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
+                                            [NSNumber numberWithInt:certificateTypeSSLClientCertificate], @"type",
+                                            [sender titleOfSelectedItem], @"name",
+                                            certificateData, @"certificateData",
+                                            nil];
+        [certificatesArrayController addObject:certificateToEmbed];
+        
+        [chooseCertificate selectItemAtIndex:0];
+        [chooseCertificate synchronizeTitleAndSelectedItem];
+    }
 }
 
 // An identity was selected in the drop down menu
@@ -195,20 +197,22 @@
 {
     //get certificate from selected identity
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    NSUInteger selectedIdentity = [sender indexOfSelectedItem]-1;
-    SecIdentityRef identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:selectedIdentity]);
-    SecCertificateRef certificate = [keychainManager getCertificateFromIdentity:identityRef];
-    NSData *certificateData = [keychainManager getDataForCertificate:certificate];
-    
-    NSDictionary *identityToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
-                                     [NSNumber numberWithInt:certificateTypeIdentity], @"type",
-                                     [sender titleOfSelectedItem], @"name",
-                                     certificateData, @"certificateData",
-                                     nil];
-    [certificatesArrayController addObject:identityToEmbed];
-    
-    [chooseIdentity selectItemAtIndex:0];
-    [chooseIdentity synchronizeTitleAndSelectedItem];
+    NSUInteger indexOfSelectedItem = [sender indexOfSelectedItem];
+    if (indexOfSelectedItem) {
+        SecIdentityRef identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:indexOfSelectedItem-1]);
+        SecCertificateRef certificate = [keychainManager getCertificateFromIdentity:identityRef];
+        NSData *certificateData = [keychainManager getDataForCertificate:certificate];
+        
+        NSDictionary *identityToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
+                                         [NSNumber numberWithInt:certificateTypeIdentity], @"type",
+                                         [sender titleOfSelectedItem], @"name",
+                                         certificateData, @"certificateData",
+                                         nil];
+        [certificatesArrayController addObject:identityToEmbed];
+        
+        [chooseIdentity selectItemAtIndex:0];
+        [chooseIdentity synchronizeTitleAndSelectedItem];
+    }
 }
 
 @end

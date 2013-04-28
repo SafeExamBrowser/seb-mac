@@ -191,8 +191,7 @@
         SecCertificateCopyCommonName(certificateRef, &commonName);
         SecCertificateCopyEmailAddresses(certificateRef, &emailAddressesRef);
         NSDictionary *values = (NSDictionary *)CFBridgingRelease(SecCertificateCopyValues (certificateRef, (__bridge CFArrayRef)[NSArray arrayWithObject:(__bridge id)(kSecOIDExtendedKeyUsage)], NULL));
-        // For the moment we use the email address field as an indicator if the certificate is
-        // meant for signing and encrypting mail or for server authentification
+        // Keep only certificates which have an extended key usage server authentification
         if ([values count]) {
             NSDictionary *value = [values objectForKey:(__bridge id)(kSecOIDExtendedKeyUsage)];
             NSArray *extendedKeyUsages = [value objectForKey:(__bridge id)(kSecPropertyKeyValue)];
