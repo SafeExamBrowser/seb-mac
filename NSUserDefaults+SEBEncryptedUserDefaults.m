@@ -198,6 +198,8 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_quitURL",
                                  [self secureDataForObject:(id)[NSNumber numberWithInt:0]],
                                  @"org_safeexambrowser_SEB_sebPurpose",
+                                 [self secureDataForObject:(id)@""],
+                                 @"org_safeexambrowser_SEB_sebServerURL",
                                  [self secureDataForObject:(id)[NSNumber numberWithInt:forceSebService]],
                                  @"org_safeexambrowser_SEB_sebServicePolicy",
                                  [self secureDataForObject:(id)[NSNumber numberWithBool:NO]],
