@@ -460,7 +460,7 @@
 		692F53D514ACFFF200011C84 /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
-				693D16C717160CD00040AD7E /* Preferences Panes */,
+				693D16C717160CD00040AD7E /* Preferences View Controllers */,
 				69CB8AFD136AFC6E00C08450 /* PreferencesController.h */,
 				69C52802136AFDBD00F9F000 /* PreferencesController.m */,
 				69A9A22A1368784500840AE1 /* MBPreferencesController.h */,
@@ -499,7 +499,7 @@
 			name = "TableView Subclasses";
 			sourceTree = "<group>";
 		};
-		693D16C717160CD00040AD7E /* Preferences Panes */ = {
+		693D16C717160CD00040AD7E /* Preferences View Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				69A9A232136AF6E000840AE1 /* PrefsGeneralViewController.h */,
@@ -523,7 +523,7 @@
 				695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */,
 				695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */,
 			);
-			name = "Preferences Panes";
+			name = "Preferences View Controllers";
 			sourceTree = "<group>";
 		};
 		69428C93172E5E7300C87C58 /* Browser Components */ = {

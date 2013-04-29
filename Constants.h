@@ -94,17 +94,17 @@ typedef NSUInteger proxySettingsPolicies;
 
 
 enum {
+    sebConfigPurposeStartingExam          = 0,
+    sebConfigPurposeConfiguringClient     = 1
+};
+typedef NSUInteger sebConfigPurposes;
+
+
+enum {
     SEBEnterPasswordCancel                      = 0,
     SEBEnterPasswordOK                          = 1
 };
 typedef NSUInteger SEBEnterPasswordResponse;
-
-
-enum {
-    sebPurposePolicyStartingExam                = 0,
-    sebPurposePolicyConfiguringClient           = 1
-};
-typedef NSUInteger sebPurposePolicies;
 
 
 enum {
