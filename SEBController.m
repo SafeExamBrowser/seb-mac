@@ -298,6 +298,14 @@ bool insideMatrix();
         }
         return YES; //we're done here
     }
+    //
+    // No valid 4-char prefix was found in the .seb file
+    //
+    else {
+        // we produce an error and stop here
+        //
+        return YES;
+    }
     
     //if decrypting wasn't successfull then stop here
     if (!sebData) return YES;

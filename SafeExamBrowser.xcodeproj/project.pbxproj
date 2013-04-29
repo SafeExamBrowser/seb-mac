@@ -372,23 +372,10 @@
 			children = (
 				69D5881F1189EB8F005AE3F1 /* SEBController.h */,
 				69D588201189EB8F005AE3F1 /* SEBController.m */,
-				69F684CA143653880091CDA7 /* MyDocument.h */,
-				69F684CB143653880091CDA7 /* MyDocument.m */,
-				693D5A1514C59B4300E37C68 /* BrowserWindowController.h */,
-				693D5A1614C59B4300E37C68 /* BrowserWindowController.m */,
-				692891B012ACEBDC00EEE7C9 /* BrowserWindow.h */,
-				692891B112ACEBDC00EEE7C9 /* BrowserWindow.m */,
-				69DD2FCF1201C416009B1005 /* CapView.h */,
-				69DD2FD01201C416009B1005 /* CapView.m */,
-				69E13AEE127C812900CB81E1 /* AboutView.h */,
-				69E13AEF127C812900CB81E1 /* AboutView.m */,
-				6969B1D1127C7AB60027FF8D /* AboutWindow.h */,
-				6969B1D2127C7AB60027FF8D /* AboutWindow.m */,
+				69428C97172E600000C87C58 /* Global */,
+				69428C93172E5E7300C87C58 /* Browser Components */,
+				69428C98172E602E00C87C58 /* Additional Views+Windows */,
 				692F53D514ACFFF200011C84 /* Preferences */,
-				6991A79014471F8C00F9149D /* MyGlobals.h */,
-				6991A79114471F8C00F9149D /* MyGlobals.m */,
-				6991A78F14471F5A00F9149D /* SynthesizeSingleton.h */,
-				692F53D614AD03F300011C84 /* Constants.h */,
 				696F28D815751DF600780DA8 /* Cryptography */,
 				695AF20C149128A300B18DD8 /* Categories */,
 			);
@@ -449,40 +436,13 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				693FAECA17273FB30002AE60 /* ZoomTextIn.png */,
-				693FAECB17273FB30002AE60 /* ZoomTextIn@2x.png */,
-				693FAECC17273FB30002AE60 /* ZoomTextOut.png */,
-				693FAECD17273FB30002AE60 /* ZoomTextOut@2x.png */,
-				69A79DA2171B695B005B06CD /* sebConfigIcon.png */,
-				69A79DA3171B695B005B06CD /* sebConfigIcon@2x.png */,
+				69428C96172E5FBA00C87C58 /* User Interface */,
+				69428C95172E5F8B00C87C58 /* Images */,
+				69428C94172E5F1D00C87C58 /* Icons */,
 				693FDEF214FB9D200020FA96 /* SafeExamBrowser-Info.plist */,
-				696EB10016CAAFF600707B0F /* ApplicationsIcon.png */,
-				696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */,
-				69F32DBD16D232C0003C9502 /* Appearance.icns */,
-				690D234A1452000800CCCFF9 /* BrowserIcon.png */,
-				690D234B1452000800CCCFF9 /* BrowserIcon@2x.png */,
-				69EFA36816CB121200E967B4 /* DownUploadIcon.png */,
-				69EFA36916CB121200E967B4 /* DownUploadIcon@2x.png */,
-				695C5CAB16CB210E008FC401 /* ExamIcon.png */,
-				695C5CAC16CB210E008FC401 /* ExamIcon@2x.png */,
-				6977E97516CEF8FF00E66910 /* SecurityIcon.png */,
-				6977E97616CEF8FF00E66910 /* SecurityIcon@2x.png */,
 				69A9A22E1369AF9600840AE1 /* LICENCE */,
 				6970CF9912BFC73300559EA4 /* InfoPlist.strings */,
 				6970CF4C12BEA67100559EA4 /* Localizable.strings */,
-				6969B1CC127B80410027FF8D /* AboutSEB.png */,
-				6932C9671191B7FE00688EBB /* SEBicon.icns */,
-				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
-				69F684CE1436550F0091CDA7 /* BrowserWindow.xib */,
-				69FC9057136C9A00009B55CB /* PreferencesGeneral.xib */,
-				6992498C16C3AE9C00DF6B53 /* PreferencesSEBConfig.xib */,
-				69F32DC716D23397003C9502 /* PreferencesAppearance.xib */,
-				69BE8662145872C900E87C22 /* PreferencesBrowser.xib */,
-				69FC905C136CA80F009B55CB /* PreferencesDownUploads.xib */,
-				6943D0761655054600AB6B1D /* PreferencesExam.xib */,
-				6992499616C5B5D300DF6B53 /* PreferencesApplications.xib */,
-				69F910FA16CA5C1C0041EA38 /* PreferencesNetwork.xib */,
-				695283D716CDB5020055AF6F /* PreferencesSecurity.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -564,6 +524,94 @@
 				695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */,
 			);
 			name = "Preferences Panes";
+			sourceTree = "<group>";
+		};
+		69428C93172E5E7300C87C58 /* Browser Components */ = {
+			isa = PBXGroup;
+			children = (
+				69F684CA143653880091CDA7 /* MyDocument.h */,
+				69F684CB143653880091CDA7 /* MyDocument.m */,
+				693D5A1514C59B4300E37C68 /* BrowserWindowController.h */,
+				693D5A1614C59B4300E37C68 /* BrowserWindowController.m */,
+				692891B012ACEBDC00EEE7C9 /* BrowserWindow.h */,
+				692891B112ACEBDC00EEE7C9 /* BrowserWindow.m */,
+			);
+			name = "Browser Components";
+			sourceTree = "<group>";
+		};
+		69428C94172E5F1D00C87C58 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				6932C9671191B7FE00688EBB /* SEBicon.icns */,
+				696EB10016CAAFF600707B0F /* ApplicationsIcon.png */,
+				696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */,
+				69F32DBD16D232C0003C9502 /* Appearance.icns */,
+				690D234A1452000800CCCFF9 /* BrowserIcon.png */,
+				690D234B1452000800CCCFF9 /* BrowserIcon@2x.png */,
+				69EFA36816CB121200E967B4 /* DownUploadIcon.png */,
+				69EFA36916CB121200E967B4 /* DownUploadIcon@2x.png */,
+				695C5CAB16CB210E008FC401 /* ExamIcon.png */,
+				695C5CAC16CB210E008FC401 /* ExamIcon@2x.png */,
+				6977E97516CEF8FF00E66910 /* SecurityIcon.png */,
+				6977E97616CEF8FF00E66910 /* SecurityIcon@2x.png */,
+				693FAECA17273FB30002AE60 /* ZoomTextIn.png */,
+				693FAECB17273FB30002AE60 /* ZoomTextIn@2x.png */,
+				693FAECC17273FB30002AE60 /* ZoomTextOut.png */,
+				693FAECD17273FB30002AE60 /* ZoomTextOut@2x.png */,
+				69A79DA2171B695B005B06CD /* sebConfigIcon.png */,
+				69A79DA3171B695B005B06CD /* sebConfigIcon@2x.png */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
+		69428C95172E5F8B00C87C58 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				6969B1CC127B80410027FF8D /* AboutSEB.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		69428C96172E5FBA00C87C58 /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
+				69F684CE1436550F0091CDA7 /* BrowserWindow.xib */,
+				69FC9057136C9A00009B55CB /* PreferencesGeneral.xib */,
+				6992498C16C3AE9C00DF6B53 /* PreferencesSEBConfig.xib */,
+				69F32DC716D23397003C9502 /* PreferencesAppearance.xib */,
+				69BE8662145872C900E87C22 /* PreferencesBrowser.xib */,
+				69FC905C136CA80F009B55CB /* PreferencesDownUploads.xib */,
+				6943D0761655054600AB6B1D /* PreferencesExam.xib */,
+				6992499616C5B5D300DF6B53 /* PreferencesApplications.xib */,
+				69F910FA16CA5C1C0041EA38 /* PreferencesNetwork.xib */,
+				695283D716CDB5020055AF6F /* PreferencesSecurity.xib */,
+			);
+			name = "User Interface";
+			sourceTree = "<group>";
+		};
+		69428C97172E600000C87C58 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				6991A79014471F8C00F9149D /* MyGlobals.h */,
+				6991A79114471F8C00F9149D /* MyGlobals.m */,
+				6991A78F14471F5A00F9149D /* SynthesizeSingleton.h */,
+				692F53D614AD03F300011C84 /* Constants.h */,
+			);
+			name = Global;
+			sourceTree = "<group>";
+		};
+		69428C98172E602E00C87C58 /* Additional Views+Windows */ = {
+			isa = PBXGroup;
+			children = (
+				69DD2FCF1201C416009B1005 /* CapView.h */,
+				69DD2FD01201C416009B1005 /* CapView.m */,
+				69E13AEE127C812900CB81E1 /* AboutView.h */,
+				69E13AEF127C812900CB81E1 /* AboutView.m */,
+				6969B1D1127C7AB60027FF8D /* AboutWindow.h */,
+				6969B1D2127C7AB60027FF8D /* AboutWindow.m */,
+			);
+			name = "Additional Views+Windows";
 			sourceTree = "<group>";
 		};
 		695AF20C149128A300B18DD8 /* Categories */ = {
