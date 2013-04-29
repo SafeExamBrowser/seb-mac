@@ -895,7 +895,6 @@
 							<string key="NSFrame">{{302, 5}, {96, 32}}</string>
 							<reference key="NSSuperview" ref="292982850"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="666546950">
 								<int key="NSCellFlags">-2080374784</int>
@@ -1065,7 +1064,6 @@ LCBhbmQgd2FzIHN1cHBvcnRlZCBieSBmdW5kcyBmcm9tIHRoZSBFVEggQm9hcmQuA</string>
 				<string key="NSFrameSize">{550, 300}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView"/>
 				<string key="NSClassName">AboutView</string>
 			</object>
 			<object class="NSUserDefaultsController" id="987639253">
@@ -1087,14 +1085,6 @@ LCBhbmQgd2FzIHN1cHBvcnRlZCBieSBmdW5kcyBmcm9tIHRoZSBFVEggQm9hcmQuA</string>
 						<reference key="destination" ref="492418548"/>
 					</object>
 					<int key="connectionID">898</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">orderFrontStandardAboutPanel:</string>
-						<reference key="source" ref="1021"/>
-						<reference key="destination" ref="238522557"/>
-					</object>
-					<int key="connectionID">142</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -1604,6 +1594,14 @@ LCBhbmQgd2FzIHN1cHBvcnRlZCBieSBmdW5kcyBmcm9tIHRoZSBFVEggQm9hcmQuA</string>
 						<reference key="destination" ref="609285721"/>
 					</object>
 					<int key="connectionID">992</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showAbout:</string>
+						<reference key="source" ref="492418548"/>
+						<reference key="destination" ref="238522557"/>
+					</object>
+					<int key="connectionID">1014</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -2968,7 +2966,7 @@ LCBhbmQgd2FzIHN1cHBvcnRlZCBieSBmdW5kcyBmcm9tIHRoZSBFVEggQm9hcmQuA</string>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1013</int>
+			<int key="maxID">1014</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3087,6 +3085,7 @@ LCBhbmQgd2FzIHN1cHBvcnRlZCBieSBmdW5kcyBmcm9tIHRoZSBFVEggQm9hcmQuA</string>
 						<string key="exitSEB:">id</string>
 						<string key="okEnterPassword:">id</string>
 						<string key="openPreferences:">id</string>
+						<string key="showAbout:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="cancelEnterPassword:">
@@ -3103,6 +3102,10 @@ LCBhbmQgd2FzIHN1cHBvcnRlZCBieSBmdW5kcyBmcm9tIHRoZSBFVEggQm9hcmQuA</string>
 						</object>
 						<object class="IBActionInfo" key="openPreferences:">
 							<string key="name">openPreferences:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showAbout:">
+							<string key="name">showAbout:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>

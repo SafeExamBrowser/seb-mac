@@ -91,6 +91,7 @@
 - (void)requestedQuitWoPwd:(id)sender;
 
 - (IBAction) openPreferences:(id)sender;
+- (IBAction) showAbout: (id)sender;
 
 - (void) requestedRestart:(NSNotification *)notification;
 

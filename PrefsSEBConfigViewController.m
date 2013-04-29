@@ -24,7 +24,7 @@
 
 - (NSString *)title
 {
-	return NSLocalizedString(@".seb Config", @"Title of 'SEB Config' preference pane");
+	return NSLocalizedString(@"Config Files", @"Title of 'SEB Config' preference pane");
 }
 
 

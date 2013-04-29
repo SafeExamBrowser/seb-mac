@@ -1170,6 +1170,11 @@ bool insideMatrix(){
 
 - (void)requestedShowAbout:(NSNotification *)notification
 {
+    [self showAbout:self];
+}
+
+- (IBAction)showAbout: (id)sender
+{
     [aboutWindow setStyleMask:NSBorderlessWindowMask];
 	[aboutWindow center];
 	//[aboutWindow orderFront:self];

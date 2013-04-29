@@ -67,7 +67,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>10C9</string>
+	<string>10DE</string>
 	<key>ClickToFlashOptOut</key>
 	<true/>
 	<key>LSApplicationCategoryType</key>
@@ -90,7 +90,7 @@
 			<key>UTTypeDescription</key>
 			<string>Safe Exam Browser Configuration</string>
 			<key>UTTypeIconFile</key>
-			<string>sebConfigIcon</string>
+			<string>SEBDocumentIcon.icns</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.safeexambrowser.seb</string>
 			<key>UTTypeTagSpecification</key>
