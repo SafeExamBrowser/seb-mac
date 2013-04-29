@@ -458,7 +458,6 @@
 						<string key="NSFrame">{{18, 20}, {615, 29}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSAntiCompressionPriority">{250, 750}</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="20645332">
@@ -770,7 +769,6 @@
 							<reference key="NSTextColor" ref="1058114351"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
-						<bool key="NSControlAutosetMaxLayoutWidth">YES</bool>
 					</object>
 					<object class="NSPopUpButton" id="238170194">
 						<reference key="NSNextResponder" ref="1005"/>
@@ -857,7 +855,6 @@
 							<reference key="NSTextColor" ref="1058114351"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
-						<bool key="NSControlAutosetMaxLayoutWidth">YES</bool>
 					</object>
 				</array>
 				<string key="NSFrameSize">{650, 450}</string>
