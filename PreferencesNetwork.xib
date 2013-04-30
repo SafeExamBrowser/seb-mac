@@ -171,7 +171,7 @@
 											<int key="NSvFlags">268</int>
 											<string key="NSFrame">{{38, 14}, {22, 21}}</string>
 											<reference key="NSSuperview" ref="1070826792"/>
-											<reference key="NSNextKeyView" ref="1008414915"/>
+											<reference key="NSNextKeyView"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="73765058">
@@ -207,7 +207,7 @@
 															<int key="NSvFlags">256</int>
 															<string key="NSFrameSize">{568, 323}</string>
 															<reference key="NSSuperview" ref="480137338"/>
-															<reference key="NSNextKeyView" ref="317790154"/>
+															<reference key="NSNextKeyView" ref="569146525"/>
 															<string key="NSReuseIdentifierKey">_NS:13</string>
 															<bool key="NSEnabled">YES</bool>
 															<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -541,7 +541,7 @@
 											</array>
 											<string key="NSFrame">{{17, 43}, {570, 341}}</string>
 											<reference key="NSSuperview" ref="1070826792"/>
-											<reference key="NSNextKeyView" ref="480137338"/>
+											<reference key="NSNextKeyView" ref="317790154"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<int key="NSsFlags">133650</int>
 											<reference key="NSVScroller" ref="569146525"/>
@@ -892,7 +892,6 @@
 											<reference key="NSHScroller" ref="808913368"/>
 											<reference key="NSContentView" ref="58798983"/>
 											<reference key="NSHeaderClipView" ref="600937491"/>
-											<reference key="NSCornerView" ref="781813379"/>
 											<bytes key="NSScrollAmts">QSAAAEEgAABBgAAAQYAAAA</bytes>
 											<double key="NSMinMagnification">0.25</double>
 											<double key="NSMaxMagnification">4</double>
@@ -3286,6 +3285,54 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.AutoConfigurationURL</string>
+						<reference key="source" ref="952447259"/>
+						<reference key="destination" ref="744621132"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="952447259"/>
+							<reference key="NSDestination" ref="744621132"/>
+							<string key="NSLabel">value: selection.AutoConfigurationURL</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.AutoConfigurationURL</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1960</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.HTTPProxy</string>
+						<reference key="source" ref="709511212"/>
+						<reference key="destination" ref="744621132"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="709511212"/>
+							<reference key="NSDestination" ref="744621132"/>
+							<string key="NSLabel">value: selection.HTTPProxy</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.HTTPProxy</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1947</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.HTTPPort</string>
+						<reference key="source" ref="12210120"/>
+						<reference key="destination" ref="744621132"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="12210120"/>
+							<reference key="NSDestination" ref="744621132"/>
+							<string key="NSLabel">value: selection.HTTPPort</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.HTTPPort</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1948</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: selection.HTTPRequiresPassword</string>
 						<reference key="source" ref="355900511"/>
 						<reference key="destination" ref="744621132"/>
@@ -3299,6 +3346,38 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						</object>
 					</object>
 					<int key="connectionID">1915</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.HTTPUser</string>
+						<reference key="source" ref="623776184"/>
+						<reference key="destination" ref="744621132"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="623776184"/>
+							<reference key="NSDestination" ref="744621132"/>
+							<string key="NSLabel">value: selection.HTTPUser</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.HTTPUser</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1949</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.HTTPPassword</string>
+						<reference key="source" ref="914887936"/>
+						<reference key="destination" ref="744621132"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="914887936"/>
+							<reference key="NSDestination" ref="744621132"/>
+							<string key="NSLabel">value: selection.HTTPPassword</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.HTTPPassword</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1950</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -3350,6 +3429,198 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.HTTPSUser</string>
+						<reference key="source" ref="771411484"/>
+						<reference key="destination" ref="744621132"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="771411484"/>
+							<reference key="NSDestination" ref="744621132"/>
+							<string key="NSLabel">value: selection.HTTPSUser</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.HTTPSUser</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1935</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.HTTPSPassword</string>
+						<reference key="source" ref="464692362"/>
+						<reference key="destination" ref="744621132"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="464692362"/>
+							<reference key="NSDestination" ref="744621132"/>
+							<string key="NSLabel">value: selection.HTTPSPassword</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.HTTPSPassword</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1936</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.FTPProxy</string>
+						<reference key="source" ref="25533696"/>
+						<reference key="destination" ref="744621132"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="25533696"/>
+							<reference key="NSDestination" ref="744621132"/>
+							<string key="NSLabel">value: selection.FTPProxy</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.FTPProxy</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1937</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.FTPPort</string>
+						<reference key="source" ref="162615262"/>
+						<reference key="destination" ref="744621132"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="162615262"/>
+							<reference key="NSDestination" ref="744621132"/>
+							<string key="NSLabel">value: selection.FTPPort</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.FTPPort</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1939</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.FTPRequiresPassword</string>
+						<reference key="source" ref="827741833"/>
+						<reference key="destination" ref="744621132"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="827741833"/>
+							<reference key="NSDestination" ref="744621132"/>
+							<string key="NSLabel">value: selection.FTPRequiresPassword</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.FTPRequiresPassword</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1941</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.FTPUser</string>
+						<reference key="source" ref="875926611"/>
+						<reference key="destination" ref="744621132"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="875926611"/>
+							<reference key="NSDestination" ref="744621132"/>
+							<string key="NSLabel">value: selection.FTPUser</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.FTPUser</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1943</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.FTPPassword</string>
+						<reference key="source" ref="14633503"/>
+						<reference key="destination" ref="744621132"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="14633503"/>
+							<reference key="NSDestination" ref="744621132"/>
+							<string key="NSLabel">value: selection.FTPPassword</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.FTPPassword</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1945</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.SOCKSProxy</string>
+						<reference key="source" ref="517281555"/>
+						<reference key="destination" ref="744621132"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="517281555"/>
+							<reference key="NSDestination" ref="744621132"/>
+							<string key="NSLabel">value: selection.SOCKSProxy</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.SOCKSProxy</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1951</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.SOCKSPort</string>
+						<reference key="source" ref="248044721"/>
+						<reference key="destination" ref="744621132"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="248044721"/>
+							<reference key="NSDestination" ref="744621132"/>
+							<string key="NSLabel">value: selection.SOCKSPort</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.SOCKSPort</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1955</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.SOCKSRequiresPassword</string>
+						<reference key="source" ref="217432485"/>
+						<reference key="destination" ref="744621132"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="217432485"/>
+							<reference key="NSDestination" ref="744621132"/>
+							<string key="NSLabel">value: selection.SOCKSRequiresPassword</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.SOCKSRequiresPassword</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1953</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.SOCKSUser</string>
+						<reference key="source" ref="979834614"/>
+						<reference key="destination" ref="744621132"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="979834614"/>
+							<reference key="NSDestination" ref="744621132"/>
+							<string key="NSLabel">value: selection.SOCKSUser</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.SOCKSUser</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1956</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.SOCKSPassword</string>
+						<reference key="source" ref="247612537"/>
+						<reference key="destination" ref="744621132"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="247612537"/>
+							<reference key="NSDestination" ref="744621132"/>
+							<string key="NSLabel">value: selection.SOCKSPassword</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.SOCKSPassword</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1957</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: selection.RTSPProxy</string>
 						<reference key="source" ref="540541905"/>
 						<reference key="destination" ref="744621132"/>
@@ -3398,19 +3669,19 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: selection.RTSPUsername</string>
+						<string key="label">value: selection.RTSPUser</string>
 						<reference key="source" ref="119526810"/>
 						<reference key="destination" ref="744621132"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="119526810"/>
 							<reference key="NSDestination" ref="744621132"/>
-							<string key="NSLabel">value: selection.RTSPUsername</string>
+							<string key="NSLabel">value: selection.RTSPUser</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">selection.RTSPUsername</string>
+							<string key="NSKeyPath">selection.RTSPUser</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1910</int>
+					<int key="connectionID">1959</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -9800,7 +10071,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1933</int>
+			<int key="maxID">1960</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
