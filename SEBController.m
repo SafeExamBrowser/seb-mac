@@ -550,39 +550,41 @@ bool insideMatrix();
 		CFRunLoopAddSource( CFRunLoopGetCurrent(),
 					   IONotificationPortGetRunLoopSource(notifyPortRef), kCFRunLoopCommonModes ); 
 	}
-	
-// Check if SEB is running inside a virtual machine
-    SInt32		myAttrs;
-	OSErr		myErr = noErr;
-	
-	// Get details for the present operating environment
-	// by calling Gestalt (Userland equivalent to CPUID)
-	myErr = Gestalt(gestaltX86AdditionalFeatures, &myAttrs);
-	if (myErr == noErr) {
-		if ((myAttrs & (1UL << 31)) | (myAttrs == 0x209)) {
-			// Bit 31 is set: VMware Hypervisor running (?)
-            // or gestaltX86AdditionalFeatures values of VirtualBox detected
+
+	if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowVirtualMachine"]) {
+        // Check if SEB is running inside a virtual machine
+        SInt32		myAttrs;
+        OSErr		myErr = noErr;
+        
+        // Get details for the present operating environment
+        // by calling Gestalt (Userland equivalent to CPUID)
+        myErr = Gestalt(gestaltX86AdditionalFeatures, &myAttrs);
+        if (myErr == noErr) {
+            if ((myAttrs & (1UL << 31)) | (myAttrs == 0x209)) {
+                // Bit 31 is set: VMware Hypervisor running (?)
+                // or gestaltX86AdditionalFeatures values of VirtualBox detected
 #ifdef DEBUG
-            NSLog(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine! gestaltX86AdditionalFeatures = %X", myAttrs);
+                NSLog(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine! gestaltX86AdditionalFeatures = %X", myAttrs);
 #endif
-            NSRunAlertPanel(NSLocalizedString(@"Virtual Machine detected!", nil),
-                            NSLocalizedString(@"You are not allowed to run SEB inside a virtual machine!", nil), 
-                            NSLocalizedString(@"Quit", nil), nil, nil);
-            quittingMyself = TRUE; //SEB is terminating itself
-            [NSApp terminate: nil]; //quit SEB
-            
+                NSRunAlertPanel(NSLocalizedString(@"Virtual Machine detected!", nil),
+                                NSLocalizedString(@"You are not allowed to run SEB inside a virtual machine!", nil),
+                                NSLocalizedString(@"Quit", nil), nil, nil);
+                quittingMyself = TRUE; //SEB is terminating itself
+                [NSApp terminate: nil]; //quit SEB
+                
 #ifdef DEBUG
-		} else {
-            NSLog(@"SEB is running on a native system (no VM) gestaltX86AdditionalFeatures = %X", myAttrs);
+            } else {
+                NSLog(@"SEB is running on a native system (no VM) gestaltX86AdditionalFeatures = %X", myAttrs);
 #endif
+            }
         }
-	}
-    
-    bool    virtualMachine = false;
-	// STR or SIDT code?
-	virtualMachine = insideMatrix();
-    if (virtualMachine) {
-        NSLog(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine (Test2)!");
+        
+        bool    virtualMachine = false;
+        // STR or SIDT code?
+        virtualMachine = insideMatrix();
+        if (virtualMachine) {
+            NSLog(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine (Test2)!");
+        }
     }
 
 
