@@ -168,7 +168,7 @@
 						<reference key="NSNextKeyView" ref="545007090"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="111024879">
-							<int key="NSCellFlags">-2080374784</int>
+							<int key="NSCellFlags">-1543503872</int>
 							<int key="NSCellFlags2">0</int>
 							<string key="NSContents">Allow user switching</string>
 							<reference key="NSSupport" ref="973533274"/>
@@ -220,10 +220,9 @@
 						<string key="NSFrame">{{328, 66}, {305, 26}}</string>
 						<reference key="NSSuperview" ref="381403324"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="669020158">
-							<int key="NSCellFlags">-2076180416</int>
+							<int key="NSCellFlags">-1539309504</int>
 							<int key="NSCellFlags2">2048</int>
 							<reference key="NSSupport" ref="973533274"/>
 							<reference key="NSControlView" ref="166000531"/>
@@ -315,7 +314,7 @@
 						<reference key="NSNextKeyView" ref="862120953"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="121967150">
-							<int key="NSCellFlags">67108864</int>
+							<int key="NSCellFlags">603979776</int>
 							<int key="NSCellFlags2">0</int>
 							<string key="NSContents">Enable logging</string>
 							<reference key="NSSupport" ref="973533274"/>

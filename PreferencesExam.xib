@@ -231,7 +231,7 @@
 						<string key="NSAntiCompressionPriority">{750, 750}</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="1015874000">
-							<int key="NSCellFlags">603979776</int>
+							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">268566528</int>
 							<string key="NSContents">Copy Browser Exam Key to clipboard when quitting SEB</string>
 							<object class="NSFont" key="NSSupport">
