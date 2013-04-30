@@ -458,12 +458,13 @@
 						<string key="NSFrame">{{18, 20}, {615, 29}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSAntiCompressionPriority">{250, 750}</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="20645332">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">272629760</int>
-							<string key="NSContents">Disable SEB browser if you don't need a browser component because SEB should only start up another application in a kiosk mode (for example a virtual desktop infrastructure client)</string>
+							<string key="NSContents">Disable browser when SEB should only start up another application in a kiosk mode (for example a virtual desktop infrastructure client)</string>
 							<object class="NSFont" key="NSSupport">
 								<string key="NSName">LucidaGrande</string>
 								<double key="NSSize">11</double>
@@ -1103,15 +1104,15 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: values.org_safeexambrowser_SEB_enableSebBrowser</string>
+						<string key="label">value: values.org_safeexambrowser_SEB_allowBrowsingBackForward</string>
 						<reference key="source" ref="107473924"/>
 						<reference key="destination" ref="8980178"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="107473924"/>
 							<reference key="NSDestination" ref="8980178"/>
-							<string key="NSLabel">value: values.org_safeexambrowser_SEB_enableSebBrowser</string>
+							<string key="NSLabel">value: values.org_safeexambrowser_SEB_allowBrowsingBackForward</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">values.org_safeexambrowser_SEB_enableSebBrowser</string>
+							<string key="NSKeyPath">values.org_safeexambrowser_SEB_allowBrowsingBackForward</string>
 							<object class="NSDictionary" key="NSOptions">
 								<string key="NS.key.0">NSValueTransformerName</string>
 								<string key="NS.object.0">NSNegateBoolean</string>
@@ -1119,7 +1120,7 @@
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">456</int>
+					<int key="connectionID">651</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -3284,7 +3285,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">650</int>
+			<int key="maxID">651</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

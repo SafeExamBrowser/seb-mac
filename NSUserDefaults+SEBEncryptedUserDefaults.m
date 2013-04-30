@@ -108,6 +108,8 @@ static BOOL _usePrivateUserDefaults = NO;
 - (NSDictionary *)sebDefaultSettings
 {
     NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 [self secureDataForObject:(id)[NSNumber numberWithBool:NO]],
+                                 @"org_safeexambrowser_SEB_allowBrowsingBackForward",
                                  [self secureDataForObject:(id)[NSNumber numberWithBool:YES]],
                                  @"org_safeexambrowser_SEB_allowDownUploads",
                                  [self secureDataForObject:(id)[NSNumber numberWithBool:NO]],
@@ -138,8 +140,6 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_downloadPDFFiles",
                                  [self secureDataForObject:(id)[NSNumber numberWithBool:NO]],
                                  @"org_safeexambrowser_SEB_enableBrowserWindowToolbar",
-                                 [self secureDataForObject:(id)[NSNumber numberWithBool:NO]],
-                                 @"org_safeexambrowser_SEB_enableBrowsingBackForward",
                                  [self secureDataForObject:(id)[NSNumber numberWithBool:NO]],
                                  @"org_safeexambrowser_SEB_enableJava",
                                  [self secureDataForObject:(id)[NSNumber numberWithBool:YES]],

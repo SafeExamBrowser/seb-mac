@@ -116,7 +116,7 @@
     
     [self.webView bind:@"maintainsBackForwardList"
           toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
-       withKeyPath:@"values.org_safeexambrowser_SEB_enableBrowsingBackForward"
+       withKeyPath:@"values.org_safeexambrowser_SEB_allowBrowsingBackForward"
            options:nil];
     
 /*#ifdef DEBUG
