@@ -1024,19 +1024,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: values.org_safeexambrowser_SEB_enablePlugins</string>
+						<string key="label">value: values.org_safeexambrowser_SEB_enablePlugIns</string>
 						<reference key="source" ref="314399886"/>
 						<reference key="destination" ref="8980178"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="314399886"/>
 							<reference key="NSDestination" ref="8980178"/>
-							<string key="NSLabel">value: values.org_safeexambrowser_SEB_enablePlugins</string>
+							<string key="NSLabel">value: values.org_safeexambrowser_SEB_enablePlugIns</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">values.org_safeexambrowser_SEB_enablePlugins</string>
+							<string key="NSKeyPath">values.org_safeexambrowser_SEB_enablePlugIns</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">205</int>
+					<int key="connectionID">652</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -3285,7 +3285,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">651</int>
+			<int key="maxID">652</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

@@ -73,6 +73,8 @@
 								<int key="NSvFlags">266</int>
 								<string key="NSFrame">{{9, 14}, {25, 25}}</string>
 								<reference key="NSSuperview"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:22</string>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSButtonCell" key="NSCell" id="914514767">
@@ -122,6 +124,8 @@
 								<int key="NSvFlags">270</int>
 								<string key="NSFrame">{{19, 14}, {51, 25}}</string>
 								<reference key="NSSuperview"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSSegmentedCell" key="NSCell" id="70083385">
@@ -180,6 +184,8 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{19, 14}, {51, 25}}</string>
 								<reference key="NSSuperview"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSSegmentedCell" key="NSCell" id="142338471">
@@ -266,7 +272,7 @@
 						<reference ref="349401310"/>
 						<reference ref="643798259"/>
 					</array>
-					<array class="NSMutableArray" key="NSToolbarIBDefaultItems">
+					<array key="NSToolbarIBDefaultItems">
 						<reference ref="37675177"/>
 						<reference ref="349401310"/>
 						<reference ref="181821108"/>
@@ -391,19 +397,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: values.org_safeexambrowser_SEB_enableBrowsingBackForward</string>
+						<string key="label">enabled: values.org_safeexambrowser_SEB_allowBrowsingBackForward</string>
 						<reference key="source" ref="28227655"/>
 						<reference key="destination" ref="825933198"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="28227655"/>
 							<reference key="NSDestination" ref="825933198"/>
-							<string key="NSLabel">enabled: values.org_safeexambrowser_SEB_enableBrowsingBackForward</string>
+							<string key="NSLabel">enabled: values.org_safeexambrowser_SEB_allowBrowsingBackForward</string>
 							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">values.org_safeexambrowser_SEB_enableBrowsingBackForward</string>
+							<string key="NSKeyPath">values.org_safeexambrowser_SEB_allowBrowsingBackForward</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">187</int>
+					<int key="connectionID">202</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -580,7 +586,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">201</int>
+			<int key="maxID">202</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

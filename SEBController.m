@@ -1239,18 +1239,22 @@ bool insideMatrix(){
             [iterApp unhide]; //unhide the originally visible application
         }
     }
+    // Clear Pasteboard
+    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
+    [pasteboard clearContents];
+    
+	// Write Browser Exam Key to clipboard if set in prefs
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"copyBrowserExamKeyToClipboardWhenQuitting"]) {
+        
+    }
 	// Clear the current Browser Exam Key
-	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences setValue:[NSData data] forKey:@"currentData"];
 
 	// Clear the browser cache in ~/Library/Caches/org.safeexambrowser.SEB.Safe-Exam-Browser/
 	NSURLCache *cache = [NSURLCache sharedURLCache];
 	[cache removeAllCachedResponses];
     
-    // Clear Pasteboard
-    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard]; 
-    [pasteboard clearContents];
-
 	// Allow display and system to sleep again
 	//IOReturn success = IOPMAssertionRelease(assertionID1);
 	IOPMAssertionRelease(assertionID1);
