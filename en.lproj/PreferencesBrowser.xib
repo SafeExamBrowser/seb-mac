@@ -62,7 +62,6 @@
 										<array class="NSMutableArray" key="NSSubviews"/>
 										<string key="NSFrame">{{154, 38}, {90, 26}}</string>
 										<reference key="NSSuperview" ref="408359305"/>
-										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="675839586"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="NSEnabled">YES</bool>
@@ -190,7 +189,6 @@
 										<int key="NSvFlags">268</int>
 										<string key="NSFrame">{{109, 42}, {40, 17}}</string>
 										<reference key="NSSuperview" ref="408359305"/>
-										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="1068053952"/>
 										<string key="NSReuseIdentifierKey">_NS:1535</string>
 										<bool key="NSEnabled">YES</bool>
@@ -216,7 +214,6 @@
 										<int key="NSvFlags">268</int>
 										<string key="NSFrame">{{154, 10}, {90, 26}}</string>
 										<reference key="NSSuperview" ref="408359305"/>
-										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="799313333"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="NSEnabled">YES</bool>
@@ -304,7 +301,6 @@
 										<int key="NSvFlags">268</int>
 										<string key="NSFrame">{{103, 14}, {46, 17}}</string>
 										<reference key="NSSuperview" ref="408359305"/>
-										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="793661551"/>
 										<string key="NSReuseIdentifierKey">_NS:1535</string>
 										<bool key="NSEnabled">YES</bool>
@@ -325,7 +321,6 @@
 										<int key="NSvFlags">268</int>
 										<string key="NSFrame">{{343, 42}, {146, 17}}</string>
 										<reference key="NSSuperview" ref="408359305"/>
-										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="693337200"/>
 										<string key="NSReuseIdentifierKey">_NS:1535</string>
 										<bool key="NSEnabled">YES</bool>
@@ -346,7 +341,6 @@
 										<int key="NSvFlags">268</int>
 										<string key="NSFrame">{{492, 36}, {107, 26}}</string>
 										<reference key="NSSuperview" ref="408359305"/>
-										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="862458019"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="NSEnabled">YES</bool>
@@ -420,14 +414,12 @@
 								</array>
 								<string key="NSFrame">{{1, 1}, {614, 72}}</string>
 								<reference key="NSSuperview" ref="904869739"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="969928149"/>
 								<string key="NSReuseIdentifierKey">_NS:11</string>
 							</object>
 						</array>
 						<string key="NSFrame">{{17, 262}, {616, 88}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="408359305"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSOffsets">{0, 0}</string>
@@ -457,7 +449,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 20}, {615, 29}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
 						<string key="NSAntiCompressionPriority">{250, 750}</string>
 						<bool key="NSEnabled">YES</bool>
@@ -481,7 +472,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 54}, {614, 18}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="44395455"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="464262131">
@@ -511,7 +501,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{19, 87}, {613, 18}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="107473924"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="1054962804">
@@ -536,7 +525,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{334, 121}, {298, 18}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="112906899"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="479864930">
@@ -561,7 +549,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{334, 141}, {298, 18}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="757459876"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="208935632">
@@ -586,7 +573,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{19, 121}, {297, 18}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="111138735"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="462336544">
@@ -611,7 +597,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{19, 141}, {297, 18}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1033996842"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="202630441">
@@ -636,7 +621,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{19, 175}, {613, 18}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="314399886"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="724945072">
@@ -661,7 +645,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 358}, {299, 18}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="904869739"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="637864118">
@@ -686,7 +669,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 197}, {299, 26}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="740291254"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="660697723">
@@ -752,7 +734,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 229}, {299, 17}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="263187913"/>
 						<string key="NSAntiCompressionPriority">{250, 750}</string>
 						<bool key="NSEnabled">YES</bool>
@@ -776,7 +757,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{17, 381}, {299, 26}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="393367333"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="402550747">
@@ -842,7 +822,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{17, 413}, {615, 17}}</string>
 						<reference key="NSSuperview" ref="1005"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="238170194"/>
 						<string key="NSAntiCompressionPriority">{250, 750}</string>
 						<bool key="NSEnabled">YES</bool>
@@ -860,7 +839,6 @@
 				</array>
 				<string key="NSFrameSize">{650, 450}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="766661602"/>
 				<string key="NSClassName">NSView</string>
 			</object>
@@ -1104,15 +1082,15 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: values.org_safeexambrowser_SEB_allowBrowsingBackForward</string>
+						<string key="label">value: values.org_safeexambrowser_SEB_enableSebBrowser</string>
 						<reference key="source" ref="107473924"/>
 						<reference key="destination" ref="8980178"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="107473924"/>
 							<reference key="NSDestination" ref="8980178"/>
-							<string key="NSLabel">value: values.org_safeexambrowser_SEB_allowBrowsingBackForward</string>
+							<string key="NSLabel">value: values.org_safeexambrowser_SEB_enableSebBrowser</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">values.org_safeexambrowser_SEB_allowBrowsingBackForward</string>
+							<string key="NSKeyPath">values.org_safeexambrowser_SEB_enableSebBrowser</string>
 							<object class="NSDictionary" key="NSOptions">
 								<string key="NS.key.0">NSValueTransformerName</string>
 								<string key="NS.object.0">NSNegateBoolean</string>
@@ -1120,7 +1098,7 @@
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">651</int>
+					<int key="connectionID">654</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -3285,55 +3263,9 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">652</int>
+			<int key="maxID">654</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">NSLayoutConstraint</string>
-					<string key="superclassName">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/NSLayoutConstraint.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">PrefsBrowserViewController</string>
-					<string key="superclassName">NSViewController</string>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">enablePlugIns</string>
-						<string key="NS.object.0">NSButton</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">enablePlugIns</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">enablePlugIns</string>
-							<string key="candidateClassName">NSButton</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/PrefsBrowserViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">SEBEncryptedUserDefaultsController</string>
-					<string key="superclassName">NSUserDefaultsController</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/SEBEncryptedUserDefaultsController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">SEBUIUserDefaultsController</string>
-					<string key="superclassName">NSUserDefaultsController</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/SEBUIUserDefaultsController.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">

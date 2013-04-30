@@ -1243,11 +1243,19 @@ bool insideMatrix(){
     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
     [pasteboard clearContents];
     
-	// Write Browser Exam Key to clipboard if set in prefs
+	// Write Browser Exam Key to clipboard if enabled in prefs
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"copyBrowserExamKeyToClipboardWhenQuitting"]) {
-        
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_copyBrowserExamKeyToClipboardWhenQuitting"]) {
+        NSData *browserExamKey = [preferences objectForKey:@"currentData"];
+        unsigned char hashedChars[32];
+        [browserExamKey getBytes:hashedChars length:32];
+        NSMutableString* browserExamKeyString = [[NSMutableString alloc] init];
+        for (int i = 0 ; i < 32 ; ++i) {
+            [browserExamKeyString appendFormat: @"%02x", hashedChars[i]];
+        }
+        [pasteboard writeObjects:[NSArray arrayWithObject:browserExamKeyString]];
     }
+    
 	// Clear the current Browser Exam Key
     [preferences setValue:[NSData data] forKey:@"currentData"];
 
