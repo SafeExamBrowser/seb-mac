@@ -74,7 +74,7 @@
     [self setStyleMask:NSBorderlessWindowMask];
     [self center];
     [self setLevel:NSFloatingWindowLevel];
-    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"]) {
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_elevateWindowLevels"]) {
         [self setLevel:NSScreenSaverWindowLevel];
     }
 #ifdef DEBUG

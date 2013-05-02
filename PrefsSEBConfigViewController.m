@@ -12,6 +12,7 @@
 #import "SEBEncryptedUserDefaultsController.h"
 #import "RNEncryptor.h"
 #import "SEBKeychainManager.h"
+#import "Constants.h"
 
 @interface PrefsSEBConfigViewController ()
 
@@ -113,8 +114,12 @@
 - (IBAction) saveSEBPrefs:(id)sender {
     // Copy preferences to a dictionary
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSDictionary *filteredPrefsDict;
-    filteredPrefsDict = [preferences dictionaryRepresentationSEB];
+    NSMutableDictionary *filteredPrefsDict;
+    filteredPrefsDict = [NSMutableDictionary dictionaryWithDictionary:[preferences dictionaryRepresentationSEB]];
+    // Remove copy Browser Exam Key to clipboard when quitting flag when saving for starting exams
+    if ([sebPurpose selectedRow] == sebConfigPurposeStartingExam) {
+        [filteredPrefsDict removeObjectForKey:@"copyBrowserExamKeyToClipboardWhenQuitting"];
+    }
 
     // Convert preferences directory to XML property list
     NSError *error;

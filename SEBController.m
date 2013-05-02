@@ -851,7 +851,7 @@ bool insideMatrix(){
         [self.capWindows removeAllObjects];
     }
     NSScreen *iterScreen;
-    BOOL allowSwitchToThirdPartyApps = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
+    BOOL allowSwitchToThirdPartyApps = ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_elevateWindowLevels"];
     for (iterScreen in screens)
     {
         //NSRect frame = size of the current screen;
@@ -954,7 +954,7 @@ bool insideMatrix(){
     }*/
     // Load preferences from the system's user defaults database
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-	BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
+	BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_elevateWindowLevels"];
     if (!allowSwitchToThirdPartyApps) {
 		// if switching to ThirdPartyApps not allowed
 #ifndef DEBUG
@@ -998,7 +998,8 @@ bool insideMatrix(){
 	BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
 	BOOL showMenuBar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
     if (!allowSwitchToThirdPartyApps) {
-		// if switching to ThirdPartyApps not allowed
+		// if switching to third party apps not allowed
+        [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_elevateWindowLevels"];
 	@try {
 		NSApplicationPresentationOptions options =
 		NSApplicationPresentationHideDock + 
@@ -1013,6 +1014,7 @@ bool insideMatrix(){
 		NSLog(@"Error.  Make sure you have a valid combination of presentation options.");
 	}
     } else {
+        [preferences setSecureBool:NO forKey:@"org_safeexambrowser_SEB_elevateWindowLevels"];
         @try {
             NSApplicationPresentationOptions options =
             (showMenuBar ? NSApplicationPresentationDisableAppleMenu : NSApplicationPresentationHideMenuBar) +
@@ -1055,7 +1057,7 @@ bool insideMatrix(){
 	 display:YES]; // REMOVE wrong frame for window!*/
 	//[browserWindow setFrame:[[browserWindow screen] frame] display:YES];
 	[(BrowserWindow *)browserWindow setCalculatedFrame];
-    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"]) {
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_elevateWindowLevels"]) {
         [browserWindow newSetLevel:NSModalPanelWindowLevel];
 #ifdef DEBUG
         NSLog(@"MainBrowserWindow (3) sharingType: %lx",(long)[browserWindow sharingType]);
@@ -1387,7 +1389,7 @@ bool insideMatrix(){
 		//the current Presentation Options changed, so make SEB active and reset them
         // Load preferences from the system's user defaults database
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
+        BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_elevateWindowLevels"];
 #ifdef DEBUG
         NSLog(@"currentSystemPresentationOptions changed!");
 #endif

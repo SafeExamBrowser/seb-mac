@@ -134,11 +134,13 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_copyBrowserExamKeyToClipboardWhenQuitting",
                                  [NSNumber numberWithInt:0],
                                  @"org_safeexambrowser_SEB_cryptoIdentity",
-                                 [NSMutableString stringWithString:@"~/Downloads"],
-                                 //[NSHomeDirectory() stringByAppendingPathComponent: @"Downloads"],
+                                 //@"~/Downloads",
+                                 [NSHomeDirectory() stringByAppendingPathComponent: @"Downloads"],
                                  @"org_safeexambrowser_SEB_downloadDirectoryOSX",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_downloadPDFFiles",
+                                 [NSNumber numberWithBool:YES],
+                                 @"org_safeexambrowser_SEB_elevateWindowLevels",
                                  [NSNumber numberWithBool:YES],
                                  @"org_safeexambrowser_SEB_enableBrowserWindowToolbar",
                                  [NSNumber numberWithBool:NO],
@@ -159,32 +161,31 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_enableUrlFilter",
                                  [NSData data],
                                  @"org_safeexambrowser_SEB_examKeySalt",
-                                 [NSMutableString stringWithString:@"" ],
+                                 @"",
                                  @"org_safeexambrowser_SEB_hashedAdminPassword",
-                                 [NSMutableString stringWithString:@"" ],
+                                 @"",
                                  @"org_safeexambrowser_SEB_hashedQuitPassword",
                                  [NSNumber numberWithBool:YES],
                                  @"org_safeexambrowser_SEB_hideBrowserWindowToolbar",
                                  NSTemporaryDirectory(),
                                  @"org_safeexambrowser_SEB_logDirectoryOSX",
-                                 [NSMutableString stringWithString:@"100%"],
+                                 @"100%",
                                  @"org_safeexambrowser_SEB_mainBrowserWindowHeight",
                                  [NSNumber numberWithInt:1],
                                  @"org_safeexambrowser_SEB_mainBrowserWindowPositioning",
-                                 [NSMutableString stringWithString:@"100%" ],
+                                 @"100%",
                                  @"org_safeexambrowser_SEB_mainBrowserWindowWidth",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_monitorProcesses",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_newBrowserWindowByLinkBlockForeign",
-                                 [NSMutableString stringWithString:@"100%"],
+                                 @"100%",
                                  @"org_safeexambrowser_SEB_newBrowserWindowByLinkHeight",
                                  [NSNumber numberWithInt:openInNewWindow],
                                  @"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy",
                                  [NSNumber numberWithInt:2],
                                  @"org_safeexambrowser_SEB_newBrowserWindowByLinkPositioning",
                                  @"800",
-                                 //[NSMutableString stringWithString:@"800"],
                                  @"org_safeexambrowser_SEB_newBrowserWindowByLinkWidth",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_newBrowserWindowByScriptBlockForeign",
@@ -192,7 +193,7 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_openDownloads",
-                                 [NSMutableString stringWithString:@"" ],
+                                 @"",
                                  @"org_safeexambrowser_SEB_quitURL",
                                  [NSNumber numberWithInt:sebConfigPurposeStartingExam],
                                  @"org_safeexambrowser_SEB_sebConfigPurpose",
@@ -200,7 +201,7 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_sebMode",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_sebServerFallback",
-                                 [NSMutableString stringWithString:@"" ],
+                                 @"",
                                  @"org_safeexambrowser_SEB_sebServerURL",
                                  [NSNumber numberWithInt:forceSebService],
                                  @"org_safeexambrowser_SEB_sebServicePolicy",
@@ -210,18 +211,11 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_showMenuBar",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_showTaskBar",
-                                 [NSMutableString stringWithString:@"" ],
+                                 @"",
                                  @"org_safeexambrowser_SEB_settingsPassword",
-                                 [NSMutableString stringWithString:@"http://www.safeexambrowser.org/macosx"],
+                                 @"http://www.safeexambrowser.org/macosx",
                                  @"org_safeexambrowser_SEB_startURL",
                                  nil];
-    /*[NSMutableArray array],
-     @"org_safeexambrowser_SEB_permittedProcesses",
-     [NSMutableArray array],
-     @"org_safeexambrowser_SEB_prohibitedProcesses",
-     @"",*/
-    /*[NSMutableArray array],
-     @"org_safeexambrowser_SEB_urlFilterRules",*/
     return appDefaults;
 }
 
@@ -246,7 +240,9 @@ static BOOL _usePrivateUserDefaults = NO;
     // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
     NSSet *filteredPrefsSet = [prefsDict keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop)
                                {
-                                   if ([key hasPrefix:@"org_safeexambrowser_SEB_"] && ![key isEqualToString:@"org_safeexambrowser_SEB_enablePreferencesWindow"])
+                                   if ([key hasPrefix:@"org_safeexambrowser_SEB_"] &&
+                                       ![key isEqualToString:@"org_safeexambrowser_SEB_enablePreferencesWindow"] &&
+                                       ![key isEqualToString:@"org_safeexambrowser_SEB_elevateWindowLevels"])
                                        return YES;
                                    
                                    else return NO;

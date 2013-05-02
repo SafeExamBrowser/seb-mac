@@ -615,7 +615,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
                 MyDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
                 //WebView *newWindowWebView = myDocument.mainWindowController.self.webView;
                 [myDocument.mainWindowController.window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-                if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"]) {
+                if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_elevateWindowLevels"]) {
                     // Order new browser window to the front of our level
                     [myDocument.mainWindowController.window newSetLevel:NSModalPanelWindowLevel];
                 }
@@ -639,7 +639,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
 {
     id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:[sender window]];
     [[sender window] setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"]) {
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_elevateWindowLevels"]) {
         [[sender window] newSetLevel:NSModalPanelWindowLevel];
     }
     [myDocument showWindows];
