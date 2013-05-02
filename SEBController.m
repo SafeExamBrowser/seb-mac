@@ -45,6 +45,8 @@
 #include <mach/mach_interface.h>
 #include <mach/mach_init.h>
 
+#import <objc/runtime.h>
+
 #include <IOKit/pwr_mgt/IOPMLib.h>
 #include <IOKit/IOMessage.h>
 
@@ -138,7 +140,7 @@ bool insideMatrix();
         SecKeyRef privateKeyRef = [keychainManager getPrivateKeyFromPublicKeyHash:publicKeyHash];
         if (!privateKeyRef) {
             NSRunAlertPanel(NSLocalizedString(@"Error Decrypting Settings", nil),
-                            NSLocalizedString(@"The private key needed to decrypt settings has not been found in the keychain!", nil),
+                            NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil),
                             NSLocalizedString(@"OK", nil), nil, nil);
             return YES;
         }
@@ -188,119 +190,162 @@ bool insideMatrix();
             return YES;
         }
         sebData = sebDataDecrypted;
-    }
-    
-    //
-    // Configure local client settings
-    //
-    if ([[NSString stringWithUTF8String:utfString] isEqualToString:@"pwcc"]) {
-        //get admin password hash
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-        //if (!hashedAdminPassword) {
-        //   hashedAdminPassword = @"";
-        //}
-        NSDictionary *sebPreferencesDict = nil;
-        error = nil;
-        NSData *decryptedSebData = [RNDecryptor decryptData:sebData withPassword:hashedAdminPassword error:&error];
-        if (error) {
-            //if decryption with admin password didn't work, try it with an empty password
+    } else {
+        
+        //
+        // Configure local client settings
+        //
+        if ([[NSString stringWithUTF8String:utfString] isEqualToString:@"pwcc"]) {
+            //get admin password hash
+            NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+            NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+            //if (!hashedAdminPassword) {
+            //   hashedAdminPassword = @"";
+            //}
+            NSDictionary *sebPreferencesDict = nil;
             error = nil;
-            decryptedSebData = [RNDecryptor decryptData:sebData withPassword:@"" error:&error];
-            if (!error) {
-                //Decrypting with empty password worked:                 
-                //Check if the openend reconfiguring seb file has the same admin password inside like the current one
-                sebPreferencesDict = [NSPropertyListSerialization propertyListWithData:decryptedSebData
-                                                                                             options:0
-                                                                                              format:NULL
-                                                                                               error:&error];
-                NSString *sebFileHashedAdminPassword = [sebPreferencesDict objectForKey:@"hashedAdminPassword"];
-                if (![hashedAdminPassword isEqualToString:sebFileHashedAdminPassword]) {
-                    //No: The admin password inside the .seb file wasn't the same like the current one
-                    //now we have to ask for the current admin password and
-                    //allow reconfiguring only if the user enters the right one
-                    // Allow up to 5 attempts for entering current admin password
-                    int i = 5;
-                    NSString *password = nil;
-                    NSString *hashedPassword;
-                    BOOL passwordsMatch;
-                    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+            NSData *decryptedSebData = [RNDecryptor decryptData:sebData withPassword:hashedAdminPassword error:&error];
+            if (error) {
+                //if decryption with admin password didn't work, try it with an empty password
+                error = nil;
+                decryptedSebData = [RNDecryptor decryptData:sebData withPassword:@"" error:&error];
+                if (!error) {
+                    //Decrypting with empty password worked:
+                    //Check if the openend reconfiguring seb file has the same admin password inside like the current one
+                    sebPreferencesDict = [NSPropertyListSerialization propertyListWithData:decryptedSebData
+                                                                                   options:0
+                                                                                    format:NULL
+                                                                                     error:&error];
+                    NSString *sebFileHashedAdminPassword = [sebPreferencesDict objectForKey:@"hashedAdminPassword"];
+                    if (![hashedAdminPassword isEqualToString:sebFileHashedAdminPassword]) {
+                        //No: The admin password inside the .seb file wasn't the same like the current one
+                        //now we have to ask for the current admin password and
+                        //allow reconfiguring only if the user enters the right one
+                        // Allow up to 5 attempts for entering current admin password
+                        int i = 5;
+                        NSString *password = nil;
+                        NSString *hashedPassword;
+                        BOOL passwordsMatch;
+                        SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+                        do {
+                            i--;
+                            // Prompt for password
+                            if ([self showEnterPasswordDialog:NSLocalizedString(@"You are trying to reconfigure local SEB settings to an initial configuration, but there is already an administrator password set. You can only reset SEB to the initial configuration if you enter the current SEB administrator password:",nil) modalForWindow:nil windowTitle:NSLocalizedString(@"Reconfiguring Local SEB Settings",nil)] == SEBEnterPasswordCancel) return YES;
+                            password = [enterPassword stringValue];
+                            hashedPassword = [keychainManager generateSHAHashString:password];
+                            passwordsMatch = [hashedAdminPassword isEqualToString:hashedPassword];
+                            // in case we get an error we allow the user to try it again
+                        } while ((!password || !passwordsMatch) && i>0);
+                        if (!passwordsMatch) {
+                            //wrong password entered in 5th try: stop reading .seb file
+                            return YES;
+                        }
+                    }
+                    
+                } else {
+                    //if decryption with admin password didn't work, ask for the password the .seb file was encrypted with
+                    //empty password means no admin pw on clients and should not be hashed
+                    //NSData *sebDataDecrypted = nil;
+                    // Allow up to 3 attempts for entering decoding password
+                    int i = 3;
                     do {
                         i--;
                         // Prompt for password
-                        if ([self showEnterPasswordDialog:NSLocalizedString(@"You are trying to reconfigure local SEB settings to an initial configuration, but there is already an administrator password set. You can only reset SEB to the initial configuration if you enter the current SEB administrator password:",nil) modalForWindow:nil windowTitle:NSLocalizedString(@"Reconfiguring Local SEB Settings",nil)] == SEBEnterPasswordCancel) return YES;
-                        password = [enterPassword stringValue];
-                        hashedPassword = [keychainManager generateSHAHashString:password];
-                        passwordsMatch = [hashedAdminPassword isEqualToString:hashedPassword];
+                        if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter password used to encrypt .seb file:",nil) modalForWindow:nil windowTitle:NSLocalizedString(@"Reconfiguring Local SEB Settings",nil)] == SEBEnterPasswordCancel) return YES;
+                        NSString *password = [enterPassword stringValue];
+                        if (!password) return YES;
+                        error = nil;
+                        decryptedSebData = [RNDecryptor decryptData:sebData withPassword:password error:&error];
                         // in case we get an error we allow the user to try it again
-                    } while ((!password || !passwordsMatch) && i>0);
-                    if (!passwordsMatch) {
+                    } while (error && i>0);
+                    if (error) {
                         //wrong password entered in 5th try: stop reading .seb file
                         return YES;
                     }
                 }
-
-            } else {
-                //if decryption with admin password didn't work, ask for the password the .seb file was encrypted with
-                //empty password means no admin pw on clients and should not be hashed
-                //NSData *sebDataDecrypted = nil;
-                // Allow up to 3 attempts for entering decoding password
-                int i = 3;
-                do {
-                    i--;
-                    // Prompt for password
-                    if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter password used to encrypt .seb file:",nil) modalForWindow:nil windowTitle:NSLocalizedString(@"Reconfiguring Local SEB Settings",nil)] == SEBEnterPasswordCancel) return YES;
-                    NSString *password = [enterPassword stringValue];
-                    if (!password) return YES;
-                    error = nil;
-                    decryptedSebData = [RNDecryptor decryptData:sebData withPassword:password error:&error];
-                    // in case we get an error we allow the user to try it again
-                } while (error && i>0);
-                if (error) {
-                    //wrong password entered in 5th try: stop reading .seb file
-                    return YES;
+            }
+            
+            sebData = decryptedSebData;
+            if (!error) {
+                //
+                // Decryption worked
+                //
+                // Get preferences dictionary from decrypted data
+                NSError *error;
+                // If we don't have the dictionary yet from above
+                if (!sebPreferencesDict) sebPreferencesDict = [NSPropertyListSerialization propertyListWithData:sebData
+                                                                                                        options:0
+                                                                                                         format:NULL
+                                                                                                          error:&error];
+                // get default settings
+                NSDictionary *defaultSettings = [preferences sebDefaultSettings];
+                
+                // Check if a some value is from a wrong class (another than the value from default settings)
+                for (NSString *key in sebPreferencesDict) {
+                    NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
+                    id value = [sebPreferencesDict objectForKey:key];
+                    id defaultValue = [defaultSettings objectForKey:keyWithPrefix];
+                    Class valueClass = [value superclass];
+                    Class defaultValueClass = [defaultValue superclass];
+                    if (valueClass && defaultValueClass && ![value isKindOfClass:defaultValueClass]) {
+                        // Class of newly loaded value is different than the one from the default value
+                        // If yes, then cancel reading .seb file
+                        NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings failed!", nil),
+                                        NSLocalizedString(@"This settings file cannot be used. It may have been created by an older, incompatible version of SEB or it is corrupted.", nil),
+                                        NSLocalizedString(@"OK", nil), nil, nil);
+                        return YES; //we abort reading the new settings here
+                    }
                 }
+                
+                //switch to system's UserDefaults
+                [NSUserDefaults setUserDefaultsPrivate:NO];
+
+                // Write SEB default values to the local preferences
+                for (NSString *key in defaultSettings) {
+                    id value = [defaultSettings objectForKey:key];
+                    if (value) [preferences setSecureObject:value forKey:key];
+                }
+                
+                // Write values from .seb config file to the local preferences
+                for (NSString *key in sebPreferencesDict) {
+                    id value = [sebPreferencesDict objectForKey:key];
+                    if ([key isEqualToString:@"allowPreferencesWindow"]) {
+                        [preferences setSecureObject:
+                         [[sebPreferencesDict objectForKey:key] copy]
+                                              forKey:@"org_safeexambrowser_SEB_enablePreferencesWindow"];
+                    }
+                    NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
+                    [preferences setSecureObject:value forKey:keyWithPrefix];
+                }
+                int answer = NSRunAlertPanel(NSLocalizedString(@"SEB Re-Configured",nil), NSLocalizedString(@"The local settings of SEB have been reconfigured. Do you want to start working with SEB now or quit?",nil),
+                                             NSLocalizedString(@"Continue",nil), NSLocalizedString(@"Quit",nil), nil);
+                switch(answer)
+                {
+                    case NSAlertDefaultReturn:
+                        break; //Cancel: don't quit
+                    default:
+                        quittingMyself = TRUE; //SEB is terminating itself
+                        [NSApp terminate: nil]; //quit SEB
+                }
+                [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
+                [self startKioskMode];
+                [self requestedRestart:nil];
+            }
+            return YES; //we're done here
+            
+        } else {
+            //
+            // No valid 4-char prefix was found in the .seb file
+            //
+            if (![[NSString stringWithUTF8String:utfString] isEqualToString:@"plnd"]) {
+                // prefix is not the one for plain data: cancel reading .seb file
+                NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings failed!", nil),
+                                NSLocalizedString(@"This settings file cannot be used. It may have been created by an newer, incompatible version of SEB or it is corrupted.", nil),
+                                NSLocalizedString(@"OK", nil), nil, nil);
+                return YES;
             }
         }
-        sebData = decryptedSebData;
-        if (!error) {
-            // if decryption worked
-            //switch to system's UserDefaults
-            [NSUserDefaults setUserDefaultsPrivate:NO];
-            // Get preferences dictionary from decrypted data
-            NSError *error;
-            if (!sebPreferencesDict) sebPreferencesDict = [NSPropertyListSerialization propertyListWithData:sebData
-                                                                                         options:0
-                                                                                          format:NULL
-                                                                                           error:&error];
-            for (NSString *key in sebPreferencesDict) {
-                if ([key isEqualToString:@"allowPreferencesWindow"]) {
-                    [preferences setSecureObject:
-                     [[sebPreferencesDict objectForKey:key] copy]
-                                        forKey:@"org_safeexambrowser_SEB_enablePreferencesWindow"];
-                } 
-                NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
-                [preferences setSecureObject:[sebPreferencesDict objectForKey:key] forKey:keyWithPrefix];
-            }
-            int answer = NSRunAlertPanel(NSLocalizedString(@"SEB Re-Configured",nil), NSLocalizedString(@"The local settings of SEB have been reconfigured. Do you want to start working with SEB now or quit?",nil),
-                                         NSLocalizedString(@"Continue",nil), NSLocalizedString(@"Quit",nil), nil);
-            switch(answer)
-            {
-                case NSAlertDefaultReturn:
-                    break; //Cancel: don't quit
-                default:
-					quittingMyself = TRUE; //SEB is terminating itself
-                    [NSApp terminate: nil]; //quit SEB
-            }
-            [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
-            [self startKioskMode];
-            [self requestedRestart:nil];
-        }
-        return YES; //we're done here
     }
-    //
-    // No valid 4-char prefix was found in the .seb file
-    //
     
     //if decrypting wasn't successfull then stop here
     if (!sebData) return YES;
@@ -312,22 +357,52 @@ bool insideMatrix();
                                                                                   format:NULL
                                                                                    error:&error];
     
-    [preferencesController releasePreferencesWindow];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
+    // get default settings
+    NSDictionary *defaultSettings = [preferences sebDefaultSettings];
+    
+    // Check if a some value is from a wrong class (another than the value from default settings)
+    for (NSString *key in sebPreferencesDict) {
+        NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
+        id value = [sebPreferencesDict objectForKey:key];
+        id defaultValue = [defaultSettings objectForKey:keyWithPrefix];
+        Class valueClass = [value superclass];
+        Class defaultValueClass = [defaultValue superclass];
+        if (valueClass && defaultValueClass && ![value isKindOfClass:defaultValueClass]) {
+            //if (valueClass && defaultValueClass && valueClass != defaultValueClass) {
+            //if (!(object_getClass([value class]) == object_getClass([defaultValue class]))) {
+            //if (defaultValue && !([value class] == [defaultValue class])) {
+            // Class of newly loaded value is different than the one from the default value
+            // If yes, then cancel reading .seb file
+            NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings failed!", nil),
+                            NSLocalizedString(@"This settings file cannot be used. It may have been created by an older, incompatible version of SEB or it is corrupted.", nil),
+                            NSLocalizedString(@"OK", nil), nil, nil);
+            return YES; //we abort reading the new settings here
+        }
+    }
+    
+    // Release preferences window so bindings get synchronized properly with the new loaded values
+    [preferencesController releasePreferencesWindow];
+    
     // Switch to private UserDefaults (saved non-persistantly in memory instead in ~/Library/Preferences)
     NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults];
-    // Use private UserDefaults
     [NSUserDefaults setUserDefaultsPrivate:YES];
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
     // Write SEB default values to the private preferences
+    for (NSString *key in defaultSettings) {
+        id value = [defaultSettings objectForKey:key];
+        if (value) [preferences setSecureObject:value forKey:key];
+    }
+    // Write values from .seb config file to the private preferences
     for (NSString *key in sebPreferencesDict) {
+        NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
+        id value = [sebPreferencesDict objectForKey:key];
         if ([key isEqualToString:@"allowPreferencesWindow"]) {
             [preferences setSecureObject:
              [[sebPreferencesDict objectForKey:key] copy]
                                   forKey:@"org_safeexambrowser_SEB_enablePreferencesWindow"];
         }
-        NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
-        id value = [sebPreferencesDict objectForKey:key];
         if (value) [preferences setSecureObject:value forKey:keyWithPrefix];
         //NSString *keypath = [NSString stringWithFormat:@"values.%@", keyWithPrefix];
         //if (value) [[[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController] values] setValue:value forKeyPath:keyWithPrefix];
@@ -360,10 +435,18 @@ bool insideMatrix();
         } else {
             firstStart = NO;
         }
+        //
         // Set default preferences for the case there are no user prefs yet
-        //SEBnewBrowserWindowLink newBrowserWindowLinkPolicy = openInNewWindow;
+        //
         NSDictionary *appDefaults = [preferences sebDefaultSettings];
-        [preferences registerDefaults:appDefaults];
+        NSMutableDictionary *defaultSettings = [NSMutableDictionary dictionaryWithCapacity:appDefaults.count];
+        // Encrypt default values
+        for (NSString *key in appDefaults) {
+            id value = [appDefaults objectForKey:key];
+            if (value) [defaultSettings setObject:(id)[preferences secureDataForObject:value] forKey:key];
+        }
+        // Write values from .seb config file to the private preferences
+        [preferences registerDefaults:defaultSettings];
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
 #ifdef DEBUG
         NSLog(@"Registred Defaults");

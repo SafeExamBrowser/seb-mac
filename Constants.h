@@ -51,8 +51,8 @@ typedef NSUInteger browserWindowPositionings;
 
 
 enum {
-    certificateTypeSSLClientCertificate   = 0,
-    certificateTypeIdentity               = 1,
+    certificateTypeSSLClientCertificate         = 0,
+    certificateTypeIdentity                     = 1,
 };
 typedef NSUInteger certificateTypes;
 
@@ -94,8 +94,8 @@ typedef NSUInteger proxySettingsPolicies;
 
 
 enum {
-    sebConfigPurposeStartingExam          = 0,
-    sebConfigPurposeConfiguringClient     = 1
+    sebConfigPurposeStartingExam                = 0,
+    sebConfigPurposeConfiguringClient           = 1
 };
 typedef NSUInteger sebConfigPurposes;
 
@@ -105,6 +105,13 @@ enum {
     SEBEnterPasswordOK                          = 1
 };
 typedef NSUInteger SEBEnterPasswordResponse;
+
+
+enum {
+    sebModeStartURL                             = 0,
+    sebModeSebServer                            = 1
+};
+typedef NSUInteger sebModes;
 
 
 enum {
