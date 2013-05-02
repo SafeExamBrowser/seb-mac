@@ -128,7 +128,7 @@
     NSLog(@".seb XML plist: %@", sebXML);
 #endif
     
-    // Remove property list XML header
+    /*/ Remove property list XML header
     NSRange rootDictOpeningTag = [sebXML rangeOfString:@"<dict>"];
     NSRange headerRange;
     headerRange.location = 0;
@@ -136,11 +136,6 @@
     [sebXML deleteCharactersInRange:headerRange];
     
     // Remove property list XML footer
-    /*NSRange rootDictClosingTag = [sebXML rangeOfString:@"</dict>" options:NSBackwardsSearch];
-    NSRange footerRange;
-    footerRange.location = rootDictClosingTag.location + rootDictClosingTag.length;
-    footerRange.length = sebXML.length - footerRange.location;
-    [sebXML deleteCharactersInRange:footerRange];*/
     NSRange footerRange = [sebXML rangeOfString:@"</plist>" options:NSBackwardsSearch];
     footerRange.length = sebXML.length - footerRange.location;
     [sebXML deleteCharactersInRange:footerRange];
@@ -148,6 +143,7 @@
 #ifdef DEBUG
     NSLog(@".seb XML after striping header and footer: %@", sebXML);
 #endif
+    */
     NSData *encryptedSebData = [sebXML dataUsingEncoding:NSUTF8StringEncoding];
     //NSData *encryptedSebData = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];
 
