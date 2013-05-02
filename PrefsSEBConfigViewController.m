@@ -12,6 +12,7 @@
 #import "SEBEncryptedUserDefaultsController.h"
 #import "RNEncryptor.h"
 #import "SEBKeychainManager.h"
+#import "MyGlobals.h"
 #import "Constants.h"
 
 @interface PrefsSEBConfigViewController ()
@@ -116,6 +117,13 @@
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary *filteredPrefsDict;
     filteredPrefsDict = [NSMutableDictionary dictionaryWithDictionary:[preferences dictionaryRepresentationSEB]];
+    
+    // Write SEB_OS_version_build version information to .seb settings
+    NSString *originatorVersion = [NSString stringWithFormat:@"SEB_OSX_%@_%@",
+     [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
+                                   [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]];
+    [filteredPrefsDict setObject:originatorVersion forKey:@"originatorVersion"];
+
     // Remove copy Browser Exam Key to clipboard when quitting flag when saving for starting exams
     if ([sebPurpose selectedRow] == sebConfigPurposeStartingExam) {
         [filteredPrefsDict removeObjectForKey:@"copyBrowserExamKeyToClipboardWhenQuitting"];

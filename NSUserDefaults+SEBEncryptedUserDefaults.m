@@ -24,6 +24,7 @@
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
 #import "SEBCryptor.h"
+#import "MyGlobals.h"
 #import "Constants.h"
 
 
@@ -193,6 +194,10 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_openDownloads",
+                                 [NSString stringWithFormat:@"SEB_OSX_%@_%@",
+                                  [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
+                                  [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]],
+                                 @"org_safeexambrowser_SEB_originatorVersion",
                                  @"",
                                  @"org_safeexambrowser_SEB_quitURL",
                                  [NSNumber numberWithInt:sebConfigPurposeStartingExam],

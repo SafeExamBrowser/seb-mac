@@ -67,14 +67,14 @@ static SEBCryptor *sharedSEBCryptor = nil;
     // Copy preferences to a dictionary
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     //NSUserDefaultsController *userDefaultsController = [NSUserDefaultsController sharedUserDefaultsController];
-    SEBEncryptedUserDefaultsController *userDefaultsController = [SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController];
+    //SEBEncryptedUserDefaultsController *userDefaultsController = [SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController];
 #ifdef DEBUG
-    NSLog(@"[sharedUserDefaultsController hasUnappliedChanges] = %@",[NSNumber numberWithBool:[userDefaultsController hasUnappliedChanges]]);
+   // NSLog(@"[sharedUserDefaultsController hasUnappliedChanges] = %@",[NSNumber numberWithBool:[userDefaultsController hasUnappliedChanges]]);
 #endif  
-    [preferences synchronize];
-    [userDefaultsController save:self];
+    //[preferences synchronize];
+    //[userDefaultsController save:self];
 #ifdef DEBUG
-    NSLog(@"After preferences synchronize: [sharedUserDefaultsController hasUnappliedChanges] = %@",[NSNumber numberWithBool:[userDefaultsController hasUnappliedChanges]]);
+    //NSLog(@"After preferences synchronize: [sharedUserDefaultsController hasUnappliedChanges] = %@",[NSNumber numberWithBool:[userDefaultsController hasUnappliedChanges]]);
 #endif
     NSDictionary *prefsDict;
     
@@ -97,9 +97,23 @@ static SEBCryptor *sharedSEBCryptor = nil;
                                    else return NO;
                                }];
     NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:[filteredPrefsSet count]];
+
+    // get default settings
+    NSDictionary *defaultSettings = [preferences sebDefaultSettings];
+    
     // iterate keys and read all values
     for (NSString *key in filteredPrefsSet) {
         id value = [preferences secureObjectForKey:key];
+        id defaultValue = [defaultSettings objectForKey:key];
+        Class valueClass = [value superclass];
+        Class defaultValueClass = [defaultValue superclass];
+        if (valueClass && defaultValueClass && ![value isKindOfClass:defaultValueClass]) {
+            // Class of local preferences value is different than the one from the default value
+            // If yes, then cancel reading .seb file
+            NSRunAlertPanel(NSLocalizedString(@"Local SEB settings are corrupted!", nil),
+                            NSLocalizedString(@"Either an incompatible preview version of SEB has been used on this computer or the preferences file has been manipulated. The local settings need to be reset to the default values.", nil),
+                            NSLocalizedString(@"OK", nil), nil, nil);
+        }
         if (value) [filteredPrefsDict setObject:value forKey:key];
     }
 	NSMutableData *archivedPrefs = [[NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict] mutableCopy];
