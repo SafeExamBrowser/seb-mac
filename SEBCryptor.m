@@ -109,10 +109,11 @@ static SEBCryptor *sharedSEBCryptor = nil;
         Class defaultValueClass = [defaultValue superclass];
         if (valueClass && defaultValueClass && ![value isKindOfClass:defaultValueClass]) {
             // Class of local preferences value is different than the one from the default value
-            // If yes, then cancel reading .seb file
-            NSRunAlertPanel(NSLocalizedString(@"Local SEB settings are corrupted!", nil),
+            // If yes, then cancel reading .seb file and create error object
+            
+            /*NSRunAlertPanel(NSLocalizedString(@"Local SEB settings are corrupted!", nil),
                             NSLocalizedString(@"Either an incompatible preview version of SEB has been used on this computer or the preferences file has been manipulated. The local settings need to be reset to the default values.", nil),
-                            NSLocalizedString(@"OK", nil), nil, nil);
+                            NSLocalizedString(@"OK", nil), nil, nil);*/
         }
         if (value) [filteredPrefsDict setObject:value forKey:key];
     }
