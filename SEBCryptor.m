@@ -88,7 +88,7 @@ static SEBCryptor *sharedSEBCryptor = nil;
         id defaultValue = [defaultSettings objectForKey:key];
         Class valueClass = [value superclass];
         Class defaultValueClass = [defaultValue superclass];
-        if (valueClass && defaultValueClass && ![value isKindOfClass:defaultValueClass]) {
+        if (valueClass && defaultValueClass && !([defaultValue isKindOfClass:valueClass] || [value isKindOfClass:defaultValueClass])) {
             // Class of local preferences value is different than the one from the default value
             // If yes, then cancel reading .seb file and create error object
             [self presentPreferencesCorruptedError];

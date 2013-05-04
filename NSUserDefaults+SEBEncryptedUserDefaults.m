@@ -133,7 +133,7 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_chooseFileToUploadPolicy",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_copyBrowserExamKeyToClipboardWhenQuitting",
-                                 [NSNumber numberWithInt:0],
+                                 [NSData data], // public key hash of cryptoIdentity selected/used for encryption 
                                  @"org_safeexambrowser_SEB_cryptoIdentity",
                                  //@"~/Downloads",
                                  [NSHomeDirectory() stringByAppendingPathComponent: @"Downloads"],
@@ -202,6 +202,8 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_permittedProcesses",
                                  [NSArray array],
                                  @"org_safeexambrowser_SEB_prohibitedProcesses",
+                                 [NSMutableDictionary dictionary],
+                                 @"org_safeexambrowser_SEB_proxies",
                                  @"",
                                  @"org_safeexambrowser_SEB_quitURL",
                                  [NSNumber numberWithInt:sebConfigPurposeStartingExam],

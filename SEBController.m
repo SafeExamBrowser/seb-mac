@@ -287,7 +287,7 @@ bool insideMatrix();
                     id defaultValue = [defaultSettings objectForKey:keyWithPrefix];
                     Class valueClass = [value superclass];
                     Class defaultValueClass = [defaultValue superclass];
-                    if (valueClass && defaultValueClass && ![value isKindOfClass:defaultValueClass]) {
+                    if (valueClass && defaultValueClass && !([defaultValue isKindOfClass:valueClass] || [value isKindOfClass:defaultValueClass])) {
                         // Class of newly loaded value is different than the one from the default value
                         // If yes, then cancel reading .seb file
                         NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings failed!", nil),
@@ -369,7 +369,7 @@ bool insideMatrix();
         id defaultValue = [defaultSettings objectForKey:keyWithPrefix];
         Class valueClass = [value superclass];
         Class defaultValueClass = [defaultValue superclass];
-        if (valueClass && defaultValueClass && ![value isKindOfClass:defaultValueClass]) {
+        if (valueClass && defaultValueClass && !([defaultValue isKindOfClass:valueClass] || [value isKindOfClass:defaultValueClass])) {
             //if (valueClass && defaultValueClass && valueClass != defaultValueClass) {
             //if (!(object_getClass([value class]) == object_getClass([defaultValue class]))) {
             //if (defaultValue && !([value class] == [defaultValue class])) {
