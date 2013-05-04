@@ -198,6 +198,10 @@ static BOOL _usePrivateUserDefaults = NO;
                                   [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
                                   [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]],
                                  @"org_safeexambrowser_SEB_originatorVersion",
+                                 [NSArray array],
+                                 @"org_safeexambrowser_SEB_permittedProcesses",
+                                 [NSArray array],
+                                 @"org_safeexambrowser_SEB_prohibitedProcesses",
                                  @"",
                                  @"org_safeexambrowser_SEB_quitURL",
                                  [NSNumber numberWithInt:sebConfigPurposeStartingExam],
@@ -220,6 +224,8 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_settingsPassword",
                                  @"http://www.safeexambrowser.org/macosx",
                                  @"org_safeexambrowser_SEB_startURL",
+                                 [NSArray array],
+                                 @"org_safeexambrowser_SEB_urlFilterRules",
                                  nil];
     return appDefaults;
 }
@@ -445,6 +451,11 @@ static BOOL _usePrivateUserDefaults = NO;
                                                 withSettings:kRNCryptorAES256Settings
                                                     password:userDefaultsMasala
                                                        error:&error];
+            if (error) {
+                [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
+                return;
+            }
+            
             [self setObject:encryptedData forKey:key];
 #ifdef DEBUG
             NSLog(@"[self setObject:(encrypted %@) forKey:%@]", value, key);
@@ -478,6 +489,10 @@ static BOOL _usePrivateUserDefaults = NO;
                                             withSettings:kRNCryptorAES256Settings
                                                 password:userDefaultsMasala
                                                    error:&error];
+        if (error) {
+            [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
+            return nil;
+        }
         return encryptedData;
 	} else {
         return nil;
@@ -547,6 +562,10 @@ static BOOL _usePrivateUserDefaults = NO;
         NSData *decrypted = [RNDecryptor decryptData:encrypted
                                             withPassword:userDefaultsMasala
                                                error:&error];
+        if (error) {
+            [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
+            return nil;
+        }
         id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
 #ifdef DEBUG
         NSLog(@"%@ (decrypted) = [self objectForKey:%@]", value, key);

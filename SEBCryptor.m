@@ -91,27 +91,8 @@ static SEBCryptor *sharedSEBCryptor = nil;
         if (valueClass && defaultValueClass && ![value isKindOfClass:defaultValueClass]) {
             // Class of local preferences value is different than the one from the default value
             // If yes, then cancel reading .seb file and create error object
-            //NSString *newDesc = [[err localizedDescription] stringByAppendingString:([err localizedFailureReason] ? [err localizedFailureReason] : @"")];
-            // Error description
-            
-            NSDictionary *newDict = @{ NSLocalizedDescriptionKey :
-                                           NSLocalizedString(@"Local SEB settings are corrupted!", nil),
-                                       /*NSLocalizedFailureReasonErrorKey :
-                                           NSLocalizedString(@"Either an incompatible version of SEB has been used on this computer or the preferences file has been manipulated. In the first case you can quit SEB now and use the previous version to export settings as a .seb config file for reconfiguring the new version. Otherwise local settings need to be reset to the default values in order for SEB to continue running.", nil),*/
-                                       //NSURLErrorKey : furl,
-                                       NSRecoveryAttempterErrorKey : self,
-                                       NSLocalizedRecoverySuggestionErrorKey :
-                                           NSLocalizedString(@"The preferences file has either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to export settings as a .seb file for configuring the new version.\n\nReset local settings and continue?", @""),
-                                       NSLocalizedRecoveryOptionsErrorKey :
-                                           @[NSLocalizedString(@"Continue", @""), NSLocalizedString(@"Quit", @"")] };
-            
-            NSError *newError = [[NSError alloc] initWithDomain:sebErrorDomain
-                                                           code:1 userInfo:newDict];
-            [NSApp presentError:newError];
+            [self presentPreferencesCorruptedError];
             return;
-            /*NSRunAlertPanel(NSLocalizedString(@"Local SEB settings are corrupted!", nil),
-                            NSLocalizedString(@"Either an incompatible preview version of SEB has been used on this computer or the preferences file has been manipulated. The local settings need to be reset to the default values.", nil),
-                            NSLocalizedString(@"OK", nil), nil, nil);*/
         }
         if (value) [filteredPrefsDict setObject:value forKey:key];
     }
@@ -142,7 +123,26 @@ static SEBCryptor *sharedSEBCryptor = nil;
 }
 
 
-// Error recovery attempter when local preferences need to be reset 
+- (void)presentPreferencesCorruptedError
+{
+    NSDictionary *newDict = @{ NSLocalizedDescriptionKey :
+                                   NSLocalizedString(@"Local SEB settings are corrupted!", nil),
+                               /*NSLocalizedFailureReasonErrorKey :
+                                NSLocalizedString(@"Either an incompatible version of SEB has been used on this computer or the preferences file has been manipulated. In the first case you can quit SEB now and use the previous version to export settings as a .seb config file for reconfiguring the new version. Otherwise local settings need to be reset to the default values in order for SEB to continue running.", nil),*/
+                               //NSURLErrorKey : furl,
+                               NSRecoveryAttempterErrorKey : self,
+                               NSLocalizedRecoverySuggestionErrorKey :
+                                   NSLocalizedString(@"The preferences file has either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to export settings as a .seb file for configuring the new version.\n\nReset local settings and continue?", @""),
+                               NSLocalizedRecoveryOptionsErrorKey :
+                                   @[NSLocalizedString(@"Continue", @""), NSLocalizedString(@"Quit", @"")] };
+    
+    NSError *newError = [[NSError alloc] initWithDomain:sebErrorDomain
+                                                   code:1 userInfo:newDict];
+    [NSApp presentError:newError];
+}
+
+
+// Error recovery attempter when local preferences need to be reset
 - (BOOL)attemptRecoveryFromError:(NSError *)error
                      optionIndex:(unsigned int)recoveryOptionIndex
 {

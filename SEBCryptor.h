@@ -42,6 +42,7 @@
 + (SEBCryptor *)sharedSEBCryptor;
 
 - (void)updateEncryptedUserDefaults;
+- (void)presentPreferencesCorruptedError;
 
 - (void)generateExamKeySalt;
 
