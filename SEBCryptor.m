@@ -39,6 +39,7 @@
 #import "RNCryptor.h"
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
+#import "Constants.h"
 
 @implementation SEBCryptor
 
@@ -66,28 +67,8 @@ static SEBCryptor *sharedSEBCryptor = nil;
 {
     // Copy preferences to a dictionary
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    //NSUserDefaultsController *userDefaultsController = [NSUserDefaultsController sharedUserDefaultsController];
-    //SEBEncryptedUserDefaultsController *userDefaultsController = [SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController];
-#ifdef DEBUG
-   // NSLog(@"[sharedUserDefaultsController hasUnappliedChanges] = %@",[NSNumber numberWithBool:[userDefaultsController hasUnappliedChanges]]);
-#endif  
-    //[preferences synchronize];
-    //[userDefaultsController save:self];
-#ifdef DEBUG
-    //NSLog(@"After preferences synchronize: [sharedUserDefaultsController hasUnappliedChanges] = %@",[NSNumber numberWithBool:[userDefaultsController hasUnappliedChanges]]);
-#endif
-    NSDictionary *prefsDict;
-    
-    // Get CFBundleIdentifier of the application
-    NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
-    NSString *bundleId = [bundleInfo objectForKey: @"CFBundleIdentifier"];
-    
-    // Include UserDefaults from NSRegistrationDomain and the applications domain
-    NSUserDefaults *appUserDefaults = [[NSUserDefaults alloc] init];
-    [appUserDefaults addSuiteNamed:@"NSRegistrationDomain"];
-    [appUserDefaults addSuiteNamed: bundleId];
-    prefsDict = [appUserDefaults dictionaryRepresentation];
-    
+    NSDictionary *prefsDict = [preferences getSEBUserDefaultsDomains];
+        
     // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
     NSSet *filteredPrefsSet = [prefsDict keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop)
                                {
@@ -110,7 +91,24 @@ static SEBCryptor *sharedSEBCryptor = nil;
         if (valueClass && defaultValueClass && ![value isKindOfClass:defaultValueClass]) {
             // Class of local preferences value is different than the one from the default value
             // If yes, then cancel reading .seb file and create error object
+            //NSString *newDesc = [[err localizedDescription] stringByAppendingString:([err localizedFailureReason] ? [err localizedFailureReason] : @"")];
+            // Error description
             
+            NSDictionary *newDict = @{ NSLocalizedDescriptionKey :
+                                           NSLocalizedString(@"Local SEB settings are corrupted!", nil),
+                                       /*NSLocalizedFailureReasonErrorKey :
+                                           NSLocalizedString(@"Either an incompatible version of SEB has been used on this computer or the preferences file has been manipulated. In the first case you can quit SEB now and use the previous version to export settings as a .seb config file for reconfiguring the new version. Otherwise local settings need to be reset to the default values in order for SEB to continue running.", nil),*/
+                                       //NSURLErrorKey : furl,
+                                       NSRecoveryAttempterErrorKey : self,
+                                       NSLocalizedRecoverySuggestionErrorKey :
+                                           NSLocalizedString(@"The preferences file has either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to export settings as a .seb file for configuring the new version.\n\nReset local settings and continue?", @""),
+                                       NSLocalizedRecoveryOptionsErrorKey :
+                                           @[NSLocalizedString(@"Continue", @""), NSLocalizedString(@"Quit", @"")] };
+            
+            NSError *newError = [[NSError alloc] initWithDomain:sebErrorDomain
+                                                           code:1 userInfo:newDict];
+            [NSApp presentError:newError];
+            return;
             /*NSRunAlertPanel(NSLocalizedString(@"Local SEB settings are corrupted!", nil),
                             NSLocalizedString(@"Either an incompatible preview version of SEB has been used on this computer or the preferences file has been manipulated. The local settings need to be reset to the default values.", nil),
                             NSLocalizedString(@"OK", nil), nil, nil);*/
@@ -134,6 +132,7 @@ static SEBCryptor *sharedSEBCryptor = nil;
     [preferences setValue:HMACData forKey:@"currentData"];
 }
 
+
 // Calculate a random salt value for the Browser Exam Key and save it to UserDefaults
 - (void)generateExamKeySalt
 {
@@ -141,5 +140,28 @@ static SEBCryptor *sharedSEBCryptor = nil;
     NSData *HMACKey = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
     [preferences setSecureObject:HMACKey forKey:@"org_safeexambrowser_SEB_examKeySalt"];
 }
+
+
+// Error recovery attempter when local preferences need to be reset 
+- (BOOL)attemptRecoveryFromError:(NSError *)error
+                     optionIndex:(unsigned int)recoveryOptionIndex
+{
+    
+    BOOL success = NO;
+    
+    if (recoveryOptionIndex == 0) { // Recovery requested.
+        [[NSUserDefaults standardUserDefaults] resetSEBUserDefaults];
+        [self updateEncryptedUserDefaults];
+        success = YES;
+    }
+    if (recoveryOptionIndex == 1) { // Quit requested.
+        // Terminate SEB without any further user confirmation required
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"requestQuitNotification" object:self];
+        success = NO;
+    }
+    return success;
+}
+
 
 @end

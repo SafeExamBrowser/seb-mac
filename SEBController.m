@@ -427,6 +427,12 @@ bool insideMatrix();
     if (self) {
         // Add your subclass-specific initialization here.
         // If an error occurs here, send a [self release] message and return nil.
+
+        // Add an observer for the request to unconditionally quit SEB
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(requestedQuit:)
+                                                     name:@"requestQuitNotification" object:nil];
+        
         
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         // Set flag for displaying alert to new users
@@ -549,11 +555,6 @@ bool insideMatrix();
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(requestedQuitWoPwd:)
                                                  name:@"requestQuitWoPwdNotification" object:nil];
-	
-    // Add an observer for the request to unconditionally quit SEB
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(requestedQuit:)
-                                                 name:@"requestQuitNotification" object:nil];
 	
     // Add an observer for the request to reload start URL
     [[NSNotificationCenter defaultCenter] addObserver:self

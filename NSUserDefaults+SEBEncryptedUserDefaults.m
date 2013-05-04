@@ -229,18 +229,7 @@ static BOOL _usePrivateUserDefaults = NO;
 {
     // Copy preferences to a dictionary
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    [preferences synchronize];
-    NSDictionary *prefsDict;
-    
-    // Get CFBundleIdentifier of the application
-    NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
-    NSString *bundleId = [bundleInfo objectForKey: @"CFBundleIdentifier"];
-    
-    // Include UserDefaults from NSRegistrationDomain and the applications domain
-    NSUserDefaults *appUserDefaults = [[NSUserDefaults alloc] init];
-    [appUserDefaults addSuiteNamed:@"NSRegistrationDomain"];
-    [appUserDefaults addSuiteNamed: bundleId];
-    prefsDict = [appUserDefaults dictionaryRepresentation];
+    NSDictionary *prefsDict = [self getSEBUserDefaultsDomains];
     
     // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
     NSSet *filteredPrefsSet = [prefsDict keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop)
@@ -269,6 +258,42 @@ static BOOL _usePrivateUserDefaults = NO;
     }
     return filteredPrefsDict;
 }
+
+
+- (void)resetSEBUserDefaults
+{
+    // Copy preferences to a dictionary
+	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSDictionary *prefsDict = [self getSEBUserDefaultsDomains];
+
+    // Remove all values for keys with prefix "org_safeexambrowser_SEB_"
+    for (NSString *key in prefsDict) {
+        if ([key hasPrefix:@"org_safeexambrowser_SEB_"]) {
+            [preferences removeObjectForKey:key];
+        }
+    }
+}
+
+
+- (NSDictionary *)getSEBUserDefaultsDomains
+{
+    // Copy preferences to a dictionary
+	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences synchronize];
+    NSDictionary *prefsDict;
+    
+    // Get CFBundleIdentifier of the application
+    NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
+    NSString *bundleId = [bundleInfo objectForKey: @"CFBundleIdentifier"];
+    
+    // Include UserDefaults from NSRegistrationDomain and application domain
+    NSUserDefaults *appUserDefaults = [[NSUserDefaults alloc] init];
+    [appUserDefaults addSuiteNamed:@"NSRegistrationDomain"];
+    [appUserDefaults addSuiteNamed: bundleId];
+    prefsDict = [appUserDefaults dictionaryRepresentation];
+    return prefsDict;
+}
+
 
 #pragma mark -
 #pragma mark Read accessors
