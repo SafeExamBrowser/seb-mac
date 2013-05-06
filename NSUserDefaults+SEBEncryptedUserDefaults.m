@@ -111,7 +111,7 @@ static BOOL _usePrivateUserDefaults = NO;
     NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys:
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_allowBrowsingBackForward",
-                                 [NSNumber numberWithBool:YES],
+                                 [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_allowDownUploads",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_allowFlashFullscreen",

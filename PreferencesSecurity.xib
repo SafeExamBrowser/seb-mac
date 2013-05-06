@@ -96,7 +96,7 @@
 						<reference key="NSNextKeyView" ref="368450533"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="2185352">
-							<int key="NSCellFlags">67108928</int>
+							<int key="NSCellFlags">603979840</int>
 							<int key="NSCellFlags2">2048</int>
 							<reference key="NSSupport" ref="973533274"/>
 							<reference key="NSControlView" ref="697019350"/>
@@ -220,6 +220,7 @@
 						<string key="NSFrame">{{328, 66}, {305, 26}}</string>
 						<reference key="NSSuperview" ref="381403324"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="669020158">
 							<int key="NSCellFlags">-1539309504</int>
@@ -408,10 +409,14 @@
 							<string key="NSLabel">value: values.org_safeexambrowser_SEB_enableLogging</string>
 							<string key="NSBinding">value</string>
 							<string key="NSKeyPath">values.org_safeexambrowser_SEB_enableLogging</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSConditionallySetsEnabled</string>
+								<boolean value="NO" key="NS.object.0"/>
+							</object>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">349</int>
+					<int key="connectionID">352</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -480,11 +485,15 @@
 							<string key="NSLabel">selectedIndex: values.org_safeexambrowser_SEB_sebServicePolicy</string>
 							<string key="NSBinding">selectedIndex</string>
 							<string key="NSKeyPath">values.org_safeexambrowser_SEB_sebServicePolicy</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSConditionallySetsEnabled</string>
+								<boolean value="NO" key="NS.object.0"/>
+							</object>
 							<reference key="NSPreviousConnector" ref="59176996"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">275</int>
+					<int key="connectionID">353</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -497,10 +506,14 @@
 							<string key="NSLabel">value: values.org_safeexambrowser_SEB_allowUserSwitching</string>
 							<string key="NSBinding">value</string>
 							<string key="NSKeyPath">values.org_safeexambrowser_SEB_allowUserSwitching</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSConditionallySetsEnabled</string>
+								<boolean value="NO" key="NS.object.0"/>
+							</object>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">342</int>
+					<int key="connectionID">351</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1285,7 +1298,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">350</int>
+			<int key="maxID">353</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
