@@ -236,7 +236,7 @@ bool insideMatrix();
                         do {
                             i--;
                             // Prompt for password
-                            if ([self showEnterPasswordDialog:NSLocalizedString(@"You can only reset SEB to the initial configuration by entering the current SEB administrator password:",nil) modalForWindow:nil windowTitle:NSLocalizedString(@"Reconfiguring Local SEB Settings",nil)] == SEBEnterPasswordCancel) return YES;
+                            if ([self showEnterPasswordDialog:NSLocalizedString(@"You can only reconfigure SEB by entering the current SEB administrator password (because it was changed since installing SEB):",nil) modalForWindow:nil windowTitle:NSLocalizedString(@"Reconfiguring Local SEB Settings",nil)] == SEBEnterPasswordCancel) return YES;
                             password = [enterPassword stringValue];
                             hashedPassword = [keychainManager generateSHAHashString:password];
                             passwordsMatch = [hashedAdminPassword isEqualToString:hashedPassword];
