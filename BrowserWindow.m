@@ -875,7 +875,9 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 {
     // Release the download.
     
+#ifdef DEBUG
     NSLog(@"Download of File %@ did finish.",downloadPath);
+#endif
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_openDownloads"] == YES) {
     // Open downloaded file
@@ -889,7 +891,9 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     // path now contains the destination path
     // of the download, taking into account any
     // unique naming caused by -setDestination:allowOverwrite:
+#ifdef DEBUG
     NSLog(@"Final file destination: %@",path);
+#endif
     downloadPath = path;
     NSMutableArray *downloadPaths = [NSMutableArray arrayWithArray:[[MyGlobals sharedMyGlobals] downloadPath]];
     if (!downloadPaths) {
