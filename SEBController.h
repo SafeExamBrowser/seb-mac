@@ -92,6 +92,7 @@
 
 - (IBAction) openPreferences:(id)sender;
 - (IBAction) showAbout: (id)sender;
+- (IBAction) showHelp: (id)sender;
 
 - (void) requestedRestart:(NSNotification *)notification;
 

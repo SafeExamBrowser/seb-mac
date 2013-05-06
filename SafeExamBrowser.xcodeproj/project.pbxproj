@@ -128,6 +128,9 @@
 		69CE9C5D17326AB90011609B /* SEBConfigFileManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CE9C5B17326AB90011609B /* SEBConfigFileManager.h */; };
 		69CE9C5E17326AB90011609B /* SEBConfigFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE9C5C17326AB90011609B /* SEBConfigFileManager.m */; };
 		69CE9C5F17326AB90011609B /* SEBConfigFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE9C5C17326AB90011609B /* SEBConfigFileManager.m */; };
+		69CE9C6317378B9A0011609B /* SEBTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CE9C6117378B9A0011609B /* SEBTextField.h */; };
+		69CE9C6417378B9A0011609B /* SEBTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE9C6217378B9A0011609B /* SEBTextField.m */; };
+		69CE9C6517378B9A0011609B /* SEBTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE9C6217378B9A0011609B /* SEBTextField.m */; };
 		69CF8A1416FD0B550096625C /* SEBFilterRuleTableColumn.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CF8A1216FD0B550096625C /* SEBFilterRuleTableColumn.h */; };
 		69CF8A1516FD0B550096625C /* SEBFilterRuleTableColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CF8A1316FD0B550096625C /* SEBFilterRuleTableColumn.m */; };
 		69CF8A1616FD0B550096625C /* SEBFilterRuleTableColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CF8A1316FD0B550096625C /* SEBFilterRuleTableColumn.m */; };
@@ -312,6 +315,8 @@
 		69CB8AFD136AFC6E00C08450 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		69CE9C5B17326AB90011609B /* SEBConfigFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBConfigFileManager.h; sourceTree = "<group>"; };
 		69CE9C5C17326AB90011609B /* SEBConfigFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBConfigFileManager.m; sourceTree = "<group>"; };
+		69CE9C6117378B9A0011609B /* SEBTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBTextField.h; sourceTree = "<group>"; };
+		69CE9C6217378B9A0011609B /* SEBTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBTextField.m; sourceTree = "<group>"; };
 		69CF8A1216FD0B550096625C /* SEBFilterRuleTableColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBFilterRuleTableColumn.h; sourceTree = "<group>"; };
 		69CF8A1316FD0B550096625C /* SEBFilterRuleTableColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBFilterRuleTableColumn.m; sourceTree = "<group>"; };
 		69CF8A1716FD1C330096625C /* SEBFilterRuleExpressionTableColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBFilterRuleExpressionTableColumn.h; sourceTree = "<group>"; };
@@ -423,6 +428,7 @@
 			isa = PBXGroup;
 			children = (
 				080E96DDFE201D6D7F000001 /* Classes */,
+				69CE9C6017378B360011609B /* Bugfixing Subclasses */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -677,6 +683,15 @@
 			name = "Preferences View Controllers";
 			sourceTree = "<group>";
 		};
+		69CE9C6017378B360011609B /* Bugfixing Subclasses */ = {
+			isa = PBXGroup;
+			children = (
+				69CE9C6117378B9A0011609B /* SEBTextField.h */,
+				69CE9C6217378B9A0011609B /* SEBTextField.m */,
+			);
+			name = "Bugfixing Subclasses";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -703,6 +718,7 @@
 				69CF8A1916FD1C330096625C /* SEBFilterRuleExpressionTableColumn.h in Headers */,
 				693647FA17122A0300EE41BC /* DropDownButton.h in Headers */,
 				69CE9C5D17326AB90011609B /* SEBConfigFileManager.h in Headers */,
+				69CE9C6317378B9A0011609B /* SEBTextField.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -924,6 +940,7 @@
 				69CF8A1B16FD1C330096625C /* SEBFilterRuleExpressionTableColumn.m in Sources */,
 				693647FC17122A0300EE41BC /* DropDownButton.m in Sources */,
 				69CE9C5F17326AB90011609B /* SEBConfigFileManager.m in Sources */,
+				69CE9C6517378B9A0011609B /* SEBTextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -971,6 +988,7 @@
 				69CF8A1A16FD1C330096625C /* SEBFilterRuleExpressionTableColumn.m in Sources */,
 				693647FB17122A0300EE41BC /* DropDownButton.m in Sources */,
 				69CE9C5E17326AB90011609B /* SEBConfigFileManager.m in Sources */,
+				69CE9C6417378B9A0011609B /* SEBTextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

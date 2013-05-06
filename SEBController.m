@@ -216,6 +216,12 @@ bool insideMatrix();
                                                                                    options:0
                                                                                     format:NULL
                                                                                      error:&error];
+                    if (error) {
+                        NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings failed!", nil),
+                                        NSLocalizedString(@"This settings file is corrupted and cannot be used.", nil),
+                                        NSLocalizedString(@"OK", nil), nil, nil);
+                        return YES; //we abort reading the new settings here
+                    }
                     NSString *sebFileHashedAdminPassword = [sebPreferencesDict objectForKey:@"hashedAdminPassword"];
                     if (![hashedAdminPassword isEqualToString:sebFileHashedAdminPassword]) {
                         //No: The admin password inside the .seb file wasn't the same like the current one
@@ -230,7 +236,7 @@ bool insideMatrix();
                         do {
                             i--;
                             // Prompt for password
-                            if ([self showEnterPasswordDialog:NSLocalizedString(@"You are trying to reconfigure local SEB settings to an initial configuration, but there is already an administrator password set. You can only reset SEB to the initial configuration if you enter the current SEB administrator password:",nil) modalForWindow:nil windowTitle:NSLocalizedString(@"Reconfiguring Local SEB Settings",nil)] == SEBEnterPasswordCancel) return YES;
+                            if ([self showEnterPasswordDialog:NSLocalizedString(@"You can only reset SEB to the initial configuration by entering the current SEB administrator password:",nil) modalForWindow:nil windowTitle:NSLocalizedString(@"Reconfiguring Local SEB Settings",nil)] == SEBEnterPasswordCancel) return YES;
                             password = [enterPassword stringValue];
                             hashedPassword = [keychainManager generateSHAHashString:password];
                             passwordsMatch = [hashedAdminPassword isEqualToString:hashedPassword];
@@ -277,6 +283,12 @@ bool insideMatrix();
                                                                                                         options:0
                                                                                                          format:NULL
                                                                                                           error:&error];
+                if (error) {
+                    NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings failed!", nil),
+                                    NSLocalizedString(@"This settings file is corrupted and cannot be used.", nil),
+                                    NSLocalizedString(@"OK", nil), nil, nil);
+                    return YES; //we abort reading the new settings here
+                }
                 // get default settings
                 NSDictionary *defaultSettings = [preferences sebDefaultSettings];
                 
@@ -356,7 +368,12 @@ bool insideMatrix();
                                                                                  options:0
                                                                                   format:NULL
                                                                                    error:&error];
-    
+    if (error) {
+        NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings failed!", nil),
+                        NSLocalizedString(@"This settings file is corrupted and cannot be used.", nil),
+                        NSLocalizedString(@"OK", nil), nil, nil);
+        return YES; //we abort reading the new settings here
+    }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
     // get default settings
@@ -1273,11 +1290,15 @@ bool insideMatrix(){
 
 - (void)requestedShowHelp:(NSNotification *)notification
 {
+    [self showHelp:self];
+}
+
+- (IBAction)showHelp: (id)sender
+{
     // Load manual page URL into browser window
     NSString *urlText = @"http://www.safeexambrowser.org/macosx";
 	[[self.webView mainFrame] loadRequest:
      [NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];
-    
 }
 
 

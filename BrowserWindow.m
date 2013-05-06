@@ -166,6 +166,9 @@
         // Height is in percent
         windowFrame.size.height = ([windowHeight integerValue] * screenFrame.size.height) / 100;
     }
+    // Enforce minimum window size
+    if (windowFrame.size.width < 394) windowFrame.size.width = 394;
+    if (windowFrame.size.height < 247) windowFrame.size.height = 247;
     // Calculate x position according to positioning flag
     switch (windowPositioning) {
         case browserWindowPositioningLeft:
@@ -383,9 +386,11 @@ initiatedByFrame:(WebFrame *)frame {
 
 - (NSURLRequest *)webView:(WebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource
 {
+    NSString *fragment = [[request URL] fragment];
     NSString *absoluteRequestURL = [[request URL] absoluteString];
+    NSString *requestURLStrippedFragment = [absoluteRequestURL substringToIndex:absoluteRequestURL.length - fragment.length];
 #ifdef DEBUG
-    NSLog(@"Request URL used to calculate RequestHash: %@", absoluteRequestURL);
+    NSLog(@"Request URL used to calculate RequestHash: %@", requestURLStrippedFragment);
 #endif
 
 #ifdef DEBUG
@@ -411,7 +416,7 @@ initiatedByFrame:(WebFrame *)frame {
         [browserExamKey getBytes:hashedChars length:32];
         
         NSMutableString* browserExamKeyString = [[NSMutableString alloc] init];
-        [browserExamKeyString setString:absoluteRequestURL];
+        [browserExamKeyString setString:requestURLStrippedFragment];
         for (int i = 0 ; i < 32 ; ++i) {
             [browserExamKeyString appendFormat: @"%02x", hashedChars[i]];
         }
@@ -423,21 +428,19 @@ initiatedByFrame:(WebFrame *)frame {
         
         //unsigned char hashedChars[32];
         
-        //NSData *requestURLData = [absoluteRequestURL dataUsingEncoding:NSUTF8StringEncoding];
-        //const char *urlString = [absoluteRequestURL UTF8String];
         const char *urlString = [browserExamKeyString UTF8String];
         
-        CC_SHA256_CTX sha256;
-        CC_SHA256_Init(&sha256);
+        //CC_SHA256_CTX sha256;
+        //CC_SHA256_Init(&sha256);
         //CC_SHA256_Update(&sha256, urlString, strlen(urlString));
-        CC_SHA256_Update(&sha256, urlString, strlen(urlString));
+        //CC_SHA256_Update(&sha256, urlString, strlen(urlString));
         //CC_SHA256_Update(&sha256, browserExamKey.bytes, browserExamKey.length);
 
-        CC_SHA256_Final(hashedChars, &sha256);
+        //CC_SHA256_Final(hashedChars, &sha256);
 
-        /*CC_SHA256(browserExamKey.bytes,
-                  browserExamKey.length,
-                  hashedChars);*/
+        CC_SHA256(urlString,
+                  strlen(urlString),
+                  hashedChars);
         //[browserExamKey getBytes:hashedChars length:32];
         //browserExamKey = nil;
 
