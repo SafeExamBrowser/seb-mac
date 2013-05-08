@@ -41,6 +41,8 @@
 			<array>
 				<string>org.safeexambrowser.seb</string>
 			</array>
+			<key>NSDocumentClass</key>
+			<string></string>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
@@ -56,7 +58,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.0pre2</string>
+	<string>2.0pre3</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
