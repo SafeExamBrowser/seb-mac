@@ -388,14 +388,21 @@ initiatedByFrame:(WebFrame *)frame {
 {
     NSString *fragment = [[request URL] fragment];
     NSString *absoluteRequestURL = [[request URL] absoluteString];
-    NSString *requestURLStrippedFragment = [absoluteRequestURL substringToIndex:absoluteRequestURL.length - fragment.length];
+    NSString *requestURLStrippedFragment;
+    if (fragment.length) {
+        // if there is a fragment
+        requestURLStrippedFragment = [absoluteRequestURL substringToIndex:absoluteRequestURL.length - fragment.length - 1];
+    } else requestURLStrippedFragment = absoluteRequestURL;
 #ifdef DEBUG
+    NSLog(@"Full absolute request URL: %@", absoluteRequestURL);
+    NSLog(@"Fragment: %@", fragment);
     NSLog(@"Request URL used to calculate RequestHash: %@", requestURLStrippedFragment);
 #endif
 
 #ifdef DEBUG
-    NSDictionary *headerFields = [request allHTTPHeaderFields];
-    NSLog(@"All HTTP header fields: %@", headerFields);
+    NSDictionary *headerFields;
+    //headerFields = [request allHTTPHeaderFields];
+    //NSLog(@"All HTTP header fields: %@", headerFields);
 #endif
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"]) {
@@ -414,6 +421,10 @@ initiatedByFrame:(WebFrame *)frame {
         NSData *browserExamKey = [preferences objectForKey:@"currentData"];
         unsigned char hashedChars[32];
         [browserExamKey getBytes:hashedChars length:32];
+
+#ifdef DEBUG
+        NSLog(@"Current Browser Exam Key: %@", browserExamKey);
+#endif
         
         NSMutableString* browserExamKeyString = [[NSMutableString alloc] init];
         [browserExamKeyString setString:requestURLStrippedFragment];
@@ -593,9 +604,11 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
     if (frame) {
         WebScriptObject* jsWindowObject = [frame windowObject];
         NSString* jsWindowObjectString = [jsWindowObject stringRepresentation];
-        NSLog(@"Frame windowObject: %@", jsWindowObjectString);
         DOMHTMLElement* frameElement = [frame frameElement];
+#ifdef DEBUG
+        NSLog(@"Frame windowObject: %@", jsWindowObjectString);
         NSLog(@"Frame frameElement: %@", [frameElement stringRepresentation]);
+#endif
     }
 
     [listener use];
