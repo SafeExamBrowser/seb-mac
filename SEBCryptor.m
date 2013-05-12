@@ -110,7 +110,7 @@ static SEBCryptor *sharedSEBCryptor = nil;
     NSMutableData *HMACData = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
 
     CCHmac(kCCHmacAlgSHA256, HMACKey.bytes, HMACKey.length, archivedPrefs.mutableBytes, archivedPrefs.length, [HMACData mutableBytes]);
-    [preferences setValue:HMACData forKey:@"currentData"];
+    [preferences setSecureObject:HMACData forKey:@"org_safeexambrowser_currentData"];
 }
 
 

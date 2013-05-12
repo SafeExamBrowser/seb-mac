@@ -891,6 +891,7 @@
 							<string key="NSFrame">{{302, 5}, {96, 32}}</string>
 							<reference key="NSSuperview" ref="292982850"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="666546950">
 								<int key="NSCellFlags">-2080374784</int>
@@ -971,7 +972,7 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="1028683854"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {2560, 1578}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMinSize">{412, 130}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
@@ -995,6 +996,7 @@
 							<string key="NSFrame">{{325, 15}, {205, 165}}</string>
 							<reference key="NSSuperview" ref="683535155"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSAntiCompressionPriority">{250, 750}</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="1013383801">
@@ -1051,15 +1053,14 @@ LCBhbmQgd2FzIHN1cHBvcnRlZCBieSBmdW5kcyBmcm9tIHRoZSBFVEggQm9hcmQuA</string>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="867659151"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {2560, 1578}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
 			<object class="NSCustomView" id="309956017">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<string key="NSFrameSize">{550, 300}</string>
-				<reference key="NSSuperview"/>
 				<string key="NSClassName">AboutView</string>
 			</object>
 			<object class="NSUserDefaultsController" id="987639253">
@@ -1428,19 +1429,19 @@ LCBhbmQgd2FzIHN1cHBvcnRlZCBieSBmdW5kcyBmcm9tIHRoZSBFVEggQm9hcmQuA</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: values.org_safeexambrowser_SEB_enablePreferencesWindow</string>
+						<string key="label">enabled: values.org_safeexambrowser_enablePreferencesWindow</string>
 						<reference key="source" ref="609285721"/>
 						<reference key="destination" ref="876365280"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="609285721"/>
 							<reference key="NSDestination" ref="876365280"/>
-							<string key="NSLabel">enabled: values.org_safeexambrowser_SEB_enablePreferencesWindow</string>
+							<string key="NSLabel">enabled: values.org_safeexambrowser_enablePreferencesWindow</string>
 							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">values.org_safeexambrowser_SEB_enablePreferencesWindow</string>
+							<string key="NSKeyPath">values.org_safeexambrowser_enablePreferencesWindow</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1007</int>
+					<int key="connectionID">1056</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -2976,7 +2977,7 @@ LCBhbmQgd2FzIHN1cHBvcnRlZCBieSBmdW5kcyBmcm9tIHRoZSBFVEggQm9hcmQuA</string>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1055</int>
+			<int key="maxID">1056</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

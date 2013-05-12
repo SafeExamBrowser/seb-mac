@@ -363,8 +363,38 @@
 
 
 - (NSData*) getDataForCertificate:(SecCertificateRef)certificate {
-
+    
     return (NSData*)CFBridgingRelease(SecCertificateCopyData (certificate));
+}
+
+
+- (NSData*) getDataForIdentity:(SecIdentityRef)identity {
+    
+    SecItemImportExportKeyParameters keyParams;
+    
+    NSString *password = userDefaultsMasala;
+    
+    keyParams.version = SEC_KEY_IMPORT_EXPORT_PARAMS_VERSION;
+    keyParams.flags = 0;
+    keyParams.passphrase = (__bridge CFTypeRef)(password);
+    keyParams.alertTitle = NULL;
+    keyParams.alertPrompt = NULL;
+    keyParams.accessRef = NULL;
+    // These two values are for import
+    keyParams.keyUsage = NULL;
+    keyParams.keyAttributes = NULL;
+    
+    CFDataRef exportedData = NULL;
+
+    OSStatus success = SecItemExport (
+                            identity,
+                            kSecFormatPKCS12,
+                            0,
+                            &keyParams,
+                            &exportedData
+                            );
+    
+    if (success == errSecSuccess) return (NSData*)CFBridgingRelease(exportedData); else return nil;
 }
 
 

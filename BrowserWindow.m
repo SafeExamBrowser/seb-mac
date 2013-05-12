@@ -418,7 +418,7 @@ initiatedByFrame:(WebFrame *)frame {
          CCHmac(kCCHmacAlgSHA256, HMACKey.bytes, HMACKey.length, archivedPrefs.mutableBytes, archivedPrefs.length, [HMACData mutableBytes]);
          */
         //NSMutableData *browserExamKey = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
-        NSData *browserExamKey = [preferences objectForKey:@"currentData"];
+        NSData *browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
         unsigned char hashedChars[32];
         [browserExamKey getBytes:hashedChars length:32];
 
@@ -631,7 +631,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
                 MyDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
                 //WebView *newWindowWebView = myDocument.mainWindowController.self.webView;
                 [myDocument.mainWindowController.window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-                if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_elevateWindowLevels"]) {
+                if ([preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
                     // Order new browser window to the front of our level
                     [myDocument.mainWindowController.window newSetLevel:NSModalPanelWindowLevel];
                 }
@@ -655,7 +655,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
 {
     id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:[sender window]];
     [[sender window] setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_elevateWindowLevels"]) {
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
         [[sender window] newSetLevel:NSModalPanelWindowLevel];
     }
     [myDocument showWindows];
@@ -766,9 +766,9 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         }
     }
     // If MIME type cannot be displayed by the WebView, then we download it
-//#ifdef DEBUG
+#ifdef DEBUG
     NSLog(@"MIME type to download is %@", type);
-//#endif
+#endif
     [listener download];
     [self startDownloadingURL:request.URL];
 }
@@ -850,7 +850,9 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         // Create the download with the request and start loading the data.
         NSURLDownload  *theDownload = [[NSURLDownload alloc] initWithRequest:theRequest delegate:self];
         if (!theDownload) {
+#ifdef DEBUG
             NSLog(@"Starting the download failed!"); //Inform the user that the download failed.
+#endif
         }
     }
 }
@@ -878,9 +880,11 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     // Inform the user
     //[self presentError:error modalForWindow:[self windowForSheet] delegate:nil didPresentSelector:NULL contextInfo:NULL];
 
+#ifdef DEBUG
     NSLog(@"Download failed! Error - %@ %@",
           [error localizedDescription],
           [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
+#endif
 }
 
 

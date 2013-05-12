@@ -132,7 +132,7 @@ static BOOL _usePrivateUserDefaults = NO;
                                  [NSNumber numberWithInt:manuallyWithFileRequester],
                                  @"org_safeexambrowser_SEB_chooseFileToUploadPolicy",
                                  [NSNumber numberWithBool:NO],
-                                 @"org_safeexambrowser_SEB_copyBrowserExamKeyToClipboardWhenQuitting",
+                                 @"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting",
                                  [NSData data], // public key hash of cryptoIdentity selected/used for encryption 
                                  @"org_safeexambrowser_SEB_cryptoIdentity",
                                  //@"~/Downloads",
@@ -141,7 +141,7 @@ static BOOL _usePrivateUserDefaults = NO;
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_downloadPDFFiles",
                                  [NSNumber numberWithBool:YES],
-                                 @"org_safeexambrowser_SEB_elevateWindowLevels",
+                                 @"org_safeexambrowser_elevateWindowLevels",
                                  [NSNumber numberWithBool:YES],
                                  @"org_safeexambrowser_SEB_enableBrowserWindowToolbar",
                                  [NSNumber numberWithBool:NO],
@@ -153,7 +153,7 @@ static BOOL _usePrivateUserDefaults = NO;
                                  [NSNumber numberWithBool:YES],
                                  @"org_safeexambrowser_SEB_enablePlugIns",
                                  [NSNumber numberWithBool:YES],
-                                 @"org_safeexambrowser_SEB_enablePreferencesWindow",
+                                 @"org_safeexambrowser_enablePreferencesWindow",
                                  [NSNumber numberWithBool:YES],
                                  @"org_safeexambrowser_SEB_enableSebBrowser",
                                  [NSNumber numberWithBool:NO],
@@ -194,10 +194,11 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_openDownloads",
-                                 [NSString stringWithFormat:@"SEB_OSX_%@_%@",
-                                  [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
-                                  [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]],
-                                 @"org_safeexambrowser_SEB_originatorVersion",
+//                                 [NSString stringWithFormat:@"SEB_OSX_%@_%@",
+//                                  [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
+//                                  [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]],
+                                 @"",
+                                 @"org_safeexambrowser_originatorVersion",
                                  [NSArray array],
                                  @"org_safeexambrowser_SEB_permittedProcesses",
                                  [NSArray array],
@@ -242,9 +243,7 @@ static BOOL _usePrivateUserDefaults = NO;
     // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
     NSSet *filteredPrefsSet = [prefsDict keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop)
                                {
-                                   if ([key hasPrefix:@"org_safeexambrowser_SEB_"] &&
-                                       ![key isEqualToString:@"org_safeexambrowser_SEB_enablePreferencesWindow"] &&
-                                       ![key isEqualToString:@"org_safeexambrowser_SEB_elevateWindowLevels"])
+                                   if ([key hasPrefix:@"org_safeexambrowser_SEB_"])
                                        return YES;
                                    
                                    else return NO;

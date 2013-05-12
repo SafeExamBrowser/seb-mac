@@ -50,6 +50,7 @@
 
 - (SecCertificateRef)getCertificateFromIdentity:(SecIdentityRef)identityRef;
 - (NSData*) getDataForCertificate:(SecCertificateRef)certificate;
+- (NSData*) getDataForIdentity:(SecIdentityRef)identity;
 
 
 //- (NSData*)encryptData:(NSData*)inputData withPublicKey:(SecKeyRef*)publicKey;

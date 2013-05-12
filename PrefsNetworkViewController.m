@@ -200,8 +200,8 @@
     NSUInteger indexOfSelectedItem = [sender indexOfSelectedItem];
     if (indexOfSelectedItem) {
         SecIdentityRef identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:indexOfSelectedItem-1]);
-        SecCertificateRef certificate = [keychainManager getCertificateFromIdentity:identityRef];
-        NSData *certificateData = [keychainManager getDataForCertificate:certificate];
+        //SecCertificateRef certificate = [keychainManager getCertificateFromIdentity:identityRef];
+        NSData *certificateData = [keychainManager getDataForIdentity:identityRef];
         
         NSDictionary *identityToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
                                          [NSNumber numberWithInt:certificateTypeIdentity], @"type",

@@ -294,7 +294,13 @@ bool insideMatrix();
                 
                 // Check if a some value is from a wrong class (another than the value from default settings)
                 for (NSString *key in sebPreferencesDict) {
-                    NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
+                    NSString *keyWithPrefix;
+                    if ([key isEqualToString:@"originatorVersion"] ||
+                        [key isEqualToString:@"copyBrowserExamKeyToClipboardWhenQuitting"]) {
+                        keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_%@", key];
+                    } else {
+                        keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
+                    }
                     id value = [sebPreferencesDict objectForKey:key];
                     id defaultValue = [defaultSettings objectForKey:keyWithPrefix];
                     Class valueClass = [value superclass];
@@ -324,9 +330,15 @@ bool insideMatrix();
                     if ([key isEqualToString:@"allowPreferencesWindow"]) {
                         [preferences setSecureObject:
                          [[sebPreferencesDict objectForKey:key] copy]
-                                              forKey:@"org_safeexambrowser_SEB_enablePreferencesWindow"];
+                                              forKey:@"org_safeexambrowser_enablePreferencesWindow"];
                     }
-                    NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
+                    NSString *keyWithPrefix;
+                    if ([key isEqualToString:@"originatorVersion"] ||
+                        [key isEqualToString:@"copyBrowserExamKeyToClipboardWhenQuitting"]) {
+                        keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_%@", key];
+                    } else {
+                        keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
+                    }
                     [preferences setSecureObject:value forKey:keyWithPrefix];
                 }
                 int answer = NSRunAlertPanel(NSLocalizedString(@"SEB Re-Configured",nil), NSLocalizedString(@"The local settings of SEB have been reconfigured. Do you want to start working with SEB now or quit?",nil),
@@ -381,7 +393,13 @@ bool insideMatrix();
     
     // Check if a some value is from a wrong class (another than the value from default settings)
     for (NSString *key in sebPreferencesDict) {
-        NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
+        NSString *keyWithPrefix;
+        if ([key isEqualToString:@"originatorVersion"] ||
+            [key isEqualToString:@"copyBrowserExamKeyToClipboardWhenQuitting"]) {
+            keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_%@", key];
+        } else {
+            keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
+        }
         id value = [sebPreferencesDict objectForKey:key];
         id defaultValue = [defaultSettings objectForKey:keyWithPrefix];
         Class valueClass = [value superclass];
@@ -413,12 +431,18 @@ bool insideMatrix();
     }
     // Write values from .seb config file to the private preferences
     for (NSString *key in sebPreferencesDict) {
-        NSString *keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
+        NSString *keyWithPrefix;
+        if ([key isEqualToString:@"originatorVersion"] ||
+            [key isEqualToString:@"copyBrowserExamKeyToClipboardWhenQuitting"]) {
+            keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_%@", key];
+        } else {
+            keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
+        }
         id value = [sebPreferencesDict objectForKey:key];
         if ([key isEqualToString:@"allowPreferencesWindow"]) {
             [preferences setSecureObject:
              [[sebPreferencesDict objectForKey:key] copy]
-                                  forKey:@"org_safeexambrowser_SEB_enablePreferencesWindow"];
+                                  forKey:@"org_safeexambrowser_enablePreferencesWindow"];
         }
         if (value) [preferences setSecureObject:value forKey:keyWithPrefix];
         //NSString *keypath = [NSString stringWithFormat:@"values.%@", keyWithPrefix];
@@ -470,6 +494,15 @@ bool insideMatrix();
         }
         // Write values from .seb config file to the private preferences
         [preferences registerDefaults:defaultSettings];
+        
+        // Check if originatorVersion flag is set and otherwise set it to the SEB current version
+        if ([[preferences secureStringForKey:@"org_safeexambrowser_originatorVersion"] isEqualToString:@""]) {
+            [preferences setSecureString:[NSString stringWithFormat:@"SEB_OSX_%@_%@",
+                                          [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
+                                          [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]]
+                                  forKey:@"org_safeexambrowser_originatorVersion"];
+        }
+
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
 #ifdef DEBUG
         NSLog(@"Registred Defaults");
@@ -869,7 +902,7 @@ bool insideMatrix(){
         [self.capWindows removeAllObjects];
     }
     NSScreen *iterScreen;
-    BOOL allowSwitchToThirdPartyApps = ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_elevateWindowLevels"];
+    BOOL allowSwitchToThirdPartyApps = ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
     for (iterScreen in screens)
     {
         //NSRect frame = size of the current screen;
@@ -972,7 +1005,7 @@ bool insideMatrix(){
     }*/
     // Load preferences from the system's user defaults database
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-	BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_elevateWindowLevels"];
+	BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
     if (!allowSwitchToThirdPartyApps) {
 		// if switching to ThirdPartyApps not allowed
 #ifndef DEBUG
@@ -1017,7 +1050,7 @@ bool insideMatrix(){
 	BOOL showMenuBar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
     if (!allowSwitchToThirdPartyApps) {
 		// if switching to third party apps not allowed
-        [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_elevateWindowLevels"];
+        [preferences setSecureBool:YES forKey:@"org_safeexambrowser_elevateWindowLevels"];
 	@try {
 		NSApplicationPresentationOptions options =
 		NSApplicationPresentationHideDock + 
@@ -1032,7 +1065,7 @@ bool insideMatrix(){
 		NSLog(@"Error.  Make sure you have a valid combination of presentation options.");
 	}
     } else {
-        [preferences setSecureBool:NO forKey:@"org_safeexambrowser_SEB_elevateWindowLevels"];
+        [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
         @try {
             NSApplicationPresentationOptions options =
             (showMenuBar ? NSApplicationPresentationDisableAppleMenu : NSApplicationPresentationHideMenuBar) +
@@ -1075,7 +1108,7 @@ bool insideMatrix(){
 	 display:YES]; // REMOVE wrong frame for window!*/
 	//[browserWindow setFrame:[[browserWindow screen] frame] display:YES];
 	[(BrowserWindow *)browserWindow setCalculatedFrame];
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_elevateWindowLevels"]) {
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
         [browserWindow newSetLevel:NSModalPanelWindowLevel];
 #ifdef DEBUG
         NSLog(@"MainBrowserWindow (3) sharingType: %lx",(long)[browserWindow sharingType]);
@@ -1178,7 +1211,7 @@ bool insideMatrix(){
 
 - (IBAction) openPreferences:(id)sender {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePreferencesWindow"]) {
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_enablePreferencesWindow"]) {
         if (![preferencesController preferencesAreOpen]) {
             // Load admin password from the system's user defaults database
             NSString *hashedAdminPW = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
@@ -1354,8 +1387,8 @@ bool insideMatrix(){
     
 	// Write Browser Exam Key to clipboard if enabled in prefs
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_copyBrowserExamKeyToClipboardWhenQuitting"]) {
-        NSData *browserExamKey = [preferences objectForKey:@"currentData"];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting"]) {
+        NSData *browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
         unsigned char hashedChars[32];
         [browserExamKey getBytes:hashedChars length:32];
         NSMutableString* browserExamKeyString = [[NSMutableString alloc] init];
@@ -1366,7 +1399,7 @@ bool insideMatrix(){
     }
     
 	// Clear the current Browser Exam Key
-    [preferences setValue:[NSData data] forKey:@"currentData"];
+    [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_currentData"];
 
 	// Clear the browser cache in ~/Library/Caches/org.safeexambrowser.SEB.Safe-Exam-Browser/
 	NSURLCache *cache = [NSURLCache sharedURLCache];
@@ -1411,7 +1444,7 @@ bool insideMatrix(){
 		//the current Presentation Options changed, so make SEB active and reset them
         // Load preferences from the system's user defaults database
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_elevateWindowLevels"];
+        BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
 #ifdef DEBUG
         NSLog(@"currentSystemPresentationOptions changed!");
 #endif

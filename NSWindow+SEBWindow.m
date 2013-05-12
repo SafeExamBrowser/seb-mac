@@ -41,7 +41,7 @@
 
 - (void)newSetLevel:(NSInteger)windowLevel
 {
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_elevateWindowLevels"]) {
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
         if (windowLevel == NSNormalWindowLevel) {
             windowLevel = NSModalPanelWindowLevel;
 #ifdef DEBUG
