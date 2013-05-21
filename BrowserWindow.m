@@ -752,16 +752,20 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     NSLog(@"All HTTP header fields: %@", headerFields);
 #endif*/
 
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     //if ([type isEqualToString:@"application/seb"]) {
     if (([type isEqualToString:@"application/seb"]) | ([[[request URL] pathExtension] isEqualToString:@"seb"])) {
 //        [listener download];
 //        [self startDownloadingURL:request.URL];
-        NSError *error = nil;
-        NSData *sebFileData = [NSData dataWithContentsOfURL:request.URL options:NSDataReadingUncached error:&error];
-        if (error) [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
+            NSError *error = nil;
+            // Download the .seb file directly into memory (not onto disc like other files)
+            NSData *sebFileData = [NSData dataWithContentsOfURL:request.URL options:NSDataReadingUncached error:&error];
+            if (error) [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
+        }
+        [listener ignore];
         return;
     }
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (![type isEqualToString:@"application/pdf"] || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"]) {
         if ([WebView canShowMIMEType:type]) {
             [listener use];

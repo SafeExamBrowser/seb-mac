@@ -136,6 +136,8 @@ static BOOL _usePrivateUserDefaults = NO;
                                  [NSData data], // public key hash of cryptoIdentity selected/used for encryption 
                                  @"org_safeexambrowser_SEB_cryptoIdentity",
                                  //@"~/Downloads",
+                                 [NSNumber numberWithBool:YES],
+                                 @"org_safeexambrowser_SEB_downloadAndOpenSebConfig",
                                  [NSHomeDirectory() stringByAppendingPathComponent: @"Downloads"],
                                  @"org_safeexambrowser_SEB_downloadDirectoryOSX",
                                  [NSNumber numberWithBool:NO],

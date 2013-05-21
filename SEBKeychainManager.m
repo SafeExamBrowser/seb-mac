@@ -364,7 +364,72 @@
 
 - (NSData*) getDataForCertificate:(SecCertificateRef)certificate {
     
-    return (NSData*)CFBridgingRelease(SecCertificateCopyData (certificate));
+    SecItemImportExportKeyParameters keyParams;
+    
+    keyParams.version = SEC_KEY_IMPORT_EXPORT_PARAMS_VERSION;
+    keyParams.flags = 0;
+    keyParams.passphrase = NULL;
+    keyParams.alertTitle = NULL;
+    keyParams.alertPrompt = NULL;
+    keyParams.accessRef = NULL;
+    // These two values are for import
+    keyParams.keyUsage = NULL;
+    keyParams.keyAttributes = NULL;
+    
+    CFDataRef exportedData = NULL;
+    
+    OSStatus success = SecItemExport (
+                                      certificate,
+                                      kSecFormatX509Cert,
+                                      0,
+                                      &keyParams,
+                                      &exportedData
+                                      );
+    
+    if (success == errSecSuccess) return (NSData*)CFBridgingRelease(exportedData); else return nil;
+
+    
+    
+    //    return (NSData*)CFBridgingRelease(SecCertificateCopyData (certificate));
+}
+
+
+- (BOOL) importCertificateFromData:(NSData*)certificateData {
+
+    SecItemImportExportKeyParameters keyParams;
+    
+    keyParams.version = SEC_KEY_IMPORT_EXPORT_PARAMS_VERSION;
+    keyParams.flags = 0;
+    keyParams.passphrase = NULL;
+    keyParams.alertTitle = NULL;
+    keyParams.alertPrompt = NULL;
+    keyParams.accessRef = NULL;
+    // These two values are for import
+    keyParams.keyUsage = NULL;
+    keyParams.keyAttributes = NULL;
+    
+    SecExternalItemType itemType = kSecItemTypeCertificate;
+    SecExternalFormat externalFormat = kSecFormatX509Cert;
+    int flags = 0;
+    
+    SecKeychainRef keychain;
+    SecKeychainCopyDefault(&keychain);
+    
+    OSStatus oserr = SecItemImport((__bridge CFDataRef)certificateData,
+                                   NULL, // filename or extension
+                                   &externalFormat, // See SecExternalFormat for details
+                                   &itemType, // item type
+                                   flags, // See SecItemImportExportFlags for details
+                                   &keyParams,
+                                   keychain, // Don't import into a keychain
+                                   NULL);
+    if (oserr) {
+#ifdef DEBUG
+        fprintf(stderr, "SecItemImport failed (oserr=%d)\n", oserr);
+#endif
+        return NO;
+    }
+    return YES;
 }
 
 
@@ -414,8 +479,8 @@
     keyParams.keyUsage = NULL;
     keyParams.keyAttributes = NULL;
 
-    SecExternalItemType itemType = kSecItemTypeCertificate;
-    SecExternalFormat externalFormat = kSecFormatPEMSequence;
+    SecExternalItemType itemType = kSecItemTypeAggregate;
+    SecExternalFormat externalFormat = kSecFormatPKCS12;
     int flags = 0;
 
     SecKeychainRef keychain;

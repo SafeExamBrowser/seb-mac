@@ -50,6 +50,7 @@
 
 - (SecCertificateRef)getCertificateFromIdentity:(SecIdentityRef)identityRef;
 - (NSData*) getDataForCertificate:(SecCertificateRef)certificate;
+- (BOOL) importCertificateFromData:(NSData*)certificateData;
 - (NSData*) getDataForIdentity:(SecIdentityRef)identity;
 - (BOOL) importIdentityFromData:(NSData*)identityData;
 

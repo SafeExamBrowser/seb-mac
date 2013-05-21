@@ -342,10 +342,35 @@ bool insideMatrix();
                     if ([key isEqualToString:@"embeddedCertificates"]) {
                         // Embedded certificates (and identities) we import to the keychain
                         // but don't save into local preferences
-                        
+                        SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+                        //NSArray *embeddedCertificates = value;
+                        for (NSDictionary *certificate in value) {
+                            int certificateType = [[certificate objectForKey:@"type"] integerValue];
+                            NSData *certificateData = [certificate objectForKey:@"certificateData"];
+                            switch (certificateType) {
+                                case certificateTypeSSLClientCertificate:
+                                    if (certificateData) {
+                                        BOOL success = [keychainManager importCertificateFromData:certificateData];
+#ifdef DEBUG
+                                        NSLog(@"Importing SSL certificate <%@> into Keychain %@", [certificate objectForKey:@"name"], success ? @"succedded" : @"failed");
+#endif
+                                    }
+                                    break;
+                                    
+                                case certificateTypeIdentity:
+                                    if (certificateData) {
+                                        BOOL success = [keychainManager importIdentityFromData:certificateData];
+#ifdef DEBUG
+                                        NSLog(@"Importing identity <%@> into Keychain %@", [certificate objectForKey:@"name"], success ? @"succedded" : @"failed");
+#endif
+                                    }
+                                    break;
+                                    
+                            }
+                        }
+                    } else {
+                        [preferences setSecureObject:value forKey:keyWithPrefix];
                     }
-
-                    [preferences setSecureObject:value forKey:keyWithPrefix];
                 }
                 int answer = NSRunAlertPanel(NSLocalizedString(@"SEB Re-Configured",nil), NSLocalizedString(@"The local settings of SEB have been reconfigured. Do you want to start working with SEB now or quit?",nil),
                                              NSLocalizedString(@"Continue",nil), NSLocalizedString(@"Quit",nil), nil);
