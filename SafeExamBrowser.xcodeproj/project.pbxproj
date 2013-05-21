@@ -125,6 +125,9 @@
 		69ACA5001690DE28007BD517 /* RNCryptorEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 69ACA4FE1690DE27007BD517 /* RNCryptorEngine.h */; };
 		69ACA5011690DE28007BD517 /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 69ACA4FF1690DE27007BD517 /* RNCryptorEngine.m */; };
 		69ACA5031690DE28007BD517 /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 69ACA4FF1690DE27007BD517 /* RNCryptorEngine.m */; };
+		69CE1C171741309C0072207D /* SEBFilterTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CE1C151741309C0072207D /* SEBFilterTreeController.h */; };
+		69CE1C181741309C0072207D /* SEBFilterTreeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE1C161741309C0072207D /* SEBFilterTreeController.m */; };
+		69CE1C191741309C0072207D /* SEBFilterTreeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE1C161741309C0072207D /* SEBFilterTreeController.m */; };
 		69CE9C5D17326AB90011609B /* SEBConfigFileManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CE9C5B17326AB90011609B /* SEBConfigFileManager.h */; };
 		69CE9C5E17326AB90011609B /* SEBConfigFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE9C5C17326AB90011609B /* SEBConfigFileManager.m */; };
 		69CE9C5F17326AB90011609B /* SEBConfigFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE9C5C17326AB90011609B /* SEBConfigFileManager.m */; };
@@ -313,6 +316,8 @@
 		69C52802136AFDBD00F9F000 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
 		69C52805136AFE9500F9F000 /* PrefsDownUploadsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsDownUploadsViewController.m; sourceTree = "<group>"; };
 		69CB8AFD136AFC6E00C08450 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
+		69CE1C151741309C0072207D /* SEBFilterTreeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBFilterTreeController.h; sourceTree = "<group>"; };
+		69CE1C161741309C0072207D /* SEBFilterTreeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBFilterTreeController.m; sourceTree = "<group>"; };
 		69CE9C5B17326AB90011609B /* SEBConfigFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBConfigFileManager.h; sourceTree = "<group>"; };
 		69CE9C5C17326AB90011609B /* SEBConfigFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBConfigFileManager.m; sourceTree = "<group>"; };
 		69CE9C6117378B9A0011609B /* SEBTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBTextField.h; sourceTree = "<group>"; };
@@ -679,6 +684,8 @@
 				693647F917122A0300EE41BC /* DropDownButton.m */,
 				695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */,
 				695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */,
+				69CE1C151741309C0072207D /* SEBFilterTreeController.h */,
+				69CE1C161741309C0072207D /* SEBFilterTreeController.m */,
 			);
 			name = "Preferences View Controllers";
 			sourceTree = "<group>";
@@ -719,6 +726,7 @@
 				693647FA17122A0300EE41BC /* DropDownButton.h in Headers */,
 				69CE9C5D17326AB90011609B /* SEBConfigFileManager.h in Headers */,
 				69CE9C6317378B9A0011609B /* SEBTextField.h in Headers */,
+				69CE1C171741309C0072207D /* SEBFilterTreeController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -941,6 +949,7 @@
 				693647FC17122A0300EE41BC /* DropDownButton.m in Sources */,
 				69CE9C5F17326AB90011609B /* SEBConfigFileManager.m in Sources */,
 				69CE9C6517378B9A0011609B /* SEBTextField.m in Sources */,
+				69CE1C191741309C0072207D /* SEBFilterTreeController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -989,6 +998,7 @@
 				693647FB17122A0300EE41BC /* DropDownButton.m in Sources */,
 				69CE9C5E17326AB90011609B /* SEBConfigFileManager.m in Sources */,
 				69CE9C6417378B9A0011609B /* SEBTextField.m in Sources */,
+				69CE1C181741309C0072207D /* SEBFilterTreeController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

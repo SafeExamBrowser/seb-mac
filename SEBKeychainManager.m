@@ -398,6 +398,47 @@
 }
 
 
+- (BOOL) importIdentityFromData:(NSData*)identityData
+{
+    SecItemImportExportKeyParameters keyParams;
+    
+    NSString *password = userDefaultsMasala;
+    
+    keyParams.version = SEC_KEY_IMPORT_EXPORT_PARAMS_VERSION;
+    keyParams.flags = 0;
+    keyParams.passphrase = (__bridge CFTypeRef)(password);
+    keyParams.alertTitle = NULL;
+    keyParams.alertPrompt = NULL;
+    keyParams.accessRef = NULL;
+    // These two values are for import
+    keyParams.keyUsage = NULL;
+    keyParams.keyAttributes = NULL;
+
+    SecExternalItemType itemType = kSecItemTypeCertificate;
+    SecExternalFormat externalFormat = kSecFormatPEMSequence;
+    int flags = 0;
+
+    SecKeychainRef keychain;
+    SecKeychainCopyDefault(&keychain);
+
+    OSStatus oserr = SecItemImport((__bridge CFDataRef)identityData,
+                          NULL, // filename or extension
+                          &externalFormat, // See SecExternalFormat for details
+                          &itemType, // item type
+                          flags, // See SecItemImportExportFlags for details
+                          &keyParams,
+                          keychain, // Don't import into a keychain
+                          NULL);
+    if (oserr) {
+#ifdef DEBUG
+        fprintf(stderr, "SecItemImport failed (oserr=%d)\n", oserr);
+#endif
+        return NO;
+    }
+    return YES;
+}
+
+
 - (NSData*) encryptData:(NSData*)plainData withPublicKeyFromCertificate:(SecCertificateRef)certificate {
     //- (NSData*)encryptData:(NSData*)inputData withPublicKey:(SecKeyRef*)publicKey {
     SecKeyRef publicKeyRef = NULL;

@@ -339,6 +339,12 @@ bool insideMatrix();
                     } else {
                         keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
                     }
+                    if ([key isEqualToString:@"embeddedCertificates"]) {
+                        // Embedded certificates (and identities) we import to the keychain
+                        // but don't save into local preferences
+                        
+                    }
+
                     [preferences setSecureObject:value forKey:keyWithPrefix];
                 }
                 int answer = NSRunAlertPanel(NSLocalizedString(@"SEB Re-Configured",nil), NSLocalizedString(@"The local settings of SEB have been reconfigured. Do you want to start working with SEB now or quit?",nil),

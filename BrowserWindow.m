@@ -754,8 +754,11 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 
     //if ([type isEqualToString:@"application/seb"]) {
     if (([type isEqualToString:@"application/seb"]) | ([[[request URL] pathExtension] isEqualToString:@"seb"])) {
-        [listener download];
-        [self startDownloadingURL:request.URL];
+//        [listener download];
+//        [self startDownloadingURL:request.URL];
+        NSError *error = nil;
+        NSData *sebFileData = [NSData dataWithContentsOfURL:request.URL options:NSDataReadingUncached error:&error];
+        if (error) [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
         return;
     }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
