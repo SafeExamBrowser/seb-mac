@@ -40,7 +40,7 @@
     NSString *currentMainHost;
     NSMutableArray *downloadPath;
     NSInteger lastDownloadPath;
-    NSString *pasteboardString;
+    NSMutableString *pasteboardString;
     NSUInteger presentationOptions;
     BOOL flashChangedPresentationOptions;
 }
@@ -51,7 +51,7 @@
 @property(copy, readwrite) NSString *currentMainHost;
 @property(copy, readwrite) NSMutableArray *downloadPath;
 @property(readwrite) NSInteger lastDownloadPath;
-@property(copy, readwrite) NSString *pasteboardString;
+@property(copy, readwrite) NSMutableString *pasteboardString;
 @property(readwrite) NSUInteger presentationOptions;
 @property(readwrite) BOOL flashChangedPresentationOptions;
 

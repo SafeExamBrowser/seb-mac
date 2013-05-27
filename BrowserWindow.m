@@ -755,8 +755,9 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     //if ([type isEqualToString:@"application/seb"]) {
     if (([type isEqualToString:@"application/seb"]) | ([[[request URL] pathExtension] isEqualToString:@"seb"])) {
-//        [listener download];
-//        [self startDownloadingURL:request.URL];
+        [listener download];
+        [self startDownloadingURL:request.URL];
+        return;
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
             NSError *error = nil;
             // Download the .seb file directly into memory (not onto disc like other files)

@@ -1160,6 +1160,9 @@ bool insideMatrix(){
 	// Load start URL from the system's user defaults database
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+#ifdef DEBUG
+    NSLog(@"Open MainBrowserWindow with start URL: %@", urlText);
+#endif
 
     // Add "SEB" to the browser's user agent, so the LMS SEB plugins recognize us
 	NSString *customUserAgent = [self.webView userAgentForURL:[NSURL URLWithString:urlText]];
