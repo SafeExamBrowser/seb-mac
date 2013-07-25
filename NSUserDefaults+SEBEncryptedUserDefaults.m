@@ -159,9 +159,9 @@ static BOOL _usePrivateUserDefaults = NO;
                                  [NSNumber numberWithBool:YES],
                                  @"org_safeexambrowser_SEB_enableSebBrowser",
                                  [NSNumber numberWithBool:NO],
-                                 @"org_safeexambrowser_SEB_enableUrlContentFilter",
+                                 @"org_safeexambrowser_SEB_enableURLContentFilter",
                                  [NSNumber numberWithBool:NO],
-                                 @"org_safeexambrowser_SEB_enableUrlFilter",
+                                 @"org_safeexambrowser_SEB_enableURLFilter",
                                  [NSData data],
                                  @"org_safeexambrowser_SEB_examKeySalt",
                                  @"",
@@ -230,7 +230,7 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"http://www.safeexambrowser.org/macosx",
                                  @"org_safeexambrowser_SEB_startURL",
                                  [NSArray array],
-                                 @"org_safeexambrowser_SEB_urlFilterRules",
+                                 @"org_safeexambrowser_SEB_URLFilterRules",
                                  nil];
     return appDefaults;
 }
