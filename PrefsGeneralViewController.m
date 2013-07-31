@@ -89,10 +89,16 @@
               options:bindingOptions];
     
     myGlobals = [MyGlobals sharedMyGlobals];
-    [pasteSavedStringFromPasteboardButton bind:@"enabled"
-                                      toObject:myGlobals
-                                   withKeyPath:@"pasteboardString.length"
-                                       options:nil];
+//    [pasteSavedStringFromPasteboardButton bind:@"enabled"
+//                                      toObject:myGlobals
+//                                   withKeyPath:@"pasteboardString.length"
+//                                       options:[NSDictionary dictionaryWithObject:@"BoolValueTransformer" forKey:NSValueTransformerNameBindingOption]];
+    NSString *pasteboardString = [[MyGlobals sharedMyGlobals] valueForKey:@"pasteboardString"];
+    if (![pasteboardString isEqualToString:@""]) {
+        [pasteSavedStringFromPasteboardButton setEnabled:NO];
+    } else {
+        [pasteSavedStringFromPasteboardButton setEnabled:YES];
+    }
 }
 
 
