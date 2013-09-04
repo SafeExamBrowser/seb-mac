@@ -756,7 +756,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69F7B62214F411FB00FD0761 /* Build configuration list for PBXNativeTarget "Safe Exam Browser" */;
 			buildPhases = (
-				69A79DA117176584005B06CD /* ShellScript */,
+				69A79DA117176584005B06CD /* Run Script */,
 				69F7B5FB14F411FB00FD0761 /* Resources */,
 				69F7B60814F411FB00FD0761 /* Sources */,
 				69F7B61C14F411FB00FD0761 /* Frameworks */,
@@ -888,13 +888,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		69A79DA117176584005B06CD /* ShellScript */ = {
+		69A79DA117176584005B06CD /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
