@@ -148,7 +148,7 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
 }
 
 
-- (NSArray *) org_safeexambrowser_SEB_urlFilterRuleActions {
+- (NSArray *) org_safeexambrowser_SEB_URLFilterRuleActions {
     return [NSArray arrayWithObjects:
             NSLocalizedString(@"block", nil),
             NSLocalizedString(@"allow", nil),

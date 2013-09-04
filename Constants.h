@@ -123,13 +123,13 @@ typedef NSUInteger sebServicePolicies;
 
 
 enum {
-    urlFilterActionBlock                        = 0,
-    urlFilterActionAllow                        = 1,
-    urlFilterActionSkip                         = 2,
-    urlFilterActionAnd                          = 3,
-    urlFilterActionOr                           = 4
+    URLFilterActionBlock                        = 0,
+    URLFilterActionAllow                        = 1,
+    URLFilterActionSkip                         = 2,
+    URLFilterActionAnd                          = 3,
+    URLFilterActionOr                           = 4
 };
-typedef NSUInteger urlFilterRuleActions;
+typedef NSUInteger URLFilterRuleActions;
 
 
 static NSString __unused *userDefaultsMasala = @"D𝈭il𝈖Ch𝈒a𝉇ht𝈁a𝉈Hai1972";

@@ -56,7 +56,7 @@
 
 - (NSArray *) org_safeexambrowser_SEB_sebServicePolicies;
 
-- (NSArray *) org_safeexambrowser_SEB_urlFilterRuleActions;
+- (NSArray *) org_safeexambrowser_SEB_URLFilterRuleActions;
 
 - (NSArray *) org_safeexambrowser_SEB_operatingSystems;
 
