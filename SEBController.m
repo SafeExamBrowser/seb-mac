@@ -1173,6 +1173,28 @@ bool insideMatrix(){
 }
 
 
+- (void)openResourceWithURL:(NSString *)URL andTitle:(NSString *)title
+{
+    MyDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
+    NSWindow *additionalBrowserWindow = myDocument.mainWindowController.window;
+    [additionalBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+	[(BrowserWindow *)additionalBrowserWindow setCalculatedFrame];
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
+        [additionalBrowserWindow newSetLevel:NSModalPanelWindowLevel];
+    }
+	[NSApp activateIgnoringOtherApps: YES];
+    
+	//[additionalBrowserWindow makeKeyAndOrderFront:self];
+    
+#ifdef DEBUG
+    NSLog(@"Open additional browser window with URL: %@", URL);
+#endif
+    
+	// Load start URL into browser window
+	[[myDocument.mainWindowController.webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:URL]]];
+}
+
+
 - (NSInteger) showEnterPasswordDialog:(NSString *)text modalForWindow:(NSWindow *)window windowTitle:(NSString *)title {
     // User has asked to see the dialog. Display it.
     [enterPassword setStringValue:@""]; //reset the enterPassword NSSecureTextField
@@ -1331,7 +1353,22 @@ bool insideMatrix(){
     [self adjustScreenLocking:self];
     // Reopen main browser window and load start URL
     [self openMainBrowserWindow];
+
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+//    NSArray *additionalResources;
+//    additionalResources = [NSArray arrayWithArray:[preferences secureArrayForKey:@"org_safeexambrowser_SEB_additionalResources"]];
+    NSArray *additionalResources = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_additionalResources"];
+    for (NSDictionary *resource in additionalResources) {
+        if ([resource valueForKey:@"active"] == [NSNumber numberWithBool:YES]) {
+            NSString *resourceURL = [resource valueForKey:@"URL"];
+            NSString *resourceTitle = [resource valueForKey:@"title"];
+            if ([resource valueForKey:@"autoOpen"] == [NSNumber numberWithBool:YES]) {
+                [self openResourceWithURL:resourceURL andTitle:resourceTitle];
+            }
+        }
+    }
 }
+
 
 /*- (void)documentController:(NSDocumentController *)docController  didCloseAll: (BOOL)didCloseAll contextInfo:(void *)contextInfo {
 #ifdef DEBUG
