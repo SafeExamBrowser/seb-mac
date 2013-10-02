@@ -60,6 +60,8 @@
 		696EB10716CAAFF600707B0F /* ApplicationsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */; };
 		696F28E815751ED600780DA8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696F28E715751ED600780DA8 /* Security.framework */; };
 		696F28EA15751F1900780DA8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696F28E715751ED600780DA8 /* Security.framework */; };
+		697D077F17F1CE2100E3B2A6 /* PreferencesResources.xib in Resources */ = {isa = PBXBuildFile; fileRef = 697D077E17F1CE2100E3B2A6 /* PreferencesResources.xib */; };
+		697D078017F1CE2100E3B2A6 /* PreferencesResources.xib in Resources */ = {isa = PBXBuildFile; fileRef = 697D077E17F1CE2100E3B2A6 /* PreferencesResources.xib */; };
 		6986652E16DAE184009C0226 /* SEBWindowSizeValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */; };
 		6986652F16DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */; };
 		6986653116DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */; };
@@ -140,6 +142,9 @@
 		69CF8A1916FD1C330096625C /* SEBFilterRuleExpressionTableColumn.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CF8A1716FD1C330096625C /* SEBFilterRuleExpressionTableColumn.h */; };
 		69CF8A1A16FD1C330096625C /* SEBFilterRuleExpressionTableColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CF8A1816FD1C330096625C /* SEBFilterRuleExpressionTableColumn.m */; };
 		69CF8A1B16FD1C330096625C /* SEBFilterRuleExpressionTableColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CF8A1816FD1C330096625C /* SEBFilterRuleExpressionTableColumn.m */; };
+		69DE764717FC2A9300EE5958 /* PrefsResourcesViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69DE764517FC2A9300EE5958 /* PrefsResourcesViewController.h */; };
+		69DE764817FC2A9300EE5958 /* PrefsResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DE764617FC2A9300EE5958 /* PrefsResourcesViewController.m */; };
+		69DE764917FC2A9300EE5958 /* PrefsResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DE764617FC2A9300EE5958 /* PrefsResourcesViewController.m */; };
 		69EFA36A16CB121200E967B4 /* DownUploadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EFA36816CB121200E967B4 /* DownUploadIcon.png */; };
 		69EFA36C16CB121200E967B4 /* DownUploadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EFA36816CB121200E967B4 /* DownUploadIcon.png */; };
 		69EFA36D16CB121200E967B4 /* DownUploadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EFA36916CB121200E967B4 /* DownUploadIcon@2x.png */; };
@@ -282,6 +287,7 @@
 		6970CF9A12BFC73300559EA4 /* de */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6970CF9F12BFC82200559EA4 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6970CFA012BFC84600559EA4 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		697D077E17F1CE2100E3B2A6 /* PreferencesResources.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesResources.xib; sourceTree = "<group>"; };
 		6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBWindowSizeValueTransformer.h; sourceTree = "<group>"; };
 		6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBWindowSizeValueTransformer.m; sourceTree = "<group>"; };
 		69903B1E14CD7624007E7DF7 /* Safe Exam Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Safe Exam Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -334,6 +340,8 @@
 		69D5983714C823AE005FE98C /* MethodSwizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MethodSwizzling.m; sourceTree = "<group>"; };
 		69DD2FCF1201C416009B1005 /* CapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapView.h; sourceTree = "<group>"; };
 		69DD2FD01201C416009B1005 /* CapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CapView.m; sourceTree = "<group>"; };
+		69DE764517FC2A9300EE5958 /* PrefsResourcesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsResourcesViewController.h; sourceTree = "<group>"; };
+		69DE764617FC2A9300EE5958 /* PrefsResourcesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsResourcesViewController.m; sourceTree = "<group>"; };
 		69E13AEE127C812900CB81E1 /* AboutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutView.h; sourceTree = "<group>"; };
 		69E13AEF127C812900CB81E1 /* AboutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutView.m; sourceTree = "<group>"; };
 		69EFA36816CB121200E967B4 /* DownUploadIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DownUploadIcon.png; sourceTree = "<group>"; };
@@ -584,6 +592,7 @@
 				69FC905C136CA80F009B55CB /* PreferencesDownUploads.xib */,
 				6943D0761655054600AB6B1D /* PreferencesExam.xib */,
 				6992499616C5B5D300DF6B53 /* PreferencesApplications.xib */,
+				697D077E17F1CE2100E3B2A6 /* PreferencesResources.xib */,
 				69F910FA16CA5C1C0041EA38 /* PreferencesNetwork.xib */,
 				695283D716CDB5020055AF6F /* PreferencesSecurity.xib */,
 			);
@@ -676,6 +685,8 @@
 				6943D0751655054600AB6B1D /* PrefsExamViewController.m */,
 				6992499A16C5B62000DF6B53 /* PrefsApplicationsViewController.h */,
 				6992499B16C5B62000DF6B53 /* PrefsApplicationsViewController.m */,
+				69DE764517FC2A9300EE5958 /* PrefsResourcesViewController.h */,
+				69DE764617FC2A9300EE5958 /* PrefsResourcesViewController.m */,
 				69A9A234136AF6E000840AE1 /* PrefsDownUploadsViewController.h */,
 				69C52805136AFE9500F9F000 /* PrefsDownUploadsViewController.m */,
 				69F910FE16CA5C720041EA38 /* PrefsNetworkViewController.h */,
@@ -718,6 +729,7 @@
 				69F9110016CA5C720041EA38 /* PrefsNetworkViewController.h in Headers */,
 				695283DD16CDB54C0055AF6F /* PrefsSecurityViewController.h in Headers */,
 				69F32DC316D23374003C9502 /* PrefsAppearanceViewController.h in Headers */,
+				69DE764717FC2A9300EE5958 /* PrefsResourcesViewController.h in Headers */,
 				6986652E16DAE184009C0226 /* SEBWindowSizeValueTransformer.h in Headers */,
 				6921294216F91C6600AFC3B0 /* BoolValueTransformer.h in Headers */,
 				6921294716F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h in Headers */,
@@ -831,6 +843,7 @@
 				695283DA16CDB5020055AF6F /* PreferencesSecurity.xib in Resources */,
 				69F32DC016D232C0003C9502 /* Appearance.icns in Resources */,
 				69F32DCA16D23397003C9502 /* PreferencesAppearance.xib in Resources */,
+				697D078017F1CE2100E3B2A6 /* PreferencesResources.xib in Resources */,
 				69428CCF172F0C1300C87C58 /* SecurityIcon.png in Resources */,
 				69428CD1172F0C1300C87C58 /* SecurityIcon@2x.png in Resources */,
 				69428CE3172F284B00C87C58 /* SEBDocumentIcon.icns in Resources */,
@@ -873,6 +886,7 @@
 				695283D816CDB5020055AF6F /* PreferencesSecurity.xib in Resources */,
 				69F32DBE16D232C0003C9502 /* Appearance.icns in Resources */,
 				69F32DC816D23397003C9502 /* PreferencesAppearance.xib in Resources */,
+				697D077F17F1CE2100E3B2A6 /* PreferencesResources.xib in Resources */,
 				69428CCE172F0C1300C87C58 /* SecurityIcon.png in Resources */,
 				69428CD0172F0C1300C87C58 /* SecurityIcon@2x.png in Resources */,
 				69428CE2172F284B00C87C58 /* SEBDocumentIcon.icns in Resources */,
@@ -951,6 +965,7 @@
 				69CE9C5F17326AB90011609B /* SEBConfigFileManager.m in Sources */,
 				69CE9C6517378B9A0011609B /* SEBTextField.m in Sources */,
 				69CE1C191741309C0072207D /* SEBFilterTreeController.m in Sources */,
+				69DE764917FC2A9300EE5958 /* PrefsResourcesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1000,6 +1015,7 @@
 				69CE9C5E17326AB90011609B /* SEBConfigFileManager.m in Sources */,
 				69CE9C6417378B9A0011609B /* SEBTextField.m in Sources */,
 				69CE1C181741309C0072207D /* SEBFilterTreeController.m in Sources */,
+				69DE764817FC2A9300EE5958 /* PrefsResourcesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
