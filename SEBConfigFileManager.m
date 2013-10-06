@@ -15,24 +15,20 @@
 #import "Constants.h"
 
 @implementation SEBConfigFileManager
-/*
-- (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename {
-    NSURL *sebFileURL = [NSURL fileURLWithPath:filename];
-    
-    // Check if SEB is in exam mode = private UserDefauls are switched on
-    if (NSUserDefaults.userDefaultsPrivate) {
-        NSRunAlertPanel(NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil),
-                        NSLocalizedString(@"SEB is already running in exam mode at the moment (started by a .seb file) and it is not allowed to interupt this by opening another .seb file. Finish the exam and quit SEB before starting another exam by opening a .seb file.", nil),
-                        NSLocalizedString(@"OK", nil), nil, nil);
-        return YES;
+
+
+-(id) init
+{
+    self = [super init];
+    if (self) {
+        self.sebController = [NSApp delegate];
     }
-    
-#ifdef DEBUG
-    NSLog(@"Loading .seb settings file with URL %@",sebFileURL);
-#endif
-    NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL];
-    //NSData *decryptedSebData = nil;
-    
+    return self;
+}
+
+
+-(BOOL) readSEBConfig:(NSData *)sebData
+{
     // Getting 4-char prefix
     const char *utfString = [@"    " UTF8String];
     [sebData getBytes:(void *)utfString length:4];
@@ -59,7 +55,7 @@
             NSRunAlertPanel(NSLocalizedString(@"Error Decrypting Settings", nil),
                             NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil),
                             NSLocalizedString(@"OK", nil), nil, nil);
-            return YES;
+            return NO;
         }
 #ifdef DEBUG
         NSLog(@"Private key retrieved with hash: %@", privateKeyRef);
@@ -95,16 +91,16 @@
         do {
             i--;
             // Prompt for password
-            if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter Password:",nil) modalForWindow:nil windowTitle:NSLocalizedString(@"Loading New SEB Settings",nil)] == SEBEnterPasswordCancel) return YES;
-            NSString *password = [enterPassword stringValue];
-            if (!password) return YES;
+            if ([self.sebController showEnterPasswordDialog:NSLocalizedString(@"Enter Password:",nil) modalForWindow:nil windowTitle:NSLocalizedString(@"Loading New SEB Settings",nil)] == SEBEnterPasswordCancel) return NO;
+            NSString *password = [self.sebController.enterPassword stringValue];
+            if (!password) return NO;
             error = nil;
             sebDataDecrypted = [RNDecryptor decryptData:sebData withPassword:password error:&error];
             // in case we get an error we allow the user to try it again
         } while (error && i>0);
         if (error) {
             //wrong password entered in 5th try: stop reading .seb file
-            return YES;
+            return NO;
         }
         sebData = sebDataDecrypted;
     } else {
@@ -137,7 +133,7 @@
                         NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings failed!", nil),
                                         NSLocalizedString(@"This settings file is corrupted and cannot be used.", nil),
                                         NSLocalizedString(@"OK", nil), nil, nil);
-                        return YES; //we abort reading the new settings here
+                        return NO; //we abort reading the new settings here
                     }
                     NSString *sebFileHashedAdminPassword = [sebPreferencesDict objectForKey:@"hashedAdminPassword"];
                     if (![hashedAdminPassword isEqualToString:sebFileHashedAdminPassword]) {
@@ -153,15 +149,15 @@
                         do {
                             i--;
                             // Prompt for password
-                            if ([self showEnterPasswordDialog:NSLocalizedString(@"You can only reconfigure SEB by entering the current SEB administrator password (because it was changed since installing SEB):",nil) modalForWindow:nil windowTitle:NSLocalizedString(@"Reconfiguring Local SEB Settings",nil)] == SEBEnterPasswordCancel) return YES;
-                            password = [enterPassword stringValue];
+                            if ([self.sebController showEnterPasswordDialog:NSLocalizedString(@"You can only reconfigure SEB by entering the current SEB administrator password (because it was changed since installing SEB):",nil) modalForWindow:nil windowTitle:NSLocalizedString(@"Reconfiguring Local SEB Settings",nil)] == SEBEnterPasswordCancel) return NO;
+                            password = [self.sebController.enterPassword stringValue];
                             hashedPassword = [keychainManager generateSHAHashString:password];
                             passwordsMatch = [hashedAdminPassword isEqualToString:hashedPassword];
                             // in case we get an error we allow the user to try it again
                         } while ((!password || !passwordsMatch) && i>0);
                         if (!passwordsMatch) {
                             //wrong password entered in 5th try: stop reading .seb file
-                            return YES;
+                            return NO;
                         }
                     }
                     
@@ -174,16 +170,16 @@
                     do {
                         i--;
                         // Prompt for password
-                        if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter password used to encrypt .seb file:",nil) modalForWindow:nil windowTitle:NSLocalizedString(@"Reconfiguring Local SEB Settings",nil)] == SEBEnterPasswordCancel) return YES;
-                        NSString *password = [enterPassword stringValue];
-                        if (!password) return YES;
+                        if ([self.sebController showEnterPasswordDialog:NSLocalizedString(@"Enter password used to encrypt .seb file:",nil) modalForWindow:nil windowTitle:NSLocalizedString(@"Reconfiguring Local SEB Settings",nil)] == SEBEnterPasswordCancel) return NO;
+                        NSString *password = [self.sebController.enterPassword stringValue];
+                        if (!password) return NO;
                         error = nil;
                         decryptedSebData = [RNDecryptor decryptData:sebData withPassword:password error:&error];
                         // in case we get an error we allow the user to try it again
                     } while (error && i>0);
                     if (error) {
                         //wrong password entered in 5th try: stop reading .seb file
-                        return YES;
+                        return NO;
                     }
                 }
             }
@@ -204,7 +200,7 @@
                     NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings failed!", nil),
                                     NSLocalizedString(@"This settings file is corrupted and cannot be used.", nil),
                                     NSLocalizedString(@"OK", nil), nil, nil);
-                    return YES; //we abort reading the new settings here
+                    return NO; //we abort reading the new settings here
                 }
                 // get default settings
                 NSDictionary *defaultSettings = [preferences sebDefaultSettings];
@@ -228,7 +224,7 @@
                         NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings failed!", nil),
                                         NSLocalizedString(@"This settings file cannot be used. It may have been created by an older, incompatible version of SEB or it is corrupted.", nil),
                                         NSLocalizedString(@"OK", nil), nil, nil);
-                        return YES; //we abort reading the new settings here
+                        return NO; //we abort reading the new settings here
                     }
                 }
                 
@@ -262,28 +258,32 @@
                         SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
                         //NSArray *embeddedCertificates = value;
                         for (NSDictionary *certificate in value) {
-                            if ((int)[certificate objectForKey:@"type"] == certificateTypeSSLClientCertificate) {
-                                NSData *certificateData = [certificate objectForKey:@"certificateData"];
-                                if (certificateData) {
-                                    BOOL success = [keychainManager importCertificateFromData:certificateData];
+                            int certificateType = [[certificate objectForKey:@"type"] integerValue];
+                            NSData *certificateData = [certificate objectForKey:@"certificateData"];
+                            switch (certificateType) {
+                                case certificateTypeSSLClientCertificate:
+                                    if (certificateData) {
+                                        BOOL success = [keychainManager importCertificateFromData:certificateData];
 #ifdef DEBUG
-                                    NSLog(@"Importing SSL certificate <%@> into Keychain %@", [certificate objectForKey:@"name"], success ? @"succedded" : @"failed");
+                                        NSLog(@"Importing SSL certificate <%@> into Keychain %@", [certificate objectForKey:@"name"], success ? @"succedded" : @"failed");
 #endif
-                                }
-                            }
-                            if ((int)[certificate objectForKey:@"type"] == certificateTypeIdentity) {
-                                NSData *certificateData = [certificate objectForKey:@"certificateData"];
-                                if (certificateData) {
-                                    BOOL success = [keychainManager importIdentityFromData:certificateData];
+                                    }
+                                    break;
+                                    
+                                case certificateTypeIdentity:
+                                    if (certificateData) {
+                                        BOOL success = [keychainManager importIdentityFromData:certificateData];
 #ifdef DEBUG
-                                    NSLog(@"Importing identity <%@> into Keychain %@", [certificate objectForKey:@"name"], success ? @"succedded" : @"failed");
+                                        NSLog(@"Importing identity <%@> into Keychain %@", [certificate objectForKey:@"name"], success ? @"succedded" : @"failed");
 #endif
-                                }
+                                    }
+                                    break;
+                                    
                             }
                         }
+                    } else {
+                        [preferences setSecureObject:value forKey:keyWithPrefix];
                     }
-                    
-                    [preferences setSecureObject:value forKey:keyWithPrefix];
                 }
                 int answer = NSRunAlertPanel(NSLocalizedString(@"SEB Re-Configured",nil), NSLocalizedString(@"The local settings of SEB have been reconfigured. Do you want to start working with SEB now or quit?",nil),
                                              NSLocalizedString(@"Continue",nil), NSLocalizedString(@"Quit",nil), nil);
@@ -292,14 +292,12 @@
                     case NSAlertDefaultReturn:
                         break; //Cancel: don't quit
                     default:
-                        quittingMyself = TRUE; //SEB is terminating itself
+                        self.sebController.quittingMyself = TRUE; //SEB is terminating itself
                         [NSApp terminate: nil]; //quit SEB
                 }
                 [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
-                [self startKioskMode];
-                [self requestedRestart:nil];
             }
-            return YES; //we're done here
+            return YES; //reading preferences was successful
             
         } else {
             //
@@ -310,13 +308,13 @@
                 NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings failed!", nil),
                                 NSLocalizedString(@"This settings file cannot be used. It may have been created by an newer, incompatible version of SEB or it is corrupted.", nil),
                                 NSLocalizedString(@"OK", nil), nil, nil);
-                return YES;
+                return NO;
             }
         }
     }
     
     //if decrypting wasn't successfull then stop here
-    if (!sebData) return YES;
+    if (!sebData) return NO;
     
     // Get preferences dictionary from decrypted data
     //NSDictionary *sebPreferencesDict = [NSKeyedUnarchiver unarchiveObjectWithData:sebData];
@@ -328,7 +326,7 @@
         NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings failed!", nil),
                         NSLocalizedString(@"This settings file is corrupted and cannot be used.", nil),
                         NSLocalizedString(@"OK", nil), nil, nil);
-        return YES; //we abort reading the new settings here
+        return NO; //we abort reading the new settings here
     }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
@@ -357,12 +355,12 @@
             NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings failed!", nil),
                             NSLocalizedString(@"This settings file cannot be used. It may have been created by an older, incompatible version of SEB or it is corrupted.", nil),
                             NSLocalizedString(@"OK", nil), nil, nil);
-            return YES; //we abort reading the new settings here
+            return NO; //we abort reading the new settings here
         }
     }
     
     // Release preferences window so bindings get synchronized properly with the new loaded values
-    [preferencesController releasePreferencesWindow];
+    [self.sebController.preferencesController releasePreferencesWindow];
     
     // Switch to private UserDefaults (saved non-persistantly in memory instead in ~/Library/Preferences)
     NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults];
@@ -397,11 +395,9 @@
     NSLog(@"Private preferences set: %@", privatePreferences);
 #endif
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
-    [preferencesController initPreferencesWindow];
-    [self startKioskMode];
-    [self requestedRestart:nil];
+    [self.sebController.preferencesController initPreferencesWindow];
     
-    return YES;
+    return YES; //reading preferences was successful
 }
-*/
+
 @end

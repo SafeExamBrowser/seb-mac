@@ -7,7 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SEBController.h"
 
 @interface SEBConfigFileManager : NSObject
+
+@property (nonatomic, strong) SEBController *sebController;
+
+
+-(BOOL) readSEBConfig:(NSData *)sebData;
+
 
 @end

@@ -54,10 +54,9 @@
     BOOL quittingMyself;
 
 	NSWindow *browserWindow;
-	IBOutlet id preferencesController;
 	IBOutlet AboutWindow *aboutWindow;
 	IBOutlet NSView *passwordView;
-	IBOutlet NSSecureTextField *enterPassword;
+	//IBOutlet NSSecureTextField *enterPassword;
     IBOutlet NSWindow *enterPasswordDialogWindow;
     IBOutlet NSTextField *enterPasswordDialog;
     
@@ -105,5 +104,7 @@
 @property(readwrite) BOOL quittingMyself;
 @property(strong) WebView *webView;
 @property(strong) NSMutableArray *capWindows;
+@property(strong) IBOutlet NSSecureTextField *enterPassword;
+@property(strong) IBOutlet id preferencesController;
 
 @end

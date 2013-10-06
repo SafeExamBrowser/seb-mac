@@ -284,9 +284,9 @@
     // Close preferences window
 	[self closePreferencesWindow:self];
 
-    // Post a notification that it was requested to reload start URL
-	[[NSNotificationCenter defaultCenter]
-     postNotificationName:@"requestRestartNotification" object:self];
+//    // Post a notification that it was requested to restart SEB with changed settings
+//	[[NSNotificationCenter defaultCenter]
+//     postNotificationName:@"requestRestartNotification" object:self];
     }
 
 

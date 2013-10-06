@@ -1,5 +1,5 @@
 //
-//  SEBController.h
+//  PrefsSecurityViewController.m
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 15.02.13.

@@ -35,6 +35,7 @@
 #import "BrowserWindow.h"
 #import "MyGlobals.h"
 #import "Constants.h"
+#import "SEBConfigFileManager.h"
 #import "MyDocument.h"
 #import "NSWindow+SEBWindow.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
@@ -43,6 +44,24 @@
 @implementation BrowserWindow
 
 @synthesize webView;
+
+
+// This window has its usual -constrainFrameRect:toScreen: behavior temporarily suppressed.
+// This enables our window's custom Full Screen Exit animations to avoid being constrained by the
+// top edge of the screen and the menu bar.
+//
+- (NSRect)constrainFrameRect:(NSRect)frameRect toScreen:(NSScreen *)screen
+{
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"] == NO)
+    {
+        return frameRect;
+    }
+    else
+    {
+        return [super constrainFrameRect:frameRect toScreen:screen];
+    }
+}
+
 
 // Closing of SEB Browser Window //
 - (BOOL)windowShouldClose:(id)sender
@@ -755,14 +774,21 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     //if ([type isEqualToString:@"application/seb"]) {
     if (([type isEqualToString:@"application/seb"]) | ([[[request URL] pathExtension] isEqualToString:@"seb"])) {
-        [listener download];
-        [self startDownloadingURL:request.URL];
-        return;
+//        [listener download];
+//        [self startDownloadingURL:request.URL];
+//        return;
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
             NSError *error = nil;
             // Download the .seb file directly into memory (not onto disc like other files)
             NSData *sebFileData = [NSData dataWithContentsOfURL:request.URL options:NSDataReadingUncached error:&error];
             if (error) [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
+
+            SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+            if ([configFileManager readSEBConfig:sebFileData]) {
+                // Post a notification that it was requested to restart SEB with changed settings
+                [[NSNotificationCenter defaultCenter]
+                 postNotificationName:@"requestRestartNotification" object:self];
+            }
         }
         [listener ignore];
         return;

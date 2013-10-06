@@ -1,5 +1,5 @@
 //
-//  SEBController.h
+//  PrefsDownUploadsViewController.h
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 18.04.11.
