@@ -16,5 +16,11 @@
 
 -(BOOL) readSEBConfig:(NSData *)sebData;
 
+// Encrypt preferences using a certificate
+- (NSData*) encryptData:(NSData*)data usingIdentity:(SecIdentityRef) identityRef;
+
+// Encrypt preferences using a password
+- (NSData*) encryptData:(NSData*)data usingPassword:password forConfiguringClient:(BOOL)configureClient;
+
 
 @end

@@ -9,6 +9,7 @@
 #import "SEBConfigFileManager.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "RNDecryptor.h"
+#import "RNEncryptor.h"
 #import "SEBKeychainManager.h"
 #import "SEBCryptor.h"
 #import "MyGlobals.h"
@@ -30,21 +31,21 @@
 -(BOOL) readSEBConfig:(NSData *)sebData
 {
     // Getting 4-char prefix
-    const char *utfString = [@"    " UTF8String];
-    [sebData getBytes:(void *)utfString length:4];
+    NSRange prefixRange = {0, 4};
+    NSData *prefixData = [sebData subdataWithRange:prefixRange];
+    NSString *prefixString = [[NSString alloc] initWithData:prefixData encoding:NSUTF8StringEncoding];
     
     // Get data without the prefix
     NSRange range = {4, [sebData length]-4};
     sebData = [sebData subdataWithRange:range];
 #ifdef DEBUG
-    NSLog(@"Outer prefix of .seb settings file: %s",utfString);
-    //NSLog(@"Prefix of .seb settings file: %@",[NSString stringWithUTF8String:utfString]);
+    NSLog(@"Outer prefix of .seb settings file: %@",prefixString);
 #endif
     
     //
     // Decrypt with cryptographic identity/private key
     //
-    if ([[NSString stringWithUTF8String:utfString] isEqualToString:@"pkhs"]) {
+    if ([prefixString isEqualToString:@"pkhs"]) {
         // Get 20 bytes public key hash
         NSRange hashRange = {0, 20};
         NSData *publicKeyHash = [sebData subdataWithRange:hashRange];
@@ -66,10 +67,11 @@
         sebData = [keychainManager decryptData:sebData withPrivateKey:privateKeyRef];
         
         // Getting 4-char prefix again
-        [sebData getBytes:(void *)utfString length:4];
+        NSRange prefixRange = {0, 4};
+        NSData *prefixData = [sebData subdataWithRange:prefixRange];
+        NSString *prefixString = [[NSString alloc] initWithData:prefixData encoding:NSUTF8StringEncoding];
 #ifdef DEBUG
-        NSLog(@"Inner prefix of .seb settings file: %s",utfString);
-        //NSLog(@"Prefix of .seb settings file: %@",[NSString stringWithUTF8String:utfString]);
+        NSLog(@"Inner prefix of .seb settings file: %@", prefixString);
 #endif
         // Get remaining data without prefix, which is either plain or still encoded with password
         NSRange range = {4, [sebData length]-4};
@@ -81,7 +83,7 @@
     //
     NSError *error;
     
-    if ([[NSString stringWithUTF8String:utfString] isEqualToString:@"pswd"]) {
+    if ([prefixString isEqualToString:@"pswd"]) {
 #ifdef DEBUG
         //NSLog(@"Dump of encypted .seb settings (without prefix): %@",encryptedSebData);
 #endif
@@ -108,7 +110,7 @@
         //
         // Configure local client settings
         //
-        if ([[NSString stringWithUTF8String:utfString] isEqualToString:@"pwcc"]) {
+        if ([prefixString isEqualToString:@"pwcc"]) {
             //get admin password hash
             NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
             NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
@@ -303,7 +305,7 @@
             //
             // No valid 4-char prefix was found in the .seb file
             //
-            if (![[NSString stringWithUTF8String:utfString] isEqualToString:@"plnd"]) {
+            if (![prefixString isEqualToString:@"plnd"]) {
                 // prefix is not the one for plain data: cancel reading .seb file
                 NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings failed!", nil),
                                 NSLocalizedString(@"This settings file cannot be used. It may have been created by an newer, incompatible version of SEB or it is corrupted.", nil),
@@ -399,5 +401,74 @@
     
     return YES; //reading preferences was successful
 }
+
+
+// Encrypt preferences using a certificate
+- (NSData*) encryptData:(NSData*)data usingIdentity:(SecIdentityRef) identityRef
+{
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    
+    //get certificate from selected identity
+    SecCertificateRef certificateRef = [keychainManager getCertificateFromIdentity:identityRef];
+    
+    //get public key hash from selected identity's certificate
+    NSData* publicKeyHash = [keychainManager getPublicKeyHashFromCertificate:certificateRef];
+    
+    //encrypt data using public key
+    NSData *encryptedData = [keychainManager encryptData:data withPublicKeyFromCertificate:certificateRef];
+    
+    // Test decryption
+    /*SecKeyRef privateKeyRef = [keychainManager privateKeyFromIdentity:&identityRef];
+     NSData *decryptedSebData = [keychainManager decryptData:encryptedData withPrivateKey:privateKeyRef];
+     
+     // Test
+     SecKeyRef privateKeyRef2 = [keychainManager getPrivateKeyFromPublicKeyHash:publicKeyHash];
+     NSLog(@"Private key from identity %@ and retrieved with hash: %@", privateKeyRef, privateKeyRef2);
+     
+     NSMutableDictionary *loadedPrefsDict = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedSebData];
+     NSLog(@"Decrypted .seb dictionary: %@",loadedPrefsDict);
+     */
+    //if (certificateRef) CFRelease(certificateRef);
+    
+    //Prefix indicating data has been encrypted with a public key identified by hash
+    const char *utfString = [@"pkhs" UTF8String];
+    NSMutableData *encryptedSebData = [NSMutableData dataWithBytes:utfString length:4];
+    //append public key hash
+    [encryptedSebData appendData:publicKeyHash];
+    //append encrypted data
+    [encryptedSebData appendData:encryptedData];
+    
+    return encryptedSebData;
+}
+
+
+// Encrypt preferences using a password
+- (NSData*) encryptData:(NSData*)data usingPassword:password forConfiguringClient:(BOOL)configureClient {
+    const char *utfString;
+    // Check if .seb file should start exam or configure client
+    if (configureClient == NO) {
+        // prefix string for starting exam: normal password will be prompted
+        utfString = [@"pswd" UTF8String];
+    } else {
+        // prefix string for configuring client: configuring password will either be admin pw on client
+        // or if no admin pw on client set: empty pw //(((or prompt pw before configuring)))
+        utfString = [@"pwcc" UTF8String];
+        if (![password isEqualToString:@""]) {
+            //empty password means no admin pw on clients and should not be hashed
+            SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+            password = [keychainManager generateSHAHashString:password];
+        }
+    }
+    NSMutableData *encryptedSebData = [NSMutableData dataWithBytes:utfString length:4];
+    NSError *error;
+    NSData *encryptedData = [RNEncryptor encryptData:data
+                                        withSettings:kRNCryptorAES256Settings
+                                            password:password
+                                               error:&error];;
+    [encryptedSebData appendData:encryptedData];
+    
+    return encryptedSebData;
+}
+
 
 @end

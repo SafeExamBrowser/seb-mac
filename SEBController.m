@@ -198,6 +198,11 @@ bool insideMatrix();
         if ((appBundleID != nil) & !isHidden) {
             [visibleApps addObject:appBundleID]; //add ID of the visible app
         }
+        if ([iterApp ownsMenuBar]) {
+#ifdef DEBUG
+            NSLog(@"App %@ owns menu bar", iterApp);
+#endif
+        }
     }
 
 // Setup Notifications and Kiosk Mode    
@@ -581,6 +586,7 @@ bool insideMatrix(){
         [window setReleasedWhenClosed:NO];
         [window setBackgroundColor:[NSColor blackColor]];
         [window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+        [window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
         if (!allowSwitchToThirdPartyApps) {
             [window newSetLevel:NSModalPanelWindowLevel];
         }
@@ -589,6 +595,7 @@ bool insideMatrix(){
         NSView *superview = [window contentView];
         CapView *capview = [[CapView alloc] initWithFrame:rect];
         [superview addSubview:capview];
+//        [window toggleFullScreen:self];
     }
 }
 
