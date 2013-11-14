@@ -35,17 +35,24 @@
     NSData *prefixData = [sebData subdataWithRange:prefixRange];
     NSString *prefixString = [[NSString alloc] initWithData:prefixData encoding:NSUTF8StringEncoding];
     
-    // Get data without the prefix
+    // Get data with prefix stripped
     NSRange range = {4, [sebData length]-4};
     sebData = [sebData subdataWithRange:range];
 #ifdef DEBUG
     NSLog(@"Outer prefix of .seb settings file: %@",prefixString);
+    //NSLog(@"Dump of encypted .seb settings (without prefix): %@",encryptedSebData);
 #endif
+    NSError *error;
     
-    //
-    // Decrypt with cryptographic identity/private key
-    //
+    // Check prefix identifying encryption modes
+    
+    // Prefix = pkhs ("Public Key Hash")
     if ([prefixString isEqualToString:@"pkhs"]) {
+
+        //
+        // Decrypt with cryptographic identity/private key
+        //
+
         // Get 20 bytes public key hash
         NSRange hashRange = {0, 20};
         NSData *publicKeyHash = [sebData subdataWithRange:hashRange];
@@ -78,15 +85,13 @@
         sebData = [sebData subdataWithRange:range];
     }
     
-    //
-    // Decrypt with password
-    //
-    NSError *error;
-    
+    // Prefix = pswd ("Password")
     if ([prefixString isEqualToString:@"pswd"]) {
-#ifdef DEBUG
-        //NSLog(@"Dump of encypted .seb settings (without prefix): %@",encryptedSebData);
-#endif
+
+        //
+        // Decrypt with password
+        //
+        
         NSData *sebDataDecrypted = nil;
         // Allow up to 5 attempts for entering decoding password
         int i = 5;
@@ -107,10 +112,13 @@
         sebData = sebDataDecrypted;
     } else {
         
-        //
-        // Configure local client settings
-        //
+        // Prefix = pwcc ("Password Configuring Client")
         if ([prefixString isEqualToString:@"pwcc"]) {
+
+            //
+            // Configure local client settings
+            //
+
             //get admin password hash
             NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
             NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
@@ -302,9 +310,11 @@
             return YES; //reading preferences was successful
             
         } else {
+
             //
             // No valid 4-char prefix was found in the .seb file
             //
+
             if (![prefixString isEqualToString:@"plnd"]) {
                 // prefix is not the one for plain data: cancel reading .seb file
                 NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings failed!", nil),
