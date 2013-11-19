@@ -76,7 +76,7 @@
         // Getting 4-char prefix again
         NSRange prefixRange = {0, 4};
         NSData *prefixData = [sebData subdataWithRange:prefixRange];
-        NSString *prefixString = [[NSString alloc] initWithData:prefixData encoding:NSUTF8StringEncoding];
+        prefixString = [[NSString alloc] initWithData:prefixData encoding:NSUTF8StringEncoding];
 #ifdef DEBUG
         NSLog(@"Inner prefix of .seb settings file: %@", prefixString);
 #endif
