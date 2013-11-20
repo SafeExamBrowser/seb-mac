@@ -30,59 +30,33 @@
 
 -(BOOL) readSEBConfig:(NSData *)sebData
 {
-    // Getting 4-char prefix
-    NSRange prefixRange = {0, 4};
-    NSData *prefixData = [sebData subdataWithRange:prefixRange];
-    NSString *prefixString = [[NSString alloc] initWithData:prefixData encoding:NSUTF8StringEncoding];
-    
-    // Get data with prefix stripped
-    NSRange range = {4, [sebData length]-4};
-    sebData = [sebData subdataWithRange:range];
+    // Get 4-char prefix
+    NSString *prefixString = [self getPrefixStringFromData:&sebData];
 #ifdef DEBUG
     NSLog(@"Outer prefix of .seb settings file: %@",prefixString);
     //NSLog(@"Dump of encypted .seb settings (without prefix): %@",encryptedSebData);
 #endif
-    NSError *error;
-    
+    NSError *error = nil;
+    //
     // Check prefix identifying encryption modes
-    
+    //
     // Prefix = pkhs ("Public Key Hash")
     if ([prefixString isEqualToString:@"pkhs"]) {
 
         //
         // Decrypt with cryptographic identity/private key
         //
-
-        // Get 20 bytes public key hash
-        NSRange hashRange = {0, 20};
-        NSData *publicKeyHash = [sebData subdataWithRange:hashRange];
-        
-        SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-        SecKeyRef privateKeyRef = [keychainManager getPrivateKeyFromPublicKeyHash:publicKeyHash];
-        if (!privateKeyRef) {
-            NSRunAlertPanel(NSLocalizedString(@"Error Decrypting Settings", nil),
-                            NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil),
-                            NSLocalizedString(@"OK", nil), nil, nil);
+        sebData = [self decryptDataWithPublicKeyHashPrefix:sebData error:&error];
+        if (error) {
             return NO;
         }
-#ifdef DEBUG
-        NSLog(@"Private key retrieved with hash: %@", privateKeyRef);
-#endif
-        NSRange dataRange = {20, [sebData length]-20};
-        sebData = [sebData subdataWithRange:dataRange];
-        
-        sebData = [keychainManager decryptData:sebData withPrivateKey:privateKeyRef];
-        
-        // Getting 4-char prefix again
-        NSRange prefixRange = {0, 4};
-        NSData *prefixData = [sebData subdataWithRange:prefixRange];
-        prefixString = [[NSString alloc] initWithData:prefixData encoding:NSUTF8StringEncoding];
+
+        // Get 4-char prefix again
+        // and remaining data without prefix, which is either plain or still encoded with password
+        NSString *prefixString = [self getPrefixStringFromData:&sebData];
 #ifdef DEBUG
         NSLog(@"Inner prefix of .seb settings file: %@", prefixString);
 #endif
-        // Get remaining data without prefix, which is either plain or still encoded with password
-        NSRange range = {4, [sebData length]-4};
-        sebData = [sebData subdataWithRange:range];
     }
     
     // Prefix = pswd ("Password")
@@ -399,9 +373,6 @@
                                   forKey:@"org_safeexambrowser_enablePreferencesWindow"];
         }
         if (value) [preferences setSecureObject:value forKey:keyWithPrefix];
-        //NSString *keypath = [NSString stringWithFormat:@"values.%@", keyWithPrefix];
-        //if (value) [[[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController] values] setValue:value forKeyPath:keyWithPrefix];
-        //if (value) [[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController] setValue:value forKeyPath:keypath];
     }
 #ifdef DEBUG
     NSLog(@"Private preferences set: %@", privatePreferences);
@@ -413,8 +384,54 @@
 }
 
 
+-(NSData *) decryptDataWithPublicKeyHashPrefix:(NSData *)sebData error:(NSError **)error
+{
+    // Get 20 bytes public key hash prefix
+    // and remaining data with the prefix stripped
+    NSData *publicKeyHash = [self getPrefixDataFromData:&sebData withLength:publicKeyHashLenght];
+    
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    SecKeyRef privateKeyRef = [keychainManager getPrivateKeyFromPublicKeyHash:publicKeyHash];
+    if (!privateKeyRef) {
+        NSRunAlertPanel(NSLocalizedString(@"Error Decrypting Settings", nil),
+                        NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil),
+                        NSLocalizedString(@"OK", nil), nil, nil);
+        return NO;
+    }
+#ifdef DEBUG
+    NSLog(@"Private key retrieved with hash: %@", privateKeyRef);
+#endif
+   
+    sebData = [keychainManager decryptData:sebData withPrivateKey:privateKeyRef];
+    
+    return sebData;
+
+}
+
+
+-(NSString *) getPrefixStringFromData:(NSData **)data
+{
+    NSData *prefixData = [self getPrefixDataFromData:data withLength:sebConfigFilePrefixLength];
+    return [[NSString alloc] initWithData:prefixData encoding:NSUTF8StringEncoding];
+}
+
+
+-(NSData *) getPrefixDataFromData:(NSData **)data withLength:(NSUInteger)prefixLength
+{
+    // Get prefix with indicated length
+    NSRange prefixRange = {0, prefixLength};
+    NSData *prefixData = [*data subdataWithRange:prefixRange];
+    
+    // Get data without the stripped prefix
+    NSRange range = {prefixLength, [*data length]-prefixLength};
+    *data = [*data subdataWithRange:range];
+    
+    return prefixData;
+}
+
+
 // Encrypt preferences using a certificate
-- (NSData*) encryptData:(NSData*)data usingIdentity:(SecIdentityRef) identityRef
+-(NSData *) encryptData:(NSData *) data usingIdentity:(SecIdentityRef) identityRef
 {
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     
@@ -442,7 +459,7 @@
     
     //Prefix indicating data has been encrypted with a public key identified by hash
     const char *utfString = [@"pkhs" UTF8String];
-    NSMutableData *encryptedSebData = [NSMutableData dataWithBytes:utfString length:4];
+    NSMutableData *encryptedSebData = [NSMutableData dataWithBytes:utfString length:sebConfigFilePrefixLength];
     //append public key hash
     [encryptedSebData appendData:publicKeyHash];
     //append encrypted data

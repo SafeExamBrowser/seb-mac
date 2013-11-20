@@ -35,6 +35,10 @@
 #ifndef SafeExamBrowser_Constants_h
 #define SafeExamBrowser_Constants_h
 
+
+#define sebConfigFilePrefixLength               4
+#define publicKeyHashLenght                     20
+
 enum {
     browserViewModeWindow                       = 0,
     browserViewModeFullscreen                   = 1

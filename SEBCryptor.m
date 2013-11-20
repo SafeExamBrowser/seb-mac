@@ -144,9 +144,8 @@ static SEBCryptor *sharedSEBCryptor = nil;
 
 // Error recovery attempter when local preferences need to be reset
 - (BOOL)attemptRecoveryFromError:(NSError *)error
-                     optionIndex:(unsigned int)recoveryOptionIndex
+                     optionIndex:(NSUInteger)recoveryOptionIndex
 {
-    
     BOOL success = NO;
     
     if (recoveryOptionIndex == 0) { // Recovery requested.

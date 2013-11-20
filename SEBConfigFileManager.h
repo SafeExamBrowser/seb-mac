@@ -22,5 +22,11 @@
 // Encrypt preferences using a password
 - (NSData*) encryptData:(NSData*)data usingPassword:password forConfiguringClient:(BOOL)configureClient;
 
+// Basic helper methods
+
+-(NSString *) getPrefixStringFromData:(NSData **)data;
+
+-(NSData *) getPrefixDataFromData:(NSData **)data withLength:(NSUInteger)prefixLength;
+
 
 @end
