@@ -30,8 +30,10 @@
 
 -(BOOL) readSEBConfig:(NSData *)sebData
 {
+    NSString *prefixString;
+    
     // Get 4-char prefix
-    NSString *prefixString = [self getPrefixStringFromData:&sebData];
+    prefixString = [self getPrefixStringFromData:&sebData];
 #ifdef DEBUG
     NSLog(@"Outer prefix of .seb settings file: %@",prefixString);
     //NSLog(@"Dump of encypted .seb settings (without prefix): %@",encryptedSebData);
@@ -53,7 +55,7 @@
 
         // Get 4-char prefix again
         // and remaining data without prefix, which is either plain or still encoded with password
-        NSString *prefixString = [self getPrefixStringFromData:&sebData];
+        prefixString = [self getPrefixStringFromData:&sebData];
 #ifdef DEBUG
         NSLog(@"Inner prefix of .seb settings file: %@", prefixString);
 #endif

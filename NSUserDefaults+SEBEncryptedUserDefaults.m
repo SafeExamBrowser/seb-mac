@@ -133,6 +133,8 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_chooseFileToUploadPolicy",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting",
+                                 [NSNumber numberWithBool:YES],
+                                 @"org_safeexambrowser_SEB_createNewDesktop",
                                  [NSData data], // public key hash of cryptoIdentity selected/used for encryption 
                                  @"org_safeexambrowser_SEB_cryptoIdentity",
                                  //@"~/Downloads",
