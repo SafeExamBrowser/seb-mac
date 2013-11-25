@@ -36,18 +36,15 @@
     prefixString = [self getPrefixStringFromData:&sebData];
 #ifdef DEBUG
     NSLog(@"Outer prefix of .seb settings file: %@",prefixString);
-    //NSLog(@"Dump of encypted .seb settings (without prefix): %@",encryptedSebData);
 #endif
     NSError *error = nil;
-    //
+
     // Check prefix identifying encryption modes
-    //
+
     // Prefix = pkhs ("Public Key Hash")
     if ([prefixString isEqualToString:@"pkhs"]) {
 
-        //
         // Decrypt with cryptographic identity/private key
-        //
         sebData = [self decryptDataWithPublicKeyHashPrefix:sebData error:&error];
         if (error) {
             return NO;
@@ -64,10 +61,8 @@
     // Prefix = pswd ("Password")
     if ([prefixString isEqualToString:@"pswd"]) {
 
-        //
         // Decrypt with password
-        //
-        
+        // if the user enters the right one
         NSData *sebDataDecrypted = nil;
         // Allow up to 5 attempts for entering decoding password
         int i = 5;
@@ -91,9 +86,7 @@
         // Prefix = pwcc ("Password Configuring Client")
         if ([prefixString isEqualToString:@"pwcc"]) {
 
-            //
             // Configure local client settings
-            //
 
             //get admin password hash
             NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -111,14 +104,9 @@
                 if (!error) {
                     //Decrypting with empty password worked:
                     //Check if the openend reconfiguring seb file has the same admin password inside like the current one
-                    sebPreferencesDict = [NSPropertyListSerialization propertyListWithData:decryptedSebData
-                                                                                   options:0
-                                                                                    format:NULL
-                                                                                     error:&error];
+                    sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:decryptedSebData error:&error];
                     if (error) {
-                        NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings failed!", nil),
-                                        NSLocalizedString(@"This settings file is corrupted and cannot be used.", nil),
-                                        NSLocalizedString(@"OK", nil), nil, nil);
+                        [NSApp presentError:error];
                         return NO; //we abort reading the new settings here
                     }
                     NSString *sebFileHashedAdminPassword = [sebPreferencesDict objectForKey:@"hashedAdminPassword"];
@@ -176,18 +164,16 @@
                 // Decryption worked
                 //
                 // Get preferences dictionary from decrypted data
-                NSError *error;
+                
+                
+                NSError *error = nil;
                 // If we don't have the dictionary yet from above
-                if (!sebPreferencesDict) sebPreferencesDict = [NSPropertyListSerialization propertyListWithData:sebData
-                                                                                                        options:0
-                                                                                                         format:NULL
-                                                                                                          error:&error];
+                if (!sebPreferencesDict) sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:sebData error:&error];
                 if (error) {
-                    NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings failed!", nil),
-                                    NSLocalizedString(@"This settings file is corrupted and cannot be used.", nil),
-                                    NSLocalizedString(@"OK", nil), nil, nil);
+                    [NSApp presentError:error];
                     return NO; //we abort reading the new settings here
                 }
+
                 // get default settings
                 NSDictionary *defaultSettings = [preferences sebDefaultSettings];
                 
@@ -305,15 +291,14 @@
     if (!sebData) return NO;
     
     // Get preferences dictionary from decrypted data
+    error = nil;
     //NSDictionary *sebPreferencesDict = [NSKeyedUnarchiver unarchiveObjectWithData:sebData];
-    NSDictionary *sebPreferencesDict = [NSPropertyListSerialization propertyListWithData:sebData
-                                                                                 options:0
-                                                                                  format:NULL
-                                                                                   error:&error];
+    NSDictionary *sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:sebData error:&error];
     if (error) {
-        NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings failed!", nil),
-                        NSLocalizedString(@"This settings file is corrupted and cannot be used.", nil),
-                        NSLocalizedString(@"OK", nil), nil, nil);
+        [NSApp presentError:error];
+//        NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings failed!", nil),
+//                        NSLocalizedString(@"This settings file is corrupted and cannot be used.", nil),
+//                        NSLocalizedString(@"OK", nil), nil, nil);
         return NO; //we abort reading the new settings here
     }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -429,6 +414,34 @@
     *data = [*data subdataWithRange:range];
     
     return prefixData;
+}
+
+
+// Get preferences dictionary from decrypted data
+-(NSDictionary *) getPreferencesDictionaryFromConfigData:(NSData *)sebData error:(NSError **)error
+{
+    NSError *plistError = nil;
+    NSDictionary *sebPreferencesDict = [NSPropertyListSerialization propertyListWithData:sebData
+                                                                                            options:0
+                                                                                             format:NULL
+                                                                                              error:&plistError];
+    if (plistError) {
+        NSMutableDictionary *newErrorDict = [NSMutableDictionary dictionaryWithDictionary:@{ NSLocalizedDescriptionKey :
+                                       NSLocalizedString(@"This settings file is corrupted and cannot be used.", nil)
+                                        }];
+        
+        NSError *newError = [[NSError alloc] initWithDomain:sebErrorDomain
+                                                       code:1 userInfo:newErrorDict];
+        // If it exists, then add the localized error reason from serializing the plist to the error object
+        NSString *failureReason = [plistError localizedFailureReason];
+        if (failureReason) {
+            [newErrorDict setObject:failureReason
+                            forKey:NSLocalizedFailureReasonErrorKey];
+        }
+        *error = newError;
+        sebPreferencesDict = nil; //we don't have any settings to return
+    }
+    return sebPreferencesDict;
 }
 
 
