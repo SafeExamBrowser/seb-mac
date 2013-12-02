@@ -784,7 +784,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
             if (error) [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
 
             SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-            if ([configFileManager readSEBConfig:sebFileData]) {
+            if ([configFileManager decryptSEBSettings:sebFileData]) {
                 // Post a notification that it was requested to restart SEB with changed settings
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:@"requestRestartNotification" object:self];

@@ -26,7 +26,5 @@
 @property (strong, nonatomic) NSArray *identities;
 
 - (IBAction) saveSEBPrefs:(id)sender;
-- (NSData*) encryptDataUsingSelectedIdentity:(NSData*)data;
-- (NSData*) encryptData:(NSData*)data usingPassword:password;
 
 @end
