@@ -142,14 +142,14 @@
     [self.sebController.preferencesController releasePreferencesWindow];
     
     // Switch to private UserDefaults (saved non-persistantly in memory instead in ~/Library/Preferences)
-//    NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults];
+    NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults]; //the mutable dictionary has to be created here, otherwise the preferences values will not be saved!
     [NSUserDefaults setUserDefaultsPrivate:YES];
     
     // Write values from .seb config file to the local preferences (shared UserDefaults)
     [self saveIntoUserDefaults:sebPreferencesDict];
 
 #ifdef DEBUG
-//    NSLog(@"Private preferences set: %@", privatePreferences);
+    NSLog(@"Private preferences set: %@", privatePreferences);
 #endif
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
     [self.sebController.preferencesController initPreferencesWindow];
