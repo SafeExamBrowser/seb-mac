@@ -426,23 +426,24 @@
                                                                                              format:NULL
                                                                                               error:&plistError];
     if (plistError) {
-        NSMutableDictionary *newErrorDict = [NSMutableDictionary dictionaryWithDictionary:@{ NSLocalizedDescriptionKey :
-                                       NSLocalizedString(@"This settings file is corrupted and cannot be used.", nil)
+        // If it exists, then add the localized error reason from serializing the plist to the error object
+        NSString *failureReason = [plistError localizedFailureReason];
+        if (!failureReason) failureReason = @"";
+        NSMutableDictionary *newErrorDict =
+        [NSMutableDictionary dictionaryWithDictionary:@{ NSLocalizedDescriptionKey :
+                                                             NSLocalizedString(@"Loading new SEB settings failed!", nil),
+                                                         NSLocalizedFailureReasonErrorKey :
+                                                             [NSString stringWithFormat:@"%@\n%@", NSLocalizedString(@"This settings file is corrupted and cannot be used.", nil), failureReason]
                                         }];
         
         NSError *newError = [[NSError alloc] initWithDomain:sebErrorDomain
                                                        code:1 userInfo:newErrorDict];
-        // If it exists, then add the localized error reason from serializing the plist to the error object
-        NSString *failureReason = [plistError localizedFailureReason];
-        if (failureReason) {
-            [newErrorDict setObject:failureReason
-                            forKey:NSLocalizedFailureReasonErrorKey];
-        }
         *error = newError;
         sebPreferencesDict = nil; //we don't have any settings to return
     }
     return sebPreferencesDict;
 }
+
 
 
 // Encrypt preferences using a certificate
