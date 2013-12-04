@@ -27,7 +27,7 @@
 }
 
 
-#pragma mark Methods for Decrypting, Parsing and Saving SEB Settings
+#pragma mark Methods for Decrypting, Parsing and Storing SEB Settings to UserDefaults
 
 // Decrypt, parse and save SEB settings to UserDefaults
 -(BOOL) decryptSEBSettings:(NSData *)sebData
@@ -135,9 +135,6 @@
     NSDictionary *sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:sebData error:&error];
     if (error) {
         [NSApp presentError:error];
-//        NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings failed!", nil),
-//                        NSLocalizedString(@"This settings file is corrupted and cannot be used.", nil),
-//                        NSLocalizedString(@"OK", nil), nil, nil);
         return NO; //we abort reading the new settings here
     }
 
@@ -172,9 +169,7 @@
     //get admin password hash
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-    //if (!hashedAdminPassword) {
-    //   hashedAdminPassword = @"";
-    //}
+    if (!hashedAdminPassword) hashedAdminPassword = @"";
     NSDictionary *sebPreferencesDict = nil;
     NSError *error = nil;
     NSData *decryptedSebData = [RNDecryptor decryptData:sebData withPassword:hashedAdminPassword error:&error];
@@ -514,21 +509,21 @@
         // in all other cases:
         // Check if no password entered and no identity selected
         if (!settingsPassword && !identityRef) {
-            int answer = NSRunAlertPanel(NSLocalizedString(@"No encryption chosen",nil), NSLocalizedString(@"You should either enter a password or choose a cryptographic identity with which the SEB settings file will be encrypted.\nYou can save an unencrypted SEB file, but this is not recomended for use in exams.",nil),
-                                         NSLocalizedString(@"OK",nil), NSLocalizedString(@"Save anyways",nil), nil);
+            int answer = NSRunAlertPanel(NSLocalizedString(@"No encryption chosen",nil), NSLocalizedString(@"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted SEB file, but this is not recommended for use in exams.",nil),
+                                         NSLocalizedString(@"OK",nil), NSLocalizedString(@"Save unencrypted",nil), nil);
             switch(answer)
             {
                 case NSAlertDefaultReturn:
+                    // don't save the config data
+                    return nil;
+                    
+                case NSAlertAlternateReturn:
                     // save .seb config data unencrypted
                     return encryptedSebData;
+                    
                 default:
-                    //
                     return nil;
             }
-//            NSRunAlertPanel(NSLocalizedString(@"No encryption chosen", nil),
-//                            NSLocalizedString(@"You have to either enter a password or choose a cryptographic identity with which the SEB settings file will be encrypted.", nil),
-//                            NSLocalizedString(@"OK", nil), nil, nil);
-//            return nil;
         }
     }
     // Check if password for encryption is entered
@@ -541,8 +536,8 @@
         encryptedSebData = [self encryptData:encryptedSebData usingPassword:encryptingPassword forConfiguringClient:NO];
     } else {
         // if no encryption with password: add a spare 4-char prefix identifying plain data
-        const char *utfString = [@"plnd" UTF8String];
-        NSMutableData *encryptedData = [NSMutableData dataWithBytes:utfString length:4];
+        NSString *prefixString = @"plnd";
+        NSMutableData *encryptedData = [NSMutableData dataWithData:[prefixString dataUsingEncoding:NSUTF8StringEncoding]];
         //append plain data
         [encryptedData appendData:encryptedSebData];
         encryptedSebData = [NSData dataWithData:encryptedData];
@@ -572,8 +567,8 @@
     NSData *encryptedData = [keychainManager encryptData:data withPublicKeyFromCertificate:certificateRef];
     
     //Prefix indicating data has been encrypted with a public key identified by hash
-    const char *utfString = [@"pkhs" UTF8String];
-    NSMutableData *encryptedSebData = [NSMutableData dataWithBytes:utfString length:sebConfigFilePrefixLength];
+    NSString *prefixString = @"pkhs";
+    NSMutableData *encryptedSebData = [NSMutableData dataWithData:[prefixString dataUsingEncoding:NSUTF8StringEncoding]];
     //append public key hash
     [encryptedSebData appendData:publicKeyHash];
     //append encrypted data
