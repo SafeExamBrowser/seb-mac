@@ -553,7 +553,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
     // Check if quit URL has been clicked
     if ([[[request URL] absoluteString] isEqualTo:[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"]]) {
         [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"requestQuitWoPwdNotification" object:self];
+         postNotificationName:@"requestQuitWPwdNotification" object:self];
         [listener ignore];
         return;
     }
@@ -772,22 +772,29 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 #endif*/
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    //if ([type isEqualToString:@"application/seb"]) {
     if (([type isEqualToString:@"application/seb"]) | ([[[request URL] pathExtension] isEqualToString:@"seb"])) {
-//        [listener download];
-//        [self startDownloadingURL:request.URL];
-//        return;
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
-            NSError *error = nil;
-            // Download the .seb file directly into memory (not onto disc like other files)
-            NSData *sebFileData = [NSData dataWithContentsOfURL:request.URL options:NSDataReadingUncached error:&error];
-            if (error) [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
-
-            SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-            if ([configFileManager decryptSEBSettings:sebFileData]) {
-                // Post a notification that it was requested to restart SEB with changed settings
-                [[NSNotificationCenter defaultCenter]
-                 postNotificationName:@"requestRestartNotification" object:self];
+            // Check if SEB is in exam mode = private UserDefauls are switched on
+            if (NSUserDefaults.userDefaultsPrivate) {
+                // If yes, we don't download the .seb file
+                NSRunAlertPanel(NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil),
+                                NSLocalizedString(@"SEB is already running in exam mode at the moment and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil),
+                                NSLocalizedString(@"OK", nil), nil, nil);
+            } else {
+                // SEB isn't in exam mode: reconfiguring it is allowed
+                NSError *error = nil;
+                // Download the .seb file directly into memory (not onto disc like other files)
+                NSData *sebFileData = [NSData dataWithContentsOfURL:request.URL options:NSDataReadingUncached error:&error];
+                if (error) {
+                    [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
+                } else {
+                    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+                    if ([configFileManager decryptSEBSettings:sebFileData]) {
+                        // Post a notification that it was requested to restart SEB with changed settings
+                        [[NSNotificationCenter defaultCenter]
+                         postNotificationName:@"requestRestartNotification" object:self];
+                    }
+                }
             }
         }
         [listener ignore];

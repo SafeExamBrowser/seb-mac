@@ -12,6 +12,7 @@
 #import "RNEncryptor.h"
 #import "SEBKeychainManager.h"
 #import "SEBCryptor.h"
+#import "NSData+NSDataZIPExtension.h"
 #import "MyGlobals.h"
 
 @implementation SEBConfigFileManager
@@ -32,6 +33,12 @@
 // Decrypt, parse and save SEB settings to UserDefaults
 -(BOOL) decryptSEBSettings:(NSData *)sebData
 {
+    // Unzip the .seb (according to specification >= v14) source data
+    NSData *unzippedSebData = [sebData zlibInflate];
+    // if unzipped data is not nil, then unzipping worked, we use unzipped data
+    // if unzipped data is nil, then the source data may be an uncompressed .seb file, we proceed with it
+    if (unzippedSebData) sebData = unzippedSebData;
+
     NSString *prefixString;
     
     // save the data including the first 4 bytes for the case that it's acutally an unencrypted XML plist
@@ -82,7 +89,7 @@
             if (!password) return NO;
             error = nil;
             sebDataDecrypted = [RNDecryptor decryptData:sebData withPassword:password error:&error];
-            enterPasswordString = NSLocalizedString(@"Try to enter the correct password again:",nil);
+            enterPasswordString = NSLocalizedString(@"Try again to enter the correct password:",nil);
             // in case we get an error we allow the user to try it again
         } while (error && i>0);
         if (error) {
@@ -435,7 +442,7 @@
         NSMutableDictionary *newErrorDict =
         [NSMutableDictionary dictionaryWithDictionary:@{ NSLocalizedDescriptionKey :
                                                              NSLocalizedString(@"Loading new SEB settings failed!", nil),
-                                                         NSLocalizedFailureReasonErrorKey :
+                                                         NSLocalizedRecoverySuggestionErrorKey :
                                                              [NSString stringWithFormat:@"%@\n%@", NSLocalizedString(@"This settings file is corrupted and cannot be used.", nil), failureReason]
                                         }];
         
@@ -486,11 +493,16 @@
     }
     
     // Convert preferences directory to XML property list
-    NSError *error;
+    NSError *error = nil;
     NSData *dataRep = [NSPropertyListSerialization dataWithPropertyList:filteredPrefsDict
                                                                  format:NSPropertyListXMLFormat_v1_0
                                                                 options:0
                                                                   error:&error];
+    if (error || !dataRep) {
+        // Serialization of the date went wrong
+        // Looks like there is something like a NULL value
+        
+    }
     
     NSMutableString *sebXML = [[NSMutableString alloc] initWithData:dataRep encoding:NSUTF8StringEncoding];
 #ifdef DEBUG
@@ -533,7 +545,7 @@
     // So if password is empty (special case) or entered
     if (encryptingPassword) {
         // encrypt with password
-        encryptedSebData = [self encryptData:encryptedSebData usingPassword:encryptingPassword forConfiguringClient:NO];
+        encryptedSebData = [self encryptData:encryptedSebData usingPassword:encryptingPassword forPurpose:configPurpose];
     } else {
         // if no encryption with password: add a spare 4-char prefix identifying plain data
         NSString *prefixString = @"plnd";
@@ -547,6 +559,9 @@
         // Encrypt preferences using a cryptographic identity
         encryptedSebData = [self encryptData:encryptedSebData usingIdentity:identityRef];
     }
+    
+    // Zip the encrypted data
+    encryptedSebData = [encryptedSebData zlibDeflate];
     
     return encryptedSebData;
 }
@@ -579,10 +594,10 @@
 
 
 // Encrypt preferences using a password
-- (NSData*) encryptData:(NSData*)data usingPassword:password forConfiguringClient:(BOOL)configureClient {
+- (NSData*) encryptData:(NSData*)data usingPassword:password forPurpose:(sebConfigPurposes)configPurpose {
     const char *utfString;
     // Check if .seb file should start exam or configure client
-    if (configureClient == NO) {
+    if (configPurpose == sebConfigPurposeStartingExam) {
         // prefix string for starting exam: normal password will be prompted
         utfString = [@"pswd" UTF8String];
     } else {

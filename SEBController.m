@@ -106,7 +106,7 @@ bool insideMatrix();
     // Check if SEB is in exam mode = private UserDefauls are switched on
     if (NSUserDefaults.userDefaultsPrivate) {
         NSRunAlertPanel(NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil),
-                        NSLocalizedString(@"SEB is already running in exam mode at the moment (started by a .seb file) and it is not allowed to interupt this by opening another .seb file. Finish the exam and quit SEB before starting another exam by opening a .seb file.", nil),
+                        NSLocalizedString(@"SEB is already running in exam mode at the moment and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil),
                         NSLocalizedString(@"OK", nil), nil, nil);
         return YES;
     }
@@ -271,10 +271,10 @@ bool insideMatrix();
                                              selector:@selector(exitSEB:)
                                                  name:@"requestExitNotification" object:nil];
 	
-    // Add an observer for the request to conditionally quit SEB without asking quit password
+    // Add an observer for the request to conditionally quit SEB with asking quit password
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(requestedQuitWoPwd:)
-                                                 name:@"requestQuitWoPwdNotification" object:nil];
+                                             selector:@selector(requestedQuitWPwd:)
+                                                 name:@"requestQuitWPwdNotification" object:nil];
 	
     // Add an observer for the request to reload start URL
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -957,7 +957,7 @@ bool insideMatrix(){
 }
 
 
-- (void)requestedQuitWoPwd:(NSNotification *)notification
+- (void)requestedQuitWPwd:(NSNotification *)notification
 {
     int answer = NSRunAlertPanel(NSLocalizedString(@"Quit",nil), NSLocalizedString(@"Are you sure you want to quit SEB?",nil),
                                  NSLocalizedString(@"Cancel",nil), NSLocalizedString(@"Quit",nil), nil);

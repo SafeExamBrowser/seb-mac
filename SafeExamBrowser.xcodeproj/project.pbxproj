@@ -34,6 +34,10 @@
 		693EB54015EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693EB53D15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m */; };
 		693F135315767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 693F135215767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m */; };
 		693F135515767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 693F135215767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m */; };
+		6940A7611853B2AD00D9D00D /* NSData+NSDataZIPExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 6940A75F1853B2AD00D9D00D /* NSData+NSDataZIPExtension.h */; };
+		6940A7621853B2AD00D9D00D /* NSData+NSDataZIPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940A7601853B2AD00D9D00D /* NSData+NSDataZIPExtension.m */; };
+		6940A7631853B2AD00D9D00D /* NSData+NSDataZIPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940A7601853B2AD00D9D00D /* NSData+NSDataZIPExtension.m */; };
+		6940A7671853B62000D9D00D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6940A7661853B62000D9D00D /* libz.dylib */; };
 		69428CCE172F0C1300C87C58 /* SecurityIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CCC172F0C1300C87C58 /* SecurityIcon.png */; };
 		69428CCF172F0C1300C87C58 /* SecurityIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CCC172F0C1300C87C58 /* SecurityIcon.png */; };
 		69428CD0172F0C1300C87C58 /* SecurityIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CCD172F0C1300C87C58 /* SecurityIcon@2x.png */; };
@@ -267,6 +271,10 @@
 		693F135115767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+SEBEncryptedUserDefaults.h"; sourceTree = "<group>"; };
 		693F135215767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+SEBEncryptedUserDefaults.m"; sourceTree = "<group>"; };
 		693FDEF214FB9D200020FA96 /* SafeExamBrowser-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SafeExamBrowser-Info.plist"; sourceTree = "<group>"; };
+		6940A75F1853B2AD00D9D00D /* NSData+NSDataZIPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+NSDataZIPExtension.h"; sourceTree = "<group>"; };
+		6940A7601853B2AD00D9D00D /* NSData+NSDataZIPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+NSDataZIPExtension.m"; sourceTree = "<group>"; };
+		6940A7641853B4BC00D9D00D /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = usr/lib/libssl.dylib; sourceTree = SDKROOT; };
+		6940A7661853B62000D9D00D /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		6941F9A1131E6400005C51DC /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6941F9A2131E6426005C51DC /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		69428CCC172F0C1300C87C58 /* SecurityIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SecurityIcon.png; sourceTree = "<group>"; };
@@ -390,6 +398,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6940A7671853B62000D9D00D /* libz.dylib in Frameworks */,
 				69F7B61D14F411FB00FD0761 /* WebKit.framework in Frameworks */,
 				69F7B61E14F411FB00FD0761 /* Cocoa.framework in Frameworks */,
 				69F7B61F14F411FB00FD0761 /* Carbon.framework in Frameworks */,
@@ -487,6 +496,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6940A7661853B62000D9D00D /* libz.dylib */,
+				6940A7641853B4BC00D9D00D /* libssl.dylib */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 				693A94D711B68D8A0083C66D /* Carbon.framework */,
@@ -658,6 +669,8 @@
 				69D5983314C81FEA005FE98C /* NSWindow+SEBWindow.m */,
 				69D5983614C823AE005FE98C /* MethodSwizzling.h */,
 				69D5983714C823AE005FE98C /* MethodSwizzling.m */,
+				6940A75F1853B2AD00D9D00D /* NSData+NSDataZIPExtension.h */,
+				6940A7601853B2AD00D9D00D /* NSData+NSDataZIPExtension.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -756,6 +769,7 @@
 				6921294716F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h in Headers */,
 				69CF8A1416FD0B550096625C /* SEBFilterRuleTableColumn.h in Headers */,
 				692C143E18441478007BD719 /* RNDecryptor.h in Headers */,
+				6940A7611853B2AD00D9D00D /* NSData+NSDataZIPExtension.h in Headers */,
 				69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */,
 				69CF8A1916FD1C330096625C /* SEBFilterRuleExpressionTableColumn.h in Headers */,
 				692C143618441478007BD719 /* RNCryptor-Prefix.pch in Headers */,
@@ -968,6 +982,7 @@
 				692C143918441478007BD719 /* RNCryptor.m in Sources */,
 				69903B1314CD7624007E7DF7 /* NSWindow+SEBWindow.m in Sources */,
 				69903B1414CD7624007E7DF7 /* MethodSwizzling.m in Sources */,
+				6940A7631853B2AD00D9D00D /* NSData+NSDataZIPExtension.m in Sources */,
 				693F135515767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
 				693EB54015EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */,
 				699C540A15EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */,
@@ -1020,6 +1035,7 @@
 				692C143818441478007BD719 /* RNCryptor.m in Sources */,
 				69F7B61A14F411FB00FD0761 /* NSWindow+SEBWindow.m in Sources */,
 				69F7B61B14F411FB00FD0761 /* MethodSwizzling.m in Sources */,
+				6940A7621853B2AD00D9D00D /* NSData+NSDataZIPExtension.m in Sources */,
 				693F135315767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
 				693EB53E15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */,
 				699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */,
@@ -1118,8 +1134,6 @@
 					"\"$(SRCROOT)\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_OBJC_GC = supported;
-				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SEB_Prefix.pch;
@@ -1151,8 +1165,6 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 				);
-				GCC_ENABLE_OBJC_GC = supported;
-				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SEB_Prefix.pch;
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";

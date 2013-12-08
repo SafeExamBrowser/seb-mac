@@ -88,7 +88,7 @@
 - (IBAction) cancelEnterPassword: (id)sender;
 
 - (IBAction) exitSEB:(id)sender;
-- (void)requestedQuitWoPwd:(id)sender;
+- (void)requestedQuitWPwd:(id)sender;
 
 - (IBAction) openPreferences:(id)sender;
 - (IBAction) showAbout: (id)sender;

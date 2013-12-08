@@ -27,7 +27,7 @@
 - (NSData*) encryptData:(NSData*)data usingIdentity:(SecIdentityRef) identityRef;
 
 // Encrypt preferences using a password
-- (NSData*) encryptData:(NSData*)data usingPassword:password forConfiguringClient:(BOOL)configureClient;
+- (NSData*) encryptData:(NSData*)data usingPassword:password forPurpose:(sebConfigPurposes)configPurpose;
 
 // Basic helper methods
 
