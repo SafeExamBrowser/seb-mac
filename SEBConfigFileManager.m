@@ -33,8 +33,8 @@
 // Decrypt, parse and save SEB settings to UserDefaults
 -(BOOL) decryptSEBSettings:(NSData *)sebData
 {
-    // Unzip the .seb (according to specification >= v14) source data
-    NSData *unzippedSebData = [sebData zlibInflate];
+    // Ungzip the .seb (according to specification >= v14) source data
+    NSData *unzippedSebData = [sebData gzipInflate];
     // if unzipped data is not nil, then unzipping worked, we use unzipped data
     // if unzipped data is nil, then the source data may be an uncompressed .seb file, we proceed with it
     if (unzippedSebData) sebData = unzippedSebData;
@@ -136,6 +136,10 @@
     //if decrypting wasn't successfull then stop here
     if (!sebData) return NO;
     
+    // If we don't deal with an unencrypted seb file
+    // ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
+    if (![prefixString isEqualToString:@"<?xm"]) sebData = [sebData gzipInflate];
+
     // Get preferences dictionary from decrypted data
     error = nil;
     //NSDictionary *sebPreferencesDict = [NSKeyedUnarchiver unarchiveObjectWithData:sebData];
@@ -185,7 +189,9 @@
         error = nil;
         decryptedSebData = [RNDecryptor decryptData:sebData withPassword:@"" error:&error];
         if (!error) {
-            //Decrypting with empty password worked:
+            //Decrypting with empty password worked
+            // Ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
+            decryptedSebData = [decryptedSebData gzipInflate];
             //Check if the openend reconfiguring seb file has the same admin password inside like the current one
             sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:decryptedSebData error:&error];
             if (error) {
@@ -256,9 +262,11 @@
         //
         // Decryption worked
         //
+
+        // Ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
+        sebData = [sebData gzipInflate];
+
         // Get preferences dictionary from decrypted data
-        
-        
         NSError *error = nil;
         // If we don't have the dictionary yet from above
         if (!sebPreferencesDict) sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:sebData error:&error];
@@ -512,6 +520,9 @@
     NSData *encryptedSebData = [sebXML dataUsingEncoding:NSUTF8StringEncoding];
     //NSData *encryptedSebData = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];
     
+    // gzip the serialized XML data
+    encryptedSebData = [encryptedSebData gzipDeflate];
+
     NSString *encryptingPassword = nil;
     
     // Check for special case: .seb configures client, empty password
@@ -560,8 +571,8 @@
         encryptedSebData = [self encryptData:encryptedSebData usingIdentity:identityRef];
     }
     
-    // Zip the encrypted data
-    encryptedSebData = [encryptedSebData zlibDeflate];
+    // gzip the encrypted data
+    encryptedSebData = [encryptedSebData gzipDeflate];
     
     return encryptedSebData;
 }
