@@ -520,9 +520,6 @@
     NSData *encryptedSebData = [sebXML dataUsingEncoding:NSUTF8StringEncoding];
     //NSData *encryptedSebData = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];
     
-    // gzip the serialized XML data
-    encryptedSebData = [encryptedSebData gzipDeflate];
-
     NSString *encryptingPassword = nil;
     
     // Check for special case: .seb configures client, empty password
@@ -549,6 +546,9 @@
             }
         }
     }
+    // gzip the serialized XML data
+    encryptedSebData = [encryptedSebData gzipDeflate];
+    
     // Check if password for encryption is entered
     if (settingsPassword) {
         encryptingPassword = settingsPassword;
