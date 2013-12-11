@@ -550,6 +550,15 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
 #ifdef DEBUG
     NSLog(@"decidePolicyForNavigationAction request URL: %@", [[request URL] absoluteString]);
 #endif
+    
+    // Check if this is a seb:// link
+    if ([request.URL.scheme isEqualToString:@"seb"]) {
+        // If the scheme is seb:// we (conditionally) download and open the linked .seb file
+        [self downloadAndOpenSebConfigFromURL:request.URL];
+        [listener ignore];
+        return;
+    }
+    
     // Check if quit URL has been clicked
     if ([[[request URL] absoluteString] isEqualTo:[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"]]) {
         [[NSNotificationCenter defaultCenter]
@@ -606,29 +615,29 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
             return; //and return from here
         }
     }
-    // The link should be opened in a new browser window
-    // Get navigation type
-    int navigationType;
-    navigationType = [[actionInformation objectForKey:WebActionNavigationTypeKey] intValue];
-    
-    // Get action element
-    NSDictionary*   element;
-    NSURL*          linkURL;
-    DOMNode*       linkDOMNode;
-    element = [actionInformation objectForKey:WebActionElementKey];
-    linkURL = [actionInformation objectForKey:WebActionOriginalURLKey];;
-    linkDOMNode = [element objectForKey:WebElementDOMNodeKey];
-    
-    // Get JavaScript window object
-    if (frame) {
-        WebScriptObject* jsWindowObject = [frame windowObject];
-        NSString* jsWindowObjectString = [jsWindowObject stringRepresentation];
-        DOMHTMLElement* frameElement = [frame frameElement];
-#ifdef DEBUG
-        NSLog(@"Frame windowObject: %@", jsWindowObjectString);
-        NSLog(@"Frame frameElement: %@", [frameElement stringRepresentation]);
-#endif
-    }
+//    // The link should be opened in a new browser window
+//    // Get navigation type
+//    int navigationType;
+//    navigationType = [[actionInformation objectForKey:WebActionNavigationTypeKey] intValue];
+//    
+//    // Get action element
+//    NSDictionary*   element;
+//    NSURL*          linkURL;
+//    //DOMNode*       linkDOMNode;
+//    element = [actionInformation objectForKey:WebActionElementKey];
+//    linkURL = [actionInformation objectForKey:WebActionOriginalURLKey];;
+//    linkDOMNode = [element objectForKey:WebElementDOMNodeKey];
+//    
+//    // Get JavaScript window object
+//    if (frame) {
+//        WebScriptObject* jsWindowObject = [frame windowObject];
+//        NSString* jsWindowObjectString = [jsWindowObject stringRepresentation];
+//        DOMHTMLElement* frameElement = [frame frameElement];
+//#ifdef DEBUG
+//        NSLog(@"Frame windowObject: %@", jsWindowObjectString);
+//        NSLog(@"Frame frameElement: %@", [frameElement stringRepresentation]);
+//#endif
+//    }
 
     [listener use];
 }
@@ -772,34 +781,13 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 #endif*/
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (([type isEqualToString:@"application/seb"]) | ([[[request URL] pathExtension] isEqualToString:@"seb"])) {
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
-            // Check if SEB is in exam mode = private UserDefauls are switched on
-            if (NSUserDefaults.userDefaultsPrivate) {
-                // If yes, we don't download the .seb file
-                NSRunAlertPanel(NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil),
-                                NSLocalizedString(@"SEB is already running in exam mode at the moment and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil),
-                                NSLocalizedString(@"OK", nil), nil, nil);
-            } else {
-                // SEB isn't in exam mode: reconfiguring it is allowed
-                NSError *error = nil;
-                // Download the .seb file directly into memory (not onto disc like other files)
-                NSData *sebFileData = [NSData dataWithContentsOfURL:request.URL options:NSDataReadingUncached error:&error];
-                if (error) {
-                    [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
-                } else {
-                    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-                    if ([configFileManager decryptSEBSettings:sebFileData]) {
-                        // Post a notification that it was requested to restart SEB with changed settings
-                        [[NSNotificationCenter defaultCenter]
-                         postNotificationName:@"requestRestartNotification" object:self];
-                    }
-                }
-            }
-        }
+    if (([type isEqualToString:@"application/seb"]) || ([request.URL.pathExtension isEqualToString:@"seb"])) {
+        // If MIME-Type or extension of the file indicates a .seb file, we (conditionally) download and open it
+        [self downloadAndOpenSebConfigFromURL:request.URL];
         [listener ignore];
         return;
     }
+    // Check for PDF file and according to settings either download or display it inline in the SEB browser
     if (![type isEqualToString:@"application/pdf"] || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"]) {
         if ([WebView canShowMIMEType:type]) {
             [listener use];
@@ -914,7 +902,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 }
 
 
-- (void)download:(NSURLDownload *)download didFailWithError:(NSError *)error
+- (void) download:(NSURLDownload *)download didFailWithError:(NSError *)error
 {
     // Release the download.
     
@@ -929,7 +917,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 }
 
 
-- (void)downloadDidFinish:(NSURLDownload *)download
+- (void) downloadDidFinish:(NSURLDownload *)download
 {
     // Release the download.
     
@@ -944,7 +932,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 }
 
 
--(void)download:(NSURLDownload *)download didCreateDestination:(NSString *)path
+- (void) download:(NSURLDownload *)download didCreateDestination:(NSString *)path
 {
     // path now contains the destination path
     // of the download, taking into account any
@@ -961,5 +949,53 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     [[MyGlobals sharedMyGlobals] setDownloadPath:downloadPaths];
     [[MyGlobals sharedMyGlobals] setLastDownloadPath:[downloadPaths count]-1];
 }
+
+
+
+- (void) downloadAndOpenSebConfigFromURL:(NSURL *)url
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
+        // Check if SEB is in exam mode = private UserDefauls are switched on
+        if (NSUserDefaults.userDefaultsPrivate) {
+            // If yes, we don't download the .seb file
+            NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings not allowed!", nil),
+                            NSLocalizedString(@"SEB is already running in exam mode at the moment and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil),
+                            NSLocalizedString(@"OK", nil), nil, nil);
+        } else {
+            // SEB isn't in exam mode: reconfiguring it is allowed
+            NSError *error = nil;
+            NSData *sebFileData;
+            // Download the .seb file directly into memory (not onto disc like other files)
+            if ([url.scheme isEqualToString:@"seb"]) {
+                // If it's a seb:// URL, we try to download it by http
+                NSURL *httpURL = [[NSURL alloc] initWithScheme:@"http" host:url.host path:url.path];
+                sebFileData = [NSData dataWithContentsOfURL:httpURL options:NSDataReadingUncached error:&error];
+                if (error) {
+                    // If that didn't work, we try to download it by https
+                    NSURL *httpsURL = [[NSURL alloc] initWithScheme:@"https" host:url.host path:url.path];
+                    sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
+                    // Still couldn't download the .seb file: present an error and abort
+                    if (error) {
+                        [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
+                        return;
+                    }
+                }
+            } else {
+                sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
+                if (error) {
+                    [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
+                }
+            }
+            SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+            if ([configFileManager decryptSEBSettings:sebFileData]) {
+                // Post a notification that it was requested to restart SEB with changed settings
+                [[NSNotificationCenter defaultCenter]
+                 postNotificationName:@"requestRestartNotification" object:self];
+            }
+        }
+    }
+}
+
 
 @end

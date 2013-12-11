@@ -66,10 +66,18 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>CFBundleURLIconFile</key>
+			<string>sebConfigIcon</string>
+			<key>CFBundleURLName</key>
+			<string>org.safeexambrowser.seb</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>seb</string>
+			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1282</string>
+	<string>1291</string>
 	<key>ClickToFlashOptOut</key>
 	<true/>
 	<key>LSApplicationCategoryType</key>

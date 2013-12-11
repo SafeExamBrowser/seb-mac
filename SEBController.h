@@ -53,7 +53,7 @@
 	BOOL firstStart;
     BOOL quittingMyself;
 
-	NSWindow *browserWindow;
+	BrowserWindow *browserWindow;
 	IBOutlet AboutWindow *aboutWindow;
 	IBOutlet NSView *passwordView;
 	//IBOutlet NSSecureTextField *enterPassword;
@@ -81,14 +81,14 @@
 - (void) SEBgotActive: (id)sender;
 - (void) startKioskMode;
 - (void) openMainBrowserWindow;
-- (void)openResourceWithURL:(NSString *)URL andTitle:(NSString *)title;
+- (void) openResourceWithURL:(NSString *)URL andTitle:(NSString *)title;
 
 - (NSInteger) showEnterPasswordDialog:(NSString *)text modalForWindow:(NSWindow *)window windowTitle:(NSString *)title;
 - (IBAction) okEnterPassword: (id)sender;
 - (IBAction) cancelEnterPassword: (id)sender;
 
 - (IBAction) exitSEB:(id)sender;
-- (void)requestedQuitWPwd:(id)sender;
+- (void) requestedQuitWPwd:(id)sender;
 
 - (IBAction) openPreferences:(id)sender;
 - (IBAction) showAbout: (id)sender;
@@ -98,7 +98,7 @@
 
 - (NSData *) generateSHAHash:(NSString*)inputString;
 
-- (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender;
+- (BOOL) applicationShouldOpenUntitledFile:(NSApplication *)sender;
 
 @property(readwrite) BOOL f3Pressed;
 @property(readwrite) BOOL quittingMyself;

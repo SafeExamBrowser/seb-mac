@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13B40" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1070" defaultVersion="1070" identifier="macosx"/>
         <development version="5000" identifier="xcode"/>
@@ -55,9 +55,9 @@
                     <constraints>
                         <constraint firstAttribute="width" constant="300" id="339"/>
                     </constraints>
-                    <popUpButtonCell key="cell" type="push" title="Directory" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="33">
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="33">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="34">
                             <items>
                                 <menuItem title="Directory" id="35"/>
@@ -108,7 +108,7 @@
                     <string key="toolTip">SEB can let the user choose the file to upload manually (as usual) or automatically choose the same file which was downloaded before. If the file is not found, a file requester or an error is presented depending on this setting.</string>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="94">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="95">
                             <items>
                                 <menuItem id="97"/>
@@ -163,7 +163,7 @@
             </subviews>
             <constraints>
                 <constraint firstItem="32" firstAttribute="leading" secondItem="22" secondAttribute="trailing" constant="8" symbolic="YES" id="216"/>
-                <constraint firstItem="22" firstAttribute="baseline" secondItem="32" secondAttribute="baseline" id="223"/>
+                <constraint firstItem="22" firstAttribute="baseline" secondItem="32" secondAttribute="baseline" constant="1" id="223"/>
                 <constraint firstItem="32" firstAttribute="top" secondItem="13" secondAttribute="bottom" constant="8" id="238"/>
                 <constraint firstItem="93" firstAttribute="top" secondItem="99" secondAttribute="bottom" constant="4" id="244"/>
                 <constraint firstItem="76" firstAttribute="top" secondItem="93" secondAttribute="bottom" constant="20" id="284"/>

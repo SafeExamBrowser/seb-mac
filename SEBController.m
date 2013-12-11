@@ -93,7 +93,15 @@ bool insideMatrix();
     IsEmptyCollectionValueTransformer *isEmptyCollectionValueTransformer = [[IsEmptyCollectionValueTransformer alloc] init];
     [NSValueTransformer setValueTransformer:isEmptyCollectionValueTransformer
                                     forName:@"isEmptyCollectionValueTransformer"];
-    
+
+//    [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
+}
+
+
+- (void)applicationWillFinishLaunching:(NSNotification *)notification
+{
+    // Install the Get URL Handler when a SEB URL seb://... is called
+//    [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
 }
 
 
@@ -105,14 +113,14 @@ bool insideMatrix();
 
     // Check if SEB is in exam mode = private UserDefauls are switched on
     if (NSUserDefaults.userDefaultsPrivate) {
-        NSRunAlertPanel(NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil),
+        NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings not allowed!", nil),
                         NSLocalizedString(@"SEB is already running in exam mode at the moment and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil),
                         NSLocalizedString(@"OK", nil), nil, nil);
         return YES;
     }
 
 #ifdef DEBUG
-    NSLog(@"Loading .seb settings file with URL %@",sebFileURL);
+    NSLog(@"Open file event: Loading .seb settings file with URL %@",sebFileURL);
 #endif
     NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL];
     
@@ -126,6 +134,22 @@ bool insideMatrix();
 }
 
 
+- (void)handleGetURLEvent:(NSAppleEventDescriptor*)event withReplyEvent:(NSAppleEventDescriptor*)replyEvent
+{
+    NSString *urlString = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
+    NSURL *url = [NSURL URLWithString:urlString];
+    if (url) {
+        if ([url.pathExtension isEqualToString:@"seb"]) {
+            // If we have a valid URL with the path for a .seb file, we download and open it (conditionally)
+#ifdef DEBUG
+            NSLog(@"Get URL event: Loading .seb settings file with URL %@", urlString);
+#endif
+            [browserWindow downloadAndOpenSebConfigFromURL:url];
+        }
+    }
+}
+
+
 #pragma mark Initialization
 
 - (id)init {
@@ -133,6 +157,11 @@ bool insideMatrix();
     if (self) {
         // Add your subclass-specific initialization here.
         // If an error occurs here, send a [self release] message and return nil.
+
+        [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
+#ifdef DEBUG
+        NSLog(@"Installed get URL event handler");
+#endif
 
         // Add an observer for the request to unconditionally quit SEB
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -766,7 +795,7 @@ bool insideMatrix(){
     // because otherwise menu bar and dock are deducted from screen size)
     MyDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
     self.webView = myDocument.mainWindowController.webView;
-    browserWindow = myDocument.mainWindowController.window;
+    browserWindow = (BrowserWindow *)myDocument.mainWindowController.window;
     [[MyGlobals sharedMyGlobals] setMainBrowserWindow:browserWindow]; //save a reference to this main browser window
 #ifdef DEBUG
     NSLog(@"MainBrowserWindow (1) sharingType: %lx",(long)[browserWindow sharingType]);

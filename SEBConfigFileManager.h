@@ -31,9 +31,9 @@
 
 // Basic helper methods
 
--(NSString *) getPrefixStringFromData:(NSData **)data;
+- (NSString *) getPrefixStringFromData:(NSData **)data;
 
--(NSData *) getPrefixDataFromData:(NSData **)data withLength:(NSUInteger)prefixLength;
+- (NSData *) getPrefixDataFromData:(NSData **)data withLength:(NSUInteger)prefixLength;
 
 
 @end

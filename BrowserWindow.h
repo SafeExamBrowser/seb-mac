@@ -56,9 +56,10 @@
 - (void) startProgressIndicatorAnimation;
 - (void) stopProgressIndicatorAnimation;
 
-- (void)startDownloadingURL:(NSURL *)url;
+- (void) startDownloadingURL:(NSURL *)url;
 
-- (NSView*)findFlashViewInView:(NSView*)view;
+- (NSView*) findFlashViewInView:(NSView*)view;
 
+- (void) downloadAndOpenSebConfigFromURL:(NSURL *)url;
 
 @end
