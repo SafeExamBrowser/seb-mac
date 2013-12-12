@@ -15,8 +15,8 @@
 @property (nonatomic, strong) SEBController *sebController;
 
 
-// Decrypt, parse and save SEB settings to UserDefaults
--(BOOL) decryptSEBSettings:(NSData *)sebData;
+// Decrypt, parse and store SEB settings to UserDefaults
+-(BOOL) storeDecryptedSEBSettings:(NSData *)sebData;
 
 // Read SEB settings from UserDefaults and encrypt them using provided security credentials
 - (NSData *) encryptSEBSettingsWithPassword:(NSString *)settingsPassword

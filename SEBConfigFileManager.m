@@ -30,8 +30,65 @@
 
 #pragma mark Methods for Decrypting, Parsing and Storing SEB Settings to UserDefaults
 
-// Decrypt, parse and save SEB settings to UserDefaults
--(BOOL) decryptSEBSettings:(NSData *)sebData
+// Decrypt, parse and store SEB settings to UserDefaults
+-(BOOL) storeDecryptedSEBSettings:(NSData *)sebData
+{
+    NSDictionary *sebPreferencesDict;
+    
+    sebPreferencesDict = [self decryptSEBSettings:sebData];
+    if (!sebPreferencesDict) return NO; //Decryption didn't work, we abort
+    
+    if ([[sebPreferencesDict valueForKey:@"sebConfigPurpose"] intValue] == sebConfigPurposeStartingExam) {
+
+        /// If these SEB settings are ment to start an exam
+
+        // Release preferences window so bindings get synchronized properly with the new loaded values
+        [self.sebController.preferencesController releasePreferencesWindow];
+        
+        // Switch to private UserDefaults (saved non-persistantly in memory instead in ~/Library/Preferences)
+        NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults]; //the mutable dictionary has to be created here, otherwise the preferences values will not be saved!
+        [NSUserDefaults setUserDefaultsPrivate:YES];
+        
+        // Write values from .seb config file to the local preferences (shared UserDefaults)
+        [self storeIntoUserDefaults:sebPreferencesDict];
+        
+#ifdef DEBUG
+        NSLog(@"Private preferences set: %@", privatePreferences);
+#endif
+        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
+        [self.sebController.preferencesController initPreferencesWindow];
+        
+        return YES; //reading preferences was successful
+
+    } else {
+
+        /// If these SEB settings are ment to configure a client
+
+        //switch to system's UserDefaults
+        [NSUserDefaults setUserDefaultsPrivate:NO];
+        
+        // Write values from .seb config file to the local preferences (shared UserDefaults)
+        [self storeIntoUserDefaults:sebPreferencesDict];
+        
+        int answer = NSRunAlertPanel(NSLocalizedString(@"SEB Re-Configured",nil), NSLocalizedString(@"Local settings of SEB have been reconfigured. Do you want to start working with SEB now or quit?",nil),
+                                     NSLocalizedString(@"Continue",nil), NSLocalizedString(@"Quit",nil), nil);
+        switch(answer)
+        {
+            case NSAlertDefaultReturn:
+                break; //Cancel: don't quit
+            default:
+                self.sebController.quittingMyself = TRUE; //SEB is terminating itself
+                [NSApp terminate: nil]; //quit SEB
+        }
+        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
+        
+        return YES; //reading preferences was successful
+    }
+}
+
+
+// Decrypt SEB settings according to a dictionary with the settings' key/values
+-(NSDictionary *) decryptSEBSettings:(NSData *)sebData
 {
     // Ungzip the .seb (according to specification >= v14) source data
     NSData *unzippedSebData = [sebData gzipInflate];
@@ -59,8 +116,8 @@
 
         // Decrypt with cryptographic identity/private key
         sebData = [self decryptDataWithPublicKeyHashPrefix:sebData error:&error];
-        if (error) {
-            return NO;
+        if (!sebData || error) {
+            return nil;
         }
 
         // Get 4-char prefix again
@@ -74,9 +131,10 @@
     // Prefix = pswd ("Password") ?
     
     if ([prefixString isEqualToString:@"pswd"]) {
-
+        
         // Decrypt with password
-        // if the user enters the right one
+        // if user enters the right one
+
         NSData *sebDataDecrypted = nil;
         // Allow up to 5 attempts for entering decoding password
         NSString *enterPasswordString = NSLocalizedString(@"Enter Password:",nil);
@@ -84,9 +142,9 @@
         do {
             i--;
             // Prompt for password
-            if ([self.sebController showEnterPasswordDialog:enterPasswordString modalForWindow:nil windowTitle:NSLocalizedString(@"Loading New SEB Settings",nil)] == SEBEnterPasswordCancel) return NO;
+            if ([self.sebController showEnterPasswordDialog:enterPasswordString modalForWindow:nil windowTitle:NSLocalizedString(@"Loading New SEB Settings",nil)] == SEBEnterPasswordCancel) return nil;
             NSString *password = [self.sebController.enterPassword stringValue];
-            if (!password) return NO;
+            if (!password) return nil;
             error = nil;
             sebDataDecrypted = [RNDecryptor decryptData:sebData withPassword:password error:&error];
             enterPasswordString = NSLocalizedString(@"Try again to enter the correct password:",nil);
@@ -97,7 +155,7 @@
             NSRunAlertPanel(NSLocalizedString(@"Cannot Decrypt SEB Settings", nil),
                             NSLocalizedString(@"You either entered the wrong password or these settings were saved with an incompatible SEB version.", nil),
                             NSLocalizedString(@"OK", nil), nil, nil);
-            return NO;
+            return nil;
         }
         sebData = sebDataDecrypted;
     } else {
@@ -108,7 +166,8 @@
             
             // Decrypt with password and configure local client settings
             // and quit afterwards, returning if reading the .seb file was successfull
-            return [self decryptDataWithPasswordAndConfigureClient:sebData];
+
+            return [self decryptDataWithPasswordForConfiguringClient:sebData];
             
         } else {
 
@@ -127,15 +186,16 @@
                     NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings failed!", nil),
                                     NSLocalizedString(@"This settings file cannot be used. It may have been created by an newer, incompatible version of SEB or it is corrupted.", nil),
                                     NSLocalizedString(@"OK", nil), nil, nil);
-                    return NO;
+                    return nil;
                 }
             }
         }
     }
     
     //if decrypting wasn't successfull then stop here
-    if (!sebData) return NO;
+    if (!sebData) return nil;
     
+    // Decryption worked
     // If we don't deal with an unencrypted seb file
     // ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
     if (![prefixString isEqualToString:@"<?xm"]) sebData = [sebData gzipInflate];
@@ -146,34 +206,21 @@
     NSDictionary *sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:sebData error:&error];
     if (error) {
         [NSApp presentError:error];
-        return NO; //we abort reading the new settings here
+        return nil; //we abort reading the new settings here
     }
 
     // Check if a some value is from a wrong class (another than the value from default settings)
     // and quit reading .seb file if a wrong value was found
-    if (![self checkClassOfSettings:sebPreferencesDict]) return NO;
+    if (![self checkClassOfSettings:sebPreferencesDict]) return nil;
     
-    // Release preferences window so bindings get synchronized properly with the new loaded values
-    [self.sebController.preferencesController releasePreferencesWindow];
+    // We need to set the right value for the key sebConfigPurpose to know later where to store the new settings
+    [sebPreferencesDict setValue:[NSNumber numberWithInt:sebConfigPurposeStartingExam] forKey:@"sebConfigPurpose"];
     
-    // Switch to private UserDefaults (saved non-persistantly in memory instead in ~/Library/Preferences)
-    NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults]; //the mutable dictionary has to be created here, otherwise the preferences values will not be saved!
-    [NSUserDefaults setUserDefaultsPrivate:YES];
-    
-    // Write values from .seb config file to the local preferences (shared UserDefaults)
-    [self saveIntoUserDefaults:sebPreferencesDict];
-
-#ifdef DEBUG
-    NSLog(@"Private preferences set: %@", privatePreferences);
-#endif
-    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
-    [self.sebController.preferencesController initPreferencesWindow];
-    
-    return YES; //reading preferences was successful
+    return sebPreferencesDict;
 }
 
 
--(BOOL) decryptDataWithPasswordAndConfigureClient:(NSData *)sebData
+-(NSDictionary *) decryptDataWithPasswordForConfiguringClient:(NSData *)sebData
 {
     // Configure local client settings
     
@@ -196,7 +243,7 @@
             sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:decryptedSebData error:&error];
             if (error) {
                 [NSApp presentError:error];
-                return NO; //we abort reading the new settings here
+                return nil; //we abort reading the new settings here
             }
             NSString *sebFileHashedAdminPassword = [sebPreferencesDict objectForKey:@"hashedAdminPassword"];
             if (![hashedAdminPassword isEqualToString:sebFileHashedAdminPassword]) {
@@ -225,10 +272,10 @@
                     NSRunAlertPanel(NSLocalizedString(@"Cannot Decrypt SEB Settings", nil),
                                     NSLocalizedString(@"You either entered the wrong password or these settings were saved with an incompatible SEB version.", nil),
                                     NSLocalizedString(@"OK", nil), nil, nil);
-                    return NO;
+                    return nil;
                 }
             }
-            
+
         } else {
             //if decryption with admin password didn't work, ask for the password the .seb file was encrypted with
             //empty password means no admin pw on clients and should not be hashed
@@ -252,52 +299,35 @@
                 NSRunAlertPanel(NSLocalizedString(@"Cannot Decrypt SEB Settings", nil),
                                 NSLocalizedString(@"You either entered the wrong password or these settings were saved with an incompatible SEB version.", nil),
                                 NSLocalizedString(@"OK", nil), nil, nil);
-                return NO;
+                return nil;
             }
         }
     }
     
     sebData = decryptedSebData;
-    if (!error) {
-        //
-        // Decryption worked
-        //
+    if (error) return nil;
 
-        // Ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
-        sebData = [sebData gzipInflate];
-
-        // Get preferences dictionary from decrypted data
-        NSError *error = nil;
-        // If we don't have the dictionary yet from above
-        if (!sebPreferencesDict) sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:sebData error:&error];
-        if (error) {
-            [NSApp presentError:error];
-            return NO; //we abort reading the new settings here
-        }
-        
-        // Check if a some value is from a wrong class (another than the value from default settings)
-        // and quit reading .seb file if a wrong value was found
-        if (![self checkClassOfSettings:sebPreferencesDict]) return NO;
-        
-        //switch to system's UserDefaults
-        [NSUserDefaults setUserDefaultsPrivate:NO];
-        
-        // Write values from .seb config file to the local preferences (shared UserDefaults)
-        [self saveIntoUserDefaults:sebPreferencesDict];
-        
-        int answer = NSRunAlertPanel(NSLocalizedString(@"SEB Re-Configured",nil), NSLocalizedString(@"Local settings of SEB have been reconfigured. Do you want to start working with SEB now or quit?",nil),
-                                     NSLocalizedString(@"Continue",nil), NSLocalizedString(@"Quit",nil), nil);
-        switch(answer)
-        {
-            case NSAlertDefaultReturn:
-                break; //Cancel: don't quit
-            default:
-                self.sebController.quittingMyself = TRUE; //SEB is terminating itself
-                [NSApp terminate: nil]; //quit SEB
-        }
-        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
+    // Decryption worked
+    // Ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
+    sebData = [sebData gzipInflate];
+    
+    // Get preferences dictionary from decrypted data
+    error = nil;
+    // If we don't have the dictionary yet from above
+    if (!sebPreferencesDict) sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:sebData error:&error];
+    if (error) {
+        [NSApp presentError:error];
+        return nil; //we abort reading the new settings here
     }
-    return YES; //reading preferences was successful
+    
+    // Check if a some value is from a wrong class (another than the value from default settings)
+    // and quit reading .seb file if a wrong value was found
+    if (![self checkClassOfSettings:sebPreferencesDict]) return nil;
+    
+    // We need to set the right value for the key sebConfigPurpose to know later where to store the new settings
+    [sebPreferencesDict setValue:[NSNumber numberWithInt:sebConfigPurposeConfiguringClient] forKey:@"sebConfigPurpose"];
+    
+    return sebPreferencesDict;
 }
 
 
@@ -331,7 +361,7 @@
 
 
 // Save imported settings into private user defaults (either in memory or local shared UserDefaults)
--(void) saveIntoUserDefaults:(NSDictionary *)sebPreferencesDict
+-(void) storeIntoUserDefaults:(NSDictionary *)sebPreferencesDict
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     // get default settings
@@ -402,7 +432,7 @@
         NSRunAlertPanel(NSLocalizedString(@"Error Decrypting Settings", nil),
                         NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil),
                         NSLocalizedString(@"OK", nil), nil, nil);
-        return NO;
+        return nil;
     }
 #ifdef DEBUG
     NSLog(@"Private key retrieved with hash: %@", privateKeyRef);
@@ -507,8 +537,8 @@
                                                                 options:0
                                                                   error:&error];
     if (error || !dataRep) {
-        // Serialization of the date went wrong
-        // Looks like there is something like a NULL value
+        // Serialization of the XML plist went wrong
+        // Looks like there is a key with a NULL value
         
     }
     

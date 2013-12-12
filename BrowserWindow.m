@@ -988,7 +988,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
                 }
             }
             SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-            if ([configFileManager decryptSEBSettings:sebFileData]) {
+            if ([configFileManager storeDecryptedSEBSettings:sebFileData]) {
                 // Post a notification that it was requested to restart SEB with changed settings
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:@"requestRestartNotification" object:self];

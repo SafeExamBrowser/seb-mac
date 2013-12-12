@@ -126,7 +126,7 @@ bool insideMatrix();
     
     SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
 
-    if ([configFileManager decryptSEBSettings:sebData]) {
+    if ([configFileManager storeDecryptedSEBSettings:sebData]) {
         [self requestedRestart:nil];
     }
     
