@@ -147,7 +147,7 @@
             if (!password) return nil;
             error = nil;
             sebDataDecrypted = [RNDecryptor decryptData:sebData withPassword:password error:&error];
-            enterPasswordString = NSLocalizedString(@"Try again to enter the correct password:",nil);
+            enterPasswordString = NSLocalizedString(@"Wrong Password! Try again to enter the correct password:",nil);
             // in case we get an error we allow the user to try it again
         } while (error && i>0);
         if (error) {
@@ -226,13 +226,14 @@
     
     //get admin password hash
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    // First try to decrypt with the current admin password
     NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
     if (!hashedAdminPassword) hashedAdminPassword = @"";
     NSDictionary *sebPreferencesDict = nil;
     NSError *error = nil;
     NSData *decryptedSebData = [RNDecryptor decryptData:sebData withPassword:hashedAdminPassword error:&error];
     if (error) {
-        //if decryption with admin password didn't work, try it with an empty password
+        // If decryption with admin password didn't work, try it with an empty password
         error = nil;
         decryptedSebData = [RNDecryptor decryptData:sebData withPassword:@"" error:&error];
         if (!error) {
@@ -265,7 +266,7 @@
                     hashedPassword = [keychainManager generateSHAHashString:password];
                     passwordsMatch = [hashedAdminPassword isEqualToString:hashedPassword];
                     // in case we get an error we allow the user to try it again
-                    enterPasswordString = NSLocalizedString(@"Try to enter the correct current SEB administrator password again:",nil);
+                    enterPasswordString = NSLocalizedString(@"Wrong Password! Try again to enter the correct current SEB administrator password:",nil);
                 } while ((!password || !passwordsMatch) && i>0);
                 if (!passwordsMatch) {
                     //wrong password entered in 5th try: stop reading .seb file
@@ -277,9 +278,7 @@
             }
 
         } else {
-            //if decryption with admin password didn't work, ask for the password the .seb file was encrypted with
-            //empty password means no admin pw on clients and should not be hashed
-            //NSData *sebDataDecrypted = nil;
+            // If decryption with admin password didn't work, ask for the password the .seb file was encrypted with
             // Allow up to 5 attempts for entering decoding password
             int i = 5;
             NSString *enterPasswordString = NSLocalizedString(@"Enter password used to encrypt .seb file:",nil);
@@ -292,7 +291,7 @@
                 error = nil;
                 decryptedSebData = [RNDecryptor decryptData:sebData withPassword:password error:&error];
                 // in case we get an error we allow the user to try it again
-                enterPasswordString = NSLocalizedString(@"Try to enter the correct password used to encrypt .seb file again:",nil);
+                enterPasswordString = NSLocalizedString(@"Wrong Password! Try again to enter the correct password used to encrypt .seb file:",nil);
             } while (error && i>0);
             if (error) {
                 //wrong password entered in 5th try: stop reading .seb file
