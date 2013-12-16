@@ -915,7 +915,7 @@ bool insideMatrix(){
             NSString *password = [self.enterPassword stringValue];
 			
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-            if ([hashedQuitPassword isEqualToString:[keychainManager generateSHAHashString:password]]) {
+            if ([hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
 				// if the correct quit password was entered
 				quittingMyself = TRUE; //SEB is terminating itself
                 [NSApp terminate: nil]; //quit SEB
@@ -948,7 +948,7 @@ bool insideMatrix(){
                 if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter administrator password:",nil)  modalForWindow:browserWindow windowTitle:nil] == SEBEnterPasswordCancel) return;
                 NSString *password = [self.enterPassword stringValue];
                 SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-                if (![hashedAdminPW isEqualToString:[keychainManager generateSHAHashString:password]]) {
+                if ([hashedAdminPW caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] != NSOrderedSame) {
                     //if hash of entered password is not equal to the one in preferences
                     return;
                 }
