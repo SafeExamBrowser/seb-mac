@@ -684,11 +684,11 @@
     // gzip the serialized XML data
     encryptedSebData = [encryptedSebData gzipDeflate];
     
-    // Check if password for encryption is entered
+    // Check if password for encryption is provided and use it then
     if (settingsPassword) {
         encryptingPassword = settingsPassword;
     }
-    // So if password is empty (special case) or entered
+    // So if password is empty (special case) or provided
     if (encryptingPassword) {
         // encrypt with password
         encryptedSebData = [self encryptData:encryptedSebData usingPassword:encryptingPassword forPurpose:configPurpose];
