@@ -282,6 +282,7 @@
     // get admin password hash
     NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
     if (!hashedAdminPassword) hashedAdminPassword = @"";
+    hashedAdminPassword = [hashedAdminPassword uppercaseString];
     NSDictionary *sebPreferencesDict = nil;
     NSError *error = nil;
     NSData *decryptedSebData = [RNDecryptor decryptData:sebData withPassword:hashedAdminPassword error:&error];
@@ -318,7 +319,7 @@
                         if ([self.sebController showEnterPasswordDialog:enterPasswordString modalForWindow:nil windowTitle:NSLocalizedString(@"Reconfiguring Local SEB Settings",nil)] == SEBEnterPasswordCancel) return NO;
                         password = [self.sebController.enterPassword stringValue];
                         hashedPassword = [keychainManager generateSHAHashString:password];
-                        passwordsMatch = [hashedAdminPassword caseInsensitiveCompare:hashedPassword] == NSOrderedSame;
+                        passwordsMatch = [hashedPassword caseInsensitiveCompare:sebFileHashedAdminPassword] == NSOrderedSame;
                         // in case we get an error we allow the user to try it again
                         enterPasswordString = NSLocalizedString(@"Wrong Password! Try again to enter the correct current SEB administrator password:",nil);
                     } while ((!password || !passwordsMatch) && i>0);
@@ -341,9 +342,11 @@
                 // Prompt for password
                 if ([self.sebController showEnterPasswordDialog:enterPasswordString modalForWindow:nil windowTitle:NSLocalizedString(@"Reconfiguring Local SEB Settings",nil)] == SEBEnterPasswordCancel) return NO;
                 NSString *password = [self.sebController.enterPassword stringValue];
-                if (!password) return NO;
+                if (!password) password = @"";
+                NSString *hashedPassword = [keychainManager generateSHAHashString:password];
+                hashedPassword = [hashedPassword uppercaseString];
                 error = nil;
-                decryptedSebData = [RNDecryptor decryptData:sebData withPassword:password error:&error];
+                decryptedSebData = [RNDecryptor decryptData:sebData withPassword:hashedPassword error:&error];
                 // in case we get an error we allow the user to try it again
                 enterPasswordString = NSLocalizedString(@"Wrong Password! Try again to enter the correct password used to encrypt .seb file:",nil);
             } while (error && i>0);
@@ -574,6 +577,7 @@
 -(NSDictionary *) getPreferencesDictionaryFromConfigData:(NSData *)sebData error:(NSError **)error
 {
     NSError *plistError = nil;
+    NSString *sebPreferencesXML = [[NSString alloc] initWithData:sebData encoding:NSUTF8StringEncoding];
     NSDictionary *sebPreferencesDict = [NSPropertyListSerialization propertyListWithData:sebData
                                                                                             options:0
                                                                                              format:NULL
@@ -754,6 +758,7 @@
             //empty password means no admin pw on clients and should not be hashed
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
             password = [keychainManager generateSHAHashString:password];
+            password = [password uppercaseString];
         }
     }
     NSMutableData *encryptedSebData = [NSMutableData dataWithBytes:utfString length:4];

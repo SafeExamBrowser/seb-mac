@@ -922,7 +922,7 @@ bool insideMatrix(){
             }
         } else {
         // if no quit password is required, then confirm quitting
-            int answer = NSRunAlertPanel(NSLocalizedString(@"Quit",nil), NSLocalizedString(@"Are you sure you want to quit SEB?",nil),
+            int answer = NSRunAlertPanel(NSLocalizedString(@"Quit Safe Exam Browser",nil), NSLocalizedString(@"Are you sure you want to quit SEB?",nil),
                                          NSLocalizedString(@"Cancel",nil), NSLocalizedString(@"Quit",nil), nil);
             switch(answer)
             {
