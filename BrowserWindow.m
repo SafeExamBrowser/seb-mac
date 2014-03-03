@@ -960,7 +960,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         if (NSUserDefaults.userDefaultsPrivate) {
             // If yes, we don't download the .seb file
             NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings not allowed!", nil),
-                            NSLocalizedString(@"SEB is already running in exam mode at the moment and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil),
+                            NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil),
                             NSLocalizedString(@"OK", nil), nil, nil);
         } else {
             // SEB isn't in exam mode: reconfiguring it is allowed

@@ -114,7 +114,7 @@ bool insideMatrix();
     // Check if SEB is in exam mode = private UserDefauls are switched on
     if (NSUserDefaults.userDefaultsPrivate) {
         NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings not allowed!", nil),
-                        NSLocalizedString(@"SEB is already running in exam mode at the moment and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil),
+                        NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil),
                         NSLocalizedString(@"OK", nil), nil, nil);
         return YES;
     }
