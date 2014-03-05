@@ -54,6 +54,7 @@
 @property(copy, readwrite) NSMutableString *pasteboardString;
 @property(readwrite) NSUInteger presentationOptions;
 @property(readwrite) BOOL flashChangedPresentationOptions;
+@property(readwrite) BOOL preferencesReset;
 
 - (id)infoValueForKey:(NSString*)key;
 

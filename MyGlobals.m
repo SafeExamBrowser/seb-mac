@@ -47,7 +47,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 @synthesize pasteboardString;       //string saved from pasteboard at application start
 @synthesize presentationOptions;
 @synthesize flashChangedPresentationOptions;
-
+@synthesize preferencesReset;
 
 // Read Info.plist values from bundle
 - (id)infoValueForKey:(NSString*)key

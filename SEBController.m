@@ -158,6 +158,8 @@ bool insideMatrix();
         // Add your subclass-specific initialization here.
         // If an error occurs here, send a [self release] message and return nil.
 
+        [[MyGlobals sharedMyGlobals] setPreferencesReset:NO];
+        
         [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
 #ifdef DEBUG
         NSLog(@"Installed get URL event handler");
@@ -452,6 +454,11 @@ bool insideMatrix();
 	[[self.webView preferences] setPlugInsEnabled:NO];
 #endif
 	
+    if ([[MyGlobals sharedMyGlobals] preferencesReset] == YES) {
+        NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Local SEB settings reset", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:NSLocalizedString(@"Local preferences have either been created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.", nil)];
+        [newAlert runModal];
+    }
+        
 /*	if (firstStart) {
 		NSString *titleString = NSLocalizedString(@"Important Notice for First Time Users", nil);
 		NSString *messageString = NSLocalizedString(@"FirstTimeUserNotice", nil);

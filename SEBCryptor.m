@@ -40,6 +40,7 @@
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
 #import "Constants.h"
+#import "MyGlobals.h"
 
 @implementation SEBCryptor
 
@@ -125,20 +126,30 @@ static SEBCryptor *sharedSEBCryptor = nil;
 
 - (void)presentPreferencesCorruptedError
 {
-    NSDictionary *newDict = @{ NSLocalizedDescriptionKey :
-                                   NSLocalizedString(@"Local SEB settings are corrupted!", nil),
-                               /*NSLocalizedFailureReasonErrorKey :
-                                NSLocalizedString(@"Either an incompatible version of SEB has been used on this computer or the preferences file has been manipulated. In the first case you can quit SEB now and use the previous version to export settings as a .seb config file for reconfiguring the new version. Otherwise local settings need to be reset to the default values in order for SEB to continue running.", nil),*/
-                               //NSURLErrorKey : furl,
-                               NSRecoveryAttempterErrorKey : self,
-                               NSLocalizedRecoverySuggestionErrorKey :
-                                   NSLocalizedString(@"The preferences file has either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to export settings as a .seb file for configuring the new version.\n\nReset local settings and continue?", @""),
-                               NSLocalizedRecoveryOptionsErrorKey :
-                                   @[NSLocalizedString(@"Continue", @""), NSLocalizedString(@"Quit", @"")] };
-    
-    NSError *newError = [[NSError alloc] initWithDomain:sebErrorDomain
-                                                   code:1 userInfo:newDict];
-    [NSApp presentError:newError];
+//    NSDictionary *newDict = @{ NSLocalizedDescriptionKey :
+//                                   NSLocalizedString(@"Local SEB settings are corrupted!", nil),
+//                               /*NSLocalizedFailureReasonErrorKey :
+//                                NSLocalizedString(@"Either an incompatible version of SEB has been used on this computer or the preferences file has been manipulated. In the first case you can quit SEB now and use the previous version to export settings as a .seb config file for reconfiguring the new version. Otherwise local settings need to be reset to the default values in order for SEB to continue running.", nil),*/
+//                               //NSURLErrorKey : furl,
+//                               NSRecoveryAttempterErrorKey : self,
+//                               NSLocalizedRecoverySuggestionErrorKey :
+//                                   NSLocalizedString(@"Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.\n\nReset local settings and continue?", @""),
+//                               NSLocalizedRecoveryOptionsErrorKey :
+//                                   @[NSLocalizedString(@"Continue", @""), NSLocalizedString(@"Quit", @"")] };
+//    
+//    NSError *newError = [[NSError alloc] initWithDomain:sebErrorDomain
+//                                                   code:1 userInfo:newDict];
+
+
+    // Set the flag to indicate to user later that settings have been reset
+    [[MyGlobals sharedMyGlobals] setPreferencesReset:YES];
+#ifdef DEBUG
+    NSLog(@"Local preferences have been reset!");
+#endif
+
+    [[NSUserDefaults standardUserDefaults] resetSEBUserDefaults];
+    [self updateEncryptedUserDefaults];
+    return;
 }
 
 

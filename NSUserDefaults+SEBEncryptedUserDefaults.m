@@ -277,9 +277,9 @@ static BOOL _usePrivateUserDefaults = NO;
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSDictionary *prefsDict = [self getSEBUserDefaultsDomains];
 
-    // Remove all values for keys with prefix "org_safeexambrowser_SEB_"
+    // Remove all values for keys with prefix "org_safeexambrowser_"
     for (NSString *key in prefsDict) {
-        if ([key hasPrefix:@"org_safeexambrowser_SEB_"]) {
+        if ([key hasPrefix:@"org_safeexambrowser_"]) {
             [preferences removeObjectForKey:key];
         }
     }
@@ -551,7 +551,7 @@ static BOOL _usePrivateUserDefaults = NO;
 {
     if (_usePrivateUserDefaults) {
 #ifdef DEBUG
-        NSLog(@"%@ = [localUserDefaults objectForKey:%@]", [localUserDefaults valueForKey:key], key);
+        NSLog(@"[localUserDefaults objectForKey:%@] = %@", key, [localUserDefaults valueForKey:key]);
 #endif
         return [localUserDefaults valueForKey:key];
         //NSString *keypath = [NSString stringWithFormat:@"values.%@", key];
@@ -573,7 +573,7 @@ static BOOL _usePrivateUserDefaults = NO;
         }
         id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
 #ifdef DEBUG
-        NSLog(@"%@ (decrypted) = [self objectForKey:%@]", value, key);
+        NSLog(@"[self objectForKey:%@] = %@ (decrypted)", key, value);
 #endif
         return value;
     }
