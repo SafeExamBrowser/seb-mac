@@ -53,6 +53,7 @@
 @property(readwrite) NSInteger lastDownloadPath;
 @property(copy, readwrite) NSMutableString *pasteboardString;
 @property(readwrite) NSUInteger presentationOptions;
+@property(readwrite) BOOL transitioningToFullscreen;
 @property(readwrite) BOOL flashChangedPresentationOptions;
 @property(readwrite) BOOL preferencesReset;
 

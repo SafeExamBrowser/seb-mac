@@ -40,6 +40,8 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "PreferencesController.h"
 #import "CapView.h"
+#import "CapWindow.h"
+#import "CapWindowController.h"
 #import "AboutWindow.h"
 #import "BrowserWindow.h"
 #import "SEBEncryptedUserDefaultsController.h"

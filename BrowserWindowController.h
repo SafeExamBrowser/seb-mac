@@ -38,7 +38,10 @@
 @interface BrowserWindowController : NSWindowController {
 @private
      //IBOutlet WebView *webView;
+    NSRect frameForNonFullScreenMode;
 }
+
+@property (assign) NSRect frameForNonFullScreenMode;
 
 @property (weak) IBOutlet WebView *webView;
 

@@ -78,6 +78,9 @@
 		696EB10716CAAFF600707B0F /* ApplicationsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */; };
 		696F28E815751ED600780DA8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696F28E715751ED600780DA8 /* Security.framework */; };
 		696F28EA15751F1900780DA8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696F28E715751ED600780DA8 /* Security.framework */; };
+		697BC8DC18CFBE7300232269 /* CapWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 697BC8DA18CFBE7300232269 /* CapWindowController.h */; };
+		697BC8DD18CFBE7300232269 /* CapWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697BC8DB18CFBE7300232269 /* CapWindowController.m */; };
+		697BC8DE18CFBE7300232269 /* CapWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697BC8DB18CFBE7300232269 /* CapWindowController.m */; };
 		697D077F17F1CE2100E3B2A6 /* PreferencesResources.xib in Resources */ = {isa = PBXBuildFile; fileRef = 697D077E17F1CE2100E3B2A6 /* PreferencesResources.xib */; };
 		697D078017F1CE2100E3B2A6 /* PreferencesResources.xib in Resources */ = {isa = PBXBuildFile; fileRef = 697D077E17F1CE2100E3B2A6 /* PreferencesResources.xib */; };
 		6986652E16DAE184009C0226 /* SEBWindowSizeValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */; };
@@ -127,6 +130,9 @@
 		6992499C16C5B62000DF6B53 /* PrefsApplicationsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992499A16C5B62000DF6B53 /* PrefsApplicationsViewController.h */; };
 		6992499D16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992499B16C5B62000DF6B53 /* PrefsApplicationsViewController.m */; };
 		6992499F16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992499B16C5B62000DF6B53 /* PrefsApplicationsViewController.m */; };
+		699731C418C8D6ED0069FE35 /* CapWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 699731C218C8D6ED0069FE35 /* CapWindow.h */; };
+		699731C518C8D6ED0069FE35 /* CapWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 699731C318C8D6ED0069FE35 /* CapWindow.m */; };
+		699731C618C8D6ED0069FE35 /* CapWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 699731C318C8D6ED0069FE35 /* CapWindow.m */; };
 		699C540415EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */ = {isa = PBXBuildFile; fileRef = 699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */; };
 		699C540615EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */ = {isa = PBXBuildFile; fileRef = 699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */; };
 		699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */; };
@@ -311,6 +317,8 @@
 		6970CF9A12BFC73300559EA4 /* de */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6970CF9F12BFC82200559EA4 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6970CFA012BFC84600559EA4 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		697BC8DA18CFBE7300232269 /* CapWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapWindowController.h; sourceTree = "<group>"; };
+		697BC8DB18CFBE7300232269 /* CapWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CapWindowController.m; sourceTree = "<group>"; };
 		697D077E17F1CE2100E3B2A6 /* PreferencesResources.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesResources.xib; sourceTree = "<group>"; };
 		6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBWindowSizeValueTransformer.h; sourceTree = "<group>"; };
 		6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBWindowSizeValueTransformer.m; sourceTree = "<group>"; };
@@ -324,6 +332,8 @@
 		6992499616C5B5D300DF6B53 /* PreferencesApplications.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesApplications.xib; sourceTree = "<group>"; };
 		6992499A16C5B62000DF6B53 /* PrefsApplicationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsApplicationsViewController.h; sourceTree = "<group>"; };
 		6992499B16C5B62000DF6B53 /* PrefsApplicationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsApplicationsViewController.m; sourceTree = "<group>"; };
+		699731C218C8D6ED0069FE35 /* CapWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapWindow.h; sourceTree = "<group>"; };
+		699731C318C8D6ED0069FE35 /* CapWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CapWindow.m; sourceTree = "<group>"; };
 		699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBUIUserDefaultsController.h; sourceTree = "<group>"; };
 		699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBUIUserDefaultsController.m; sourceTree = "<group>"; };
 		69A9A22A1368784500840AE1 /* MBPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBPreferencesController.h; sourceTree = "<group>"; };
@@ -637,12 +647,16 @@
 		69428C98172E602E00C87C58 /* Additional Views+Windows */ = {
 			isa = PBXGroup;
 			children = (
-				69DD2FCF1201C416009B1005 /* CapView.h */,
-				69DD2FD01201C416009B1005 /* CapView.m */,
 				69E13AEE127C812900CB81E1 /* AboutView.h */,
 				69E13AEF127C812900CB81E1 /* AboutView.m */,
 				6969B1D1127C7AB60027FF8D /* AboutWindow.h */,
 				6969B1D2127C7AB60027FF8D /* AboutWindow.m */,
+				69DD2FCF1201C416009B1005 /* CapView.h */,
+				69DD2FD01201C416009B1005 /* CapView.m */,
+				699731C218C8D6ED0069FE35 /* CapWindow.h */,
+				699731C318C8D6ED0069FE35 /* CapWindow.m */,
+				697BC8DA18CFBE7300232269 /* CapWindowController.h */,
+				697BC8DB18CFBE7300232269 /* CapWindowController.m */,
 			);
 			name = "Additional Views+Windows";
 			sourceTree = "<group>";
@@ -757,12 +771,14 @@
 				6992499C16C5B62000DF6B53 /* PrefsApplicationsViewController.h in Headers */,
 				69F9110016CA5C720041EA38 /* PrefsNetworkViewController.h in Headers */,
 				692C143B18441478007BD719 /* RNCryptorEngine.h in Headers */,
+				697BC8DC18CFBE7300232269 /* CapWindowController.h in Headers */,
 				692C143718441478007BD719 /* RNCryptor.h in Headers */,
 				695283DD16CDB54C0055AF6F /* PrefsSecurityViewController.h in Headers */,
 				69F32DC316D23374003C9502 /* PrefsAppearanceViewController.h in Headers */,
 				69DE764717FC2A9300EE5958 /* PrefsResourcesViewController.h in Headers */,
 				692C144118441478007BD719 /* RNEncryptor.h in Headers */,
 				6986652E16DAE184009C0226 /* SEBWindowSizeValueTransformer.h in Headers */,
+				699731C418C8D6ED0069FE35 /* CapWindow.h in Headers */,
 				6921294216F91C6600AFC3B0 /* BoolValueTransformer.h in Headers */,
 				69D817E518017DDB00EB7885 /* SEBURLFilter.h in Headers */,
 				692C143A18441478007BD719 /* RNCryptor+Private.h in Headers */,
@@ -981,6 +997,7 @@
 				69903B0D14CD7624007E7DF7 /* MyGlobals.m in Sources */,
 				69903B0F14CD7624007E7DF7 /* PrefsBrowserViewController.m in Sources */,
 				69903B1014CD7624007E7DF7 /* SEBEncryptedUserDefaultsController.m in Sources */,
+				699731C618C8D6ED0069FE35 /* CapWindow.m in Sources */,
 				69903B1114CD7624007E7DF7 /* WebKit+WebKitExtensions.m in Sources */,
 				692C144018441478007BD719 /* RNDecryptor.m in Sources */,
 				69903B1214CD7624007E7DF7 /* BrowserWindowController.m in Sources */,
@@ -997,6 +1014,7 @@
 				6992499516C3B18B00DF6B53 /* PrefsSEBConfigViewController.m in Sources */,
 				6992499F16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */,
 				69F9110316CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */,
+				697BC8DE18CFBE7300232269 /* CapWindowController.m in Sources */,
 				695283E016CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */,
 				69F32DC616D23374003C9502 /* PrefsAppearanceViewController.m in Sources */,
 				6986653116DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */,
@@ -1034,6 +1052,7 @@
 				69F7B61514F411FB00FD0761 /* MyGlobals.m in Sources */,
 				69F7B61614F411FB00FD0761 /* PrefsBrowserViewController.m in Sources */,
 				69F7B61714F411FB00FD0761 /* SEBEncryptedUserDefaultsController.m in Sources */,
+				699731C518C8D6ED0069FE35 /* CapWindow.m in Sources */,
 				69F7B61814F411FB00FD0761 /* WebKit+WebKitExtensions.m in Sources */,
 				692C143F18441478007BD719 /* RNDecryptor.m in Sources */,
 				69F7B61914F411FB00FD0761 /* BrowserWindowController.m in Sources */,
@@ -1050,6 +1069,7 @@
 				6992499316C3B18B00DF6B53 /* PrefsSEBConfigViewController.m in Sources */,
 				6992499D16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */,
 				69F9110116CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */,
+				697BC8DD18CFBE7300232269 /* CapWindowController.m in Sources */,
 				695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */,
 				69F32DC416D23374003C9502 /* PrefsAppearanceViewController.m in Sources */,
 				6986652F16DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */,

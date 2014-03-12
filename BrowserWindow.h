@@ -47,11 +47,17 @@
     NSString *currentURL;
     NSString *downloadPath;
     NSView *progressIndicatorHolder;
+    
+    BOOL constrainingToScreenSuspended;
 }
 
 @property (weak) IBOutlet WebView *webView;
 
+@property BOOL constrainingToScreenSuspended;
+
 - (void) setCalculatedFrame;
+
+- (BOOL) isFullScreen;
 
 - (void) startProgressIndicatorAnimation;
 - (void) stopProgressIndicatorAnimation;

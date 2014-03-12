@@ -44,6 +44,7 @@
 @implementation BrowserWindow
 
 @synthesize webView;
+@synthesize constrainingToScreenSuspended;
 
 
 // This window has its usual -constrainFrameRect:toScreen: behavior temporarily suppressed.
@@ -63,6 +64,11 @@
 }
 
 
+//- (NSWindowCollectionBehavior)collectionBehavior {
+//    return NSWindowCollectionBehaviorFullScreenAuxiliary | NSWindowCollectionBehaviorCanJoinAllSpaces;
+//}
+
+
 // Closing of SEB Browser Window //
 - (BOOL)windowShouldClose:(id)sender
 {
@@ -73,6 +79,16 @@
         
         return NO; //but don't close the window (that will happen anyways in case quitting is confirmed)
     } else return YES;
+}
+
+
+// Return if window is in full screen mode
+- (BOOL) isFullScreen
+{
+    NSUInteger windowStyleMask = [self styleMask];
+    BOOL isFullScreen = (windowStyleMask & NSFullScreenWindowMask) == NSFullScreenWindowMask;
+//    return ([self styleMask] & NSFullScreenWindowMask);
+    return isFullScreen;
 }
 
 
@@ -322,6 +338,10 @@
     self.webView = nil;
 }
 
+- (NSWindowCollectionBehavior)collectionBehavior {
+    return NSWindowCollectionBehaviorFullScreenAuxiliary | NSWindowCollectionBehaviorCanJoinAllSpaces;
+//    return NSWindowCollectionBehaviorFullScreenPrimary;
+}
 
 
 // Delegate method for disabling right-click context menu

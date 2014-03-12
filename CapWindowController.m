@@ -1,47 +1,18 @@
 //
-//  BrowserWindowController.m
+//  CapWindowController.m
 //  SafeExamBrowser
 //
-//  Created by Daniel Schneider on 17.01.12.
-//  Copyright (c) 2010-2013 Daniel R. Schneider, ETH Zurich, 
-//  Educational Development and Technology (LET), 
-//  based on the original idea of Safe Exam Browser 
-//  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, 
-//  Dirk Bauer, Karsten Burger, Marco Lehre, 
-//  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
+//  Created by Daniel R. Schneider on 11.03.14.
 //
-//  ``The contents of this file are subject to the Mozilla Public License
-//  Version 1.1 (the "License"); you may not use this file except in
-//  compliance with the License. You may obtain a copy of the License at
-//  http://www.mozilla.org/MPL/
-//  
-//  Software distributed under the License is distributed on an "AS IS"
-//  basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
-//  License for the specific language governing rights and limitations
-//  under the License.
-//  
-//  The Original Code is Safe Exam Browser for Mac OS X.
-//  
-//  The Initial Developer of the Original Code is Daniel R. Schneider.
-//  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2013 Daniel R. Schneider, ETH Zurich, Educational Development
-//  and Technology (LET), based on the original idea of Safe Exam Browser 
-//  by Stefan Schneider, University of Giessen. All Rights Reserved.
-//  
-//  Contributor(s): ______________________________________.
 //
 
-#import "BrowserWindowController.h"
-#import "MyGlobals.h"
-#import <WebKit/WebKit.h>
-#import "BrowserWindow.h"
+#import "CapWindowController.h"
+#import "CapWindow.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 
-@implementation BrowserWindowController
+@implementation CapWindowController
 
-@synthesize webView;
 @synthesize frameForNonFullScreenMode;
 
 
@@ -50,9 +21,7 @@
     self = [super initWithWindow:window];
     if (self) {
         // Initialization code here.
-        [self setShouldCascadeWindows:NO];
     }
-    
     return self;
 }
 
@@ -61,71 +30,25 @@
     [super windowDidLoad];
     
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
-    BrowserWindow *browserWindow = (BrowserWindow *)self.window;
-    [browserWindow setCalculatedFrame];
-    //[browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
-    [browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenAuxiliary];
 }
 
 
-/*- (id)webView
+// -------------------------------------------------------------------------------
+//	awakeFromNib
+// -------------------------------------------------------------------------------
+- (void)awakeFromNib
 {
-    return webView;
+    // To specify we want our given window to be the full screen primary one, we can
+    // use the following:
+    [self.window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
+    //
+    // But since we have already set this in our xib file for our NSWindow object
+    //  (Full Screen -> Primary Window) this line of code it not needed.
+    
+	// listen for these notifications so we can update our image based on the full-screen state
+    
+    [self.window setSharingType:NSWindowSharingNone];
 }
-*/
-
-- (BOOL)shouldCloseDocument
-{
-    return YES;
-}
-
-
-// Overriding this method without calling super in OS X 10.7 Lion
-// prevents the windows' position and size to be restored on restarting the app
-- (void)restoreStateWithCoder:(NSCoder *)coder
-{
-#ifdef DEBUG
-    NSLog(@"BrowserWindowController %@: Prevented windows' position and size to be restored!", self);
-#endif
-    return;
-}
-
-
-- (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName
-{
-    // Check data source of web view
-    if (![[[self webView] mainFrame] dataSource]) {
-        NSString* appTitleString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
-        appTitleString = [NSString stringWithFormat:@"Safe Exam Browser %@", appTitleString];
-#ifdef DEBUG
-        NSLog(@"BrowserWindow %@: Title of current Page: %@", self.window, appTitleString);
-        NSLog(@"BrowserWindow (2) sharingType: %lx",(long)[self.window sharingType]);
-#endif
-        return appTitleString;
-    }
-    return @"";
-}
-
-
-- (IBAction) backForward: (id)sender
-{
-    if ([sender selectedSegment] == 0) {
-        [self.webView goBack:self];
-    } else {
-        [self.webView goForward:self];
-    }
-}
-
-
-- (IBAction) zoomText: (id)sender
-{
-    if ([sender selectedSegment] == 0) {
-        [self.webView makeTextSmaller:self];
-    } else {
-        [self.webView makeTextLarger:self];
-    }
-}
-
 
 // -------------------------------------------------------------------------------
 //	window:willUseFullScreenContentSize:proposedSize
@@ -138,7 +61,7 @@
 {
     // leave a border around our full screen window
     //return NSMakeSize(proposedSize.width - 180, proposedSize.height - 100);
-    NSSize idealWindowSize = NSMakeSize(proposedSize.width, proposedSize.height - 40);
+    NSSize idealWindowSize = NSMakeSize(proposedSize.width, proposedSize.height);
     
     // Constrain that ideal size to the available area (proposedSize).
     NSSize customWindowSize;
@@ -159,14 +82,14 @@
 {
     // customize the appearance when entering full screen:
     // Set a global flag that we're transitioning to full screen
-    [[MyGlobals sharedMyGlobals] setTransitioningToFullscreen:YES];
-
+    //[[MyGlobals sharedMyGlobals] setTransitioningToFullscreen:YES];
+    
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 	BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
 	BOOL showMenuBar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
 	BOOL enableToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"];
 	BOOL hideToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"];
-
+    
     if (!allowSwitchToThirdPartyApps) {
 		// if switching to third party apps not allowed
         NSApplicationPresentationOptions options =
@@ -266,15 +189,6 @@
     // immediately switches to Dashboard.
 }
 
-- (void)windowDidEnterFullScreen:(NSNotification *)notification
-{
-#ifdef DEBUG
-    NSLog(@"windowDidEnterFullScreen");
-#endif
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"requestReinforceKioskMode" object:self];
-}
-
 
 #pragma mark -
 #pragma mark Exit Full Screen
@@ -286,7 +200,7 @@
 
 - (void)window:(NSWindow *)window startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration
 {
-    [(BrowserWindow *)window setConstrainingToScreenSuspended:YES];
+    [(CapWindow *)window setConstrainingToScreenSuspended:YES];
     
     NSInteger previousWindowLevel = [window level];
     [window setLevel:(NSMainMenuWindowLevel + 1)];
@@ -315,7 +229,7 @@
              
          } completionHandler:^{
              
-             [(BrowserWindow *)window setConstrainingToScreenSuspended:NO];
+             [(CapWindow *)window setConstrainingToScreenSuspended:NO];
              
              [self.window setLevel:previousWindowLevel];
          }];
@@ -328,15 +242,6 @@
     // If we had any cleanup to perform in the event of failure to exit Full Screen,
     // this would be the place to do it.
     // ...
-}
-
-- (void)windowDidExitFullScreen:(NSNotification *)notification
-{
-#ifdef DEBUG
-    NSLog(@"windowDidExitFullScreen");
-#endif
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"requestReinforceKioskMode" object:self];
 }
 
 
