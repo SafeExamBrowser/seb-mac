@@ -64,7 +64,7 @@
     BrowserWindow *browserWindow = (BrowserWindow *)self.window;
     [browserWindow setCalculatedFrame];
     //[browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
-    [browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenAuxiliary];
+    [browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenAuxiliary | NSWindowCollectionBehaviorCanJoinAllSpaces];
 }
 
 
@@ -163,6 +163,7 @@
 
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 	BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
+//	BOOL allowSwitchToThirdPartyApps = YES;
 	BOOL showMenuBar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
 	BOOL enableToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"];
 	BOOL hideToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"];
@@ -211,7 +212,9 @@
     [self invalidateRestorableState];
     
     NSInteger previousWindowLevel = [window level];
-    [window setLevel:(NSMainMenuWindowLevel + 1)];
+//    [window setLevel:(NSModalPanelWindowLevel + 1)];
+//    [window setLevel:NSScreenSaverWindowLevel];
+    //[window setLevel:previousWindowLevel + 1];
     
     [window setStyleMask:([window styleMask] | NSFullScreenWindowMask)];
     
@@ -252,7 +255,7 @@
             
         } completionHandler:^{
             
-            [self.window setLevel:previousWindowLevel];
+            //  [self.window setLevel:previousWindowLevel];
         }];
     }];
 }
@@ -289,8 +292,10 @@
     [(BrowserWindow *)window setConstrainingToScreenSuspended:YES];
     
     NSInteger previousWindowLevel = [window level];
-    [window setLevel:(NSMainMenuWindowLevel + 1)];
-    
+//    [window setLevel:(NSModalPanelWindowLevel + 1)];
+//    [window setLevel:NSScreenSaverWindowLevel];
+    //[window setLevel:previousWindowLevel + 1];
+
     [window setStyleMask:([window styleMask] & ~NSFullScreenWindowMask)];
     
     // The center frame for each window is used during the 1st half of the fullscreen animation and is
@@ -317,7 +322,7 @@
              
              [(BrowserWindow *)window setConstrainingToScreenSuspended:NO];
              
-             [self.window setLevel:previousWindowLevel];
+             //[self.window setLevel:previousWindowLevel];
          }];
          
      }];

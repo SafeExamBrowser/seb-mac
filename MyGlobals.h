@@ -42,6 +42,7 @@
     NSInteger lastDownloadPath;
     NSMutableString *pasteboardString;
     NSUInteger presentationOptions;
+    BOOL startKioskChangedPresentationOptions;
     BOOL flashChangedPresentationOptions;
 }
 
@@ -54,6 +55,7 @@
 @property(copy, readwrite) NSMutableString *pasteboardString;
 @property(readwrite) NSUInteger presentationOptions;
 @property(readwrite) BOOL transitioningToFullscreen;
+@property(readwrite) BOOL startKioskChangedPresentationOptions;
 @property(readwrite) BOOL flashChangedPresentationOptions;
 @property(readwrite) BOOL preferencesReset;
 

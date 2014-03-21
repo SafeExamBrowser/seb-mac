@@ -66,6 +66,7 @@
 
 //- (NSWindowCollectionBehavior)collectionBehavior {
 //    return NSWindowCollectionBehaviorFullScreenAuxiliary | NSWindowCollectionBehaviorCanJoinAllSpaces;
+////  return NSWindowCollectionBehaviorFullScreenPrimary;
 //}
 
 
@@ -169,6 +170,7 @@
 - (void) setCalculatedFrame
 {
     //[browserWindow setFrame:[[browserWindow screen] frame] display:YES];
+    
     //get frame of the whole screen
     NSRect screenFrame = self.screen.frame;
     NSRect windowFrame;
@@ -210,7 +212,7 @@
             windowFrame.origin.x = screenFrame.origin.x;
             break;
         case browserWindowPositioningCenter:
-            windowFrame.origin.x = screenFrame.origin.x+(screenFrame.origin.x+screenFrame.size.width-windowFrame.size.width) / 2;
+            windowFrame.origin.x = screenFrame.origin.x+(screenFrame.size.width-windowFrame.size.width) / 2;
             break;
         case browserWindowPositioningRight:
             windowFrame.origin.x = screenFrame.origin.x+screenFrame.size.width-windowFrame.size.width;
@@ -336,11 +338,6 @@
 
 - (void)windowWillClose:(NSNotification *)notification {
     self.webView = nil;
-}
-
-- (NSWindowCollectionBehavior)collectionBehavior {
-    return NSWindowCollectionBehaviorFullScreenAuxiliary | NSWindowCollectionBehaviorCanJoinAllSpaces;
-//    return NSWindowCollectionBehaviorFullScreenPrimary;
 }
 
 
@@ -682,6 +679,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
                 if ([preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
                     // Order new browser window to the front of our level
                     [myDocument.mainWindowController.window newSetLevel:NSModalPanelWindowLevel];
+                    [myDocument.mainWindowController showWindow:self];
                 }
                 [[myDocument.mainWindowController.webView mainFrame] loadRequest:request];
 #ifdef DEBUG
@@ -838,8 +836,8 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 
             NSString *titleString = NSLocalizedString(@"Error Loading Page",nil);
             NSString *messageString = [error localizedDescription];
-            //NSPanel *alertPanel = NSGetAlertPanel(titleString, messageString, NSLocalizedString(@"Retry",nil), NSLocalizedString(@"Cancel",nil), nil, nil);
-            //[alertPanel setLevel:NSScreenSaverWindowLevel];
+            NSPanel *alertPanel = NSGetAlertPanel(titleString, messageString, NSLocalizedString(@"Retry",nil), NSLocalizedString(@"Cancel",nil), nil, nil);
+            [alertPanel setLevel:NSScreenSaverWindowLevel];
 
             int answer = NSRunAlertPanel(titleString, messageString, NSLocalizedString(@"Retry",nil), NSLocalizedString(@"Cancel",nil), nil, nil); 
             switch(answer) {

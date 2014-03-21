@@ -28,8 +28,8 @@
 - (void)windowDidLoad
 {
     [super windowDidLoad];
-    
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+    [self.window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenAuxiliary | NSWindowCollectionBehaviorCanJoinAllSpaces];
 }
 
 
@@ -40,7 +40,7 @@
 {
     // To specify we want our given window to be the full screen primary one, we can
     // use the following:
-    [self.window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
+    //[self.window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
     //
     // But since we have already set this in our xib file for our NSWindow object
     //  (Full Screen -> Primary Window) this line of code it not needed.
@@ -134,7 +134,7 @@
     [self invalidateRestorableState];
     
     NSInteger previousWindowLevel = [window level];
-    [window setLevel:(NSMainMenuWindowLevel + 1)];
+    [window setLevel:(NSModalPanelWindowLevel + 1)];
     
     [window setStyleMask:([window styleMask] | NSFullScreenWindowMask)];
     
@@ -203,7 +203,7 @@
     [(CapWindow *)window setConstrainingToScreenSuspended:YES];
     
     NSInteger previousWindowLevel = [window level];
-    [window setLevel:(NSMainMenuWindowLevel + 1)];
+    [window setLevel:(NSModalPanelWindowLevel + 1)];
     
     [window setStyleMask:([window styleMask] & ~NSFullScreenWindowMask)];
     

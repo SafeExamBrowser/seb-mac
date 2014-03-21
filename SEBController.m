@@ -82,6 +82,8 @@ bool insideMatrix();
 
 + (void) initialize
 {
+    [[MyGlobals sharedMyGlobals] setStartKioskChangedPresentationOptions:NO];
+
     SEBWindowSizeValueTransformer *windowSizeTransformer = [[SEBWindowSizeValueTransformer alloc] init];
     [NSValueTransformer setValueTransformer:windowSizeTransformer
                                     forName:@"SEBWindowSizeTransformer"];
@@ -279,8 +281,11 @@ bool insideMatrix();
     // Hide all other applications
 	[[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
 													withObject:NULL waitUntilDone:NO];
-	
-// Switch to kiosk mode by setting the proper presentation options
+    
+    // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
+	[self coverScreens];
+
+//// Switch to kiosk mode by setting the proper presentation options
 	[self startKioskMode];
 	
     // Add an observer for changes of the Presentation Options
@@ -288,9 +293,9 @@ bool insideMatrix();
 			forKeyPath:@"currentSystemPresentationOptions"
 			   options:NSKeyValueObservingOptionNew
 			   context:NULL];
-		
-// Cover all attached screens with cap windows to prevent clicks on desktop making finder active
-	[self coverScreens];
+//		
+//// Cover all attached screens with cap windows to prevent clicks on desktop making finder active
+//	[self coverScreens];
     
     // Add a observer for changes of the screen configuration
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(adjustScreenLocking:) 
@@ -504,7 +509,7 @@ bool insideMatrix();
 	RegisterEventHotKey(97, 0, gMyHotKeyID,
 						GetApplicationEventTarget(), 0, &gMyHotKeyRef);
     
-    // Show the About SEB Window
+     // Show the About SEB Window
     [aboutWindow showAboutWindowForSeconds:3];
 
 }
@@ -628,7 +633,7 @@ bool insideMatrix(){
         //NSRect frame = size of the current screen;
         NSRect frame = [iterScreen frame];
         NSUInteger styleMask = NSBorderlessWindowMask;
-//        NSUInteger styleMask = NSTitledWindowMask;
+        //NSUInteger styleMask = NSTitledWindowMask;
         NSRect rect = [NSWindow contentRectForFrameRect:frame styleMask:styleMask];
         //set origin of the window rect to left bottom corner (important for non-main screens, since they have offsets)
         rect.origin.x = 0;
@@ -639,23 +644,24 @@ bool insideMatrix(){
         [window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
         //[window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenAuxiliary];
 //        [window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary | NSWindowCollectionBehaviorCanJoinAllSpaces];
-        //[window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary | NSWindowCollectionBehaviorMoveToActiveSpace];
         //        [window setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
         if (!allowSwitchToThirdPartyApps) {
-            [window newSetLevel:NSModalPanelWindowLevel];
+            [window setLevel:NSTornOffMenuWindowLevel];
         }
         [self.capWindows addObject: window];
         NSView *superview = [window contentView];
         CapView *capview = [[CapView alloc] initWithFrame:rect];
         [superview addSubview:capview];
         
-        [window orderBack:self];
+        //[window orderBack:self];
         CapWindowController *capWindowController = [[CapWindowController alloc] initWithWindow:window];
-        CapWindow *loadedCapWindow = capWindowController.window;
+        //CapWindow *loadedCapWindow = capWindowController.window;
         [capWindowController showWindow:self];
-        BOOL isWindowLoaded = capWindowController.isWindowLoaded;
+        [window makeKeyAndOrderFront:self];
+        //[window orderBack:self];
+        //BOOL isWindowLoaded = capWindowController.isWindowLoaded;
 #ifdef DEBUG
-        NSLog(@"Loaded capWindow %@, isWindowLoaded %@", loadedCapWindow, isWindowLoaded);
+        //NSLog(@"Loaded capWindow %@, isWindowLoaded %@", loadedCapWindow, isWindowLoaded);
 #endif
         
         //        NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -796,20 +802,42 @@ bool insideMatrix(){
     NSLog(@"SEB got active");
 #endif
     [self startKioskMode];
+//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+//    BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
+//    [self startKioskModeThirdPartyAppsAllowed:allowSwitchToThirdPartyApps];
 }
+
 
 - (void) startKioskMode {
 	// Switch to kiosk mode by setting the proper presentation options
     // Load preferences from the system's user defaults database
+    [self startKioskModeThirdPartyAppsAllowed:YES];
+}
+
+
+- (void) switchKioskModeAppsAllowed:(BOOL) allowApps {
+	// Switch the kiosk mode to either only browser windows or also third party apps allowed:
+    // Change presentation options and windows levels without closing/reopening cap background and browser foreground windows
+    [self startKioskModeThirdPartyAppsAllowed:NO];
+}
+
+
+- (void) startKioskModeThirdPartyAppsAllowed:(BOOL) allowSwitchToThirdPartyApps {
+	// Switch to kiosk mode by setting the proper presentation options
+    // Load preferences from the system's user defaults database
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-	BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
 	BOOL showMenuBar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
 	BOOL enableToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"];
 	BOOL hideToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"];
     NSApplicationPresentationOptions options;
+    
+    if (allowSwitchToThirdPartyApps) {
+        [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
+    } else {
+        [preferences setSecureBool:YES forKey:@"org_safeexambrowser_elevateWindowLevels"];
+    }
 
     //    if (browserWindow.isFullScreen || [[MyGlobals sharedMyGlobals] transitioningToFullscreen] == YES)
-
     if (browserWindow.isFullScreen == YES)
     {
 #ifdef DEBUG
@@ -840,15 +868,14 @@ bool insideMatrix(){
             NSApplicationPresentationDisableForceQuit +
             NSApplicationPresentationDisableSessionTermination;
         }
-
+        
     } else {
-
+        
 #ifdef DEBUG
         NSLog(@"NOT browserWindow.isFullScreen");
 #endif
         if (!allowSwitchToThirdPartyApps) {
             // if switching to third party apps not allowed
-            [preferences setSecureBool:YES forKey:@"org_safeexambrowser_elevateWindowLevels"];
             options =
             NSApplicationPresentationHideDock +
             (showMenuBar ? NSApplicationPresentationDisableAppleMenu : NSApplicationPresentationHideMenuBar) +
@@ -856,7 +883,6 @@ bool insideMatrix(){
             NSApplicationPresentationDisableForceQuit +
             NSApplicationPresentationDisableSessionTermination;
         } else {
-            [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
             options =
             (showMenuBar ? NSApplicationPresentationDisableAppleMenu : NSApplicationPresentationHideMenuBar) +
             NSApplicationPresentationHideDock +
@@ -866,6 +892,8 @@ bool insideMatrix(){
     }
     
     @try {
+        [[MyGlobals sharedMyGlobals] setStartKioskChangedPresentationOptions:YES];
+        
         [NSApp setPresentationOptions:options];
         [[MyGlobals sharedMyGlobals] setPresentationOptions:options];
     }
@@ -896,13 +924,9 @@ bool insideMatrix(){
 #ifdef DEBUG
     NSLog(@"MainBrowserWindow (2) sharingType: %lx",(long)[browserWindow sharingType]);
 #endif
-    /*	[browserWindow
-	 setFrame:[browserWindow frameRectForContentRect:[[browserWindow screen] frame]]
-	 display:YES]; // REMOVE wrong frame for window!*/
-	//[browserWindow setFrame:[[browserWindow screen] frame] display:YES];
 	[(BrowserWindow *)browserWindow setCalculatedFrame];
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
-        //[browserWindow newSetLevel:NSModalPanelWindowLevel];
+        [browserWindow newSetLevel:NSModalPanelWindowLevel];
 #ifdef DEBUG
         NSLog(@"MainBrowserWindow (3) sharingType: %lx",(long)[browserWindow sharingType]);
 #endif
@@ -917,6 +941,7 @@ bool insideMatrix(){
           withKeyPath:@"values.org_safeexambrowser_SEB_allowQuit" 
               options:nil];
     
+    //[browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
 	[browserWindow makeKeyAndOrderFront:self];
         
 	// Load start URL from the system's user defaults database
@@ -932,6 +957,10 @@ bool insideMatrix(){
     
 	// Load start URL into browser window
 	[[self.webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];
+    
+//    BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
+//    [self startKioskModeThirdPartyAppsAllowed:allowSwitchToThirdPartyApps];
+
 }
 
 
@@ -1285,6 +1314,11 @@ bool insideMatrix(){
                        context:(void *)context
 {
     if ([keyPath isEqual:@"currentSystemPresentationOptions"]) {
+        if ([[MyGlobals sharedMyGlobals] startKioskChangedPresentationOptions]) {
+            [[MyGlobals sharedMyGlobals] setStartKioskChangedPresentationOptions:NO];
+            return;
+        }
+
 		//the current Presentation Options changed, so make SEB active and reset them
         // Load preferences from the system's user defaults database
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -1310,7 +1344,7 @@ bool insideMatrix(){
                 }
             }
         }
-        [self startKioskMode];
+        //[self startKioskMode];
         //We don't reset the browser window size and position anymore
         //[(BrowserWindow*)browserWindow setCalculatedFrame];
         if (!allowSwitchToThirdPartyApps) {

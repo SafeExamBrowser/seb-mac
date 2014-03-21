@@ -36,4 +36,11 @@
     }
 }
 
+
+//- (BOOL)canBecomeKeyWindow
+//{
+//    return YES;
+//}
+
+
 @end
