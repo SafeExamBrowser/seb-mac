@@ -3,8 +3,35 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 15.11.12.
+//  Copyright (c) 2010-2014 Daniel R. Schneider, ETH Zurich,
+//  Educational Development and Technology (LET),
+//  based on the original idea of Safe Exam Browser
+//  by Stefan Schneider, University of Giessen
+//  Project concept: Thomas Piendl, Daniel R. Schneider,
+//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
+//  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
+//  ``The contents of this file are subject to the Mozilla Public License
+//  Version 1.1 (the "License"); you may not use this file except in
+//  compliance with the License. You may obtain a copy of the License at
+//  http://www.mozilla.org/MPL/
 //
+//  Software distributed under the License is distributed on an "AS IS"
+//  basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+//  License for the specific language governing rights and limitations
+//  under the License.
+//
+//  The Original Code is Safe Exam Browser for Mac OS X.
+//
+//  The Initial Developer of the Original Code is Daniel R. Schneider.
+//  Portions created by Daniel R. Schneider are Copyright
+//  (c) 2010-2014 Daniel R. Schneider, ETH Zurich, Educational Development
+//  and Technology (LET), based on the original idea of Safe Exam Browser
+//  by Stefan Schneider, University of Giessen. All Rights Reserved.
+//
+//  Contributor(s): ______________________________________.
+//
+
 
 #import "PrefsSEBConfigViewController.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
@@ -163,5 +190,39 @@
     }
 }
 
+
+//
+//- (IBAction) openSEBPrefs:(id)sender {
+//    NSData *encryptedSebData;
+//    // Set the default name for the file and show the panel.
+//    NSOpenPanel *panel = [NSOpenPanel openPanel];
+//    //[panel setNameFieldStringValue:newName];
+//    [panel setAllowedFileTypes:[NSArray arrayWithObject:@"seb"]];
+//    [panel beginSheetModalForWindow:[MBPreferencesController sharedController].window
+//                  completionHandler:^(NSInteger result){
+//                      if (result == NSFileHandlingPanelOKButton)
+//                      {
+//                          NSURL*  prefsFileURL = [panel URL];
+//                          // Write the contents in the new format.
+//                          if (![encryptedSebData writeToURL:prefsFileURL atomically:YES]) {
+//                              //if (![filteredPrefsDict writeToURL:prefsFileURL atomically:YES]) {
+//                              // If the prefs file couldn't be written to app bundle
+//                              NSRunAlertPanel(NSLocalizedString(@"Writing Settings Failed", nil),
+//                                              NSLocalizedString(@"Make sure you have write permissions in the chosen directory", nil),
+//                                              NSLocalizedString(@"OK", nil), nil, nil);
+//                          } else {
+//                              // Prefs got successfully written to file
+//                              NSRunAlertPanel(NSLocalizedString(@"Writing Settings Succeeded", nil), ([sebPurpose selectedRow]) ? NSLocalizedString(@"Encrypted settings have been saved, use this file to reconfigure local settings of a SEB client.", nil) : NSLocalizedString(@"Encrypted settings have been saved, use this file to start the exam with SEB.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+//#ifdef DEBUG
+//                              /*prefsFileURL = [[prefsFileURL URLByDeletingPathExtension] URLByAppendingPathExtension:@"plist"];
+//                               if ([filteredPrefsDict writeToURL:prefsFileURL atomically:YES]) {
+//                               NSLog(@"Unencrypted preferences saved as plist");
+//                               }*/
+//#endif
+//                          }
+//                      }
+//                  }];
+//
+//}
 
 @end
