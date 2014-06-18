@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">12F37</string>
-		<string key="IBDocument.InterfaceBuilderVersion">4510</string>
-		<string key="IBDocument.AppKitVersion">1187.39</string>
-		<string key="IBDocument.HIToolboxVersion">626.00</string>
+		<string key="IBDocument.SystemVersion">13D65</string>
+		<string key="IBDocument.InterfaceBuilderVersion">5056</string>
+		<string key="IBDocument.AppKitVersion">1265.20</string>
+		<string key="IBDocument.HIToolboxVersion">698.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">4510</string>
+			<string key="NS.object.0">5056</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBNSLayoutConstraint</string>
@@ -57,7 +57,7 @@
 							<int key="NSCellFlags2">0</int>
 							<string key="NSContents">Download and open .seb config files</string>
 							<object class="NSFont" key="NSSupport" id="973533274">
-								<string key="NSName">LucidaGrande</string>
+								<string key="NSName">.LucidaGrandeUI</string>
 								<double key="NSSize">13</double>
 								<int key="NSfFlags">1044</int>
 							</object>
@@ -81,7 +81,7 @@
 					<object class="NSTextField" id="495717156">
 						<reference key="NSNextResponder" ref="381403324"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{37, 140}, {596, 17}}</string>
+						<string key="NSFrame">{{38, 140}, {594, 17}}</string>
 						<reference key="NSSuperview" ref="381403324"/>
 						<reference key="NSNextKeyView" ref="697019350"/>
 						<string key="NSReuseIdentifierKey">_NS:3944</string>
@@ -113,6 +113,7 @@
 							</object>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
 					</object>
 					<object class="NSPopUpButton" id="697019350">
 						<reference key="NSNextResponder" ref="381403324"/>
@@ -220,7 +221,7 @@
 							<int key="NSCellFlags2">131072</int>
 							<string key="NSContents">Open files after downloading</string>
 							<object class="NSFont" key="NSSupport">
-								<string key="NSName">LucidaGrande</string>
+								<string key="NSName">.LucidaGrandeUI</string>
 								<double key="NSSize">11</double>
 								<int key="NSfFlags">3100</int>
 							</object>
@@ -306,7 +307,7 @@
 					<object class="NSTextField" id="862120953">
 						<reference key="NSNextResponder" ref="381403324"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{87, 190}, {264, 17}}</string>
+						<string key="NSFrame">{{88, 190}, {262, 17}}</string>
 						<reference key="NSSuperview" ref="381403324"/>
 						<reference key="NSNextKeyView" ref="166000531"/>
 						<string key="NSAntiCompressionPriority">{250, 750}</string>
@@ -321,6 +322,7 @@
 							<reference key="NSTextColor" ref="644553880"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
 					</object>
 					<object class="NSButton" id="545007090">
 						<reference key="NSNextResponder" ref="381403324"/>
@@ -625,6 +627,7 @@
 								<reference key="secondItem" ref="166000531"/>
 								<int key="secondAttribute">4</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBLayoutConstant" key="constant">
 									<double key="value">10</double>
 								</object>
@@ -642,6 +645,7 @@
 								<reference key="secondItem" ref="166000531"/>
 								<int key="secondAttribute">5</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBLayoutConstant" key="constant">
 									<double key="value">0.0</double>
 								</object>
@@ -659,6 +663,7 @@
 								<reference key="secondItem" ref="96116875"/>
 								<int key="secondAttribute">6</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBNSLayoutSymbolicConstant" key="constant">
 									<double key="value">20</double>
 								</object>
@@ -676,6 +681,7 @@
 								<reference key="secondItem" ref="545007090"/>
 								<int key="secondAttribute">4</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBLayoutConstant" key="constant">
 									<double key="value">8</double>
 								</object>
@@ -693,6 +699,7 @@
 								<reference key="secondItem" ref="166000531"/>
 								<int key="secondAttribute">6</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBNSLayoutSymbolicConstant" key="constant">
 									<double key="value">20</double>
 								</object>
@@ -710,6 +717,7 @@
 								<reference key="secondItem" ref="862120953"/>
 								<int key="secondAttribute">6</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBNSLayoutSymbolicConstant" key="constant">
 									<double key="value">8</double>
 								</object>
@@ -727,6 +735,7 @@
 								<reference key="secondItem" ref="368450533"/>
 								<int key="secondAttribute">4</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBLayoutConstant" key="constant">
 									<double key="value">48</double>
 								</object>
@@ -744,6 +753,7 @@
 								<reference key="secondItem" ref="950945319"/>
 								<int key="secondAttribute">4</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBNSLayoutSymbolicConstant" key="constant">
 									<double key="value">20</double>
 								</object>
@@ -761,6 +771,7 @@
 								<reference key="secondItem" ref="381403324"/>
 								<int key="secondAttribute">5</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBNSLayoutSymbolicConstant" key="constant">
 									<double key="value">20</double>
 								</object>
@@ -778,6 +789,7 @@
 								<reference key="secondItem" ref="950945319"/>
 								<int key="secondAttribute">6</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBNSLayoutSymbolicConstant" key="constant">
 									<double key="value">20</double>
 								</object>
@@ -795,6 +807,7 @@
 								<reference key="secondItem" ref="368450533"/>
 								<int key="secondAttribute">6</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBNSLayoutSymbolicConstant" key="constant">
 									<double key="value">20</double>
 								</object>
@@ -812,6 +825,7 @@
 								<reference key="secondItem" ref="697019350"/>
 								<int key="secondAttribute">4</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBLayoutConstant" key="constant">
 									<double key="value">19</double>
 								</object>
@@ -829,6 +843,7 @@
 								<reference key="secondItem" ref="381403324"/>
 								<int key="secondAttribute">5</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBLayoutConstant" key="constant">
 									<double key="value">40</double>
 								</object>
@@ -846,6 +861,7 @@
 								<reference key="secondItem" ref="495717156"/>
 								<int key="secondAttribute">5</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBLayoutConstant" key="constant">
 									<double key="value">0.0</double>
 								</object>
@@ -863,6 +879,7 @@
 								<reference key="secondItem" ref="368450533"/>
 								<int key="secondAttribute">5</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBLayoutConstant" key="constant">
 									<double key="value">0.0</double>
 								</object>
@@ -880,6 +897,7 @@
 								<reference key="secondItem" ref="495717156"/>
 								<int key="secondAttribute">4</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBLayoutConstant" key="constant">
 									<double key="value">4</double>
 								</object>
@@ -897,6 +915,7 @@
 								<reference key="secondItem" ref="697019350"/>
 								<int key="secondAttribute">6</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBNSLayoutSymbolicConstant" key="constant">
 									<double key="value">20</double>
 								</object>
@@ -914,6 +933,7 @@
 								<reference key="secondItem" ref="495717156"/>
 								<int key="secondAttribute">6</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBNSLayoutSymbolicConstant" key="constant">
 									<double key="value">20</double>
 								</object>
@@ -931,6 +951,7 @@
 								<reference key="secondItem" ref="96116875"/>
 								<int key="secondAttribute">4</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBNSLayoutSymbolicConstant" key="constant">
 									<double key="value">8</double>
 								</object>
@@ -948,6 +969,7 @@
 								<reference key="secondItem" ref="166000531"/>
 								<int key="secondAttribute">11</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBLayoutConstant" key="constant">
 									<double key="value">0.0</double>
 								</object>
@@ -965,6 +987,7 @@
 								<reference key="secondItem" ref="381403324"/>
 								<int key="secondAttribute">3</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBNSLayoutSymbolicConstant" key="constant">
 									<double key="value">20</double>
 								</object>
@@ -982,6 +1005,7 @@
 								<reference key="secondItem" ref="545007090"/>
 								<int key="secondAttribute">6</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBNSLayoutSymbolicConstant" key="constant">
 									<double key="value">20</double>
 								</object>
@@ -999,6 +1023,7 @@
 								<reference key="secondItem" ref="381403324"/>
 								<int key="secondAttribute">5</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBNSLayoutSymbolicConstant" key="constant">
 									<double key="value">20</double>
 								</object>
@@ -1044,6 +1069,7 @@
 								<nil key="secondItem"/>
 								<int key="secondAttribute">0</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBLayoutConstant" key="constant">
 									<double key="value">258</double>
 								</object>
@@ -1074,6 +1100,7 @@
 								<nil key="secondItem"/>
 								<int key="secondAttribute">0</int>
 								<float key="multiplier">1</float>
+								<string key="multiplierString">1</string>
 								<object class="IBLayoutConstant" key="constant">
 									<double key="value">274</double>
 								</object>
@@ -1396,7 +1423,7 @@
 					<object class="IBToolTipAttribute" key="NS.object.0">
 						<string key="name">ToolTip</string>
 						<reference key="object" ref="545007090"/>
-						<string key="toolTip">Usually to be used when switching to third party applications is enabled.</string>
+						<string key="toolTip">Usually to be used with permitted third party applications for which you want to provide files to be downloaded.</string>
 					</object>
 				</object>
 				<boolean value="NO" key="13.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
@@ -1460,7 +1487,7 @@
 					<object class="IBToolTipAttribute" key="NS.object.0">
 						<string key="name">ToolTip</string>
 						<reference key="object" ref="96116875"/>
-						<string key="toolTip">Downloaded files will be opened with the according application, which has to be set correctly in the system for each used file type! </string>
+						<string key="toolTip">Downloaded files will be opened with the according application, which has to be set correctly in the system for each used file type.</string>
 					</object>
 				</object>
 				<boolean value="NO" key="38.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
