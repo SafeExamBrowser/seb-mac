@@ -238,70 +238,12 @@
     }
 
     // Get preferences dictionary from decrypted data
-    error = nil;
-    //NSDictionary *sebPreferencesDict = [NSKeyedUnarchiver unarchiveObjectWithData:sebData];
-    NSDictionary *sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:sebData error:&error];
-    if (error) {
-        [NSApp presentError:error];
-        return nil; //we abort reading the new settings here
-    }
+    NSDictionary *sebPreferencesDict = [self getPreferencesDictFromSebData:sebData forEditing:forEditing];
+    // If we didn't get a preferences dict back, we abort reading settings
+    if (!sebPreferencesDict) return nil;
+
     // We need to set the right value for the key sebConfigPurpose to know later where to store the new settings
     [sebPreferencesDict setValue:[NSNumber numberWithInt:sebConfigPurposeStartingExam] forKey:@"sebConfigPurpose"];
-    
-    /// In editing mode, if the current administrator password isn't the same as in the new settings,
-    /// the user has to enter the right SEB administrator password before he can access the settings contents
-    if (forEditing)
-    {
-        NSString *sebFileHashedAdminPassword = [sebPreferencesDict objectForKey:@"hashedAdminPassword"];
-        // If there was no or empty admin password set in these settings, the user can access them anyways
-        if (sebFileHashedAdminPassword.length > 0) {
-            // Get the current admin password
-            NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-            NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-            if (!hashedAdminPassword) hashedAdminPassword = @"";
-            // If the current hashed admin password is same as the hashed admin password from the settings file
-            // then the user is allowed to access the settings
-            if ([hashedAdminPassword caseInsensitiveCompare:sebFileHashedAdminPassword] != NSOrderedSame) {
-                // otherwise we have to ask for the current SEB administrator password and
-                // allow opening settings only if the user enters the right one
-                // Allow up to 5 attempts for entering  admin password
-                int i = 5;
-                NSString *password = nil;
-                NSString *hashedPassword;
-                NSString *enterPasswordString = NSLocalizedString(@"Enter the SEB administrator password used in these settings:",nil);
-                bool passwordsMatch;
-                do
-                {
-                    i--;
-                    // Prompt for password
-                    if ([self.sebController showEnterPasswordDialog:enterPasswordString modalForWindow:nil windowTitle:NSLocalizedString(@"Loading settings",nil)] == SEBEnterPasswordCancel) {
-                        // If cancel was pressed, abort
-                        return nil;
-                    }
-                    NSString *password = [self.sebController.enterPassword stringValue];
-                    hashedPassword = [keychainManager generateSHAHashString:password];
-                    if ([hashedPassword caseInsensitiveCompare:sebFileHashedAdminPassword] == NSOrderedSame)
-                    {
-                        passwordsMatch = true;
-                    }
-                    else
-                    {
-                        passwordsMatch = false;
-                    }
-                    // in case we get an error we allow the user to try it again
-                    enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the correct SEB administrator password from these settings:", nil);
-                } while ((password == nil || !passwordsMatch) && i > 0);
-                if (!passwordsMatch)
-                {
-                    //wrong password entered in 5th try: stop reading .seb file
-                    NSRunAlertPanel(NSLocalizedString(@"Loading Settings", nil),
-                                    NSLocalizedString(@"If you don't enter the right administrator password from these settings you cannot open them.", nil),
-                                    NSLocalizedString(@"OK", nil), nil, nil);
-                    return nil;
-                }
-            }
-        }
-    }
     
     // Check if a some value is from a wrong class (another than the value from default settings)
     // and quit reading .seb file if a wrong value was found
@@ -320,14 +262,16 @@
 
 -(NSDictionary *) decryptDataWithPasswordForConfiguringClient:(NSData *)sebData forEditing:(BOOL)forEditing sebFilePassword:(NSString **)sebFilePasswordPtr passwordIsHashPtr:(BOOL*)passwordIsHashPtr
 {
-    passwordIsHashPtr = false;
-    NSString *password = nil;
+    *passwordIsHashPtr = false;
+    NSString *password;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     // First try to decrypt with the current admin password
     // get admin password hash
     NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-    if (!hashedAdminPassword) hashedAdminPassword = @"";
+    if (!hashedAdminPassword) {
+        hashedAdminPassword = @"";
+    }
     hashedAdminPassword = [hashedAdminPassword uppercaseString];
     NSDictionary *sebPreferencesDict = nil;
     NSError *error = nil;
@@ -337,12 +281,13 @@
         error = nil;
         decryptedSebData = [RNDecryptor decryptData:sebData withPassword:@"" error:&error];
         if (!error) {
-            //Decrypting with empty password worked
+            // Decrypting with empty password worked
             // Ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
             decryptedSebData = [decryptedSebData gzipInflate];
             //Check if the openend reconfiguring seb file has the same admin password inside like the current one
             sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:decryptedSebData error:&error];
             if (error) {
+                // Error when deserializing the decrypted configuration data
                 [NSApp presentError:error];
                 return nil; //we abort reading the new settings here
             }
@@ -364,7 +309,11 @@
                         // Prompt for password. If cancel was pressed, abort
                         if ([self.sebController showEnterPasswordDialog:enterPasswordString modalForWindow:nil windowTitle:NSLocalizedString(@"Reconfiguring Local SEB Settings",nil)] == SEBEnterPasswordCancel) return NO;
                         password = [self.sebController.enterPassword stringValue];
-                        hashedPassword = [keychainManager generateSHAHashString:password];
+                        if (password.length == 0) {
+                            hashedAdminPassword = @"";
+                        } else {
+                            hashedPassword = [keychainManager generateSHAHashString:password];
+                        }
                         passwordsMatch = [hashedPassword caseInsensitiveCompare:sebFileHashedAdminPassword] == NSOrderedSame;
                         // in case we get an error we allow the user to try it again
                         enterPasswordString = NSLocalizedString(@"Wrong Password! Try again to enter the correct current SEB administrator password:",nil);
@@ -382,13 +331,16 @@
             // If decryption with empty and admin password didn't work, ask for the password the .seb file was encrypted with
             // Allow up to 5 attempts for entering decoding password
             int i = 5;
+            password = nil;
             NSString *enterPasswordString = NSLocalizedString(@"Enter password used to encrypt .seb file:",nil);
             do {
                 i--;
                 // Prompt for password
                 if ([self.sebController showEnterPasswordDialog:enterPasswordString modalForWindow:nil windowTitle:NSLocalizedString(@"Reconfiguring Local SEB Settings",nil)] == SEBEnterPasswordCancel) return NO;
-                NSString *password = [self.sebController.enterPassword stringValue];
-                if (!password) password = @"";
+                password = [self.sebController.enterPassword stringValue];
+                if (!password) {
+                    password = @"";
+                }
                 NSString *hashedPassword = [keychainManager generateSHAHashString:password];
                 hashedPassword = [hashedPassword uppercaseString];
                 error = nil;
@@ -402,8 +354,19 @@
                                 NSLocalizedString(@"You either entered the wrong password or these settings were saved with an incompatible SEB version.", nil),
                                 NSLocalizedString(@"OK", nil), nil, nil);
                 return nil;
+            } else {
+                // Decrypting with entered password worked: We save it for returning it later
+                if (forEditing) *sebFilePasswordPtr = password;
             }
         }
+    } else {
+        //decrypting with hashedAdminPassword worked: we save it for returning as decryption password if settings are meant for editing
+        if (forEditing) {
+            *sebFilePasswordPtr = hashedAdminPassword;
+            // identify that password as hash
+            *passwordIsHashPtr = true;
+        }
+        
     }
     // Decryption worked
     if (!sebPreferencesDict) {
@@ -414,26 +377,49 @@
         sebData = [sebData gzipInflate];
         
         // Get preferences dictionary from decrypted data
-        error = nil;
-        sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:sebData error:&error];
-        if (error) {
-            [NSApp presentError:error];
-            return nil; //we abort reading the new settings here
-        }
+        sebPreferencesDict = [self getPreferencesDictFromSebData:sebData forEditing:forEditing];
+        // If we didn't get a preferences dict back, we abort reading settings
+        if (!sebPreferencesDict) return nil;
     }
+
+    // Check if a some value is from a wrong class (another than the value from default settings)
+    // and quit reading .seb file if a wrong value was found
+    if (![self checkClassOfSettings:sebPreferencesDict]) return nil;
     
+    // We need to set the right value for the key sebConfigPurpose to know later where to store the new settings
+    [sebPreferencesDict setValue:[NSNumber numberWithInt:sebConfigPurposeConfiguringClient] forKey:@"sebConfigPurpose"];
+    
+    return sebPreferencesDict;
+}
+
+
+// Helper method: Get preferences dictionary from decrypted data.
+// In editing mode, users have to enter the right SEB administrator password
+// before they can access the settings contents
+// and returns the decrypted bytes
+-(NSDictionary *) getPreferencesDictFromSebData:(NSData *)sebData forEditing:(BOOL)forEditing
+{
+    // Get preferences dictionary from decrypted data
+    NSError *error = nil;
+    NSDictionary *sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:sebData error:&error];
+    if (error) {
+        [NSApp presentError:error];
+        return nil; //we abort reading the new settings here
+    }
     /// In editing mode, if the current administrator password isn't the same as in the new settings,
     /// the user has to enter the right SEB administrator password before he can access the settings contents
     if (forEditing)
     {
         NSString *sebFileHashedAdminPassword = [sebPreferencesDict objectForKey:@"hashedAdminPassword"];
-        // If there is an admin password saved in the settings
-        if (sebFileHashedAdminPassword) {
+        // If there was no or empty admin password set in these settings, the user can access them anyways
+        if (sebFileHashedAdminPassword.length > 0) {
             // Get the current admin password
             NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
             NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-            if (!hashedAdminPassword) hashedAdminPassword = @"";
-            // If the current hashed admin password is same like the hashed admin password from the settings file
+            if (!hashedAdminPassword) {
+                hashedAdminPassword = @"";
+            }
+            // If the current hashed admin password is same as the hashed admin password from the settings file
             // then the user is allowed to access the settings
             if ([hashedAdminPassword caseInsensitiveCompare:sebFileHashedAdminPassword] != NSOrderedSame) {
                 // otherwise we have to ask for the current SEB administrator password and
@@ -448,8 +434,12 @@
                 {
                     i--;
                     // Prompt for password
-                    if ([self.sebController showEnterPasswordDialog:enterPasswordString modalForWindow:nil windowTitle:NSLocalizedString(@"Loading settings",nil)] == SEBEnterPasswordCancel) return nil;
+                    if ([self.sebController showEnterPasswordDialog:enterPasswordString modalForWindow:nil windowTitle:NSLocalizedString(@"Loading settings",nil)] == SEBEnterPasswordCancel) {
+                        // If cancel was pressed, abort
+                        return nil;
+                    }
                     NSString *password = [self.sebController.enterPassword stringValue];
+                    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
                     hashedPassword = [keychainManager generateSHAHashString:password];
                     if ([hashedPassword caseInsensitiveCompare:sebFileHashedAdminPassword] == NSOrderedSame)
                     {
@@ -473,20 +463,13 @@
             }
         }
     }
-    
-    // Check if a some value is from a wrong class (another than the value from default settings)
-    // and quit reading .seb file if a wrong value was found
-    if (![self checkClassOfSettings:sebPreferencesDict]) return nil;
-    
-    // We need to set the right value for the key sebConfigPurpose to know later where to store the new settings
-    [sebPreferencesDict setValue:[NSNumber numberWithInt:sebConfigPurposeConfiguringClient] forKey:@"sebConfigPurpose"];
-    
+    // Reading preferences was successful!
     return sebPreferencesDict;
 }
 
 
 // Check if a some value is from a wrong class (another than the value from default settings)
--(BOOL)checkClassOfSettings:(NSDictionary *)sebPreferencesDict
+-(BOOL) checkClassOfSettings:(NSDictionary *)sebPreferencesDict
 {
     // get default settings
     NSDictionary *defaultSettings = [[NSUserDefaults standardUserDefaults] sebDefaultSettings];
@@ -574,6 +557,9 @@
 }
 
 
+// Helper method which fetches the public key hash from a seb data object,
+// retrieves the according cryptographic identity from the keychain
+// and returns the decrypted data
 -(NSData *) decryptDataWithPublicKeyHashPrefix:(NSData *)sebData forEditing:(BOOL)forEditing sebFileKeyRef:(SecKeyRef *)privateKeyRefPtr error:(NSError **)error
 {
     // Get 20 bytes public key hash prefix
@@ -591,6 +577,9 @@
 #ifdef DEBUG
     NSLog(@"Private key retrieved with hash: %@", privateKeyRef);
 #endif
+    // If these settings are being decrypted for editing, we will return the decryption certificate reference
+    // in the variable which was passed as reference when calling this method
+    if (forEditing) *privateKeyRefPtr = privateKeyRef;
     
     sebData = [keychainManager decryptData:sebData withPrivateKey:privateKeyRef];
     
@@ -598,6 +587,8 @@
 }
 
 
+// Helper method for returning a prefix string (of sebConfigFilePrefixLength, currently 4 chars)
+// from a data byte array which is returned without the stripped prefix
 -(NSString *) getPrefixStringFromData:(NSData **)data
 {
     NSData *prefixData = [self getPrefixDataFromData:data withLength:sebConfigFilePrefixLength];
@@ -605,6 +596,8 @@
 }
 
 
+// Helper method for stripping (and returning) a prefix byte array of prefixLength
+// from a data byte array which is returned without the stripped prefix
 -(NSData *) getPrefixDataFromData:(NSData **)data withLength:(NSUInteger)prefixLength
 {
     // Get prefix with indicated length
