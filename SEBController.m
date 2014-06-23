@@ -128,7 +128,11 @@ bool insideMatrix();
     
     SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
 
+    // Decrypt and store the .seb config file
     if ([configFileManager storeDecryptedSEBSettings:sebData]) {
+        // if successfull save the path to the file for possible editing in the preferences window
+        [[MyGlobals sharedMyGlobals] setCurrentConfigPath:filename];
+
         [self requestedRestart:nil];
     }
     
@@ -157,10 +161,9 @@ bool insideMatrix();
 - (id)init {
     self = [super init];
     if (self) {
-        // Add your subclass-specific initialization here.
-        // If an error occurs here, send a [self release] message and return nil.
 
         [[MyGlobals sharedMyGlobals] setPreferencesReset:NO];
+        [[MyGlobals sharedMyGlobals] setCurrentConfigPath:NSLocalizedString(@"Local Client Settings", nil)];
         
         [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
 #ifdef DEBUG

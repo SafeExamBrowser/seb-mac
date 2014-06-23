@@ -1007,6 +1007,9 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
             }
             SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
             if ([configFileManager storeDecryptedSEBSettings:sebFileData]) {
+                // Store the URL of the .seb file as current config file path
+                [[MyGlobals sharedMyGlobals] setCurrentConfigPath:[url lastPathComponent]]; // absoluteString]];
+
                 // Post a notification that it was requested to restart SEB with changed settings
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:@"requestRestartNotification" object:self];

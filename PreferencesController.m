@@ -60,6 +60,7 @@
 
 - (void)showPreferences:(id)sender
 {
+    [[MBPreferencesController sharedController] setSettingsTitle:[[MyGlobals sharedMyGlobals] currentConfigPath]];
 	[[MBPreferencesController sharedController] showWindow:sender];
 }
 
@@ -82,6 +83,7 @@
 
 - (void)initPreferencesWindow
 {
+    [[MBPreferencesController sharedController] setSettingsTitle:[[MyGlobals sharedMyGlobals] currentConfigPath]];
     [[MBPreferencesController sharedController] openWindow];
     // Set the modules for preferences panes
 	PrefsGeneralViewController *general = [[PrefsGeneralViewController alloc] initWithNibName:@"PreferencesGeneral" bundle:nil];

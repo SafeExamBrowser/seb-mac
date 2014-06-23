@@ -65,7 +65,7 @@
     BOOL passwordIsHash = false;
     SecKeyRef sebFileKeyRef = nil;
     
-    sebPreferencesDict = [self decryptSEBSettings:sebData forEditing:NO sebFilePassword:&sebFilePassword passwordIsHashPtr:&passwordIsHash sebFileKeyRef:&sebFileKeyRef];
+    sebPreferencesDict = [self decryptSEBSettings:sebData forEditing:YES sebFilePassword:&sebFilePassword passwordIsHashPtr:&passwordIsHash sebFileKeyRef:&sebFileKeyRef];
     if (!sebPreferencesDict) return NO; //Decryption didn't work, we abort
     
     // Reset SEB, close third party applications
@@ -87,6 +87,14 @@
 #ifdef DEBUG
         NSLog(@"Private preferences set: %@", privatePreferences);
 #endif
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        // If opening the preferences window is allowed
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_enablePreferencesWindow"]) {
+            // we store the .seb file password/hash and/or certificate/identity
+            [[MyGlobals sharedMyGlobals] setCurrentConfigPassword:sebFilePassword];
+            [[MyGlobals sharedMyGlobals] setCurrentConfigPasswordIsHash:passwordIsHash];
+            [[MyGlobals sharedMyGlobals] setCurrentConfigKeyRef:sebFileKeyRef];
+        }
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
         [self.sebController.preferencesController initPreferencesWindow];
         

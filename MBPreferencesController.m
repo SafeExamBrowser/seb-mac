@@ -133,6 +133,9 @@ static MBPreferencesController *sharedPreferencesController = nil;
 
 - (void)showWindow:(id)sender
 {
+    // Set preferences title as module title – settings title
+    [self _setPreferencesWindowTitle];
+
 	[self.window center];
 	[super showWindow:sender];
     [[NSApplication sharedApplication] runModalForWindow:self.window];
@@ -275,8 +278,7 @@ static MBPreferencesController *sharedPreferencesController = nil;
 	[self.window setFrame:newWindowFrame display:YES animate:YES];
 	
 	[[self.window toolbar] setSelectedItemIdentifier:[module identifier]];
-	[self.window setTitle:[module title]];
-	
+
 	if ([(NSObject *)module respondsToSelector:@selector(willBeDisplayed)]) {
 		[module willBeDisplayed];
 	}
@@ -284,8 +286,22 @@ static MBPreferencesController *sharedPreferencesController = nil;
 	_currentModule = module;
 	[[self.window contentView] addSubview:[_currentModule view]];
 	
+    // Set preferences title as module title – settings title
+    [self _setPreferencesWindowTitle];
+	
 	// Autosave the selection
 	[[NSUserDefaults standardUserDefaults] setObject:[module identifier] forKey:MBPreferencesSelectionAutosaveKey];
+}
+
+- (void)_setPreferencesWindowTitle
+{
+    // Set preferences title as module title – settings title
+	[self.window setTitle:[NSString stringWithFormat:@"%@  —  %@", [self.settingsTitle lastPathComponent], _currentModule.title]];
+//    [self.window setRepresentedURL:[NSURL URLWithString:self.settingsTitle]];
+    if (self.settingsTitle.isAbsolutePath) {
+        [self.window setRepresentedFilename:self.settingsTitle];
+    }
+//    [self.window setTitleWithRepresentedFilename:self.settingsTitle];
 }
 
 @end
