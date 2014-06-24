@@ -70,6 +70,34 @@
 }
 
 
+- (void) setSettingsPassword:(NSString *)password isHash:(BOOL)passwordIsHash
+{
+    [self setValue:password forKey:@"settingsPassword"];
+    [self setValue:password forKey:@"confirmSettingsPassword"];
+}
+
+
+// Select identity for passed identity reference
+- (void) selectSettingsIdentity:(SecIdentityRef)identityRef
+{
+    [chooseIdentity selectItemAtIndex:0];
+    int i, count = [self.identities count];
+    for (i=0; i<count; i++) {
+        if (self.identities[i] == (__bridge id)(identityRef)) {
+            [chooseIdentity selectItemAtIndex:i+1];
+            break;
+        }
+    }
+}
+
+
+- (SecIdentityRef)currentConfigKeyRef {
+    [NSException raise:NSInternalInconsistencyException
+                format:@"property is write-only"];
+    return nil;
+}
+
+
 // Definitition of the dependent keys for comparing settings passwords
 + (NSSet *)keyPathsForValuesAffectingCompareSettingsPasswords {
     return [NSSet setWithObjects:@"settingsPassword", @"confirmSettingsPassword", nil];
@@ -106,6 +134,7 @@
         [chooseIdentity addItemWithTitle:NSLocalizedString(@"None", nil)];
         [chooseIdentity addItemsWithTitles: self.identitiesNames];
     }
+    [self selectSettingsIdentity:_currentConfigIdentityRef];
 }
 
 

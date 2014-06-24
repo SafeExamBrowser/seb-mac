@@ -51,6 +51,15 @@
 
 @property (strong, nonatomic) NSMutableArray *identitiesNames;
 @property (strong, nonatomic) NSArray *identities;
+// Write-only property
+@property (nonatomic) SecIdentityRef currentConfigIdentityRef;
+
+
+// To make the getter unavailable
+- (SecIdentityRef)currentConfigIdentityRef UNAVAILABLE_ATTRIBUTE;
+
+- (void) setSettingsPassword:(NSString *)password isHash:(BOOL)passwordIsHash;
+- (void) selectSettingsIdentity:(SecIdentityRef)identityRef;
 
 - (IBAction) saveSEBPrefs:(id)sender;
 //- (IBAction) openSEBPrefs:(id)sender;

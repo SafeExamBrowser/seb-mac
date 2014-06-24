@@ -54,9 +54,6 @@
 @property(readwrite) NSInteger lastDownloadPath;
 
 @property(copy, readwrite) NSString *currentConfigPath;
-@property(copy, readwrite) NSString *currentConfigPassword;
-@property(readwrite) BOOL currentConfigPasswordIsHash;
-@property(readwrite) SecKeyRef currentConfigKeyRef;
 
 @property(copy, readwrite) NSMutableString *pasteboardString;
 @property(readwrite) NSUInteger presentationOptions;

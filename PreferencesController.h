@@ -36,15 +36,46 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "PrefsGeneralViewController.h"
+#import "PrefsSEBConfigViewController.h"
+#import "PrefsAppearanceViewController.h"
+#import "PrefsBrowserViewController.h"
+#import "PrefsDownUploadsViewController.h"
+#import "PrefsExamViewController.h"
+#import "PrefsApplicationsViewController.h"
+#import "PrefsResourcesViewController.h"
+#import "PrefsNetworkViewController.h"
+#import "PrefsSecurityViewController.h"
+
 
 @interface PreferencesController : NSObject <NSWindowDelegate> {
 
+//@private
+//    NSString *_currentConfigPassword;
+//    BOOL _currentConfigPasswordIsHash;
+//    SecKeyRef _currentConfigKeyRef;
+
 }
+
+@property BOOL currentConfigPasswordIsHash;
+// Write-only properties
+@property (nonatomic) NSString *currentConfigPassword;
+@property (nonatomic) SecIdentityRef currentConfigIdentityRef;
+
+
+@property (nonatomic) PrefsSEBConfigViewController *SEBConfigVC;
+
+// To make the getter unavailable
+- (NSString *)currentConfigPassword UNAVAILABLE_ATTRIBUTE;
+- (SecIdentityRef)currentConfigIdentityRef UNAVAILABLE_ATTRIBUTE;
 
 - (void) showPreferences:(id)sender;
 - (BOOL) preferencesAreOpen;
 - (void) initPreferencesWindow;
 - (void) releasePreferencesWindow;
 
+//- (void) setCurrentConfigPassword:(NSString *)currentConfigPassword;
+//- (void) setCurrentConfigPasswordIsHash:(BOOL)currentConfigPasswordIsHash;
+//- (void) setCurrentConfigKeyRef:(SecKeyRef)currentConfigKeyRef;
 
 @end

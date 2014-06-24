@@ -42,21 +42,22 @@
 
 - (NSArray*)getIdentitiesAndNames:(NSArray **)names;
 - (NSArray*)getCertificatesAndNames:(NSArray **)names;
-- (NSData*) getPublicKeyHashFromCertificate:(SecCertificateRef)certificate;
-- (SecKeyRef) getPrivateKeyFromPublicKeyHash:(NSData*)publicKeyHash;
-- (SecKeyRef*) copyPublicKeyFromCertificate:(SecCertificateRef)certificate;
-- (SecIdentityRef) createIdentityWithCertificate:(SecCertificateRef)certificate;
-- (SecKeyRef) privateKeyFromIdentity:(SecIdentityRef*)identityRef;
+- (NSData*)getPublicKeyHashFromCertificate:(SecCertificateRef)certificate;
+- (SecIdentityRef)getIdentityRefFromPublicKeyHash:(NSData*)publicKeyHash;
+- (SecKeyRef)getPrivateKeyRefFromIdentityRef:(SecIdentityRef)identityRef;
+- (SecKeyRef*)copyPublicKeyFromCertificate:(SecCertificateRef)certificate;
+- (SecIdentityRef)createIdentityWithCertificate:(SecCertificateRef)certificate;
+- (SecKeyRef)privateKeyFromIdentity:(SecIdentityRef*)identityRef;
 
 - (SecCertificateRef)getCertificateFromIdentity:(SecIdentityRef)identityRef;
-- (NSData*) getDataForCertificate:(SecCertificateRef)certificate;
-- (BOOL) importCertificateFromData:(NSData*)certificateData;
-- (NSData*) getDataForIdentity:(SecIdentityRef)identity;
-- (BOOL) importIdentityFromData:(NSData*)identityData;
+- (NSData*)getDataForCertificate:(SecCertificateRef)certificate;
+- (BOOL)importCertificateFromData:(NSData*)certificateData;
+- (NSData*)getDataForIdentity:(SecIdentityRef)identity;
+- (BOOL)importIdentityFromData:(NSData*)identityData;
 
 //- (NSData*)encryptData:(NSData*)inputData withPublicKey:(SecKeyRef*)publicKey;
-- (NSData*) encryptData:(NSData*)plainData withPublicKeyFromCertificate:(SecCertificateRef)certificate;
-- (NSData*) decryptData:(NSData*)cipherData withPrivateKey:(SecKeyRef)privateKey;
-- (NSString*) generateSHAHashString:(NSString*)inputString;
+- (NSData*)encryptData:(NSData*)plainData withPublicKeyFromCertificate:(SecCertificateRef)certificate;
+- (NSData*)decryptData:(NSData*)cipherData withPrivateKey:(SecKeyRef)privateKey;
+- (NSString*)generateSHAHashString:(NSString*)inputString;
 
 @end

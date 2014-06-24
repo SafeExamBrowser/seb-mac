@@ -35,21 +35,24 @@
 // Controller for the preferences window, populates it with panes
 
 #import "PreferencesController.h"
-#import "PrefsGeneralViewController.h"
-#import "PrefsSEBConfigViewController.h"
-#import "PrefsAppearanceViewController.h"
-#import "PrefsBrowserViewController.h"
-#import "PrefsDownUploadsViewController.h"
-#import "PrefsExamViewController.h"
-#import "PrefsApplicationsViewController.h"
-#import "PrefsResourcesViewController.h"
-#import "PrefsNetworkViewController.h"
-#import "PrefsSecurityViewController.h"
-
 #import "MBPreferencesController.h"
 
 
 @implementation PreferencesController
+
+
+// Getter methods for write-only properties
+- (NSString *)currentConfigPassword {
+    [NSException raise:NSInternalInconsistencyException
+                format:@"property is write-only"];
+    return nil;
+}
+
+- (SecIdentityRef)currentConfigIdentityRef {
+    [NSException raise:NSInternalInconsistencyException
+                format:@"property is write-only"];
+    return nil;
+}
 
 
 - (void)awakeFromNib
@@ -87,7 +90,10 @@
     [[MBPreferencesController sharedController] openWindow];
     // Set the modules for preferences panes
 	PrefsGeneralViewController *general = [[PrefsGeneralViewController alloc] initWithNibName:@"PreferencesGeneral" bundle:nil];
-	PrefsSEBConfigViewController *config = [[PrefsSEBConfigViewController alloc] initWithNibName:@"PreferencesSEBConfig" bundle:nil];
+	self.SEBConfigVC = [[PrefsSEBConfigViewController alloc] initWithNibName:@"PreferencesSEBConfig" bundle:nil];
+    // Set settings credentials in the SEB config prefs pane
+    [self setConfigFileCredentials];
+    
 	PrefsAppearanceViewController *appearance = [[PrefsAppearanceViewController alloc] initWithNibName:@"PreferencesAppearance" bundle:nil];
 	PrefsBrowserViewController *browser = [[PrefsBrowserViewController alloc] initWithNibName:@"PreferencesBrowser" bundle:nil];
 	PrefsDownUploadsViewController *downuploads = [[PrefsDownUploadsViewController alloc] initWithNibName:@"PreferencesDownUploads" bundle:nil];
@@ -96,7 +102,7 @@
 	PrefsResourcesViewController *resources = [[PrefsResourcesViewController alloc] initWithNibName:@"PreferencesResources" bundle:nil];
 	PrefsNetworkViewController *network = [[PrefsNetworkViewController alloc] initWithNibName:@"PreferencesNetwork" bundle:nil];
 	PrefsSecurityViewController *security = [[PrefsSecurityViewController alloc] initWithNibName:@"PreferencesSecurity" bundle:nil];
-	[[MBPreferencesController sharedController] setModules:[NSArray arrayWithObjects:general, config, appearance, browser, downuploads, exam, applications, resources, network, security, nil]];
+	[[MBPreferencesController sharedController] setModules:[NSArray arrayWithObjects:general, self.SEBConfigVC, appearance, browser, downuploads, exam, applications, resources, network, security, nil]];
 //	[[MBPreferencesController sharedController] setModules:[NSArray arrayWithObjects:general, config, appearance, browser, downuploads, exam, applications, network, security, nil]];
     // Set self as the window delegate to be able to post a notification when preferences window is closing
     // will be overridden when the general pane is displayed (loaded from nib)
@@ -113,6 +119,13 @@
 - (void)releasePreferencesWindow
 {
     [[MBPreferencesController sharedController] unloadNibs];
+}
+
+
+- (void) setConfigFileCredentials
+{
+    [self.SEBConfigVC setSettingsPassword:_currentConfigPassword isHash:_currentConfigPasswordIsHash];
+    [self.SEBConfigVC setCurrentConfigIdentityRef:_currentConfigIdentityRef];
 }
 
 

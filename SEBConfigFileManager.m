@@ -63,9 +63,9 @@
     NSDictionary *sebPreferencesDict;
     NSString *sebFilePassword = nil;
     BOOL passwordIsHash = false;
-    SecKeyRef sebFileKeyRef = nil;
+    SecIdentityRef sebFileIdentityRef = nil;
     
-    sebPreferencesDict = [self decryptSEBSettings:sebData forEditing:YES sebFilePassword:&sebFilePassword passwordIsHashPtr:&passwordIsHash sebFileKeyRef:&sebFileKeyRef];
+    sebPreferencesDict = [self decryptSEBSettings:sebData forEditing:YES sebFilePassword:&sebFilePassword passwordIsHashPtr:&passwordIsHash sebFileIdentityRefPtr:&sebFileIdentityRef];
     if (!sebPreferencesDict) return NO; //Decryption didn't work, we abort
     
     // Reset SEB, close third party applications
@@ -88,15 +88,16 @@
         NSLog(@"Private preferences set: %@", privatePreferences);
 #endif
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        PreferencesController *prefsController = self.sebController.preferencesController;
         // If opening the preferences window is allowed
         if ([preferences secureBoolForKey:@"org_safeexambrowser_enablePreferencesWindow"]) {
             // we store the .seb file password/hash and/or certificate/identity
-            [[MyGlobals sharedMyGlobals] setCurrentConfigPassword:sebFilePassword];
-            [[MyGlobals sharedMyGlobals] setCurrentConfigPasswordIsHash:passwordIsHash];
-            [[MyGlobals sharedMyGlobals] setCurrentConfigKeyRef:sebFileKeyRef];
+            [prefsController setCurrentConfigPassword:sebFilePassword];
+            [prefsController setCurrentConfigPasswordIsHash:passwordIsHash];
+            [prefsController setCurrentConfigIdentityRef:sebFileIdentityRef];
         }
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
-        [self.sebController.preferencesController initPreferencesWindow];
+        [prefsController initPreferencesWindow];
         
         return YES; //reading preferences was successful
 
@@ -131,7 +132,7 @@
 // When forEditing = true, then the decrypting password the user entered and/or
 // certificate reference found in the .seb file is returned
 
--(NSDictionary *) decryptSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing sebFilePassword:(NSString **)sebFilePasswordPtr passwordIsHashPtr:(BOOL*)passwordIsHashPtr sebFileKeyRef:(SecKeyRef *)sebFileKeyRefPtr
+-(NSDictionary *) decryptSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing sebFilePassword:(NSString **)sebFilePasswordPtr passwordIsHashPtr:(BOOL*)passwordIsHashPtr sebFileIdentityRefPtr:(SecIdentityRef *)sebFileIdentityRefPtr
 {
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     // Ungzip the .seb (according to specification >= v14) source data
@@ -159,7 +160,7 @@
     if ([prefixString isEqualToString:@"pkhs"]) {
 
         // Decrypt with cryptographic identity/private key
-        sebData = [self decryptDataWithPublicKeyHashPrefix:sebData forEditing:forEditing sebFileKeyRef:sebFileKeyRefPtr error:&error];
+        sebData = [self decryptDataWithPublicKeyHashPrefix:sebData forEditing:forEditing sebIdentityRefPtr:sebFileIdentityRefPtr error:&error];
         if (!sebData || error) {
             return nil;
         }
@@ -568,14 +569,15 @@
 // Helper method which fetches the public key hash from a seb data object,
 // retrieves the according cryptographic identity from the keychain
 // and returns the decrypted data
--(NSData *) decryptDataWithPublicKeyHashPrefix:(NSData *)sebData forEditing:(BOOL)forEditing sebFileKeyRef:(SecKeyRef *)privateKeyRefPtr error:(NSError **)error
+-(NSData *) decryptDataWithPublicKeyHashPrefix:(NSData *)sebData forEditing:(BOOL)forEditing sebIdentityRefPtr:(SecIdentityRef *)identityRefPtr error:(NSError **)error
 {
     // Get 20 bytes public key hash prefix
     // and remaining data with the prefix stripped
     NSData *publicKeyHash = [self getPrefixDataFromData:&sebData withLength:publicKeyHashLenght];
     
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    SecKeyRef privateKeyRef = [keychainManager getPrivateKeyFromPublicKeyHash:publicKeyHash];
+    SecIdentityRef identityRef = [keychainManager getIdentityRefFromPublicKeyHash:publicKeyHash];
+    SecKeyRef privateKeyRef = [keychainManager getPrivateKeyRefFromIdentityRef:identityRef];
     if (!privateKeyRef) {
         NSRunAlertPanel(NSLocalizedString(@"Error Decrypting Settings", nil),
                         NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil),
@@ -587,7 +589,7 @@
 #endif
     // If these settings are being decrypted for editing, we will return the decryption certificate reference
     // in the variable which was passed as reference when calling this method
-    if (forEditing) *privateKeyRefPtr = privateKeyRef;
+    if (forEditing) *identityRefPtr = identityRef;
     
     sebData = [keychainManager decryptData:sebData withPrivateKey:privateKeyRef];
     
