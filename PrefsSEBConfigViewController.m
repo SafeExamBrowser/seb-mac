@@ -83,7 +83,7 @@
     [chooseIdentity selectItemAtIndex:0];
     int i, count = [self.identities count];
     for (i=0; i<count; i++) {
-        if (self.identities[i] == (__bridge id)(identityRef)) {
+        if ((__bridge SecIdentityRef)self.identities[i] == identityRef) {
             [chooseIdentity selectItemAtIndex:i+1];
             break;
         }
