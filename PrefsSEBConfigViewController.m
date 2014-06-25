@@ -72,18 +72,22 @@
 
 - (void) setSettingsPassword:(NSString *)password isHash:(BOOL)passwordIsHash
 {
-    [self setValue:password forKey:@"settingsPassword"];
-    [self setValue:password forKey:@"confirmSettingsPassword"];
+    _currentConfigFilePassword = password;
+    self.configPasswordIsHash = passwordIsHash;
 }
 
 
 // Select identity for passed identity reference
-- (void) selectSettingsIdentity:(SecIdentityRef)identityRef
+- (void) selectSettingsIdentity:(SecKeyRef)settingsPrivateKeyRef
 {
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+
     [chooseIdentity selectItemAtIndex:0];
     int i, count = [self.identities count];
     for (i=0; i<count; i++) {
-        if ((__bridge SecIdentityRef)self.identities[i] == identityRef) {
+        SecIdentityRef identityFromKeychain = (__bridge SecIdentityRef)self.identities[i];
+        SecKeyRef privateKeyRef = [keychainManager getPrivateKeyRefFromIdentityRef:identityFromKeychain];
+        if (settingsPrivateKeyRef == privateKeyRef) {
             [chooseIdentity selectItemAtIndex:i+1];
             break;
         }
@@ -91,7 +95,15 @@
 }
 
 
-- (SecIdentityRef)currentConfigKeyRef {
+// Getter methods for write-only properties
+
+- (NSString *)currentConfigFilePassword {
+    [NSException raise:NSInternalInconsistencyException
+                format:@"property is write-only"];
+    return nil;
+}
+
+- (SecKeyRef)currentConfigFileKeyRef {
     [NSException raise:NSInternalInconsistencyException
                 format:@"property is write-only"];
     return nil;
@@ -107,6 +119,22 @@
 // Method called by the bindings object controller for comparing the settings passwords
 - (NSString*) compareSettingsPasswords {
 	if ((settingsPassword != nil) | (confirmSettingsPassword != nil)) {
+        
+        // If the flag is set for password fields contain a placeholder
+        // instead of the hash loaded from settings (no clear text password)
+        if (self.configPasswordIsHash)
+        {
+            if (![settingsPassword isEqualToString:confirmSettingsPassword])
+            {
+                // and when the password texts aren't the same anymore, this means the user tries to edit the password
+                // (which is only the placeholder right now), we have to clear the placeholder from the textFields
+                [self setValue:@"" forKey:@"settingsPassword"];
+                [self setValue:@"" forKey:@"confirmSettingsPassword"];
+                self.configPasswordIsHash = false;
+            }
+        }
+        
+        // Password fields contain actual passwords, not the placeholder for a hash value
        	if (![settingsPassword isEqualToString:confirmSettingsPassword]) {
 			//if the two passwords don't match, show it in the label
             return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please confirm password",nil)]);
@@ -134,7 +162,25 @@
         [chooseIdentity addItemWithTitle:NSLocalizedString(@"None", nil)];
         [chooseIdentity addItemsWithTitles: self.identitiesNames];
     }
-    [self selectSettingsIdentity:_currentConfigIdentityRef];
+    // Set the settings password correctly
+    // If the settings password from the currently open config file contains a hash (and it isn't empty)
+    if (self.configPasswordIsHash && _currentConfigFilePassword.length > 0)
+    {
+        // CAUTION: We need to reset this flag BEFORE changing the textBox text value,
+        // because otherwise the compare passwords method will delete the first textBox again.
+        self.configPasswordIsHash = false;
+        [self setValue:@"0000000000000000" forKey:@"settingsPassword"];
+        self.configPasswordIsHash = true;
+        [self setValue:@"0000000000000000" forKey:@"confirmSettingsPassword"];
+    }
+    else
+    {
+        [self setValue:_currentConfigFilePassword forKey:@"settingsPassword"];
+        [self setValue:_currentConfigFilePassword forKey:@"confirmSettingsPassword"];
+    }
+    
+    
+    [self selectSettingsIdentity:_currentConfigFileKeyRef];
 }
 
 

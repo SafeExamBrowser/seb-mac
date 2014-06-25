@@ -40,26 +40,31 @@
 @interface PrefsSEBConfigViewController : NSViewController <MBPreferencesModule> {
     IBOutlet NSPopUpButton *chooseIdentity;
 
-	NSMutableString *settingsPassword;
-	NSMutableString *confirmSettingsPassword;
-	IBOutlet NSMatrix *sebPurpose;
 	//IBOutlet NSButtonCell *sebStartsExam;
 	//IBOutlet NSButtonCell *sebConfiguresClient;
 	IBOutlet NSButton *saveSEBPrefsButton;
     IBOutlet NSObjectController *controller;
+
+    @private
+    NSMutableString *settingsPassword;
+	NSMutableString *confirmSettingsPassword;
+	IBOutlet NSMatrix *sebPurpose;
 }
 
 @property (strong, nonatomic) NSMutableArray *identitiesNames;
 @property (strong, nonatomic) NSArray *identities;
-// Write-only property
-@property (nonatomic) SecIdentityRef currentConfigIdentityRef;
+
+@property BOOL configPasswordIsHash;
+// Write-only properties
+@property (nonatomic) NSString *currentConfigFilePassword;
+@property (nonatomic) SecKeyRef currentConfigFileKeyRef;
 
 
 // To make the getter unavailable
-- (SecIdentityRef)currentConfigIdentityRef UNAVAILABLE_ATTRIBUTE;
+- (SecKeyRef)currentConfigFileKeyRef UNAVAILABLE_ATTRIBUTE;
 
 - (void) setSettingsPassword:(NSString *)password isHash:(BOOL)passwordIsHash;
-- (void) selectSettingsIdentity:(SecIdentityRef)identityRef;
+- (void) selectSettingsIdentity:(SecKeyRef)settingsPrivateKeyRef;
 
 - (IBAction) saveSEBPrefs:(id)sender;
 //- (IBAction) openSEBPrefs:(id)sender;

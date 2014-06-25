@@ -283,6 +283,15 @@
 }
 
 
+- (SecKeyRef)getPrivateKeyFromPublicKeyHash:(NSData*)publicKeyHash {
+    SecKeyRef privateKeyRef = nil;
+    SecIdentityRef identityRef = [self getIdentityRefFromPublicKeyHash:publicKeyHash];
+    //OSStatus status = SecIdentityCopyPrivateKey(identityRef, &privateKeyRef);
+    SecIdentityCopyPrivateKey(identityRef, &privateKeyRef);
+    return privateKeyRef;
+}
+
+
 - (SecIdentityRef)getIdentityRefFromPublicKeyHash:(NSData*)publicKeyHash {
     SecKeychainRef keychain;
     OSStatus error;
@@ -314,45 +323,11 @@
 
 - (SecKeyRef)getPrivateKeyRefFromIdentityRef:(SecIdentityRef)identityRef {
     SecKeyRef privateKeyRef = nil;
-    OSStatus status = SecIdentityCopyPrivateKey(identityRef, &privateKeyRef);
+    SecIdentityCopyPrivateKey(identityRef, &privateKeyRef);
     return privateKeyRef;
 }
 
 
-//- (SecKeyRef)getPrivateKeyFromPublicKeyHash:(NSData*)publicKeyHash {
-//    SecKeychainRef keychain;
-//    OSStatus error;
-//    error = SecKeychainCopyDefault(&keychain);
-//    if (error) {
-//        //certReqDbg("GetResult: SecKeychainCopyDefault failure");
-//        /* oh well, there's nothing we can do about this */
-//    }
-//    
-//    NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
-//                           kSecClassCertificate, kSecClass,
-//                           (CFDataRef)publicKeyHash, kSecAttrPublicKeyHash,
-//                           [NSArray arrayWithObject:(__bridge id)keychain], kSecMatchSearchList,
-//                           kCFBooleanTrue, kSecReturnRef,
-//                           nil];
-//    //NSArray *items = nil;
-//    SecCertificateRef certificateRef = NULL;
-//    OSStatus status = SecItemCopyMatching((__bridge_retained CFDictionaryRef)query, (CFTypeRef *)&certificateRef);
-//    if (status != errSecSuccess) {
-//        return nil;
-//    }
-//    //NSMutableArray *identities = [NSMutableArray arrayWithArray:(__bridge  NSArray*)(items)];
-//    
-//    //SecKeyRef publicKeyRef;
-//    SecKeyRef privateKeyRef = nil;
-//    SecIdentityRef identityRef = [self createIdentityWithCertificate:certificateRef];
-//    if (status != errSecSuccess) {
-//        return nil;
-//    }
-//    status = SecIdentityCopyPrivateKey(identityRef, &privateKeyRef);
-//    return privateKeyRef;
-//}
-//
-//
 - (SecKeyRef*)copyPublicKeyFromCertificate:(SecCertificateRef)certificate {
     SecKeyRef key = NULL;
     OSStatus status = SecCertificateCopyPublicKey(certificate, &key);

@@ -43,6 +43,7 @@
 - (NSArray*)getIdentitiesAndNames:(NSArray **)names;
 - (NSArray*)getCertificatesAndNames:(NSArray **)names;
 - (NSData*)getPublicKeyHashFromCertificate:(SecCertificateRef)certificate;
+- (SecKeyRef)getPrivateKeyFromPublicKeyHash:(NSData*)publicKeyHash;
 - (SecIdentityRef)getIdentityRefFromPublicKeyHash:(NSData*)publicKeyHash;
 - (SecKeyRef)getPrivateKeyRefFromIdentityRef:(SecIdentityRef)identityRef;
 - (SecKeyRef*)copyPublicKeyFromCertificate:(SecCertificateRef)certificate;

@@ -42,13 +42,14 @@
 
 
 // Getter methods for write-only properties
+
 - (NSString *)currentConfigPassword {
     [NSException raise:NSInternalInconsistencyException
                 format:@"property is write-only"];
     return nil;
 }
 
-- (SecIdentityRef)currentConfigIdentityRef {
+- (SecKeyRef)currentConfigKeyRef {
     [NSException raise:NSInternalInconsistencyException
                 format:@"property is write-only"];
     return nil;
@@ -125,7 +126,7 @@
 - (void) setConfigFileCredentials
 {
     [self.SEBConfigVC setSettingsPassword:_currentConfigPassword isHash:_currentConfigPasswordIsHash];
-    [self.SEBConfigVC setCurrentConfigIdentityRef:_currentConfigIdentityRef];
+    [self.SEBConfigVC setCurrentConfigFileKeyRef:_currentConfigKeyRef];
 }
 
 

@@ -60,14 +60,14 @@
 @property BOOL currentConfigPasswordIsHash;
 // Write-only properties
 @property (nonatomic) NSString *currentConfigPassword;
-@property (nonatomic) SecIdentityRef currentConfigIdentityRef;
+@property (nonatomic) SecKeyRef currentConfigKeyRef;
 
 
 @property (nonatomic) PrefsSEBConfigViewController *SEBConfigVC;
 
 // To make the getter unavailable
 - (NSString *)currentConfigPassword UNAVAILABLE_ATTRIBUTE;
-- (SecIdentityRef)currentConfigIdentityRef UNAVAILABLE_ATTRIBUTE;
+- (SecKeyRef)currentConfigKeyRef UNAVAILABLE_ATTRIBUTE;
 
 - (void) showPreferences:(id)sender;
 - (BOOL) preferencesAreOpen;
