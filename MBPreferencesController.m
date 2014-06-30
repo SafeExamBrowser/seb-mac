@@ -297,9 +297,12 @@ static MBPreferencesController *sharedPreferencesController = nil;
 {
     // Set preferences title as module title – settings title
 	[self.window setTitle:[NSString stringWithFormat:@"%@  —  %@", [self.settingsTitle lastPathComponent], _currentModule.title]];
+    NSURL *settingsURL = [NSURL URLWithString:self.settingsTitle];
 //    [self.window setRepresentedURL:[NSURL URLWithString:self.settingsTitle]];
-    if (self.settingsTitle.isAbsolutePath) {
-        [self.window setRepresentedFilename:self.settingsTitle];
+    if (settingsURL.isFileURL) {
+//        [self.window setRepresentedFilename:self.settingsTitle];
+        [self.window setRepresentedURL:settingsURL];
+
     }
 //    [self.window setTitleWithRepresentedFilename:self.settingsTitle];
 }

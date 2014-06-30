@@ -64,6 +64,8 @@
 #import "MyGlobals.h"
 #import "Constants.h"
 
+#import "SEBSystemManager.h"
+
 io_connect_t  root_port; // a reference to the Root Power Domain IOService
 
 
@@ -129,7 +131,7 @@ bool insideMatrix();
     SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
 
     // Decrypt and store the .seb config file
-    if ([configFileManager storeDecryptedSEBSettings:sebData]) {
+    if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO]) {
         // if successfull save the path to the file for possible editing in the preferences window
         [[MyGlobals sharedMyGlobals] setCurrentConfigPath:filename];
 
@@ -214,7 +216,15 @@ bool insideMatrix();
 
 
 - (void)awakeFromNib {	
-	// Flag initializing
+
+    SEBSystemManager *systemManager = [[SEBSystemManager alloc] init];
+	
+    BOOL worked = [systemManager checkHTTPSProxySetting];
+#ifdef DEBUG
+    NSLog(@"Checking updating HTTPS proxy worked: %hhd", worked);
+#endif
+    
+    // Flag initializing
 	quittingMyself = FALSE; //flag to know if quit application was called externally
     
     // Terminate invisibly running applications

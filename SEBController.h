@@ -46,6 +46,7 @@
 #import "BrowserWindow.h"
 #import "SEBEncryptedUserDefaultsController.h"
 
+@class PreferencesController;
 	
 @interface SEBController : NSObject <NSApplicationDelegate> {
 	

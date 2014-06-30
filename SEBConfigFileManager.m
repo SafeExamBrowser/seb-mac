@@ -42,6 +42,7 @@
 #import "NSData+NSDataZIPExtension.h"
 #import "MyGlobals.h"
 
+
 @implementation SEBConfigFileManager
 
 
@@ -58,7 +59,7 @@
 #pragma mark Methods for Decrypting, Parsing and Storing SEB Settings to UserDefaults
 
 // Decrypt, parse and use new SEB settings
--(BOOL) storeDecryptedSEBSettings:(NSData *)sebData
+-(BOOL) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing
 {
     NSDictionary *sebPreferencesDict;
     NSString *sebFilePassword = nil;
@@ -70,10 +71,15 @@
     
     // Reset SEB, close third party applications
     
-    if ([[sebPreferencesDict valueForKey:@"sebConfigPurpose"] intValue] == sebConfigPurposeStartingExam) {
+    if (forEditing || [[sebPreferencesDict valueForKey:@"sebConfigPurpose"] intValue] == sebConfigPurposeStartingExam) {
 
         /// If these SEB settings are ment to start an exam
 
+        PreferencesController *prefsController = self.sebController.preferencesController;
+
+//        // Check if preferences window is currently open
+//        BOOL prefsWindowVisible = [prefsController preferencesAreOpen];
+        
         // Release preferences window so bindings get synchronized properly with the new loaded values
         [self.sebController.preferencesController releasePreferencesWindow];
         
@@ -88,7 +94,13 @@
         NSLog(@"Private preferences set: %@", privatePreferences);
 #endif
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        PreferencesController *prefsController = self.sebController.preferencesController;
+
+        // It might be that opening the preferences window isn't allowed in these settings,
+        // but if we're in editing mode, then we need to re-enable opening the prefs window again
+        if (forEditing) {
+            [preferences setSecureBool:YES forKey:@"org_safeexambrowser_enablePreferencesWindow"];
+        }
+
         // If opening the preferences window is allowed
         if ([preferences secureBoolForKey:@"org_safeexambrowser_enablePreferencesWindow"]) {
             // we store the .seb file password/hash and/or certificate/identity
@@ -96,8 +108,13 @@
             [prefsController setCurrentConfigPasswordIsHash:passwordIsHash];
             [prefsController setCurrentConfigKeyRef:sebFileKeyRef];
         }
+        
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
         [prefsController initPreferencesWindow];
+        
+//        if (prefsWindowVisible) {
+//            [prefsController showPreferences:self];
+//        }
         
         return YES; //reading preferences was successful
 

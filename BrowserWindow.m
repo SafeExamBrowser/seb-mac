@@ -1006,7 +1006,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
                 }
             }
             SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-            if ([configFileManager storeDecryptedSEBSettings:sebFileData]) {
+            if ([configFileManager storeDecryptedSEBSettings:sebFileData forEditing:NO]) {
                 // Store the URL of the .seb file as current config file path
                 [[MyGlobals sharedMyGlobals] setCurrentConfigPath:[url lastPathComponent]]; // absoluteString]];
 

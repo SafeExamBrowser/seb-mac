@@ -37,4 +37,6 @@
 
 @interface SEBSystemManager : NSObject
 
+- (BOOL) checkHTTPSProxySetting;
+
 @end

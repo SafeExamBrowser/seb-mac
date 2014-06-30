@@ -67,6 +67,7 @@
 - (void) selectSettingsIdentity:(SecKeyRef)settingsPrivateKeyRef;
 
 - (IBAction) saveSEBPrefs:(id)sender;
+- (IBAction) saveSEBPrefsAs:(id)sender;
 //- (IBAction) openSEBPrefs:(id)sender;
 
 @end

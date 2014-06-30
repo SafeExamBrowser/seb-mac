@@ -213,9 +213,23 @@
 }
 
 
-// Action formating and saving current preferences to an encrypted .seb file
-//
-- (IBAction) saveSEBPrefs:(id)sender {
+// Action saving current preferences to a .seb file choosing the filename
+- (IBAction) saveSEBPrefs:(id)sender
+{
+    [self savePrefsAs:NO];
+}
+
+
+// Action saving current preferences to a .seb file choosing the filename
+- (IBAction) saveSEBPrefsAs:(id)sender
+{
+    [self savePrefsAs:YES];
+}
+
+
+// Method which encrypts and saves current preferences to an encrypted .seb file
+- (void) savePrefsAs:(BOOL)saveAs
+{
     SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
     
     // Get SecIdentityRef for selected identity
@@ -234,70 +248,99 @@
     
     // If SEB settings were actually read and encrypted we save them
     if (encryptedSebData) {
-        // Set the default name for the file and show the panel.
-        NSSavePanel *panel = [NSSavePanel savePanel];
-        //[panel setNameFieldStringValue:newName];
-        [panel setAllowedFileTypes:[NSArray arrayWithObject:@"seb"]];
-        [panel beginSheetModalForWindow:[MBPreferencesController sharedController].window
-                      completionHandler:^(NSInteger result){
-                          if (result == NSFileHandlingPanelOKButton)
-                          {
-                              NSURL*  prefsFileURL = [panel URL];
-                              // Write the contents in the new format.
-                              if (![encryptedSebData writeToURL:prefsFileURL atomically:YES]) {
-                                  //if (![filteredPrefsDict writeToURL:prefsFileURL atomically:YES]) {
-                                  // If the prefs file couldn't be written to app bundle
-                                  NSRunAlertPanel(NSLocalizedString(@"Writing Settings Failed", nil),
-                                                  NSLocalizedString(@"Make sure you have write permissions in the chosen directory", nil),
-                                                  NSLocalizedString(@"OK", nil), nil, nil);
-                              } else {
-                                  // Prefs got successfully written to file
-                                  NSRunAlertPanel(NSLocalizedString(@"Writing Settings Succeeded", nil), ([sebPurpose selectedRow]) ? NSLocalizedString(@"Encrypted settings have been saved, use this file to reconfigure local settings of a SEB client.", nil) : NSLocalizedString(@"Encrypted settings have been saved, use this file to start the exam with SEB.", nil), NSLocalizedString(@"OK", nil), nil, nil);
+        NSURL *currentConfigFileURL;
+        // Check if local client settings (UserDefauls) are active
+        if (!NSUserDefaults.userDefaultsPrivate) {
+            // Preset "SebClientSettings.seb" as default file name
+            currentConfigFileURL = [NSURL URLWithString:@"SebClientSettings.seb"];
+        } else {
+            // Get the current filename
+//            filename = [[MyGlobals sharedMyGlobals] currentConfigPath].lastPathComponent;
+            currentConfigFileURL = [NSURL URLWithString:[[MyGlobals sharedMyGlobals] currentConfigPath]];
+//            if ([[MyGlobals sharedMyGlobals] currentConfigPath]) {
+//            }
+        }
+        if (!saveAs && [currentConfigFileURL isFileURL]) {
+            // Save the file openend before
+            if (![encryptedSebData writeToURL:currentConfigFileURL atomically:YES]) {
+                // If the prefs file couldn't be written to app bundle
+                NSRunAlertPanel(NSLocalizedString(@"Writing Settings Failed", nil),
+                                NSLocalizedString(@"Make sure you have write permissions in the chosen directory", nil),
+                                NSLocalizedString(@"OK", nil), nil, nil);
+            }
+            
+        } else {
+            // Save As
+            // Set the default name for the file and show the panel.
+            NSSavePanel *panel = [NSSavePanel savePanel];
+            [panel setDirectoryURL:currentConfigFileURL];
+            [panel setAllowedFileTypes:[NSArray arrayWithObject:@"seb"]];
+            [panel beginSheetModalForWindow:[MBPreferencesController sharedController].window
+                          completionHandler:^(NSInteger result){
+                              if (result == NSFileHandlingPanelOKButton)
+                              {
+                                  NSURL*  prefsFileURL = [panel URL];
+                                  // Write the contents in the new format.
+                                  if (![encryptedSebData writeToURL:prefsFileURL atomically:YES]) {
+                                      //if (![filteredPrefsDict writeToURL:prefsFileURL atomically:YES]) {
+                                      // If the prefs file couldn't be written to app bundle
+                                      NSRunAlertPanel(NSLocalizedString(@"Writing Settings Failed", nil),
+                                                      NSLocalizedString(@"Make sure you have write permissions in the chosen directory", nil),
+                                                      NSLocalizedString(@"OK", nil), nil, nil);
+                                  } else {
+                                      // Prefs got successfully written to file
+                                      NSString *settingsSavedMessage = configPurpose ? NSLocalizedString(@"Settings have been saved, use this file to reconfigure local settings of a SEB client.", nil) : NSLocalizedString(@"Settings have been saved, use this file to start the exam with SEB.", nil);
+                                      NSRunAlertPanel(NSLocalizedString(@"Writing Settings Succeeded", nil), @"%@", NSLocalizedString(@"OK", nil), nil, nil,settingsSavedMessage);
 #ifdef DEBUG
-                                  /*prefsFileURL = [[prefsFileURL URLByDeletingPathExtension] URLByAppendingPathExtension:@"plist"];
-                                   if ([filteredPrefsDict writeToURL:prefsFileURL atomically:YES]) {
-                                   NSLog(@"Unencrypted preferences saved as plist");
-                                   }*/
+                                      /*prefsFileURL = [[prefsFileURL URLByDeletingPathExtension] URLByAppendingPathExtension:@"plist"];
+                                       if ([filteredPrefsDict writeToURL:prefsFileURL atomically:YES]) {
+                                       NSLog(@"Unencrypted preferences saved as plist");
+                                       }*/
 #endif
+                                  }
                               }
-                          }
-                      }];
+                          }];
+        }
     }
 }
 
 
-//
-//- (IBAction) openSEBPrefs:(id)sender {
-//    NSData *encryptedSebData;
-//    // Set the default name for the file and show the panel.
-//    NSOpenPanel *panel = [NSOpenPanel openPanel];
-//    //[panel setNameFieldStringValue:newName];
-//    [panel setAllowedFileTypes:[NSArray arrayWithObject:@"seb"]];
-//    [panel beginSheetModalForWindow:[MBPreferencesController sharedController].window
-//                  completionHandler:^(NSInteger result){
-//                      if (result == NSFileHandlingPanelOKButton)
-//                      {
-//                          NSURL*  prefsFileURL = [panel URL];
-//                          // Write the contents in the new format.
-//                          if (![encryptedSebData writeToURL:prefsFileURL atomically:YES]) {
-//                              //if (![filteredPrefsDict writeToURL:prefsFileURL atomically:YES]) {
-//                              // If the prefs file couldn't be written to app bundle
-//                              NSRunAlertPanel(NSLocalizedString(@"Writing Settings Failed", nil),
-//                                              NSLocalizedString(@"Make sure you have write permissions in the chosen directory", nil),
-//                                              NSLocalizedString(@"OK", nil), nil, nil);
-//                          } else {
-//                              // Prefs got successfully written to file
-//                              NSRunAlertPanel(NSLocalizedString(@"Writing Settings Succeeded", nil), ([sebPurpose selectedRow]) ? NSLocalizedString(@"Encrypted settings have been saved, use this file to reconfigure local settings of a SEB client.", nil) : NSLocalizedString(@"Encrypted settings have been saved, use this file to start the exam with SEB.", nil), NSLocalizedString(@"OK", nil), nil, nil);
-//#ifdef DEBUG
-//                              /*prefsFileURL = [[prefsFileURL URLByDeletingPathExtension] URLByAppendingPathExtension:@"plist"];
-//                               if ([filteredPrefsDict writeToURL:prefsFileURL atomically:YES]) {
-//                               NSLog(@"Unencrypted preferences saved as plist");
-//                               }*/
-//#endif
-//                          }
-//                      }
-//                  }];
-//
-//}
+- (IBAction) openSEBPrefs:(id)sender {
+    // Set the default name for the file and show the panel.
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    //[panel setNameFieldStringValue:newName];
+    [panel setAllowedFileTypes:[NSArray arrayWithObject:@"seb"]];
+    [panel beginSheetModalForWindow:[MBPreferencesController sharedController].window
+                  completionHandler:^(NSInteger result){
+                      if (result == NSFileHandlingPanelOKButton)
+                      {
+                          NSURL *sebFileURL = [panel URL];
+                          
+                          // Check if private UserDefauls are switched on already
+                          if (NSUserDefaults.userDefaultsPrivate) {
+                          }
+
+#ifdef DEBUG
+                          NSLog(@"Loading .seb settings file with file URL %@", sebFileURL);
+#endif
+                          NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL];
+                          
+                          SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+                          
+                          // Decrypt and store the .seb config file
+                          if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:YES]) {
+                              // if successfull save the path to the file for possible editing in the preferences window
+                              [[MyGlobals sharedMyGlobals] setCurrentConfigPath:sebFileURL.absoluteString];
+                              
+                              [[MBPreferencesController sharedController] setSettingsTitle:[[MyGlobals sharedMyGlobals] currentConfigPath]];
+                              [[MBPreferencesController sharedController] showWindow:sender];
+
+                              //[self requestedRestart:nil];
+                          }
+
+                      }
+                  }];
+
+}
 
 @end

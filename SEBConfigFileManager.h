@@ -37,13 +37,14 @@
 #import "SEBController.h"
 #import "Constants.h"
 
+
 @interface SEBConfigFileManager : NSObject
 
 @property (nonatomic, strong) SEBController *sebController;
 
 
 // Decrypt, parse and store SEB settings to UserDefaults
--(BOOL) storeDecryptedSEBSettings:(NSData *)sebData;
+-(BOOL) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing;
 
 // Read SEB settings from UserDefaults and encrypt them using provided security credentials
 - (NSData *) encryptSEBSettingsWithPassword:(NSString *)settingsPassword
