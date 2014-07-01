@@ -134,7 +134,7 @@ static MBPreferencesController *sharedPreferencesController = nil;
 - (void)showWindow:(id)sender
 {
     // Set preferences title as module title – settings title
-    [self _setPreferencesWindowTitle];
+    [self setPreferencesWindowTitle];
 
 	[self.window center];
 	[super showWindow:sender];
@@ -287,13 +287,13 @@ static MBPreferencesController *sharedPreferencesController = nil;
 	[[self.window contentView] addSubview:[_currentModule view]];
 	
     // Set preferences title as module title – settings title
-    [self _setPreferencesWindowTitle];
+    [self setPreferencesWindowTitle];
 	
 	// Autosave the selection
 	[[NSUserDefaults standardUserDefaults] setObject:[module identifier] forKey:MBPreferencesSelectionAutosaveKey];
 }
 
-- (void)_setPreferencesWindowTitle
+- (void)setPreferencesWindowTitle
 {
     // Set preferences title as module title – settings title
 	[self.window setTitle:[NSString stringWithFormat:@"%@  —  %@", [self.settingsTitle lastPathComponent], _currentModule.title]];

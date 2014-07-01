@@ -261,7 +261,7 @@
 //            }
         }
         if (!saveAs && [currentConfigFileURL isFileURL]) {
-            // Save the file openend before
+            // "Save": Rewrite the file openend before
             if (![encryptedSebData writeToURL:currentConfigFileURL atomically:YES]) {
                 // If the prefs file couldn't be written to app bundle
                 NSRunAlertPanel(NSLocalizedString(@"Writing Settings Failed", nil),
@@ -270,10 +270,10 @@
             }
             
         } else {
-            // Save As
-            // Set the default name for the file and show the panel.
+            // "Save As": Set the default name and if there is an existing path for the file and show the panel.
             NSSavePanel *panel = [NSSavePanel savePanel];
             [panel setDirectoryURL:currentConfigFileURL];
+            [panel setNameFieldStringValue:currentConfigFileURL.lastPathComponent];
             [panel setAllowedFileTypes:[NSArray arrayWithObject:@"seb"]];
             [panel beginSheetModalForWindow:[MBPreferencesController sharedController].window
                           completionHandler:^(NSInteger result){
@@ -289,14 +289,15 @@
                                                       NSLocalizedString(@"OK", nil), nil, nil);
                                   } else {
                                       // Prefs got successfully written to file
+                                      // If "Save As" or the last file didn't had a full path (wasn't stored on drive):
+                                      // Store the new path as the current config file path
+                                      if (saveAs || ![currentConfigFileURL isFileURL]) {
+                                          [[MyGlobals sharedMyGlobals] setCurrentConfigPath:panel.URL.absoluteString];
+                                          [[MBPreferencesController sharedController] setSettingsTitle:[[MyGlobals sharedMyGlobals] currentConfigPath]];
+                                          [[MBPreferencesController sharedController] setPreferencesWindowTitle];
+                                      }
                                       NSString *settingsSavedMessage = configPurpose ? NSLocalizedString(@"Settings have been saved, use this file to reconfigure local settings of a SEB client.", nil) : NSLocalizedString(@"Settings have been saved, use this file to start the exam with SEB.", nil);
                                       NSRunAlertPanel(NSLocalizedString(@"Writing Settings Succeeded", nil), @"%@", NSLocalizedString(@"OK", nil), nil, nil,settingsSavedMessage);
-#ifdef DEBUG
-                                      /*prefsFileURL = [[prefsFileURL URLByDeletingPathExtension] URLByAppendingPathExtension:@"plist"];
-                                       if ([filteredPrefsDict writeToURL:prefsFileURL atomically:YES]) {
-                                       NSLog(@"Unencrypted preferences saved as plist");
-                                       }*/
-#endif
                                   }
                               }
                           }];

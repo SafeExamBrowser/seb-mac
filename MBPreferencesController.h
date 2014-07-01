@@ -135,5 +135,6 @@
 
 - (void) openWindow;
 - (void) unloadNibs;
+- (void)setPreferencesWindowTitle;
 
 @end
