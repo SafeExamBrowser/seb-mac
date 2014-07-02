@@ -146,6 +146,11 @@
 }
 
 
+- (BOOL) usingPrivateDefaults {
+    return NSUserDefaults.userDefaultsPrivate;
+}
+
+
 // Delegate called before the Exam settings preferences pane will be displayed
 - (void)willBeDisplayed {
     //Load settings password from user defaults
@@ -244,7 +249,7 @@
     sebConfigPurposes configPurpose = [sebPurpose selectedRow];
     
     // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
-    NSData *encryptedSebData = [configFileManager encryptSEBSettingsWithPassword:settingsPassword withIdentity:identityRef forPurpose:configPurpose];
+    NSData *encryptedSebData = [configFileManager encryptSEBSettingsWithPassword:settingsPassword passwordIsHash:self.configPasswordIsHash withIdentity:identityRef forPurpose:configPurpose];
     
     // If SEB settings were actually read and encrypted we save them
     if (encryptedSebData) {

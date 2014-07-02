@@ -55,6 +55,8 @@
 @property (strong, nonatomic) NSArray *identities;
 
 @property BOOL configPasswordIsHash;
+@property (readonly) BOOL usingPrivateDefaults;
+
 // Write-only properties
 @property (nonatomic) NSString *currentConfigFilePassword;
 @property (nonatomic) SecKeyRef currentConfigFileKeyRef;
@@ -62,6 +64,8 @@
 
 // To make the getter unavailable
 - (SecKeyRef)currentConfigFileKeyRef UNAVAILABLE_ATTRIBUTE;
+
+- (BOOL) usingPrivateDefaults;
 
 - (void) setSettingsPassword:(NSString *)password isHash:(BOOL)passwordIsHash;
 - (void) selectSettingsIdentity:(SecKeyRef)settingsPrivateKeyRef;

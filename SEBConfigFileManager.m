@@ -70,12 +70,12 @@
     if (!sebPreferencesDict) return NO; //Decryption didn't work, we abort
     
     // Reset SEB, close third party applications
+    PreferencesController *prefsController = self.sebController.preferencesController;
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
     if (forEditing || [[sebPreferencesDict valueForKey:@"sebConfigPurpose"] intValue] == sebConfigPurposeStartingExam) {
 
         /// If these SEB settings are ment to start an exam
-
-        PreferencesController *prefsController = self.sebController.preferencesController;
 
 //        // Check if preferences window is currently open
 //        BOOL prefsWindowVisible = [prefsController preferencesAreOpen];
@@ -93,8 +93,6 @@
 #ifdef DEBUG
         NSLog(@"Private preferences set: %@", privatePreferences);
 #endif
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-
         // It might be that opening the preferences window isn't allowed in these settings,
         // but if we're in editing mode, then we need to re-enable opening the prefs window again
         if (forEditing) {
@@ -138,7 +136,16 @@
                 self.sebController.quittingMyself = TRUE; //SEB is terminating itself
                 [NSApp terminate: nil]; //quit SEB
         }
-        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
+        
+        // If opening the preferences window is allowed
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_enablePreferencesWindow"]) {
+            // we store the .seb file password/hash and/or certificate/identity
+            [prefsController setCurrentConfigPassword:sebFilePassword];
+            [prefsController setCurrentConfigPasswordIsHash:passwordIsHash];
+            [prefsController setCurrentConfigKeyRef:sebFileKeyRef];
+        }
+        
+[[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
         
         return YES; //reading preferences was successful
     }
@@ -684,6 +691,7 @@
 
 // Read SEB settings from UserDefaults and encrypt them using provided security credentials
 - (NSData *) encryptSEBSettingsWithPassword:(NSString *)settingsPassword
+                             passwordIsHash:(BOOL) passwordIsHash
                                withIdentity:(SecIdentityRef) identityRef
                                  forPurpose:(sebConfigPurposes)configPurpose {
 
@@ -726,12 +734,12 @@
     NSString *encryptingPassword = nil;
     
     // Check for special case: .seb configures client, empty password
-    if (!settingsPassword && configPurpose == sebConfigPurposeConfiguringClient) {
+    if (!(settingsPassword.length > 0) && configPurpose == sebConfigPurposeConfiguringClient) {
         encryptingPassword = @"";
     } else {
         // in all other cases:
         // Check if no password entered and no identity selected
-        if (!settingsPassword && !identityRef) {
+        if (!(settingsPassword.length > 0) && !identityRef) {
             int answer = NSRunAlertPanel(NSLocalizedString(@"No encryption credentials chosen",nil), NSLocalizedString(@"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted SEB file, but this is not recommended for use in exams.",nil),
                                          NSLocalizedString(@"OK",nil), NSLocalizedString(@"Save unencrypted",nil), nil);
             switch(answer)
@@ -753,13 +761,13 @@
     encryptedSebData = [encryptedSebData gzipDeflate];
     
     // Check if password for encryption is provided and use it then
-    if (settingsPassword) {
+    if (settingsPassword.length > 0) {
         encryptingPassword = settingsPassword;
     }
     // So if password is empty (special case) or provided
     if (encryptingPassword) {
         // encrypt with password
-        encryptedSebData = [self encryptData:encryptedSebData usingPassword:encryptingPassword forPurpose:configPurpose];
+        encryptedSebData = [self encryptData:encryptedSebData usingPassword:encryptingPassword passwordIsHash:passwordIsHash forPurpose:configPurpose];
     } else {
         // if no encryption with password: add a spare 4-char prefix identifying plain data
         NSString *prefixString = @"plnd";
@@ -808,7 +816,7 @@
 
 
 // Encrypt preferences using a password
-- (NSData*) encryptData:(NSData*)data usingPassword:password forPurpose:(sebConfigPurposes)configPurpose {
+- (NSData*) encryptData:(NSData*)data usingPassword:(NSString *)password passwordIsHash:(BOOL)passwordIsHash forPurpose:(sebConfigPurposes)configPurpose {
     const char *utfString;
     // Check if .seb file should start exam or configure client
     if (configPurpose == sebConfigPurposeStartingExam) {
@@ -816,10 +824,11 @@
         utfString = [@"pswd" UTF8String];
     } else {
         // prefix string for configuring client: configuring password will either be hashed admin pw on client
-        // or if no admin pw on client set: empty pw //(((or prompt pw before configuring)))
+        // or if no admin pw on client set: empty pw
         utfString = [@"pwcc" UTF8String];
-        if (![password isEqualToString:@""]) {
+        if (password.length > 0 && !passwordIsHash) {
             //empty password means no admin pw on clients and should not be hashed
+            //or we got already a hashed admin pw as settings pw, then we don't hash again
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
             password = [keychainManager generateSHAHashString:password];
             password = [password uppercaseString];
