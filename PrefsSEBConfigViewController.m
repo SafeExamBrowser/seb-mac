@@ -121,16 +121,21 @@
 	if ((settingsPassword != nil) | (confirmSettingsPassword != nil)) {
         
         // If the flag is set for password fields contain a placeholder
-        // instead of the hash loaded from settings (no clear text password)
+        // instead of the hash loaded from settings (no cleartext password)
         if (self.configPasswordIsHash)
         {
             if (![settingsPassword isEqualToString:confirmSettingsPassword])
             {
                 // and when the password texts aren't the same anymore, this means the user tries to edit the password
                 // (which is only the placeholder right now), we have to clear the placeholder from the textFields
-                [self setValue:@"" forKey:@"settingsPassword"];
-                [self setValue:@"" forKey:@"confirmSettingsPassword"];
                 self.configPasswordIsHash = false;
+                [self setValue:nil forKey:@"settingsPassword"];
+                [self setValue:nil forKey:@"confirmSettingsPassword"];
+                [settingsPasswordField setStringValue:@""];
+                [confirmSettingsPasswordField setStringValue:@""];
+                return nil;
+//                [settingsPassword setString:@""];
+//                [confirmSettingsPassword setString:@""];
             }
         }
         
@@ -189,33 +194,33 @@
 }
 
 
-- (void) loadPrefs {
-	// Loads preferences from the system's user defaults database
-	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *settingsPwd = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_settingsPassword"];
-    if ([settingsPwd isEqualToString:@""]) {
-        //empty passwords need to be set to NIL because of the text fields' bindings
-        [self setValue:nil forKey:@"settingsPassword"];
-        [self setValue:nil forKey:@"confirmSettingsPassword"];
-    } else {
-        //if there actually was a hashed password set, use a placeholder string
-        [self setValue:settingsPwd forKey:@"settingsPassword"];
-        [self setValue:settingsPwd forKey:@"confirmSettingsPassword"];
-    }
-}
-
-
-- (void) savePrefs {
-	// Saves preferences to the system's user defaults database
-	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    
-    if (settingsPassword == nil) {
-        //if no settings pw was entered, save a empty NSData object in preferences
-        [preferences setSecureObject:@"" forKey:@"org_safeexambrowser_SEB_settingsPassword"];
-    } else
-        //if password was changed, save the new password in preferences
-        [preferences setSecureObject:settingsPassword forKey:@"org_safeexambrowser_SEB_settingsPassword"];
-}
+//- (void) loadPrefs {
+//	// Loads preferences from the system's user defaults database
+//	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+//    NSString *settingsPwd = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_settingsPassword"];
+//    if ([settingsPwd isEqualToString:@""]) {
+//        //empty passwords need to be set to NIL because of the text fields' bindings
+//        [self setValue:nil forKey:@"settingsPassword"];
+//        [self setValue:nil forKey:@"confirmSettingsPassword"];
+//    } else {
+//        //if there actually was a hashed password set, use a placeholder string
+//        [self setValue:settingsPwd forKey:@"settingsPassword"];
+//        [self setValue:settingsPwd forKey:@"confirmSettingsPassword"];
+//    }
+//}
+//
+//
+//- (void) savePrefs {
+//	// Saves preferences to the system's user defaults database
+//	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+//    
+//    if (settingsPassword == nil) {
+//        //if no settings pw was entered, save a empty NSData object in preferences
+//        [preferences setSecureObject:@"" forKey:@"org_safeexambrowser_SEB_settingsPassword"];
+//    } else
+//        //if password was changed, save the new password in preferences
+//        [preferences setSecureObject:settingsPassword forKey:@"org_safeexambrowser_SEB_settingsPassword"];
+//}
 
 
 // Action saving current preferences to a .seb file choosing the filename
@@ -249,7 +254,13 @@
     sebConfigPurposes configPurpose = [sebPurpose selectedRow];
     
     // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
-    NSData *encryptedSebData = [configFileManager encryptSEBSettingsWithPassword:settingsPassword passwordIsHash:self.configPasswordIsHash withIdentity:identityRef forPurpose:configPurpose];
+    NSString *encryptingPassword;
+    if (self.configPasswordIsHash) {
+        encryptingPassword = _currentConfigFilePassword;
+    } else {
+        encryptingPassword = settingsPassword;
+    }
+    NSData *encryptedSebData = [configFileManager encryptSEBSettingsWithPassword:encryptingPassword passwordIsHash:self.configPasswordIsHash withIdentity:identityRef forPurpose:configPurpose];
     
     // If SEB settings were actually read and encrypted we save them
     if (encryptedSebData) {

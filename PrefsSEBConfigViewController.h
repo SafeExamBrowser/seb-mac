@@ -49,6 +49,8 @@
     NSMutableString *settingsPassword;
 	NSMutableString *confirmSettingsPassword;
 	IBOutlet NSMatrix *sebPurpose;
+    IBOutlet NSSecureTextField *settingsPasswordField;
+    IBOutlet NSSecureTextField *confirmSettingsPasswordField;
 }
 
 @property (strong, nonatomic) NSMutableArray *identitiesNames;
