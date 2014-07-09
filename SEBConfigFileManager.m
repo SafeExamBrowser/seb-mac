@@ -66,7 +66,7 @@
     BOOL passwordIsHash = false;
     SecKeyRef sebFileKeyRef = nil;
     
-    sebPreferencesDict = [self decryptSEBSettings:sebData forEditing:YES sebFilePassword:&sebFilePassword passwordIsHashPtr:&passwordIsHash sebFileKeyRef:&sebFileKeyRef];
+    sebPreferencesDict = [self decryptSEBSettings:sebData forEditing:forEditing sebFilePassword:&sebFilePassword passwordIsHashPtr:&passwordIsHash sebFileKeyRef:&sebFileKeyRef];
     if (!sebPreferencesDict) return NO; //Decryption didn't work, we abort
     
     // Reset SEB, close third party applications
@@ -155,7 +155,7 @@
 
 
 // Decrypt and deserialize SEB settings
-// When forEditing = true, then the decrypting password the user entered and/or
+// The decrypting password the user entered and/or
 // certificate reference found in the .seb file is returned
 
 -(NSDictionary *) decryptSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing sebFilePassword:(NSString **)sebFilePasswordPtr passwordIsHashPtr:(BOOL*)passwordIsHashPtr sebFileKeyRef:(SecKeyRef *)sebFileKeyRefPtr
@@ -230,9 +230,7 @@
         } else {
             sebData = sebDataDecrypted;
             // If these settings are being decrypted for editing, we return the decryption password
-            if (forEditing) {
-                *sebFilePasswordPtr = password;
-            }
+            *sebFilePasswordPtr = password;
         }
     } else {
         
@@ -414,16 +412,14 @@
                 return nil;
             } else {
                 // Decrypting with entered password worked: We save it for returning it later
-                if (forEditing) *sebFilePasswordPtr = password;
+                *sebFilePasswordPtr = password;
             }
         }
     } else {
         //decrypting with hashedAdminPassword worked: we save it for returning as decryption password if settings are meant for editing
-        if (forEditing) {
-            *sebFilePasswordPtr = hashedAdminPassword;
-            // identify this password as hash
-            *passwordIsHashPtr = true;
-        }
+        *sebFilePasswordPtr = hashedAdminPassword;
+        // identify this password as hash
+        *passwordIsHashPtr = true;
         
     }
     // Decryption worked
@@ -677,7 +673,7 @@
 #endif
     // If these settings are being decrypted for editing, we will return the decryption certificate reference
     // in the variable which was passed as reference when calling this method
-    if (forEditing) *privateKeyRefPtr = privateKeyRef;
+    *privateKeyRefPtr = privateKeyRef;
     
     sebData = [keychainManager decryptData:sebData withPrivateKey:privateKeyRef];
     

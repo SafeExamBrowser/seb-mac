@@ -1006,13 +1006,22 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
                 }
             }
             SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+
+            // Get current config path
+            NSString *currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigPath];
+            // Store the URL of the .seb file as current config file path
+            [[MyGlobals sharedMyGlobals] setCurrentConfigPath:[url lastPathComponent]]; // absoluteString]];
+            
             if ([configFileManager storeDecryptedSEBSettings:sebFileData forEditing:NO]) {
-                // Store the URL of the .seb file as current config file path
-                [[MyGlobals sharedMyGlobals] setCurrentConfigPath:[url lastPathComponent]]; // absoluteString]];
 
                 // Post a notification that it was requested to restart SEB with changed settings
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:@"requestRestartNotification" object:self];
+
+            } else {
+                // if decrypting new settings wasn't successfull, we have to restore the path to the old settings
+                [[MyGlobals sharedMyGlobals] setCurrentConfigPath:currentConfigPath];
+                
             }
         }
     }

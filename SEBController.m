@@ -130,12 +130,19 @@ bool insideMatrix();
     
     SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
 
+    // Get current config path
+    NSString *currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigPath];
+    // Save the path to the file for possible editing in the preferences window
+    [[MyGlobals sharedMyGlobals] setCurrentConfigPath:filename];
+
     // Decrypt and store the .seb config file
     if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO]) {
-        // if successfull save the path to the file for possible editing in the preferences window
-        [[MyGlobals sharedMyGlobals] setCurrentConfigPath:filename];
-
+        // if successfull restart with new settings
         [self requestedRestart:nil];
+    } else {
+        // if decrypting new settings wasn't successfull, we have to restore the path to the old settings
+        [[MyGlobals sharedMyGlobals] setCurrentConfigPath:currentConfigPath];
+
     }
     
     return YES;

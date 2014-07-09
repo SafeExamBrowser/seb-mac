@@ -299,13 +299,9 @@ static MBPreferencesController *sharedPreferencesController = nil;
     NSString *filename = [self.settingsTitle.lastPathComponent stringByRemovingPercentEncoding];
 	[self.window setTitle:[NSString stringWithFormat:@"%@  —  %@", filename, _currentModule.title]];
     NSURL *settingsURL = [NSURL URLWithString:self.settingsTitle];
-//    [self.window setRepresentedURL:[NSURL URLWithString:self.settingsTitle]];
     if (settingsURL.isFileURL) {
-//        [self.window setRepresentedFilename:self.settingsTitle];
         [self.window setRepresentedURL:settingsURL];
-
     }
-//    [self.window setTitleWithRepresentedFilename:self.settingsTitle];
 }
 
 @end
