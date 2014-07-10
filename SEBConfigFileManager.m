@@ -65,20 +65,26 @@
     NSString *sebFilePassword = nil;
     BOOL passwordIsHash = false;
     SecKeyRef sebFileKeyRef = nil;
+
+    // In editing mode we can get a saved existing config file password
+    // (used when reverting to last saved/openend settings)
+    PreferencesController *prefsController = self.sebController.preferencesController;
+    if (forEditing) {
+        sebFilePassword = prefsController.currentConfigPassword;
+        passwordIsHash = prefsController.currentConfigPasswordIsHash;
+    }
     
     sebPreferencesDict = [self decryptSEBSettings:sebData forEditing:forEditing sebFilePassword:&sebFilePassword passwordIsHashPtr:&passwordIsHash sebFileKeyRef:&sebFileKeyRef];
     if (!sebPreferencesDict) return NO; //Decryption didn't work, we abort
     
     // Reset SEB, close third party applications
-    PreferencesController *prefsController = self.sebController.preferencesController;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
     if (forEditing || [[sebPreferencesDict valueForKey:@"sebConfigPurpose"] intValue] == sebConfigPurposeStartingExam) {
 
+        ///
         /// If these SEB settings are ment to start an exam
-
-//        // Check if preferences window is currently open
-//        BOOL prefsWindowVisible = [prefsController preferencesAreOpen];
+        ///
         
         // Release preferences window so bindings get synchronized properly with the new loaded values
         [self.sebController.preferencesController releasePreferencesWindow];
@@ -110,15 +116,14 @@
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
         [prefsController initPreferencesWindow];
         
-//        if (prefsWindowVisible) {
-//            [prefsController showPreferences:self];
-//        }
         
         return YES; //reading preferences was successful
 
     } else {
 
+        ///
         /// If these SEB settings are ment to configure a client
+        ///
 
         //switch to system's UserDefaults
         [NSUserDefaults setUserDefaultsPrivate:NO];
@@ -147,7 +152,7 @@
             [prefsController setCurrentConfigKeyRef:sebFileKeyRef];
         }
         
-[[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
+        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
         
         return YES; //reading preferences was successful
     }
@@ -213,8 +218,13 @@
         do {
             i--;
             // Prompt for password
-            if ([self.sebController showEnterPasswordDialog:enterPasswordString modalForWindow:nil windowTitle:NSLocalizedString(@"Loading Settings",nil)] == SEBEnterPasswordCancel) return nil;
-            password = [self.sebController.enterPassword stringValue];
+            // if we don't have it already
+            if (forEditing && *sebFilePasswordPtr) {
+                password = *sebFilePasswordPtr;
+            } else {
+                if ([self.sebController showEnterPasswordDialog:enterPasswordString modalForWindow:nil windowTitle:NSLocalizedString(@"Loading Settings",nil)] == SEBEnterPasswordCancel) return nil;
+                password = [self.sebController.enterPassword stringValue];
+            }
             if (!password) return nil;
             error = nil;
             sebDataDecrypted = [RNDecryptor decryptData:sebData withPassword:password error:&error];

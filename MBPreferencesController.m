@@ -301,6 +301,8 @@ static MBPreferencesController *sharedPreferencesController = nil;
     NSURL *settingsURL = [NSURL URLWithString:self.settingsTitle];
     if (settingsURL.isFileURL) {
         [self.window setRepresentedURL:settingsURL];
+    } else {
+        [self.window setRepresentedURL:nil];
     }
 }
 

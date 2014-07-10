@@ -50,10 +50,6 @@
 
 @interface PreferencesController : NSObject <NSWindowDelegate> {
 
-//@private
-//    NSString *_currentConfigPassword;
-//    BOOL _currentConfigPasswordIsHash;
-//    SecKeyRef _currentConfigKeyRef;
 
 }
 
@@ -66,7 +62,7 @@
 @property (nonatomic) PrefsSEBConfigViewController *SEBConfigVC;
 
 // To make the getter unavailable
-- (NSString *)currentConfigPassword UNAVAILABLE_ATTRIBUTE;
+//- (NSString *)currentConfigPassword UNAVAILABLE_ATTRIBUTE;
 - (SecKeyRef)currentConfigKeyRef UNAVAILABLE_ATTRIBUTE;
 
 - (void) showPreferences:(id)sender;

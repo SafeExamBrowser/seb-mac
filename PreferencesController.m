@@ -43,11 +43,11 @@
 
 // Getter methods for write-only properties
 
-- (NSString *)currentConfigPassword {
-    [NSException raise:NSInternalInconsistencyException
-                format:@"property is write-only"];
-    return nil;
-}
+//- (NSString *)currentConfigPassword {
+//    [NSException raise:NSInternalInconsistencyException
+//                format:@"property is write-only"];
+//    return nil;
+//}
 
 - (SecKeyRef)currentConfigKeyRef {
     [NSException raise:NSInternalInconsistencyException

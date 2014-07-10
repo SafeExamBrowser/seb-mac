@@ -218,6 +218,15 @@ bool insideMatrix();
         NSLog(@"Registred Defaults");
 #endif        
     }
+    
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
+    if (allowSwitchToThirdPartyApps) {
+        [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
+    } else {
+        [preferences setSecureBool:YES forKey:@"org_safeexambrowser_elevateWindowLevels"];
+    }
+
     return self;
 }
 
@@ -822,16 +831,20 @@ bool insideMatrix(){
     NSLog(@"SEB got active");
 #endif
     [self startKioskMode];
-//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-//    BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
-//    [self startKioskModeThirdPartyAppsAllowed:allowSwitchToThirdPartyApps];
 }
 
 
 - (void) startKioskMode {
 	// Switch to kiosk mode by setting the proper presentation options
     // Load preferences from the system's user defaults database
-    [self startKioskModeThirdPartyAppsAllowed:YES];
+//    [self startKioskModeThirdPartyAppsAllowed:YES];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
+#ifdef DEBUG
+    NSLog(@"startKioskMode switchToApplications %hhd", allowSwitchToThirdPartyApps);
+#endif
+    [self startKioskModeThirdPartyAppsAllowed:allowSwitchToThirdPartyApps];
+
 }
 
 
@@ -978,8 +991,8 @@ bool insideMatrix(){
 	// Load start URL into browser window
 	[[self.webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];
     
-//    BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
-//    [self startKioskModeThirdPartyAppsAllowed:allowSwitchToThirdPartyApps];
+    BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
+    [self startKioskModeThirdPartyAppsAllowed:allowSwitchToThirdPartyApps];
 
 }
 
