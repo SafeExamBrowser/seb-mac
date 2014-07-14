@@ -47,9 +47,10 @@
 #import "PrefsNetworkViewController.h"
 #import "PrefsSecurityViewController.h"
 
+@class PrefsSEBConfigViewController;
+
 
 @interface PreferencesController : NSObject <NSWindowDelegate> {
-
 
 }
 
@@ -59,7 +60,7 @@
 @property (nonatomic) SecKeyRef currentConfigKeyRef;
 
 
-@property (nonatomic) PrefsSEBConfigViewController *SEBConfigVC;
+@property (strong, nonatomic) PrefsSEBConfigViewController *SEBConfigVC;
 
 // To make the getter unavailable
 //- (NSString *)currentConfigPassword UNAVAILABLE_ATTRIBUTE;
@@ -69,6 +70,18 @@
 - (BOOL) preferencesAreOpen;
 - (void) initPreferencesWindow;
 - (void) releasePreferencesWindow;
+
+- (IBAction) openSEBPrefs:(id)sender;
+- (IBAction) saveSEBPrefs:(id)sender;
+- (IBAction) saveSEBPrefsAs:(id)sender;
+
+- (IBAction) revertToLastSaved:(id)sender;
+- (IBAction) revertToLocalClientSettings:(id)sender;
+- (IBAction) revertToDefaultSettings:(id)sender;
+
+- (IBAction) applyAndTest:(id)sender;
+- (IBAction) editDuplicate:(id)sender;
+- (IBAction) configureClient:(id)sender;
 
 //- (void) setCurrentConfigPassword:(NSString *)currentConfigPassword;
 //- (void) setCurrentConfigPasswordIsHash:(BOOL)currentConfigPasswordIsHash;

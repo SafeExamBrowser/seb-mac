@@ -106,6 +106,8 @@
 
 // Get dictionary representation of all SEB user defaults
 - (NSDictionary *)dictionaryRepresentationSEB;
+// Get dictionary of all SEB settings (also local UI client settings)
+- (NSDictionary *)dictionarySEBUserDefaults;
 - (void)resetSEBUserDefaults;
 // Helper Method to get SEB's NSRegistrationDomain and application domain UserDefaults
 - (NSDictionary *)getSEBUserDefaultsDomains;

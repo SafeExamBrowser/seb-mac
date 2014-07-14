@@ -36,6 +36,10 @@
 #import <Cocoa/Cocoa.h>
 #import <Foundation/Foundation.h>
 #import "MBPreferencesController.h"
+#import "PreferencesController.h"
+#import "Constants.h"
+
+@class PreferencesController;
 
 @interface PrefsSEBConfigViewController : NSViewController <MBPreferencesModule> {
     IBOutlet NSPopUpButton *chooseIdentity;
@@ -52,6 +56,8 @@
     IBOutlet NSSecureTextField *settingsPasswordField;
     IBOutlet NSSecureTextField *confirmSettingsPasswordField;
 }
+
+@property (weak, nonatomic) PreferencesController *preferencesController;
 
 @property (strong, nonatomic) NSMutableArray *identitiesNames;
 @property (strong, nonatomic) NSArray *identities;
@@ -71,9 +77,12 @@
 
 - (void) setSettingsPassword:(NSString *)password isHash:(BOOL)passwordIsHash;
 - (void) selectSettingsIdentity:(SecKeyRef)settingsPrivateKeyRef;
+- (SecIdentityRef) getSelectedIdentity;
+- (sebConfigPurposes) getSelectedConfigPurpose;
+- (NSData *) encryptSEBSettingsWithSelectedCredentials;
 
-- (IBAction) saveSEBPrefs:(id)sender;
-- (IBAction) saveSEBPrefsAs:(id)sender;
+//- (IBAction) saveSEBPrefs:(id)sender;
+//- (IBAction) saveSEBPrefsAs:(id)sender;
 //- (IBAction) openSEBPrefs:(id)sender;
 
 @end

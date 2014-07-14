@@ -299,6 +299,25 @@ static BOOL _usePrivateUserDefaults = NO;
 }
 
 
+// Get dictionary of all SEB settings (also local UI client settings)
+- (NSDictionary *)dictionarySEBUserDefaults
+{
+    // Copy all UserDefaults in SEB's domain to a dictionary
+    NSDictionary *prefsDict = [self getSEBUserDefaultsDomains];
+    
+    // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
+    NSSet *filteredPrefsSet = [prefsDict keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop)
+                               {
+                                   if ([key hasPrefix:@"org_safeexambrowser_"])
+                                       return YES;
+                                   
+                                   else return NO;
+                               }];
+    NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:[filteredPrefsSet count]];
+    return filteredPrefsDict;
+}
+
+
 - (void)resetSEBUserDefaults
 {
     // Copy preferences to a dictionary

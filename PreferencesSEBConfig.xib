@@ -118,7 +118,7 @@
 					<object class="NSTextField" id="978141545">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{229, 116}, {146, 14}}</string>
+						<string key="NSFrame">{{229, 116}, {109, 14}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="981951675"/>
@@ -128,7 +128,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="670082467">
 							<int key="NSCellFlags">68157504</int>
 							<int key="NSCellFlags2">272761856</int>
-							<string key="NSContents">Revert Edited Settings to…</string>
+							<string key="NSContents">Revert Settings to…</string>
 							<reference key="NSSupport" ref="26"/>
 							<string key="NSCellIdentifier">_NS:397</string>
 							<reference key="NSControlView" ref="978141545"/>
