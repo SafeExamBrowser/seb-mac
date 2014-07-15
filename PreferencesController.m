@@ -219,7 +219,7 @@
         } else {
             // Get the current filename
             //            filename = [[MyGlobals sharedMyGlobals] currentConfigPath].lastPathComponent;
-            currentConfigFileURL = [NSURL URLWithString:[[MyGlobals sharedMyGlobals] currentConfigPath]];
+            currentConfigFileURL = [NSURL URLWithString:[[MyGlobals sharedMyGlobals] currentConfigPath].stringByStandardizingPath];
             //            if ([[MyGlobals sharedMyGlobals] currentConfigPath]) {
             //            }
         }
@@ -380,16 +380,67 @@
 // Action duplicating current preferences for editing
 - (IBAction) editDuplicate:(id)sender
 {
+    // Release preferences window so bindings get synchronized properly with the new loaded values
+    [self releasePreferencesWindow];
+    
     // If using private defaults
     if (NSUserDefaults.userDefaultsPrivate) {
         // Add string " copy" (or " n+1" if the filename already ends with " copy" or " copy n")
         // to the config name filename
         // Get the current config file full path
-        NSString *currentConfigFilePath = [[MyGlobals sharedMyGlobals] currentConfigPath];
+        NSString *currentConfigFilePath = [[[MyGlobals sharedMyGlobals] currentConfigPath] stringByRemovingPercentEncoding];
         // Get the filename without extension
-        NSString *filename = currentConfigFilePath.stringByDeletingPathExtension;
+        NSString *filename = currentConfigFilePath.lastPathComponent.stringByDeletingPathExtension;
+        // Get the extension (should be .seb)
+        NSString *extension = currentConfigFilePath.pathExtension;
+        if (filename.length == 0) {
+            filename = NSLocalizedString(@"untitled", @"untitled filename");
+            extension = @".seb";
+        } else {
+            NSRange copyStringRange = [filename rangeOfString:NSLocalizedString(@" copy", @"word indicating the duplicate of a file, same as in Finder ' copy'") options:NSBackwardsSearch];
+            if (copyStringRange.location == NSNotFound) {
+                filename = [filename stringByAppendingString:NSLocalizedString(@" copy", nil)];
+            } else {
+                NSString *copyNumberString = [filename substringFromIndex:copyStringRange.location+copyStringRange.length];
+                if (copyNumberString.length == 0) {
+                    filename = [filename stringByAppendingString:NSLocalizedString(@" 1", nil)];
+                } else {
+                    NSInteger copyNumber = [[copyNumberString substringFromIndex:1] integerValue];
+                    if (copyNumber == 0) {
+                        filename = [filename stringByAppendingString:NSLocalizedString(@" copy", nil)];
+                    } else {
+                        filename = [[filename substringToIndex:copyStringRange.location+copyStringRange.length+1] stringByAppendingString:[NSString stringWithFormat:@"%ld", copyNumber+1]];
+                    }
+                }
+            }
+        }
+        [[MyGlobals sharedMyGlobals] setCurrentConfigPath:[[[[currentConfigFilePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:filename] stringByAppendingPathExtension:extension] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    } else {
+        // If using local defaults
+        [[MyGlobals sharedMyGlobals] setCurrentConfigPath:@"SebClientSettings.seb"];
+        
+        // Get key/values from local shared client UserDefaults
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        NSDictionary *localClientPreferences = [preferences dictionaryRepresentationSEB];
+
+        // Switch to private UserDefaults (saved non-persistantly in memory instead in ~/Library/Preferences)
+        NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults]; //the mutable dictionary has to be created here, otherwise the preferences values will not be saved!
+        [NSUserDefaults setUserDefaultsPrivate:YES];
+        
+        SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+        [configFileManager storeIntoUserDefaults:localClientPreferences];
+        
+#ifdef DEBUG
+        NSLog(@"Private preferences set: %@", privatePreferences);
+#endif
     }
-    
+    // Set the new settings title in the preferences window
+    [[MBPreferencesController sharedController] setSettingsTitle:[[MyGlobals sharedMyGlobals] currentConfigPath]];
+    [[MBPreferencesController sharedController] setPreferencesWindowTitle];
+
+    // Re-initialize and open preferences window
+    [self initPreferencesWindow];
+    [[MBPreferencesController sharedController] showWindow:sender];
 }
 
 
