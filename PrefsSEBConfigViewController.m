@@ -77,45 +77,6 @@
 }
 
 
-// Select identity for passed identity reference
-- (void) selectSettingsIdentity:(SecKeyRef)settingsPrivateKeyRef
-{
-    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-
-    [chooseIdentity selectItemAtIndex:0];
-    int i, count = [self.identities count];
-    for (i=0; i<count; i++) {
-        SecIdentityRef identityFromKeychain = (__bridge SecIdentityRef)self.identities[i];
-        SecKeyRef privateKeyRef = [keychainManager getPrivateKeyRefFromIdentityRef:identityFromKeychain];
-        if (settingsPrivateKeyRef == privateKeyRef) {
-            [chooseIdentity selectItemAtIndex:i+1];
-            break;
-        }
-    }
-}
-
-
-// Get SecIdentityRef for selected identity
-- (SecIdentityRef) getSelectedIdentity
-{
-    SecIdentityRef identityRef = nil;
-    if ([chooseIdentity indexOfSelectedItem]) {
-        // If an identity is selected, then we get the according SecIdentityRef
-        NSInteger selectedIdentity = [chooseIdentity indexOfSelectedItem]-1;
-        identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:selectedIdentity]);
-    }
-    return identityRef;
-}
-
-
-// Get selected config purpose
-- (sebConfigPurposes) getSelectedConfigPurpose
-{
-    sebConfigPurposes configPurpose = [sebPurpose selectedRow];
-    return configPurpose;
-}
-
-
 // Getter methods for write-only properties
 
 - (NSString *)currentConfigFilePassword {
@@ -149,14 +110,8 @@
             {
                 // and when the password texts aren't the same anymore, this means the user tries to edit the password
                 // (which is only the placeholder right now), we have to clear the placeholder from the textFields
-                self.configPasswordIsHash = false;
-                [self setValue:nil forKey:@"settingsPassword"];
-                [self setValue:nil forKey:@"confirmSettingsPassword"];
-                [settingsPasswordField setStringValue:@""];
-                [confirmSettingsPasswordField setStringValue:@""];
+                [self resetSettingsPasswordFields];
                 return nil;
-//                [settingsPassword setString:@""];
-//                [confirmSettingsPassword setString:@""];
             }
         }
         
@@ -169,6 +124,17 @@
         }
     }
     return nil;
+}
+
+
+- (void) resetSettingsPasswordFields
+{
+    _currentConfigFilePassword = nil;
+    self.configPasswordIsHash = false;
+    [self setValue:nil forKey:@"settingsPassword"];
+    [self setValue:nil forKey:@"confirmSettingsPassword"];
+    [settingsPasswordField setStringValue:@""];
+    [confirmSettingsPasswordField setStringValue:@""];
 }
 
 
@@ -215,27 +181,65 @@
 }
 
 
-// Read SEB settings from UserDefaults and encrypt them using the provided security credentials
-- (NSData *) encryptSEBSettingsWithSelectedCredentials
+// Get selected config purpose
+- (sebConfigPurposes) getSelectedConfigPurpose
 {
-    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-
-    // Get selected config purpose
     sebConfigPurposes configPurpose = [sebPurpose selectedRow];
+    return configPurpose;
+}
 
-    // Get SecIdentityRef for selected identity
+
+// Select identity for passed identity reference
+- (void) selectSettingsIdentity:(SecKeyRef)settingsPrivateKeyRef
+{
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    
+    [chooseIdentity selectItemAtIndex:0];
+    int i, count = [self.identities count];
+    for (i=0; i<count; i++) {
+        SecIdentityRef identityFromKeychain = (__bridge SecIdentityRef)self.identities[i];
+        SecKeyRef privateKeyRef = [keychainManager getPrivateKeyRefFromIdentityRef:identityFromKeychain];
+        if (settingsPrivateKeyRef == privateKeyRef) {
+            [chooseIdentity selectItemAtIndex:i+1];
+            break;
+        }
+    }
+}
+
+
+// Get SecIdentityRef for selected identity
+- (SecIdentityRef) getSelectedIdentity
+{
     SecIdentityRef identityRef = nil;
     if ([chooseIdentity indexOfSelectedItem]) {
         // If an identity is selected, then we get the according SecIdentityRef
         NSInteger selectedIdentity = [chooseIdentity indexOfSelectedItem]-1;
         identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:selectedIdentity]);
     }
+    return identityRef;
+}
+
+
+// Read SEB settings from UserDefaults and encrypt them using the provided security credentials
+- (NSData *) encryptSEBSettingsWithSelectedCredentials
+{
+    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+
+    // Get selected config purpose
+    sebConfigPurposes configPurpose = [self getSelectedConfigPurpose];
+
+    // Get SecIdentityRef for selected identity
+    SecIdentityRef identityRef = [self getSelectedIdentity];
+    
+    // Get password
     NSString *encryptingPassword;
     if (self.configPasswordIsHash) {
         encryptingPassword = _currentConfigFilePassword;
     } else {
         encryptingPassword = settingsPassword;
     }
+    
+    // Encrypt current settings with current credentials
     NSData *encryptedSebData = [configFileManager encryptSEBSettingsWithPassword:encryptingPassword passwordIsHash:self.configPasswordIsHash withIdentity:identityRef forPurpose:configPurpose];
     return encryptedSebData;
 }

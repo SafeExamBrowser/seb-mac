@@ -129,6 +129,8 @@
 
 - (void)releasePreferencesWindow
 {
+//    self.SEBConfigVC.preferencesController = nil;
+//    self.SEBConfigVC = nil;
     [[MBPreferencesController sharedController] unloadNibs];
 }
 
@@ -304,8 +306,17 @@
 // Action reverting preferences to default settings
 - (IBAction) revertToDefaultSettings:(id)sender
 {
-    // Release preferences window so bindings get synchronized properly with the new loaded values
-    [self releasePreferencesWindow];
+    // Reset the config file password
+    _currentConfigPassword = nil;
+    _currentConfigPasswordIsHash = NO;
+    _currentConfigKeyRef = nil;
+
+
+    // If using private defaults
+    if (NSUserDefaults.userDefaultsPrivate) {
+        // Release preferences window so bindings get synchronized properly with the new loaded values
+        [self releasePreferencesWindow];
+    }
     
     // Get default SEB settings
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -317,7 +328,12 @@
     
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
     
-    [self initPreferencesWindow];
+    // If using private defaults
+    if (NSUserDefaults.userDefaultsPrivate) {
+        // Re-initialize and open preferences window
+        [self initPreferencesWindow];
+        [[MBPreferencesController sharedController] showWindow:sender];
+    }
 }
 
 
