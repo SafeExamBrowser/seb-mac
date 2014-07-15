@@ -153,9 +153,9 @@
                       {
                           NSURL *sebFileURL = [panel URL];
                           
-                          // Check if private UserDefauls are switched on already
-                          if (NSUserDefaults.userDefaultsPrivate) {
-                          }
+//                          // Check if private UserDefauls are switched on already
+//                          if (NSUserDefaults.userDefaultsPrivate) {
+//                          }
                           
 #ifdef DEBUG
                           NSLog(@"Loading .seb settings file with file URL %@", sebFileURL);
@@ -299,7 +299,36 @@
 // Action reverting preferences to local client settings
 - (IBAction) revertToLocalClientSettings:(id)sender
 {
+    // Release preferences window so buttons get enabled properly for the local client settings mode
+    [self releasePreferencesWindow];
     
+    //switch to system's UserDefaults
+    [NSUserDefaults setUserDefaultsPrivate:NO];
+    
+    // Get key/values from local shared client UserDefaults
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSDictionary *localClientPreferences = [preferences dictionaryRepresentationSEB];
+    
+    // Reset the config file password
+    _currentConfigPassword = nil;
+    _currentConfigPasswordIsHash = NO;
+    // Reset the config file encrypting identity (key) reference
+    _currentConfigKeyRef = nil;
+    
+    // Write values from local to private preferences
+    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+    [configFileManager storeIntoUserDefaults:localClientPreferences];
+    
+    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
+    
+    [[MyGlobals sharedMyGlobals] setCurrentConfigPath:NSLocalizedString(@"Local Client Settings", nil)];
+    
+    [[MBPreferencesController sharedController] setSettingsTitle:[[MyGlobals sharedMyGlobals] currentConfigPath]];
+    [[MBPreferencesController sharedController] setPreferencesWindowTitle];
+    
+    // Re-initialize and open preferences window
+    [self initPreferencesWindow];
+    [[MBPreferencesController sharedController] showWindow:sender];
 }
 
 
@@ -309,9 +338,13 @@
     // Reset the config file password
     _currentConfigPassword = nil;
     _currentConfigPasswordIsHash = NO;
+    // Reset the config file encrypting identity (key) reference
     _currentConfigKeyRef = nil;
-
-
+    // Reset the settings password and confirm password fields and the identity popup menu
+    [self.SEBConfigVC resetSettingsPasswordFields];
+    // Reset the settings identity popup menu
+    [self.SEBConfigVC resetSettingsIdentity];
+    
     // If using private defaults
     if (NSUserDefaults.userDefaultsPrivate) {
         // Release preferences window so bindings get synchronized properly with the new loaded values
@@ -337,8 +370,8 @@
 }
 
 
-// Action duplicating current preferences for editing
-- (IBAction) applyAndTest:(id)sender
+// Action applying currently edited preferences, closing preferences window and restarting SEB
+- (IBAction) applyAndRestartSEB:(id)sender
 {
     
 }
@@ -347,16 +380,28 @@
 // Action duplicating current preferences for editing
 - (IBAction) editDuplicate:(id)sender
 {
+    // If using private defaults
+    if (NSUserDefaults.userDefaultsPrivate) {
+        // Add string " copy" (or " n+1" if the filename already ends with " copy" or " copy n")
+        // to the config name filename
+        // Get the current config file full path
+        NSString *currentConfigFilePath = [[MyGlobals sharedMyGlobals] currentConfigPath];
+        // Get the filename without extension
+        NSString *filename = currentConfigFilePath.stringByDeletingPathExtension;
+    }
     
 }
 
 
-// Action duplicating current preferences for editing
+// Action configuring client with currently edited preferences
 - (IBAction) configureClient:(id)sender
 {
     // Get key/values from private UserDefaults
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSDictionary *privatePreferences = [preferences dictionaryRepresentationSEB];
+    
+    // Release preferences window so buttons get enabled properly for the local client settings mode
+    [self releasePreferencesWindow];
     
     //switch to system's UserDefaults
     [NSUserDefaults setUserDefaultsPrivate:NO];
@@ -371,6 +416,10 @@
     
     [[MBPreferencesController sharedController] setSettingsTitle:[[MyGlobals sharedMyGlobals] currentConfigPath]];
     [[MBPreferencesController sharedController] setPreferencesWindowTitle];
+
+    // Re-initialize and open preferences window
+    [self initPreferencesWindow];
+    [[MBPreferencesController sharedController] showWindow:sender];
 }
 
 

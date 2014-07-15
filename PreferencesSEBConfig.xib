@@ -775,7 +775,7 @@ y7bMNcy1zTXNtc42zrbPN8+40DnQutE80b7SP9LB00TTxtRJ1MvVTtXR1lXW2Ndc1+DYZNjo2WzZ8dp2
 						<object class="NSButtonCell" key="NSCell" id="257630147">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">134217728</int>
-							<string key="NSContents">Apply and Test</string>
+							<string key="NSContents">Apply and Restart SEB</string>
 							<reference key="NSSupport" ref="939205662"/>
 							<string key="NSCellIdentifier">_NS:9</string>
 							<reference key="NSControlView" ref="425718149"/>
@@ -1022,19 +1022,19 @@ y7bMNcy1zTXNtc42zrbPN8+40DnQutE80b7SP9LB00TTxtRJ1MvVTtXR1lXW2Ndc1+DYZNjo2WzZ8dp2
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">applyAndTest:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="425718149"/>
-					</object>
-					<int key="connectionID">1365</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">configureClient:</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="80820752"/>
 					</object>
 					<int key="connectionID">1366</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">applyAndRestartSEB:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="425718149"/>
+					</object>
+					<int key="connectionID">1368</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1210,10 +1210,14 @@ y7bMNcy1zTXNtc42zrbPN8+40DnQutE80b7SP9LB00TTxtRJ1MvVTtXR1lXW2Ndc1+DYZNjo2WzZ8dp2
 							<string key="NSLabel">enabled: self.usingPrivateDefaults</string>
 							<string key="NSBinding">enabled</string>
 							<string key="NSKeyPath">self.usingPrivateDefaults</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSRaisesForNotApplicableKeys</string>
+								<boolean value="NO" key="NS.object.0"/>
+							</object>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1357</int>
+					<int key="connectionID">1367</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -3547,7 +3551,7 @@ y7bMNcy1zTXNtc42zrbPN8+40DnQutE80b7SP9LB00TTxtRJ1MvVTtXR1lXW2Ndc1+DYZNjo2WzZ8dp2
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1366</int>
+			<int key="maxID">1368</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3563,7 +3567,7 @@ y7bMNcy1zTXNtc42zrbPN8+40DnQutE80b7SP9LB00TTxtRJ1MvVTtXR1lXW2Ndc1+DYZNjo2WzZ8dp2
 					<string key="className">PrefsSEBConfigViewController</string>
 					<string key="superclassName">NSViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="applyAndTest:">id</string>
+						<string key="applyAndRestartSEB:">id</string>
 						<string key="configureClient:">id</string>
 						<string key="editDuplicate:">id</string>
 						<string key="openSEBPrefs:">id</string>
@@ -3574,8 +3578,8 @@ y7bMNcy1zTXNtc42zrbPN8+40DnQutE80b7SP9LB00TTxtRJ1MvVTtXR1lXW2Ndc1+DYZNjo2WzZ8dp2
 						<string key="saveSEBPrefsAs:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="applyAndTest:">
-							<string key="name">applyAndTest:</string>
+						<object class="IBActionInfo" key="applyAndRestartSEB:">
+							<string key="name">applyAndRestartSEB:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="configureClient:">

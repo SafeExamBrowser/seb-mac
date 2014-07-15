@@ -601,7 +601,7 @@
 }
 
 
-// Save imported settings into private user defaults (either in memory or local shared UserDefaults)
+// Save imported settings into user defaults (either in private memory or local shared UserDefaults)
 -(void) storeIntoUserDefaults:(NSDictionary *)sebPreferencesDict
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];

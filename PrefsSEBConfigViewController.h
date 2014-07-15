@@ -75,6 +75,8 @@
 
 - (BOOL) usingPrivateDefaults;
 
+- (void) resetSettingsPasswordFields;
+- (void) resetSettingsIdentity;
 - (void) setSettingsPassword:(NSString *)password isHash:(BOOL)passwordIsHash;
 - (void) selectSettingsIdentity:(SecKeyRef)settingsPrivateKeyRef;
 - (SecIdentityRef) getSelectedIdentity;

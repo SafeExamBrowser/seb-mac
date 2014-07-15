@@ -127,6 +127,7 @@
 }
 
 
+// Reset the settings password and confirm password fields and the identity popup menu
 - (void) resetSettingsPasswordFields
 {
     _currentConfigFilePassword = nil;
@@ -138,6 +139,14 @@
 }
 
 
+// Reset the settings password and confirm password fields and the identity popup menu
+- (void) resetSettingsIdentity
+{
+    _currentConfigFileKeyRef = nil;
+    [chooseIdentity selectItemAtIndex:0];
+}
+
+
 - (BOOL) usingPrivateDefaults {
     return NSUserDefaults.userDefaultsPrivate;
 }
@@ -145,9 +154,6 @@
 
 // Delegate called before the Exam settings preferences pane will be displayed
 - (void)willBeDisplayed {
-    //Load settings password from user defaults
-    //[self loadPrefs];
-    //[chooseIdentity synchronizeTitleAndSelectedItem];
     if (!self.identitiesNames) { //no identities available yet, get them from keychain
         SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
         NSArray *names;
@@ -159,6 +165,7 @@
         [chooseIdentity addItemWithTitle:NSLocalizedString(@"None", nil)];
         [chooseIdentity addItemsWithTitles: self.identitiesNames];
     }
+    
     // Set the settings password correctly
     // If the settings password from the currently open config file contains a hash (and it isn't empty)
     if (self.configPasswordIsHash && _currentConfigFilePassword.length > 0)
@@ -170,14 +177,15 @@
         self.configPasswordIsHash = true;
         [self setValue:@"0000000000000000" forKey:@"confirmSettingsPassword"];
     }
-    else
+    else if (_currentConfigFilePassword)
     {
         [self setValue:_currentConfigFilePassword forKey:@"settingsPassword"];
         [self setValue:_currentConfigFilePassword forKey:@"confirmSettingsPassword"];
     }
     
-    
-    [self selectSettingsIdentity:_currentConfigFileKeyRef];
+    if (_currentConfigFilePassword) {
+        [self selectSettingsIdentity:_currentConfigFileKeyRef];
+    }
 }
 
 
@@ -288,10 +296,10 @@
 }
 
 
-// Action duplicating current preferences for editing
-- (IBAction) applyAndTest:(id)sender
+// Action applying currently edited preferences, closing preferences window and restarting SEB
+- (IBAction) applyAndRestartSEB:(id)sender
 {
-    [self.preferencesController applyAndTest:sender];
+    [self.preferencesController applyAndRestartSEB:sender];
 }
 
 
@@ -302,7 +310,7 @@
 }
 
 
-// Action duplicating current preferences for editing
+// Action configuring client with currently edited preferences
 - (IBAction) configureClient:(id)sender
 {
     [self.preferencesController configureClient:sender];

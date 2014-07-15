@@ -79,7 +79,7 @@
 - (IBAction) revertToLocalClientSettings:(id)sender;
 - (IBAction) revertToDefaultSettings:(id)sender;
 
-- (IBAction) applyAndTest:(id)sender;
+- (IBAction) applyAndRestartSEB:(id)sender;
 - (IBAction) editDuplicate:(id)sender;
 - (IBAction) configureClient:(id)sender;
 
