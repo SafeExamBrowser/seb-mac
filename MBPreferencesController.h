@@ -119,7 +119,7 @@
  * @see         moduleForIdentifier:
  */
 @property(strong, nonatomic) NSArray *modules;
-@property(strong, nonatomic) NSString *settingsTitle;
+@property(strong, nonatomic) NSURL *settingsFileURL;
 
 /**
  * @brief       The preference module that corresponds to the given identifier.

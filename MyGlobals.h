@@ -53,7 +53,7 @@
 @property(copy, readwrite) NSMutableArray *downloadPath;
 @property(readwrite) NSInteger lastDownloadPath;
 
-@property(copy, readwrite) NSString *currentConfigPath;
+@property(copy, readwrite) NSURL *currentConfigURL;
 
 @property(copy, readwrite) NSMutableString *pasteboardString;
 @property(readwrite) NSUInteger presentationOptions;

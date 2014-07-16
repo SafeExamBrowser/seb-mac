@@ -296,14 +296,16 @@ static MBPreferencesController *sharedPreferencesController = nil;
 - (void)setPreferencesWindowTitle
 {
     // Set preferences title as module title – settings title
-    NSString *filename = [self.settingsTitle.lastPathComponent stringByRemovingPercentEncoding];
-	[self.window setTitle:[NSString stringWithFormat:@"%@  —  %@", filename, _currentModule.title]];
-    NSURL *settingsURL = [NSURL URLWithString:self.settingsTitle];
-    if (settingsURL.isFileURL) {
-        [self.window setRepresentedURL:settingsURL];
+//    NSString *filename = [self.settingsTitle.lastPathComponent stringByRemovingPercentEncoding];
+    [self.window setRepresentedURL:nil];
+    NSString *filename;
+    if (self.settingsFileURL) {
+        filename = self.settingsFileURL.lastPathComponent;
     } else {
-        [self.window setRepresentedURL:nil];
+        filename = NSLocalizedString(@"Local Client Settings", nil);
     }
+	[self.window setTitle:[NSString stringWithFormat:@"%@  —  %@", filename, _currentModule.title]];
+    [self.window setRepresentedURL:self.settingsFileURL];
 }
 
 @end

@@ -131,7 +131,7 @@
         // Write values from .seb config file to the local preferences (shared UserDefaults)
         [self storeIntoUserDefaults:sebPreferencesDict];
         
-        [[MyGlobals sharedMyGlobals] setCurrentConfigPath:NSLocalizedString(@"Local Client Settings", nil)];
+        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
 
         int answer = NSRunAlertPanel(NSLocalizedString(@"SEB Re-Configured",nil), NSLocalizedString(@"Local settings of this SEB client have been reconfigured. Do you want to start working with SEB now or quit?",nil),
                                      NSLocalizedString(@"Continue",nil), NSLocalizedString(@"Quit",nil), nil);

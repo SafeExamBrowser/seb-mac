@@ -131,9 +131,9 @@ bool insideMatrix();
     SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
 
     // Get current config path
-    NSString *currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigPath];
+    NSURL *currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
     // Save the path to the file for possible editing in the preferences window
-    [[MyGlobals sharedMyGlobals] setCurrentConfigPath:filename];
+    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:sebFileURL];
 
     // Decrypt and store the .seb config file
     if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO]) {
@@ -141,7 +141,7 @@ bool insideMatrix();
         [self requestedRestart:nil];
     } else {
         // if decrypting new settings wasn't successfull, we have to restore the path to the old settings
-        [[MyGlobals sharedMyGlobals] setCurrentConfigPath:currentConfigPath];
+        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
 
     }
     
@@ -172,7 +172,7 @@ bool insideMatrix();
     if (self) {
 
         [[MyGlobals sharedMyGlobals] setPreferencesReset:NO];
-        [[MyGlobals sharedMyGlobals] setCurrentConfigPath:NSLocalizedString(@"Local Client Settings", nil)];
+        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
         
         [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
 #ifdef DEBUG
