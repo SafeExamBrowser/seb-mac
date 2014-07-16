@@ -219,7 +219,7 @@
         } else {
             // Get the current filename
             //            filename = [[MyGlobals sharedMyGlobals] currentConfigPath].lastPathComponent;
-            currentConfigFileURL = [NSURL URLWithString:[[MyGlobals sharedMyGlobals] currentConfigPath].stringByStandardizingPath];
+            currentConfigFileURL = [NSURL URLWithString:[[MyGlobals sharedMyGlobals] currentConfigPath]];
             //            if ([[MyGlobals sharedMyGlobals] currentConfigPath]) {
             //            }
         }
@@ -230,6 +230,8 @@
                 NSRunAlertPanel(NSLocalizedString(@"Writing Settings Failed", nil),
                                 NSLocalizedString(@"Make sure you have write permissions in the chosen directory", nil),
                                 NSLocalizedString(@"OK", nil), nil, nil);
+            } else {
+                [[MBPreferencesController sharedController] setPreferencesWindowTitle];
             }
             
         } else {
@@ -257,8 +259,8 @@
                                       if (saveAs || ![currentConfigFileURL isFileURL]) {
                                           [[MyGlobals sharedMyGlobals] setCurrentConfigPath:panel.URL.absoluteString];
                                           [[MBPreferencesController sharedController] setSettingsTitle:[[MyGlobals sharedMyGlobals] currentConfigPath]];
-                                          [[MBPreferencesController sharedController] setPreferencesWindowTitle];
                                       }
+                                      [[MBPreferencesController sharedController] setPreferencesWindowTitle];
                                       NSString *settingsSavedMessage = configPurpose ? NSLocalizedString(@"Settings have been saved, use this file to reconfigure local settings of a SEB client.", nil) : NSLocalizedString(@"Settings have been saved, use this file to start the exam with SEB.", nil);
                                       NSRunAlertPanel(NSLocalizedString(@"Writing Settings Succeeded", nil), @"%@", NSLocalizedString(@"OK", nil), nil, nil,settingsSavedMessage);
                                   }
@@ -414,6 +416,9 @@
                 }
             }
         }
+//        NSString *newConfigPath = [NSString stringWithFormat:@"%@%@.%@",[currentConfigFilePath substringToIndex:currentConfigFilePath.length - currentConfigFilePath.lastPathComponent.length], filename, extension];
+//        NSString *newConfigPathEscapes = [newConfigPath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//        [[MyGlobals sharedMyGlobals] setCurrentConfigPath:newConfigPathEscapes];
         [[MyGlobals sharedMyGlobals] setCurrentConfigPath:[[[[currentConfigFilePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:filename] stringByAppendingPathExtension:extension] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     } else {
         // If using local defaults
