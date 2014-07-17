@@ -81,7 +81,7 @@
 {
     [[NSApplication sharedApplication] stopModal];
     // Post a notification that preferences were closed
-    if (self.preferencesAreOpen) {
+    if (self.preferencesAreOpen && !self.refreshingPreferences) {
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"preferencesClosed" object:self];
     }
@@ -94,11 +94,14 @@
     // Get key/values from private UserDefaults
 //    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 //    NSDictionary *privatePreferences = [preferences dictionaryRepresentationSEB];
+    self.refreshingPreferences = NO;
     
     [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
     [[MBPreferencesController sharedController] openWindow];
     // Set the modules for preferences panes
 	PrefsGeneralViewController *general = [[PrefsGeneralViewController alloc] initWithNibName:@"PreferencesGeneral" bundle:nil];
+    general.preferencesController = self;
+    
 	self.SEBConfigVC = [[PrefsSEBConfigViewController alloc] initWithNibName:@"PreferencesSEBConfig" bundle:nil];
     self.SEBConfigVC.preferencesController = self;
     
@@ -131,6 +134,7 @@
 {
 //    self.SEBConfigVC.preferencesController = nil;
 //    self.SEBConfigVC = nil;
+    self.refreshingPreferences = true;
     [[MBPreferencesController sharedController] unloadNibs];
 }
 
@@ -145,13 +149,15 @@
 // Stores current settings in memory (before editing them)
 - (void) storeCurrentSettings
 {
-    // Get key/values from local or private UserDefaults
+    // Store key/values from local or private UserDefaults
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     _settingsBeforeEditing = [preferences dictionaryRepresentationSEB];
-    // Get current flag for private/local client settings
+    // Store current flag for private/local client settings
     _userDefaultsPrivateBeforeEditing = NSUserDefaults.userDefaultsPrivate;
-    // Get current config URL
+    // Store current config URL
     _configURLBeforeEditing = [[MyGlobals sharedMyGlobals] currentConfigURL];
+    // Store current Browser Exam Key
+    _browserExamKeyBeforeEditing = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
 }
 
 
@@ -166,6 +172,14 @@
     [configFileManager storeIntoUserDefaults:_settingsBeforeEditing];
     // Set the original settings title in the preferences window
     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:_configURLBeforeEditing];
+}
+
+
+// Check if settings have changed
+- (BOOL) settingsChanged
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    return ![_browserExamKeyBeforeEditing isEqualToData:[preferences secureObjectForKey:@"org_safeexambrowser_currentData"]];
 }
 
 
@@ -423,7 +437,11 @@
 // Action applying currently edited preferences, closing preferences window and restarting SEB
 - (IBAction) applyAndRestartSEB:(id)sender
 {
-    
+    [[MBPreferencesController sharedController].window orderOut:self];
+    [[NSApplication sharedApplication] stopModal];
+    // Post a notification that it was requested to restart SEB with changed settings
+	[[NSNotificationCenter defaultCenter]
+     postNotificationName:@"requestRestartNotification" object:self];
 }
 
 

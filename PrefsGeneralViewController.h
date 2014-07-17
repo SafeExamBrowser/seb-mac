@@ -40,6 +40,10 @@
 #import "MBPreferencesController.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "MyGlobals.h"
+#import "PreferencesController.h"
+#import "Constants.h"
+
+@class PreferencesController;
 
 
 @interface PrefsGeneralViewController : NSViewController <MBPreferencesModule, NSWindowDelegate> {
@@ -56,6 +60,8 @@
 	MyGlobals *myGlobals;
 }
 
+@property (weak, nonatomic) PreferencesController *preferencesController;
+
 - (NSString *)identifier;
 - (NSImage *)image;
 
@@ -69,7 +75,5 @@
 - (void) closePreferencesWindow:(id)sender;
 - (IBAction) aboutSEB:(id)sender;
 - (IBAction) showHelp:(id)sender;
-
-- (NSData*) generateSHAHash:(NSString*)inputString;
 
 @end

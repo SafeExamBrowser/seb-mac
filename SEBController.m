@@ -202,7 +202,7 @@ bool insideMatrix();
             id value = [appDefaults objectForKey:key];
             if (value) [defaultSettings setObject:(id)[preferences secureDataForObject:value] forKey:key];
         }
-        // Write values from .seb config file to the private preferences
+        // Register default preferences
         [preferences registerDefaults:defaultSettings];
         
         // Check if originatorVersion flag is set and otherwise set it to the SEB current version
@@ -1132,8 +1132,14 @@ bool insideMatrix(){
 //        savedHideBrowserWindowToolbar != [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"]) {
 //        //preferences were closed and the third party app setting was changed
 //        //so we adjust the kiosk settings
-//        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
-//        [self requestedRestart:nil];
+
+    // Re-generate Browser Exam Key
+    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
+
+    // If settings changed, restart SEB
+    if ([self.preferencesController settingsChanged]) {
+        [self requestedRestart:nil];
+    }
 //    } else {
 //        //if (![savedStartURL isEqualToString:[preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"]]) 
 //        if (![savedStartURL isEqualToString:[preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"]]) 

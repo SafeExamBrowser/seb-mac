@@ -284,9 +284,9 @@
     // Close preferences window
 	[self closePreferencesWindow:self];
 
-//    // Post a notification that it was requested to restart SEB with changed settings
-//	[[NSNotificationCenter defaultCenter]
-//     postNotificationName:@"requestRestartNotification" object:self];
+    // Post a notification that it was requested to restart SEB with changed settings
+	[[NSNotificationCenter defaultCenter]
+     postNotificationName:@"requestRestartNotification" object:self];
     }
 
 
@@ -304,9 +304,11 @@
 - (void) closePreferencesWindow:(id)sender {
     [[MBPreferencesController sharedController].window orderOut:self];
     [[NSApplication sharedApplication] stopModal];
-    // Post a notification that preferences were closed
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"preferencesClosed" object:self];
+    // Post a notification that preferences were closed (but not when just refreshing the preferences window)
+    if (!self.preferencesController.refreshingPreferences) {
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"preferencesClosed" object:self];
+    }
 }
 
 
@@ -331,16 +333,6 @@
 }
 
 
-- (NSData*) generateSHAHash:(NSString*)inputString {
-    unsigned char hashedChars[32];
-    CC_SHA256([inputString UTF8String],
-              [inputString lengthOfBytesUsingEncoding:NSUTF8StringEncoding], 
-              hashedChars);
-    NSData *hashedData = [NSData dataWithBytes:hashedChars length:32];
-    return hashedData;
-}
-
-
 - (void)windowDidBecomeKey:(NSNotification *)notification
 {
     [self loadPrefs:self];
@@ -361,9 +353,11 @@
         [closeButton unbind:@"enabled2"];
         [pasteSavedStringFromPasteboardButton unbind:@"enabled"];
         
-        // Post a notification that preferences were closed
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"preferencesClosed" object:self];
+        // Post a notification that preferences were closed (but not when just refreshing the preferences window)
+        if (!self.preferencesController.refreshingPreferences) {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"preferencesClosed" object:self];
+        }
     }
 }
 

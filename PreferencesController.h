@@ -56,9 +56,11 @@
     NSDictionary *_settingsBeforeEditing;
     NSURL *_configURLBeforeEditing;
     BOOL _userDefaultsPrivateBeforeEditing;
+    NSData *_browserExamKeyBeforeEditing;
 }
 
 @property BOOL currentConfigPasswordIsHash;
+@property BOOL refreshingPreferences;
 // Write-only properties
 @property (nonatomic) NSString *currentConfigPassword;
 @property (nonatomic) SecKeyRef currentConfigKeyRef;
@@ -75,6 +77,8 @@
 - (void) releasePreferencesWindow;
 
 - (void) storeCurrentSettings;
+- (void) restoreStoredSettings;
+- (BOOL) settingsChanged;
 
 - (IBAction) openSEBPrefs:(id)sender;
 - (IBAction) saveSEBPrefs:(id)sender;
