@@ -142,6 +142,36 @@
 }
 
 
+// Stores current settings in memory (before editing them)
+- (void) storeCurrentSettings
+{
+    // Get key/values from local or private UserDefaults
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    _settingsBeforeEditing = [preferences dictionaryRepresentationSEB];
+    // Get current flag for private/local client settings
+    _userDefaultsPrivateBeforeEditing = NSUserDefaults.userDefaultsPrivate;
+    // Get current config URL
+    _configURLBeforeEditing = [[MyGlobals sharedMyGlobals] currentConfigURL];
+}
+
+
+// Restores settings which were stored in memory before editing
+- (void) restoreStoredSettings
+{
+    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+    // If config mode changed (private/local client settings), then switch to the mode active before
+    if (_userDefaultsPrivateBeforeEditing != NSUserDefaults.userDefaultsPrivate) {
+        [NSUserDefaults setUserDefaultsPrivate:_userDefaultsPrivateBeforeEditing];
+    }
+    [configFileManager storeIntoUserDefaults:_settingsBeforeEditing];
+    // Set the original settings title in the preferences window
+    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:_configURLBeforeEditing];
+}
+
+
+#pragma mark -
+#pragma mark IBActions: Methods for opening, saving, reverting and using edited settings
+
 - (IBAction) openSEBPrefs:(id)sender {
     // Set the default name for the file and show the panel.
     NSOpenPanel *panel = [NSOpenPanel openPanel];
@@ -284,26 +314,34 @@
 // Action reverting preferences to the last saved or opend file
 - (IBAction) revertToLastSaved:(id)sender
 {
+    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+    // If using private user defaults
+    if (NSUserDefaults.userDefaultsPrivate) {
 #ifdef DEBUG
-    NSLog(@"Reverting settings to last saved or opened .seb file");
+        NSLog(@"Reverting private settings to last saved or opened .seb file");
 #endif
-    NSError *error = nil;
-    NSData *sebData = [NSData dataWithContentsOfURL:[[MyGlobals sharedMyGlobals] currentConfigURL] options:nil error:&error];
-    
-    if (error) {
-        // Error when reading configuration data
-        [NSApp presentError:error];
-    } else {
-        SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+        NSError *error = nil;
+        NSData *sebData = [NSData dataWithContentsOfURL:[[MyGlobals sharedMyGlobals] currentConfigURL] options:nil error:&error];
         
-        // Decrypt and store the .seb config file
-        if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:YES]) {
-            
-            [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
-            [[MBPreferencesController sharedController] showWindow:sender];
-            
-            //[self requestedRestart:nil];
+        if (error) {
+            // Error when reading configuration data
+            [NSApp presentError:error];
+        } else {
+            // Decrypt and store the .seb config file
+            if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:YES]) {
+                
+                [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
+                [[MBPreferencesController sharedController] showWindow:sender];
+                
+                //[self requestedRestart:nil];
+            }
         }
+    } else {
+        // If using local client settings
+#ifdef DEBUG
+        NSLog(@"Reverting local client settings to settings before editing");
+#endif
+        [configFileManager storeIntoUserDefaults:_settingsBeforeEditing];
     }
 }
 
@@ -427,10 +465,6 @@
                 }
             }
         }
-//        NSString *newConfigPath = [NSString stringWithFormat:@"%@%@.%@",[currentConfigFilePath substringToIndex:currentConfigFilePath.length - currentConfigFilePath.lastPathComponent.length], filename, extension];
-//        NSString *newConfigPathEscapes = [newConfigPath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//        [[MyGlobals sharedMyGlobals] setCurrentConfigPath:newConfigPathEscapes];
-//        [[MyGlobals sharedMyGlobals] setCurrentConfigPath:[[[[currentConfigFilePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:filename] stringByAppendingPathExtension:extension] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[[[currentConfigFilePath URLByDeletingLastPathComponent] URLByAppendingPathComponent:filename] URLByAppendingPathExtension:extension]];
     } else {
         // If using local defaults

@@ -1108,12 +1108,16 @@ bool insideMatrix(){
                 }
             }
         }
+        // Store current settings (before the probably get edited)
+        [self.preferencesController storeCurrentSettings];
+        
         //savedStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
         savedStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
         savedAllowSwitchToThirdPartyAppsFlag = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
         savedShowMenuBarFlag = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
         savedEnableBrowserWindowToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"];
         savedHideBrowserWindowToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"];
+        
         [self.preferencesController showPreferences:self];
     }
 }

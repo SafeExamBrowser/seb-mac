@@ -52,13 +52,16 @@
 
 @interface PreferencesController : NSObject <NSWindowDelegate> {
 
+@private
+    NSDictionary *_settingsBeforeEditing;
+    NSURL *_configURLBeforeEditing;
+    BOOL _userDefaultsPrivateBeforeEditing;
 }
 
 @property BOOL currentConfigPasswordIsHash;
 // Write-only properties
 @property (nonatomic) NSString *currentConfigPassword;
 @property (nonatomic) SecKeyRef currentConfigKeyRef;
-
 
 @property (strong, nonatomic) PrefsSEBConfigViewController *SEBConfigVC;
 
@@ -70,6 +73,8 @@
 - (BOOL) preferencesAreOpen;
 - (void) initPreferencesWindow;
 - (void) releasePreferencesWindow;
+
+- (void) storeCurrentSettings;
 
 - (IBAction) openSEBPrefs:(id)sender;
 - (IBAction) saveSEBPrefs:(id)sender;
