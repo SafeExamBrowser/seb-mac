@@ -77,7 +77,7 @@
 
 
 - (IBAction) generateBrowserExamKey:(id)sender {
-    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
+    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaultsNewSalt:NO];
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSData *browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
     unsigned char hashedChars[32];

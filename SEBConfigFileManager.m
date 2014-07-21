@@ -113,7 +113,7 @@
             [prefsController setCurrentConfigKeyRef:sebFileKeyRef];
         }
         
-        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
+        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaultsNewSalt:NO];
         [prefsController initPreferencesWindow];
         
         
@@ -152,7 +152,7 @@
             [prefsController setCurrentConfigKeyRef:sebFileKeyRef];
         }
         
-        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
+        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaultsNewSalt:NO];
         
         return YES; //reading preferences was successful
     }

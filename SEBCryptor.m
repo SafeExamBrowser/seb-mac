@@ -62,10 +62,17 @@ static SEBCryptor *sharedSEBCryptor = nil;
 }
 
 
-// Method called when a value is written into the UserDefaults
-// Calculates a checksum hash which is used as browser exam key
-- (void)updateEncryptedUserDefaults
+// Method called when the endcrypted UserDefaults possibly changed
+// Re-Calculates a checksum hash which is used as Browser Exam Key
+// If the passed parameter generateNewSalt is YES,
+// and the checksum changed (means some setting changed), then
+// the exam key salt random value is re-generated
+// Returns true if the checksum actually changed
+- (BOOL)updateEncryptedUserDefaultsNewSalt:(BOOL)generateNewSalt
 {
+    // Return value: Checksum changed
+    BOOL browserExamKeyChanged = false;
+    
     // Copy preferences to a dictionary
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSDictionary *prefsDict = [preferences getSEBUserDefaultsDomains];
@@ -93,25 +100,53 @@ static SEBCryptor *sharedSEBCryptor = nil;
             // Class of local preferences value is different than the one from the default value
             // If yes, then cancel reading .seb file and create error object
             [self presentPreferencesCorruptedError];
-            return;
+            return browserExamKeyChanged;
         }
         if (value) [filteredPrefsDict setObject:value forKey:key];
     }
-	NSMutableData *archivedPrefs = [[NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict] mutableCopy];
+	NSData *archivedPrefs = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];
 
-    // Get salt for exam key
+    // Get current salt for exam key
     NSData *HMACKey = [preferences secureDataForKey:@"org_safeexambrowser_SEB_examKeySalt"];
+    // If there was no salt yet, then we generate it in any case
     if ([HMACKey isEqualToData:[NSData data]]) {
         [self generateExamKeySalt];
 #ifdef DEBUG
-        NSLog(@"Generated new exam key salt");
+        NSLog(@"Generated Exam Key salt as there was none defined yet.");
 #endif
     }
+    // Get current Browser Exam Key
+    NSData *currentBrowserExamKey = [preferences secureDataForKey:@"org_safeexambrowser_currentData"];
+
+    // Generate new Browser Exam Key
+    NSData *HMACData = [self generateChecksumForCurrentData:archivedPrefs];
+    
+    // If both Keys are not the same, then settings changed
+    if (![currentBrowserExamKey isEqualToData:HMACData]) {
+        // If we're supposed to, generate a new exam key salt
+        if (generateNewSalt) {
+            [self generateExamKeySalt];
+        }
+        // Generate new Browser Exam Key using new salt
+        HMACData = [self generateChecksumForCurrentData:archivedPrefs];
+        // Store new exam key in UserDefaults
+        [preferences setSecureObject:HMACData forKey:@"org_safeexambrowser_currentData"];
+        browserExamKeyChanged = true;
+    }
+
+    return browserExamKeyChanged;
+}
+
+
+- (NSData *)generateChecksumForCurrentData:(NSData *)currentData
+{
+    // Get current salt for exam key
+	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSData *HMACKey = [preferences secureDataForKey:@"org_safeexambrowser_SEB_examKeySalt"];
 
     NSMutableData *HMACData = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
-
-    CCHmac(kCCHmacAlgSHA256, HMACKey.bytes, HMACKey.length, archivedPrefs.mutableBytes, archivedPrefs.length, [HMACData mutableBytes]);
-    [preferences setSecureObject:HMACData forKey:@"org_safeexambrowser_currentData"];
+    CCHmac(kCCHmacAlgSHA256, HMACKey.bytes, HMACKey.length, currentData.bytes, currentData.length, [HMACData mutableBytes]);
+    return HMACData;
 }
 
 
@@ -148,7 +183,7 @@ static SEBCryptor *sharedSEBCryptor = nil;
 #endif
 
     [[NSUserDefaults standardUserDefaults] resetSEBUserDefaults];
-    [self updateEncryptedUserDefaults];
+    [self updateEncryptedUserDefaultsNewSalt:YES];
     return;
 }
 
@@ -161,7 +196,7 @@ static SEBCryptor *sharedSEBCryptor = nil;
     
     if (recoveryOptionIndex == 0) { // Recovery requested.
         [[NSUserDefaults standardUserDefaults] resetSEBUserDefaults];
-        [self updateEncryptedUserDefaults];
+        [self updateEncryptedUserDefaultsNewSalt:YES];
         success = YES;
     }
     if (recoveryOptionIndex == 1) { // Quit requested.

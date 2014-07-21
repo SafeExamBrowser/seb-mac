@@ -258,9 +258,15 @@
         NSURL *currentConfigFileURL;
         // Check if local client settings (UserDefauls) are active
         if (!NSUserDefaults.userDefaultsPrivate) {
+            // Update the Browser Exam Key without re-generating its salt
+            [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaultsNewSalt:NO];
+            
             // Preset "SebClientSettings.seb" as default file name
             currentConfigFileURL = [NSURL URLWithString:@"SebClientSettings.seb"];
         } else {
+            // When we're not saving local client settings, then we update the Browser Exam Key with a new salt
+            [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaultsNewSalt:YES];
+            
             // Get the current filename
             //            filename = [[MyGlobals sharedMyGlobals] currentConfigPath].lastPathComponent;
             currentConfigFileURL = [[MyGlobals sharedMyGlobals] currentConfigURL];
@@ -325,6 +331,80 @@
 }
 
 
+// Action reverting preferences to default settings
+- (IBAction) revertToDefaultSettings:(id)sender
+{
+    // Reset the config file password
+    _currentConfigPassword = nil;
+    _currentConfigPasswordIsHash = NO;
+    // Reset the config file encrypting identity (key) reference
+    _currentConfigKeyRef = nil;
+    // Reset the settings password and confirm password fields and the identity popup menu
+    [self.SEBConfigVC resetSettingsPasswordFields];
+    // Reset the settings identity popup menu
+    [self.SEBConfigVC resetSettingsIdentity];
+    
+    // If using private defaults
+    if (NSUserDefaults.userDefaultsPrivate) {
+        // Release preferences window so bindings get synchronized properly with the new loaded values
+        [self releasePreferencesWindow];
+    }
+    
+    // Get default SEB settings
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSDictionary *defaultSettings = [preferences sebDefaultSettings];
+    
+    // Write values from .seb config file to the local preferences (shared UserDefaults)
+    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+    [configFileManager storeIntoUserDefaults:defaultSettings];
+    
+    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaultsNewSalt:YES];
+    
+    // If using private defaults
+    if (NSUserDefaults.userDefaultsPrivate) {
+        // Re-initialize and open preferences window
+        [self initPreferencesWindow];
+        [[MBPreferencesController sharedController] showWindow:sender];
+    }
+}
+
+
+// Action reverting preferences to local client settings
+- (IBAction) revertToLocalClientSettings:(id)sender
+{
+    // Release preferences window so buttons get enabled properly for the local client settings mode
+    [self releasePreferencesWindow];
+    
+    //switch to system's UserDefaults
+    [NSUserDefaults setUserDefaultsPrivate:NO];
+    
+    // Get key/values from local shared client UserDefaults
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSDictionary *localClientPreferences = [preferences dictionaryRepresentationSEB];
+    
+    // Reset the config file password
+    _currentConfigPassword = nil;
+    _currentConfigPasswordIsHash = NO;
+    // Reset the config file encrypting identity (key) reference
+    _currentConfigKeyRef = nil;
+    
+    // Write values from local to private preferences
+    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+    [configFileManager storeIntoUserDefaults:localClientPreferences];
+    
+    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaultsNewSalt:NO];
+    
+    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
+    
+    [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
+    [[MBPreferencesController sharedController] setPreferencesWindowTitle];
+    
+    // Re-initialize and open preferences window
+    [self initPreferencesWindow];
+    [[MBPreferencesController sharedController] showWindow:sender];
+}
+
+
 // Action reverting preferences to the last saved or opend file
 - (IBAction) revertToLastSaved:(id)sender
 {
@@ -357,91 +437,6 @@
 #endif
         [configFileManager storeIntoUserDefaults:_settingsBeforeEditing];
     }
-}
-
-
-// Action reverting preferences to local client settings
-- (IBAction) revertToLocalClientSettings:(id)sender
-{
-    // Release preferences window so buttons get enabled properly for the local client settings mode
-    [self releasePreferencesWindow];
-    
-    //switch to system's UserDefaults
-    [NSUserDefaults setUserDefaultsPrivate:NO];
-    
-    // Get key/values from local shared client UserDefaults
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSDictionary *localClientPreferences = [preferences dictionaryRepresentationSEB];
-    
-    // Reset the config file password
-    _currentConfigPassword = nil;
-    _currentConfigPasswordIsHash = NO;
-    // Reset the config file encrypting identity (key) reference
-    _currentConfigKeyRef = nil;
-    
-    // Write values from local to private preferences
-    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-    [configFileManager storeIntoUserDefaults:localClientPreferences];
-    
-    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
-    
-    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
-    
-    [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
-    [[MBPreferencesController sharedController] setPreferencesWindowTitle];
-    
-    // Re-initialize and open preferences window
-    [self initPreferencesWindow];
-    [[MBPreferencesController sharedController] showWindow:sender];
-}
-
-
-// Action reverting preferences to default settings
-- (IBAction) revertToDefaultSettings:(id)sender
-{
-    // Reset the config file password
-    _currentConfigPassword = nil;
-    _currentConfigPasswordIsHash = NO;
-    // Reset the config file encrypting identity (key) reference
-    _currentConfigKeyRef = nil;
-    // Reset the settings password and confirm password fields and the identity popup menu
-    [self.SEBConfigVC resetSettingsPasswordFields];
-    // Reset the settings identity popup menu
-    [self.SEBConfigVC resetSettingsIdentity];
-    
-    // If using private defaults
-    if (NSUserDefaults.userDefaultsPrivate) {
-        // Release preferences window so bindings get synchronized properly with the new loaded values
-        [self releasePreferencesWindow];
-    }
-    
-    // Get default SEB settings
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSDictionary *defaultSettings = [preferences sebDefaultSettings];
-    
-    // Write values from .seb config file to the local preferences (shared UserDefaults)
-    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-    [configFileManager storeIntoUserDefaults:defaultSettings];
-    
-    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
-    
-    // If using private defaults
-    if (NSUserDefaults.userDefaultsPrivate) {
-        // Re-initialize and open preferences window
-        [self initPreferencesWindow];
-        [[MBPreferencesController sharedController] showWindow:sender];
-    }
-}
-
-
-// Action applying currently edited preferences, closing preferences window and restarting SEB
-- (IBAction) applyAndRestartSEB:(id)sender
-{
-    [[MBPreferencesController sharedController].window orderOut:self];
-    [[NSApplication sharedApplication] stopModal];
-    // Post a notification that it was requested to restart SEB with changed settings
-	[[NSNotificationCenter defaultCenter]
-     postNotificationName:@"requestRestartNotification" object:self];
 }
 
 
@@ -530,7 +525,7 @@
     SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
     [configFileManager storeIntoUserDefaults:privatePreferences];
     
-    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
+    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaultsNewSalt:NO];
     
     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
     
@@ -540,6 +535,17 @@
     // Re-initialize and open preferences window
     [self initPreferencesWindow];
     [[MBPreferencesController sharedController] showWindow:sender];
+}
+
+
+// Action applying currently edited preferences, closing preferences window and restarting SEB
+- (IBAction) applyAndRestartSEB:(id)sender
+{
+    [[MBPreferencesController sharedController].window orderOut:self];
+    [[NSApplication sharedApplication] stopModal];
+    // Post a notification that it was requested to restart SEB with changed settings
+	[[NSNotificationCenter defaultCenter]
+     postNotificationName:@"requestRestartNotification" object:self];
 }
 
 
