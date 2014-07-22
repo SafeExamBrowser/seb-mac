@@ -68,11 +68,8 @@ static SEBCryptor *sharedSEBCryptor = nil;
 // and the checksum changed (means some setting changed), then
 // the exam key salt random value is re-generated
 // Returns true if the checksum actually changed
-- (BOOL)updateEncryptedUserDefaultsNewSalt:(BOOL)generateNewSalt
+- (BOOL)updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt
 {
-    // Return value: Checksum changed
-    BOOL browserExamKeyChanged = false;
-    
     // Copy preferences to a dictionary
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSDictionary *prefsDict = [preferences getSEBUserDefaultsDomains];
@@ -100,9 +97,16 @@ static SEBCryptor *sharedSEBCryptor = nil;
             // Class of local preferences value is different than the one from the default value
             // If yes, then cancel reading .seb file and create error object
             [self presentPreferencesCorruptedError];
-            return browserExamKeyChanged;
+            // Return value: Checksum changed
+            return true;
         }
-        if (value) [filteredPrefsDict setObject:value forKey:key];
+        // If the value is a int wrapped into a NSNumber, then we need to convert that into a long
+        // because UI bindings to selected index (checkbox, popup menu) produce long values
+        if (valueClass == [NSNumber class] && (strcmp ([value objCType], @encode(int)) == 0)) {
+            [filteredPrefsDict setObject:[NSNumber numberWithLong:[value longValue]] forKey:key];
+        } else {
+            if (value) [filteredPrefsDict setObject:value forKey:key];
+        }
     }
 	NSData *archivedPrefs = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];
 
@@ -125,16 +129,24 @@ static SEBCryptor *sharedSEBCryptor = nil;
     if (![currentBrowserExamKey isEqualToData:HMACData]) {
         // If we're supposed to, generate a new exam key salt
         if (generateNewSalt) {
-            [self generateExamKeySalt];
+            HMACKey = [self generateExamKeySalt];
+            // Update salt in the filtered prefs directory
+            [filteredPrefsDict setObject:HMACKey forKey:@"org_safeexambrowser_SEB_examKeySalt"];
+            archivedPrefs = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];
+            // Generate new Browser Exam Key using new salt
+            HMACData = [self generateChecksumForCurrentData:archivedPrefs];
         }
-        // Generate new Browser Exam Key using new salt
-        HMACData = [self generateChecksumForCurrentData:archivedPrefs];
-        // Store new exam key in UserDefaults
-        [preferences setSecureObject:HMACData forKey:@"org_safeexambrowser_currentData"];
-        browserExamKeyChanged = true;
+        // If we're supposed to, generate new Browser Exam Key and store it in settings
+        if (updateUserDefaults) {
+            // Store new exam key in UserDefaults
+            [preferences setSecureObject:HMACData forKey:@"org_safeexambrowser_currentData"];
+        }
+        // Return value: Checksum changed
+        return true;
     }
-
-    return browserExamKeyChanged;
+    
+    // Return value: Checksum not changed
+    return false;
 }
 
 
@@ -145,17 +157,18 @@ static SEBCryptor *sharedSEBCryptor = nil;
     NSData *HMACKey = [preferences secureDataForKey:@"org_safeexambrowser_SEB_examKeySalt"];
 
     NSMutableData *HMACData = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
-    CCHmac(kCCHmacAlgSHA256, HMACKey.bytes, HMACKey.length, currentData.bytes, currentData.length, [HMACData mutableBytes]);
+    CCHmac(kCCHmacAlgSHA256, HMACKey.bytes, HMACKey.length, currentData.bytes, currentData.length, HMACData.mutableBytes);
     return HMACData;
 }
 
 
 // Calculate a random salt value for the Browser Exam Key and save it to UserDefaults
-- (void)generateExamKeySalt
+- (NSData *)generateExamKeySalt
 {
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSData *HMACKey = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
     [preferences setSecureObject:HMACKey forKey:@"org_safeexambrowser_SEB_examKeySalt"];
+    return HMACKey;
 }
 
 
@@ -183,7 +196,7 @@ static SEBCryptor *sharedSEBCryptor = nil;
 #endif
 
     [[NSUserDefaults standardUserDefaults] resetSEBUserDefaults];
-    [self updateEncryptedUserDefaultsNewSalt:YES];
+    [self updateEncryptedUserDefaults:YES updateSalt:YES];
     return;
 }
 
@@ -196,7 +209,7 @@ static SEBCryptor *sharedSEBCryptor = nil;
     
     if (recoveryOptionIndex == 0) { // Recovery requested.
         [[NSUserDefaults standardUserDefaults] resetSEBUserDefaults];
-        [self updateEncryptedUserDefaultsNewSalt:YES];
+        [self updateEncryptedUserDefaults:YES updateSalt:YES];
         success = YES;
     }
     if (recoveryOptionIndex == 1) { // Quit requested.

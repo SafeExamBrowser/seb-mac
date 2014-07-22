@@ -249,30 +249,34 @@
 {
     // Get selected config purpose
     sebConfigPurposes configPurpose = [self.SEBConfigVC getSelectedConfigPurpose];
+    NSURL *currentConfigFileURL;
     
+    /// Check if local client or private settings (UserDefauls) are active
+    ///
+    if (!NSUserDefaults.userDefaultsPrivate) {
+        
+        /// Local Client settings are active
+        
+        // Update the Browser Exam Key without re-generating its salt
+        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+        
+        // Preset "SebClientSettings.seb" as default file name
+        currentConfigFileURL = [NSURL URLWithString:@"SebClientSettings.seb"];
+    } else {
+        
+        /// Private settings are active
+        
+        // Update the Browser Exam Key with a new salt
+        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
+        
+        // Get the current filename
+        currentConfigFileURL = [[MyGlobals sharedMyGlobals] currentConfigURL];
+    }
     // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
     NSData *encryptedSebData = [self.SEBConfigVC encryptSEBSettingsWithSelectedCredentials];
     
     // If SEB settings were actually read and encrypted we save them
     if (encryptedSebData) {
-        NSURL *currentConfigFileURL;
-        // Check if local client settings (UserDefauls) are active
-        if (!NSUserDefaults.userDefaultsPrivate) {
-            // Update the Browser Exam Key without re-generating its salt
-            [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaultsNewSalt:NO];
-            
-            // Preset "SebClientSettings.seb" as default file name
-            currentConfigFileURL = [NSURL URLWithString:@"SebClientSettings.seb"];
-        } else {
-            // When we're not saving local client settings, then we update the Browser Exam Key with a new salt
-            [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaultsNewSalt:YES];
-            
-            // Get the current filename
-            //            filename = [[MyGlobals sharedMyGlobals] currentConfigPath].lastPathComponent;
-            currentConfigFileURL = [[MyGlobals sharedMyGlobals] currentConfigURL];
-            //            if ([[MyGlobals sharedMyGlobals] currentConfigPath]) {
-            //            }
-        }
         if (!saveAs && [currentConfigFileURL isFileURL]) {
             // "Save": Rewrite the file openend before
             NSError *error;
@@ -358,7 +362,7 @@
     SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
     [configFileManager storeIntoUserDefaults:defaultSettings];
     
-    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaultsNewSalt:YES];
+    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
     
     // If using private defaults
     if (NSUserDefaults.userDefaultsPrivate) {
@@ -392,7 +396,7 @@
     SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
     [configFileManager storeIntoUserDefaults:localClientPreferences];
     
-    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaultsNewSalt:NO];
+    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
     
     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
     
@@ -443,15 +447,42 @@
 // Action duplicating current preferences for editing
 - (IBAction) editDuplicate:(id)sender
 {
-    // Release preferences window so bindings get synchronized properly with the new loaded values
-    [self releasePreferencesWindow];
-    
-    // If using private defaults
+   /// Using local or private defaults?
     if (NSUserDefaults.userDefaultsPrivate) {
+        
+        /// If using private defaults
+        
+        // Check if current settings have unsaved changes
+        if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
+            // There are unsaved changes
+            NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Unsaved Changes", nil)
+                                                defaultButton:NSLocalizedString(@"Save Changes", nil)
+                                              alternateButton:NSLocalizedString(@"Cancel", nil)
+                                                  otherButton:NSLocalizedString(@"Don't Save", nil)
+                                    informativeTextWithFormat:NSLocalizedString(@"Current settings have unsaved changes. If you don't save those first, you will loose them.", nil)];
+            int answer = [newAlert runModal];
+            
+            switch(answer)
+            {
+                case NSAlertAlternateReturn:
+                    // Cancel: Don't create a duplicate
+                    return;
+                    
+                case NSAlertDefaultReturn:
+                    // Save the current settings data first
+                    [self savePrefsAs:NO];
+                case NSAlertOtherReturn: {
+                    // don't save the config data
+                    
+                }
+            }
+        }
+        // Release preferences window so bindings get synchronized properly with the new loaded values
+        [self releasePreferencesWindow];
+        
         // Add string " copy" (or " n+1" if the filename already ends with " copy" or " copy n")
         // to the config name filename
         // Get the current config file full path
-//        NSString *currentConfigFilePath = [[[MyGlobals sharedMyGlobals] currentConfigPath] stringByRemovingPercentEncoding];
         NSURL *currentConfigFilePath = [[MyGlobals sharedMyGlobals] currentConfigURL];
         // Get the filename without extension
         NSString *filename = currentConfigFilePath.lastPathComponent.stringByDeletingPathExtension;
@@ -480,13 +511,18 @@
         }
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[[[currentConfigFilePath URLByDeletingLastPathComponent] URLByAppendingPathComponent:filename] URLByAppendingPathExtension:extension]];
     } else {
-        // If using local defaults
+        
+        /// If using local defaults
+        
+        // Release preferences window so bindings get synchronized properly with the new loaded values
+        [self releasePreferencesWindow];
+        
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:@"SebClientSettings.seb"]];
         
         // Get key/values from local shared client UserDefaults
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         NSDictionary *localClientPreferences = [preferences dictionaryRepresentationSEB];
-
+        
         // Switch to private UserDefaults (saved non-persistantly in memory instead in ~/Library/Preferences)
         NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults]; //the mutable dictionary has to be created here, otherwise the preferences values will not be saved!
         [NSUserDefaults setUserDefaultsPrivate:YES];
@@ -497,7 +533,9 @@
 #ifdef DEBUG
         NSLog(@"Private preferences set: %@", privatePreferences);
 #endif
+        
     }
+    
     // Set the new settings title in the preferences window
     [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
     [[MBPreferencesController sharedController] setPreferencesWindowTitle];
@@ -525,7 +563,7 @@
     SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
     [configFileManager storeIntoUserDefaults:privatePreferences];
     
-    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaultsNewSalt:NO];
+    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
     
     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
     

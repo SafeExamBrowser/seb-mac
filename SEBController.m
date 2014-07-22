@@ -213,7 +213,7 @@ bool insideMatrix();
                                   forKey:@"org_safeexambrowser_originatorVersion"];
         }
 
-        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaultsNewSalt:NO];
+        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
 #ifdef DEBUG
         NSLog(@"Registred Defaults");
 #endif        
@@ -1134,7 +1134,7 @@ bool insideMatrix(){
 //        //so we adjust the kiosk settings
 
     // Re-generate Browser Exam Key
-    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaultsNewSalt:NO];
+    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
 
     // If settings changed, restart SEB
     if ([self.preferencesController settingsChanged]) {

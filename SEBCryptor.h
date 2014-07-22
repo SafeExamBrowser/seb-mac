@@ -41,10 +41,10 @@
 
 + (SEBCryptor *)sharedSEBCryptor;
 
-- (BOOL)updateEncryptedUserDefaultsNewSalt:(BOOL)generateNewSalt;
+- (BOOL)updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt;
 - (void)presentPreferencesCorruptedError;
 
-- (void)generateExamKeySalt;
+- (NSData *)generateExamKeySalt;
 
 
 @end

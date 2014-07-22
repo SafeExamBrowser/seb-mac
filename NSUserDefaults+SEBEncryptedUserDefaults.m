@@ -155,9 +155,9 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_allowVirtualMachine",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_blockPopUpWindows",
-                                 [NSNumber numberWithInt:browserViewModeWindow],
+                                 [NSNumber numberWithLong:browserViewModeWindow],
                                  @"org_safeexambrowser_SEB_browserViewMode",
-                                 [NSNumber numberWithInt:manuallyWithFileRequester],
+                                 [NSNumber numberWithLong:manuallyWithFileRequester],
                                  @"org_safeexambrowser_SEB_chooseFileToUploadPolicy",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting",
@@ -204,7 +204,7 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_logDirectoryOSX",
                                  @"100%",
                                  @"org_safeexambrowser_SEB_mainBrowserWindowHeight",
-                                 [NSNumber numberWithInt:browserWindowPositioningCenter],
+                                 [NSNumber numberWithLong:browserWindowPositioningCenter],
                                  @"org_safeexambrowser_SEB_mainBrowserWindowPositioning",
                                  @"100%",
                                  @"org_safeexambrowser_SEB_mainBrowserWindowWidth",
@@ -214,15 +214,15 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_newBrowserWindowByLinkBlockForeign",
                                  @"100%",
                                  @"org_safeexambrowser_SEB_newBrowserWindowByLinkHeight",
-                                 [NSNumber numberWithInt:openInNewWindow],
+                                 [NSNumber numberWithLong:openInNewWindow],
                                  @"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy",
-                                 [NSNumber numberWithInt:browserWindowPositioningRight],
+                                 [NSNumber numberWithLong:browserWindowPositioningRight],
                                  @"org_safeexambrowser_SEB_newBrowserWindowByLinkPositioning",
                                  @"800",
                                  @"org_safeexambrowser_SEB_newBrowserWindowByLinkWidth",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_newBrowserWindowByScriptBlockForeign",
-                                 [NSNumber numberWithInt:openInNewWindow],
+                                 [NSNumber numberWithLong:openInNewWindow],
                                  @"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_openDownloads",
@@ -239,15 +239,15 @@ static BOOL _usePrivateUserDefaults = NO;
 //                                 @"org_safeexambrowser_SEB_proxies",
                                  @"",
                                  @"org_safeexambrowser_SEB_quitURL",
-                                 [NSNumber numberWithInt:sebConfigPurposeStartingExam],
+                                 [NSNumber numberWithLong:sebConfigPurposeStartingExam],
                                  @"org_safeexambrowser_SEB_sebConfigPurpose",
-                                 [NSNumber numberWithInt:sebModeStartURL],
+                                 [NSNumber numberWithLong:sebModeStartURL],
                                  @"org_safeexambrowser_SEB_sebMode",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_sebServerFallback",
                                  @"",
                                  @"org_safeexambrowser_SEB_sebServerURL",
-                                 [NSNumber numberWithInt:forceSebService],
+                                 [NSNumber numberWithLong:forceSebService],
                                  @"org_safeexambrowser_SEB_sebServicePolicy",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_sendBrowserExamKey",
@@ -284,16 +284,16 @@ static BOOL _usePrivateUserDefaults = NO;
     
     // Remove prefix "org_safeexambrowser_SEB_" from keys
     for (NSString *key in filteredPrefsSet) {
-        if ([key isEqualToString:@"org_safeexambrowser_SEB_downloadDirectoryOSX"]) {
-            NSString *downloadPath = [preferences secureStringForKey:key];
-            // generate a path with a tilde (~) substituted for the full path to the current user’s home directory
-            // so that the path is portable to SEB clients with other user's home directories
-            downloadPath = [downloadPath stringByAbbreviatingWithTildeInPath];
-            [filteredPrefsDict setObject:downloadPath forKey:[key substringFromIndex:24]];
-        } else {
+//        if ([key isEqualToString:@"org_safeexambrowser_SEB_downloadDirectoryOSX"]) {
+//            NSString *downloadPath = [preferences secureStringForKey:key];
+//            // generate a path with a tilde (~) substituted for the full path to the current user’s home directory
+//            // so that the path is portable to SEB clients with other user's home directories
+//            downloadPath = [downloadPath stringByAbbreviatingWithTildeInPath];
+//            [filteredPrefsDict setObject:downloadPath forKey:[key substringFromIndex:24]];
+//        } else {
             id value = [preferences secureObjectForKey:key];
             if (value) [filteredPrefsDict setObject:value forKey:[key substringFromIndex:24]];
-        }
+//        }
     }
     return filteredPrefsDict;
 }
