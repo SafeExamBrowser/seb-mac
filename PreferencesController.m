@@ -187,6 +187,33 @@
 #pragma mark IBActions: Methods for opening, saving, reverting and using edited settings
 
 - (IBAction) openSEBPrefs:(id)sender {
+    // If private settings are active, check if those current settings have unsaved changes
+    if (NSUserDefaults.userDefaultsPrivate && [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
+        // There are unsaved changes
+        NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Unsaved Changes", nil)
+                                            defaultButton:NSLocalizedString(@"Save Changes", nil)
+                                          alternateButton:NSLocalizedString(@"Cancel", nil)
+                                              otherButton:NSLocalizedString(@"Don't Save", nil)
+                                informativeTextWithFormat:NSLocalizedString(@"Current settings have unsaved changes. If you don't save those first, you will loose them.", nil)];
+        int answer = [newAlert runModal];
+        
+        switch(answer)
+        {
+            case NSAlertAlternateReturn:
+                // Cancel: Don't open new settings
+                return;
+                
+            case NSAlertDefaultReturn:
+                // Save the current settings data first
+                [self savePrefsAs:NO];
+                break;
+                
+            case NSAlertOtherReturn:
+                // don't save the config data
+                break;
+        }
+    }
+    
     // Set the default name for the file and show the panel.
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     //[panel setNameFieldStringValue:newName];
@@ -338,6 +365,41 @@
 // Action reverting preferences to default settings
 - (IBAction) revertToDefaultSettings:(id)sender
 {
+    // Check if current settings have unsaved changes
+    if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
+        // There are unsaved changes
+        NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Unsaved Changes", nil)
+                                            defaultButton:NSLocalizedString(@"Save Changes", nil)
+                                          alternateButton:NSLocalizedString(@"Cancel", nil)
+                                              otherButton:NSLocalizedString(@"Don't Save", nil)
+                                informativeTextWithFormat:NSLocalizedString(@"Current settings have unsaved changes. If you don't save those first, you will loose them.", nil)];
+        int answer = [newAlert runModal];
+        
+        switch(answer)
+        {
+            case NSAlertAlternateReturn:
+                // Cancel: Don't revert to default settings
+                return;
+                
+            case NSAlertDefaultReturn:
+                // Save the current settings data first
+                [self savePrefsAs:NO];
+                
+                // If local client settings are active
+                if (!NSUserDefaults.userDefaultsPrivate) {
+                    // Reset the last saved file name
+                    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
+                    [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
+                    [[MBPreferencesController sharedController] setPreferencesWindowTitle];
+                }
+                break;
+                
+            case NSAlertOtherReturn:
+                // don't save the config data
+                break;
+        }
+    }
+    
     // Reset the config file password
     _currentConfigPassword = nil;
     _currentConfigPasswordIsHash = NO;
@@ -376,6 +438,33 @@
 // Action reverting preferences to local client settings
 - (IBAction) revertToLocalClientSettings:(id)sender
 {
+    // Check if current settings have unsaved changes
+    if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
+        // There are unsaved changes
+        NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Unsaved Changes", nil)
+                                            defaultButton:NSLocalizedString(@"Save Changes", nil)
+                                          alternateButton:NSLocalizedString(@"Cancel", nil)
+                                              otherButton:NSLocalizedString(@"Don't Save", nil)
+                                informativeTextWithFormat:NSLocalizedString(@"Current settings have unsaved changes. If you don't save those first, you will loose them.", nil)];
+        int answer = [newAlert runModal];
+        
+        switch(answer)
+        {
+            case NSAlertAlternateReturn:
+                // Cancel: Don't revert to local client settings
+                return;
+                
+            case NSAlertDefaultReturn:
+                // Save the current settings data first
+                [self savePrefsAs:NO];
+                break;
+                
+            case NSAlertOtherReturn:
+                // don't save the config data
+                break;
+        }
+    }
+
     // Release preferences window so buttons get enabled properly for the local client settings mode
     [self releasePreferencesWindow];
     
@@ -412,6 +501,41 @@
 // Action reverting preferences to the last saved or opend file
 - (IBAction) revertToLastSaved:(id)sender
 {
+    // Check if current settings have unsaved changes
+    if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
+        // There are unsaved changes
+        NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Unsaved Changes", nil)
+                                            defaultButton:NSLocalizedString(@"Save Changes", nil)
+                                          alternateButton:NSLocalizedString(@"Cancel", nil)
+                                              otherButton:NSLocalizedString(@"Don't Save", nil)
+                                informativeTextWithFormat:NSLocalizedString(@"Current settings have unsaved changes. If you don't save those first, you will loose them.", nil)];
+        int answer = [newAlert runModal];
+        
+        switch(answer)
+        {
+            case NSAlertAlternateReturn:
+                // Cancel: Don't create a duplicate
+                return;
+                
+            case NSAlertDefaultReturn:
+                // Save the current settings data first
+                [self savePrefsAs:NO];
+                
+                // If local client settings are active
+                if (!NSUserDefaults.userDefaultsPrivate) {
+                    // Reset the last saved file name
+                    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
+                    [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
+                    [[MBPreferencesController sharedController] setPreferencesWindowTitle];
+                }
+                break;
+                
+            case NSAlertOtherReturn:
+                // don't save the config data
+                break;
+        }
+    }
+    
     SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
     // If using private user defaults
     if (NSUserDefaults.userDefaultsPrivate) {
@@ -471,12 +595,14 @@
                 case NSAlertDefaultReturn:
                     // Save the current settings data first
                     [self savePrefsAs:NO];
-                case NSAlertOtherReturn: {
-                    // don't save the config data
+                    break;
                     
-                }
+                case NSAlertOtherReturn:
+                    // don't save the config data
+                    break;
             }
         }
+        
         // Release preferences window so bindings get synchronized properly with the new loaded values
         [self releasePreferencesWindow];
         

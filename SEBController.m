@@ -1111,13 +1111,6 @@ bool insideMatrix(){
         // Store current settings (before the probably get edited)
         [self.preferencesController storeCurrentSettings];
         
-        //savedStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-        savedStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-        savedAllowSwitchToThirdPartyAppsFlag = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
-        savedShowMenuBarFlag = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
-        savedEnableBrowserWindowToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"];
-        savedHideBrowserWindowToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"];
-        
         [self.preferencesController showPreferences:self];
     }
 }
@@ -1125,14 +1118,6 @@ bool insideMatrix(){
 
 - (void)preferencesClosed:(NSNotification *)notification
 {
-//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-//    if (savedAllowSwitchToThirdPartyAppsFlag != [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"] ||
-//        savedShowMenuBarFlag != [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"] ||
-//        savedEnableBrowserWindowToolbar != [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] ||
-//        savedHideBrowserWindowToolbar != [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"]) {
-//        //preferences were closed and the third party app setting was changed
-//        //so we adjust the kiosk settings
-
     // Re-generate Browser Exam Key
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
 
@@ -1140,13 +1125,6 @@ bool insideMatrix(){
     if ([self.preferencesController settingsChanged]) {
         [self requestedRestart:nil];
     }
-//    } else {
-//        //if (![savedStartURL isEqualToString:[preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"]]) 
-//        if (![savedStartURL isEqualToString:[preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"]]) 
-//        {
-//            [self requestedRestart:nil];
-//        }
-//    }
 }
 
 
