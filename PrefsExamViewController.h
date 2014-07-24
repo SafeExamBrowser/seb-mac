@@ -37,16 +37,21 @@
 #import <Foundation/Foundation.h>
 #import "MBPreferencesController.h"
 
-@interface PrefsExamViewController : NSViewController <MBPreferencesModule> {
+@interface PrefsExamViewController : NSViewController <MBPreferencesModule, NSTextFieldDelegate> {
     IBOutlet NSTextField *examKey;
 	IBOutlet NSTextField *quitURL;
 
     IBOutlet NSObjectController *controller;
+    
+    @private
+    NSString *_quitLinkBeforeEditing;
 }
 
 @property (strong, nonatomic) IBOutlet NSTextField *examKey;
 
+- (BOOL) usingPrivateDefaults;
 - (IBAction) generateBrowserExamKey:(id)sender;
+- (IBAction) checkboxClicked:(id)sender;
 
 
 @end

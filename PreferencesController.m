@@ -205,7 +205,7 @@
                 
             case NSAlertDefaultReturn:
                 // Save the current settings data first
-                [self savePrefsAs:NO];
+                [self savePrefsAs:NO fileURLUpdate:NO];
                 break;
                 
             case NSAlertOtherReturn:
@@ -274,6 +274,14 @@
 // Method which encrypts and saves current preferences to an encrypted .seb file
 - (void) savePrefsAs:(BOOL)saveAs
 {
+    [self savePrefsAs:saveAs fileURLUpdate:YES];
+}
+
+
+// Method which encrypts and saves current preferences to an encrypted .seb file
+// with parameter indicating if the saved settings file URL should be updated
+- (void) savePrefsAs:(BOOL)saveAs fileURLUpdate:(BOOL)fileURLUpdate
+{
     // Get selected config purpose
     sebConfigPurposes configPurpose = [self.SEBConfigVC getSelectedConfigPurpose];
     NSURL *currentConfigFileURL;
@@ -312,7 +320,7 @@
                 NSRunAlertPanel(NSLocalizedString(@"Writing Settings Failed", nil),
                                 NSLocalizedString(@"Make sure you have write permissions in the chosen directory", nil),
                                 NSLocalizedString(@"OK", nil), nil, nil);
-            } else {
+            } else if (fileURLUpdate) {
                 [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigFileURL];
                 [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
                 [[MBPreferencesController sharedController] setPreferencesWindowTitle];
@@ -347,13 +355,15 @@
                                       // Prefs got successfully written to file
                                       // If "Save As" or the last file didn't had a full path (wasn't stored on drive):
                                       // Store the new path as the current config file path
-                                      if (saveAs || ![currentConfigFileURL isFileURL]) {
+                                      if (fileURLUpdate && (saveAs || ![currentConfigFileURL isFileURL])) {
                                           [[MyGlobals sharedMyGlobals] setCurrentConfigURL:panel.URL];
                                           [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
                                       }
-                                      [[MBPreferencesController sharedController] setPreferencesWindowTitle];
-                                      NSString *settingsSavedMessage = configPurpose ? NSLocalizedString(@"Settings have been saved, use this file to reconfigure local settings of a SEB client.", nil) : NSLocalizedString(@"Settings have been saved, use this file to start the exam with SEB.", nil);
-                                      NSRunAlertPanel(NSLocalizedString(@"Writing Settings Succeeded", nil), @"%@", NSLocalizedString(@"OK", nil), nil, nil,settingsSavedMessage);
+                                      if (fileURLUpdate) {
+                                          [[MBPreferencesController sharedController] setPreferencesWindowTitle];
+                                          NSString *settingsSavedMessage = configPurpose ? NSLocalizedString(@"Settings have been saved, use this file to reconfigure local settings of a SEB client.", nil) : NSLocalizedString(@"Settings have been saved, use this file to start the exam with SEB.", nil);
+                                          NSRunAlertPanel(NSLocalizedString(@"Writing Settings Succeeded", nil), @"%@", NSLocalizedString(@"OK", nil), nil, nil,settingsSavedMessage);
+                                      }
                                   }
                               }
                           }];
@@ -383,7 +393,7 @@
                 
             case NSAlertDefaultReturn:
                 // Save the current settings data first
-                [self savePrefsAs:NO];
+                [self savePrefsAs:NO fileURLUpdate:NO];
                 
                 // If local client settings are active
                 if (!NSUserDefaults.userDefaultsPrivate) {
@@ -456,7 +466,7 @@
                 
             case NSAlertDefaultReturn:
                 // Save the current settings data first
-                [self savePrefsAs:NO];
+                [self savePrefsAs:NO fileURLUpdate:NO];
                 break;
                 
             case NSAlertOtherReturn:
@@ -519,7 +529,7 @@
                 
             case NSAlertDefaultReturn:
                 // Save the current settings data first
-                [self savePrefsAs:NO];
+                [self savePrefsAs:NO fileURLUpdate:NO];
                 
                 // If local client settings are active
                 if (!NSUserDefaults.userDefaultsPrivate) {
@@ -594,7 +604,7 @@
                     
                 case NSAlertDefaultReturn:
                     // Save the current settings data first
-                    [self savePrefsAs:NO];
+                    [self savePrefsAs:NO fileURLUpdate:NO];
                     break;
                     
                 case NSAlertOtherReturn:

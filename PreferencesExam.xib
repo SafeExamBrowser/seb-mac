@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">13D65</string>
+		<string key="IBDocument.SystemVersion">13E28</string>
 		<string key="IBDocument.InterfaceBuilderVersion">5056</string>
-		<string key="IBDocument.AppKitVersion">1265.20</string>
+		<string key="IBDocument.AppKitVersion">1265.21</string>
 		<string key="IBDocument.HIToolboxVersion">698.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -44,8 +44,8 @@
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSButton" id="805089939">
 						<reference key="NSNextResponder" ref="1005"/>
-						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{136, 263}, {97, 32}}</string>
+						<int key="NSvFlags">-2147483380</int>
+						<string key="NSFrame">{{136, 263}, {120, 32}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="681579352"/>
@@ -54,7 +54,7 @@
 						<object class="NSButtonCell" key="NSCell" id="479381194">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">134217728</int>
-							<string key="NSContents">Generate</string>
+							<string key="NSContents">Re-Generate</string>
 							<object class="NSFont" key="NSSupport" id="939205662">
 								<string key="NSName">.LucidaGrandeUI</string>
 								<double key="NSSize">13</double>
@@ -150,6 +150,7 @@
 						<string key="NSFrame">{{18, 40}, {614, 29}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSAntiCompressionPriority">{250, 750}</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="292635530">
@@ -357,6 +358,22 @@
 					<int key="connectionID">1016</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">checkboxClicked:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="668033635"/>
+					</object>
+					<int key="connectionID">1030</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">quitURL</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="170915137"/>
+					</object>
+					<int key="connectionID">1033</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: values.org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting</string>
 						<reference key="source" ref="320421052"/>
@@ -381,6 +398,14 @@
 					<int key="connectionID">561</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="170915137"/>
+						<reference key="destination" ref="1001"/>
+					</object>
+					<int key="connectionID">1029</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: values.org_safeexambrowser_SEB_quitURL</string>
 						<reference key="source" ref="170915137"/>
@@ -398,7 +423,7 @@
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1023</int>
+					<int key="connectionID">1032</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1502,7 +1527,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1023</int>
+			<int key="maxID">1033</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1517,17 +1542,20 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">PrefsExamViewController</string>
 					<string key="superclassName">NSViewController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">generateBrowserExamKey:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">generateBrowserExamKey:</string>
-						<object class="IBActionInfo" key="NS.object.0">
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="checkboxClicked:">id</string>
+						<string key="generateBrowserExamKey:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="checkboxClicked:">
+							<string key="name">checkboxClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="generateBrowserExamKey:">
 							<string key="name">generateBrowserExamKey:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-					</object>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="controller">NSObjectController</string>
 						<string key="examKey">NSTextField</string>

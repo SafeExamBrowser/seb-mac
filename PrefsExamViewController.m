@@ -67,17 +67,38 @@
 }
 
 
+- (BOOL) usingPrivateDefaults {
+    return NSUserDefaults.userDefaultsPrivate;
+}
+
+
 // Delegate called before the Exam settings preferences pane will be displayed
 - (void)willBeDisplayed {
+    // Save value of the quit link text field
+    _quitLinkBeforeEditing = quitURL.stringValue;
+    // Check if current settings have unsaved changes
+    if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:!NSUserDefaults.userDefaultsPrivate updateSalt:NO] && NSUserDefaults.userDefaultsPrivate) {
+        // There are unsaved changes and private UserDefaults are active
+        [self browserExamKeyChanged];
+    } else {
+        // There are no unsaved changes or local client settings are active
+        [self displayBrowserExamKey];
+    }
 }
 
 - (void)willBeHidden {
-    [examKey setStringValue:@""];
+//    [examKey setStringValue:@""];
 }
 
 
 - (IBAction) generateBrowserExamKey:(id)sender {
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+    [self displayBrowserExamKey];
+}
+
+
+- (void)displayBrowserExamKey
+{
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSData *browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
     unsigned char hashedChars[32];
@@ -90,6 +111,48 @@
     [examKey setStringValue:hashedString];
 }
 
+
+- (void)browserExamKeyChanged
+{
+    // Check if settings/
+    // There are unsaved changes: Display message instead of Browser Exam Key
+    [examKey setStringValue:NSLocalizedString(@"Save settings to display its Browser Exam Key", nil)];
+}
+
+
+- (IBAction) checkboxClicked:(id)sender {
+    [self displayMessageOrReGenerateKey];
+}
+
+
+- (void)controlTextDidEndEditing:(NSNotification *)notification {
+    // If the text in the quit URL field actually changed
+    if (![quitURL.stringValue isEqualToString:_quitLinkBeforeEditing]) {
+        // It changed: Display a message or re-generated key
+        [self displayMessageOrReGenerateKey];
+        
+        // Save new value of the quit link text field
+        _quitLinkBeforeEditing = quitURL.stringValue;
+    }
+}
+
+
+- (void)displayMessageOrReGenerateKey
+{
+    if (NSUserDefaults.userDefaultsPrivate) {
+        // Private UserDefaults are active: Check if there are unsaved changes
+        if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
+            // Yes: Display message instead of Browser Exam Key
+            [self browserExamKeyChanged];
+        } else {
+            // No, there are no unsaved changes: Display the key again
+            [self displayBrowserExamKey];
+        }
+    } else {
+        // Local client settings are active: Re-generate key
+        [self generateBrowserExamKey:self];
+    }
+}
 
 
 @end
