@@ -37,7 +37,7 @@
 #import <Cocoa/Cocoa.h>
 
 #import "PrefsGeneralViewController.h"
-#import "PrefsSEBConfigViewController.h"
+#import "PrefsConfigFileViewController.h"
 #import "PrefsAppearanceViewController.h"
 #import "PrefsBrowserViewController.h"
 #import "PrefsDownUploadsViewController.h"
@@ -47,7 +47,8 @@
 #import "PrefsNetworkViewController.h"
 #import "PrefsSecurityViewController.h"
 
-@class PrefsSEBConfigViewController;
+@class PrefsGeneralViewController;
+@class PrefsConfigFileViewController;
 
 
 @interface PreferencesController : NSObject <NSWindowDelegate> {
@@ -65,7 +66,8 @@
 @property (nonatomic) NSString *currentConfigPassword;
 @property (nonatomic) SecKeyRef currentConfigKeyRef;
 
-@property (strong, nonatomic) PrefsSEBConfigViewController *SEBConfigVC;
+@property (strong, nonatomic) PrefsGeneralViewController *generalVC;
+@property (strong, nonatomic) PrefsConfigFileViewController *configFileVC;
 
 // To make the getter unavailable
 //- (NSString *)currentConfigPassword UNAVAILABLE_ATTRIBUTE;
@@ -80,6 +82,9 @@
 - (void) restoreStoredSettings;
 - (BOOL) settingsChanged;
 
+- (IBAction) restartSEB:(id)sender;
+- (IBAction) quitSEB:(id)sender;
+
 - (IBAction) openSEBPrefs:(id)sender;
 - (IBAction) saveSEBPrefs:(id)sender;
 - (IBAction) saveSEBPrefsAs:(id)sender;
@@ -91,6 +96,8 @@
 - (IBAction) applyAndRestartSEB:(id)sender;
 - (IBAction) editDuplicate:(id)sender;
 - (IBAction) configureClient:(id)sender;
+
+- (int) usavedSettingsAlertWithText:(NSString *)informativeText;
 
 //- (void) setCurrentConfigPassword:(NSString *)currentConfigPassword;
 //- (void) setCurrentConfigPasswordIsHash:(BOOL)currentConfigPasswordIsHash;

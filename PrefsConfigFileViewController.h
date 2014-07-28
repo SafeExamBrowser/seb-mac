@@ -41,7 +41,7 @@
 
 @class PreferencesController;
 
-@interface PrefsSEBConfigViewController : NSViewController <MBPreferencesModule> {
+@interface PrefsConfigFileViewController : NSViewController <MBPreferencesModule> {
     IBOutlet NSPopUpButton *chooseIdentity;
 
 	//IBOutlet NSButtonCell *sebStartsExam;

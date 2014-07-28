@@ -65,14 +65,12 @@
 - (NSString *)identifier;
 - (NSImage *)image;
 
-- (void) loadPrefs:(id)sender;
-- (void) savePrefs:(id)sender;
+- (void) loadPasswords:(id)sender;
+- (void) savePasswords:(id)sender;
 
 - (IBAction) pasteSavedStringFromPasteboard:(id)sender;
-
 - (IBAction) restartSEB:(id)sender;
 - (IBAction) quitSEB:(id)sender;
-- (void) closePreferencesWindow:(id)sender;
 - (IBAction) aboutSEB:(id)sender;
 - (IBAction) showHelp:(id)sender;
 

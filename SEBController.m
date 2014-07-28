@@ -1108,9 +1108,9 @@ bool insideMatrix(){
                 }
             }
         }
-        // Store current settings (before the probably get edited)
-        [self.preferencesController storeCurrentSettings];
-        
+//        // Store current settings (before the probably get edited)
+//        [self.preferencesController storeCurrentSettings];
+//        
         [self.preferencesController showPreferences:self];
     }
 }

@@ -77,7 +77,8 @@
     // Save value of the quit link text field
     _quitLinkBeforeEditing = quitURL.stringValue;
     // Check if current settings have unsaved changes
-    if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:!NSUserDefaults.userDefaultsPrivate updateSalt:NO] && NSUserDefaults.userDefaultsPrivate) {
+    if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:!NSUserDefaults.userDefaultsPrivate
+                                                        updateSalt:NO] && NSUserDefaults.userDefaultsPrivate) {
         // There are unsaved changes and private UserDefaults are active
         [self browserExamKeyChanged];
     } else {

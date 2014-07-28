@@ -211,7 +211,7 @@
     self.frameForNonFullScreenMode = [window frame];
     [self invalidateRestorableState];
     
-    NSInteger previousWindowLevel = [window level];
+//    NSInteger previousWindowLevel = [window level];
 //    [window setLevel:(NSModalPanelWindowLevel + 1)];
 //    [window setLevel:NSScreenSaverWindowLevel];
     //[window setLevel:previousWindowLevel + 1];
@@ -291,7 +291,7 @@
 {
     [(BrowserWindow *)window setConstrainingToScreenSuspended:YES];
     
-    NSInteger previousWindowLevel = [window level];
+//    NSInteger previousWindowLevel = [window level];
 //    [window setLevel:(NSModalPanelWindowLevel + 1)];
 //    [window setLevel:NSScreenSaverWindowLevel];
     //[window setLevel:previousWindowLevel + 1];

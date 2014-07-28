@@ -33,7 +33,7 @@
 //
 
 
-#import "PrefsSEBConfigViewController.h"
+#import "PrefsConfigFileViewController.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "SEBUIUserDefaultsController.h"
 #import "SEBEncryptedUserDefaultsController.h"
@@ -43,24 +43,24 @@
 #import "SEBKeychainManager.h"
 #import "MyGlobals.h"
 
-@interface PrefsSEBConfigViewController ()
+@interface PrefsConfigFileViewController ()
 
 @end
 
-@implementation PrefsSEBConfigViewController
+@implementation PrefsConfigFileViewController
 @synthesize identitiesNames;
 @synthesize identities;
 
 
 - (NSString *)title
 {
-	return NSLocalizedString(@"Config File", @"Title of 'SEB Config' preference pane");
+	return NSLocalizedString(@"Config File", @"Title of 'Config File' preference pane");
 }
 
 
 - (NSString *)identifier
 {
-	return @"SEBConfigPane";
+	return @"ConfigFilePane";
 }
 
 

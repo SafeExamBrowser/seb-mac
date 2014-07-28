@@ -67,6 +67,9 @@
 
 - (void)showPreferences:(id)sender
 {
+    // Store current settings (before the probably get edited)
+    [self storeCurrentSettings];
+    
     [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
 	[[MBPreferencesController sharedController] showWindow:sender];
 }
@@ -80,6 +83,10 @@
 - (void)windowWillClose:(NSNotification *)notification
 {
     [[NSApplication sharedApplication] stopModal];
+    
+    // Save settings and unbind bindings in the General pane
+    [self.generalVC windowWillClose:notification];
+    
     // Post a notification that preferences were closed
     if (self.preferencesAreOpen && !self.refreshingPreferences) {
         [[NSNotificationCenter defaultCenter]
@@ -98,14 +105,15 @@
     
     [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
     [[MBPreferencesController sharedController] openWindow];
+
     // Set the modules for preferences panes
-	PrefsGeneralViewController *general = [[PrefsGeneralViewController alloc] initWithNibName:@"PreferencesGeneral" bundle:nil];
-    general.preferencesController = self;
+	self.generalVC = [[PrefsGeneralViewController alloc] initWithNibName:@"PreferencesGeneral" bundle:nil];
+    self.generalVC.preferencesController = self;
     
-	self.SEBConfigVC = [[PrefsSEBConfigViewController alloc] initWithNibName:@"PreferencesSEBConfig" bundle:nil];
-    self.SEBConfigVC.preferencesController = self;
+	self.configFileVC = [[PrefsConfigFileViewController alloc] initWithNibName:@"PreferencesConfigFile" bundle:nil];
+    self.configFileVC.preferencesController = self;
     
-    // Set settings credentials in the SEB config prefs pane
+    // Set settings credentials in the Config File prefs pane
     [self setConfigFileCredentials];
     
 	PrefsAppearanceViewController *appearance = [[PrefsAppearanceViewController alloc] initWithNibName:@"PreferencesAppearance" bundle:nil];
@@ -116,7 +124,7 @@
 	PrefsResourcesViewController *resources = [[PrefsResourcesViewController alloc] initWithNibName:@"PreferencesResources" bundle:nil];
 	PrefsNetworkViewController *network = [[PrefsNetworkViewController alloc] initWithNibName:@"PreferencesNetwork" bundle:nil];
 	PrefsSecurityViewController *security = [[PrefsSecurityViewController alloc] initWithNibName:@"PreferencesSecurity" bundle:nil];
-	[[MBPreferencesController sharedController] setModules:[NSArray arrayWithObjects:general, self.SEBConfigVC, appearance, browser, downuploads, exam, applications, resources, network, security, nil]];
+	[[MBPreferencesController sharedController] setModules:[NSArray arrayWithObjects:self.generalVC, self.configFileVC, appearance, browser, downuploads, exam, applications, resources, network, security, nil]];
 //	[[MBPreferencesController sharedController] setModules:[NSArray arrayWithObjects:general, config, appearance, browser, downuploads, exam, applications, network, security, nil]];
     // Set self as the window delegate to be able to post a notification when preferences window is closing
     // will be overridden when the general pane is displayed (loaded from nib)
@@ -141,8 +149,8 @@
 
 - (void) setConfigFileCredentials
 {
-    [self.SEBConfigVC setSettingsPassword:_currentConfigPassword isHash:_currentConfigPasswordIsHash];
-    [self.SEBConfigVC setCurrentConfigFileKeyRef:_currentConfigKeyRef];
+    [self.configFileVC setSettingsPassword:_currentConfigPassword isHash:_currentConfigPasswordIsHash];
+    [self.configFileVC setCurrentConfigFileKeyRef:_currentConfigKeyRef];
 }
 
 
@@ -183,20 +191,50 @@
 }
 
 
+- (void) closePreferencesWindow:(id)sender {
+    // Save passwords in General pane
+	[self.generalVC windowWillClose:nil];
+    
+    [[MBPreferencesController sharedController].window orderOut:self];
+    [[NSApplication sharedApplication] stopModal];
+    // Post a notification that preferences were closed (but not when just refreshing the preferences window)
+    if (!self.refreshingPreferences) {
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"preferencesClosed" object:self];
+    }
+}
+
+
 #pragma mark -
-#pragma mark IBActions: Methods for opening, saving, reverting and using edited settings
+#pragma mark IBActions: Methods for quitting, restarting SEB,
+#pragma mark opening, saving, reverting and using edited settings
+
+// Save preferences and restart SEB with the new settings
+- (IBAction) restartSEB:(id)sender {
+
+	[self closePreferencesWindow:sender];
+
+    // Post a notification that it was requested to restart SEB with changed settings
+	[[NSNotificationCenter defaultCenter]
+     postNotificationName:@"requestRestartNotification" object:self];
+}
+
+
+// Save preferences and quit SEB
+- (IBAction) quitSEB:(id)sender {
+
+	[self closePreferencesWindow:sender];
+
+	[[NSNotificationCenter defaultCenter]
+     postNotificationName:@"requestQuitNotification" object:self];
+}
+
 
 - (IBAction) openSEBPrefs:(id)sender {
     // If private settings are active, check if those current settings have unsaved changes
     if (NSUserDefaults.userDefaultsPrivate && [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
         // There are unsaved changes
-        NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Unsaved Changes", nil)
-                                            defaultButton:NSLocalizedString(@"Save Changes", nil)
-                                          alternateButton:NSLocalizedString(@"Cancel", nil)
-                                              otherButton:NSLocalizedString(@"Don't Save", nil)
-                                informativeTextWithFormat:NSLocalizedString(@"Current settings have unsaved changes. If you don't save those first, you will loose them.", nil)];
-        int answer = [newAlert runModal];
-        
+        int answer = [self usavedSettingsAlert];
         switch(answer)
         {
             case NSAlertAlternateReturn:
@@ -283,7 +321,7 @@
 - (void) savePrefsAs:(BOOL)saveAs fileURLUpdate:(BOOL)fileURLUpdate
 {
     // Get selected config purpose
-    sebConfigPurposes configPurpose = [self.SEBConfigVC getSelectedConfigPurpose];
+    sebConfigPurposes configPurpose = [self.configFileVC getSelectedConfigPurpose];
     NSURL *currentConfigFileURL;
     
     /// Check if local client or private settings (UserDefauls) are active
@@ -308,7 +346,7 @@
         currentConfigFileURL = [[MyGlobals sharedMyGlobals] currentConfigURL];
     }
     // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
-    NSData *encryptedSebData = [self.SEBConfigVC encryptSEBSettingsWithSelectedCredentials];
+    NSData *encryptedSebData = [self.configFileVC encryptSEBSettingsWithSelectedCredentials];
     
     // If SEB settings were actually read and encrypted we save them
     if (encryptedSebData) {
@@ -378,13 +416,7 @@
     // Check if current settings have unsaved changes
     if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
         // There are unsaved changes
-        NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Unsaved Changes", nil)
-                                            defaultButton:NSLocalizedString(@"Save Changes", nil)
-                                          alternateButton:NSLocalizedString(@"Cancel", nil)
-                                              otherButton:NSLocalizedString(@"Don't Save", nil)
-                                informativeTextWithFormat:NSLocalizedString(@"Current settings have unsaved changes. If you don't save those first, you will loose them.", nil)];
-        int answer = [newAlert runModal];
-        
+        int answer = [self usavedSettingsAlert];
         switch(answer)
         {
             case NSAlertAlternateReturn:
@@ -416,9 +448,9 @@
     // Reset the config file encrypting identity (key) reference
     _currentConfigKeyRef = nil;
     // Reset the settings password and confirm password fields and the identity popup menu
-    [self.SEBConfigVC resetSettingsPasswordFields];
+    [self.configFileVC resetSettingsPasswordFields];
     // Reset the settings identity popup menu
-    [self.SEBConfigVC resetSettingsIdentity];
+    [self.configFileVC resetSettingsIdentity];
     
     // If using private defaults
     if (NSUserDefaults.userDefaultsPrivate) {
@@ -451,13 +483,7 @@
     // Check if current settings have unsaved changes
     if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
         // There are unsaved changes
-        NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Unsaved Changes", nil)
-                                            defaultButton:NSLocalizedString(@"Save Changes", nil)
-                                          alternateButton:NSLocalizedString(@"Cancel", nil)
-                                              otherButton:NSLocalizedString(@"Don't Save", nil)
-                                informativeTextWithFormat:NSLocalizedString(@"Current settings have unsaved changes. If you don't save those first, you will loose them.", nil)];
-        int answer = [newAlert runModal];
-        
+        int answer = [self usavedSettingsAlert];
         switch(answer)
         {
             case NSAlertAlternateReturn:
@@ -514,13 +540,7 @@
     // Check if current settings have unsaved changes
     if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
         // There are unsaved changes
-        NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Unsaved Changes", nil)
-                                            defaultButton:NSLocalizedString(@"Save Changes", nil)
-                                          alternateButton:NSLocalizedString(@"Cancel", nil)
-                                              otherButton:NSLocalizedString(@"Don't Save", nil)
-                                informativeTextWithFormat:NSLocalizedString(@"Current settings have unsaved changes. If you don't save those first, you will loose them.", nil)];
-        int answer = [newAlert runModal];
-        
+        int answer = [self usavedSettingsAlert];
         switch(answer)
         {
             case NSAlertAlternateReturn:
@@ -589,13 +609,7 @@
         // Check if current settings have unsaved changes
         if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
             // There are unsaved changes
-            NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Unsaved Changes", nil)
-                                                defaultButton:NSLocalizedString(@"Save Changes", nil)
-                                              alternateButton:NSLocalizedString(@"Cancel", nil)
-                                                  otherButton:NSLocalizedString(@"Don't Save", nil)
-                                    informativeTextWithFormat:NSLocalizedString(@"Current settings have unsaved changes. If you don't save those first, you will loose them.", nil)];
-            int answer = [newAlert runModal];
-            
+            int answer = [self usavedSettingsAlert];
             switch(answer)
             {
                 case NSAlertAlternateReturn:
@@ -722,5 +736,21 @@
      postNotificationName:@"requestRestartNotification" object:self];
 }
 
+
+- (int) usavedSettingsAlert
+{
+    return [self usavedSettingsAlertWithText:
+            NSLocalizedString(@"Current settings have unsaved changes. If you don't save those first, you will loose them.", nil)];
+}
+
+- (int) usavedSettingsAlertWithText:(NSString *)informativeText
+{
+    NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Unsaved Changes", nil)
+                                        defaultButton:NSLocalizedString(@"Save Changes", nil)
+                                      alternateButton:NSLocalizedString(@"Cancel", nil)
+                                          otherButton:NSLocalizedString(@"Don't Save", nil)
+                            informativeTextWithFormat:@"%@", informativeText];
+    return [newAlert runModal];
+}
 
 @end

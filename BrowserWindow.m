@@ -353,7 +353,7 @@
 - (void)webView:(WebView *)sender runJavaScriptAlertPanelWithMessage:(NSString *)message 
 initiatedByFrame:(WebFrame *)frame {
 	NSString *pageTitle = [sender stringByEvaluatingJavaScriptFromString:@"document.title"];
-	NSRunAlertPanel(pageTitle, message, NSLocalizedString(@"OK",nil), nil, nil);
+	NSRunAlertPanel(pageTitle, @"%@", message, NSLocalizedString(@"OK", nil), nil, nil);
 }
 
 
@@ -361,7 +361,7 @@ initiatedByFrame:(WebFrame *)frame {
 - (BOOL)webView:(WebView *)sender runJavaScriptConfirmPanelWithMessage:(NSString *)message 
 initiatedByFrame:(WebFrame *)frame {
 	NSString *pageTitle = [sender stringByEvaluatingJavaScriptFromString:@"document.title"];
-	return NSRunAlertPanel(pageTitle, message, NSLocalizedString(@"OK",nil), NSLocalizedString(@"Cancel",nil), nil);
+	return NSRunAlertPanel(pageTitle, @"%@", message, NSLocalizedString(@"OK",nil), NSLocalizedString(@"Cancel",nil), nil);
 }
 
 
