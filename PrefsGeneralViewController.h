@@ -49,10 +49,19 @@
 @interface PrefsGeneralViewController : NSViewController <MBPreferencesModule, NSWindowDelegate> {
 
 	IBOutlet NSTextField *startURL;
+
 	NSMutableString *adminPassword;
 	NSMutableString *confirmAdminPassword;
+    BOOL adminPasswordIsHash;
+    IBOutlet NSSecureTextField *adminPasswordField;
+    IBOutlet NSSecureTextField *confirmAdminPasswordField;
+
     NSMutableString *quitPassword;
     NSMutableString *confirmQuitPassword;
+    BOOL quitPasswordIsHash;
+    IBOutlet NSSecureTextField *quitPasswordField;
+    IBOutlet NSSecureTextField *confirmQuitPasswordField;
+
 	IBOutlet NSButton *prefsQuitSEB;
 	IBOutlet NSButton *pasteSavedStringFromPasteboardButton;
     
@@ -65,8 +74,8 @@
 - (NSString *)identifier;
 - (NSImage *)image;
 
-- (void) loadPasswords:(id)sender;
-- (void) savePasswords:(id)sender;
+//- (void) loadPasswords:(id)sender;
+//- (void) savePasswords:(id)sender;
 
 - (IBAction) pasteSavedStringFromPasteboard:(id)sender;
 - (IBAction) restartSEB:(id)sender;

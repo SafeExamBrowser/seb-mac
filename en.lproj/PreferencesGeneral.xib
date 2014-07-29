@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">13D65</string>
+		<string key="IBDocument.SystemVersion">13E28</string>
 		<string key="IBDocument.InterfaceBuilderVersion">5056</string>
-		<string key="IBDocument.AppKitVersion">1265.20</string>
+		<string key="IBDocument.AppKitVersion">1265.21</string>
 		<string key="IBDocument.HIToolboxVersion">698.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -594,6 +594,38 @@
 						<reference key="destination" ref="726218885"/>
 					</object>
 					<int key="connectionID">390</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">adminPasswordField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="351398252"/>
+					</object>
+					<int key="connectionID">391</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">confirmAdminPasswordField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="47473207"/>
+					</object>
+					<int key="connectionID">392</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">quitPasswordField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="287856347"/>
+					</object>
+					<int key="connectionID">393</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">confirmQuitPasswordField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="462625146"/>
+					</object>
+					<int key="connectionID">394</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -2865,7 +2897,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">390</int>
+			<int key="maxID">394</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2910,12 +2942,28 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="adminPasswordField">NSSecureTextField</string>
+						<string key="confirmAdminPasswordField">NSSecureTextField</string>
+						<string key="confirmQuitPasswordField">NSSecureTextField</string>
 						<string key="controller">NSObjectController</string>
 						<string key="pasteSavedStringFromPasteboardButton">NSButton</string>
 						<string key="prefsQuitSEB">NSButton</string>
+						<string key="quitPasswordField">NSSecureTextField</string>
 						<string key="startURL">NSTextField</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="adminPasswordField">
+							<string key="name">adminPasswordField</string>
+							<string key="candidateClassName">NSSecureTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="confirmAdminPasswordField">
+							<string key="name">confirmAdminPasswordField</string>
+							<string key="candidateClassName">NSSecureTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="confirmQuitPasswordField">
+							<string key="name">confirmQuitPasswordField</string>
+							<string key="candidateClassName">NSSecureTextField</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="controller">
 							<string key="name">controller</string>
 							<string key="candidateClassName">NSObjectController</string>
@@ -2927,6 +2975,10 @@
 						<object class="IBToOneOutletInfo" key="prefsQuitSEB">
 							<string key="name">prefsQuitSEB</string>
 							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="quitPasswordField">
+							<string key="name">quitPasswordField</string>
+							<string key="candidateClassName">NSSecureTextField</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="startURL">
 							<string key="name">startURL</string>

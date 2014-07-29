@@ -155,50 +155,114 @@
 
 
 // Method called by the bindings object controller for comparing the admin passwords
-- (NSString*) compareAdminPasswords {
-	if ((adminPassword != nil) | (confirmAdminPassword != nil)) { 
-        //if at least one of the fields is defined
-        if (([confirmAdminPassword isEqual:@"𝈭𝈖𝈒𝉇𝈁𝉈"]) & (![adminPassword isEqual:@"𝈭𝈖𝈒𝉇𝈁𝉈"])) {
-            //when the admin password was changed (user started to edit it), then the  
-            //placeholder string in the confirm admin password field needs to be removed
-            [self setValue:nil forKey:@"confirmAdminPassword"];
-            if (adminPassword == nil) {
-                //if admin pw was deleted completely, we have to return nil (pw's match)
+//- (NSString*) compareAdminPasswords {
+//	if ((adminPassword != nil) | (confirmAdminPassword != nil)) { 
+//        //if at least one of the fields is defined
+//        if (([confirmAdminPassword isEqual:@"𝈭𝈖𝈒𝉇𝈁𝉈"]) & (![adminPassword isEqual:@"𝈭𝈖𝈒𝉇𝈁𝉈"])) {
+//            //when the admin password was changed (user started to edit it), then the  
+//            //placeholder string in the confirm admin password field needs to be removed
+//            [self setValue:nil forKey:@"confirmAdminPassword"];
+//            if (adminPassword == nil) {
+//                //if admin pw was deleted completely, we have to return nil (pw's match)
+//                return nil;
+//            }
+//        }
+//       	if (![adminPassword isEqualToString:confirmAdminPassword]) {
+//			//if the two passwords don't match, show it in the label
+//            return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please confirm password",nil)]);
+//		}
+//    }
+//    return nil;
+//}
+
+
+// Method called by the bindings object controller for comparing the quit passwords
+//- (NSString*) compareQuitPasswords {
+//	if ((quitPassword != nil) | (confirmQuitPassword != nil)) { 
+//        //if at least one of the fields is defined
+//        if (([confirmQuitPassword isEqual:@"𝈭𝈖𝈒𝉇𝈁𝉈"]) & (![quitPassword isEqual:@"𝈭𝈖𝈒𝉇𝈁𝉈"])) {
+//            //when the quit password was changed (user started to edit it), then the
+//            //placeholder string in the confirm quit password field needs to be removed
+//            [self setValue:nil forKey:@"confirmQuitPassword"];
+//            if (quitPassword == nil) {
+//                //if quit pw was deleted completely, we have to return nil (pw's match)
+//                return nil;
+//            }
+//        }
+//       	if (![quitPassword isEqualToString:confirmQuitPassword]) {
+//			//if the two passwords don't match, show it in the label
+//            return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please confirm password",nil)]);
+//		}
+//    }
+//    return nil;
+//}
+
+
+// Method called by the bindings object controller for comparing the admin passwords
+- (NSString*) compareAdminPasswords
+{
+	if ((adminPassword != nil) | (confirmAdminPassword != nil)) {
+        
+        // If the flag is set for password fields contain a placeholder
+        // instead of the hash loaded from settings (no cleartext password)
+        if (adminPasswordIsHash)
+        {
+            if (![adminPassword isEqualToString:confirmAdminPassword])
+            {
+                // and when the password texts aren't the same anymore, this means the user tries to edit the password
+                // (which is only the placeholder right now), we have to clear the placeholder from the textFields
+                adminPasswordIsHash = false;
+                [self setValue:nil forKey:@"adminPassword"];
+                [self setValue:nil forKey:@"confirmSettingsPassword"];
+                [adminPasswordField setStringValue:@""];
+                [confirmAdminPasswordField setStringValue:@""];
                 return nil;
             }
         }
+        
+        // Password fields contain actual passwords, not the placeholder for a hash value
        	if (![adminPassword isEqualToString:confirmAdminPassword]) {
 			//if the two passwords don't match, show it in the label
-            return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please confirm password",nil)]);
-		}
+            return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please confirm password", nil)]);
+        }
     }
     return nil;
 }
 
 
 // Method called by the bindings object controller for comparing the quit passwords
-- (NSString*) compareQuitPasswords {
-	if ((quitPassword != nil) | (confirmQuitPassword != nil)) { 
-        //if at least one of the fields is defined
-        if (([confirmQuitPassword isEqual:@"𝈭𝈖𝈒𝉇𝈁𝉈"]) & (![quitPassword isEqual:@"𝈭𝈖𝈒𝉇𝈁𝉈"])) {
-            //when the quit password was changed (user started to edit it), then the
-            //placeholder string in the confirm quit password field needs to be removed
-            [self setValue:nil forKey:@"confirmQuitPassword"];
-            if (quitPassword == nil) {
-                //if quit pw was deleted completely, we have to return nil (pw's match)
+- (NSString*) compareQuitPasswords
+{
+	if ((quitPassword != nil) | (confirmQuitPassword != nil)) {
+        
+        // If the flag is set for password fields contain a placeholder
+        // instead of the hash loaded from settings (no cleartext password)
+        if (quitPasswordIsHash)
+        {
+            if (![quitPassword isEqualToString:confirmQuitPassword])
+            {
+                // and when the password texts aren't the same anymore, this means the user tries to edit the password
+                // (which is only the placeholder right now), we have to clear the placeholder from the textFields
+                quitPasswordIsHash = false;
+                [self setValue:nil forKey:@"quitPassword"];
+                [self setValue:nil forKey:@"confirmQuitPassword"];
+                [quitPasswordField setStringValue:@""];
+                [confirmQuitPasswordField setStringValue:@""];
                 return nil;
             }
         }
+        
+        // Password fields contain actual passwords, not the placeholder for a hash value
        	if (![quitPassword isEqualToString:confirmQuitPassword]) {
 			//if the two passwords don't match, show it in the label
-            return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please confirm password",nil)]);
-		}
+            return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please confirm password", nil)]);
+        }
     }
     return nil;
 }
 
+
 /*
-// Method called by the bindings object controller for comparing the quit passwords
 - (BOOL) isPasteboardString {
     if ([[[MyGlobals sharedMyGlobals] pasteboardString] isEqualToString:@""]) 
         return NO;

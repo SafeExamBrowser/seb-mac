@@ -80,6 +80,7 @@
 }
 
 
+// Executed when preferences window is about to be closed
 - (void)windowWillClose:(NSNotification *)notification
 {
     [[NSApplication sharedApplication] stopModal];
@@ -87,10 +88,20 @@
     // Save settings and unbind bindings in the General pane
     [self.generalVC windowWillClose:notification];
     
-    // Post a notification that preferences were closed
+    // If Preferences are being closed and we're not just refreshing the preferences window
     if (self.preferencesAreOpen && !self.refreshingPreferences) {
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"preferencesClosed" object:self];
+        // Re-generate Browser Exam Key
+        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+        
+        // If settings changed, restart SEB
+        if ([self settingsChanged]) {
+            // Post a notification that it was requested to restart SEB with changed settings
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"requestRestartNotification" object:self];
+        }
+
+//        [[NSNotificationCenter defaultCenter]
+//         postNotificationName:@"preferencesClosed" object:self];
     }
 }
 
@@ -197,11 +208,6 @@
     
     [[MBPreferencesController sharedController].window orderOut:self];
     [[NSApplication sharedApplication] stopModal];
-    // Post a notification that preferences were closed (but not when just refreshing the preferences window)
-    if (!self.refreshingPreferences) {
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"preferencesClosed" object:self];
-    }
 }
 
 
@@ -212,7 +218,9 @@
 // Save preferences and restart SEB with the new settings
 - (IBAction) restartSEB:(id)sender {
 
-	[self closePreferencesWindow:sender];
+    self.refreshingPreferences = true;  //prevents that new page is reloaded before restarting
+	// Save settings (passwords in General pane) and close Window
+    [self closePreferencesWindow:sender];
 
     // Post a notification that it was requested to restart SEB with changed settings
 	[[NSNotificationCenter defaultCenter]
@@ -223,7 +231,8 @@
 // Save preferences and quit SEB
 - (IBAction) quitSEB:(id)sender {
 
-	[self closePreferencesWindow:sender];
+    self.refreshingPreferences = true;  //prevents that new page is reloaded before quitting
+    [self closePreferencesWindow:sender];
 
 	[[NSNotificationCenter defaultCenter]
      postNotificationName:@"requestQuitNotification" object:self];

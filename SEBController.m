@@ -371,10 +371,10 @@ bool insideMatrix();
                                              selector:@selector(switchPluginsOn:)
                                                  name:@"switchPluginsOn" object:nil];
     
-    // Add an observer for the notification that preferences were closed
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(preferencesClosed:)
-                                                 name:@"preferencesClosed" object:nil];
+//    // Add an observer for the notification that preferences were closed
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(preferencesClosed:)
+//                                                 name:@"preferencesClosed" object:nil];
     //[self startTask];
 
 // Prevent display sleep
@@ -1116,16 +1116,16 @@ bool insideMatrix(){
 }
 
 
-- (void)preferencesClosed:(NSNotification *)notification
-{
-    // Re-generate Browser Exam Key
-    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-
-    // If settings changed, restart SEB
-    if ([self.preferencesController settingsChanged]) {
-        [self requestedRestart:nil];
-    }
-}
+//- (void)preferencesClosed:(NSNotification *)notification
+//{
+//    // Re-generate Browser Exam Key
+//    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+//
+//    // If settings changed, restart SEB
+//    if ([self.preferencesController settingsChanged]) {
+//        [self requestedRestart:nil];
+//    }
+//}
 
 
 - (void)requestedQuitWPwd:(NSNotification *)notification
