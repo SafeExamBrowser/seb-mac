@@ -40,7 +40,6 @@
 #import "SEBConfigFileManager.h"
 #import "RNEncryptor.h"
 #import "SEBCryptor.h"
-#import "SEBKeychainManager.h"
 #import "MyGlobals.h"
 
 @interface PrefsConfigFileViewController ()
@@ -67,6 +66,12 @@
 - (NSImage *)image
 {
 	return [NSImage imageNamed:@"sebConfigIcon"];
+}
+
+
+- (void) awakeFromNib
+{
+    self.keychainManager = [[SEBKeychainManager alloc] init];
 }
 
 
@@ -187,6 +192,17 @@
 }
 
 
+// Method invoked when switching from this one to another tab
+- (void)willBeHidden
+{
+    // If settings password is confirmed
+    if (![self compareSettingsPasswords]) {
+        _currentConfigFilePassword = settingsPassword;
+        _currentConfigFileKeyRef = [self.keychainManager getPrivateKeyRefFromIdentityRef:[self getSelectedIdentity]];;
+    }
+}
+
+
 // Get selected config purpose
 - (sebConfigPurposes) getSelectedConfigPurpose
 {
@@ -198,13 +214,11 @@
 // Select identity for passed identity reference
 - (void) selectSettingsIdentity:(SecKeyRef)settingsPrivateKeyRef
 {
-    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    
     [chooseIdentity selectItemAtIndex:0];
     int i, count = [self.identities count];
     for (i=0; i<count; i++) {
         SecIdentityRef identityFromKeychain = (__bridge SecIdentityRef)self.identities[i];
-        SecKeyRef privateKeyRef = [keychainManager getPrivateKeyRefFromIdentityRef:identityFromKeychain];
+        SecKeyRef privateKeyRef = [self.keychainManager getPrivateKeyRefFromIdentityRef:identityFromKeychain];
         if (settingsPrivateKeyRef == privateKeyRef) {
             [chooseIdentity selectItemAtIndex:i+1];
             break;

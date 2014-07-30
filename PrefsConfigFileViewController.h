@@ -37,6 +37,7 @@
 #import <Foundation/Foundation.h>
 #import "MBPreferencesController.h"
 #import "PreferencesController.h"
+#import "SEBKeychainManager.h"
 #import "Constants.h"
 
 @class PreferencesController;
@@ -58,6 +59,7 @@
 }
 
 @property (weak, nonatomic) PreferencesController *preferencesController;
+@property (strong, nonatomic) SEBKeychainManager *keychainManager;
 
 @property (strong, nonatomic) NSMutableArray *identitiesNames;
 @property (strong, nonatomic) NSArray *identities;

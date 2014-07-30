@@ -108,7 +108,7 @@
 //                                   withKeyPath:@"pasteboardString.length"
 //                                       options:[NSDictionary dictionaryWithObject:@"BoolValueTransformer" forKey:NSValueTransformerNameBindingOption]];
     NSString *pasteboardString = [[MyGlobals sharedMyGlobals] valueForKey:@"pasteboardString"];
-    if (![pasteboardString isEqualToString:@""]) {
+    if (pasteboardString.length == 0) {
         [pasteSavedStringFromPasteboardButton setEnabled:NO];
     } else {
         [pasteSavedStringFromPasteboardButton setEnabled:YES];
@@ -153,50 +153,6 @@
 + (NSSet *)keyPathsForValuesAffectingCompareQuitPasswords {
     return [NSSet setWithObjects:@"quitPassword", @"confirmQuitPassword", nil];
 }
-
-
-// Method called by the bindings object controller for comparing the admin passwords
-//- (NSString*) compareAdminPasswords {
-//	if ((adminPassword != nil) | (confirmAdminPassword != nil)) { 
-//        //if at least one of the fields is defined
-//        if (([confirmAdminPassword isEqual:@"𝈭𝈖𝈒𝉇𝈁𝉈"]) & (![adminPassword isEqual:@"𝈭𝈖𝈒𝉇𝈁𝉈"])) {
-//            //when the admin password was changed (user started to edit it), then the  
-//            //placeholder string in the confirm admin password field needs to be removed
-//            [self setValue:nil forKey:@"confirmAdminPassword"];
-//            if (adminPassword == nil) {
-//                //if admin pw was deleted completely, we have to return nil (pw's match)
-//                return nil;
-//            }
-//        }
-//       	if (![adminPassword isEqualToString:confirmAdminPassword]) {
-//			//if the two passwords don't match, show it in the label
-//            return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please confirm password",nil)]);
-//		}
-//    }
-//    return nil;
-//}
-
-
-// Method called by the bindings object controller for comparing the quit passwords
-//- (NSString*) compareQuitPasswords {
-//	if ((quitPassword != nil) | (confirmQuitPassword != nil)) { 
-//        //if at least one of the fields is defined
-//        if (([confirmQuitPassword isEqual:@"𝈭𝈖𝈒𝉇𝈁𝉈"]) & (![quitPassword isEqual:@"𝈭𝈖𝈒𝉇𝈁𝉈"])) {
-//            //when the quit password was changed (user started to edit it), then the
-//            //placeholder string in the confirm quit password field needs to be removed
-//            [self setValue:nil forKey:@"confirmQuitPassword"];
-//            if (quitPassword == nil) {
-//                //if quit pw was deleted completely, we have to return nil (pw's match)
-//                return nil;
-//            }
-//        }
-//       	if (![quitPassword isEqualToString:confirmQuitPassword]) {
-//			//if the two passwords don't match, show it in the label
-//            return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please confirm password",nil)]);
-//		}
-//    }
-//    return nil;
-//}
 
 
 // Method called by the bindings object controller for comparing the admin passwords
@@ -299,24 +255,6 @@
         quitPasswordIsHash = YES;
         [self setValue:@"0000000000000000" forKey:@"confirmQuitPassword"];
     }
-    
-//    if ([[preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"] isEqualToString:@""]) {
-//        //empty passwords need to be set to NIL because of the text fields' bindings
-//        [self setValue:nil forKey:@"adminPassword"];
-//        [self setValue:nil forKey:@"confirmAdminPassword"];
-//    } else {
-//        //if there actually was a hashed password set, use a placeholder string
-//        [self setValue:@"𝈭𝈖𝈒𝉇𝈁𝉈" forKey:@"adminPassword"];
-//        [self setValue:@"𝈭𝈖𝈒𝉇𝈁𝉈" forKey:@"confirmAdminPassword"];
-//    }
-    
-//    if ([[preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"] isEqualToString:@""]) {
-//        [self setValue:nil forKey:@"quitPassword"];
-//        [self setValue:nil forKey:@"confirmQuitPassword"];
-//    } else {
-//        [self setValue:@"𝈭𝈖𝈒𝉇𝈁𝉈" forKey:@"quitPassword"];
-//        [self setValue:@"𝈭𝈖𝈒𝉇𝈁𝉈" forKey:@"confirmQuitPassword"];
-//    }
 }
 
 
