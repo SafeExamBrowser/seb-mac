@@ -46,6 +46,14 @@
 }
 
 @property (nonatomic, strong) SEBController *sebController;
+@property BOOL currentConfigPasswordIsHash;
+
+// Write-only properties
+@property (nonatomic) NSString *currentConfigPassword;
+@property (nonatomic) SecKeyRef currentConfigKeyRef;
+// To make the getter unavailable
+- (NSString *)currentConfigPassword UNAVAILABLE_ATTRIBUTE;
+- (SecKeyRef)currentConfigKeyRef UNAVAILABLE_ATTRIBUTE;
 
 
 // Decrypt, parse and store SEB settings to UserDefaults

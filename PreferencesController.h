@@ -62,15 +62,14 @@
 
 @property BOOL currentConfigPasswordIsHash;
 @property BOOL refreshingPreferences;
-// Write-only properties
-@property (nonatomic) NSString *currentConfigPassword;
-@property (nonatomic) SecKeyRef currentConfigKeyRef;
-
 @property (strong, nonatomic) PrefsGeneralViewController *generalVC;
 @property (strong, nonatomic) PrefsConfigFileViewController *configFileVC;
 
+// Write-only properties
+@property (nonatomic) NSString *currentConfigPassword;
+@property (nonatomic) SecKeyRef currentConfigKeyRef;
 // To make the getter unavailable
-//- (NSString *)currentConfigPassword UNAVAILABLE_ATTRIBUTE;
+- (NSString *)currentConfigPassword UNAVAILABLE_ATTRIBUTE;
 - (SecKeyRef)currentConfigKeyRef UNAVAILABLE_ATTRIBUTE;
 
 - (void) showPreferences:(id)sender;

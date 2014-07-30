@@ -56,6 +56,21 @@
 }
 
 
+// Getter methods for write-only properties
+
+- (NSString *)currentConfigPassword {
+    [NSException raise:NSInternalInconsistencyException
+                format:@"property is write-only"];
+    return nil;
+}
+
+- (SecKeyRef)currentConfigKeyRef {
+    [NSException raise:NSInternalInconsistencyException
+                format:@"property is write-only"];
+    return nil;
+}
+
+
 #pragma mark Methods for Decrypting, Parsing and Storing SEB Settings to UserDefaults
 
 // Decrypt, parse and use new SEB settings
@@ -68,12 +83,13 @@
 
     // In editing mode we can get a saved existing config file password
     // (used when reverting to last saved/openend settings)
-    PreferencesController *prefsController = self.sebController.preferencesController;
     if (forEditing) {
-        sebFilePassword = prefsController.currentConfigPassword;
-        passwordIsHash = prefsController.currentConfigPasswordIsHash;
+        sebFilePassword = _currentConfigPassword;
+        passwordIsHash = _currentConfigPasswordIsHash;
+        sebFileKeyRef = _currentConfigKeyRef;
     }
-    
+    PreferencesController *prefsController = self.sebController.preferencesController;
+
     sebPreferencesDict = [self decryptSEBSettings:sebData forEditing:forEditing sebFilePassword:&sebFilePassword passwordIsHashPtr:&passwordIsHash sebFileKeyRef:&sebFileKeyRef];
     if (!sebPreferencesDict) return NO; //Decryption didn't work, we abort
     
@@ -103,6 +119,11 @@
         // but if we're in editing mode, then we need to re-enable opening the prefs window again
         if (forEditing) {
             [preferences setSecureBool:YES forKey:@"org_safeexambrowser_enablePreferencesWindow"];
+        } else {
+            // if not editing reset credentials
+            _currentConfigPassword = nil;
+            _currentConfigPasswordIsHash = NO;
+            _currentConfigKeyRef = nil;
         }
 
         // If opening the preferences window is allowed
@@ -132,6 +153,10 @@
         [self storeIntoUserDefaults:sebPreferencesDict];
         
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
+        // Reset credentials for reverting to these
+        _currentConfigPassword = nil;
+        _currentConfigPasswordIsHash = NO;
+        _currentConfigKeyRef = nil;
 
         int answer = NSRunAlertPanel(NSLocalizedString(@"SEB Re-Configured",nil), NSLocalizedString(@"Local settings of this SEB client have been reconfigured. Do you want to start working with SEB now or quit?",nil),
                                      NSLocalizedString(@"Continue",nil), NSLocalizedString(@"Quit",nil), nil);

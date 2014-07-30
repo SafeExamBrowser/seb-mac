@@ -46,11 +46,11 @@
 
 // Getter methods for write-only properties
 
-//- (NSString *)currentConfigPassword {
-//    [NSException raise:NSInternalInconsistencyException
-//                format:@"property is write-only"];
-//    return nil;
-//}
+- (NSString *)currentConfigPassword {
+    [NSException raise:NSInternalInconsistencyException
+                format:@"property is write-only"];
+    return nil;
+}
 
 - (SecKeyRef)currentConfigKeyRef {
     [NSException raise:NSInternalInconsistencyException
@@ -186,6 +186,7 @@
     if (_userDefaultsPrivateBeforeEditing != NSUserDefaults.userDefaultsPrivate) {
         [NSUserDefaults setUserDefaultsPrivate:_userDefaultsPrivateBeforeEditing];
     }
+    
     [configFileManager storeIntoUserDefaults:_settingsBeforeEditing];
     // Set the original settings title in the preferences window
     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:_configURLBeforeEditing];
@@ -586,6 +587,11 @@
             // Error when reading configuration data
             [NSApp presentError:error];
         } else {
+            // Pass saved credentials from the last loaded file to the Config File Manager
+            configFileManager.currentConfigPassword = _currentConfigPassword;
+            configFileManager.currentConfigPasswordIsHash = _currentConfigPasswordIsHash;
+            configFileManager.currentConfigKeyRef = _currentConfigKeyRef;
+            
             // Decrypt and store the .seb config file
             if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:YES]) {
                 
