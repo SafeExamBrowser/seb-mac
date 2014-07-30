@@ -40,7 +40,6 @@
 #import "NSWindow+SEBWindow.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "RNEncryptor.h"
-#import "SEBKeychainManager.h"
 #import "Constants.h"
 //#import "MyGlobals.h"
 
@@ -68,6 +67,8 @@
 
 - (void) awakeFromNib
 {
+    self.keychainManager = [[SEBKeychainManager alloc] init];
+
     // Create blue underlined link for "Paste from saved clipboard"
     NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
     [paragraphStyle setAlignment:NSRightTextAlignment];
@@ -135,9 +136,9 @@
         [self savePasswords:self];	//save admin and quit passwords
     }
     // Unbind all programmatically set bindings
-    NSButton *closeButton = [[MBPreferencesController sharedController].window standardWindowButton:NSWindowCloseButton];
-    [closeButton unbind:@"enabled"];
-    [closeButton unbind:@"enabled2"];
+//    NSButton *closeButton = [[MBPreferencesController sharedController].window standardWindowButton:NSWindowCloseButton];
+//    [closeButton unbind:@"enabled"];
+//    [closeButton unbind:@"enabled2"];
     //    [pasteSavedStringFromPasteboardButton unbind:@"enabled"];
 }
 
@@ -213,17 +214,17 @@
                 // (which is only the placeholder right now), we have to clear the placeholder from the textFields
                 adminPasswordIsHash = false;
                 [self setValue:nil forKey:@"adminPassword"];
-                [self setValue:nil forKey:@"confirmSettingsPassword"];
+                [self setValue:nil forKey:@"confirmAdminPassword"];
                 [adminPasswordField setStringValue:@""];
                 [confirmAdminPasswordField setStringValue:@""];
                 return nil;
             }
-        }
-        
-        // Password fields contain actual passwords, not the placeholder for a hash value
-       	if (![adminPassword isEqualToString:confirmAdminPassword]) {
-			//if the two passwords don't match, show it in the label
-            return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please confirm password", nil)]);
+        } else {
+            // Password fields contain actual passwords, not the placeholder for a hash value
+            if (![adminPassword isEqualToString:confirmAdminPassword]) {
+                //if the two passwords don't match, show it in the label
+                return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please confirm password", nil)]);
+            }
         }
     }
     return nil;
@@ -250,12 +251,12 @@
                 [confirmQuitPasswordField setStringValue:@""];
                 return nil;
             }
-        }
-        
-        // Password fields contain actual passwords, not the placeholder for a hash value
-       	if (![quitPassword isEqualToString:confirmQuitPassword]) {
-			//if the two passwords don't match, show it in the label
-            return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please confirm password", nil)]);
+        } else {
+            // Password fields contain actual passwords, not the placeholder for a hash value
+            if (![quitPassword isEqualToString:confirmQuitPassword]) {
+                //if the two passwords don't match, show it in the label
+                return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please confirm password", nil)]);
+            }
         }
     }
     return nil;
@@ -278,24 +279,24 @@
     // CAUTION: We need to reset this flag BEFORE changing the textBox text value,
     // because otherwise the compare passwords method will delete the first textBox again.
     if ([[preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"] isEqualToString:@""]) {
-        adminPasswordIsHash = false;
+        adminPasswordIsHash = NO;
         [self setValue:nil forKey:@"adminPassword"];
         [self setValue:nil forKey:@"confirmAdminPassword"];
     } else {
-        adminPasswordIsHash = false;
+        adminPasswordIsHash = NO;
         [self setValue:@"0000000000000000" forKey:@"adminPassword"];
-        adminPasswordIsHash = true;
+        adminPasswordIsHash = YES;
         [self setValue:@"0000000000000000" forKey:@"confirmAdminPassword"];
     }
     
     if ([[preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"] isEqualToString:@""]) {
-        adminPasswordIsHash = false;
+        quitPasswordIsHash = NO;
         [self setValue:nil forKey:@"quitPassword"];
         [self setValue:nil forKey:@"confirmQuitPassword"];
     } else {
-        adminPasswordIsHash = false;
+        quitPasswordIsHash = NO;
         [self setValue:@"0000000000000000" forKey:@"quitPassword"];
-        adminPasswordIsHash = true;
+        quitPasswordIsHash = YES;
         [self setValue:@"0000000000000000" forKey:@"confirmQuitPassword"];
     }
     
@@ -326,21 +327,20 @@
     // Only if the prefs window button is enabled, then we have confirmed passwords which can be saved
     if ([closeButton isEnabled]) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
         
         if (adminPassword == nil) {
-            //if no admin pw was entered, save a empty NSData object in preferences
+            //if no admin pw was entered, save a empty string in preferences
             [preferences setSecureObject:@"" forKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-        } else if (![adminPassword isEqual: @"𝈭𝈖𝈒𝉇𝈁𝉈"]) {
+        } else if (adminPasswordIsHash == false) {
             //if password was changed, save the new hashed password in preferences
-            [preferences setSecureObject:[keychainManager generateSHAHashString:adminPassword] forKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+            [preferences setSecureObject:[self.keychainManager generateSHAHashString:adminPassword] forKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
         }
         if (quitPassword == nil) {
-            //if no quit pw was entered, save a empty NSData object in preferences
+            //if no quit pw was entered, save a empty string in preferences
             [preferences setSecureObject:@"" forKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-        } else if (![quitPassword isEqual: @"𝈭𝈖𝈒𝉇𝈁𝉈"]) {
+        } else if (quitPasswordIsHash == false) {
             //if password was changed, save the new hashed password in preferences
-            [preferences setSecureObject:[keychainManager generateSHAHashString:quitPassword] forKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+            [preferences setSecureObject:[self.keychainManager generateSHAHashString:quitPassword] forKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
         }
     }
 }

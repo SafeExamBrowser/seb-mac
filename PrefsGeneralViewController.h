@@ -41,10 +41,10 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "MyGlobals.h"
 #import "PreferencesController.h"
+#import "SEBKeychainManager.h"
 #import "Constants.h"
 
 @class PreferencesController;
-
 
 @interface PrefsGeneralViewController : NSViewController <MBPreferencesModule, NSWindowDelegate> {
 
@@ -70,6 +70,7 @@
 }
 
 @property (weak, nonatomic) PreferencesController *preferencesController;
+@property (strong, nonatomic) SEBKeychainManager *keychainManager;
 
 - (NSString *)identifier;
 - (NSImage *)image;

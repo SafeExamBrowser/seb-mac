@@ -99,10 +99,8 @@
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"requestRestartNotification" object:self];
         }
-
-//        [[NSNotificationCenter defaultCenter]
-//         postNotificationName:@"preferencesClosed" object:self];
     }
+    self.refreshingPreferences = NO;
 }
 
 
@@ -153,7 +151,7 @@
 {
 //    self.SEBConfigVC.preferencesController = nil;
 //    self.SEBConfigVC = nil;
-    self.refreshingPreferences = true;
+    self.refreshingPreferences = YES;
     [[MBPreferencesController sharedController] unloadNibs];
 }
 
@@ -218,7 +216,7 @@
 // Save preferences and restart SEB with the new settings
 - (IBAction) restartSEB:(id)sender {
 
-    self.refreshingPreferences = true;  //prevents that new page is reloaded before restarting
+    self.refreshingPreferences = YES;  //prevents that new page is reloaded before restarting
 	// Save settings (passwords in General pane) and close Window
     [self closePreferencesWindow:sender];
 
@@ -231,7 +229,7 @@
 // Save preferences and quit SEB
 - (IBAction) quitSEB:(id)sender {
 
-    self.refreshingPreferences = true;  //prevents that new page is reloaded before quitting
+    self.refreshingPreferences = YES;  //prevents that new page is reloaded before quitting
     [self closePreferencesWindow:sender];
 
 	[[NSNotificationCenter defaultCenter]

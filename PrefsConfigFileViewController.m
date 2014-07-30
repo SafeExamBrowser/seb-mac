@@ -113,12 +113,12 @@
                 [self resetSettingsPasswordFields];
                 return nil;
             }
-        }
-        
-        // Password fields contain actual passwords, not the placeholder for a hash value
-       	if (![settingsPassword isEqualToString:confirmSettingsPassword]) {
-			//if the two passwords don't match, show it in the label
-            return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please confirm password", nil)]);
+        } else {
+            // Password fields contain actual passwords, not the placeholder for a hash value
+            if (![settingsPassword isEqualToString:confirmSettingsPassword]) {
+                //if the two passwords don't match, show it in the label
+                return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please confirm password", nil)]);
+            }
         }
     }
     return nil;
