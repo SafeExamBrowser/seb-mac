@@ -39,9 +39,9 @@
 
 
 @interface SEBConfigFileManager : NSObject {
-@private
-    NSString *_currentConfigPassword;
-    BOOL _currentConfigPasswordIsHash;
+//@private
+//    NSString *_currentConfigPassword;
+//    BOOL _currentConfigPasswordIsHash;
     //SecKeyRef _currentConfigKeyRef;
 }
 

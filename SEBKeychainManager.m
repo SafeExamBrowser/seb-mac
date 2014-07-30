@@ -50,6 +50,8 @@
     if (error) {
         //certReqDbg("GetResult: SecKeychainCopyDefault failure");
         /* oh well, there's nothing we can do about this */
+        if (keychain) CFRelease(keychain);
+        return nil;
     }
     
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -62,10 +64,11 @@
                            nil];
     //NSArray *items = nil;
     CFTypeRef items = NULL;
-    OSStatus status = SecItemCopyMatching((__bridge_retained CFDictionaryRef)query, (CFTypeRef *)&items);
+    OSStatus status = SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&items);
     if (status != errSecSuccess) {
-            //LKKCReportError(status, @"Can't search keychain");
-            return nil;
+        //LKKCReportError(status, @"Can't search keychain");
+        if (keychain) CFRelease(keychain);
+        return nil;
     }
     NSMutableArray *identities = [NSMutableArray arrayWithArray:(__bridge  NSArray*)(items)];
     NSMutableArray *identitiesNames = [NSMutableArray arrayWithCapacity:[identities count]];
@@ -119,7 +122,7 @@
                 NSData* publicKeyHash = [self getPublicKeyHashFromCertificate:certificateRef];
                 unsigned char hashedChars[20];
                 [publicKeyHash getBytes:hashedChars length:20];
-                NSMutableString* hashedString = [[NSMutableString alloc] init];
+                NSMutableString* hashedString = [NSMutableString new];
                 for (int i = 0 ; i < 20 ; ++i) {
                     [hashedString appendFormat: @"%02x", hashedChars[i]];
                 }
@@ -150,6 +153,7 @@
     if (names) {
         *names = [NSArray arrayWithArray:identitiesNames];
     }
+    if (keychain) CFRelease(keychain);
     return foundIdentities; // items contains all SecIdentityRefs in keychain
 }
 
@@ -161,6 +165,8 @@
     if (error) {
         //certReqDbg("GetResult: SecKeychainCopyDefault failure");
         /* oh well, there's nothing we can do about this */
+        if (keychain) CFRelease(keychain);
+        return nil;
     }
     
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -171,13 +177,13 @@
                            nil];
     //NSArray *items = nil;
     CFTypeRef items = NULL;
-    OSStatus status = SecItemCopyMatching((__bridge_retained CFDictionaryRef)query, (CFTypeRef *)&items);
-    if (status) {
-        if (status != errSecItemNotFound)
-            //LKKCReportError(status, @"Can't search keychain");
-            return nil;
+    OSStatus status = SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&items);
+    if (status == errSecItemNotFound) {
+        //LKKCReportError(status, @"Can't search keychain");
+        if (keychain) CFRelease(keychain);
+        return nil;
     }
-    NSMutableArray *certificates = [NSMutableArray arrayWithArray:(__bridge  NSArray*)(items)];
+    NSMutableArray *certificates = [NSMutableArray arrayWithArray:(__bridge_transfer NSArray*)(items)];
     NSMutableArray *certificatesNames = [NSMutableArray arrayWithCapacity:[certificates count]];
     
     CFStringRef commonName;
@@ -207,13 +213,17 @@
                 if ([certificateName isEqualToString:@""] || [certificatesNames containsObject:certificateName]) {
                     //get public key hash from selected identity's certificate
                     NSData* publicKeyHash = [self getPublicKeyHashFromCertificate:certificateRef];
-                    unsigned char hashedChars[20];
-                    [publicKeyHash getBytes:hashedChars length:20];
-                    NSMutableString* hashedString = [[NSMutableString alloc] init];
-                    for (int i = 0 ; i < 20 ; ++i) {
-                        [hashedString appendFormat: @"%02x", hashedChars[i]];
+                    if (publicKeyHash) {
+                        unsigned char hashedChars[20];
+                        [publicKeyHash getBytes:hashedChars length:20];
+                        NSMutableString* hashedString = [NSMutableString new];
+                        for (int i = 0 ; i < 20 ; ++i) {
+                            [hashedString appendFormat: @"%02x", hashedChars[i]];
+                        }
+                        [certificatesNames addObject:[NSString stringWithFormat:@"%@ %@",certificateName, hashedString]];
+                    } else {
+                        [certificatesNames addObject:[NSString stringWithFormat:@"%@ %@",certificateName, certificateName]];
                     }
-                    [certificatesNames addObject:[NSString stringWithFormat:@"%@ %@",certificateName, hashedString]];
                 } else {
                     [certificatesNames addObject:certificateName];
                 }
@@ -229,8 +239,6 @@
         }
         if (commonName) CFRelease(commonName);
         if (emailAddressesRef) CFRelease(emailAddressesRef);
-        
-        if (certificateRef) CFRelease(certificateRef);
     }
     NSArray *foundCertificates;
     foundCertificates = [NSArray arrayWithArray:certificates];
@@ -238,6 +246,7 @@
     if (names) {
         *names = [NSArray arrayWithArray:certificatesNames];
     }
+    if (keychain) CFRelease(keychain);
     return foundCertificates; // items contains all SecIdentityRefs in keychain
     //return (__bridge  NSArray*)(items); // items contains all SecCertificateRefs in keychain
     
@@ -260,24 +269,17 @@
     OSStatus err = SecKeychainItemCopyAttributesAndData(asKCItem, (SecKeychainAttributeInfo *)&desiredAtts, NULL, &retrievedAtts, NULL, NULL);
     
     if (err == noErr) {
-        BOOL result;
-        
         if (retrievedAtts->count == 1 &&
             retrievedAtts->attr[0].tag == kSecPublicKeyHashItemAttr) {
             //retrievedAtts->attr[0].length == [subjectKeyIdentifier length] &&
             //memcmp(retrievedAtts->attr[0].data, [subjectKeyIdentifier bytes], retrievedAtts->attr[0].length);
             subjectKeyIdentifier = [NSData dataWithBytes:retrievedAtts->attr[0].data length:retrievedAtts->attr[0].length];
-            result = YES;
-        } else {
-            result = NO;
+            SecKeychainItemFreeAttributesAndData(retrievedAtts, NULL);
+            return subjectKeyIdentifier;
         }
-        
-        SecKeychainItemFreeAttributesAndData(retrievedAtts, NULL);
-        
-        return subjectKeyIdentifier;
-        
     } else if (err == errKCNotAvailable) {
         NSLog(@"Keychain Manager was not loaded.");
+        SecKeychainItemFreeAttributesAndData(retrievedAtts, NULL);
     }
     return nil;
 }
@@ -288,6 +290,7 @@
     SecIdentityRef identityRef = [self getIdentityRefFromPublicKeyHash:publicKeyHash];
     //OSStatus status = SecIdentityCopyPrivateKey(identityRef, &privateKeyRef);
     SecIdentityCopyPrivateKey(identityRef, &privateKeyRef);
+    if (identityRef) CFRelease(identityRef);
     return privateKeyRef;
 }
 
@@ -299,6 +302,8 @@
     if (error) {
         //certReqDbg("GetResult: SecKeychainCopyDefault failure");
         /* oh well, there's nothing we can do about this */
+        if (keychain) CFRelease(keychain);
+        return nil;
     }
     
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -309,14 +314,17 @@
                            nil];
     //NSArray *items = nil;
     SecCertificateRef certificateRef = NULL;
-    OSStatus status = SecItemCopyMatching((__bridge_retained CFDictionaryRef)query, (CFTypeRef *)&certificateRef);
+    OSStatus status = SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&certificateRef);
     if (status != errSecSuccess) {
+        if (keychain) CFRelease(keychain);
         return nil;
     }
     SecIdentityRef identityRef = [self createIdentityWithCertificate:certificateRef];
     if (status != errSecSuccess) {
+        if (keychain) CFRelease(keychain);
         return nil;
     }
+    if (keychain) CFRelease(keychain);
     return identityRef;
 }
 
@@ -434,6 +442,7 @@
                                    &keyParams,
                                    keychain, // Don't import into a keychain
                                    NULL);
+    if (keychain) CFRelease(keychain);
     if (oserr) {
 #ifdef DEBUG
         fprintf(stderr, "SecItemImport failed (oserr=%d)\n", oserr);
@@ -573,7 +582,7 @@
 
     NSData *cipherData = [NSData dataWithBytes:ctext.Data length:ctext.Length];
 
-    CFRelease(publicKeyRef);
+    if (publicKeyRef) CFRelease(publicKeyRef);
     free(ctext.Data);
     return cipherData;
     //[cipherData encodeBase64ForData];
@@ -641,7 +650,7 @@
     
     NSData *plainData = [NSData dataWithBytes:ptext.Data length:bytesEncrypted];
 	
-    CFRelease(privateKeyRef);
+    if (privateKeyRef) CFRelease(privateKeyRef);
     free(ptext.Data);
     return plainData;
 }

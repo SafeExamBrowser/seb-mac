@@ -130,7 +130,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port)
                          kSCPropNetProxiesHTTPSProxy,CFSTR("127.0.0.1"));
     enable = 1;
     CFDictionarySetValue(proxyDictSet,
-                         kSCPropNetProxiesHTTPSEnable,CFNumberCreate(NULL,kCFNumberLongType,&enable));
+                         kSCPropNetProxiesHTTPSEnable,CFNumberCreate(NULL,kCFNumberIntType,&enable));
     hostStr = (CFStringRef)
     CFDictionaryGetValue(proxyDictSet,
                          kSCPropNetProxiesHTTPSProxy);

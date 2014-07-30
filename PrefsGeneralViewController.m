@@ -275,23 +275,47 @@
 - (void) loadPasswords:(id)sender {
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
+    // CAUTION: We need to reset this flag BEFORE changing the textBox text value,
+    // because otherwise the compare passwords method will delete the first textBox again.
     if ([[preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"] isEqualToString:@""]) {
-        //empty passwords need to be set to NIL because of the text fields' bindings
+        adminPasswordIsHash = false;
         [self setValue:nil forKey:@"adminPassword"];
         [self setValue:nil forKey:@"confirmAdminPassword"];
     } else {
-        //if there actually was a hashed password set, use a placeholder string
-        [self setValue:@"𝈭𝈖𝈒𝉇𝈁𝉈" forKey:@"adminPassword"];
-        [self setValue:@"𝈭𝈖𝈒𝉇𝈁𝉈" forKey:@"confirmAdminPassword"];
+        adminPasswordIsHash = false;
+        [self setValue:@"0000000000000000" forKey:@"adminPassword"];
+        adminPasswordIsHash = true;
+        [self setValue:@"0000000000000000" forKey:@"confirmAdminPassword"];
     }
     
     if ([[preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"] isEqualToString:@""]) {
+        adminPasswordIsHash = false;
         [self setValue:nil forKey:@"quitPassword"];
         [self setValue:nil forKey:@"confirmQuitPassword"];
     } else {
-        [self setValue:@"𝈭𝈖𝈒𝉇𝈁𝉈" forKey:@"quitPassword"];
-        [self setValue:@"𝈭𝈖𝈒𝉇𝈁𝉈" forKey:@"confirmQuitPassword"];
+        adminPasswordIsHash = false;
+        [self setValue:@"0000000000000000" forKey:@"quitPassword"];
+        adminPasswordIsHash = true;
+        [self setValue:@"0000000000000000" forKey:@"confirmQuitPassword"];
     }
+    
+//    if ([[preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"] isEqualToString:@""]) {
+//        //empty passwords need to be set to NIL because of the text fields' bindings
+//        [self setValue:nil forKey:@"adminPassword"];
+//        [self setValue:nil forKey:@"confirmAdminPassword"];
+//    } else {
+//        //if there actually was a hashed password set, use a placeholder string
+//        [self setValue:@"𝈭𝈖𝈒𝉇𝈁𝉈" forKey:@"adminPassword"];
+//        [self setValue:@"𝈭𝈖𝈒𝉇𝈁𝉈" forKey:@"confirmAdminPassword"];
+//    }
+    
+//    if ([[preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"] isEqualToString:@""]) {
+//        [self setValue:nil forKey:@"quitPassword"];
+//        [self setValue:nil forKey:@"confirmQuitPassword"];
+//    } else {
+//        [self setValue:@"𝈭𝈖𝈒𝉇𝈁𝉈" forKey:@"quitPassword"];
+//        [self setValue:@"𝈭𝈖𝈒𝉇𝈁𝉈" forKey:@"confirmQuitPassword"];
+//    }
 }
 
 
