@@ -1073,6 +1073,14 @@ bool insideMatrix(){
 				// if the correct quit password was entered
 				quittingMyself = TRUE; //SEB is terminating itself
                 [NSApp terminate: nil]; //quit SEB
+            } else {
+                // Wrong quit password was entered
+                NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Wrong Quit Password", nil)
+                                                    defaultButton:NSLocalizedString(@"OK", nil)
+                                                  alternateButton:nil                                                      otherButton:nil
+                                        informativeTextWithFormat:NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit SEB.", nil)];
+                [newAlert setAlertStyle:NSWarningAlertStyle];
+                [newAlert runModal];
             }
         } else {
         // if no quit password is required, then confirm quitting
@@ -1104,6 +1112,14 @@ bool insideMatrix(){
                 SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
                 if ([hashedAdminPW caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] != NSOrderedSame) {
                     //if hash of entered password is not equal to the one in preferences
+                    // Wrong admin password was entered
+                    NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Wrong Admin Password", nil)
+                                                        defaultButton:NSLocalizedString(@"OK", nil)
+                                                      alternateButton:nil                                                      otherButton:nil
+                                            informativeTextWithFormat:NSLocalizedString(@"If you don't enter the correct SEB administrator password, then you cannot open preferences.", nil)];
+                    [newAlert setAlertStyle:NSWarningAlertStyle];
+                    [newAlert runModal];
+
                     return;
                 }
             }
