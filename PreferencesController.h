@@ -35,6 +35,7 @@
 // Controller for the preferences window, populates it with panes
 
 #import <Cocoa/Cocoa.h>
+#import "SEBConfigFileManager.h"
 
 #import "PrefsGeneralViewController.h"
 #import "PrefsConfigFileViewController.h"
@@ -47,6 +48,7 @@
 #import "PrefsNetworkViewController.h"
 #import "PrefsSecurityViewController.h"
 
+@class SEBConfigFileManager;
 @class PrefsGeneralViewController;
 @class PrefsConfigFileViewController;
 
@@ -62,6 +64,7 @@
 
 @property BOOL currentConfigPasswordIsHash;
 @property BOOL refreshingPreferences;
+@property (strong, nonatomic) SEBConfigFileManager *configFileManager;
 @property (strong, nonatomic) PrefsGeneralViewController *generalVC;
 @property (strong, nonatomic) PrefsConfigFileViewController *configFileVC;
 

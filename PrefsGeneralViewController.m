@@ -266,14 +266,14 @@
     if ([closeButton isEnabled]) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         
-        if (adminPassword == nil) {
+        if (adminPassword.length == 0) {
             //if no admin pw was entered, save a empty string in preferences
             [preferences setSecureObject:@"" forKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
         } else if (adminPasswordIsHash == false) {
             //if password was changed, save the new hashed password in preferences
             [preferences setSecureObject:[self.keychainManager generateSHAHashString:adminPassword] forKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
         }
-        if (quitPassword == nil) {
+        if (quitPassword.length == 0) {
             //if no quit pw was entered, save a empty string in preferences
             [preferences setSecureObject:@"" forKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
         } else if (quitPasswordIsHash == false) {

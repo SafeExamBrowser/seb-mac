@@ -37,7 +37,6 @@
 #import "PreferencesController.h"
 #import "MBPreferencesController.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
-#import "SEBConfigFileManager.h"
 #import "SEBCryptor.h"
 
 
@@ -61,46 +60,15 @@
 
 - (void)awakeFromNib
 {
+    self.configFileManager = [[SEBConfigFileManager alloc] init];
+
+    // Add an observer for the notification to display the preferences window again
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showPreferencesWindow:)
+                                                 name:@"showPreferencesWindow" object:nil];
+    
+
     [self initPreferencesWindow];
-}
-
-
-- (void)showPreferences:(id)sender
-{
-    // Store current settings (before the probably get edited)
-    [self storeCurrentSettings];
-    
-    [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
-	[[MBPreferencesController sharedController] showWindow:sender];
-}
-
-
-- (BOOL)preferencesAreOpen {
-    return [[MBPreferencesController sharedController].window isVisible];
-}
-
-
-// Executed when preferences window is about to be closed
-- (void)windowWillClose:(NSNotification *)notification
-{
-    [[NSApplication sharedApplication] stopModal];
-    
-    // Save settings and unbind bindings in the General pane
-    [self.generalVC windowWillClose:notification];
-    
-    // If Preferences are being closed and we're not just refreshing the preferences window
-    if (self.preferencesAreOpen && !self.refreshingPreferences) {
-        // Re-generate Browser Exam Key
-        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-        
-        // If settings changed, restart SEB
-        if ([self settingsChanged]) {
-            // Post a notification that it was requested to restart SEB with changed settings
-            [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"requestRestartNotification" object:self];
-        }
-    }
-    self.refreshingPreferences = NO;
 }
 
 
@@ -108,13 +76,13 @@
 {
     // Save current settings
     // Get key/values from private UserDefaults
-//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-//    NSDictionary *privatePreferences = [preferences dictionaryRepresentationSEB];
+    //    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    //    NSDictionary *privatePreferences = [preferences dictionaryRepresentationSEB];
     self.refreshingPreferences = NO;
     
     [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
     [[MBPreferencesController sharedController] openWindow];
-
+    
     // Set the modules for preferences panes
 	self.generalVC = [[PrefsGeneralViewController alloc] initWithNibName:@"PreferencesGeneral" bundle:nil];
     self.generalVC.preferencesController = self;
@@ -134,7 +102,7 @@
 	PrefsNetworkViewController *network = [[PrefsNetworkViewController alloc] initWithNibName:@"PreferencesNetwork" bundle:nil];
 	PrefsSecurityViewController *security = [[PrefsSecurityViewController alloc] initWithNibName:@"PreferencesSecurity" bundle:nil];
 	[[MBPreferencesController sharedController] setModules:[NSArray arrayWithObjects:self.generalVC, self.configFileVC, appearance, browser, downuploads, exam, applications, resources, network, security, nil]];
-//	[[MBPreferencesController sharedController] setModules:[NSArray arrayWithObjects:general, config, appearance, browser, downuploads, exam, applications, network, security, nil]];
+    //	[[MBPreferencesController sharedController] setModules:[NSArray arrayWithObjects:general, config, appearance, browser, downuploads, exam, applications, network, security, nil]];
     // Set self as the window delegate to be able to post a notification when preferences window is closing
     // will be overridden when the general pane is displayed (loaded from nib)
     if (![[MBPreferencesController sharedController].window delegate]) {
@@ -146,6 +114,123 @@
     }
 }
 
+
+- (void)showPreferences:(id)sender
+{
+    // Store current settings (before the probably get edited)
+    [self storeCurrentSettings];
+    
+    [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
+	[[MBPreferencesController sharedController] showWindow:self];
+}
+
+
+- (void)reopenPreferencesWindow
+{
+    // Post a notification that it was requested to re-open the preferences window
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"showPreferencesWindow" object:self];
+
+}
+
+
+- (void)showPreferencesWindow:(NSNotification *)notification
+{
+	[[MBPreferencesController sharedController] showWindow:self];
+}
+
+
+- (void) closePreferencesWindow:(id)sender {
+    // Save passwords in General pane
+	[self.generalVC windowWillClose:nil];
+    
+    [[MBPreferencesController sharedController].window orderOut:self];
+}
+
+
+- (BOOL)preferencesAreOpen {
+    return [[MBPreferencesController sharedController].window isVisible];
+}
+
+
+// Executed when preferences window is about to be closed
+- (void)windowWillClose:(NSNotification *)notification
+{
+    // Save settings in the General pane
+    [self.generalVC windowWillClose:notification];
+    
+    // If Preferences are being closed and we're not just refreshing the preferences window
+    if (self.preferencesAreOpen && !self.refreshingPreferences) {
+
+        // If private settings are active, check if those current settings have unsaved changes
+        // At the same time update the Browser Exam Key
+        if (NSUserDefaults.userDefaultsPrivate && [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO]) {
+            // There are unsaved changes
+            int answer = [self usavedSettingsAlertWithText:
+                                     NSLocalizedString(@"Edited settings have unsaved changes. You can prevent loosing them when quitting SEB by saving them now.", nil)];
+;
+            switch(answer)
+            {
+                case NSAlertAlternateReturn:
+                    // Cancel: Don't close preferences
+                    return;
+                    
+                case NSAlertDefaultReturn:
+                    // Save the current settings data first
+                    [self savePrefsAs:NO fileURLUpdate:NO];
+                    break;
+                    
+                case NSAlertOtherReturn:
+                    // don't save the config data
+                    break;
+            }
+        } else {
+            // If local settings active: Just re-generate Browser Exam Key
+            [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+        }
+
+        // If settings changed:
+        if ([self settingsChanged]) {
+            // Ask if edited settings should be applied or previously active settings restored
+            NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Apply Settings?", nil)
+                                                defaultButton:NSLocalizedString(@"Don't Apply", nil)
+                                              alternateButton:NSLocalizedString(@"Cancel", nil)
+                                                  otherButton:NSLocalizedString(@"Apply", nil)
+                                    informativeTextWithFormat:NSLocalizedString(@"You edited settings. Do you want to apply them by restarting SEB or use previous settings?", nil)];
+            int answer = [newAlert runModal];
+            switch(answer)
+            {
+                case NSAlertAlternateReturn:
+                    // Cancel: Don't close preferences
+                    return;
+                    
+                case NSAlertDefaultReturn:
+                    // Don't apply edited settings: Restore previous settings
+                    // Release preferences window so bindings get synchronized properly with the new loaded values
+                    [self releasePreferencesWindow];
+                    [self restoreStoredSettings];
+                    [self initPreferencesWindow];
+                    return;
+                    
+                case NSAlertOtherReturn:
+                    // Apply edited settings and restart SEB
+                    break;
+            }
+            
+
+            // Post a notification that it was requested to restart SEB with changed settings
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"requestRestartNotification" object:self];
+        }
+    }
+    self.refreshingPreferences = NO;
+}
+
+
+- (BOOL)windowShouldClose:(id)sender
+{
+    return YES;
+}
 
 - (void)releasePreferencesWindow
 {
@@ -181,13 +266,12 @@
 // Restores settings which were stored in memory before editing
 - (void) restoreStoredSettings
 {
-    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
     // If config mode changed (private/local client settings), then switch to the mode active before
     if (_userDefaultsPrivateBeforeEditing != NSUserDefaults.userDefaultsPrivate) {
         [NSUserDefaults setUserDefaultsPrivate:_userDefaultsPrivateBeforeEditing];
     }
     
-    [configFileManager storeIntoUserDefaults:_settingsBeforeEditing];
+    [self.configFileManager storeIntoUserDefaults:_settingsBeforeEditing];
     // Set the original settings title in the preferences window
     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:_configURLBeforeEditing];
 }
@@ -198,15 +282,6 @@
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     return ![_browserExamKeyBeforeEditing isEqualToData:[preferences secureObjectForKey:@"org_safeexambrowser_currentData"]];
-}
-
-
-- (void) closePreferencesWindow:(id)sender {
-    // Save passwords in General pane
-	[self.generalVC windowWillClose:nil];
-    
-    [[MBPreferencesController sharedController].window orderOut:self];
-    [[NSApplication sharedApplication] stopModal];
 }
 
 
@@ -269,11 +344,6 @@
                       if (result == NSFileHandlingPanelOKButton)
                       {
                           NSURL *sebFileURL = [panel URL];
-                          
-//                          // Check if private UserDefauls are switched on already
-//                          if (NSUserDefaults.userDefaultsPrivate) {
-//                          }
-                          
 #ifdef DEBUG
                           NSLog(@"Loading .seb settings file with file URL %@", sebFileURL);
 #endif
@@ -284,22 +354,17 @@
                               // Error when reading configuration data
                               [NSApp presentError:error];
                           } else {
-                              SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-                              
                               // Decrypt and store the .seb config file
-                              if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:YES]) {
+                              if ([self.configFileManager storeDecryptedSEBSettings:sebData forEditing:YES]) {
                                   // if successfull save the path to the file for possible editing in the preferences window
                                   [[MyGlobals sharedMyGlobals] setCurrentConfigURL:sebFileURL];
                                   
                                   [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
-                                  [[MBPreferencesController sharedController] showWindow:sender];
-                                  
-                                  //[self requestedRestart:nil];
+                                  [self reopenPreferencesWindow];
                               }
                           }
                       }
                   }];
-    
 }
 
 
@@ -467,12 +532,12 @@
     }
     
     // Get default SEB settings
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSDictionary *defaultSettings = [preferences sebDefaultSettings];
+//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+//    NSDictionary *defaultSettings = [preferences sebDefaultSettings];
+    NSDictionary *emptySettings = [NSDictionary dictionary];
     
     // Write values from .seb config file to the local preferences (shared UserDefaults)
-    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-    [configFileManager storeIntoUserDefaults:defaultSettings];
+    [self.configFileManager storeIntoUserDefaults:emptySettings];
     
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
     
@@ -480,7 +545,7 @@
     if (NSUserDefaults.userDefaultsPrivate) {
         // Re-initialize and open preferences window
         [self initPreferencesWindow];
-        [[MBPreferencesController sharedController] showWindow:sender];
+        [self reopenPreferencesWindow];
     }
 }
 
@@ -526,8 +591,7 @@
     _currentConfigKeyRef = nil;
     
     // Write values from local to private preferences
-    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-    [configFileManager storeIntoUserDefaults:localClientPreferences];
+    [self.configFileManager storeIntoUserDefaults:localClientPreferences];
     
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
     
@@ -538,7 +602,7 @@
     
     // Re-initialize and open preferences window
     [self initPreferencesWindow];
-    [[MBPreferencesController sharedController] showWindow:sender];
+	[self reopenPreferencesWindow];
 }
 
 
@@ -574,7 +638,6 @@
         }
     }
     
-    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
     // If using private user defaults
     if (NSUserDefaults.userDefaultsPrivate) {
 #ifdef DEBUG
@@ -588,15 +651,15 @@
             [NSApp presentError:error];
         } else {
             // Pass saved credentials from the last loaded file to the Config File Manager
-            configFileManager.currentConfigPassword = _currentConfigPassword;
-            configFileManager.currentConfigPasswordIsHash = _currentConfigPasswordIsHash;
-            configFileManager.currentConfigKeyRef = _currentConfigKeyRef;
+            self.configFileManager.currentConfigPassword = _currentConfigPassword;
+            self.configFileManager.currentConfigPasswordIsHash = _currentConfigPasswordIsHash;
+            self.configFileManager.currentConfigKeyRef = _currentConfigKeyRef;
             
             // Decrypt and store the .seb config file
-            if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:YES]) {
+            if ([self.configFileManager storeDecryptedSEBSettings:sebData forEditing:YES]) {
                 
                 [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
-                [[MBPreferencesController sharedController] showWindow:sender];
+                [self reopenPreferencesWindow];
                 
                 //[self requestedRestart:nil];
             }
@@ -606,7 +669,7 @@
 #ifdef DEBUG
         NSLog(@"Reverting local client settings to settings before editing");
 #endif
-        [configFileManager storeIntoUserDefaults:_settingsBeforeEditing];
+        [self.configFileManager storeIntoUserDefaults:_settingsBeforeEditing];
     }
 }
 
@@ -690,8 +753,7 @@
         NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults]; //the mutable dictionary has to be created here, otherwise the preferences values will not be saved!
         [NSUserDefaults setUserDefaultsPrivate:YES];
         
-        SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-        [configFileManager storeIntoUserDefaults:localClientPreferences];
+        [self.configFileManager storeIntoUserDefaults:localClientPreferences];
         
 #ifdef DEBUG
         NSLog(@"Private preferences set: %@", privatePreferences);
@@ -705,7 +767,7 @@
 
     // Re-initialize and open preferences window
     [self initPreferencesWindow];
-    [[MBPreferencesController sharedController] showWindow:sender];
+	[self reopenPreferencesWindow];
 }
 
 
@@ -723,8 +785,7 @@
     [NSUserDefaults setUserDefaultsPrivate:NO];
     
     // Write values from .seb config file to the local preferences (shared UserDefaults)
-    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-    [configFileManager storeIntoUserDefaults:privatePreferences];
+    [self.configFileManager storeIntoUserDefaults:privatePreferences];
     
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
     
@@ -735,7 +796,7 @@
 
     // Re-initialize and open preferences window
     [self initPreferencesWindow];
-    [[MBPreferencesController sharedController] showWindow:sender];
+	[self reopenPreferencesWindow];
 }
 
 
@@ -743,7 +804,6 @@
 - (IBAction) applyAndRestartSEB:(id)sender
 {
     [[MBPreferencesController sharedController].window orderOut:self];
-    [[NSApplication sharedApplication] stopModal];
     // Post a notification that it was requested to restart SEB with changed settings
 	[[NSNotificationCenter defaultCenter]
      postNotificationName:@"requestRestartNotification" object:self];

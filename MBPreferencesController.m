@@ -138,7 +138,7 @@ static MBPreferencesController *sharedPreferencesController = nil;
 
 	[self.window center];
 	[super showWindow:sender];
-    [[NSApplication sharedApplication] runModalForWindow:self.window];
+//    [[NSApplication sharedApplication] runModalForWindow:self.window];
 }
 
 #pragma mark -

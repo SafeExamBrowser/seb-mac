@@ -70,8 +70,19 @@ static SEBCryptor *sharedSEBCryptor = nil;
 // Returns true if the checksum actually changed
 - (BOOL)updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt
 {
-    // Copy preferences to a dictionary
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    // Get current salt for exam key
+    NSData *HMACKey = [preferences secureDataForKey:@"org_safeexambrowser_SEB_examKeySalt"];
+    // If there was no salt yet, then we generate it in any case
+    if ([HMACKey isEqualToData:[NSData data]]) {
+        [self generateExamKeySalt];
+#ifdef DEBUG
+        NSLog(@"Generated Exam Key salt as there was none defined yet.");
+#endif
+    }
+
+    // Copy preferences to a dictionary
     NSDictionary *prefsDict = [preferences getSEBUserDefaultsDomains];
         
     // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
@@ -100,31 +111,38 @@ static SEBCryptor *sharedSEBCryptor = nil;
             // Return value: Checksum changed
             return true;
         }
-        // If the value is a int wrapped into a NSNumber, then we need to convert that into a long
-        // because UI bindings to selected index (checkbox, popup menu) produce long values
-        if (valueClass == [NSNumber class] && (strcmp ([value objCType], @encode(int)) == 0)) {
-            [filteredPrefsDict setObject:[NSNumber numberWithLong:[value longValue]] forKey:key];
-        } else {
-            if (value) [filteredPrefsDict setObject:value forKey:key];
-        }
+        if (value) [filteredPrefsDict setObject:value forKey:key];
+//        // If the value is a int wrapped into a NSNumber, then we need to convert that into a long
+//        // because UI bindings to selected index (checkbox, popup menu) produce long values
+//        if (valueClass == [NSNumber class] && (strcmp ([value objCType], @encode(int)) == 0)) {
+//            [filteredPrefsDict setObject:[NSNumber numberWithLong:[value longValue]] forKey:key];
+//        } else {
+//            if (value) [filteredPrefsDict setObject:value forKey:key];
+//        }
     }
-	NSData *archivedPrefs = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];
+    NSData *HMACData;
+    //	NSData *archivedPrefs = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];
+    
+    
+    // Convert preferences dictionary to XML property list
+    NSError *error = nil;
+    NSData *archivedPrefs = [NSPropertyListSerialization dataWithPropertyList:filteredPrefsDict
+                                                                 format:NSPropertyListXMLFormat_v1_0
+                                                                options:0
+                                                                  error:&error];
+    if (error || !archivedPrefs) {
+        // Serialization of the XML plist went wrong
+        // Browser Exam Key is empty
+        HMACData = [NSData data];
 
-    // Get current salt for exam key
-    NSData *HMACKey = [preferences secureDataForKey:@"org_safeexambrowser_SEB_examKeySalt"];
-    // If there was no salt yet, then we generate it in any case
-    if ([HMACKey isEqualToData:[NSData data]]) {
-        [self generateExamKeySalt];
-#ifdef DEBUG
-        NSLog(@"Generated Exam Key salt as there was none defined yet.");
-#endif
+    } else {
+        // Generate new Browser Exam Key
+        HMACData = [self generateChecksumForCurrentData:archivedPrefs];
     }
+    
     // Get current Browser Exam Key
     NSData *currentBrowserExamKey = [preferences secureDataForKey:@"org_safeexambrowser_currentData"];
 
-    // Generate new Browser Exam Key
-    NSData *HMACData = [self generateChecksumForCurrentData:archivedPrefs];
-    
     // If both Keys are not the same, then settings changed
     if (![currentBrowserExamKey isEqualToData:HMACData]) {
         // If we're supposed to, generate a new exam key salt

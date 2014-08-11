@@ -37,6 +37,7 @@
 #import "SEBController.h"
 #import "Constants.h"
 
+@class SEBController;
 
 @interface SEBConfigFileManager : NSObject {
 //@private

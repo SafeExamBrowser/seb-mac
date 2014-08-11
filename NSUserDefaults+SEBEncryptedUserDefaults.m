@@ -340,14 +340,14 @@ static BOOL _usePrivateUserDefaults = NO;
     [preferences synchronize];
     NSDictionary *prefsDict;
     
-    // Get CFBundleIdentifier of the application
-    NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
-    NSString *bundleId = [bundleInfo objectForKey: @"CFBundleIdentifier"];
+//    // Get CFBundleIdentifier of the application
+//    NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
+//    NSString *bundleId = [bundleInfo objectForKey: @"CFBundleIdentifier"];
     
     // Include UserDefaults from NSRegistrationDomain and application domain
     NSUserDefaults *appUserDefaults = [[NSUserDefaults alloc] init];
     [appUserDefaults addSuiteNamed:@"NSRegistrationDomain"];
-    [appUserDefaults addSuiteNamed: bundleId];
+//    [appUserDefaults addSuiteNamed: bundleId];
     prefsDict = [appUserDefaults dictionaryRepresentation];
     return prefsDict;
 }
