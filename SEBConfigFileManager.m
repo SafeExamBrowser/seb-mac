@@ -788,7 +788,10 @@
     if (error || !dataRep) {
         // Serialization of the XML plist went wrong
         // Looks like there is a key with a NULL value
-        
+        // TO DO: Error handling for this unlikely case
+#ifdef DEBUG
+        NSLog(@"Serialization of the XML plist went wrong! Error: %@", error);
+#endif
     }
     
     NSMutableString *sebXML = [[NSMutableString alloc] initWithData:dataRep encoding:NSUTF8StringEncoding];

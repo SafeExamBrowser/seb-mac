@@ -49,6 +49,10 @@
     if (self) {
         // Initialization code here.
     }
+#ifdef DEBUG
+    NSLog(@"Cap window %@ init.", self);
+#endif
+
     return self;
 }
 
@@ -57,6 +61,9 @@
     [super windowDidLoad];
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
     [self.window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenAuxiliary | NSWindowCollectionBehaviorCanJoinAllSpaces];
+#ifdef DEBUG
+    NSLog(@"Cap window %@ didLoad.", self.window);
+#endif
 }
 
 
@@ -74,6 +81,9 @@
     
 	// listen for these notifications so we can update our image based on the full-screen state
     
+#ifdef DEBUG
+    NSLog(@"Cap window %@ awakeFromNib.", self.window);
+#endif
     [self.window setSharingType:NSWindowSharingNone];
 }
 

@@ -156,11 +156,23 @@
 // Executed when preferences window is about to be closed
 - (void)windowWillClose:(NSNotification *)notification
 {
+    if (!self.refreshingPreferences) {
+        // Post a notification that the preferences window closes
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"preferencesClosed" object:self];
+    }
+    self.refreshingPreferences = NO;
+}
+
+
+// Executed to decide if window should close
+- (BOOL)windowShouldClose:(id)sender
+{
     // Save settings in the General pane
-    [self.generalVC windowWillClose:notification];
+    [self.generalVC windowWillClose:nil];
     
     // If Preferences are being closed and we're not just refreshing the preferences window
-    if (self.preferencesAreOpen && !self.refreshingPreferences) {
+    if (!self.refreshingPreferences) {
 
         // If private settings are active, check if those current settings have unsaved changes
         // At the same time update the Browser Exam Key
@@ -173,7 +185,7 @@
             {
                 case NSAlertAlternateReturn:
                     // Cancel: Don't close preferences
-                    return;
+                    return NO;
                     
                 case NSAlertDefaultReturn:
                     // Save the current settings data first
@@ -192,45 +204,85 @@
         // If settings changed:
         if ([self settingsChanged]) {
             // Ask if edited settings should be applied or previously active settings restored
-            NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Apply Settings?", nil)
-                                                defaultButton:NSLocalizedString(@"Don't Apply", nil)
-                                              alternateButton:NSLocalizedString(@"Cancel", nil)
-                                                  otherButton:NSLocalizedString(@"Apply", nil)
-                                    informativeTextWithFormat:NSLocalizedString(@"You edited settings. Do you want to apply them by restarting SEB or use previous settings?", nil)];
+//            NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Apply Settings?", nil)
+//                                                defaultButton:NSLocalizedString(@"Don't Apply", nil)
+//                                              alternateButton:NSLocalizedString(@"Cancel", nil)
+//                                                  otherButton:NSLocalizedString(@"Apply", nil)
+//                                    informativeTextWithFormat:NSLocalizedString(@"You edited settings. Do you want to apply them by restarting SEB or use previous settings?", nil)];
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:NSLocalizedString(@"Apply Settings?", nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"You edited settings. Do you want to apply them (with or without restarting SEB) or continue using the previous settings?", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Don't Apply", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Apply & Restart", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Apply", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
             int answer = [newAlert runModal];
             switch(answer)
             {
-                case NSAlertAlternateReturn:
-                    // Cancel: Don't close preferences
-                    return;
-                    
-                case NSAlertDefaultReturn:
+                case NSAlertFirstButtonReturn:
                     // Don't apply edited settings: Restore previous settings
                     // Release preferences window so bindings get synchronized properly with the new loaded values
                     [self releasePreferencesWindow];
                     [self restoreStoredSettings];
                     [self initPreferencesWindow];
-                    return;
+                    return YES;
                     
-                case NSAlertOtherReturn:
+                case NSAlertSecondButtonReturn:
                     // Apply edited settings and restart SEB
                     break;
+                    
+                case NSAlertThirdButtonReturn:
+                    // Apply edited settings without restarting SEB
+                    return YES;
+                    
+                case NSAlertThirdButtonReturn+1:
+                    // Cancel: Don't close preferences
+                    return NO;
+                    
             }
             
+            // It may be that opening the preferences window isn't allowed in these settings,
+            // This is dangerous when being applied, so we confirm the user knows what he's doing
+            NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
+            if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"] == NO) {
+                // Ask if edited settings should be applied or previously active settings restored
+                NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Opening Preferences Disabled in New Settings", nil)
+                                                    defaultButton:NSLocalizedString(@"Override", nil)
+                                                  alternateButton:NSLocalizedString(@"Cancel", nil)
+                                                      otherButton:NSLocalizedString(@"Apply Anyways", nil)
+                                        informativeTextWithFormat:NSLocalizedString(@"These new settings have the option \"Allow to open preferences window on client\" disabled. If you apply them, you won't be able to open  preferences anymore. Are you sure you want this? Otherwise you can override the option for this session.", nil)];
+                int answer = [newAlert runModal];
+                switch(answer)
+                {
+                    case NSAlertAlternateReturn:
+                        // Cancel: Don't apply new settings
+                        return NO;
+                        
+                    case NSAlertDefaultReturn:
+                        // Apply edited settings while overriding disabling the preferences window
+                        [preferences setSecureBool:YES forKey:@"org_safeexambrowser_enablePreferencesWindow"];
+                        
+                    case NSAlertOtherReturn:
+                        // Apply edited settings without overriding
+                        break;
+                }
+
+            }
             // Post a notification that it was requested to restart SEB with changed settings
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"requestRestartNotification" object:self];
         }
     }
-    self.refreshingPreferences = NO;
-}
-
-
-- (BOOL)windowShouldClose:(id)sender
-{
+//    self.refreshingPreferences = NO;
     return YES;
 }
+
+
+//- (BOOL)windowShouldClose:(id)sender
+//{
+//    return YES;
+//}
 
 - (void)releasePreferencesWindow
 {

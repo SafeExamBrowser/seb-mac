@@ -180,13 +180,14 @@
         self.configPasswordIsHash = true;
         [self setValue:@"0000000000000000" forKey:@"confirmSettingsPassword"];
     }
+    // Otherwise if there is a settings password from the currently open config file
     else if (_currentConfigFilePassword)
     {
         [self setValue:_currentConfigFilePassword forKey:@"settingsPassword"];
         [self setValue:_currentConfigFilePassword forKey:@"confirmSettingsPassword"];
     }
     
-    if (_currentConfigFilePassword) {
+    if (_currentConfigFileKeyRef) {
         [self selectSettingsIdentity:_currentConfigFileKeyRef];
     }
 }
@@ -267,6 +268,17 @@
 
 #pragma mark -
 #pragma mark IBActions
+
+// Action if config file purpose is changed to "starting exam"
+- (IBAction) changeConfigFilePurpose:(id)sender {
+    // If purpose "starting exam" gets selected and there was a settings password containing a hash
+    // we need to reset this password, as a hash as a password is only possible for
+    // config files configuring an exam.
+    if (self.configPasswordIsHash == YES) {
+        [self resetSettingsPasswordFields];
+    }
+}
+
 
 - (IBAction) openSEBPrefs:(id)sender {
     [self.preferencesController openSEBPrefs:sender];

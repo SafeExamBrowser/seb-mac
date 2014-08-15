@@ -85,6 +85,8 @@
 - (sebConfigPurposes) getSelectedConfigPurpose;
 - (NSData *) encryptSEBSettingsWithSelectedCredentials;
 
+- (IBAction) changeConfigFilePurpose:(id)sender;
+
 //- (IBAction) saveSEBPrefs:(id)sender;
 //- (IBAction) saveSEBPrefsAs:(id)sender;
 //- (IBAction) openSEBPrefs:(id)sender;

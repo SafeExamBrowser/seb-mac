@@ -120,25 +120,9 @@ static SEBCryptor *sharedSEBCryptor = nil;
 //            if (value) [filteredPrefsDict setObject:value forKey:key];
 //        }
     }
-    NSData *HMACData;
-    //	NSData *archivedPrefs = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];
-    
-    
-    // Convert preferences dictionary to XML property list
-    NSError *error = nil;
-    NSData *archivedPrefs = [NSPropertyListSerialization dataWithPropertyList:filteredPrefsDict
-                                                                 format:NSPropertyListXMLFormat_v1_0
-                                                                options:0
-                                                                  error:&error];
-    if (error || !archivedPrefs) {
-        // Serialization of the XML plist went wrong
-        // Browser Exam Key is empty
-        HMACData = [NSData data];
 
-    } else {
-        // Generate new Browser Exam Key
-        HMACData = [self generateChecksumForCurrentData:archivedPrefs];
-    }
+    // Convert preferences dictionary to XML property list
+    NSData *HMACData = [self checksumForPrefDictionary:filteredPrefsDict];
     
     // Get current Browser Exam Key
     NSData *currentBrowserExamKey = [preferences secureDataForKey:@"org_safeexambrowser_currentData"];
@@ -150,9 +134,8 @@ static SEBCryptor *sharedSEBCryptor = nil;
             HMACKey = [self generateExamKeySalt];
             // Update salt in the filtered prefs directory
             [filteredPrefsDict setObject:HMACKey forKey:@"org_safeexambrowser_SEB_examKeySalt"];
-            archivedPrefs = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];
             // Generate new Browser Exam Key using new salt
-            HMACData = [self generateChecksumForCurrentData:archivedPrefs];
+            HMACData = [self checksumForPrefDictionary:filteredPrefsDict];
         }
         // If we're supposed to, generate new Browser Exam Key and store it in settings
         if (updateUserDefaults) {
@@ -165,6 +148,26 @@ static SEBCryptor *sharedSEBCryptor = nil;
     
     // Return value: Checksum not changed
     return false;
+}
+
+
+- (NSData *)checksumForPrefDictionary:(NSDictionary *)prefsDict
+{
+    NSError *error = nil;
+    NSData *archivedPrefs = [NSPropertyListSerialization dataWithPropertyList:prefsDict
+                                                                       format:NSPropertyListXMLFormat_v1_0
+                                                                      options:0
+                                                                        error:&error];
+    NSData *HMACData;
+    if (error || !archivedPrefs) {
+        // Serialization of the XML plist went wrong
+        // Browser Exam Key is empty
+        HMACData = [NSData data];
+    } else {
+        // Generate new Browser Exam Key
+        HMACData = [self generateChecksumForCurrentData:archivedPrefs];
+    }
+    return HMACData;
 }
 
 

@@ -94,6 +94,11 @@
     NSLog(@"Attempting to close About Window %@", self);
 #endif
     [self orderOut:self];
+    
+    // ToTest
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"requestReinforceKioskMode" object:self];
+
 }
 
 
