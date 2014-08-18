@@ -274,8 +274,8 @@
 #ifdef DEBUG
     NSLog(@"windowDidEnterFullScreen");
 #endif
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"requestReinforceKioskMode" object:self];
+//    [[NSNotificationCenter defaultCenter]
+//     postNotificationName:@"requestReinforceKioskMode" object:self];
 }
 
 
@@ -340,8 +340,8 @@
 #ifdef DEBUG
     NSLog(@"windowDidExitFullScreen");
 #endif
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"requestReinforceKioskMode" object:self];
+//    [[NSNotificationCenter defaultCenter]
+//     postNotificationName:@"requestReinforceKioskMode" object:self];
 }
 
 

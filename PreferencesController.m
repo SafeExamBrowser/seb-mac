@@ -157,6 +157,7 @@
 - (void)windowWillClose:(NSNotification *)notification
 {
     if (!self.refreshingPreferences) {
+//        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         // Post a notification that the preferences window closes
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"preferencesClosed" object:self];
@@ -170,6 +171,7 @@
 {
     // If Preferences are being closed and we're not just refreshing the preferences window
     if (!self.refreshingPreferences) {
+//        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         return [self conditionallyClosePreferencesWindowAskToApply:YES];
     } else {
         return YES;

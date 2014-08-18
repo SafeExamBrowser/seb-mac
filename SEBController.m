@@ -218,7 +218,9 @@ bool insideMatrix();
         NSLog(@"Registred Defaults");
 #endif        
     }
-    [self setElevateWindowLevels];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
+//    [self setElevateWindowLevels];
     return self;
 }
 
@@ -292,6 +294,12 @@ bool insideMatrix();
                                            name:NSWorkspaceDidLaunchApplicationNotification
                                          object:workspace];
 	
+//    // Add an observer for the notification that another application was unhidden by the finder
+//	[[workspace notificationCenter] addObserver:self
+//                                       selector:@selector(requestedReinforceKioskMode:)
+//                                           name:NSWorkspaceActiveSpaceDidChangeNotification
+//                                         object:workspace];
+	
 #endif
     // Add an observer for the notification that SEB became active
     // With third party apps and Flash fullscreen it can happen that SEB looses its 
@@ -342,6 +350,11 @@ bool insideMatrix();
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(requestedReinforceKioskMode:)
                                                  name:@"requestReinforceKioskMode" object:nil];
+	
+    // Add an observer for the request to reinforce the kiosk mode
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(requestedRegainActiveStatus:)
+                                                 name:@"regainActiveStatus" object:nil];
 	
     // Add an observer for the request to show about panel
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -812,7 +825,8 @@ bool insideMatrix(){
     if (!allowSwitchToThirdPartyApps) {
 		// if switching to ThirdPartyApps not allowed
 #ifndef DEBUG
-        [NSApp activateIgnoringOtherApps: YES];
+//        [NSApp activateIgnoringOtherApps: YES];
+        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications) withObject:NULL waitUntilDone:NO];
 #endif
     } else {
@@ -869,15 +883,15 @@ bool insideMatrix(){
 #ifdef DEBUG
     NSLog(@"startKioskMode switchToApplications %hhd", allowSwitchToThirdPartyApps);
 #endif
-    [self startKioskModeThirdPartyAppsAllowed:allowSwitchToThirdPartyApps];
+    [self startKioskModeThirdPartyAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
 
 }
 
 
-- (void) switchKioskModeAppsAllowed:(BOOL) allowApps {
+- (void) switchKioskModeAppsAllowed:(BOOL) allowApps overrideShowMenuBar:(BOOL)overrideShowMenuBar {
 	// Switch the kiosk mode to either only browser windows or also third party apps allowed:
     // Change presentation options and windows levels without closing/reopening cap background and browser foreground windows
-    [self startKioskModeThirdPartyAppsAllowed:allowApps];
+    [self startKioskModeThirdPartyAppsAllowed:allowApps overrideShowMenuBar:overrideShowMenuBar];
     
     // Change window level of cap windows
     CapWindow *capWindow;
@@ -900,18 +914,20 @@ bool insideMatrix(){
         if (allowApps) {
             // Order new browser window to the front of our level
             [openWindowDocument.mainWindowController.window newSetLevel:NSNormalWindowLevel];
+            [openWindowDocument.mainWindowController.window orderFront:self];
         } else {
             [openWindowDocument.mainWindowController.window newSetLevel:NSModalPanelWindowLevel];
         }
     }
+	[browserWindow makeKeyAndOrderFront:self];
 }
 
 
-- (void) startKioskModeThirdPartyAppsAllowed:(BOOL) allowSwitchToThirdPartyApps {
+- (void) startKioskModeThirdPartyAppsAllowed:(BOOL) allowSwitchToThirdPartyApps overrideShowMenuBar:(BOOL)overrideShowMenuBar {
 	// Switch to kiosk mode by setting the proper presentation options
     // Load preferences from the system's user defaults database
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-	BOOL showMenuBar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
+	BOOL showMenuBar = overrideShowMenuBar || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
 	BOOL enableToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"];
 	BOOL hideToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"];
     NSApplicationPresentationOptions options;
@@ -1016,7 +1032,8 @@ bool insideMatrix(){
         NSLog(@"MainBrowserWindow (3) sharingType: %lx",(long)[browserWindow sharingType]);
 #endif
     }
-	[NSApp activateIgnoringOtherApps: YES];
+//	[NSApp activateIgnoringOtherApps: YES];
+    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     
     // Setup bindings to the preferences window close button
     NSButton *closeButton = [browserWindow standardWindowButton:NSWindowCloseButton];
@@ -1057,7 +1074,8 @@ bool insideMatrix(){
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
         [additionalBrowserWindow newSetLevel:NSModalPanelWindowLevel];
     }
-	[NSApp activateIgnoringOtherApps: YES];
+//	[NSApp activateIgnoringOtherApps: YES];
+    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     
 	//[additionalBrowserWindow makeKeyAndOrderFront:self];
     
@@ -1175,9 +1193,9 @@ bool insideMatrix(){
                 }
             }
         }
-        // Switch the kiosk mode temporary off
+        // Switch the kiosk mode temporary off and override settings for menu bar: Show it while prefs are open
         [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
-        [self switchKioskModeAppsAllowed:YES];
+        [self switchKioskModeAppsAllowed:YES overrideShowMenuBar:YES];
         // Close the black background covering windows
         [self closeCapWindows];
         
@@ -1192,15 +1210,26 @@ bool insideMatrix(){
 #ifdef DEBUG
     NSLog(@"Preferences window closed, reopening cap windows.");
 #endif
+    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+    [browserWindow makeKeyAndOrderFront:self];
     // Open new covering background windows on all currently available screens
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
 	[self coverScreens];
 
     // Switch the kiosk mode on again
     [self setElevateWindowLevels];
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"] == NO) {
-        [self switchKioskModeAppsAllowed:NO];
-    }
+    
+    BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
+    [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
+
+    // Show the About SEB Window
+    [aboutWindow showAboutWindowForSeconds:3];
+
+//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+//    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"] == NO) {
+//        [self switchKioskModeAppsAllowed:NO overrideShowMenuBar:NO];
+//    }
 }
 
 
@@ -1265,17 +1294,28 @@ bool insideMatrix(){
 #ifdef DEBUG
     NSLog(@"Reinforcing the kiosk mode was requested");
 #endif
-//    [self startKioskMode];
     // Switch the kiosk mode temporary off
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
-    [self switchKioskModeAppsAllowed:YES];
+    [self switchKioskModeAppsAllowed:YES overrideShowMenuBar:NO];
     // Close the black background covering windows
     [self closeCapWindows];
+    // Reopen the covering Windows and reset the windows elevation levels
+//    [self preferencesClosed:nil];
+#ifdef DEBUG
+    NSLog(@"requestedReinforceKioskMode: Reopening cap windows.");
+#endif
+    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+    [browserWindow makeKeyAndOrderFront:self];
+    // Open new covering background windows on all currently available screens
+    [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
+	[self coverScreens];
     
-    // Show preferences window
-    //        [self.preferencesController showPreferences:self];
-    [self preferencesClosed:nil];
+    // Switch the kiosk mode on again
+    [self setElevateWindowLevels];
+    
+    BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
+    [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
 }
 
 
@@ -1459,7 +1499,11 @@ bool insideMatrix(){
 #ifdef DEBUG
             NSLog(@"Switched back to SEB after currentSystemPresentationOptions changed!");
 #endif
-            [NSApp activateIgnoringOtherApps: YES];
+            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+//            [NSApp activateIgnoringOtherApps: YES];
+
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"requestRegainActiveStatus" object:self];
+
             [browserWindow makeKeyAndOrderFront:self];
             //[self startKioskMode];
             [self regainActiveStatus:nil];
