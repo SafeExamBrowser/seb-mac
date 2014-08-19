@@ -58,7 +58,8 @@
 
 	BrowserWindow *browserWindow;
 	IBOutlet AboutWindow *aboutWindow;
-	IBOutlet NSView *passwordView;
+	IBOutlet NSMenuItem *configMenu;
+    IBOutlet NSView *passwordView;
 	//IBOutlet NSSecureTextField *enterPassword;
     IBOutlet NSWindow *enterPasswordDialogWindow;
     IBOutlet NSTextField *enterPasswordDialog;

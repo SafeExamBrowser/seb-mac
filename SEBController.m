@@ -546,18 +546,6 @@ bool insideMatrix();
      // Show the About SEB Window
     [aboutWindow showAboutWindowForSeconds:3];
     
-//    // Switch the kiosk mode temporary off
-//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-//    [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
-//    [self switchKioskModeAppsAllowed:YES];
-//    // Close the black background covering windows
-//    [self closeCapWindows];
-//    
-//    
-//
-//    // Post a notification that the preferences window closes
-//    [[NSNotificationCenter defaultCenter]
-//     postNotificationName:@"preferencesClosed" object:self];
 }
 
 
@@ -1146,7 +1134,8 @@ bool insideMatrix(){
                 // Wrong quit password was entered
                 NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Wrong Quit Password", nil)
                                                     defaultButton:NSLocalizedString(@"OK", nil)
-                                                  alternateButton:nil                                                      otherButton:nil
+                                                  alternateButton:nil
+                                                      otherButton:nil
                                         informativeTextWithFormat:NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit SEB.", nil)];
                 [newAlert setAlertStyle:NSWarningAlertStyle];
                 [newAlert runModal];
@@ -1201,19 +1190,25 @@ bool insideMatrix(){
         
         // Show preferences window
         [self.preferencesController showPreferences:self];
+        
+        // Show the Config menu (in menu bar)
+        [configMenu setHidden:NO];
     }
 }
 
 
 - (void)preferencesClosed:(NSNotification *)notification
 {
+    // Hide the Config menu (in menu bar)
+    [configMenu setHidden:YES];
+    
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 #ifdef DEBUG
     NSLog(@"Preferences window closed, reopening cap windows.");
 #endif
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [browserWindow makeKeyAndOrderFront:self];
     // Open new covering background windows on all currently available screens
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
 	[self coverScreens];
 

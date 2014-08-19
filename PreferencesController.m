@@ -218,6 +218,7 @@
     
     // If settings changed:
     if ([self settingsChanged]) {
+        BOOL restartSEB = YES;
         if (askToApplySettings) {
             // Ask if edited settings should be applied or previously active settings restored
             NSAlert *newAlert = [[NSAlert alloc] init];
@@ -236,6 +237,11 @@
                     [self releasePreferencesWindow];
                     [self restoreStoredSettings];
                     [self initPreferencesWindow];
+                    // Post a notification that the preferences window closes
+                    // (as windowWillClose will not be executed anymore because we closed it manually)
+                    [[NSNotificationCenter defaultCenter]
+                     postNotificationName:@"preferencesClosed" object:self];
+
                     return YES;
                     
                 case NSAlertSecondButtonReturn:
@@ -244,12 +250,12 @@
                     
                 case NSAlertThirdButtonReturn:
                     // Apply edited settings without restarting SEB
-                    return YES;
+                    restartSEB = NO;
+                    break;
                     
                 case NSAlertThirdButtonReturn+1:
                     // Cancel: Don't close preferences
                     return NO;
-                    
             }
         }
         
@@ -272,17 +278,23 @@
                     return NO;
                     
                 case NSAlertDefaultReturn:
-                    // Apply edited settings while overriding disabling the preferences window
-                    [preferences setSecureBool:YES forKey:@"org_safeexambrowser_enablePreferencesWindow"];
+                    // Apply edited allow prefs setting while overriding disabling the preferences window for this session
+                    // Internal key already is YES (as we are inside the preferences window...)
+                    [preferences setSecureBool:NO forKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"];
                     
                 case NSAlertOtherReturn:
-                    // Apply edited settings without overriding
+                    // Apply edited allow prefs settings without overriding:
+                    // we need to set the .seb key and the internal key forbidding opening preferences
+                    [preferences setSecureBool:NO forKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"];
+                    [preferences setSecureBool:NO forKey:@"org_safeexambrowser_enablePreferencesWindow"];
                     break;
             }
         }
-        // Post a notification that it was requested to restart SEB with changed settings
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"requestRestartNotification" object:self];
+        if (restartSEB) {
+            // Post a notification that it was requested to restart SEB with changed settings
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"requestRestartNotification" object:self];
+        }
     }
     return YES;
 }
@@ -331,8 +343,12 @@
     if (_userDefaultsPrivateBeforeEditing != NSUserDefaults.userDefaultsPrivate) {
         [NSUserDefaults setUserDefaultsPrivate:_userDefaultsPrivateBeforeEditing];
     }
-    
+    // Store all .seb (only the ones with prefix "org_safeexambrowser_SEB_"!) settings from before editing back into UserDefaults
     [self.configFileManager storeIntoUserDefaults:_settingsBeforeEditing];
+    // Store exam key before editing into UserDefaults
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setSecureObject:_browserExamKeyBeforeEditing forKey:@"org_safeexambrowser_currentData"];
+
     // Set the original settings title in the preferences window
     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:_configURLBeforeEditing];
 }
