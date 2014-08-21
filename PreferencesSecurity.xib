@@ -16,11 +16,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application"/>
         <customView id="1" userLabel="Advanced Preferences">
-            <rect key="frame" x="0.0" y="0.0" width="650" height="355"/>
+            <rect key="frame" x="0.0" y="0.0" width="650" height="602"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button toolTip="The log can help in debugging SEB (send it to the developers) and to find out about possible manipulations." ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="13">
-                    <rect key="frame" x="18" y="176" width="564" height="18"/>
+                    <rect key="frame" x="18" y="444" width="564" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="560" id="258"/>
@@ -38,7 +38,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22">
-                    <rect key="frame" x="62" y="177" width="262" height="17"/>
+                    <rect key="frame" x="62" y="445" width="262" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="258" id="211"/>
@@ -50,7 +50,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="32">
-                    <rect key="frame" x="328" y="171" width="305" height="26"/>
+                    <rect key="frame" x="328" y="439" width="305" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="300" id="339"/>
@@ -76,7 +76,7 @@
                     </connections>
                 </popUpButton>
                 <button toolTip="Indicates if SEB is allowed to run in a virtual machine or not (in order to prevent potential manipulation)." ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="76">
-                    <rect key="frame" x="18" y="257" width="614" height="18"/>
+                    <rect key="frame" x="18" y="504" width="614" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Allow SEB to run inside virtual machine" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="77">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -86,22 +86,11 @@
                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowVirtualMachine" id="341"/>
                     </connections>
                 </button>
-                <button toolTip="Indicates if SEB is allowed to run in a virtual machine or not (in order to prevent potential manipulation)." fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22y-gA-uVN">
-                    <rect key="frame" x="18" y="236" width="614" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Enable WiFi control (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Nlp-Oe-Cqb">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowWLAN" id="ipk-S4-Uci"/>
-                    </connections>
-                </button>
                 <button ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="292">
-                    <rect key="frame" x="18" y="215" width="614" height="18"/>
+                    <rect key="frame" x="18" y="474" width="614" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <string key="toolTip">Indicates if fast user switching is allowed. When using SEB on students’ own computers this key should be set to false. Otherwise when the computer is put to sleep and woken up again, in the lock screen “Switch user” is shown and when using a third party application the fast user switching option is displayed on the right side of the menu bar.</string>
-                    <buttonCell key="cell" type="check" title="Allow user switching (Mac)" bezelStyle="regularSquare" imagePosition="left" alignment="left" enabled="NO" state="on" inset="2" id="293">
+                    <buttonCell key="cell" type="check" title="Allow user switching" bezelStyle="regularSquare" imagePosition="left" alignment="left" enabled="NO" state="on" inset="2" id="293">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -114,7 +103,7 @@
                     </connections>
                 </button>
                 <popUpButton toolTip="Defines the policy that applies when an exam client doesn't have the SEB Service running." verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="93">
-                    <rect key="frame" x="18" y="290" width="615" height="26"/>
+                    <rect key="frame" x="18" y="537" width="615" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="94">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -139,7 +128,7 @@
                     </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="99">
-                    <rect key="frame" x="18" y="318" width="614" height="17"/>
+                    <rect key="frame" x="18" y="565" width="614" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="SEB Service policy" id="100">
                         <font key="font" metaFont="system"/>
@@ -147,29 +136,173 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <box autoresizesSubviews="NO" ambiguous="YES" misplaced="YES" title="Settings for SEB Windows" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="354">
-                    <rect key="frame" x="17" y="16" width="616" height="153"/>
+                <tabView translatesAutoresizingMaskIntoConstraints="NO" id="SZK-Aw-k1e">
+                    <rect key="frame" x="13" y="0.0" width="624" height="408"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <view key="contentView">
-                        <rect key="frame" x="1" y="1" width="614" height="137"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button toolTip="Indicates if SEB is allowed to run in a virtual machine or not (in order to prevent potential manipulations)" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7br-vd-BW3">
-                                <rect key="frame" x="16" y="111" width="614" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Create new desktop" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="8Eo-x2-Bjg">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_createNewDesktop" id="GpR-kO-usa"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                    </view>
-                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </box>
+                    <font key="font" metaFont="system"/>
+                    <tabViewItems>
+                        <tabViewItem label="System Lockdown" identifier="1" id="UDI-4x-V3M">
+                            <view key="view" id="uoJ-Ks-O1o">
+                                <rect key="frame" x="10" y="33" width="604" height="362"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <box autoresizesSubviews="NO" misplaced="YES" title="Kiosk Mode" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="UEX-8o-YnQ">
+                                        <rect key="frame" x="6" y="262" width="283" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <view key="contentView">
+                                            <rect key="frame" x="1" y="1" width="281" height="84"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <matrix verticalHuggingPriority="750" fixedFrame="YES" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7IF-IM-Zva">
+                                                    <rect key="frame" x="18" y="16" width="245" height="58"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                    <size key="cellSize" width="189" height="18"/>
+                                                    <size key="intercellSpacing" width="4" height="2"/>
+                                                    <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="rIz-KH-6rS">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <cells>
+                                                        <column>
+                                                            <buttonCell type="radio" title="Create new desktop" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="Cok-Q4-tlw">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                                <connections>
+                                                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_createNewDesktop" id="Cr5-gs-K7O"/>
+                                                                </connections>
+                                                            </buttonCell>
+                                                            <buttonCell type="radio" title="Disable Explorer Shell" imagePosition="left" alignment="left" inset="2" id="fzK-aI-iI2">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                                <connections>
+                                                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_killExplorerShell" id="uys-y2-3O5"/>
+                                                                </connections>
+                                                            </buttonCell>
+                                                            <buttonCell type="radio" title="None (for debugging only)" imagePosition="left" alignment="left" inset="2" id="Rz3-Vz-i11">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                        </column>
+                                                    </cells>
+                                                </matrix>
+                                            </subviews>
+                                        </view>
+                                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </box>
+                                    <button toolTip="Indicates if SEB is allowed to run in a virtual machine or not (in order to prevent potential manipulation)." fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22y-gA-uVN">
+                                        <rect key="frame" x="7" y="227" width="586" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="Enable WiFi control" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Nlp-Oe-Cqb">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowWLAN" id="ipk-S4-Uci"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="UEX-8o-YnQ" firstAttribute="top" secondItem="uoJ-Ks-O1o" secondAttribute="top" id="AdT-BE-YaZ"/>
+                                    <constraint firstItem="UEX-8o-YnQ" firstAttribute="leading" secondItem="uoJ-Ks-O1o" secondAttribute="leading" constant="9" id="CjY-Th-kNe"/>
+                                </constraints>
+                            </view>
+                        </tabViewItem>
+                        <tabViewItem label="Registry" identifier="2" id="ifL-Zz-OJp">
+                            <view key="view" id="lui-jD-ROw">
+                                <rect key="frame" x="10" y="33" width="604" height="362"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z35-jm-R60">
+                                        <rect key="frame" x="15" y="344" width="344" height="15"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Options in the Windows Security Screen invoked by Ctrl-Alt-Del" id="i04-6r-xmo">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <box autoresizesSubviews="NO" ambiguous="YES" misplaced="YES" title="Box" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="dYr-I9-VL8">
+                                        <rect key="frame" x="14" y="86" width="283" height="250"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <view key="contentView">
+                                            <rect key="frame" x="1" y="1" width="281" height="234"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V4D-Fb-Kmw">
+                                                    <rect key="frame" x="16" y="208" width="138" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable switch user" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="rm8-cp-dzk">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowVirtualMachine" id="WVh-tb-7Yc"/>
+                                                    </connections>
+                                                </button>
+                                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9pf-GF-fho">
+                                                    <rect key="frame" x="16" y="188" width="188" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable Lock this computer" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="n9V-3H-mM5">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowVirtualMachine" id="c8B-QZ-tGy"/>
+                                                    </connections>
+                                                </button>
+                                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hen-ae-pBM">
+                                                    <rect key="frame" x="16" y="168" width="190" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable Change a password" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Rgp-1k-Eaw">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowVirtualMachine" id="XRG-nk-RdD"/>
+                                                    </connections>
+                                                </button>
+                                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MNx-PR-dde">
+                                                    <rect key="frame" x="16" y="148" width="190" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable Change a password" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="uiU-JQ-4Yc">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowVirtualMachine" id="fYs-Lh-Fn1"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </view>
+                                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </box>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="dYr-I9-VL8" firstAttribute="leading" secondItem="lui-jD-ROw" secondAttribute="leading" constant="17" id="5RZ-3a-PEk"/>
+                                    <constraint firstItem="dYr-I9-VL8" firstAttribute="top" secondItem="z35-jm-R60" secondAttribute="bottom" constant="8" id="e0q-oF-Ubq"/>
+                                </constraints>
+                            </view>
+                        </tabViewItem>
+                        <tabViewItem label="Hooked Keys" identifier="" id="3Kv-Y4-p4B">
+                            <view key="view" id="wcR-7a-nHQ">
+                                <rect key="frame" x="10" y="33" width="604" height="362"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                        </tabViewItem>
+                    </tabViewItems>
+                </tabView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pBJ-HX-kB3">
+                    <rect key="frame" x="18" y="404" width="161" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Settings for SEB Windows" id="ADm-4H-Zh3">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <constraints>
                 <constraint firstItem="32" firstAttribute="leading" secondItem="22" secondAttribute="trailing" constant="8" symbolic="YES" id="216"/>
@@ -179,19 +312,23 @@
                 <constraint firstItem="76" firstAttribute="top" secondItem="93" secondAttribute="bottom" constant="20" id="284"/>
                 <constraint firstItem="292" firstAttribute="top" secondItem="76" secondAttribute="bottom" constant="8" id="300"/>
                 <constraint firstItem="13" firstAttribute="top" secondItem="292" secondAttribute="bottom" constant="20" id="347"/>
-                <constraint firstItem="354" firstAttribute="leading" secondItem="93" secondAttribute="leading" id="5BY-LL-2Mc"/>
-                <constraint firstItem="354" firstAttribute="top" secondItem="22" secondAttribute="bottom" constant="8" symbolic="YES" id="7BE-1f-14Z"/>
-                <constraint firstItem="354" firstAttribute="trailing" secondItem="76" secondAttribute="trailing" id="Ezg-qj-EjT"/>
-                <constraint firstItem="354" firstAttribute="leading" secondItem="76" secondAttribute="leading" id="GY6-PR-9xU"/>
-                <constraint firstItem="354" firstAttribute="trailing" secondItem="32" secondAttribute="trailing" id="Ke5-Ob-JvW"/>
-                <constraint firstItem="354" firstAttribute="leading" secondItem="292" secondAttribute="leading" id="SS2-LF-S4d"/>
-                <constraint firstItem="354" firstAttribute="leading" secondItem="13" secondAttribute="leading" id="Z39-li-Tg1"/>
-                <constraint firstItem="354" firstAttribute="trailing" secondItem="93" secondAttribute="trailing" id="aP6-jE-xSe"/>
-                <constraint firstAttribute="trailing" secondItem="354" secondAttribute="trailing" constant="20" symbolic="YES" id="bTy-mb-hrI"/>
-                <constraint firstItem="354" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="eEE-Pq-bGO"/>
-                <constraint firstItem="354" firstAttribute="leading" secondItem="99" secondAttribute="leading" id="kXq-n9-Nso"/>
-                <constraint firstItem="354" firstAttribute="trailing" secondItem="99" secondAttribute="trailing" id="rWX-l1-wl2"/>
-                <constraint firstItem="354" firstAttribute="trailing" secondItem="292" secondAttribute="trailing" id="xEc-OS-H9n"/>
+                <constraint firstItem="13" firstAttribute="baseline" secondItem="22" secondAttribute="baseline" id="GEH-rx-Bpp"/>
+                <constraint firstItem="SZK-Aw-k1e" firstAttribute="top" secondItem="1" secondAttribute="top" constant="200" id="Lr1-E7-ujI"/>
+                <constraint firstItem="SZK-Aw-k1e" firstAttribute="trailing" secondItem="32" secondAttribute="trailing" id="MK2-5B-S8E"/>
+                <constraint firstItem="93" firstAttribute="leading" secondItem="76" secondAttribute="leading" id="MZV-3O-MCQ"/>
+                <constraint firstItem="93" firstAttribute="trailing" secondItem="99" secondAttribute="trailing" id="PpD-Jb-gVv"/>
+                <constraint firstItem="SZK-Aw-k1e" firstAttribute="leading" secondItem="pBJ-HX-kB3" secondAttribute="leading" id="ThB-pQ-b9W"/>
+                <constraint firstItem="SZK-Aw-k1e" firstAttribute="leading" secondItem="13" secondAttribute="leading" id="eNr-6z-EQl"/>
+                <constraint firstAttribute="bottom" secondItem="SZK-Aw-k1e" secondAttribute="bottom" constant="10" id="fFM-58-Uw0"/>
+                <constraint firstItem="SZK-Aw-k1e" firstAttribute="top" secondItem="pBJ-HX-kB3" secondAttribute="bottom" constant="2" id="fjE-WR-N8T"/>
+                <constraint firstItem="13" firstAttribute="leading" secondItem="292" secondAttribute="leading" id="iIJ-rY-mV5"/>
+                <constraint firstItem="99" firstAttribute="leading" secondItem="93" secondAttribute="leading" id="jLZ-wa-V8y"/>
+                <constraint firstAttribute="trailing" secondItem="SZK-Aw-k1e" secondAttribute="trailing" constant="20" symbolic="YES" id="nYz-Dy-9e1"/>
+                <constraint firstItem="292" firstAttribute="trailing" secondItem="32" secondAttribute="trailing" id="o0n-8A-JkN"/>
+                <constraint firstItem="93" firstAttribute="trailing" secondItem="76" secondAttribute="trailing" id="oBu-eZ-pBV"/>
+                <constraint firstItem="SZK-Aw-k1e" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="pG9-OG-YBh"/>
+                <constraint firstItem="SZK-Aw-k1e" firstAttribute="leading" secondItem="76" secondAttribute="leading" id="sDa-GZ-uIQ"/>
+                <constraint firstItem="SZK-Aw-k1e" firstAttribute="trailing" secondItem="76" secondAttribute="trailing" id="t9P-71-ex4"/>
             </constraints>
         </customView>
         <objectController automaticallyPreparesContent="YES" id="49">
