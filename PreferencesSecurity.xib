@@ -19,11 +19,12 @@
             <rect key="frame" x="0.0" y="0.0" width="650" height="602"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <button toolTip="The log can help in debugging SEB (send it to the developers) and to find out about possible manipulations." ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="13">
+                <button toolTip="The log can help in debugging SEB (send it to the developers) and to find out about possible manipulations." misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="13">
                     <rect key="frame" x="18" y="444" width="564" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="560" id="258"/>
+                        <constraint firstAttribute="height" constant="14" id="swi-u8-hcm"/>
                     </constraints>
                     <buttonCell key="cell" type="check" title="Enable logging" bezelStyle="regularSquare" imagePosition="left" alignment="left" enabled="NO" inset="2" id="14">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -37,7 +38,7 @@
                         </binding>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22">
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22">
                     <rect key="frame" x="62" y="445" width="262" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <constraints>
@@ -49,8 +50,8 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <popUpButton verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="32">
-                    <rect key="frame" x="328" y="439" width="305" height="26"/>
+                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="32">
+                    <rect key="frame" x="328" y="439" width="305" height="28"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="300" id="339"/>
@@ -75,9 +76,12 @@
                         <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableLogging" id="350"/>
                     </connections>
                 </popUpButton>
-                <button toolTip="Indicates if SEB is allowed to run in a virtual machine or not (in order to prevent potential manipulation)." ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="76">
+                <button toolTip="Indicates if SEB is allowed to run in a virtual machine or not (in order to prevent potential manipulation)." misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="76">
                     <rect key="frame" x="18" y="504" width="614" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="14" id="6rE-Gh-bIm"/>
+                    </constraints>
                     <buttonCell key="cell" type="check" title="Allow SEB to run inside virtual machine" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="77">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -86,10 +90,13 @@
                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowVirtualMachine" id="341"/>
                     </connections>
                 </button>
-                <button ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="292">
+                <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="292">
                     <rect key="frame" x="18" y="474" width="614" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <string key="toolTip">Indicates if fast user switching is allowed. When using SEB on students’ own computers this key should be set to false. Otherwise when the computer is put to sleep and woken up again, in the lock screen “Switch user” is shown and when using a third party application the fast user switching option is displayed on the right side of the menu bar.</string>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="14" id="p5E-Fk-FOe"/>
+                    </constraints>
                     <buttonCell key="cell" type="check" title="Allow user switching" bezelStyle="regularSquare" imagePosition="left" alignment="left" enabled="NO" state="on" inset="2" id="293">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -102,8 +109,8 @@
                         </binding>
                     </connections>
                 </button>
-                <popUpButton toolTip="Defines the policy that applies when an exam client doesn't have the SEB Service running." verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="93">
-                    <rect key="frame" x="18" y="537" width="615" height="26"/>
+                <popUpButton toolTip="Defines the policy that applies when an exam client doesn't have the SEB Service running." verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="93">
+                    <rect key="frame" x="18" y="537" width="615" height="27"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="94">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -127,9 +134,12 @@
                         </binding>
                     </connections>
                 </popUpButton>
-                <textField verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="99">
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="99">
                     <rect key="frame" x="18" y="565" width="614" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="17" id="ucJ-37-jme"/>
+                    </constraints>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="SEB Service policy" id="100">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -146,14 +156,14 @@
                                 <rect key="frame" x="10" y="33" width="604" height="362"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <box autoresizesSubviews="NO" misplaced="YES" title="Kiosk Mode" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="UEX-8o-YnQ">
+                                    <box autoresizesSubviews="NO" title="Kiosk Mode" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="UEX-8o-YnQ">
                                         <rect key="frame" x="6" y="262" width="283" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView">
                                             <rect key="frame" x="1" y="1" width="281" height="84"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <matrix verticalHuggingPriority="750" fixedFrame="YES" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7IF-IM-Zva">
+                                                <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7IF-IM-Zva">
                                                     <rect key="frame" x="18" y="16" width="245" height="58"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -188,10 +198,16 @@
                                                 </matrix>
                                             </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="7IF-IM-Zva" secondAttribute="trailing" constant="16" id="6PE-Zn-b9z"/>
+                                            <constraint firstItem="7IF-IM-Zva" firstAttribute="top" secondItem="UEX-8o-YnQ" secondAttribute="top" constant="25" id="CCt-rO-mKs"/>
+                                            <constraint firstItem="7IF-IM-Zva" firstAttribute="leading" secondItem="UEX-8o-YnQ" secondAttribute="leading" constant="16" id="DSc-sg-18s"/>
+                                            <constraint firstAttribute="bottom" secondItem="7IF-IM-Zva" secondAttribute="bottom" constant="13" id="hax-fb-AgH"/>
+                                        </constraints>
                                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </box>
-                                    <button toolTip="Indicates if SEB is allowed to run in a virtual machine or not (in order to prevent potential manipulation)." fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22y-gA-uVN">
+                                    <button toolTip="Indicates if SEB is allowed to run in a virtual machine or not (in order to prevent potential manipulation)." translatesAutoresizingMaskIntoConstraints="NO" id="22y-gA-uVN">
                                         <rect key="frame" x="7" y="227" width="586" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Enable WiFi control" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Nlp-Oe-Cqb">
@@ -206,6 +222,10 @@
                                 <constraints>
                                     <constraint firstItem="UEX-8o-YnQ" firstAttribute="top" secondItem="uoJ-Ks-O1o" secondAttribute="top" id="AdT-BE-YaZ"/>
                                     <constraint firstItem="UEX-8o-YnQ" firstAttribute="leading" secondItem="uoJ-Ks-O1o" secondAttribute="leading" constant="9" id="CjY-Th-kNe"/>
+                                    <constraint firstAttribute="trailing" secondItem="UEX-8o-YnQ" secondAttribute="trailing" constant="318" id="Pb9-lU-Xkb"/>
+                                    <constraint firstItem="UEX-8o-YnQ" firstAttribute="leading" secondItem="22y-gA-uVN" secondAttribute="leading" id="Q2P-Nv-5aP"/>
+                                    <constraint firstAttribute="trailing" secondItem="22y-gA-uVN" secondAttribute="trailing" constant="13" id="QZB-wO-IM5"/>
+                                    <constraint firstItem="22y-gA-uVN" firstAttribute="top" secondItem="UEX-8o-YnQ" secondAttribute="bottom" constant="23" id="tDd-4A-SKb"/>
                                 </constraints>
                             </view>
                         </tabViewItem>
@@ -214,75 +234,142 @@
                                 <rect key="frame" x="10" y="33" width="604" height="362"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z35-jm-R60">
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z35-jm-R60">
                                         <rect key="frame" x="15" y="344" width="344" height="15"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="15" id="ilN-45-5uj"/>
+                                        </constraints>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Options in the Windows Security Screen invoked by Ctrl-Alt-Del" id="i04-6r-xmo">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <box autoresizesSubviews="NO" ambiguous="YES" misplaced="YES" title="Box" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="dYr-I9-VL8">
-                                        <rect key="frame" x="14" y="86" width="283" height="250"/>
+                                    <box autoresizesSubviews="NO" title="While running SEB" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="dYr-I9-VL8">
+                                        <rect key="frame" x="14" y="96" width="283" height="240"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView">
-                                            <rect key="frame" x="1" y="1" width="281" height="234"/>
+                                            <rect key="frame" x="1" y="1" width="281" height="224"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V4D-Fb-Kmw">
-                                                    <rect key="frame" x="16" y="208" width="138" height="18"/>
+                                                <button ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V4D-Fb-Kmw">
+                                                    <rect key="frame" x="16" y="198" width="140" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <buttonCell key="cell" type="check" title="Enable switch user" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="rm8-cp-dzk">
+                                                    <buttonCell key="cell" type="check" title="Enable Switch User" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="rm8-cp-dzk">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
                                                     <connections>
-                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowVirtualMachine" id="WVh-tb-7Yc"/>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_insideSebEnableSwitchUser" id="eKl-Z6-74o"/>
                                                     </connections>
                                                 </button>
-                                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9pf-GF-fho">
-                                                    <rect key="frame" x="16" y="188" width="188" height="18"/>
+                                                <button ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9pf-GF-fho">
+                                                    <rect key="frame" x="16" y="172" width="188" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="check" title="Enable Lock this computer" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="n9V-3H-mM5">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
                                                     <connections>
-                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowVirtualMachine" id="c8B-QZ-tGy"/>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_insideSebEnableLockThisComputer" id="4WR-JH-ykh"/>
                                                     </connections>
                                                 </button>
-                                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hen-ae-pBM">
-                                                    <rect key="frame" x="16" y="168" width="190" height="18"/>
+                                                <button ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hen-ae-pBM">
+                                                    <rect key="frame" x="16" y="146" width="190" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="check" title="Enable Change a password" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Rgp-1k-Eaw">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
                                                     <connections>
-                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowVirtualMachine" id="XRG-nk-RdD"/>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_insideSebEnableChangeAPassword" id="1Jb-5c-kSg"/>
                                                     </connections>
                                                 </button>
-                                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MNx-PR-dde">
-                                                    <rect key="frame" x="16" y="148" width="190" height="18"/>
+                                                <button ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MNx-PR-dde">
+                                                    <rect key="frame" x="16" y="120" width="188" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <buttonCell key="cell" type="check" title="Enable Change a password" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="uiU-JQ-4Yc">
+                                                    <buttonCell key="cell" type="check" title="Enable Start Task Manager" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="uiU-JQ-4Yc">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
                                                     <connections>
-                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowVirtualMachine" id="fYs-Lh-Fn1"/>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_insideSebEnableStartTaskManager" id="74T-MJ-Vnz"/>
+                                                    </connections>
+                                                </button>
+                                                <button ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GqG-hZ-nUG">
+                                                    <rect key="frame" x="16" y="94" width="112" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable Log off" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="LTi-lL-sOs">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_insideSebEnableLogOff" id="VcH-9d-BYA"/>
+                                                    </connections>
+                                                </button>
+                                                <button ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zzE-IO-a4g">
+                                                    <rect key="frame" x="16" y="68" width="134" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable Shut down" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Ouk-wE-FFP">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_insideSebEnableShutDown" id="bjS-cR-ylf"/>
+                                                    </connections>
+                                                </button>
+                                                <button ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="smt-W3-qyD">
+                                                    <rect key="frame" x="16" y="42" width="158" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable Ease of Access" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="AtG-6Z-aRN">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_insideSebEnableEaseOfAccess" id="GCG-a1-ycF"/>
+                                                    </connections>
+                                                </button>
+                                                <button ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w1d-t7-rBY">
+                                                    <rect key="frame" x="16" y="16" width="200" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable VMware Client Shade" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Y3K-X1-40d">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_insideSebEnableVmWareClientShade" id="BCq-ut-3oy"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstItem="hen-ae-pBM" firstAttribute="leading" secondItem="9pf-GF-fho" secondAttribute="leading" id="0zj-nN-nN9"/>
+                                            <constraint firstItem="hen-ae-pBM" firstAttribute="top" secondItem="9pf-GF-fho" secondAttribute="bottom" constant="10" id="628-KX-B38"/>
+                                            <constraint firstItem="MNx-PR-dde" firstAttribute="leading" secondItem="GqG-hZ-nUG" secondAttribute="leading" id="Bux-oZ-hrd"/>
+                                            <constraint firstItem="smt-W3-qyD" firstAttribute="leading" secondItem="zzE-IO-a4g" secondAttribute="leading" id="CmP-LD-YvW"/>
+                                            <constraint firstItem="MNx-PR-dde" firstAttribute="top" secondItem="hen-ae-pBM" secondAttribute="bottom" constant="10" id="Dwo-Y9-5DS"/>
+                                            <constraint firstItem="zzE-IO-a4g" firstAttribute="top" secondItem="GqG-hZ-nUG" secondAttribute="bottom" constant="10" id="QDa-q0-PVQ"/>
+                                            <constraint firstItem="9pf-GF-fho" firstAttribute="leading" secondItem="V4D-Fb-Kmw" secondAttribute="leading" id="RIz-4S-SkW"/>
+                                            <constraint firstItem="w1d-t7-rBY" firstAttribute="top" secondItem="smt-W3-qyD" secondAttribute="bottom" constant="10" id="Znl-S8-aeO"/>
+                                            <constraint firstItem="9pf-GF-fho" firstAttribute="top" secondItem="V4D-Fb-Kmw" secondAttribute="bottom" constant="10" id="bcx-t6-q7H"/>
+                                            <constraint firstItem="smt-W3-qyD" firstAttribute="leading" secondItem="w1d-t7-rBY" secondAttribute="leading" id="btn-I5-WkI"/>
+                                            <constraint firstItem="smt-W3-qyD" firstAttribute="top" secondItem="zzE-IO-a4g" secondAttribute="bottom" constant="10" id="h5z-EQ-cg5"/>
+                                            <constraint firstItem="hen-ae-pBM" firstAttribute="leading" secondItem="MNx-PR-dde" secondAttribute="leading" id="ijX-NQ-y7i"/>
+                                            <constraint firstItem="GqG-hZ-nUG" firstAttribute="top" secondItem="MNx-PR-dde" secondAttribute="bottom" constant="10" id="saj-bA-yKG"/>
+                                            <constraint firstItem="zzE-IO-a4g" firstAttribute="leading" secondItem="GqG-hZ-nUG" secondAttribute="leading" id="tBo-h8-pgp"/>
+                                        </constraints>
                                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </box>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="dYr-I9-VL8" firstAttribute="leading" secondItem="lui-jD-ROw" secondAttribute="leading" constant="17" id="5RZ-3a-PEk"/>
-                                    <constraint firstItem="dYr-I9-VL8" firstAttribute="top" secondItem="z35-jm-R60" secondAttribute="bottom" constant="8" id="e0q-oF-Ubq"/>
+                                    <constraint firstItem="dYr-I9-VL8" firstAttribute="leading" secondItem="lui-jD-ROw" secondAttribute="leading" constant="17" id="Jti-Lj-PHd"/>
+                                    <constraint firstAttribute="bottom" secondItem="dYr-I9-VL8" secondAttribute="bottom" constant="100" id="Wd7-xd-rEW"/>
+                                    <constraint firstItem="dYr-I9-VL8" firstAttribute="leading" secondItem="z35-jm-R60" secondAttribute="leading" id="YS5-1s-g68"/>
+                                    <constraint firstItem="dYr-I9-VL8" firstAttribute="top" secondItem="z35-jm-R60" secondAttribute="bottom" constant="8" symbolic="YES" id="c5S-1h-0Jf"/>
+                                    <constraint firstItem="z35-jm-R60" firstAttribute="top" secondItem="lui-jD-ROw" secondAttribute="top" constant="3" id="f0k-fk-gxU"/>
+                                    <constraint firstAttribute="trailing" secondItem="dYr-I9-VL8" secondAttribute="trailing" constant="310" id="vkt-sN-Efg"/>
                                 </constraints>
                             </view>
                         </tabViewItem>
@@ -290,6 +377,307 @@
                             <view key="view" id="wcR-7a-nHQ">
                                 <rect key="frame" x="10" y="33" width="604" height="362"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <box autoresizesSubviews="NO" title="Special Keys" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Dce-pG-aKy">
+                                        <rect key="frame" x="6" y="119" width="283" height="240"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <view key="contentView">
+                                            <rect key="frame" x="1" y="1" width="281" height="224"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="xUc-ld-ncn">
+                                                    <rect key="frame" x="16" y="198" width="88" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable Esc" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="nZw-6z-Ph8">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableEsc" id="b2c-ev-V4v"/>
+                                                    </connections>
+                                                </button>
+                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="kET-K1-KC9">
+                                                    <rect key="frame" x="16" y="172" width="118" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable Ctrl-Esc" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="8N0-8l-hwO">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableCtrlEsc" id="bJI-HN-Lf1"/>
+                                                    </connections>
+                                                </button>
+                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="tps-Vh-eQM">
+                                                    <rect key="frame" x="16" y="146" width="113" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable Alt-Esc" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="bTO-u1-Mao">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableAltEsc" id="J8i-Ne-eIG"/>
+                                                    </connections>
+                                                </button>
+                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="P7D-T2-kNc">
+                                                    <rect key="frame" x="16" y="120" width="116" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable Alt-Tab" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ufj-NR-s2G">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableAltTab" id="0aq-k1-Hh3"/>
+                                                    </connections>
+                                                </button>
+                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="Lpd-Dm-mJe">
+                                                    <rect key="frame" x="16" y="94" width="108" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable Alt-F4" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="TMW-TW-FOP">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableAltF4" id="7I1-SJ-hXV"/>
+                                                    </connections>
+                                                </button>
+                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="Udm-zO-P00">
+                                                    <rect key="frame" x="16" y="68" width="146" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable Right Mouse" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="PWk-fT-HdC">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableRightMouse" id="duE-bh-3xA"/>
+                                                    </connections>
+                                                </button>
+                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="wUs-SE-6xn">
+                                                    <rect key="frame" x="16" y="42" width="143" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable Print Screen" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="GQb-uN-fJO">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enablePrintScreen" id="uwd-0c-09b"/>
+                                                    </connections>
+                                                </button>
+                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="P88-5S-xeR">
+                                                    <rect key="frame" x="16" y="16" width="116" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable Alt-Ctrl" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="IWf-Eq-wzJ">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableAltCtrl" id="Eoe-g7-DXi"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="xUc-ld-ncn" firstAttribute="top" secondItem="Dce-pG-aKy" secondAttribute="top" constant="25" id="1d0-02-1eN"/>
+                                            <constraint firstItem="wUs-SE-6xn" firstAttribute="top" secondItem="Udm-zO-P00" secondAttribute="bottom" constant="12" id="3po-w6-VgW"/>
+                                            <constraint firstItem="wUs-SE-6xn" firstAttribute="leading" secondItem="P88-5S-xeR" secondAttribute="leading" id="4iG-sP-SVt"/>
+                                            <constraint firstItem="Udm-zO-P00" firstAttribute="leading" secondItem="wUs-SE-6xn" secondAttribute="leading" id="5If-5P-s4A"/>
+                                            <constraint firstItem="kET-K1-KC9" firstAttribute="leading" secondItem="tps-Vh-eQM" secondAttribute="leading" id="67y-6f-9ay"/>
+                                            <constraint firstItem="Udm-zO-P00" firstAttribute="top" secondItem="Lpd-Dm-mJe" secondAttribute="bottom" constant="12" id="6Ba-Oc-3Vj"/>
+                                            <constraint firstItem="tps-Vh-eQM" firstAttribute="leading" secondItem="P7D-T2-kNc" secondAttribute="leading" id="6Jc-f9-xfo"/>
+                                            <constraint firstItem="xUc-ld-ncn" firstAttribute="leading" secondItem="Dce-pG-aKy" secondAttribute="leading" constant="16" id="AlJ-h1-iEC"/>
+                                            <constraint firstItem="P7D-T2-kNc" firstAttribute="leading" secondItem="Lpd-Dm-mJe" secondAttribute="leading" id="Eyv-bR-i4f"/>
+                                            <constraint firstItem="P88-5S-xeR" firstAttribute="top" secondItem="wUs-SE-6xn" secondAttribute="bottom" constant="12" id="ITW-iV-zMf"/>
+                                            <constraint firstItem="kET-K1-KC9" firstAttribute="top" secondItem="xUc-ld-ncn" secondAttribute="bottom" constant="12" id="UmE-ZI-rUz"/>
+                                            <constraint firstItem="Udm-zO-P00" firstAttribute="leading" secondItem="Lpd-Dm-mJe" secondAttribute="leading" id="l3X-Gx-ETv"/>
+                                            <constraint firstAttribute="bottom" secondItem="P88-5S-xeR" secondAttribute="bottom" constant="15" id="mpa-kQ-8Of"/>
+                                            <constraint firstItem="P7D-T2-kNc" firstAttribute="top" secondItem="tps-Vh-eQM" secondAttribute="bottom" constant="12" id="uXh-l9-Ose"/>
+                                            <constraint firstItem="Lpd-Dm-mJe" firstAttribute="top" secondItem="P7D-T2-kNc" secondAttribute="bottom" constant="12" id="uyw-bs-fYO"/>
+                                            <constraint firstItem="kET-K1-KC9" firstAttribute="leading" secondItem="xUc-ld-ncn" secondAttribute="leading" id="vp9-b1-d0M"/>
+                                            <constraint firstItem="tps-Vh-eQM" firstAttribute="top" secondItem="kET-K1-KC9" secondAttribute="bottom" constant="12" id="xb8-ac-mGo"/>
+                                        </constraints>
+                                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </box>
+                                    <box autoresizesSubviews="NO" title="Function Keys" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Eqg-kF-Hjl">
+                                        <rect key="frame" x="315" y="15" width="283" height="344"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <view key="contentView">
+                                            <rect key="frame" x="1" y="1" width="281" height="328"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="Tdg-eI-qqw">
+                                                    <rect key="frame" x="16" y="302" width="83" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable F1" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="2n4-f2-W9F">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableF1" id="laN-Vb-EBP"/>
+                                                    </connections>
+                                                </button>
+                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="KAI-Zl-SVs">
+                                                    <rect key="frame" x="16" y="276" width="83" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable F2" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="rd9-dL-Qhi">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableF2" id="YYm-q4-Q4J"/>
+                                                    </connections>
+                                                </button>
+                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="d7f-VX-pCo">
+                                                    <rect key="frame" x="16" y="250" width="83" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable F3" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="n1l-UI-Mxa">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableF3" id="VHW-RF-P7V"/>
+                                                    </connections>
+                                                </button>
+                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="UJn-5k-GnI">
+                                                    <rect key="frame" x="16" y="224" width="83" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable F4" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="yCu-0c-Hf1">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableF4" id="Wuy-C6-cOI"/>
+                                                    </connections>
+                                                </button>
+                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="L4a-yA-hrc">
+                                                    <rect key="frame" x="16" y="198" width="83" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable F5" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="q9c-zv-s6c">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableF5" id="fvl-4e-1ay"/>
+                                                    </connections>
+                                                </button>
+                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="Wqq-sW-IQe">
+                                                    <rect key="frame" x="16" y="172" width="83" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable F6" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Fmg-wZ-Cpg">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableF6" id="MMl-UE-S6f"/>
+                                                    </connections>
+                                                </button>
+                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="7n5-ya-ICf">
+                                                    <rect key="frame" x="16" y="146" width="83" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable F7" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="TED-sf-9ZX">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableF7" id="9hM-6L-FrP"/>
+                                                    </connections>
+                                                </button>
+                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="AR2-HL-Z0a">
+                                                    <rect key="frame" x="16" y="120" width="83" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable F8" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="IXz-wb-IuQ">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableF8" id="VSI-LV-CvQ"/>
+                                                    </connections>
+                                                </button>
+                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="jDL-8d-xFd">
+                                                    <rect key="frame" x="16" y="94" width="83" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable F9" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="q3q-Xm-TRl">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableF9" id="zEP-Dh-hgZ"/>
+                                                    </connections>
+                                                </button>
+                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="crj-v2-PEo">
+                                                    <rect key="frame" x="16" y="68" width="91" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable F10" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="UUd-ek-uMg">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableF10" id="E10-tz-lwz"/>
+                                                    </connections>
+                                                </button>
+                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="h36-BC-RvT">
+                                                    <rect key="frame" x="16" y="42" width="91" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable F11" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0ob-OM-tPV">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableF11" id="Pbq-nd-SPa"/>
+                                                    </connections>
+                                                </button>
+                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="GCo-yY-4HB">
+                                                    <rect key="frame" x="16" y="16" width="91" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Enable F12" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="UcT-h8-nFW">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableF12" id="IsO-BZ-xjD"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="jDL-8d-xFd" firstAttribute="leading" secondItem="crj-v2-PEo" secondAttribute="leading" id="38D-80-SrJ"/>
+                                            <constraint firstItem="AR2-HL-Z0a" firstAttribute="top" secondItem="7n5-ya-ICf" secondAttribute="bottom" constant="12" id="5BW-KK-BvM"/>
+                                            <constraint firstAttribute="bottom" secondItem="GCo-yY-4HB" secondAttribute="bottom" constant="15" id="61D-aF-j70"/>
+                                            <constraint firstItem="d7f-VX-pCo" firstAttribute="leading" secondItem="UJn-5k-GnI" secondAttribute="leading" id="8EE-rt-SVW"/>
+                                            <constraint firstItem="Wqq-sW-IQe" firstAttribute="leading" secondItem="L4a-yA-hrc" secondAttribute="leading" id="8vQ-Dc-3Kn"/>
+                                            <constraint firstItem="KAI-Zl-SVs" firstAttribute="leading" secondItem="Tdg-eI-qqw" secondAttribute="leading" id="BkQ-gE-LeD"/>
+                                            <constraint firstItem="Wqq-sW-IQe" firstAttribute="top" secondItem="L4a-yA-hrc" secondAttribute="bottom" constant="12" id="EZ5-2x-6RM"/>
+                                            <constraint firstItem="GCo-yY-4HB" firstAttribute="leading" secondItem="h36-BC-RvT" secondAttribute="leading" id="GB5-Bs-kLb"/>
+                                            <constraint firstItem="jDL-8d-xFd" firstAttribute="leading" secondItem="AR2-HL-Z0a" secondAttribute="leading" id="JLq-9T-b60"/>
+                                            <constraint firstItem="L4a-yA-hrc" firstAttribute="leading" secondItem="UJn-5k-GnI" secondAttribute="leading" id="LTn-dD-YsH"/>
+                                            <constraint firstItem="crj-v2-PEo" firstAttribute="top" secondItem="jDL-8d-xFd" secondAttribute="bottom" constant="12" id="MxT-AR-CDt"/>
+                                            <constraint firstItem="AR2-HL-Z0a" firstAttribute="leading" secondItem="Eqg-kF-Hjl" secondAttribute="leading" constant="16" id="N4s-nN-Wdb"/>
+                                            <constraint firstItem="7n5-ya-ICf" firstAttribute="top" secondItem="Wqq-sW-IQe" secondAttribute="bottom" constant="12" id="PXI-Jo-Imo"/>
+                                            <constraint firstItem="Wqq-sW-IQe" firstAttribute="leading" secondItem="7n5-ya-ICf" secondAttribute="leading" id="ROb-71-IsM"/>
+                                            <constraint firstItem="UJn-5k-GnI" firstAttribute="top" secondItem="d7f-VX-pCo" secondAttribute="bottom" constant="12" id="RmM-yQ-0lz"/>
+                                            <constraint firstItem="jDL-8d-xFd" firstAttribute="top" secondItem="AR2-HL-Z0a" secondAttribute="bottom" constant="12" id="USH-7i-s4Q"/>
+                                            <constraint firstItem="d7f-VX-pCo" firstAttribute="top" secondItem="KAI-Zl-SVs" secondAttribute="bottom" constant="12" id="cCh-kN-RdY"/>
+                                            <constraint firstItem="KAI-Zl-SVs" firstAttribute="leading" secondItem="d7f-VX-pCo" secondAttribute="leading" id="cdC-Dm-zdp"/>
+                                            <constraint firstItem="crj-v2-PEo" firstAttribute="leading" secondItem="h36-BC-RvT" secondAttribute="leading" id="dvX-Yw-QrM"/>
+                                            <constraint firstItem="h36-BC-RvT" firstAttribute="top" secondItem="crj-v2-PEo" secondAttribute="bottom" constant="12" id="htP-Ze-pZ4"/>
+                                            <constraint firstItem="KAI-Zl-SVs" firstAttribute="top" secondItem="Tdg-eI-qqw" secondAttribute="bottom" constant="12" id="nGj-B2-PiW"/>
+                                            <constraint firstItem="AR2-HL-Z0a" firstAttribute="leading" secondItem="7n5-ya-ICf" secondAttribute="leading" id="pbp-oa-Cif"/>
+                                            <constraint firstItem="GCo-yY-4HB" firstAttribute="top" secondItem="h36-BC-RvT" secondAttribute="bottom" constant="12" id="sKt-dB-Bcv"/>
+                                            <constraint firstItem="L4a-yA-hrc" firstAttribute="top" secondItem="UJn-5k-GnI" secondAttribute="bottom" constant="12" id="tGr-Zn-85m"/>
+                                        </constraints>
+                                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </box>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Dce-pG-aKy" firstAttribute="leading" secondItem="wcR-7a-nHQ" secondAttribute="leading" constant="9" id="6Nr-YM-Yp3"/>
+                                    <constraint firstItem="Eqg-kF-Hjl" firstAttribute="top" secondItem="wcR-7a-nHQ" secondAttribute="top" constant="3" id="HJF-ng-bdq"/>
+                                    <constraint firstItem="Eqg-kF-Hjl" firstAttribute="leading" secondItem="Dce-pG-aKy" secondAttribute="trailing" constant="32" id="bVT-AX-h31"/>
+                                    <constraint firstItem="Dce-pG-aKy" firstAttribute="top" secondItem="wcR-7a-nHQ" secondAttribute="top" constant="3" id="hNw-Rf-Ibh"/>
+                                    <constraint firstAttribute="trailing" secondItem="Eqg-kF-Hjl" secondAttribute="trailing" constant="9" id="hc1-vq-b4K"/>
+                                    <constraint firstItem="Eqg-kF-Hjl" firstAttribute="top" secondItem="Dce-pG-aKy" secondAttribute="top" id="nav-pm-Fij"/>
+                                    <constraint firstItem="Eqg-kF-Hjl" firstAttribute="leading" secondItem="wcR-7a-nHQ" secondAttribute="leading" constant="318" id="p7k-xC-CHH"/>
+                                    <constraint firstAttribute="bottom" secondItem="Eqg-kF-Hjl" secondAttribute="bottom" constant="19" id="udl-WJ-RLV"/>
+                                </constraints>
                             </view>
                         </tabViewItem>
                     </tabViewItems>
@@ -297,6 +685,9 @@
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pBJ-HX-kB3">
                     <rect key="frame" x="18" y="404" width="161" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="157" id="joq-zA-Tqf"/>
+                    </constraints>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Settings for SEB Windows" id="ADm-4H-Zh3">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -307,28 +698,31 @@
             <constraints>
                 <constraint firstItem="32" firstAttribute="leading" secondItem="22" secondAttribute="trailing" constant="8" symbolic="YES" id="216"/>
                 <constraint firstItem="22" firstAttribute="baseline" secondItem="32" secondAttribute="baseline" constant="1" id="223"/>
-                <constraint firstItem="32" firstAttribute="top" secondItem="13" secondAttribute="bottom" constant="8" id="238"/>
+                <constraint firstItem="32" firstAttribute="top" secondItem="13" secondAttribute="bottom" constant="-20" id="238"/>
                 <constraint firstItem="93" firstAttribute="top" secondItem="99" secondAttribute="bottom" constant="4" id="244"/>
                 <constraint firstItem="76" firstAttribute="top" secondItem="93" secondAttribute="bottom" constant="20" id="284"/>
-                <constraint firstItem="292" firstAttribute="top" secondItem="76" secondAttribute="bottom" constant="8" id="300"/>
-                <constraint firstItem="13" firstAttribute="top" secondItem="292" secondAttribute="bottom" constant="20" id="347"/>
+                <constraint firstItem="292" firstAttribute="top" secondItem="76" secondAttribute="bottom" constant="16" id="300"/>
+                <constraint firstItem="13" firstAttribute="top" secondItem="292" secondAttribute="bottom" constant="16" id="347"/>
+                <constraint firstItem="SZK-Aw-k1e" firstAttribute="leading" secondItem="13" secondAttribute="leading" id="8i8-OM-Rul"/>
                 <constraint firstItem="13" firstAttribute="baseline" secondItem="22" secondAttribute="baseline" id="GEH-rx-Bpp"/>
-                <constraint firstItem="SZK-Aw-k1e" firstAttribute="top" secondItem="1" secondAttribute="top" constant="200" id="Lr1-E7-ujI"/>
-                <constraint firstItem="SZK-Aw-k1e" firstAttribute="trailing" secondItem="32" secondAttribute="trailing" id="MK2-5B-S8E"/>
+                <constraint firstItem="32" firstAttribute="top" secondItem="292" secondAttribute="bottom" constant="10" id="J4S-cK-a2q"/>
                 <constraint firstItem="93" firstAttribute="leading" secondItem="76" secondAttribute="leading" id="MZV-3O-MCQ"/>
                 <constraint firstItem="93" firstAttribute="trailing" secondItem="99" secondAttribute="trailing" id="PpD-Jb-gVv"/>
-                <constraint firstItem="SZK-Aw-k1e" firstAttribute="leading" secondItem="pBJ-HX-kB3" secondAttribute="leading" id="ThB-pQ-b9W"/>
-                <constraint firstItem="SZK-Aw-k1e" firstAttribute="leading" secondItem="13" secondAttribute="leading" id="eNr-6z-EQl"/>
-                <constraint firstAttribute="bottom" secondItem="SZK-Aw-k1e" secondAttribute="bottom" constant="10" id="fFM-58-Uw0"/>
-                <constraint firstItem="SZK-Aw-k1e" firstAttribute="top" secondItem="pBJ-HX-kB3" secondAttribute="bottom" constant="2" id="fjE-WR-N8T"/>
+                <constraint firstItem="SZK-Aw-k1e" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="RGY-JN-WAv"/>
+                <constraint firstItem="SZK-Aw-k1e" firstAttribute="leading" secondItem="76" secondAttribute="leading" id="Vou-AL-Dbc"/>
+                <constraint firstItem="SZK-Aw-k1e" firstAttribute="leading" secondItem="pBJ-HX-kB3" secondAttribute="leading" id="YkF-kQ-bsn"/>
+                <constraint firstItem="99" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" symbolic="YES" id="ZGV-UA-QRt"/>
+                <constraint firstItem="SZK-Aw-k1e" firstAttribute="top" secondItem="1" secondAttribute="top" constant="200" id="b1L-Qj-F7V"/>
+                <constraint firstAttribute="bottom" secondItem="SZK-Aw-k1e" secondAttribute="bottom" constant="10" id="bcQ-f4-lsp"/>
+                <constraint firstAttribute="trailing" secondItem="SZK-Aw-k1e" secondAttribute="trailing" constant="20" symbolic="YES" id="bfA-5W-zsT"/>
+                <constraint firstItem="SZK-Aw-k1e" firstAttribute="trailing" secondItem="32" secondAttribute="trailing" id="c87-Hn-qGx"/>
                 <constraint firstItem="13" firstAttribute="leading" secondItem="292" secondAttribute="leading" id="iIJ-rY-mV5"/>
                 <constraint firstItem="99" firstAttribute="leading" secondItem="93" secondAttribute="leading" id="jLZ-wa-V8y"/>
-                <constraint firstAttribute="trailing" secondItem="SZK-Aw-k1e" secondAttribute="trailing" constant="20" symbolic="YES" id="nYz-Dy-9e1"/>
                 <constraint firstItem="292" firstAttribute="trailing" secondItem="32" secondAttribute="trailing" id="o0n-8A-JkN"/>
                 <constraint firstItem="93" firstAttribute="trailing" secondItem="76" secondAttribute="trailing" id="oBu-eZ-pBV"/>
-                <constraint firstItem="SZK-Aw-k1e" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="pG9-OG-YBh"/>
-                <constraint firstItem="SZK-Aw-k1e" firstAttribute="leading" secondItem="76" secondAttribute="leading" id="sDa-GZ-uIQ"/>
-                <constraint firstItem="SZK-Aw-k1e" firstAttribute="trailing" secondItem="76" secondAttribute="trailing" id="t9P-71-ex4"/>
+                <constraint firstItem="SZK-Aw-k1e" firstAttribute="top" secondItem="pBJ-HX-kB3" secondAttribute="bottom" constant="2" id="s7o-xq-gdt"/>
+                <constraint firstItem="SZK-Aw-k1e" firstAttribute="top" secondItem="32" secondAttribute="bottom" constant="40" id="uhB-Zb-a1r"/>
+                <constraint firstItem="SZK-Aw-k1e" firstAttribute="trailing" secondItem="76" secondAttribute="trailing" id="vKA-kj-QBR"/>
             </constraints>
         </customView>
         <objectController automaticallyPreparesContent="YES" id="49">
