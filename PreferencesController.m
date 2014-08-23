@@ -361,6 +361,15 @@
     return ![_browserExamKeyBeforeEditing isEqualToData:[preferences secureObjectForKey:@"org_safeexambrowser_currentData"]];
 }
 
+// Show alert that the password with passed name string isn't confirmed
+- (void) alertForUnconfirmedPassword:(NSString *)passwordName
+{
+    NSRunAlertPanel(NSLocalizedString(@"Unconfirmed Password", nil),
+                    @"%@",
+                    NSLocalizedString(@"OK", nil), nil, nil,
+                    [NSString stringWithFormat:NSLocalizedString(@"Please confirm the %@ password first.", nil), passwordName]);
+}
+
 
 #pragma mark -
 #pragma mark IBActions: Methods for quitting, restarting SEB,
@@ -602,6 +611,14 @@
 // with parameter indicating if the saved settings file URL should be updated
 - (void) savePrefsAs:(BOOL)saveAs fileURLUpdate:(BOOL)fileURLUpdate
 {
+    // Check if passwords are confirmed
+    NSString *unconfirmedPassword;
+    if (self.generalVC.compareAdminPasswords) {
+        unconfirmedPassword = NSLocalizedString(@"administrator", nil);
+        [self alertForUnconfirmedPassword:unconfirmedPassword];
+        return;
+    }
+    
     // Get selected config purpose
     sebConfigPurposes configPurpose = [self.configFileVC getSelectedConfigPurpose];
     NSURL *currentConfigFileURL;

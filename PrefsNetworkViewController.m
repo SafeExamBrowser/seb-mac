@@ -37,6 +37,7 @@
 
 #import "PrefsNetworkViewController.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
+#import "SEBUIUserDefaultsController.h"
 #import "SEBKeychainManager.h"
 #import "Constants.h"
 
@@ -213,6 +214,53 @@
         [chooseIdentity selectItemAtIndex:0];
         [chooseIdentity synchronizeTitleAndSelectedItem];
     }
+}
+
+
+#pragma mark -
+#pragma mark Proxy Types TableView
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+//    NSLog(@"Num of rows---- %ld", [names count]);
+    
+    return [[[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_proxyProtocols] count];
+}
+
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    if ([[tableColumn identifier] isEqualTo:@"keyName"]) {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        NSDictionary *proxyDict = [[[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_proxyProtocols] objectAtIndex:row];
+        NSString *key = [proxyDict objectForKey:@"keyName"];
+        NSMutableDictionary *proxies = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_proxies"];
+        id proxyEnabled = [proxies valueForKey:key];
+        return proxyEnabled;
+
+//        return [[[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_proxyProtocols] objectAtIndex:row];
+    }
+//    else if ([[tableColumn identifier] isEqualTo:@"check"]) {
+//        
+//        return [states objectAtIndex:row];
+//    }
+//    else if ([[tableColumn identifier] isEqualTo:@"states"]) {
+//        return [states objectAtIndex:row];
+//    }
+    return 0;
+    
+    
+}
+
+- (void)tableView:(NSTableView *)tableView setObjectValue:(id)value forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+//    [states replaceObjectAtIndex:row withObject:value];
+    if ([[tableColumn identifier] isEqualTo:@"keyName"]) {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        NSDictionary *proxyDict = [[[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_proxyProtocols] objectAtIndex:row];
+        NSString *key = [proxyDict objectForKey:@"keyName"];
+        NSMutableDictionary *proxies = [NSMutableDictionary dictionaryWithDictionary:[preferences secureObjectForKey:@"org_safeexambrowser_SEB_proxies"]];
+        [proxies setObject:value forKey:key];
+        [preferences setSecureObject:proxies forKey:@"org_safeexambrowser_SEB_proxies"];
+    }
+//    [states replaceObjectAtIndex:row withObject:value];
+    [tableView reloadData];
 }
 
 @end

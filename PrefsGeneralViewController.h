@@ -75,6 +75,9 @@
 - (NSString *)identifier;
 - (NSImage *)image;
 
+- (NSString*) compareAdminPasswords;
+- (NSString*) compareQuitPasswords;
+
 //- (void) loadPasswords:(id)sender;
 //- (void) savePasswords:(id)sender;
 
