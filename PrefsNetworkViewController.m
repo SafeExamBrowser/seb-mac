@@ -221,8 +221,6 @@
 #pragma mark Proxy Types TableView
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-//    NSLog(@"Num of rows---- %ld", [names count]);
-    
     return [[[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_proxyProtocols] count];
 }
 
@@ -235,22 +233,13 @@
         id proxyEnabled = [proxies valueForKey:key];
         return proxyEnabled;
 
-//        return [[[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_proxyProtocols] objectAtIndex:row];
     }
-//    else if ([[tableColumn identifier] isEqualTo:@"check"]) {
-//        
-//        return [states objectAtIndex:row];
-//    }
-//    else if ([[tableColumn identifier] isEqualTo:@"states"]) {
-//        return [states objectAtIndex:row];
-//    }
     return 0;
     
     
 }
 
 - (void)tableView:(NSTableView *)tableView setObjectValue:(id)value forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-//    [states replaceObjectAtIndex:row withObject:value];
     if ([[tableColumn identifier] isEqualTo:@"keyName"]) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         NSDictionary *proxyDict = [[[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_proxyProtocols] objectAtIndex:row];
@@ -259,7 +248,6 @@
         [proxies setObject:value forKey:key];
         [preferences setSecureObject:proxies forKey:@"org_safeexambrowser_SEB_proxies"];
     }
-//    [states replaceObjectAtIndex:row withObject:value];
     [tableView reloadData];
 }
 
