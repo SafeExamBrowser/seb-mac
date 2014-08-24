@@ -77,6 +77,8 @@
 
 - (BOOL) usingPrivateDefaults;
 
+- (NSString*) compareSettingsPasswords;
+
 - (void) resetSettingsPasswordFields;
 - (void) resetSettingsIdentity;
 - (void) setSettingsPassword:(NSString *)password isHash:(BOOL)passwordIsHash;

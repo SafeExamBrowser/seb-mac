@@ -200,6 +200,9 @@
     if (![self compareSettingsPasswords]) {
         _currentConfigFilePassword = settingsPassword;
         _currentConfigFileKeyRef = [self.keychainManager getPrivateKeyRefFromIdentityRef:[self getSelectedIdentity]];;
+    } else {
+        // if it's not confirmed properly, then clear the settings password textFields
+        [self resetSettingsPasswordFields];
     }
 }
 

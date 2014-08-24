@@ -130,6 +130,7 @@
     [treeController addChild:self];
 }
 
+#pragma mark -
 #pragma mark Some NSOutlineView data source methods (rest is done using bindings to a NSTreeController)
 
 // To get the "group row" look, we implement this method.
@@ -224,6 +225,8 @@
     return [[[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_proxyProtocols] count];
 }
 
+// Loads the enabled status for each proxy type from UserDefaults
+// and selects/deselects the checkbox in the first column in the tableview for selecting the proxy type
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     if ([[tableColumn identifier] isEqualTo:@"keyName"]) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -239,6 +242,8 @@
     
 }
 
+// Sets/Resets the enabled status in UserDefaults for the proxy type which was selected/deselected
+// with the according checkbox in the proxy type tableview
 - (void)tableView:(NSTableView *)tableView setObjectValue:(id)value forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     if ([[tableColumn identifier] isEqualTo:@"keyName"]) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];

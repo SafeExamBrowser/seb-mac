@@ -361,6 +361,33 @@
     return ![_browserExamKeyBeforeEditing isEqualToData:[preferences secureObjectForKey:@"org_safeexambrowser_currentData"]];
 }
 
+// Check if passwords are confirmed
+- (BOOL) arePasswordsUnconfirmed
+{
+    BOOL passwordIsUnconfirmed = NO;
+    
+    NSString *unconfirmedPassword;
+    if (self.generalVC.compareAdminPasswords) {
+        unconfirmedPassword = NSLocalizedString(@"administrator", nil);
+        [self alertForUnconfirmedPassword:unconfirmedPassword];
+        passwordIsUnconfirmed = YES;
+    }
+    
+    if (self.generalVC.compareQuitPasswords) {
+        unconfirmedPassword = NSLocalizedString(@"quit", nil);
+        [self alertForUnconfirmedPassword:unconfirmedPassword];
+        passwordIsUnconfirmed = YES;
+    }
+    
+    if (self.configFileVC.compareSettingsPasswords) {
+        unconfirmedPassword = NSLocalizedString(@"settings", nil);
+        [self alertForUnconfirmedPassword:unconfirmedPassword];
+        passwordIsUnconfirmed = YES;
+    }
+    
+    return passwordIsUnconfirmed;
+}
+
 // Show alert that the password with passed name string isn't confirmed
 - (void) alertForUnconfirmedPassword:(NSString *)passwordName
 {
@@ -612,13 +639,10 @@
 - (void) savePrefsAs:(BOOL)saveAs fileURLUpdate:(BOOL)fileURLUpdate
 {
     // Check if passwords are confirmed
-    NSString *unconfirmedPassword;
-    if (self.generalVC.compareAdminPasswords) {
-        unconfirmedPassword = NSLocalizedString(@"administrator", nil);
-        [self alertForUnconfirmedPassword:unconfirmedPassword];
+    if ([self arePasswordsUnconfirmed]) {
         return;
     }
-    
+   
     // Get selected config purpose
     sebConfigPurposes configPurpose = [self.configFileVC getSelectedConfigPurpose];
     NSURL *currentConfigFileURL;
