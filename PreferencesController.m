@@ -67,7 +67,11 @@
                                              selector:@selector(showPreferencesWindow:)
                                                  name:@"showPreferencesWindow" object:nil];
     
-
+    // Add an observer for the notification to switch to the Config File prefs pane
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(switchToConfigFilePane:)
+                                                 name:@"switchToConfigFilePane" object:nil];
+    
     [self initPreferencesWindow];
 }
 
@@ -79,7 +83,7 @@
     //    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     //    NSDictionary *privatePreferences = [preferences dictionaryRepresentationSEB];
     self.refreshingPreferences = NO;
-    
+    [[MBPreferencesController sharedController] setSettingsMenu:settingsMenu];
     [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
     [[MBPreferencesController sharedController] openWindow];
     
@@ -130,13 +134,18 @@
     // Post a notification that it was requested to re-open the preferences window
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"showPreferencesWindow" object:self];
-
 }
 
 
 - (void)showPreferencesWindow:(NSNotification *)notification
 {
 	[[MBPreferencesController sharedController] showWindow:self];
+}
+
+
+- (void)switchToConfigFilePane:(NSNotification *)notification
+{
+	[[MBPreferencesController sharedController] changeToModuleWithIdentifier:self.configFileVC.identifier];
 }
 
 
@@ -203,7 +212,9 @@
                 
             case NSAlertDefaultReturn:
                 // Save the current settings data first (also updates the Browser Exam Key)
-                [self savePrefsAs:NO fileURLUpdate:NO];
+                if (![self savePrefsAs:NO fileURLUpdate:NO]) {
+                    return NO;
+                }
                 break;
                 
             case NSAlertOtherReturn:
@@ -421,7 +432,9 @@
                 
             case NSAlertDefaultReturn:
                 // Save the current settings data first
-                [self savePrefsAs:NO fileURLUpdate:NO];
+                if (![self savePrefsAs:NO fileURLUpdate:NO]) {
+                    return;
+                }
                 break;
                 
             case NSAlertOtherReturn:
@@ -448,6 +461,7 @@
                 [self releasePreferencesWindow];
                 [self restoreStoredSettings];
                 [self initPreferencesWindow];
+                // Apply restored settings and restart SEB
                 break;
                 
             case NSAlertSecondButtonReturn:
@@ -488,6 +502,10 @@
         }
     }
     [self closePreferencesWindow:sender];
+    // Post a notification that the preferences window closes
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"preferencesClosed" object:self];
+
     // Post a notification that it was requested to restart SEB with changed settings
 	[[NSNotificationCenter defaultCenter]
      postNotificationName:@"requestRestartNotification" object:self];
@@ -514,7 +532,9 @@
                 
             case NSAlertDefaultReturn:
                 // Save the current settings data first
-                [self savePrefsAs:NO fileURLUpdate:NO];
+                if (![self savePrefsAs:NO fileURLUpdate:NO]) {
+                    return;
+                }
                 break;
                 
             case NSAlertOtherReturn:
@@ -571,7 +591,9 @@
                 
             case NSAlertDefaultReturn:
                 // Save the current settings data first
-                [self savePrefsAs:NO fileURLUpdate:NO];
+                if (![self savePrefsAs:NO fileURLUpdate:NO]) {
+                    return;
+                }
                 break;
                 
             case NSAlertOtherReturn:
@@ -636,11 +658,11 @@
 
 // Method which encrypts and saves current preferences to an encrypted .seb file
 // with parameter indicating if the saved settings file URL should be updated
-- (void) savePrefsAs:(BOOL)saveAs fileURLUpdate:(BOOL)fileURLUpdate
+- (BOOL) savePrefsAs:(BOOL)saveAs fileURLUpdate:(BOOL)fileURLUpdate
 {
     // Check if passwords are confirmed
     if ([self arePasswordsUnconfirmed]) {
-        return;
+        return NO;
     }
    
     // Get selected config purpose
@@ -730,6 +752,7 @@
                           }];
         }
     }
+    return YES;
 }
 
 
@@ -748,8 +771,9 @@
                 
             case NSAlertDefaultReturn:
                 // Save the current settings data first
-                [self savePrefsAs:NO fileURLUpdate:NO];
-                
+                if (![self savePrefsAs:NO fileURLUpdate:NO]) {
+                    return;
+                }
                 // If local client settings are active
                 if (!NSUserDefaults.userDefaultsPrivate) {
                     // Reset the last saved file name
@@ -815,7 +839,9 @@
                 
             case NSAlertDefaultReturn:
                 // Save the current settings data first
-                [self savePrefsAs:NO fileURLUpdate:NO];
+                if (![self savePrefsAs:NO fileURLUpdate:NO]) {
+                    return;
+                }
                 break;
                 
             case NSAlertOtherReturn:
@@ -871,8 +897,9 @@
                 
             case NSAlertDefaultReturn:
                 // Save the current settings data first
-                [self savePrefsAs:NO fileURLUpdate:NO];
-                
+                if (![self savePrefsAs:NO fileURLUpdate:NO]) {
+                    return;
+                }
                 // If local client settings are active
                 if (!NSUserDefaults.userDefaultsPrivate) {
                     // Reset the last saved file name
@@ -944,7 +971,9 @@
                     
                 case NSAlertDefaultReturn:
                     // Save the current settings data first
-                    [self savePrefsAs:NO fileURLUpdate:NO];
+                    if (![self savePrefsAs:NO fileURLUpdate:NO]) {
+                        return;
+                    }
                     break;
                     
                 case NSAlertOtherReturn:

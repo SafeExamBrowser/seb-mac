@@ -1219,7 +1219,7 @@ bool insideMatrix(){
     [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
 
     // Show the About SEB Window
-    [aboutWindow showAboutWindowForSeconds:3];
+    [aboutWindow showAboutWindowForSeconds:1];
 
 //    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 //    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"] == NO) {

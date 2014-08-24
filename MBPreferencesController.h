@@ -90,6 +90,8 @@
 @interface MBPreferencesController : NSWindowController <NSToolbarDelegate> {
 	NSArray *_modules;
 	id<MBPreferencesModule> _currentModule;
+    
+    NSView *progressIndicatorHolder;
 }
 
 /**
@@ -120,6 +122,7 @@
  */
 @property(strong, nonatomic) NSArray *modules;
 @property(strong, nonatomic) NSURL *settingsFileURL;
+@property(strong, nonatomic) NSMenu *settingsMenu;
 
 /**
  * @brief       The preference module that corresponds to the given identifier.
@@ -133,8 +136,11 @@
  */
 - (id<MBPreferencesModule>)moduleForIdentifier:(NSString *)identifier;
 
+- (void)changeToModuleWithIdentifier:(NSString *)identifier;
+- (IBAction)dropDownAction:(id)sender;
+
 - (void) openWindow;
 - (void) unloadNibs;
-- (void)setPreferencesWindowTitle;
+- (void) setPreferencesWindowTitle;
 
 @end

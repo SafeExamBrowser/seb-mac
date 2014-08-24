@@ -25,6 +25,7 @@
 
 #import "MBPreferencesController.h"
 #import "NSWindow+SEBWindow.h"
+#import "DropDownButton.h"
 
 NSString *MBPreferencesSelectionAutosaveKey = @"MBPreferencesSelection";
 
@@ -259,6 +260,15 @@ static MBPreferencesController *sharedPreferencesController = nil;
 	[self _changeToModule:module];
 }
 
+- (void)changeToModuleWithIdentifier:(NSString *)identifier
+{
+	id<MBPreferencesModule> module = [self moduleForIdentifier:identifier];
+	if (!module)
+		return;
+	
+	[self _changeToModule:module];
+}
+
 - (void)_changeToModule:(id<MBPreferencesModule>)module
 {
    // NSView *currentModuleView = [_currentModule view];
@@ -306,6 +316,49 @@ static MBPreferencesController *sharedPreferencesController = nil;
     }
 	[self.window setTitle:[NSString stringWithFormat:@"%@  —  %@", filename, _currentModule.title]];
     [self.window setRepresentedURL:self.settingsFileURL];
+    
+    if (!progressIndicatorHolder) {
+        progressIndicatorHolder = [[NSView alloc] init];
+        
+        DropDownButton *progressIndicator = [[DropDownButton alloc] init];
+        [progressIndicator setButtonType: NSMomentaryPushInButton];
+        [progressIndicator setBezelStyle: NSRoundedDisclosureBezelStyle];
+        [progressIndicator setBordered: NO];
+        [progressIndicator setImage:[NSImage imageNamed:NSImageNameGoRightTemplate]];
+        [progressIndicator setMenu:self.settingsMenu];
+        [progressIndicator sizeToFit];
+//        [progressIndicator setAction:dropDownAction:self];
+        //[progressIndicator setUsesThreadedAnimation:YES];
+        
+        [progressIndicatorHolder addSubview:progressIndicator];
+        [progressIndicatorHolder setFrame:progressIndicator.frame];
+        
+        [self.window addViewToTitleBar:progressIndicatorHolder atRightOffset:5];
+        
+        [progressIndicator setFrame:NSMakeRect(
+                                               
+                                               0.5 * ([progressIndicator superview].frame.size.width - progressIndicator.frame.size.width),
+                                               0.5 * ([progressIndicator superview].frame.size.height - progressIndicator.frame.size.height),
+                                               
+                                               progressIndicator.frame.size.width,
+                                               progressIndicator.frame.size.height
+                                               
+                                               )];
+        
+        [progressIndicator setNextResponder:progressIndicatorHolder];
+        [progressIndicatorHolder setNextResponder:self];
+    }
+
+}
+
+// -------------------------------------------------------------------------------
+//	dropDownAction:sender
+//
+//	User clicked the DropDownButton.
+// -------------------------------------------------------------------------------
+- (IBAction)dropDownAction:(id)sender
+{
+	// Drop down button clicked
 }
 
 @end

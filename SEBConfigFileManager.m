@@ -816,6 +816,9 @@
             switch(answer)
             {
                 case NSAlertDefaultReturn:
+                    // Post a notification to switch to the Config File prefs pane
+                    [[NSNotificationCenter defaultCenter]
+                     postNotificationName:@"switchToConfigFilePane" object:self];
                     // don't save the config data
                     return nil;
                     

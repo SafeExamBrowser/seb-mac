@@ -55,6 +55,8 @@
 
 @interface PreferencesController : NSObject <NSWindowDelegate> {
 
+    IBOutlet NSMenu *settingsMenu;
+    
 @private
     NSDictionary *_settingsBeforeEditing;
     NSURL *_configURLBeforeEditing;
