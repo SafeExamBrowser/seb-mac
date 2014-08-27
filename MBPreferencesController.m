@@ -75,6 +75,7 @@ NSString *MBPreferencesSelectionAutosaveKey = @"MBPreferencesSelection";
 
 - (void)unloadNibs
 {
+    progressIndicatorHolder = nil;
 	self.modules = nil;
     [self.window close];
     self.window = nil;

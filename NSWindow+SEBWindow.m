@@ -109,7 +109,10 @@
     //viewToAdd.frame = NSMakeRect(self.frame.size.width-x-viewToAdd.frame.size.width, [[self contentView] frame].size.height, viewToAdd.frame.size.width, [self heightOfTitleBar]);
 //    viewToAdd.frame = NSMakeRect(self.frame.size.width-x-viewToAdd.frame.size.width, [[[self contentView] superview] frame].size.height - viewToAdd.frame.size.height - 3, viewToAdd.frame.size.width, viewToAdd.frame.size.height);
     
-    CGFloat freeSpaceRightFromTitle = (self.frame.size.width - [NSWindow minFrameWidthWithTitle:self.title styleMask:self.styleMask] + 86) / 2;
+    CGFloat freeSpaceRightFromTitle = (self.frame.size.width
+                                       - [NSWindow minFrameWidthWithTitle:self.title styleMask:self.styleMask]
+                                       + 86
+                                       - 20*(self.representedURL != nil)) / 2;
     
     viewToAdd.frame = NSMakeRect(self.frame.size.width-freeSpaceRightFromTitle+x, [[[self contentView] superview] frame].size.height - viewToAdd.frame.size.height - 3 + y, viewToAdd.frame.size.width, viewToAdd.frame.size.height);
     
@@ -130,7 +133,10 @@
 
 -(void)adjustPositionOfViewInTitleBar:(NSView*)viewToAdjust atRightOffsetToTitle:(CGFloat)x verticalOffset:(CGFloat)y
 {
-    CGFloat freeSpaceRightFromTitle = (self.frame.size.width - [NSWindow minFrameWidthWithTitle:self.title styleMask:self.styleMask] + 86) / 2;
+    CGFloat freeSpaceRightFromTitle = (self.frame.size.width
+                                       - [NSWindow minFrameWidthWithTitle:self.title styleMask:self.styleMask]
+                                       + 86
+                                       - 20*(self.representedURL != nil)) / 2;
     
     viewToAdjust.frame = NSMakeRect(self.frame.size.width-freeSpaceRightFromTitle+x, [[[self contentView] superview] frame].size.height - viewToAdjust.frame.size.height - 3 + y, viewToAdjust.frame.size.width, viewToAdjust.frame.size.height);
     

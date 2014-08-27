@@ -79,6 +79,7 @@
 
 - (void) showPreferences:(id)sender;
 - (BOOL) preferencesAreOpen;
+- (BOOL) usingPrivateDefaults;
 - (void) initPreferencesWindow;
 - (void) releasePreferencesWindow;
 

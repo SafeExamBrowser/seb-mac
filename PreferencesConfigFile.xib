@@ -1243,22 +1243,6 @@ y7bMNcy1zTXNtc42zrbPN8+40DnQutE80b7SP9LB00TTxtRJ1MvVTtXR1lXW2Ndc1+DYZNjo2WzZ8dp2
 					</object>
 					<int key="connectionID">1356</int>
 				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: self.usingPrivateDefaults</string>
-						<reference key="source" ref="425718149"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="425718149"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">enabled: self.usingPrivateDefaults</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">self.usingPrivateDefaults</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">1358</int>
-				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">

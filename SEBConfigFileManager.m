@@ -137,7 +137,6 @@
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
         [prefsController initPreferencesWindow];
         
-        
         return YES; //reading preferences was successful
 
     } else {

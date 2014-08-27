@@ -90,6 +90,7 @@
 {
     // create the menu the popup will use
     NSMenu *popUpMenu = [[self menu] copy];
+//    NSMenu *popUpMenu = [self menu];
     [popUpMenu insertItemWithTitle:@"" action:NULL keyEquivalent:@"" atIndex:0];	// blank item at top
     [popUpCell setMenu:popUpMenu];
     

@@ -139,6 +139,8 @@
 
 - (void)showPreferencesWindow:(NSNotification *)notification
 {
+    [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
+    [[MBPreferencesController sharedController] setPreferencesWindowTitle];
 	[[MBPreferencesController sharedController] showWindow:self];
 }
 
@@ -159,6 +161,11 @@
 
 - (BOOL)preferencesAreOpen {
     return [[MBPreferencesController sharedController].window isVisible];
+}
+
+
+- (BOOL) usingPrivateDefaults {
+    return NSUserDefaults.userDefaultsPrivate;
 }
 
 
@@ -751,8 +758,9 @@
                               }
                           }];
         }
+        return YES;
     }
-    return YES;
+    return NO;
 }
 
 
@@ -778,8 +786,8 @@
                 if (!NSUserDefaults.userDefaultsPrivate) {
                     // Reset the last saved file name
                     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
-                    [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
-                    [[MBPreferencesController sharedController] setPreferencesWindowTitle];
+//                    [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
+//                    [[MBPreferencesController sharedController] setPreferencesWindowTitle];
                 }
                 break;
                 
@@ -873,8 +881,8 @@
     
     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
     
-    [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
-    [[MBPreferencesController sharedController] setPreferencesWindowTitle];
+//    [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
+//    [[MBPreferencesController sharedController] setPreferencesWindowTitle];
     
     // Re-initialize and open preferences window
     [self initPreferencesWindow];
@@ -904,8 +912,8 @@
                 if (!NSUserDefaults.userDefaultsPrivate) {
                     // Reset the last saved file name
                     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
-                    [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
-                    [[MBPreferencesController sharedController] setPreferencesWindowTitle];
+//                    [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
+//                    [[MBPreferencesController sharedController] setPreferencesWindowTitle];
                 }
                 break;
                 
@@ -1040,10 +1048,10 @@
         
     }
     
-    // Set the new settings title in the preferences window
-    [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
-    [[MBPreferencesController sharedController] setPreferencesWindowTitle];
-
+//    // Set the new settings title in the preferences window
+//    [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
+//    [[MBPreferencesController sharedController] setPreferencesWindowTitle];
+//
     // Re-initialize and open preferences window
     [self initPreferencesWindow];
 	[self reopenPreferencesWindow];
@@ -1070,8 +1078,8 @@
     
     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
     
-    [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
-    [[MBPreferencesController sharedController] setPreferencesWindowTitle];
+//    [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
+//    [[MBPreferencesController sharedController] setPreferencesWindowTitle];
 
     // Re-initialize and open preferences window
     [self initPreferencesWindow];
