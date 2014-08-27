@@ -788,9 +788,6 @@ bool insideMatrix(){
 - (void) regainActiveStatus: (id)sender {
 	// hide all other applications if not in debug build setting
     //NSLog(@"regainActiveStatus!");
-#ifdef DEBUG
-    NSLog(@"Regain active status after %@", [sender name]);
-#endif
     /*/ Check if the
     if ([[sender name] isEqualToString:@"NSWorkspaceDidLaunchApplicationNotification"]) {
         NSDictionary *userInfo = [sender userInfo];
@@ -812,6 +809,9 @@ bool insideMatrix(){
 	BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
     if (!allowSwitchToThirdPartyApps) {
 		// if switching to ThirdPartyApps not allowed
+#ifdef DEBUG
+        NSLog(@"Regain active status after %@", [sender name]);
+#endif
 #ifndef DEBUG
 //        [NSApp activateIgnoringOtherApps: YES];
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
@@ -1203,11 +1203,15 @@ bool insideMatrix(){
     [configMenu setHidden:YES];
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
 #ifdef DEBUG
     NSLog(@"Preferences window closed, reopening cap windows.");
 #endif
+
+    // 
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [browserWindow makeKeyAndOrderFront:self];
+
     // Open new covering background windows on all currently available screens
     [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
 	[self coverScreens];
@@ -1215,8 +1219,7 @@ bool insideMatrix(){
     // Switch the kiosk mode on again
     [self setElevateWindowLevels];
     
-    BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
-    [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
+    [self startKioskMode];
 
     // Show the About SEB Window
     [aboutWindow showAboutWindowForSeconds:1];

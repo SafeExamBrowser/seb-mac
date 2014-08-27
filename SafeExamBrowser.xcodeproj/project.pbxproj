@@ -175,6 +175,10 @@
 		69F32DC616D23374003C9502 /* PrefsAppearanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F32DC216D23374003C9502 /* PrefsAppearanceViewController.m */; };
 		69F32DC816D23397003C9502 /* PreferencesAppearance.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69F32DC716D23397003C9502 /* PreferencesAppearance.xib */; };
 		69F32DCA16D23397003C9502 /* PreferencesAppearance.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69F32DC716D23397003C9502 /* PreferencesAppearance.xib */; };
+		69F60FAE19AB7A7E00A5F650 /* MenuTriangleDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F60FAC19AB7A7E00A5F650 /* MenuTriangleDown.png */; };
+		69F60FAF19AB7A7E00A5F650 /* MenuTriangleDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F60FAC19AB7A7E00A5F650 /* MenuTriangleDown.png */; };
+		69F60FB019AB7A7E00A5F650 /* MenuTriangleDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F60FAD19AB7A7E00A5F650 /* MenuTriangleDown@2x.png */; };
+		69F60FB119AB7A7E00A5F650 /* MenuTriangleDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F60FAD19AB7A7E00A5F650 /* MenuTriangleDown@2x.png */; };
 		69F7B5FC14F411FB00FD0761 /* LICENCE in Resources */ = {isa = PBXBuildFile; fileRef = 69A9A22E1369AF9600840AE1 /* LICENCE */; };
 		69F7B5FD14F411FB00FD0761 /* PreferencesGeneral.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FC9057136C9A00009B55CB /* PreferencesGeneral.xib */; };
 		69F7B5FE14F411FB00FD0761 /* PreferencesDownUploads.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FC905C136CA80F009B55CB /* PreferencesDownUploads.xib */; };
@@ -382,6 +386,8 @@
 		69F32DC116D23374003C9502 /* PrefsAppearanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsAppearanceViewController.h; sourceTree = "<group>"; };
 		69F32DC216D23374003C9502 /* PrefsAppearanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsAppearanceViewController.m; sourceTree = "<group>"; };
 		69F32DC716D23397003C9502 /* PreferencesAppearance.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesAppearance.xib; sourceTree = "<group>"; };
+		69F60FAC19AB7A7E00A5F650 /* MenuTriangleDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuTriangleDown.png; sourceTree = "<group>"; };
+		69F60FAD19AB7A7E00A5F650 /* MenuTriangleDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuTriangleDown@2x.png"; sourceTree = "<group>"; };
 		69F684CA143653880091CDA7 /* MyDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDocument.h; sourceTree = "<group>"; };
 		69F684CB143653880091CDA7 /* MyDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDocument.m; sourceTree = "<group>"; };
 		69F684CE1436550F0091CDA7 /* BrowserWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowserWindow.xib; sourceTree = "<group>"; };
@@ -587,6 +593,8 @@
 		69428C94172E5F1D00C87C58 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				69F60FAC19AB7A7E00A5F650 /* MenuTriangleDown.png */,
+				69F60FAD19AB7A7E00A5F650 /* MenuTriangleDown@2x.png */,
 				69428CE1172F284B00C87C58 /* SEBDocumentIcon.icns */,
 				6932C9671191B7FE00688EBB /* SEBicon.icns */,
 				696EB10016CAAFF600707B0F /* ApplicationsIcon.png */,
@@ -893,6 +901,7 @@
 				69903AFE14CD7624007E7DF7 /* BrowserIcon@2x.png in Resources */,
 				69903AFF14CD7624007E7DF7 /* PreferencesBrowser.xib in Resources */,
 				699C540615EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */,
+				69F60FAF19AB7A7E00A5F650 /* MenuTriangleDown.png in Resources */,
 				6943D07C1655054600AB6B1D /* PreferencesExam.xib in Resources */,
 				6992498F16C3AE9C00DF6B53 /* PreferencesConfigFile.xib in Resources */,
 				6992499916C5B5D400DF6B53 /* PreferencesApplications.xib in Resources */,
@@ -908,6 +917,7 @@
 				69F32DCA16D23397003C9502 /* PreferencesAppearance.xib in Resources */,
 				697D078017F1CE2100E3B2A6 /* PreferencesResources.xib in Resources */,
 				69428CCF172F0C1300C87C58 /* SecurityIcon.png in Resources */,
+				69F60FB119AB7A7E00A5F650 /* MenuTriangleDown@2x.png in Resources */,
 				69428CD1172F0C1300C87C58 /* SecurityIcon@2x.png in Resources */,
 				69428CE3172F284B00C87C58 /* SEBDocumentIcon.icns in Resources */,
 				69428CED172F2B5700C87C58 /* sebConfigIcon.png in Resources */,
@@ -936,6 +946,7 @@
 				69F7B60614F411FB00FD0761 /* BrowserIcon@2x.png in Resources */,
 				69F7B60714F411FB00FD0761 /* PreferencesBrowser.xib in Resources */,
 				699C540415EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */,
+				69F60FAE19AB7A7E00A5F650 /* MenuTriangleDown.png in Resources */,
 				6943D07A1655054600AB6B1D /* PreferencesExam.xib in Resources */,
 				6992498D16C3AE9C00DF6B53 /* PreferencesConfigFile.xib in Resources */,
 				6992499716C5B5D400DF6B53 /* PreferencesApplications.xib in Resources */,
@@ -951,6 +962,7 @@
 				69F32DC816D23397003C9502 /* PreferencesAppearance.xib in Resources */,
 				697D077F17F1CE2100E3B2A6 /* PreferencesResources.xib in Resources */,
 				69428CCE172F0C1300C87C58 /* SecurityIcon.png in Resources */,
+				69F60FB019AB7A7E00A5F650 /* MenuTriangleDown@2x.png in Resources */,
 				69428CD0172F0C1300C87C58 /* SecurityIcon@2x.png in Resources */,
 				69428CE2172F284B00C87C58 /* SEBDocumentIcon.icns in Resources */,
 				69428CEC172F2B5700C87C58 /* sebConfigIcon.png in Resources */,

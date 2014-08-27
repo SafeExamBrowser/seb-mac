@@ -320,35 +320,36 @@ static MBPreferencesController *sharedPreferencesController = nil;
     if (!progressIndicatorHolder) {
         progressIndicatorHolder = [[NSView alloc] init];
         
-        DropDownButton *progressIndicator = [[DropDownButton alloc] init];
-        [progressIndicator setButtonType: NSMomentaryPushInButton];
-        [progressIndicator setBezelStyle: NSRoundedDisclosureBezelStyle];
-        [progressIndicator setBordered: NO];
-        [progressIndicator setImage:[NSImage imageNamed:NSImageNameGoRightTemplate]];
-        [progressIndicator setMenu:self.settingsMenu];
-        [progressIndicator sizeToFit];
-//        [progressIndicator setAction:dropDownAction:self];
-        //[progressIndicator setUsesThreadedAnimation:YES];
+        DropDownButton *triangleDropDownButton = [[DropDownButton alloc] init];
+        [triangleDropDownButton setButtonType: NSMomentaryPushInButton];
+        [triangleDropDownButton setBezelStyle: NSInlineBezelStyle];
+        [triangleDropDownButton setBordered: NO];
+        [triangleDropDownButton setImage:[NSImage imageNamed:@"MenuTriangleDown"]];
+        [triangleDropDownButton setMenu:self.settingsMenu];
+        [triangleDropDownButton sizeToFit];
+        [triangleDropDownButton setAction:@selector(dropDownAction:)];
         
-        [progressIndicatorHolder addSubview:progressIndicator];
-        [progressIndicatorHolder setFrame:progressIndicator.frame];
+        [progressIndicatorHolder addSubview:triangleDropDownButton];
+        [progressIndicatorHolder setFrame:triangleDropDownButton.frame];
         
-        [self.window addViewToTitleBar:progressIndicatorHolder atRightOffset:5];
+//        [self.window addViewToTitleBar:progressIndicatorHolder atRightOffset:5];
+        [self.window addViewToTitleBar:progressIndicatorHolder atRightOffsetToTitle:5 verticalOffset:-2];
         
-        [progressIndicator setFrame:NSMakeRect(
+        [triangleDropDownButton setFrame:NSMakeRect(
                                                
-                                               0.5 * ([progressIndicator superview].frame.size.width - progressIndicator.frame.size.width),
-                                               0.5 * ([progressIndicator superview].frame.size.height - progressIndicator.frame.size.height),
+                                               0.5 * ([triangleDropDownButton superview].frame.size.width - triangleDropDownButton.frame.size.width),
+                                               0.5 * ([triangleDropDownButton superview].frame.size.height - triangleDropDownButton.frame.size.height),
                                                
-                                               progressIndicator.frame.size.width,
-                                               progressIndicator.frame.size.height
+                                               triangleDropDownButton.frame.size.width,
+                                               triangleDropDownButton.frame.size.height
                                                
                                                )];
         
-        [progressIndicator setNextResponder:progressIndicatorHolder];
+        [triangleDropDownButton setNextResponder:progressIndicatorHolder];
         [progressIndicatorHolder setNextResponder:self];
+    } else {
+        [self.window adjustPositionOfViewInTitleBar:progressIndicatorHolder atRightOffsetToTitle:5 verticalOffset:-2];
     }
-
 }
 
 // -------------------------------------------------------------------------------
@@ -359,6 +360,9 @@ static MBPreferencesController *sharedPreferencesController = nil;
 - (IBAction)dropDownAction:(id)sender
 {
 	// Drop down button clicked
+#ifdef DEBUG
+    NSLog(@"Drop down button clicked. Sender: %@", sender);
+#endif
 }
 
 @end

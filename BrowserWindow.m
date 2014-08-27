@@ -64,6 +64,13 @@
 }
 
 
+- (void)setTitle:(NSString *)title
+{
+    [super setTitle:title];
+    [self adjustPositionOfViewInTitleBar:progressIndicatorHolder atRightOffsetToTitle:10 verticalOffset:0];
+}
+
+
 //- (NSWindowCollectionBehavior)collectionBehavior {
 //    return NSWindowCollectionBehaviorFullScreenAuxiliary | NSWindowCollectionBehaviorCanJoinAllSpaces;
 ////  return NSWindowCollectionBehaviorFullScreenPrimary;
@@ -295,7 +302,8 @@
         [progressIndicatorHolder setFrame:progressIndicator.frame];
         [progressIndicator startAnimation:self];
         
-        [self addViewToTitleBar:progressIndicatorHolder atRightOffset:5];
+//        [self addViewToTitleBar:progressIndicatorHolder atRightOffset:5];
+        [self addViewToTitleBar:progressIndicatorHolder atRightOffsetToTitle:10 verticalOffset:0];
         
         [progressIndicator setFrame:NSMakeRect(
                                                
@@ -309,6 +317,8 @@
         
         [progressIndicator setNextResponder:progressIndicatorHolder];
         [progressIndicatorHolder setNextResponder:self];
+    } else {
+        [self adjustPositionOfViewInTitleBar:progressIndicatorHolder atRightOffsetToTitle:10 verticalOffset:0];
     }
 }
 

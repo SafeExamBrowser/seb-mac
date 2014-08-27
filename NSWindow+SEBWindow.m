@@ -104,6 +104,48 @@
     [[[self contentView] superview] addSubview:viewToAdd];
 }
 
+-(void)addViewToTitleBar:(NSView*)viewToAdd atRightOffsetToTitle:(CGFloat)x verticalOffset:(CGFloat)y
+{
+    //viewToAdd.frame = NSMakeRect(self.frame.size.width-x-viewToAdd.frame.size.width, [[self contentView] frame].size.height, viewToAdd.frame.size.width, [self heightOfTitleBar]);
+//    viewToAdd.frame = NSMakeRect(self.frame.size.width-x-viewToAdd.frame.size.width, [[[self contentView] superview] frame].size.height - viewToAdd.frame.size.height - 3, viewToAdd.frame.size.width, viewToAdd.frame.size.height);
+    
+    CGFloat freeSpaceRightFromTitle = (self.frame.size.width - [NSWindow minFrameWidthWithTitle:self.title styleMask:self.styleMask] + 86) / 2;
+    
+    viewToAdd.frame = NSMakeRect(self.frame.size.width-freeSpaceRightFromTitle+x, [[[self contentView] superview] frame].size.height - viewToAdd.frame.size.height - 3 + y, viewToAdd.frame.size.width, viewToAdd.frame.size.height);
+    
+    NSUInteger mask = 0;
+    if( x > self.frame.size.width / 2.0 )
+    {
+        mask |= NSViewMaxXMargin;
+    }
+    else
+    {
+        mask |= NSViewMinXMargin;
+    }
+    [viewToAdd setAutoresizingMask:mask | NSViewMinYMargin];
+    //[viewToAdd setAutoresizingMask:mask | NSViewMaxYMargin];
+    
+    [[[self contentView] superview] addSubview:viewToAdd];
+}
+
+-(void)adjustPositionOfViewInTitleBar:(NSView*)viewToAdjust atRightOffsetToTitle:(CGFloat)x verticalOffset:(CGFloat)y
+{
+    CGFloat freeSpaceRightFromTitle = (self.frame.size.width - [NSWindow minFrameWidthWithTitle:self.title styleMask:self.styleMask] + 86) / 2;
+    
+    viewToAdjust.frame = NSMakeRect(self.frame.size.width-freeSpaceRightFromTitle+x, [[[self contentView] superview] frame].size.height - viewToAdjust.frame.size.height - 3 + y, viewToAdjust.frame.size.width, viewToAdjust.frame.size.height);
+    
+    NSUInteger mask = 0;
+    if( x > self.frame.size.width / 2.0 )
+    {
+        mask |= NSViewMaxXMargin;
+    }
+    else
+    {
+        mask |= NSViewMinXMargin;
+    }
+    [viewToAdjust setAutoresizingMask:mask | NSViewMinYMargin];
+}
+
 -(CGFloat)heightOfTitleBar
 {
     NSRect outerFrame = [[[self contentView] superview] frame];

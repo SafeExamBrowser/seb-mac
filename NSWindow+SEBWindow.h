@@ -44,6 +44,10 @@
 
 -(void)addViewToTitleBar:(NSView*)viewToAdd atRightOffset:(CGFloat)x;
 
+-(void)addViewToTitleBar:(NSView*)viewToAdd atRightOffsetToTitle:(CGFloat)x verticalOffset:(CGFloat)y;
+
+-(void)adjustPositionOfViewInTitleBar:(NSView*)viewToAdjust atRightOffsetToTitle:(CGFloat)x verticalOffset:(CGFloat)y;
+
 -(CGFloat)heightOfTitleBar;
 
 @end
