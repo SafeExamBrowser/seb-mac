@@ -454,7 +454,7 @@
         </customObject>
         <customObject id="892" customClass="PreferencesController">
             <connections>
-                <outlet property="settingsMenu" destination="LkZ-vD-zaJ" id="EJ2-k4-nKj"/>
+                <outlet property="settingsMenu" destination="sdD-uM-Hx0" id="mxI-KK-acg"/>
             </connections>
         </customObject>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" id="714" userLabel="Password Dialog">
@@ -601,5 +601,68 @@ This project has been carried out as part of the program "AAA/SWITCH – e-Infra
         <userDefaultsController id="899" customClass="SEBEncryptedUserDefaultsController"/>
         <userDefaultsController id="993" userLabel="SEB User Defaults Controller" customClass="SEBEncryptedUserDefaultsController"/>
         <userDefaultsController id="994"/>
+        <menu title="Settings" id="sdD-uM-Hx0" userLabel="Menu - Popup Menu Settings">
+            <items>
+                <menuItem id="9WS-P0-r7q">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Open…" keyEquivalent="o" id="HGQ-o5-kHC" userLabel="Menu Item - Open…">
+                    <connections>
+                        <action selector="openSEBPrefs:" target="892" id="1ec-0Q-Kbb"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Save" keyEquivalent="s" id="eiW-K5-gGu" userLabel="Menu Item - Save">
+                    <connections>
+                        <action selector="saveSEBPrefs:" target="892" id="q4x-CI-6gx"/>
+                        <binding destination="892" name="enabled" keyPath="self.usingPrivateDefaults" id="ZHQ-mh-TPs"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Save As…" keyEquivalent="S" id="gQN-UT-3wR" userLabel="Menu Item - Save As…">
+                    <connections>
+                        <action selector="saveSEBPrefsAs:" target="892" id="cv4-Tp-6nh"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="RJq-rX-98q"/>
+                <menuItem title="Revert to Defaults" id="aG5-0k-cAL" userLabel="Menu Item - Revert to Defaults">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="revertToDefaultSettings:" target="892" id="ehv-Yr-M1Z"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Revert to Client Settings" id="9NP-zj-EeW" userLabel="Menu Item - Revert to Client Settings">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="revertToLocalClientSettings:" target="892" id="wh8-uL-K45"/>
+                        <binding destination="892" name="enabled" keyPath="self.usingPrivateDefaults" id="hoC-Jo-QqW"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Revert to Last Saved" id="MYP-4t-dpx" userLabel="Menu Item - Revert to Last Saved">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="revertToLastSaved:" target="892" id="VPW-cR-UAN"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="PJ0-7z-LKw"/>
+                <menuItem title="Edit Duplicate" id="8GV-gd-2lK">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="editDuplicate:" target="892" id="3zh-Cv-25s"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Configure Client" id="LTv-Us-Cro">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="configureClient:" target="892" id="T4k-gT-OcK"/>
+                        <binding destination="892" name="enabled" keyPath="self.usingPrivateDefaults" id="Dd4-Gq-5qE"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Apply and Restart" id="Thx-Ic-L6f">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="applyAndRestartSEB:" target="892" id="S71-MA-Cnj"/>
+                    </connections>
+                </menuItem>
+            </items>
+        </menu>
     </objects>
 </document>
