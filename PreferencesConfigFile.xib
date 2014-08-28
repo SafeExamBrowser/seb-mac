@@ -2414,6 +2414,7 @@ y7bMNcy1zTXNtc42zrbPN8+40DnQutE80b7SP9LB00TTxtRJ1MvVTtXR1lXW2Ndc1+DYZNjo2WzZ8dp2
 							<reference ref="175940370"/>
 						</array>
 						<reference key="parent" ref="0"/>
+						<string key="objectName">Config File Preferences</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">3</int>

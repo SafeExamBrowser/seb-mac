@@ -461,7 +461,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="108"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1578"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="715">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="108"/>
@@ -513,12 +513,9 @@ Gw
                             <action selector="cancelEnterPassword:" target="543" id="726"/>
                         </connections>
                     </button>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="962" customClass="SEBTextField">
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="962" customClass="SEBTextField">
                         <rect key="frame" x="17" y="77" width="378" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <constraints>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="1054"/>
-                        </constraints>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Enter password:" id="963">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -527,17 +524,16 @@ Gw
                     </textField>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="962" firstAttribute="leading" secondItem="715" secondAttribute="leading" constant="20" symbolic="YES" id="1022"/>
                     <constraint firstAttribute="trailing" secondItem="718" secondAttribute="trailing" constant="20" symbolic="YES" id="1023"/>
                     <constraint firstItem="716" firstAttribute="leading" secondItem="715" secondAttribute="leading" constant="20" symbolic="YES" id="1024"/>
                     <constraint firstItem="718" firstAttribute="leading" secondItem="719" secondAttribute="trailing" constant="12" symbolic="YES" id="1025"/>
-                    <constraint firstItem="962" firstAttribute="top" secondItem="715" secondAttribute="top" constant="14" id="1026"/>
                     <constraint firstAttribute="trailing" secondItem="716" secondAttribute="trailing" constant="20" symbolic="YES" id="1027"/>
-                    <constraint firstAttribute="trailing" secondItem="962" secondAttribute="trailing" constant="20" symbolic="YES" id="1029"/>
                     <constraint firstAttribute="bottom" secondItem="719" secondAttribute="bottom" constant="12" id="1031"/>
-                    <constraint firstItem="716" firstAttribute="top" secondItem="962" secondAttribute="bottom" constant="12" id="1039"/>
                     <constraint firstItem="719" firstAttribute="top" secondItem="716" secondAttribute="bottom" constant="10" id="1040"/>
                     <constraint firstItem="718" firstAttribute="baseline" secondItem="719" secondAttribute="baseline" id="1052"/>
+                    <constraint firstItem="962" firstAttribute="leading" secondItem="715" secondAttribute="leading" constant="19" id="VAg-UT-PZq"/>
+                    <constraint firstItem="716" firstAttribute="top" secondItem="962" secondAttribute="bottom" constant="12" id="gw1-eL-aRJ"/>
+                    <constraint firstItem="962" firstAttribute="centerX" secondItem="716" secondAttribute="centerX" id="zy5-UP-Uqa"/>
                 </constraints>
             </view>
         </window>
@@ -546,16 +542,17 @@ Gw
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="340" y="419" width="550" height="300"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1578"/>
             <view key="contentView" id="860" customClass="AboutView">
                 <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="870">
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="870">
                         <rect key="frame" x="325" y="15" width="205" height="165"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <constraints>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="165" id="1038"/>
+                            <constraint firstAttribute="height" constant="165" id="LTe-P4-WGh"/>
+                            <constraint firstAttribute="width" constant="201" id="fbt-kn-prC"/>
                         </constraints>
                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" id="871">
                             <font key="font" metaFont="miniSystem"/>
@@ -567,11 +564,11 @@ This project has been carried out as part of the program "AAA/SWITCH – e-Infra
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="872">
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="872">
                         <rect key="frame" x="325" y="196" width="106" height="16"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="100" id="1037"/>
+                            <constraint firstAttribute="width" constant="102" id="rbG-C9-PhJ"/>
                         </constraints>
                         <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="873">
                             <font key="font" metaFont="cellTitle"/>
@@ -581,12 +578,10 @@ This project has been carried out as part of the program "AAA/SWITCH – e-Infra
                     </textField>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="870" secondAttribute="trailing" constant="23" id="1034"/>
-                    <constraint firstItem="872" firstAttribute="top" secondItem="860" secondAttribute="top" constant="88" id="1035"/>
-                    <constraint firstItem="872" firstAttribute="leading" secondItem="870" secondAttribute="leading" id="1036"/>
-                    <constraint firstItem="870" firstAttribute="leading" secondItem="860" secondAttribute="leading" constant="328" id="1043"/>
-                    <constraint firstAttribute="bottom" secondItem="870" secondAttribute="bottom" constant="15" id="1044"/>
-                    <constraint firstItem="870" firstAttribute="top" secondItem="872" secondAttribute="bottom" constant="16" id="1049"/>
+                    <constraint firstItem="872" firstAttribute="top" secondItem="860" secondAttribute="top" constant="88" id="aoC-Eg-7gz"/>
+                    <constraint firstAttribute="trailing" secondItem="870" secondAttribute="trailing" constant="22" id="f8E-um-xv9"/>
+                    <constraint firstItem="870" firstAttribute="top" secondItem="872" secondAttribute="bottom" constant="16" id="gVb-YQ-vDv"/>
+                    <constraint firstItem="872" firstAttribute="leading" secondItem="870" secondAttribute="leading" id="mWD-3A-NxX"/>
                 </constraints>
             </view>
             <connections>

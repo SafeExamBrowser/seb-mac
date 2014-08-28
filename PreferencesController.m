@@ -210,7 +210,6 @@
         // There are unsaved changes
         int answer = [self usavedSettingsAlertWithText:
                       NSLocalizedString(@"Edited settings have unsaved changes.", nil)];
-        ;
         switch(answer)
         {
             case NSAlertAlternateReturn:
@@ -298,7 +297,8 @@
                 case NSAlertDefaultReturn:
                     // Apply edited allow prefs setting while overriding disabling the preferences window for this session
                     // Internal key already is YES (as we are inside the preferences window...)
-                    [preferences setSecureBool:NO forKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"];
+                    [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"];
+                    break;
                     
                 case NSAlertOtherReturn:
                     // Apply edited allow prefs settings without overriding:

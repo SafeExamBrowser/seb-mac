@@ -250,7 +250,7 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_enableF3",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_enableF4",
-                                 [NSNumber numberWithBool:NO],
+                                 [NSNumber numberWithBool:YES],
                                  @"org_safeexambrowser_SEB_enableF5",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_enableF6",

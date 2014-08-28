@@ -43,7 +43,7 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSCustomView" id="381403324">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSButton" id="950945319">
@@ -51,8 +51,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 18}, {614, 18}}</string>
 						<reference key="NSSuperview" ref="381403324"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="310934735">
 							<int key="NSCellFlags">-2080374784</int>
@@ -85,7 +83,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{38, 140}, {594, 17}}</string>
 						<reference key="NSSuperview" ref="381403324"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="697019350"/>
 						<string key="NSReuseIdentifierKey">_NS:3944</string>
 						<bool key="NSEnabled">YES</bool>
@@ -123,7 +120,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{38, 112}, {595, 26}}</string>
 						<reference key="NSSuperview" ref="381403324"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="368450533"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="2185352">
@@ -194,7 +190,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{38, 80}, {594, 18}}</string>
 						<reference key="NSSuperview" ref="381403324"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="950945319"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="404131349">
@@ -219,7 +214,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{353, 162}, {279, 18}}</string>
 						<reference key="NSSuperview" ref="381403324"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="495717156"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="155228431">
@@ -248,7 +242,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{354, 184}, {279, 26}}</string>
 						<reference key="NSSuperview" ref="381403324"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="96116875"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="669020158">
@@ -316,7 +309,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{88, 190}, {262, 17}}</string>
 						<reference key="NSSuperview" ref="381403324"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="166000531"/>
 						<string key="NSAntiCompressionPriority">{250, 750}</string>
 						<bool key="NSEnabled">YES</bool>
@@ -337,7 +329,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 214}, {614, 18}}</string>
 						<reference key="NSSuperview" ref="381403324"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="862120953"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="121967150">
@@ -359,8 +350,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{650, 250}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="545007090"/>
 				<string key="NSClassName">NSView</string>
 			</object>
@@ -1048,7 +1037,7 @@
 							<reference ref="950945319"/>
 						</array>
 						<reference key="parent" ref="0"/>
-						<string key="objectName">Advanced Preferences</string>
+						<string key="objectName">Down/Uploads Preferences</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">10</int>
@@ -1543,59 +1532,7 @@
 			<nil key="sourceID"/>
 			<int key="maxID">289</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">PrefsDownUploadsViewController</string>
-					<string key="superclassName">NSViewController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">chooseDirectory:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">chooseDirectory:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">chooseDirectory:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="chooseDownloadDirectory">NSPopUpButton</string>
-						<string key="downloadDirectory">NSMenuItem</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="chooseDownloadDirectory">
-							<string key="name">chooseDownloadDirectory</string>
-							<string key="candidateClassName">NSPopUpButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="downloadDirectory">
-							<string key="name">downloadDirectory</string>
-							<string key="candidateClassName">NSMenuItem</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/PrefsDownUploadsViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">SEBEncryptedUserDefaultsController</string>
-					<string key="superclassName">NSUserDefaultsController</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/SEBEncryptedUserDefaultsController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">SEBUIUserDefaultsController</string>
-					<string key="superclassName">NSUserDefaultsController</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/SEBUIUserDefaultsController.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<bool key="IBDocument.previouslyAttemptedUpgradeToXcode5">YES</bool>
