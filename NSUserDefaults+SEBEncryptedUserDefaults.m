@@ -199,8 +199,6 @@ static BOOL _usePrivateUserDefaults = NO;
                                  [NSNumber numberWithBool:YES],
                                  @"org_safeexambrowser_SEB_enablePlugIns",
                                  [NSNumber numberWithBool:YES],
-                                 @"org_safeexambrowser_enablePreferencesWindow",
-                                 [NSNumber numberWithBool:YES],
                                  @"org_safeexambrowser_SEB_enableSebBrowser",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_enableURLContentFilter",

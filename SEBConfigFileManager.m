@@ -99,7 +99,7 @@
     if (forEditing || [[sebPreferencesDict valueForKey:@"sebConfigPurpose"] intValue] == sebConfigPurposeStartingExam) {
 
         ///
-        /// If these SEB settings are ment to start an exam
+        /// If these SEB settings are ment to start an exam or we're in editing mode
         ///
         
         // Release preferences window so bindings get synchronized properly with the new loaded values
@@ -115,19 +115,15 @@
 #ifdef DEBUG
         NSLog(@"Private preferences set: %@", privatePreferences);
 #endif
-        // It might be that opening the preferences window isn't allowed in these settings,
-        // but if we're in editing mode, then we need to re-enable opening the prefs window again
-        if (forEditing) {
-            [preferences setSecureBool:YES forKey:@"org_safeexambrowser_enablePreferencesWindow"];
-        } else {
+        if (forEditing == NO) {
             // if not editing reset credentials
             _currentConfigPassword = nil;
             _currentConfigPasswordIsHash = NO;
             _currentConfigKeyRef = nil;
         }
 
-        // If opening the preferences window is allowed
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_enablePreferencesWindow"]) {
+        // If editing mode or opening the preferences window is allowed
+        if (forEditing || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"]) {
             // we store the .seb file password/hash and/or certificate/identity
             [prefsController setCurrentConfigPassword:sebFilePassword];
             [prefsController setCurrentConfigPasswordIsHash:passwordIsHash];
@@ -169,7 +165,7 @@
         }
         
         // If opening the preferences window is allowed
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_enablePreferencesWindow"]) {
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"]) {
             // we store the .seb file password/hash and/or certificate/identity
             [prefsController setCurrentConfigPassword:sebFilePassword];
             [prefsController setCurrentConfigPasswordIsHash:passwordIsHash];
@@ -641,11 +637,6 @@
     // Write values from .seb config file to the local preferences
     for (NSString *key in sebPreferencesDict) {
         id value = [sebPreferencesDict objectForKey:key];
-        if ([key isEqualToString:@"allowPreferencesWindow"]) {
-            [preferences setSecureObject:
-             [[sebPreferencesDict objectForKey:key] copy]
-                                  forKey:@"org_safeexambrowser_enablePreferencesWindow"];
-        }
         NSString *keyWithPrefix = [self prefixKey:key];
         
         // If imported settings are being saved into shared UserDefaults

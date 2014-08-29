@@ -1159,7 +1159,7 @@ bool insideMatrix(){
 
 - (IBAction) openPreferences:(id)sender {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_enablePreferencesWindow"]) {
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"]) {
         if (![self.preferencesController preferencesAreOpen]) {
             // Load admin password from the system's user defaults database
             NSString *hashedAdminPW = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
@@ -1189,7 +1189,7 @@ bool insideMatrix(){
         [self closeCapWindows];
         
         // Show preferences window
-        [self.preferencesController showPreferences:self];
+        [self.preferencesController openPreferencesWindow];
         
         // Show the Config menu (in menu bar)
         [configMenu setHidden:NO];

@@ -43,6 +43,9 @@
 @implementation PreferencesController
 
 
+#pragma mark -
+#pragma mark Property methods, partially used for bindings
+
 // Getter methods for write-only properties
 
 - (NSString *)currentConfigPassword {
@@ -57,6 +60,19 @@
     return nil;
 }
 
+
+- (BOOL)preferencesAreOpen {
+    return [[MBPreferencesController sharedController].window isVisible];
+}
+
+
+- (BOOL) usingPrivateDefaults {
+    return NSUserDefaults.userDefaultsPrivate;
+}
+
+
+#pragma mark -
+#pragma mark Methods for initializing, opening, closing, releasing and re-opening preferences window
 
 - (void)awakeFromNib
 {
@@ -79,9 +95,6 @@
 - (void)initPreferencesWindow
 {
     // Save current settings
-    // Get key/values from private UserDefaults
-    //    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    //    NSDictionary *privatePreferences = [preferences dictionaryRepresentationSEB];
     self.refreshingPreferences = NO;
     [[MBPreferencesController sharedController] setSettingsMenu:settingsMenu];
     [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
@@ -119,7 +132,8 @@
 }
 
 
-- (void)showPreferences:(id)sender
+// Public method called to open the preferences Window
+- (void)openPreferencesWindow
 {
     // Store current settings (before the probably get edited)
     [self storeCurrentSettings];
@@ -129,6 +143,22 @@
 }
 
 
+// Method called to programmatically close the preferences window
+- (void) closePreferencesWindow
+{
+    [[MBPreferencesController sharedController].window orderOut:self];
+}
+
+
+// Releases preferences window so after reopening bindings get synchronized properly with new loaded values
+- (void)releasePreferencesWindow
+{
+    self.refreshingPreferences = YES;
+    [[MBPreferencesController sharedController] unloadNibs];
+}
+
+
+// Method called to reopen the closed preferences window programmatically
 - (void)reopenPreferencesWindow
 {
     // Post a notification that it was requested to re-open the preferences window
@@ -137,6 +167,7 @@
 }
 
 
+// Reopen the closed preferences window after the according notification
 - (void)showPreferencesWindow:(NSNotification *)notification
 {
     [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
@@ -145,42 +176,15 @@
 }
 
 
+// Switch to the Config File prefs pane after the according notification
 - (void)switchToConfigFilePane:(NSNotification *)notification
 {
 	[[MBPreferencesController sharedController] changeToModuleWithIdentifier:self.configFileVC.identifier];
 }
 
 
-- (void) closePreferencesWindow:(id)sender {
-//    // Save passwords in General pane
-//	[self.generalVC windowWillClose:nil];
-    
-    [[MBPreferencesController sharedController].window orderOut:self];
-}
-
-
-- (BOOL)preferencesAreOpen {
-    return [[MBPreferencesController sharedController].window isVisible];
-}
-
-
-- (BOOL) usingPrivateDefaults {
-    return NSUserDefaults.userDefaultsPrivate;
-}
-
-
-// Executed when preferences window is about to be closed
-- (void)windowWillClose:(NSNotification *)notification
-{
-    if (!self.refreshingPreferences) {
-//        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-        // Post a notification that the preferences window closes
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"preferencesClosed" object:self];
-    }
-    self.refreshingPreferences = NO;
-}
-
+#pragma mark -
+#pragma mark NSWindowDelegate methods and helper method for closing preferences window
 
 // Executed to decide if window should close
 - (BOOL)windowShouldClose:(id)sender
@@ -195,6 +199,19 @@
 }
 
 
+// Executed when preferences window is about to be closed
+- (void)windowWillClose:(NSNotification *)notification
+{
+    if (!self.refreshingPreferences) {
+        //        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+        // Post a notification that the preferences window closes
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"preferencesClosed" object:self];
+    }
+    self.refreshingPreferences = NO;
+}
+
+
 // Executed when preferences window should be closed, checking first for unsaved settings,
 // if edited settings should be applied – only if passed flag is YES
 // with restarting SEB or not – this question only appears if flag is YES (otherwise restart anyways)
@@ -205,30 +222,41 @@
     // Save settings in the General pane
     [self.generalVC windowWillClose:nil];
     
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
     // If private settings are active, check if those current settings have unsaved changes
-    if (NSUserDefaults.userDefaultsPrivate && [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
+    if (NSUserDefaults.userDefaultsPrivate && [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO]) {
         // There are unsaved changes
-        int answer = [self usavedSettingsAlertWithText:
+        int answer = [self unsavedSettingsAlertWithText:
                       NSLocalizedString(@"Edited settings have unsaved changes.", nil)];
         switch(answer)
         {
-            case NSAlertAlternateReturn:
-                // Cancel: Don't close preferences
-                return NO;
-                
-            case NSAlertDefaultReturn:
-                // Save the current settings data first (also updates the Browser Exam Key)
+            case NSAlertFirstButtonReturn:
+            {
+                // Save the current settings data first (this also updates the Browser Exam Key)
                 if (![self savePrefsAs:NO fileURLUpdate:NO]) {
+                    // Saving failed: Abort closing the prefs window
                     return NO;
                 }
                 break;
+            }
                 
-            case NSAlertOtherReturn:
-                // don't save the config data, just re-generate Browser Exam Key
-                [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+            case NSAlertSecondButtonReturn:
+            {
+                // Don't save config data
                 break;
+            }
+
+            case NSAlertThirdButtonReturn:
+            {
+                // Cancel: Don't close preferences, restore old Browser Exam Key
+                [preferences setSecureObject:_browserExamKeyBeforeEditing forKey:@"org_safeexambrowser_currentData"];
+                return NO;
+            }
         }
+
     } else {
+        
         // If local settings active: Just re-generate Browser Exam Key
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
     }
@@ -249,6 +277,7 @@
             switch(answer)
             {
                 case NSAlertFirstButtonReturn:
+                {
                     // Don't apply edited settings: Restore previous settings
                     // Release preferences window so bindings get synchronized properly with the new loaded values
                     [self releasePreferencesWindow];
@@ -258,54 +287,60 @@
                     // (as windowWillClose will not be executed anymore because we closed it manually)
                     [[NSNotificationCenter defaultCenter]
                      postNotificationName:@"preferencesClosed" object:self];
-
+                    
                     return YES;
+                }
                     
                 case NSAlertSecondButtonReturn:
+                {
                     // Apply edited settings and restart SEB
+                    restartSEB = YES;
                     break;
+                }
                     
                 case NSAlertThirdButtonReturn:
+                {
                     // Apply edited settings without restarting SEB
                     restartSEB = NO;
                     break;
+                }
                     
                 case NSAlertThirdButtonReturn+1:
-                    // Cancel: Don't close preferences
+                {
+                    // Cancel: Don't close preferences, restore old Browser Exam Key
+                    [preferences setSecureObject:_browserExamKeyBeforeEditing forKey:@"org_safeexambrowser_currentData"];
                     return NO;
+                }
             }
         }
-        
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         
         // If opening the preferences window isn't allowed in these settings,
         // which is dangerous when being applied, we confirm the user knows what he's doing
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"] == NO) {
-            NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Opening Preferences Disabled", nil)
-                                                defaultButton:NSLocalizedString(@"Override", nil)
-                                              alternateButton:NSLocalizedString(@"Cancel", nil)
-                                                  otherButton:NSLocalizedString(@"Apply Anyways", nil)
-                                    informativeTextWithFormat:NSLocalizedString(@"These new settings have the option \"Allow to open preferences window on client\" disabled. If you apply them, you won't be able to open preferences anymore. Are you sure you want this? Otherwise you can override the option for this session.", nil)];
-            [newAlert setAlertStyle:NSCriticalAlertStyle];
-            int answer = [newAlert runModal];
+            int answer = [self alertForDisabledPreferences];
             switch(answer)
             {
-                case NSAlertAlternateReturn:
-                    // Cancel: Don't apply new settings
-                    return NO;
-                    
-                case NSAlertDefaultReturn:
-                    // Apply edited allow prefs setting while overriding disabling the preferences window for this session
-                    // Internal key already is YES (as we are inside the preferences window...)
+                case NSAlertFirstButtonReturn:
+                {
+                    // Apply edited allow prefs setting while overriding disabling the preferences window for this session/resetting it
                     [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"];
+                    // Re-generate Browser Exam Key
+                    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
                     break;
+                }
                     
-                case NSAlertOtherReturn:
-                    // Apply edited allow prefs settings without overriding:
-                    // we need to set the .seb key and the internal key forbidding opening preferences
-                    [preferences setSecureBool:NO forKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"];
-                    [preferences setSecureBool:NO forKey:@"org_safeexambrowser_enablePreferencesWindow"];
+                case NSAlertSecondButtonReturn:
+                {
+                    // Apply edited allow prefs settings without overriding
                     break;
+                }
+                    
+                case NSAlertThirdButtonReturn:
+                {
+                    // Cancel: Don't apply new settings, don't close prefs, restore old Browser Exam Key
+                    [preferences setSecureObject:_browserExamKeyBeforeEditing forKey:@"org_safeexambrowser_currentData"];
+                    return NO;
+                }
             }
         }
         if (restartSEB) {
@@ -318,19 +353,8 @@
 }
 
 
-//- (BOOL)windowShouldClose:(id)sender
-//{
-//    return YES;
-//}
-
-- (void)releasePreferencesWindow
-{
-//    self.SEBConfigVC.preferencesController = nil;
-//    self.SEBConfigVC = nil;
-    self.refreshingPreferences = YES;
-    [[MBPreferencesController sharedController] unloadNibs];
-}
-
+#pragma mark -
+#pragma mark Helper methods
 
 - (void) setConfigFileCredentials
 {
@@ -416,6 +440,46 @@
 }
 
 
+- (int) alertForDisabledPreferences
+{
+    NSString *informativeText = NSUserDefaults.userDefaultsPrivate
+    ? NSLocalizedString(@"These settings have the option \"Allow to open preferences window on client\" disabled, which will prevent to open preferences. Are you sure you want to apply this? Otherwise you can override the option for the current session.", nil)
+    : NSLocalizedString(@"Local client settings have the option \"Allow to open preferences window on client\" disabled, which will prevent to open preferences anymore (even when you restart SEB!). Are you sure you want to apply this? Otherwise you can reset this option.", nil);
+    
+    NSString *defaultButtonText = NSUserDefaults.userDefaultsPrivate
+    ? NSLocalizedString(@"Override", nil)
+    : NSLocalizedString(@"Reset", nil);
+    
+    NSAlert *newAlert = [[NSAlert alloc] init];
+    [newAlert setMessageText:NSLocalizedString(@"Unsaved Changes", nil)];
+    [newAlert setInformativeText:informativeText];
+    [newAlert addButtonWithTitle:defaultButtonText];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Apply Anyways", nil)];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [newAlert setAlertStyle:NSCriticalAlertStyle];
+    return [newAlert runModal];
+}
+
+
+- (int) unsavedSettingsAlert
+{
+    return [self unsavedSettingsAlertWithText:
+            NSLocalizedString(@"Current settings have unsaved changes. If you don't save those first, you will loose them.", nil)];
+}
+
+- (int) unsavedSettingsAlertWithText:(NSString *)informativeText
+{
+    NSAlert *newAlert = [[NSAlert alloc] init];
+    [newAlert setMessageText:NSLocalizedString(@"Unsaved Changes", nil)];
+    [newAlert setInformativeText:informativeText];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Save Changes", nil)];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Don't Save", nil)];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [newAlert setAlertStyle:NSWarningAlertStyle];
+    return [newAlert runModal];
+}
+
+
 #pragma mark -
 #pragma mark IBActions: Methods for quitting, restarting SEB,
 #pragma mark opening, saving, reverting and using edited settings
@@ -424,29 +488,42 @@
 - (IBAction) restartSEB:(id)sender {
 
     self.refreshingPreferences = YES;  //prevents that new page is reloaded before restarting
+    
     // Save passwords in General pane
 	[self.generalVC windowWillClose:nil];
 
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSData *oldBrowserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
+    
     // If private settings are active, check if those current settings have unsaved changes
-    if (NSUserDefaults.userDefaultsPrivate && [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
+    if (NSUserDefaults.userDefaultsPrivate && [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO]) {
         // There are unsaved changes
-        int answer = [self usavedSettingsAlert];
+        int answer = [self unsavedSettingsAlertWithText:
+                      NSLocalizedString(@"Edited settings have unsaved changes.", nil)];
         switch(answer)
         {
-            case NSAlertAlternateReturn:
-                // Cancel: Don't restart
-                return;
-                
-            case NSAlertDefaultReturn:
-                // Save the current settings data first
+            case NSAlertFirstButtonReturn:
+            {
+                // Save the current settings data first (this also updates the Browser Exam Key)
                 if (![self savePrefsAs:NO fileURLUpdate:NO]) {
+                    // Saving failed: Abort restarting
                     return;
                 }
                 break;
+            }
                 
-            case NSAlertOtherReturn:
-                // don't save the config data
+            case NSAlertSecondButtonReturn:
+            {
+                // Don't save config data
                 break;
+            }
+                
+            case NSAlertThirdButtonReturn:
+            {
+                // Cancel: Don't restart, restore old Browser Exam Key
+                [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
+                return;
+            }
         }
     }
 
@@ -463,6 +540,7 @@
         switch(answer)
         {
             case NSAlertFirstButtonReturn:
+            {
                 // Don't apply edited settings: Restore previous settings
                 // Release preferences window so bindings get synchronized properly with the new loaded values
                 [self releasePreferencesWindow];
@@ -470,14 +548,20 @@
                 [self initPreferencesWindow];
                 // Apply restored settings and restart SEB
                 break;
+            }
                 
             case NSAlertSecondButtonReturn:
+            {
                 // Apply edited settings and restart SEB
                 break;
+            }
                 
             case NSAlertThirdButtonReturn:
-                // Cancel: Don't close preferences
+            {
+                // Cancel: Don't restart, restore old Browser Exam Key
+                [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
                 return;
+            }
         }
         
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -485,30 +569,34 @@
         // If opening the preferences window isn't allowed in these settings,
         // which is dangerous when being applied, we confirm the user knows what he's doing
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"] == NO) {
-            NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Opening Preferences Disabled", nil)
-                                                defaultButton:NSLocalizedString(@"Override", nil)
-                                              alternateButton:NSLocalizedString(@"Cancel", nil)
-                                                  otherButton:NSLocalizedString(@"Apply Anyways", nil)
-                                    informativeTextWithFormat:NSLocalizedString(@"These new settings have the option \"Allow to open preferences window on client\" disabled. If you apply them, you won't be able to open preferences anymore. Are you sure you want this? Otherwise you can override the option.", nil)];
-            [newAlert setAlertStyle:NSCriticalAlertStyle];
-            int answer = [newAlert runModal];
+            int answer = [self alertForDisabledPreferences];
             switch(answer)
             {
-                case NSAlertAlternateReturn:
-                    // Cancel: Don't apply new settings
-                    return;
-                    
-                case NSAlertDefaultReturn:
-                    // Apply edited settings while overriding disabling the preferences window
+                case NSAlertFirstButtonReturn:
+                {
+                    // Apply edited allow prefs setting while overriding disabling the preferences window for this session/resetting it
                     [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"];
-                    
-                case NSAlertOtherReturn:
-                    // Apply edited settings without overriding
+                    // Re-generate Browser Exam Key
+                    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
                     break;
+                }
+                    
+                case NSAlertSecondButtonReturn:
+                {
+                    // Apply edited allow prefs settings without overriding
+                    break;
+                }
+                    
+                case NSAlertThirdButtonReturn:
+                {
+                    // Cancel: Don't apply new settings, don't restart, restore old Browser Exam Key
+                    [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
+                    return;
+                }
             }
         }
     }
-    [self closePreferencesWindow:sender];
+    [self closePreferencesWindow];
     // Post a notification that the preferences window closes
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"preferencesClosed" object:self];
@@ -524,61 +612,74 @@
 - (IBAction) quitSEB:(id)sender {
 
     self.refreshingPreferences = YES;  //prevents that new page is reloaded before quitting
+    
     // Save passwords in General pane
 	[self.generalVC windowWillClose:nil];
 
-    // If private settings are active, check if those current settings have unsaved changes
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    /// If private settings are active, check if those current settings have unsaved changes
+    
     if (NSUserDefaults.userDefaultsPrivate && [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
         // There are unsaved changes
-        int answer = [self usavedSettingsAlert];
+        int answer = [self unsavedSettingsAlert];
         switch(answer)
         {
-            case NSAlertAlternateReturn:
-                // Cancel: Don't quit
-                return;
-                
-            case NSAlertDefaultReturn:
-                // Save the current settings data first
+            case NSAlertFirstButtonReturn:
+            {
+                // Save the current settings data first (this also updates the Browser Exam Key)
                 if (![self savePrefsAs:NO fileURLUpdate:NO]) {
+                    // Saving failed: Abort restarting
                     return;
                 }
                 break;
+            }
                 
-            case NSAlertOtherReturn:
-                // don't save the config data
+            case NSAlertSecondButtonReturn:
+            {
+                // Don't save config data
                 break;
+            }
+                
+            case NSAlertThirdButtonReturn:
+            {
+                // Cancel: Don't restart
+                return;
+            }
         }
+
     } else {
         
-        // Local client settings are active
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        /// Local client settings are active
+        
         // If opening the preferences window isn't allowed in these settings,
         // which is dangerous when being applied, we confirm the user knows what he's doing
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"] == NO) {
-            NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Opening Preferences Disabled", nil)
-                                                defaultButton:NSLocalizedString(@"Override", nil)
-                                              alternateButton:NSLocalizedString(@"Cancel", nil)
-                                                  otherButton:NSLocalizedString(@"Apply Anyways", nil)
-                                    informativeTextWithFormat:NSLocalizedString(@"Local client settings have the option \"Allow to open preferences window on client\" disabled. If you apply them, you won't be able to open preferences anymore when you start SEB next time. Are you sure you want this? Otherwise you can override this option.", nil)];
-            [newAlert setAlertStyle:NSCriticalAlertStyle];
-            int answer = [newAlert runModal];
+            int answer = [self alertForDisabledPreferences];
             switch(answer)
             {
-                case NSAlertAlternateReturn:
-                    // Cancel: Don't apply new settings
-                    return;
-                    
-                case NSAlertDefaultReturn:
-                    // Apply edited settings while overriding disabling the preferences window
+                case NSAlertFirstButtonReturn:
+                {
+                    // Apply edited allow prefs setting while overriding disabling the preferences window for this session/resetting it
                     [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"];
-                    
-                case NSAlertOtherReturn:
-                    // Apply edited settings without overriding
                     break;
+                }
+                    
+                case NSAlertSecondButtonReturn:
+                {
+                    // Apply edited allow prefs settings without overriding
+                    break;
+                }
+                    
+                case NSAlertThirdButtonReturn:
+                {
+                    // Cancel: Don't apply new settings, don't quit
+                    return;
+                }
             }
         }
     }
-    [self closePreferencesWindow:sender];
+    [self closePreferencesWindow];
 
 	[[NSNotificationCenter defaultCenter]
      postNotificationName:@"requestQuitNotification" object:self];
@@ -589,23 +690,31 @@
     // If private settings are active, check if those current settings have unsaved changes
     if (NSUserDefaults.userDefaultsPrivate && [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
         // There are unsaved changes
-        int answer = [self usavedSettingsAlert];
+        int answer = [self unsavedSettingsAlert];
         switch(answer)
         {
-            case NSAlertAlternateReturn:
-                // Cancel: Don't open new settings
-                return;
-                
-            case NSAlertDefaultReturn:
+            case NSAlertFirstButtonReturn:
+            {
                 // Save the current settings data first
+                // this also updates the Browser Exam Key, we save it in case we need to cancel
                 if (![self savePrefsAs:NO fileURLUpdate:NO]) {
+                    // Saving failed: Abort restarting
                     return;
                 }
                 break;
+            }
                 
-            case NSAlertOtherReturn:
-                // don't save the config data
+            case NSAlertSecondButtonReturn:
+            {
+                // Don't save config data
                 break;
+            }
+                
+            case NSAlertThirdButtonReturn:
+            {
+                // Cancel: Don't open settings
+                return;
+            }
         }
     }
     
@@ -676,6 +785,11 @@
     sebConfigPurposes configPurpose = [self.configFileVC getSelectedConfigPurpose];
     NSURL *currentConfigFileURL;
     
+    // Save current Browser Exam Key and its salt for the case saving fails
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSData *oldBrowserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
+    NSData *oldBrowserExamKeySalt = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_examKeySalt"];
+    
     /// Check if local client or private settings (UserDefauls) are active
     ///
     if (!NSUserDefaults.userDefaultsPrivate) {
@@ -710,6 +824,9 @@
                 NSRunAlertPanel(NSLocalizedString(@"Writing Settings Failed", nil),
                                 NSLocalizedString(@"Make sure you have write permissions in the chosen directory", nil),
                                 NSLocalizedString(@"OK", nil), nil, nil);
+                [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
+                [preferences setSecureObject:oldBrowserExamKeySalt forKey:@"org_safeexambrowser_SEB_examKeySalt"];
+                return NO;
             } else if (fileURLUpdate) {
                 [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigFileURL];
                 [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
@@ -737,10 +854,13 @@
                                   // Write the contents in the new format.
                                   if (![encryptedSebData writeToURL:prefsFileURL options:NSDataWritingAtomic error:&error]) {
                                       //if (![filteredPrefsDict writeToURL:prefsFileURL atomically:YES]) {
-                                      // If the prefs file couldn't be written to app bundle
+                                      // If the prefs file couldn't be written
                                       NSRunAlertPanel(NSLocalizedString(@"Writing Settings Failed", nil),
                                                       NSLocalizedString(@"Make sure you have write permissions in the chosen directory", nil),
                                                       NSLocalizedString(@"OK", nil), nil, nil);
+                                      [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
+                                      [preferences setSecureObject:oldBrowserExamKeySalt forKey:@"org_safeexambrowser_SEB_examKeySalt"];
+
                                   } else {
                                       // Prefs got successfully written to file
                                       // If "Save As" or the last file didn't had a full path (wasn't stored on drive):
@@ -760,6 +880,9 @@
         }
         return YES;
     }
+    // This is only executed when there would be an error encrypting the SEB settings
+    [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
+    [preferences setSecureObject:oldBrowserExamKeySalt forKey:@"org_safeexambrowser_SEB_examKeySalt"];
     return NO;
 }
 
@@ -770,30 +893,35 @@
     // Check if current settings have unsaved changes
     if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
         // There are unsaved changes
-        int answer = [self usavedSettingsAlert];
+        int answer = [self unsavedSettingsAlert];
         switch(answer)
         {
-            case NSAlertAlternateReturn:
-                // Cancel: Don't revert to default settings
-                return;
-                
-            case NSAlertDefaultReturn:
+            case NSAlertFirstButtonReturn:
+            {
                 // Save the current settings data first
                 if (![self savePrefsAs:NO fileURLUpdate:NO]) {
+                    // Saving failed: Abort restarting
                     return;
                 }
                 // If local client settings are active
                 if (!NSUserDefaults.userDefaultsPrivate) {
                     // Reset the last saved file name
                     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
-//                    [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
-//                    [[MBPreferencesController sharedController] setPreferencesWindowTitle];
                 }
                 break;
+            }
                 
-            case NSAlertOtherReturn:
-                // don't save the config data
+            case NSAlertSecondButtonReturn:
+            {
+                // Don't save config data
                 break;
+            }
+                
+            case NSAlertThirdButtonReturn:
+            {
+                // Cancel: Don't revert to default settings
+                return;
+            }
         }
     }
     
@@ -813,12 +941,8 @@
         [self releasePreferencesWindow];
     }
     
-    // Get default SEB settings
-//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-//    NSDictionary *defaultSettings = [preferences sebDefaultSettings];
+    // Write just default SEB settings to UserDefaults
     NSDictionary *emptySettings = [NSDictionary dictionary];
-    
-    // Write values from .seb config file to the local preferences (shared UserDefaults)
     [self.configFileManager storeIntoUserDefaults:emptySettings];
     
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
@@ -838,23 +962,30 @@
     // Check if current settings have unsaved changes
     if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
         // There are unsaved changes
-        int answer = [self usavedSettingsAlert];
+        int answer = [self unsavedSettingsAlert];
         switch(answer)
         {
-            case NSAlertAlternateReturn:
-                // Cancel: Don't revert to local client settings
-                return;
-                
-            case NSAlertDefaultReturn:
-                // Save the current settings data first
+            case NSAlertFirstButtonReturn:
+            {
+                // Save the current settings data first (this also updates the Browser Exam Key)
                 if (![self savePrefsAs:NO fileURLUpdate:NO]) {
+                    // Saving failed: Abort reverting to local client settings
                     return;
                 }
                 break;
+            }
                 
-            case NSAlertOtherReturn:
-                // don't save the config data
+            case NSAlertSecondButtonReturn:
+            {
+                // Don't save config data
                 break;
+            }
+                
+            case NSAlertThirdButtonReturn:
+            {
+                // Cancel: Don't revert to local client settings
+                return;
+            }
         }
     }
 
@@ -881,45 +1012,47 @@
     
     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
     
-//    [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
-//    [[MBPreferencesController sharedController] setPreferencesWindowTitle];
-    
     // Re-initialize and open preferences window
     [self initPreferencesWindow];
 	[self reopenPreferencesWindow];
 }
 
 
-// Action reverting preferences to the last saved or opend file
+// Action reverting preferences to the last saved or opened file
 - (IBAction) revertToLastSaved:(id)sender
 {
     // Check if current settings have unsaved changes
     if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
         // There are unsaved changes
-        int answer = [self usavedSettingsAlert];
+        int answer = [self unsavedSettingsAlert];
         switch(answer)
         {
-            case NSAlertAlternateReturn:
-                // Cancel: Don't create a duplicate
-                return;
-                
-            case NSAlertDefaultReturn:
-                // Save the current settings data first
+            case NSAlertFirstButtonReturn:
+            {
+                // Save the current settings data first (this also updates the Browser Exam Key)
                 if (![self savePrefsAs:NO fileURLUpdate:NO]) {
+                    // Saving failed: Abort reverting
                     return;
                 }
                 // If local client settings are active
                 if (!NSUserDefaults.userDefaultsPrivate) {
                     // Reset the last saved file name
                     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
-//                    [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
-//                    [[MBPreferencesController sharedController] setPreferencesWindowTitle];
                 }
                 break;
+            }
                 
-            case NSAlertOtherReturn:
-                // don't save the config data
+            case NSAlertSecondButtonReturn:
+            {
+                // Don't save config data
                 break;
+            }
+                
+            case NSAlertThirdButtonReturn:
+            {
+                // Cancel: Don't revert to last saved/opened file
+                return;
+            }
         }
     }
     
@@ -945,8 +1078,6 @@
                 
                 [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
                 [self reopenPreferencesWindow];
-                
-                //[self requestedRestart:nil];
             }
         }
     } else {
@@ -970,23 +1101,30 @@
         // Check if current settings have unsaved changes
         if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
             // There are unsaved changes
-            int answer = [self usavedSettingsAlert];
+            int answer = [self unsavedSettingsAlert];
             switch(answer)
             {
-                case NSAlertAlternateReturn:
-                    // Cancel: Don't create a duplicate
-                    return;
-                    
-                case NSAlertDefaultReturn:
-                    // Save the current settings data first
+                case NSAlertFirstButtonReturn:
+                {
+                    // Save the current settings data first (this also updates the Browser Exam Key)
                     if (![self savePrefsAs:NO fileURLUpdate:NO]) {
+                        // Saving failed: Abort duplicating
                         return;
                     }
                     break;
+                }
                     
-                case NSAlertOtherReturn:
-                    // don't save the config data
+                case NSAlertSecondButtonReturn:
+                {
+                    // Don't save config data
                     break;
+                }
+                    
+                case NSAlertThirdButtonReturn:
+                {
+                    // Cancel: Don't create a duplicate
+                    return;
+                }
             }
         }
         
@@ -1045,13 +1183,8 @@
 #ifdef DEBUG
         NSLog(@"Private preferences set: %@", privatePreferences);
 #endif
-        
     }
     
-//    // Set the new settings title in the preferences window
-//    [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
-//    [[MBPreferencesController sharedController] setPreferencesWindowTitle];
-//
     // Re-initialize and open preferences window
     [self initPreferencesWindow];
 	[self reopenPreferencesWindow];
@@ -1078,9 +1211,6 @@
     
     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
     
-//    [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
-//    [[MBPreferencesController sharedController] setPreferencesWindowTitle];
-
     // Re-initialize and open preferences window
     [self initPreferencesWindow];
 	[self reopenPreferencesWindow];
@@ -1091,30 +1221,14 @@
 - (IBAction) applyAndRestartSEB:(id)sender
 {
     // Close preferences window (if user doesn't cancel it) but without asking to apply settings
+    // this also triggers a SEB restart
     if ([self conditionallyClosePreferencesWindowAskToApply:NO]) {
-        [[MBPreferencesController sharedController].window orderOut:self];
-        // Post a notification that it was requested to restart SEB with changed settings
+        [self closePreferencesWindow];
+        // Post a notification that the preferences window closes
         [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"requestRestartNotification" object:self];
+         postNotificationName:@"preferencesClosed" object:self];
     }
 }
 
-
-- (int) usavedSettingsAlert
-{
-    return [self usavedSettingsAlertWithText:
-            NSLocalizedString(@"Current settings have unsaved changes. If you don't save those first, you will loose them.", nil)];
-}
-
-- (int) usavedSettingsAlertWithText:(NSString *)informativeText
-{
-    NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Unsaved Changes", nil)
-                                        defaultButton:NSLocalizedString(@"Save Changes", nil)
-                                      alternateButton:NSLocalizedString(@"Cancel", nil)
-                                          otherButton:NSLocalizedString(@"Don't Save", nil)
-                            informativeTextWithFormat:@"%@", informativeText];
-    [newAlert setAlertStyle:NSWarningAlertStyle];
-    return [newAlert runModal];
-}
 
 @end

@@ -77,7 +77,7 @@
 - (NSString *)currentConfigPassword UNAVAILABLE_ATTRIBUTE;
 - (SecKeyRef)currentConfigKeyRef UNAVAILABLE_ATTRIBUTE;
 
-- (void) showPreferences:(id)sender;
+- (void) openPreferencesWindow;
 - (BOOL) preferencesAreOpen;
 - (BOOL) usingPrivateDefaults;
 - (void) initPreferencesWindow;
@@ -102,7 +102,7 @@
 - (IBAction) editDuplicate:(id)sender;
 - (IBAction) configureClient:(id)sender;
 
-- (int) usavedSettingsAlertWithText:(NSString *)informativeText;
+- (int) unsavedSettingsAlertWithText:(NSString *)informativeText;
 
 //- (void) setCurrentConfigPassword:(NSString *)currentConfigPassword;
 //- (void) setCurrentConfigPasswordIsHash:(BOOL)currentConfigPasswordIsHash;
