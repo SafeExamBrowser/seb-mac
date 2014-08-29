@@ -443,15 +443,15 @@
 - (int) alertForDisabledPreferences
 {
     NSString *informativeText = NSUserDefaults.userDefaultsPrivate
-    ? NSLocalizedString(@"These settings have the option \"Allow to open preferences window on client\" disabled, which will prevent to open preferences. Are you sure you want to apply this? Otherwise you can override the option for the current session.", nil)
-    : NSLocalizedString(@"Local client settings have the option \"Allow to open preferences window on client\" disabled, which will prevent to open preferences anymore (even when you restart SEB!). Are you sure you want to apply this? Otherwise you can reset this option.", nil);
+    ? NSLocalizedString(@"These settings have the option \"Allow to open preferences window on client\" disabled, which will prevent opening preferences. Are you sure you want to apply this? Otherwise you can override the option for the current session.", nil)
+    : NSLocalizedString(@"Local client settings have the option \"Allow to open preferences window on client\" disabled, which will prevent opening preferences (even when you restart SEB!). Are you sure you want to apply this? Otherwise you can reset this option.", nil);
     
     NSString *defaultButtonText = NSUserDefaults.userDefaultsPrivate
     ? NSLocalizedString(@"Override", nil)
     : NSLocalizedString(@"Reset", nil);
     
     NSAlert *newAlert = [[NSAlert alloc] init];
-    [newAlert setMessageText:NSLocalizedString(@"Unsaved Changes", nil)];
+    [newAlert setMessageText:NSLocalizedString(@"Opening Preferences Disabled", nil)];
     [newAlert setInformativeText:informativeText];
     [newAlert addButtonWithTitle:defaultButtonText];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Apply Anyways", nil)];
