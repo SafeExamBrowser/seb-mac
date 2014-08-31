@@ -1281,19 +1281,18 @@ bool insideMatrix(){
     // Reopen main browser window and load start URL
     [self openMainBrowserWindow];
 
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-//    NSArray *additionalResources;
-//    additionalResources = [NSArray arrayWithArray:[preferences secureArrayForKey:@"org_safeexambrowser_SEB_additionalResources"]];
-    NSArray *additionalResources = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_additionalResources"];
-    for (NSDictionary *resource in additionalResources) {
-        if ([resource valueForKey:@"active"] == [NSNumber numberWithBool:YES]) {
-            NSString *resourceURL = [resource valueForKey:@"URL"];
-            NSString *resourceTitle = [resource valueForKey:@"title"];
-            if ([resource valueForKey:@"autoOpen"] == [NSNumber numberWithBool:YES]) {
-                [self openResourceWithURL:resourceURL andTitle:resourceTitle];
-            }
-        }
-    }
+    // ToDo: Opening of additional resources (but not only here, also when starting SEB)
+//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+//    NSArray *additionalResources = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_additionalResources"];
+//    for (NSDictionary *resource in additionalResources) {
+//        if ([resource valueForKey:@"active"] == [NSNumber numberWithBool:YES]) {
+//            NSString *resourceURL = [resource valueForKey:@"URL"];
+//            NSString *resourceTitle = [resource valueForKey:@"title"];
+//            if ([resource valueForKey:@"autoOpen"] == [NSNumber numberWithBool:YES]) {
+//                [self openResourceWithURL:resourceURL andTitle:resourceTitle];
+//            }
+//        }
+//    }
 }
 
 
