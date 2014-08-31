@@ -33,9 +33,14 @@
     NSPasteboard *pboard = [sender draggingPasteboard];
     NSArray *filenames = [pboard propertyListForType:NSFilenamesPboardType];
     
-    if (1 == filenames.count)
-        if ([[NSApp delegate] respondsToSelector:@selector(application:openFile:)])
-            return [[NSApp delegate] application:NSApp openFile:[filenames lastObject]];
+    if (filenames.count == 1) {
+        if ([[NSApp delegate] respondsToSelector:@selector(application:openFile:)]) {
+            NSString *filename = [filenames lastObject];
+            if ([filename.pathExtension isEqualToString:@"seb"]) {
+                return [[NSApp delegate] application:NSApp openFile:[filenames lastObject]];
+            }
+        }
+    }
     
     return NO;
 }
