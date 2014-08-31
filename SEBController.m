@@ -820,7 +820,7 @@ bool insideMatrix(){
     // Load preferences from the system's user defaults database
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 	BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
-    if (!allowSwitchToThirdPartyApps) {
+    if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen]) {
 		// if switching to ThirdPartyApps not allowed
 #ifdef DEBUG
         NSLog(@"Regain active status after %@", [sender name]);
@@ -1501,7 +1501,7 @@ bool insideMatrix(){
         //[self startKioskMode];
         //We don't reset the browser window size and position anymore
         //[(BrowserWindow*)browserWindow setCalculatedFrame];
-        if (!allowSwitchToThirdPartyApps) {
+        if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen]) {
             // If third party Apps are not allowed, we switch back to SEB
 #ifdef DEBUG
             NSLog(@"Switched back to SEB after currentSystemPresentationOptions changed!");

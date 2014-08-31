@@ -37,7 +37,7 @@
         if ([[NSApp delegate] respondsToSelector:@selector(application:openFile:)]) {
             NSString *filename = [filenames lastObject];
             if ([filename.pathExtension isEqualToString:@"seb"]) {
-                return [[NSApp delegate] application:NSApp openFile:[filenames lastObject]];
+                return [[NSApp delegate] application:NSApp openFile:filename];
             }
         }
     }
