@@ -77,6 +77,8 @@
 - (NSString *)currentConfigPassword UNAVAILABLE_ATTRIBUTE;
 - (SecKeyRef)currentConfigKeyRef UNAVAILABLE_ATTRIBUTE;
 
+- (void) openSEBPrefsAtURL:(NSURL *)sebFileURL;
+
 - (void) openPreferencesWindow;
 - (BOOL) preferencesAreOpen;
 - (BOOL) usingPrivateDefaults;

@@ -25,6 +25,7 @@
 
 #import "MBPreferencesController.h"
 #import "NSWindow+SEBWindow.h"
+#import "PreferencesWindow.h"
 #import "DropDownButton.h"
 
 NSString *MBPreferencesSelectionAutosaveKey = @"MBPreferencesSelection";
@@ -56,7 +57,7 @@ NSString *MBPreferencesSelectionAutosaveKey = @"MBPreferencesSelection";
 - (void)openWindow
 {
     if (!self.window) {
-        NSWindow *prefsWindow = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 300, 200) styleMask:(NSTitledWindowMask | NSClosableWindowMask) backing:NSBackingStoreBuffered defer:YES];
+        PreferencesWindow *prefsWindow = [[PreferencesWindow alloc] initWithContentRect:NSMakeRect(0, 0, 300, 200) styleMask:(NSTitledWindowMask | NSClosableWindowMask) backing:NSBackingStoreBuffered defer:YES];
         [prefsWindow setReleasedWhenClosed:YES];
         [prefsWindow setShowsToolbarButton:NO];
         //[prefsWindow setLevel:NSModalPanelWindowLevel];

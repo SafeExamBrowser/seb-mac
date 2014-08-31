@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6901331B19B371CB0050574D /* PreferencesWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 6901331919B371CB0050574D /* PreferencesWindow.h */; };
+		6901331C19B371CB0050574D /* PreferencesWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901331A19B371CB0050574D /* PreferencesWindow.m */; };
+		6901331D19B371CB0050574D /* PreferencesWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901331A19B371CB0050574D /* PreferencesWindow.m */; };
 		6905C5AB1961B4E5000008EC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6905C5AA1961B4E5000008EC /* SystemConfiguration.framework */; };
 		6921294216F91C6600AFC3B0 /* BoolValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6921294016F91C6600AFC3B0 /* BoolValueTransformer.h */; };
 		6921294316F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6921294116F91C6600AFC3B0 /* BoolValueTransformer.m */; };
@@ -248,6 +251,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		6901331919B371CB0050574D /* PreferencesWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesWindow.h; path = Classes/Preferences/PreferencesWindow/PreferencesWindow.h; sourceTree = "<group>"; };
+		6901331A19B371CB0050574D /* PreferencesWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreferencesWindow.m; path = Classes/Preferences/PreferencesWindow/PreferencesWindow.m; sourceTree = "<group>"; };
 		6905C5AA1961B4E5000008EC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		690D23461451EF2300CCCFF9 /* PrefsBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsBrowserViewController.h; sourceTree = "<group>"; };
 		690D23471451EF2400CCCFF9 /* PrefsBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsBrowserViewController.m; sourceTree = "<group>"; };
@@ -568,6 +573,8 @@
 				69C52802136AFDBD00F9F000 /* PreferencesController.m */,
 				69A9A22A1368784500840AE1 /* MBPreferencesController.h */,
 				69A9A22B1368784500840AE1 /* MBPreferencesController.m */,
+				6901331919B371CB0050574D /* PreferencesWindow.h */,
+				6901331A19B371CB0050574D /* PreferencesWindow.m */,
 				69CE9C5A173269E80011609B /* Preferences View Controllers */,
 				693D16C517160C660040AD7E /* Value Transformers */,
 				693D16C617160C8B0040AD7E /* TableView Subclasses */,
@@ -797,6 +804,7 @@
 				6921294716F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h in Headers */,
 				69CF8A1416FD0B550096625C /* SEBFilterRuleTableColumn.h in Headers */,
 				692C143E18441478007BD719 /* RNDecryptor.h in Headers */,
+				6901331B19B371CB0050574D /* PreferencesWindow.h in Headers */,
 				6940A7611853B2AD00D9D00D /* NSData+NSDataZIPExtension.h in Headers */,
 				69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */,
 				69CF8A1916FD1C330096625C /* SEBFilterRuleExpressionTableColumn.h in Headers */,
@@ -1046,6 +1054,7 @@
 				692C144318441478007BD719 /* RNEncryptor.m in Sources */,
 				69CE1C191741309C0072207D /* SEBFilterTreeController.m in Sources */,
 				69DE764917FC2A9300EE5958 /* PrefsResourcesViewController.m in Sources */,
+				6901331D19B371CB0050574D /* PreferencesWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1101,6 +1110,7 @@
 				692C144218441478007BD719 /* RNEncryptor.m in Sources */,
 				69CE1C181741309C0072207D /* SEBFilterTreeController.m in Sources */,
 				69DE764817FC2A9300EE5958 /* PrefsResourcesViewController.m in Sources */,
+				6901331C19B371CB0050574D /* PreferencesWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

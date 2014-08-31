@@ -404,6 +404,28 @@
     return ![_browserExamKeyBeforeEditing isEqualToData:[preferences secureObjectForKey:@"org_safeexambrowser_currentData"]];
 }
 
+
+- (void) openSEBPrefsAtURL:(NSURL *)sebFileURL
+{
+    NSError *error = nil;
+    NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL options:nil error:&error];
+    
+    if (error) {
+        // Error when reading configuration data
+        [NSApp presentError:error];
+    } else {
+        // Decrypt and store the .seb config file
+        if ([self.configFileManager storeDecryptedSEBSettings:sebData forEditing:YES]) {
+            // if successfull save the path to the file for possible editing in the preferences window
+            [[MyGlobals sharedMyGlobals] setCurrentConfigURL:sebFileURL];
+            
+            [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
+            [self reopenPreferencesWindow];
+        }
+    }
+}
+
+
 // Check if passwords are confirmed
 - (BOOL) arePasswordsUnconfirmed
 {
@@ -731,22 +753,8 @@
 #ifdef DEBUG
                           NSLog(@"Loading .seb settings file with file URL %@", sebFileURL);
 #endif
-                          NSError *error = nil;
-                          NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL options:nil error:&error];
-                          
-                          if (error) {
-                              // Error when reading configuration data
-                              [NSApp presentError:error];
-                          } else {
-                              // Decrypt and store the .seb config file
-                              if ([self.configFileManager storeDecryptedSEBSettings:sebData forEditing:YES]) {
-                                  // if successfull save the path to the file for possible editing in the preferences window
-                                  [[MyGlobals sharedMyGlobals] setCurrentConfigURL:sebFileURL];
-                                  
-                                  [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
-                                  [self reopenPreferencesWindow];
-                              }
-                          }
+                          [self openSEBPrefsAtURL:sebFileURL];
+
                       }
                   }];
 }

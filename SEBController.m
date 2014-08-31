@@ -115,34 +115,47 @@ bool insideMatrix();
 - (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename {
     NSURL *sebFileURL = [NSURL fileURLWithPath:filename];
 
-    // Check if SEB is in exam mode = private UserDefauls are switched on
-    if (NSUserDefaults.userDefaultsPrivate) {
-        NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings not allowed!", nil),
-                        NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil),
-                        NSLocalizedString(@"OK", nil), nil, nil);
-        return YES;
-    }
+    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
 
-#ifdef DEBUG
-    NSLog(@"Open file event: Loading .seb settings file with URL %@",sebFileURL);
-#endif
-    NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL];
+    // Check if preferences window is open
+    if ([self.preferencesController preferencesAreOpen]) {
+
+        /// Open settings file in preferences window for editing
+
+        [self.preferencesController openSEBPrefsAtURL:sebFileURL];
     
-    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-
-    // Get current config path
-    NSURL *currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
-    // Save the path to the file for possible editing in the preferences window
-    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:sebFileURL];
-
-    // Decrypt and store the .seb config file
-    if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO]) {
-        // if successfull restart with new settings
-        [self requestedRestart:nil];
     } else {
-        // if decrypting new settings wasn't successfull, we have to restore the path to the old settings
-        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
-
+        
+        /// Open settings file for exam/reconfiguring client
+        
+        // Check if SEB is in exam mode = private UserDefauls are switched on
+        if (NSUserDefaults.userDefaultsPrivate) {
+            NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings not allowed!", nil),
+                            NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil),
+                            NSLocalizedString(@"OK", nil), nil, nil);
+            return YES;
+        }
+        
+#ifdef DEBUG
+        NSLog(@"Open file event: Loading .seb settings file with URL %@",sebFileURL);
+#endif
+        NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL];
+        
+        SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+        
+        // Get current config path
+        NSURL *currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
+        // Save the path to the file for possible editing in the preferences window
+        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:sebFileURL];
+        
+        // Decrypt and store the .seb config file
+        if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO]) {
+            // if successfull restart with new settings
+            [self requestedRestart:nil];
+        } else {
+            // if decrypting new settings wasn't successfull, we have to restore the path to the old settings
+            [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
+        }
     }
     
     return YES;
