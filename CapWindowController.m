@@ -48,6 +48,8 @@
     self = [super initWithWindow:window];
     if (self) {
         // Initialization code here.
+        [self.window setCollectionBehavior:NSWindowCollectionBehaviorStationary | NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary];
+
     }
 #ifdef DEBUG
     NSLog(@"Cap window %@ init.", self);
@@ -60,7 +62,6 @@
 {
     [super windowDidLoad];
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
-    [self.window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenAuxiliary | NSWindowCollectionBehaviorCanJoinAllSpaces];
 #ifdef DEBUG
     NSLog(@"Cap window %@ didLoad.", self.window);
 #endif

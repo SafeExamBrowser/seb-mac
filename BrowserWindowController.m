@@ -64,7 +64,10 @@
     BrowserWindow *browserWindow = (BrowserWindow *)self.window;
     [browserWindow setCalculatedFrame];
     //[browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
-    [browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenAuxiliary | NSWindowCollectionBehaviorCanJoinAllSpaces];
+    [browserWindow setCollectionBehavior:NSWindowCollectionBehaviorStationary | NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary];
+//    [browserWindow setLevel:NSDockWindowLevel];
+//    [browserWindow setLevel:kCGMainMenuWindowLevel-1];
+
 }
 
 

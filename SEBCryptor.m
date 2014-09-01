@@ -48,6 +48,32 @@
 
 static SEBCryptor *sharedSEBCryptor = nil;
 
+static const RNCryptorSettings kSEBCryptorAES256Settings = {
+    .algorithm = kCCAlgorithmAES128,
+    .blockSize = kCCBlockSizeAES128,
+    .IVSize = kCCBlockSizeAES128,
+    .options = kCCOptionPKCS7Padding,
+    .HMACAlgorithm = kCCHmacAlgSHA256,
+    .HMACLength = CC_SHA256_DIGEST_LENGTH,
+    
+    .keySettings = {
+        .keySize = kCCKeySizeAES256,
+        .saltSize = 8,
+        .PBKDFAlgorithm = kCCPBKDF2,
+        .PRF = kCCPRFHmacAlgSHA1,
+        .rounds = 117
+    },
+    
+    .HMACKeySettings = {
+        .keySize = kCCKeySizeAES256,
+        .saltSize = 8,
+        .PBKDFAlgorithm = kCCPBKDF2,
+        .PRF = kCCPRFHmacAlgSHA1,
+        .rounds = 113
+    }
+};
+
+
 + (SEBCryptor *)sharedSEBCryptor
 {
 	@synchronized(self)
@@ -59,6 +85,25 @@ static SEBCryptor *sharedSEBCryptor = nil;
 	}
     
 	return sharedSEBCryptor;
+}
+
+
+- (NSData *) encryptData:(NSData *)data error:(NSError **)error
+{
+    NSData *encryptedData = [RNEncryptor encryptData:data
+                                        withSettings:kSEBCryptorAES256Settings
+                                            password:userDefaultsMasala
+                                               error:error];
+    return encryptedData;
+}
+
+
+- (NSData *) decryptData:(NSData *)encryptedData error:(NSError **)error
+{
+    NSData *decryptedData = [RNDecryptor decryptData:encryptedData withSettings:kSEBCryptorAES256Settings
+                                            password:userDefaultsMasala
+                                               error:error];
+    return decryptedData;
 }
 
 

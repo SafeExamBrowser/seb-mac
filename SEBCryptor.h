@@ -41,6 +41,9 @@
 
 + (SEBCryptor *)sharedSEBCryptor;
 
+- (NSData *) encryptData:(NSData *)data error:(NSError **)error;
+- (NSData *) decryptData:(NSData *)encryptedData error:(NSError **)error;
+
 - (BOOL)updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt;
 - (void)presentPreferencesCorruptedError;
 

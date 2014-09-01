@@ -29,7 +29,7 @@
                             <menuItem title="Preferences…" keyEquivalent="," id="129">
                                 <connections>
                                     <action selector="openPreferences:" target="543" id="992"/>
-                                    <binding destination="993" name="enabled" keyPath="values.org_safeexambrowser_enablePreferencesWindow" id="1056"/>
+                                    <binding destination="993" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowPreferencesWindow" id="OXK-tW-HLk"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="143">

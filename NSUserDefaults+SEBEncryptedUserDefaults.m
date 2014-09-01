@@ -488,6 +488,11 @@ static BOOL _usePrivateUserDefaults = NO;
             [preferences removeObjectForKey:key];
         }
     }
+#ifdef DEBUG
+    prefsDict = [self getSEBUserDefaultsDomains];
+    NSLog(@"SEB UserDefaults domains after reset: %@", prefsDict);
+#endif
+
 }
 
 
@@ -657,10 +662,11 @@ static BOOL _usePrivateUserDefaults = NO;
         } else if ([self _isValidPropertyListObject:value]) {
             NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
             NSError *error;
-            NSData *encryptedData = [RNEncryptor encryptData:data
-                                                withSettings:kRNCryptorAES256Settings
-                                                    password:userDefaultsMasala
-                                                       error:&error];
+//            NSData *encryptedData = [RNEncryptor encryptData:data
+//                                                withSettings:kRNCryptorAES256Settings
+//                                                    password:userDefaultsMasala
+//                                                       error:&error];
+            NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data error:&error];
             if (error) {
                 [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
                 return;
@@ -695,10 +701,11 @@ static BOOL _usePrivateUserDefaults = NO;
 	if ([self _isValidPropertyListObject:value]) {
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
         NSError *error;
-        NSData *encryptedData = [RNEncryptor encryptData:data
-                                            withSettings:kRNCryptorAES256Settings
-                                                password:userDefaultsMasala
-                                                   error:&error];
+//        NSData *encryptedData = [RNEncryptor encryptData:data
+//                                            withSettings:kRNCryptorAES256Settings
+//                                                password:userDefaultsMasala
+//                                                   error:&error];
+        NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data error:&error];
         if (error) {
             [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
             return nil;
@@ -769,9 +776,10 @@ static BOOL _usePrivateUserDefaults = NO;
             return nil;
         }
         NSError *error;
-        NSData *decrypted = [RNDecryptor decryptData:encrypted
-                                            withPassword:userDefaultsMasala
-                                               error:&error];
+//        NSData *decrypted = [RNDecryptor decryptData:encrypted
+//                                            withPassword:userDefaultsMasala
+//                                               error:&error];
+        NSData *decrypted = [[SEBCryptor sharedSEBCryptor] decryptData:encrypted error:&error];
         if (error) {
             [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
             return nil;

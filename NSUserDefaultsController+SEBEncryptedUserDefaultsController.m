@@ -37,6 +37,7 @@
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
+#import "SEBCryptor.h"
 #import "Constants.h"
 
 @implementation NSUserDefaultsController (SEBEncryptedUserDefaultsController)
@@ -61,9 +62,11 @@
             return nil;
         }
         NSError *error;
-        NSData *decrypted = [RNDecryptor decryptData:encrypted
-                                        withPassword:userDefaultsMasala
-                                               error:&error];
+//        NSData *decrypted = [RNDecryptor decryptData:encrypted
+//                                        withPassword:userDefaultsMasala
+//                                               error:&error];
+        NSData *decrypted = [[SEBCryptor sharedSEBCryptor] decryptData:encrypted error:&error];
+        
         id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
 #ifdef DEBUG
         NSLog(@"[super valueForKeyPath:%@] = %@ (decrypted)", keyPath, value);
@@ -92,10 +95,12 @@
         } else {
             NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
             NSError *error;
-            NSData *encryptedData = [RNEncryptor encryptData:data
-                                                withSettings:kRNCryptorAES256Settings
-                                                    password:userDefaultsMasala
-                                                       error:&error];;
+//            NSData *encryptedData = [RNEncryptor encryptData:data
+//                                                withSettings:kRNCryptorAES256Settings
+//                                                    password:userDefaultsMasala
+//                                                       error:&error];
+            NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data error:&error];
+            
 #ifdef DEBUG
             NSLog(@"[super setValue:(encrypted %@) forKeyPath:%@]", value, keyPath);
 #endif
