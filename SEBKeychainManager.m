@@ -672,7 +672,7 @@
 
 
 // Add a generic key to the keychain
-- (BOOL) addKey:(NSData *)keyData
+- (BOOL) storeKey:(NSData *)keyData
 {
     NSData *attrGeneric = [[[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleIdentifier"] dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:

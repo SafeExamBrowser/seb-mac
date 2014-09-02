@@ -61,7 +61,7 @@
 - (NSData*)decryptData:(NSData*)cipherData withPrivateKey:(SecKeyRef)privateKey;
 - (NSString*)generateSHAHashString:(NSString*)inputString;
 
-- (BOOL) addKey:(NSData *)keyData;
+- (BOOL) storeKey:(NSData *)keyData;
 - (NSData *) retrieveKey;
 
 @end

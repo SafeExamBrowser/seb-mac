@@ -97,7 +97,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         _currentKey = defaultsKey;
     } else {
         _currentKey = [RNCryptor randomDataOfLength:kCCKeySizeAES128];
-        [keychainManager addKey:_currentKey];
+        [keychainManager storeKey:_currentKey];
 
     }
     return (defaultsKey != nil);
