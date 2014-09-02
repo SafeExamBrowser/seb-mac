@@ -35,12 +35,17 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SEBCryptor : NSObject
+@interface SEBCryptor : NSObject {
+    
+    @private
+    NSData *_currentKey;
+}
 
 //@property (nonatomic, readwrite, strong) NSData *HMACKey;
 
 + (SEBCryptor *)sharedSEBCryptor;
 
+- (BOOL) hasDefaultsKey;
 - (NSData *) encryptData:(NSData *)data error:(NSError **)error;
 - (NSData *) decryptData:(NSData *)encryptedData error:(NSError **)error;
 

@@ -199,12 +199,15 @@ bool insideMatrix();
         
         
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        // Set flag for displaying alert to new users
-        if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"] == nil) {
-            firstStart = YES;
-        } else {
+        
+        // Check if there are valid SEB UserDefaults already
+        if ([preferences haveKey]) {
             firstStart = NO;
+        } else {
+            // Set flag for displaying alert to new users
+            firstStart = YES;
         }
+
         //
         // Set default preferences for the case there are no user prefs yet
         //
@@ -218,7 +221,7 @@ bool insideMatrix();
         // Register default preferences
         [preferences registerDefaults:defaultSettings];
         
-        // Check if originatorVersion flag is set and otherwise set it to the SEB current version
+        // Check if originatorVersion flag is set and otherwise set it to the current SEB version
         if ([[preferences secureStringForKey:@"org_safeexambrowser_originatorVersion"] isEqualToString:@""]) {
             [preferences setSecureString:[NSString stringWithFormat:@"SEB_OSX_%@_%@",
                                           [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
@@ -240,12 +243,12 @@ bool insideMatrix();
 
 - (void)awakeFromNib {	
 
-    SEBSystemManager *systemManager = [[SEBSystemManager alloc] init];
-	
-    BOOL worked = [systemManager checkHTTPSProxySetting];
-#ifdef DEBUG
-    NSLog(@"Checking updating HTTPS proxy worked: %hhd", worked);
-#endif
+//    SEBSystemManager *systemManager = [[SEBSystemManager alloc] init];
+//	
+//    BOOL worked = [systemManager checkHTTPSProxySetting];
+//#ifdef DEBUG
+//    NSLog(@"Checking updating HTTPS proxy worked: %hhd", worked);
+//#endif
     
     // Flag initializing
 	quittingMyself = FALSE; //flag to know if quit application was called externally
@@ -723,19 +726,19 @@ bool insideMatrix(){
 }
 
 
-// Open background windows on all available screens to prevent Finder becoming active when clicking on the desktop background
-- (IBAction) toggleCapWindowsFullscreen:(id)sender
-{
-#ifdef DEBUG
-    NSLog(@"toggleCapWindowsFullscreen");
-#endif
-	int windowIndex;
-	int windowCount = [self.capWindows count];
-    for (windowIndex = 0; windowIndex < windowCount; windowIndex++ )
-    {
-		[(NSWindow *)[self.capWindows objectAtIndex:windowIndex] toggleFullScreen:self];
-	}
-}
+//// Open background windows on all available screens to prevent Finder becoming active when clicking on the desktop background
+//- (IBAction) toggleCapWindowsFullscreen:(id)sender
+//{
+//#ifdef DEBUG
+//    NSLog(@"toggleCapWindowsFullscreen");
+//#endif
+//	int windowIndex;
+//	int windowCount = [self.capWindows count];
+//    for (windowIndex = 0; windowIndex < windowCount; windowIndex++ )
+//    {
+//		[(NSWindow *)[self.capWindows objectAtIndex:windowIndex] toggleFullScreen:self];
+//	}
+//}
 
 
 // Called when changes of the screen configuration occur

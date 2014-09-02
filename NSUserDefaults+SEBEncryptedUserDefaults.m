@@ -48,10 +48,10 @@
 #import "NSUserDefaultsController+SEBEncryptedUserDefaultsController.h"
 #import "SEBEncryptedUserDefaultsController.h"
 #import "MethodSwizzling.h"
-//#import "RNCryptor.h"
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
 #import "SEBCryptor.h"
+#import "SEBKeychainManager.h"
 #import "MyGlobals.h"
 #import "Constants.h"
 
@@ -421,6 +421,12 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_URLFilterRules",
                                  nil];
     return appDefaults;
+}
+
+
+- (BOOL)haveKey
+{
+    return [[SEBCryptor sharedSEBCryptor] hasDefaultsKey];
 }
 
 

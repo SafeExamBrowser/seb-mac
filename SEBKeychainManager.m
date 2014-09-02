@@ -658,7 +658,7 @@
 // Switch diagnostics for "deprecated" on again
 #pragma clang diagnostic pop
 
-- (NSString*) generateSHAHashString:(NSString*)inputString {
+- (NSString *) generateSHAHashString:(NSString*)inputString {
     unsigned char hashedChars[32];
     CC_SHA256([inputString UTF8String],
               [inputString lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
@@ -668,6 +668,63 @@
         [hashedString appendFormat: @"%02x", hashedChars[i]];
     }
     return hashedString;
+}
+
+
+// Add a generic key to the keychain
+- (BOOL) addKey:(NSData *)keyData
+{
+    NSData *attrGeneric = [[[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleIdentifier"] dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
+                           kSecClassGenericPassword, kSecClass,
+                           attrGeneric, kSecAttrGeneric,
+                           kCFBooleanTrue, kSecAttrIsInvisible,
+                           keyData, kSecValueData,
+                           nil];
+    OSStatus status = SecItemAdd((__bridge CFDictionaryRef)query, NULL);
+	return (status == noErr);
+}
+
+
+// Add a generic key to the keychain
+- (BOOL) updateKey:(NSData *)keyData
+{
+    NSData *attrGeneric = [[[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleIdentifier"] dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
+                           kSecClassGenericPassword, kSecClass,
+                           attrGeneric, kSecAttrGeneric,
+                           kCFBooleanTrue, kSecAttrIsInvisible,
+                           kCFBooleanTrue, kSecReturnData,
+                           kSecMatchLimitOne, kSecMatchLimit,
+                           nil];
+    NSDictionary *attributesToUpdate = [NSDictionary dictionaryWithObjectsAndKeys:
+//                           kSecClassGenericPassword, kSecClass,
+//                           attrGeneric, kSecAttrGeneric,
+//                           kCFBooleanTrue, kSecAttrIsInvisible,
+                           keyData, kSecValueData,
+                           nil];
+    OSStatus status = SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)attributesToUpdate);
+	return (status == noErr);
+}
+
+
+// Get a generic key from the keychain
+- (NSData *) retrieveKey
+{
+    NSData *attrGeneric = [[[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleIdentifier"] dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
+                           kSecClassGenericPassword, kSecClass,
+                           attrGeneric, kSecAttrGeneric,
+                           kCFBooleanTrue, kSecAttrIsInvisible,
+                           kCFBooleanTrue, kSecReturnData,
+                           kSecMatchLimitOne, kSecMatchLimit,
+                           nil];
+    CFTypeRef keyData = NULL;
+    OSStatus status = SecItemCopyMatching((__bridge CFDictionaryRef)query, &keyData);
+    if (status != errSecSuccess) {
+        return nil;
+    }
+    return (__bridge_transfer NSData *)keyData;
 }
 
 @end

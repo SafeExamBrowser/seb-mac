@@ -104,6 +104,8 @@
 // Get SEB's default settings key/values
 - (NSDictionary *)sebDefaultSettings;
 
+- (BOOL)haveKey;
+
 // Get dictionary representation of all SEB user defaults
 - (NSDictionary *)dictionaryRepresentationSEB;
 // Get dictionary of all SEB settings (also local UI client settings)

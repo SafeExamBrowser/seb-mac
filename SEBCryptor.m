@@ -39,6 +39,7 @@
 #import "RNCryptor.h"
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
+#import "SEBKeychainManager.h"
 #import "Constants.h"
 #import "MyGlobals.h"
 
@@ -88,11 +89,27 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 }
 
 
+- (BOOL) hasDefaultsKey
+{
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    NSData *defaultsKey = [keychainManager retrieveKey];
+    if (defaultsKey) {
+        _currentKey = defaultsKey;
+    } else {
+        _currentKey = [RNCryptor randomDataOfLength:kCCKeySizeAES128];
+        [keychainManager addKey:_currentKey];
+
+    }
+    return (defaultsKey != nil);
+}
+
+
 - (NSData *) encryptData:(NSData *)data error:(NSError **)error
 {
+    NSString *password = [_currentKey base64Encoding];
     NSData *encryptedData = [RNEncryptor encryptData:data
                                         withSettings:kSEBCryptorAES256Settings
-                                            password:userDefaultsMasala
+                                            password:password
                                                error:error];
     return encryptedData;
 }
@@ -100,8 +117,9 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 
 - (NSData *) decryptData:(NSData *)encryptedData error:(NSError **)error
 {
+    NSString *password = [_currentKey base64Encoding];
     NSData *decryptedData = [RNDecryptor decryptData:encryptedData withSettings:kSEBCryptorAES256Settings
-                                            password:userDefaultsMasala
+                                            password:password
                                                error:error];
     return decryptedData;
 }
