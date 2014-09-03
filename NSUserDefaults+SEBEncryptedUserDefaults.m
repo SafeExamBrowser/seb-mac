@@ -172,8 +172,6 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_browserViewMode",
                                  [NSNumber numberWithLong:manuallyWithFileRequester],
                                  @"org_safeexambrowser_SEB_chooseFileToUploadPolicy",
-                                 [NSNumber numberWithBool:NO],
-                                 @"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting",
                                  [NSNumber numberWithBool:YES],
                                  @"org_safeexambrowser_SEB_createNewDesktop",
 //                                 [NSData data], // public key hash of cryptoIdentity selected/used for encryption 
@@ -187,8 +185,6 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_downloadDirectoryWin",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_downloadPDFFiles",
-                                 [NSNumber numberWithBool:YES],
-                                 @"org_safeexambrowser_elevateWindowLevels",
                                  [NSArray array],
                                  @"org_safeexambrowser_SEB_embeddedCertificates",
                                  [NSNumber numberWithBool:NO],
@@ -320,8 +316,6 @@ static BOOL _usePrivateUserDefaults = NO;
 //                                 [NSString stringWithFormat:@"SEB_OSX_%@_%@",
 //                                  [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
 //                                  [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]],
-                                 @"",
-                                 @"org_safeexambrowser_originatorVersion",
                                  @[
                                    @{
                                        @"active" : @YES,
@@ -420,6 +414,13 @@ static BOOL _usePrivateUserDefaults = NO;
 //                                 @"org_safeexambrowser_SEB_URLFilterWhitelist",
                                  [NSArray array],
                                  @"org_safeexambrowser_SEB_URLFilterRules",
+                                 [NSNumber numberWithBool:NO],
+                                 @"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting",
+                                 [NSNumber numberWithBool:YES],
+                                 @"org_safeexambrowser_elevateWindowLevels",
+                                 @"",
+                                 @"org_safeexambrowser_originatorVersion",
+
                                  nil];
     return appDefaults;
 }
@@ -435,9 +436,8 @@ static BOOL _usePrivateUserDefaults = NO;
         cachedUserDefaults = [NSMutableDictionary dictionaryWithDictionary:[self dictionaryRepresentationSEB]];
         // Update key
         [[SEBCryptor sharedSEBCryptor] updateKey];
-        // Update current SEB UserDefaults
-        
-    } else {
+        // Remove all SEB settings from UserDefaults
+        [self resetSEBUserDefaults];
     }
     
     NSDictionary *appDefaults = [preferences sebDefaultSettings];
@@ -457,11 +457,16 @@ static BOOL _usePrivateUserDefaults = NO;
                                       [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]]
                               forKey:@"org_safeexambrowser_originatorVersion"];
     }
-    
-    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
 #ifdef DEBUG
     NSLog(@"Registred Defaults");
 #endif
+    
+    // If there were already SEB preferences, we save them back into UserDefaults
+    [self storeSEBDictionary:cachedUserDefaults];
+    
+    // Update current key
+    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+
     return YES;
 }
 
@@ -503,6 +508,75 @@ static BOOL _usePrivateUserDefaults = NO;
     }
     return filteredPrefsDict;
 }
+
+
+// Save imported settings into user defaults (either in private memory or local shared UserDefaults)
+-(void) storeSEBDictionary:(NSDictionary *)sebPreferencesDict
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    // get default settings
+    NSDictionary *defaultSettings = [preferences sebDefaultSettings];
+    
+    // Write SEB default values to UserDefaults
+    for (NSString *key in defaultSettings) {
+        id value = [defaultSettings objectForKey:key];
+        if (value) [preferences setSecureObject:value forKey:key];
+    }
+    
+    // Write values from .seb config file to the local preferences
+    for (NSString *key in sebPreferencesDict) {
+        id value = [sebPreferencesDict objectForKey:key];
+        NSString *keyWithPrefix = [self prefixKey:key];
+        
+        // If imported settings are being saved into shared UserDefaults
+        // Import embedded certificates (and identities) into the keychain
+        // but don't save into local preferences
+        if (!NSUserDefaults.userDefaultsPrivate && [key isEqualToString:@"embeddedCertificates"]) {
+            SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+            for (NSDictionary *certificate in value) {
+                int certificateType = [[certificate objectForKey:@"type"] integerValue];
+                NSData *certificateData = [certificate objectForKey:@"certificateData"];
+                switch (certificateType) {
+                    case certificateTypeSSLClientCertificate:
+                        if (certificateData) {
+                            BOOL success = [keychainManager importCertificateFromData:certificateData];
+#ifdef DEBUG
+                            NSLog(@"Importing SSL certificate <%@> into Keychain %@", [certificate objectForKey:@"name"], success ? @"succedded" : @"failed");
+#endif
+                        }
+                        break;
+                        
+                    case certificateTypeIdentity:
+                        if (certificateData) {
+                            BOOL success = [keychainManager importIdentityFromData:certificateData];
+#ifdef DEBUG
+                            NSLog(@"Importing identity <%@> into Keychain %@", [certificate objectForKey:@"name"], success ? @"succedded" : @"failed");
+#endif
+                        }
+                        break;
+                }
+            }
+            
+        } else {
+            // other values can be saved into local preferences
+            [preferences setSecureObject:value forKey:keyWithPrefix];
+        }
+    }
+}
+
+// Add the prefix required to identify SEB keys in UserDefaults to the key
+- (NSString *) prefixKey:(NSString *)key
+{
+    NSString *keyWithPrefix;
+    if ([key isEqualToString:@"originatorVersion"] ||
+        [key isEqualToString:@"copyBrowserExamKeyToClipboardWhenQuitting"]) {
+        keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_%@", key];
+    } else {
+        keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
+    }
+    return keyWithPrefix;
+}
+
 
 
 // Get dictionary of all SEB settings (also local UI client settings)
@@ -561,6 +635,35 @@ static BOOL _usePrivateUserDefaults = NO;
 //    [appUserDefaults addSuiteNamed: bundleId];
     prefsDict = [appUserDefaults dictionaryRepresentation];
     return prefsDict;
+}
+
+
+// Check if a some value is from a wrong class (another than the value from default settings)
+- (BOOL)checkClassOfSettings:(NSDictionary *)sebPreferencesDict
+{
+    // get default settings
+    NSDictionary *defaultSettings = [self sebDefaultSettings];
+    
+    // Check if a some value is from a wrong class other than the value from default settings)
+    for (NSString *key in sebPreferencesDict) {
+        NSString *keyWithPrefix = [self prefixKey:key];
+        id value = [sebPreferencesDict objectForKey:key];
+        id defaultValue = [defaultSettings objectForKey:keyWithPrefix];
+        Class valueClass = [value superclass];
+        Class defaultValueClass = [defaultValue superclass];
+        if (valueClass && defaultValueClass && !([defaultValue isKindOfClass:valueClass] || [value isKindOfClass:defaultValueClass])) {
+            //if (valueClass && defaultValueClass && valueClass != defaultValueClass) {
+            //if (!(object_getClass([value class]) == object_getClass([defaultValue class]))) {
+            //if (defaultValue && !([value class] == [defaultValue class])) {
+            // Class of newly loaded value is different than the one from the default value
+            // If yes, then cancel reading .seb file
+            NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings failed!", nil),
+                            NSLocalizedString(@"This settings file cannot be used. It may have been created by an older, incompatible version of SEB or it is corrupted.", nil),
+                            NSLocalizedString(@"OK", nil), nil, nil);
+            return NO; //we abort reading the new settings here
+        }
+    }
+    return YES;
 }
 
 
