@@ -104,6 +104,13 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 }
 
 
+- (BOOL) updateKey
+{
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    _currentKey = [RNCryptor randomDataOfLength:kCCKeySizeAES128];
+    return [keychainManager updateKey:_currentKey];
+}
+
 - (NSData *) encryptData:(NSData *)data error:(NSError **)error
 {
     NSString *password = [_currentKey base64Encoding];
@@ -125,6 +132,8 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 }
 
 
+
+
 // Method called when the endcrypted UserDefaults possibly changed
 // Re-Calculates a checksum hash which is used as Browser Exam Key
 // If the passed parameter generateNewSalt is YES,
@@ -141,7 +150,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     if ([HMACKey isEqualToData:[NSData data]]) {
         [self generateExamKeySalt];
 #ifdef DEBUG
-        NSLog(@"Generated Exam Key salt as there was none defined yet.");
+        NSLog(@"Generated Browser Exam Key salt as there was none defined yet.");
 #endif
     }
 

@@ -98,14 +98,12 @@ bool insideMatrix();
     [NSValueTransformer setValueTransformer:isEmptyCollectionValueTransformer
                                     forName:@"isEmptyCollectionValueTransformer"];
 
-//    [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
 }
 
 
 - (void)applicationWillFinishLaunching:(NSNotification *)notification
 {
-    // Install the Get URL Handler when a SEB URL seb://... is called
-//    [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
+
 }
 
 
@@ -200,43 +198,15 @@ bool insideMatrix();
         
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         
-        // Check if there are valid SEB UserDefaults already
-        if ([preferences haveKey]) {
-            firstStart = NO;
-        } else {
-            // Set flag for displaying alert to new users
-            firstStart = YES;
-        }
-
-        //
         // Set default preferences for the case there are no user prefs yet
-        //
-        NSDictionary *appDefaults = [preferences sebDefaultSettings];
-        NSMutableDictionary *defaultSettings = [NSMutableDictionary dictionaryWithCapacity:appDefaults.count];
-        // Encrypt default values
-        for (NSString *key in appDefaults) {
-            id value = [appDefaults objectForKey:key];
-            if (value) [defaultSettings setObject:(id)[preferences secureDataForObject:value] forKey:key];
-        }
-        // Register default preferences
-        [preferences registerDefaults:defaultSettings];
-        
-        // Check if originatorVersion flag is set and otherwise set it to the current SEB version
-        if ([[preferences secureStringForKey:@"org_safeexambrowser_originatorVersion"] isEqualToString:@""]) {
-            [preferences setSecureString:[NSString stringWithFormat:@"SEB_OSX_%@_%@",
-                                          [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
-                                          [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]]
-                                  forKey:@"org_safeexambrowser_originatorVersion"];
-        }
+        // and set flag for displaying alert to new users
+        firstStart = [preferences setSEBDefaults];
 
-        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-#ifdef DEBUG
-        NSLog(@"Registred Defaults");
-#endif        
+        // Regardless if switching to third party applications is allowed in current settings,
+        // we need to first open the background cover windows with standard window levels
+        [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
+        //    [self setElevateWindowLevels];
     }
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
-//    [self setElevateWindowLevels];
     return self;
 }
 

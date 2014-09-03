@@ -72,6 +72,7 @@ static NSData *_secretData           = nil;
 static NSData *_deviceIdentifierData = nil;
 
 static NSMutableDictionary *localUserDefaults;
+static NSMutableDictionary *cachedUserDefaults;
 static BOOL _usePrivateUserDefaults = NO;
 
 
@@ -424,7 +425,48 @@ static BOOL _usePrivateUserDefaults = NO;
 }
 
 
-- (BOOL)haveKey
+// Set default preferences for the case there are no user prefs yet
+- (BOOL)setSEBDefaults
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    // Check if there are valid SEB UserDefaults already
+    if ([self haveSEBUserDefaults]) {
+        // Read decrypted existing SEB UserDefaults
+        cachedUserDefaults = [NSMutableDictionary dictionaryWithDictionary:[self dictionaryRepresentationSEB]];
+        // Update key
+        [[SEBCryptor sharedSEBCryptor] updateKey];
+        // Update current SEB UserDefaults
+        
+    } else {
+    }
+    
+    NSDictionary *appDefaults = [preferences sebDefaultSettings];
+    NSMutableDictionary *defaultSettings = [NSMutableDictionary dictionaryWithCapacity:appDefaults.count];
+    // Encrypt default values
+    for (NSString *key in appDefaults) {
+        id value = [appDefaults objectForKey:key];
+        if (value) [defaultSettings setObject:(id)[preferences secureDataForObject:value] forKey:key];
+    }
+    // Register default preferences
+    [preferences registerDefaults:defaultSettings];
+    
+    // Check if originatorVersion flag is set and otherwise set it to the current SEB version
+    if ([[preferences secureStringForKey:@"org_safeexambrowser_originatorVersion"] isEqualToString:@""]) {
+        [preferences setSecureString:[NSString stringWithFormat:@"SEB_OSX_%@_%@",
+                                      [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
+                                      [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]]
+                              forKey:@"org_safeexambrowser_originatorVersion"];
+    }
+    
+    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+#ifdef DEBUG
+    NSLog(@"Registred Defaults");
+#endif
+    return YES;
+}
+
+
+- (BOOL)haveSEBUserDefaults
 {
     return [[SEBCryptor sharedSEBCryptor] hasDefaultsKey];
 }

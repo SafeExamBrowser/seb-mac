@@ -46,6 +46,7 @@
 + (SEBCryptor *)sharedSEBCryptor;
 
 - (BOOL) hasDefaultsKey;
+- (BOOL) updateKey;
 - (NSData *) encryptData:(NSData *)data error:(NSError **)error;
 - (NSData *) decryptData:(NSData *)encryptedData error:(NSError **)error;
 
