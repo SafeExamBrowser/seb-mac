@@ -99,7 +99,7 @@
 - (void)setSecureDouble:(double)value forKey:(NSString *)key;
 
 // Convert property list object to secure data
-- (NSData *)secureDataForObject:(id)value;
+- (NSData *)secureDataForObject:(id)value andKey:(NSString *)key;
 
 // Get SEB's default settings key/values
 - (NSDictionary *)sebDefaultSettings;

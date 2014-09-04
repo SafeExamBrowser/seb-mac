@@ -430,12 +430,16 @@ static BOOL _usePrivateUserDefaults = NO;
 - (BOOL)setSEBDefaults
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    SEBCryptor *sharedSEBCryptor = [SEBCryptor sharedSEBCryptor];
     // Check if there are valid SEB UserDefaults already
     if ([self haveSEBUserDefaults]) {
         // Read decrypted existing SEB UserDefaults
         cachedUserDefaults = [NSMutableDictionary dictionaryWithDictionary:[self dictionaryRepresentationSEB]];
+        // Generate Exam Settings Key
+        NSData *examSettingsKey = [sharedSEBCryptor checksumForPrefDictionary:cachedUserDefaults];
+        
         // Update key
-        [[SEBCryptor sharedSEBCryptor] updateKey];
+        [sharedSEBCryptor updateKey];
         // Remove all SEB settings from UserDefaults
         [self resetSEBUserDefaults];
     }
@@ -445,7 +449,7 @@ static BOOL _usePrivateUserDefaults = NO;
     // Encrypt default values
     for (NSString *key in appDefaults) {
         id value = [appDefaults objectForKey:key];
-        if (value) [defaultSettings setObject:(id)[preferences secureDataForObject:value] forKey:key];
+        if (value) [defaultSettings setObject:(id)[preferences secureDataForObject:value andKey:key] forKey:key];
     }
     // Register default preferences
     [preferences registerDefaults:defaultSettings];
@@ -813,11 +817,7 @@ static BOOL _usePrivateUserDefaults = NO;
         } else if ([self _isValidPropertyListObject:value]) {
             NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
             NSError *error;
-//            NSData *encryptedData = [RNEncryptor encryptData:data
-//                                                withSettings:kRNCryptorAES256Settings
-//                                                    password:userDefaultsMasala
-//                                                       error:&error];
-            NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data error:&error];
+            NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
             if (error) {
                 [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
                 return;
@@ -847,16 +847,12 @@ static BOOL _usePrivateUserDefaults = NO;
 
 
 // Convert property list object to secure data
-- (NSData *)secureDataForObject:(id)value
+- (NSData *)secureDataForObject:(id)value andKey:(NSString *)key
 {
 	if ([self _isValidPropertyListObject:value]) {
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
         NSError *error;
-//        NSData *encryptedData = [RNEncryptor encryptData:data
-//                                            withSettings:kRNCryptorAES256Settings
-//                                                password:userDefaultsMasala
-//                                                   error:&error];
-        NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data error:&error];
+        NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
         if (error) {
             [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
             return nil;
@@ -927,10 +923,7 @@ static BOOL _usePrivateUserDefaults = NO;
             return nil;
         }
         NSError *error;
-//        NSData *decrypted = [RNDecryptor decryptData:encrypted
-//                                            withPassword:userDefaultsMasala
-//                                               error:&error];
-        NSData *decrypted = [[SEBCryptor sharedSEBCryptor] decryptData:encrypted error:&error];
+        NSData *decrypted = [[SEBCryptor sharedSEBCryptor] decryptData:encrypted forKey:key error:&error];
         if (error) {
             [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
             return nil;

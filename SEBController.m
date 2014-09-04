@@ -1348,16 +1348,6 @@ bool insideMatrix(){
 }
 
 
-- (NSData*) generateSHAHash:(NSString*)inputString {
-    unsigned char hashedChars[32];
-    CC_SHA256([inputString UTF8String],
-              [inputString lengthOfBytesUsingEncoding:NSUTF8StringEncoding], 
-              hashedChars);
-    NSData *hashedData = [NSData dataWithBytes:hashedChars length:32];
-    return hashedData;
-}
-
-
 #pragma mark Delegates
 
 // Called when SEB should be terminated

@@ -111,9 +111,14 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     return [keychainManager updateKey:_currentKey];
 }
 
-- (NSData *) encryptData:(NSData *)data error:(NSError **)error
+- (NSData *) encryptData:(NSData *)data forKey:(NSString *)key error:(NSError **)error
 {
-    NSString *password = [_currentKey base64Encoding];
+    NSData *keyData = [key dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSMutableData *HMACData = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
+    CCHmac(kCCHmacAlgSHA256, keyData.bytes, keyData.length, _currentKey.bytes, _currentKey.length, HMACData.mutableBytes);
+
+    NSString *password = [HMACData base64Encoding];
     NSData *encryptedData = [RNEncryptor encryptData:data
                                         withSettings:kSEBCryptorAES256Settings
                                             password:password
@@ -122,9 +127,14 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 }
 
 
-- (NSData *) decryptData:(NSData *)encryptedData error:(NSError **)error
+- (NSData *) decryptData:(NSData *)encryptedData forKey:(NSString *)key error:(NSError **)error
 {
-    NSString *password = [_currentKey base64Encoding];
+    NSData *keyData = [key dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSMutableData *HMACData = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
+    CCHmac(kCCHmacAlgSHA256, keyData.bytes, keyData.length, _currentKey.bytes, _currentKey.length, HMACData.mutableBytes);
+    
+    NSString *password = [HMACData base64Encoding];
     NSData *decryptedData = [RNDecryptor decryptData:encryptedData withSettings:kSEBCryptorAES256Settings
                                             password:password
                                                error:error];
@@ -262,6 +272,16 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSData *HMACKey = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
     [preferences setSecureObject:HMACKey forKey:@"org_safeexambrowser_SEB_examKeySalt"];
     return HMACKey;
+}
+
+
+- (NSData*) generateSHAHash:(NSString*)inputString {
+    unsigned char hashedChars[32];
+    CC_SHA256([inputString UTF8String],
+              [inputString lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+              hashedChars);
+    NSData *hashedData = [NSData dataWithBytes:hashedChars length:32];
+    return hashedData;
 }
 
 

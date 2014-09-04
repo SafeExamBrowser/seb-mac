@@ -47,13 +47,16 @@
 
 - (BOOL) hasDefaultsKey;
 - (BOOL) updateKey;
-- (NSData *) encryptData:(NSData *)data error:(NSError **)error;
-- (NSData *) decryptData:(NSData *)encryptedData error:(NSError **)error;
+- (NSData *) encryptData:(NSData *)data forKey:(NSString *)key error:(NSError **)error;
+- (NSData *) decryptData:(NSData *)encryptedData forKey:(NSString *)key error:(NSError **)error;
 
 - (BOOL)updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt;
+- (NSData *)checksumForPrefDictionary:(NSDictionary *)prefsDict;
+
 - (void)presentPreferencesCorruptedError;
 
 - (NSData *)generateExamKeySalt;
 
+- (NSData*) generateSHAHash:(NSString*)inputString;
 
 @end

@@ -100,8 +100,6 @@
 
 - (void) requestedRestart:(NSNotification *)notification;
 
-- (NSData *) generateSHAHash:(NSString*)inputString;
-
 - (BOOL) applicationShouldOpenUntitledFile:(NSApplication *)sender;
 
 @property(readwrite) BOOL f3Pressed;

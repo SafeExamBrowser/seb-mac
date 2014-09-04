@@ -45,9 +45,9 @@
 
 - (id)secureValueForKeyPath:(NSString *)keyPath
 {
+    NSArray *pathElements = [keyPath componentsSeparatedByString:@"."];
+    NSString *key = [pathElements objectAtIndex:[pathElements count]-1];
     if ([NSUserDefaults userDefaultsPrivate]) {
-        NSArray *pathElements = [keyPath componentsSeparatedByString:@"."];
-        NSString *key = [pathElements objectAtIndex:[pathElements count]-1];
         id value = [[NSUserDefaults privateUserDefaults] valueForKey:key];
         //id value = [self.defaults secureObjectForKey:key];
 #ifdef DEBUG
@@ -65,7 +65,7 @@
 //        NSData *decrypted = [RNDecryptor decryptData:encrypted
 //                                        withPassword:userDefaultsMasala
 //                                               error:&error];
-        NSData *decrypted = [[SEBCryptor sharedSEBCryptor] decryptData:encrypted error:&error];
+        NSData *decrypted = [[SEBCryptor sharedSEBCryptor] decryptData:encrypted forKey: key error:&error];
         
         id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
 #ifdef DEBUG
@@ -78,9 +78,9 @@
 
 - (void)setSecureValue:(id)value forKeyPath:(NSString *)keyPath
 {
+    NSArray *pathElements = [keyPath componentsSeparatedByString:@"."];
+    NSString *key = [pathElements objectAtIndex:[pathElements count]-1];
     if ([NSUserDefaults userDefaultsPrivate]) {
-        NSArray *pathElements = [keyPath componentsSeparatedByString:@"."];
-        NSString *key = [pathElements objectAtIndex:[pathElements count]-1];
         if (value == nil) value = [NSNull null];
         [[NSUserDefaults privateUserDefaults] setValue:value forKey:key];
         //[self.defaults setSecureObject:value forKey:key];
@@ -99,7 +99,7 @@
 //                                                withSettings:kRNCryptorAES256Settings
 //                                                    password:userDefaultsMasala
 //                                                       error:&error];
-            NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data error:&error];
+            NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
             
 #ifdef DEBUG
             NSLog(@"[super setValue:(encrypted %@) forKeyPath:%@]", value, keyPath);
