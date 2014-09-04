@@ -46,10 +46,12 @@
 + (SEBCryptor *)sharedSEBCryptor;
 
 - (BOOL) hasDefaultsKey;
-- (BOOL) updateKey;
+- (BOOL) updateUDKey;
 - (NSData *) encryptData:(NSData *)data forKey:(NSString *)key error:(NSError **)error;
 - (NSData *) decryptData:(NSData *)encryptedData forKey:(NSString *)key error:(NSError **)error;
 
+- (BOOL) checkExamSettings:(NSData *)examSettingsKey;
+- (void) updateExamSettingsKey:(NSDictionary *)settings;
 - (BOOL)updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt;
 - (NSData *)checksumForPrefDictionary:(NSDictionary *)prefsDict;
 

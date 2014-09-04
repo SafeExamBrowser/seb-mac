@@ -437,9 +437,13 @@ static BOOL _usePrivateUserDefaults = NO;
         cachedUserDefaults = [NSMutableDictionary dictionaryWithDictionary:[self dictionaryRepresentationSEB]];
         // Generate Exam Settings Key
         NSData *examSettingsKey = [sharedSEBCryptor checksumForPrefDictionary:cachedUserDefaults];
-        
+        // If exam settings are corrupted
+        if (![sharedSEBCryptor checkExamSettings:examSettingsKey]) {
+            // Delete all corrupted settings
+            [cachedUserDefaults removeAllObjects];
+        }
         // Update key
-        [sharedSEBCryptor updateKey];
+        [sharedSEBCryptor updateUDKey];
         // Remove all SEB settings from UserDefaults
         [self resetSEBUserDefaults];
     }
@@ -468,8 +472,11 @@ static BOOL _usePrivateUserDefaults = NO;
     // If there were already SEB preferences, we save them back into UserDefaults
     [self storeSEBDictionary:cachedUserDefaults];
     
-    // Update current key
+    // Update Exam Browser Key
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+    // Update Exam Settings Key
+    [sharedSEBCryptor updateUDKey];
+    [sharedSEBCryptor updateExamSettingsKey:cachedUserDefaults];
 
     return YES;
 }
@@ -819,14 +826,17 @@ static BOOL _usePrivateUserDefaults = NO;
             NSError *error;
             NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
             if (error) {
+#ifdef DEBUG
+                NSLog(@"PREFERECES CORRUPTED ERROR at [self setObject:(encrypted %@) forKey:%@]", value, key);
+#endif
                 [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
                 return;
-            }
-            
-            [self setObject:encryptedData forKey:key];
+            } else {
+                [self setObject:encryptedData forKey:key];
 #ifdef DEBUG
-            NSLog(@"[self setObject:(encrypted %@) forKey:%@]", value, key);
+                NSLog(@"[self setObject:(encrypted %@) forKey:%@]", value, key);
 #endif
+            }
         }
         //[[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
     }
@@ -854,6 +864,9 @@ static BOOL _usePrivateUserDefaults = NO;
         NSError *error;
         NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
         if (error) {
+#ifdef DEBUG
+            NSLog(@"PREFERECES CORRUPTED ERROR at [self secureDataForObject:%@ andKey:%@]", value, key);
+#endif
             [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
             return nil;
         }
@@ -925,6 +938,9 @@ static BOOL _usePrivateUserDefaults = NO;
         NSError *error;
         NSData *decrypted = [[SEBCryptor sharedSEBCryptor] decryptData:encrypted forKey:key error:&error];
         if (error) {
+#ifdef DEBUG
+            NSLog(@"PREFERECES CORRUPTED ERROR at [self _objectForKey:%@]", key);
+#endif
             [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
             return nil;
         }

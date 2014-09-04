@@ -489,9 +489,10 @@ bool insideMatrix();
 	
     if ([[MyGlobals sharedMyGlobals] preferencesReset] == YES) {
 #ifdef DEBUG
-        NSLog(@"Presenting alert for local SEB settings have been reset");
+        NSLog(@"Presenting alert for 'Local SEB settings have been reset'");
 #endif
-        NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Local SEB settings have been reset", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:NSLocalizedString(@"Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.", nil)];
+        NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Local SEB Settings Have Been Reset", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:NSLocalizedString(@"Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.", nil)];
+        [newAlert setAlertStyle:NSCriticalAlertStyle];
         [newAlert runModal];
 #ifdef DEBUG
         NSLog(@"Dismissed alert for local SEB settings have been reset");
@@ -1146,6 +1147,7 @@ bool insideMatrix(){
 - (IBAction) openPreferences:(id)sender {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"]) {
+        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         if (![self.preferencesController preferencesAreOpen]) {
             // Load admin password from the system's user defaults database
             NSString *hashedAdminPW = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
@@ -1167,13 +1169,12 @@ bool insideMatrix(){
                     return;
                 }
             }
+            // Switch the kiosk mode temporary off and override settings for menu bar: Show it while prefs are open
+            [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
+            [self switchKioskModeAppsAllowed:YES overrideShowMenuBar:YES];
+            // Close the black background covering windows
+            [self closeCapWindows];
         }
-        // Switch the kiosk mode temporary off and override settings for menu bar: Show it while prefs are open
-        [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
-        [self switchKioskModeAppsAllowed:YES overrideShowMenuBar:YES];
-        // Close the black background covering windows
-        [self closeCapWindows];
-        
         // Show preferences window
         [self.preferencesController openPreferencesWindow];
         

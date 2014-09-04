@@ -98,13 +98,14 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     } else {
         _currentKey = [RNCryptor randomDataOfLength:kCCKeySizeAES128];
         [keychainManager storeKey:_currentKey];
-
+        NSMutableData *HMACData = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
+        [keychainManager storeKeyWithID:@"1" keyData:HMACData];
     }
     return (defaultsKey != nil);
 }
 
 
-- (BOOL) updateKey
+- (BOOL) updateUDKey
 {
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     _currentKey = [RNCryptor randomDataOfLength:kCCKeySizeAES128];
@@ -142,6 +143,22 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 }
 
 
+- (BOOL) checkExamSettings:(NSData *)examSettingsKey
+{
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    NSData *currentExamSettingsKey = [keychainManager retrieveKeyWithID:@"1"];
+    if (![examSettingsKey isEqualToData:currentExamSettingsKey]) {
+        return false;
+    }
+    return true;
+}
+
+
+- (void) updateExamSettingsKey:(NSDictionary *)settings
+{
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    [keychainManager updateKeyWithID:@"1" keyData:[self checksumForPrefDictionary:settings]];
+}
 
 
 // Method called when the endcrypted UserDefaults possibly changed

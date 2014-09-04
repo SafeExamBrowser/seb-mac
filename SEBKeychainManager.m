@@ -674,7 +674,14 @@
 // Add a generic key to the keychain
 - (BOOL) storeKey:(NSData *)keyData
 {
-    NSData *attrGeneric = [[[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleIdentifier"] dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *keyID = @"";
+    return [self storeKeyWithID:keyID keyData:keyData];
+}
+
+// Add key with ID to the keychain
+- (BOOL) storeKeyWithID:(NSString *)keyID keyData:(NSData *)keyData
+{
+    NSData *attrGeneric = [[[[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleIdentifier"] stringByAppendingString:keyID] dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
                            kSecClassGenericPassword, kSecClass,
                            attrGeneric, kSecAttrGeneric,
@@ -686,10 +693,17 @@
 }
 
 
-// Add a generic key to the keychain
+// Update a generic key in the keychain
 - (BOOL) updateKey:(NSData *)keyData
 {
-    NSData *attrGeneric = [[[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleIdentifier"] dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *keyID = @"";
+    return [self updateKeyWithID:keyID keyData:keyData];
+}
+
+// Update a key with ID in the keychain
+- (BOOL) updateKeyWithID:(NSString *)keyID keyData:(NSData *)keyData
+{
+    NSData *attrGeneric = [[[[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleIdentifier"] stringByAppendingString:keyID] dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
                            kSecClassGenericPassword, kSecClass,
                            attrGeneric, kSecAttrGeneric,
@@ -698,11 +712,9 @@
                            kSecMatchLimitOne, kSecMatchLimit,
                            nil];
     NSDictionary *attributesToUpdate = [NSDictionary dictionaryWithObjectsAndKeys:
-//                           kSecClassGenericPassword, kSecClass,
-//                           attrGeneric, kSecAttrGeneric,
-//                           kCFBooleanTrue, kSecAttrIsInvisible,
-                           keyData, kSecValueData,
-                           nil];
+                                        keyData, kSecValueData,
+//                                        kCFBooleanTrue, kSecAttrIsInvisible,
+                                        nil];
     OSStatus status = SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)attributesToUpdate);
 	return (status == noErr);
 }
@@ -711,7 +723,14 @@
 // Get a generic key from the keychain
 - (NSData *) retrieveKey
 {
-    NSData *attrGeneric = [[[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleIdentifier"] dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *keyID = @"";
+    return [self retrieveKeyWithID:keyID];
+}
+
+// Get a key with ID from the keychain
+- (NSData *) retrieveKeyWithID:(NSString *)keyID
+{
+    NSData *attrGeneric = [[[[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleIdentifier"] stringByAppendingString:keyID] dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
                            kSecClassGenericPassword, kSecClass,
                            attrGeneric, kSecAttrGeneric,

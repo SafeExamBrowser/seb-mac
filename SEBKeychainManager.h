@@ -62,7 +62,10 @@
 - (NSString*)generateSHAHashString:(NSString*)inputString;
 
 - (BOOL) storeKey:(NSData *)keyData;
+- (BOOL) storeKeyWithID:(NSString *)keyID keyData:(NSData *)keyData;
 - (BOOL) updateKey:(NSData *)keyData;
+- (BOOL) updateKeyWithID:(NSString *)keyID keyData:(NSData *)keyData;
 - (NSData *) retrieveKey;
+- (NSData *) retrieveKeyWithID:(NSString *)keyID;
 
 @end
