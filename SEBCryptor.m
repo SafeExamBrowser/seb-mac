@@ -89,6 +89,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 }
 
 
+// Returns NO if there were no valid UserDefaults set yet on this system
 - (BOOL) hasDefaultsKey
 {
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
@@ -321,12 +322,14 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 
     // Set the flag to indicate to user later that settings have been reset
     [[MyGlobals sharedMyGlobals] setPreferencesReset:YES];
+    // Reset settings to the default values
+	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences resetSEBUserDefaults];
+    [preferences storeSEBDefaultSettings];
+    [self updateEncryptedUserDefaults:YES updateSalt:YES];
 #ifdef DEBUG
     NSLog(@"Local preferences have been reset!");
 #endif
-
-    [[NSUserDefaults standardUserDefaults] resetSEBUserDefaults];
-    [self updateEncryptedUserDefaults:YES updateSalt:YES];
     return;
 }
 

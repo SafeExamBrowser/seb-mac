@@ -113,8 +113,10 @@
 - (NSDictionary *)dictionaryRepresentationSEB;
 // Store settings dictionary into UserDefaults
 - (void)storeSEBDictionary:(NSDictionary *)sebPreferencesDict;
+// Write SEB default values to local preferences
+- (void)storeSEBDefaultSettings;
 
-- (NSString *) prefixKey:(NSString *)key;
+- (NSString *)prefixKey:(NSString *)key;
 
 // Get dictionary of all SEB settings (also local UI client settings)
 - (NSDictionary *)dictionarySEBUserDefaults;

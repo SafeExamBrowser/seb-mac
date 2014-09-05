@@ -427,27 +427,57 @@ static BOOL _usePrivateUserDefaults = NO;
 
 
 // Set default preferences for the case there are no user prefs yet
+// Returns YES if SEB was started first time on this system (no SEB settings found in UserDefaults)
 - (BOOL)setSEBDefaults
 {
+    BOOL firstStart = NO;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     SEBCryptor *sharedSEBCryptor = [SEBCryptor sharedSEBCryptor];
     // Check if there are valid SEB UserDefaults already
     if ([self haveSEBUserDefaults]) {
         // Read decrypted existing SEB UserDefaults
-        cachedUserDefaults = [NSMutableDictionary dictionaryWithDictionary:[self dictionaryRepresentationSEB]];
-        // Generate Exam Settings Key
-        NSData *examSettingsKey = [sharedSEBCryptor checksumForPrefDictionary:cachedUserDefaults];
-        // If exam settings are corrupted
-        if (![sharedSEBCryptor checkExamSettings:examSettingsKey]) {
-            // Delete all corrupted settings
-            [cachedUserDefaults removeAllObjects];
+        NSDictionary *sebUserDefaults = [self dictionaryRepresentationSEB];
+        // Check if something went wrong reading settings
+        if (sebUserDefaults == nil) {
+            // Set the flag to indicate to user later that settings have been reset
+            [[MyGlobals sharedMyGlobals] setPreferencesReset:YES];
+            // The cachedUserDefaults should be an empty dictionary then
+            cachedUserDefaults = [NSMutableDictionary new];
+        } else {
+            cachedUserDefaults = [NSMutableDictionary dictionaryWithDictionary:sebUserDefaults];
+            // Generate Exam Settings Key
+            NSData *examSettingsKey = [sharedSEBCryptor checksumForPrefDictionary:cachedUserDefaults];
+            // If exam settings are corrupted
+            if (![sharedSEBCryptor checkExamSettings:examSettingsKey]) {
+                // Delete all corrupted settings
+                [cachedUserDefaults removeAllObjects];
+                // Set the flag to indicate to user later that settings have been reset
+                [[MyGlobals sharedMyGlobals] setPreferencesReset:YES];
+#ifdef DEBUG
+                NSLog(@"Initial Exam Settings Key check failed: Local preferences have been reset!");
+#endif
+            }
         }
         // Update key
         [sharedSEBCryptor updateUDKey];
-        // Remove all SEB settings from UserDefaults
-        [self resetSEBUserDefaults];
+    } else {
+        // Were there invalid SEB prefs keys in UserDefaults?
+        if ([self sebKeysSet].count > 0) {
+            // Set the flag to indicate to user later that settings have been reset
+            [[MyGlobals sharedMyGlobals] setPreferencesReset:YES];
+        } else {
+            // Otherwise SEB was probably started first time
+            firstStart = YES;
+        }
     }
     
+    // Remove all SEB settings from UserDefaults
+    [self resetSEBUserDefaults];
+
+    // Update UserDefaults encrypting key
+    [sharedSEBCryptor updateUDKey];
+
+    // Get default SEB settings
     NSDictionary *appDefaults = [preferences sebDefaultSettings];
     NSMutableDictionary *defaultSettings = [NSMutableDictionary dictionaryWithCapacity:appDefaults.count];
     // Encrypt default values
@@ -475,10 +505,9 @@ static BOOL _usePrivateUserDefaults = NO;
     // Update Exam Browser Key
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
     // Update Exam Settings Key
-    [sharedSEBCryptor updateUDKey];
     [sharedSEBCryptor updateExamSettingsKey:cachedUserDefaults];
 
-    return YES;
+    return firstStart;
 }
 
 
@@ -490,18 +519,8 @@ static BOOL _usePrivateUserDefaults = NO;
 
 - (NSDictionary *)dictionaryRepresentationSEB
 {
-    // Copy preferences to a dictionary
-	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSDictionary *prefsDict = [self getSEBUserDefaultsDomains];
-    
-    // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
-    NSSet *filteredPrefsSet = [prefsDict keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop)
-                               {
-                                   if ([key hasPrefix:@"org_safeexambrowser_SEB_"])
-                                       return YES;
-                                   
-                                   else return NO;
-                               }];
+    // Filter UserDefaults so only org_safeexambrowser_SEB_ keys are included in the set
+    NSSet *filteredPrefsSet = [self sebKeysSet];
     NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:[filteredPrefsSet count]];
     
     // Remove prefix "org_safeexambrowser_SEB_" from keys
@@ -513,28 +532,47 @@ static BOOL _usePrivateUserDefaults = NO;
 //            downloadPath = [downloadPath stringByAbbreviatingWithTildeInPath];
 //            [filteredPrefsDict setObject:downloadPath forKey:[key substringFromIndex:24]];
 //        } else {
-            id value = [preferences secureObjectForKey:key];
-            if (value) [filteredPrefsDict setObject:value forKey:[key substringFromIndex:24]];
-//        }
+            id value = [self secureObjectForKey:key];
+        if (value) {
+            [filteredPrefsDict setObject:value forKey:[key substringFromIndex:24]];
+        } else {
+#ifdef DEBUG
+            NSLog(@"Aborted dictionaryRepresentationSEB because of nil value for key %@", key);
+#endif
+            // If one value was nil, we abort getting the dictionary
+            return nil;
+#ifdef DEBUG
+            NSLog(@"Registred Defaults");
+#endif
+        }
     }
     return filteredPrefsDict;
 }
 
+// Filter UserDefaults so only org_safeexambrowser_SEB_ keys are included in the returned NSSet
+- (NSSet *) sebKeysSet
+{
+    // Copy UserDefaults to a dictionary
+    NSDictionary *prefsDict = [self getSEBUserDefaultsDomains];
+    
+    // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
+    NSSet *filteredPrefsSet = [prefsDict keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop)
+                               {
+                                   if ([key hasPrefix:@"org_safeexambrowser_SEB_"])
+                                       return YES;
+                                   
+                                   else return NO;
+                               }];
+    return filteredPrefsSet;
+}
 
 // Save imported settings into user defaults (either in private memory or local shared UserDefaults)
--(void) storeSEBDictionary:(NSDictionary *)sebPreferencesDict
+- (void) storeSEBDictionary:(NSDictionary *)sebPreferencesDict
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    // get default settings
-    NSDictionary *defaultSettings = [preferences sebDefaultSettings];
-    
-    // Write SEB default values to UserDefaults
-    for (NSString *key in defaultSettings) {
-        id value = [defaultSettings objectForKey:key];
-        if (value) [preferences setSecureObject:value forKey:key];
-    }
-    
-    // Write values from .seb config file to the local preferences
+    // Write SEB default values to local preferences
+    [self storeSEBDefaultSettings];
+
+    // Write values from .seb config file to local preferences
     for (NSString *key in sebPreferencesDict) {
         id value = [sebPreferencesDict objectForKey:key];
         NSString *keyWithPrefix = [self prefixKey:key];
@@ -570,10 +608,24 @@ static BOOL _usePrivateUserDefaults = NO;
             
         } else {
             // other values can be saved into local preferences
-            [preferences setSecureObject:value forKey:keyWithPrefix];
+            [self setSecureObject:value forKey:keyWithPrefix];
         }
     }
 }
+
+// Write SEB default values to local preferences
+- (void) storeSEBDefaultSettings
+{
+    // Get default settings
+    NSDictionary *defaultSettings = [self sebDefaultSettings];
+    
+    // Write SEB default value/keys to UserDefaults
+    for (NSString *key in defaultSettings) {
+        id value = [defaultSettings objectForKey:key];
+        if (value) [self setSecureObject:value forKey:key];
+    }
+}
+
 
 // Add the prefix required to identify SEB keys in UserDefaults to the key
 - (NSString *) prefixKey:(NSString *)key
@@ -623,9 +675,8 @@ static BOOL _usePrivateUserDefaults = NO;
     }
 #ifdef DEBUG
     prefsDict = [self getSEBUserDefaultsDomains];
-    NSLog(@"SEB UserDefaults domains after reset: %@", prefsDict);
+    NSLog(@"SEB UserDefaults domains after resetSEBUserDefaults: %@", prefsDict);
 #endif
-
 }
 
 
