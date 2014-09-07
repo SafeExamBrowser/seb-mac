@@ -54,6 +54,7 @@
 - (void) updateExamSettingsKey:(NSDictionary *)settings;
 - (BOOL)updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt;
 - (NSData *)checksumForPrefDictionary:(NSDictionary *)prefsDict;
+- (NSData *)checksumForLocalPrefDictionary:(NSDictionary *)prefsDict;
 
 - (void)presentPreferencesCorruptedError;
 

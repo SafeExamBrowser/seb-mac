@@ -99,9 +99,14 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     } else {
         _currentKey = [RNCryptor randomDataOfLength:kCCKeySizeAES128];
         [keychainManager storeKey:_currentKey];
-        NSMutableData *HMACData = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
-        [keychainManager storeKeyWithID:@"1" keyData:HMACData];
+//        NSMutableData *HMACData = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
+//        [keychainManager storeKeyWithID:@"1" keyData:[RNCryptor randomDataOfLength:kCCKeySizeAES128]];
     }
+//    NSData *examSettingsKey = [keychainManager retrieveKeyWithID:@"1"];
+//    if (!examSettingsKey) {
+//        NSMutableData *newExamSettingsKey = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
+//        [keychainManager storeKeyWithID:@"1" keyData:newExamSettingsKey];
+//    }
     return (defaultsKey != nil);
 }
 
@@ -146,19 +151,17 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 
 - (BOOL) checkExamSettings:(NSData *)examSettingsKey
 {
-    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    NSData *currentExamSettingsKey = [keychainManager retrieveKeyWithID:@"1"];
-    if (![examSettingsKey isEqualToData:currentExamSettingsKey]) {
-        return false;
-    }
-    return true;
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSData *currentExamSettingsKey = [preferences secureDataForKey:@"org_safeexambrowser_currentData1"];
+    return [examSettingsKey isEqualToData:currentExamSettingsKey];
 }
 
 
 - (void) updateExamSettingsKey:(NSDictionary *)settings
 {
-    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    [keychainManager updateKeyWithID:@"1" keyData:[self checksumForPrefDictionary:settings]];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setSecureObject:[self checksumForLocalPrefDictionary:settings]
+                   forKey:@"org_safeexambrowser_currentData1"];
 }
 
 
@@ -254,6 +257,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 - (NSData *)checksumForPrefDictionary:(NSDictionary *)prefsDict
 {
     NSError *error = nil;
+    
     NSData *archivedPrefs = [NSPropertyListSerialization dataWithPropertyList:prefsDict
                                                                        format:NSPropertyListXMLFormat_v1_0
                                                                       options:0
@@ -261,11 +265,34 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSData *HMACData;
     if (error || !archivedPrefs) {
         // Serialization of the XML plist went wrong
-        // Browser Exam Key is empty
+        // Pref key is empty
         HMACData = [NSData data];
     } else {
-        // Generate new Browser Exam Key
+        // Generate new pref key
         HMACData = [self generateChecksumForCurrentData:archivedPrefs];
+    }
+    return HMACData;
+}
+
+
+- (NSData *)checksumForLocalPrefDictionary:(NSDictionary *)prefsDict
+{
+    NSMutableDictionary *cleanedPrefs = [NSMutableDictionary dictionaryWithDictionary:prefsDict];
+    [cleanedPrefs removeObjectForKey:@"examKeySalt"];
+    
+    NSError *error = nil;
+    NSData *archivedPrefs = [NSPropertyListSerialization dataWithPropertyList:prefsDict
+                                                                       format:NSPropertyListXMLFormat_v1_0
+                                                                      options:0
+                                                                        error:&error];
+    NSData *HMACData;
+    if (error || !archivedPrefs) {
+        // Serialization of the XML plist went wrong
+        // Pref key is empty
+        HMACData = [NSData data];
+    } else {
+        // Generate new pref key
+        HMACData = [self generateSHAHashForData:archivedPrefs];
     }
     return HMACData;
 }
@@ -303,6 +330,16 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 }
 
 
+- (NSData*) generateSHAHashForData:(NSData *)inputData {
+    unsigned char hashedChars[32];
+    CC_SHA256(inputData.bytes,
+              inputData.length,
+              hashedChars);
+    NSData *hashedData = [NSData dataWithBytes:hashedChars length:32];
+    return hashedData;
+}
+
+
 - (void)presentPreferencesCorruptedError
 {
 //    NSDictionary *newDict = @{ NSLocalizedDescriptionKey :
@@ -323,13 +360,14 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     // Set the flag to indicate to user later that settings have been reset
     [[MyGlobals sharedMyGlobals] setPreferencesReset:YES];
     // Reset settings to the default values
-	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    [preferences resetSEBUserDefaults];
-    [preferences storeSEBDefaultSettings];
-    [self updateEncryptedUserDefaults:YES updateSalt:YES];
-#ifdef DEBUG
-    NSLog(@"Local preferences have been reset!");
-#endif
+//	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+//    [preferences resetSEBUserDefaults];
+//    [preferences storeSEBDefaultSettings];
+//    // Update Exam Browser Key
+//    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+//#ifdef DEBUG
+//    NSLog(@"Local preferences have been reset!");
+//#endif
     return;
 }
 

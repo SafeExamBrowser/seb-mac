@@ -674,14 +674,14 @@
 // Add a generic key to the keychain
 - (BOOL) storeKey:(NSData *)keyData
 {
-    NSString *keyID = @"";
+    NSString *keyID = @"0";
     return [self storeKeyWithID:keyID keyData:keyData];
 }
 
 // Add key with ID to the keychain
 - (BOOL) storeKeyWithID:(NSString *)keyID keyData:(NSData *)keyData
 {
-    NSData *attrGeneric = [[[[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleIdentifier"] stringByAppendingString:keyID] dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *attrGeneric = [[[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleIdentifier"] dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
                            kSecClassGenericPassword, kSecClass,
                            attrGeneric, kSecAttrGeneric,
@@ -689,6 +689,11 @@
                            keyData, kSecValueData,
                            nil];
     OSStatus status = SecItemAdd((__bridge CFDictionaryRef)query, NULL);
+    if (status != noErr) {
+        NSError *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
+        [NSApp presentError:outError];
+
+    }
 	return (status == noErr);
 }
 
@@ -703,7 +708,7 @@
 // Update a key with ID in the keychain
 - (BOOL) updateKeyWithID:(NSString *)keyID keyData:(NSData *)keyData
 {
-    NSData *attrGeneric = [[[[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleIdentifier"] stringByAppendingString:keyID] dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *attrGeneric = [[[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleIdentifier"] dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
                            kSecClassGenericPassword, kSecClass,
                            attrGeneric, kSecAttrGeneric,
@@ -730,7 +735,7 @@
 // Get a key with ID from the keychain
 - (NSData *) retrieveKeyWithID:(NSString *)keyID
 {
-    NSData *attrGeneric = [[[[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleIdentifier"] stringByAppendingString:keyID] dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *attrGeneric = [[[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleIdentifier"] dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
                            kSecClassGenericPassword, kSecClass,
                            attrGeneric, kSecAttrGeneric,

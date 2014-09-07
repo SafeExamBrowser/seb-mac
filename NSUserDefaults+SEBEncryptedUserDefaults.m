@@ -431,26 +431,45 @@ static BOOL _usePrivateUserDefaults = NO;
 - (BOOL)setSEBDefaults
 {
     BOOL firstStart = NO;
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    cachedUserDefaults = [NSMutableDictionary new];
+
+//    // Get default SEB settings
+//    NSDictionary *appDefaults = [preferences sebDefaultSettings];
+//    NSMutableDictionary *defaultSettings = [NSMutableDictionary dictionaryWithCapacity:appDefaults.count];
+//    // Encrypt default values
+//    for (NSString *key in appDefaults) {
+//        id value = [appDefaults objectForKey:key];
+//        if (value) {
+//            [defaultSettings setObject:(id)[preferences secureDataForObject:value andKey:key] forKey:key];
+//        }
+//    }
+//    // Register default preferences
+//    [preferences registerDefaults:defaultSettings];
+//    
+//#ifdef DEBUG
+//    NSLog(@"Registred Defaults");
+//#endif
+    
     SEBCryptor *sharedSEBCryptor = [SEBCryptor sharedSEBCryptor];
+    NSMutableDictionary *currentUserDefaults;
     // Check if there are valid SEB UserDefaults already
     if ([self haveSEBUserDefaults]) {
         // Read decrypted existing SEB UserDefaults
         NSDictionary *sebUserDefaults = [self dictionaryRepresentationSEB];
         // Check if something went wrong reading settings
         if (sebUserDefaults == nil) {
-            // Set the flag to indicate to user later that settings have been reset
+            // Set the flag to indicate user later that settings have been reset
             [[MyGlobals sharedMyGlobals] setPreferencesReset:YES];
-            // The cachedUserDefaults should be an empty dictionary then
-            cachedUserDefaults = [NSMutableDictionary new];
+            // The currentUserDefaults should be an empty dictionary then
+            currentUserDefaults = [NSMutableDictionary new];
         } else {
-            cachedUserDefaults = [NSMutableDictionary dictionaryWithDictionary:sebUserDefaults];
+            currentUserDefaults = [[NSMutableDictionary alloc] initWithDictionary:sebUserDefaults copyItems:YES];
             // Generate Exam Settings Key
-            NSData *examSettingsKey = [sharedSEBCryptor checksumForPrefDictionary:cachedUserDefaults];
+            NSData *examSettingsKey = [sharedSEBCryptor checksumForLocalPrefDictionary:currentUserDefaults];
             // If exam settings are corrupted
-            if (![sharedSEBCryptor checkExamSettings:examSettingsKey]) {
+            if ([sharedSEBCryptor checkExamSettings:examSettingsKey] == false) {
                 // Delete all corrupted settings
-                [cachedUserDefaults removeAllObjects];
+                [currentUserDefaults removeAllObjects];
                 // Set the flag to indicate to user later that settings have been reset
                 [[MyGlobals sharedMyGlobals] setPreferencesReset:YES];
 #ifdef DEBUG
@@ -458,8 +477,6 @@ static BOOL _usePrivateUserDefaults = NO;
 #endif
             }
         }
-        // Update key
-        [sharedSEBCryptor updateUDKey];
     } else {
         // Were there invalid SEB prefs keys in UserDefaults?
         if ([self sebKeysSet].count > 0) {
@@ -477,33 +494,19 @@ static BOOL _usePrivateUserDefaults = NO;
     // Update UserDefaults encrypting key
     [sharedSEBCryptor updateUDKey];
 
-    // Get default SEB settings
-    NSDictionary *appDefaults = [preferences sebDefaultSettings];
-    NSMutableDictionary *defaultSettings = [NSMutableDictionary dictionaryWithCapacity:appDefaults.count];
-    // Encrypt default values
-    for (NSString *key in appDefaults) {
-        id value = [appDefaults objectForKey:key];
-        if (value) [defaultSettings setObject:(id)[preferences secureDataForObject:value andKey:key] forKey:key];
-    }
-    // Register default preferences
-    [preferences registerDefaults:defaultSettings];
-    
+    // If there were already SEB preferences, we save them back into UserDefaults
+    [self storeSEBDictionary:currentUserDefaults];
+
     // Check if originatorVersion flag is set and otherwise set it to the current SEB version
-    if ([[preferences secureStringForKey:@"org_safeexambrowser_originatorVersion"] isEqualToString:@""]) {
-        [preferences setSecureString:[NSString stringWithFormat:@"SEB_OSX_%@_%@",
+    if ([[self secureStringForKey:@"org_safeexambrowser_originatorVersion"] isEqualToString:@""]) {
+        [self setSecureString:[NSString stringWithFormat:@"SEB_OSX_%@_%@",
                                       [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
                                       [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]]
                               forKey:@"org_safeexambrowser_originatorVersion"];
     }
-#ifdef DEBUG
-    NSLog(@"Registred Defaults");
-#endif
-    
-    // If there were already SEB preferences, we save them back into UserDefaults
-    [self storeSEBDictionary:cachedUserDefaults];
-    
+
     // Update Exam Browser Key
-    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+    [sharedSEBCryptor updateEncryptedUserDefaults:YES updateSalt:NO];
     // Update Exam Settings Key
     [sharedSEBCryptor updateExamSettingsKey:cachedUserDefaults];
 
@@ -541,9 +544,9 @@ static BOOL _usePrivateUserDefaults = NO;
 #endif
             // If one value was nil, we abort getting the dictionary
             return nil;
-#ifdef DEBUG
-            NSLog(@"Registred Defaults");
-#endif
+//#ifdef DEBUG
+//            NSLog(@"Registred Defaults");
+//#endif
         }
     }
     return filteredPrefsDict;
@@ -859,6 +862,14 @@ static BOOL _usePrivateUserDefaults = NO;
 
 - (void)setSecureObject:(id)value forKey:(NSString *)key
 {
+    // Set value for key (without prefix) in cachedUserDefaults
+    // as long as it is a key with an "org_safeexambrowser_SEB_" prefix
+    if ([key hasPrefix:@"org_safeexambrowser_SEB_"]) {
+        [cachedUserDefaults setValue:value forKey:[key substringFromIndex:24]];
+        // Update Exam Settings Key
+        [[SEBCryptor sharedSEBCryptor] updateExamSettingsKey:cachedUserDefaults];
+    }
+
     if (_usePrivateUserDefaults) {
         if (value == nil) value = [NSNull null];
         [localUserDefaults setValue:value forKey:key];
