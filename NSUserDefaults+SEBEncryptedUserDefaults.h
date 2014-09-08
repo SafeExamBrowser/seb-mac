@@ -50,6 +50,8 @@
 
 @interface NSUserDefaults (SEBEncryptedUserDefaults)
 
+@property (strong, nonatomic) NSMutableDictionary *cachedUserDefaults;
+
 // Return (and allocate if necessary) shared secure UserDefaults
 + (NSMutableDictionary *)privateUserDefaults;
 

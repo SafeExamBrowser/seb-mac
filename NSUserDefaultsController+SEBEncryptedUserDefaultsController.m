@@ -80,6 +80,17 @@
 {
     NSArray *pathElements = [keyPath componentsSeparatedByString:@"."];
     NSString *key = [pathElements objectAtIndex:[pathElements count]-1];
+
+    // Set value for key (without prefix) in cachedUserDefaults
+    // as long as it is a key with an "org_safeexambrowser_SEB_" prefix
+    if ([key hasPrefix:@"org_safeexambrowser_SEB_"]) {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        NSMutableDictionary *cachedUserDefaults = [preferences cachedUserDefaults];
+        [cachedUserDefaults setValue:value forKey:[key substringFromIndex:24]];
+        // Update Exam Settings Key
+        [[SEBCryptor sharedSEBCryptor] updateExamSettingsKey:cachedUserDefaults];
+    }
+    
     if ([NSUserDefaults userDefaultsPrivate]) {
         if (value == nil) value = [NSNull null];
         [[NSUserDefaults privateUserDefaults] setValue:value forKey:key];

@@ -279,6 +279,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 {
     NSMutableDictionary *cleanedPrefs = [NSMutableDictionary dictionaryWithDictionary:prefsDict];
     [cleanedPrefs removeObjectForKey:@"examKeySalt"];
+    [cleanedPrefs removeObjectForKey:@"logDirectoryOSX"];
     
     NSError *error = nil;
     NSData *archivedPrefs = [NSPropertyListSerialization dataWithPropertyList:prefsDict

@@ -68,11 +68,13 @@
 
 @implementation NSUserDefaults (SEBEncryptedUserDefaults)
 
+//@dynamic cachedUserDefaults;
+
 static NSData *_secretData           = nil;
 static NSData *_deviceIdentifierData = nil;
 
 static NSMutableDictionary *localUserDefaults;
-static NSMutableDictionary *cachedUserDefaults;
+static NSMutableDictionary *_cachedUserDefaults;
 static BOOL _usePrivateUserDefaults = NO;
 
 
@@ -132,6 +134,17 @@ static BOOL _usePrivateUserDefaults = NO;
 	} else {
 		NSAssert(NO, @"The device identifier has already been set");
 	}
+}
+
+
+- (void)setCachedUserDefaults:(NSMutableDictionary *)cachedUserDefaults
+{
+    _cachedUserDefaults = cachedUserDefaults;
+}
+
+- (NSMutableDictionary *)cachedUserDefaults
+{
+    return _cachedUserDefaults;
 }
 
 
@@ -431,7 +444,7 @@ static BOOL _usePrivateUserDefaults = NO;
 - (BOOL)setSEBDefaults
 {
     BOOL firstStart = NO;
-    cachedUserDefaults = [NSMutableDictionary new];
+    _cachedUserDefaults = [NSMutableDictionary new];
 
 //    // Get default SEB settings
 //    NSDictionary *appDefaults = [preferences sebDefaultSettings];
@@ -508,7 +521,7 @@ static BOOL _usePrivateUserDefaults = NO;
     // Update Exam Browser Key
     [sharedSEBCryptor updateEncryptedUserDefaults:YES updateSalt:NO];
     // Update Exam Settings Key
-    [sharedSEBCryptor updateExamSettingsKey:cachedUserDefaults];
+    [sharedSEBCryptor updateExamSettingsKey:_cachedUserDefaults];
 
     return firstStart;
 }
@@ -865,9 +878,9 @@ static BOOL _usePrivateUserDefaults = NO;
     // Set value for key (without prefix) in cachedUserDefaults
     // as long as it is a key with an "org_safeexambrowser_SEB_" prefix
     if ([key hasPrefix:@"org_safeexambrowser_SEB_"]) {
-        [cachedUserDefaults setValue:value forKey:[key substringFromIndex:24]];
+        [_cachedUserDefaults setValue:value forKey:[key substringFromIndex:24]];
         // Update Exam Settings Key
-        [[SEBCryptor sharedSEBCryptor] updateExamSettingsKey:cachedUserDefaults];
+        [[SEBCryptor sharedSEBCryptor] updateExamSettingsKey:_cachedUserDefaults];
     }
 
     if (_usePrivateUserDefaults) {
