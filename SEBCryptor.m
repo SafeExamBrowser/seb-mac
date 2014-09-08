@@ -286,6 +286,11 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
                                                                        format:NSPropertyListXMLFormat_v1_0
                                                                       options:0
                                                                         error:&error];
+//    NSData *archivedPrefs = [NSJSONSerialization dataWithJSONObject:prefsDict options:0 error:&error];
+#ifdef DEBUG
+//    NSLog(@"LocalPrefDictionary: %@", [[NSString alloc] initWithData:archivedPrefs encoding:NSUTF8StringEncoding]);
+#endif
+    
     NSData *HMACData;
     if (error || !archivedPrefs) {
         // Serialization of the XML plist went wrong
