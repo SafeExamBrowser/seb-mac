@@ -68,8 +68,6 @@
 
 @implementation NSUserDefaults (SEBEncryptedUserDefaults)
 
-//@dynamic cachedUserDefaults;
-
 static NSData *_secretData           = nil;
 static NSData *_deviceIdentifierData = nil;
 
@@ -105,6 +103,8 @@ static BOOL _usePrivateUserDefaults = NO;
 #ifdef DEBUG
         NSLog(@"[preferences synchronize] = %@",[NSNumber numberWithBool:success]);
 #endif
+        // Clear the cached UserDefaults dictionary
+        _cachedUserDefaults = [NSMutableDictionary new];
     }
 #ifdef DEBUG
     NSLog(@"SetUserDefaultsPrivate: %@, localUserDefaults: %@",[NSNumber numberWithBool:_usePrivateUserDefaults], localUserDefaults);
