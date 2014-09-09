@@ -113,6 +113,10 @@ bool insideMatrix();
 - (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename {
     NSURL *sebFileURL = [NSURL fileURLWithPath:filename];
 
+#ifdef DEBUG
+    NSLog(@"Open file event: Loading .seb settings file with URL %@",sebFileURL);
+#endif
+
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
 
     // Check if preferences window is open
@@ -134,9 +138,6 @@ bool insideMatrix();
             return YES;
         }
         
-#ifdef DEBUG
-        NSLog(@"Open file event: Loading .seb settings file with URL %@",sebFileURL);
-#endif
         NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL];
         
         SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
@@ -211,8 +212,8 @@ bool insideMatrix();
 }
 
 
-- (void)awakeFromNib {	
-
+- (void)awakeFromNib
+{
 //    SEBSystemManager *systemManager = [[SEBSystemManager alloc] init];
 //	
 //    BOOL worked = [systemManager checkHTTPSProxySetting];
@@ -431,7 +432,7 @@ bool insideMatrix();
 #ifdef DEBUG
                 NSLog(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine! gestaltX86AdditionalFeatures = %X", myAttrs);
 #endif
-                NSRunAlertPanel(NSLocalizedString(@"Virtual Machine detected!", nil),
+                NSRunAlertPanel(NSLocalizedString(@"Virtual Machine Detected!", nil),
                                 NSLocalizedString(@"You are not allowed to run SEB inside a virtual machine!", nil),
                                 NSLocalizedString(@"Quit", nil), nil, nil);
                 quittingMyself = TRUE; //SEB is terminating itself
@@ -533,6 +534,7 @@ bool insideMatrix();
 
 - (void)presentPreferencesCorruptedError
 {
+    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Local SEB Settings Have Been Reset", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:NSLocalizedString(@"Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.", nil)];
     [newAlert setAlertStyle:NSCriticalAlertStyle];
     [newAlert runModal];

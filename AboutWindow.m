@@ -54,7 +54,7 @@
 }	
 
 
-// Overriding this method to return NO prevents that the Prefereces Window 
+// Overriding this method to return NO prevents that the Preferences Window 
 // looses key state when the About Window is openend
 - (BOOL)canBecomeKeyWindow {
     return NO;

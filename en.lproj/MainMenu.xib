@@ -374,9 +374,6 @@
                             </menuItem>
                             <menuItem title="Fullscreen" keyEquivalent="f" id="YsN-Cb-3bf">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                <connections>
-                                    <action selector="toggleCapWindowsFullscreen:" target="543" id="hFH-E1-iXT"/>
-                                </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="906"/>
                             <menuItem title="Stop" keyEquivalent="." id="913">
@@ -483,7 +480,7 @@
                         <rect key="frame" x="302" y="5" width="96" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="84" id="1032"/>
+                            <constraint firstAttribute="width" constant="84" id="fvj-iJ-BmY"/>
                         </constraints>
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="721">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -500,7 +497,7 @@ DQ
                         <rect key="frame" x="206" y="5" width="96" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="84" id="1021"/>
+                            <constraint firstAttribute="width" constant="84" id="BAY-gz-1i8"/>
                         </constraints>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="720">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -524,16 +521,19 @@ Gw
                     </textField>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="718" secondAttribute="trailing" constant="20" symbolic="YES" id="1023"/>
-                    <constraint firstItem="716" firstAttribute="leading" secondItem="715" secondAttribute="leading" constant="20" symbolic="YES" id="1024"/>
-                    <constraint firstItem="718" firstAttribute="leading" secondItem="719" secondAttribute="trailing" constant="12" symbolic="YES" id="1025"/>
-                    <constraint firstAttribute="trailing" secondItem="716" secondAttribute="trailing" constant="20" symbolic="YES" id="1027"/>
-                    <constraint firstAttribute="bottom" secondItem="719" secondAttribute="bottom" constant="12" id="1031"/>
-                    <constraint firstItem="719" firstAttribute="top" secondItem="716" secondAttribute="bottom" constant="10" id="1040"/>
-                    <constraint firstItem="718" firstAttribute="baseline" secondItem="719" secondAttribute="baseline" id="1052"/>
-                    <constraint firstItem="962" firstAttribute="leading" secondItem="715" secondAttribute="leading" constant="19" id="VAg-UT-PZq"/>
-                    <constraint firstItem="716" firstAttribute="top" secondItem="962" secondAttribute="bottom" constant="12" id="gw1-eL-aRJ"/>
-                    <constraint firstItem="962" firstAttribute="centerX" secondItem="716" secondAttribute="centerX" id="zy5-UP-Uqa"/>
+                    <constraint firstItem="718" firstAttribute="trailing" secondItem="716" secondAttribute="trailing" id="ABc-Fe-HhG"/>
+                    <constraint firstAttribute="bottom" secondItem="719" secondAttribute="bottom" constant="12" id="ANH-24-cQQ"/>
+                    <constraint firstItem="962" firstAttribute="leading" secondItem="715" secondAttribute="leading" constant="19" id="ICp-FO-nHb"/>
+                    <constraint firstItem="962" firstAttribute="top" secondItem="715" secondAttribute="top" constant="14" id="IXY-L1-qqK"/>
+                    <constraint firstItem="716" firstAttribute="centerY" secondItem="715" secondAttribute="centerY" id="QiM-cE-DYj"/>
+                    <constraint firstItem="718" firstAttribute="leading" secondItem="719" secondAttribute="trailing" constant="12" symbolic="YES" id="TwH-SC-vvG"/>
+                    <constraint firstItem="719" firstAttribute="baseline" secondItem="718" secondAttribute="baseline" id="W7r-qe-Pc5"/>
+                    <constraint firstItem="716" firstAttribute="top" secondItem="962" secondAttribute="bottom" constant="12" id="hxl-1d-2Ah"/>
+                    <constraint firstItem="716" firstAttribute="leading" secondItem="715" secondAttribute="leading" constant="20" symbolic="YES" id="iQr-dj-fP5"/>
+                    <constraint firstItem="719" firstAttribute="top" secondItem="716" secondAttribute="bottom" constant="10" id="r9U-nV-4Qb"/>
+                    <constraint firstAttribute="trailing" secondItem="716" secondAttribute="trailing" constant="20" symbolic="YES" id="tNb-I9-Rcf"/>
+                    <constraint firstAttribute="bottom" secondItem="718" secondAttribute="bottom" constant="12" id="uxJ-cC-urK"/>
+                    <constraint firstAttribute="trailing" secondItem="962" secondAttribute="trailing" constant="19" id="xUr-eX-LlY"/>
                 </constraints>
             </view>
         </window>
@@ -542,7 +542,7 @@ Gw
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="340" y="419" width="550" height="300"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1578"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
             <view key="contentView" id="860" customClass="AboutView">
                 <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>

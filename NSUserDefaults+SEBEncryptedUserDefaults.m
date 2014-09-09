@@ -60,16 +60,12 @@
 
 - (BOOL)_isValidPropertyListObject:(id)object;
 - (id)_objectForKey:(NSString *)key;
-- (NSString *)_hashObject:(id)object;
-- (NSString *)_hashData:(NSData *)data;
 
 @end
 
 
 @implementation NSUserDefaults (SEBEncryptedUserDefaults)
 
-static NSData *_secretData           = nil;
-static NSData *_deviceIdentifierData = nil;
 
 static NSMutableDictionary *localUserDefaults;
 static NSMutableDictionary *_cachedUserDefaults;
@@ -115,25 +111,6 @@ static BOOL _usePrivateUserDefaults = NO;
 + (BOOL)userDefaultsPrivate
 {
     return _usePrivateUserDefaults;
-}
-
-
-+ (void)setSecret:(NSString *)secret
-{
-	if (_secretData == nil) {
-		_secretData = [secret dataUsingEncoding:NSUTF8StringEncoding];
-	} else {
-		NSAssert(NO, @"The secret has already been set");
-	}
-}
-
-+ (void)setDeviceIdentifier:(NSString *)deviceIdentifier
-{
-	if (_deviceIdentifierData == nil) {
-		_deviceIdentifierData = [deviceIdentifier dataUsingEncoding:NSUTF8StringEncoding];
-	} else {
-		NSAssert(NO, @"The device identifier has already been set");
-	}
 }
 
 
@@ -443,6 +420,9 @@ static BOOL _usePrivateUserDefaults = NO;
 // Returns YES if SEB was started first time on this system (no SEB settings found in UserDefaults)
 - (BOOL)setSEBDefaults
 {
+#ifdef DEBUG
+    NSLog(@"Setting local preferences (client settings)");
+#endif
     BOOL firstStart = NO;
     _cachedUserDefaults = [NSMutableDictionary new];
 
@@ -522,6 +502,10 @@ static BOOL _usePrivateUserDefaults = NO;
     [sharedSEBCryptor updateEncryptedUserDefaults:YES updateSalt:NO];
     // Update Exam Settings Key
     [sharedSEBCryptor updateExamSettingsKey:_cachedUserDefaults];
+
+#ifdef DEBUG
+    NSLog(@"Local preferences (client settings) set");
+#endif
 
     return firstStart;
 }
@@ -902,7 +886,7 @@ static BOOL _usePrivateUserDefaults = NO;
             NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
             if (error) {
 #ifdef DEBUG
-                NSLog(@"PREFERECES CORRUPTED ERROR at [self setObject:(encrypted %@) forKey:%@]", value, key);
+                NSLog(@"PREFERENCES CORRUPTED ERROR at [self setObject:(encrypted %@) forKey:%@]", value, key);
 #endif
                 [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
                 return;
@@ -940,7 +924,7 @@ static BOOL _usePrivateUserDefaults = NO;
         NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
         if (error) {
 #ifdef DEBUG
-            NSLog(@"PREFERECES CORRUPTED ERROR at [self secureDataForObject:%@ andKey:%@]", value, key);
+            NSLog(@"PREFERENCES CORRUPTED ERROR at [self secureDataForObject:%@ andKey:%@]", value, key);
 #endif
             [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
             return nil;
@@ -1014,7 +998,7 @@ static BOOL _usePrivateUserDefaults = NO;
         NSData *decrypted = [[SEBCryptor sharedSEBCryptor] decryptData:encrypted forKey:key error:&error];
         if (error) {
 #ifdef DEBUG
-            NSLog(@"PREFERECES CORRUPTED ERROR at [self _objectForKey:%@]", key);
+            NSLog(@"PREFERENCES CORRUPTED ERROR at [self _objectForKey:%@]", key);
 #endif
             [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
             return nil;
@@ -1027,46 +1011,5 @@ static BOOL _usePrivateUserDefaults = NO;
     }
 }
 
-
-- (NSString *)_hashObject:(id)object
-{
-	if (_secretData == nil) {
-		// Use if statement in case asserts are disabled
-		NSAssert(NO, @"Provide a secret before using any secure writing or reading methods!");
-		return nil;
-	}
-    
-    // Copy object to make sure it is immutable (thanks Stephen)
-    object = [object copy];
-	
-	// Archive & hash
-	NSMutableData *archivedData = [[NSKeyedArchiver archivedDataWithRootObject:object] mutableCopy];
-	[archivedData appendData:_secretData];
-	if (_deviceIdentifierData != nil) {
-		[archivedData appendData:_deviceIdentifierData];
-	}
-	NSString *hash = [self _hashData:archivedData];
-	
-	return hash;
-}
-
-
-- (NSString *)_hashData:(NSData *)data
-{
-	const char *cStr = [data bytes];
-	unsigned char digest[CC_MD5_DIGEST_LENGTH];
-	CC_MD5(cStr, [data length], digest);
-	
-	static NSString *format = @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x";
-	NSString *hash = [NSString stringWithFormat:format, digest[0], digest[1], 
-														digest[2], digest[3],
-														digest[4], digest[5],
-														digest[6], digest[7],
-														digest[8], digest[9],
-														digest[10], digest[11],
-														digest[12], digest[13],
-														digest[14], digest[15]];
-	return hash;
-}
 
 @end
