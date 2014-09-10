@@ -52,6 +52,7 @@
 #import "RNDecryptor.h"
 #import "SEBCryptor.h"
 #import "SEBKeychainManager.h"
+#import "SEBConfigFileManager.h"
 #import "MyGlobals.h"
 #import "Constants.h"
 
@@ -425,26 +426,10 @@ static BOOL _usePrivateUserDefaults = NO;
 #endif
     BOOL firstStart = NO;
     _cachedUserDefaults = [NSMutableDictionary new];
-
-//    // Get default SEB settings
-//    NSDictionary *appDefaults = [preferences sebDefaultSettings];
-//    NSMutableDictionary *defaultSettings = [NSMutableDictionary dictionaryWithCapacity:appDefaults.count];
-//    // Encrypt default values
-//    for (NSString *key in appDefaults) {
-//        id value = [appDefaults objectForKey:key];
-//        if (value) {
-//            [defaultSettings setObject:(id)[preferences secureDataForObject:value andKey:key] forKey:key];
-//        }
-//    }
-//    // Register default preferences
-//    [preferences registerDefaults:defaultSettings];
-//    
-//#ifdef DEBUG
-//    NSLog(@"Registred Defaults");
-//#endif
     
     SEBCryptor *sharedSEBCryptor = [SEBCryptor sharedSEBCryptor];
     NSMutableDictionary *currentUserDefaults;
+
     // Check if there are valid SEB UserDefaults already
     if ([self haveSEBUserDefaults]) {
         // Read decrypted existing SEB UserDefaults
@@ -506,6 +491,9 @@ static BOOL _usePrivateUserDefaults = NO;
 #ifdef DEBUG
     NSLog(@"Local preferences (client settings) set");
 #endif
+
+    // Check if there is a SebClientSettings.seb file saved in the preferences directory
+    
 
     return firstStart;
 }

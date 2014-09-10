@@ -73,6 +73,28 @@
 
 #pragma mark Methods for Decrypting, Parsing and Storing SEB Settings to UserDefaults
 
+// Load a SebClientSettings.seb file saved in the preferences directory
+// and if it existed and was loaded, use it to re-configure SEB
+- (BOOL) reconfigureClientWithSebClientSettings
+{
+    NSURL *sebFileURL = [NSURL URLWithString:NSTemporaryDirectory()];
+
+    NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL];
+    
+    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+    
+    // Decrypt and store the .seb config file
+    if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO]) {
+        // if successfull restart with new settings
+        return YES;
+    } else {
+        // if decrypting new settings wasn't successfull, we have to restore the path to the old settings
+        return NO;
+    }
+}
+
+
+
 // Decrypt, parse and use new SEB settings
 -(BOOL) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing
 {
