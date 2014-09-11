@@ -96,8 +96,8 @@
     [self orderOut:self];
     
     // ToTest
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"requestReinforceKioskMode" object:self];
+//    [[NSNotificationCenter defaultCenter]
+//     postNotificationName:@"requestReinforceKioskMode" object:self];
 
 }
 

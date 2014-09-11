@@ -77,20 +77,42 @@
 // and if it existed and was loaded, use it to re-configure SEB
 - (BOOL) reconfigureClientWithSebClientSettings
 {
-    NSURL *sebFileURL = [NSURL URLWithString:NSTemporaryDirectory()];
+    NSError *error;
+    NSURL *preferencesDirectory = [[NSFileManager defaultManager] URLForDirectory:NSLibraryDirectory
+                                                                         inDomain:NSUserDomainMask
+                                                                appropriateForURL:nil
+                                                                           create:NO
+                                                                            error:&error];
+    if (preferencesDirectory) {
+        NSURL *sebClientSettingsFileURL = [preferencesDirectory URLByAppendingPathComponent:@"Preferences/SebClientSettings.seb"];
+        NSData *sebData = [NSData dataWithContentsOfURL:sebClientSettingsFileURL];
+        if (sebData) {
+#ifdef DEBUG
+            NSLog(@"Reconfiguring SEB with SebClientSettings.seb from Preferences directory");
+#endif
+            SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+            
+            // Decrypt and store the .seb config file
+            if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO]) {
+                // if successfull continue with new settings
+#ifdef DEBUG
+                NSLog(@"Reconfiguring SEB with SebClientSettings.seb was successful");
+#endif
+                // Delete the SebClientSettings.seb file from the Preferences directory
+                error = nil;
+                [[NSFileManager defaultManager] removeItemAtURL:sebClientSettingsFileURL error:&error];
+#ifdef DEBUG
+                NSLog(@"Attempted to remove SebClientSettings.seb from Preferences directory, result: %@", error);
+#endif
+                // Restart SEB with new settings
+                [[NSNotificationCenter defaultCenter]
+                 postNotificationName:@"requestRestartNotification" object:self];
 
-    NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL];
-    
-    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-    
-    // Decrypt and store the .seb config file
-    if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO]) {
-        // if successfull restart with new settings
-        return YES;
-    } else {
-        // if decrypting new settings wasn't successfull, we have to restore the path to the old settings
-        return NO;
+                return YES;
+            }
+        }
     }
+    return NO;
 }
 
 
@@ -175,15 +197,27 @@
         _currentConfigPasswordIsHash = NO;
         _currentConfigKeyRef = nil;
 
-        int answer = NSRunAlertPanel(NSLocalizedString(@"SEB Re-Configured",nil), NSLocalizedString(@"Local settings of this SEB client have been reconfigured. Do you want to start working with SEB now or quit?",nil),
-                                     NSLocalizedString(@"Continue",nil), NSLocalizedString(@"Quit",nil), nil);
-        switch(answer)
-        {
-            case NSAlertDefaultReturn:
-                break; //Cancel: don't quit
-            default:
-                self.sebController.quittingMyself = TRUE; //SEB is terminating itself
-                [NSApp terminate: nil]; //quit SEB
+#ifdef DEBUG
+        NSLog(@"Should display dialog SEB Re-Configured");
+#endif
+        if ([[MyGlobals sharedMyGlobals] finishedInitializing]) {
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:NSLocalizedString(@"SEB Re-Configured", nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"Local settings of this SEB client have been reconfigured. Do you want to start working with SEB now or quit?", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Continue", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+            int answer = [newAlert runModal];
+            switch(answer)
+            {
+                case NSAlertFirstButtonReturn:
+                    
+                    break; //Continue running SEB
+                    
+                case NSAlertSecondButtonReturn:
+                    
+                    self.sebController.quittingMyself = TRUE; //SEB is terminating itself
+                    [NSApp terminate: nil]; //quit SEB
+            }
         }
         
         // If opening the preferences window is allowed

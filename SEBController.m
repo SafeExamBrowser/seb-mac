@@ -84,6 +84,7 @@ bool insideMatrix();
 
 + (void) initialize
 {
+    [[MyGlobals sharedMyGlobals] setFinishedInitializing:NO];
     [[MyGlobals sharedMyGlobals] setStartKioskChangedPresentationOptions:NO];
 
     SEBWindowSizeValueTransformer *windowSizeTransformer = [[SEBWindowSizeValueTransformer alloc] init];
@@ -199,6 +200,7 @@ bool insideMatrix();
         
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         
+        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         // Set default preferences for the case there are no user prefs yet
         // and set flag for displaying alert to new users
         firstStart = [preferences setSEBDefaults];
@@ -223,7 +225,7 @@ bool insideMatrix();
     
     // Flag initializing
 	quittingMyself = FALSE; //flag to know if quit application was called externally
-    
+
     // Terminate invisibly running applications
     if ([NSRunningApplication respondsToSelector:@selector(terminateAutomaticallyTerminableApplications)]) {
         [NSRunningApplication terminateAutomaticallyTerminableApplications];
@@ -488,13 +490,13 @@ bool insideMatrix();
 	[[self.webView preferences] setPlugInsEnabled:NO];
 #endif
 	
-    if ([[MyGlobals sharedMyGlobals] preferencesReset] == YES) {
-#ifdef DEBUG
-        NSLog(@"Presenting alert for 'Local SEB settings have been reset' after a delay of 2s");
-#endif
-        [self performSelector:@selector(presentPreferencesCorruptedError) withObject: nil afterDelay: 2];
-    }
-        
+//    if ([[MyGlobals sharedMyGlobals] preferencesReset] == YES) {
+//#ifdef DEBUG
+//        NSLog(@"Presenting alert for 'Local SEB settings have been reset' after a delay of 2s");
+//#endif
+//        [self performSelector:@selector(presentPreferencesCorruptedError) withObject: nil afterDelay: 2];
+//    }
+    
 /*	if (firstStart) {
 		NSString *titleString = NSLocalizedString(@"Important Notice for First Time Users", nil);
 		NSString *messageString = NSLocalizedString(@"FirstTimeUserNotice", nil);
@@ -526,9 +528,38 @@ bool insideMatrix();
 	RegisterEventHotKey(97, 0, gMyHotKeyID,
 						GetApplicationEventTarget(), 0, &gMyHotKeyRef);
     
-     // Show the About SEB Window
+    // Show the About SEB Window
     [aboutWindow showAboutWindowForSeconds:3];
+
+    [self performSelector:@selector(performAfterStartActions:) withObject: nil afterDelay: 2];
+
+}
+
+
+// Perform actions which require that SEB has finished setting up and has opened its windows
+- (void) performAfterStartActions:(NSNotification *)notification
+{
+#ifdef DEBUG
+    NSLog(@"Performing after start actions");
+#endif
     
+    // Reinforce the kiosk mode
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"requestReinforceKioskMode" object:self];
+    
+    if ([[MyGlobals sharedMyGlobals] preferencesReset] == YES) {
+#ifdef DEBUG
+        NSLog(@"Presenting alert for 'Local SEB settings have been reset'");
+#endif
+        [self presentPreferencesCorruptedError];
+    }
+    
+    // Check if there is a SebClientSettings.seb file saved in the preferences directory
+    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+    [configFileManager reconfigureClientWithSebClientSettings];
+    
+    // Set flag that SEB is initialized: Now showing alerts is allowed
+    [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
 }
 
 

@@ -56,6 +56,9 @@
 - (NSString *)currentConfigPassword UNAVAILABLE_ATTRIBUTE;
 - (SecKeyRef)currentConfigKeyRef UNAVAILABLE_ATTRIBUTE;
 
+// Load a SebClientSettings.seb file saved in the preferences directory
+// and if it existed and was loaded, use it to re-configure SEB
+- (BOOL) reconfigureClientWithSebClientSettings;
 
 // Decrypt, parse and store SEB settings to UserDefaults
 -(BOOL) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing;

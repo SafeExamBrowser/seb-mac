@@ -48,6 +48,7 @@
 
 + (MyGlobals*)sharedMyGlobals;
 
+@property(readwrite) BOOL finishedInitializing;
 @property(nonatomic, strong) NSWindow *mainBrowserWindow;
 @property(copy, readwrite) NSString *currentMainHost;
 @property(copy, readwrite) NSMutableArray *downloadPath;
