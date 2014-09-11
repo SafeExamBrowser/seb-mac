@@ -987,7 +987,7 @@ static BOOL _usePrivateUserDefaults = NO;
         NSData *decrypted = [[SEBCryptor sharedSEBCryptor] decryptData:encrypted forKey:key error:&error];
         if (error) {
 #ifdef DEBUG
-            NSLog(@"PREFERENCES CORRUPTED ERROR at [self _objectForKey:%@]", key);
+            NSLog(@"PREFERENCES CORRUPTED ERROR at [self _objectForKey:%@], error: %@", key, error);
 #endif
             [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
             return nil;

@@ -1126,6 +1126,8 @@ bool insideMatrix(){
 
 - (NSInteger) showEnterPasswordDialog:(NSString *)text modalForWindow:(NSWindow *)window windowTitle:(NSString *)title {
     // User has asked to see the dialog. Display it.
+//    [passwordView setTranslatesAutoresizingMaskIntoConstraints:NO];
+
     [self.enterPassword setStringValue:@""]; //reset the enterPassword NSSecureTextField
     if (title) enterPasswordDialogWindow.title = title;
     [enterPasswordDialog setStringValue:text];

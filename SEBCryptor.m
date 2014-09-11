@@ -96,9 +96,15 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSData *defaultsKey = [keychainManager retrieveKey];
     if (defaultsKey) {
         _currentKey = defaultsKey;
+#ifdef DEBUG
+        NSLog(@"UserDefaults key retrieved.");
+#endif
     } else {
         _currentKey = [RNCryptor randomDataOfLength:kCCKeySizeAES128];
         [keychainManager storeKey:_currentKey];
+#ifdef DEBUG
+        NSLog(@"Generated UserDefaults key as there was none defined yet.");
+#endif
     }
     return (defaultsKey != nil);
 }
