@@ -99,14 +99,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     } else {
         _currentKey = [RNCryptor randomDataOfLength:kCCKeySizeAES128];
         [keychainManager storeKey:_currentKey];
-//        NSMutableData *HMACData = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
-//        [keychainManager storeKeyWithID:@"1" keyData:[RNCryptor randomDataOfLength:kCCKeySizeAES128]];
     }
-//    NSData *examSettingsKey = [keychainManager retrieveKeyWithID:@"1"];
-//    if (!examSettingsKey) {
-//        NSMutableData *newExamSettingsKey = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
-//        [keychainManager storeKeyWithID:@"1" keyData:newExamSettingsKey];
-//    }
     return (defaultsKey != nil);
 }
 

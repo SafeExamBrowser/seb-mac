@@ -102,12 +102,6 @@ bool insideMatrix();
 }
 
 
-- (void)applicationWillFinishLaunching:(NSNotification *)notification
-{
-
-}
-
-
 // Tells the application delegate to open a single file.
 // Returning YES if the file is successfully opened, and NO otherwise.
 //
@@ -479,9 +473,6 @@ bool insideMatrix();
     //NSInteger changeCount = [pasteboard clearContents];
     [pasteboard clearContents];
 
-    // Make SEB take over all screens, regardless if there is another app in fullscreen mode (in Mavericks)
-    //[self toggleCapWindowsFullscreen:self];
-
     // Set up SEB Browser
     [self openMainBrowserWindow];
     
@@ -531,8 +522,14 @@ bool insideMatrix();
     // Show the About SEB Window
     [aboutWindow showAboutWindowForSeconds:3];
 
-    [self performSelector:@selector(performAfterStartActions:) withObject: nil afterDelay: 2];
+//    [self performSelector:@selector(performAfterStartActions:) withObject: nil afterDelay: 2];
 
+}
+
+
+- (void)applicationDidFinishLaunching:(NSNotification *)notification
+{
+    [self performSelector:@selector(performAfterStartActions:) withObject: nil afterDelay: 2];
 }
 
 
