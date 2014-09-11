@@ -872,11 +872,11 @@
                     // Prefs got successfully written to file
                     // If "Save As" or the last file didn't had a full path (wasn't stored on drive):
                     // Store the new path as the current config file path
-                    if (fileURLUpdate && (saveAs || ![currentConfigFileURL isFileURL])) {
+                    if (NSUserDefaults.userDefaultsPrivate && fileURLUpdate && (saveAs || ![currentConfigFileURL isFileURL])) {
                         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:panel.URL];
                         [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
                     }
-                    if (fileURLUpdate) {
+                    if (NSUserDefaults.userDefaultsPrivate && fileURLUpdate) {
                         [[MBPreferencesController sharedController] setPreferencesWindowTitle];
                         NSString *settingsSavedMessage = configPurpose ? NSLocalizedString(@"Settings have been saved, use this file to reconfigure local settings of a SEB client.", nil) : NSLocalizedString(@"Settings have been saved, use this file to start the exam with SEB.", nil);
                         NSRunAlertPanel(NSLocalizedString(@"Writing Settings Succeeded", nil), @"%@", NSLocalizedString(@"OK", nil), nil, nil,settingsSavedMessage);
