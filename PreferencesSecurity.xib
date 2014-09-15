@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13F31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment version="1070" defaultVersion="1070" identifier="macosx"/>
+        <deployment version="1070" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6245"/>
     </dependencies>
@@ -21,9 +21,6 @@
             <subviews>
                 <button toolTip="The log can help in debugging SEB (send it to the developers) and to find out about possible manipulations." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="13">
                     <rect key="frame" x="18" y="445" width="116" height="18"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="112" id="95I-4G-b5h"/>
-                    </constraints>
                     <buttonCell key="cell" type="check" title="Enable logging" bezelStyle="regularSquare" imagePosition="left" alignment="left" enabled="NO" inset="2" id="14">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -38,9 +35,6 @@
                 </button>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="22">
                     <rect key="frame" x="223" y="446" width="101" height="17"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="97" id="zNU-VH-LL8"/>
-                    </constraints>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Save log file to:" id="23">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -139,37 +133,40 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <box autoresizesSubviews="NO" verticalHuggingPriority="500" verticalCompressionResistancePriority="1000" title="Kiosk Mode" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="UEX-8o-YnQ">
-                                        <rect key="frame" x="13" y="264" width="283" height="100"/>
+                                        <rect key="frame" x="13" y="261" width="283" height="100"/>
                                         <view key="contentView">
                                             <rect key="frame" x="1" y="1" width="281" height="84"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <matrix verticalHuggingPriority="500" verticalCompressionResistancePriority="1000" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7IF-IM-Zva">
+                                                <matrix verticalCompressionResistancePriority="1000" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kBz-Xz-wNK">
                                                     <rect key="frame" x="18" y="16" width="245" height="58"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="58" id="6vk-1a-Npb"/>
+                                                    </constraints>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     <size key="cellSize" width="189" height="18"/>
                                                     <size key="intercellSpacing" width="4" height="2"/>
-                                                    <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="rIz-KH-6rS">
+                                                    <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="Q7m-zi-za1">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
                                                     <cells>
                                                         <column>
-                                                            <buttonCell type="radio" title="Create new desktop" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="Cok-Q4-tlw">
+                                                            <buttonCell type="radio" title="Create new desktop" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="AwA-eq-zFC">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                                 <connections>
-                                                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_createNewDesktop" id="Cr5-gs-K7O"/>
+                                                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_createNewDesktop" id="7Yk-2p-lNS"/>
                                                                 </connections>
                                                             </buttonCell>
-                                                            <buttonCell type="radio" title="Disable Explorer Shell" imagePosition="left" alignment="left" inset="2" id="fzK-aI-iI2">
+                                                            <buttonCell type="radio" title="Disable Explorer Shell" imagePosition="left" alignment="left" inset="2" id="dpL-te-8hi">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                                 <connections>
-                                                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_killExplorerShell" id="uys-y2-3O5"/>
+                                                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_killExplorerShell" id="xm6-IN-XTa"/>
                                                                 </connections>
                                                             </buttonCell>
-                                                            <buttonCell type="radio" title="None (for debugging only)" imagePosition="left" alignment="left" inset="2" id="Rz3-Vz-i11">
+                                                            <buttonCell type="radio" title="None (for debugging only)" imagePosition="left" alignment="left" inset="2" id="KbI-Yu-DVk">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
@@ -179,16 +176,17 @@
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="7IF-IM-Zva" secondAttribute="trailing" constant="16" id="JI0-XD-TpY"/>
-                                            <constraint firstAttribute="bottom" secondItem="7IF-IM-Zva" secondAttribute="bottom" constant="13" id="Pt3-lW-ZyR"/>
-                                            <constraint firstItem="7IF-IM-Zva" firstAttribute="leading" secondItem="UEX-8o-YnQ" secondAttribute="leading" constant="16" id="bhy-kx-vCI"/>
-                                            <constraint firstItem="7IF-IM-Zva" firstAttribute="top" secondItem="UEX-8o-YnQ" secondAttribute="top" constant="25" id="oud-9c-0eF"/>
+                                            <constraint firstItem="kBz-Xz-wNK" firstAttribute="top" secondItem="UEX-8o-YnQ" secondAttribute="top" constant="25" id="0ag-so-ZbS"/>
+                                            <constraint firstAttribute="bottom" secondItem="kBz-Xz-wNK" secondAttribute="bottom" constant="13" id="637-Rg-U4Q"/>
+                                            <constraint firstAttribute="width" constant="277" id="Eqx-zx-amU"/>
+                                            <constraint firstAttribute="trailing" secondItem="kBz-Xz-wNK" secondAttribute="trailing" constant="16" id="Rtd-NB-nEk"/>
+                                            <constraint firstItem="kBz-Xz-wNK" firstAttribute="leading" secondItem="UEX-8o-YnQ" secondAttribute="leading" constant="16" id="XDU-bI-sqx"/>
                                         </constraints>
                                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </box>
                                     <button toolTip="Indicates if SEB is allowed to run in a virtual machine or not (in order to prevent potential manipulation)." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="22y-gA-uVN">
-                                        <rect key="frame" x="14" y="229" width="586" height="18"/>
+                                        <rect key="frame" x="14" y="226" width="586" height="18"/>
                                         <buttonCell key="cell" type="check" title="Enable WiFi control" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Nlp-Oe-Cqb">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -200,9 +198,9 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="22y-gA-uVN" secondAttribute="bottom" priority="500" constant="20" id="6t2-2R-8Ej"/>
-                                    <constraint firstItem="UEX-8o-YnQ" firstAttribute="top" secondItem="uoJ-Ks-O1o" secondAttribute="top" id="AdT-BE-YaZ"/>
+                                    <constraint firstItem="UEX-8o-YnQ" firstAttribute="top" secondItem="uoJ-Ks-O1o" secondAttribute="top" constant="3" id="AdT-BE-YaZ"/>
                                     <constraint firstItem="UEX-8o-YnQ" firstAttribute="leading" secondItem="uoJ-Ks-O1o" secondAttribute="leading" constant="16" id="CjY-Th-kNe"/>
-                                    <constraint firstAttribute="trailing" secondItem="UEX-8o-YnQ" secondAttribute="trailing" constant="311" id="Pb9-lU-Xkb"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="UEX-8o-YnQ" secondAttribute="trailing" constant="16" id="Pb9-lU-Xkb"/>
                                     <constraint firstItem="22y-gA-uVN" firstAttribute="leading" secondItem="UEX-8o-YnQ" secondAttribute="leading" id="rs9-Hx-QUo"/>
                                     <constraint firstAttribute="trailing" secondItem="22y-gA-uVN" secondAttribute="trailing" constant="6" id="sPE-ew-7YS"/>
                                     <constraint firstItem="22y-gA-uVN" firstAttribute="top" secondItem="UEX-8o-YnQ" secondAttribute="bottom" priority="500" constant="23" id="yse-wf-BpT"/>
@@ -343,6 +341,7 @@
                                     <constraint firstItem="dYr-I9-VL8" firstAttribute="leading" secondItem="z35-jm-R60" secondAttribute="leading" constant="-1" id="YS5-1s-g68"/>
                                     <constraint firstItem="dYr-I9-VL8" firstAttribute="top" secondItem="z35-jm-R60" secondAttribute="bottom" constant="8" symbolic="YES" id="c5S-1h-0Jf"/>
                                     <constraint firstItem="z35-jm-R60" firstAttribute="top" secondItem="lui-jD-ROw" secondAttribute="top" constant="3" id="f0k-fk-gxU"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="z35-jm-R60" secondAttribute="trailing" constant="20" id="gdW-t5-7cK"/>
                                     <constraint firstAttribute="trailing" secondItem="dYr-I9-VL8" secondAttribute="trailing" constant="311" id="vkt-sN-Efg"/>
                                 </constraints>
                             </view>
