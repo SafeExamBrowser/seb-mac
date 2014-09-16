@@ -51,6 +51,14 @@
     if (self) {
         // Initialization code here.
         [self setShouldCascadeWindows:NO];
+        // Display or don't display toolbar
+//        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+//        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"])
+//        {
+//            [self.window.toolbar setVisible:YES];
+//        } else {
+//            [self.window.toolbar setVisible:NO];
+//        }
     }
     
     return self;
@@ -64,10 +72,42 @@
     BrowserWindow *browserWindow = (BrowserWindow *)self.window;
     [browserWindow setCalculatedFrame];
     //[browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
-    [browserWindow setCollectionBehavior:NSWindowCollectionBehaviorStationary | NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary];
+//    [browserWindow setCollectionBehavior:NSWindowCollectionBehaviorStationary | NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary];
 //    [browserWindow setLevel:NSDockWindowLevel];
 //    [browserWindow setLevel:kCGMainMenuWindowLevel-1];
 
+    // Display or don't display toolbar
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"])
+    {
+        [self.window.toolbar setVisible:YES];
+    } else {
+        [self.window.toolbar setVisible:NO];
+    }
+}
+
+
+- (void)windowDidBecomeMain:(NSNotification *)notification {
+#ifdef DEBUG
+    NSLog(@"BrowserWindow %@ did become main", self);
+#endif
+    // Display or don't display toolbar
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"])
+    {
+        [self.window.toolbar setVisible:YES];
+    } else {
+        [self.window.toolbar setVisible:NO];
+    }
+
+//    static BOOL shouldGoFullScreen = YES;
+    if (self.shouldGoFullScreen == YES) {
+        if (!([self.window styleMask] & NSFullScreenWindowMask))
+            [self.window setToolbar:nil];
+            [self.window toggleFullScreen:nil];
+        self.shouldGoFullScreen = NO;
+    }
+    
 }
 
 
@@ -141,7 +181,7 @@
 {
     // leave a border around our full screen window
     //return NSMakeSize(proposedSize.width - 180, proposedSize.height - 100);
-    NSSize idealWindowSize = NSMakeSize(proposedSize.width, proposedSize.height - 40);
+    NSSize idealWindowSize = NSMakeSize(proposedSize.width, proposedSize.height - 0);
     
     // Constrain that ideal size to the available area (proposedSize).
     NSSize customWindowSize;
@@ -174,11 +214,20 @@
     if (!allowSwitchToThirdPartyApps) {
 		// if switching to third party apps not allowed
         NSApplicationPresentationOptions options =
+//        NSApplicationPresentationHideDock +
+//        NSApplicationPresentationFullScreen +
+//        (enableToolbar && hideToolbar ?
+//         NSApplicationPresentationAutoHideToolbar + NSApplicationPresentationAutoHideMenuBar :
+//         (showMenuBar ? NSApplicationPresentationDisableAppleMenu : NSApplicationPresentationHideMenuBar)) +
+//        NSApplicationPresentationDisableProcessSwitching +
+//        NSApplicationPresentationDisableForceQuit +
+//        NSApplicationPresentationDisableSessionTermination;
+        NSApplicationPresentationDisableAppleMenu +
         NSApplicationPresentationHideDock +
         NSApplicationPresentationFullScreen +
         (enableToolbar && hideToolbar ?
          NSApplicationPresentationAutoHideToolbar + NSApplicationPresentationAutoHideMenuBar :
-         (showMenuBar ? NSApplicationPresentationDisableAppleMenu : NSApplicationPresentationHideMenuBar)) +
+         (showMenuBar ? 0 : NSApplicationPresentationHideMenuBar)) +
         NSApplicationPresentationDisableProcessSwitching +
         NSApplicationPresentationDisableForceQuit +
         NSApplicationPresentationDisableSessionTermination;
@@ -186,11 +235,19 @@
     } else {
 		// if switching to third party apps allowed
         NSApplicationPresentationOptions options =
+//        NSApplicationPresentationHideDock +
+//        NSApplicationPresentationFullScreen +
+//        (enableToolbar && hideToolbar ?
+//         NSApplicationPresentationAutoHideToolbar + NSApplicationPresentationAutoHideMenuBar :
+//         (showMenuBar ? NSApplicationPresentationDisableAppleMenu : NSApplicationPresentationHideMenuBar)) +
+//        NSApplicationPresentationDisableForceQuit +
+//        NSApplicationPresentationDisableSessionTermination;
+        NSApplicationPresentationDisableAppleMenu +
         NSApplicationPresentationHideDock +
         NSApplicationPresentationFullScreen +
         (enableToolbar && hideToolbar ?
          NSApplicationPresentationAutoHideToolbar + NSApplicationPresentationAutoHideMenuBar :
-         (showMenuBar ? NSApplicationPresentationDisableAppleMenu : NSApplicationPresentationHideMenuBar)) +
+         (showMenuBar ? 0 : NSApplicationPresentationHideMenuBar)) +
         NSApplicationPresentationDisableForceQuit +
         NSApplicationPresentationDisableSessionTermination;
         return options;
@@ -277,8 +334,10 @@
 #ifdef DEBUG
     NSLog(@"windowDidEnterFullScreen");
 #endif
-//    [[NSNotificationCenter defaultCenter]
-//     postNotificationName:@"requestReinforceKioskMode" object:self];
+    // Set toolbar after window entered full screen, as there is a bug
+    // not respecting toolbar.isVisible when entering full screen
+    self.window.toolbar = self.toolbar;
+
 }
 
 

@@ -34,6 +34,8 @@
 
 
 #import "CapWindow.h"
+#import "Constants.h"
+#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 @implementation CapWindow
 
@@ -64,6 +66,17 @@
 }
 
 
+- (NSWindowCollectionBehavior)collectionBehavior
+{
+    NSWindowCollectionBehavior collectionBehavior = NSWindowCollectionBehaviorFullScreenAuxiliary; //| NSWindowCollectionBehaviorCanJoinAllSpaces;
+    
+//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+//    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"] == NO)
+//    {
+//        collectionBehavior += NSWindowCollectionBehaviorStationary;
+//    }
+    return collectionBehavior;
+}
 //- (BOOL)canBecomeKeyWindow
 //{
 //    return YES;

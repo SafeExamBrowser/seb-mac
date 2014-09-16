@@ -64,8 +64,6 @@
 #import "MyGlobals.h"
 #import "Constants.h"
 
-#import "SEBSystemManager.h"
-
 io_connect_t  root_port; // a reference to the Root Power Domain IOService
 
 
@@ -210,8 +208,10 @@ bool insideMatrix();
 
 - (void)awakeFromNib
 {
-//    SEBSystemManager *systemManager = [[SEBSystemManager alloc] init];
-//	
+    self.systemManager = [[SEBSystemManager alloc] init];
+    
+    NSString* scLocation = [self.systemManager preventSC];
+	
 //    BOOL worked = [systemManager checkHTTPSProxySetting];
 //#ifdef DEBUG
 //    NSLog(@"Checking updating HTTPS proxy worked: %hhd", worked);
@@ -277,11 +277,11 @@ bool insideMatrix();
                                            name:NSWorkspaceDidLaunchApplicationNotification
                                          object:workspace];
 	
-//    // Add an observer for the notification that another application was unhidden by the finder
-//	[[workspace notificationCenter] addObserver:self
-//                                       selector:@selector(requestedReinforceKioskMode:)
-//                                           name:NSWorkspaceActiveSpaceDidChangeNotification
-//                                         object:workspace];
+    // Add an observer for the notification that another application was unhidden by the finder
+	[[workspace notificationCenter] addObserver:self
+                                       selector:@selector(requestedReinforceKioskMode:)
+                                           name:NSWorkspaceActiveSpaceDidChangeNotification
+                                         object:workspace];
 	
 #endif
     // Add an observer for the notification that SEB became active
@@ -298,7 +298,7 @@ bool insideMatrix();
 //	[self coverScreens];
 
 //// Switch to kiosk mode by setting the proper presentation options
-	[self startKioskMode];
+//	[self startKioskMode];
 	
     // Add an observer for changes of the Presentation Options
 	[NSApp addObserver:self
@@ -306,8 +306,8 @@ bool insideMatrix();
 			   options:NSKeyValueObservingOptionNew
 			   context:NULL];
 //		
-// Cover all attached screens with cap windows to prevent clicks on desktop making finder active
-	[self coverScreens];
+//// Cover all attached screens with cap windows to prevent clicks on desktop making finder active
+//	[self coverScreens];
     
     // Add a observer for changes of the screen configuration
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(adjustScreenLocking:) 
@@ -331,9 +331,14 @@ bool insideMatrix();
 	
     // Add an observer for the request to reinforce the kiosk mode
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(performAfterStartActions:)
+                                                 name:@"requestPerformAfterStartActions" object:nil];
+    
+    // Add an observer for the request to reinforce the kiosk mode
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(requestedReinforceKioskMode:)
                                                  name:@"requestReinforceKioskMode" object:nil];
-	
+    
     // Add an observer for the request to reinforce the kiosk mode
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(requestedRegainActiveStatus:)
@@ -519,6 +524,7 @@ bool insideMatrix();
 	RegisterEventHotKey(97, 0, gMyHotKeyID,
 						GetApplicationEventTarget(), 0, &gMyHotKeyRef);
     
+
     // Show the About SEB Window
     [aboutWindow showAboutWindowForSeconds:3];
 
@@ -539,7 +545,13 @@ bool insideMatrix();
 #ifdef DEBUG
     NSLog(@"Performing after start actions");
 #endif
-    
+
+//    // Switch to kiosk mode by setting the proper presentation options
+//    [self startKioskMode];
+//    
+//    // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
+//    [self coverScreens];
+
     // Reinforce the kiosk mode
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"requestReinforceKioskMode" object:self];
@@ -955,6 +967,8 @@ bool insideMatrix(){
             [openWindowDocument.mainWindowController.window newSetLevel:NSModalPanelWindowLevel];
         }
     }
+    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+
 	[browserWindow makeKeyAndOrderFront:self];
 }
 
@@ -967,15 +981,18 @@ bool insideMatrix(){
 	BOOL enableToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"];
 	BOOL hideToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"];
     NSApplicationPresentationOptions options;
-    
-    if (allowSwitchToThirdPartyApps) {
-        [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
-    } else {
-        [preferences setSecureBool:YES forKey:@"org_safeexambrowser_elevateWindowLevels"];
-    }
 
-    //    if (browserWindow.isFullScreen || [[MyGlobals sharedMyGlobals] transitioningToFullscreen] == YES)
-    if (browserWindow.isFullScreen == YES)
+    [self setElevateWindowLevels];
+//    if (allowSwitchToThirdPartyApps) {
+//        [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
+//    } else {
+//        [preferences setSecureBool:YES forKey:@"org_safeexambrowser_elevateWindowLevels"];
+//    }
+
+//    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserViewMode"] == browserViewModeFullscreen)
+    if (browserWindow.isFullScreen == YES && browserWindow.isVisible)
+    
+//    if (browserWindow.isFullScreen || [[MyGlobals sharedMyGlobals] transitioningToFullscreen] == YES)
     {
 #ifdef DEBUG
         NSLog(@"browserWindow.isFullScreen");
@@ -986,22 +1003,24 @@ bool insideMatrix(){
         if (!allowSwitchToThirdPartyApps) {
             // if switching to third party apps not allowed
             options =
+            NSApplicationPresentationDisableAppleMenu +
             NSApplicationPresentationHideDock +
             NSApplicationPresentationFullScreen +
             (enableToolbar && hideToolbar ?
              NSApplicationPresentationAutoHideToolbar + NSApplicationPresentationAutoHideMenuBar :
-             (showMenuBar ? NSApplicationPresentationDisableAppleMenu : NSApplicationPresentationHideMenuBar)) +
+             (showMenuBar ? 0 : NSApplicationPresentationHideMenuBar)) +
             NSApplicationPresentationDisableProcessSwitching +
             NSApplicationPresentationDisableForceQuit +
             NSApplicationPresentationDisableSessionTermination;
         } else {
             // if switching to third party apps allowed
             options =
+            NSApplicationPresentationDisableAppleMenu +
             NSApplicationPresentationHideDock +
             NSApplicationPresentationFullScreen +
             (enableToolbar && hideToolbar ?
              NSApplicationPresentationAutoHideToolbar + NSApplicationPresentationAutoHideMenuBar :
-             (showMenuBar ? NSApplicationPresentationDisableAppleMenu : NSApplicationPresentationHideMenuBar)) +
+             (showMenuBar ? 0 : NSApplicationPresentationHideMenuBar)) +
             NSApplicationPresentationDisableForceQuit +
             NSApplicationPresentationDisableSessionTermination;
         }
@@ -1014,15 +1033,17 @@ bool insideMatrix(){
         if (!allowSwitchToThirdPartyApps) {
             // if switching to third party apps not allowed
             options =
+            NSApplicationPresentationDisableAppleMenu +
             NSApplicationPresentationHideDock +
-            (showMenuBar ? NSApplicationPresentationDisableAppleMenu : NSApplicationPresentationHideMenuBar) +
+            (showMenuBar ? 0 : NSApplicationPresentationHideMenuBar) +
             NSApplicationPresentationDisableProcessSwitching +
             NSApplicationPresentationDisableForceQuit +
             NSApplicationPresentationDisableSessionTermination;
         } else {
             options =
-            (showMenuBar ? NSApplicationPresentationDisableAppleMenu : NSApplicationPresentationHideMenuBar) +
+            (showMenuBar ? 0 : NSApplicationPresentationHideMenuBar) +
             NSApplicationPresentationHideDock +
+            NSApplicationPresentationDisableAppleMenu +
             NSApplicationPresentationDisableForceQuit +
             NSApplicationPresentationDisableSessionTermination;
         }
@@ -1053,6 +1074,7 @@ bool insideMatrix(){
     MyDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
     self.webView = myDocument.mainWindowController.webView;
     browserWindow = (BrowserWindow *)myDocument.mainWindowController.window;
+    
     [[MyGlobals sharedMyGlobals] setMainBrowserWindow:browserWindow]; //save a reference to this main browser window
 #ifdef DEBUG
     NSLog(@"MainBrowserWindow (1) sharingType: %lx",(long)[browserWindow sharingType]);
@@ -1078,7 +1100,8 @@ bool insideMatrix(){
              toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
           withKeyPath:@"values.org_safeexambrowser_SEB_allowQuit" 
               options:nil];
-    
+
+    myDocument.mainWindowController.shouldGoFullScreen = YES;
     //[browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
 	[browserWindow makeKeyAndOrderFront:self];
         
@@ -1259,20 +1282,19 @@ bool insideMatrix(){
 #endif
 
     // 
-    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-    [browserWindow makeKeyAndOrderFront:self];
-
     // Open new covering background windows on all currently available screens
     [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
 	[self coverScreens];
 
-    // Switch the kiosk mode on again
-    [self setElevateWindowLevels];
+    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+    [browserWindow makeKeyAndOrderFront:self];
+    
+//    // Switch the kiosk mode on again
+//    [self setElevateWindowLevels];
     
     [self startKioskMode];
 
     // Reinforce kiosk mode after a delay, so eventually visible fullscreen apps get hidden again
-//    [aboutWindow showAboutWindowForSeconds:1];
     [self performSelector:@selector(requestedReinforceKioskMode:) withObject: nil afterDelay: 1];
 
 }
@@ -1357,7 +1379,9 @@ bool insideMatrix(){
     
     // Switch the kiosk mode on again
     [self setElevateWindowLevels];
-    
+
+//    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+
     BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
     [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
 }
@@ -1426,6 +1450,12 @@ bool insideMatrix(){
 
 // Called just before SEB will be terminated
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
+    
+    BOOL success = [self.systemManager restoreSC];
+#ifdef DEBUG
+    NSLog(@"Success of restoring SC: %hhd", success);
+#endif
+    
     runningAppsWhileTerminating = [[NSWorkspace sharedWorkspace] runningApplications];
     NSRunningApplication *iterApp;
     for (iterApp in runningAppsWhileTerminating) 
@@ -1500,7 +1530,7 @@ bool insideMatrix(){
             return;
         }
 
-		//the current Presentation Options changed, so make SEB active and reset them
+		// Current Presentation Options changed, so make SEB active and reset them
         // Load preferences from the system's user defaults database
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
@@ -1531,7 +1561,7 @@ bool insideMatrix(){
         if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen]) {
             // If third party Apps are not allowed, we switch back to SEB
 #ifdef DEBUG
-            NSLog(@"Switched back to SEB after currentSystemPresentationOptions changed!");
+            NSLog(@"Disabled: Switched back to SEB after currentSystemPresentationOptions changed!");
 #endif
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
 //            [NSApp activateIgnoringOtherApps: YES];
@@ -1543,7 +1573,7 @@ bool insideMatrix(){
             [self regainActiveStatus:nil];
             //[browserWindow setFrame:[[browserWindow screen] frame] display:YES];
         }
-    }	
+    }
 }
  
 @end

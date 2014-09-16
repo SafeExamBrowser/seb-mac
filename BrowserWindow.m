@@ -71,10 +71,17 @@
 }
 
 
-//- (NSWindowCollectionBehavior)collectionBehavior {
+- (NSWindowCollectionBehavior)collectionBehavior {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserViewMode"] == browserViewModeFullscreen)
+    {
+        return NSWindowCollectionBehaviorFullScreenPrimary;
+    }
+    return NSWindowCollectionBehaviorDefault;
+    
 //    return NSWindowCollectionBehaviorFullScreenAuxiliary | NSWindowCollectionBehaviorCanJoinAllSpaces;
-////  return NSWindowCollectionBehaviorFullScreenPrimary;
-//}
+//  return NSWindowCollectionBehaviorFullScreenPrimary;
+}
 
 
 // Closing of SEB Browser Window //
@@ -336,6 +343,13 @@
 #ifdef DEBUG
     NSLog(@"BrowserWindow %@ did become main", self);
 #endif
+    static BOOL shouldGoFullScreen = YES;
+    if (shouldGoFullScreen) {
+        if (!([self styleMask] & NSFullScreenWindowMask))
+            [self toggleFullScreen:nil];
+        shouldGoFullScreen = NO;
+    }
+
 }
 
 
