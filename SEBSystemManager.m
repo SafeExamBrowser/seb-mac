@@ -90,6 +90,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 
     [self executeSCAppleScript:scPath];
     
+    prefsDict = [appUserDefaults dictionaryRepresentation];
     NSString *location = [prefsDict valueForKey:@"location"];
 #ifdef DEBUG
     NSLog(@"Changed screencapture location: %@", location);
@@ -106,7 +107,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
     if (scPath.length > 0) {
         NSError *error = nil;
         [[NSFileManager defaultManager] removeItemAtPath:scPath error:&error];
-        return error != nil;
+        return error == nil;
     }
     return NO;
 }

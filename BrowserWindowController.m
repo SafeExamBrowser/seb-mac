@@ -93,8 +93,7 @@
 #endif
     // Display or don't display toolbar
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"])
-    {
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"]) {
         [self.window.toolbar setVisible:YES];
     } else {
         [self.window.toolbar setVisible:NO];
@@ -102,10 +101,14 @@
 
 //    static BOOL shouldGoFullScreen = YES;
     if (self.shouldGoFullScreen == YES) {
-        if (!([self.window styleMask] & NSFullScreenWindowMask))
+        if (!([self.window styleMask] & NSFullScreenWindowMask)) {
             [self.window setToolbar:nil];
+#ifdef DEBUG
+            NSLog(@"browserWindow toggleFullScreen, setToolbar = nil.");
+#endif
             [self.window toggleFullScreen:nil];
-        self.shouldGoFullScreen = NO;
+            self.shouldGoFullScreen = NO;
+        }
     }
     
 }
@@ -332,12 +335,22 @@
 - (void)windowDidEnterFullScreen:(NSNotification *)notification
 {
 #ifdef DEBUG
-    NSLog(@"windowDidEnterFullScreen");
+    NSLog(@"windowDidEnterFullScreen, setToolbar again.");
 #endif
     // Set toolbar after window entered full screen, as there is a bug
     // not respecting toolbar.isVisible when entering full screen
-    self.window.toolbar = self.toolbar;
+    [self.window setToolbar:self.toolbar];
 
+    // Display or don't display toolbar
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"])
+    {
+        [self.window.toolbar setVisible:YES];
+    } else {
+        [self.window.toolbar setVisible:NO];
+    }
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"requestStartKioskMode" object:self];
 }
 
 
