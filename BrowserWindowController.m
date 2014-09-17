@@ -101,12 +101,15 @@
 
 //    static BOOL shouldGoFullScreen = YES;
     if (self.shouldGoFullScreen == YES) {
+#ifdef DEBUG
+        NSLog(@"browserWindow shouldGoFullScreen == YES");
+#endif
         if (!([self.window styleMask] & NSFullScreenWindowMask)) {
             [self.window setToolbar:nil];
 #ifdef DEBUG
             NSLog(@"browserWindow toggleFullScreen, setToolbar = nil.");
 #endif
-            [self.window toggleFullScreen:nil];
+            [self.window toggleFullScreen:self];
             self.shouldGoFullScreen = NO;
         }
     }

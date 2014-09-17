@@ -373,6 +373,11 @@ bool insideMatrix();
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(preferencesClosed:)
                                                  name:@"preferencesClosed" object:nil];
+
+    // Add an observer for the notification that preferences were closed and SEB should be restarted
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(preferencesClosedRestartSEB:)
+                                                 name:@"preferencesClosedRestartSEB" object:nil];
     //[self startTask];
 
 // Prevent display sleep
@@ -944,7 +949,7 @@ bool insideMatrix(){
 }
 
 
-- (void) switchKioskModeAppsAllowed:(BOOL) allowApps overrideShowMenuBar:(BOOL)overrideShowMenuBar {
+- (void) switchKioskModeAppsAllowed:(BOOL)allowApps overrideShowMenuBar:(BOOL)overrideShowMenuBar {
 	// Switch the kiosk mode to either only browser windows or also third party apps allowed:
     // Change presentation options and windows levels without closing/reopening cap background and browser foreground windows
     [self startKioskModeThirdPartyAppsAllowed:allowApps overrideShowMenuBar:overrideShowMenuBar];
@@ -980,7 +985,7 @@ bool insideMatrix(){
 }
 
 
-- (void) startKioskModeThirdPartyAppsAllowed:(BOOL) allowSwitchToThirdPartyApps overrideShowMenuBar:(BOOL)overrideShowMenuBar {
+- (void) startKioskModeThirdPartyAppsAllowed:(BOOL)allowSwitchToThirdPartyApps overrideShowMenuBar:(BOOL)overrideShowMenuBar {
 	// Switch to kiosk mode by setting the proper presentation options
     // Load preferences from the system's user defaults database
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -989,12 +994,12 @@ bool insideMatrix(){
 	BOOL hideToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"];
     NSApplicationPresentationOptions options;
 
-    [self setElevateWindowLevels];
-//    if (allowSwitchToThirdPartyApps) {
-//        [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
-//    } else {
-//        [preferences setSecureBool:YES forKey:@"org_safeexambrowser_elevateWindowLevels"];
-//    }
+//    [self setElevateWindowLevels];
+    if (allowSwitchToThirdPartyApps) {
+        [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
+    } else {
+        [preferences setSecureBool:YES forKey:@"org_safeexambrowser_elevateWindowLevels"];
+    }
 
     
     //    if (browserWindow.isFullScreen || [[MyGlobals sharedMyGlobals] transitioningToFullscreen] == YES)
@@ -1291,20 +1296,29 @@ bool insideMatrix(){
 
 - (void)preferencesClosed:(NSNotification *)notification
 {
+    [self performAfterPreferencesClosedActions];
+
+    // Reinforce kiosk mode after a delay, so eventually visible fullscreen apps get hidden again
+    [self performSelector:@selector(requestedReinforceKioskMode:) withObject: nil afterDelay: 1];
+}
+
+
+- (void)performAfterPreferencesClosedActions
+{
     // Hide the Config menu (in menu bar)
     [configMenu setHidden:YES];
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-
+    
 #ifdef DEBUG
     NSLog(@"Preferences window closed, reopening cap windows.");
 #endif
-
-    // 
+    
+    //
     // Open new covering background windows on all currently available screens
     [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
-	[self coverScreens];
-
+    [self coverScreens];
+    
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [browserWindow makeKeyAndOrderFront:self];
     
@@ -1312,10 +1326,17 @@ bool insideMatrix(){
     [self setElevateWindowLevels];
     
     [self startKioskMode];
+}
+
+
+- (void)preferencesClosedRestartSEB:(NSNotification *)notification
+{
+    [self performAfterPreferencesClosedActions];
+    
+    [self requestedRestart:nil];
 
     // Reinforce kiosk mode after a delay, so eventually visible fullscreen apps get hidden again
     [self performSelector:@selector(requestedReinforceKioskMode:) withObject: nil afterDelay: 1];
-
 }
 
 

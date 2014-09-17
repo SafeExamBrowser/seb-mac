@@ -62,6 +62,7 @@
     NSURL *_configURLBeforeEditing;
     BOOL _userDefaultsPrivateBeforeEditing;
     NSData *_browserExamKeyBeforeEditing;
+    BOOL restartSEB;
 }
 
 @property BOOL currentConfigPasswordIsHash;

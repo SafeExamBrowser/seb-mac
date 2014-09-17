@@ -76,6 +76,8 @@
 
 - (void)awakeFromNib
 {
+    restartSEB = NO;
+    
     self.configFileManager = [[SEBConfigFileManager alloc] init];
 
     // Add an observer for the notification to display the preferences window again
@@ -205,8 +207,13 @@
     if (self.preferencesAreOpen && !self.refreshingPreferences) {
         //        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         // Post a notification that the preferences window closes
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"preferencesClosed" object:self];
+        if (restartSEB) {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"preferencesClosedRestartSEB" object:self];
+        } else {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"preferencesClosed" object:self];
+        }
     }
     self.refreshingPreferences = NO;
 }
@@ -219,6 +226,8 @@
 // Returns NO if user cancels closing the preferences window
 - (BOOL)conditionallyClosePreferencesWindowAskToApply:(BOOL)askToApplySettings
 {
+    restartSEB = NO;
+    
     // Save settings in the General pane
     [self.generalVC windowWillClose:nil];
     
@@ -334,9 +343,10 @@
                 }
             }
         }
-        // Post a notification that it was requested to restart SEB with changed settings
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"requestRestartNotification" object:self];
+        restartSEB = YES;
+//        // Post a notification that it was requested to restart SEB with changed settings
+//        [[NSNotificationCenter defaultCenter]
+//         postNotificationName:@"requestRestartNotification" object:self];
     }
     return YES;
 }
@@ -610,11 +620,11 @@
     
     // Post a notification that the preferences window closes
     [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"preferencesClosed" object:self];
+     postNotificationName:@"preferencesClosedRestartSEB" object:self];
 
-    // Post a notification that it was requested to restart SEB with changed settings
-	[[NSNotificationCenter defaultCenter]
-     postNotificationName:@"requestRestartNotification" object:self];
+//    // Post a notification that it was requested to restart SEB with changed settings
+//	[[NSNotificationCenter defaultCenter]
+//     postNotificationName:@"requestRestartNotification" object:self];
     
 }
 
@@ -1224,10 +1234,15 @@
     // Close preferences window (if user doesn't cancel it) but without asking to apply settings
     // this also triggers a SEB restart
     if ([self conditionallyClosePreferencesWindowAskToApply:NO]) {
+        // Close preferences window manually (as windowShouldClose: won't be called)
         [self closePreferencesWindow];
-        // Post a notification that the preferences window closes
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"preferencesClosed" object:self];
+        if (restartSEB) {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"preferencesClosedRestartSEB" object:self];
+        } else {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"preferencesClosed" object:self];
+        }
     }
 }
 
