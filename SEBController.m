@@ -992,7 +992,7 @@ bool insideMatrix(){
 	BOOL showMenuBar = overrideShowMenuBar || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
 	BOOL enableToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"];
 	BOOL hideToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"];
-    NSApplicationPresentationOptions options;
+    NSApplicationPresentationOptions presentationOptions;
 
 //    [self setElevateWindowLevels];
     if (allowSwitchToThirdPartyApps) {
@@ -1016,7 +1016,7 @@ bool insideMatrix(){
 //        }
         if (!allowSwitchToThirdPartyApps) {
             // if switching to third party apps not allowed
-            options =
+            presentationOptions =
             NSApplicationPresentationDisableAppleMenu +
             NSApplicationPresentationHideDock +
             NSApplicationPresentationFullScreen +
@@ -1028,7 +1028,7 @@ bool insideMatrix(){
             NSApplicationPresentationDisableSessionTermination;
         } else {
             // if switching to third party apps allowed
-            options =
+            presentationOptions =
             NSApplicationPresentationDisableAppleMenu +
             NSApplicationPresentationHideDock +
             NSApplicationPresentationFullScreen +
@@ -1046,7 +1046,7 @@ bool insideMatrix(){
 #endif
         if (!allowSwitchToThirdPartyApps) {
             // if switching to third party apps not allowed
-            options =
+            presentationOptions =
             NSApplicationPresentationDisableAppleMenu +
             NSApplicationPresentationHideDock +
             (showMenuBar ? 0 : NSApplicationPresentationHideMenuBar) +
@@ -1054,7 +1054,7 @@ bool insideMatrix(){
             NSApplicationPresentationDisableForceQuit +
             NSApplicationPresentationDisableSessionTermination;
         } else {
-            options =
+            presentationOptions =
             (showMenuBar ? 0 : NSApplicationPresentationHideMenuBar) +
             NSApplicationPresentationHideDock +
             NSApplicationPresentationDisableAppleMenu +
@@ -1065,9 +1065,13 @@ bool insideMatrix(){
     
     @try {
         [[MyGlobals sharedMyGlobals] setStartKioskChangedPresentationOptions:YES];
-        
-        [NSApp setPresentationOptions:options];
-        [[MyGlobals sharedMyGlobals] setPresentationOptions:options];
+
+#ifdef DEBUG
+        NSLog(@"NSApp setPresentationOptions: %lo", presentationOptions);
+#endif
+
+        [NSApp setPresentationOptions:presentationOptions];
+        [[MyGlobals sharedMyGlobals] setPresentationOptions:presentationOptions];
     }
     @catch(NSException *exception) {
         NSLog(@"Error.  Make sure you have a valid combination of presentation options.");
@@ -1075,13 +1079,23 @@ bool insideMatrix(){
 }
 
 
+// Set up SEB Browser and open the main window
 - (void)openMainBrowserWindow {
-    // Set up SEB Browser 
     
     /*/ Save current WebKit Cookie Policy
      NSHTTPCookieAcceptPolicy cookiePolicy = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookieAcceptPolicy];
      if (cookiePolicy == NSHTTPCookieAcceptPolicyAlways) NSLog(@"NSHTTPCookieAcceptPolicyAlways");
      if (cookiePolicy == NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain) NSLog(@"NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain"); */
+
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    // Preconfigure Window for full screen
+    BOOL mainBrowserWindowShouldBeFullScreen = ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserViewMode"] == browserViewModeFullscreen);
+    // Set the flag that the main browser window should be displayed full screen
+    [[MyGlobals sharedMyGlobals] setMainBrowserWindowIsFullScreen:mainBrowserWindowShouldBeFullScreen];
+    // Set the flag to indicate if the window should call toggleFullScreen on itself after it became active/main (windowDidBecomeMain)
+    [[MyGlobals sharedMyGlobals] setShouldGoFullScreen:mainBrowserWindowShouldBeFullScreen];
+    
     // Open and maximize the browser window
     // (this is done here, after presentation options are set,
     // because otherwise menu bar and dock are deducted from screen size)
@@ -1090,19 +1104,11 @@ bool insideMatrix(){
     browserWindow = (BrowserWindow *)myDocument.mainWindowController.window;
     
     [[MyGlobals sharedMyGlobals] setMainBrowserWindow:browserWindow]; //save a reference to this main browser window
-#ifdef DEBUG
-    NSLog(@"MainBrowserWindow (1) sharingType: %lx",(long)[browserWindow sharingType]);
-#endif
     [browserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-#ifdef DEBUG
-    NSLog(@"MainBrowserWindow (2) sharingType: %lx",(long)[browserWindow sharingType]);
-#endif
 	[(BrowserWindow *)browserWindow setCalculatedFrame];
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
         [browserWindow newSetLevel:NSModalPanelWindowLevel];
-#ifdef DEBUG
-        NSLog(@"MainBrowserWindow (3) sharingType: %lx",(long)[browserWindow sharingType]);
-#endif
+
     }
 //	[NSApp activateIgnoringOtherApps: YES];
 //    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
@@ -1115,11 +1121,6 @@ bool insideMatrix(){
           withKeyPath:@"values.org_safeexambrowser_SEB_allowQuit" 
               options:nil];
 
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-
-    // Set the flag to indicate if the window should call toggleFullScreen on itself after it became active/main (windowDidBecomeMain)
-    myDocument.mainWindowController.shouldGoFullScreen = ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserViewMode"] == browserViewModeFullscreen);
-    
     //[browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
 	[browserWindow makeKeyAndOrderFront:self];
         

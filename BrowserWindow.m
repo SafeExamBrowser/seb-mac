@@ -72,8 +72,7 @@
 
 
 - (NSWindowCollectionBehavior)collectionBehavior {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserViewMode"] == browserViewModeFullscreen)
+    if ([[MyGlobals sharedMyGlobals] mainBrowserWindowIsFullScreen] == YES)
     {
         return NSWindowCollectionBehaviorFullScreenPrimary;
     }
@@ -339,18 +338,18 @@
 
 #pragma mark Delegates
 
-- (void)windowDidBecomeMain:(NSNotification *)notification {
-#ifdef DEBUG
-    NSLog(@"BrowserWindow %@ did become main", self);
-#endif
+//- (void)windowDidBecomeMain:(NSNotification *)notification {
+//#ifdef DEBUG
+//    NSLog(@"BrowserWindow %@ did become main", self);
+//#endif
 //    static BOOL shouldGoFullScreen = YES;
 //    if (shouldGoFullScreen) {
 //        if (!([self styleMask] & NSFullScreenWindowMask))
 //            [self toggleFullScreen:nil];
 //        shouldGoFullScreen = NO;
 //    }
-
-}
+//
+//}
 
 
 - (void)windowDidBecomeKey:(NSNotification *)notification {

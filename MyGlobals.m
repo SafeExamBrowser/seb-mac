@@ -47,10 +47,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 @synthesize lastDownloadPath;   //index of the last accessed download path
 @synthesize pasteboardString;       //string saved from pasteboard at application start
 @synthesize presentationOptions;
-@synthesize transitioningToFullscreen;
 @synthesize startKioskChangedPresentationOptions;
 @synthesize flashChangedPresentationOptions;
 @synthesize preferencesReset;
+@synthesize mainBrowserWindowIsFullScreen;
+@synthesize shouldGoFullScreen;
 
 // Read Info.plist values from bundle
 - (id)infoValueForKey:(NSString*)key

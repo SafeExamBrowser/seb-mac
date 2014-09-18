@@ -100,7 +100,7 @@
     }
 
 //    static BOOL shouldGoFullScreen = YES;
-    if (self.shouldGoFullScreen == YES) {
+    if ([[MyGlobals sharedMyGlobals] shouldGoFullScreen] == YES) {
 #ifdef DEBUG
         NSLog(@"browserWindow shouldGoFullScreen == YES");
 #endif
@@ -110,7 +110,7 @@
             NSLog(@"browserWindow toggleFullScreen, setToolbar = nil.");
 #endif
             [self.window toggleFullScreen:self];
-            self.shouldGoFullScreen = NO;
+            [[MyGlobals sharedMyGlobals] setShouldGoFullScreen: NO];
         }
     }
     
@@ -208,26 +208,18 @@
 {
     // customize the appearance when entering full screen:
     // Set a global flag that we're transitioning to full screen
-    [[MyGlobals sharedMyGlobals] setTransitioningToFullscreen:YES];
+//    [[MyGlobals sharedMyGlobals] setTransitioningToFullscreen:YES];
 
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-	BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
-//	BOOL allowSwitchToThirdPartyApps = YES;
+	BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
 	BOOL showMenuBar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
 	BOOL enableToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"];
 	BOOL hideToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"];
+    NSApplicationPresentationOptions presentationOptions;
 
     if (!allowSwitchToThirdPartyApps) {
 		// if switching to third party apps not allowed
-        NSApplicationPresentationOptions options =
-//        NSApplicationPresentationHideDock +
-//        NSApplicationPresentationFullScreen +
-//        (enableToolbar && hideToolbar ?
-//         NSApplicationPresentationAutoHideToolbar + NSApplicationPresentationAutoHideMenuBar :
-//         (showMenuBar ? NSApplicationPresentationDisableAppleMenu : NSApplicationPresentationHideMenuBar)) +
-//        NSApplicationPresentationDisableProcessSwitching +
-//        NSApplicationPresentationDisableForceQuit +
-//        NSApplicationPresentationDisableSessionTermination;
+        presentationOptions =
         NSApplicationPresentationDisableAppleMenu +
         NSApplicationPresentationHideDock +
         NSApplicationPresentationFullScreen +
@@ -237,17 +229,9 @@
         NSApplicationPresentationDisableProcessSwitching +
         NSApplicationPresentationDisableForceQuit +
         NSApplicationPresentationDisableSessionTermination;
-        return options;
     } else {
 		// if switching to third party apps allowed
-        NSApplicationPresentationOptions options =
-//        NSApplicationPresentationHideDock +
-//        NSApplicationPresentationFullScreen +
-//        (enableToolbar && hideToolbar ?
-//         NSApplicationPresentationAutoHideToolbar + NSApplicationPresentationAutoHideMenuBar :
-//         (showMenuBar ? NSApplicationPresentationDisableAppleMenu : NSApplicationPresentationHideMenuBar)) +
-//        NSApplicationPresentationDisableForceQuit +
-//        NSApplicationPresentationDisableSessionTermination;
+        presentationOptions =
         NSApplicationPresentationDisableAppleMenu +
         NSApplicationPresentationHideDock +
         NSApplicationPresentationFullScreen +
@@ -256,8 +240,13 @@
          (showMenuBar ? 0 : NSApplicationPresentationHideMenuBar)) +
         NSApplicationPresentationDisableForceQuit +
         NSApplicationPresentationDisableSessionTermination;
-        return options;
     }
+#ifdef DEBUG
+    NSLog(@"browserWindow willUseFullScreenPresentationOptions: %lo", presentationOptions);
+#endif
+    [[MyGlobals sharedMyGlobals] setPresentationOptions:presentationOptions];
+    return presentationOptions;
+
 }
 
 
@@ -274,6 +263,10 @@
 
 - (void)window:(NSWindow *)window startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration
 {
+#ifdef DEBUG
+    NSLog(@"NSWindow %@ startCustomAnimationToEnterFullScreenWithDuration:", window);
+#endif
+
     self.frameForNonFullScreenMode = [window frame];
     [self invalidateRestorableState];
     
@@ -333,6 +326,9 @@
     //
     // One case would be if the user attempts to move to full screen but then
     // immediately switches to Dashboard.
+#ifdef DEBUG
+    NSLog(@"windowDidFailToEnterFullScreen: %@", window);
+#endif
 }
 
 - (void)windowDidEnterFullScreen:(NSNotification *)notification
@@ -367,6 +363,10 @@
 
 - (void)window:(NSWindow *)window startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration
 {
+#ifdef DEBUG
+    NSLog(@"NSWindow %@ startCustomAnimationToExitFullScreenWithDuration:", window);
+#endif
+    
     [(BrowserWindow *)window setConstrainingToScreenSuspended:YES];
     
 //    NSInteger previousWindowLevel = [window level];
@@ -411,6 +411,9 @@
     // If we had any cleanup to perform in the event of failure to exit Full Screen,
     // this would be the place to do it.
     // ...
+#ifdef DEBUG
+    NSLog(@"windowDidFailToExitFullScreen: %@", window);
+#endif
 }
 
 - (void)windowDidExitFullScreen:(NSNotification *)notification

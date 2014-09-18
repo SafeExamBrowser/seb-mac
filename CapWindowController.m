@@ -122,7 +122,7 @@
 {
     // customize the appearance when entering full screen:
     // Set a global flag that we're transitioning to full screen
-    [[MyGlobals sharedMyGlobals] setTransitioningToFullscreen:YES];
+//    [[MyGlobals sharedMyGlobals] setTransitioningToFullscreen:YES];
     
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 	BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
