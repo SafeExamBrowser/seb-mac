@@ -290,16 +290,16 @@ bool insideMatrix();
 												 name:NSApplicationDidBecomeActiveNotification 
                                                object:NSApp];
 	
-    // Hide all other applications
-	[[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
-													withObject:NULL waitUntilDone:NO];
-    
     // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
-//	[self coverScreens];
+	[self coverScreens];
 
 // Switch to kiosk mode by setting the proper presentation options
 	[self startKioskMode];
 	
+    // Hide all other applications
+    [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
+                                                    withObject:NULL waitUntilDone:NO];
+    
     // Add an observer for changes of the Presentation Options
 	[NSApp addObserver:self
 			forKeyPath:@"currentSystemPresentationOptions"
@@ -803,7 +803,7 @@ bool insideMatrix(){
 
 - (void) adjustScreenLocking: (id)sender {
     // This should only be done when the preferences window isn't open
-    if ([self.preferencesController preferencesAreOpen]) {
+    if (![self.preferencesController preferencesAreOpen]) {
         // Close the covering windows
         // (which most likely are no longer there where they should be)
         [self closeCapWindows];

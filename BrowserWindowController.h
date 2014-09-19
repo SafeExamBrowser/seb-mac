@@ -35,7 +35,8 @@
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebView.h>
 
-@interface BrowserWindowController : NSWindowController {
+@interface BrowserWindowController : NSWindowController <NSWindowDelegate>
+{
 @private
      //IBOutlet WebView *webView;
     NSRect frameForNonFullScreenMode;
