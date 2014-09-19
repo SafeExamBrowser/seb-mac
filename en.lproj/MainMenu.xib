@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13F31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1070" defaultVersion="1070" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6245"/>
@@ -458,11 +458,11 @@
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" id="714" userLabel="Password Dialog">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
-            <rect key="contentRect" x="340" y="419" width="412" height="108"/>
+            <rect key="contentRect" x="340" y="419" width="412" height="109"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1578"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="715">
-                <rect key="frame" x="0.0" y="0.0" width="412" height="108"/>
+                <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="716">
@@ -484,6 +484,9 @@
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="721">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
                         </buttonCell>
                         <connections>
                             <action selector="okEnterPassword:" target="543" id="727"/>
@@ -497,15 +500,18 @@
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="720">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
                         </buttonCell>
                         <connections>
                             <action selector="cancelEnterPassword:" target="543" id="726"/>
                         </connections>
                     </button>
-                    <textField verticalHuggingPriority="50" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="962" customClass="SEBTextField">
-                        <rect key="frame" x="17" y="77" width="378" height="17"/>
+                    <textField horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="962" customClass="SEBTextField">
+                        <rect key="frame" x="17" y="77" width="378" height="18"/>
                         <constraints>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="ptb-D9-jla"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="18" id="ptb-D9-jla"/>
                         </constraints>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Enter password:" id="963">
                             <font key="font" metaFont="system"/>
@@ -517,7 +523,6 @@
                 <constraints>
                     <constraint firstItem="718" firstAttribute="trailing" secondItem="716" secondAttribute="trailing" id="ABc-Fe-HhG"/>
                     <constraint firstAttribute="bottom" secondItem="719" secondAttribute="bottom" constant="12" id="ANH-24-cQQ"/>
-                    <constraint firstAttribute="bottom" secondItem="719" secondAttribute="bottom" constant="12" id="E61-6h-TKL"/>
                     <constraint firstItem="718" firstAttribute="top" secondItem="716" secondAttribute="bottom" constant="10" id="Ett-3f-H55"/>
                     <constraint firstItem="962" firstAttribute="leading" secondItem="715" secondAttribute="leading" constant="19" id="ICp-FO-nHb"/>
                     <constraint firstItem="962" firstAttribute="top" secondItem="715" secondAttribute="top" constant="14" id="IXY-L1-qqK"/>

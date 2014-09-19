@@ -36,6 +36,7 @@
 #import "CapWindowController.h"
 #import "CapWindow.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
+#import "MyGlobals.h"
 
 
 @implementation CapWindowController
@@ -49,7 +50,7 @@
     if (self) {
         // Initialization code here.
 //        [self.window setCollectionBehavior:NSWindowCollectionBehaviorStationary | NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary];
-        [self.window setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary];
+//        [self.window setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary];
 
     }
 #ifdef DEBUG
@@ -121,7 +122,7 @@
 {
     // customize the appearance when entering full screen:
     // Set a global flag that we're transitioning to full screen
-    //[[MyGlobals sharedMyGlobals] setTransitioningToFullscreen:YES];
+//    [[MyGlobals sharedMyGlobals] setTransitioningToFullscreen:YES];
     
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 	BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];

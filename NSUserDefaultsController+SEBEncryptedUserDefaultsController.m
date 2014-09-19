@@ -51,7 +51,7 @@
         id value = [[NSUserDefaults privateUserDefaults] valueForKey:key];
         //id value = [self.defaults secureObjectForKey:key];
 #ifdef DEBUG
-        NSLog(@"keypath: %@ [[NSUserDefaults privateUserDefaults] valueForKey:%@]] = %@", keyPath, key, value);
+//        NSLog(@"keypath: %@ [[NSUserDefaults privateUserDefaults] valueForKey:%@]] = %@", keyPath, key, value);
 #endif
         return value;
     } else {
@@ -69,7 +69,7 @@
         
         id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
 #ifdef DEBUG
-        NSLog(@"[super valueForKeyPath:%@] = %@ (decrypted)", keyPath, value);
+//        NSLog(@"[super valueForKeyPath:%@] = %@ (decrypted)", keyPath, value);
 #endif
         return value;
     }
@@ -96,7 +96,7 @@
         [[NSUserDefaults privateUserDefaults] setValue:value forKey:key];
         //[self.defaults setSecureObject:value forKey:key];
 #ifdef DEBUG
-        NSLog(@"keypath: %@ [[NSUserDefaults privateUserDefaults] setValue:%@ forKey:%@]", keyPath, value, key);
+//        NSLog(@"keypath: %@ [[NSUserDefaults privateUserDefaults] setValue:%@ forKey:%@]", keyPath, value, key);
 #endif
     } else {
         if (value == nil || keyPath == nil) {
@@ -113,7 +113,7 @@
             NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
             
 #ifdef DEBUG
-            NSLog(@"[super setValue:(encrypted %@) forKeyPath:%@]", value, keyPath);
+//            NSLog(@"[super setValue:(encrypted %@) forKeyPath:%@]", value, keyPath);
 #endif
             [super setValue:encryptedData forKeyPath:keyPath];
         }

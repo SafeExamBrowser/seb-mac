@@ -52,7 +52,6 @@
 }
 
 @property (weak) IBOutlet WebView *webView;
-
 @property BOOL constrainingToScreenSuspended;
 
 - (void) setCalculatedFrame;

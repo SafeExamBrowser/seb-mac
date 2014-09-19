@@ -690,9 +690,8 @@
                            nil];
     OSStatus status = SecItemAdd((__bridge CFDictionaryRef)query, NULL);
     if (status != noErr) {
-        NSError *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
+        NSError *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL];
         [NSApp presentError:outError];
-
     }
 	return (status == noErr);
 }
@@ -713,14 +712,18 @@
                            kSecClassGenericPassword, kSecClass,
                            attrGeneric, kSecAttrGeneric,
                            kCFBooleanTrue, kSecAttrIsInvisible,
-                           kCFBooleanTrue, kSecReturnData,
                            kSecMatchLimitOne, kSecMatchLimit,
                            nil];
     NSDictionary *attributesToUpdate = [NSDictionary dictionaryWithObjectsAndKeys:
                                         keyData, kSecValueData,
-//                                        kCFBooleanTrue, kSecAttrIsInvisible,
                                         nil];
     OSStatus status = SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)attributesToUpdate);
+#ifdef DEBUG
+    if (status != noErr) {
+        NSError *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL];
+        NSLog(@"SecItemUpdate failed with error: %@", outError);
+    }
+#endif
 	return (status == noErr);
 }
 
@@ -746,6 +749,10 @@
     CFTypeRef keyData = NULL;
     OSStatus status = SecItemCopyMatching((__bridge CFDictionaryRef)query, &keyData);
     if (status != errSecSuccess) {
+#ifdef DEBUG
+        NSError *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL];
+        NSLog(@"SecItemCopyMatching failed with error: %@", outError);
+#endif
         return nil;
     }
     return (__bridge_transfer NSData *)keyData;

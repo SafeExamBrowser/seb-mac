@@ -35,7 +35,13 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SEBSystemManager : NSObject
+@interface SEBSystemManager : NSObject {
+    NSString *scLocation;
+    NSString *scPath;
+}
+
+- (NSString *) preventSC;
+- (BOOL) restoreSC;
 
 - (BOOL) checkHTTPSProxySetting;
 

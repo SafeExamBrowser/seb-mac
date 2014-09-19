@@ -45,9 +45,11 @@
 #import "AboutWindow.h"
 #import "BrowserWindow.h"
 #import "SEBEncryptedUserDefaultsController.h"
+#import "SEBSystemManager.h"
 
 @class PreferencesController;
-	
+@class SEBSystemManager;
+
 @interface SEBController : NSObject <NSApplicationDelegate> {
 	
     NSArray *runningAppsWhileTerminating;
@@ -108,5 +110,6 @@
 @property(strong) NSMutableArray *capWindows;
 @property(strong) IBOutlet NSSecureTextField *enterPassword;
 @property(strong) IBOutlet id preferencesController;
+@property(strong) IBOutlet SEBSystemManager *systemManager;
 
 @end

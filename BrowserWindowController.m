@@ -51,6 +51,14 @@
     if (self) {
         // Initialization code here.
         [self setShouldCascadeWindows:NO];
+        // Display or don't display toolbar
+//        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+//        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"])
+//        {
+//            [self.window.toolbar setVisible:YES];
+//        } else {
+//            [self.window.toolbar setVisible:NO];
+//        }
     }
     
     return self;
@@ -64,10 +72,50 @@
     BrowserWindow *browserWindow = (BrowserWindow *)self.window;
     [browserWindow setCalculatedFrame];
     //[browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
-    [browserWindow setCollectionBehavior:NSWindowCollectionBehaviorStationary | NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary];
+//    [browserWindow setCollectionBehavior:NSWindowCollectionBehaviorStationary | NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary];
 //    [browserWindow setLevel:NSDockWindowLevel];
 //    [browserWindow setLevel:kCGMainMenuWindowLevel-1];
 
+    // Display or don't display toolbar
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"])
+    {
+        [self.window.toolbar setVisible:YES];
+    } else {
+        [self.window.toolbar setVisible:NO];
+    }
+}
+
+
+- (void)windowDidBecomeMain:(NSNotification *)notification {
+#ifdef DEBUG
+    NSLog(@"BrowserWindow %@ did become main", self);
+#endif
+    // Display or don't display toolbar
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"]) {
+        [self.window.toolbar setVisible:YES];
+    } else {
+        [self.window.toolbar setVisible:NO];
+    }
+
+//    static BOOL shouldGoFullScreen = YES;
+    if ([[MyGlobals sharedMyGlobals] shouldGoFullScreen] == YES) {
+#ifdef DEBUG
+        NSLog(@"browserWindow shouldGoFullScreen == YES");
+#endif
+        if (!([self.window styleMask] & NSFullScreenWindowMask)) {
+            if (!self.window.toolbar.isVisible) {
+                [self.window setToolbar:nil];
+            }
+#ifdef DEBUG
+            NSLog(@"browserWindow toggleFullScreen, setToolbar = nil.");
+#endif
+            [self.window toggleFullScreen:self];
+            [[MyGlobals sharedMyGlobals] setShouldGoFullScreen: NO];
+        }
+    }
+    
 }
 
 
@@ -141,7 +189,7 @@
 {
     // leave a border around our full screen window
     //return NSMakeSize(proposedSize.width - 180, proposedSize.height - 100);
-    NSSize idealWindowSize = NSMakeSize(proposedSize.width, proposedSize.height - 40);
+    NSSize idealWindowSize = NSMakeSize(proposedSize.width, proposedSize.height - 0);
     
     // Constrain that ideal size to the available area (proposedSize).
     NSSize customWindowSize;
@@ -162,39 +210,45 @@
 {
     // customize the appearance when entering full screen:
     // Set a global flag that we're transitioning to full screen
-    [[MyGlobals sharedMyGlobals] setTransitioningToFullscreen:YES];
+//    [[MyGlobals sharedMyGlobals] setTransitioningToFullscreen:YES];
 
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-	BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
-//	BOOL allowSwitchToThirdPartyApps = YES;
+	BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
 	BOOL showMenuBar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
 	BOOL enableToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"];
 	BOOL hideToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"];
+    NSApplicationPresentationOptions presentationOptions;
 
     if (!allowSwitchToThirdPartyApps) {
 		// if switching to third party apps not allowed
-        NSApplicationPresentationOptions options =
+        presentationOptions =
+        NSApplicationPresentationDisableAppleMenu +
         NSApplicationPresentationHideDock +
         NSApplicationPresentationFullScreen +
         (enableToolbar && hideToolbar ?
          NSApplicationPresentationAutoHideToolbar + NSApplicationPresentationAutoHideMenuBar :
-         (showMenuBar ? NSApplicationPresentationDisableAppleMenu : NSApplicationPresentationHideMenuBar)) +
+         (showMenuBar ? 0 : NSApplicationPresentationHideMenuBar)) +
         NSApplicationPresentationDisableProcessSwitching +
         NSApplicationPresentationDisableForceQuit +
         NSApplicationPresentationDisableSessionTermination;
-        return options;
     } else {
 		// if switching to third party apps allowed
-        NSApplicationPresentationOptions options =
+        presentationOptions =
+        NSApplicationPresentationDisableAppleMenu +
         NSApplicationPresentationHideDock +
         NSApplicationPresentationFullScreen +
         (enableToolbar && hideToolbar ?
          NSApplicationPresentationAutoHideToolbar + NSApplicationPresentationAutoHideMenuBar :
-         (showMenuBar ? NSApplicationPresentationDisableAppleMenu : NSApplicationPresentationHideMenuBar)) +
+         (showMenuBar ? 0 : NSApplicationPresentationHideMenuBar)) +
         NSApplicationPresentationDisableForceQuit +
         NSApplicationPresentationDisableSessionTermination;
-        return options;
     }
+#ifdef DEBUG
+    NSLog(@"browserWindow willUseFullScreenPresentationOptions: %lo", presentationOptions);
+#endif
+    [[MyGlobals sharedMyGlobals] setPresentationOptions:presentationOptions];
+    return presentationOptions;
+
 }
 
 
@@ -211,6 +265,10 @@
 
 - (void)window:(NSWindow *)window startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration
 {
+#ifdef DEBUG
+    NSLog(@"NSWindow %@ startCustomAnimationToEnterFullScreenWithDuration:", window);
+#endif
+
     self.frameForNonFullScreenMode = [window frame];
     [self invalidateRestorableState];
     
@@ -270,15 +328,33 @@
     //
     // One case would be if the user attempts to move to full screen but then
     // immediately switches to Dashboard.
+#ifdef DEBUG
+    NSLog(@"windowDidFailToEnterFullScreen: %@", window);
+#endif
+    // Set toolbar after window entered full screen, as there is a bug
+    // not respecting toolbar.isVisible when entering full screen
+    [self.window setToolbar:self.toolbar];
 }
 
 - (void)windowDidEnterFullScreen:(NSNotification *)notification
 {
 #ifdef DEBUG
-    NSLog(@"windowDidEnterFullScreen");
+    NSLog(@"windowDidEnterFullScreen, setToolbar again.");
 #endif
-//    [[NSNotificationCenter defaultCenter]
-//     postNotificationName:@"requestReinforceKioskMode" object:self];
+    // Set toolbar after window entered full screen, as there is a bug
+    // not respecting toolbar.isVisible when entering full screen
+    [self.window setToolbar:self.toolbar];
+
+    // Display or don't display toolbar
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"])
+    {
+        [self.window.toolbar setVisible:YES];
+    } else {
+        [self.window.toolbar setVisible:NO];
+    }
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"requestStartKioskMode" object:self];
 }
 
 
@@ -292,6 +368,10 @@
 
 - (void)window:(NSWindow *)window startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration
 {
+#ifdef DEBUG
+    NSLog(@"NSWindow %@ startCustomAnimationToExitFullScreenWithDuration:", window);
+#endif
+    
     [(BrowserWindow *)window setConstrainingToScreenSuspended:YES];
     
 //    NSInteger previousWindowLevel = [window level];
@@ -336,6 +416,9 @@
     // If we had any cleanup to perform in the event of failure to exit Full Screen,
     // this would be the place to do it.
     // ...
+#ifdef DEBUG
+    NSLog(@"windowDidFailToExitFullScreen: %@", window);
+#endif
 }
 
 - (void)windowDidExitFullScreen:(NSNotification *)notification

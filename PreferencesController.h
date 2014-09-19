@@ -62,6 +62,7 @@
     NSURL *_configURLBeforeEditing;
     BOOL _userDefaultsPrivateBeforeEditing;
     NSData *_browserExamKeyBeforeEditing;
+    BOOL restartSEB;
 }
 
 @property BOOL currentConfigPasswordIsHash;
@@ -80,6 +81,7 @@
 - (void) openSEBPrefsAtURL:(NSURL *)sebFileURL;
 
 - (void) openPreferencesWindow;
+- (void)showPreferencesWindow:(NSNotification *)notification;
 - (BOOL) preferencesAreOpen;
 - (BOOL) usingPrivateDefaults;
 - (void) initPreferencesWindow;

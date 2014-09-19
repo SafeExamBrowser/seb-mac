@@ -71,10 +71,16 @@
 }
 
 
-//- (NSWindowCollectionBehavior)collectionBehavior {
+- (NSWindowCollectionBehavior)collectionBehavior {
+    if ([[MyGlobals sharedMyGlobals] mainBrowserWindowIsFullScreen] == YES)
+    {
+        return NSWindowCollectionBehaviorFullScreenPrimary;
+    }
+    return NSWindowCollectionBehaviorDefault;
+    
 //    return NSWindowCollectionBehaviorFullScreenAuxiliary | NSWindowCollectionBehaviorCanJoinAllSpaces;
-////  return NSWindowCollectionBehaviorFullScreenPrimary;
-//}
+//  return NSWindowCollectionBehaviorFullScreenPrimary;
+}
 
 
 // Closing of SEB Browser Window //
@@ -332,11 +338,18 @@
 
 #pragma mark Delegates
 
-- (void)windowDidBecomeMain:(NSNotification *)notification {
-#ifdef DEBUG
-    NSLog(@"BrowserWindow %@ did become main", self);
-#endif
-}
+//- (void)windowDidBecomeMain:(NSNotification *)notification {
+//#ifdef DEBUG
+//    NSLog(@"BrowserWindow %@ did become main", self);
+//#endif
+//    static BOOL shouldGoFullScreen = YES;
+//    if (shouldGoFullScreen) {
+//        if (!([self styleMask] & NSFullScreenWindowMask))
+//            [self toggleFullScreen:nil];
+//        shouldGoFullScreen = NO;
+//    }
+//
+//}
 
 
 - (void)windowDidBecomeKey:(NSNotification *)notification {
@@ -440,9 +453,9 @@ initiatedByFrame:(WebFrame *)frame {
         requestURLStrippedFragment = [absoluteRequestURL substringToIndex:absoluteRequestURL.length - fragment.length - 1];
     } else requestURLStrippedFragment = absoluteRequestURL;
 #ifdef DEBUG
-    NSLog(@"Full absolute request URL: %@", absoluteRequestURL);
-    NSLog(@"Fragment: %@", fragment);
-    NSLog(@"Request URL used to calculate RequestHash: %@", requestURLStrippedFragment);
+//    NSLog(@"Full absolute request URL: %@", absoluteRequestURL);
+//    NSLog(@"Fragment: %@", fragment);
+//    NSLog(@"Request URL used to calculate RequestHash: %@", requestURLStrippedFragment);
 #endif
 
 #ifdef DEBUG

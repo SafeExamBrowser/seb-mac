@@ -58,10 +58,11 @@
 
 @property(copy, readwrite) NSMutableString *pasteboardString;
 @property(readwrite) NSUInteger presentationOptions;
-@property(readwrite) BOOL transitioningToFullscreen;
 @property(readwrite) BOOL startKioskChangedPresentationOptions;
 @property(readwrite) BOOL flashChangedPresentationOptions;
 @property(readwrite) BOOL preferencesReset;
+@property(readwrite) BOOL mainBrowserWindowIsFullScreen;
+@property(readwrite) BOOL shouldGoFullScreen;
 
 - (id)infoValueForKey:(NSString*)key;
 

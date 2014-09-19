@@ -872,7 +872,7 @@
     NSData *encryptedData = [RNEncryptor encryptData:data
                                         withSettings:kRNCryptorAES256Settings
                                             password:password
-                                               error:&error];;
+                                               error:&error];
     [encryptedSebData appendData:encryptedData];
     
     return encryptedSebData;

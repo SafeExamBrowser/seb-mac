@@ -76,6 +76,8 @@
 
 - (void)awakeFromNib
 {
+    restartSEB = NO;
+    
     self.configFileManager = [[SEBConfigFileManager alloc] init];
 
     // Add an observer for the notification to display the preferences window again
@@ -202,11 +204,16 @@
 // Executed when preferences window is about to be closed
 - (void)windowWillClose:(NSNotification *)notification
 {
-    if (!self.refreshingPreferences) {
+    if (self.preferencesAreOpen && !self.refreshingPreferences) {
         //        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         // Post a notification that the preferences window closes
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"preferencesClosed" object:self];
+        if (restartSEB) {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"preferencesClosedRestartSEB" object:self];
+        } else {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"preferencesClosed" object:self];
+        }
     }
     self.refreshingPreferences = NO;
 }
@@ -219,6 +226,8 @@
 // Returns NO if user cancels closing the preferences window
 - (BOOL)conditionallyClosePreferencesWindowAskToApply:(BOOL)askToApplySettings
 {
+    restartSEB = NO;
+    
     // Save settings in the General pane
     [self.generalVC windowWillClose:nil];
     
@@ -264,14 +273,12 @@
     
     // If settings changed:
     if ([self settingsChanged]) {
-        BOOL restartSEB = YES;
         if (askToApplySettings) {
             // Ask if edited settings should be applied or previously active settings restored
             NSAlert *newAlert = [[NSAlert alloc] init];
             [newAlert setMessageText:NSLocalizedString(@"Apply Settings?", nil)];
-            [newAlert setInformativeText:NSLocalizedString(@"You edited settings. Do you want to apply them (with or without restarting SEB) or continue using previous settings?", nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"You edited settings. Do you want to apply them or continue using previous settings?", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Don't Apply", nil)];
-            [newAlert addButtonWithTitle:NSLocalizedString(@"Apply & Restart", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Apply", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
             int answer = [newAlert runModal];
@@ -295,18 +302,10 @@
                 case NSAlertSecondButtonReturn:
                 {
                     // Apply edited settings and restart SEB
-                    restartSEB = YES;
                     break;
                 }
                     
                 case NSAlertThirdButtonReturn:
-                {
-                    // Apply edited settings without restarting SEB
-                    restartSEB = NO;
-                    break;
-                }
-                    
-                case NSAlertThirdButtonReturn+1:
                 {
                     // Cancel: Don't close preferences, restore old Browser Exam Key
                     [preferences setSecureObject:_browserExamKeyBeforeEditing forKey:@"org_safeexambrowser_currentData"];
@@ -344,11 +343,8 @@
                 }
             }
         }
-        if (restartSEB) {
-            // Post a notification that it was requested to restart SEB with changed settings
-            [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"requestRestartNotification" object:self];
-        }
+        // We request to restart SEB (in windowWillClose) with changed settings
+        restartSEB = YES;
     }
     return YES;
 }
@@ -510,8 +506,6 @@
 // Save preferences and restart SEB with the new settings
 - (IBAction) restartSEB:(id)sender {
 
-    self.refreshingPreferences = YES;  //prevents that new page is reloaded before restarting
-    
     // Save passwords in General pane
 	[self.generalVC windowWillClose:nil];
 
@@ -619,23 +613,18 @@
             }
         }
     }
+    //Close prefs window with "order out", which doesn't trigger windowWillClose
     [self closePreferencesWindow];
+    
     // Post a notification that the preferences window closes
     [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"preferencesClosed" object:self];
-
-    // Post a notification that it was requested to restart SEB with changed settings
-	[[NSNotificationCenter defaultCenter]
-     postNotificationName:@"requestRestartNotification" object:self];
-    
+     postNotificationName:@"preferencesClosedRestartSEB" object:self];
 }
 
 
 // Save preferences and quit SEB
 - (IBAction) quitSEB:(id)sender {
 
-    self.refreshingPreferences = YES;  //prevents that new page is reloaded before quitting
-    
     // Save passwords in General pane
 	[self.generalVC windowWillClose:nil];
 
@@ -1238,10 +1227,15 @@
     // Close preferences window (if user doesn't cancel it) but without asking to apply settings
     // this also triggers a SEB restart
     if ([self conditionallyClosePreferencesWindowAskToApply:NO]) {
+        // Close preferences window manually (as windowShouldClose: won't be called)
         [self closePreferencesWindow];
-        // Post a notification that the preferences window closes
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"preferencesClosed" object:self];
+        if (restartSEB) {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"preferencesClosedRestartSEB" object:self];
+        } else {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"preferencesClosed" object:self];
+        }
     }
 }
 

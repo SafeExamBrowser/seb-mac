@@ -96,15 +96,15 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSData *defaultsKey = [keychainManager retrieveKey];
     if (defaultsKey) {
         _currentKey = defaultsKey;
-#ifdef DEBUG
-        NSLog(@"UserDefaults key retrieved.");
-#endif
+//#ifdef DEBUG
+//        NSLog(@"UserDefaults key %@ retrieved.", _currentKey);
+//#endif
     } else {
-        _currentKey = [RNCryptor randomDataOfLength:kCCKeySizeAES128];
+        _currentKey = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
         [keychainManager storeKey:_currentKey];
-#ifdef DEBUG
-        NSLog(@"Generated UserDefaults key as there was none defined yet.");
-#endif
+//#ifdef DEBUG
+//        NSLog(@"Generated UserDefaults key %@ as there was none defined yet.", _currentKey);
+//#endif
     }
     return (defaultsKey != nil);
 }
@@ -113,9 +113,13 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 - (BOOL) updateUDKey
 {
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    _currentKey = [RNCryptor randomDataOfLength:kCCKeySizeAES128];
+    _currentKey = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
+//#ifdef DEBUG
+//    NSLog(@"Updated UserDefaults key to %@", _currentKey);
+//#endif
     return [keychainManager updateKey:_currentKey];
 }
+
 
 - (NSData *) encryptData:(NSData *)data forKey:(NSString *)key error:(NSError **)error
 {
@@ -125,10 +129,17 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     CCHmac(kCCHmacAlgSHA256, keyData.bytes, keyData.length, _currentKey.bytes, _currentKey.length, HMACData.mutableBytes);
 
     NSString *password = [HMACData base64Encoding];
+//#ifdef DEBUG
+//    NSLog(@"Encrypt UD password: %@, error: %@", password, *error);
+//#endif
+    
     NSData *encryptedData = [RNEncryptor encryptData:data
                                         withSettings:kSEBCryptorAES256Settings
                                             password:password
                                                error:error];
+//#ifdef DEBUG
+//    NSLog(@"Encrypted UD, error: %@", *error);
+//#endif
     return encryptedData;
 }
 
@@ -141,9 +152,15 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     CCHmac(kCCHmacAlgSHA256, keyData.bytes, keyData.length, _currentKey.bytes, _currentKey.length, HMACData.mutableBytes);
     
     NSString *password = [HMACData base64Encoding];
+//#ifdef DEBUG
+//    NSLog(@"Decrypt UD password: %@, error: %@", password, *error);
+//#endif
     NSData *decryptedData = [RNDecryptor decryptData:encryptedData withSettings:kSEBCryptorAES256Settings
                                             password:password
                                                error:error];
+//#ifdef DEBUG
+//    NSLog(@"Decrypted UD, error: %@", *error);
+//#endif
     return decryptedData;
 }
 
