@@ -482,8 +482,8 @@ bool insideMatrix();
         [[MyGlobals sharedMyGlobals] setValue:@"" forKey:@"pasteboardString"];
     }
 #ifdef DEBUG
-    NSString *stringFromPasteboard = [[MyGlobals sharedMyGlobals] valueForKey:@"pasteboardString"];
-    NSLog(@"Saved string from Pasteboard: %@", stringFromPasteboard);
+//    NSString *stringFromPasteboard = [[MyGlobals sharedMyGlobals] valueForKey:@"pasteboardString"];
+//    NSLog(@"Saved string from Pasteboard: %@", stringFromPasteboard);
 #endif
     //NSInteger changeCount = [pasteboard clearContents];
     [pasteboard clearContents];
@@ -802,12 +802,15 @@ bool insideMatrix(){
 // (new display is contected or removed or display mirroring activated)
 
 - (void) adjustScreenLocking: (id)sender {
-    // Close the covering windows
-	// (which most likely are no longer there where they should be)
-    [self closeCapWindows];
-
-	// Open new covering background windows on all currently available screens
-	[self coverScreens];
+    // This should only be done when the preferences window isn't open
+    if ([self.preferencesController preferencesAreOpen]) {
+        // Close the covering windows
+        // (which most likely are no longer there where they should be)
+        [self closeCapWindows];
+        
+        // Open new covering background windows on all currently available screens
+        [self coverScreens];
+    }
 }
 
 
@@ -1091,6 +1094,11 @@ bool insideMatrix(){
     
     // Preconfigure Window for full screen
     BOOL mainBrowserWindowShouldBeFullScreen = ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserViewMode"] == browserViewModeFullscreen);
+
+#ifdef DEBUG
+    NSLog(@"openMainBrowserWindow with browserViewMode: %hhd", mainBrowserWindowShouldBeFullScreen);
+#endif
+    
     // Set the flag that the main browser window should be displayed full screen
     [[MyGlobals sharedMyGlobals] setMainBrowserWindowIsFullScreen:mainBrowserWindowShouldBeFullScreen];
     // Set the flag to indicate if the window should call toggleFullScreen on itself after it became active/main (windowDidBecomeMain)

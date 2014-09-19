@@ -105,7 +105,9 @@
         NSLog(@"browserWindow shouldGoFullScreen == YES");
 #endif
         if (!([self.window styleMask] & NSFullScreenWindowMask)) {
-            [self.window setToolbar:nil];
+            if (!self.window.toolbar.isVisible) {
+                [self.window setToolbar:nil];
+            }
 #ifdef DEBUG
             NSLog(@"browserWindow toggleFullScreen, setToolbar = nil.");
 #endif
@@ -329,6 +331,9 @@
 #ifdef DEBUG
     NSLog(@"windowDidFailToEnterFullScreen: %@", window);
 #endif
+    // Set toolbar after window entered full screen, as there is a bug
+    // not respecting toolbar.isVisible when entering full screen
+    [self.window setToolbar:self.toolbar];
 }
 
 - (void)windowDidEnterFullScreen:(NSNotification *)notification

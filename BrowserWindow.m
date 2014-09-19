@@ -453,9 +453,9 @@ initiatedByFrame:(WebFrame *)frame {
         requestURLStrippedFragment = [absoluteRequestURL substringToIndex:absoluteRequestURL.length - fragment.length - 1];
     } else requestURLStrippedFragment = absoluteRequestURL;
 #ifdef DEBUG
-    NSLog(@"Full absolute request URL: %@", absoluteRequestURL);
-    NSLog(@"Fragment: %@", fragment);
-    NSLog(@"Request URL used to calculate RequestHash: %@", requestURLStrippedFragment);
+//    NSLog(@"Full absolute request URL: %@", absoluteRequestURL);
+//    NSLog(@"Fragment: %@", fragment);
+//    NSLog(@"Request URL used to calculate RequestHash: %@", requestURLStrippedFragment);
 #endif
 
 #ifdef DEBUG
