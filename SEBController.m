@@ -1315,7 +1315,6 @@ bool insideMatrix(){
     NSLog(@"Preferences window closed, reopening cap windows.");
 #endif
     
-    //
     // Open new covering background windows on all currently available screens
     [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
     [self coverScreens];
@@ -1571,6 +1570,7 @@ bool insideMatrix(){
                         change:(NSDictionary *)change
                        context:(void *)context
 {
+    // If the startKioskMode method changed presentation options, then we don't do nothing here
     if ([keyPath isEqual:@"currentSystemPresentationOptions"]) {
         if ([[MyGlobals sharedMyGlobals] startKioskChangedPresentationOptions]) {
             [[MyGlobals sharedMyGlobals] setStartKioskChangedPresentationOptions:NO];

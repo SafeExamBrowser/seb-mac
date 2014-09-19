@@ -343,10 +343,8 @@
                 }
             }
         }
+        // We request to restart SEB (in windowWillClose) with changed settings
         restartSEB = YES;
-//        // Post a notification that it was requested to restart SEB with changed settings
-//        [[NSNotificationCenter defaultCenter]
-//         postNotificationName:@"requestRestartNotification" object:self];
     }
     return YES;
 }
@@ -615,17 +613,12 @@
             }
         }
     }
-//    self.refreshingPreferences = YES;  //not necessary, because an order out doesn't trigger windowWillClose
+    //Close prefs window with "order out", which doesn't trigger windowWillClose
     [self closePreferencesWindow];
     
     // Post a notification that the preferences window closes
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"preferencesClosedRestartSEB" object:self];
-
-//    // Post a notification that it was requested to restart SEB with changed settings
-//	[[NSNotificationCenter defaultCenter]
-//     postNotificationName:@"requestRestartNotification" object:self];
-    
 }
 
 
