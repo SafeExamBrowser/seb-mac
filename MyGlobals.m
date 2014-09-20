@@ -50,6 +50,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 @synthesize startKioskChangedPresentationOptions;
 @synthesize flashChangedPresentationOptions;
 @synthesize preferencesReset;
+@synthesize transitioningToFullscreen;
 @synthesize mainBrowserWindowIsFullScreen;
 @synthesize shouldGoFullScreen;
 

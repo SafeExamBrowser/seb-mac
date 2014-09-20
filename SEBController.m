@@ -210,7 +210,7 @@ bool insideMatrix();
 {
     self.systemManager = [[SEBSystemManager alloc] init];
     
-    NSString* scLocation = [self.systemManager preventSC];
+    [self.systemManager preventSC];
 	
 //    BOOL worked = [systemManager checkHTTPSProxySetting];
 //#ifdef DEBUG
@@ -277,11 +277,11 @@ bool insideMatrix();
                                            name:NSWorkspaceDidLaunchApplicationNotification
                                          object:workspace];
 	
-    // Add an observer for the notification that another application was unhidden by the finder
-	[[workspace notificationCenter] addObserver:self
-                                       selector:@selector(requestedReinforceKioskMode:)
-                                           name:NSWorkspaceActiveSpaceDidChangeNotification
-                                         object:workspace];
+//    // Add an observer for the notification that another application was unhidden by the finder
+//	[[workspace notificationCenter] addObserver:self
+//                                       selector:@selector(requestedReinforceKioskMode:)
+//                                           name:NSWorkspaceActiveSpaceDidChangeNotification
+//                                         object:workspace];
 	
 #endif
     // Add an observer for the notification that SEB became active
@@ -293,22 +293,35 @@ bool insideMatrix();
     // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
 	[self coverScreens];
 
-// Switch to kiosk mode by setting the proper presentation options
-	[self startKioskMode];
-	
+    // Switch to kiosk mode by setting the proper presentation options
+    [self startKioskMode];
+    
     // Hide all other applications
     [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
                                                     withObject:NULL waitUntilDone:NO];
+    
+//    NSApplicationPresentationOptions presentationOptions;
+//    presentationOptions =
+//    NSApplicationPresentationDisableAppleMenu +
+//    NSApplicationPresentationAutoHideDock +
+//    NSApplicationPresentationAutoHideMenuBar;
+////    NSApplicationPresentationDisableProcessSwitching +
+////    NSApplicationPresentationDisableForceQuit +
+////    NSApplicationPresentationDisableSessionTermination;
+//#ifdef DEBUG
+//    NSLog(@"NSApp setPresentationOptions: %lo", presentationOptions);
+//#endif
+//    [NSApp setPresentationOptions:presentationOptions];
+
+//    // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
+//    [self coverScreens];
     
     // Add an observer for changes of the Presentation Options
 	[NSApp addObserver:self
 			forKeyPath:@"currentSystemPresentationOptions"
 			   options:NSKeyValueObservingOptionNew
 			   context:NULL];
-//		
-//// Cover all attached screens with cap windows to prevent clicks on desktop making finder active
-//	[self coverScreens];
-    
+		
     // Add a observer for changes of the screen configuration
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(adjustScreenLocking:) 
 												 name:NSApplicationDidChangeScreenParametersNotification 
@@ -892,6 +905,7 @@ bool insideMatrix(){
 //        [NSApp activateIgnoringOtherApps: YES];
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications) withObject:NULL waitUntilDone:NO];
+        [self startKioskMode];
 #endif
     } else {
         /*/ Save the bundle ID of all currently running apps which are visible in a array
@@ -997,26 +1011,19 @@ bool insideMatrix(){
 	BOOL hideToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"];
     NSApplicationPresentationOptions presentationOptions;
 
-//    [self setElevateWindowLevels];
     if (allowSwitchToThirdPartyApps) {
         [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
     } else {
         [preferences setSecureBool:YES forKey:@"org_safeexambrowser_elevateWindowLevels"];
     }
 
-    
-    //    if (browserWindow.isFullScreen || [[MyGlobals sharedMyGlobals] transitioningToFullscreen] == YES)
-
-//    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserViewMode"] == browserViewModeFullscreen)
-    
-    if (browserWindow.isFullScreen == YES && browserWindow.isVisible)
-    {
+    if (browserWindow.isFullScreen && browserWindow.isVisible) {
 #ifdef DEBUG
         NSLog(@"browserWindow.isFullScreen");
 #endif
-//        if ([[MyGlobals sharedMyGlobals] transitioningToFullscreen] == YES) {
-//            [[MyGlobals sharedMyGlobals] setTransitioningToFullscreen:NO];
-//        }
+        if ([[MyGlobals sharedMyGlobals] transitioningToFullscreen] == YES) {
+            [[MyGlobals sharedMyGlobals] setTransitioningToFullscreen:NO];
+        }
         if (!allowSwitchToThirdPartyApps) {
             // if switching to third party apps not allowed
             presentationOptions =
@@ -1068,11 +1075,11 @@ bool insideMatrix(){
     
     @try {
         [[MyGlobals sharedMyGlobals] setStartKioskChangedPresentationOptions:YES];
-
+        
 #ifdef DEBUG
         NSLog(@"NSApp setPresentationOptions: %lo", presentationOptions);
 #endif
-
+        
         [NSApp setPresentationOptions:presentationOptions];
         [[MyGlobals sharedMyGlobals] setPresentationOptions:presentationOptions];
     }
@@ -1438,6 +1445,8 @@ bool insideMatrix(){
 
     BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
     [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
+
+    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
 }
 
 

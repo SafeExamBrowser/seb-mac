@@ -65,12 +65,18 @@
         if ([[NSApp delegate] respondsToSelector:@selector(application:openFile:)]) {
             NSString *filename = [filenames lastObject];
             if ([filename.pathExtension isEqualToString:@"seb"]) {
-                return [[NSApp delegate] application:NSApp openFile:filename];
+                return [(SEBController *)[NSApp delegate] application:NSApp openFile:filename];
             }
         }
     }
     
     return NO;
+}
+
+
+- (NSWindowCollectionBehavior)collectionBehavior
+{    
+    return NSWindowCollectionBehaviorFullScreenAuxiliary; // | NSWindowCollectionBehaviorCanJoinAllSpaces;
 }
 
 @end

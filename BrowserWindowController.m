@@ -99,7 +99,6 @@
         [self.window.toolbar setVisible:NO];
     }
 
-//    static BOOL shouldGoFullScreen = YES;
     if ([[MyGlobals sharedMyGlobals] shouldGoFullScreen] == YES) {
 #ifdef DEBUG
         NSLog(@"browserWindow shouldGoFullScreen == YES");
@@ -210,7 +209,7 @@
 {
     // customize the appearance when entering full screen:
     // Set a global flag that we're transitioning to full screen
-//    [[MyGlobals sharedMyGlobals] setTransitioningToFullscreen:YES];
+    [[MyGlobals sharedMyGlobals] setTransitioningToFullscreen:YES];
 
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 	BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
@@ -248,7 +247,6 @@
 #endif
     [[MyGlobals sharedMyGlobals] setPresentationOptions:presentationOptions];
     return presentationOptions;
-
 }
 
 
@@ -331,9 +329,18 @@
 #ifdef DEBUG
     NSLog(@"windowDidFailToEnterFullScreen: %@", window);
 #endif
-    // Set toolbar after window entered full screen, as there is a bug
+    // Set toolbar after window failed to enter full screen, as there is a bug
     // not respecting toolbar.isVisible when entering full screen
     [self.window setToolbar:self.toolbar];
+
+    // Display or don't display toolbar
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"])
+    {
+        [self.window.toolbar setVisible:YES];
+    } else {
+        [self.window.toolbar setVisible:NO];
+    }
 }
 
 - (void)windowDidEnterFullScreen:(NSNotification *)notification

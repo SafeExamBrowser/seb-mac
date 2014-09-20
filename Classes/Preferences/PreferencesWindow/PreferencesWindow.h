@@ -35,6 +35,9 @@
 // Subclass for the preferences window, implements drag and drop for .seb files
 
 #import <Cocoa/Cocoa.h>
+#import "SEBController.h"
+
+@class SEBController;
 
 @interface PreferencesWindow : NSWindow
 
