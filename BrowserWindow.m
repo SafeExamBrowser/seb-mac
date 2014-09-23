@@ -67,7 +67,7 @@
 - (void)setTitle:(NSString *)title
 {
     [super setTitle:title];
-    if (![[MyGlobals sharedMyGlobals] mainBrowserWindowIsFullScreen]) {
+    if (!self.isFullScreen) {
         [self adjustPositionOfViewInTitleBar:progressIndicatorHolder atRightOffsetToTitle:10 verticalOffset:0];
     }
 }
@@ -98,23 +98,13 @@
 }
 
 
-//// Return if window is in full screen mode
-//- (BOOL) isFullScreen
-//{
-//    NSUInteger windowStyleMask = [self styleMask];
-//    BOOL isFullScreen = (windowStyleMask & NSFullScreenWindowMask) == NSFullScreenWindowMask;
-////    return ([self styleMask] & NSFullScreenWindowMask);
-//    return isFullScreen;
-//}
-//
-//
 // Setup browser window and webView delegates
 - (void) awakeFromNib
 {
     // Display or don't display toolbar
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     // No toolbar on full screen window
-    if (![[MyGlobals sharedMyGlobals] mainBrowserWindowIsFullScreen]) {
+    if (!self.isFullScreen) {
         if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"])
         {
             [self.toolbar setVisible:NO];
@@ -188,8 +178,9 @@
 {
     //[browserWindow setFrame:[[browserWindow screen] frame] display:YES];
     
-    //get frame of the whole screen
-    NSRect screenFrame = self.screen.frame;
+    // Get frame of the visible screen (considering if menu bar is enabled)
+    NSRect screenFrame = self.screen.visibleFrame;
+    //
     NSRect windowFrame;
     NSString *windowWidth;
     NSString *windowHeight;
@@ -197,9 +188,16 @@
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (self == [[MyGlobals sharedMyGlobals] mainBrowserWindow]) {
         // This is the main browser window
-        windowWidth = [preferences secureStringForKey:@"org_safeexambrowser_SEB_mainBrowserWindowWidth"];
-        windowHeight = [preferences secureStringForKey:@"org_safeexambrowser_SEB_mainBrowserWindowHeight"];
-        windowPositioning = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mainBrowserWindowPositioning"];
+        if (self.isFullScreen) {
+            // Full screen windows cover the whole screen
+            windowWidth = @"100%";
+            windowHeight = @"100%";
+            windowPositioning = browserWindowPositioningCenter;
+        } else {
+            windowWidth = [preferences secureStringForKey:@"org_safeexambrowser_SEB_mainBrowserWindowWidth"];
+            windowHeight = [preferences secureStringForKey:@"org_safeexambrowser_SEB_mainBrowserWindowHeight"];
+            windowPositioning = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mainBrowserWindowPositioning"];
+        }
     } else {
         // This is another browser window
         windowWidth = [preferences secureStringForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkWidth"];
@@ -312,7 +310,7 @@
         [progressIndicatorHolder setFrame:progressIndicator.frame];
         [progressIndicator startAnimation:self];
         
-        if ([[MyGlobals sharedMyGlobals] mainBrowserWindowIsFullScreen]) {
+        if (self.isFullScreen) {
             [self addViewToTitleBar:progressIndicatorHolder atRightOffset:20];
         } else {
             [self addViewToTitleBar:progressIndicatorHolder atRightOffsetToTitle:10 verticalOffset:0];
@@ -331,7 +329,7 @@
         [progressIndicator setNextResponder:progressIndicatorHolder];
         [progressIndicatorHolder setNextResponder:self];
     } else {
-        if (![[MyGlobals sharedMyGlobals] mainBrowserWindowIsFullScreen]) {
+        if (!self.isFullScreen) {
             [self adjustPositionOfViewInTitleBar:progressIndicatorHolder atRightOffsetToTitle:10 verticalOffset:0];
         }
     }

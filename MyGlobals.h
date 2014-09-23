@@ -62,7 +62,7 @@
 @property(readwrite) BOOL flashChangedPresentationOptions;
 @property(readwrite) BOOL preferencesReset;
 @property(readwrite) BOOL transitioningToFullscreen;
-@property(readwrite) BOOL mainBrowserWindowIsFullScreen;
+//@property(readwrite) BOOL mainBrowserWindowIsFullScreen;
 @property(readwrite) BOOL shouldGoFullScreen;
 
 - (id)infoValueForKey:(NSString*)key;

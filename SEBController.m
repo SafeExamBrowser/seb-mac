@@ -782,6 +782,9 @@ bool insideMatrix(){
         
         // Open new covering background windows on all currently available screens
         [self coverScreens];
+        
+        // We adjust the size of the main browser window
+        [browserWindow setCalculatedFrame];
     }
 }
 
@@ -1027,15 +1030,14 @@ bool insideMatrix(){
     NSLog(@"openMainBrowserWindow with browserViewMode: %hhd", mainBrowserWindowShouldBeFullScreen);
 #endif
     
-    // Set the flag that the main browser window is displayed full screen
-    [[MyGlobals sharedMyGlobals] setMainBrowserWindowIsFullScreen:mainBrowserWindowShouldBeFullScreen];
-    
     // Open and maximize the browser window
     // (this is done here, after presentation options are set,
     // because otherwise menu bar and dock are deducted from screen size)
     MyDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
     self.webView = myDocument.mainWindowController.webView;
     browserWindow = (BrowserWindow *)myDocument.mainWindowController.window;
+    // Set the flag indicating if the main browser window should be displayed full screen
+    browserWindow.isFullScreen = mainBrowserWindowShouldBeFullScreen;
     
     if (mainBrowserWindowShouldBeFullScreen) {
         [browserWindow setToolbar:nil];
@@ -1075,9 +1077,6 @@ bool insideMatrix(){
     
 	// Load start URL into browser window
 	[[self.webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];
-    
-//    BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
-//    [self startKioskModeThirdPartyAppsAllowed:allowSwitchToThirdPartyApps];
 }
 
 

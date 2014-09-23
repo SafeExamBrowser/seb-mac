@@ -51,7 +51,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 @synthesize flashChangedPresentationOptions;
 @synthesize preferencesReset;
 @synthesize transitioningToFullscreen;
-@synthesize mainBrowserWindowIsFullScreen;
+//@synthesize mainBrowserWindowIsFullScreen;
 @synthesize shouldGoFullScreen;
 
 // Read Info.plist values from bundle

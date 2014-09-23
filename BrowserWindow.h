@@ -53,10 +53,9 @@
 
 @property (weak) IBOutlet WebView *webView;
 @property BOOL constrainingToScreenSuspended;
+@property BOOL isFullScreen;
 
 - (void) setCalculatedFrame;
-
-//- (BOOL) isFullScreen;
 
 - (void) startProgressIndicatorAnimation;
 - (void) stopProgressIndicatorAnimation;
