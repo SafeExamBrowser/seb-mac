@@ -1038,6 +1038,7 @@ bool insideMatrix(){
     browserWindow = (BrowserWindow *)myDocument.mainWindowController.window;
     
     if (mainBrowserWindowShouldBeFullScreen) {
+        [browserWindow setToolbar:nil];
         [browserWindow setStyleMask:NSBorderlessWindowMask];
     }
     
