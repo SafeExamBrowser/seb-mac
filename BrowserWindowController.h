@@ -44,8 +44,6 @@
 
 @property (assign) NSRect frameForNonFullScreenMode;
 @property (weak) IBOutlet WebView *webView;
-@property (weak) IBOutlet NSToolbar *toolbar;
-//@property(readwrite) BOOL shouldGoFullScreen;
 
 - (IBAction) backForward: (id)sender;
 - (IBAction) zoomText: (id)sender;

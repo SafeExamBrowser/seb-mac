@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13F31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6246" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment version="1070" defaultVersion="1070" identifier="macosx"/>
+        <deployment version="1070" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6245"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6246"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsBrowserViewController">
@@ -80,7 +80,7 @@
                         <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy" previousBinding="250" id="251"/>
                     </connections>
                 </popUpButton>
-                <button toolTip="Hyperlinks which direct to a different host than the one of the current main page will be ignored." translatesAutoresizingMaskIntoConstraints="NO" id="101">
+                <button toolTip="Hyperlinks which direct to a different host than the one of the current main page will be ignored" translatesAutoresizingMaskIntoConstraints="NO" id="101">
                     <rect key="frame" x="18" y="377" width="299" height="18"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="410"/>
@@ -109,9 +109,8 @@
                         <binding destination="122" name="enabled" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy" id="211"/>
                     </connections>
                 </button>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="107">
+                <button toolTip="Enables web plugins like Flash. For security reasons it's recommended to disable this option if plugin content is not used." translatesAutoresizingMaskIntoConstraints="NO" id="107">
                     <rect key="frame" x="19" y="160" width="297" height="18"/>
-                    <string key="toolTip">Enables web plugins like Flash. For security reasons it's recommended to disable this option if you don't use any plugin content.</string>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="408"/>
                     </constraints>
@@ -123,7 +122,7 @@
                         <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enablePlugIns" id="652"/>
                     </connections>
                 </button>
-                <button toolTip="Enables Java applets." translatesAutoresizingMaskIntoConstraints="NO" id="168">
+                <button toolTip="Enables Java applets" translatesAutoresizingMaskIntoConstraints="NO" id="168">
                     <rect key="frame" x="19" y="140" width="297" height="18"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="407"/>
@@ -149,7 +148,7 @@
                         <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enableJavaScript" id="206"/>
                     </connections>
                 </button>
-                <button toolTip="Disables pop-up windows (often advertisement) opened by JavaScript without an user action such as a button click." translatesAutoresizingMaskIntoConstraints="NO" id="176">
+                <button toolTip="Disables pop-up windows (often advertisement) opened by JavaScript without an user action such as a button click" translatesAutoresizingMaskIntoConstraints="NO" id="176">
                     <rect key="frame" x="334" y="140" width="298" height="18"/>
                     <buttonCell key="cell" type="check" title="Block pop-up windows" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="177">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -161,7 +160,7 @@
                 </button>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="180">
                     <rect key="frame" x="19" y="106" width="613" height="18"/>
-                    <string key="toolTip">Disabling browsing to previously visited pages (by cmd + Cursor left) increases security, because it might be possible to leave an exam by browsing back to an external start page.</string>
+                    <string key="toolTip">Disabling browsing to previously visited pages (by cmd + Cursor left) may increase security, because browsing back might allow to leave an exam</string>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="412"/>
                     </constraints>
@@ -173,7 +172,7 @@
                         <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enableBrowsingBackForward" id="209"/>
                     </connections>
                 </button>
-                <button toolTip="Remove XULRunner browser profile when quitting SEB." translatesAutoresizingMaskIntoConstraints="NO" id="661">
+                <button toolTip="Remove XULRunner browser profile when quitting SEB" translatesAutoresizingMaskIntoConstraints="NO" id="661">
                     <rect key="frame" x="19" y="72" width="613" height="18"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="662"/>
@@ -186,7 +185,7 @@
                         <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_removeBrowserProfile" id="681"/>
                     </connections>
                 </button>
-                <button toolTip="When SEB browser is disabled, no browser window is openend. Use this option with specific third party applications allowed." translatesAutoresizingMaskIntoConstraints="NO" id="413">
+                <button toolTip="When the SEB browser is disabled, no browser window is openend. Use this option with specific third party applications allowed." translatesAutoresizingMaskIntoConstraints="NO" id="413">
                     <rect key="frame" x="18" y="39" width="614" height="18"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="12" id="638"/>
@@ -218,7 +217,7 @@
                         <rect key="frame" x="1" y="1" width="614" height="72"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <comboBox toolTip="Window width in pixel or percentage of total screen width." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="585">
+                            <comboBox toolTip="Window width in pixel or percentage of total screen width" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="585">
                                 <rect key="frame" x="154" y="38" width="90" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="87" id="646"/>
@@ -246,7 +245,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <comboBox toolTip="Window height in pixel or percentage of total screen height." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="570">
+                            <comboBox toolTip="Window height in pixel or percentage of total screen height" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="570">
                                 <rect key="frame" x="154" y="10" width="90" height="26"/>
                                 <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="4" id="591">
                                     <font key="font" metaFont="system"/>
@@ -279,7 +278,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="569">
+                            <popUpButton toolTip="Position new browser windows on the left, right or centered" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="569">
                                 <rect key="frame" x="492" y="36" width="107" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="102" id="593"/>

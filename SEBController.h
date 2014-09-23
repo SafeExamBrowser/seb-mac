@@ -65,13 +65,7 @@
 	//IBOutlet NSSecureTextField *enterPassword;
     IBOutlet NSWindow *enterPasswordDialogWindow;
     IBOutlet NSTextField *enterPasswordDialog;
-    
-    NSString *savedStartURL;
-    BOOL savedAllowSwitchToThirdPartyAppsFlag;
-    BOOL savedShowMenuBarFlag;
-    BOOL savedEnableBrowserWindowToolbar;
-    BOOL savedHideBrowserWindowToolbar;
-	
+    	
 	IOPMAssertionID assertionID1;
 	IOPMAssertionID assertionID2;
     

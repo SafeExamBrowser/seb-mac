@@ -50,7 +50,7 @@
 {
     self = [super init];
     if (self) {
-        self.sebController = [NSApp delegate];
+        self.sebController = (SEBController *)[NSApp delegate];
     }
     return self;
 }

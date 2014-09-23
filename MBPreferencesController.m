@@ -140,9 +140,17 @@ static MBPreferencesController *sharedPreferencesController = nil;
     [self setPreferencesWindowTitle];
 
 	[self.window center];
+    
+    NSPoint topLeftPoint;
+    topLeftPoint.x = self.window.frame.origin.x;
+    topLeftPoint.y = self.window.screen.frame.size.height - 44;
+    
+    [self.window setFrameTopLeftPoint:topLeftPoint];
+    
 	[super showWindow:sender];
 //    [[NSApplication sharedApplication] runModalForWindow:self.window];
 }
+
 
 #pragma mark -
 #pragma mark NSToolbar

@@ -74,9 +74,9 @@
 }
 
 
-- (NSWindowCollectionBehavior)collectionBehavior
-{    
-    return NSWindowCollectionBehaviorFullScreenAuxiliary; // | NSWindowCollectionBehaviorCanJoinAllSpaces;
-}
+//- (NSWindowCollectionBehavior)collectionBehavior
+//{    
+//    return NSWindowCollectionBehaviorFullScreenAuxiliary; // | NSWindowCollectionBehaviorCanJoinAllSpaces;
+//}
 
 @end

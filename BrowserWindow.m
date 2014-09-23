@@ -67,20 +67,22 @@
 - (void)setTitle:(NSString *)title
 {
     [super setTitle:title];
-    [self adjustPositionOfViewInTitleBar:progressIndicatorHolder atRightOffsetToTitle:10 verticalOffset:0];
+    if (![[MyGlobals sharedMyGlobals] mainBrowserWindowIsFullScreen]) {
+        [self adjustPositionOfViewInTitleBar:progressIndicatorHolder atRightOffsetToTitle:10 verticalOffset:0];
+    }
 }
 
 
-- (NSWindowCollectionBehavior)collectionBehavior {
-    if ([[MyGlobals sharedMyGlobals] mainBrowserWindowIsFullScreen] == YES)
-    {
-        return NSWindowCollectionBehaviorFullScreenPrimary;
-    }
-    return NSWindowCollectionBehaviorDefault;
-    
+//- (NSWindowCollectionBehavior)collectionBehavior {
+//    if ([[MyGlobals sharedMyGlobals] mainBrowserWindowIsFullScreen] == YES)
+//    {
+//        return NSWindowCollectionBehaviorFullScreenPrimary;
+//    }
+//    return NSWindowCollectionBehaviorDefault;
+//    
 //    return NSWindowCollectionBehaviorFullScreenAuxiliary | NSWindowCollectionBehaviorCanJoinAllSpaces;
 //  return NSWindowCollectionBehaviorFullScreenPrimary;
-}
+//}
 
 
 // Closing of SEB Browser Window //
@@ -96,28 +98,30 @@
 }
 
 
-// Return if window is in full screen mode
-- (BOOL) isFullScreen
-{
-    NSUInteger windowStyleMask = [self styleMask];
-    BOOL isFullScreen = (windowStyleMask & NSFullScreenWindowMask) == NSFullScreenWindowMask;
-//    return ([self styleMask] & NSFullScreenWindowMask);
-    return isFullScreen;
-}
-
-
+//// Return if window is in full screen mode
+//- (BOOL) isFullScreen
+//{
+//    NSUInteger windowStyleMask = [self styleMask];
+//    BOOL isFullScreen = (windowStyleMask & NSFullScreenWindowMask) == NSFullScreenWindowMask;
+////    return ([self styleMask] & NSFullScreenWindowMask);
+//    return isFullScreen;
+//}
+//
+//
 // Setup browser window and webView delegates
 - (void) awakeFromNib
 {
     // Display or don't display toolbar
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"])
-    {
-        [self.toolbar setVisible:NO];
-    } else {
-        [self.toolbar setVisible:YES];
+    // No toolbar on full screen window
+    if (![[MyGlobals sharedMyGlobals] mainBrowserWindowIsFullScreen]) {
+        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"])
+        {
+            [self.toolbar setVisible:NO];
+        } else {
+            [self.toolbar setVisible:YES];
+        }
     }
-        
 
 	// Suppress right-click with own delegate method for context menu
 	[self.webView setUIDelegate:self];
@@ -308,8 +312,11 @@
         [progressIndicatorHolder setFrame:progressIndicator.frame];
         [progressIndicator startAnimation:self];
         
-//        [self addViewToTitleBar:progressIndicatorHolder atRightOffset:5];
-        [self addViewToTitleBar:progressIndicatorHolder atRightOffsetToTitle:10 verticalOffset:0];
+        if ([[MyGlobals sharedMyGlobals] mainBrowserWindowIsFullScreen]) {
+            [self addViewToTitleBar:progressIndicatorHolder atRightOffset:20];
+        } else {
+            [self addViewToTitleBar:progressIndicatorHolder atRightOffsetToTitle:10 verticalOffset:0];
+        }
         
         [progressIndicator setFrame:NSMakeRect(
                                                
@@ -324,7 +331,9 @@
         [progressIndicator setNextResponder:progressIndicatorHolder];
         [progressIndicatorHolder setNextResponder:self];
     } else {
-        [self adjustPositionOfViewInTitleBar:progressIndicatorHolder atRightOffsetToTitle:10 verticalOffset:0];
+        if (![[MyGlobals sharedMyGlobals] mainBrowserWindowIsFullScreen]) {
+            [self adjustPositionOfViewInTitleBar:progressIndicatorHolder atRightOffsetToTitle:10 verticalOffset:0];
+        }
     }
 }
 

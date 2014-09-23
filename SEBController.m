@@ -300,19 +300,6 @@ bool insideMatrix();
     [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
                                                     withObject:NULL waitUntilDone:NO];
     
-//    NSApplicationPresentationOptions presentationOptions;
-//    presentationOptions =
-//    NSApplicationPresentationDisableAppleMenu +
-//    NSApplicationPresentationAutoHideDock +
-//    NSApplicationPresentationAutoHideMenuBar;
-////    NSApplicationPresentationDisableProcessSwitching +
-////    NSApplicationPresentationDisableForceQuit +
-////    NSApplicationPresentationDisableSessionTermination;
-//#ifdef DEBUG
-//    NSLog(@"NSApp setPresentationOptions: %lo", presentationOptions);
-//#endif
-//    [NSApp setPresentationOptions:presentationOptions];
-
 //    // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
 //    [self coverScreens];
     
@@ -559,9 +546,6 @@ bool insideMatrix();
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
     [self performSelector:@selector(performAfterStartActions:) withObject: nil afterDelay: 2];
-
-//    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableSebBrowser"]) {
-//    }
 }
 
 
@@ -740,7 +724,8 @@ bool insideMatrix(){
 
 // Open background windows on all available screens to prevent Finder becoming active when clicking on the desktop background
 - (void) coverScreens {
-	NSArray *screens = [NSScreen screens];	// get all available screens
+    // Open background windows on all available screens to prevent Finder becoming active when clicking on the desktop background
+    NSArray *screens = [NSScreen screens];	// get all available screens
     if (!self.capWindows) {
         self.capWindows = [NSMutableArray arrayWithCapacity:1];	// array for storing our cap (covering) background windows
     } else {
@@ -753,7 +738,6 @@ bool insideMatrix(){
         //NSRect frame = size of the current screen;
         NSRect frame = [iterScreen frame];
         NSUInteger styleMask = NSBorderlessWindowMask;
-        //NSUInteger styleMask = NSTitledWindowMask;
         NSRect rect = [NSWindow contentRectForFrameRect:frame styleMask:styleMask];
         //set origin of the window rect to left bottom corner (important for non-main screens, since they have offsets)
         rect.origin.x = 0;
@@ -762,12 +746,11 @@ bool insideMatrix(){
         [window setReleasedWhenClosed:NO];
         [window setBackgroundColor:[NSColor blackColor]];
         [window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-        //[window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenAuxiliary];
-//        [window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary | NSWindowCollectionBehaviorCanJoinAllSpaces];
-        //        [window setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
+//        [window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
         if (!allowSwitchToThirdPartyApps) {
-            [window setLevel:NSTornOffMenuWindowLevel];
+            [window newSetLevel:NSModalPanelWindowLevel];
         }
+        [window orderBack:self];
         [self.capWindows addObject: window];
         NSView *superview = [window contentView];
         CapView *capview = [[CapView alloc] initWithFrame:rect];
@@ -783,32 +766,8 @@ bool insideMatrix(){
 #ifdef DEBUG
         //NSLog(@"Loaded capWindow %@, isWindowLoaded %@", loadedCapWindow, isWindowLoaded);
 #endif
-        
-        //        NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
-        //                              [NSNumber numberWithBool:NO], NSFullScreenModeAllScreens,
-        //                              nil];
-        //
-        //        [superview enterFullScreenMode:iterScreen withOptions:options];
-        // Setup bindings to the preferences window close button
-        
-//        [window toggleFullScreen:self];
     }
 }
-
-
-//// Open background windows on all available screens to prevent Finder becoming active when clicking on the desktop background
-//- (IBAction) toggleCapWindowsFullscreen:(id)sender
-//{
-//#ifdef DEBUG
-//    NSLog(@"toggleCapWindowsFullscreen");
-//#endif
-//	int windowIndex;
-//	int windowCount = [self.capWindows count];
-//    for (windowIndex = 0; windowIndex < windowCount; windowIndex++ )
-//    {
-//		[(NSWindow *)[self.capWindows objectAtIndex:windowIndex] toggleFullScreen:self];
-//	}
-//}
 
 
 // Called when changes of the screen configuration occur
@@ -972,7 +931,7 @@ bool insideMatrix(){
     [self startKioskModeThirdPartyAppsAllowed:allowApps overrideShowMenuBar:overrideShowMenuBar];
     
     // Change window level of cap windows
-    CapWindow *capWindow;
+    NSWindow *capWindow;
     //[window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenAuxiliary];
     //        [window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary | NSWindowCollectionBehaviorCanJoinAllSpaces];
     //        [window setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
@@ -1003,74 +962,36 @@ bool insideMatrix(){
 
 
 - (void) startKioskModeThirdPartyAppsAllowed:(BOOL)allowSwitchToThirdPartyApps overrideShowMenuBar:(BOOL)overrideShowMenuBar {
-	// Switch to kiosk mode by setting the proper presentation options
+    // Switch to kiosk mode by setting the proper presentation options
     // Load preferences from the system's user defaults database
-	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-	BOOL showMenuBar = overrideShowMenuBar || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
-	BOOL enableToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"];
-	BOOL hideToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL showMenuBar = overrideShowMenuBar || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
+//    BOOL enableToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"];
+//    BOOL hideToolbar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"];
     NSApplicationPresentationOptions presentationOptions;
-
+    
     if (allowSwitchToThirdPartyApps) {
         [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
     } else {
         [preferences setSecureBool:YES forKey:@"org_safeexambrowser_elevateWindowLevels"];
     }
-
-    if (browserWindow.isFullScreen && browserWindow.isVisible) {
-#ifdef DEBUG
-        NSLog(@"browserWindow.isFullScreen");
-#endif
-        if ([[MyGlobals sharedMyGlobals] transitioningToFullscreen] == YES) {
-            [[MyGlobals sharedMyGlobals] setTransitioningToFullscreen:NO];
-        }
-        if (!allowSwitchToThirdPartyApps) {
-            // if switching to third party apps not allowed
-            presentationOptions =
-            NSApplicationPresentationDisableAppleMenu +
-            NSApplicationPresentationHideDock +
-            NSApplicationPresentationFullScreen +
-            (enableToolbar && hideToolbar ?
-             NSApplicationPresentationAutoHideToolbar + NSApplicationPresentationAutoHideMenuBar :
-             (showMenuBar ? 0 : NSApplicationPresentationHideMenuBar)) +
-            NSApplicationPresentationDisableProcessSwitching +
-            NSApplicationPresentationDisableForceQuit +
-            NSApplicationPresentationDisableSessionTermination;
-        } else {
-            // if switching to third party apps allowed
-            presentationOptions =
-            NSApplicationPresentationDisableAppleMenu +
-            NSApplicationPresentationHideDock +
-            NSApplicationPresentationFullScreen +
-            (enableToolbar && hideToolbar ?
-             NSApplicationPresentationAutoHideToolbar + NSApplicationPresentationAutoHideMenuBar :
-             (showMenuBar ? 0 : NSApplicationPresentationHideMenuBar)) +
-            NSApplicationPresentationDisableForceQuit +
-            NSApplicationPresentationDisableSessionTermination;
-        }
-        
+    
+    if (!allowSwitchToThirdPartyApps) {
+        // if switching to third party apps not allowed
+        presentationOptions =
+        NSApplicationPresentationDisableAppleMenu +
+        NSApplicationPresentationHideDock +
+        (showMenuBar ? 0 : NSApplicationPresentationHideMenuBar) +
+        NSApplicationPresentationDisableProcessSwitching +
+        NSApplicationPresentationDisableForceQuit +
+        NSApplicationPresentationDisableSessionTermination;
     } else {
-        
-#ifdef DEBUG
-        NSLog(@"NOT browserWindow.isFullScreen");
-#endif
-        if (!allowSwitchToThirdPartyApps) {
-            // if switching to third party apps not allowed
-            presentationOptions =
-            NSApplicationPresentationDisableAppleMenu +
-            NSApplicationPresentationHideDock +
-            (showMenuBar ? 0 : NSApplicationPresentationHideMenuBar) +
-            NSApplicationPresentationDisableProcessSwitching +
-            NSApplicationPresentationDisableForceQuit +
-            NSApplicationPresentationDisableSessionTermination;
-        } else {
-            presentationOptions =
-            (showMenuBar ? 0 : NSApplicationPresentationHideMenuBar) +
-            NSApplicationPresentationHideDock +
-            NSApplicationPresentationDisableAppleMenu +
-            NSApplicationPresentationDisableForceQuit +
-            NSApplicationPresentationDisableSessionTermination;
-        }
+        presentationOptions =
+        (showMenuBar ? 0 : NSApplicationPresentationHideMenuBar) +
+        NSApplicationPresentationHideDock +
+        NSApplicationPresentationDisableAppleMenu +
+        NSApplicationPresentationDisableForceQuit +
+        NSApplicationPresentationDisableSessionTermination;
     }
     
     @try {
@@ -1106,10 +1027,8 @@ bool insideMatrix(){
     NSLog(@"openMainBrowserWindow with browserViewMode: %hhd", mainBrowserWindowShouldBeFullScreen);
 #endif
     
-    // Set the flag that the main browser window should be displayed full screen
+    // Set the flag that the main browser window is displayed full screen
     [[MyGlobals sharedMyGlobals] setMainBrowserWindowIsFullScreen:mainBrowserWindowShouldBeFullScreen];
-    // Set the flag to indicate if the window should call toggleFullScreen on itself after it became active/main (windowDidBecomeMain)
-    [[MyGlobals sharedMyGlobals] setShouldGoFullScreen:mainBrowserWindowShouldBeFullScreen];
     
     // Open and maximize the browser window
     // (this is done here, after presentation options are set,
@@ -1117,6 +1036,10 @@ bool insideMatrix(){
     MyDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
     self.webView = myDocument.mainWindowController.webView;
     browserWindow = (BrowserWindow *)myDocument.mainWindowController.window;
+    
+    if (mainBrowserWindowShouldBeFullScreen) {
+        [browserWindow setStyleMask:NSBorderlessWindowMask];
+    }
     
     [[MyGlobals sharedMyGlobals] setMainBrowserWindow:browserWindow]; //save a reference to this main browser window
     [browserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents

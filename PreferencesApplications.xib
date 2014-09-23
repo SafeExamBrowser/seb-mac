@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6246" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment version="1070" defaultVersion="1070" identifier="macosx"/>
+        <deployment version="1070" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6245"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6246"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsApplicationsViewController">
@@ -12,7 +12,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1" userLabel="Applications Preferences">
             <rect key="frame" x="0.0" y="0.0" width="650" height="700"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -39,18 +39,18 @@
                                     </button>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="134">
                                         <rect key="frame" x="33" y="567" width="556" height="18"/>
-                                        <string key="toolTip">Playing videos with Flash in full screen mode is a security problem. That's why it is recommended to use HTML5 video (there full screen mode is no problem) instead of Flash. When switching to third party applications is disabled, Flash fullscreen mode isn't possible at all.</string>
+                                        <string key="toolTip">Playing videos full screen with Flash is a security problem. Better use HTML5 video instead of Flash! When switching to third party applications is disabled, Flash fullscreen mode isn't possible at all.</string>
                                         <buttonCell key="cell" type="check" title="Allow Flash to switch to full screen mode" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="135">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
                                         </buttonCell>
                                         <connections>
+                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowFlashFullscreen" id="166"/>
                                             <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowSwitchToApplications" id="208">
                                                 <dictionary key="options">
                                                     <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                                 </dictionary>
                                             </binding>
-                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowFlashFullscreen" id="166"/>
                                         </connections>
                                     </button>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="345">
@@ -60,7 +60,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="348" id="346">
-                                                    <rect key="frame" x="0.0" y="0.0" width="568" height="133"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="568" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -87,12 +87,12 @@
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                             </tableHeaderCell>
-                                                            <popUpButtonCell key="dataCell" type="bevel" title="Pop Up" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="bezel" imageScaling="proportionallyDown" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" id="1329">
+                                                            <popUpButtonCell key="dataCell" type="bevel" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="bezel" imageScaling="proportionallyDown" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" id="1329">
                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                <font key="font" metaFont="system"/>
+                                                                <font key="font" metaFont="menu"/>
                                                                 <menu key="menu" title="OtherViews" id="1330">
                                                                     <items>
-                                                                        <menuItem title="Pop Up" state="on" id="1331"/>
+                                                                        <menuItem title="Pop Up" id="1331"/>
                                                                     </items>
                                                                 </menu>
                                                                 <connections>
@@ -160,7 +160,7 @@
                                             <rect key="frame" x="1" y="1" width="574" height="348"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <button toolTip="Indicates if this permitted process item is active." translatesAutoresizingMaskIntoConstraints="NO" id="637">
+                                                <button toolTip="Permitted process item is active" translatesAutoresizingMaskIntoConstraints="NO" id="637">
                                                     <rect key="frame" x="16" y="315" width="61" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="908"/>
@@ -193,9 +193,8 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="645">
+                                                <textField toolTip="Application title which is displayed in the application chooser and SEB dock/task bar" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="645">
                                                     <rect key="frame" x="259" y="317" width="297" height="22"/>
-                                                    <string key="toolTip">Application title which is displayed in the application chooser. Background processes don’t need to have a title, because they can’t be selected by users.</string>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="297" id="828"/>
                                                     </constraints>
@@ -227,7 +226,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField toolTip="Process name, usually the file name of the executable." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="674">
+                                                <textField toolTip="Process name, usually the file name of the executable" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="674">
                                                     <rect key="frame" x="259" y="257" width="297" height="22"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="676">
                                                         <font key="font" metaFont="system"/>
@@ -307,7 +306,7 @@
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="687">
                                                     <rect key="frame" x="98" y="199" width="458" height="22"/>
-                                                    <string key="toolTip">Filesystem path (formatted system specific) to the process executable’s directory (excluding the file name, see field name). If the path is not given or relative, then SEB searches the system provided paths for applications.</string>
+                                                    <string key="toolTip">Filesystem path (formatted system specific) to the process executable’s directory (excluding the file name). If the path is not given or relative, then SEB searches system provided paths for applications.</string>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="689">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -339,8 +338,7 @@
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2202">
                                                     <rect key="frame" x="259" y="228" width="297" height="22"/>
-                                                    <string key="toolTip">Filesystem path (formatted system specific) to the process executable’s directory (excluding the file name, see field name). If the path is not given or relative, then SEB searches the system provided paths for applications.</string>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="2203">
+                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" toolTip="SEB Windows: Comma separated list of window handling processes for a specific type of permitted applications (like Java)" drawsBackground="YES" id="2203">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -354,15 +352,14 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="733">
+                                                <scrollView toolTip="Arguments to append to the executable of the application when starting it. Checkbox selects if an argument is active." autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="733">
                                                     <rect key="frame" x="98" y="124" width="458" height="67"/>
-                                                    <string key="toolTip">Arguments to append to the executable of the application when starting it. You can select if an argument is active or not (for testing).</string>
                                                     <clipView key="contentView" id="UYw-pC-SvI">
                                                         <rect key="frame" x="1" y="1" width="456" height="65"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="736">
-                                                                <rect key="frame" x="0.0" y="0.0" width="456" height="65"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="456" height="19"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -457,7 +454,7 @@
                                                         </binding>
                                                     </connections>
                                                 </button>
-                                                <textField toolTip="Identifier of the process in reverse domain notation (OS X)." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="887">
+                                                <textField toolTip="Identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="887">
                                                     <rect key="frame" x="259" y="94" width="297" height="22"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="888">
                                                         <font key="font" metaFont="system"/>
@@ -490,7 +487,7 @@
                                                 </textField>
                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="982">
                                                     <rect key="frame" x="16" y="45" width="297" height="22"/>
-                                                    <string key="toolTip">Users can locate the third party application with a file dialog if it cannot be found at the paths specified. Only applications matching the other criteria specified (like executable, identifier, signature) are accepted.</string>
+                                                    <string key="toolTip">Allow locating third party applications with a file dialog if it cannot be found at the paths specified. Only applications matching other criteria specified (like executable, identifier, signature) are accepted.</string>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="986"/>
                                                         <constraint firstAttribute="width" constant="293" id="997"/>
@@ -508,7 +505,7 @@
                                                         </binding>
                                                     </connections>
                                                 </button>
-                                                <button toolTip="Start the process automatically together with SEB." translatesAutoresizingMaskIntoConstraints="NO" id="948">
+                                                <button toolTip="Start the process automatically together with SEB" translatesAutoresizingMaskIntoConstraints="NO" id="948">
                                                     <rect key="frame" x="16" y="93" width="142" height="22"/>
                                                     <buttonCell key="cell" type="check" title="Autostart" bezelStyle="regularSquare" imagePosition="left" inset="2" id="950">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -523,7 +520,7 @@
                                                         </binding>
                                                     </connections>
                                                 </button>
-                                                <button toolTip="Only allow to run the application in background (users cannot switch to it, windows will be hidden)." translatesAutoresizingMaskIntoConstraints="NO" id="956">
+                                                <button toolTip="Only allow to run the application in background (users cannot switch to it, windows will be hidden)" translatesAutoresizingMaskIntoConstraints="NO" id="956">
                                                     <rect key="frame" x="16" y="69" width="142" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="958"/>
@@ -541,7 +538,7 @@
                                                         </binding>
                                                     </connections>
                                                 </button>
-                                                <button toolTip="Show details about the application/process code signature." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1183">
+                                                <button toolTip="Show details about the application/process code signature" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1183">
                                                     <rect key="frame" x="407" y="58" width="155" height="32"/>
                                                     <buttonCell key="cell" type="push" title="Code Signatures..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1184">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -570,11 +567,11 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <popUpButton toolTip="Indicates on which operating system the permitted process runs." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1314">
+                                                <popUpButton toolTip="Indicates on which operating system the permitted process runs" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1314">
                                                     <rect key="frame" x="42" y="253" width="75" height="26"/>
                                                     <popUpButtonCell key="cell" type="push" title="OS" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1317" id="1315">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
+                                                        <font key="font" metaFont="menu"/>
                                                         <menu key="menu" title="OtherViews" id="1316">
                                                             <items>
                                                                 <menuItem title="OS" state="on" id="1317"/>
@@ -593,9 +590,8 @@
                                                         </binding>
                                                     </connections>
                                                 </popUpButton>
-                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="2244">
+                                                <button toolTip="Kill process in a not-nice way, which may cause data loss if the application had unsaved data" translatesAutoresizingMaskIntoConstraints="NO" id="2244">
                                                     <rect key="frame" x="16" y="21" width="205" height="22"/>
-                                                    <string key="toolTip">Indicates whether a process may be killed in a not-nice way, which may cause data loss if the application had unsaved data in memory or was just writing to a persistent memory/drive. If application is safe to be killed anytime this avoids bothering users.</string>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="2245"/>
                                                         <constraint firstAttribute="width" constant="201" id="2248"/>
@@ -704,15 +700,14 @@
                                             <action selector="remove:" target="610" id="620"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="495">
+                                    <button toolTip="Allows choosing an application (or a process executable file) which will be added to the list of permitted processes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="495">
                                         <rect key="frame" x="60" y="370" width="175" height="32"/>
-                                        <string key="toolTip">Displays a file requester for choosing an application (or a process executable file) which will be added to the list of permitted processes.</string>
                                         <buttonCell key="cell" type="push" title="Choose Application..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="496">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
-                                    <button toolTip="For choosing a running process which will be added to the list of permitted processes." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1600">
+                                    <button toolTip="For choosing a running process which will be added to the list of permitted processes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1600">
                                         <rect key="frame" x="235" y="370" width="150" height="32"/>
                                         <buttonCell key="cell" type="push" title="Choose Process..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1601">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -761,7 +756,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="1926" id="1924">
-                                                    <rect key="frame" x="0.0" y="0.0" width="568" height="342"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="568" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -788,12 +783,12 @@
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                             </tableHeaderCell>
-                                                            <popUpButtonCell key="dataCell" type="bevel" title="Pop Up" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="bezel" imageScaling="proportionallyDown" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" id="1933">
+                                                            <popUpButtonCell key="dataCell" type="bevel" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="bezel" imageScaling="proportionallyDown" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" id="1933">
                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                <font key="font" metaFont="system"/>
+                                                                <font key="font" metaFont="menu"/>
                                                                 <menu key="menu" title="OtherViews" id="1934">
                                                                     <items>
-                                                                        <menuItem title="Pop Up" state="on" id="1935"/>
+                                                                        <menuItem title="Pop Up" id="1935"/>
                                                                     </items>
                                                                 </menu>
                                                                 <connections>
@@ -861,7 +856,7 @@
                                             <rect key="frame" x="1" y="1" width="575" height="168"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <button toolTip="Indicates if this prohibited process item is active." translatesAutoresizingMaskIntoConstraints="NO" id="1898">
+                                                <button toolTip="This prohibited process item is active" translatesAutoresizingMaskIntoConstraints="NO" id="1898">
                                                     <rect key="frame" x="16" y="135" width="61" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="1908"/>
@@ -894,7 +889,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField toolTip="Process name, usually the file name of the executable." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1893">
+                                                <textField toolTip="Process name, usually the file name of the executable" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1893">
                                                     <rect key="frame" x="260" y="137" width="297" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="297" id="1915"/>
@@ -927,7 +922,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField toolTip="Optional, should explain what kind of process this is, because this might not be obvious only from the executable's name." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1895">
+                                                <textField toolTip="Optional, to explain what kind of process this is, because this might not be obvious only from the executable's name" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1895">
                                                     <rect key="frame" x="98" y="107" width="459" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" priority="320" constant="459" id="1912"/>
@@ -977,7 +972,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField toolTip="Identifier of the process in reverse domain notation (OS X)." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1859">
+                                                <textField toolTip="Identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1859">
                                                     <rect key="frame" x="260" y="77" width="297" height="22"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1916">
                                                         <font key="font" metaFont="system"/>
@@ -1008,9 +1003,8 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="1856">
+                                                <button toolTip="The prohibited process has to run under the currently logged in user (not system users). Use it instead of indicating the user." translatesAutoresizingMaskIntoConstraints="NO" id="1856">
                                                     <rect key="frame" x="16" y="46" width="205" height="22"/>
-                                                    <string key="toolTip">Indicates that the prohibited process has to run under the currently logged in user (not system users). Use it instead of indicating the user.</string>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="201" id="1919"/>
                                                     </constraints>
@@ -1027,9 +1021,8 @@
                                                         </binding>
                                                     </connections>
                                                 </button>
-                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="1855">
+                                                <button toolTip="Kill process in a not-nice way, which may cause data loss if the application had unsaved data" translatesAutoresizingMaskIntoConstraints="NO" id="1855">
                                                     <rect key="frame" x="16" y="19" width="205" height="22"/>
-                                                    <string key="toolTip">Indicates whether a process may be killed in a not-nice way, which may cause data loss if the application had unsaved data in memory or was just writing to a persistent memory/drive. If application is safe to be killed anytime this avoids bothering users.</string>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="1922"/>
                                                     </constraints>
@@ -1046,7 +1039,7 @@
                                                         </binding>
                                                     </connections>
                                                 </button>
-                                                <button toolTip="Show details about the application/process code signature." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1854">
+                                                <button toolTip="Show details about the application/process code signature" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1854">
                                                     <rect key="frame" x="408" y="11" width="155" height="32"/>
                                                     <buttonCell key="cell" type="push" title="Code Signatures..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1923">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1075,11 +1068,11 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <popUpButton toolTip="Indicates on which operating system the prohibited process runs. " verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1900">
+                                                <popUpButton toolTip="Indicates on which operating system the prohibited process runs" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1900">
                                                     <rect key="frame" x="42" y="73" width="75" height="26"/>
                                                     <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1903" id="1901">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
+                                                        <font key="font" metaFont="menu"/>
                                                         <menu key="menu" title="OtherViews" id="1902">
                                                             <items>
                                                                 <menuItem title="Item 1" state="on" id="1903"/>
@@ -1145,7 +1138,7 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
-                                    <button toolTip="Add a prohibited process manually" translatesAutoresizingMaskIntoConstraints="NO" id="1842">
+                                    <button toolTip="Add a prohibited process" translatesAutoresizingMaskIntoConstraints="NO" id="1842">
                                         <rect key="frame" x="17" y="197" width="20" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="1851"/>
@@ -1180,9 +1173,8 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1845">
+                                    <button toolTip="Allows choosing the process executable file (or application) which will be added to the list of prohibited processes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1845">
                                         <rect key="frame" x="64" y="190" width="171" height="32"/>
-                                        <string key="toolTip">Displays a file requester for choosing the process executable file (or application) which will be added to the list of prohibited processes.</string>
                                         <buttonCell key="cell" type="push" title="Choose Executable..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1846">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>

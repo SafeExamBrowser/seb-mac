@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6246" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment version="1070" defaultVersion="1070" identifier="macosx"/>
+        <deployment version="1070" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6245"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6246"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsExamViewController">
@@ -15,7 +15,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1" userLabel="Exam Preferences">
             <rect key="frame" x="0.0" y="0.0" width="650" height="310"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -38,7 +38,7 @@
                 </textField>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="20">
                     <rect key="frame" x="33" y="180" width="599" height="21"/>
-                    <string key="toolTip">SEB clears the clipboard when quitting, so you should either use SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB.</string>
+                    <string key="toolTip">SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB</string>
                     <constraints>
                         <constraint firstAttribute="height" constant="15" id="977"/>
                     </constraints>
@@ -77,12 +77,12 @@
                     </constraints>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="442">
                         <font key="font" metaFont="smallSystem"/>
-                        <string key="title">Place this quit link to the "feedback" page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password.</string>
+                        <string key="title">Place this Quit Link to the "feedback" page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password.</string>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField toolTip="If a quit link is entered, it works regardless of other quit settings in the General settings pane." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="688">
+                <textField toolTip="If a Quit Link is entered, it works regardless of other quit settings in the General pane" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="688">
                     <rect key="frame" x="20" y="77" width="610" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="URL starting with http:// or https://" drawsBackground="YES" id="689">
                         <font key="font" metaFont="system"/>
@@ -98,8 +98,9 @@
                         <outlet property="delegate" destination="-2" id="1029"/>
                     </connections>
                 </textField>
-                <button toolTip="Browser Exam Key is send in an HTTP header to authenticate the SEB client and its settings to a compatible exam system." translatesAutoresizingMaskIntoConstraints="NO" id="970">
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="970">
                     <rect key="frame" x="18" y="152" width="614" height="18"/>
+                    <string key="toolTip">The Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system</string>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="976"/>
                     </constraints>
@@ -110,16 +111,6 @@
                     <connections>
                         <action selector="checkboxClicked:" target="-2" id="1030"/>
                         <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="1001"/>
-                    </connections>
-                </button>
-                <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1011">
-                    <rect key="frame" x="136" y="263" width="120" height="32"/>
-                    <buttonCell key="cell" type="push" title="Re-Generate" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1012">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="generateBrowserExamKey" target="-2" id="1016"/>
                     </connections>
                 </button>
             </subviews>
@@ -150,8 +141,6 @@
                 <constraint firstAttribute="trailing" secondItem="20" secondAttribute="trailing" constant="20" symbolic="YES" id="993"/>
                 <constraint firstAttribute="trailing" secondItem="274" secondAttribute="trailing" constant="20" symbolic="YES" id="998"/>
                 <constraint firstAttribute="trailing" secondItem="970" secondAttribute="trailing" constant="20" symbolic="YES" id="1004"/>
-                <constraint firstItem="1011" firstAttribute="baseline" secondItem="8" secondAttribute="baseline" id="1013"/>
-                <constraint firstItem="1011" firstAttribute="leading" secondItem="8" secondAttribute="trailing" constant="8" symbolic="YES" id="1015"/>
                 <constraint firstAttribute="trailing" secondItem="440" secondAttribute="trailing" constant="20" id="1018"/>
             </constraints>
         </customView>

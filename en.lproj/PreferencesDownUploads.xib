@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6246" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment version="1070" defaultVersion="1070" identifier="macosx"/>
+        <deployment version="1070" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6245"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6246"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsDownUploadsViewController">
@@ -14,7 +14,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1" userLabel="Down/Uploads Preferences">
             <rect key="frame" x="0.0" y="0.0" width="650" height="250"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -40,14 +40,14 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="32">
+                <popUpButton toolTip="Choose download directory" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="32">
                     <rect key="frame" x="354" y="184" width="279" height="26"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="274" id="248"/>
                     </constraints>
-                    <popUpButtonCell key="cell" type="push" title="Directory" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="33">
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="33">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="34">
                             <items>
                                 <menuItem title="Directory" id="35"/>
@@ -67,7 +67,7 @@
                 </popUpButton>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="38">
                     <rect key="frame" x="353" y="162" width="279" height="18"/>
-                    <string key="toolTip">Downloaded files will be opened with the according application, which has to be set correctly in the system for each used file type.</string>
+                    <string key="toolTip">Downloaded files will be opened with the according application, which has to be set correctly in the system for each used file type</string>
                     <buttonCell key="cell" type="check" title="Open files after downloading" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="39">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
@@ -91,10 +91,10 @@
                 </button>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="93">
                     <rect key="frame" x="38" y="112" width="595" height="26"/>
-                    <string key="toolTip">SEB can let the user choose the file to upload manually (as usual) or automatically choose the same file which was downloaded before. If the file is not found, a file requester or an error is presented depending on this setting.</string>
+                    <string key="toolTip">SEB can let users choose the file to upload or automatically use the same file which was downloaded before. If not found, a file requester or an error is presented depending on this setting.</string>
                     <popUpButtonCell key="cell" type="push" title="manually with file requester" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="97" id="94">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="95">
                             <items>
                                 <menuItem title="manually with file requester" id="97"/>
@@ -119,9 +119,8 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="265">
+                <button toolTip="Download and open .seb config files regardless if downloading and opening other file types is allowed" translatesAutoresizingMaskIntoConstraints="NO" id="265">
                     <rect key="frame" x="18" y="18" width="614" height="18"/>
-                    <string key="toolTip">Indicates if .seb config files should be downloaded and opened, regardless if downloading and opening of other file types is allowed or not.</string>
                     <buttonCell key="cell" type="check" title="Download and open SEB config files" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="266">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>

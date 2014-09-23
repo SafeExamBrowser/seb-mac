@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13F31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6246" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment version="1070" defaultVersion="1070" identifier="macosx"/>
+        <deployment version="1070" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6245"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6246"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsNetworkViewController">
@@ -31,7 +31,7 @@
                                 <rect key="frame" x="10" y="33" width="604" height="436"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="454">
+                                    <button toolTip="When URL filtering is active and no matching block or allow expression is found), then the processed URL is discarded" translatesAutoresizingMaskIntoConstraints="NO" id="454">
                                         <rect key="frame" x="15" y="410" width="155" height="18"/>
                                         <buttonCell key="cell" type="check" title="Activate URL filtering" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="455">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -45,7 +45,7 @@
                                             </binding>
                                         </connections>
                                     </button>
-                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="648">
+                                    <button toolTip="Not only web page URLs are filtered using the URL filter rules, but also all embedded resources" translatesAutoresizingMaskIntoConstraints="NO" id="648">
                                         <rect key="frame" x="34" y="390" width="206" height="18"/>
                                         <buttonCell key="cell" type="check" title="Filter also embedded content" bezelStyle="regularSquare" imagePosition="left" inset="2" id="649">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -60,7 +60,7 @@
                                             </binding>
                                         </connections>
                                     </button>
-                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="526" customClass="DropDownButton">
+                                    <button toolTip="Add a filter rule or action" translatesAutoresizingMaskIntoConstraints="NO" id="526" customClass="DropDownButton">
                                         <rect key="frame" x="17" y="14" width="22" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="531"/>
@@ -75,7 +75,7 @@
                                             <outlet property="menu" destination="758" id="765"/>
                                         </connections>
                                     </button>
-                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="527">
+                                    <button toolTip="Remove a filter rule or action" translatesAutoresizingMaskIntoConstraints="NO" id="527">
                                         <rect key="frame" x="38" y="14" width="22" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="22" id="660"/>
@@ -237,9 +237,8 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1779">
+                                    <popUpButton toolTip="SSL/TLS certificates from the default keychain. This allows to distribute self-signed certificates to exam clients" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1779">
                                         <rect key="frame" x="14" y="391" width="576" height="22"/>
-                                        <string key="toolTip">Identities (X.509 certificates with RSA public key and associated private key) in your default keychain which can be used for encrypting and decrypting. Export the chosen identity (in Keychain Access utility) and install it on your SEB clients.</string>
                                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="1780">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
@@ -263,7 +262,7 @@
                                     </textField>
                                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1814">
                                         <rect key="frame" x="14" y="344" width="576" height="22"/>
-                                        <string key="toolTip">Identities (X.509 certificates with RSA public key and associated private key) in your default keychain which can be used for encrypting and decrypting. Export the chosen identity (in Keychain Access utility) and install it on your SEB clients.</string>
+                                        <string key="toolTip">Identities (X.509 certificates with RSA public key and associated private key) from the default keychain which can be used for encrypting and decrypting. Export the chosen identity (in Keychain Access utility) and install it on your SEB clients.</string>
                                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="1815">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
@@ -351,7 +350,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
-                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="1863">
+                                    <button toolTip="Remove certificate/identity from settings" translatesAutoresizingMaskIntoConstraints="NO" id="1863">
                                         <rect key="frame" x="17" y="14" width="22" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="1867"/>
@@ -1217,11 +1216,11 @@
                                         </buttonCell>
                                         <cells>
                                             <column>
-                                                <buttonCell type="radio" title="Use system proxy settings" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="1039">
+                                                <buttonCell type="radio" title="Use system proxy settings" imagePosition="left" alignment="left" state="on" toolTip="Proxy settings of the exam client are used" tag="1" inset="2" id="1039">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
-                                                <buttonCell type="radio" title="Use SEB proxy settings" imagePosition="left" alignment="left" inset="2" id="1040">
+                                                <buttonCell type="radio" title="Use SEB proxy settings" imagePosition="left" alignment="left" toolTip="Proxy settings provided in these SEB settings are used" inset="2" id="1040">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>

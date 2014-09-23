@@ -66,17 +66,17 @@
 }
 
 
-- (NSWindowCollectionBehavior)collectionBehavior
-{
-    NSWindowCollectionBehavior collectionBehavior = NSWindowCollectionBehaviorFullScreenAuxiliary; //NSWindowCollectionBehaviorStationary | NSWindowCollectionBehaviorCanJoinAllSpaces;
-    
-//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-//    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"] == NO)
-//    {
-//        collectionBehavior += NSWindowCollectionBehaviorStationary;
-//    }
-    return collectionBehavior;
-}
+//- (NSWindowCollectionBehavior)collectionBehavior
+//{
+//    NSWindowCollectionBehavior collectionBehavior = NSWindowCollectionBehaviorFullScreenAuxiliary; //NSWindowCollectionBehaviorStationary | NSWindowCollectionBehaviorCanJoinAllSpaces;
+//    
+////    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+////    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"] == NO)
+////    {
+////        collectionBehavior += NSWindowCollectionBehaviorStationary;
+////    }
+//    return collectionBehavior;
+//}
 //- (BOOL)canBecomeKeyWindow
 //{
 //    return YES;

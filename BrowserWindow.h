@@ -56,7 +56,7 @@
 
 - (void) setCalculatedFrame;
 
-- (BOOL) isFullScreen;
+//- (BOOL) isFullScreen;
 
 - (void) startProgressIndicatorAnimation;
 - (void) stopProgressIndicatorAnimation;

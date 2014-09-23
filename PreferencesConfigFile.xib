@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13F31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6246" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment version="1070" defaultVersion="1070" identifier="macosx"/>
+        <deployment version="1070" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6245"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6246"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsConfigFileViewController">
@@ -22,7 +22,7 @@
             <rect key="frame" x="0.0" y="0.0" width="650" height="420"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3">
+                <button toolTip="Save settings file under same name" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3">
                     <rect key="frame" x="14" y="46" width="200" height="32"/>
                     <buttonCell key="cell" type="push" title="Save Settings" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -45,7 +45,7 @@
                         </binding>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1106">
+                <button toolTip="Choose file name and destination to save settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1106">
                     <rect key="frame" x="14" y="13" width="200" height="32"/>
                     <buttonCell key="cell" type="push" title="Save Settings As..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1107">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -60,7 +60,7 @@
                         </binding>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1046">
+                <button toolTip="Open a settings file for editing" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1046">
                     <rect key="frame" x="14" y="79" width="200" height="32"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="188" id="1440"/>
@@ -73,7 +73,7 @@
                         <action selector="openSEBPrefs:" target="-2" id="1313"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1060">
+                <button toolTip="Revert to last saved (or opened) settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1060">
                     <rect key="frame" x="225" y="13" width="200" height="32"/>
                     <buttonCell key="cell" type="push" title="Last Saved" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1062">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -83,7 +83,7 @@
                         <action selector="revertToLastSaved:" target="-2" id="1362"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1292">
+                <button toolTip="Apply current settings and restart SEB" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1292">
                     <rect key="frame" x="436" y="13" width="200" height="32"/>
                     <buttonCell key="cell" type="push" title="Apply and Restart SEB" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1294">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -93,7 +93,7 @@
                         <action selector="applyAndRestartSEB:" target="-2" id="1368"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1157">
+                <button toolTip="Configure client using current settings (overwriting current local settings)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1157">
                     <rect key="frame" x="436" y="46" width="200" height="32"/>
                     <buttonCell key="cell" type="push" title="Configure Client" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1158">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -104,7 +104,7 @@
                         <binding destination="-2" name="enabled" keyPath="self.usingPrivateDefaults" id="1356"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1137">
+                <button toolTip="Revert to the local client settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1137">
                     <rect key="frame" x="225" y="46" width="200" height="32"/>
                     <buttonCell key="cell" type="push" title="Local Client Settings" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1138">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -119,7 +119,7 @@
                         </binding>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1165">
+                <button toolTip="Create duplicate of current settings for editing" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1165">
                     <rect key="frame" x="436" y="79" width="200" height="32"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="188" id="1375"/>
@@ -153,7 +153,7 @@
                         </menu>
                     </popUpButtonCell>
                 </popUpButton>
-                <secureTextField toolTip="Retype the settings password." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="110">
+                <secureTextField toolTip="Retype the settings password" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="110">
                     <rect key="frame" x="380" y="172" width="250" height="22"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="250" id="h0X-qt-dvB"/>
@@ -214,7 +214,7 @@
                         </binding>
                     </connections>
                 </textField>
-                <secureTextField toolTip="Password to decrypt the settings file, if one is set then it will be prompted when SEB reads the settings." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="114">
+                <secureTextField toolTip="Password to decrypt the settings file, prompted when SEB reads the settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="114">
                     <rect key="frame" x="380" y="202" width="250" height="22"/>
                     <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="115">
                         <font key="font" metaFont="system"/>
@@ -263,10 +263,9 @@
                     </buttonCell>
                     <cells>
                         <column>
-                            <buttonCell type="radio" title="starting an exam" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="251">
+                            <buttonCell type="radio" title="starting an exam" imagePosition="left" alignment="left" state="on" toolTip="A settings file saved with this option will start the exam with its settings, but won't change the local SEB settings." tag="1" inset="2" id="251">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
-                                <string key="toolTip">A settings file saved with this option will start the exam with the according settings, but won't change the local SEB settings.</string>
                                 <connections>
                                     <action selector="changeConfigFilePurpose:" target="-2" id="1426"/>
                                 </connections>
@@ -274,7 +273,7 @@
                             <buttonCell type="radio" title="configuring clients" imagePosition="left" alignment="left" inset="2" id="252">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
-                                <string key="toolTip">A SEB settings file saved with this option can be used to change the local settings of a SEB client. Encrypt it with the same password which is set as administrator password on the SEB client (or none if there is no administrator password set yet). Other passwords will be prompted.</string>
+                                <string key="toolTip">A SEB settings file saved with this option can be used to change the local settings of a SEB client. Encrypt it with an empty or the same password which is set as administrator password on the SEB client. Other passwords will be prompted.</string>
                             </buttonCell>
                         </column>
                     </cells>
@@ -282,7 +281,7 @@
                         <binding destination="211" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_sebConfigPurpose" id="1087"/>
                     </connections>
                 </matrix>
-                <button toolTip="Usually you should disable the preference window on exam clients besides for debugging purposes." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="259">
+                <button toolTip="Usually disable preferences window on exam clients besides for debugging purposes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="259">
                     <rect key="frame" x="20" y="311" width="612" height="18"/>
                     <buttonCell key="cell" type="check" title="Allow to open preferences window on client" bezelStyle="regularSquare" imagePosition="left" inset="2" id="260">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -308,7 +307,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1072">
+                <button toolTip="Revert current settings to SEB defaults" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1072">
                     <rect key="frame" x="225" y="79" width="200" height="32"/>
                     <buttonCell key="cell" type="push" title="Default Settings" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1073">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
