@@ -792,6 +792,7 @@ bool insideMatrix(){
         
         // We adjust the size of the main browser window
         [browserWindow setCalculatedFrame];
+        [browserWindow makeKeyAndOrderFront:self];
     }
 }
 
