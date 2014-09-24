@@ -8,6 +8,7 @@
 
 #import "SEBDockController.h"
 #import "SEBDockWindow.h"
+#import "SEBDockView.h"
 
 @interface SEBDockController ()
 
@@ -20,9 +21,18 @@
     if (self) {
         
         // Create the Dock window
-        self.dockWindow = [[SEBDockWindow alloc] initWithContentRect:NSMakeRect(0, 0, 1024, 40) styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
+        NSRect initialContentRect = NSMakeRect(0, 0, 1024, 40);
+        self.dockWindow = [[SEBDockWindow alloc] initWithContentRect:initialContentRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
+        
+        NSView *superview = [self.dockWindow contentView];
+        SEBDockView *dockView = [[SEBDockView alloc] initWithFrame:initialContentRect];
+        [dockView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+        [superview addSubview:dockView];
+
         self.window = self.dockWindow;
-        [self.window setLevel:NSScreenSaverWindowLevel+2];
+        [self.window setLevel:NSMainMenuWindowLevel+2];
+        [self.window setAcceptsMouseMovedEvents:YES];
+
     }
     return self;
 }

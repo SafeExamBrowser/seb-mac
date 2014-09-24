@@ -11,6 +11,17 @@
 
 @implementation SEBDockWindow
 
+
+//- (void)sendEvent:(NSEvent *)theEvent
+//{
+//    if ([theEvent type] == NSMouseMoved) {
+//        NSLog(@"Mouse moved filtered");
+//    } else {
+//        [super sendEvent:theEvent];
+//    }
+//}
+
+        
 - (void) setCalculatedFrame
 {
     // Get frame of the main screen

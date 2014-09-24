@@ -136,6 +136,14 @@ enum {
 typedef NSUInteger URLFilterRuleActions;
 
 
+enum {
+    SEBDockItemTypeLeftPinned                   = 0,
+    SEBDockItemTypeCenter                       = 1,
+    SEBDockItemTypeRightPinned                  = 2
+};
+typedef NSUInteger SEBDockItemType;
+
+
 static NSString __unused *userDefaultsMasala = @"D𝈭il𝈖Ch𝈒a𝉇ht𝈁a𝉈Hai1972";
 
 static NSString __unused *sebErrorDomain = @"org.safeexambrowser.SEBCryptor";

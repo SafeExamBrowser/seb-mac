@@ -16,4 +16,16 @@
     // Drawing code here.
 }
 
+
+- (BOOL)shouldDelayWindowOrderingForEvent:(NSEvent *)theEvent {
+    return YES;
+}
+
+
+- (void)mouseDown:(NSEvent *)theEvent
+{
+    [NSApp preventWindowOrdering];  //prevent that the cap window is ordered front when clicked in
+    return;
+}
+
 @end

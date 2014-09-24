@@ -8,6 +8,19 @@
 
 #import <Cocoa/Cocoa.h>
 #import "SEBDockWindow.h"
+#import "Constants.h"
+
+@protocol SEBDockItem <NSObject>
+
+- (NSImage *) icon;
+- (NSString *) title;
+- (SEBDockItemType) itemType;
+- (void) action;
+- (NSString *) toolTip;
+- (NSMenu *) menu;
+
+@end
+
 
 @interface SEBDockController : NSWindowController
 
