@@ -39,16 +39,22 @@
 #import <IOKit/pwr_mgt/IOPMLib.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "PreferencesController.h"
+
 #import "CapView.h"
 #import "CapWindow.h"
 #import "CapWindowController.h"
+
 #import "AboutWindow.h"
 #import "BrowserWindow.h"
+
+#import "SEBDockController.h"
+
 #import "SEBEncryptedUserDefaultsController.h"
 #import "SEBSystemManager.h"
 
 @class PreferencesController;
 @class SEBSystemManager;
+@class SEBDockController;
 
 @interface SEBController : NSObject <NSApplicationDelegate> {
 	
@@ -105,5 +111,6 @@
 @property(strong) IBOutlet NSSecureTextField *enterPassword;
 @property(strong) IBOutlet id preferencesController;
 @property(strong) IBOutlet SEBSystemManager *systemManager;
+@property(strong) SEBDockController *dockController;
 
 @end

@@ -242,7 +242,6 @@
     windowFrame.origin.y = screenFrame.origin.y + screenFrame.size.height - windowFrame.size.height;
     // Change Window size
     [self setFrame:windowFrame display:YES];
-
 }
 
 

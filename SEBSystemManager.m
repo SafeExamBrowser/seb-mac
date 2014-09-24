@@ -36,6 +36,7 @@
 #import "SEBSystemManager.h"
 #import "SEBCryptor.h"
 #import "RNCryptor.h"
+#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #include <SystemConfiguration/SystemConfiguration.h>
 
 Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
@@ -45,56 +46,57 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 
 - (NSString *) preventSC
 {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    // Get current screencapture location
     NSUserDefaults *appUserDefaults = [[NSUserDefaults alloc] init];
     [appUserDefaults addSuiteNamed:@"com.apple.screencapture"];
-    //    [appUserDefaults addSuiteNamed: bundleId];
     NSDictionary *prefsDict = [appUserDefaults dictionaryRepresentation];
     scLocation = [prefsDict valueForKey:@"location"];
 #ifdef DEBUG
     NSLog(@"Current screencapture location: %@", scLocation);
 #endif
+    // Store current scPath persistantly
+    [preferences setSecureString:scPath forKey:@"currentDestination"];
 
-//    NSError *error;
-//    NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
-//    if (error) {
-//#ifdef DEBUG
-//        NSLog(@"PREFERENCES CORRUPTED ERROR at [self setObject:(encrypted %@) forKey:%@]", value, key);
-//#endif
-//        return;
-//    } else {
-//        [self setObject:encryptedData forKey:key];
-//#ifdef DEBUG
-//        NSLog(@"[self setObject:(encrypted %@) forKey:%@]", value, key);
-//#endif
-//    }
 
-    
+    // Create a new random directory name
     NSData *randomDir = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
-//    if (!dir) {
-//        dir = @"nop";
-//    }
     unsigned char hashedChars[32];
     [randomDir getBytes:hashedChars length:32];
-    
-    NSMutableString* browserExamKeyString = [[NSMutableString alloc] init];
+    NSMutableString* browserExamKeyString = [NSMutableString stringWithString:@"."];
     for (int i = 0 ; i < 32 ; ++i) {
         [browserExamKeyString appendFormat: @"%02x", hashedChars[i]];
     }
     
+    // Create the folder
     scPath = [NSTemporaryDirectory() stringByAppendingPathComponent:browserExamKeyString];
     BOOL isDir;
     NSFileManager *fileManager= [NSFileManager defaultManager];
-    if(![fileManager fileExistsAtPath:scPath isDirectory:&isDir])
-        if(![fileManager createDirectoryAtPath:scPath withIntermediateDirectories:YES attributes:nil error:NULL])
+    if(![fileManager fileExistsAtPath:scPath isDirectory:&isDir]) {
+        if(![fileManager createDirectoryAtPath:scPath withIntermediateDirectories:YES attributes:nil error:NULL]) {
             NSLog(@"Error: Create folder failed %@", scPath);
+        }
+    }
 
-    [self executeSCAppleScript:scPath];
-    
+    // Execute the redirect script
+    if ([self executeSCAppleScript:scPath]) {
+        // If the redirect script worked, store scPath persistantly
+        [preferences setSecureString:scPath forKey:@"newDestination"];
+    }
+
+    // Get and verify the new location
     prefsDict = [appUserDefaults dictionaryRepresentation];
     NSString *location = [prefsDict valueForKey:@"location"];
+    if ([scPath isEqualToString:location]) {
 #ifdef DEBUG
-    NSLog(@"Changed screencapture location: %@", location);
+        NSLog(@"Changed sc location successfully to: %@", location);
 #endif
+        
+    } else {
+        // If the sc location wasn't changed, we save an empty string to indicate this
+        [preferences setSecureString:@"" forKey:@"newDestination"];
+    }
     return location;
 }
 
@@ -104,6 +106,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
     // Restore original SC path
     [self executeSCAppleScript:scLocation];
 
+    // Remove temporary directory
     if (scPath.length > 0) {
         NSError *error = nil;
         [[NSFileManager defaultManager] removeItemAtPath:scPath error:&error];

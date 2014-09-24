@@ -872,7 +872,17 @@ static BOOL _usePrivateUserDefaults = NO;
         } else if ([self _isValidPropertyListObject:value]) {
             NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
             NSError *error;
-            NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
+            NSData *encryptedData;
+            
+            // Treat keys without SEB prefix separately
+            if (![key hasPrefix:@"org_safeexambrowser_"]) {
+                encryptedData = [RNEncryptor encryptData:data
+                                                    withSettings:kRNCryptorAES256Settings
+                                                        password:userDefaultsMasala
+                                                           error:&error];
+            }
+            
+            encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
             if (error) {
 #ifdef DEBUG
                 NSLog(@"PREFERENCES CORRUPTED ERROR at [self setObject:(encrypted %@) forKey:%@]", value, key);
@@ -984,7 +994,16 @@ static BOOL _usePrivateUserDefaults = NO;
             return nil;
         }
         NSError *error;
-        NSData *decrypted = [[SEBCryptor sharedSEBCryptor] decryptData:encrypted forKey:key error:&error];
+        NSData *decrypted;
+        
+        // Treat keys without SEB prefix separately
+        if (![key hasPrefix:@"org_safeexambrowser_"]) {
+            decrypted = [RNDecryptor decryptData:encrypted
+                                            withPassword:userDefaultsMasala
+                                                   error:&error];
+        }
+
+        decrypted = [[SEBCryptor sharedSEBCryptor] decryptData:encrypted forKey:key error:&error];
         if (error) {
 #ifdef DEBUG
 //            NSLog(@"PREFERENCES CORRUPTED ERROR at [self _objectForKey:%@], error: %@", key, error);

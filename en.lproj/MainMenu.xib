@@ -591,6 +591,17 @@ This project has been carried out as part of the program "AAA/SWITCH – e-Infra
             <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
         </customView>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" animationBehavior="default" id="dhh-K0-tib" customClass="SEBDockWindow">
+            <windowStyleMask key="styleMask" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" stationary="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="0.0" y="0.0" width="1024" height="40"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <view key="contentView" id="yGR-mS-Nt9">
+                <rect key="frame" x="0.0" y="0.0" width="1024" height="40"/>
+                <autoresizingMask key="autoresizingMask"/>
+            </view>
+        </window>
         <userDefaultsController id="899" customClass="SEBEncryptedUserDefaultsController"/>
         <userDefaultsController id="993" userLabel="SEB User Defaults Controller" customClass="SEBEncryptedUserDefaultsController"/>
         <userDefaultsController id="994"/>

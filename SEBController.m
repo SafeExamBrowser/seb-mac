@@ -58,6 +58,7 @@
 #import "NSWindow+SEBWindow.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "SEBConfigFileManager.h"
+
 #import "SEBWindowSizeValueTransformer.h"
 #import "BoolValueTransformer.h"
 #import "IsEmptyCollectionValueTransformer.h"
@@ -488,7 +489,10 @@ bool insideMatrix();
     //NSInteger changeCount = [pasteboard clearContents];
     [pasteboard clearContents];
 
-    // Set up SEB Browser
+    // Set up and open SEB Dock
+    [self openSEBDock];
+    
+    // Set up SEB Browser and open the main browser window
     [self openMainBrowserWindow];
     
 	// Due to the infamous Flash plugin we completely disable plugins in the 32-bit build
@@ -783,6 +787,9 @@ bool insideMatrix(){
         // Open new covering background windows on all currently available screens
         [self coverScreens];
         
+        // We adjust position and size of the SEB Dock
+        [self.dockController adjustDock];
+        
         // We adjust the size of the main browser window
         [browserWindow setCalculatedFrame];
     }
@@ -1013,8 +1020,24 @@ bool insideMatrix(){
 }
 
 
+// Set up and display SEB Dock
+- (void) openSEBDock
+{
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
+        if (!self.dockController) {
+            self.dockController = [[SEBDockController alloc] init];
+        }
+        [self.dockController showDock];
+    } else {
+        if (self.dockController) {
+            [self.dockController hideDock];
+        }
+    }
+}
+
+
 // Set up SEB Browser and open the main window
-- (void)openMainBrowserWindow {
+- (void) openMainBrowserWindow {
     
     /*/ Save current WebKit Cookie Policy
      NSHTTPCookieAcceptPolicy cookiePolicy = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookieAcceptPolicy];
@@ -1316,6 +1339,9 @@ bool insideMatrix(){
     
     // Adjust screen locking
     [self adjustScreenLocking:self];
+
+    // Reopen SEB Dock
+    [self openSEBDock];
 
     // Reopen main browser window and load start URL
     [self openMainBrowserWindow];
