@@ -880,21 +880,23 @@ static BOOL _usePrivateUserDefaults = NO;
                                                     withSettings:kRNCryptorAES256Settings
                                                         password:userDefaultsMasala
                                                            error:&error];
+                [self setObject:encryptedData forKey:key];
+            } else {
+                encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
+                if (error) {
+#ifdef DEBUG
+                    NSLog(@"PREFERENCES CORRUPTED ERROR at [self setObject:(encrypted %@) forKey:%@]", value, key);
+#endif
+                    [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
+                    return;
+                } else {
+                    [self setObject:encryptedData forKey:key];
+#ifdef DEBUG
+                    //                NSLog(@"[self setObject:(encrypted %@) forKey:%@]", value, key);
+#endif
+                }
             }
             
-            encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
-            if (error) {
-#ifdef DEBUG
-                NSLog(@"PREFERENCES CORRUPTED ERROR at [self setObject:(encrypted %@) forKey:%@]", value, key);
-#endif
-                [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
-                return;
-            } else {
-                [self setObject:encryptedData forKey:key];
-#ifdef DEBUG
-//                NSLog(@"[self setObject:(encrypted %@) forKey:%@]", value, key);
-#endif
-            }
         }
         //[[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
     }
@@ -1001,16 +1003,20 @@ static BOOL _usePrivateUserDefaults = NO;
             decrypted = [RNDecryptor decryptData:encrypted
                                             withPassword:userDefaultsMasala
                                                    error:&error];
+            if (error) {
+                return nil;
+            }
+        } else {
+            decrypted = [[SEBCryptor sharedSEBCryptor] decryptData:encrypted forKey:key error:&error];
+            if (error) {
+#ifdef DEBUG
+                //            NSLog(@"PREFERENCES CORRUPTED ERROR at [self _objectForKey:%@], error: %@", key, error);
+#endif
+                [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
+                return nil;
+            }
         }
 
-        decrypted = [[SEBCryptor sharedSEBCryptor] decryptData:encrypted forKey:key error:&error];
-        if (error) {
-#ifdef DEBUG
-//            NSLog(@"PREFERENCES CORRUPTED ERROR at [self _objectForKey:%@], error: %@", key, error);
-#endif
-            [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
-            return nil;
-        }
         id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
 #ifdef DEBUG
 //        NSLog(@"[self objectForKey:%@] = %@ (decrypted)", key, value);

@@ -96,8 +96,9 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 
     // Execute the redirect script
     if ([self executeSCAppleScript:scPath]) {
-        // If the redirect script worked, store scPath persistantly
-        [preferences setSecureString:scPath forKey:@"newDestination"];
+#ifdef DEBUG
+        NSLog(@"sc redirect script didn't report an error");
+#endif
     }
 
     // Get and verify the new location
@@ -106,8 +107,12 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 #ifdef DEBUG
         NSLog(@"Changed sc location successfully to: %@", location);
 #endif
-        
+        // If the redirect script worked, store scPath persistantly
+        [preferences setSecureString:scPath forKey:@"newDestination"];
     } else {
+#ifdef DEBUG
+        NSLog(@"Failed changing sc location, location is: %@", location);
+#endif
         // If the sc location wasn't changed, we save an empty string to indicate this
         [preferences setSecureString:@"" forKey:@"newDestination"];
     }
@@ -118,8 +123,22 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 - (BOOL) restoreSC
 {
     // Restore original SC path
-    [self executeSCAppleScript:scLocation];
-
+    if ([self executeSCAppleScript:scLocation]) {
+#ifdef DEBUG
+        NSLog(@"sc restore original value (%@) script didn't report an error", scLocation);
+#endif
+    }
+    // Get and verify the new location
+    NSString *location = [self getCurrentSCLocation];
+    if ([scLocation isEqualToString:location]) {
+#ifdef DEBUG
+        NSLog(@"Restored sc location successfully to: %@", location);
+#endif
+    } else {
+#ifdef DEBUG
+        NSLog(@"Failed restoring sc location! Location is: %@", location);
+#endif
+    }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
     // Remove temporary directory
@@ -162,7 +181,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
     NSDictionary* errorDict;
     NSAppleEventDescriptor* returnDescriptor = NULL;
     returnDescriptor = [appleScript executeAndReturnError: &errorDict];
-    return errorDict != nil;
+    return errorDict == nil;
 }
 
 
