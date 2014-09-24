@@ -48,17 +48,30 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
-    // Get current screencapture location
-    NSUserDefaults *appUserDefaults = [[NSUserDefaults alloc] init];
-    [appUserDefaults addSuiteNamed:@"com.apple.screencapture"];
-    NSDictionary *prefsDict = [appUserDefaults dictionaryRepresentation];
-    scLocation = [prefsDict valueForKey:@"location"];
+    // Check if there is a redirected location saved
+    // What only happends when it couldn't be reset last time SEB has run
+    scPath = [preferences secureStringForKey:@"newDestination"];
+    if (scPath.length > 0) {
+        // There is a redirected location saved: Delete the last directory
+        if ([self removeTempDirectory:scPath]) {
+            // if removing worked, reset the redirected location
+            [preferences setSecureString:@"" forKey:@"newDestination"];
+            }
+        // Get the original location
+        scLocation = [preferences secureStringForKey:@"currentDestination"];
+        if (scLocation.length == 0) {
+            // In case this wasn't saved properly, we reset to the OS X default
+            scLocation = @"~/Desktop";
+        }
+    } else {
+        // Get current screencapture location
+        scLocation = [self getCurrentSCLocation];
 #ifdef DEBUG
-    NSLog(@"Current screencapture location: %@", scLocation);
+        NSLog(@"Current screencapture location: %@", scLocation);
 #endif
-    // Store current scPath persistantly
-    [preferences setSecureString:scPath forKey:@"currentDestination"];
-
+    }
+    // Store current (or original) location persistantly
+    [preferences setSecureString:scLocation forKey:@"currentDestination"];
 
     // Create a new random directory name
     NSData *randomDir = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
@@ -76,6 +89,8 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
     if(![fileManager fileExistsAtPath:scPath isDirectory:&isDir]) {
         if(![fileManager createDirectoryAtPath:scPath withIntermediateDirectories:YES attributes:nil error:NULL]) {
             NSLog(@"Error: Create folder failed %@", scPath);
+            // As a fallback just use the temp directory
+            scPath = NSTemporaryDirectory();
         }
     }
 
@@ -86,8 +101,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
     }
 
     // Get and verify the new location
-    prefsDict = [appUserDefaults dictionaryRepresentation];
-    NSString *location = [prefsDict valueForKey:@"location"];
+    NSString *location = [self getCurrentSCLocation];
     if ([scPath isEqualToString:location]) {
 #ifdef DEBUG
         NSLog(@"Changed sc location successfully to: %@", location);
@@ -106,10 +120,34 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
     // Restore original SC path
     [self executeSCAppleScript:scLocation];
 
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
     // Remove temporary directory
-    if (scPath.length > 0) {
+    if ([self removeTempDirectory:scPath]) {
+        [preferences setSecureString:@"" forKey:@"newDestination"];
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+
+// Get current screencapture location
+- (NSString *) getCurrentSCLocation
+{
+    // Get current screencapture location
+    NSUserDefaults *appUserDefaults = [[NSUserDefaults alloc] init];
+    [appUserDefaults addSuiteNamed:@"com.apple.screencapture"];
+    NSDictionary *prefsDict = [appUserDefaults dictionaryRepresentation];
+    return [prefsDict valueForKey:@"location"];
+}
+
+
+- (BOOL) removeTempDirectory:(NSString *)path
+{
+    if (path.length > 0) {
         NSError *error = nil;
-        [[NSFileManager defaultManager] removeItemAtPath:scPath error:&error];
+        [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
         return error == nil;
     }
     return NO;
