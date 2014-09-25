@@ -37,7 +37,7 @@
 
 @interface SEBSystemManager : NSObject {
     NSString *scLocation;
-    NSString *scPath;
+    NSString *scTempPath;
 }
 
 - (NSString *) preventSC;
