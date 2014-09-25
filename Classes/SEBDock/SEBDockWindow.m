@@ -22,10 +22,10 @@
 //}
 
         
-- (void) setCalculatedFrame
+- (void) setCalculatedFrame:(NSScreen *)screen
 {
-    // Get frame of the main screen
-    NSRect screenFrame = self.screen.frame;
+    // Get frame of the screen
+    NSRect screenFrame = screen.frame;
 
     // Get SEB Dock height
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];

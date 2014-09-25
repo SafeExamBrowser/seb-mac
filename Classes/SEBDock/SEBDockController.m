@@ -47,7 +47,7 @@
 
 - (void) showDock
 {
-    [self.dockWindow setCalculatedFrame];
+    [self.dockWindow setCalculatedFrame:self.window.screen];
     [self showWindow:self];
 }
 
@@ -60,7 +60,13 @@
 
 - (void) adjustDock
 {
-    [self.dockWindow setCalculatedFrame];
+    [self.dockWindow setCalculatedFrame:self.window.screen];
+}
+
+
+- (void) moveDockToScreen:(NSScreen *)screen
+{
+    [self.dockWindow setCalculatedFrame:screen];
 }
 
 

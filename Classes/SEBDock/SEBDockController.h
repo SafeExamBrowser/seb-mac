@@ -26,10 +26,9 @@
 
 @property (strong) SEBDockWindow *dockWindow;
 
-
 - (void) showDock;
 - (void) hideDock;
 - (void) adjustDock;
-
+- (void) moveDockToScreen:(NSScreen *)screen;
 
 @end

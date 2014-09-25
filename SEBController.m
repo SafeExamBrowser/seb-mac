@@ -311,10 +311,15 @@ bool insideMatrix();
 			   context:NULL];
 		
     // Add a observer for changes of the screen configuration
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(adjustScreenLocking:) 
-												 name:NSApplicationDidChangeScreenParametersNotification 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(adjustScreenLocking:)
+                                                 name:NSApplicationDidChangeScreenParametersNotification
                                                object:NSApp];
-
+    
+    // Add a observer for notification that the main browser window changed screen
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(changeMainScreen:)
+                                                 name:@"mainScreenChanged" object:nil];
+    
 	// Add an observer for the request to conditionally exit SEB
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(exitSEB:)
@@ -794,6 +799,12 @@ bool insideMatrix(){
         [browserWindow setCalculatedFrame];
         [browserWindow makeKeyAndOrderFront:self];
     }
+}
+
+
+// Called when main browser window changed screen
+- (void) changeMainScreen: (id)sender {
+    [self.dockController moveDockToScreen:browserWindow.screen];
 }
 
 

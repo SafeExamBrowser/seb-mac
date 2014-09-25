@@ -10,6 +10,6 @@
 
 @interface SEBDockWindow : NSWindow
 
-- (void) setCalculatedFrame;
+- (void) setCalculatedFrame:(NSScreen *)screen;
 
 @end

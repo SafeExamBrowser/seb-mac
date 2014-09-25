@@ -77,6 +77,15 @@
 }
 
 
+- (void)windowDidChangeScreen:(NSNotification *)notification
+{
+    // Post a notification that the main screen changed
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"mainScreenChanged" object:self];
+
+}
+
+
 /*- (id)webView
 {
     return webView;
