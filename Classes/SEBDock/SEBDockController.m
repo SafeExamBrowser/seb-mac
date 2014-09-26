@@ -31,16 +31,15 @@
         [dockView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
         [superview addSubview:dockView];
         
-        int x = 4;
+        int x = 10;
         int y = 4;
         
-        int width = 32;
-        int height = 32;
+        int iconSize = 32;
         
-        SEBDockItem *dockItem = [[SEBDockItem alloc] initWithFrame:NSMakeRect(x, y, width, height)];
+        SEBDockItem *dockItem = [[SEBDockItem alloc] initWithFrame:NSMakeRect(x, y, iconSize, iconSize)];
         [superview addSubview: dockItem];
         NSImage *icon = [NSApp applicationIconImage];
-        [icon setSize: NSMakeSize(width, height)];
+        [icon setSize: NSMakeSize(iconSize, iconSize)];
         [dockItem setImage:icon];
        
         [dockItem setButtonType:NSMomentaryPushInButton];
@@ -51,20 +50,22 @@
         [dockItem setAction:@selector(buttonPressed)];
 
         // Create text label for dock item
-        NSRect frameRect = NSMakeRect(0,0,160,20); // This will change based on the size you need
+        NSRect frameRect = NSMakeRect(0,0,155,21); // This will change based on the size you need
         NSTextField *dockItemLabel = [[NSTextField alloc] initWithFrame:frameRect];
         [dockItemLabel setTextColor:[NSColor whiteColor]];
         dockItemLabel.bezeled = NO;
         dockItemLabel.editable = NO;
         dockItemLabel.drawsBackground = NO;
         [dockItemLabel setFont:[NSFont boldSystemFontOfSize:14]];
+        [dockItemLabel.cell setLineBreakMode:NSLineBreakByTruncatingMiddle];
         dockItemLabel.stringValue = @"Safe Exam Browser";
-//        [dockItemLabel invalidateIntrinsicContentSize];
-//        CGFloat labelWidth=[[dockItemLabel cell] cellSizeForBounds:dockItemLabel.bounds].width;
-//        CGFloat labelHeigth=[[dockItemLabel cell] cellSizeForBounds:dockItemLabel.bounds].height;
-//        [dockItemLabel setFrameSize:NSMakeSize(labelWidth+10, labelHeigth+4)];
-
-        
+        NSSize dockItemLabelSize = [dockItemLabel intrinsicContentSize];
+        [dockItemLabel setAlignment:NSCenterTextAlignment];
+        CGFloat dockItemLabelWidth = dockItemLabelSize.width + 14;
+        if (dockItemLabelWidth > 610) {
+            dockItemLabelWidth = 610;
+        }
+        [dockItemLabel setFrameSize:NSMakeSize(dockItemLabelWidth, dockItemLabelSize.height + 3)];
         NSView *dockItemLabelView = [[NSView alloc] initWithFrame:dockItemLabel.frame];
         [dockItemLabelView addSubview:dockItemLabel];
         [dockItemLabelView setContentHuggingPriority:NSLayoutPriorityFittingSizeCompression-1.0 forOrientation:NSLayoutConstraintOrientationVertical];

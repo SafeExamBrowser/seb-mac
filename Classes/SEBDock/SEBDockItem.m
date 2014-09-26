@@ -21,7 +21,7 @@
 
 - (void)mouseEntered:(NSEvent *)theEvent
 {
-    [self.labelPopover showRelativeToRect:[self bounds] ofView:self.superview preferredEdge:NSMaxYEdge];
+    [self.labelPopover showRelativeToRect:[self bounds] ofView:self preferredEdge:NSMaxYEdge];
 }
 
 
