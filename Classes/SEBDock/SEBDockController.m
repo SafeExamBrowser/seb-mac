@@ -41,12 +41,12 @@
 
         [superview addSubview: dockItem];
         
-        x = superview.frame.size.width - iconSize - 10;
+        x = self.dockWindow.screen.frame.size.width - iconSize - 10;
         
         dockItem = [[SEBDockItemButton alloc] initWithFrame:NSMakeRect(x, y, iconSize, iconSize) icon:[NSImage imageNamed:@"SEBShutDownIcon"] title:nil];
         [dockItem setToolTip:@"Quit SEB"];
         [dockItem setTarget:self];
-        [dockItem setAction:@selector(buttonPressed)];
+        [dockItem setAction:@selector(quitButtonPressed)];
         
         [superview addSubview: dockItem];
 
@@ -114,6 +114,13 @@
 {
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     //[browserWindow makeKeyAndOrderFront:self];
+}
+
+- (void) quitButtonPressed
+{
+    // Post a notification that SEB should conditionally quit
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"requestExitNotification" object:self];
 }
 
 @end
