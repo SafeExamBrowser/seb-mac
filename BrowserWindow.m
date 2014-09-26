@@ -176,16 +176,20 @@
 
 - (void) setCalculatedFrame
 {
-    //[browserWindow setFrame:[[browserWindow screen] frame] display:YES];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
     // Get frame of the visible screen (considering if menu bar is enabled)
     NSRect screenFrame = self.screen.visibleFrame;
-    //
+    // Check if SEB Dock is displayed and reduce visibleFrame accordingly
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
+        double dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
+        screenFrame.origin.y = dockHeight;
+        screenFrame.size.height -= dockHeight;
+    }
     NSRect windowFrame;
     NSString *windowWidth;
     NSString *windowHeight;
     NSInteger windowPositioning;
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (self == [[MyGlobals sharedMyGlobals] mainBrowserWindow]) {
         // This is the main browser window
         if (self.isFullScreen) {
@@ -369,6 +373,21 @@
     self.webView = nil;
 }
 
+
+- (NSRect)windowWillUseStandardFrame:(NSWindow *)window
+                        defaultFrame:(NSRect)newFrame {
+    // Check if SEB Dock is displayed and reduce visibleFrame accordingly
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
+        double dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
+        newFrame.origin.y = dockHeight;
+        newFrame.size.height -= dockHeight;
+    }
+    return newFrame;
+}
+
+
+#pragma mark WebView Delegates
 
 // Delegate method for disabling right-click context menu
 - (NSArray *)webView:(WebView *)sender contextMenuItemsForElement:(NSDictionary *)element 
