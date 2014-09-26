@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "SEBDockWindow.h"
+#import "SEBDockItemButton.h"
 #import "Constants.h"
 
 @protocol SEBDockItem <NSObject>

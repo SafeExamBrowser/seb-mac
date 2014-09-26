@@ -8,12 +8,17 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface SEBDockItem : NSButton {
+@interface SEBDockItemButton : NSButton {
     NSTrackingArea *trackingArea;
 }
 
+//@property (strong) NSString *itemTitle;
+
+@property (strong) NSTextField *label;
 @property (strong) NSPopover *labelPopover;
 //@property (nonatomic, retain) NSTrackingArea *trackingArea;
+
+- (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon title:(NSString *)itemTitle;
 
 - (void)mouseEntered:(NSEvent *)theEvent;
 - (void)mouseExited:(NSEvent *)theEvent;

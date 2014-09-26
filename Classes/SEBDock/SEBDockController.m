@@ -9,8 +9,7 @@
 #import "SEBDockController.h"
 #import "SEBDockWindow.h"
 #import "SEBDockView.h"
-#import "SEBDockItem.h"
-#import "SEBDockItemLabelTextField.h"
+#import "SEBDockItemButton.h"
 
 @interface SEBDockController ()
 
@@ -36,51 +35,12 @@
         
         int iconSize = 32;
         
-        SEBDockItem *dockItem = [[SEBDockItem alloc] initWithFrame:NSMakeRect(x, y, iconSize, iconSize)];
-        [superview addSubview: dockItem];
-        NSImage *icon = [NSApp applicationIconImage];
-        [icon setSize: NSMakeSize(iconSize, iconSize)];
-        [dockItem setImage:icon];
-       
-        [dockItem setButtonType:NSMomentaryPushInButton];
-        [dockItem setImagePosition:NSImageOnly];
-        [dockItem setBordered:NO];
-
+        SEBDockItemButton *dockItem = [[SEBDockItemButton alloc] initWithFrame:NSMakeRect(x, y, iconSize, iconSize) icon:[NSApp applicationIconImage] title:@"Safe Exam Browser"];
         [dockItem setTarget:self];
         [dockItem setAction:@selector(buttonPressed)];
 
-        // Create text label for dock item
-        NSRect frameRect = NSMakeRect(0,0,155,21); // This will change based on the size you need
-        NSTextField *dockItemLabel = [[NSTextField alloc] initWithFrame:frameRect];
-        [dockItemLabel setTextColor:[NSColor whiteColor]];
-        dockItemLabel.bezeled = NO;
-        dockItemLabel.editable = NO;
-        dockItemLabel.drawsBackground = NO;
-        [dockItemLabel setFont:[NSFont boldSystemFontOfSize:14]];
-        [dockItemLabel.cell setLineBreakMode:NSLineBreakByTruncatingMiddle];
-        dockItemLabel.stringValue = @"Safe Exam Browser";
-        NSSize dockItemLabelSize = [dockItemLabel intrinsicContentSize];
-        [dockItemLabel setAlignment:NSCenterTextAlignment];
-        CGFloat dockItemLabelWidth = dockItemLabelSize.width + 14;
-        if (dockItemLabelWidth > 610) {
-            dockItemLabelWidth = 610;
-        }
-        [dockItemLabel setFrameSize:NSMakeSize(dockItemLabelWidth, dockItemLabelSize.height + 3)];
-        NSView *dockItemLabelView = [[NSView alloc] initWithFrame:dockItemLabel.frame];
-        [dockItemLabelView addSubview:dockItemLabel];
-        [dockItemLabelView setContentHuggingPriority:NSLayoutPriorityFittingSizeCompression-1.0 forOrientation:NSLayoutConstraintOrientationVertical];
+        [superview addSubview: dockItem];
         
-        NSViewController *controller = [[NSViewController alloc] init];
-        controller.view = dockItemLabelView;
-        
-        NSPopover *popover = [[NSPopover alloc] init];
-        [popover setContentSize:dockItemLabelView.frame.size];
-        [popover setContentViewController:controller];
-        [popover setAppearance:NSPopoverAppearanceHUD];
-        [popover setAnimates:NO];
-        
-        dockItem.labelPopover = popover;
-
         self.window = self.dockWindow;
         [self.window setLevel:NSMainMenuWindowLevel+2];
         [self.window setAcceptsMouseMovedEvents:YES];
