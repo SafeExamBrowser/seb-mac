@@ -14,7 +14,7 @@
 
 - (NSImage *) icon;
 - (NSString *) title;
-- (SEBDockItemType) itemType;
+- (SEBDockItemPosition) itemType;
 - (void) action;
 - (NSString *) toolTip;
 - (NSMenu *) menu;

@@ -137,11 +137,11 @@ typedef NSUInteger URLFilterRuleActions;
 
 
 enum {
-    SEBDockItemTypeLeftPinned                   = 0,
-    SEBDockItemTypeCenter                       = 1,
-    SEBDockItemTypeRightPinned                  = 2
+    SEBDockItemPositionLeftPinned                   = 0,
+    SEBDockItemPositionCenter                       = 1,
+    SEBDockItemPositionRightPinned                  = 2
 };
-typedef NSUInteger SEBDockItemType;
+typedef NSUInteger SEBDockItemPosition;
 
 
 static NSString __unused *userDefaultsMasala = @"D𝈭il𝈖Ch𝈒a𝉇ht𝈁a𝉈Hai1972";
