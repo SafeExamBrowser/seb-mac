@@ -30,16 +30,26 @@
         [dockView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
         [superview addSubview:dockView];
         
-        int x = 10;
-        int y = 4;
+        CGFloat x = 10;
+        CGFloat y = 4;
         
-        int iconSize = 32;
+        iconSize = 32;
         
         SEBDockItemButton *dockItem = [[SEBDockItemButton alloc] initWithFrame:NSMakeRect(x, y, iconSize, iconSize) icon:[NSApp applicationIconImage] title:@"Safe Exam Browser"];
         [dockItem setTarget:self];
         [dockItem setAction:@selector(buttonPressed)];
 
         [superview addSubview: dockItem];
+        
+        x = superview.frame.size.width - iconSize - 10;
+        
+        dockItem = [[SEBDockItemButton alloc] initWithFrame:NSMakeRect(x, y, iconSize, iconSize) icon:[NSImage imageNamed:@"SEBShutDownIcon"] title:nil];
+        [dockItem setToolTip:@"Quit SEB"];
+        [dockItem setTarget:self];
+        [dockItem setAction:@selector(buttonPressed)];
+        
+        [superview addSubview: dockItem];
+
         
         self.window = self.dockWindow;
         [self.window setLevel:NSMainMenuWindowLevel+2];
@@ -54,6 +64,24 @@
     [super windowDidLoad];
     
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+}
+
+
+- (void) setLeftItems:(NSArray *)leftDockItems
+{
+    
+}
+
+
+- (void) setCenterItems:(NSArray *)centerDockItems
+{
+    
+}
+
+
+- (void) setRightItems:(NSArray *)rightDockItems
+{
+    
 }
 
 

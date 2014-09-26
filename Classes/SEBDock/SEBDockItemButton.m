@@ -27,36 +27,38 @@
 //        [self setTarget:self];
 //        [self setAction:@selector(buttonPressed)];
         
-        // Create text label for dock item
-        NSRect frameRect = NSMakeRect(0,0,155,21); // This will change based on the size you need
-        self.label = [[NSTextField alloc] initWithFrame:frameRect];
-        [self.label setTextColor:[NSColor whiteColor]];
-        self.label.bezeled = NO;
-        self.label.editable = NO;
-        self.label.drawsBackground = NO;
-        [self.label setFont:[NSFont boldSystemFontOfSize:14]];
-        [self.label.cell setLineBreakMode:NSLineBreakByTruncatingMiddle];
-        self.label.stringValue = itemTitle;
-        NSSize dockItemLabelSize = [self.label intrinsicContentSize];
-        [self.label setAlignment:NSCenterTextAlignment];
-        CGFloat dockItemLabelWidth = dockItemLabelSize.width + 14;
-        if (dockItemLabelWidth > 610) {
-            dockItemLabelWidth = 610;
+        // Create text label for dock item, if there was a title set for the item
+        if (itemTitle) {
+            NSRect frameRect = NSMakeRect(0,0,155,21); // This will change based on the size you need
+            self.label = [[NSTextField alloc] initWithFrame:frameRect];
+            [self.label setTextColor:[NSColor whiteColor]];
+            self.label.bezeled = NO;
+            self.label.editable = NO;
+            self.label.drawsBackground = NO;
+            [self.label setFont:[NSFont boldSystemFontOfSize:14]];
+            [self.label.cell setLineBreakMode:NSLineBreakByTruncatingMiddle];
+            self.label.stringValue = itemTitle;
+            NSSize dockItemLabelSize = [self.label intrinsicContentSize];
+            [self.label setAlignment:NSCenterTextAlignment];
+            CGFloat dockItemLabelWidth = dockItemLabelSize.width + 14;
+            if (dockItemLabelWidth > 610) {
+                dockItemLabelWidth = 610;
+            }
+            [self.label setFrameSize:NSMakeSize(dockItemLabelWidth, dockItemLabelSize.height + 3)];
+            NSView *dockItemLabelView = [[NSView alloc] initWithFrame:self.label.frame];
+            [dockItemLabelView addSubview:self.label];
+            [dockItemLabelView setContentHuggingPriority:NSLayoutPriorityFittingSizeCompression-1.0 forOrientation:NSLayoutConstraintOrientationVertical];
+            
+            NSViewController *controller = [[NSViewController alloc] init];
+            controller.view = dockItemLabelView;
+            
+            NSPopover *popover = [[NSPopover alloc] init];
+            [popover setContentSize:dockItemLabelView.frame.size];
+            [popover setContentViewController:controller];
+            [popover setAppearance:NSPopoverAppearanceHUD];
+            [popover setAnimates:NO];
+            self.labelPopover = popover;
         }
-        [self.label setFrameSize:NSMakeSize(dockItemLabelWidth, dockItemLabelSize.height + 3)];
-        NSView *dockItemLabelView = [[NSView alloc] initWithFrame:self.label.frame];
-        [dockItemLabelView addSubview:self.label];
-        [dockItemLabelView setContentHuggingPriority:NSLayoutPriorityFittingSizeCompression-1.0 forOrientation:NSLayoutConstraintOrientationVertical];
-        
-        NSViewController *controller = [[NSViewController alloc] init];
-        controller.view = dockItemLabelView;
-        
-        NSPopover *popover = [[NSPopover alloc] init];
-        [popover setContentSize:dockItemLabelView.frame.size];
-        [popover setContentViewController:controller];
-        [popover setAppearance:NSPopoverAppearanceHUD];
-        [popover setAnimates:NO];
-        self.labelPopover = popover;
     }
     return self;
 }

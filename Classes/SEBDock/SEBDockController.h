@@ -23,9 +23,19 @@
 @end
 
 
-@interface SEBDockController : NSWindowController
+@interface SEBDockController : NSWindowController {
+
+    CGFloat horizontalPadding;
+    CGFloat verticalPadding;
+    CGFloat iconSize;
+    
+}
 
 @property (strong) SEBDockWindow *dockWindow;
+
+@property (strong) NSMutableArray *leftDockItems;
+@property (strong) NSMutableArray *centerDockItems;
+@property (strong) NSMutableArray *rightDockItems;
 
 - (void) showDock;
 - (void) hideDock;

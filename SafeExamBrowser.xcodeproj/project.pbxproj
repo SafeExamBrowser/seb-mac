@@ -177,6 +177,8 @@
 		69DFAF3819C468E700CBE69F /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2A19C468E700CBE69F /* RNCryptorEngine.m */; };
 		69DFAF3919C468E700CBE69F /* RNCryptor+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2B19C468E700CBE69F /* RNCryptor+Private.h */; };
 		69DFAF3A19C468E700CBE69F /* RNCryptor OS X-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2C19C468E700CBE69F /* RNCryptor OS X-Prefix.pch */; };
+		69EC631319D60D16002DAD22 /* SEBShutDownIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 69EC631219D60D16002DAD22 /* SEBShutDownIcon.icns */; };
+		69EC631419D60D16002DAD22 /* SEBShutDownIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 69EC631219D60D16002DAD22 /* SEBShutDownIcon.icns */; };
 		69EFA36A16CB121200E967B4 /* DownUploadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EFA36816CB121200E967B4 /* DownUploadIcon.png */; };
 		69EFA36C16CB121200E967B4 /* DownUploadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EFA36816CB121200E967B4 /* DownUploadIcon.png */; };
 		69EFA36D16CB121200E967B4 /* DownUploadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EFA36916CB121200E967B4 /* DownUploadIcon@2x.png */; };
@@ -403,6 +405,7 @@
 		69DFAF2C19C468E700CBE69F /* RNCryptor OS X-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNCryptor OS X-Prefix.pch"; sourceTree = "<group>"; };
 		69E13AEE127C812900CB81E1 /* AboutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutView.h; sourceTree = "<group>"; };
 		69E13AEF127C812900CB81E1 /* AboutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutView.m; sourceTree = "<group>"; };
+		69EC631219D60D16002DAD22 /* SEBShutDownIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = SEBShutDownIcon.icns; sourceTree = "<group>"; };
 		69EFA36816CB121200E967B4 /* DownUploadIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DownUploadIcon.png; sourceTree = "<group>"; };
 		69EFA36916CB121200E967B4 /* DownUploadIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DownUploadIcon@2x.png"; sourceTree = "<group>"; };
 		69F293AC164A324B00875C00 /* SEBKeychainManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBKeychainManager.h; sourceTree = "<group>"; };
@@ -636,6 +639,7 @@
 		69428C94172E5F1D00C87C58 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				69EC631219D60D16002DAD22 /* SEBShutDownIcon.icns */,
 				69F60FAC19AB7A7E00A5F650 /* MenuTriangleDown.png */,
 				69F60FAD19AB7A7E00A5F650 /* MenuTriangleDown@2x.png */,
 				69428CE1172F284B00C87C58 /* SEBDocumentIcon.icns */,
@@ -963,6 +967,7 @@
 				695283DA16CDB5020055AF6F /* PreferencesSecurity.xib in Resources */,
 				69F32DC016D232C0003C9502 /* Appearance.icns in Resources */,
 				69F32DCA16D23397003C9502 /* PreferencesAppearance.xib in Resources */,
+				69EC631419D60D16002DAD22 /* SEBShutDownIcon.icns in Resources */,
 				697D078017F1CE2100E3B2A6 /* PreferencesResources.xib in Resources */,
 				69428CCF172F0C1300C87C58 /* SecurityIcon.png in Resources */,
 				69F60FB119AB7A7E00A5F650 /* MenuTriangleDown@2x.png in Resources */,
@@ -1008,6 +1013,7 @@
 				695283D816CDB5020055AF6F /* PreferencesSecurity.xib in Resources */,
 				69F32DBE16D232C0003C9502 /* Appearance.icns in Resources */,
 				69F32DC816D23397003C9502 /* PreferencesAppearance.xib in Resources */,
+				69EC631319D60D16002DAD22 /* SEBShutDownIcon.icns in Resources */,
 				697D077F17F1CE2100E3B2A6 /* PreferencesResources.xib in Resources */,
 				69428CCE172F0C1300C87C58 /* SecurityIcon.png in Resources */,
 				69F60FB019AB7A7E00A5F650 /* MenuTriangleDown@2x.png in Resources */,
