@@ -79,6 +79,23 @@
 
 - (void)windowDidChangeScreen:(NSNotification *)notification
 {
+    // Check if Window is too heigh for the new screen
+    // Get screen visible frame
+    NSRect newFrame = self.window.screen.visibleFrame;
+    
+    // Check if SEB Dock is displayed and reduce visibleFrame accordingly
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
+        CGFloat dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
+        newFrame.origin.y += dockHeight;
+        newFrame.size.height -= dockHeight;
+    }
+    NSRect oldWindowFrame = self.window.frame;
+    if (oldWindowFrame.size.height > newFrame.size.height) {
+        NSRect newWindowFrame = NSMakeRect(oldWindowFrame.origin.x, newFrame.origin.y, oldWindowFrame.size.width, newFrame.size.height);
+        [self.window setFrame:newWindowFrame display:YES animate:YES];
+    }
+    
     // Post a notification that the main screen changed
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"mainScreenChanged" object:self];
