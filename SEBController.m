@@ -1047,7 +1047,11 @@ bool insideMatrix(){
         
         SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil icon:[NSImage imageNamed:@"SEBShutDownIcon"] toolTip:@"Quit SEB" menu:nil target:self action:@selector(quitButtonPressed)];
         
-        [self.dockController setLeftItems:[NSArray arrayWithObjects:dockItemSEB, dockItemShutDown, nil]];
+        [self.dockController setLeftItems:[NSArray arrayWithObjects:dockItemSEB, nil]];
+        
+//        [self.dockController setCenterItems:[NSArray arrayWithObjects:dockItemSEB, dockItemShutDown, nil]];
+        
+        [self.dockController setRightItems:[NSArray arrayWithObjects:dockItemShutDown, nil]];
         
         // Display the dock
         [self.dockController showDock];

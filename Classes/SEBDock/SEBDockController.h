@@ -114,6 +114,7 @@
 @property (strong) NSArray *leftDockItems;
 @property (strong) NSArray *centerDockItems;
 @property (strong) NSArray *rightDockItems;
+@property (strong) NSView *rightMostLeftItemView;
 
 - (void) setLeftItems:(NSArray *)newLeftDockItems;
 - (void) setCenterItems:(NSArray *)newCenterDockItems;
