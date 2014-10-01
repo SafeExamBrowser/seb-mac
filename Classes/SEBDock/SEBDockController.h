@@ -59,10 +59,16 @@
 @optional
 
 /**
- * @brief       Action to be performed when a mouse click on the dock item is 
+ * @brief       Target for the action to be performed when a mouse click on the
+ *              dock item is performed.
+ */
+- (id) target;
+
+/**
+ * @brief       Action to be performed when a mouse click on the dock item is
  *              performed.
  */
-- (void) action;
+- (SEL) action;
 
 /**
  * @brief       Rectangular view to be displayed instead of an icon (when icon is nil).
@@ -108,6 +114,10 @@
 @property (strong) NSArray *leftDockItems;
 @property (strong) NSArray *centerDockItems;
 @property (strong) NSArray *rightDockItems;
+
+- (void) setLeftItems:(NSArray *)newLeftDockItems;
+- (void) setCenterItems:(NSArray *)newCenterDockItems;
+- (void) setRightItems:(NSArray *)newRightDockItems;
 
 - (void) showDock;
 - (void) hideDock;

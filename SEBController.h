@@ -48,6 +48,7 @@
 #import "BrowserWindow.h"
 
 #import "SEBDockController.h"
+#import "SEBDockItem.h"
 
 #import "SEBEncryptedUserDefaultsController.h"
 #import "SEBSystemManager.h"

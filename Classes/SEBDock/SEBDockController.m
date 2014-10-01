@@ -29,37 +29,18 @@
 
         NSRect initialContentRect = NSMakeRect(0, 0, 1024, dockHeight);
         self.dockWindow = [[SEBDockWindow alloc] initWithContentRect:initialContentRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
+        self.dockWindow.height = dockHeight;
         
         NSView *superview = [self.dockWindow contentView];
         SEBDockView *dockView = [[SEBDockView alloc] initWithFrame:initialContentRect];
         [dockView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+        [dockView setTranslatesAutoresizingMaskIntoConstraints:YES];
         [superview addSubview:dockView];
         
         // Calculate icon sizes and padding according to dock height
         verticalPadding = dockHeight / 10;
         horizontalPadding = (verticalPadding < 10) ? 10 : verticalPadding;
         iconSize = dockHeight - 2 * verticalPadding;
-        
-        CGFloat x = 10;
-        CGFloat y = 4;
-        
-        iconSize = 32;
-        
-        SEBDockItemButton *dockItem = [[SEBDockItemButton alloc] initWithFrame:NSMakeRect(x, y, iconSize, iconSize) icon:[NSApp applicationIconImage] title:@"Safe Exam Browser"];
-        [dockItem setTarget:self];
-        [dockItem setAction:@selector(buttonPressed)];
-
-        [superview addSubview: dockItem];
-        
-        x = self.dockWindow.screen.frame.size.width - iconSize - 10;
-        
-        dockItem = [[SEBDockItemButton alloc] initWithFrame:NSMakeRect(x, y, iconSize, iconSize) icon:[NSImage imageNamed:@"SEBShutDownIcon"] title:nil];
-        [dockItem setToolTip:@"Quit SEB"];
-        [dockItem setTarget:self];
-        [dockItem setAction:@selector(quitButtonPressed)];
-        
-        [superview addSubview: dockItem];
-
         
         self.window = self.dockWindow;
         [self.window setLevel:NSMainMenuWindowLevel+2];
@@ -95,8 +76,8 @@
                 SEBDockItemButton *newDockItemButton = [[SEBDockItemButton alloc] initWithFrame:NSMakeRect(0, 0, iconSize, iconSize) icon:dockItem.icon title:dockItem.title];
                 // If the new dock item declares an action, then link this to the dock icon button
                 if ([dockItem respondsToSelector:@selector(action)]) {
-                    [newDockItemButton setTarget:dockItem];
-                    [newDockItemButton setAction:@selector(action)];
+                    [newDockItemButton setTarget:dockItem.target];
+                    [newDockItemButton setAction:dockItem.action];
                 }
                 [newDockItemButton setToolTip:dockItem.toolTip];
                 dockItemView = newDockItemButton;
@@ -107,23 +88,43 @@
                     dockItemView = nil;
                 }
             }
+            [dockItemView setTranslatesAutoresizingMaskIntoConstraints:NO];
+            [superview addSubview: dockItemView];
+
             NSMutableArray *constraints = [NSMutableArray new];
             if (dockItemView) {
-                [constraints addObject:[NSLayoutConstraint constraintWithItem:dockItemView attribute:NSLayoutAttributeCenterY
-                                                                    relatedBy:NSLayoutRelationEqual toItem:superview
-                                                                    attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+                [constraints addObject:[NSLayoutConstraint constraintWithItem:dockItemView
+                                                                    attribute:NSLayoutAttributeCenterY
+                                                                    relatedBy:NSLayoutRelationEqual
+                                                                       toItem:dockItemView.superview
+                                                                    attribute:NSLayoutAttributeCenterY
+                                                                   multiplier:1.0
+                                                                     constant:0.0]];
 
                 if (previousDockItemView) {
-                    [constraints addObject:[NSLayoutConstraint constraintWithItem:previousDockItemView attribute:NSLayoutAttributeRight
-                                                 relatedBy:NSLayoutRelationEqual toItem:dockItemView
-                                                 attribute:NSLayoutAttributeLeft multiplier:1.0 constant:8.0]];
+                    [constraints addObject:[NSLayoutConstraint constraintWithItem:previousDockItemView
+                                                                        attribute:NSLayoutAttributeRight
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                           toItem:dockItemView
+                                                                        attribute:NSLayoutAttributeLeft
+                                                                       multiplier:1.0
+                                                                         constant:-8.0]];
+                } else {
+                    [constraints addObject:[NSLayoutConstraint constraintWithItem:dockItemView.superview
+                                                                        attribute:NSLayoutAttributeLeft
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                           toItem:dockItemView
+                                                                        attribute:NSLayoutAttributeLeading
+                                                                       multiplier:1.0
+                                                                         constant:-8.0]];
                 }
-                if (constraints.count > 0) {
-                    [dockItemView addConstraints:constraints];
-                }
-                [superview addSubview: dockItemView];
-            }
+                
+                previousDockItemView = dockItemView;
 
+                if (constraints.count > 0) {
+                    [dockItemView.superview addConstraints:constraints];
+                }
+            }
         }
     }
 }
@@ -167,18 +168,5 @@
     [self.dockWindow setCalculatedFrame:screen];
 }
 
-
-- (void) buttonPressed
-{
-    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-    //[browserWindow makeKeyAndOrderFront:self];
-}
-
-- (void) quitButtonPressed
-{
-    // Post a notification that SEB should conditionally quit
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"requestExitNotification" object:self];
-}
 
 @end

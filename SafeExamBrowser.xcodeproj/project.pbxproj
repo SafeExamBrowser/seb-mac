@@ -11,6 +11,9 @@
 		6901331C19B371CB0050574D /* PreferencesWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901331A19B371CB0050574D /* PreferencesWindow.m */; };
 		6901331D19B371CB0050574D /* PreferencesWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901331A19B371CB0050574D /* PreferencesWindow.m */; };
 		6905C5AB1961B4E5000008EC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6905C5AA1961B4E5000008EC /* SystemConfiguration.framework */; };
+		690B5B6219DBEAA400704F36 /* SEBDockItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 690B5B6019DBEAA400704F36 /* SEBDockItem.h */; };
+		690B5B6319DBEAA400704F36 /* SEBDockItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 690B5B6119DBEAA400704F36 /* SEBDockItem.m */; };
+		690B5B6419DBEAA400704F36 /* SEBDockItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 690B5B6119DBEAA400704F36 /* SEBDockItem.m */; };
 		690BBEAC19D2C6A000F7C9C6 /* SEBDockController.h in Headers */ = {isa = PBXBuildFile; fileRef = 690BBEAA19D2C6A000F7C9C6 /* SEBDockController.h */; };
 		690BBEAD19D2C6A000F7C9C6 /* SEBDockController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690BBEAB19D2C6A000F7C9C6 /* SEBDockController.m */; };
 		690BBEAE19D2C6A000F7C9C6 /* SEBDockController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690BBEAB19D2C6A000F7C9C6 /* SEBDockController.m */; };
@@ -268,6 +271,8 @@
 		6901331919B371CB0050574D /* PreferencesWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesWindow.h; path = Classes/Preferences/PreferencesWindow/PreferencesWindow.h; sourceTree = "<group>"; };
 		6901331A19B371CB0050574D /* PreferencesWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreferencesWindow.m; path = Classes/Preferences/PreferencesWindow/PreferencesWindow.m; sourceTree = "<group>"; };
 		6905C5AA1961B4E5000008EC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		690B5B6019DBEAA400704F36 /* SEBDockItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockItem.h; path = Classes/SEBDock/SEBDockItem.h; sourceTree = "<group>"; };
+		690B5B6119DBEAA400704F36 /* SEBDockItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockItem.m; path = Classes/SEBDock/SEBDockItem.m; sourceTree = "<group>"; };
 		690BBEAA19D2C6A000F7C9C6 /* SEBDockController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockController.h; path = Classes/SEBDock/SEBDockController.h; sourceTree = "<group>"; };
 		690BBEAB19D2C6A000F7C9C6 /* SEBDockController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockController.m; path = Classes/SEBDock/SEBDockController.m; sourceTree = "<group>"; };
 		690BBEAF19D2C6E500F7C9C6 /* SEBDockItemButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockItemButton.h; path = Classes/SEBDock/SEBDockItemButton.h; sourceTree = "<group>"; };
@@ -565,6 +570,8 @@
 				690BBEB019D2C6E500F7C9C6 /* SEBDockItemButton.m */,
 				690BBEB419D30DF800F7C9C6 /* SEBDockView.h */,
 				690BBEB519D30DF800F7C9C6 /* SEBDockView.m */,
+				690B5B6019DBEAA400704F36 /* SEBDockItem.h */,
+				690B5B6119DBEAA400704F36 /* SEBDockItem.m */,
 			);
 			name = "SEB Dock";
 			sourceTree = "<group>";
@@ -830,6 +837,7 @@
 				6992499C16C5B62000DF6B53 /* PrefsApplicationsViewController.h in Headers */,
 				69F9110016CA5C720041EA38 /* PrefsNetworkViewController.h in Headers */,
 				699282E319D0430A00270E86 /* CapWindowController.h in Headers */,
+				690B5B6219DBEAA400704F36 /* SEBDockItem.h in Headers */,
 				69DFAF3619C468E700CBE69F /* RNCryptorEngine.h in Headers */,
 				695283DD16CDB54C0055AF6F /* PrefsSecurityViewController.h in Headers */,
 				69F32DC316D23374003C9502 /* PrefsAppearanceViewController.h in Headers */,
@@ -1084,6 +1092,7 @@
 				6943D0791655054600AB6B1D /* PrefsExamViewController.m in Sources */,
 				69F293B0164A324B00875C00 /* SEBKeychainManager.m in Sources */,
 				694B08A616B14ABF00E4997C /* SEBCryptor.m in Sources */,
+				690B5B6419DBEAA400704F36 /* SEBDockItem.m in Sources */,
 				6992499516C3B18B00DF6B53 /* PrefsConfigFileViewController.m in Sources */,
 				6992499F16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */,
 				69DFAF2F19C468E700CBE69F /* RNCryptor.m in Sources */,
@@ -1144,6 +1153,7 @@
 				6943D0771655054600AB6B1D /* PrefsExamViewController.m in Sources */,
 				69F293AE164A324B00875C00 /* SEBKeychainManager.m in Sources */,
 				694B08A416B14ABF00E4997C /* SEBCryptor.m in Sources */,
+				690B5B6319DBEAA400704F36 /* SEBDockItem.m in Sources */,
 				6992499316C3B18B00DF6B53 /* PrefsConfigFileViewController.m in Sources */,
 				6992499D16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */,
 				69DFAF2E19C468E700CBE69F /* RNCryptor.m in Sources */,

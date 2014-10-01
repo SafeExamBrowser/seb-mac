@@ -1036,15 +1036,41 @@ bool insideMatrix(){
 - (void) openSEBDock
 {
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
+        
+        // Initialize the Dock
         if (!self.dockController) {
             self.dockController = [[SEBDockController alloc] init];
         }
+        
+        // Add dock icons/items
+        SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:@"Safe Exam Browser" icon:[NSApp applicationIconImage] toolTip:nil menu:nil target:self action:@selector(buttonPressed)];
+        
+        SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil icon:[NSImage imageNamed:@"SEBShutDownIcon"] toolTip:@"Quit SEB" menu:nil target:self action:@selector(quitButtonPressed)];
+        
+        [self.dockController setLeftItems:[NSArray arrayWithObjects:dockItemSEB, dockItemShutDown, nil]];
+        
+        // Display the dock
         [self.dockController showDock];
     } else {
         if (self.dockController) {
             [self.dockController hideDock];
         }
     }
+}
+
+
+- (void) buttonPressed
+{
+    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+    [browserWindow makeKeyAndOrderFront:self];
+}
+
+
+- (void) quitButtonPressed
+{
+    // Post a notification that SEB should conditionally quit
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"requestExitNotification" object:self];
 }
 
 

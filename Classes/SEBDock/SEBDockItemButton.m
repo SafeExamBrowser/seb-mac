@@ -80,34 +80,34 @@
 
 - (void)setUsesSEBDockMenu:(BOOL)useSEBDockMenu
 {
-    if (self.SEBDockMenuPopover == nil && useSEBDockMenu)
-    {
-        NSSize SEBDockMenuSize = [self.SEBDockMenu size];
-        CGFloat SEBDockMenuWidth = SEBDockMenuSize.width + 14;
-        if (SEBDockMenuWidth > 500) {
-            SEBDockMenuWidth = 500;
-        }
-//        [[self.SEBDockMenu size] = NSMakeSize(SEBDockMenuWidth, SEBDockMenuSize.height + 3)];
-        NSView *SEBDockMenuView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, SEBDockMenuSize.width, SEBDockMenuSize.height)];
-        NSCell *SEBDockMenuCell = [[NSCell alloc] init];
-        SEBDockMenuCell.menu = self.SEBDockMenu;
-//        [SEBDockMenuView addSubview:SEBDockMenuCell];
-//        [SEBDockMenuView setContentHuggingPriority:NSLayoutPriorityFittingSizeCompression-1.0 forOrientation:NSLayoutConstraintOrientationVertical];
+//    if (self.SEBDockMenuPopover == nil && useSEBDockMenu)
+//    {
+//        NSSize SEBDockMenuSize = [self.SEBDockMenu size];
+//        CGFloat SEBDockMenuWidth = SEBDockMenuSize.width + 14;
+//        if (SEBDockMenuWidth > 500) {
+//            SEBDockMenuWidth = 500;
+//        }
+////        [[self.SEBDockMenu size] = NSMakeSize(SEBDockMenuWidth, SEBDockMenuSize.height + 3)];
+//        NSView *SEBDockMenuView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, SEBDockMenuSize.width, SEBDockMenuSize.height)];
+//        NSCell *SEBDockMenuCell = [[NSCell alloc] init];
+//        SEBDockMenuCell.menu = self.SEBDockMenu;
+////        [SEBDockMenuView addSubview:SEBDockMenuCell];
+////        [SEBDockMenuView setContentHuggingPriority:NSLayoutPriorityFittingSizeCompression-1.0 forOrientation:NSLayoutConstraintOrientationVertical];
+////        
+//        NSViewController *controller = [[NSViewController alloc] init];
+//        controller.view = SEBDockMenuCell;
 //        
-        NSViewController *controller = [[NSViewController alloc] init];
-        controller.view = SEBDockMenuCell;
-        
-        NSPopover *popover = [[NSPopover alloc] init];
-        [popover setContentSize:SEBDockMenuView.frame.size];
-        [popover setContentViewController:controller];
-        [popover setAppearance:NSPopoverAppearanceHUD];
-        [popover setAnimates:NO];
-        self.SEBDockMenuPopover = popover;
-    }
-    else if (self.SEBDockMenuPopover != nil && !useSEBDockMenu)
-    {
-        self.SEBDockMenuPopover = nil;
-    }
+//        NSPopover *popover = [[NSPopover alloc] init];
+//        [popover setContentSize:SEBDockMenuView.frame.size];
+//        [popover setContentViewController:controller];
+//        [popover setAppearance:NSPopoverAppearanceHUD];
+//        [popover setAnimates:NO];
+//        self.SEBDockMenuPopover = popover;
+//    }
+//    else if (self.SEBDockMenuPopover != nil && !useSEBDockMenu)
+//    {
+//        self.SEBDockMenuPopover = nil;
+//    }
 }
 
 
