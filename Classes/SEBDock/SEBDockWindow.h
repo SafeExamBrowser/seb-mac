@@ -10,6 +10,9 @@
 
 @interface SEBDockWindow : NSWindow
 
+@property(readwrite) CGFloat height;
+
+
 - (void) setCalculatedFrame:(NSScreen *)screen;
 
 @end

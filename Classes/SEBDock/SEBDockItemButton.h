@@ -10,15 +10,20 @@
 
 @interface SEBDockItemButton : NSButton {
     NSTrackingArea *trackingArea;
+    NSPopUpButtonCell *popUpCell;
 }
 
 //@property (strong) NSString *itemTitle;
 
 @property (strong) NSTextField *label;
 @property (strong) NSPopover *labelPopover;
-//@property (nonatomic, retain) NSTrackingArea *trackingArea;
+@property (strong) NSMenu *SEBDockMenu;
+@property (strong) NSPopover *SEBDockMenuPopover;
 
 - (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon title:(NSString *)itemTitle;
+
+- (void)setUsesSEBDockMenu:(BOOL)flag;
+- (BOOL)usesSEBDockMenu;
 
 - (void)mouseEntered:(NSEvent *)theEvent;
 - (void)mouseExited:(NSEvent *)theEvent;

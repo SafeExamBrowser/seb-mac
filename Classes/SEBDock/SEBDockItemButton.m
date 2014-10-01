@@ -64,6 +64,84 @@
 }
 
 
+// Create popup menu for dock item with a passed NSMenu
+- (void)setSEBDockMenu:(NSMenu *)menu
+{
+//    [super setMenu:menu];
+    [self setUsesSEBDockMenu:YES];
+}
+
+
+- (NSMenu *)SEBDockMenu
+{
+    return self.SEBDockMenu;
+}
+
+
+- (void)setUsesSEBDockMenu:(BOOL)useSEBDockMenu
+{
+    if (self.SEBDockMenuPopover == nil && useSEBDockMenu)
+    {
+        NSSize SEBDockMenuSize = [self.SEBDockMenu size];
+        CGFloat SEBDockMenuWidth = SEBDockMenuSize.width + 14;
+        if (SEBDockMenuWidth > 500) {
+            SEBDockMenuWidth = 500;
+        }
+//        [[self.SEBDockMenu size] = NSMakeSize(SEBDockMenuWidth, SEBDockMenuSize.height + 3)];
+        NSView *SEBDockMenuView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, SEBDockMenuSize.width, SEBDockMenuSize.height)];
+        NSCell *SEBDockMenuCell = [[NSCell alloc] init];
+        SEBDockMenuCell.menu = self.SEBDockMenu;
+//        [SEBDockMenuView addSubview:SEBDockMenuCell];
+//        [SEBDockMenuView setContentHuggingPriority:NSLayoutPriorityFittingSizeCompression-1.0 forOrientation:NSLayoutConstraintOrientationVertical];
+//        
+        NSViewController *controller = [[NSViewController alloc] init];
+        controller.view = SEBDockMenuCell;
+        
+        NSPopover *popover = [[NSPopover alloc] init];
+        [popover setContentSize:SEBDockMenuView.frame.size];
+        [popover setContentViewController:controller];
+        [popover setAppearance:NSPopoverAppearanceHUD];
+        [popover setAnimates:NO];
+        self.SEBDockMenuPopover = popover;
+    }
+    else if (self.SEBDockMenuPopover != nil && !useSEBDockMenu)
+    {
+        self.SEBDockMenuPopover = nil;
+    }
+}
+
+
+- (BOOL)usesSEBDockMenu
+{
+    return (popUpCell != nil);
+}
+
+
+- (void)runPopUp:(NSEvent *)theEvent
+{
+    // Set the menu the popup will use
+    [popUpCell setMenu:[self menu]];
+    
+    // and show it
+    [popUpCell performClickWithFrame:[self bounds] inView:self];
+    
+    [self setNeedsDisplay: YES];
+}
+
+
+- (void)mouseDown:(NSEvent*)theEvent
+{
+    if ([self usesSEBDockMenu])
+    {
+        [self runPopUp:theEvent];
+    }
+    else
+    {
+        [super mouseDown:theEvent];
+    }
+}
+
+
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];
     
@@ -71,6 +149,7 @@
 [self createTrackingArea];
 
 }
+
 
 - (void)mouseEntered:(NSEvent *)theEvent
 {

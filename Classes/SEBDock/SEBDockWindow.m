@@ -7,7 +7,6 @@
 //
 
 #import "SEBDockWindow.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 @implementation SEBDockWindow
 
@@ -27,18 +26,12 @@
     // Get frame of the screen
     NSRect screenFrame = screen.frame;
 
-    // Get SEB Dock height
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    double dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
-    // Enforce minimum SEB Dock height
-    if (dockHeight < 40) dockHeight = 40;
-    
     // Calculate frame of SEB Dock
     NSRect windowFrame;
     windowFrame.origin.x = screenFrame.origin.x;
 
     windowFrame.size.width = screenFrame.size.width;
-    windowFrame.size.height = dockHeight;
+    windowFrame.size.height = self.height;
 
     // Calculate y position: On bottom of screen
     windowFrame.origin.y = screenFrame.origin.y;
