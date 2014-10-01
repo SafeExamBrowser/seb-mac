@@ -374,13 +374,15 @@
 }
 
 
+// This method is called by NSWindow’s zoom: method while determining the frame a window may be zoomed to
+// We override the size calculation to take SEB Dock in account if it's displayed
 - (NSRect)windowWillUseStandardFrame:(NSWindow *)window
                         defaultFrame:(NSRect)newFrame {
     // Check if SEB Dock is displayed and reduce visibleFrame accordingly
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
-        double dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
-        newFrame.origin.y = dockHeight;
+        CGFloat dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
+        newFrame.origin.y += dockHeight;
         newFrame.size.height -= dockHeight;
     }
     return newFrame;
