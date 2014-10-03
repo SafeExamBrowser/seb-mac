@@ -9,7 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import "DropDownButton.h"
 
-@interface SEBDockItemButton : NSButton {
+@interface SEBDockItemButton : NSButton <NSMenuDelegate>
+{
     NSTrackingArea *trackingArea;
     NSPopUpButtonCell *popUpCell;
 }

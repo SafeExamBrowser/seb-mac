@@ -65,7 +65,8 @@
         
         // Create menu popover if there was a menu set for the item
         if (itemMenu) {
-            self.SEBDockMenu = itemMenu;
+            self.SEBDockMenu = [itemMenu copy];
+            [self.SEBDockMenu setDelegate:self];
             NSSize SEBDockMenuSize = [itemMenu size];
             CGFloat SEBDockMenuWidth = SEBDockMenuSize.width + 14;
             if (SEBDockMenuWidth > 500) {
@@ -75,7 +76,7 @@
             NSView *SEBDockMenuView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, SEBDockMenuSize.width, SEBDockMenuSize.height - 17)];
             DropDownButton *dockMenuDropDownButton = [[DropDownButton alloc] initWithFrame:NSMakeRect(2, 20, 0, 0)];
             self.dockMenuDropDownButton = dockMenuDropDownButton;
-            [dockMenuDropDownButton setMenu:itemMenu];
+            [dockMenuDropDownButton setMenu:self.SEBDockMenu];
             [SEBDockMenuView addSubview:dockMenuDropDownButton];
             //        [SEBDockMenuView setContentHuggingPriority:NSLayoutPriorityFittingSizeCompression-1.0 forOrientation:NSLayoutConstraintOrientationVertical];
             //
@@ -105,6 +106,12 @@
     {
         [super mouseDown:theEvent];
     }
+}
+
+
+- (void)menuDidClose:(NSMenu *)menu
+{
+    [self.SEBDockMenuPopover close];
 }
 
 

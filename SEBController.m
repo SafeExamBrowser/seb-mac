@@ -1051,7 +1051,7 @@ bool insideMatrix(){
         
 //        [self.dockController setCenterItems:[NSArray arrayWithObjects:dockItemSEB, dockItemShutDown, nil]];
         
-        [self.dockController setRightItems:[NSArray arrayWithObjects:dockItemShutDown, dockItemSEB, nil]];
+        [self.dockController setRightItems:[NSArray arrayWithObjects:dockItemShutDown, nil]];
         
         // Display the dock
         [self.dockController showDock];
