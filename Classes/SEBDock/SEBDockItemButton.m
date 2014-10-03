@@ -11,7 +11,7 @@
 @implementation SEBDockItemButton
 
 
-- (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon title:(NSString *)itemTitle
+- (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon title:(NSString *)itemTitle menu:(NSMenu *)itemMenu
  {
     self = [super initWithFrame:frameRect];
     if (self) {
@@ -23,9 +23,6 @@
         [self setButtonType:NSMomentaryPushInButton];
         [self setImagePosition:NSImageOnly];
         [self setBordered:NO];
-        
-//        [self setTarget:self];
-//        [self setAction:@selector(buttonPressed)];
         
         // Create text label for dock item, if there was a title set for the item
         if (itemTitle) {
@@ -45,95 +42,64 @@
                 dockItemLabelWidth = 610;
             }
             [self.label setFrameSize:NSMakeSize(dockItemLabelWidth, dockItemLabelSize.height + 3)];
+            
+            // Create view to place label into
             NSView *dockItemLabelView = [[NSView alloc] initWithFrame:self.label.frame];
             [dockItemLabelView addSubview:self.label];
             [dockItemLabelView setContentHuggingPriority:NSLayoutPriorityFittingSizeCompression-1.0 forOrientation:NSLayoutConstraintOrientationVertical];
             
+            // Create a view controller for the label view
             NSViewController *controller = [[NSViewController alloc] init];
             controller.view = dockItemLabelView;
             
+            // Create the label popover
             NSPopover *popover = [[NSPopover alloc] init];
             [popover setContentSize:dockItemLabelView.frame.size];
+            
+            // Add the label view controller as content view controller to the popover
             [popover setContentViewController:controller];
             [popover setAppearance:NSPopoverAppearanceHUD];
             [popover setAnimates:NO];
             self.labelPopover = popover;
+        }
+        
+        // Create menu popover if there was a menu set for the item
+        if (itemMenu) {
+            self.SEBDockMenu = itemMenu;
+            NSSize SEBDockMenuSize = [itemMenu size];
+            CGFloat SEBDockMenuWidth = SEBDockMenuSize.width + 14;
+            if (SEBDockMenuWidth > 500) {
+                SEBDockMenuWidth = 500;
+            }
+            //        [[self.SEBDockMenu size] = NSMakeSize(SEBDockMenuWidth, SEBDockMenuSize.height + 3)];
+            NSView *SEBDockMenuView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, SEBDockMenuSize.width, SEBDockMenuSize.height - 17)];
+            DropDownButton *dockMenuDropDownButton = [[DropDownButton alloc] initWithFrame:NSMakeRect(2, 20, 0, 0)];
+            self.dockMenuDropDownButton = dockMenuDropDownButton;
+            [dockMenuDropDownButton setMenu:itemMenu];
+            [SEBDockMenuView addSubview:dockMenuDropDownButton];
+            //        [SEBDockMenuView setContentHuggingPriority:NSLayoutPriorityFittingSizeCompression-1.0 forOrientation:NSLayoutConstraintOrientationVertical];
+            //
+            NSViewController *controller = [[NSViewController alloc] init];
+            controller.view = SEBDockMenuView;
+            
+            NSPopover *popover = [[NSPopover alloc] init];
+            [popover setContentSize:SEBDockMenuView.frame.size];
+            [popover setContentViewController:controller];
+//            [popover setAppearance:NSPopoverAppearanceHUD];
+            [popover setAnimates:NO];
+            self.SEBDockMenuPopover = popover;
         }
     }
     return self;
 }
 
 
-// Create popup menu for dock item with a passed NSMenu
-- (void)setSEBDockMenu:(NSMenu *)menu
-{
-//    [super setMenu:menu];
-    [self setUsesSEBDockMenu:YES];
-}
-
-
-- (NSMenu *)SEBDockMenu
-{
-    return self.SEBDockMenu;
-}
-
-
-- (void)setUsesSEBDockMenu:(BOOL)useSEBDockMenu
-{
-//    if (self.SEBDockMenuPopover == nil && useSEBDockMenu)
-//    {
-//        NSSize SEBDockMenuSize = [self.SEBDockMenu size];
-//        CGFloat SEBDockMenuWidth = SEBDockMenuSize.width + 14;
-//        if (SEBDockMenuWidth > 500) {
-//            SEBDockMenuWidth = 500;
-//        }
-////        [[self.SEBDockMenu size] = NSMakeSize(SEBDockMenuWidth, SEBDockMenuSize.height + 3)];
-//        NSView *SEBDockMenuView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, SEBDockMenuSize.width, SEBDockMenuSize.height)];
-//        NSCell *SEBDockMenuCell = [[NSCell alloc] init];
-//        SEBDockMenuCell.menu = self.SEBDockMenu;
-////        [SEBDockMenuView addSubview:SEBDockMenuCell];
-////        [SEBDockMenuView setContentHuggingPriority:NSLayoutPriorityFittingSizeCompression-1.0 forOrientation:NSLayoutConstraintOrientationVertical];
-////        
-//        NSViewController *controller = [[NSViewController alloc] init];
-//        controller.view = SEBDockMenuCell;
-//        
-//        NSPopover *popover = [[NSPopover alloc] init];
-//        [popover setContentSize:SEBDockMenuView.frame.size];
-//        [popover setContentViewController:controller];
-//        [popover setAppearance:NSPopoverAppearanceHUD];
-//        [popover setAnimates:NO];
-//        self.SEBDockMenuPopover = popover;
-//    }
-//    else if (self.SEBDockMenuPopover != nil && !useSEBDockMenu)
-//    {
-//        self.SEBDockMenuPopover = nil;
-//    }
-}
-
-
-- (BOOL)usesSEBDockMenu
-{
-    return (popUpCell != nil);
-}
-
-
-- (void)runPopUp:(NSEvent *)theEvent
-{
-    // Set the menu the popup will use
-    [popUpCell setMenu:[self menu]];
-    
-    // and show it
-    [popUpCell performClickWithFrame:[self bounds] inView:self];
-    
-    [self setNeedsDisplay: YES];
-}
-
-
 - (void)mouseDown:(NSEvent*)theEvent
 {
-    if ([self usesSEBDockMenu])
+    if (self.SEBDockMenuPopover)
     {
-        [self runPopUp:theEvent];
+        [self.SEBDockMenuPopover showRelativeToRect:[self bounds] ofView:self preferredEdge:NSMaxYEdge];
+        [self.dockMenuDropDownButton runPopUp:nil];
     }
     else
     {

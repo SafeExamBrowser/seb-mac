@@ -67,7 +67,8 @@
 
 	BrowserWindow *browserWindow;
 	IBOutlet AboutWindow *aboutWindow;
-	IBOutlet NSMenuItem *configMenu;
+    IBOutlet NSMenuItem *configMenu;
+    IBOutlet NSMenu *settingsMenu;
     IBOutlet NSView *passwordView;
 	//IBOutlet NSSecureTextField *enterPassword;
     IBOutlet NSWindow *enterPasswordDialogWindow;

@@ -55,4 +55,6 @@
 - (void)setUsesMenu:(BOOL)flag;
 - (BOOL)usesMenu;
 
+- (void)runPopUp:(NSEvent *)theEvent;
+
 @end

@@ -1043,7 +1043,7 @@ bool insideMatrix(){
         }
         
         // Add dock icons/items
-        SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:@"Safe Exam Browser" icon:[NSApp applicationIconImage] toolTip:nil menu:nil target:self action:@selector(buttonPressed)];
+        SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:@"Safe Exam Browser" icon:[NSApp applicationIconImage] toolTip:nil menu:settingsMenu target:self action:@selector(buttonPressed)];
         
         SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil icon:[NSImage imageNamed:@"SEBShutDownIcon"] toolTip:@"Quit SEB" menu:nil target:self action:@selector(quitButtonPressed)];
         
@@ -1051,7 +1051,7 @@ bool insideMatrix(){
         
 //        [self.dockController setCenterItems:[NSArray arrayWithObjects:dockItemSEB, dockItemShutDown, nil]];
         
-        [self.dockController setRightItems:[NSArray arrayWithObjects:dockItemShutDown, nil]];
+        [self.dockController setRightItems:[NSArray arrayWithObjects:dockItemShutDown, dockItemSEB, nil]];
         
         // Display the dock
         [self.dockController showDock];

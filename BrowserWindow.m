@@ -183,7 +183,7 @@
     // Check if SEB Dock is displayed and reduce visibleFrame accordingly
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
         double dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
-        screenFrame.origin.y = dockHeight;
+        screenFrame.origin.y += dockHeight;
         screenFrame.size.height -= dockHeight;
     }
     NSRect windowFrame;

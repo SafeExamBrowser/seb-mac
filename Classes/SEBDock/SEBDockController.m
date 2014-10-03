@@ -73,13 +73,14 @@
         NSView *dockItemView;
         for (id<SEBDockItem> dockItem in self.leftDockItems) {
             if (dockItem.icon) {
-                SEBDockItemButton *newDockItemButton = [[SEBDockItemButton alloc] initWithFrame:NSMakeRect(0, 0, iconSize, iconSize) icon:dockItem.icon title:dockItem.title];
+                SEBDockItemButton *newDockItemButton = [[SEBDockItemButton alloc] initWithFrame:NSMakeRect(0, 0, iconSize, iconSize) icon:dockItem.icon title:dockItem.title menu:dockItem.menu];
                 // If the new dock item declares an action, then link this to the dock icon button
                 if ([dockItem respondsToSelector:@selector(action)]) {
                     [newDockItemButton setTarget:dockItem.target];
                     [newDockItemButton setAction:dockItem.action];
                 }
                 [newDockItemButton setToolTip:dockItem.toolTip];
+
                 dockItemView = newDockItemButton;
             } else {
                 if ([dockItem respondsToSelector:@selector(view)]) {
@@ -114,7 +115,7 @@
                                                                         attribute:NSLayoutAttributeLeft
                                                                         relatedBy:NSLayoutRelationEqual
                                                                            toItem:dockItemView
-                                                                        attribute:NSLayoutAttributeLeading
+                                                                        attribute:NSLayoutAttributeLeft
                                                                        multiplier:1.0
                                                                          constant:-8.0]];
                 }
@@ -147,7 +148,7 @@
         for (id<SEBDockItem> dockItem in self.centerDockItems) {
             NSView *dockItemView;
             if (dockItem.icon) {
-                SEBDockItemButton *newDockItemButton = [[SEBDockItemButton alloc] initWithFrame:NSMakeRect(0, 0, iconSize, iconSize) icon:dockItem.icon title:dockItem.title];
+                SEBDockItemButton *newDockItemButton = [[SEBDockItemButton alloc] initWithFrame:NSMakeRect(0, 0, iconSize, iconSize) icon:dockItem.icon title:dockItem.title menu:dockItem.menu];
                 // If the new dock item declares an action, then link this to the dock icon button
                 if ([dockItem respondsToSelector:@selector(action)]) {
                     [newDockItemButton setTarget:dockItem.target];
@@ -194,7 +195,7 @@
                                                                              constant:-8.0]];
                     } else {
                         [constraints addObject:[NSLayoutConstraint constraintWithItem:superview
-                                                                            attribute:NSLayoutAttributeLeading
+                                                                            attribute:NSLayoutAttributeLeft
                                                                             relatedBy:NSLayoutRelationEqual
                                                                                toItem:dockItemView
                                                                             attribute:NSLayoutAttributeLeft
@@ -229,7 +230,7 @@
         for (id<SEBDockItem> dockItem in self.rightDockItems) {
             NSView *dockItemView;
             if (dockItem.icon) {
-                SEBDockItemButton *newDockItemButton = [[SEBDockItemButton alloc] initWithFrame:NSMakeRect(0, 0, iconSize, iconSize) icon:dockItem.icon title:dockItem.title];
+                SEBDockItemButton *newDockItemButton = [[SEBDockItemButton alloc] initWithFrame:NSMakeRect(0, 0, iconSize, iconSize) icon:dockItem.icon title:dockItem.title menu:dockItem.menu];
                 // If the new dock item declares an action, then link this to the dock icon button
                 if ([dockItem respondsToSelector:@selector(action)]) {
                     [newDockItemButton setTarget:dockItem.target];
@@ -270,7 +271,7 @@
                                                                         attribute:NSLayoutAttributeRight
                                                                         relatedBy:NSLayoutRelationEqual
                                                                            toItem:dockItemView
-                                                                        attribute:NSLayoutAttributeTrailing
+                                                                        attribute:NSLayoutAttributeRight
                                                                        multiplier:1.0
                                                                          constant:8.0]];
                 }

@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "DropDownButton.h"
 
 @interface SEBDockItemButton : NSButton {
     NSTrackingArea *trackingArea;
@@ -19,11 +20,9 @@
 @property (strong) NSPopover *labelPopover;
 @property (strong) NSMenu *SEBDockMenu;
 @property (strong) NSPopover *SEBDockMenuPopover;
+@property (strong) DropDownButton *dockMenuDropDownButton;
 
-- (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon title:(NSString *)itemTitle;
-
-- (void)setUsesSEBDockMenu:(BOOL)flag;
-- (BOOL)usesSEBDockMenu;
+- (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon title:(NSString *)itemTitle menu:(NSMenu *)itemMenu;
 
 - (void)mouseEntered:(NSEvent *)theEvent;
 - (void)mouseExited:(NSEvent *)theEvent;
