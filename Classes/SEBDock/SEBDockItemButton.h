@@ -13,6 +13,8 @@
 {
     NSTrackingArea *trackingArea;
     NSPopUpButtonCell *popUpCell;
+    
+    BOOL mouseDown;
 }
 
 //@property (strong) NSString *itemTitle;

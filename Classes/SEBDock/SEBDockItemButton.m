@@ -15,6 +15,7 @@
  {
     self = [super initWithFrame:frameRect];
     if (self) {
+        mouseDown = NO;
         // Get image size
         CGFloat iconSize = self.frame.size.width;
         [itemIcon setSize: NSMakeSize(iconSize, iconSize)];
@@ -65,20 +66,18 @@
         
         // Create menu popover if there was a menu set for the item
         if (itemMenu) {
-            self.SEBDockMenu = [itemMenu copy];
+            self.SEBDockMenu = itemMenu; // [itemMenu copy];
             [self.SEBDockMenu setDelegate:self];
             NSSize SEBDockMenuSize = [itemMenu size];
             CGFloat SEBDockMenuWidth = SEBDockMenuSize.width + 14;
             if (SEBDockMenuWidth > 500) {
                 SEBDockMenuWidth = 500;
             }
-            //        [[self.SEBDockMenu size] = NSMakeSize(SEBDockMenuWidth, SEBDockMenuSize.height + 3)];
-            NSView *SEBDockMenuView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, SEBDockMenuSize.width, SEBDockMenuSize.height - 17)];
-            DropDownButton *dockMenuDropDownButton = [[DropDownButton alloc] initWithFrame:NSMakeRect(2, 20, 0, 0)];
+            NSView *SEBDockMenuView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, SEBDockMenuSize.width-12, SEBDockMenuSize.height - 30)];
+            DropDownButton *dockMenuDropDownButton = [[DropDownButton alloc] initWithFrame:NSMakeRect(-4, 14, 0, 0)];
             self.dockMenuDropDownButton = dockMenuDropDownButton;
             [dockMenuDropDownButton setMenu:self.SEBDockMenu];
             [SEBDockMenuView addSubview:dockMenuDropDownButton];
-            //        [SEBDockMenuView setContentHuggingPriority:NSLayoutPriorityFittingSizeCompression-1.0 forOrientation:NSLayoutConstraintOrientationVertical];
             //
             NSViewController *controller = [[NSViewController alloc] init];
             controller.view = SEBDockMenuView;
@@ -86,7 +85,6 @@
             NSPopover *popover = [[NSPopover alloc] init];
             [popover setContentSize:SEBDockMenuView.frame.size];
             [popover setContentViewController:controller];
-//            [popover setAppearance:NSPopoverAppearanceHUD];
             [popover setAnimates:NO];
             self.SEBDockMenuPopover = popover;
         }
@@ -97,14 +95,39 @@
 
 - (void)mouseDown:(NSEvent*)theEvent
 {
+    mouseDown = YES;
+    [self performSelector:@selector(longMouseDown) withObject: nil afterDelay: 0.5];
+}
+
+
+- (void)mouseUp:(NSEvent *)theEvent
+{
+    if (mouseDown) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self];
+        mouseDown = NO;
+        [self performClick:self];
+    }
+    [super mouseUp:theEvent];
+}
+
+
+- (void)longMouseDown
+{
+    if (mouseDown) {
+        mouseDown = NO;
+        [self rightMouseDown:nil];
+    }
+    
+}
+
+
+- (void)rightMouseDown: (NSEvent*) theEvent
+{
     if (self.SEBDockMenuPopover)
     {
+        [self.labelPopover close];
         [self.SEBDockMenuPopover showRelativeToRect:[self bounds] ofView:self preferredEdge:NSMaxYEdge];
         [self.dockMenuDropDownButton runPopUp:nil];
-    }
-    else
-    {
-        [super mouseDown:theEvent];
     }
 }
 

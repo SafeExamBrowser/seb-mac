@@ -1618,14 +1618,14 @@ bool insideMatrix(){
 #ifdef DEBUG
             NSLog(@"Disabled: Switched back to SEB after currentSystemPresentationOptions changed!");
 #endif
-            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+//            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
 //            [NSApp activateIgnoringOtherApps: YES];
 
 //            [[NSNotificationCenter defaultCenter] postNotificationName:@"requestRegainActiveStatus" object:self];
 
-            [browserWindow makeKeyAndOrderFront:self];
+//            [browserWindow makeKeyAndOrderFront:self];
             //[self startKioskMode];
-            [self regainActiveStatus:nil];
+//            [self regainActiveStatus:nil];
             //[browserWindow setFrame:[[browserWindow screen] frame] display:YES];
         }
     }
