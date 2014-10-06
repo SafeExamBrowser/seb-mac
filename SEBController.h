@@ -45,6 +45,8 @@
 #import "CapWindowController.h"
 
 #import "AboutWindow.h"
+#import "SEBBrowserController.h"
+
 #import "SEBBrowserWindow.h"
 
 #import "SEBDockController.h"
@@ -56,6 +58,7 @@
 @class PreferencesController;
 @class SEBSystemManager;
 @class SEBDockController;
+@class SEBBrowserController;
 
 @interface SEBController : NSObject <NSApplicationDelegate> {
 	
@@ -114,5 +117,6 @@
 @property(strong) IBOutlet id preferencesController;
 @property(strong) IBOutlet SEBSystemManager *systemManager;
 @property(strong) SEBDockController *dockController;
+@property(strong) SEBBrowserController *browserController;
 
 @end

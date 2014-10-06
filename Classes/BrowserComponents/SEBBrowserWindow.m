@@ -1021,62 +1021,6 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 
 
 
-- (void) downloadAndOpenSebConfigFromURL:(NSURL *)url
-{
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
-        // Check if SEB is in exam mode = private UserDefauls are switched on
-        if (NSUserDefaults.userDefaultsPrivate) {
-            // If yes, we don't download the .seb file
-            NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings not allowed!", nil),
-                            NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil),
-                            NSLocalizedString(@"OK", nil), nil, nil);
-        } else {
-            // SEB isn't in exam mode: reconfiguring it is allowed
-            NSError *error = nil;
-            NSData *sebFileData;
-            // Download the .seb file directly into memory (not onto disc like other files)
-            if ([url.scheme isEqualToString:@"seb"]) {
-                // If it's a seb:// URL, we try to download it by http
-                NSURL *httpURL = [[NSURL alloc] initWithScheme:@"http" host:url.host path:url.path];
-                sebFileData = [NSData dataWithContentsOfURL:httpURL options:NSDataReadingUncached error:&error];
-                if (error) {
-                    // If that didn't work, we try to download it by https
-                    NSURL *httpsURL = [[NSURL alloc] initWithScheme:@"https" host:url.host path:url.path];
-                    sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
-                    // Still couldn't download the .seb file: present an error and abort
-                    if (error) {
-                        [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
-                        return;
-                    }
-                }
-            } else {
-                sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
-                if (error) {
-                    [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
-                }
-            }
-            SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-
-            // Get current config path
-            NSURL *currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
-            // Store the URL of the .seb file as current config file path
-            [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
-            
-            if ([configFileManager storeDecryptedSEBSettings:sebFileData forEditing:NO]) {
-
-                // Post a notification that it was requested to restart SEB with changed settings
-                [[NSNotificationCenter defaultCenter]
-                 postNotificationName:@"requestRestartNotification" object:self];
-
-            } else {
-                // if decrypting new settings wasn't successfull, we have to restore the path to the old settings
-                [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
-                
-            }
-        }
-    }
-}
 
 
 @end

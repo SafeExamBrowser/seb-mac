@@ -165,7 +165,7 @@ bool insideMatrix();
 #ifdef DEBUG
             NSLog(@"Get URL event: Loading .seb settings file with URL %@", urlString);
 #endif
-            [browserWindow downloadAndOpenSebConfigFromURL:url];
+            [self.browserController downloadAndOpenSebConfigFromURL:url];
         }
     }
 }
@@ -498,7 +498,8 @@ bool insideMatrix();
     [self openSEBDock];
     
     // Set up SEB Browser and open the main browser window
-    [self openMainBrowserWindow];
+    self.browserController = [[SEBBrowserController alloc] init];
+    [self.browserController openMainBrowserWindow];
     
 	// Due to the infamous Flash plugin we completely disable plugins in the 32-bit build
 #ifdef __i386__        // 32-bit Intel build
@@ -796,15 +797,14 @@ bool insideMatrix(){
         [self.dockController adjustDock];
         
         // We adjust the size of the main browser window
-        [browserWindow setCalculatedFrame];
-        [browserWindow makeKeyAndOrderFront:self];
+        [self.browserController adjustMainBrowserWindow];
     }
 }
 
 
 // Called when main browser window changed screen
 - (void) changeMainScreen: (id)sender {
-    [self.dockController moveDockToScreen:browserWindow.screen];
+    [self.dockController moveDockToScreen:self.browserController.browserWindow.screen];
 }
 
 
@@ -979,7 +979,7 @@ bool insideMatrix(){
         }
     }
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-	[browserWindow makeKeyAndOrderFront:self];
+	[self.browserController.browserWindow makeKeyAndOrderFront:self];
 }
 
 
@@ -1066,7 +1066,7 @@ bool insideMatrix(){
 - (void) buttonPressed
 {
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-    [browserWindow makeKeyAndOrderFront:self];
+    [self.browserController.browserWindow makeKeyAndOrderFront:self];
 }
 
 
@@ -1075,96 +1075,6 @@ bool insideMatrix(){
     // Post a notification that SEB should conditionally quit
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"requestExitNotification" object:self];
-}
-
-
-// Set up SEB Browser and open the main window
-- (void) openMainBrowserWindow {
-    
-    /*/ Save current WebKit Cookie Policy
-     NSHTTPCookieAcceptPolicy cookiePolicy = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookieAcceptPolicy];
-     if (cookiePolicy == NSHTTPCookieAcceptPolicyAlways) NSLog(@"NSHTTPCookieAcceptPolicyAlways");
-     if (cookiePolicy == NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain) NSLog(@"NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain"); */
-
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    
-    // Preconfigure Window for full screen
-    BOOL mainBrowserWindowShouldBeFullScreen = ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserViewMode"] == browserViewModeFullscreen);
-
-#ifdef DEBUG
-    NSLog(@"openMainBrowserWindow with browserViewMode: %hhd", mainBrowserWindowShouldBeFullScreen);
-#endif
-    
-    // Open and maximize the browser window
-    // (this is done here, after presentation options are set,
-    // because otherwise menu bar and dock are deducted from screen size)
-    SEBBrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
-    self.webView = myDocument.mainWindowController.webView;
-    browserWindow = (SEBBrowserWindow *)myDocument.mainWindowController.window;
-    // Set the flag indicating if the main browser window should be displayed full screen
-    browserWindow.isFullScreen = mainBrowserWindowShouldBeFullScreen;
-    
-    if (mainBrowserWindowShouldBeFullScreen) {
-        [browserWindow setToolbar:nil];
-        [browserWindow setStyleMask:NSBorderlessWindowMask];
-    }
-    
-    [[MyGlobals sharedMyGlobals] setMainBrowserWindow:browserWindow]; //save a reference to this main browser window
-    [browserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-	[(SEBBrowserWindow *)browserWindow setCalculatedFrame];
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
-        [browserWindow newSetLevel:NSModalPanelWindowLevel];
-
-    }
-//	[NSApp activateIgnoringOtherApps: YES];
-//    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-    
-    // Setup bindings to the preferences window close button
-    NSButton *closeButton = [browserWindow standardWindowButton:NSWindowCloseButton];
-
-    [closeButton bind:@"enabled"
-             toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
-          withKeyPath:@"values.org_safeexambrowser_SEB_allowQuit" 
-              options:nil];
-
-    //[browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
-	[browserWindow makeKeyAndOrderFront:self];
-        
-	// Load start URL from the system's user defaults database
-    NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-#ifdef DEBUG
-    NSLog(@"Open MainBrowserWindow with start URL: %@", urlText);
-#endif
-
-    // Add "SEB" to the browser's user agent, so the LMS SEB plugins recognize us
-	NSString *customUserAgent = [self.webView userAgentForURL:[NSURL URLWithString:urlText]];
-	[self.webView setCustomUserAgent:[customUserAgent stringByAppendingString:@" SEB"]];
-    
-	// Load start URL into browser window
-	[[self.webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];
-}
-
-
-- (void)openResourceWithURL:(NSString *)URL andTitle:(NSString *)title
-{
-    SEBBrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
-    NSWindow *additionalBrowserWindow = myDocument.mainWindowController.window;
-    [additionalBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-	[(SEBBrowserWindow *)additionalBrowserWindow setCalculatedFrame];
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
-        [additionalBrowserWindow newSetLevel:NSModalPanelWindowLevel];
-    }
-//	[NSApp activateIgnoringOtherApps: YES];
-    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-    
-	//[additionalBrowserWindow makeKeyAndOrderFront:self];
-    
-#ifdef DEBUG
-    NSLog(@"Open additional browser window with URL: %@", URL);
-#endif
-    
-	// Load start URL into browser window
-	[[myDocument.mainWindowController.webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:URL]]];
 }
 
 
@@ -1216,7 +1126,7 @@ bool insideMatrix(){
 		
         if (![hashedQuitPassword isEqualToString:@""]) {
 			// if quit password is set, then restrict quitting
-            if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit password:",nil)  modalForWindow:browserWindow windowTitle:nil] == SEBEnterPasswordCancel) return;
+            if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit password:",nil)  modalForWindow:self.browserController.browserWindow windowTitle:nil] == SEBEnterPasswordCancel) return;
             NSString *password = [self.enterPassword stringValue];
 			
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
@@ -1260,7 +1170,7 @@ bool insideMatrix(){
             NSString *hashedAdminPW = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
             if (![hashedAdminPW isEqualToString:@""]) {
                 // If admin password is set, then restrict access to the preferences window
-                if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter administrator password:",nil)  modalForWindow:browserWindow windowTitle:nil] == SEBEnterPasswordCancel) return;
+                if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter administrator password:",nil)  modalForWindow:self.browserController.browserWindow windowTitle:nil] == SEBEnterPasswordCancel) return;
                 NSString *password = [self.enterPassword stringValue];
                 SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
                 if ([hashedAdminPW caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] != NSOrderedSame) {
@@ -1323,7 +1233,7 @@ bool insideMatrix(){
     [self coverScreens];
     
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-    [browserWindow makeKeyAndOrderFront:self];
+    [self.browserController.browserWindow makeKeyAndOrderFront:self];
     
     // Switch the kiosk mode on again
     [self setElevateWindowLevels];
@@ -1420,9 +1330,9 @@ bool insideMatrix(){
 #ifdef DEBUG
     NSLog(@"requestedReinforceKioskMode: Reopening cap windows.");
 #endif
-    if (browserWindow.isVisible) {
+    if (self.browserController.browserWindow.isVisible) {
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-        [browserWindow makeKeyAndOrderFront:self];
+        [self.browserController.browserWindow makeKeyAndOrderFront:self];
     }
     
     // Open new covering background windows on all currently available screens
@@ -1561,10 +1471,10 @@ bool insideMatrix(){
 
 /*- (void)windowDidResignKey:(NSNotification *)notification {
 	[NSApp activateIgnoringOtherApps: YES];
-	[browserWindow 
+	[self.browserController.browserWindow 
 	 makeKeyAndOrderFront:self];
 	#ifdef DEBUG
-	NSLog(@"[browserWindow makeKeyAndOrderFront]");
+	NSLog(@"[self.browserController.browserWindow makeKeyAndOrderFront]");
 	NSBeep();
 	#endif
 	
@@ -1612,7 +1522,7 @@ bool insideMatrix(){
         }
         //[self startKioskMode];
         //We don't reset the browser window size and position anymore
-        //[(BrowserWindow*)browserWindow setCalculatedFrame];
+        //[(BrowserWindow*)self.browserController.browserWindow setCalculatedFrame];
         if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen]) {
             // If third party Apps are not allowed, we switch back to SEB
 #ifdef DEBUG
@@ -1623,10 +1533,10 @@ bool insideMatrix(){
 
 //            [[NSNotificationCenter defaultCenter] postNotificationName:@"requestRegainActiveStatus" object:self];
 
-//            [browserWindow makeKeyAndOrderFront:self];
+//            [self.browserController.browserWindow makeKeyAndOrderFront:self];
             //[self startKioskMode];
 //            [self regainActiveStatus:nil];
-            //[browserWindow setFrame:[[browserWindow screen] frame] display:YES];
+            //[self.browserController.browserWindow setFrame:[[self.browserController.browserWindow screen] frame] display:YES];
         }
     }
 }

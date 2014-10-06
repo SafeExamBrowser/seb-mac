@@ -7,7 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <WebKit/WebKit.h>
+#import "SEBBrowserWindow.h"
 
-@interface SEBBrowserController : NSObject
+@interface SEBBrowserController : NSObject {
+    
+
+}
+
+@property (strong) WebView *webView;
+@property (strong) SEBBrowserWindow *browserWindow;
+
+- (void) openMainBrowserWindow;
+- (void) adjustMainBrowserWindow;
+
+- (void)openResourceWithURL:(NSString *)URL andTitle:(NSString *)title;
+- (void) downloadAndOpenSebConfigFromURL:(NSURL *)url;
 
 @end
