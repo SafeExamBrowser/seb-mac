@@ -74,21 +74,15 @@
 
 
 //- (NSWindowCollectionBehavior)collectionBehavior {
-//    if ([[MyGlobals sharedMyGlobals] mainBrowserWindowIsFullScreen] == YES)
-//    {
-//        return NSWindowCollectionBehaviorFullScreenPrimary;
-//    }
-//    return NSWindowCollectionBehaviorDefault;
-//    
+
 //    return NSWindowCollectionBehaviorFullScreenAuxiliary | NSWindowCollectionBehaviorCanJoinAllSpaces;
-//  return NSWindowCollectionBehaviorFullScreenPrimary;
 //}
 
 
 // Closing of SEB Browser Window //
 - (BOOL)windowShouldClose:(id)sender
 {
-    if (self == [[MyGlobals sharedMyGlobals] mainBrowserWindow]) {
+    if (self == self.browserController.browserWindow) {
         // Post a notification that SEB should conditionally quit
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"requestExitNotification" object:self];
@@ -190,7 +184,7 @@
     NSString *windowWidth;
     NSString *windowHeight;
     NSInteger windowPositioning;
-    if (self == [[MyGlobals sharedMyGlobals] mainBrowserWindow]) {
+    if (self == self.browserController.browserWindow) {
         // This is the main browser window
         if (self.isFullScreen) {
             // Full screen windows cover the whole screen

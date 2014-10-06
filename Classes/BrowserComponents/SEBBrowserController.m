@@ -51,7 +51,6 @@
         [self.browserWindow setStyleMask:NSBorderlessWindowMask];
     }
     
-    [[MyGlobals sharedMyGlobals] setMainBrowserWindow:self.browserWindow]; //save a reference to this main browser window
     [self.browserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
     [self.browserWindow setCalculatedFrame];
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {

@@ -1505,7 +1505,7 @@ bool insideMatrix(){
 #endif
         // If plugins are enabled and there is a Flash view in the webview ...
         if ([[self.webView preferences] arePlugInsEnabled]) {
-            NSView* flashView = [(SEBBrowserWindow*)[[MyGlobals sharedMyGlobals] mainBrowserWindow] findFlashViewInView:webView];
+            NSView* flashView = [self.browserController.browserWindow findFlashViewInView:webView];
             if (flashView) {
                 if (!allowSwitchToThirdPartyApps || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowFlashFullscreen"]) {
                     // and either third party Apps or Flash fullscreen is allowed
