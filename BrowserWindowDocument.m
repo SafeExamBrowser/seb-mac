@@ -32,10 +32,10 @@
 //  Contributor(s): ______________________________________.
 //
 
-#import "MyDocument.h"
+#import "BrowserWindowDocument.h"
 #import "BrowserWindow.h"
 
-@implementation MyDocument
+@implementation BrowserWindowDocument
 
 @synthesize browserWindowController;
 

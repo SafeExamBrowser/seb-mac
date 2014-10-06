@@ -36,7 +36,7 @@
 #import "MyGlobals.h"
 #import "Constants.h"
 #import "SEBConfigFileManager.h"
-#import "MyDocument.h"
+#import "BrowserWindowDocument.h"
 #import "NSWindow+SEBWindow.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
@@ -44,7 +44,6 @@
 @implementation BrowserWindow
 
 @synthesize webView;
-@synthesize constrainingToScreenSuspended;
 
 
 // This window has its usual -constrainFrameRect:toScreen: behavior temporarily suppressed.
@@ -64,6 +63,7 @@
 }
 
 
+// Overriding setTitle method to adjust position of progress indicator
 - (void)setTitle:(NSString *)title
 {
     [super setTitle:title];
@@ -451,6 +451,7 @@ initiatedByFrame:(WebFrame *)frame {
 {
     // Report feedback only for the main frame.
     if (frame == [sender mainFrame]){
+        self.pageTitle = title;
         NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
         NSString* appTitleString = [NSString stringWithFormat:@"Safe Exam Browser %@  —  %@",
                                     versionString,
@@ -581,7 +582,7 @@ initiatedByFrame:(WebFrame *)frame {
             return nil; // cancel opening link
         }
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
-            MyDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
+            BrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
             WebView *newWindowWebView = myDocument.mainWindowController.webView;
 #ifdef DEBUG
             NSLog(@"Now opening new document browser window. %@", newWindowWebView); 
@@ -723,7 +724,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
             [[[MyGlobals sharedMyGlobals] currentMainHost] isEqualToString:[[request mainDocumentURL] host]]) {
             if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] == openInNewWindow) {
                 // Multiple browser windows
-                MyDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
+                BrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
                 //WebView *newWindowWebView = myDocument.mainWindowController.self.webView;
                 [myDocument.mainWindowController.window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
                 if ([preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {

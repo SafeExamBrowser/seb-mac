@@ -37,11 +37,11 @@
 
 @implementation CapView
 
+
 - (id)initWithFrame:(NSRect)frame {
     if ((self = [super initWithFrame:frame])) {
         // Initialization code here.
     }
-    
     return self;
 }
 

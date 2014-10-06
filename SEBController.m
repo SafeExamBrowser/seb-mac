@@ -50,7 +50,7 @@
 #include <IOKit/pwr_mgt/IOPMLib.h>
 #include <IOKit/IOMessage.h>
 
-#import "MyDocument.h"
+#import "BrowserWindowDocument.h"
 #import "PrefsBrowserViewController.h"
 #import "RNDecryptor.h"
 #import "SEBKeychainManager.h"
@@ -968,7 +968,7 @@ bool insideMatrix(){
     // Change window level of all open browser windows
     
     NSArray *openWindowDocuments = [[NSDocumentController sharedDocumentController] documents];
-    MyDocument *openWindowDocument;
+    BrowserWindowDocument *openWindowDocument;
     for (openWindowDocument in openWindowDocuments) {
         if (allowApps) {
             // Order new browser window to the front of our level
@@ -1098,7 +1098,7 @@ bool insideMatrix(){
     // Open and maximize the browser window
     // (this is done here, after presentation options are set,
     // because otherwise menu bar and dock are deducted from screen size)
-    MyDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
+    BrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
     self.webView = myDocument.mainWindowController.webView;
     browserWindow = (BrowserWindow *)myDocument.mainWindowController.window;
     // Set the flag indicating if the main browser window should be displayed full screen
@@ -1147,7 +1147,7 @@ bool insideMatrix(){
 
 - (void)openResourceWithURL:(NSString *)URL andTitle:(NSString *)title
 {
-    MyDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
+    BrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
     NSWindow *additionalBrowserWindow = myDocument.mainWindowController.window;
     [additionalBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
 	[(BrowserWindow *)additionalBrowserWindow setCalculatedFrame];

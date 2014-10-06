@@ -48,12 +48,11 @@
     NSString *downloadPath;
     NSView *progressIndicatorHolder;
     
-    BOOL constrainingToScreenSuspended;
 }
 
 @property (weak) IBOutlet WebView *webView;
-@property BOOL constrainingToScreenSuspended;
 @property BOOL isFullScreen;
+@property (strong, nonatomic) NSString *pageTitle;
 
 - (void) setCalculatedFrame;
 

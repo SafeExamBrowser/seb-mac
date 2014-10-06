@@ -36,9 +36,6 @@
 #import <Cocoa/Cocoa.h>
 
 @interface CapWindow : NSWindow {
-    BOOL constrainingToScreenSuspended;
 }
-
-@property BOOL constrainingToScreenSuspended;
 
 @end

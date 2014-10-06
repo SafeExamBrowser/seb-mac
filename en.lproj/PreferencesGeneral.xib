@@ -122,6 +122,7 @@
 						<string key="NSFrame">{{504, 13}, {132, 32}}</string>
 						<reference key="NSSuperview" ref="965820046"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSHuggingPriority">{250, 750}</string>
 						<string key="NSAntiCompressionPriority">{750, 750}</string>
 						<bool key="NSEnabled">YES</bool>

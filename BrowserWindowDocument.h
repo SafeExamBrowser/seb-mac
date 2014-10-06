@@ -36,7 +36,7 @@
 #import <WebKit/WebView.h>
 #import "BrowserWindowController.h"
 
-@interface MyDocument : NSDocument {
+@interface BrowserWindowDocument : NSDocument {
 @private
     BrowserWindowController *__strong browserWindowController;
 }
