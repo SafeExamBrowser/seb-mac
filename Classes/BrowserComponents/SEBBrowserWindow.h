@@ -38,7 +38,9 @@
 #import <WebKit/WebKit.h>
 
 #import "SEBEncryptedUserDefaultsController.h"
+#import "SEBBrowserController.h"
 
+@class SEBBrowserController;
 
 @interface SEBBrowserWindow : NSWindow <NSWindowDelegate, NSURLDownloadDelegate>
 
@@ -50,6 +52,7 @@
     
 }
 
+@property(weak) SEBBrowserController *browserController;
 @property (weak) IBOutlet WebView *webView;
 @property BOOL isFullScreen;
 @property (strong, nonatomic) NSString *pageTitle;
@@ -63,6 +66,5 @@
 
 - (NSView*) findFlashViewInView:(NSView*)view;
 
-- (void) downloadAndOpenSebConfigFromURL:(NSURL *)url;
 
 @end

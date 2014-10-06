@@ -126,7 +126,7 @@
 	[self.webView setResourceLoadDelegate:self];
     
     // Set group name to group related frames (so not to open several new windows)
-    [self.webView setGroupName:@"MyDocument"];
+    [self.webView setGroupName:@"SEBBrowserDocument"];
 
     // Close webView when the last document window is closed
     [self.webView setShouldCloseWithWindow:YES];
@@ -597,7 +597,7 @@ initiatedByFrame:(WebFrame *)frame {
             //create a new temporary, invisible WebView
             [tempWebView setPolicyDelegate:self];
             [tempWebView setUIDelegate:self];
-            [tempWebView setGroupName:@"MyDocument"];
+            [tempWebView setGroupName:@"SEBBrowserDocument"];
             [tempWebView setFrameLoadDelegate:self];
             return tempWebView;
         }
@@ -622,7 +622,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
     // Check if this is a seb:// link
     if ([request.URL.scheme isEqualToString:@"seb"]) {
         // If the scheme is seb:// we (conditionally) download and open the linked .seb file
-        [self downloadAndOpenSebConfigFromURL:request.URL];
+        [self.browserController downloadAndOpenSebConfigFromURL:request.URL];
         [listener ignore];
         return;
     }
@@ -852,7 +852,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (([type isEqualToString:@"application/seb"]) || ([request.URL.pathExtension isEqualToString:@"seb"])) {
         // If MIME-Type or extension of the file indicates a .seb file, we (conditionally) download and open it
-        [self downloadAndOpenSebConfigFromURL:request.URL];
+        [self.browserController downloadAndOpenSebConfigFromURL:request.URL];
         [listener ignore];
         return;
     }

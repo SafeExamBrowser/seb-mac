@@ -979,7 +979,8 @@ bool insideMatrix(){
         }
     }
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-	[self.browserController.browserWindow makeKeyAndOrderFront:self];
+	[self.browserController.browserWindow
+     makeKeyAndOrderFront:self];
 }
 
 
@@ -1296,7 +1297,7 @@ bool insideMatrix(){
     [self openSEBDock];
 
     // Reopen main browser window and load start URL
-    [self openMainBrowserWindow];
+    [self.browserController openMainBrowserWindow];
 
     // ToDo: Opening of additional resources (but not only here, also when starting SEB)
 //    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];

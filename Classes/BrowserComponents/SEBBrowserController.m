@@ -37,9 +37,12 @@
     // Open and maximize the browser window
     // (this is done here, after presentation options are set,
     // because otherwise menu bar and dock are deducted from screen size)
-    SEBBrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
-    self.webView = myDocument.mainWindowController.webView;
-    self.browserWindow = (SEBBrowserWindow *)myDocument.mainWindowController.window;
+    SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
+    self.webView = browserWindowDocument.mainWindowController.webView;
+
+    self.browserWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
+    // Set the reference to the browser controller in the browser window instance
+    self.browserWindow.browserController = self;
     // Set the flag indicating if the main browser window should be displayed full screen
     self.browserWindow.isFullScreen = mainBrowserWindowShouldBeFullScreen;
     
@@ -50,7 +53,7 @@
     
     [[MyGlobals sharedMyGlobals] setMainBrowserWindow:self.browserWindow]; //save a reference to this main browser window
     [self.browserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-    [self.self.browserWindow setCalculatedFrame];
+    [self.browserWindow setCalculatedFrame];
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
         [self.browserWindow newSetLevel:NSModalPanelWindowLevel];
         
@@ -91,10 +94,12 @@
     [self.browserWindow makeKeyAndOrderFront:self];
 }
 
+
+// Open an allowed additional resource in a new browser window
 - (void)openResourceWithURL:(NSString *)URL andTitle:(NSString *)title
 {
-    SEBBrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
-    NSWindow *additionalBrowserWindow = myDocument.mainWindowController.window;
+    SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
+    NSWindow *additionalBrowserWindow = browserWindowDocument.mainWindowController.window;
     [additionalBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
     [(SEBBrowserWindow *)additionalBrowserWindow setCalculatedFrame];
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
@@ -110,7 +115,7 @@
 #endif
     
     // Load start URL into browser window
-    [[myDocument.mainWindowController.webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:URL]]];
+    [[browserWindowDocument.mainWindowController.webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:URL]]];
 }
 
 

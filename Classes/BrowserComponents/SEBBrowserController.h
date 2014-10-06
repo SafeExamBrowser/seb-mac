@@ -10,10 +10,9 @@
 #import <WebKit/WebKit.h>
 #import "SEBBrowserWindow.h"
 
-@interface SEBBrowserController : NSObject {
-    
+@class SEBBrowserWindow;
 
-}
+@interface SEBBrowserController : NSObject
 
 @property (strong) WebView *webView;
 @property (strong) SEBBrowserWindow *browserWindow;

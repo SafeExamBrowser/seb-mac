@@ -91,8 +91,6 @@
 - (void) regainActiveStatus: (id)sender;
 - (void) SEBgotActive: (id)sender;
 - (void) startKioskMode;
-- (void) openMainBrowserWindow;
-- (void) openResourceWithURL:(NSString *)URL andTitle:(NSString *)title;
 
 - (NSInteger) showEnterPasswordDialog:(NSString *)text modalForWindow:(NSWindow *)window windowTitle:(NSString *)title;
 - (IBAction) okEnterPassword: (id)sender;
