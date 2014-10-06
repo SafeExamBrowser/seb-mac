@@ -29,7 +29,12 @@
         if (itemTitle) {
             NSRect frameRect = NSMakeRect(0,0,155,21); // This will change based on the size you need
             self.label = [[NSTextField alloc] initWithFrame:frameRect];
-            [self.label setTextColor:[NSColor whiteColor]];
+            if (![NSProcessInfo respondsToSelector:@selector(operatingSystemVersion)]) {
+                // We use white text color only when we have NSPopoverAppearanceHUD, so for OS X <= 10.9
+                [self.label setTextColor:[NSColor whiteColor]];
+            } else {
+                [self.label setTextColor:[NSColor blackColor]];
+            }
             self.label.bezeled = NO;
             self.label.editable = NO;
             self.label.drawsBackground = NO;
@@ -59,7 +64,10 @@
             
             // Add the label view controller as content view controller to the popover
             [popover setContentViewController:controller];
-            [popover setAppearance:NSPopoverAppearanceHUD];
+            if (![NSProcessInfo respondsToSelector:@selector(operatingSystemVersion)]) {
+                // We use NSPopoverAppearanceHUD only for OS X <= 10.9, not on OS X 10.10 upwards
+                [popover setAppearance:NSPopoverAppearanceHUD];
+            }
             [popover setAnimates:NO];
             self.labelPopover = popover;
         }

@@ -61,7 +61,7 @@
 
 - (void)makeWindowControllers {
     // Create the window controller and keep a reference to it.
-    SEBBrowserWindowController *aBrowserWindowController = [[SEBBrowserWindowController alloc] initWithWindowNibName:@"BrowserWindow"];
+    SEBBrowserWindowController *aBrowserWindowController = [[SEBBrowserWindowController alloc] initWithWindowNibName:@"SEBBrowserWindow"];
     [aBrowserWindowController setShouldCloseDocument:YES];
     [aBrowserWindowController showWindow:self];
     [self addWindowController:aBrowserWindowController];
