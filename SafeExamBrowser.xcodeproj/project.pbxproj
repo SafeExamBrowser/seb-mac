@@ -296,15 +296,15 @@
 		6921294116F91C6600AFC3B0 /* BoolValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoolValueTransformer.m; sourceTree = "<group>"; };
 		6921294516F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IsEmptyCollectionValueTransformer.h; sourceTree = "<group>"; };
 		6921294616F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IsEmptyCollectionValueTransformer.m; sourceTree = "<group>"; };
-		692891B012ACEBDC00EEE7C9 /* BrowserWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserWindow.h; sourceTree = "<group>"; };
-		692891B112ACEBDC00EEE7C9 /* BrowserWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BrowserWindow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		692891B012ACEBDC00EEE7C9 /* BrowserWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BrowserWindow.h; path = Classes/BrowserComponents/BrowserWindow.h; sourceTree = "<group>"; };
+		692891B112ACEBDC00EEE7C9 /* BrowserWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = BrowserWindow.m; path = Classes/BrowserComponents/BrowserWindow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		692F53D614AD03F300011C84 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		6932C9671191B7FE00688EBB /* SEBicon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = SEBicon.icns; sourceTree = "<group>"; };
 		693647F817122A0300EE41BC /* DropDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropDownButton.h; sourceTree = "<group>"; };
 		693647F917122A0300EE41BC /* DropDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropDownButton.m; sourceTree = "<group>"; };
 		693A94D711B68D8A0083C66D /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
-		693D5A1514C59B4300E37C68 /* BrowserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserWindowController.h; sourceTree = "<group>"; };
-		693D5A1614C59B4300E37C68 /* BrowserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BrowserWindowController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		693D5A1514C59B4300E37C68 /* BrowserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BrowserWindowController.h; path = Classes/BrowserComponents/BrowserWindowController.h; sourceTree = "<group>"; };
+		693D5A1614C59B4300E37C68 /* BrowserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = BrowserWindowController.m; path = Classes/BrowserComponents/BrowserWindowController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		693EB53C15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaultsController+SEBEncryptedUserDefaultsController.h"; sourceTree = "<group>"; };
 		693EB53D15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaultsController+SEBEncryptedUserDefaultsController.m"; sourceTree = "<group>"; };
 		693F135115767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+SEBEncryptedUserDefaults.h"; sourceTree = "<group>"; };
@@ -426,8 +426,8 @@
 		69F32DC716D23397003C9502 /* PreferencesAppearance.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesAppearance.xib; sourceTree = "<group>"; };
 		69F60FAC19AB7A7E00A5F650 /* MenuTriangleDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuTriangleDown.png; sourceTree = "<group>"; };
 		69F60FAD19AB7A7E00A5F650 /* MenuTriangleDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuTriangleDown@2x.png"; sourceTree = "<group>"; };
-		69F684CA143653880091CDA7 /* BrowserWindowDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserWindowDocument.h; sourceTree = "<group>"; };
-		69F684CB143653880091CDA7 /* BrowserWindowDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserWindowDocument.m; sourceTree = "<group>"; };
+		69F684CA143653880091CDA7 /* BrowserWindowDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BrowserWindowDocument.h; path = Classes/BrowserComponents/BrowserWindowDocument.h; sourceTree = "<group>"; };
+		69F684CB143653880091CDA7 /* BrowserWindowDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BrowserWindowDocument.m; path = Classes/BrowserComponents/BrowserWindowDocument.m; sourceTree = "<group>"; };
 		69F684CE1436550F0091CDA7 /* BrowserWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowserWindow.xib; sourceTree = "<group>"; };
 		69F7B62514F411FB00FD0761 /* Safe Exam Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Safe Exam Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		69F910FA16CA5C1C0041EA38 /* PreferencesNetwork.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesNetwork.xib; sourceTree = "<group>"; };
@@ -636,6 +636,8 @@
 		69428C93172E5E7300C87C58 /* Browser Components */ = {
 			isa = PBXGroup;
 			children = (
+				690C6EE419E29E3600EDE103 /* SEBBrowserController.h */,
+				690C6EE519E29E3600EDE103 /* SEBBrowserController.m */,
 				69F684CA143653880091CDA7 /* BrowserWindowDocument.h */,
 				69F684CB143653880091CDA7 /* BrowserWindowDocument.m */,
 				693D5A1514C59B4300E37C68 /* BrowserWindowController.h */,
@@ -644,8 +646,6 @@
 				692891B112ACEBDC00EEE7C9 /* BrowserWindow.m */,
 				69D817E318017DDB00EB7885 /* SEBURLFilter.h */,
 				69D817E418017DDB00EB7885 /* SEBURLFilter.m */,
-				690C6EE419E29E3600EDE103 /* SEBBrowserController.h */,
-				690C6EE519E29E3600EDE103 /* SEBBrowserController.m */,
 			);
 			name = "Browser Components";
 			sourceTree = "<group>";
