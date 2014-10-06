@@ -32,10 +32,10 @@
 //  Contributor(s): ______________________________________.
 //
 
-#import "BrowserWindowDocument.h"
-#import "BrowserWindow.h"
+#import "SEBBrowserWindowDocument.h"
+#import "SEBBrowserWindow.h"
 
-@implementation BrowserWindowDocument
+@implementation SEBBrowserWindowDocument
 
 @synthesize browserWindowController;
 
@@ -61,7 +61,7 @@
 
 - (void)makeWindowControllers {
     // Create the window controller and keep a reference to it.
-    BrowserWindowController *aBrowserWindowController = [[BrowserWindowController alloc] initWithWindowNibName:@"BrowserWindow"];
+    SEBBrowserWindowController *aBrowserWindowController = [[SEBBrowserWindowController alloc] initWithWindowNibName:@"BrowserWindow"];
     [aBrowserWindowController setShouldCloseDocument:YES];
     [aBrowserWindowController showWindow:self];
     [self addWindowController:aBrowserWindowController];
@@ -70,7 +70,7 @@
 }
 
 
-- (BrowserWindowController*)mainWindowController
+- (SEBBrowserWindowController*)mainWindowController
 {
     // Get window controllers
     NSArray*    windowControllers;
@@ -82,7 +82,7 @@
     // Get first window controller
     id  windowController;
     windowController = [windowControllers objectAtIndex:0];
-    if (![windowController isKindOfClass:[BrowserWindowController class]]) {
+    if (![windowController isKindOfClass:[SEBBrowserWindowController class]]) {
         return nil;
     }
     

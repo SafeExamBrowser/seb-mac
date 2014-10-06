@@ -45,7 +45,7 @@
 #import "CapWindowController.h"
 
 #import "AboutWindow.h"
-#import "BrowserWindow.h"
+#import "SEBBrowserWindow.h"
 
 #import "SEBDockController.h"
 #import "SEBDockItem.h"
@@ -65,7 +65,7 @@
 	BOOL firstStart;
     BOOL quittingMyself;
 
-	BrowserWindow *browserWindow;
+	SEBBrowserWindow *browserWindow;
 	IBOutlet AboutWindow *aboutWindow;
     IBOutlet NSMenuItem *configMenu;
     IBOutlet NSMenu *settingsMenu;

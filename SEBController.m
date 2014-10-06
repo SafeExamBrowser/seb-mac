@@ -50,7 +50,7 @@
 #include <IOKit/pwr_mgt/IOPMLib.h>
 #include <IOKit/IOMessage.h>
 
-#import "BrowserWindowDocument.h"
+#import "SEBBrowserWindowDocument.h"
 #import "PrefsBrowserViewController.h"
 #import "RNDecryptor.h"
 #import "SEBKeychainManager.h"
@@ -968,7 +968,7 @@ bool insideMatrix(){
     // Change window level of all open browser windows
     
     NSArray *openWindowDocuments = [[NSDocumentController sharedDocumentController] documents];
-    BrowserWindowDocument *openWindowDocument;
+    SEBBrowserWindowDocument *openWindowDocument;
     for (openWindowDocument in openWindowDocuments) {
         if (allowApps) {
             // Order new browser window to the front of our level
@@ -1098,9 +1098,9 @@ bool insideMatrix(){
     // Open and maximize the browser window
     // (this is done here, after presentation options are set,
     // because otherwise menu bar and dock are deducted from screen size)
-    BrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
+    SEBBrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
     self.webView = myDocument.mainWindowController.webView;
-    browserWindow = (BrowserWindow *)myDocument.mainWindowController.window;
+    browserWindow = (SEBBrowserWindow *)myDocument.mainWindowController.window;
     // Set the flag indicating if the main browser window should be displayed full screen
     browserWindow.isFullScreen = mainBrowserWindowShouldBeFullScreen;
     
@@ -1111,7 +1111,7 @@ bool insideMatrix(){
     
     [[MyGlobals sharedMyGlobals] setMainBrowserWindow:browserWindow]; //save a reference to this main browser window
     [browserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-	[(BrowserWindow *)browserWindow setCalculatedFrame];
+	[(SEBBrowserWindow *)browserWindow setCalculatedFrame];
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
         [browserWindow newSetLevel:NSModalPanelWindowLevel];
 
@@ -1147,10 +1147,10 @@ bool insideMatrix(){
 
 - (void)openResourceWithURL:(NSString *)URL andTitle:(NSString *)title
 {
-    BrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
+    SEBBrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
     NSWindow *additionalBrowserWindow = myDocument.mainWindowController.window;
     [additionalBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-	[(BrowserWindow *)additionalBrowserWindow setCalculatedFrame];
+	[(SEBBrowserWindow *)additionalBrowserWindow setCalculatedFrame];
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
         [additionalBrowserWindow newSetLevel:NSModalPanelWindowLevel];
     }
@@ -1594,7 +1594,7 @@ bool insideMatrix(){
 #endif
         // If plugins are enabled and there is a Flash view in the webview ...
         if ([[self.webView preferences] arePlugInsEnabled]) {
-            NSView* flashView = [(BrowserWindow*)[[MyGlobals sharedMyGlobals] mainBrowserWindow] findFlashViewInView:webView];
+            NSView* flashView = [(SEBBrowserWindow*)[[MyGlobals sharedMyGlobals] mainBrowserWindow] findFlashViewInView:webView];
             if (flashView) {
                 if (!allowSwitchToThirdPartyApps || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowFlashFullscreen"]) {
                     // and either third party Apps or Flash fullscreen is allowed

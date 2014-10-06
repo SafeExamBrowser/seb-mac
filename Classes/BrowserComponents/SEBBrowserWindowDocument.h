@@ -1,8 +1,8 @@
 //
-//  BrowserWindowController.h
+//  MyDocument.h
 //  SafeExamBrowser
 //
-//  Created by Daniel Schneider on 17.01.12.
+//  Created by Daniel R. Schneider on 06.12.10.
 //  Copyright (c) 2010-2014 Daniel R. Schneider, ETH Zurich, 
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
@@ -34,20 +34,16 @@
 
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebView.h>
+#import "SEBBrowserWindowController.h"
 
-@interface BrowserWindowController : NSWindowController <NSWindowDelegate>
-{
+@interface SEBBrowserWindowDocument : NSDocument {
 @private
-     //IBOutlet WebView *webView;
-    NSRect frameForNonFullScreenMode;
+    SEBBrowserWindowController *__strong browserWindowController;
 }
 
-@property (assign) NSRect frameForNonFullScreenMode;
-@property (weak) IBOutlet WebView *webView;
+@property (nonatomic, strong) SEBBrowserWindowController *browserWindowController;
 
-- (IBAction) backForward: (id)sender;
-- (IBAction) zoomText: (id)sender;
-
-//- (id) webView;
+- (SEBBrowserWindowController*)mainWindowController;
+//- (void)document:(NSDocument *)doc shouldClose:(BOOL)shouldClose contextInfo:(void  *)contextInfo;
 
 @end

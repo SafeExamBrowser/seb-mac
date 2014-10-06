@@ -32,16 +32,16 @@
 //  Contributor(s): ______________________________________.
 //
 
-#import "BrowserWindow.h"
+#import "SEBBrowserWindow.h"
 #import "MyGlobals.h"
 #import "Constants.h"
 #import "SEBConfigFileManager.h"
-#import "BrowserWindowDocument.h"
+#import "SEBBrowserWindowDocument.h"
 #import "NSWindow+SEBWindow.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 
-@implementation BrowserWindow
+@implementation SEBBrowserWindow
 
 @synthesize webView;
 
@@ -582,7 +582,7 @@ initiatedByFrame:(WebFrame *)frame {
             return nil; // cancel opening link
         }
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
-            BrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
+            SEBBrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
             WebView *newWindowWebView = myDocument.mainWindowController.webView;
 #ifdef DEBUG
             NSLog(@"Now opening new document browser window. %@", newWindowWebView); 
@@ -724,7 +724,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
             [[[MyGlobals sharedMyGlobals] currentMainHost] isEqualToString:[[request mainDocumentURL] host]]) {
             if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] == openInNewWindow) {
                 // Multiple browser windows
-                BrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
+                SEBBrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
                 //WebView *newWindowWebView = myDocument.mainWindowController.self.webView;
                 [myDocument.mainWindowController.window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
                 if ([preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {

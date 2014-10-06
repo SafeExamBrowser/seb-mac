@@ -32,14 +32,14 @@
 //  Contributor(s): ______________________________________.
 //
 
-#import "BrowserWindowController.h"
+#import "SEBBrowserWindowController.h"
 #import "MyGlobals.h"
 #import <WebKit/WebKit.h>
-#import "BrowserWindow.h"
+#import "SEBBrowserWindow.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 
-@implementation BrowserWindowController
+@implementation SEBBrowserWindowController
 
 @synthesize webView;
 @synthesize frameForNonFullScreenMode;
@@ -61,7 +61,7 @@
     [super windowDidLoad];
     
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
-    BrowserWindow *browserWindow = (BrowserWindow *)self.window;
+    SEBBrowserWindow *browserWindow = (SEBBrowserWindow *)self.window;
     [browserWindow setCalculatedFrame];
     //[browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
 //    [browserWindow setCollectionBehavior:NSWindowCollectionBehaviorStationary | NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary];

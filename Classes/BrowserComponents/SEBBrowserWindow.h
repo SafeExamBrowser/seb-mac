@@ -1,6 +1,6 @@
 //
-//  MyDocument.h
-//  SafeExamBrowser
+//  BrowserWindow.h
+//  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 06.12.10.
 //  Copyright (c) 2010-2014 Daniel R. Schneider, ETH Zurich, 
@@ -32,18 +32,37 @@
 //  Contributor(s): ______________________________________.
 //
 
-#import <Cocoa/Cocoa.h>
-#import <WebKit/WebView.h>
-#import "BrowserWindowController.h"
+// Browser window class, also containing all the web view delegates
 
-@interface BrowserWindowDocument : NSDocument {
-@private
-    BrowserWindowController *__strong browserWindowController;
+#import <Cocoa/Cocoa.h>
+#import <WebKit/WebKit.h>
+
+#import "SEBEncryptedUserDefaultsController.h"
+
+
+@interface SEBBrowserWindow : NSWindow <NSWindowDelegate, NSURLDownloadDelegate>
+
+{
+    WebView *requestingWebView;
+    NSString *currentURL;
+    NSString *downloadPath;
+    NSView *progressIndicatorHolder;
+    
 }
 
-@property (nonatomic, strong) BrowserWindowController *browserWindowController;
+@property (weak) IBOutlet WebView *webView;
+@property BOOL isFullScreen;
+@property (strong, nonatomic) NSString *pageTitle;
 
-- (BrowserWindowController*)mainWindowController;
-//- (void)document:(NSDocument *)doc shouldClose:(BOOL)shouldClose contextInfo:(void  *)contextInfo;
+- (void) setCalculatedFrame;
+
+- (void) startProgressIndicatorAnimation;
+- (void) stopProgressIndicatorAnimation;
+
+- (void) startDownloadingURL:(NSURL *)url;
+
+- (NSView*) findFlashViewInView:(NSView*)view;
+
+- (void) downloadAndOpenSebConfigFromURL:(NSURL *)url;
 
 @end
