@@ -50,7 +50,6 @@
 #include <IOKit/pwr_mgt/IOPMLib.h>
 #include <IOKit/IOMessage.h>
 
-#import "SEBBrowserWindowDocument.h"
 #import "PrefsBrowserViewController.h"
 #import "RNDecryptor.h"
 #import "SEBKeychainManager.h"
@@ -966,21 +965,7 @@ bool insideMatrix(){
     }
     
     // Change window level of all open browser windows
-    
-    NSArray *openWindowDocuments = [[NSDocumentController sharedDocumentController] documents];
-    SEBBrowserWindowDocument *openWindowDocument;
-    for (openWindowDocument in openWindowDocuments) {
-        if (allowApps) {
-            // Order new browser window to the front of our level
-            [openWindowDocument.mainWindowController.window newSetLevel:NSNormalWindowLevel];
-            [openWindowDocument.mainWindowController.window orderFront:self];
-        } else {
-            [openWindowDocument.mainWindowController.window newSetLevel:NSModalPanelWindowLevel];
-        }
-    }
-    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-	[self.browserController.browserWindow
-     makeKeyAndOrderFront:self];
+    [self.browserController allBrowserWindowsChangeLevel:allowApps];
 }
 
 
@@ -1044,7 +1029,13 @@ bool insideMatrix(){
         }
         
         // Add dock icons/items
-        SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:@"Safe Exam Browser" icon:[NSApp applicationIconImage] toolTip:nil menu:settingsMenu target:self action:@selector(buttonPressed)];
+        NSMenu *SEBDockMenu = [[NSMenu alloc] initWithTitle:@""];
+        [SEBDockMenu addItemWithTitle:@"" action:nil keyEquivalent:@""];
+        NSMenuItem *SEBDockMenuItemMainWindow = [[NSMenuItem alloc] initWithTitle: @"Main SEB Browser Window" action:@selector(buttonPressed) keyEquivalent: @""];
+        [SEBDockMenu addItem:SEBDockMenuItemMainWindow];
+//        [SEBDockMenu addItem:[SEBDockMenuItemMainWindow copy]];
+        
+        SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:@"Safe Exam Browser" icon:[NSApp applicationIconImage] toolTip:nil menu:SEBDockMenu target:self action:@selector(buttonPressed)];
         
         SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil icon:[NSImage imageNamed:@"SEBShutDownIcon"] toolTip:@"Quit SEB" menu:nil target:self action:@selector(quitButtonPressed)];
         

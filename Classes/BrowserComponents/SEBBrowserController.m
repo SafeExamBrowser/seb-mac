@@ -17,6 +17,51 @@
 @implementation SEBBrowserController
 
 
+// Open a new browser window
+- (WebView *) openWebViewWithRequest:(NSURLRequest *)request sender:(WebView *)sender
+{
+    // Multiple browser windows
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] != getGenerallyBlocked) {
+        NSApplicationPresentationOptions presentationOptions = [NSApp currentSystemPresentationOptions];
+#ifdef DEBUG
+        NSLog(@"Current System Presentation Options: %lx",(long)presentationOptions);
+        NSLog(@"Saved System Presentation Options: %lx",(long)[[MyGlobals sharedMyGlobals] presentationOptions]);
+#endif
+        if ((presentationOptions != [[MyGlobals sharedMyGlobals] presentationOptions]) || ([[MyGlobals sharedMyGlobals] flashChangedPresentationOptions])) {
+            // request to open link in new window came from the flash plugin context menu while playing video in full screen mode
+#ifdef DEBUG
+            NSLog(@"Cancel opening link");
+#endif
+            return nil; // cancel opening link
+        }
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
+            SEBBrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
+            WebView *newWindowWebView = myDocument.mainWindowController.webView;
+#ifdef DEBUG
+            NSLog(@"Now opening new document browser window. %@", newWindowWebView);
+            NSLog(@"Link requested to be opened from %@", sender);
+#endif
+            //[[sender preferences] setPlugInsEnabled:NO];
+            [[newWindowWebView mainFrame] loadRequest:request];
+            return newWindowWebView;
+        }
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
+            WebView *tempWebView = [[WebView alloc] init];
+            //create a new temporary, invisible WebView
+            [tempWebView setPolicyDelegate:sender.window];
+            [tempWebView setUIDelegate:sender.window];
+            [tempWebView setGroupName:@"SEBBrowserDocument"];
+            [tempWebView setFrameLoadDelegate:sender.window];
+            return tempWebView;
+        }
+        return nil;
+    } else {
+        return nil;
+    }
+}
+
+
 // Set up SEB Browser and open the main window
 - (void) openMainBrowserWindow {
     
@@ -91,6 +136,26 @@
 {
     [self.browserWindow setCalculatedFrame];
     [self.browserWindow makeKeyAndOrderFront:self];
+}
+
+
+// Change window level of all open browser windows
+- (void) allBrowserWindowsChangeLevel:(BOOL)allowApps
+{
+    NSArray *openWindowDocuments = [[NSDocumentController sharedDocumentController] documents];
+    SEBBrowserWindowDocument *openWindowDocument;
+    for (openWindowDocument in openWindowDocuments) {
+        if (allowApps) {
+            // Order new browser window to the front of our level
+            [openWindowDocument.mainWindowController.window newSetLevel:NSNormalWindowLevel];
+            [openWindowDocument.mainWindowController.window orderFront:self];
+        } else {
+            [openWindowDocument.mainWindowController.window newSetLevel:NSModalPanelWindowLevel];
+        }
+    }
+    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+    [self.browserWindow
+     makeKeyAndOrderFront:self];
 }
 
 

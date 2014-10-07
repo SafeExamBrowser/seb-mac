@@ -17,10 +17,12 @@
 @property (strong) WebView *webView;
 @property (strong) SEBBrowserWindow *browserWindow;
 
+- (WebView *) openWebViewWithRequest:(NSURLRequest *)request sender:(WebView *)sender;
 - (void) openMainBrowserWindow;
 - (void) adjustMainBrowserWindow;
+- (void) allBrowserWindowsChangeLevel:(BOOL)allowApps;
 
-- (void)openResourceWithURL:(NSString *)URL andTitle:(NSString *)title;
+- (void) openResourceWithURL:(NSString *)URL andTitle:(NSString *)title;
 - (void) downloadAndOpenSebConfigFromURL:(NSURL *)url;
 
 @end

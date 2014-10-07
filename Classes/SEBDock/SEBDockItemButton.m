@@ -29,7 +29,7 @@
         if (itemTitle) {
             NSRect frameRect = NSMakeRect(0,0,155,21); // This will change based on the size you need
             self.label = [[NSTextField alloc] initWithFrame:frameRect];
-            if (![NSProcessInfo respondsToSelector:@selector(operatingSystemVersion)]) {
+            if (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_9) {
                 // We use white text color only when we have NSPopoverAppearanceHUD, so for OS X <= 10.9
                 [self.label setTextColor:[NSColor whiteColor]];
             } else {
@@ -64,7 +64,7 @@
             
             // Add the label view controller as content view controller to the popover
             [popover setContentViewController:controller];
-            if (![NSProcessInfo respondsToSelector:@selector(operatingSystemVersion)]) {
+            if (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_9) {
                 // We use NSPopoverAppearanceHUD only for OS X <= 10.9, not on OS X 10.10 upwards
                 [popover setAppearance:NSPopoverAppearanceHUD];
             }
@@ -81,8 +81,8 @@
             if (SEBDockMenuWidth > 500) {
                 SEBDockMenuWidth = 500;
             }
-            NSView *SEBDockMenuView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, SEBDockMenuSize.width-12, SEBDockMenuSize.height - 30)];
-            DropDownButton *dockMenuDropDownButton = [[DropDownButton alloc] initWithFrame:NSMakeRect(-4, 14, 0, 0)];
+            NSView *SEBDockMenuView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, SEBDockMenuSize.width-13, SEBDockMenuSize.height - 22)];
+            DropDownButton *dockMenuDropDownButton = [[DropDownButton alloc] initWithFrame:NSMakeRect(-4, 36, 0, 0)];
             self.dockMenuDropDownButton = dockMenuDropDownButton;
             [dockMenuDropDownButton setMenu:self.SEBDockMenu];
             [SEBDockMenuView addSubview:dockMenuDropDownButton];

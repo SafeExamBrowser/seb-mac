@@ -558,47 +558,9 @@ initiatedByFrame:(WebFrame *)frame {
 // Opening Links in New Windows //
 
 // Handling of requests to open a link in a new window (including Javascript commands)
-- (WebView *)webView:(WebView *)sender createWebViewWithRequest:(NSURLRequest *)request {
-    // Single browser window: [[self.webView mainFrame] loadRequest:request];
-    // Multiple browser windows
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] != getGenerallyBlocked) {
-        NSApplicationPresentationOptions presentationOptions = [NSApp currentSystemPresentationOptions];
-#ifdef DEBUG
-        NSLog(@"Current System Presentation Options: %lx",(long)presentationOptions);
-        NSLog(@"Saved System Presentation Options: %lx",(long)[[MyGlobals sharedMyGlobals] presentationOptions]);
-#endif
-        if ((presentationOptions != [[MyGlobals sharedMyGlobals] presentationOptions]) || ([[MyGlobals sharedMyGlobals] flashChangedPresentationOptions])) {
-            // request to open link in new window came from the flash plugin context menu while playing video in full screen mode
-#ifdef DEBUG
-            NSLog(@"Cancel opening link");
-#endif
-            return nil; // cancel opening link
-        }
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
-            SEBBrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
-            WebView *newWindowWebView = myDocument.mainWindowController.webView;
-#ifdef DEBUG
-            NSLog(@"Now opening new document browser window. %@", newWindowWebView); 
-            NSLog(@"Reqested from %@",sender); 
-#endif
-            //[[sender preferences] setPlugInsEnabled:NO];
-            [[newWindowWebView mainFrame] loadRequest:request];
-            return newWindowWebView;
-        }
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
-            WebView *tempWebView = [[WebView alloc] init];
-            //create a new temporary, invisible WebView
-            [tempWebView setPolicyDelegate:self];
-            [tempWebView setUIDelegate:self];
-            [tempWebView setGroupName:@"SEBBrowserDocument"];
-            [tempWebView setFrameLoadDelegate:self];
-            return tempWebView;
-        }
-        return nil;
-    } else {
-        return nil;
-    }
+- (WebView *)webView:(WebView *)sender createWebViewWithRequest:(NSURLRequest *)request
+{
+    return [self.browserController openWebViewWithRequest:request sender:sender];
 }
 
 

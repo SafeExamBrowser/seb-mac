@@ -56,6 +56,9 @@
     return self;
 }
 
+
+#pragma mark Delegates
+
 - (void)windowDidLoad
 {
     [super windowDidLoad];
