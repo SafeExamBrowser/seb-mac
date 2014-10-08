@@ -178,6 +178,7 @@ bool insideMatrix();
 
         [[MyGlobals sharedMyGlobals] setPreferencesReset:NO];
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
+        [MyGlobals sharedMyGlobals].reconfiguredWhileStarting = NO;
         
         [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
 #ifdef DEBUG
@@ -565,15 +566,11 @@ bool insideMatrix();
     NSLog(@"Performing after start actions");
 #endif
 
-//    // Switch to kiosk mode by setting the proper presentation options
-//    [self startKioskMode];
-//    
-//    // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
-//    [self coverScreens];
-
     // Reinforce the kiosk mode
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"requestReinforceKioskMode" object:self];
+    [self requestedReinforceKioskMode:nil];
+    
+//    [[NSNotificationCenter defaultCenter]
+//     postNotificationName:@"requestReinforceKioskMode" object:self];
     
     if ([[MyGlobals sharedMyGlobals] preferencesReset] == YES) {
 #ifdef DEBUG
@@ -584,7 +581,29 @@ bool insideMatrix();
     
     // Check if there is a SebClientSettings.seb file saved in the preferences directory
     SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-    [configFileManager reconfigureClientWithSebClientSettings];
+    if (![configFileManager reconfigureClientWithSebClientSettings] && [MyGlobals sharedMyGlobals].reconfiguredWhileStarting) {
+        // Show alert that SEB was reconfigured
+        NSAlert *newAlert = [[NSAlert alloc] init];
+        [newAlert setMessageText:NSLocalizedString(@"SEB Re-Configured", nil)];
+        [newAlert setInformativeText:NSLocalizedString(@"Local settings of this SEB client have been reconfigured. Do you want to start working with SEB now or quit?", nil)];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"Start", nil)];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+        int answer = [newAlert runModal];
+        switch(answer)
+        {
+            case NSAlertFirstButtonReturn:
+                
+                break; //Continue running SEB
+                
+            case NSAlertSecondButtonReturn:
+            {
+//                [[NSNotificationCenter defaultCenter]
+//                 postNotificationName:@"requestQuitNotification" object:self];
+                [self performSelector:@selector(requestedQuit:) withObject: nil afterDelay: 3];
+            }
+                
+        }
+    }
     
     // Set flag that SEB is initialized: Now showing alerts is allowed
     [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
@@ -597,6 +616,7 @@ bool insideMatrix();
     NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Local SEB Settings Have Been Reset", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:NSLocalizedString(@"Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.", nil)];
     [newAlert setAlertStyle:NSCriticalAlertStyle];
     [newAlert runModal];
+    newAlert = nil;
 
 #ifdef DEBUG
     NSLog(@"Dismissed alert for local SEB settings have been reset");

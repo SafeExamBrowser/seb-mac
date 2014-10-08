@@ -203,7 +203,7 @@
         if ([[MyGlobals sharedMyGlobals] finishedInitializing]) {
             NSAlert *newAlert = [[NSAlert alloc] init];
             [newAlert setMessageText:NSLocalizedString(@"SEB Re-Configured", nil)];
-            [newAlert setInformativeText:NSLocalizedString(@"Local settings of this SEB client have been reconfigured. Do you want to start working with SEB now or quit?", nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"Local settings of this SEB client have been reconfigured. Do you want to continue working with SEB now or quit?", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Continue", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
             int answer = [newAlert runModal];
@@ -218,6 +218,9 @@
                     self.sebController.quittingMyself = TRUE; //SEB is terminating itself
                     [NSApp terminate: nil]; //quit SEB
             }
+        } else {
+            // Set the flag to eventually display the dialog later
+            [MyGlobals sharedMyGlobals].reconfiguredWhileStarting = YES;
         }
         
         // If opening the preferences window is allowed

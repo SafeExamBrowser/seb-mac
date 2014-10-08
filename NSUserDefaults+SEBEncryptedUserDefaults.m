@@ -492,10 +492,6 @@ static BOOL _usePrivateUserDefaults = NO;
     NSLog(@"Local preferences (client settings) set");
 #endif
 
-//    // Check if there is a SebClientSettings.seb file saved in the preferences directory
-//    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-//    [configFileManager reconfigureClientWithSebClientSettings];
-
     return firstStart;
 }
 
