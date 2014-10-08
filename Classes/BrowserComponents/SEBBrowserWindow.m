@@ -149,6 +149,12 @@
        withKeyPath:@"values.org_safeexambrowser_SEB_blockPopUpWindows"
            options:bindingOptions];
     
+    WebCacheModel defaultWebCacheModel = [webPrefs cacheModel];
+#ifdef DEBUG
+    NSLog(@"Default WebPreferences cacheModel: %lu", defaultWebCacheModel);
+#endif
+    [webPrefs setCacheModel:WebCacheModelPrimaryWebBrowser];
+    
     [self.webView setPreferences:webPrefs];
     
     [self.webView bind:@"maintainsBackForwardList"
@@ -340,33 +346,7 @@
 }
 
 
-#pragma mark Delegates
-
-//- (void)windowDidBecomeMain:(NSNotification *)notification {
-//#ifdef DEBUG
-//    NSLog(@"BrowserWindow %@ did become main", self);
-//#endif
-//    static BOOL shouldGoFullScreen = YES;
-//    if (shouldGoFullScreen) {
-//        if (!([self styleMask] & NSFullScreenWindowMask))
-//            [self toggleFullScreen:nil];
-//        shouldGoFullScreen = NO;
-//    }
-//
-//}
-
-
-- (void)windowDidBecomeKey:(NSNotification *)notification {
-#ifdef DEBUG
-    NSLog(@"BrowserWindow %@ did become key", self);
-#endif
-}
-
-
-- (void)windowWillClose:(NSNotification *)notification {
-    self.webView = nil;
-}
-
+#pragma mark Overriding NSWindow Methods
 
 // This method is called by NSWindow’s zoom: method while determining the frame a window may be zoomed to
 // We override the size calculation to take SEB Dock in account if it's displayed
@@ -384,6 +364,8 @@
 
 
 #pragma mark WebView Delegates
+
+#pragma mark WebUIDelegate Protocol
 
 // Delegate method for disabling right-click context menu
 - (NSArray *)webView:(WebView *)sender contextMenuItemsForElement:(NSDictionary *)element 
@@ -409,6 +391,8 @@ initiatedByFrame:(WebFrame *)frame {
 }
 
 
+#pragma mark WebFrameLoadDelegates
+
 // Get the URL of the page being loaded
 - (void)webView:(WebView *)sender didStartProvisionalLoadForFrame:(WebFrame *)frame {
 #ifdef DEBUG
@@ -417,7 +401,7 @@ initiatedByFrame:(WebFrame *)frame {
     [self startProgressIndicatorAnimation];
     // Only report feedback for the main frame.
     if (frame == [sender mainFrame]){
-        [[MyGlobals sharedMyGlobals] setCurrentMainHost:[[[[frame provisionalDataSource] request] URL] host]];
+        self.browserController.currentMainHost = [[[[frame provisionalDataSource] request] URL] host];
         //reset the flag for presentation option changes by flash
         [[MyGlobals sharedMyGlobals] setFlashChangedPresentationOptions:NO];
     }
@@ -429,12 +413,23 @@ initiatedByFrame:(WebFrame *)frame {
 }
 
 
+- (void)webView:(WebView *)sender
+willPerformClientRedirectToURL:(NSURL *)URL
+          delay:(NSTimeInterval)seconds
+       fireDate:(NSDate *)date
+       forFrame:(WebFrame *)frame
+{
+#ifdef DEBUG
+    NSLog(@"willPerformClientRedirectToURL: %@", URL);
+#endif
+}
+
 // Update the URL of the current page in case of a server redirect
 - (void)webView:(WebView *)sender didReceiveServerRedirectForProvisionalLoadForFrame:(WebFrame *)frame {
     //[self stopProgressIndicatorAnimation];
     // Only report feedback for the main frame.
     if (frame == [sender mainFrame]){
-        [[MyGlobals sharedMyGlobals] setCurrentMainHost:[[[[frame provisionalDataSource] request] URL] host]];
+        self.browserController.currentMainHost = [[[[frame provisionalDataSource] request] URL] host];
         //reset the flag for presentation option changes by flash
         [[MyGlobals sharedMyGlobals] setFlashChangedPresentationOptions:NO];
     }
@@ -464,6 +459,17 @@ initiatedByFrame:(WebFrame *)frame {
     }
 }
 
+
+- (void)webView:(WebView *)sender didClearWindowObject:(WebScriptObject *)windowObject
+       forFrame:(WebFrame *)frame
+{
+#ifdef DEBUG
+    NSLog(@"webView: %@ didClearWindowObject: %@ forFrame: %@", sender, windowObject, frame);
+#endif
+}
+
+
+#pragma mark WebResourceLoadDelegate Protocol
 
 - (NSURLRequest *)webView:(WebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource
 {
@@ -555,12 +561,69 @@ initiatedByFrame:(WebFrame *)frame {
 }
 
 
+- (void)webView:(WebView *)sender plugInFailedWithError:(NSError *)error
+     dataSource:(WebDataSource *)dataSource
+{
+#ifdef DEBUG
+    NSLog(@"webView: %@ plugInFailedWithError: %@ dataSource: %@", sender, error, dataSource);
+#endif
+}
+
+
+- (void)webView:(WebView *)sender resource:(id)identifier didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+ fromDataSource:(WebDataSource *)dataSource
+{
+#ifdef DEBUG
+    NSLog(@"webView: %@ resource: %@ didReceiveAuthenticationChallenge: %@ fromDataSource: %@", sender, identifier, challenge, dataSource);
+#endif
+}
+
+
 // Opening Links in New Windows //
 
 // Handling of requests to open a link in a new window (including Javascript commands)
 - (WebView *)webView:(WebView *)sender createWebViewWithRequest:(NSURLRequest *)request
 {
-    return [self.browserController openWebViewWithRequest:request sender:sender];
+    // Single browser window: [[self.webView mainFrame] loadRequest:request];
+    // Multiple browser windows
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] != getGenerallyBlocked) {
+        NSApplicationPresentationOptions presentationOptions = [NSApp currentSystemPresentationOptions];
+#ifdef DEBUG
+        NSLog(@"Current System Presentation Options: %lx",(long)presentationOptions);
+        NSLog(@"Saved System Presentation Options: %lx",(long)[[MyGlobals sharedMyGlobals] presentationOptions]);
+#endif
+        if ((presentationOptions != [[MyGlobals sharedMyGlobals] presentationOptions]) || ([[MyGlobals sharedMyGlobals] flashChangedPresentationOptions])) {
+            // request to open link in new window came from the flash plugin context menu while playing video in full screen mode
+#ifdef DEBUG
+            NSLog(@"Cancel opening link");
+#endif
+            return nil; // cancel opening link
+        }
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
+            SEBBrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
+            WebView *newWindowWebView = myDocument.mainWindowController.webView;
+#ifdef DEBUG
+            NSLog(@"Now opening new document browser window. %@", newWindowWebView);
+            NSLog(@"Reqested from %@",sender);
+#endif
+            //[[sender preferences] setPlugInsEnabled:NO];
+            [[newWindowWebView mainFrame] loadRequest:request];
+            return newWindowWebView;
+        }
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
+            WebView *tempWebView = [[WebView alloc] init];
+            //create a new temporary, invisible WebView
+            [tempWebView setPolicyDelegate:self];
+            [tempWebView setUIDelegate:self];
+            [tempWebView setGroupName:@"SEBBrowserDocument"];
+            [tempWebView setFrameLoadDelegate:self];
+            return tempWebView;
+        }
+        return nil;
+    } else {
+        return nil;
+    }
 }
 
 
@@ -591,7 +654,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         return;
     }
     
-    NSString *currentMainHost = [[MyGlobals sharedMyGlobals] currentMainHost];
+    NSString *currentMainHost = self.browserController.currentMainHost;
     if (currentMainHost && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == getGenerallyBlocked) {
         [listener ignore];
         return;
@@ -677,7 +740,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
     if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] != getGenerallyBlocked) {
         // load link only if it's on the same host like the one of the current page
         if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkBlockForeign"] ||
-            [[[MyGlobals sharedMyGlobals] currentMainHost] isEqualToString:[[request mainDocumentURL] host]]) {
+            [self.browserController.currentMainHost isEqualToString:[[request mainDocumentURL] host]]) {
             if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] == openInNewWindow) {
                 // Multiple browser windows
                 SEBBrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
@@ -850,15 +913,24 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
             switch(answer) {
                 case NSAlertDefaultReturn:
                     //Retry: try reloading
-                    //[[MyGlobals sharedMyGlobals] setCurrentMainHost:nil];
+                    //self.browserController.currentMainHost = nil;
                     [[sender mainFrame] loadRequest:
-                     [NSURLRequest requestWithURL:[NSURL URLWithString:[[MyGlobals sharedMyGlobals] currentMainHost]]]];
+                     [NSURLRequest requestWithURL:[NSURL URLWithString:self.browserController.currentMainHost]]];
                     return;
                 default:
                     return;
             }
         }
 	}
+}
+
+
+- (void)webView:(WebView *)sender unableToImplementPolicyWithError:(NSError *)error
+          frame:(WebFrame *)frame
+{
+#ifdef DEBUG
+    NSLog(@"webView: %@ unableToImplementPolicyWithError: %@ frame: %@", sender, error, frame);
+#endif
 }
 
 
@@ -880,9 +952,9 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
             switch(answer) {
                 case NSAlertDefaultReturn:
                     //Retry: try reloading
-                    //[[MyGlobals sharedMyGlobals] setCurrentMainHost:nil];
+                    //self.browserController.currentMainHost = setCurrentMainHost:nil;
                     [[sender mainFrame] loadRequest:
-                     [NSURLRequest requestWithURL:[NSURL URLWithString:[[MyGlobals sharedMyGlobals] currentMainHost]]]];
+                     [NSURLRequest requestWithURL:[NSURL URLWithString:self.browserController.currentMainHost]]];
                     return;
                 default:
                     return;

@@ -17,48 +17,18 @@
 @implementation SEBBrowserController
 
 
-// Open a new browser window
-- (WebView *) openWebViewWithRequest:(NSURLRequest *)request sender:(WebView *)sender
+// Open a new
+- (WebView *) openWebView
 {
-    // Multiple browser windows
+    SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
+    [browserWindowDocument.mainWindowController.window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] != getGenerallyBlocked) {
-        NSApplicationPresentationOptions presentationOptions = [NSApp currentSystemPresentationOptions];
-#ifdef DEBUG
-        NSLog(@"Current System Presentation Options: %lx",(long)presentationOptions);
-        NSLog(@"Saved System Presentation Options: %lx",(long)[[MyGlobals sharedMyGlobals] presentationOptions]);
-#endif
-        if ((presentationOptions != [[MyGlobals sharedMyGlobals] presentationOptions]) || ([[MyGlobals sharedMyGlobals] flashChangedPresentationOptions])) {
-            // request to open link in new window came from the flash plugin context menu while playing video in full screen mode
-#ifdef DEBUG
-            NSLog(@"Cancel opening link");
-#endif
-            return nil; // cancel opening link
-        }
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
-            SEBBrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
-            WebView *newWindowWebView = myDocument.mainWindowController.webView;
-#ifdef DEBUG
-            NSLog(@"Now opening new document browser window. %@", newWindowWebView);
-            NSLog(@"Link requested to be opened from %@", sender);
-#endif
-            //[[sender preferences] setPlugInsEnabled:NO];
-            [[newWindowWebView mainFrame] loadRequest:request];
-            return newWindowWebView;
-        }
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
-            WebView *tempWebView = [[WebView alloc] init];
-            //create a new temporary, invisible WebView
-            [tempWebView setPolicyDelegate:sender.window];
-            [tempWebView setUIDelegate:sender.window];
-            [tempWebView setGroupName:@"SEBBrowserDocument"];
-            [tempWebView setFrameLoadDelegate:sender.window];
-            return tempWebView;
-        }
-        return nil;
-    } else {
-        return nil;
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
+        // Order new browser window to the front of our level
+        [browserWindowDocument.mainWindowController.window newSetLevel:NSModalPanelWindowLevel];
+        [browserWindowDocument.mainWindowController showWindow:self];
     }
+    return browserWindowDocument.mainWindowController.webView;
 }
 
 
@@ -124,7 +94,8 @@
     
     // Add "SEB" to the browser's user agent, so the LMS SEB plugins recognize us
     NSString *customUserAgent = [self.webView userAgentForURL:[NSURL URLWithString:urlText]];
-    [self.webView setCustomUserAgent:[customUserAgent stringByAppendingString:@" SEB"]];
+    [self.webView setCustomUserAgent:[customUserAgent stringByAppendingString:@" Safari/533.16 SEB"]];
+//    [self.webView setCustomUserAgent:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/600.1.17 (KHTML, like Gecko) Safari/533.16 SEB"];
     
     // Load start URL into browser window
     [[self.webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];

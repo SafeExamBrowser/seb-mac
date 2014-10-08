@@ -41,7 +41,6 @@
 SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 
 @synthesize finishedInitializing;
-@synthesize currentMainHost;    //current host
 @synthesize downloadPath;       //paths of previously downloaded files
 @synthesize lastDownloadPath;   //index of the last accessed download path
 @synthesize pasteboardString;       //string saved from pasteboard at application start

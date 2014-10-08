@@ -407,7 +407,7 @@
         // If decryption with admin password didn't work, try it with an empty password
         error = nil;
         decryptedSebData = [RNDecryptor decryptData:sebData withPassword:@"" error:&error];
-        if (!error) {
+        if (!error && decryptedSebData) {
             // Decrypting with empty password worked
             // Ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
             decryptedSebData = [decryptedSebData gzipInflate];

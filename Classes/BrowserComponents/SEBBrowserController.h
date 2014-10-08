@@ -16,6 +16,7 @@
 
 @property (strong) WebView *webView;
 @property (strong) SEBBrowserWindow *browserWindow;
+@property (strong) NSString *currentMainHost;
 
 - (WebView *) openWebViewWithRequest:(NSURLRequest *)request sender:(WebView *)sender;
 - (void) openMainBrowserWindow;

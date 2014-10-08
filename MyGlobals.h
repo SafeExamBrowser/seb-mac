@@ -36,7 +36,6 @@
 
 @interface MyGlobals : NSObjectController {
     
-    NSString *currentMainHost;
     NSMutableArray *downloadPath;
     NSInteger lastDownloadPath;
     NSMutableString *pasteboardString;
@@ -48,7 +47,6 @@
 + (MyGlobals*)sharedMyGlobals;
 
 @property(readwrite) BOOL finishedInitializing;
-@property(copy, readwrite) NSString *currentMainHost;
 @property(copy, readwrite) NSMutableArray *downloadPath;
 @property(readwrite) NSInteger lastDownloadPath;
 

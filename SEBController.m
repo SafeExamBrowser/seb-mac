@@ -1033,7 +1033,7 @@ bool insideMatrix(){
         [SEBDockMenu addItemWithTitle:@"" action:nil keyEquivalent:@""];
         NSMenuItem *SEBDockMenuItemMainWindow = [[NSMenuItem alloc] initWithTitle: @"Main SEB Browser Window" action:@selector(buttonPressed) keyEquivalent: @""];
         [SEBDockMenu addItem:SEBDockMenuItemMainWindow];
-//        [SEBDockMenu addItem:[SEBDockMenuItemMainWindow copy]];
+        [SEBDockMenu addItem:[SEBDockMenuItemMainWindow copy]];
         
         SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:@"Safe Exam Browser" icon:[NSApp applicationIconImage] toolTip:nil menu:SEBDockMenu target:self action:@selector(buttonPressed)];
         
@@ -1276,7 +1276,7 @@ bool insideMatrix(){
     // Close all browser windows (documents)
     [[NSDocumentController sharedDocumentController] closeAllDocumentsWithDelegate:nil
                                                                didCloseAllSelector:nil contextInfo: nil];
-    [[MyGlobals sharedMyGlobals] setCurrentMainHost:nil];
+    self.browserController.currentMainHost = nil;
 
     // Set kiosk/presentation mode in case it changed
     [self startKioskMode];

@@ -279,22 +279,28 @@ RN_CCKeyDerivationPBKDF( CCPBKDFAlgorithm algorithm, const char *password, size_
 
   // Use the built-in PBKDF2 if it's available. Otherwise, we have our own. Hello crazy function pointer.
   int result;
-  int (*PBKDF)(CCPBKDFAlgorithm algorithm, const char *password, size_t passwordLen,
-               const uint8_t *salt, size_t saltLen,
-               CCPseudoRandomAlgorithm prf, uint rounds,
-               uint8_t *derivedKey, size_t derivedKeyLen);
-
-  PBKDF = CCKeyDerivationPBKDF ?: RN_CCKeyDerivationPBKDF;
-
-  result = PBKDF(keySettings.PBKDFAlgorithm,         // algorithm
-                 passwordData.bytes,                 // password
-                 passwordData.length,                // passwordLength
-                 salt.bytes,                         // salt
-                 salt.length,                        // saltLen
-                 keySettings.PRF,                    // PRF
-                 keySettings.rounds,                 // rounds
-                 derivedKey.mutableBytes,            // derivedKey
-                 derivedKey.length);                 // derivedKeyLen
+    if (CCKeyDerivationPBKDF != NULL) {
+        result = CCKeyDerivationPBKDF(keySettings.PBKDFAlgorithm,         // algorithm
+                                      password.UTF8String,                // password
+                                      password.length,                    // passwordLength
+                                      salt.bytes,                         // salt
+                                      salt.length,                        // saltLen
+                                      keySettings.PRF,                    // PRF
+                                      keySettings.rounds,                 // rounds
+                                      derivedKey.mutableBytes,            // derivedKey
+                                      derivedKey.length);                 // derivedKeyLen
+    }
+    else {
+        result = RN_CCKeyDerivationPBKDF(keySettings.PBKDFAlgorithm,         // algorithm
+                                         passwordData.bytes,                // password
+                                         passwordData.length,                    // passwordLength
+                                         salt.bytes,                         // salt
+                                         salt.length,                        // saltLen
+                                         keySettings.PRF,                    // PRF
+                                         keySettings.rounds,                 // rounds
+                                         derivedKey.mutableBytes,            // derivedKey
+                                         derivedKey.length);                 // derivedKeyLen
+    }
 
   // Do not log password here
   NSAssert(result == kCCSuccess, @"Unable to create AES key for password: %d", result);
