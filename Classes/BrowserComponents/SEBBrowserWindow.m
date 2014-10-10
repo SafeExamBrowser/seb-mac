@@ -365,7 +365,144 @@
 
 #pragma mark WebView Delegates
 
-#pragma mark WebUIDelegate Protocol
+#pragma mark WebUIDelegates
+
+// Handling of requests to open a link in a new window (including Javascript commands)
+- (WebView *)webView:(WebView *)sender createWebViewWithRequest:(NSURLRequest *)request
+{
+    // Single browser window: [[self.webView mainFrame] loadRequest:request];
+    // Multiple browser windows
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] != getGenerallyBlocked) {
+        NSApplicationPresentationOptions presentationOptions = [NSApp currentSystemPresentationOptions];
+#ifdef DEBUG
+        NSLog(@"Current System Presentation Options: %lx",(long)presentationOptions);
+        NSLog(@"Saved System Presentation Options: %lx",(long)[[MyGlobals sharedMyGlobals] presentationOptions]);
+#endif
+        if ((presentationOptions != [[MyGlobals sharedMyGlobals] presentationOptions]) || ([[MyGlobals sharedMyGlobals] flashChangedPresentationOptions])) {
+            // request to open link in new window came from the flash plugin context menu while playing video in full screen mode
+#ifdef DEBUG
+            NSLog(@"Cancel opening link");
+#endif
+            return nil; // cancel opening link
+        }
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
+            SEBBrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
+            WebView *newWindowWebView = myDocument.mainWindowController.webView;
+#ifdef DEBUG
+            NSLog(@"Now opening new document browser window. %@", newWindowWebView);
+            NSLog(@"Reqested from %@",sender);
+#endif
+            //[[sender preferences] setPlugInsEnabled:NO];
+            [[newWindowWebView mainFrame] loadRequest:request];
+            return newWindowWebView;
+        }
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
+            WebView *tempWebView = [[WebView alloc] init];
+            //create a new temporary, invisible WebView
+            [tempWebView setPolicyDelegate:self];
+            [tempWebView setUIDelegate:self];
+            [tempWebView setGroupName:@"SEBBrowserDocument"];
+            [tempWebView setFrameLoadDelegate:self];
+            return tempWebView;
+        }
+        return nil;
+    } else {
+        return nil;
+    }
+}
+
+
+// Show new window containing webView
+- (void)webViewShow:(WebView *)sender
+{
+    id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:[sender window]];
+    [[sender window] setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
+        [[sender window] newSetLevel:NSModalPanelWindowLevel];
+    }
+    [myDocument showWindows];
+#ifdef DEBUG
+    NSLog(@"Now showing new document browser window. %@",sender);
+    NSLog(@"New browser window sharingType: %lx",(long)[[sender window] sharingType]);
+#endif
+    // Order new browser window to the front
+    //[[sender window] makeKeyAndOrderFront:self];
+}
+
+/*
+ - (void)orderOut:(id)sender {
+ //we prevent the browser window to be hidden
+ }
+ */
+
+// Downloading and Uploading of Files //
+
+- (void)webView:(WebView *)sender runOpenPanelForFileButtonWithResultListener:(id < WebOpenPanelResultListener >)resultListener
+// Choose file for upload
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] == YES) {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_chooseFileToUploadPolicy"] != manuallyWithFileRequester) {
+            // If the policy isn't "manually with file requester"
+            // We try to choose the filename and path ourselves, it's the last dowloaded file
+            NSInteger lastDownloadPathIndex = [[MyGlobals sharedMyGlobals] lastDownloadPath];
+            NSMutableArray *downloadPaths = [[MyGlobals sharedMyGlobals] downloadPath];
+            if (downloadPaths && downloadPaths.count) {
+                if (lastDownloadPathIndex == -1) {
+                    //if the index counter of the last downloaded file is -1, we have reached the beginning of the list of downloaded files
+                    lastDownloadPathIndex = [downloadPaths count]-1; //so we jump to the last path in the list
+                }
+                NSString *lastDownloadPath = [downloadPaths objectAtIndex:lastDownloadPathIndex];
+                lastDownloadPathIndex--;
+                [[MyGlobals sharedMyGlobals] setLastDownloadPath:lastDownloadPathIndex];
+                if (lastDownloadPath && [[NSFileManager defaultManager] fileExistsAtPath:lastDownloadPath]) {
+                    [resultListener chooseFilename:lastDownloadPath];
+                    NSRunAlertPanel(NSLocalizedString(@"File automatically chosen", nil),
+                                    NSLocalizedString(@"SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.", nil),
+                                    NSLocalizedString(@"OK", nil), nil, nil);
+                    return;
+                }
+            }
+            
+            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_chooseFileToUploadPolicy"] == onlyAllowUploadSameFileDownloadedBefore) {
+                // if the policy is "Only allow to upload the same file downloaded before"
+                NSRunAlertPanel(NSLocalizedString(@"File to upload not found!", nil),
+                                NSLocalizedString(@"SEB is configured to only allow to upload a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.", nil),
+                                NSLocalizedString(@"OK", nil), nil, nil);
+                return;
+            }
+        }
+        // Create the File Open Dialog class.
+        NSOpenPanel* openFilePanel = [NSOpenPanel openPanel];
+        
+        // Enable the selection of files in the dialog.
+        [openFilePanel setCanChooseFiles:YES];
+        
+        // Disable the selection of directories in the dialog.
+        [openFilePanel setCanChooseDirectories:NO];
+        
+        // Change text of the open button in file dialog
+        [openFilePanel setPrompt:NSLocalizedString(@"Choose",nil)];
+        
+        // Change default directory in file dialog
+        [openFilePanel setDirectoryURL:[NSURL fileURLWithPath:[preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"]]];
+        
+        // Display the dialog.  If the OK button was pressed,
+        // process the files.
+        [openFilePanel beginSheetModalForWindow:self
+                              completionHandler:^(NSInteger result) {
+                                  if (result == NSFileHandlingPanelOKButton) {
+                                      // Get an array containing the full filenames of all
+                                      // files and directories selected.
+                                      NSArray* files = [openFilePanel URLs];
+                                      NSString* fileName = [[files objectAtIndex:0] path];
+                                      [resultListener chooseFilename:fileName];
+                                  }
+                              }];
+    }
+}
+
 
 // Delegate method for disabling right-click context menu
 - (NSArray *)webView:(WebView *)sender contextMenuItemsForElement:(NSDictionary *)element 
@@ -394,6 +531,7 @@ initiatedByFrame:(WebFrame *)frame {
 #pragma mark WebFrameLoadDelegates
 
 // Get the URL of the page being loaded
+// Invoked when a page load is in progress in a given frame
 - (void)webView:(WebView *)sender didStartProvisionalLoadForFrame:(WebFrame *)frame {
 #ifdef DEBUG
     NSLog(@"didStartProvisionalLoadForFrame request URL: %@", [[[[frame provisionalDataSource] request] URL] absoluteString]);
@@ -408,11 +546,22 @@ initiatedByFrame:(WebFrame *)frame {
 }
 
 
+// Invoked when a page load completes
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
     [self stopProgressIndicatorAnimation];
 }
 
 
+// Invoked when a client redirect is cancelled
+- (void)webView:(WebView *)sender didCancelClientRedirectForFrame:(WebFrame *)frame
+{
+#ifdef DEBUG
+    NSLog(@"webView: %@ didCancelClientRedirectForFrame: %@", sender, frame);
+#endif
+}
+
+
+// Invoked when a frame receives a client redirect and before it is fired
 - (void)webView:(WebView *)sender
 willPerformClientRedirectToURL:(NSURL *)URL
           delay:(NSTimeInterval)seconds
@@ -423,6 +572,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
     NSLog(@"willPerformClientRedirectToURL: %@", URL);
 #endif
 }
+
 
 // Update the URL of the current page in case of a server redirect
 - (void)webView:(WebView *)sender didReceiveServerRedirectForProvisionalLoadForFrame:(WebFrame *)frame {
@@ -460,17 +610,87 @@ willPerformClientRedirectToURL:(NSURL *)URL
 }
 
 
-- (void)webView:(WebView *)sender didClearWindowObject:(WebScriptObject *)windowObject
-       forFrame:(WebFrame *)frame
-{
-#ifdef DEBUG
-    NSLog(@"webView: %@ didClearWindowObject: %@ forFrame: %@", sender, windowObject, frame);
-#endif
+/// Handle WebView load errors
+
+// Invoked if an error occurs when starting to load data for a page
+- (void)webView:(WebView *)sender didFailProvisionalLoadWithError:(NSError *)error
+       forFrame:(WebFrame *)frame {
+    
+    [self stopProgressIndicatorAnimation];
+    
+    if ([error code] != -999) {
+        
+        if ([error code] !=  WebKitErrorFrameLoadInterruptedByPolicyChange) //this error can be ignored
+        {
+            //Close the About Window first, because it would hide the error alert
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"requestCloseAboutWindowNotification" object:self];
+            
+            NSString *titleString = NSLocalizedString(@"Error Loading Page",nil);
+            NSString *messageString = [error localizedDescription];
+            NSPanel *alertPanel = NSGetAlertPanel(titleString, messageString, NSLocalizedString(@"Retry",nil), NSLocalizedString(@"Cancel",nil), nil, nil);
+            [alertPanel setLevel:NSScreenSaverWindowLevel];
+            
+            int answer = NSRunAlertPanel(titleString, messageString, NSLocalizedString(@"Retry",nil), NSLocalizedString(@"Cancel",nil), nil, nil);
+            switch(answer) {
+                case NSAlertDefaultReturn:
+                    //Retry: try reloading
+                    //self.browserController.currentMainHost = nil;
+                    [[sender mainFrame] loadRequest:
+                     [NSURLRequest requestWithURL:[NSURL URLWithString:self.browserController.currentMainHost]]];
+                    return;
+                default:
+                    return;
+            }
+        }
+    }
 }
+
+
+// Invoked when an error occurs loading a committed data source
+- (void)webView:(WebView *)sender didFailLoadWithError:(NSError *)error forFrame:(WebFrame *)frame {
+    
+    [self stopProgressIndicatorAnimation];
+    
+    if ([error code] != -999) {
+        
+        if ([error code] !=  WebKitErrorFrameLoadInterruptedByPolicyChange) //this error can be ignored
+        {
+            //Close the About Window first, because it would hide the error alert
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"requestCloseAboutWindowNotification" object:self];
+            
+            NSString *titleString = NSLocalizedString(@"Error Loading Page",nil);
+            NSString *messageString = [error localizedDescription];
+            
+            int answer = NSRunAlertPanel(titleString, messageString, NSLocalizedString(@"Retry",nil), NSLocalizedString(@"Cancel",nil), nil, nil);
+            switch(answer) {
+                case NSAlertDefaultReturn:
+                    //Retry: try reloading
+                    //self.browserController.currentMainHost = setCurrentMainHost:nil;
+                    [[sender mainFrame] loadRequest:
+                     [NSURLRequest requestWithURL:[NSURL URLWithString:self.browserController.currentMainHost]]];
+                    return;
+                default:
+                    return;
+            }
+        }
+    }
+}
+
+
+//// Invoked when the JavaScript window object in a frame is ready for loading
+//- (void)webView:(WebView *)sender didClearWindowObject:(WebScriptObject *)windowObject
+//       forFrame:(WebFrame *)frame
+//{
+//#ifdef DEBUG
+//    NSLog(@"webView: %@ didClearWindowObject: %@ forFrame: %@", sender, windowObject, frame);
+//#endif
+//}
 
 
 #pragma mark WebResourceLoadDelegate Protocol
 
+// Generate and send the Browser Exam Key in modified header
+// Invoked before a request is initiated for a resource and returns a possibly modified request
 - (NSURLRequest *)webView:(WebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource
 {
     NSString *fragment = [[request URL] fragment];
@@ -561,6 +781,17 @@ willPerformClientRedirectToURL:(NSURL *)URL
 }
 
 
+// Invoked when a resource failed to load
+- (void)webView:(WebView *)sender resource:(id)identifier didFailLoadingWithError:(NSError *)error
+ fromDataSource:(WebDataSource *)dataSource
+{
+#ifdef DEBUG
+    NSLog(@"webView: %@ resource: %@ didFailLoadingWithError: %@ fromDataSource: %@", sender, identifier, error, dataSource);
+#endif
+}
+
+
+// Invoked when a plug-in fails to load
 - (void)webView:(WebView *)sender plugInFailedWithError:(NSError *)error
      dataSource:(WebDataSource *)dataSource
 {
@@ -570,6 +801,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
 }
 
 
+// Invoked when an authentication challenge has been received for a resource
 - (void)webView:(WebView *)sender resource:(id)identifier didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
  fromDataSource:(WebDataSource *)dataSource
 {
@@ -579,55 +811,21 @@ willPerformClientRedirectToURL:(NSURL *)URL
 }
 
 
-// Opening Links in New Windows //
-
-// Handling of requests to open a link in a new window (including Javascript commands)
-- (WebView *)webView:(WebView *)sender createWebViewWithRequest:(NSURLRequest *)request
+// Invoked when an authentication challenge for a resource was canceled
+- (void)webView:(WebView *)sender
+       resource:(id)identifier
+didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+ fromDataSource:(WebDataSource *)dataSource
 {
-    // Single browser window: [[self.webView mainFrame] loadRequest:request];
-    // Multiple browser windows
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] != getGenerallyBlocked) {
-        NSApplicationPresentationOptions presentationOptions = [NSApp currentSystemPresentationOptions];
 #ifdef DEBUG
-        NSLog(@"Current System Presentation Options: %lx",(long)presentationOptions);
-        NSLog(@"Saved System Presentation Options: %lx",(long)[[MyGlobals sharedMyGlobals] presentationOptions]);
+    NSLog(@"webView: %@ resource: %@ didCancelAuthenticationChallenge: %@ fromDataSource: %@", sender, identifier, challenge, dataSource);
 #endif
-        if ((presentationOptions != [[MyGlobals sharedMyGlobals] presentationOptions]) || ([[MyGlobals sharedMyGlobals] flashChangedPresentationOptions])) {
-            // request to open link in new window came from the flash plugin context menu while playing video in full screen mode
-#ifdef DEBUG
-            NSLog(@"Cancel opening link");
-#endif
-            return nil; // cancel opening link
-        }
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
-            SEBBrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
-            WebView *newWindowWebView = myDocument.mainWindowController.webView;
-#ifdef DEBUG
-            NSLog(@"Now opening new document browser window. %@", newWindowWebView);
-            NSLog(@"Reqested from %@",sender);
-#endif
-            //[[sender preferences] setPlugInsEnabled:NO];
-            [[newWindowWebView mainFrame] loadRequest:request];
-            return newWindowWebView;
-        }
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
-            WebView *tempWebView = [[WebView alloc] init];
-            //create a new temporary, invisible WebView
-            [tempWebView setPolicyDelegate:self];
-            [tempWebView setUIDelegate:self];
-            [tempWebView setGroupName:@"SEBBrowserDocument"];
-            [tempWebView setFrameLoadDelegate:self];
-            return tempWebView;
-        }
-        return nil;
-    } else {
-        return nil;
-    }
 }
 
 
-// Handling of requests from web plugins to open a link in a new window 
+// Opening Links in New Windows //
+
+// Handling of requests from web plugins to open a link in a new window
 - (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation 
         request:(NSURLRequest *)request 
           frame:(WebFrame *)frame 
@@ -702,29 +900,6 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
             return; //and return from here
         }
     }
-//    // The link should be opened in a new browser window
-//    // Get navigation type
-//    int navigationType;
-//    navigationType = [[actionInformation objectForKey:WebActionNavigationTypeKey] intValue];
-//    
-//    // Get action element
-//    NSDictionary*   element;
-//    NSURL*          linkURL;
-//    //DOMNode*       linkDOMNode;
-//    element = [actionInformation objectForKey:WebActionElementKey];
-//    linkURL = [actionInformation objectForKey:WebActionOriginalURLKey];;
-//    linkDOMNode = [element objectForKey:WebElementDOMNodeKey];
-//    
-//    // Get JavaScript window object
-//    if (frame) {
-//        WebScriptObject* jsWindowObject = [frame windowObject];
-//        NSString* jsWindowObjectString = [jsWindowObject stringRepresentation];
-//        DOMHTMLElement* frameElement = [frame frameElement];
-//#ifdef DEBUG
-//        NSLog(@"Frame windowObject: %@", jsWindowObjectString);
-//        NSLog(@"Frame frameElement: %@", [frameElement stringRepresentation]);
-//#endif
-//    }
 
     [listener use];
 }
@@ -766,98 +941,9 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
 }
 
 
-// Show new window containing webView
-- (void)webViewShow:(WebView *)sender
-{
-    id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:[sender window]];
-    [[sender window] setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
-        [[sender window] newSetLevel:NSModalPanelWindowLevel];
-    }
-    [myDocument showWindows];
-#ifdef DEBUG
-    NSLog(@"Now showing new document browser window. %@",sender); 
-    NSLog(@"New browser window sharingType: %lx",(long)[[sender window] sharingType]);
-#endif
-    // Order new browser window to the front
-    //[[sender window] makeKeyAndOrderFront:self];
-}
+#pragma mark WebPolicyDelegates
 
-/*
-- (void)orderOut:(id)sender {
-    //we prevent the browser window to be hidden
-}
-*/
-
-// Downloading and Uploading of Files //
-
-- (void)webView:(WebView *)sender runOpenPanelForFileButtonWithResultListener:(id < WebOpenPanelResultListener >)resultListener
-// Choose file for upload
-{
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] == YES) {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_chooseFileToUploadPolicy"] != manuallyWithFileRequester) {
-            // If the policy isn't "manually with file requester"
-            // We try to choose the filename and path ourselves, it's the last dowloaded file
-            NSInteger lastDownloadPathIndex = [[MyGlobals sharedMyGlobals] lastDownloadPath];
-            NSMutableArray *downloadPaths = [[MyGlobals sharedMyGlobals] downloadPath];
-            if (downloadPaths && downloadPaths.count) {
-                if (lastDownloadPathIndex == -1) {
-                    //if the index counter of the last downloaded file is -1, we have reached the beginning of the list of downloaded files
-                    lastDownloadPathIndex = [downloadPaths count]-1; //so we jump to the last path in the list
-                }
-                NSString *lastDownloadPath = [downloadPaths objectAtIndex:lastDownloadPathIndex];
-                lastDownloadPathIndex--;
-                [[MyGlobals sharedMyGlobals] setLastDownloadPath:lastDownloadPathIndex];
-                if (lastDownloadPath && [[NSFileManager defaultManager] fileExistsAtPath:lastDownloadPath]) {
-                    [resultListener chooseFilename:lastDownloadPath];
-                    NSRunAlertPanel(NSLocalizedString(@"File automatically chosen", nil), 
-                                    NSLocalizedString(@"SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.", nil), 
-                                    NSLocalizedString(@"OK", nil), nil, nil);
-                    return;
-                }
-            }
-            
-            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_chooseFileToUploadPolicy"] == onlyAllowUploadSameFileDownloadedBefore) {
-                // if the policy is "Only allow to upload the same file downloaded before"
-                NSRunAlertPanel(NSLocalizedString(@"File to upload not found!", nil), 
-                                NSLocalizedString(@"SEB is configured to only allow to upload a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.", nil), 
-                                NSLocalizedString(@"OK", nil), nil, nil);
-                return;
-            }
-        }
-        // Create the File Open Dialog class.
-        NSOpenPanel* openFilePanel = [NSOpenPanel openPanel];
-        
-        // Enable the selection of files in the dialog.
-        [openFilePanel setCanChooseFiles:YES];
-        
-        // Disable the selection of directories in the dialog.
-        [openFilePanel setCanChooseDirectories:NO];
-        
-        // Change text of the open button in file dialog
-        [openFilePanel setPrompt:NSLocalizedString(@"Choose",nil)];
-        
-        // Change default directory in file dialog
-        [openFilePanel setDirectoryURL:[NSURL fileURLWithPath:[preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"]]];
-        
-        // Display the dialog.  If the OK button was pressed,
-        // process the files.
-        [openFilePanel beginSheetModalForWindow:self
-                              completionHandler:^(NSInteger result) {
-                                  if (result == NSFileHandlingPanelOKButton) {
-                                      // Get an array containing the full filenames of all
-                                      // files and directories selected.
-                                      NSArray* files = [openFilePanel URLs];
-                                      NSString* fileName = [[files objectAtIndex:0] path];
-                                      [resultListener chooseFilename:fileName];
-                                  }
-                              }];
-    }
-}
-
-
-- (void)webView:(WebView *)sender decidePolicyForMIMEType:(NSString*)type 
+- (void)webView:(WebView *)sender decidePolicyForMIMEType:(NSString*)type
         request:(NSURLRequest *)request 
           frame:(WebFrame *)frame
 decisionListener:(id < WebPolicyDecisionListener >)listener
@@ -891,76 +977,12 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 }
 
 
-// Handle WebView load errors
-- (void)webView:(WebView *)sender didFailProvisionalLoadWithError:(NSError *)error
-       forFrame:(WebFrame *)frame {
-
-    [self stopProgressIndicatorAnimation];
-    
-	if ([error code] != -999) {
-        
-        if ([error code] !=  WebKitErrorFrameLoadInterruptedByPolicyChange) //this error can be ignored
-        {
-            //Close the About Window first, because it would hide the error alert
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"requestCloseAboutWindowNotification" object:self];
-
-            NSString *titleString = NSLocalizedString(@"Error Loading Page",nil);
-            NSString *messageString = [error localizedDescription];
-            NSPanel *alertPanel = NSGetAlertPanel(titleString, messageString, NSLocalizedString(@"Retry",nil), NSLocalizedString(@"Cancel",nil), nil, nil);
-            [alertPanel setLevel:NSScreenSaverWindowLevel];
-
-            int answer = NSRunAlertPanel(titleString, messageString, NSLocalizedString(@"Retry",nil), NSLocalizedString(@"Cancel",nil), nil, nil); 
-            switch(answer) {
-                case NSAlertDefaultReturn:
-                    //Retry: try reloading
-                    //self.browserController.currentMainHost = nil;
-                    [[sender mainFrame] loadRequest:
-                     [NSURLRequest requestWithURL:[NSURL URLWithString:self.browserController.currentMainHost]]];
-                    return;
-                default:
-                    return;
-            }
-        }
-	}
-}
-
-
 - (void)webView:(WebView *)sender unableToImplementPolicyWithError:(NSError *)error
           frame:(WebFrame *)frame
 {
 #ifdef DEBUG
     NSLog(@"webView: %@ unableToImplementPolicyWithError: %@ frame: %@", sender, error, frame);
 #endif
-}
-
-
-- (void)webView:(WebView *)sender didFailLoadWithError:(NSError *)error forFrame:(WebFrame *)frame {
-
-    [self stopProgressIndicatorAnimation];
-    
-	if ([error code] != -999) {
-        
-        if ([error code] !=  WebKitErrorFrameLoadInterruptedByPolicyChange) //this error can be ignored
-        {
-            //Close the About Window first, because it would hide the error alert
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"requestCloseAboutWindowNotification" object:self];
-            
-            NSString *titleString = NSLocalizedString(@"Error Loading Page",nil);
-            NSString *messageString = [error localizedDescription];
-            
-            int answer = NSRunAlertPanel(titleString, messageString, NSLocalizedString(@"Retry",nil), NSLocalizedString(@"Cancel",nil), nil, nil);
-            switch(answer) {
-                case NSAlertDefaultReturn:
-                    //Retry: try reloading
-                    //self.browserController.currentMainHost = setCurrentMainHost:nil;
-                    [[sender mainFrame] loadRequest:
-                     [NSURLRequest requestWithURL:[NSURL URLWithString:self.browserController.currentMainHost]]];
-                    return;
-                default:
-                    return;
-            }
-        }
-	}
 }
 
 
