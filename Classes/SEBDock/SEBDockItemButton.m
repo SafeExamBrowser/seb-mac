@@ -32,13 +32,14 @@
             if (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_9) {
                 // We use white text color only when we have NSPopoverAppearanceHUD, so for OS X <= 10.9
                 [self.label setTextColor:[NSColor whiteColor]];
+                [self.label setFont:[NSFont boldSystemFontOfSize:14]];
             } else {
                 [self.label setTextColor:[NSColor blackColor]];
+                [self.label setFont:[NSFont systemFontOfSize:14]];
             }
             self.label.bezeled = NO;
             self.label.editable = NO;
             self.label.drawsBackground = NO;
-            [self.label setFont:[NSFont boldSystemFontOfSize:14]];
             [self.label.cell setLineBreakMode:NSLineBreakByTruncatingMiddle];
             self.label.stringValue = itemTitle;
             NSSize dockItemLabelSize = [self.label intrinsicContentSize];
