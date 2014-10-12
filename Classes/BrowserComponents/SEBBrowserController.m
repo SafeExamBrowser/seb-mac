@@ -8,6 +8,7 @@
 
 #import "SEBBrowserController.h"
 #import "SEBBrowserWindowDocument.h"
+#import "SEBBrowserOpenWindowWebView.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "NSWindow+SEBWindow.h"
 #import "SEBConfigFileManager.h"
@@ -120,6 +121,8 @@
              toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
           withKeyPath:@"values.org_safeexambrowser_SEB_allowQuit"
               options:nil];
+    
+    [self addBrowserWindow:self.mainBrowserWindow withWebView:self.webView withTitle:NSLocalizedString(@"Main Browser Window", nil)];
     
     //[self.browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
     [self.mainBrowserWindow makeKeyAndOrderFront:self];
@@ -250,9 +253,22 @@
 
 
 // Set web page title for a window/WebView
-- (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow andWebView:(WebView *)webView
+- (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(WebView *)webView
 {
     
+}
+
+
+- (void) addBrowserWindow:(SEBBrowserWindow *)newBrowserWindow withWebView:(WebView *)newWebView withTitle:(NSString *)newTitle
+{
+    SEBBrowserOpenWindowWebView *newWindowWebView = [SEBBrowserOpenWindowWebView new];
+    newWindowWebView.browserWindow = newBrowserWindow;
+    newWindowWebView.webView = newWebView;
+    newWindowWebView.title = newTitle;
+
+    [self.openBrowserWindowsWebViews addObject:newWindowWebView];
+    
+    [self.openBrowserWindowsWebViewsMenu addItem:[[NSMenuItem alloc] initWithTitle:newTitle action:nil keyEquivalent:@""]];
 }
 
 

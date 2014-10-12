@@ -494,11 +494,13 @@ bool insideMatrix();
     //NSInteger changeCount = [pasteboard clearContents];
     [pasteboard clearContents];
 
+    self.browserController = [[SEBBrowserController alloc] init];
+
     // Set up and open SEB Dock
     [self openSEBDock];
     
     // Set up SEB Browser and open the main browser window
-    self.browserController = [[SEBBrowserController alloc] init];
+    self.browserController.dockController = self.dockController;
     [self.browserController openMainBrowserWindow];
     
 	// Due to the infamous Flash plugin we completely disable plugins in the 32-bit build
@@ -1054,6 +1056,8 @@ bool insideMatrix(){
         NSMenuItem *SEBDockMenuItemMainWindow = [[NSMenuItem alloc] initWithTitle: @"Main SEB Browser Window" action:@selector(buttonPressed) keyEquivalent: @""];
         [SEBDockMenu addItem:SEBDockMenuItemMainWindow];
         [SEBDockMenu addItem:[SEBDockMenuItemMainWindow copy]];
+        
+        self.browserController.openBrowserWindowsWebViewsMenu = SEBDockMenu;
         
         SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:@"Safe Exam Browser" icon:[NSApp applicationIconImage] toolTip:nil menu:SEBDockMenu target:self action:@selector(buttonPressed)];
         

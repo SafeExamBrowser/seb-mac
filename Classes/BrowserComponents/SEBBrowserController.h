@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
 #import "SEBBrowserWindow.h"
+#import "SEBDockController.h"
 
 @class SEBBrowserWindow;
 
@@ -16,7 +17,10 @@
 
 @property (strong) WebView *webView;
 @property (strong) SEBBrowserWindow *mainBrowserWindow;
+@property (strong) SEBDockController *dockController;
 @property (strong) NSString *currentMainHost;
+@property (strong) NSMutableArray *openBrowserWindowsWebViews;
+@property (strong) NSMenu *openBrowserWindowsWebViewsMenu;
 
 - (WebView *) openWebView;
 - (WebView *) openAndShowWebView;
@@ -29,6 +33,6 @@
 - (void) openResourceWithURL:(NSString *)URL andTitle:(NSString *)title;
 - (void) downloadAndOpenSebConfigFromURL:(NSURL *)url;
 
-- (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow andWebView:(WebView *)webView;
+- (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(WebView *)webView;
 
 @end

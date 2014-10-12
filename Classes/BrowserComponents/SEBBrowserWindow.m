@@ -580,7 +580,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
 {
     // Report feedback only for the main frame.
     if (frame == [sender mainFrame]){
-        [self.browserController setTitle: title forWindow:self andWebView:sender];
+        [self.browserController setTitle: title forWindow:self withWebView:sender];
         NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
         NSString* appTitleString = [NSString stringWithFormat:@"Safe Exam Browser %@  —  %@",
                                     versionString,
