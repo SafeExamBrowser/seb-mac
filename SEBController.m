@@ -823,7 +823,7 @@ bool insideMatrix(){
 
 // Called when main browser window changed screen
 - (void) changeMainScreen: (id)sender {
-    [self.dockController moveDockToScreen:self.browserController.browserWindow.screen];
+    [self.dockController moveDockToScreen:self.browserController.mainBrowserWindow.screen];
 }
 
 
@@ -1078,7 +1078,7 @@ bool insideMatrix(){
 - (void) buttonPressed
 {
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-    [self.browserController.browserWindow makeKeyAndOrderFront:self];
+    [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
 }
 
 
@@ -1138,7 +1138,7 @@ bool insideMatrix(){
 		
         if (![hashedQuitPassword isEqualToString:@""]) {
 			// if quit password is set, then restrict quitting
-            if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit password:",nil)  modalForWindow:self.browserController.browserWindow windowTitle:nil] == SEBEnterPasswordCancel) return;
+            if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit password:",nil)  modalForWindow:self.browserController.mainBrowserWindow windowTitle:nil] == SEBEnterPasswordCancel) return;
             NSString *password = [self.enterPassword stringValue];
 			
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
@@ -1182,7 +1182,7 @@ bool insideMatrix(){
             NSString *hashedAdminPW = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
             if (![hashedAdminPW isEqualToString:@""]) {
                 // If admin password is set, then restrict access to the preferences window
-                if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter administrator password:",nil)  modalForWindow:self.browserController.browserWindow windowTitle:nil] == SEBEnterPasswordCancel) return;
+                if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter administrator password:",nil)  modalForWindow:self.browserController.mainBrowserWindow windowTitle:nil] == SEBEnterPasswordCancel) return;
                 NSString *password = [self.enterPassword stringValue];
                 SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
                 if ([hashedAdminPW caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] != NSOrderedSame) {
@@ -1245,7 +1245,7 @@ bool insideMatrix(){
     [self coverScreens];
     
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-    [self.browserController.browserWindow makeKeyAndOrderFront:self];
+    [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
     
     // Switch the kiosk mode on again
     [self setElevateWindowLevels];
@@ -1342,9 +1342,9 @@ bool insideMatrix(){
 #ifdef DEBUG
     NSLog(@"requestedReinforceKioskMode: Reopening cap windows.");
 #endif
-    if (self.browserController.browserWindow.isVisible) {
+    if (self.browserController.mainBrowserWindow.isVisible) {
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-        [self.browserController.browserWindow makeKeyAndOrderFront:self];
+        [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
     }
     
     // Open new covering background windows on all currently available screens
@@ -1516,7 +1516,7 @@ bool insideMatrix(){
 #endif
         // If plugins are enabled and there is a Flash view in the webview ...
         if ([[self.webView preferences] arePlugInsEnabled]) {
-            NSView* flashView = [self.browserController.browserWindow findFlashViewInView:webView];
+            NSView* flashView = [self.browserController.mainBrowserWindow findFlashViewInView:webView];
             if (flashView) {
                 if (!allowSwitchToThirdPartyApps || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowFlashFullscreen"]) {
                     // and either third party Apps or Flash fullscreen is allowed

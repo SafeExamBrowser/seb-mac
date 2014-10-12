@@ -82,7 +82,7 @@
 // Closing of SEB Browser Window //
 - (BOOL)windowShouldClose:(id)sender
 {
-    if (self == self.browserController.browserWindow) {
+    if (self == self.browserController.mainBrowserWindow) {
         // Post a notification that SEB should conditionally quit
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"requestExitNotification" object:self];
@@ -190,7 +190,7 @@
     NSString *windowWidth;
     NSString *windowHeight;
     NSInteger windowPositioning;
-    if (self == self.browserController.browserWindow) {
+    if (self == self.browserController.mainBrowserWindow) {
         // This is the main browser window
         if (self.isFullScreen) {
             // Full screen windows cover the whole screen
@@ -387,8 +387,7 @@
             return nil; // cancel opening link
         }
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
-            SEBBrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
-            WebView *newWindowWebView = myDocument.mainWindowController.webView;
+            WebView *newWindowWebView = [self.browserController openWebView];
 #ifdef DEBUG
             NSLog(@"Now opening new document browser window. %@", newWindowWebView);
             NSLog(@"Reqested from %@",sender);
@@ -416,25 +415,16 @@
 // Show new window containing webView
 - (void)webViewShow:(WebView *)sender
 {
-    id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:[sender window]];
-    [[sender window] setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
-        [[sender window] newSetLevel:NSModalPanelWindowLevel];
-    }
-    [myDocument showWindows];
-#ifdef DEBUG
-    NSLog(@"Now showing new document browser window. %@",sender);
-    NSLog(@"New browser window sharingType: %lx",(long)[[sender window] sharingType]);
-#endif
-    // Order new browser window to the front
-    //[[sender window] makeKeyAndOrderFront:self];
+    [self.browserController webViewShow:sender];
 }
+
 
 /*
  - (void)orderOut:(id)sender {
  //we prevent the browser window to be hidden
  }
  */
+
 
 // Downloading and Uploading of Files //
 
@@ -590,7 +580,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
 {
     // Report feedback only for the main frame.
     if (frame == [sender mainFrame]){
-        self.pageTitle = title;
+        [self.browserController setTitle: title forWindow:self andWebView:sender];
         NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
         NSString* appTitleString = [NSString stringWithFormat:@"Safe Exam Browser %@  —  %@",
                                     versionString,
@@ -873,14 +863,13 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
 #ifdef DEBUG
                 NSLog(@"Originating browser window %@", sender);
 #endif
-                id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:[self.webView window]];
                 // Close document and therefore also window
                 //Workaround: Flash crashes after closing window and then clicking some other link
                 [[self.webView preferences] setPlugInsEnabled:NO];
 #ifdef DEBUG
-                NSLog(@"Now closing new document browser window. %@", self.webView);
+                NSLog(@"Now closing new document browser window for: %@", self.webView);
 #endif
-                [myDocument close];
+                [self.browserController closeWebView:self.webView];
             }
             if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
                 if (self.webView) {
@@ -917,22 +906,13 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkBlockForeign"] ||
             [self.browserController.currentMainHost isEqualToString:[[request mainDocumentURL] host]]) {
             if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] == openInNewWindow) {
-                // Multiple browser windows
-                SEBBrowserWindowDocument *myDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
-                //WebView *newWindowWebView = myDocument.mainWindowController.self.webView;
-                [myDocument.mainWindowController.window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-                if ([preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
-                    // Order new browser window to the front of our level
-                    [myDocument.mainWindowController.window newSetLevel:NSModalPanelWindowLevel];
-                    [myDocument.mainWindowController showWindow:self];
-                }
-                [[myDocument.mainWindowController.webView mainFrame] loadRequest:request];
-#ifdef DEBUG
-                NSLog(@"New browser window sharingType: %lx",(long)[myDocument.mainWindowController.window sharingType]);
-#endif
+                // Open new browser window containing WebView and show it
+                WebView *newWebView = [self.browserController openAndShowWebView];
+                // Load URL request in new WebView
+                [[newWebView mainFrame] loadRequest:request];
             }
             if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] == openInSameWindow) {
-                // Single browser window
+                // Load URL request in existing WebView
                 [[sender mainFrame] loadRequest:request];
             }
         }

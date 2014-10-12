@@ -15,15 +15,20 @@
 @interface SEBBrowserController : NSObject
 
 @property (strong) WebView *webView;
-@property (strong) SEBBrowserWindow *browserWindow;
+@property (strong) SEBBrowserWindow *mainBrowserWindow;
 @property (strong) NSString *currentMainHost;
 
-- (WebView *) openWebViewWithRequest:(NSURLRequest *)request sender:(WebView *)sender;
+- (WebView *) openWebView;
+- (WebView *) openAndShowWebView;
+- (void) closeWebView:(WebView *) webViewToClose;
+- (void) webViewShow:(WebView *)sender;
 - (void) openMainBrowserWindow;
 - (void) adjustMainBrowserWindow;
 - (void) allBrowserWindowsChangeLevel:(BOOL)allowApps;
 
 - (void) openResourceWithURL:(NSString *)URL andTitle:(NSString *)title;
 - (void) downloadAndOpenSebConfigFromURL:(NSURL *)url;
+
+- (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow andWebView:(WebView *)webView;
 
 @end

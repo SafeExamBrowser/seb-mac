@@ -55,7 +55,6 @@
 @property(weak) SEBBrowserController *browserController;
 @property (weak) IBOutlet WebView *webView;
 @property BOOL isFullScreen;
-@property (strong, nonatomic) NSString *pageTitle;
 
 - (void) setCalculatedFrame;
 

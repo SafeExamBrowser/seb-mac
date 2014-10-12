@@ -17,8 +17,17 @@
 @implementation SEBBrowserController
 
 
-// Open a new
+
+// Open a new WebView
 - (WebView *) openWebView
+{
+    SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
+    WebView *newWindowWebView = browserWindowDocument.mainWindowController.webView;
+    return newWindowWebView;
+}
+
+// Open a new WebView and show its window
+- (WebView *) openAndShowWebView
 {
     SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
     [browserWindowDocument.mainWindowController.window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
@@ -29,6 +38,35 @@
         [browserWindowDocument.mainWindowController showWindow:self];
     }
     return browserWindowDocument.mainWindowController.webView;
+}
+
+
+- (void) closeWebView:(WebView *) webViewToClose
+{
+    // Get the document for the web view
+    id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:webViewToClose.window];
+    // Close document and therefore also window
+#ifdef DEBUG
+    NSLog(@"Now closing new document browser window. %@", webViewToClose);
+#endif
+    [myDocument close];
+}
+
+
+// Show new window containing webView
+- (void) webViewShow:(WebView *)sender
+{
+    id browserWindowDocument = [[NSDocumentController sharedDocumentController] documentForWindow:[sender window]];
+    [[sender window] setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
+        [[sender window] newSetLevel:NSModalPanelWindowLevel];
+    }
+    [browserWindowDocument showWindows];
+#ifdef DEBUG
+    NSLog(@"Now showing new document browser window for: %@",sender);
+#endif
+    // Order new browser window to the front
+    //[[sender window] makeKeyAndOrderFront:self];
 }
 
 
@@ -55,28 +93,28 @@
     SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
     self.webView = browserWindowDocument.mainWindowController.webView;
 
-    self.browserWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
+    self.mainBrowserWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
     // Set the reference to the browser controller in the browser window instance
-    self.browserWindow.browserController = self;
+    self.mainBrowserWindow.browserController = self;
     // Set the flag indicating if the main browser window should be displayed full screen
-    self.browserWindow.isFullScreen = mainBrowserWindowShouldBeFullScreen;
+    self.mainBrowserWindow.isFullScreen = mainBrowserWindowShouldBeFullScreen;
     
     if (mainBrowserWindowShouldBeFullScreen) {
-        [self.browserWindow setToolbar:nil];
-        [self.browserWindow setStyleMask:NSBorderlessWindowMask];
+        [self.mainBrowserWindow setToolbar:nil];
+        [self.mainBrowserWindow setStyleMask:NSBorderlessWindowMask];
     }
     
-    [self.browserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-    [self.browserWindow setCalculatedFrame];
+    [self.mainBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+    [self.mainBrowserWindow setCalculatedFrame];
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
-        [self.browserWindow newSetLevel:NSModalPanelWindowLevel];
+        [self.mainBrowserWindow newSetLevel:NSModalPanelWindowLevel];
         
     }
     //	[NSApp activateIgnoringOtherApps: YES];
     //    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     
     // Setup bindings to the preferences window close button
-    NSButton *closeButton = [self.browserWindow standardWindowButton:NSWindowCloseButton];
+    NSButton *closeButton = [self.mainBrowserWindow standardWindowButton:NSWindowCloseButton];
     
     [closeButton bind:@"enabled"
              toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
@@ -84,7 +122,7 @@
               options:nil];
     
     //[self.browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
-    [self.browserWindow makeKeyAndOrderFront:self];
+    [self.mainBrowserWindow makeKeyAndOrderFront:self];
     
     // Load start URL from the system's user defaults database
     NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
@@ -105,8 +143,8 @@
 // Adjust the size of the main browser window and bring it forward
 - (void) adjustMainBrowserWindow
 {
-    [self.browserWindow setCalculatedFrame];
-    [self.browserWindow makeKeyAndOrderFront:self];
+    [self.mainBrowserWindow setCalculatedFrame];
+    [self.mainBrowserWindow makeKeyAndOrderFront:self];
 }
 
 
@@ -125,7 +163,7 @@
         }
     }
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-    [self.browserWindow
+    [self.mainBrowserWindow
      makeKeyAndOrderFront:self];
 }
 
@@ -179,14 +217,14 @@
                     sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
                     // Still couldn't download the .seb file: present an error and abort
                     if (error) {
-                        [self.browserWindow presentError:error modalForWindow:self.browserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
+                        [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
                         return;
                     }
                 }
             } else {
                 sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
                 if (error) {
-                    [self.browserWindow presentError:error modalForWindow:self.browserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
+                    [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
                 }
             }
             SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
@@ -208,6 +246,13 @@
             }
         }
     }
+}
+
+
+// Set web page title for a window/WebView
+- (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow andWebView:(WebView *)webView
+{
+    
 }
 
 
