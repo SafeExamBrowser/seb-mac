@@ -79,6 +79,9 @@
 		695283DD16CDB54C0055AF6F /* PrefsSecurityViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */; };
 		695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */; };
 		695283E016CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */; };
+		695BE5F419EC3FED00CA2BB4 /* SEBDockItemMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 695BE5F219EC3FED00CA2BB4 /* SEBDockItemMenu.h */; };
+		695BE5F519EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 695BE5F319EC3FED00CA2BB4 /* SEBDockItemMenu.m */; };
+		695BE5F619EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 695BE5F319EC3FED00CA2BB4 /* SEBDockItemMenu.m */; };
 		695C5CAD16CB210E008FC401 /* ExamIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAB16CB210E008FC401 /* ExamIcon.png */; };
 		695C5CAF16CB210E008FC401 /* ExamIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAB16CB210E008FC401 /* ExamIcon.png */; };
 		695C5CB016CB210E008FC401 /* ExamIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAC16CB210E008FC401 /* ExamIcon@2x.png */; };
@@ -341,6 +344,8 @@
 		695283D716CDB5020055AF6F /* PreferencesSecurity.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesSecurity.xib; sourceTree = "<group>"; };
 		695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsSecurityViewController.h; sourceTree = "<group>"; };
 		695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsSecurityViewController.m; sourceTree = "<group>"; };
+		695BE5F219EC3FED00CA2BB4 /* SEBDockItemMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockItemMenu.h; path = Classes/SEBDock/SEBDockItemMenu.h; sourceTree = "<group>"; };
+		695BE5F319EC3FED00CA2BB4 /* SEBDockItemMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockItemMenu.m; path = Classes/SEBDock/SEBDockItemMenu.m; sourceTree = "<group>"; };
 		695C5CAB16CB210E008FC401 /* ExamIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ExamIcon.png; sourceTree = "<group>"; };
 		695C5CAC16CB210E008FC401 /* ExamIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ExamIcon@2x.png"; sourceTree = "<group>"; };
 		6962F88D13A8C21B007C16F0 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -582,6 +587,8 @@
 				690BBEB519D30DF800F7C9C6 /* SEBDockView.m */,
 				690B5B6019DBEAA400704F36 /* SEBDockItem.h */,
 				690B5B6119DBEAA400704F36 /* SEBDockItem.m */,
+				695BE5F219EC3FED00CA2BB4 /* SEBDockItemMenu.h */,
+				695BE5F319EC3FED00CA2BB4 /* SEBDockItemMenu.m */,
 			);
 			name = "SEB Dock";
 			sourceTree = "<group>";
@@ -880,6 +887,7 @@
 				69CE9C6317378B9A0011609B /* SEBTextField.h in Headers */,
 				69CE1C171741309C0072207D /* SEBFilterTreeController.h in Headers */,
 				690BBEAC19D2C6A000F7C9C6 /* SEBDockController.h in Headers */,
+				695BE5F419EC3FED00CA2BB4 /* SEBDockItemMenu.h in Headers */,
 				6915F2E919C8F77600DAEA37 /* SEBDockWindow.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1125,6 +1133,7 @@
 				69D817E718017DDB00EB7885 /* SEBURLFilter.m in Sources */,
 				69CF8A1616FD0B550096625C /* SEBFilterRuleTableColumn.m in Sources */,
 				69CF8A1B16FD1C330096625C /* SEBFilterRuleExpressionTableColumn.m in Sources */,
+				695BE5F619EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */,
 				693647FC17122A0300EE41BC /* DropDownButton.m in Sources */,
 				69CE9C5F17326AB90011609B /* SEBConfigFileManager.m in Sources */,
 				690BBEAE19D2C6A000F7C9C6 /* SEBDockController.m in Sources */,
@@ -1188,6 +1197,7 @@
 				69D817E618017DDB00EB7885 /* SEBURLFilter.m in Sources */,
 				69CF8A1516FD0B550096625C /* SEBFilterRuleTableColumn.m in Sources */,
 				69CF8A1A16FD1C330096625C /* SEBFilterRuleExpressionTableColumn.m in Sources */,
+				695BE5F519EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */,
 				693647FB17122A0300EE41BC /* DropDownButton.m in Sources */,
 				69CE9C5E17326AB90011609B /* SEBConfigFileManager.m in Sources */,
 				690BBEAD19D2C6A000F7C9C6 /* SEBDockController.m in Sources */,

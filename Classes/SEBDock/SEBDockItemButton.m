@@ -11,7 +11,7 @@
 @implementation SEBDockItemButton
 
 
-- (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon title:(NSString *)itemTitle menu:(NSMenu *)itemMenu
+- (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon title:(NSString *)itemTitle menu:(SEBDockItemMenu *)itemMenu
  {
     self = [super initWithFrame:frameRect];
     if (self) {
@@ -83,6 +83,7 @@
                 SEBDockMenuWidth = 500;
             }
             NSView *SEBDockMenuView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, SEBDockMenuSize.width-13, SEBDockMenuSize.height - 22)];
+            self.SEBDockMenu.dockMenuView = SEBDockMenuView;
             DropDownButton *dockMenuDropDownButton = [[DropDownButton alloc] initWithFrame:NSMakeRect(-4, 36, 0, 0)];
             self.dockMenuDropDownButton = dockMenuDropDownButton;
             [dockMenuDropDownButton setMenu:self.SEBDockMenu];
@@ -92,6 +93,7 @@
             controller.view = SEBDockMenuView;
             
             NSPopover *popover = [[NSPopover alloc] init];
+            self.SEBDockMenu.dockMenuPopover = popover;
             [popover setContentSize:SEBDockMenuView.frame.size];
             [popover setContentViewController:controller];
             [popover setAnimates:NO];

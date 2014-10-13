@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import "SEBDockWindow.h"
 #import "SEBDockItemButton.h"
+#import "SEBDockItemMenu.h"
+
 #import "Constants.h"
 
 
@@ -54,7 +56,7 @@
  *              button click or a right mouse button click/ctrl-click/double tap
  *              (contextual menu) detected (similar to the OS X Dock).
  */
-- (NSMenu *) menu;
+- (SEBDockItemMenu *) menu;
 
 @optional
 

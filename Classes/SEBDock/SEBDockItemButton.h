@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "DropDownButton.h"
+#import "SEBDockItemMenu.h"
 
 @interface SEBDockItemButton : NSButton <NSMenuDelegate>
 {
@@ -21,11 +22,11 @@
 
 @property (strong) NSTextField *label;
 @property (strong) NSPopover *labelPopover;
-@property (strong) NSMenu *SEBDockMenu;
+@property (strong) SEBDockItemMenu *SEBDockMenu;
 @property (strong) NSPopover *SEBDockMenuPopover;
 @property (strong) DropDownButton *dockMenuDropDownButton;
 
-- (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon title:(NSString *)itemTitle menu:(NSMenu *)itemMenu;
+- (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon title:(NSString *)itemTitle menu:(SEBDockItemMenu *)itemMenu;
 
 - (void)mouseEntered:(NSEvent *)theEvent;
 - (void)mouseExited:(NSEvent *)theEvent;

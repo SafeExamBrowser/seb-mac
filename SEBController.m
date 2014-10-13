@@ -58,6 +58,8 @@
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "SEBConfigFileManager.h"
 
+#import "SEBDockItemMenu.h"
+
 #import "SEBWindowSizeValueTransformer.h"
 #import "BoolValueTransformer.h"
 #import "IsEmptyCollectionValueTransformer.h"
@@ -1051,7 +1053,7 @@ bool insideMatrix(){
         }
         
         // Add dock icons/items
-        NSMenu *SEBDockMenu = [[NSMenu alloc] initWithTitle:@""];
+        SEBDockItemMenu *SEBDockMenu = [[SEBDockItemMenu alloc] initWithTitle:@""];
         [SEBDockMenu addItemWithTitle:@"" action:nil keyEquivalent:@""];
 //        NSMenuItem *SEBDockMenuItemMainWindow = [[NSMenuItem alloc] initWithTitle: @"Main SEB Browser Window" action:@selector(buttonPressed) keyEquivalent: @""];
 //        [SEBDockMenu addItem:SEBDockMenuItemMainWindow];
@@ -1064,7 +1066,7 @@ bool insideMatrix(){
         SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil icon:[NSImage imageNamed:@"SEBShutDownIcon"] toolTip:@"Quit SEB" menu:nil target:self action:@selector(quitButtonPressed)];
         
         [self.dockController setLeftItems:[NSArray arrayWithObjects:dockItemSEB, nil]];
-        
+               
 //        [self.dockController setCenterItems:[NSArray arrayWithObjects:dockItemSEB, dockItemShutDown, nil]];
         
         [self.dockController setRightItems:[NSArray arrayWithObjects:dockItemShutDown, nil]];

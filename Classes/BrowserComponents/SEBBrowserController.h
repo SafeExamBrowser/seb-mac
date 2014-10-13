@@ -10,6 +10,8 @@
 #import <WebKit/WebKit.h>
 #import "SEBBrowserWindow.h"
 #import "SEBDockController.h"
+#import "SEBDockItemButton.h"
+#import "SEBDockItemMenu.h"
 
 @class SEBBrowserWindow;
 
@@ -18,9 +20,10 @@
 @property (strong) WebView *webView;
 @property (strong) SEBBrowserWindow *mainBrowserWindow;
 @property (strong) SEBDockController *dockController;
+@property (strong) SEBDockItemButton *sebDockItemButton;
 @property (strong) NSString *currentMainHost;
 @property (strong) NSMutableArray *openBrowserWindowsWebViews;
-@property (strong) NSMenu *openBrowserWindowsWebViewsMenu;
+@property (strong) SEBDockItemMenu *openBrowserWindowsWebViewsMenu;
 
 - (WebView *) openWebView;
 - (WebView *) openAndShowWebView;

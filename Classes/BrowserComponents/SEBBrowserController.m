@@ -329,6 +329,7 @@
     }
 
     [self.openBrowserWindowsWebViewsMenu insertItem:newWindowWebView atIndex:1];
+    [self.openBrowserWindowsWebViewsMenu setPopoverMenuSize];
 }
 
 
@@ -347,6 +348,7 @@
     if (self.openBrowserWindowsWebViews.count == 1) {
         [self.openBrowserWindowsWebViewsMenu removeItemAtIndex:1];
     }
+    [self.openBrowserWindowsWebViewsMenu setPopoverMenuSize];
 }
 
 
