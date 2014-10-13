@@ -80,6 +80,9 @@
 
 - (void) closeWebView:(WebView *) webViewToClose
 {
+    // Remove the entry for the WebView in a browser window from the array and dock item menu of open browser windows/WebViews
+    [self removeBrowserWindow:(SEBBrowserWindow *)webViewToClose.window withWebView:webViewToClose];
+    
     // Get the document for the web view
     id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:webViewToClose.window];
     // Close document and therefore also window
@@ -294,30 +297,65 @@
     for (SEBBrowserOpenWindowWebView *openWindowWebView in self.openBrowserWindowsWebViews) {
         if ([openWindowWebView.webView isEqualTo:webView]) {
             openWindowWebView.title = title;
-            // Change the dock menu item string to the page title
-            [openWindowWebView.menuItem setTitle:title];
         }
     }
 }
 
 
+// Add an entry for a WebView in a browser window into the array and dock item menu of open browser windows/WebViews
 - (void) addBrowserWindow:(SEBBrowserWindow *)newBrowserWindow withWebView:(WebView *)newWebView withTitle:(NSString *)newTitle
 {
-    SEBBrowserOpenWindowWebView *newWindowWebView = [SEBBrowserOpenWindowWebView new];
+    SEBBrowserOpenWindowWebView *newWindowWebView = [[SEBBrowserOpenWindowWebView alloc] initWithTitle:newTitle action:@selector(openWindowSelected:) keyEquivalent:@""];
     newWindowWebView.browserWindow = newBrowserWindow;
     newWindowWebView.webView = newWebView;
     newWindowWebView.title = newTitle;
-    newWindowWebView.menuItem = [[NSMenuItem alloc] initWithTitle:newTitle action:@selector(openWindowSelected:) keyEquivalent:@""];
+    NSImage *browserWindowImage;
+    [newWindowWebView setTarget:self];
 
     [self.openBrowserWindowsWebViews addObject:newWindowWebView];
     
-    [self.openBrowserWindowsWebViewsMenu addItem:newWindowWebView.menuItem];
+    int numberOfItems = self.openBrowserWindowsWebViews.count;
+
+    if (numberOfItems == 1) {
+        browserWindowImage = [NSImage imageNamed:@"ExamIcon"];
+    } else {
+        browserWindowImage = [NSImage imageNamed:@"BrowserIcon"];
+    }
+    [browserWindowImage setSize:NSMakeSize(16, 16)];
+    [newWindowWebView setImage:browserWindowImage];
+
+    if (numberOfItems == 2) {
+        [self.openBrowserWindowsWebViewsMenu insertItem:[NSMenuItem separatorItem] atIndex:1];
+    }
+
+    [self.openBrowserWindowsWebViewsMenu insertItem:newWindowWebView atIndex:1];
 }
 
 
-- (void) openWindowSelected:(id)sender
+// Remove an entry for a WebView in a browser window from the array and dock item menu of open browser windows/WebViews
+- (void) removeBrowserWindow:(SEBBrowserWindow *)browserWindow withWebView:(WebView *)webView
 {
-    NSLog(@"Sender: %@", sender);
+    SEBBrowserOpenWindowWebView *itemToRemove;
+    for (SEBBrowserOpenWindowWebView *openWindowWebView in self.openBrowserWindowsWebViews) {
+        if ([openWindowWebView.webView isEqualTo:webView]) {
+            itemToRemove = openWindowWebView;
+            break;
+        }
+    }
+    [self.openBrowserWindowsWebViews removeObject:itemToRemove];
+    [self.openBrowserWindowsWebViewsMenu removeItem:itemToRemove];
+    if (self.openBrowserWindowsWebViews.count == 1) {
+        [self.openBrowserWindowsWebViewsMenu removeItemAtIndex:1];
+    }
+}
+
+
+- (void) openWindowSelected:(SEBBrowserOpenWindowWebView *)sender
+{
+#ifdef DEBUG
+    NSLog(@"Selected menu item: %@", sender);
+#endif
+    [sender.browserWindow makeKeyAndOrderFront:self];
 }
 
 @end

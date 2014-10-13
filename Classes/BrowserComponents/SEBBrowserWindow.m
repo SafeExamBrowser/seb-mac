@@ -88,7 +88,10 @@
          postNotificationName:@"requestExitNotification" object:self];
         
         return NO; //but don't close the window (that will happen anyways in case quitting is confirmed)
-    } else return YES;
+    } else {
+        [self.browserController closeWebView:self.webView];
+        return YES;
+    }
 }
 
 
