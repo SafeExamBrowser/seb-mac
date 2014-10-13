@@ -78,14 +78,11 @@
             self.SEBDockMenu = itemMenu; // [itemMenu copy];
             [self.SEBDockMenu setDelegate:self];
             NSSize SEBDockMenuSize = [itemMenu size];
-            CGFloat SEBDockMenuWidth = SEBDockMenuSize.width + 14;
-            if (SEBDockMenuWidth > 500) {
-                SEBDockMenuWidth = 500;
-            }
-            NSView *SEBDockMenuView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, SEBDockMenuSize.width-13, SEBDockMenuSize.height - 22)];
+            NSView *SEBDockMenuView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, SEBDockMenuSize.width, SEBDockMenuSize.height)];
             self.SEBDockMenu.dockMenuView = SEBDockMenuView;
-            DropDownButton *dockMenuDropDownButton = [[DropDownButton alloc] initWithFrame:NSMakeRect(-4, 36, 0, 0)];
+            DropDownButton *dockMenuDropDownButton = [[DropDownButton alloc] initWithFrame:NSMakeRect(-4, 38, 0, 0)];
             self.dockMenuDropDownButton = dockMenuDropDownButton;
+            self.SEBDockMenu.dockMenuDropDownButton = dockMenuDropDownButton;
             [dockMenuDropDownButton setMenu:self.SEBDockMenu];
             [SEBDockMenuView addSubview:dockMenuDropDownButton];
             //

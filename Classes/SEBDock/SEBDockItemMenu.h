@@ -7,11 +7,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "DropDownButton.h"
 
 @interface SEBDockItemMenu : NSMenu
 
 @property (strong) NSView *dockMenuView;
 @property (strong) NSPopover *dockMenuPopover;
+@property (strong) DropDownButton *dockMenuDropDownButton;
 
 - (void) setPopoverMenuSize;
 

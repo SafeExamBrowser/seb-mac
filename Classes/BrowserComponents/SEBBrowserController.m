@@ -297,6 +297,7 @@
     for (SEBBrowserOpenWindowWebView *openWindowWebView in self.openBrowserWindowsWebViews) {
         if ([openWindowWebView.webView isEqualTo:webView]) {
             openWindowWebView.title = title;
+            [self.openBrowserWindowsWebViewsMenu setPopoverMenuSize];
         }
     }
 }
@@ -348,6 +349,7 @@
     if (self.openBrowserWindowsWebViews.count == 1) {
         [self.openBrowserWindowsWebViewsMenu removeItemAtIndex:1];
     }
+    
     [self.openBrowserWindowsWebViewsMenu setPopoverMenuSize];
 }
 
@@ -357,6 +359,7 @@
 #ifdef DEBUG
     NSLog(@"Selected menu item: %@", sender);
 #endif
+    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [sender.browserWindow makeKeyAndOrderFront:self];
 }
 
