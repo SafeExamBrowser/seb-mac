@@ -1053,9 +1053,9 @@ bool insideMatrix(){
         // Add dock icons/items
         NSMenu *SEBDockMenu = [[NSMenu alloc] initWithTitle:@""];
         [SEBDockMenu addItemWithTitle:@"" action:nil keyEquivalent:@""];
-        NSMenuItem *SEBDockMenuItemMainWindow = [[NSMenuItem alloc] initWithTitle: @"Main SEB Browser Window" action:@selector(buttonPressed) keyEquivalent: @""];
-        [SEBDockMenu addItem:SEBDockMenuItemMainWindow];
-        [SEBDockMenu addItem:[SEBDockMenuItemMainWindow copy]];
+//        NSMenuItem *SEBDockMenuItemMainWindow = [[NSMenuItem alloc] initWithTitle: @"Main SEB Browser Window" action:@selector(buttonPressed) keyEquivalent: @""];
+//        [SEBDockMenu addItem:SEBDockMenuItemMainWindow];
+//        [SEBDockMenu addItem:[SEBDockMenuItemMainWindow copy]];
         
         self.browserController.openBrowserWindowsWebViewsMenu = SEBDockMenu;
         

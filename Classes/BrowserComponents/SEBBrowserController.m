@@ -18,19 +18,55 @@
 @implementation SEBBrowserController
 
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.openBrowserWindowsWebViews = [NSMutableArray new];
+    }
+    return self;
+}
+
+
+// Open a new web browser window document
+- (SEBBrowserWindowDocument *) openBrowserWindowDocument
+{
+    SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
+    
+    // Set the reference to the browser controller in the browser window instance
+    SEBBrowserWindow *newWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
+    newWindow.browserController = self;
+    
+    return browserWindowDocument;
+}
+
 
 // Open a new WebView
 - (WebView *) openWebView
 {
-    SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
+    SEBBrowserWindowDocument *browserWindowDocument = [self openBrowserWindowDocument];
+
     WebView *newWindowWebView = browserWindowDocument.mainWindowController.webView;
+
+    // Add the title to the SEB dock item menu with open webpages
+    [self addBrowserWindow:(SEBBrowserWindow *)browserWindowDocument.mainWindowController.window
+               withWebView:newWindowWebView
+                 withTitle:NSLocalizedString(@"Untitled", @"Title of a new opened browser window; Untitled")];
+    
     return newWindowWebView;
 }
 
 // Open a new WebView and show its window
 - (WebView *) openAndShowWebView
 {
-    SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
+    SEBBrowserWindowDocument *browserWindowDocument = [self openBrowserWindowDocument];
+
+    WebView *newWindowWebView = browserWindowDocument.mainWindowController.webView;
+    
+    [self addBrowserWindow:(SEBBrowserWindow *)browserWindowDocument.mainWindowController.window
+               withWebView:browserWindowDocument.mainWindowController.webView
+                 withTitle:NSLocalizedString(@"Untitled", @"Title of a new opened browser window; Untitled")];
+    
     [browserWindowDocument.mainWindowController.window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
@@ -38,7 +74,7 @@
         [browserWindowDocument.mainWindowController.window newSetLevel:NSModalPanelWindowLevel];
         [browserWindowDocument.mainWindowController showWindow:self];
     }
-    return browserWindowDocument.mainWindowController.webView;
+    return newWindowWebView;
 }
 
 
@@ -57,7 +93,7 @@
 // Show new window containing webView
 - (void) webViewShow:(WebView *)sender
 {
-    id browserWindowDocument = [[NSDocumentController sharedDocumentController] documentForWindow:[sender window]];
+    SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] documentForWindow:[sender window]];
     [[sender window] setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
         [[sender window] newSetLevel:NSModalPanelWindowLevel];
@@ -91,12 +127,12 @@
     // Open and maximize the browser window
     // (this is done here, after presentation options are set,
     // because otherwise menu bar and dock are deducted from screen size)
-    SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
+    SEBBrowserWindowDocument *browserWindowDocument = [self openBrowserWindowDocument];
+    
     self.webView = browserWindowDocument.mainWindowController.webView;
 
     self.mainBrowserWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
-    // Set the reference to the browser controller in the browser window instance
-    self.mainBrowserWindow.browserController = self;
+
     // Set the flag indicating if the main browser window should be displayed full screen
     self.mainBrowserWindow.isFullScreen = mainBrowserWindowShouldBeFullScreen;
     
@@ -255,7 +291,13 @@
 // Set web page title for a window/WebView
 - (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(WebView *)webView
 {
-    
+    for (SEBBrowserOpenWindowWebView *openWindowWebView in self.openBrowserWindowsWebViews) {
+        if ([openWindowWebView.webView isEqualTo:webView]) {
+            openWindowWebView.title = title;
+            // Change the dock menu item string to the page title
+            [openWindowWebView.menuItem setTitle:title];
+        }
+    }
 }
 
 
@@ -265,11 +307,17 @@
     newWindowWebView.browserWindow = newBrowserWindow;
     newWindowWebView.webView = newWebView;
     newWindowWebView.title = newTitle;
+    newWindowWebView.menuItem = [[NSMenuItem alloc] initWithTitle:newTitle action:@selector(openWindowSelected:) keyEquivalent:@""];
 
     [self.openBrowserWindowsWebViews addObject:newWindowWebView];
     
-    [self.openBrowserWindowsWebViewsMenu addItem:[[NSMenuItem alloc] initWithTitle:newTitle action:nil keyEquivalent:@""]];
+    [self.openBrowserWindowsWebViewsMenu addItem:newWindowWebView.menuItem];
 }
 
+
+- (void) openWindowSelected:(id)sender
+{
+    NSLog(@"Sender: %@", sender);
+}
 
 @end

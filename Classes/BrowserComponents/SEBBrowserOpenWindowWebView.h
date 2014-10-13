@@ -15,5 +15,6 @@
 @property (nonatomic, retain) SEBBrowserWindow *browserWindow;
 @property (nonatomic, retain) WebView *webView;
 @property (nonatomic, retain) NSString *title;
+@property (nonatomic, retain) NSMenuItem *menuItem;
 
 @end
