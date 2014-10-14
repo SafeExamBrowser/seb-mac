@@ -40,10 +40,6 @@
     SEBBrowserWindow *newWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
     newWindow.browserController = self;
     
-    [self.mainBrowserWindow makeKeyAndOrderFront:self];
-    
-    [newWindow makeKeyAndOrderFront:self];
-
     return browserWindowDocument;
 }
 
@@ -53,12 +49,15 @@
 {
     SEBBrowserWindowDocument *browserWindowDocument = [self openBrowserWindowDocument];
 
+    SEBBrowserWindow *newWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
     WebView *newWindowWebView = browserWindowDocument.mainWindowController.webView;
 
     // Add the title to the SEB dock item menu with open webpages
     [self addBrowserWindow:(SEBBrowserWindow *)browserWindowDocument.mainWindowController.window
                withWebView:newWindowWebView
                  withTitle:NSLocalizedString(@"Untitled", @"Title of a new opened browser window; Untitled")];
+    
+    [newWindow makeKeyAndOrderFront:self];
     
     return newWindowWebView;
 }
@@ -68,6 +67,7 @@
 {
     SEBBrowserWindowDocument *browserWindowDocument = [self openBrowserWindowDocument];
 
+    SEBBrowserWindow *newWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
     WebView *newWindowWebView = browserWindowDocument.mainWindowController.webView;
     
     [self addBrowserWindow:(SEBBrowserWindow *)browserWindowDocument.mainWindowController.window
@@ -81,6 +81,8 @@
         [browserWindowDocument.mainWindowController.window newSetLevel:NSModalPanelWindowLevel];
         [browserWindowDocument.mainWindowController showWindow:self];
     }
+    [newWindow makeKeyAndOrderFront:self];
+    
     return newWindowWebView;
 }
 
@@ -307,14 +309,21 @@
             [self.openBrowserWindowsWebViewsMenu setPopoverMenuSize];
         }
     }
+    [self setStateForWindow:browserWindow withWebView:webView];
 }
 
 
 - (void) setStateForWindow:(SEBBrowserWindow *)browserWindow withWebView:(WebView *)webView
 {
+#ifdef DEBUG
+    NSLog(@"setStateForWindow: %@ withWebView: %@", browserWindow, webView);
+#endif
     for (SEBBrowserOpenWindowWebView *openWindowWebView in self.openBrowserWindowsWebViews) {
         if ([openWindowWebView.webView isEqualTo:webView]) {
             [openWindowWebView setState:NSOnState];
+#ifdef DEBUG
+            NSLog(@"setState: NSOnState: %@", webView);
+#endif
         } else {
             [openWindowWebView setState:NSOffState];
         }

@@ -75,11 +75,12 @@
 
 - (void)windowDidBecomeMain:(NSNotification *)notification
 {
-    [self.browserController setStateForWindow:(SEBBrowserWindow *)self.window withWebView:self.webView];
-    
 #ifdef DEBUG
     NSLog(@"BrowserWindow %@ did become main", self.window);
 #endif
+
+    [self.browserController setStateForWindow:(SEBBrowserWindow *)self.window withWebView:self.webView];
+    
 }
 
 
