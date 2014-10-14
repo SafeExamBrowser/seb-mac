@@ -34,6 +34,9 @@
 
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebView.h>
+#import "SEBBrowserController.h"
+
+@class SEBBrowserController;
 
 @interface SEBBrowserWindowController : NSWindowController <NSWindowDelegate>
 {
@@ -44,6 +47,7 @@
 
 @property (assign) NSRect frameForNonFullScreenMode;
 @property (weak) IBOutlet WebView *webView;
+@property(weak) SEBBrowserController *browserController;
 
 - (IBAction) backForward: (id)sender;
 - (IBAction) zoomText: (id)sender;

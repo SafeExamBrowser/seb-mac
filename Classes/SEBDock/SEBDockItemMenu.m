@@ -27,7 +27,6 @@
     } else {
         [self.dockMenuDropDownButton setFrame:NSMakeRect(-4, 14, 0, 0)];
     }
-
 }
 
 @end

@@ -37,5 +37,6 @@
 - (void) downloadAndOpenSebConfigFromURL:(NSURL *)url;
 
 - (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(WebView *)webView;
+- (void) setStateForWindow:(SEBBrowserWindow *)browserWindow withWebView:(WebView *)webView;
 
 @end

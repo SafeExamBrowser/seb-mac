@@ -33,10 +33,17 @@
 {
     SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
     
+    // Set the reference to the browser controller in the browser window controller instance
+    browserWindowDocument.mainWindowController.browserController = self;
+    
     // Set the reference to the browser controller in the browser window instance
     SEBBrowserWindow *newWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
     newWindow.browserController = self;
     
+    [self.mainBrowserWindow makeKeyAndOrderFront:self];
+    
+    [newWindow makeKeyAndOrderFront:self];
+
     return browserWindowDocument;
 }
 
@@ -298,6 +305,18 @@
         if ([openWindowWebView.webView isEqualTo:webView]) {
             openWindowWebView.title = title;
             [self.openBrowserWindowsWebViewsMenu setPopoverMenuSize];
+        }
+    }
+}
+
+
+- (void) setStateForWindow:(SEBBrowserWindow *)browserWindow withWebView:(WebView *)webView
+{
+    for (SEBBrowserOpenWindowWebView *openWindowWebView in self.openBrowserWindowsWebViews) {
+        if ([openWindowWebView.webView isEqualTo:webView]) {
+            [openWindowWebView setState:NSOnState];
+        } else {
+            [openWindowWebView setState:NSOffState];
         }
     }
 }
