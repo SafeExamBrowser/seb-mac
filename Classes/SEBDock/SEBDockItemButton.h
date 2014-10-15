@@ -10,7 +10,7 @@
 #import "DropDownButton.h"
 #import "SEBDockItemMenu.h"
 
-@interface SEBDockItemButton : NSButton <NSMenuDelegate>
+@interface SEBDockItemButton : NSButton
 {
     NSTrackingArea *trackingArea;
     NSPopUpButtonCell *popUpCell;
@@ -22,9 +22,7 @@
 
 @property (strong) NSTextField *label;
 @property (strong) NSPopover *labelPopover;
-@property (strong) SEBDockItemMenu *SEBDockMenu;
-@property (strong) NSPopover *SEBDockMenuPopover;
-@property (strong) DropDownButton *dockMenuDropDownButton;
+@property (strong) SEBDockItemMenu *dockMenu;
 
 - (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon title:(NSString *)itemTitle menu:(SEBDockItemMenu *)itemMenu;
 

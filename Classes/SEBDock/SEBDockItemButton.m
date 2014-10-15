@@ -73,28 +73,8 @@
             self.labelPopover = popover;
         }
         
-        // Create menu popover if there was a menu set for the item
         if (itemMenu) {
-            self.SEBDockMenu = itemMenu; // [itemMenu copy];
-            [self.SEBDockMenu setDelegate:self];
-            NSSize SEBDockMenuSize = [itemMenu size];
-            NSView *SEBDockMenuView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, SEBDockMenuSize.width, SEBDockMenuSize.height)];
-            self.SEBDockMenu.dockMenuView = SEBDockMenuView;
-            DropDownButton *dockMenuDropDownButton = [[DropDownButton alloc] initWithFrame:NSMakeRect(-4, 38, 0, 0)];
-            self.dockMenuDropDownButton = dockMenuDropDownButton;
-            self.SEBDockMenu.dockMenuDropDownButton = dockMenuDropDownButton;
-            [dockMenuDropDownButton setMenu:self.SEBDockMenu];
-            [SEBDockMenuView addSubview:dockMenuDropDownButton];
-            //
-            NSViewController *controller = [[NSViewController alloc] init];
-            controller.view = SEBDockMenuView;
-            
-            NSPopover *popover = [[NSPopover alloc] init];
-            self.SEBDockMenu.dockMenuPopover = popover;
-            [popover setContentSize:SEBDockMenuView.frame.size];
-            [popover setContentViewController:controller];
-            [popover setAnimates:NO];
-            self.SEBDockMenuPopover = popover;
+            self.dockMenu = itemMenu;
         }
     }
     return self;
@@ -131,18 +111,11 @@
 
 - (void)rightMouseDown: (NSEvent*) theEvent
 {
-    if (self.SEBDockMenuPopover)
+    if (self.dockMenu)
     {
         [self.labelPopover close];
-        [self.SEBDockMenuPopover showRelativeToRect:[self bounds] ofView:self preferredEdge:NSMaxYEdge];
-        [self.dockMenuDropDownButton runPopUp:nil];
+        [self.dockMenu showRelativeToRect:[self bounds] ofView:self];
     }
-}
-
-
-- (void)menuDidClose:(NSMenu *)menu
-{
-    [self.SEBDockMenuPopover close];
 }
 
 

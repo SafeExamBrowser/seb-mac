@@ -22,7 +22,12 @@
 {
     self = [super init];
     if (self) {
+        
         self.openBrowserWindowsWebViews = [NSMutableArray new];
+        
+        // Initialize SEB dock item menu for open browser windows/WebViews
+        SEBDockItemMenu *dockMenu = [[SEBDockItemMenu alloc] initWithTitle:@""];
+        self.openBrowserWindowsWebViewsMenu = dockMenu;
     }
     return self;
 }
@@ -305,7 +310,7 @@
 {
     for (SEBBrowserOpenWindowWebView *openWindowWebView in self.openBrowserWindowsWebViews) {
         if ([openWindowWebView.webView isEqualTo:webView]) {
-            openWindowWebView.title = title;
+            [openWindowWebView setTitle: title];
             [self.openBrowserWindowsWebViewsMenu setPopoverMenuSize];
         }
     }
@@ -356,9 +361,8 @@
     if (numberOfItems == 2) {
         [self.openBrowserWindowsWebViewsMenu insertItem:[NSMenuItem separatorItem] atIndex:1];
     }
-
+    
     [self.openBrowserWindowsWebViewsMenu insertItem:newWindowWebView atIndex:1];
-    [self.openBrowserWindowsWebViewsMenu setPopoverMenuSize];
 }
 
 
@@ -377,8 +381,6 @@
     if (self.openBrowserWindowsWebViews.count == 1) {
         [self.openBrowserWindowsWebViewsMenu removeItemAtIndex:1];
     }
-    
-    [self.openBrowserWindowsWebViewsMenu setPopoverMenuSize];
 }
 
 

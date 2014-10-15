@@ -1052,18 +1052,19 @@ bool insideMatrix(){
             self.dockController = [[SEBDockController alloc] init];
         }
         
-        // Add dock icons/items
-        SEBDockItemMenu *SEBDockMenu = [[SEBDockItemMenu alloc] initWithTitle:@""];
-        [SEBDockMenu addItemWithTitle:@"" action:nil keyEquivalent:@""];
-//        NSMenuItem *SEBDockMenuItemMainWindow = [[NSMenuItem alloc] initWithTitle: @"Main SEB Browser Window" action:@selector(buttonPressed) keyEquivalent: @""];
-//        [SEBDockMenu addItem:SEBDockMenuItemMainWindow];
-//        [SEBDockMenu addItem:[SEBDockMenuItemMainWindow copy]];
+        SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:@"Safe Exam Browser"
+                                                                 icon:[NSApp applicationIconImage]
+                                                              toolTip:nil
+                                                                 menu:self.browserController.openBrowserWindowsWebViewsMenu
+                                                               target:self
+                                                               action:@selector(buttonPressed)];
         
-        self.browserController.openBrowserWindowsWebViewsMenu = SEBDockMenu;
-        
-        SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:@"Safe Exam Browser" icon:[NSApp applicationIconImage] toolTip:nil menu:SEBDockMenu target:self action:@selector(buttonPressed)];
-        
-        SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil icon:[NSImage imageNamed:@"SEBShutDownIcon"] toolTip:@"Quit SEB" menu:nil target:self action:@selector(quitButtonPressed)];
+        SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil
+                                                                      icon:[NSImage imageNamed:@"SEBShutDownIcon"]
+                                                                   toolTip:@"Quit SEB"
+                                                                      menu:nil
+                                                                    target:self
+                                                                    action:@selector(quitButtonPressed)];
         
         [self.dockController setLeftItems:[NSArray arrayWithObjects:dockItemSEB, nil]];
                
@@ -1073,6 +1074,7 @@ bool insideMatrix(){
         
         // Display the dock
         [self.dockController showDock];
+
     } else {
         if (self.dockController) {
             [self.dockController hideDock];
