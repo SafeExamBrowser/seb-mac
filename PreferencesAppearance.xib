@@ -28,8 +28,8 @@
                     </connections>
                 </button>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="76">
-                    <rect key="frame" x="18" y="18" width="614" height="18"/>
-                    <string key="toolTip">The SEB dock shows and switches between open browser windows, allowed resources and applications and can display additional controls and information</string>
+                    <rect key="frame" x="18" y="18" width="173" height="18"/>
+                    <string key="toolTip">The SEB dock shows and switches between open browser windows, allowed resources and applications and can display additional controls</string>
                     <buttonCell key="cell" type="check" title="Show SEB dock/task bar" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="77">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -239,11 +239,36 @@
                         </binding>
                     </connections>
                 </matrix>
+                <textField toolTip="SEB Dock height in points (pixel height x 2 on Retina displays)" horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DiJ-eI-WGU">
+                    <rect key="frame" x="590" y="17" width="40" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="kWi-jS-1Ll"/>
+                    </constraints>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="Ngq-60-2cc">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="Mo3-nk-rKF">
+                            <real key="minimum" value="40"/>
+                            <real key="maximum" value="256"/>
+                        </numberFormatter>
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_taskBarHeight" id="X3k-PZ-ucx"/>
+                    </connections>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RFK-qQ-lel">
+                    <rect key="frame" x="501" y="19" width="81" height="17"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Dock height" usesSingleLineMode="YES" id="3KI-5c-L1K">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <constraints>
                 <constraint firstItem="13" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="213"/>
                 <constraint firstItem="76" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="273"/>
-                <constraint firstAttribute="trailing" secondItem="76" secondAttribute="trailing" constant="20" symbolic="YES" id="279"/>
                 <constraint firstAttribute="trailing" secondItem="371" secondAttribute="trailing" constant="20" symbolic="YES" id="378"/>
                 <constraint firstItem="371" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="380"/>
                 <constraint firstItem="383" firstAttribute="top" secondItem="371" secondAttribute="bottom" constant="6" symbolic="YES" id="390"/>
@@ -260,6 +285,12 @@
                 <constraint firstItem="540" firstAttribute="top" secondItem="743" secondAttribute="bottom" constant="16" id="755"/>
                 <constraint firstItem="371" firstAttribute="top" secondItem="540" secondAttribute="bottom" constant="24" id="756"/>
                 <constraint firstAttribute="trailing" secondItem="743" secondAttribute="trailing" constant="20" id="757"/>
+                <constraint firstItem="76" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="7t2-OM-2PO"/>
+                <constraint firstItem="76" firstAttribute="baseline" secondItem="RFK-qQ-lel" secondAttribute="baseline" id="FRe-Og-NW6"/>
+                <constraint firstAttribute="trailing" secondItem="DiJ-eI-WGU" secondAttribute="trailing" constant="20" id="PWt-f0-4mT"/>
+                <constraint firstItem="DiJ-eI-WGU" firstAttribute="leading" secondItem="RFK-qQ-lel" secondAttribute="trailing" constant="10" id="Yk9-6k-eZC"/>
+                <constraint firstItem="RFK-qQ-lel" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="76" secondAttribute="trailing" constant="20" id="cxX-X4-2fH"/>
+                <constraint firstItem="DiJ-eI-WGU" firstAttribute="baseline" secondItem="RFK-qQ-lel" secondAttribute="baseline" id="fSI-Jk-7Qv"/>
             </constraints>
         </customView>
         <objectController automaticallyPreparesContent="YES" id="49">
