@@ -76,7 +76,9 @@
     }    
     // display the download directory path in the menu
     [downloadDirectory setTitle:[[NSFileManager defaultManager] displayNameAtPath:downloadPath]];
-    [downloadDirectory setImage:[[NSWorkspace sharedWorkspace] iconForFile:downloadPath]];
+    NSImage *downloadFolderIcon = [[NSWorkspace sharedWorkspace] iconForFile:downloadPath];
+    [downloadFolderIcon setSize:NSMakeSize(16, 16)];
+    [downloadDirectory setImage:downloadFolderIcon];
     [chooseDownloadDirectory selectItemAtIndex:0];
     [chooseDownloadDirectory synchronizeTitleAndSelectedItem];
 }
