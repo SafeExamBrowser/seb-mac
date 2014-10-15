@@ -496,13 +496,14 @@ bool insideMatrix();
     //NSInteger changeCount = [pasteboard clearContents];
     [pasteboard clearContents];
 
+    // Set up SEB Browser
     self.browserController = [[SEBBrowserController alloc] init];
 
     // Set up and open SEB Dock
     [self openSEBDock];
-    
-    // Set up SEB Browser and open the main browser window
     self.browserController.dockController = self.dockController;
+    
+    // Open the main browser window
     [self.browserController openMainBrowserWindow];
     
 	// Due to the infamous Flash plugin we completely disable plugins in the 32-bit build
@@ -1048,9 +1049,7 @@ bool insideMatrix(){
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
         
         // Initialize the Dock
-        if (!self.dockController) {
-            self.dockController = [[SEBDockController alloc] init];
-        }
+        self.dockController = [[SEBDockController alloc] init];
         
         SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:@"Safe Exam Browser"
                                                                  icon:[NSApp applicationIconImage]
@@ -1312,8 +1311,12 @@ bool insideMatrix(){
     // Adjust screen locking
     [self adjustScreenLocking:self];
 
+    // Set up SEB Browser
+    self.browserController = [[SEBBrowserController alloc] init];
+    
     // Reopen SEB Dock
     [self openSEBDock];
+    self.browserController.dockController = self.dockController;
 
     // Reopen main browser window and load start URL
     [self.browserController openMainBrowserWindow];
