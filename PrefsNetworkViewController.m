@@ -68,6 +68,9 @@
 
 // Delegate called before the Network settings preferences pane will be displayed
 - (void)willBeDisplayed {
+    // Remove URL filter tab
+    [networkTabView removeTabViewItem:urlFilterTab];
+    
     //Load settings password from user defaults
     //[self loadPrefs];
     //[chooseIdentity synchronizeTitleAndSelectedItem];

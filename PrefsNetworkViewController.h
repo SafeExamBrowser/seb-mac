@@ -41,6 +41,9 @@
 
 @interface PrefsNetworkViewController : NSViewController <MBPreferencesModule> {
 
+    IBOutlet NSTabView *networkTabView;
+    IBOutlet NSTabViewItem *urlFilterTab;
+    
 	IBOutlet NSTableColumn *groupRowTableColumn;
     IBOutlet NSTreeController *treeController;
 	IBOutlet DropDownButton *dropDownButton;

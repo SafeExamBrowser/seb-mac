@@ -20,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button toolTip="The log can help debugging SEB (send it to the developers) and to find out about possible manipulations" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="13">
-                    <rect key="frame" x="18" y="445" width="116" height="18"/>
+                    <rect key="frame" x="18" y="427" width="116" height="18"/>
                     <buttonCell key="cell" type="check" title="Enable logging" bezelStyle="regularSquare" imagePosition="left" alignment="left" enabled="NO" inset="2" id="14">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -33,16 +33,16 @@
                         </binding>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="22">
-                    <rect key="frame" x="223" y="446" width="101" height="17"/>
+                <textField verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="22">
+                    <rect key="frame" x="223" y="428" width="101" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Save log file to:" id="23">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="32">
-                    <rect key="frame" x="328" y="441" width="305" height="26"/>
+                <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="32">
+                    <rect key="frame" x="328" y="423" width="305" height="26"/>
                     <constraints>
                         <constraint firstAttribute="width" priority="750" constant="300" id="BzA-vU-OlY"/>
                     </constraints>
@@ -77,7 +77,7 @@
                     </connections>
                 </button>
                 <button toolTip="Usually Fast User Switching shouldn't be allowed on BYOD exam clients" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="292">
-                    <rect key="frame" x="18" y="474" width="614" height="18"/>
+                    <rect key="frame" x="18" y="453" width="614" height="18"/>
                     <buttonCell key="cell" type="check" title="Allow user switching" bezelStyle="regularSquare" imagePosition="left" alignment="left" enabled="NO" state="on" inset="2" id="293">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -123,16 +123,16 @@
                     </textFieldCell>
                 </textField>
                 <tabView toolTip="Detail settings for locking down the system and specific system features" verticalHuggingPriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="SZK-Aw-k1e">
-                    <rect key="frame" x="13" y="0.0" width="624" height="410"/>
+                    <rect key="frame" x="13" y="0.0" width="624" height="407"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="System Lockdown" identifier="1" id="UDI-4x-V3M">
                             <view key="view" verticalHuggingPriority="500" id="uoJ-Ks-O1o">
-                                <rect key="frame" x="10" y="33" width="604" height="364"/>
+                                <rect key="frame" x="10" y="33" width="604" height="361"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <box autoresizesSubviews="NO" verticalHuggingPriority="500" verticalCompressionResistancePriority="1000" title="Kiosk Mode" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="UEX-8o-YnQ">
-                                        <rect key="frame" x="13" y="261" width="283" height="100"/>
+                                        <rect key="frame" x="13" y="258" width="283" height="100"/>
                                         <view key="contentView">
                                             <rect key="frame" x="1" y="1" width="281" height="84"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -185,7 +185,7 @@
                                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </box>
                                     <button toolTip="Display control in SEB dock allowing to reconnect to Wi-Fi networks used before." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="22y-gA-uVN">
-                                        <rect key="frame" x="14" y="226" width="586" height="18"/>
+                                        <rect key="frame" x="14" y="223" width="586" height="18"/>
                                         <buttonCell key="cell" type="check" title="Enable WiFi control" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Nlp-Oe-Cqb">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -208,11 +208,11 @@
                         </tabViewItem>
                         <tabViewItem label="Registry" identifier="2" id="ifL-Zz-OJp">
                             <view key="view" verticalHuggingPriority="500" id="lui-jD-ROw">
-                                <rect key="frame" x="10" y="33" width="604" height="364"/>
+                                <rect key="frame" x="10" y="33" width="604" height="361"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z35-jm-R60">
-                                        <rect key="frame" x="15" y="346" width="344" height="15"/>
+                                        <rect key="frame" x="15" y="343" width="344" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="15" id="ilN-45-5uj"/>
                                         </constraints>
@@ -223,7 +223,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <box autoresizesSubviews="NO" verticalHuggingPriority="500" title="While running SEB" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="dYr-I9-VL8">
-                                        <rect key="frame" x="13" y="97" width="283" height="241"/>
+                                        <rect key="frame" x="13" y="94" width="283" height="241"/>
                                         <view key="contentView">
                                             <rect key="frame" x="1" y="1" width="281" height="225"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -347,11 +347,11 @@
                         </tabViewItem>
                         <tabViewItem label="Hooked Keys" identifier="" id="3Kv-Y4-p4B">
                             <view key="view" verticalHuggingPriority="500" id="wcR-7a-nHQ">
-                                <rect key="frame" x="10" y="33" width="604" height="364"/>
+                                <rect key="frame" x="10" y="33" width="604" height="361"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <box autoresizesSubviews="NO" verticalHuggingPriority="500" title="Special Keys" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Dce-pG-aKy">
-                                        <rect key="frame" x="13" y="121" width="283" height="240"/>
+                                        <rect key="frame" x="13" y="118" width="283" height="240"/>
                                         <view key="contentView">
                                             <rect key="frame" x="1" y="1" width="281" height="224"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -416,7 +416,7 @@
                                                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableRightMouse" id="duE-bh-3xA"/>
                                                     </connections>
                                                 </button>
-                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="wUs-SE-6xn">
+                                                <button toolTip="Controls Print Screen, corresponds with Enable screen capture in OS X" translatesAutoresizingMaskIntoConstraints="NO" id="wUs-SE-6xn">
                                                     <rect key="frame" x="16" y="42" width="143" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable Print Screen" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="GQb-uN-fJO">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -462,7 +462,7 @@
                                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </box>
                                     <box autoresizesSubviews="NO" verticalHuggingPriority="500" title="Function Keys" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Eqg-kF-Hjl">
-                                        <rect key="frame" x="308" y="17" width="283" height="344"/>
+                                        <rect key="frame" x="308" y="14" width="283" height="344"/>
                                         <view key="contentView">
                                             <rect key="frame" x="1" y="1" width="281" height="328"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -632,45 +632,54 @@
                         </tabViewItem>
                     </tabViewItems>
                 </tabView>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pBJ-HX-kB3">
-                    <rect key="frame" x="18" y="406" width="137" height="14"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="pBJ-HX-kB3">
+                    <rect key="frame" x="18" y="403" width="137" height="14"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Settings for SEB Windows" id="ADm-4H-Zh3">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button toolTip="Controls OS X screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows" translatesAutoresizingMaskIntoConstraints="NO" id="PH3-Cb-12g">
+                    <rect key="frame" x="18" y="479" width="160" height="18"/>
+                    <buttonCell key="cell" type="check" title="Enable screen capture" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="zzi-ch-X4d">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enablePrintScreen" id="bCq-h7-eqr"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="13" firstAttribute="leading" secondItem="pBJ-HX-kB3" secondAttribute="leading" id="1Fr-7l-aZ1"/>
+                <constraint firstItem="76" firstAttribute="leading" secondItem="PH3-Cb-12g" secondAttribute="leading" id="48c-Cy-whl"/>
                 <constraint firstItem="93" firstAttribute="trailing" secondItem="99" secondAttribute="trailing" id="4rm-Md-YRc"/>
-                <constraint firstItem="13" firstAttribute="centerY" secondItem="22" secondAttribute="centerY" id="7Fe-Dm-lsj"/>
-                <constraint firstItem="292" firstAttribute="top" secondItem="76" secondAttribute="bottom" constant="17" id="Aks-0b-ZaK"/>
+                <constraint firstItem="76" firstAttribute="leading" secondItem="93" secondAttribute="leading" id="76B-ST-fRW"/>
                 <constraint firstItem="99" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="B67-9c-2t5"/>
-                <constraint firstItem="13" firstAttribute="top" secondItem="292" secondAttribute="bottom" constant="15" id="CuQ-lK-71c"/>
+                <constraint firstItem="PH3-Cb-12g" firstAttribute="top" secondItem="76" secondAttribute="bottom" constant="12" id="BiT-EG-tlD"/>
+                <constraint firstItem="13" firstAttribute="top" secondItem="292" secondAttribute="bottom" constant="12" id="CuQ-lK-71c"/>
                 <constraint firstItem="22" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="13" secondAttribute="trailing" constant="20" id="Ffw-cA-O3D"/>
-                <constraint firstItem="76" firstAttribute="top" secondItem="93" secondAttribute="bottom" constant="20" id="LDW-RM-Jjg"/>
-                <constraint firstItem="93" firstAttribute="trailing" secondItem="76" secondAttribute="trailing" id="LoK-sN-xro"/>
+                <constraint firstAttribute="trailing" secondItem="76" secondAttribute="trailing" constant="20" id="KVm-Ga-RS0"/>
+                <constraint firstAttribute="trailing" secondItem="32" secondAttribute="trailing" constant="20" id="MBr-Bx-hd3"/>
                 <constraint firstItem="SZK-Aw-k1e" firstAttribute="leading" secondItem="pBJ-HX-kB3" secondAttribute="leading" id="N3J-Hn-YtI"/>
-                <constraint firstItem="SZK-Aw-k1e" firstAttribute="top" secondItem="32" secondAttribute="bottom" constant="40" id="O2j-TM-q0O"/>
                 <constraint firstItem="32" firstAttribute="leading" secondItem="22" secondAttribute="trailing" constant="8" symbolic="YES" id="OX5-5c-yM7"/>
-                <constraint firstItem="292" firstAttribute="trailing" secondItem="32" secondAttribute="trailing" id="OqU-TS-kWs"/>
+                <constraint firstItem="76" firstAttribute="top" secondItem="93" secondAttribute="bottom" constant="20" id="Pfg-x9-9mr"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pBJ-HX-kB3" secondAttribute="trailing" constant="20" id="TAP-6o-GYN"/>
                 <constraint firstItem="93" firstAttribute="top" secondItem="99" secondAttribute="bottom" constant="3" id="UzH-yq-ugW"/>
+                <constraint firstAttribute="trailing" secondItem="292" secondAttribute="trailing" constant="20" id="XB8-Fd-3pG"/>
                 <constraint firstItem="99" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" symbolic="YES" id="YBR-Jg-vBr"/>
                 <constraint firstItem="292" firstAttribute="leading" secondItem="13" secondAttribute="leading" id="YTS-ap-HKP"/>
                 <constraint firstAttribute="bottom" secondItem="SZK-Aw-k1e" secondAttribute="bottom" constant="10" id="ZeZ-jd-zYA"/>
-                <constraint firstItem="93" firstAttribute="leading" secondItem="76" secondAttribute="leading" id="apo-I8-frA"/>
-                <constraint firstItem="32" firstAttribute="top" secondItem="292" secondAttribute="bottom" constant="11" id="ebd-9c-IYj"/>
                 <constraint firstItem="22" firstAttribute="baseline" secondItem="13" secondAttribute="baseline" id="h4Z-ug-OAG"/>
                 <constraint firstAttribute="trailing" secondItem="99" secondAttribute="trailing" constant="20" symbolic="YES" id="iU5-oJ-zbC"/>
                 <constraint firstItem="22" firstAttribute="centerY" secondItem="32" secondAttribute="centerY" id="ji8-ze-I40"/>
                 <constraint firstItem="93" firstAttribute="leading" secondItem="99" secondAttribute="leading" id="jud-Va-gdy"/>
-                <constraint firstItem="SZK-Aw-k1e" firstAttribute="trailing" secondItem="32" secondAttribute="trailing" id="lhc-Fz-fIj"/>
-                <constraint firstItem="76" firstAttribute="leading" secondItem="292" secondAttribute="leading" id="nbO-nQ-aou"/>
                 <constraint firstItem="SZK-Aw-k1e" firstAttribute="top" secondItem="pBJ-HX-kB3" secondAttribute="bottom" constant="2" id="pBx-kl-Hfh"/>
-                <constraint firstItem="pBJ-HX-kB3" firstAttribute="top" secondItem="13" secondAttribute="bottom" constant="27" id="tyF-6a-riw"/>
-                <constraint firstItem="292" firstAttribute="trailing" secondItem="76" secondAttribute="trailing" id="yVk-Dz-cIU"/>
+                <constraint firstAttribute="trailing" secondItem="SZK-Aw-k1e" secondAttribute="trailing" constant="20" id="pD8-oa-qZe"/>
+                <constraint firstItem="292" firstAttribute="top" secondItem="PH3-Cb-12g" secondAttribute="bottom" constant="12" id="t69-xy-fA4"/>
+                <constraint firstItem="pBJ-HX-kB3" firstAttribute="top" secondItem="13" secondAttribute="bottom" constant="12" id="tyF-6a-riw"/>
+                <constraint firstItem="76" firstAttribute="leading" secondItem="292" secondAttribute="leading" id="uck-h5-6Ic"/>
             </constraints>
         </customView>
         <objectController automaticallyPreparesContent="YES" id="49">
