@@ -461,6 +461,8 @@
                 [[MyGlobals sharedMyGlobals] setLastDownloadPath:lastDownloadPathIndex];
                 if (lastDownloadPath && [[NSFileManager defaultManager] fileExistsAtPath:lastDownloadPath]) {
                     [resultListener chooseFilename:lastDownloadPath];
+                    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+                    [self makeKeyAndOrderFront:self];
                     NSRunAlertPanel(NSLocalizedString(@"File automatically chosen", nil),
                                     NSLocalizedString(@"SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.", nil),
                                     NSLocalizedString(@"OK", nil), nil, nil);
@@ -470,6 +472,8 @@
             
             if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_chooseFileToUploadPolicy"] == onlyAllowUploadSameFileDownloadedBefore) {
                 // if the policy is "Only allow to upload the same file downloaded before"
+                [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+                [self makeKeyAndOrderFront:self];
                 NSRunAlertPanel(NSLocalizedString(@"File to upload not found!", nil),
                                 NSLocalizedString(@"SEB is configured to only allow to upload a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.", nil),
                                 NSLocalizedString(@"OK", nil), nil, nil);
@@ -519,6 +523,8 @@
 - (void)webView:(WebView *)sender runJavaScriptAlertPanelWithMessage:(NSString *)message 
 initiatedByFrame:(WebFrame *)frame {
 	NSString *pageTitle = [sender stringByEvaluatingJavaScriptFromString:@"document.title"];
+    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+    [self makeKeyAndOrderFront:self];
 	NSRunAlertPanel(pageTitle, @"%@", message, NSLocalizedString(@"OK", nil), nil, nil);
 }
 
@@ -527,6 +533,8 @@ initiatedByFrame:(WebFrame *)frame {
 - (BOOL)webView:(WebView *)sender runJavaScriptConfirmPanelWithMessage:(NSString *)message 
 initiatedByFrame:(WebFrame *)frame {
 	NSString *pageTitle = [sender stringByEvaluatingJavaScriptFromString:@"document.title"];
+    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+    [self makeKeyAndOrderFront:self];
 	return NSRunAlertPanel(pageTitle, @"%@", message, NSLocalizedString(@"OK",nil), NSLocalizedString(@"Cancel",nil), nil);
 }
 
@@ -633,13 +641,14 @@ willPerformClientRedirectToURL:(NSURL *)URL
             NSPanel *alertPanel = NSGetAlertPanel(titleString, messageString, NSLocalizedString(@"Retry",nil), NSLocalizedString(@"Cancel",nil), nil, nil);
             [alertPanel setLevel:NSScreenSaverWindowLevel];
             
+            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+            [self makeKeyAndOrderFront:self];
             int answer = NSRunAlertPanel(titleString, messageString, NSLocalizedString(@"Retry",nil), NSLocalizedString(@"Cancel",nil), nil, nil);
             switch(answer) {
                 case NSAlertDefaultReturn:
                     //Retry: try reloading
                     //self.browserController.currentMainHost = nil;
-                    [[sender mainFrame] loadRequest:
-                     [NSURLRequest requestWithURL:[NSURL URLWithString:self.browserController.currentMainHost]]];
+                    [[sender mainFrame] loadRequest:[[frame provisionalDataSource] request]];
                     return;
                 default:
                     return;
@@ -664,13 +673,14 @@ willPerformClientRedirectToURL:(NSURL *)URL
             NSString *titleString = NSLocalizedString(@"Error Loading Page",nil);
             NSString *messageString = [error localizedDescription];
             
+            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+            [self makeKeyAndOrderFront:self];
             int answer = NSRunAlertPanel(titleString, messageString, NSLocalizedString(@"Retry",nil), NSLocalizedString(@"Cancel",nil), nil, nil);
             switch(answer) {
                 case NSAlertDefaultReturn:
                     //Retry: try reloading
                     //self.browserController.currentMainHost = setCurrentMainHost:nil;
-                    [[sender mainFrame] loadRequest:
-                     [NSURLRequest requestWithURL:[NSURL URLWithString:self.browserController.currentMainHost]]];
+                    [[sender mainFrame] loadRequest:[[frame dataSource] request]];
                     return;
                 default:
                     return;
