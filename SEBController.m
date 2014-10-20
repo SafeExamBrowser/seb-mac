@@ -300,6 +300,19 @@ bool insideMatrix();
     // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
 	[self coverScreens];
 
+    // Check for cmd-shift hold down
+    int modifierFlags = [NSEvent modifierFlags];
+    _cmdShiftDown = (0 != (modifierFlags & (NSCommandKeyMask | NSShiftKeyMask)) );
+    
+#ifdef DEBUG
+    NSLog(@"Command - Shift is pressed: %hhd, modifierFlags: %d", _cmdShiftDown, modifierFlags);
+#endif
+    
+    if (_cmdShiftDown) {
+        quittingMyself = TRUE; //SEB is terminating itself
+        [NSApp terminate: nil]; //quit SEB
+    }
+    
     // Switch to kiosk mode by setting the proper presentation options
     [self startKioskMode];
     
@@ -577,6 +590,19 @@ bool insideMatrix();
     NSLog(@"Performing after start actions");
 #endif
 
+    // Check for cmd-shift hold down
+    int modifierFlags = [NSEvent modifierFlags];
+    _cmdShiftDown = (0 != (modifierFlags & (NSCommandKeyMask | NSShiftKeyMask)) );
+    
+#ifdef DEBUG
+    NSLog(@"Command - Shift is pressed: %hhd, modifierFlags: %d", _cmdShiftDown, modifierFlags);
+#endif
+    
+    if (_cmdShiftDown) {
+        quittingMyself = TRUE; //SEB is terminating itself
+        [NSApp terminate: nil]; //quit SEB
+    }
+    
     // Reinforce the kiosk mode
     [self requestedReinforceKioskMode:nil];
     
@@ -1448,6 +1474,16 @@ bool insideMatrix(){
 
 // Called just before SEB will be terminated
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
+  
+    if (_cmdShiftDown) {
+        // Show alert that keys were hold while starting SEB
+        NSAlert *newAlert = [[NSAlert alloc] init];
+        [newAlert setMessageText:NSLocalizedString(@"Holding Keys Not Allowed!", nil)];
+        [newAlert setInformativeText:NSLocalizedString(@"Holding keys pressed on the keyboard while starting SEB is not allowed. Restart SEB without holding any keys.", nil)];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [newAlert setAlertStyle:NSCriticalAlertStyle];
+        [newAlert runModal];
+    }
     
     BOOL success = [self.systemManager restoreSC];
 #ifdef DEBUG

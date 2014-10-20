@@ -79,6 +79,8 @@
 	IOPMAssertionID assertionID1;
 	IOPMAssertionID assertionID2;
     
+    @private
+    BOOL _cmdShiftDown;
 }
 
 - (void) closeAboutWindow;
