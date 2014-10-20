@@ -241,7 +241,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="237">
+                <textField verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="237">
                     <rect key="frame" x="18" y="383" width="168" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Use SEB settings file for ..." id="239">
                         <font key="font" metaFont="system"/>
@@ -377,20 +377,40 @@
                 <constraint firstItem="1137" firstAttribute="baseline" secondItem="3" secondAttribute="baseline" id="1431"/>
                 <constraint firstItem="1106" firstAttribute="top" secondItem="3" secondAttribute="bottom" constant="12" symbolic="YES" id="1441"/>
                 <constraint firstAttribute="bottom" secondItem="1106" secondAttribute="bottom" constant="20" symbolic="YES" id="1442"/>
+                <constraint firstItem="1292" firstAttribute="leading" secondItem="1060" secondAttribute="trailing" constant="23" id="4ND-FZ-U8X"/>
                 <constraint firstItem="110" firstAttribute="leading" secondItem="112" secondAttribute="trailing" constant="8" symbolic="YES" id="B35-ih-xD7"/>
+                <constraint firstItem="1072" firstAttribute="top" secondItem="1119" secondAttribute="bottom" constant="9" id="DZq-rO-jlR"/>
+                <constraint firstItem="1157" firstAttribute="leading" secondItem="1137" secondAttribute="trailing" constant="23" id="FEl-RC-hQ9"/>
                 <constraint firstItem="110" firstAttribute="leading" secondItem="113" secondAttribute="leading" id="GaJ-Qg-sCU"/>
+                <constraint firstItem="1165" firstAttribute="top" secondItem="1189" secondAttribute="bottom" constant="9" id="I5i-Bi-hkq"/>
+                <constraint firstItem="1060" firstAttribute="top" secondItem="1137" secondAttribute="bottom" constant="12" id="JcK-II-7PP"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="237" secondAttribute="trailing" constant="20" symbolic="YES" id="JcN-j9-Lyc"/>
                 <constraint firstItem="111" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="K31-xz-CZ3"/>
+                <constraint firstItem="1046" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="Klp-t5-GG5"/>
+                <constraint firstItem="1072" firstAttribute="leading" secondItem="1046" secondAttribute="trailing" constant="23" id="LSU-Xj-rkX"/>
                 <constraint firstItem="110" firstAttribute="trailing" secondItem="114" secondAttribute="trailing" id="MPd-vK-UKq"/>
+                <constraint firstItem="1137" firstAttribute="leading" secondItem="3" secondAttribute="trailing" constant="23" id="N09-0S-Cx0"/>
                 <constraint firstItem="1046" firstAttribute="top" secondItem="1172" secondAttribute="bottom" constant="9" id="PbC-FY-iZv"/>
                 <constraint firstItem="1189" firstAttribute="top" secondItem="113" secondAttribute="bottom" constant="22" id="QGF-mb-Y4h"/>
                 <constraint firstItem="110" firstAttribute="baseline" secondItem="112" secondAttribute="baseline" id="QQH-qJ-TuY"/>
+                <constraint firstAttribute="bottom" secondItem="1292" secondAttribute="bottom" constant="20" id="VOk-S1-crj"/>
+                <constraint firstItem="1165" firstAttribute="leading" secondItem="1072" secondAttribute="trailing" constant="23" id="Vxi-T8-HEz"/>
+                <constraint firstAttribute="trailing" secondItem="1292" secondAttribute="trailing" constant="20" id="WR6-Qy-5BJ"/>
+                <constraint firstAttribute="trailing" secondItem="1157" secondAttribute="trailing" constant="20" id="a4A-gv-sZc"/>
+                <constraint firstItem="1292" firstAttribute="top" secondItem="1157" secondAttribute="bottom" constant="12" id="bZv-rN-BeV"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="113" secondAttribute="trailing" constant="20" symbolic="YES" id="blq-78-fGE"/>
+                <constraint firstItem="1106" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="ch5-qn-5EV"/>
                 <constraint firstItem="112" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="d8p-X1-YUJ"/>
                 <constraint firstItem="110" firstAttribute="top" secondItem="114" secondAttribute="bottom" constant="8" id="dk7-Jr-1GJ"/>
+                <constraint firstItem="1157" firstAttribute="top" secondItem="1165" secondAttribute="bottom" constant="12" id="h0n-q2-K7L"/>
+                <constraint firstItem="1137" firstAttribute="top" secondItem="1072" secondAttribute="bottom" constant="12" id="hez-dG-i2m"/>
                 <constraint firstItem="113" firstAttribute="top" secondItem="110" secondAttribute="bottom" constant="3" id="ocH-c0-gYD"/>
+                <constraint firstItem="3" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="onw-20-pKx"/>
                 <constraint firstItem="110" firstAttribute="leading" secondItem="114" secondAttribute="leading" id="qaQ-2w-cuM"/>
+                <constraint firstAttribute="bottom" secondItem="1060" secondAttribute="bottom" constant="20" id="qmC-Py-9VS"/>
                 <constraint firstItem="110" firstAttribute="trailing" secondItem="1165" secondAttribute="trailing" id="qwW-z5-zFf"/>
+                <constraint firstAttribute="trailing" secondItem="1165" secondAttribute="trailing" constant="20" id="r53-cJ-MTj"/>
+                <constraint firstItem="1060" firstAttribute="leading" secondItem="1106" secondAttribute="trailing" constant="23" id="vAV-9m-u4Z"/>
             </constraints>
         </customView>
         <userDefaultsController id="211" userLabel="SEB User Defaults Controller" customClass="SEBEncryptedUserDefaultsController"/>
