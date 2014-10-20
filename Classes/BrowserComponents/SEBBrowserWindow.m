@@ -495,6 +495,9 @@
         // Change default directory in file dialog
         [openFilePanel setDirectoryURL:[NSURL fileURLWithPath:[preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"]]];
         
+        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+        [self makeKeyAndOrderFront:self];
+
         // Display the dialog.  If the OK button was pressed,
         // process the files.
         [openFilePanel beginSheetModalForWindow:self
