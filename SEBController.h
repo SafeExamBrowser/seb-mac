@@ -68,7 +68,6 @@
 	BOOL firstStart;
     BOOL quittingMyself;
 
-	SEBBrowserWindow *browserWindow;
 	IBOutlet AboutWindow *aboutWindow;
     IBOutlet NSMenuItem *configMenu;
     IBOutlet NSMenu *settingsMenu;

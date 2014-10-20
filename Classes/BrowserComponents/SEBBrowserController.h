@@ -24,6 +24,7 @@
 @property (strong) NSString *currentMainHost;
 @property (strong) NSMutableArray *openBrowserWindowsWebViews;
 @property (strong) SEBDockItemMenu *openBrowserWindowsWebViewsMenu;
+@property(readwrite) BOOL reinforceKioskModeRequested;
 
 - (WebView *) openWebView;
 - (WebView *) openAndShowWebView;

@@ -293,6 +293,10 @@ bool insideMatrix();
 												 name:NSApplicationDidBecomeActiveNotification 
                                                object:NSApp];
 	
+    // Hide all other applications
+    [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
+                                                    withObject:NULL waitUntilDone:NO];
+    
     // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
 	[self coverScreens];
 
@@ -499,6 +503,8 @@ bool insideMatrix();
     // Set up SEB Browser
     self.browserController = [[SEBBrowserController alloc] init];
 
+    self.browserController.reinforceKioskModeRequested = YES;
+    
     // Set up and open SEB Dock
     [self openSEBDock];
     self.browserController.dockController = self.dockController;
@@ -780,11 +786,10 @@ bool insideMatrix(){
         [window setReleasedWhenClosed:NO];
         [window setBackgroundColor:[NSColor blackColor]];
         [window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-//        [window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
         if (!allowSwitchToThirdPartyApps) {
-            [window newSetLevel:NSModalPanelWindowLevel];
+            [window setLevel:NSTornOffMenuWindowLevel];
         }
-        [window orderBack:self];
+        //[window orderBack:self];
         [self.capWindows addObject: window];
         NSView *superview = [window contentView];
         CapView *capview = [[CapView alloc] initWithFrame:rect];
@@ -881,7 +886,6 @@ bool insideMatrix(){
 
 - (void) regainActiveStatus: (id)sender {
 	// hide all other applications if not in debug build setting
-    //NSLog(@"regainActiveStatus!");
     /*/ Check if the
     if ([[sender name] isEqualToString:@"NSWorkspaceDidLaunchApplicationNotification"]) {
         NSDictionary *userInfo = [sender userInfo];
@@ -910,7 +914,7 @@ bool insideMatrix(){
 //        [NSApp activateIgnoringOtherApps: YES];
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications) withObject:NULL waitUntilDone:NO];
-        [self startKioskMode];
+//        [self startKioskMode];
 #endif
     } else {
         /*/ Save the bundle ID of all currently running apps which are visible in a array
@@ -977,15 +981,17 @@ bool insideMatrix(){
     [self startKioskModeThirdPartyAppsAllowed:allowApps overrideShowMenuBar:overrideShowMenuBar];
     
     // Change window level of cap windows
-    NSWindow *capWindow;
-    //[window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenAuxiliary];
-    //        [window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary | NSWindowCollectionBehaviorCanJoinAllSpaces];
-    //        [window setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
+    CapWindow *capWindow;
+    BOOL allowAppsUserDefaultsSetting = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
+
     for (capWindow in self.capWindows) {
         if (allowApps) {
             [capWindow newSetLevel:NSNormalWindowLevel];
         } else {
             [capWindow newSetLevel:NSTornOffMenuWindowLevel];
+            if (allowAppsUserDefaultsSetting) {
+                capWindow.collectionBehavior = NSWindowCollectionBehaviorStationary;
+            }
         }
     }
     
@@ -1257,7 +1263,9 @@ bool insideMatrix(){
     // Switch the kiosk mode on again
     [self setElevateWindowLevels];
     
-    [self startKioskMode];
+//    [self startKioskMode];
+    BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
+    [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
 }
 
 
@@ -1274,6 +1282,8 @@ bool insideMatrix(){
 
 - (void)requestedQuitWPwd:(NSNotification *)notification
 {
+    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+    
     int answer = NSRunAlertPanel(NSLocalizedString(@"Quit",nil), NSLocalizedString(@"Are you sure you want to quit SEB?",nil),
                                  NSLocalizedString(@"Cancel",nil), NSLocalizedString(@"Quit",nil), nil);
     switch(answer)
@@ -1367,10 +1377,11 @@ bool insideMatrix(){
 
 //    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
 
-    BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
+    BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
     [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
 
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+    [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
 }
 
 
@@ -1549,16 +1560,15 @@ bool insideMatrix(){
         if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen]) {
             // If third party Apps are not allowed, we switch back to SEB
 #ifdef DEBUG
-            NSLog(@"Disabled: Switched back to SEB after currentSystemPresentationOptions changed!");
+            NSLog(@"Switched back to SEB after currentSystemPresentationOptions changed!");
 #endif
-//            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-//            [NSApp activateIgnoringOtherApps: YES];
+            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
 
 //            [[NSNotificationCenter defaultCenter] postNotificationName:@"requestRegainActiveStatus" object:self];
 
 //            [self.browserController.browserWindow makeKeyAndOrderFront:self];
             //[self startKioskMode];
-//            [self regainActiveStatus:nil];
+            [self regainActiveStatus:nil];
             //[self.browserController.browserWindow setFrame:[[self.browserController.browserWindow screen] frame] display:YES];
         }
     }
