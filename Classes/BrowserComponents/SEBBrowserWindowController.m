@@ -85,6 +85,14 @@
     }
     [self.browserController setStateForWindow:(SEBBrowserWindow *)self.window withWebView:self.webView];
     
+    // If this is the main browser window, check if it's still on the same screen as when the dock was opened
+    if (self.window == self.browserController.mainBrowserWindow) {
+        if (self.window.screen != self.browserController.dockController.window.screen) {
+            // Post a notification that the main screen changed
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"mainScreenChanged" object:self];
+        }
+    }
 }
 
 
@@ -116,11 +124,13 @@
         NSRect newWindowFrame = NSMakeRect(oldWindowFrame.origin.x, newFrame.origin.y, oldWindowFrame.size.width, newFrame.size.height);
         [self.window setFrame:newWindowFrame display:YES animate:YES];
     }
-    
-    // Post a notification that the main screen changed
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"mainScreenChanged" object:self];
-
+   
+    // If this is the main browser window, check if it's still on the same screen as when the dock was opened
+    if (self.window == self.browserController.mainBrowserWindow) {
+        // Post a notification that the main screen changed
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"mainScreenChanged" object:self];
+    }
 }
 
 

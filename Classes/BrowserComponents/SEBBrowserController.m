@@ -150,6 +150,13 @@
 
     self.mainBrowserWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
 
+    // Check if the active screen (where the window is opened) changed in between opening dock
+    if (self.mainBrowserWindow.screen != self.dockController.window.screen) {
+        // Post a notification that the main screen changed
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"mainScreenChanged" object:self];
+    }
+
     // Set the flag indicating if the main browser window should be displayed full screen
     self.mainBrowserWindow.isFullScreen = mainBrowserWindowShouldBeFullScreen;
     
