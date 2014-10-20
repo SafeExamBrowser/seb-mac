@@ -38,7 +38,7 @@
                 [self.label setTextColor:[NSColor whiteColor]];
                 [self.label setFont:[NSFont boldSystemFontOfSize:14]];
             } else {
-                [self.label setTextColor:[NSColor blackColor]];
+                [self.label setTextColor:[NSColor darkGrayColor]];
                 [self.label setFont:[NSFont systemFontOfSize:14]];
             }
             self.label.bezeled = NO;
@@ -48,11 +48,23 @@
             self.label.stringValue = itemTitle;
             NSSize dockItemLabelSize = [self.label intrinsicContentSize];
             [self.label setAlignment:NSCenterTextAlignment];
-            CGFloat dockItemLabelWidth = dockItemLabelSize.width + 14;
+            CGFloat dockItemLabelWidth = dockItemLabelSize.width;
+            CGFloat dockItemLabelHeight = dockItemLabelSize.height;
+            CGFloat dockItemLabelYOffset;
+            if (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_9) {
+                dockItemLabelWidth += 14;
+                dockItemLabelHeight += 3;
+                dockItemLabelYOffset = 0;
+            } else {
+                dockItemLabelWidth += 26;
+                dockItemLabelHeight += 9;
+                dockItemLabelYOffset = -3;
+            }
             if (dockItemLabelWidth > 610) {
                 dockItemLabelWidth = 610;
             }
-            [self.label setFrameSize:NSMakeSize(dockItemLabelWidth, dockItemLabelSize.height + 3)];
+            [self.label setFrameSize:NSMakeSize(dockItemLabelWidth, dockItemLabelHeight)];
+            [self.label setFrameOrigin:NSMakePoint(0, dockItemLabelYOffset)];
             
             // Create view to place label into
             NSView *dockItemLabelView = [[NSView alloc] initWithFrame:self.label.frame];
