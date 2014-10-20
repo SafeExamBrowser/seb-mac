@@ -29,6 +29,7 @@
 
         NSRect initialContentRect = NSMakeRect(0, 0, 1024, dockHeight);
         self.dockWindow = [[SEBDockWindow alloc] initWithContentRect:initialContentRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
+        self.dockWindow.collectionBehavior = NSWindowCollectionBehaviorStationary;
         self.dockWindow.height = dockHeight;
         
         NSView *superview = [self.dockWindow contentView];

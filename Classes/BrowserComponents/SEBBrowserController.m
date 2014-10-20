@@ -164,8 +164,7 @@
         [self.mainBrowserWindow newSetLevel:NSModalPanelWindowLevel];
         
     }
-    //	[NSApp activateIgnoringOtherApps: YES];
-    //    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     
     // Setup bindings to the preferences window close button
     NSButton *closeButton = [self.mainBrowserWindow standardWindowButton:NSWindowCloseButton];
@@ -210,14 +209,21 @@
     NSArray *openWindowDocuments = [[NSDocumentController sharedDocumentController] documents];
     SEBBrowserWindowDocument *openWindowDocument;
     for (openWindowDocument in openWindowDocuments) {
+        NSWindow *browserWindow = openWindowDocument.mainWindowController.window;
         if (allowApps) {
             // Order new browser window to the front of our level
-            [openWindowDocument.mainWindowController.window newSetLevel:NSNormalWindowLevel];
-            [openWindowDocument.mainWindowController.window orderFront:self];
+            [browserWindow newSetLevel:NSNormalWindowLevel];
+            [browserWindow orderFront:self];
         } else {
-            [openWindowDocument.mainWindowController.window newSetLevel:NSModalPanelWindowLevel];
+            [browserWindow newSetLevel:NSModalPanelWindowLevel];
         }
     }
+    // If the main browser window is displayed fullscreen and switching to apps is allowed,
+    // we make the window stationary, so that it isn't scaled down from Exposé
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"] && self.mainBrowserWindow.isFullScreen) {
+        self.mainBrowserWindow.collectionBehavior = NSWindowCollectionBehaviorStationary;
+    }
+
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [self.mainBrowserWindow
      makeKeyAndOrderFront:self];

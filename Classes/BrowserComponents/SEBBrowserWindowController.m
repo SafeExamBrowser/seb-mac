@@ -78,7 +78,11 @@
 #ifdef DEBUG
     NSLog(@"BrowserWindow %@ did become main", self.window);
 #endif
-
+    if (self.browserController.reinforceKioskModeRequested) {
+        self.browserController.reinforceKioskModeRequested = NO;
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"requestReinforceKioskMode" object:self];
+    }
     [self.browserController setStateForWindow:(SEBBrowserWindow *)self.window withWebView:self.webView];
     
 }

@@ -987,11 +987,11 @@ bool insideMatrix(){
     for (capWindow in self.capWindows) {
         if (allowApps) {
             [capWindow newSetLevel:NSNormalWindowLevel];
-        } else {
-            [capWindow newSetLevel:NSTornOffMenuWindowLevel];
             if (allowAppsUserDefaultsSetting) {
                 capWindow.collectionBehavior = NSWindowCollectionBehaviorStationary;
             }
+        } else {
+            [capWindow newSetLevel:NSTornOffMenuWindowLevel];
         }
     }
     

@@ -48,6 +48,7 @@
 #import "PrefsNetworkViewController.h"
 #import "PrefsSecurityViewController.h"
 
+@class SEBController;
 @class SEBConfigFileManager;
 @class PrefsGeneralViewController;
 @class PrefsConfigFileViewController;
@@ -67,6 +68,7 @@
 
 @property BOOL currentConfigPasswordIsHash;
 @property BOOL refreshingPreferences;
+@property (strong, nonatomic) IBOutlet SEBController *sebController;
 @property (strong, nonatomic) SEBConfigFileManager *configFileManager;
 @property (strong, nonatomic) PrefsGeneralViewController *generalVC;
 @property (strong, nonatomic) PrefsConfigFileViewController *configFileVC;

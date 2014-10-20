@@ -453,6 +453,7 @@
         </customObject>
         <customObject id="892" customClass="PreferencesController">
             <connections>
+                <outlet property="sebController" destination="543" id="GLW-wc-ler"/>
                 <outlet property="settingsMenu" destination="sdD-uM-Hx0" id="mxI-KK-acg"/>
             </connections>
         </customObject>

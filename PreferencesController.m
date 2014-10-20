@@ -193,7 +193,7 @@
 {
     // If Preferences are being closed and we're not just refreshing the preferences window
     if (!self.refreshingPreferences) {
-//        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         return [self conditionallyClosePreferencesWindowAskToApply:YES];
     } else {
         return YES;
@@ -205,7 +205,7 @@
 - (void)windowWillClose:(NSNotification *)notification
 {
     if (self.preferencesAreOpen && !self.refreshingPreferences) {
-        //        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+        self.sebController.browserController.reinforceKioskModeRequested = YES;
         // Post a notification that the preferences window closes
         if (restartSEB) {
             [[NSNotificationCenter defaultCenter]
