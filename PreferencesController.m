@@ -550,7 +550,11 @@
         // Ask if edited settings should be applied or previously active settings restored
         NSAlert *newAlert = [[NSAlert alloc] init];
         [newAlert setMessageText:NSLocalizedString(@"Apply Edited Settings?", nil)];
-        [newAlert setInformativeText:NSLocalizedString(@"You edited settings. Do you want to apply them or continue using previous settings?", nil)];
+        if (NSUserDefaults.userDefaultsPrivate) {
+            [newAlert setInformativeText:NSLocalizedString(@"You edited settings. Do you want to apply them or continue using previous settings?", nil)];
+        } else {
+            [newAlert setInformativeText:NSLocalizedString(@"You edited settings. Do you want to apply them or continue using previous settings (current settings will be discarded)?", nil)];
+        }
         [newAlert addButtonWithTitle:NSLocalizedString(@"Don't Apply", nil)];
         [newAlert addButtonWithTitle:NSLocalizedString(@"Apply", nil)];
         [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
@@ -821,7 +825,7 @@
             if (![encryptedSebData writeToURL:currentConfigFileURL options:NSDataWritingAtomic error:&error]) {
                 // If the prefs file couldn't be written to app bundle
                 NSRunAlertPanel(NSLocalizedString(@"Writing Settings Failed", nil),
-                                NSLocalizedString(@"Make sure you have write permissions in the chosen directory", nil),
+                                @"%@", [error localizedDescription],
                                 NSLocalizedString(@"OK", nil), nil, nil);
                 [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
                 [preferences setSecureObject:oldBrowserExamKeySalt forKey:@"org_safeexambrowser_SEB_examKeySalt"];
@@ -853,7 +857,7 @@
                     //if (![filteredPrefsDict writeToURL:prefsFileURL atomically:YES]) {
                     // If the prefs file couldn't be written
                     NSRunAlertPanel(NSLocalizedString(@"Writing Settings Failed", nil),
-                                    NSLocalizedString(@"Make sure you have write permissions in the chosen directory", nil),
+                                    @"%@", [error localizedDescription],
                                     NSLocalizedString(@"OK", nil), nil, nil);
                     [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
                     [preferences setSecureObject:oldBrowserExamKeySalt forKey:@"org_safeexambrowser_SEB_examKeySalt"];
@@ -866,7 +870,7 @@
                         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:panel.URL];
                         [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
                     }
-                    if (NSUserDefaults.userDefaultsPrivate && fileURLUpdate) {
+                    if (fileURLUpdate) {
                         [[MBPreferencesController sharedController] setPreferencesWindowTitle];
                         NSString *settingsSavedMessage = configPurpose ? NSLocalizedString(@"Settings have been saved, use this file to reconfigure local settings of a SEB client.", nil) : NSLocalizedString(@"Settings have been saved, use this file to start the exam with SEB.", nil);
                         NSRunAlertPanel(NSLocalizedString(@"Writing Settings Succeeded", nil), @"%@", NSLocalizedString(@"OK", nil), nil, nil,settingsSavedMessage);
