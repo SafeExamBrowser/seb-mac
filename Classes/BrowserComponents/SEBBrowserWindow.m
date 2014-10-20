@@ -63,6 +63,16 @@
 }
 
 
+-(BOOL)canBecomeKeyWindow {
+    return YES;
+}
+
+
+-(BOOL)canBecomeMainWindow {
+    return YES;
+}
+
+
 // Overriding setTitle method to adjust position of progress indicator
 - (void)setTitle:(NSString *)title
 {
