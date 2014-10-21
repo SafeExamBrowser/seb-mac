@@ -47,7 +47,6 @@
 
 	//IBOutlet NSButtonCell *sebStartsExam;
 	//IBOutlet NSButtonCell *sebConfiguresClient;
-	IBOutlet NSButton *saveSEBPrefsButton;
     IBOutlet NSObjectController *controller;
 
     @private

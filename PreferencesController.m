@@ -266,7 +266,7 @@
             }
         }
 
-    } else {
+    } else if (!NSUserDefaults.userDefaultsPrivate) {
         
         // If local settings active: Just re-generate Browser Exam Key
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
@@ -325,8 +325,15 @@
                 {
                     // Apply edited allow prefs setting while overriding disabling the preferences window for this session/resetting it
                     [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"];
-                    // Re-generate Browser Exam Key
+                    if (NSUserDefaults.userDefaultsPrivate) {
+                        // Release preferences window so bindings get synchronized properly with the new loaded values
+                        [self releasePreferencesWindow];
+                        // Reopen preferences window
+                        [self initPreferencesWindow];
+                    }
+                    // Re-generate Browser Exam Key only when using
                     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+                    
                     break;
                 }
                     
@@ -463,8 +470,8 @@
 - (int) alertForDisabledPreferences
 {
     NSString *informativeText = NSUserDefaults.userDefaultsPrivate
-    ? NSLocalizedString(@"These settings have the option \"Allow to open preferences window on client\" disabled, which will prevent opening preferences. Are you sure you want to apply this? Otherwise you can override the option for the current session.", nil)
-    : NSLocalizedString(@"Local client settings have the option \"Allow to open preferences window on client\" disabled, which will prevent opening preferences (even when you restart SEB!). Are you sure you want to apply this? Otherwise you can reset this option.", nil);
+    ? NSLocalizedString(@"These settings have the option \"Allow to open preferences window on client\" disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.", nil)
+    : NSLocalizedString(@"Local client settings have the option \"Allow to open preferences window on client\" disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.", nil);
     
     NSString *defaultButtonText = NSUserDefaults.userDefaultsPrivate
     ? NSLocalizedString(@"Override", nil)
@@ -524,7 +531,8 @@
             {
                 // Save the current settings data first (this also updates the Browser Exam Key)
                 if (![self savePrefsAs:NO fileURLUpdate:NO]) {
-                    // Saving failed: Abort restarting
+                    // Saving failed: Abort restarting, restore old Browser Exam Key
+                    [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
                     return;
                 }
                 break;
@@ -543,6 +551,11 @@
                 return;
             }
         }
+        
+    } else if (!NSUserDefaults.userDefaultsPrivate) {
+        
+        // If local settings active: Just re-generate Browser Exam Key
+        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
     }
 
     // If settings changed:
@@ -598,6 +611,12 @@
                 {
                     // Apply edited allow prefs setting while overriding disabling the preferences window for this session/resetting it
                     [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"];
+                    if (NSUserDefaults.userDefaultsPrivate) {
+                        // Release preferences window so bindings get synchronized properly with the new loaded values
+                        [self releasePreferencesWindow];
+                        // Reopen preferences window
+                        [self initPreferencesWindow];
+                    }
                     // Re-generate Browser Exam Key
                     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
                     break;
@@ -665,7 +684,7 @@
             }
         }
 
-    } else {
+    } else if (!NSUserDefaults.userDefaultsPrivate) {
         
         /// Local client settings are active
         
@@ -819,6 +838,7 @@
     
     // If SEB settings were actually read and encrypted we save them
     if (encryptedSebData) {
+        NSURL *prefsFileURL;
         if (!saveAs && [currentConfigFileURL isFileURL]) {
             // "Save": Rewrite the file openend before
             NSError *error;
@@ -850,7 +870,7 @@
             [panel setAllowedFileTypes:[NSArray arrayWithObject:@"seb"]];
             int result = [panel runModal];
             if (result == NSFileHandlingPanelOKButton) {
-                NSURL *prefsFileURL = [panel URL];
+                prefsFileURL = [panel URL];
                 NSError *error;
                 // Write the contents in the new format.
                 if (![encryptedSebData writeToURL:prefsFileURL options:NSDataWritingAtomic error:&error]) {
@@ -867,10 +887,10 @@
                     // If "Save As" or the last file didn't had a full path (wasn't stored on drive):
                     // Store the new path as the current config file path
                     if (NSUserDefaults.userDefaultsPrivate && fileURLUpdate && (saveAs || ![currentConfigFileURL isFileURL])) {
-                        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:panel.URL];
+                        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:prefsFileURL];
                         [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
                     }
-                    if (fileURLUpdate) {
+                    if (NSUserDefaults.userDefaultsPrivate && fileURLUpdate) {
                         [[MBPreferencesController sharedController] setPreferencesWindowTitle];
                         NSString *settingsSavedMessage = configPurpose ? NSLocalizedString(@"Settings have been saved, use this file to reconfigure local settings of a SEB client.", nil) : NSLocalizedString(@"Settings have been saved, use this file to start the exam with SEB.", nil);
                         NSRunAlertPanel(NSLocalizedString(@"Writing Settings Succeeded", nil), @"%@", NSLocalizedString(@"OK", nil), nil, nil,settingsSavedMessage);
@@ -882,10 +902,49 @@
                 [preferences setSecureObject:oldBrowserExamKeySalt forKey:@"org_safeexambrowser_SEB_examKeySalt"];
                 return NO;
             }
-
-//            [panel beginSheetModalForWindow:[MBPreferencesController sharedController].window
-//                          completionHandler:^(NSInteger result){
-//                          }];
+        }
+        // When Save As with local user defaults we ask if the saved file should be edited further
+        if (saveAs && !NSUserDefaults.userDefaultsPrivate) {
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:NSLocalizedString(@"Edit Saved Settings?", nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"Do you want to continue editing the saved settings file?", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Edit File", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+            int answer = [newAlert runModal];
+            switch(answer)
+            {
+                case NSAlertFirstButtonReturn:
+                {
+                    // Release preferences window so bindings get synchronized properly with the new loaded values
+                    [self releasePreferencesWindow];
+                    
+                    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:prefsFileURL];
+                    
+                    // Get key/values from local shared client UserDefaults
+                    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+                    NSDictionary *localClientPreferences = [preferences dictionaryRepresentationSEB];
+                    
+                    // Switch to private UserDefaults (saved non-persistantly in memory instead in ~/Library/Preferences)
+                    NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults]; //the mutable dictionary has to be created here, otherwise the preferences values will not be saved!
+                    [NSUserDefaults setUserDefaultsPrivate:YES];
+                    
+                    [self.configFileManager storeIntoUserDefaults:localClientPreferences];
+#ifdef DEBUG
+                    NSLog(@"Private preferences set: %@", privatePreferences);
+#endif
+                    // Re-initialize and open preferences window
+                    [self initPreferencesWindow];
+                    [self reopenPreferencesWindow];
+                    
+                    return YES;
+                }
+                    
+                case NSAlertSecondButtonReturn:
+                {
+                    // Keep working with local client settings
+                    break;
+                }
+            }
         }
         return YES;
     }
@@ -1203,8 +1262,41 @@
 // Action configuring client with currently edited preferences
 - (IBAction) configureClient:(id)sender
 {
-    // Get key/values from private UserDefaults
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    // If opening the preferences window isn't allowed in these settings,
+    // which is dangerous when being applied, we confirm the user knows what he's doing
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"] == NO) {
+        //switch to system's UserDefaults
+        [NSUserDefaults setUserDefaultsPrivate:NO];
+        int answer = [self alertForDisabledPreferences];
+        //switch to private UserDefaults
+        [NSUserDefaults setUserDefaultsPrivate:YES];
+        switch(answer)
+        {
+            case NSAlertFirstButtonReturn:
+            {
+                // Apply edited allow prefs setting while overriding disabling the preferences window for this session/resetting it
+                [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"];
+
+                break;
+            }
+                
+            case NSAlertSecondButtonReturn:
+            {
+                // Configure client with without overriding allow prefs settings
+                break;
+            }
+                
+            case NSAlertThirdButtonReturn:
+            {
+                // Cancel: Don't configure client
+                return;
+            }
+        }
+    }
+
+    // Get key/values from private UserDefaults
     NSDictionary *privatePreferences = [preferences dictionaryRepresentationSEB];
     
     // Release preferences window so buttons get enabled properly for the local client settings mode

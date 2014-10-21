@@ -185,6 +185,9 @@
         /// If these SEB settings are ment to configure a client
         ///
 
+        // Release preferences window so bindings get synchronized properly with the new loaded values
+        [self.sebController.preferencesController releasePreferencesWindow];
+        
         //switch to system's UserDefaults
         [NSUserDefaults setUserDefaultsPrivate:NO];
         
@@ -232,6 +235,7 @@
         }
         
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+        [prefsController initPreferencesWindow];
         
         return YES; //reading preferences was successful
     }
