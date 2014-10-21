@@ -48,24 +48,33 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
-    /// Check if there is a redirected location persistantly stored
+    /// Check if there is a redirected sc location persistantly stored
     /// What only happends when it couldn't be reset last time SEB has run
     
     scTempPath = [self getStoredNewSCLocation];
     if (scTempPath.length > 0) {
         
         /// There is a redirected location saved
+#ifdef DEBUG
+        NSLog(@"There was a persistantly saved redirected screencapture location (%@). Looks like SEB didn't quit properly when running last time.", scTempPath);
+#endif
         
         // Delete the last directory
         if ([self removeTempDirectory:scTempPath]) {
-            // if removing worked, reset the redirected location
-            [preferences setSecureString:@"" forKey:@"newDestination"];
-            }
+#ifdef DEBUG
+            NSLog(@"Removing persitantly saved redirected screencapture directory %@ worked.", scTempPath);
+#endif
+        }
+        // Reset the redirected location
+        [preferences setSecureString:@"" forKey:@"newDestination"];
         // Get the original location
         scLocation = [preferences secureStringForKey:@"currentDestination"];
         if (scLocation.length == 0) {
             // in case it wasn't saved properly, we reset to the OS X default sc location
             scLocation = @"~/Desktop";
+#ifdef DEBUG
+            NSLog(@"The persistantly saved original screencapture location wasn't found, it has been reset to the OS X default location %@", scLocation);
+#endif
         }
     } else {
         
@@ -78,26 +87,26 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 #endif
     }
     
-    // Store current (or original) location persistantly
+    // Store current (= original) location persistantly
     [preferences setSecureString:scLocation forKey:@"currentDestination"];
 
     // Create a new random directory name
-    NSData *randomDir = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
+    NSData *randomData = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
     unsigned char hashedChars[32];
-    [randomDir getBytes:hashedChars length:32];
-    NSMutableString* browserExamKeyString = [NSMutableString stringWithString:@"."];
+    [randomData getBytes:hashedChars length:32];
+    NSMutableString *randomHexString = [NSMutableString stringWithString:@"."];
     for (int i = 0 ; i < 32 ; ++i) {
-        [browserExamKeyString appendFormat: @"%02x", hashedChars[i]];
+        [randomHexString appendFormat: @"%02x", hashedChars[i]];
     }
     
     // Create the folder
-    scTempPath = [browserExamKeyString copy];
-    NSString *scFullPath = [NSTemporaryDirectory() stringByAppendingPathComponent:browserExamKeyString];
+    scTempPath = [randomHexString copy];
+    NSString *scFullPath = [NSTemporaryDirectory() stringByAppendingPathComponent:randomHexString];
     BOOL isDir;
     NSFileManager *fileManager= [NSFileManager defaultManager];
     if(![fileManager fileExistsAtPath:scFullPath isDirectory:&isDir]) {
         if(![fileManager createDirectoryAtPath:scFullPath withIntermediateDirectories:YES attributes:nil error:NULL]) {
-            NSLog(@"Error: Create folder failed %@", scFullPath);
+            NSLog(@"Error: Creating folder failed %@", scFullPath);
             // As a fallback just use the temp directory
             scFullPath = NSTemporaryDirectory();
         }
