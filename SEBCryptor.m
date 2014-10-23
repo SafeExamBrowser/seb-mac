@@ -230,7 +230,9 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             // Return value: Checksum changed
             return true;
         }
-        if (value) [filteredPrefsDict setObject:value forKey:key];
+        if (value) {
+            [filteredPrefsDict setObject:value forKey:key];
+        }
 //        // If the value is a int wrapped into a NSNumber, then we need to convert that into a long
 //        // because UI bindings to selected index (checkbox, popup menu) produce long values
 //        if (valueClass == [NSNumber class] && (strcmp ([value objCType], @encode(int)) == 0)) {

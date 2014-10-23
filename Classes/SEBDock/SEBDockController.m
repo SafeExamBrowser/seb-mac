@@ -21,6 +21,9 @@
 - (id)init {
     self = [super init];
     if (self) {
+#ifdef DEBUG
+        NSLog(@"[SEBDockController init]");
+#endif
         // Get dock height
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         CGFloat dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
@@ -29,6 +32,7 @@
 
         NSRect initialContentRect = NSMakeRect(0, 0, 1024, dockHeight);
         self.dockWindow = [[SEBDockWindow alloc] initWithContentRect:initialContentRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
+        self.dockWindow.releasedWhenClosed = YES;
         self.dockWindow.collectionBehavior = NSWindowCollectionBehaviorStationary;
         self.dockWindow.height = dockHeight;
         
@@ -62,6 +66,9 @@
 // Add dock items passed in array pinned to the left edge of the dock (from left to right)
 - (void) setLeftItems:(NSArray *)newLeftDockItems
 {
+#ifdef DEBUG
+    NSLog(@"[SEBDockController setLeftItems: %@]", newLeftDockItems);
+#endif
     if (_leftDockItems) {
         _leftDockItems = nil;
     }
@@ -137,6 +144,9 @@
 // Add dock items passed in array pinned to the right edge of the left items dock area
 - (void) setCenterItems:(NSArray *)newCenterDockItems
 {
+#ifdef DEBUG
+    NSLog(@"[SEBDockController setCenterItems: %@]", newCenterDockItems);
+#endif
     if (_centerDockItems) {
         _centerDockItems = nil;
     }
@@ -219,6 +229,9 @@
 // Add dock items passed in array pinned to the right edge of the dock (from right to left)
 - (void) setRightItems:(NSArray *)newRightDockItems
 {
+#ifdef DEBUG
+    NSLog(@"[SEBDockController setRightItems: %@]", newRightDockItems);
+#endif
     if (_rightDockItems) {
         _rightDockItems = nil;
     }
@@ -290,6 +303,9 @@
 
 - (void) showDock
 {
+#ifdef DEBUG
+    NSLog(@"[SEBDockController showDock]");
+#endif
     [self.dockWindow setCalculatedFrame:self.window.screen];
     [self showWindow:self];
 }
@@ -297,18 +313,28 @@
 
 - (void) hideDock
 {
-    [self.window orderOut:self];
+#ifdef DEBUG
+    NSLog(@"[SEBDockController hideDock]");
+#endif
+//    [self.window orderOut:self];
+    [self.window close];
 }
 
 
 - (void) adjustDock
 {
+#ifdef DEBUG
+    NSLog(@"[SEBDockController adjustDock]");
+#endif
     [self.dockWindow setCalculatedFrame:self.window.screen];
 }
 
 
 - (void) moveDockToScreen:(NSScreen *)screen
 {
+#ifdef DEBUG
+    NSLog(@"[SEBDockController moveDockToScreen]");
+#endif
     [self.dockWindow setCalculatedFrame:screen];
 }
 

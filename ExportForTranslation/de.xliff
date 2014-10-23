@@ -551,7 +551,7 @@
             <trans-unit id="383.ibShadowedToolTip">
                 <source>Hide browser window toolbar by default. It can be unhiden using  the View menu or Alt-Command-T.</source>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Hide browser window toolbar by default. It can be unhiden using  the View menu or Alt-Command-T."; ObjectID = "383";</note>
-                <target>Browserfenster Symbolleiste standardmässig ausblenden. Sie kann im Darstellung-Menü oder mittels Alt-Command-T angezeigt werden.</target>
+                <target>Browserfenster-Symbolleiste standardmässig ausblenden. Sie kann mittels Darstellung-Menü oder den Tasten Alt-Cmd-T (Wahl-Befehl-T) angezeigt werden.</target>
             </trans-unit>
             <trans-unit id="384.title">
                 <source>Hide toolbar as default</source>
@@ -681,27 +681,32 @@
             <trans-unit id="5.ibShadowedToolTip">
                 <source>Decreases security of the kiosk mode by allowing process switcher (Cmd+Tab). The blacked out background of SEB also doesn't cover some alerts and modal windows in this mode.</source>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Decreases security of the kiosk mode by allowing process switcher (Cmd+Tab). The blacked out background of SEB also doesn't cover some alerts and modal windows in this mode."; ObjectID = "5";</note>
-                <target></target>
+                <target>Setzt die Sicherheit des Kiosk-Modus herab durch Zulassen des Programmumschalters Cmd-Tab (Befehlstaste-Tabulator).</target>
             </trans-unit>
             <trans-unit id="6.title">
                 <source>Allow switching to third party applications</source>
                 <note>Class = "NSButtonCell"; title = "Allow switching to third party applications"; ObjectID = "6";</note>
+                <target>Umschalten auf Drittapplikationen erlauben</target>
             </trans-unit>
             <trans-unit id="134.ibShadowedToolTip">
                 <source>Playing videos full screen with Flash is a security problem. Better use HTML5 video instead of Flash! When switching to third party applications is disabled, Flash fullscreen mode isn't possible at all.</source>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Playing videos full screen with Flash is a security problem. Better use HTML5 video instead of Flash! When switching to third party applications is disabled, Flash fullscreen mode isn't possible at all."; ObjectID = "134";</note>
+                <target>Videos mittels Flash im Vollbildmodus abzuspielen ist ein Sicherheitsproblem. Deshalb wird empfohlen, HTML5-Video anstatt Flash zu benutzen (dort ist der Vollbildmodus kein Problem). Bei deaktiviertem Umschalten auf Drittapplikationen ist der Flash-Vollbildmodus grundsätzlich nicht möglich.</target>
             </trans-unit>
             <trans-unit id="135.title">
                 <source>Allow Flash to switch to full screen mode</source>
                 <note>Class = "NSButtonCell"; title = "Allow Flash to switch to full screen mode"; ObjectID = "135";</note>
+                <target>Flash-Vollbild erlauben</target>
             </trans-unit>
             <trans-unit id="240.label">
                 <source>Permitted Processes</source>
                 <note>Class = "NSTabViewItem"; label = "Permitted Processes"; ObjectID = "240";</note>
+                <target>Zugelassener Prozess</target>
             </trans-unit>
             <trans-unit id="241.label">
                 <source>Prohibited Processes</source>
                 <note>Class = "NSTabViewItem"; label = "Prohibited Processes"; ObjectID = "241";</note>
+                <target>Verbotener Prozess</target>
             </trans-unit>
             <trans-unit id="299.ibShadowedToolTip">
                 <source>SEB monitors which processes/applications are running during an exam. Those which are not permitted are hiddden, those which are prohibited will be closed/killed.</source>
@@ -710,10 +715,12 @@
             <trans-unit id="301.title">
                 <source>Monitor processes</source>
                 <note>Class = "NSButtonCell"; title = "Monitor processes"; ObjectID = "301";</note>
+                <target>Prozesse überwachen</target>
             </trans-unit>
             <trans-unit id="351.headerCell.title">
                 <source>Executable</source>
                 <note>Class = "NSTableColumn"; headerCell.title = "Executable"; ObjectID = "351";</note>
+                <target>Executable</target>
             </trans-unit>
             <trans-unit id="352.title">
                 <source>Text Cell</source>
@@ -722,30 +729,37 @@
             <trans-unit id="360.headerCell.title">
                 <source>OS</source>
                 <note>Class = "NSTableColumn"; headerCell.title = "OS"; ObjectID = "360";</note>
+                <target></target>
             </trans-unit>
             <trans-unit id="405.title">
                 <source>Selected Process</source>
                 <note>Class = "NSBox"; title = "Selected Process"; ObjectID = "405";</note>
+                <target>Ausgewählter Prozess</target>
             </trans-unit>
             <trans-unit id="463.ibShadowedToolTip">
                 <source>Add a permitted process</source>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Add a permitted process"; ObjectID = "463";</note>
+                <target>Zugelassenen Prozess hinzufügen</target>
             </trans-unit>
             <trans-unit id="464.ibShadowedToolTip">
                 <source>Remove process</source>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Remove process"; ObjectID = "464";</note>
+                <target>Prozess entfernen</target>
             </trans-unit>
             <trans-unit id="495.ibShadowedToolTip">
                 <source>Allows choosing an application (or a process executable file) which will be added to the list of permitted processes</source>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Allows choosing an application (or a process executable file) which will be added to the list of permitted processes"; ObjectID = "495";</note>
+                <target>Ermöglicht eine Applikation/Prozess-Executable auszuwählen, welche zur Liste der zugelassenen Prozesse hinzugefügt wird.</target>
             </trans-unit>
             <trans-unit id="496.title">
                 <source>Choose Application...</source>
                 <note>Class = "NSButtonCell"; title = "Choose Application..."; ObjectID = "496";</note>
+                <target>Applikation auswählen …</target>
             </trans-unit>
             <trans-unit id="537.headerCell.title">
                 <source>Title</source>
                 <note>Class = "NSTableColumn"; headerCell.title = "Title"; ObjectID = "537";</note>
+                <target>Titel</target>
             </trans-unit>
             <trans-unit id="538.title">
                 <source>Text Cell</source>
@@ -754,82 +768,102 @@
             <trans-unit id="637.ibShadowedToolTip">
                 <source>Permitted process item is active</source>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Permitted process item is active"; ObjectID = "637";</note>
+                <target>Zugelassener Prozess ist aktiv</target>
             </trans-unit>
             <trans-unit id="638.title">
                 <source>Active</source>
                 <note>Class = "NSButtonCell"; title = "Active"; ObjectID = "638";</note>
+                <target>Aktiv</target>
             </trans-unit>
             <trans-unit id="642.title">
                 <source>Title</source>
                 <note>Class = "NSTextFieldCell"; title = "Title"; ObjectID = "642";</note>
+                <target>Titel</target>
             </trans-unit>
             <trans-unit id="645.ibShadowedToolTip">
                 <source>Application title which is displayed in the application chooser and SEB dock/task bar</source>
                 <note>Class = "NSTextField"; ibShadowedToolTip = "Application title which is displayed in the application chooser and SEB dock/task bar"; ObjectID = "645";</note>
+                <target>Name der Applikation, der im SEB Dock und im Programmumschalter angezeigt wird</target>
             </trans-unit>
             <trans-unit id="654.ibShadowedToolTip">
                 <source>Optional, should explain what kind of process this is, because this might not be obvious only from the executable's name.</source>
                 <note>Class = "NSTextField"; ibShadowedToolTip = "Optional, should explain what kind of process this is, because this might not be obvious only from the executable's name."; ObjectID = "654";</note>
+                <target>Optionale Beschreibung des Prozesses, weil dies nicht aus dem Prozess-Namen ersichtlich sein muss</target>
             </trans-unit>
             <trans-unit id="657.title">
                 <source>Description</source>
                 <note>Class = "NSTextFieldCell"; title = "Description"; ObjectID = "657";</note>
+                <target>Beschreibung</target>
             </trans-unit>
             <trans-unit id="674.ibShadowedToolTip">
                 <source>Process name, usually the file name of the executable</source>
                 <note>Class = "NSTextField"; ibShadowedToolTip = "Process name, usually the file name of the executable"; ObjectID = "674";</note>
+                <target>Prozess-Name, normalerweise der Dateinahme der auszuführenden Datei (Executable)</target>
             </trans-unit>
             <trans-unit id="677.title">
                 <source>Executable</source>
                 <note>Class = "NSTextFieldCell"; title = "Executable"; ObjectID = "677";</note>
+                <target>Executable</target>
             </trans-unit>
             <trans-unit id="687.ibShadowedToolTip">
                 <source>Filesystem path (formatted system specific) to the process executable’s directory (excluding the file name). If the path is not given or relative, then SEB searches system provided paths for applications.</source>
                 <note>Class = "NSTextField"; ibShadowedToolTip = "Filesystem path (formatted system specific) to the process executable’s directory (excluding the file name). If the path is not given or relative, then SEB searches system provided paths for applications."; ObjectID = "687";</note>
+                <target>Dateisystem-Pfad (systemspezifisch formattiert) zum Verzeichnis des Prozess-Executables (ohne Dateiname). Wenn der Pfad nicht angegeben oder relativ ist, sucht SEB die Systempfade für Applikationen ab.</target>
             </trans-unit>
             <trans-unit id="690.title">
                 <source>Path</source>
                 <note>Class = "NSTextFieldCell"; title = "Path"; ObjectID = "690";</note>
+                <target>Pfad</target>
             </trans-unit>
             <trans-unit id="733.ibShadowedToolTip">
                 <source>Arguments to append to the executable of the application when starting it. Checkbox selects if an argument is active.</source>
                 <note>Class = "NSScrollView"; ibShadowedToolTip = "Arguments to append to the executable of the application when starting it. Checkbox selects if an argument is active."; ObjectID = "733";</note>
+                <target>Kommandozeilen-Parameter, die beim Starten an das Kommando (Applikations-Executable) angehängt werden. Mit der Checkbox wird ausgewählt, ob ein Argument aktiv ist.</target>
             </trans-unit>
             <trans-unit id="773.title">
                 <source>Arguments</source>
                 <note>Class = "NSTextFieldCell"; title = "Arguments"; ObjectID = "773";</note>
+                <target>Argument</target>
             </trans-unit>
             <trans-unit id="865.ibShadowedToolTip">
                 <source>Add an argument</source>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Add an argument"; ObjectID = "865";</note>
+                <target>Argument hinzufügen</target>
             </trans-unit>
             <trans-unit id="866.ibShadowedToolTip">
                 <source>Remove an argument</source>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Remove an argument"; ObjectID = "866";</note>
+                <target>Argument entfernen</target>
             </trans-unit>
             <trans-unit id="887.ibShadowedToolTip">
                 <source>Identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title</source>
                 <note>Class = "NSTextField"; ibShadowedToolTip = "Identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title"; ObjectID = "887";</note>
+                <target>Identifikator des Prozesses in der "Reverse Domain"-Notation (OS X) oder ein Teil-String des Hauptfenster-Titels der Applikation (Win)</target>
             </trans-unit>
             <trans-unit id="897.title">
                 <source>Identifier</source>
                 <note>Class = "NSTextFieldCell"; title = "Identifier"; ObjectID = "897";</note>
+                <target>Identifier</target>
             </trans-unit>
             <trans-unit id="948.ibShadowedToolTip">
                 <source>Start the process automatically together with SEB</source>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Start the process automatically together with SEB"; ObjectID = "948";</note>
+                <target>Prozess automatisch zusammen mit SEB starten</target>
             </trans-unit>
             <trans-unit id="950.title">
                 <source>Autostart</source>
                 <note>Class = "NSButtonCell"; title = "Autostart"; ObjectID = "950";</note>
+                <target>Autostart</target>
             </trans-unit>
             <trans-unit id="956.ibShadowedToolTip">
                 <source>Only allow to run the application in background (users cannot switch to it, windows will be hidden)</source>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Only allow to run the application in background (users cannot switch to it, windows will be hidden)"; ObjectID = "956";</note>
+                <target>Die Applikation darf nur im Hintergrund laufen (kann nicht im Dock oder Programmumschalter angewählt werden, Fenster werden ausgeblendet)</target>
             </trans-unit>
             <trans-unit id="957.title">
                 <source>Run in background</source>
                 <note>Class = "NSButtonCell"; title = "Run in background"; ObjectID = "957";</note>
+                <target>Hintergrund-Prozess</target>
             </trans-unit>
             <trans-unit id="982.ibShadowedToolTip">
                 <source>Allow locating third party applications with a file dialog if it cannot be found at the paths specified. Only applications matching other criteria specified (like executable, identifier, signature) are accepted.</source>
@@ -1561,10 +1595,12 @@
             <trans-unit id="78.ibShadowedToolTip">
                 <source>Retype the administrator password</source>
                 <note>Class = "NSSecureTextField"; ibShadowedToolTip = "Retype the administrator password"; ObjectID = "78";</note>
+                <target>Administrator-Passwort wiederholen</target>
             </trans-unit>
             <trans-unit id="79.ibShadowedToolTip">
                 <source>This password is prompted when users try to quit SEB with Command+Q/window closing and quit button. Not prompted when using a quit link</source>
                 <note>Class = "NSSecureTextField"; ibShadowedToolTip = "This password is prompted when users try to quit SEB with Command+Q/window closing and quit button. Not prompted when using a quit link"; ObjectID = "79";</note>
+                <target>Dieses Passwort wird abgefragt, wenn Benutzer SEB mittels Cmd-Q (Befehl-Q), Fenster-Schliessen- und Beenden-Taste beenden wollen. Das Passwort wird nicht abgefragt, wenn ein Quit-Link verwendet wird.</target>
             </trans-unit>
             <trans-unit id="83.ibShadowedToolTip">
                 <source>Retype the quit password</source>
@@ -1577,10 +1613,12 @@
             <trans-unit id="92.ibShadowedToolTip">
                 <source>If selected, users can quit SEB with Command+Q, window close or quit button. Otherwise use a quit link in your exam system or shutdown/restart the computer.</source>
                 <note>Class = "NSButton"; ibShadowedToolTip = "If selected, users can quit SEB with Command+Q, window close or quit button. Otherwise use a quit link in your exam system or shutdown/restart the computer."; ObjectID = "92";</note>
+                <target>Benutzer können SEB mit Cmd-Q (Befehlstaste-Q), Fenster-Schliessen- und Beenden-Taste beenden. Ansonsten benutzen Sie einen Quit-Link im Prüfungssystem oder schalten den Rechner aus/neu.</target>
             </trans-unit>
             <trans-unit id="93.ibShadowedToolTip">
                 <source>Password required to open the configuration file for editing or to show the preferences window. It is recommended to set one!</source>
                 <note>Class = "NSSecureTextField"; ibShadowedToolTip = "Password required to open the configuration file for editing or to show the preferences window. It is recommended to set one!"; ObjectID = "93";</note>
+                <target>Passwort, das beim Aufrufen der Einstellungen abgefragt wird. Es wird empfohlen, eines zu setzen!</target>
             </trans-unit>
             <trans-unit id="94.ibShadowedToolTip">
                 <source>Displays information about Safe Exam Browser – SEB</source>
@@ -2540,7 +2578,7 @@
             </trans-unit>
             <trans-unit id="FirstTimeUserNotice">
                 <source>Please use the window close button or keys Command+Q to quit SEB and (fn+)F3+F6 to open preferences.\n\nThis alert is shown until you set a start URL in preferences first time. You should also set a quit password and an admin password in preferences to restrict quitting SEB and access to the SEB settings.</source>
-                <target>Bitte benutzen Sie die Fenster-Schliessen-Schaltfläche oder Befehlstaste+Q um SEB zu beenden und (fn+)F3+F6 um die Einstellungen zu öffnen.\n\nDieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-URL eingeben. Sie sollten dort ausserdem ein Beenden-Passwort und ein Administrator-Passwort festlegen, um das Beenden von SEB und den Zugang zu den Einstellungen einzuschränken.</target>
+                <target>Bitte benutzen Sie die Fenster-Schliessen-Taste oder Cmd-Q (Befehlstaste-Q) um SEB zu beenden und (fn-)F3-F6 um die Einstellungen zu öffnen.\n\nDieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-URL eingeben. Sie sollten dort ausserdem ein Beenden-Passwort und ein Administrator-Passwort festlegen, um das Beenden von SEB und den Zugang zu den Einstellungen einzuschränken.</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="General">

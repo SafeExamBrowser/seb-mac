@@ -1080,8 +1080,13 @@ bool insideMatrix(){
 {
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
         
+#ifdef DEBUG
+        NSLog(@"SEBController openSEBDock: dock enabled");
+#endif
         // Initialize the Dock
-        self.dockController = [[SEBDockController alloc] init];
+        if (!self.dockController) {
+            self.dockController = [[SEBDockController alloc] init];
+        }
         
         SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:@"Safe Exam Browser"
                                                                  icon:[NSApp applicationIconImage]
@@ -1107,6 +1112,9 @@ bool insideMatrix(){
         [self.dockController showDock];
 
     } else {
+#ifdef DEBUG
+        NSLog(@"SEBController openSEBDock: dock disabled");
+#endif
         if (self.dockController) {
             [self.dockController hideDock];
         }

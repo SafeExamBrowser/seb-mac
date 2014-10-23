@@ -522,10 +522,9 @@ static BOOL _usePrivateUserDefaults = NO;
             [filteredPrefsDict setObject:value forKey:[key substringFromIndex:24]];
         } else {
 #ifdef DEBUG
-            NSLog(@"Aborted dictionaryRepresentationSEB because of nil value for key %@", key);
+            NSLog(@"dictionaryRepresentationSEB: nil value for key %@", key);
 #endif
-            // If one value was nil, we abort getting the dictionary
-            return nil;
+            // If one value was nil, we skip this key/value
 //#ifdef DEBUG
 //            NSLog(@"Registred Defaults");
 //#endif
