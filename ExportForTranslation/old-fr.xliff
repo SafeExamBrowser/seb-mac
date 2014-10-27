@@ -2234,6 +2234,10 @@
         <source>These settings have the option \</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="32bitDisclaimer">
+        <source>RESTRICTED MODE: You are running SEB in 32-bit. Under this architecture, all web plugins like for example Flash Player are disabled for security reasons. Check help for more information.\n\n</source>
+        <target>MODE RESTREINT: Vous exécutez SEB en mode 32-bits. Dans ce mode, tous les plugins Web, tels que Flash Player, sont désactivés pour des raisons de sécurité. Consultez l'aide pour de plus amples informations.\n\n</target>
+      </trans-unit>
       <trans-unit id="Add Action to Rule">
         <source>Add Action to Rule</source>
         <note>No comment provided by engineer.</note>
@@ -2241,6 +2245,10 @@
       <trans-unit id="Add Rule">
         <source>Add Rule</source>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Advanced">
+        <source>Advanced</source>
+        <target>Avancé</target>
       </trans-unit>
       <trans-unit id="Appearance">
         <source>Appearance</source>
@@ -2268,6 +2276,7 @@
       </trans-unit>
       <trans-unit id="Are you sure you want to quit SEB?">
         <source>Are you sure you want to quit SEB?</source>
+        <target>Etes vous sûr(e) de vouloir quitter SEB?</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Auto Proxy Discovery">
@@ -2280,10 +2289,12 @@
       </trans-unit>
       <trans-unit id="Browser">
         <source>Browser</source>
+        <target>Navigateur</target>
         <note>Title of 'Browser' preference pane</note>
       </trans-unit>
       <trans-unit id="Cancel">
         <source>Cancel</source>
+        <target>Annuler</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Cannot Decrypt SEB Settings">
@@ -2304,6 +2315,7 @@
       </trans-unit>
       <trans-unit id="Choose">
         <source>Choose</source>
+        <target>Choisir</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Config File">
@@ -2315,7 +2327,8 @@
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="CopyrightPart2">
-        <source>CopyrightPart2</source>
+        <source>WebKit © 2003-2014 Apple Computer, Inc.  All rights reserved.\n\nThis project has been carried out as part of the program \</source>
+        <target>WebKit © 2003-2014 Apple Computer, Inc.  All rights reserved.\n\nCe projet a été conduit dans le cadre du programme \</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Current settings have unsaved changes. If you don't save those first, you will loose them.">
@@ -2380,6 +2393,7 @@
       </trans-unit>
       <trans-unit id="Error Loading Page">
         <source>Error Loading Page</source>
+        <target>Impossible d'ouvrir la page</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Exam">
@@ -2400,14 +2414,17 @@
       </trans-unit>
       <trans-unit id="File to upload not found!">
         <source>File to upload not found!</source>
+        <target>Fichier à téléverser introuvable !</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="FirstTimeUserNotice">
-        <source>FirstTimeUserNotice</source>
+        <source>Please use the window close button or keys Command+Q to quit SEB and (fn+)F3+F6 to open preferences.\n\nThis alert is shown until you set a start URL in preferences first time. You should also set a quit password and an admin password in preferences to restrict quitting SEB and access to the SEB settings.</source>
+        <target>Veuillez utiliser la combinaison Commande+Q pour quitter SEB, et (fn+)F3+F6 pour ouvrir les préférences.\n\nCe message s'affiche jusqu'à ce que vous changiez l'URL de départ dans les préférences une première fois. Dans les préférences, vous devriez en outre définir un mot de passe pour permettre de quitter le programme, et un mot de passe pour restreindre l'accès aux réglages de SEB.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="General">
         <source>General</source>
+        <target>Général</target>
         <note>Title of 'General' preference pane</note>
       </trans-unit>
       <trans-unit id="Holding Keys Not Allowed!">
@@ -2436,6 +2453,7 @@
       </trans-unit>
       <trans-unit id="Important Notice for First Time Users">
         <source>Important Notice for First Time Users</source>
+        <target>Information importante pour la première utilisation</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Left">
@@ -2508,6 +2526,7 @@
       </trans-unit>
       <trans-unit id="OK">
         <source>OK</source>
+        <target>OK</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="OS X">
@@ -2528,18 +2547,25 @@
       </trans-unit>
       <trans-unit id="Paste from saved clipboard">
         <source>Paste from saved clipboard</source>
+        <target>Coller depuis le presse-papiers sauvegardé</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Please confirm password">
         <source>Please confirm password</source>
+        <target>Veuillez confirmer</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Please confirm the %@ password first.">
         <source>Please confirm the %@ password first.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Probably you don't have write permissions. Try to move or copy the app to a directory you have permission to write in (like the Desktop) or change the file permissions manually in Finder.">
+        <source>Probably you don't have write permissions. Try to move or copy the app to a directory you have permission to write in (like the Desktop) or change the file permissions manually in Finder.</source>
+        <target>Vous ne disposez probablement pas de droits d'écriture. Essayer en premier lieu de déplacer ou de copier l'application dans un dossier où vous disposez de droits d'écriture (comme le Bureau), ou changez les permissions de l'application manuellement dans le Finder.</target>
+      </trans-unit>
       <trans-unit id="Quit">
         <source>Quit</source>
+        <target>Quitter</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Quit Safe Exam Browser">
@@ -2549,6 +2575,14 @@
       <trans-unit id="Reconfigure SEB Settings">
         <source>Reconfigure SEB Settings</source>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Removing Settings from the App Bundle Failed">
+        <source>Removing Settings from the App Bundle Failed</source>
+        <target>La suppression des réglages du paquet de l'application a échoué.</target>
+      </trans-unit>
+      <trans-unit id="RemovingFromAppBundleFailed">
+        <source>RemovingFromAppBundleFailed</source>
+        <target>Vous ne disposez probablement pas de droits d'écriture. Essayer en premier lieu de déplacer ou de copier l'application dans un dossier où vous disposez de droits d'écriture (comme le Bureau), ou changez les permissions de l'application manuellement dans le Finder.</target>
       </trans-unit>
       <trans-unit id="Reset">
         <source>Reset</source>
@@ -2560,6 +2594,7 @@
       </trans-unit>
       <trans-unit id="Retry">
         <source>Retry</source>
+        <target>Répéter</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Right">
@@ -2576,10 +2611,12 @@
       </trans-unit>
       <trans-unit id="SEB is configured to only allow to upload a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.">
         <source>SEB is configured to only allow to upload a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.</source>
+        <target>SEB est configuré pour ne permettre de téléverser qu'un fichier précédemment téléchargé. Donc télécharger le fichier initial, puis modifiez-le dans une application tierce en vous assurant de l'enregistrer sous le même nom et au même endroit.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.">
         <source>SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.</source>
+        <target>SEB va téléverser le fichier téléchargé précédemment. Si vous l'avez modifié dans une application tierce, assurez-vous de l'avoir enregistré sous le même nom et au même endroit.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SOCKS Proxy">
@@ -2612,6 +2649,7 @@
       </trans-unit>
       <trans-unit id="Select">
         <source>Select</source>
+        <target>Sélectionner</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Settings have been saved, use this file to reconfigure local settings of a SEB client.">
@@ -2660,11 +2698,16 @@
       </trans-unit>
       <trans-unit id="Version">
         <source>Version</source>
+        <target>Version</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Virtual Machine Detected!">
         <source>Virtual Machine Detected!</source>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Virtual Machine detected!">
+        <source>Virtual Machine detected!</source>
+        <target>Machine virtuelle détectée !</target>
       </trans-unit>
       <trans-unit id="Web Proxy (HTTP)">
         <source>Web Proxy (HTTP)</source>
@@ -2681,6 +2724,18 @@
       <trans-unit id="Writing Settings Succeeded">
         <source>Writing Settings Succeeded</source>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Writing Settings to App Bundle Failed">
+        <source>Writing Settings to App Bundle Failed</source>
+        <target>L'enregistrement des réglages dans le paquet de l'application a échoué.</target>
+      </trans-unit>
+      <trans-unit id="Writing Settings to App Bundle Succeeded">
+        <source>Writing Settings to App Bundle Succeeded</source>
+        <target>L'enregistrement des réglages dans le paquet de l'application a réussi.</target>
+      </trans-unit>
+      <trans-unit id="WritingToAppBundleSucceeded">
+        <source>Now you can deploy this copy of the Safe Exam Browser application to other machines. The settings you have just written to the app bundle will be used after every start of this pre-configured copy of SEB. If you want to change those initial settings, you have to write the changed settings again to the app bundle. Use the \</source>
+        <target>Vous pouvez désormais déployer cette copie de Safe Exam Browser sur d'autres postes. Les réglages que vous venez d'enregistrer dans le paquet de l'application seront utilisés à chaque démarrage de cette copie pré-configurée de SEB. Si vous désirez modifier ces réglages initiaux, vous devrez à nouveau enregistrer les réglages modifiés dans le paquet de l'application. Utilisez le bouton \</target>
       </trans-unit>
       <trans-unit id="Wrong Admin Password">
         <source>Wrong Admin Password</source>
@@ -2707,7 +2762,8 @@
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You are not allowed to run SEB inside a virtual machine!">
-        <source>You are not allowed to run SEB inside a virtual machine!</source>
+        <source>It is not allowed to run SEB on a virtual machine! SEB will quit now.</source>
+        <target>Vous n'êtes pas autorisé à exécuter SEB dans une machine virtuelle !</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You can only reconfigure SEB by entering the current SEB administrator password:">
@@ -2756,26 +2812,32 @@
       </trans-unit>
       <trans-unit id="by attempting to upload same file downloaded before">
         <source>by attempting to upload same file downloaded before</source>
+        <target>en essayant de téléverser le fichier précédemment téléchargé</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="by only allowing to upload the same file downloaded before">
         <source>by only allowing to upload the same file downloaded before</source>
+        <target>en permettant uniquement de téléverser un fichier précédemment téléchargé</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="get generally blocked">
         <source>get generally blocked</source>
+        <target>sont généralement bloqués</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="manually with file requester">
         <source>manually with file requester</source>
+        <target>manuellement avec un sélecteur de fichier</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="open in new window">
         <source>open in new window</source>
+        <target>s'ouvrent dans une nouvelle fenêtre</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="open in same window">
         <source>open in same window</source>
+        <target>s'ouvrent dans la même fenêtre</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="or">
@@ -2801,25 +2863,6 @@
       <trans-unit id="warn when service is not running">
         <source>warn when service is not running</source>
         <note>No comment provided by engineer.</note>
-      </trans-unit>
-    </body>
-  </file>
-  <file original="en.lproj/SafeExamBrowser-Info.plist" source-language="en" datatype="plaintext" target-language="fr">
-    <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.1" build-num="6A1052d"/>
-    </header>
-    <body>
-      <trans-unit id="CFBundleDisplayName">
-        <source/>
-      </trans-unit>
-      <trans-unit id="CFBundleName">
-        <source>SafeExamBrowser</source>
-      </trans-unit>
-      <trans-unit id="CFBundleShortVersionString">
-        <source>2.0RC</source>
-      </trans-unit>
-      <trans-unit id="NSHumanReadableCopyright">
-        <source>© 2010-2014 Daniel R. Schneider, ETH Zürich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
       </trans-unit>
     </body>
   </file>

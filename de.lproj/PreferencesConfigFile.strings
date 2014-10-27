@@ -1,0 +1,9 @@
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Identities (X.509 certificates with RSA public key and associated private key) in your default keychain which can be used for encrypting and decrypting. Export the chosen identity (in Keychain Access utility) and install it on your SEB clients."; ObjectID = "69"; */
+"69.ibShadowedToolTip" = "Identitäten ";
+
+/* Class = "NSMenuItem"; title = "None"; ObjectID = "73"; */
+"73.title" = "Keine";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "A SEB settings file saved with this option can be used to change the local settings of a SEB client. Encrypt it with an empty or the same password which is set as administrator password on the SEB client. Other passwords will be prompted."; ObjectID = "252"; */
+"252.ibShadowedToolTip" = "Eine mit dieser Option gespeicherte Konfigurationsdatei kann benutzt werden, um die lokalen Einstellungen eines SEB-Clients zu ändern.";
+
