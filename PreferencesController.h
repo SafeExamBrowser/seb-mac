@@ -108,7 +108,7 @@
 - (IBAction) editDuplicate:(id)sender;
 - (IBAction) configureClient:(id)sender;
 
-- (int) unsavedSettingsAlertWithText:(NSString *)informativeText;
+//- (int) unsavedSettingsAlertWithText:(NSString *)informativeText;
 
 //- (void) setCurrentConfigPassword:(NSString *)currentConfigPassword;
 //- (void) setCurrentConfigPasswordIsHash:(BOOL)currentConfigPasswordIsHash;

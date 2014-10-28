@@ -112,9 +112,3 @@
 /* Class = "NSTextFieldCell"; title = "OS"; ObjectID = "1906"; */
 "1906.title" = "OS";
 
-/* Class = "NSTextFieldCell"; title = "Description"; ObjectID = "1913"; */
-"1913.title" = "Beschreibung";
-
-/* Class = "NSTableColumn"; headerCell.title = "Description"; ObjectID = "1931"; */
-"1931.headerCell.title" = "Beschreibung";
-

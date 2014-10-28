@@ -1,1 +1,99 @@
-/* No Localized Strings */
+/* No comment provided by engineer. */
+" disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option." = "In den lokalen Einstellungen ist die Option \'Einstellungen-Fenster darf auf Client geöffnet werden\' deaktiviert. Dies verhindert das Öffnen der Einstellungen selbst nach einem Neustart. Sind Sie sicher, dass Sie das anwenden wollen? Ansonsten können Sie diese Option zurücksetzen.";
+
+/* No comment provided by engineer. */
+"Are you sure you want to quit SEB?" = "Sind Sie sicher, dass Sie SEB beenden wollen?";
+
+/* Title of 'Browser' preference pane */
+"Browser" = "Browser";
+
+/* No comment provided by engineer. */
+"Cancel" = "Abbrechen";
+
+/* No comment provided by engineer. */
+"Choose" = "Auswählen";
+
+/* No comment provided by engineer. */
+"CopyrightPart2" = "WebKit © 2003-2014 Apple Computer, Inc.  All rights reserved.\n\nDieses Projekt wurde im Rahmen des von SWITCH geleiteten Programms \";
+
+/* No comment provided by engineer. */
+"Enter administrator password:" = "Administrator-Passwort eingeben:";
+
+/* No comment provided by engineer. */
+"Enter the SEB administrator password used in these settings:" = "Geben Sie das in diesen Einstellungen verwendete Administrator-Passwort ein:";
+
+/* No comment provided by engineer. */
+"Error Loading Page" = "Fehler beim Laden der Seite";
+
+/* No comment provided by engineer. */
+"File automatically chosen" = "Datei automatisch gewählt";
+
+/* No comment provided by engineer. */
+"File to upload not found!" = "Datei für Upload nicht gefunden!";
+
+/* No comment provided by engineer. */
+"FirstTimeUserNotice" = "Bitte benutzen Sie die Fenster-Schliessen-Taste oder Cmd-Q (Befehlstaste-Q) um SEB zu beenden und (fn-)F3-F6 um die Einstellungen zu öffnen.\n\nDieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-URL eingeben. Sie sollten dort ausserdem ein Beenden-Passwort und ein Administrator-Passwort festlegen, um das Beenden von SEB und den Zugang zu den Einstellungen einzuschränken.";
+
+/* Title of 'General' preference pane */
+"General" = "Allgemein";
+
+/* No comment provided by engineer. */
+"If you don't enter the correct SEB administrator password, then you cannot open preferences." = "Ohne Eingabe des korrekten SEB Administrator-Passwortes können die Einstellungen nicht geöffnet werden.";
+
+/* No comment provided by engineer. */
+"If you don't enter the right administrator password from these settings you cannot open them." = "Ohne Eingabe des korrekten, in dieser Konfigurationsdatei verwendeten SEB Administrator-Passwortes kann diese nicht geöffnet werden.";
+
+/* No comment provided by engineer. */
+"Important Notice for First Time Users" = "Wichtiger Hinweis für neue Benutzer";
+
+/* No comment provided by engineer. */
+"OK" = "OK";
+
+/* No comment provided by engineer. */
+"Paste from saved clipboard" = "Einfügen aus gesicherter Zwischenablage";
+
+/* No comment provided by engineer. */
+"Please confirm password" = "Bitte Passwort bestätigen";
+
+/* No comment provided by engineer. */
+"Quit" = "Beenden";
+
+/* No comment provided by engineer. */
+"Retry" = "Wiederholen";
+
+/* No comment provided by engineer. */
+"SEB is configured to only allow to upload a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path." = "SEB ist so konfiguriert, dass nur eine zuvor heruntergeladene Datei heraufgeladen werden darf. Wenn also eine Datei heruntergeladen und in einer Drittapplikation bearbeitet wird, muss diese mit demselben Dateinamen im selben Verzeichnis wieder gespeichert werden.";
+
+/* No comment provided by engineer. */
+"SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path." = "SEB wird die zuvor heruntergeladene Datei heraufladen. Wenn also eine Datei heruntergeladen und in einer Drittapplikation bearbeitet wird, muss diese mit demselben Dateinamen im selben Verzeichnis wieder gespeichert werden.";
+
+/* No comment provided by engineer. */
+"Select" = "Auswählen";
+
+/* No comment provided by engineer. */
+"Version" = "Version";
+
+/* No comment provided by engineer. */
+"Wrong Password! Try again to enter the correct current SEB administrator password:" = "Falsches Passwort! Bitte erneut versuchen, das korrrekte SEB Administrator-Passwort einzugeben:";
+
+/* No comment provided by engineer. */
+"You are not allowed to run SEB inside a virtual machine!" = "Es ist nicht erlaubt, SEB innerhalb einer virtuellen Maschine zu betreiben!";
+
+/* No comment provided by engineer. */
+"by attempting to upload same file downloaded before" = "versuchen, die zuvor heruntergeladene Datei auszuwählen";
+
+/* No comment provided by engineer. */
+"by only allowing to upload the same file downloaded before" = "nur zuvor heruntergeladene Datei zulassen";
+
+/* No comment provided by engineer. */
+"get generally blocked" = "werden generell blockiert";
+
+/* No comment provided by engineer. */
+"manually with file requester" = "manuell mit Dateidialog";
+
+/* No comment provided by engineer. */
+"open in new window" = "öffnen in einem neuen Fenster";
+
+/* No comment provided by engineer. */
+"open in same window" = "öffnen im selben Fenster";
+

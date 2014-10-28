@@ -373,7 +373,7 @@
             </trans-unit>
             <trans-unit id="871.title">
                 <source>© 2010-2013 Daniel R. Schneider, ETH Zürich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen\nWebKit © 2003-2013 Apple Computer, Inc.  All rights reserved.\n\nThis project has been carried out as part of the program \</source>
-                <target>© 2010-2014 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browsers von Stefan Schneider, Universität von Giessen\n\n Dieses Projekt wurde teilweise im Rahmen der von SWITCH geleiteten Programms \</target>
+                <target>© 2010-2014 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browsers von Stefan Schneider, Universität von Giessen\n\n Dieses Projekt wurde teilweise im Rahmen der von SWITCH geleiteten Programms \"AAA/SWITCH – e-Infrastructure für e-Science\" und des durch SWITCH koordinierten Kooperationsprojektes \"Learning Infrastructure\" (Teil des CRUS-Programms \"Wissenschaftliche Information: Zugang, Verarbeitung und Speicherung\") durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.</target>
                 <note>Class = "NSTextFieldCell"; title = "© 2010-2013 Daniel R. Schneider, ETH Zürich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen\nWebKit © 2003-2013 Apple Computer, Inc.  All rights reserved.\n\nThis project has been carried out as part of the program \"AAA/SWITCH – e-Infrastructure for e-Science” lead by SWITCH, the Swiss National Research and Education Network, and was supported by funds from the ETH Board."; ObjectID = "871";</note>
             </trans-unit>
             <trans-unit id="887.title">
@@ -1027,7 +1027,6 @@
             <trans-unit id="1913.title">
                 <source>Description</source>
                 <note>Class = "NSTextFieldCell"; title = "Description"; ObjectID = "1913";</note>
-                <target>Beschreibung</target>
             </trans-unit>
             <trans-unit id="1917.title">
                 <source>Identifier</source>
@@ -1060,7 +1059,6 @@
             <trans-unit id="1931.headerCell.title">
                 <source>Description</source>
                 <note>Class = "NSTableColumn"; headerCell.title = "Description"; ObjectID = "1931";</note>
-                <target>Beschreibung</target>
             </trans-unit>
             <trans-unit id="1932.title">
                 <source>Text Cell</source>
@@ -1386,6 +1384,7 @@
             <trans-unit id="260.title">
                 <source>Allow to open preferences window on client</source>
                 <note>Class = "NSButtonCell"; title = "Allow to open preferences window on client"; ObjectID = "260";</note>
+                <target>Einstellungen-Fenster darf auf Client geöffnet werden</target>
             </trans-unit>
             <trans-unit id="1046.ibShadowedToolTip">
                 <source>Open a settings file for editing</source>
@@ -1800,7 +1799,6 @@
             <trans-unit id="744.headerCell.title">
                 <source>Description</source>
                 <note>Class = "NSTableColumn"; headerCell.title = "Description"; ObjectID = "744";</note>
-                <target>Beschreibung</target>
             </trans-unit>
             <trans-unit id="745.title">
                 <source>Text Cell</source>
@@ -2382,6 +2380,41 @@
             </trans-unit>
         </body>
     </file>
+    <file original="Base.lproj/SEBBrowserWindow.xib" source-language="en" datatype="plaintext" target-language="de">
+        <header>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.1" build-num="6A1052d"></tool>
+        </header>
+        <body>
+            <trans-unit id="3.title">
+                <source>Safe Exam Browser</source>
+                <note>Class = "SEBBrowserWindow"; title = "Safe Exam Browser"; ObjectID = "3";</note>
+            </trans-unit>
+            <trans-unit id="175.label">
+                <source>Back/Forward</source>
+                <note>Class = "NSToolbarItem"; label = "Back/Forward"; ObjectID = "175";</note>
+            </trans-unit>
+            <trans-unit id="175.paletteLabel">
+                <source>SegmentButton</source>
+                <note>Class = "NSToolbarItem"; paletteLabel = "SegmentButton"; ObjectID = "175";</note>
+            </trans-unit>
+            <trans-unit id="179.label">
+                <source>Zoom</source>
+                <note>Class = "NSToolbarItem"; label = "Zoom"; ObjectID = "179";</note>
+            </trans-unit>
+            <trans-unit id="179.paletteLabel">
+                <source>SegmentButton</source>
+                <note>Class = "NSToolbarItem"; paletteLabel = "SegmentButton"; ObjectID = "179";</note>
+            </trans-unit>
+            <trans-unit id="192.label">
+                <source>Reload</source>
+                <note>Class = "NSToolbarItem"; label = "Reload"; ObjectID = "192";</note>
+            </trans-unit>
+            <trans-unit id="192.paletteLabel">
+                <source>Button</source>
+                <note>Class = "NSToolbarItem"; paletteLabel = "Button"; ObjectID = "192";</note>
+            </trans-unit>
+        </body>
+    </file>
     <file original="en.lproj/Localizable.strings" source-language="en" datatype="plaintext" target-language="de">
         <header>
             <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.1" build-num="6A1052d"></tool>
@@ -2398,6 +2431,7 @@
             <trans-unit id=" disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.">
                 <source>Local client settings have the option \</source>
                 <note>No comment provided by engineer.</note>
+                <target>In den lokalen Einstellungen ist die Option \'Einstellungen-Fenster darf auf Client geöffnet werden\' deaktiviert. Dies verhindert das Öffnen der Einstellungen selbst nach einem Neustart. Sind Sie sicher, dass Sie das anwenden wollen? Ansonsten können Sie diese Option zurücksetzen.</target>
             </trans-unit>
             <trans-unit id=" disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.">
                 <source>These settings have the option \</source>
@@ -2437,6 +2471,7 @@
             </trans-unit>
             <trans-unit id="Are you sure you want to quit SEB?">
                 <source>Are you sure you want to quit SEB?</source>
+                <target>Sind Sie sicher, dass Sie SEB beenden wollen?</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Auto Proxy Discovery">
@@ -2449,10 +2484,12 @@
             </trans-unit>
             <trans-unit id="Browser">
                 <source>Browser</source>
+                <target>Browser</target>
                 <note>Title of 'Browser' preference pane</note>
             </trans-unit>
             <trans-unit id="Cancel">
                 <source>Cancel</source>
+                <target>Abbrechen</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Cannot Decrypt SEB Settings">
@@ -2473,6 +2510,7 @@
             </trans-unit>
             <trans-unit id="Choose">
                 <source>Choose</source>
+                <target>Auswählen</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Config File">
@@ -2485,6 +2523,7 @@
             </trans-unit>
             <trans-unit id="CopyrightPart2">
                 <source>CopyrightPart2</source>
+                <target>WebKit © 2003-2014 Apple Computer, Inc.  All rights reserved.\n\nDieses Projekt wurde im Rahmen des von SWITCH geleiteten Programms \</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Current settings have unsaved changes. If you don't save those first, you will loose them.">
@@ -2529,6 +2568,7 @@
             </trans-unit>
             <trans-unit id="Enter administrator password:">
                 <source>Enter administrator password:</source>
+                <target>Administrator-Passwort eingeben:</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Enter password used to encrypt these settings:">
@@ -2541,6 +2581,7 @@
             </trans-unit>
             <trans-unit id="Enter the SEB administrator password used in these settings:">
                 <source>Enter the SEB administrator password used in these settings:</source>
+                <target>Geben Sie das in diesen Einstellungen verwendete Administrator-Passwort ein:</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Error Decrypting Settings">
@@ -2549,6 +2590,7 @@
             </trans-unit>
             <trans-unit id="Error Loading Page">
                 <source>Error Loading Page</source>
+                <target>Fehler beim Laden der Seite</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Exam">
@@ -2565,18 +2607,22 @@
             </trans-unit>
             <trans-unit id="File automatically chosen">
                 <source>File automatically chosen</source>
+                <target>Datei automatisch gewählt</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="File to upload not found!">
                 <source>File to upload not found!</source>
+                <target>Datei für Upload nicht gefunden!</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="FirstTimeUserNotice">
                 <source>FirstTimeUserNotice</source>
+                <target>Bitte benutzen Sie die Fenster-Schliessen-Taste oder Cmd-Q (Befehlstaste-Q) um SEB zu beenden und (fn-)F3-F6 um die Einstellungen zu öffnen.\n\nDieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-URL eingeben. Sie sollten dort ausserdem ein Beenden-Passwort und ein Administrator-Passwort festlegen, um das Beenden von SEB und den Zugang zu den Einstellungen einzuschränken.</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="General">
                 <source>General</source>
+                <target>Allgemein</target>
                 <note>Title of 'General' preference pane</note>
             </trans-unit>
             <trans-unit id="Holding Keys Not Allowed!">
@@ -2593,6 +2639,7 @@
             </trans-unit>
             <trans-unit id="If you don't enter the correct SEB administrator password, then you cannot open preferences.">
                 <source>If you don't enter the correct SEB administrator password, then you cannot open preferences.</source>
+                <target>Ohne Eingabe des korrekten SEB Administrator-Passwortes können die Einstellungen nicht geöffnet werden.</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="If you don't enter the correct quit password, then you cannot quit SEB.">
@@ -2601,10 +2648,12 @@
             </trans-unit>
             <trans-unit id="If you don't enter the right administrator password from these settings you cannot open them.">
                 <source>If you don't enter the right administrator password from these settings you cannot open them.</source>
+                <target>Ohne Eingabe des korrekten, in dieser Konfigurationsdatei verwendeten SEB Administrator-Passwortes kann diese nicht geöffnet werden.</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Important Notice for First Time Users">
                 <source>Important Notice for First Time Users</source>
+                <target>Wichtiger Hinweis für neue Benutzer</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Left">
@@ -2677,6 +2726,7 @@
             </trans-unit>
             <trans-unit id="OK">
                 <source>OK</source>
+                <target>OK</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="OS X">
@@ -2697,10 +2747,12 @@
             </trans-unit>
             <trans-unit id="Paste from saved clipboard">
                 <source>Paste from saved clipboard</source>
+                <target>Einfügen aus gesicherter Zwischenablage</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Please confirm password">
                 <source>Please confirm password</source>
+                <target>Bitte Passwort bestätigen</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Please confirm the %@ password first.">
@@ -2709,6 +2761,7 @@
             </trans-unit>
             <trans-unit id="Quit">
                 <source>Quit</source>
+                <target>Beenden</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Quit Safe Exam Browser">
@@ -2729,6 +2782,7 @@
             </trans-unit>
             <trans-unit id="Retry">
                 <source>Retry</source>
+                <target>Wiederholen</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Right">
@@ -2745,10 +2799,12 @@
             </trans-unit>
             <trans-unit id="SEB is configured to only allow to upload a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.">
                 <source>SEB is configured to only allow to upload a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.</source>
+                <target>SEB ist so konfiguriert, dass nur eine zuvor heruntergeladene Datei heraufgeladen werden darf. Wenn also eine Datei heruntergeladen und in einer Drittapplikation bearbeitet wird, muss diese mit demselben Dateinamen im selben Verzeichnis wieder gespeichert werden.</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.">
                 <source>SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.</source>
+                <target>SEB wird die zuvor heruntergeladene Datei heraufladen. Wenn also eine Datei heruntergeladen und in einer Drittapplikation bearbeitet wird, muss diese mit demselben Dateinamen im selben Verzeichnis wieder gespeichert werden.</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="SOCKS Proxy">
@@ -2781,6 +2837,7 @@
             </trans-unit>
             <trans-unit id="Select">
                 <source>Select</source>
+                <target>Auswählen</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Settings have been saved, use this file to reconfigure local settings of a SEB client.">
@@ -2829,6 +2886,7 @@
             </trans-unit>
             <trans-unit id="Version">
                 <source>Version</source>
+                <target>Version</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Virtual Machine Detected!">
@@ -2857,6 +2915,7 @@
             </trans-unit>
             <trans-unit id="Wrong Password! Try again to enter the correct current SEB administrator password:">
                 <source>Wrong Password! Try again to enter the correct current SEB administrator password:</source>
+                <target>Falsches Passwort! Bitte erneut versuchen, das korrrekte SEB Administrator-Passwort einzugeben:</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Wrong Password! Try again to enter the correct password used to encrypt these settings:">
@@ -2877,6 +2936,7 @@
             </trans-unit>
             <trans-unit id="You are not allowed to run SEB inside a virtual machine!">
                 <source>You are not allowed to run SEB inside a virtual machine!</source>
+                <target>Es ist nicht erlaubt, SEB innerhalb einer virtuellen Maschine zu betreiben!</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="You can only reconfigure SEB by entering the current SEB administrator password:">
@@ -2925,26 +2985,32 @@
             </trans-unit>
             <trans-unit id="by attempting to upload same file downloaded before">
                 <source>by attempting to upload same file downloaded before</source>
+                <target>versuchen, die zuvor heruntergeladene Datei auszuwählen</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="by only allowing to upload the same file downloaded before">
                 <source>by only allowing to upload the same file downloaded before</source>
+                <target>nur zuvor heruntergeladene Datei zulassen</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="get generally blocked">
                 <source>get generally blocked</source>
+                <target>werden generell blockiert</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="manually with file requester">
                 <source>manually with file requester</source>
+                <target>manuell mit Dateidialog</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="open in new window">
                 <source>open in new window</source>
+                <target>öffnen in einem neuen Fenster</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="open in same window">
                 <source>open in same window</source>
+                <target>öffnen im selben Fenster</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="or">

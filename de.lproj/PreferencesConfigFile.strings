@@ -7,3 +7,6 @@
 /* Class = "NSButtonCell"; ibShadowedToolTip = "A SEB settings file saved with this option can be used to change the local settings of a SEB client. Encrypt it with an empty or the same password which is set as administrator password on the SEB client. Other passwords will be prompted."; ObjectID = "252"; */
 "252.ibShadowedToolTip" = "Eine mit dieser Option gespeicherte Konfigurationsdatei kann benutzt werden, um die lokalen Einstellungen eines SEB-Clients zu ändern.";
 
+/* Class = "NSButtonCell"; title = "Allow to open preferences window on client"; ObjectID = "260"; */
+"260.title" = "Einstellungen-Fenster darf auf Client geöffnet werden";
+

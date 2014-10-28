@@ -41,7 +41,7 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSCustomView" id="965820046">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSTextField" id="726218885">
@@ -50,6 +50,7 @@
 						<array class="NSMutableArray" key="NSSubviews"/>
 						<string key="NSFrame">{{120, 301}, {510, 22}}</string>
 						<reference key="NSSuperview" ref="965820046"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="782272183"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
@@ -93,6 +94,7 @@
 						<int key="NSvFlags">265</int>
 						<string key="NSFrame">{{268, 279}, {362, 21}}</string>
 						<reference key="NSSuperview" ref="965820046"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="37782408"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="132871334">
@@ -119,6 +121,8 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{504, 13}, {132, 32}}</string>
 						<reference key="NSSuperview" ref="965820046"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSHuggingPriority">{250, 750}</string>
 						<string key="NSAntiCompressionPriority">{750, 750}</string>
 						<bool key="NSEnabled">YES</bool>
@@ -142,6 +146,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{150, 17}, {25, 25}}</string>
 						<reference key="NSSuperview" ref="965820046"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="272628799"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="422576881">
@@ -164,6 +169,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{14, 13}, {132, 32}}</string>
 						<reference key="NSSuperview" ref="965820046"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="913540441"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="417529352">
@@ -186,6 +192,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{380, 242}, {250, 22}}</string>
 						<reference key="NSSuperview" ref="965820046"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="657256542"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSSecureTextFieldCell" key="NSCell" id="204706552">
@@ -209,6 +216,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{19, 144}, {614, 18}}</string>
 						<reference key="NSSuperview" ref="965820046"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="802262550"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="917341523">
@@ -238,6 +246,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{19, 168}, {614, 18}}</string>
 						<reference key="NSSuperview" ref="965820046"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="797030395"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="1056999937">
@@ -262,6 +271,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{378, 69}, {254, 14}}</string>
 						<reference key="NSSuperview" ref="965820046"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="48455932"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="465072204">
@@ -292,6 +302,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{378, 192}, {254, 17}}</string>
 						<reference key="NSSuperview" ref="965820046"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1064892255"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="786486549">
@@ -314,6 +325,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{260, 13}, {132, 32}}</string>
 						<reference key="NSSuperview" ref="965820046"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="353999373"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="393565395">
@@ -336,6 +348,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 304}, {96, 17}}</string>
 						<reference key="NSSuperview" ref="965820046"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="726218885"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="473921774">
@@ -360,6 +373,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{19, 88}, {355, 17}}</string>
 						<reference key="NSSuperview" ref="965820046"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="462625146"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="1057967822">
@@ -379,6 +393,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{380, 86}, {250, 22}}</string>
 						<reference key="NSSuperview" ref="965820046"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="663435541"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSSecureTextFieldCell" key="NSCell" id="42168143">
@@ -402,6 +417,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{19, 118}, {355, 17}}</string>
 						<reference key="NSSuperview" ref="965820046"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="287856347"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="890409055">
@@ -421,6 +437,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 214}, {356, 17}}</string>
 						<reference key="NSSuperview" ref="965820046"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="47473207"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="1009514888">
@@ -440,6 +457,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 244}, {356, 17}}</string>
 						<reference key="NSSuperview" ref="965820046"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="351398252"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="202369527">
@@ -459,6 +477,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{380, 116}, {250, 22}}</string>
 						<reference key="NSSuperview" ref="965820046"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="865986926"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSSecureTextFieldCell" key="NSCell" id="617783254">
@@ -482,6 +501,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{380, 212}, {250, 22}}</string>
 						<reference key="NSSuperview" ref="965820046"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1031248500"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSSecureTextFieldCell" key="NSCell" id="222761783">
@@ -502,6 +522,8 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{650, 343}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="447548069"/>
 				<string key="NSClassName">NSView</string>
 			</object>
@@ -2939,7 +2961,7 @@
 					<object class="IBToolTipAttribute" key="NS.object.0">
 						<string key="name">ToolTip</string>
 						<reference key="object" ref="1064892255"/>
-						<string key="toolTip">If selected, users can quit SEB with Command+Q, window close or quit button. Otherwise use a quit link in your exam system or shutdown/restart the computer.</string>
+						<string key="toolTip">Users can quit SEB with Command-Q, window close or quit button. Otherwise use a quit link in your exam system or shutdown/restart the computer</string>
 					</object>
 				</object>
 				<boolean value="NO" key="92.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
@@ -2991,7 +3013,135 @@
 			<nil key="sourceID"/>
 			<int key="maxID">427</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">PrefsGeneralViewController</string>
+					<string key="superclassName">NSViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="aboutSEB:">id</string>
+						<string key="pasteSavedStringFromPasteboard:">id</string>
+						<string key="quitSEB:">id</string>
+						<string key="restartSEB:">id</string>
+						<string key="showHelp:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="aboutSEB:">
+							<string key="name">aboutSEB:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="pasteSavedStringFromPasteboard:">
+							<string key="name">pasteSavedStringFromPasteboard:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="quitSEB:">
+							<string key="name">quitSEB:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="restartSEB:">
+							<string key="name">restartSEB:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showHelp:">
+							<string key="name">showHelp:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="adminPasswordField">NSSecureTextField</string>
+						<string key="confirmAdminPasswordField">NSSecureTextField</string>
+						<string key="confirmQuitPasswordField">NSSecureTextField</string>
+						<string key="controller">NSObjectController</string>
+						<string key="pasteSavedStringFromPasteboardButton">NSButton</string>
+						<string key="prefsQuitSEB">NSButton</string>
+						<string key="quitPasswordField">NSSecureTextField</string>
+						<string key="startURL">NSTextField</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="adminPasswordField">
+							<string key="name">adminPasswordField</string>
+							<string key="candidateClassName">NSSecureTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="confirmAdminPasswordField">
+							<string key="name">confirmAdminPasswordField</string>
+							<string key="candidateClassName">NSSecureTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="confirmQuitPasswordField">
+							<string key="name">confirmQuitPasswordField</string>
+							<string key="candidateClassName">NSSecureTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="controller">
+							<string key="name">controller</string>
+							<string key="candidateClassName">NSObjectController</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="pasteSavedStringFromPasteboardButton">
+							<string key="name">pasteSavedStringFromPasteboardButton</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="prefsQuitSEB">
+							<string key="name">prefsQuitSEB</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="quitPasswordField">
+							<string key="name">quitPasswordField</string>
+							<string key="candidateClassName">NSSecureTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="startURL">
+							<string key="name">startURL</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../PrefsGeneralViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PrefsGeneralViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="aboutSEB:">id</string>
+						<string key="pasteSavedStringFromPasteboard:">id</string>
+						<string key="quitSEB:">id</string>
+						<string key="restartSEB:">id</string>
+						<string key="showHelp:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="aboutSEB:">
+							<string key="name">aboutSEB:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="pasteSavedStringFromPasteboard:">
+							<string key="name">pasteSavedStringFromPasteboard:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="quitSEB:">
+							<string key="name">quitSEB:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="restartSEB:">
+							<string key="name">restartSEB:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showHelp:">
+							<string key="name">showHelp:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../PrefsGeneralViewController.m</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">SEBEncryptedUserDefaultsController</string>
+					<string key="superclassName">NSUserDefaultsController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../SEBEncryptedUserDefaultsController.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<bool key="IBDocument.previouslyAttemptedUpgradeToXcode5">YES</bool>

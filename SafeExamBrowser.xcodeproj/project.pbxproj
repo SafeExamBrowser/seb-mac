@@ -298,6 +298,8 @@
 		690D23471451EF2400CCCFF9 /* PrefsBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsBrowserViewController.m; sourceTree = "<group>"; };
 		690D234A1452000800CCCFF9 /* BrowserIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BrowserIcon.png; sourceTree = "<group>"; };
 		690D234B1452000800CCCFF9 /* BrowserIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BrowserIcon@2x.png"; sourceTree = "<group>"; };
+		6914D6E719FE7B2400934C6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6914D6E819FE7B4E00934C6F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SEBBrowserWindow.strings; sourceTree = "<group>"; };
 		6915F2E719C8F77600DAEA37 /* SEBDockWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockWindow.h; path = Classes/SEBDock/SEBDockWindow.h; sourceTree = "<group>"; };
 		6915F2E819C8F77600DAEA37 /* SEBDockWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockWindow.m; path = Classes/SEBDock/SEBDockWindow.m; sourceTree = "<group>"; };
 		69196D8C19F99BA900ABF8E5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesSecurity.strings; sourceTree = "<group>"; };
@@ -368,9 +370,7 @@
 		696EB10016CAAFF600707B0F /* ApplicationsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ApplicationsIcon.png; sourceTree = "<group>"; };
 		696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ApplicationsIcon@2x.png"; sourceTree = "<group>"; };
 		696F28E715751ED600780DA8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		6972078C19FA7870004D7316 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6972078D19FA787A004D7316 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = "en.lproj/SafeExamBrowser-Info.plist"; sourceTree = "<group>"; };
-		6972078E19FA792E004D7316 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBWindowSizeValueTransformer.h; sourceTree = "<group>"; };
 		6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBWindowSizeValueTransformer.m; sourceTree = "<group>"; };
 		69903B1E14CD7624007E7DF7 /* Safe Exam Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Safe Exam Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -387,6 +387,7 @@
 		699731C318C8D6ED0069FE35 /* CapWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CapWindow.m; sourceTree = "<group>"; };
 		699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBUIUserDefaultsController.h; sourceTree = "<group>"; };
 		699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBUIUserDefaultsController.m; sourceTree = "<group>"; };
+		69A3022919FE7B8F00B9A0F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		69A9A22A1368784500840AE1 /* MBPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBPreferencesController.h; sourceTree = "<group>"; };
 		69A9A22B1368784500840AE1 /* MBPreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MBPreferencesController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69A9A22E1369AF9600840AE1 /* LICENCE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
@@ -1251,6 +1252,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				6929228C19FD9F1B00B57347 /* Base */,
+				6914D6E819FE7B4E00934C6F /* de */,
 			);
 			name = SEBBrowserWindow.xib;
 			sourceTree = "<group>";
@@ -1338,8 +1340,8 @@
 		69EA170119FA77A0001E0C51 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				6972078C19FA7870004D7316 /* en */,
-				6972078E19FA792E004D7316 /* de */,
+				6914D6E719FE7B2400934C6F /* Base */,
+				69A3022919FE7B8F00B9A0F3 /* de */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

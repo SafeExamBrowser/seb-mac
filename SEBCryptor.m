@@ -228,7 +228,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             // If yes, then cancel reading .seb file and create error object
             [self presentPreferencesCorruptedError];
             // Return value: Checksum changed
-            return true;
+            return YES;
         }
         if (value) {
             [filteredPrefsDict setObject:value forKey:key];
@@ -264,11 +264,11 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             [preferences setSecureObject:HMACData forKey:@"org_safeexambrowser_currentData"];
         }
         // Return value: Checksum changed
-        return true;
+        return YES;
     }
     
     // Return value: Checksum not changed
-    return false;
+    return NO;
 }
 
 

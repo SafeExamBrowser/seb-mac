@@ -137,11 +137,35 @@ typedef NSUInteger URLFilterRuleActions;
 
 
 enum {
-    SEBDockItemPositionLeftPinned                   = 0,
-    SEBDockItemPositionCenter                       = 1,
-    SEBDockItemPositionRightPinned                  = 2
+    SEBDockItemPositionLeftPinned               = 0,
+    SEBDockItemPositionCenter                   = 1,
+    SEBDockItemPositionRightPinned              = 2
 };
 typedef NSUInteger SEBDockItemPosition;
+
+
+enum {
+    SEBUnsavedSettingsAnswerSave                = 0,
+    SEBUnsavedSettingsAnswerDontSave            = 1,
+    SEBUnsavedSettingsAnswerCancel              = 2
+};
+typedef NSUInteger SEBUnsavedSettingsAnswer;
+
+
+enum {
+    SEBApplySettingsAnswerDontApply             = 0,
+    SEBApplySettingsAnswerApply                 = 1,
+    SEBApplySettingsAnswerCancel                = 2
+};
+typedef NSUInteger SEBApplySettingsAnswers;
+
+
+enum {
+    SEBDisabledPreferencesAnswerOverride        = 0,
+    SEBDisabledPreferencesAnswerApply           = 1,
+    SEBDisabledPreferencesAnswerCancel          = 2
+};
+typedef NSUInteger SEBDisabledPreferencesAnswer;
 
 
 static NSString __unused *userDefaultsMasala = @"D𝈭il𝈖Ch𝈒a𝉇ht𝈁a𝉈Hai1972";

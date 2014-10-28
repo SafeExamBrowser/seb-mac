@@ -2213,6 +2213,41 @@
       </trans-unit>
     </body>
   </file>
+  <file original="Base.lproj/SEBBrowserWindow.xib" source-language="en" datatype="plaintext" target-language="fr">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.1" build-num="6A1052d"/>
+    </header>
+    <body>
+      <trans-unit id="3.title">
+        <source>Safe Exam Browser</source>
+        <note>Class = "SEBBrowserWindow"; title = "Safe Exam Browser"; ObjectID = "3";</note>
+      </trans-unit>
+      <trans-unit id="175.label">
+        <source>Back/Forward</source>
+        <note>Class = "NSToolbarItem"; label = "Back/Forward"; ObjectID = "175";</note>
+      </trans-unit>
+      <trans-unit id="175.paletteLabel">
+        <source>SegmentButton</source>
+        <note>Class = "NSToolbarItem"; paletteLabel = "SegmentButton"; ObjectID = "175";</note>
+      </trans-unit>
+      <trans-unit id="179.label">
+        <source>Zoom</source>
+        <note>Class = "NSToolbarItem"; label = "Zoom"; ObjectID = "179";</note>
+      </trans-unit>
+      <trans-unit id="179.paletteLabel">
+        <source>SegmentButton</source>
+        <note>Class = "NSToolbarItem"; paletteLabel = "SegmentButton"; ObjectID = "179";</note>
+      </trans-unit>
+      <trans-unit id="192.label">
+        <source>Reload</source>
+        <note>Class = "NSToolbarItem"; label = "Reload"; ObjectID = "192";</note>
+      </trans-unit>
+      <trans-unit id="192.paletteLabel">
+        <source>Button</source>
+        <note>Class = "NSToolbarItem"; paletteLabel = "Button"; ObjectID = "192";</note>
+      </trans-unit>
+    </body>
+  </file>
   <file original="en.lproj/Localizable.strings" source-language="en" datatype="plaintext" target-language="fr">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.1" build-num="6A1052d"/>
