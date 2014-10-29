@@ -1343,7 +1343,10 @@ bool insideMatrix(){
 #ifdef DEBUG
     NSLog(@"Requested Restart");
 #endif
-
+    
+    // Adjust screen shot blocking
+    [self.systemManager adjustSC];
+    
     // Close all browser windows (documents)
     [[NSDocumentController sharedDocumentController] closeAllDocumentsWithDelegate:nil
                                                                didCloseAllSelector:nil contextInfo: nil];

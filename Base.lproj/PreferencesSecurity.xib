@@ -155,14 +155,22 @@
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                                 <connections>
-                                                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_createNewDesktop" id="7Yk-2p-lNS"/>
+                                                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_createNewDesktop" id="X1x-TP-tWB">
+                                                                        <dictionary key="options">
+                                                                            <bool key="NSValidatesImmediately" value="YES"/>
+                                                                        </dictionary>
+                                                                    </binding>
                                                                 </connections>
                                                             </buttonCell>
                                                             <buttonCell type="radio" title="Disable Explorer Shell" imagePosition="left" alignment="left" inset="2" id="dpL-te-8hi">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                                 <connections>
-                                                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_killExplorerShell" id="xm6-IN-XTa"/>
+                                                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_killExplorerShell" id="fD0-gI-ZBM">
+                                                                        <dictionary key="options">
+                                                                            <bool key="NSValidatesImmediately" value="YES"/>
+                                                                        </dictionary>
+                                                                    </binding>
                                                                 </connections>
                                                             </buttonCell>
                                                             <buttonCell type="radio" title="None (for debugging only)" imagePosition="left" alignment="left" inset="2" id="KbI-Yu-DVk">

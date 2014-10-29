@@ -87,90 +87,140 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 #endif
     }
     
-    // Store current (= original) location persistantly
-    [preferences setSecureString:scLocation forKey:@"currentDestination"];
-
-    // Create a new random directory name
-    NSData *randomData = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
-    unsigned char hashedChars[32];
-    [randomData getBytes:hashedChars length:32];
-    NSMutableString *randomHexString = [NSMutableString stringWithString:@"."];
-    for (int i = 0 ; i < 32 ; ++i) {
-        [randomHexString appendFormat: @"%02x", hashedChars[i]];
-    }
-    
-    // Create the folder
-    scTempPath = [randomHexString copy];
-    NSString *scFullPath = [NSTemporaryDirectory() stringByAppendingPathComponent:randomHexString];
-    BOOL isDir;
-    NSFileManager *fileManager= [NSFileManager defaultManager];
-    if(![fileManager fileExistsAtPath:scFullPath isDirectory:&isDir]) {
-        if(![fileManager createDirectoryAtPath:scFullPath withIntermediateDirectories:YES attributes:nil error:NULL]) {
-            NSLog(@"Error: Creating folder failed %@", scFullPath);
-            // As a fallback just use the temp directory
-            scFullPath = NSTemporaryDirectory();
+    // Check if screenshots should be blocked in current settings
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+        
+        /// Block screenshots
+        
+        // Store current (= original) location persistantly
+        [preferences setSecureString:scLocation forKey:@"currentDestination"];
+        
+        // Create a new random directory name
+        NSData *randomData = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
+        unsigned char hashedChars[32];
+        [randomData getBytes:hashedChars length:32];
+        NSMutableString *randomHexString = [NSMutableString stringWithString:@"."];
+        for (int i = 0 ; i < 32 ; ++i) {
+            [randomHexString appendFormat: @"%02x", hashedChars[i]];
         }
-    }
-
-    // Execute the redirect script
-    if ([self executeSCAppleScript:scFullPath]) {
+        
+        // Create the folder
+        scTempPath = [randomHexString copy];
+        NSString *scFullPath = [NSTemporaryDirectory() stringByAppendingPathComponent:randomHexString];
+        BOOL isDir;
+        NSFileManager *fileManager= [NSFileManager defaultManager];
+        if(![fileManager fileExistsAtPath:scFullPath isDirectory:&isDir]) {
+            if(![fileManager createDirectoryAtPath:scFullPath withIntermediateDirectories:YES attributes:nil error:NULL]) {
+                NSLog(@"Error: Creating folder failed %@", scFullPath);
+                // As a fallback just use the temp directory
+                scFullPath = NSTemporaryDirectory();
+            }
+        }
+        
+        // Execute the redirect script
+        if ([self executeSCAppleScript:scFullPath]) {
 #ifdef DEBUG
-        NSLog(@"sc redirect script didn't report an error");
+            NSLog(@"sc redirect script didn't report an error");
 #endif
-    }
-
-    // Get and verify the new location
-    NSString *location = [self getCurrentSCLocation];
-    if ([scFullPath isEqualToString:location]) {
+        }
+        
+        // Get and verify the new location
+        NSString *location = [self getCurrentSCLocation];
+        if ([scFullPath isEqualToString:location]) {
 #ifdef DEBUG
-        NSLog(@"Changed sc location successfully to: %@", location);
+            NSLog(@"Changed sc location successfully to: %@", location);
 #endif
+        } else {
+#ifdef DEBUG
+            NSLog(@"Failed changing sc location, location is: %@", location);
+#endif
+            // If the sc location wasn't changed, we save an empty string to indicate this
+            scTempPath = @"";
+        }
+        // Store scTempPath persistantly
+        [preferences setSecureString:scTempPath forKey:@"newDestination"];
+        return location;
+        
     } else {
-#ifdef DEBUG
-        NSLog(@"Failed changing sc location, location is: %@", location);
-#endif
-        // If the sc location wasn't changed, we save an empty string to indicate this
-        scTempPath = @"";
+        
+        /// Blocking screenshots not active
+        
+        scLocation = nil;
+        
+        return scLocation;
     }
-    // Store scTempPath persistantly
-    [preferences setSecureString:scTempPath forKey:@"newDestination"];
-    return location;
 }
 
 
 - (BOOL) restoreSC
 {
-    // Restore original SC path
-    if ([self executeSCAppleScript:scLocation]) {
-#ifdef DEBUG
-        NSLog(@"sc restore original value (%@) script didn't report an error", scLocation);
-#endif
-    }
-    // Get and verify the new location
-    NSString *location = [self getCurrentSCLocation];
-    if ([scLocation isEqualToString:location]) {
-#ifdef DEBUG
-        NSLog(@"Restored sc location successfully to: %@", location);
-#endif
-    } else {
-#ifdef DEBUG
-        NSLog(@"Failed restoring sc location! Location is: %@", location);
-#endif
-    }
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    // Check if screenshots were blocked in the previously active settings
+    if (scLocation.length > 0) {
 
-    // Remove temporary directory
-    if ([self removeTempDirectory:scTempPath]) {
-        [preferences setSecureString:@"" forKey:@"newDestination"];
+        /// Unblock screenshots
+        
+        // Restore original SC path
+        if ([self executeSCAppleScript:scLocation]) {
 #ifdef DEBUG
-        NSLog(@"Removed redirected temp sc location %@ successfully.", scTempPath);
+            NSLog(@"sc restore original value (%@) script didn't report an error", scLocation);
 #endif
-        return YES;
+        }
+        // Get and verify the new location
+        NSString *location = [self getCurrentSCLocation];
+        if ([scLocation isEqualToString:location]) {
+#ifdef DEBUG
+            NSLog(@"Restored sc location successfully to: %@", location);
+#endif
+        } else {
+#ifdef DEBUG
+            NSLog(@"Failed restoring sc location! Location is: %@", location);
+#endif
+        }
+        // Remove temporary directory
+        if ([self removeTempDirectory:scTempPath]) {
+            NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+            [preferences setSecureString:@"" forKey:@"newDestination"];
+#ifdef DEBUG
+            NSLog(@"Removed redirected temp sc location %@ successfully.", scTempPath);
+#endif
+            return YES;
+        } else {
+#ifdef DEBUG
+            NSLog(@"Failed removing redirected temp sc location %@", scTempPath);
+#endif
+            return NO;
+        }
+    }
+    return YES;
+}
+
+
+- (void) adjustSC
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    /// Check if screenshots were blocked in the previously active settings
+
+    if (scLocation.length > 0) {
+
+        /// Yes, screenshots were blocked
+        
+        // Check if screenshots are allowed in current settings
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == YES) {
+            // Yes, screenshots are no longer blocked: restore SC and switch to non-blocking
+            [self restoreSC];
+            [self preventSC];
+        } // otherwise leave blocking active and don't do nothing
+
     } else {
-#ifdef DEBUG
-        NSLog(@"Failed removing redirected temp sc location %@", scTempPath);
-#endif
-        return NO;
+
+        /// No, screenshots were not blocked
+        
+        // Check if screenshots are allowed in current settings
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+            // No, screenshots are blocked in new settings: activate blocking
+            [self preventSC];
+        } // otherwise leave blocking inactive and don't do nothing
     }
 }
 

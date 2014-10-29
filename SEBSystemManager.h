@@ -42,6 +42,7 @@
 
 - (NSString *) preventSC;
 - (BOOL) restoreSC;
+- (void) adjustSC;
 
 - (BOOL) checkHTTPSProxySetting;
 
