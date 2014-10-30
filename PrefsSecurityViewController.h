@@ -45,6 +45,7 @@
     //IBOutlet NSButton *openDownloads;
     IBOutlet NSPopUpButton *chooseLogDirectory;
     IBOutlet NSMenuItem *logDirectory;
+    IBOutlet NSMatrix *kioskMode;
 
 }
 
@@ -54,6 +55,7 @@
 - (void) setLogDirectory;
 
 - (IBAction) chooseDirectory:(id)sender;
+- (IBAction) changedKioskMode:(NSMatrix *)sender;
 
 
 @end

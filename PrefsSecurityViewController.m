@@ -36,6 +36,7 @@
 
 #import "PrefsSecurityViewController.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
+#import "Constants.h"
 
 @implementation PrefsSecurityViewController
 
@@ -60,6 +61,16 @@
 {
     [self setLogDirectory];
     
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    [kioskMode selectCellAtRow:2 column:0];
+
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_createNewDesktop"]) {
+        [kioskMode selectCellAtRow:0 column:0];
+        
+    } else if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_killExplorerShell"]) {
+        [kioskMode selectCellAtRow:1 column:0];
+    }
 }
 
 
@@ -111,6 +122,30 @@
                               [chooseLogDirectory synchronizeTitleAndSelectedItem];
                           }
                       }];
+}
+
+
+- (IBAction) changedKioskMode:(NSMatrix *)sender
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    NSUInteger kioskModeSelectedRow = [sender selectedRow];
+    switch (kioskModeSelectedRow) {
+        case 0:
+            [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_createNewDesktop"];
+            [preferences setSecureBool:NO forKey:@"org_safeexambrowser_SEB_killExplorerShell"];
+            break;
+            
+        case 1:
+            [preferences setSecureBool:NO forKey:@"org_safeexambrowser_SEB_createNewDesktop"];
+            [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_killExplorerShell"];
+            break;
+            
+        case 2:
+            [preferences setSecureBool:NO forKey:@"org_safeexambrowser_SEB_createNewDesktop"];
+            [preferences setSecureBool:NO forKey:@"org_safeexambrowser_SEB_killExplorerShell"];
+            break;
+    }
 }
 
 

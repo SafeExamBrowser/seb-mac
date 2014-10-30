@@ -14,6 +14,30 @@
 		6901331C19B371CB0050574D /* PreferencesWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901331A19B371CB0050574D /* PreferencesWindow.m */; };
 		6901331D19B371CB0050574D /* PreferencesWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901331A19B371CB0050574D /* PreferencesWindow.m */; };
 		6905C5AB1961B4E5000008EC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6905C5AA1961B4E5000008EC /* SystemConfiguration.framework */; };
+		6909E33A1A019F7A0086A741 /* CLIColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3211A019F7A0086A741 /* CLIColor.h */; };
+		6909E33B1A019F7A0086A741 /* CLIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3221A019F7A0086A741 /* CLIColor.m */; };
+		6909E33C1A019F7A0086A741 /* CocoaLumberjack.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3231A019F7A0086A741 /* CocoaLumberjack.h */; };
+		6909E33D1A019F7A0086A741 /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3241A019F7A0086A741 /* DDAbstractDatabaseLogger.h */; };
+		6909E33E1A019F7A0086A741 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3251A019F7A0086A741 /* DDAbstractDatabaseLogger.m */; };
+		6909E33F1A019F7A0086A741 /* DDASLLogCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3261A019F7A0086A741 /* DDASLLogCapture.h */; };
+		6909E3401A019F7A0086A741 /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3271A019F7A0086A741 /* DDASLLogCapture.m */; };
+		6909E3411A019F7A0086A741 /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3281A019F7A0086A741 /* DDASLLogger.h */; };
+		6909E3421A019F7A0086A741 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3291A019F7A0086A741 /* DDASLLogger.m */; };
+		6909E3431A019F7A0086A741 /* DDAssertMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E32A1A019F7A0086A741 /* DDAssertMacros.h */; };
+		6909E3441A019F7A0086A741 /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E32B1A019F7A0086A741 /* DDFileLogger.h */; };
+		6909E3451A019F7A0086A741 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E32C1A019F7A0086A741 /* DDFileLogger.m */; };
+		6909E3461A019F7A0086A741 /* DDLog+LOGV.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E32D1A019F7A0086A741 /* DDLog+LOGV.h */; };
+		6909E3471A019F7A0086A741 /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E32E1A019F7A0086A741 /* DDLog.h */; };
+		6909E3481A019F7A0086A741 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E32F1A019F7A0086A741 /* DDLog.m */; };
+		6909E3491A019F7A0086A741 /* DDLogMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3301A019F7A0086A741 /* DDLogMacros.h */; };
+		6909E34A1A019F7A0086A741 /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3311A019F7A0086A741 /* DDTTYLogger.h */; };
+		6909E34B1A019F7A0086A741 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3321A019F7A0086A741 /* DDTTYLogger.m */; };
+		6909E34C1A019F7A0086A741 /* DDContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3341A019F7A0086A741 /* DDContextFilterLogFormatter.h */; };
+		6909E34D1A019F7A0086A741 /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3351A019F7A0086A741 /* DDContextFilterLogFormatter.m */; };
+		6909E34E1A019F7A0086A741 /* DDDispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3361A019F7A0086A741 /* DDDispatchQueueLogFormatter.h */; };
+		6909E34F1A019F7A0086A741 /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3371A019F7A0086A741 /* DDDispatchQueueLogFormatter.m */; };
+		6909E3501A019F7A0086A741 /* DDMultiFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3381A019F7A0086A741 /* DDMultiFormatter.h */; };
+		6909E3511A019F7A0086A741 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3391A019F7A0086A741 /* DDMultiFormatter.m */; };
 		690B5B6219DBEAA400704F36 /* SEBDockItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 690B5B6019DBEAA400704F36 /* SEBDockItem.h */; };
 		690B5B6319DBEAA400704F36 /* SEBDockItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 690B5B6119DBEAA400704F36 /* SEBDockItem.m */; };
 		690B5B6419DBEAA400704F36 /* SEBDockItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 690B5B6119DBEAA400704F36 /* SEBDockItem.m */; };
@@ -284,6 +308,30 @@
 		6901331919B371CB0050574D /* PreferencesWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesWindow.h; path = Classes/Preferences/PreferencesWindow/PreferencesWindow.h; sourceTree = "<group>"; };
 		6901331A19B371CB0050574D /* PreferencesWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreferencesWindow.m; path = Classes/Preferences/PreferencesWindow/PreferencesWindow.m; sourceTree = "<group>"; };
 		6905C5AA1961B4E5000008EC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		6909E3211A019F7A0086A741 /* CLIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLIColor.h; sourceTree = "<group>"; };
+		6909E3221A019F7A0086A741 /* CLIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLIColor.m; sourceTree = "<group>"; };
+		6909E3231A019F7A0086A741 /* CocoaLumberjack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaLumberjack.h; sourceTree = "<group>"; };
+		6909E3241A019F7A0086A741 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
+		6909E3251A019F7A0086A741 /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
+		6909E3261A019F7A0086A741 /* DDASLLogCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogCapture.h; sourceTree = "<group>"; };
+		6909E3271A019F7A0086A741 /* DDASLLogCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogCapture.m; sourceTree = "<group>"; };
+		6909E3281A019F7A0086A741 /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
+		6909E3291A019F7A0086A741 /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogger.m; sourceTree = "<group>"; };
+		6909E32A1A019F7A0086A741 /* DDAssertMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAssertMacros.h; sourceTree = "<group>"; };
+		6909E32B1A019F7A0086A741 /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFileLogger.h; sourceTree = "<group>"; };
+		6909E32C1A019F7A0086A741 /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileLogger.m; sourceTree = "<group>"; };
+		6909E32D1A019F7A0086A741 /* DDLog+LOGV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDLog+LOGV.h"; sourceTree = "<group>"; };
+		6909E32E1A019F7A0086A741 /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLog.h; sourceTree = "<group>"; };
+		6909E32F1A019F7A0086A741 /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLog.m; sourceTree = "<group>"; };
+		6909E3301A019F7A0086A741 /* DDLogMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLogMacros.h; sourceTree = "<group>"; };
+		6909E3311A019F7A0086A741 /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTTYLogger.h; sourceTree = "<group>"; };
+		6909E3321A019F7A0086A741 /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTTYLogger.m; sourceTree = "<group>"; };
+		6909E3341A019F7A0086A741 /* DDContextFilterLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDContextFilterLogFormatter.h; sourceTree = "<group>"; };
+		6909E3351A019F7A0086A741 /* DDContextFilterLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDContextFilterLogFormatter.m; sourceTree = "<group>"; };
+		6909E3361A019F7A0086A741 /* DDDispatchQueueLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDispatchQueueLogFormatter.h; sourceTree = "<group>"; };
+		6909E3371A019F7A0086A741 /* DDDispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDispatchQueueLogFormatter.m; sourceTree = "<group>"; };
+		6909E3381A019F7A0086A741 /* DDMultiFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMultiFormatter.h; sourceTree = "<group>"; };
+		6909E3391A019F7A0086A741 /* DDMultiFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMultiFormatter.m; sourceTree = "<group>"; };
 		690B5B6019DBEAA400704F36 /* SEBDockItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockItem.h; path = Classes/SEBDock/SEBDockItem.h; sourceTree = "<group>"; };
 		690B5B6119DBEAA400704F36 /* SEBDockItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockItem.m; path = Classes/SEBDock/SEBDockItem.m; sourceTree = "<group>"; };
 		690BBEAA19D2C6A000F7C9C6 /* SEBDockController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockController.h; path = Classes/SEBDock/SEBDockController.h; sourceTree = "<group>"; };
@@ -546,6 +594,7 @@
 				69CE9C6017378B360011609B /* Bugfixing Subclasses */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				6909E31F1A019F7A0086A741 /* CocoaLumberjack */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -586,6 +635,53 @@
 				693A94D711B68D8A0083C66D /* Carbon.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6909E31F1A019F7A0086A741 /* CocoaLumberjack */ = {
+			isa = PBXGroup;
+			children = (
+				6909E3201A019F7A0086A741 /* CLI */,
+				6909E3231A019F7A0086A741 /* CocoaLumberjack.h */,
+				6909E3241A019F7A0086A741 /* DDAbstractDatabaseLogger.h */,
+				6909E3251A019F7A0086A741 /* DDAbstractDatabaseLogger.m */,
+				6909E3261A019F7A0086A741 /* DDASLLogCapture.h */,
+				6909E3271A019F7A0086A741 /* DDASLLogCapture.m */,
+				6909E3281A019F7A0086A741 /* DDASLLogger.h */,
+				6909E3291A019F7A0086A741 /* DDASLLogger.m */,
+				6909E32A1A019F7A0086A741 /* DDAssertMacros.h */,
+				6909E32B1A019F7A0086A741 /* DDFileLogger.h */,
+				6909E32C1A019F7A0086A741 /* DDFileLogger.m */,
+				6909E32D1A019F7A0086A741 /* DDLog+LOGV.h */,
+				6909E32E1A019F7A0086A741 /* DDLog.h */,
+				6909E32F1A019F7A0086A741 /* DDLog.m */,
+				6909E3301A019F7A0086A741 /* DDLogMacros.h */,
+				6909E3311A019F7A0086A741 /* DDTTYLogger.h */,
+				6909E3321A019F7A0086A741 /* DDTTYLogger.m */,
+				6909E3331A019F7A0086A741 /* Extensions */,
+			);
+			path = CocoaLumberjack;
+			sourceTree = "<group>";
+		};
+		6909E3201A019F7A0086A741 /* CLI */ = {
+			isa = PBXGroup;
+			children = (
+				6909E3211A019F7A0086A741 /* CLIColor.h */,
+				6909E3221A019F7A0086A741 /* CLIColor.m */,
+			);
+			path = CLI;
+			sourceTree = "<group>";
+		};
+		6909E3331A019F7A0086A741 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				6909E3341A019F7A0086A741 /* DDContextFilterLogFormatter.h */,
+				6909E3351A019F7A0086A741 /* DDContextFilterLogFormatter.m */,
+				6909E3361A019F7A0086A741 /* DDDispatchQueueLogFormatter.h */,
+				6909E3371A019F7A0086A741 /* DDDispatchQueueLogFormatter.m */,
+				6909E3381A019F7A0086A741 /* DDMultiFormatter.h */,
+				6909E3391A019F7A0086A741 /* DDMultiFormatter.m */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		690BBEA919D2C44800F7C9C6 /* SEB Dock */ = {
@@ -878,6 +974,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6909E3471A019F7A0086A741 /* DDLog.h in Headers */,
 				694B08A316B14ABF00E4997C /* SEBCryptor.h in Headers */,
 				6992499216C3B18B00DF6B53 /* PrefsConfigFileViewController.h in Headers */,
 				6992499C16C5B62000DF6B53 /* PrefsApplicationsViewController.h in Headers */,
@@ -885,34 +982,47 @@
 				699282E319D0430A00270E86 /* CapWindowController.h in Headers */,
 				690B5B6219DBEAA400704F36 /* SEBDockItem.h in Headers */,
 				69DFAF3619C468E700CBE69F /* RNCryptorEngine.h in Headers */,
+				6909E3461A019F7A0086A741 /* DDLog+LOGV.h in Headers */,
 				695283DD16CDB54C0055AF6F /* PrefsSecurityViewController.h in Headers */,
 				69F32DC316D23374003C9502 /* PrefsAppearanceViewController.h in Headers */,
+				6909E33A1A019F7A0086A741 /* CLIColor.h in Headers */,
+				6909E34C1A019F7A0086A741 /* DDContextFilterLogFormatter.h in Headers */,
+				6909E33D1A019F7A0086A741 /* DDAbstractDatabaseLogger.h in Headers */,
 				69DFAF3019C468E700CBE69F /* RNDecryptor.h in Headers */,
 				69DE764717FC2A9300EE5958 /* PrefsResourcesViewController.h in Headers */,
+				6909E33C1A019F7A0086A741 /* CocoaLumberjack.h in Headers */,
 				6986652E16DAE184009C0226 /* SEBWindowSizeValueTransformer.h in Headers */,
 				699731C418C8D6ED0069FE35 /* CapWindow.h in Headers */,
 				6921294216F91C6600AFC3B0 /* BoolValueTransformer.h in Headers */,
 				69009BE019EA7F590083274C /* SEBBrowserOpenWindowWebView.h in Headers */,
 				690C6EE619E29E3600EDE103 /* SEBBrowserController.h in Headers */,
+				6909E3431A019F7A0086A741 /* DDAssertMacros.h in Headers */,
 				69DFAF3319C468E700CBE69F /* RNEncryptor.h in Headers */,
 				69DFAF3A19C468E700CBE69F /* RNCryptor OS X-Prefix.pch in Headers */,
 				69D817E518017DDB00EB7885 /* SEBURLFilter.h in Headers */,
+				6909E3441A019F7A0086A741 /* DDFileLogger.h in Headers */,
 				690BBEB119D2C6E500F7C9C6 /* SEBDockItemButton.h in Headers */,
 				6921294716F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h in Headers */,
 				69CF8A1416FD0B550096625C /* SEBFilterRuleTableColumn.h in Headers */,
 				6901331B19B371CB0050574D /* PreferencesWindow.h in Headers */,
+				6909E3491A019F7A0086A741 /* DDLogMacros.h in Headers */,
 				6940A7611853B2AD00D9D00D /* NSData+NSDataZIPExtension.h in Headers */,
 				69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */,
 				69CF8A1916FD1C330096625C /* SEBFilterRuleExpressionTableColumn.h in Headers */,
+				6909E3501A019F7A0086A741 /* DDMultiFormatter.h in Headers */,
+				6909E33F1A019F7A0086A741 /* DDASLLogCapture.h in Headers */,
 				693647FA17122A0300EE41BC /* DropDownButton.h in Headers */,
 				69DFAF2D19C468E700CBE69F /* RNCryptor.h in Headers */,
 				690BBEB619D30DF800F7C9C6 /* SEBDockView.h in Headers */,
 				69DFAF3919C468E700CBE69F /* RNCryptor+Private.h in Headers */,
+				6909E34E1A019F7A0086A741 /* DDDispatchQueueLogFormatter.h in Headers */,
 				69CE9C5D17326AB90011609B /* SEBConfigFileManager.h in Headers */,
 				69CE9C6317378B9A0011609B /* SEBTextField.h in Headers */,
+				6909E3411A019F7A0086A741 /* DDASLLogger.h in Headers */,
 				69CE1C171741309C0072207D /* SEBFilterTreeController.h in Headers */,
 				690BBEAC19D2C6A000F7C9C6 /* SEBDockController.h in Headers */,
 				695BE5F419EC3FED00CA2BB4 /* SEBDockItemMenu.h in Headers */,
+				6909E34A1A019F7A0086A741 /* DDTTYLogger.h in Headers */,
 				6915F2E919C8F77600DAEA37 /* SEBDockWindow.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1187,11 +1297,13 @@
 				69F7B61014F411FB00FD0761 /* MBPreferencesController.m in Sources */,
 				69F7B61114F411FB00FD0761 /* PreferencesController.m in Sources */,
 				69F7B61214F411FB00FD0761 /* PrefsDownUploadsViewController.m in Sources */,
+				6909E3421A019F7A0086A741 /* DDASLLogger.m in Sources */,
 				69CBEB571834C55D00FB0460 /* SEBSystemManager.m in Sources */,
 				699282E419D0430A00270E86 /* CapWindowController.m in Sources */,
 				69F7B61314F411FB00FD0761 /* SEBBrowserWindowDocument.m in Sources */,
 				69F7B61514F411FB00FD0761 /* MyGlobals.m in Sources */,
 				690BBEB719D30DF800F7C9C6 /* SEBDockView.m in Sources */,
+				6909E34B1A019F7A0086A741 /* DDTTYLogger.m in Sources */,
 				69F7B61614F411FB00FD0761 /* PrefsBrowserViewController.m in Sources */,
 				69F7B61714F411FB00FD0761 /* SEBEncryptedUserDefaultsController.m in Sources */,
 				690C6EE719E29E3600EDE103 /* SEBBrowserController.m in Sources */,
@@ -1199,6 +1311,7 @@
 				69F7B61814F411FB00FD0761 /* WebKit+WebKitExtensions.m in Sources */,
 				69F7B61914F411FB00FD0761 /* SEBBrowserWindowController.m in Sources */,
 				69F7B61A14F411FB00FD0761 /* NSWindow+SEBWindow.m in Sources */,
+				6909E3511A019F7A0086A741 /* DDMultiFormatter.m in Sources */,
 				69F7B61B14F411FB00FD0761 /* MethodSwizzling.m in Sources */,
 				690BBEB219D2C6E500F7C9C6 /* SEBDockItemButton.m in Sources */,
 				69009BE119EA7F590083274C /* SEBBrowserOpenWindowWebView.m in Sources */,
@@ -1209,25 +1322,32 @@
 				699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */,
 				6943D0771655054600AB6B1D /* PrefsExamViewController.m in Sources */,
 				69F293AE164A324B00875C00 /* SEBKeychainManager.m in Sources */,
+				6909E34F1A019F7A0086A741 /* DDDispatchQueueLogFormatter.m in Sources */,
 				694B08A416B14ABF00E4997C /* SEBCryptor.m in Sources */,
 				690B5B6319DBEAA400704F36 /* SEBDockItem.m in Sources */,
 				6992499316C3B18B00DF6B53 /* PrefsConfigFileViewController.m in Sources */,
+				6909E33B1A019F7A0086A741 /* CLIColor.m in Sources */,
 				6992499D16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */,
 				69DFAF2E19C468E700CBE69F /* RNCryptor.m in Sources */,
 				69DFAF3419C468E700CBE69F /* RNEncryptor.m in Sources */,
 				69F9110116CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */,
+				6909E3481A019F7A0086A741 /* DDLog.m in Sources */,
 				695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */,
+				6909E34D1A019F7A0086A741 /* DDContextFilterLogFormatter.m in Sources */,
 				69F32DC416D23374003C9502 /* PrefsAppearanceViewController.m in Sources */,
 				6986652F16DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */,
 				69DFAF3119C468E700CBE69F /* RNDecryptor.m in Sources */,
 				6921294316F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */,
 				6921294816F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */,
 				69D817E618017DDB00EB7885 /* SEBURLFilter.m in Sources */,
+				6909E33E1A019F7A0086A741 /* DDAbstractDatabaseLogger.m in Sources */,
 				69CF8A1516FD0B550096625C /* SEBFilterRuleTableColumn.m in Sources */,
+				6909E3451A019F7A0086A741 /* DDFileLogger.m in Sources */,
 				69CF8A1A16FD1C330096625C /* SEBFilterRuleExpressionTableColumn.m in Sources */,
 				695BE5F519EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */,
 				693647FB17122A0300EE41BC /* DropDownButton.m in Sources */,
 				69CE9C5E17326AB90011609B /* SEBConfigFileManager.m in Sources */,
+				6909E3401A019F7A0086A741 /* DDASLLogCapture.m in Sources */,
 				690BBEAD19D2C6A000F7C9C6 /* SEBDockController.m in Sources */,
 				69CE9C6417378B9A0011609B /* SEBTextField.m in Sources */,
 				69CE1C181741309C0072207D /* SEBFilterTreeController.m in Sources */,

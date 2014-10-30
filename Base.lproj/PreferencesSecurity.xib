@@ -9,6 +9,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsSecurityViewController">
             <connections>
                 <outlet property="chooseLogDirectory" destination="32" id="346"/>
+                <outlet property="kioskMode" destination="kBz-Xz-wNK" id="9SP-SX-zJf"/>
                 <outlet property="logDirectory" destination="35" id="344"/>
                 <outlet property="view" destination="1" id="4"/>
             </connections>
@@ -154,24 +155,10 @@
                                                             <buttonCell type="radio" title="Create new desktop" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="AwA-eq-zFC">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
-                                                                <connections>
-                                                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_createNewDesktop" id="X1x-TP-tWB">
-                                                                        <dictionary key="options">
-                                                                            <bool key="NSValidatesImmediately" value="YES"/>
-                                                                        </dictionary>
-                                                                    </binding>
-                                                                </connections>
                                                             </buttonCell>
                                                             <buttonCell type="radio" title="Disable Explorer Shell" imagePosition="left" alignment="left" inset="2" id="dpL-te-8hi">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
-                                                                <connections>
-                                                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_killExplorerShell" id="fD0-gI-ZBM">
-                                                                        <dictionary key="options">
-                                                                            <bool key="NSValidatesImmediately" value="YES"/>
-                                                                        </dictionary>
-                                                                    </binding>
-                                                                </connections>
                                                             </buttonCell>
                                                             <buttonCell type="radio" title="None (for debugging only)" imagePosition="left" alignment="left" inset="2" id="KbI-Yu-DVk">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -179,6 +166,9 @@
                                                             </buttonCell>
                                                         </column>
                                                     </cells>
+                                                    <connections>
+                                                        <action selector="changedKioskMode:" target="-2" id="JXz-Oq-uNq"/>
+                                                    </connections>
                                                 </matrix>
                                             </subviews>
                                         </view>

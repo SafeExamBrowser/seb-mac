@@ -127,6 +127,14 @@ typedef NSUInteger sebServicePolicies;
 
 
 enum {
+    SEBKioskModeNone                            = 0,
+    SEBKioskModeCreateNewDesktop                = 1,
+    SEBKioskModeKillExplorerShell               = 2
+};
+typedef NSUInteger SEBKioskMode;
+
+
+enum {
     URLFilterActionBlock                        = 0,
     URLFilterActionAllow                        = 1,
     URLFilterActionSkip                         = 2,

@@ -56,6 +56,9 @@
 #import "MyGlobals.h"
 #import "Constants.h"
 
+#import "CocoaLumberjack/CocoaLumberjack.h"
+
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @interface NSUserDefaults (SEBEncryptedUserDefaultsPrivate)
 
@@ -857,7 +860,7 @@ static BOOL _usePrivateUserDefaults = NO;
         //NSString *keypath = [NSString stringWithFormat:@"values.%@", key];
         //[[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController] setValue:value forKeyPath:keypath];
 #ifdef DEBUG
-//        NSLog(@"[localUserDefaults setObject:%@ forKey:%@]", [localUserDefaults valueForKey:key], key);
+        DDLogDebug(@"[localUserDefaults setObject:%@ forKey:%@]", [localUserDefaults valueForKey:key], key);
 #endif
     } else {
         if (value == nil || key == nil) {
@@ -880,14 +883,14 @@ static BOOL _usePrivateUserDefaults = NO;
                 encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
                 if (error) {
 #ifdef DEBUG
-                    NSLog(@"PREFERENCES CORRUPTED ERROR at [self setObject:(encrypted %@) forKey:%@]", value, key);
+                DDLogError(@"PREFERENCES CORRUPTED ERROR at [self setObject:(encrypted %@) forKey:%@]", value, key);
 #endif
                     [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
                     return;
                 } else {
                     [self setObject:encryptedData forKey:key];
 #ifdef DEBUG
-                    //                NSLog(@"[self setObject:(encrypted %@) forKey:%@]", value, key);
+                    DDLogDebug(@"[self setObject:(encrypted %@) forKey:%@]", value, key);
 #endif
                 }
             }
@@ -920,7 +923,7 @@ static BOOL _usePrivateUserDefaults = NO;
         NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
         if (error) {
 #ifdef DEBUG
-            NSLog(@"PREFERENCES CORRUPTED ERROR at [self secureDataForObject:%@ andKey:%@]", value, key);
+            DDLogError(@"PREFERENCES CORRUPTED ERROR at [self secureDataForObject:%@ andKey:%@]", value, key);
 #endif
             [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
             return nil;
@@ -978,7 +981,7 @@ static BOOL _usePrivateUserDefaults = NO;
 {
     if (_usePrivateUserDefaults) {
 #ifdef DEBUG
-//        NSLog(@"[localUserDefaults objectForKey:%@] = %@", key, [localUserDefaults valueForKey:key]);
+        DDLogDebug(@"[localUserDefaults objectForKey:%@] = %@", key, [localUserDefaults valueForKey:key]);
 #endif
         return [localUserDefaults valueForKey:key];
         //NSString *keypath = [NSString stringWithFormat:@"values.%@", key];
@@ -1005,7 +1008,7 @@ static BOOL _usePrivateUserDefaults = NO;
             decrypted = [[SEBCryptor sharedSEBCryptor] decryptData:encrypted forKey:key error:&error];
             if (error) {
 #ifdef DEBUG
-                //            NSLog(@"PREFERENCES CORRUPTED ERROR at [self _objectForKey:%@], error: %@", key, error);
+                DDLogError(@"PREFERENCES CORRUPTED ERROR at [self _objectForKey:%@], error: %@", key, error);
 #endif
                 [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
                 return nil;
@@ -1014,7 +1017,7 @@ static BOOL _usePrivateUserDefaults = NO;
 
         id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
 #ifdef DEBUG
-//        NSLog(@"[self objectForKey:%@] = %@ (decrypted)", key, value);
+        DDLogDebug(@"[self objectForKey:%@] = %@ (decrypted)", key, value);
 #endif
         return value;
     }

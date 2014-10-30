@@ -60,11 +60,15 @@
 
 #import "SEBDockItemMenu.h"
 
+#import "CocoaLumberjack/CocoaLumberjack.h"
+
 #import "SEBWindowSizeValueTransformer.h"
 #import "BoolValueTransformer.h"
 #import "IsEmptyCollectionValueTransformer.h"
 #import "MyGlobals.h"
 #import "Constants.h"
+
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 io_connect_t  root_port; // a reference to the Root Power Domain IOService
 
@@ -178,6 +182,14 @@ bool insideMatrix();
     self = [super init];
     if (self) {
 
+        // Initialize logger
+        [DDLog addLogger:[DDASLLogger sharedInstance]];
+        [DDLog addLogger:[DDTTYLogger sharedInstance]];
+        DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
+        fileLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
+        fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
+        [DDLog addLogger:fileLogger];
+        
         [[MyGlobals sharedMyGlobals] setPreferencesReset:NO];
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
         [MyGlobals sharedMyGlobals].reconfiguredWhileStarting = NO;
