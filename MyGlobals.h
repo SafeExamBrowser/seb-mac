@@ -38,6 +38,9 @@
 
 + (MyGlobals*)sharedMyGlobals;
 
++ (int)ddLogLevel;
++ (void)ddSetLogLevel:(int)logLevel;
+
 @property(readwrite) BOOL finishedInitializing;
 @property(copy, readwrite) NSMutableArray *downloadPath;
 @property(readwrite) NSInteger lastDownloadPath;
@@ -52,6 +55,7 @@
 @property(readwrite) BOOL transitioningToFullscreen;
 @property(readwrite) BOOL reconfiguredWhileStarting;
 @property(readwrite) BOOL shouldGoFullScreen;
+@property(readwrite) NSUInteger logLevel;
 
 - (id)infoValueForKey:(NSString*)key;
 

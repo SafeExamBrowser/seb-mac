@@ -159,6 +159,17 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
 }
 
 
+- (NSArray *) org_safeexambrowser_SEB_logLevels {
+    return [NSArray arrayWithObjects:
+            NSLocalizedString(@"Error", nil),
+            NSLocalizedString(@"Warning", nil),
+            NSLocalizedString(@"Info", nil),
+            NSLocalizedString(@"Debug", nil),
+            NSLocalizedString(@"Verbose", nil),
+            nil];
+}
+
+
 - (NSArray *) org_safeexambrowser_SEB_operatingSystems {
     return [NSArray arrayWithObjects:
             NSLocalizedString(@"OS X", nil),

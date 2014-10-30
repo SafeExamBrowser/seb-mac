@@ -145,6 +145,16 @@ typedef NSUInteger URLFilterRuleActions;
 
 
 enum {
+    SEBLogLevelError                            = 0,
+    SEBLogLevelWarning                          = 1,
+    SEBLogLevelInfo                             = 2,
+    SEBLogLevelDebug                            = 3,
+    SEBLogLevelVerbose                          = 4
+};
+typedef NSUInteger SEBLogLevel;
+
+
+enum {
     SEBDockItemPositionLeftPinned               = 0,
     SEBDockItemPositionCenter                   = 1,
     SEBDockItemPositionRightPinned              = 2

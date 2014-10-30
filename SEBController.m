@@ -68,8 +68,6 @@
 #import "MyGlobals.h"
 #import "Constants.h"
 
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
-
 io_connect_t  root_port; // a reference to the Root Power Domain IOService
 
 
@@ -212,6 +210,11 @@ bool insideMatrix();
         // and set flag for displaying alert to new users
         firstStart = [preferences setSEBDefaults];
 
+        NSNumber *logLevel = [[NSUserDefaults standardUserDefaults] secureObjectForKey:@"org_safeexambrowser_SEB_logLevel"];
+        if (logLevel) {
+            [[MyGlobals sharedMyGlobals] setLogLevel:[logLevel intValue]];
+        }
+        
         // Regardless if switching to third party applications is allowed in current settings,
         // we need to first open the background cover windows with standard window levels
         [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];

@@ -125,6 +125,14 @@
 }
 
 
+- (IBAction) choosedLogLevel:(id)sender {
+    NSNumber *logLevel = [[NSUserDefaults standardUserDefaults] secureObjectForKey:@"org_safeexambrowser_SEB_logLevel"];
+    if (logLevel) {
+        [[MyGlobals sharedMyGlobals] setLogLevel:[logLevel intValue]];
+    }
+}
+
+
 - (IBAction) changedKioskMode:(NSMatrix *)sender
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];

@@ -34,11 +34,26 @@
 
 #import "MyGlobals.h"
 #import "SynthesizeSingleton.h"
+#import "DDLog.h"
+#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
+static int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation MyGlobals
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
+
+
++ (int)ddLogLevel
+{
+    return ddLogLevel;
+}
+
++ (void)ddSetLogLevel:(int)logLevel
+{
+    ddLogLevel = logLevel;
+}
+
 
 // Read Info.plist values from bundle
 - (id)infoValueForKey:(NSString*)key

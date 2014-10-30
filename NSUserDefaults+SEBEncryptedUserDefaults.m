@@ -58,8 +58,6 @@
 
 #import "CocoaLumberjack/CocoaLumberjack.h"
 
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
-
 @interface NSUserDefaults (SEBEncryptedUserDefaultsPrivate)
 
 - (BOOL)_isValidPropertyListObject:(id)object;
@@ -221,8 +219,8 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_enableAltCtrl",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_enableAltEsc",
-//                                 [NSNumber numberWithBool:NO],
-//                                 @"org_safeexambrowser_SEB_enableAltMouseWheel",
+                                 [NSNumber numberWithBool:NO],
+                                 @"org_safeexambrowser_SEB_enableAltMouseWheel",
                                  [NSNumber numberWithBool:YES],
                                  @"org_safeexambrowser_SEB_enableAltTab",
                                  [NSNumber numberWithBool:NO],
@@ -283,6 +281,10 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_logDirectoryOSX",
                                  @"My Documents",
                                  @"org_safeexambrowser_SEB_logDirectoryWin",
+//                                 [NSNumber numberWithLong:SEBLogLevelWarning],
+//                                 @"org_safeexambrowser_SEB_logLevel",
+                                 [NSNumber numberWithLong:SEBLogLevelVerbose],
+                                 @"org_safeexambrowser_SEB_logLevel",
                                  @"100%",
                                  @"org_safeexambrowser_SEB_mainBrowserWindowHeight",
                                  [NSNumber numberWithLong:browserWindowPositioningCenter],
@@ -396,18 +398,18 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_startURL",
                                  [NSNumber numberWithLong:40],
                                  @"org_safeexambrowser_SEB_taskBarHeight",
-//                                 [NSNumber numberWithBool:NO],
-//                                 @"org_safeexambrowser_SEB_touchOptimized",
-//                                 [NSNumber numberWithBool:NO],
-//                                 @"org_safeexambrowser_SEB_URLFilterEnableContentFilter",
-//                                 [NSNumber numberWithBool:NO],
-//                                 @"org_safeexambrowser_SEB_URLFilterRulesAsRegex",
-//                                 @"",
-//                                 @"org_safeexambrowser_SEB_URLFilterBlacklist",
-//                                 @"",
-//                                 @"org_safeexambrowser_SEB_URLFilterWhitelist",
-                                 [NSArray array],
-                                 @"org_safeexambrowser_SEB_URLFilterRules",
+                                 [NSNumber numberWithBool:NO],
+                                 @"org_safeexambrowser_SEB_touchOptimized",
+                                 [NSNumber numberWithBool:NO],
+                                 @"org_safeexambrowser_SEB_URLFilterEnableContentFilter",
+                                 [NSNumber numberWithBool:NO],
+                                 @"org_safeexambrowser_SEB_URLFilterRulesAsRegex",
+                                 @"",
+                                 @"org_safeexambrowser_SEB_URLFilterBlacklist",
+                                 @"",
+                                 @"org_safeexambrowser_SEB_URLFilterWhitelist",
+//                                 [NSArray array],
+//                                 @"org_safeexambrowser_SEB_URLFilterRules",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting",
                                  [NSNumber numberWithBool:YES],

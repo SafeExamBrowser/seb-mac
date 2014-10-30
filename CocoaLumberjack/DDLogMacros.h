@@ -20,7 +20,9 @@
  **/
 
 #ifndef LOG_LEVEL_DEF
-    #define LOG_LEVEL_DEF ddLogLevel
+//#define LOG_LEVEL_DEF ddLogLevel
+#define LOG_LEVEL_DEF [MyGlobals ddLogLevel]
+//#define LOG_LEVEL_DEF [[MyGlobals sharedMyGlobals] logLevel]
 #endif
 
 #define DDLogError(frmt, ...)   LOG_OBJC_MAYBE(LOG_ASYNC_ERROR,   LOG_LEVEL_DEF, LOG_FLAG_ERROR,   0, frmt, ## __VA_ARGS__)
