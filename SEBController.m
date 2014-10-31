@@ -88,6 +88,7 @@ bool insideMatrix();
 {
     [[MyGlobals sharedMyGlobals] setFinishedInitializing:NO];
     [[MyGlobals sharedMyGlobals] setStartKioskChangedPresentationOptions:NO];
+    [[MyGlobals sharedMyGlobals] setLogLevel:DDLogLevelVerbose];
 
     SEBWindowSizeValueTransformer *windowSizeTransformer = [[SEBWindowSizeValueTransformer alloc] init];
     [NSValueTransformer setValueTransformer:windowSizeTransformer
@@ -210,10 +211,8 @@ bool insideMatrix();
         // and set flag for displaying alert to new users
         firstStart = [preferences setSEBDefaults];
 
-        NSNumber *logLevel = [[NSUserDefaults standardUserDefaults] secureObjectForKey:@"org_safeexambrowser_SEB_logLevel"];
-        if (logLevel) {
-            [[MyGlobals sharedMyGlobals] setLogLevel:[logLevel intValue]];
-        }
+        int logLevel = [[[NSUserDefaults standardUserDefaults] secureObjectForKey:@"org_safeexambrowser_SEB_logLevel"] intValue];
+        [[MyGlobals sharedMyGlobals] setLogLevel:[[[MyGlobals sharedMyGlobals]ddLogLevels][logLevel] intValue]];
         
         // Regardless if switching to third party applications is allowed in current settings,
         // we need to first open the background cover windows with standard window levels

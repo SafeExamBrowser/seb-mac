@@ -58,5 +58,6 @@
 @property(readwrite) NSUInteger logLevel;
 
 - (id)infoValueForKey:(NSString*)key;
+- (NSArray *)ddLogLevels;
 
 @end

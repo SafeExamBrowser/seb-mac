@@ -36,6 +36,7 @@
 #import "SynthesizeSingleton.h"
 #import "DDLog.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
+#import "Constants.h"
 
 static int ddLogLevel = LOG_LEVEL_VERBOSE;
 
@@ -46,12 +47,20 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 
 + (int)ddLogLevel
 {
+    ddLogLevel = [[self sharedMyGlobals] logLevel];
+#ifdef DEBUG
+    NSLog(@"DDLogLevel: %d", ddLogLevel);
+#endif
     return ddLogLevel;
 }
 
 + (void)ddSetLogLevel:(int)logLevel
 {
     ddLogLevel = logLevel;
+    [[self sharedMyGlobals] setLogLevel:ddLogLevel];
+#ifdef DEBUG
+    NSLog(@"DDLogLevel set to: %d", ddLogLevel);
+#endif
 }
 
 
@@ -62,6 +71,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
         return [[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:key];
 	
     return [[[NSBundle mainBundle] infoDictionary] objectForKey:key];
+}
+
+
+- (NSArray *)ddLogLevels
+{
+    return [NSArray arrayWithObjects:[NSNumber numberWithInt:SEBLogLevelError], [NSNumber numberWithInt:SEBLogLevelWarning], [NSNumber numberWithInt:SEBLogLevelInfo], [NSNumber numberWithInt:SEBLogLevelDebug], [NSNumber numberWithInt:SEBLogLevelVerbose], nil];
 }
 
 

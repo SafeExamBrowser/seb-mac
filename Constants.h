@@ -32,6 +32,8 @@
 //  Contributor(s): ______________________________________.
 //
 
+#import "DDLog.h"
+
 #ifndef SafeExamBrowser_Constants_h
 #define SafeExamBrowser_Constants_h
 
@@ -145,11 +147,11 @@ typedef NSUInteger URLFilterRuleActions;
 
 
 enum {
-    SEBLogLevelError                            = 0,
-    SEBLogLevelWarning                          = 1,
-    SEBLogLevelInfo                             = 2,
-    SEBLogLevelDebug                            = 3,
-    SEBLogLevelVerbose                          = 4
+    SEBLogLevelError                            = DDLogLevelError,
+    SEBLogLevelWarning                          = DDLogLevelWarning,
+    SEBLogLevelInfo                             = DDLogLevelInfo,
+    SEBLogLevelDebug                            = DDLogLevelDebug,
+    SEBLogLevelVerbose                          = DDLogLevelVerbose
 };
 typedef NSUInteger SEBLogLevel;
 

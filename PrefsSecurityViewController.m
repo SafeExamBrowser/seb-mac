@@ -126,10 +126,8 @@
 
 
 - (IBAction) choosedLogLevel:(id)sender {
-    NSNumber *logLevel = [[NSUserDefaults standardUserDefaults] secureObjectForKey:@"org_safeexambrowser_SEB_logLevel"];
-    if (logLevel) {
-        [[MyGlobals sharedMyGlobals] setLogLevel:[logLevel intValue]];
-    }
+    int logLevel = [[[NSUserDefaults standardUserDefaults] secureObjectForKey:@"org_safeexambrowser_SEB_logLevel"] intValue];
+    [[MyGlobals sharedMyGlobals] setLogLevel:[[[MyGlobals sharedMyGlobals]ddLogLevels][logLevel] intValue]];
 }
 
 
