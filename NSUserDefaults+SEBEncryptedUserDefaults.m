@@ -281,10 +281,10 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_logDirectoryOSX",
                                  @"My Documents",
                                  @"org_safeexambrowser_SEB_logDirectoryWin",
-//                                 [NSNumber numberWithLong:SEBLogLevelWarning],
-//                                 @"org_safeexambrowser_SEB_logLevel",
-                                 [NSNumber numberWithLong:SEBLogLevelVerbose],
+                                 [NSNumber numberWithLong:SEBLogLevelWarning],
                                  @"org_safeexambrowser_SEB_logLevel",
+//                                 [NSNumber numberWithLong:SEBLogLevelVerbose],
+//                                 @"org_safeexambrowser_SEB_logLevel",
                                  @"100%",
                                  @"org_safeexambrowser_SEB_mainBrowserWindowHeight",
                                  [NSNumber numberWithLong:browserWindowPositioningCenter],
@@ -900,6 +900,13 @@ static BOOL _usePrivateUserDefaults = NO;
         }
         //[[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
     }
+    if ([key isEqualToString:@"org_safeexambrowser_SEB_logLevel"]) {
+        NSNumber *newLogLevel = value;
+        [[MyGlobals sharedMyGlobals] setDDLogLevel:newLogLevel.intValue];
+    }
+//    if ([key isEqualToString:@"org_safeexambrowser_SEB_enableLogging"] && ((BOOL)value == NO)) {
+//        [[MyGlobals sharedMyGlobals] setDDLogLevel:nil];
+//    }
 }
 
 
@@ -930,6 +937,18 @@ static BOOL _usePrivateUserDefaults = NO;
             [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
             return nil;
         }
+        if ([key isEqualToString:@"org_safeexambrowser_SEB_logLevel"]) {
+            NSNumber *newLogLevel = value;
+            [[MyGlobals sharedMyGlobals] setDDLogLevel:newLogLevel.intValue];
+        }
+        if ([key isEqualToString:@"org_safeexambrowser_SEB_enableLogging"]) {
+            if ((BOOL)value == NO) {
+                [[MyGlobals sharedMyGlobals] setDDLogLevel:nil];
+            } else {
+                
+            }
+        }
+
         return encryptedData;
 	} else {
         return nil;

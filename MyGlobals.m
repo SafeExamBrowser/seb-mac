@@ -36,7 +36,6 @@
 #import "SynthesizeSingleton.h"
 #import "DDLog.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
-#import "Constants.h"
 
 static int ddLogLevel = LOG_LEVEL_VERBOSE;
 
@@ -54,14 +53,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
     return ddLogLevel;
 }
 
-+ (void)ddSetLogLevel:(int)logLevel
-{
-    ddLogLevel = logLevel;
-    [[self sharedMyGlobals] setLogLevel:ddLogLevel];
-#ifdef DEBUG
-    NSLog(@"DDLogLevel set to: %d", ddLogLevel);
-#endif
-}
+//+ (void)ddSetLogLevel:(int)logLevel
+//{
+//    ddLogLevel = logLevel;
+//    [[self sharedMyGlobals] setLogLevel:ddLogLevel];
+//#ifdef DEBUG
+//    NSLog(@"DDLogLevel set to: %d", ddLogLevel);
+//#endif
+//}
 
 
 // Read Info.plist values from bundle
@@ -74,10 +73,34 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 }
 
 
-- (NSArray *)ddLogLevels
+- (void)setDDLogLevel:(SEBLogLevel)sebLogLevel
 {
-    return [NSArray arrayWithObjects:[NSNumber numberWithInt:SEBLogLevelError], [NSNumber numberWithInt:SEBLogLevelWarning], [NSNumber numberWithInt:SEBLogLevelInfo], [NSNumber numberWithInt:SEBLogLevelDebug], [NSNumber numberWithInt:SEBLogLevelVerbose], nil];
+    if (sebLogLevel) {
+        NSArray *ddLogLevels = @[[NSNumber numberWithInt:DDLogLevelError],
+                                 [NSNumber numberWithInt:DDLogLevelWarning],
+                                 [NSNumber numberWithInt:DDLogLevelInfo],
+                                 [NSNumber numberWithInt:DDLogLevelDebug],
+                                 [NSNumber numberWithInt:DDLogLevelVerbose]];
+        if (sebLogLevel < ddLogLevels.count) {
+            _logLevel = [ddLogLevels[sebLogLevel] intValue];
+        } else {
+            _logLevel = DDLogLevelOff;
+        }
+    } else {
+        _logLevel = DDLogLevelOff;
+    }
 }
+
+
+//- (NSArray *)ddLogLevels
+//{
+//    
+//    return @[[NSNumber numberWithInt:DDLogLevelError],
+//             [NSNumber numberWithInt:DDLogLevelWarning],
+//             [NSNumber numberWithInt:DDLogLevelInfo],
+//             [NSNumber numberWithInt:DDLogLevelDebug],
+//             [NSNumber numberWithInt:DDLogLevelVerbose]];
+//}
 
 
 @end

@@ -33,13 +33,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Constants.h"
 
 @interface MyGlobals : NSObjectController
 
 + (MyGlobals*)sharedMyGlobals;
 
 + (int)ddLogLevel;
-+ (void)ddSetLogLevel:(int)logLevel;
+//+ (void)ddSetLogLevel:(int)logLevel;
 
 @property(readwrite) BOOL finishedInitializing;
 @property(copy, readwrite) NSMutableArray *downloadPath;
@@ -58,6 +59,8 @@
 @property(readwrite) NSUInteger logLevel;
 
 - (id)infoValueForKey:(NSString*)key;
-- (NSArray *)ddLogLevels;
+- (void)setDDLogLevel:(SEBLogLevel)sebLogLevel;
+
+//- (NSArray *)ddLogLevels;
 
 @end

@@ -147,11 +147,11 @@ typedef NSUInteger URLFilterRuleActions;
 
 
 enum {
-    SEBLogLevelError                            = DDLogLevelError,
-    SEBLogLevelWarning                          = DDLogLevelWarning,
-    SEBLogLevelInfo                             = DDLogLevelInfo,
-    SEBLogLevelDebug                            = DDLogLevelDebug,
-    SEBLogLevelVerbose                          = DDLogLevelVerbose
+    SEBLogLevelError                            = 0,
+    SEBLogLevelWarning                          = 1,
+    SEBLogLevelInfo                             = 2,
+    SEBLogLevelDebug                            = 3,
+    SEBLogLevelVerbose                          = 4
 };
 typedef NSUInteger SEBLogLevel;
 
@@ -188,7 +188,7 @@ enum {
 typedef NSUInteger SEBDisabledPreferencesAnswer;
 
 
-static NSString __unused *userDefaultsMasala = @"D𝈭il𝈖Ch𝈒a𝉇ht𝈁a𝉈Hai1972";
+static NSString __unused *userDefaultsMasala = @"Di𝈭l𝈖Ch𝈒ah𝉇t𝈁a𝉈Hai1972";
 
 static NSString __unused *sebErrorDomain = @"org.safeexambrowser.SEBCryptor";
 

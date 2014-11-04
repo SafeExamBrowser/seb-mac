@@ -55,10 +55,13 @@
 #import "SEBEncryptedUserDefaultsController.h"
 #import "SEBSystemManager.h"
 
+#import "CocoaLumberjack/CocoaLumberjack.h"
+
 @class PreferencesController;
 @class SEBSystemManager;
 @class SEBDockController;
 @class SEBBrowserController;
+//@class DDFileLogger;
 
 @interface SEBController : NSObject <NSApplicationDelegate> {
 	
@@ -81,6 +84,7 @@
     
     @private
     BOOL _cmdShiftDown;
+    DDFileLogger *_myLogger;
 }
 
 - (void) closeAboutWindow;

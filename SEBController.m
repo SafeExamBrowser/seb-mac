@@ -60,8 +60,6 @@
 
 #import "SEBDockItemMenu.h"
 
-#import "CocoaLumberjack/CocoaLumberjack.h"
-
 #import "SEBWindowSizeValueTransformer.h"
 #import "BoolValueTransformer.h"
 #import "IsEmptyCollectionValueTransformer.h"
@@ -180,15 +178,14 @@ bool insideMatrix();
 - (id)init {
     self = [super init];
     if (self) {
-
-        // Initialize logger
+        
+        // Initialize console loggers
+#ifdef DEBUG
+        // We show log messages only in Console.app and the Xcode console in debug mode
         [DDLog addLogger:[DDASLLogger sharedInstance]];
         [DDLog addLogger:[DDTTYLogger sharedInstance]];
-        DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
-        fileLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
-        fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
-        [DDLog addLogger:fileLogger];
-        
+#endif
+
         [[MyGlobals sharedMyGlobals] setPreferencesReset:NO];
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
         [MyGlobals sharedMyGlobals].reconfiguredWhileStarting = NO;
@@ -211,8 +208,8 @@ bool insideMatrix();
         // and set flag for displaying alert to new users
         firstStart = [preferences setSEBDefaults];
 
-        int logLevel = [[[NSUserDefaults standardUserDefaults] secureObjectForKey:@"org_safeexambrowser_SEB_logLevel"] intValue];
-        [[MyGlobals sharedMyGlobals] setLogLevel:[[[MyGlobals sharedMyGlobals]ddLogLevels][logLevel] intValue]];
+        // Initialize file logger if it's enabled in settings
+        [self initializeLogger];
         
         // Regardless if switching to third party applications is allowed in current settings,
         // we need to first open the background cover windows with standard window levels
@@ -697,6 +694,31 @@ bool insideMatrix();
     //#ifdef DEBUG
     //    NSLog(@"Local preferences have been reset!");
     //#endif
+}
+
+
+- (void) initializeLogger
+{
+    // Initialize file logger if logging enabled
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableLogging"] == NO) {
+        [DDLog removeAllLoggers];
+    } else {
+        //Set log directory
+        NSString *logPath = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
+        [DDLog removeAllLoggers];
+        if (logPath.length == 0) {
+            // No log directory indicated: We use the standard one
+            logPath = nil;
+        } else {
+            logPath = [logPath stringByExpandingTildeInPath];
+        }
+        DDLogFileManagerDefault* logFileManager = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:logPath];
+        _myLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
+        _myLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
+        _myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
+        [DDLog addLogger:_myLogger];
+    }
 }
 
 
@@ -1366,6 +1388,9 @@ bool insideMatrix(){
                                                                didCloseAllSelector:nil contextInfo: nil];
     self.browserController.currentMainHost = nil;
 
+    // Re-Initialize file logger if logging enabled
+    [self initializeLogger];
+    
     // Set kiosk/presentation mode in case it changed
     [self startKioskMode];
     

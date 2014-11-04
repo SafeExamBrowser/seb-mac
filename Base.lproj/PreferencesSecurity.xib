@@ -96,7 +96,6 @@
                         </menu>
                     </popUpButtonCell>
                     <connections>
-                        <action selector="choosedLogLevel:" target="-2" id="8Aj-YV-uNv"/>
                         <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_logLevels" id="xym-2h-sHg"/>
                         <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableLogging" id="ixS-a7-Roc"/>
                         <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_logLevel" previousBinding="xym-2h-sHg" id="xNm-w4-Qh0">

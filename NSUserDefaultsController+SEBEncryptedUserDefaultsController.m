@@ -121,6 +121,13 @@
             [super setValue:encryptedData forKeyPath:keyPath];
         }
     }
+    if ([key isEqualToString:@"org_safeexambrowser_SEB_logLevel"]) {
+        NSNumber *newLogLevel = value;
+        [[MyGlobals sharedMyGlobals] setDDLogLevel:newLogLevel.intValue];
+    }
+    if ([key isEqualToString:@"org_safeexambrowser_SEB_enableLogging"] && ((BOOL)value == NO)) {
+        [[MyGlobals sharedMyGlobals] setDDLogLevel:nil];
+    }
 }
 
 
