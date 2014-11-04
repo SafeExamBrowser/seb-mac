@@ -52,6 +52,8 @@
 
 @property (strong, nonatomic) NSMutableDictionary *cachedUserDefaults;
 
+@property (strong, atomic) NSNumber *logLevel;
+
 // Return (and allocate if necessary) shared secure UserDefaults
 + (NSMutableDictionary *)privateUserDefaults;
 

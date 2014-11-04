@@ -86,8 +86,8 @@
 
     // Set value for key (without prefix) in cachedUserDefaults
     // as long as it is a key with an "org_safeexambrowser_SEB_" prefix
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([key hasPrefix:@"org_safeexambrowser_SEB_"]) {
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         NSMutableDictionary *cachedUserDefaults = [preferences cachedUserDefaults];
         [cachedUserDefaults setValue:value forKey:[key substringFromIndex:24]];
         // Update Exam Settings Key
@@ -122,11 +122,15 @@
         }
     }
     if ([key isEqualToString:@"org_safeexambrowser_SEB_logLevel"]) {
-        NSNumber *newLogLevel = value;
-        [[MyGlobals sharedMyGlobals] setDDLogLevel:newLogLevel.intValue];
+        preferences.logLevel = value;
+        [[MyGlobals sharedMyGlobals] setDDLogLevel:preferences.logLevel.intValue];
     }
-    if ([key isEqualToString:@"org_safeexambrowser_SEB_enableLogging"] && ((BOOL)value == NO)) {
-        [[MyGlobals sharedMyGlobals] setDDLogLevel:nil];
+    if ([key isEqualToString:@"org_safeexambrowser_SEB_enableLogging"]) {
+        if ((BOOL)value == NO) {
+            [[MyGlobals sharedMyGlobals] setDDLogLevel:nil];
+        } else {
+            [[MyGlobals sharedMyGlobals] setDDLogLevel:preferences.logLevel.intValue];
+        }
     }
 }
 

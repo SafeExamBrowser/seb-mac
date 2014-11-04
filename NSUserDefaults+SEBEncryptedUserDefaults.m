@@ -72,7 +72,7 @@
 static NSMutableDictionary *localUserDefaults;
 static NSMutableDictionary *_cachedUserDefaults;
 static BOOL _usePrivateUserDefaults = NO;
-
+static NSNumber *_logLevel;
 
 + (NSMutableDictionary *)privateUserDefaults
 {
@@ -124,6 +124,17 @@ static BOOL _usePrivateUserDefaults = NO;
 - (NSMutableDictionary *)cachedUserDefaults
 {
     return _cachedUserDefaults;
+}
+
+
+- (void)setLogLevel:(NSNumber *)logLevel
+{
+    _logLevel = logLevel;
+}
+
+- (NSNumber *)logLevel
+{
+    return _logLevel;
 }
 
 
@@ -283,8 +294,6 @@ static BOOL _usePrivateUserDefaults = NO;
                                  @"org_safeexambrowser_SEB_logDirectoryWin",
                                  [NSNumber numberWithLong:SEBLogLevelWarning],
                                  @"org_safeexambrowser_SEB_logLevel",
-//                                 [NSNumber numberWithLong:SEBLogLevelVerbose],
-//                                 @"org_safeexambrowser_SEB_logLevel",
                                  @"100%",
                                  @"org_safeexambrowser_SEB_mainBrowserWindowHeight",
                                  [NSNumber numberWithLong:browserWindowPositioningCenter],
@@ -901,12 +910,16 @@ static BOOL _usePrivateUserDefaults = NO;
         //[[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
     }
     if ([key isEqualToString:@"org_safeexambrowser_SEB_logLevel"]) {
-        NSNumber *newLogLevel = value;
-        [[MyGlobals sharedMyGlobals] setDDLogLevel:newLogLevel.intValue];
+        _logLevel = value;
+        [[MyGlobals sharedMyGlobals] setDDLogLevel:_logLevel.intValue];
     }
-//    if ([key isEqualToString:@"org_safeexambrowser_SEB_enableLogging"] && ((BOOL)value == NO)) {
-//        [[MyGlobals sharedMyGlobals] setDDLogLevel:nil];
-//    }
+    if ([key isEqualToString:@"org_safeexambrowser_SEB_enableLogging"]) {
+        if ((BOOL)value == NO) {
+            [[MyGlobals sharedMyGlobals] setDDLogLevel:nil];
+        } else {
+            [[MyGlobals sharedMyGlobals] setDDLogLevel:_logLevel.intValue];
+        }
+    }
 }
 
 
@@ -938,14 +951,14 @@ static BOOL _usePrivateUserDefaults = NO;
             return nil;
         }
         if ([key isEqualToString:@"org_safeexambrowser_SEB_logLevel"]) {
-            NSNumber *newLogLevel = value;
-            [[MyGlobals sharedMyGlobals] setDDLogLevel:newLogLevel.intValue];
+            _logLevel = value;
+            [[MyGlobals sharedMyGlobals] setDDLogLevel:_logLevel.intValue];
         }
         if ([key isEqualToString:@"org_safeexambrowser_SEB_enableLogging"]) {
             if ((BOOL)value == NO) {
                 [[MyGlobals sharedMyGlobals] setDDLogLevel:nil];
             } else {
-                
+                [[MyGlobals sharedMyGlobals] setDDLogLevel:_logLevel.intValue];
             }
         }
 

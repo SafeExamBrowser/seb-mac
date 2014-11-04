@@ -702,11 +702,11 @@ bool insideMatrix();
     // Initialize file logger if logging enabled
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableLogging"] == NO) {
-        [DDLog removeAllLoggers];
+        [DDLog removeLogger:_myLogger];
     } else {
         //Set log directory
         NSString *logPath = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
-        [DDLog removeAllLoggers];
+        [DDLog removeLogger:_myLogger];
         if (logPath.length == 0) {
             // No log directory indicated: We use the standard one
             logPath = nil;
