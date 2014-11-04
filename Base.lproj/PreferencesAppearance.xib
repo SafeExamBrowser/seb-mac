@@ -8,6 +8,10 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsAppearanceViewController">
             <connections>
+                <outlet property="enableBrowserWindowToolbar" destination="371" id="3XD-hv-0YN"/>
+                <outlet property="hideBrowserWindowToolbar" destination="383" id="ttW-Va-HwR"/>
+                <outlet property="mainBrowserWindowHeight" destination="596" id="EjC-Fw-AWi"/>
+                <outlet property="mainBrowserWindowWidth" destination="594" id="Oja-Ub-DtH"/>
                 <outlet property="view" destination="1" id="4"/>
             </connections>
         </customObject>
@@ -35,6 +39,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
+                        <action selector="showTaskBarButton:" target="-2" id="BJM-L8-i03"/>
                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showTaskBar" id="741">
                             <dictionary key="options">
                                 <bool key="NSConditionallySetsEnabled" value="NO"/>
@@ -49,6 +54,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
+                        <action selector="enableBrowserWindowToolbarButton:" target="-2" id="uOW-IG-c4f"/>
                         <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="c7O-bL-fW2">
                             <dictionary key="options">
                                 <string key="NSValueTransformerName">NSNegateBoolean</string>
@@ -64,16 +70,19 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_browserViewMode" previousBinding="426" id="oPn-2O-j8T">
+                        <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_enableBrowserWindowToolbar" previousBinding="IMa-wq-GLL" id="aPf-UJ-HBC">
                             <dictionary key="options">
                                 <integer key="NSMultipleValuesPlaceholder" value="-1"/>
                                 <integer key="NSNoSelectionPlaceholder" value="-1"/>
                                 <integer key="NSNotApplicablePlaceholder" value="-1"/>
                                 <integer key="NSNullPlaceholder" value="-1"/>
+                            </dictionary>
+                        </binding>
+                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="IMa-wq-GLL">
+                            <dictionary key="options">
                                 <string key="NSValueTransformerName">NSNegateBoolean</string>
                             </dictionary>
                         </binding>
-                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableBrowserWindowToolbar" id="426"/>
                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_hideBrowserWindowToolbar" id="761">
                             <dictionary key="options">
                                 <bool key="NSConditionallySetsEnabled" value="NO"/>
@@ -105,7 +114,7 @@
                                     </objectValues>
                                 </comboBoxCell>
                                 <connections>
-                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="iVe-5q-coP">
+                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="YzD-q5-GOo">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
@@ -127,7 +136,7 @@
                                     </objectValues>
                                 </comboBoxCell>
                                 <connections>
-                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="rvB-T6-pzk">
+                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="Eph-w2-sNd">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
@@ -168,12 +177,12 @@
                                     </menu>
                                 </popUpButtonCell>
                                 <connections>
-                                    <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_browserWindowPositionings" id="737"/>
-                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="r3X-fk-0Ob">
+                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="832-KE-xVX">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
                                     </binding>
+                                    <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_browserWindowPositionings" id="737"/>
                                     <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_mainBrowserWindowPositioning" previousBinding="737" id="738"/>
                                 </connections>
                             </popUpButton>
@@ -232,6 +241,7 @@
                         </column>
                     </cells>
                     <connections>
+                        <action selector="browserViewModeMatrix:" target="-2" id="2Hi-Hx-0wB"/>
                         <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="753">
                             <dictionary key="options">
                                 <bool key="NSConditionallySetsEnabled" value="NO"/>

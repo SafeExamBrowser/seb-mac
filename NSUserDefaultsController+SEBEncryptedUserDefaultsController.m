@@ -96,7 +96,9 @@
     
     if ([NSUserDefaults userDefaultsPrivate]) {
         if (value == nil) value = [NSNull null];
+//        [[NSUserDefaults standardUserDefaults] willChangeValueForKey:key];
         [[NSUserDefaults privateUserDefaults] setValue:value forKey:key];
+//        [[NSUserDefaults standardUserDefaults] didChangeValueForKey:key];
         //[self.defaults setSecureObject:value forKey:key];
 #ifdef DEBUG
         DDLogDebug(@"keypath: %@ [[NSUserDefaults privateUserDefaults] setValue:%@ forKey:%@]", keyPath, value, key);

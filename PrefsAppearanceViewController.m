@@ -64,7 +64,31 @@
 }
 
 
-//  
+- (IBAction) browserViewModeMatrix:(NSMatrix *)sender
+{
+    BOOL browserViewModeWindowSelected = [sender selectedRow] == browserViewModeWindow;
+    
+    mainBrowserWindowWidth.enabled = browserViewModeWindowSelected;
+    mainBrowserWindowHeight.enabled = browserViewModeWindowSelected;
+    mainBrowserWindowPositioning.enabled = browserViewModeWindowSelected;
+    
+    enableBrowserWindowToolbar.enabled = browserViewModeWindowSelected;
+    hideBrowserWindowToolbar.enabled = browserViewModeWindowSelected && enableBrowserWindowToolbar.state;
+}
+
+
+- (IBAction) enableBrowserWindowToolbarButton:(NSButton *)sender
+{
+    hideBrowserWindowToolbar.enabled = [sender state];
+}
+
+
+- (IBAction) showTaskBarButton:(NSButton *)sender
+{
+    taskBarHeight.enabled = [sender state];
+}
+
+
 - (void) setDownloadDirectory {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 	//NSMenuItem *downloadDirectory = [[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""];

@@ -83,14 +83,14 @@ static SEBEncryptedUserDefaultsController *sharedSEBEncryptedUserDefaultsControl
     
 }
 
-/*
-- (id)valueForKey:(NSString *)key
-{
-    id object = [self.defaults secureObjectForKey:key]; //call secure method used by bindings
-	return object;
-    
-}
-*/
+
+//- (id)valueForKey:(NSString *)key
+//{
+//    id object = [super valueForKey:key]; //call secure method used by bindings
+//	return object;
+//    
+//}
+
 
 // Setter method used by bindings
 - (void)setValue:(id)value forKeyPath:(NSString *)keyPath
@@ -98,11 +98,11 @@ static SEBEncryptedUserDefaultsController *sharedSEBEncryptedUserDefaultsControl
     [super setSecureValue:value forKeyPath:keyPath]; //call secure method used by bindings
 }
 
-/*
-- (void)setValue:(id)value forKey:(NSString *)key
-{
-    [self.defaults setSecureObject:value forKey:key]; //call secure method used by bindings
-}
-*/
+
+//- (void)setValue:(id)value forKey:(NSString *)key
+//{
+//    [super setValue:value forKey:key]; //call secure method used by bindings
+//}
+
 
 @end

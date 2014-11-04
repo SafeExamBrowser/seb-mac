@@ -92,6 +92,7 @@
 // Closing of SEB Browser Window //
 - (BOOL)windowShouldClose:(id)sender
 {
+    NSLog(@"SEBBrowserWindow %@ windowShouldClose: %@", self, sender);
     if (self == self.browserController.mainBrowserWindow) {
         // Post a notification that SEB should conditionally quit
         [[NSNotificationCenter defaultCenter]

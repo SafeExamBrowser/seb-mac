@@ -47,20 +47,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 + (int)ddLogLevel
 {
     ddLogLevel = [[self sharedMyGlobals] logLevel];
-#ifdef DEBUG
-    NSLog(@"DDLogLevel: %d", ddLogLevel);
-#endif
     return ddLogLevel;
 }
-
-//+ (void)ddSetLogLevel:(int)logLevel
-//{
-//    ddLogLevel = logLevel;
-//    [[self sharedMyGlobals] setLogLevel:ddLogLevel];
-//#ifdef DEBUG
-//    NSLog(@"DDLogLevel set to: %d", ddLogLevel);
-//#endif
-//}
 
 
 // Read Info.plist values from bundle
@@ -90,17 +78,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
         _logLevel = DDLogLevelOff;
     }
 }
-
-
-//- (NSArray *)ddLogLevels
-//{
-//    
-//    return @[[NSNumber numberWithInt:DDLogLevelError],
-//             [NSNumber numberWithInt:DDLogLevelWarning],
-//             [NSNumber numberWithInt:DDLogLevelInfo],
-//             [NSNumber numberWithInt:DDLogLevelDebug],
-//             [NSNumber numberWithInt:DDLogLevelVerbose]];
-//}
 
 
 @end

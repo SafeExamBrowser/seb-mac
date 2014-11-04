@@ -42,7 +42,15 @@
 
     IBOutlet NSPopUpButton *chooseDownloadDirectory;
     IBOutlet NSMenuItem *downloadDirectory;
+    
+    IBOutlet NSComboBox *mainBrowserWindowWidth;
+    IBOutlet NSComboBox *mainBrowserWindowHeight;
+    IBOutlet NSPopUpButton *mainBrowserWindowPositioning;
 
+    IBOutlet NSButton *enableBrowserWindowToolbar;
+    IBOutlet NSButton *hideBrowserWindowToolbar;
+    
+    IBOutlet NSTextField *taskBarHeight;
 }
 
 - (NSString *)identifier;
@@ -52,5 +60,8 @@
 
 - (IBAction) chooseDirectory:(id)sender;
 
+- (IBAction) browserViewModeMatrix:(NSMatrix *)sender;
+- (IBAction) enableBrowserWindowToolbarButton:(NSButton *)sender;
+- (IBAction) showTaskBarButton:(NSButton *)sender;
 
 @end

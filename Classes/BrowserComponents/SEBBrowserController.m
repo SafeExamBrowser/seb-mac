@@ -163,6 +163,7 @@
     if (mainBrowserWindowShouldBeFullScreen) {
         [self.mainBrowserWindow setToolbar:nil];
         [self.mainBrowserWindow setStyleMask:NSBorderlessWindowMask];
+        [self.mainBrowserWindow setReleasedWhenClosed:YES];
     }
     
     [self.mainBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents

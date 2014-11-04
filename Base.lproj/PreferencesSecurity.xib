@@ -27,9 +27,9 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableLogging" id="352">
+                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableLogging" id="Odr-lh-gbx">
                             <dictionary key="options">
-                                <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                <bool key="NSValidatesImmediately" value="YES"/>
                             </dictionary>
                         </binding>
                     </connections>
@@ -97,7 +97,7 @@
                     </popUpButtonCell>
                     <connections>
                         <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_logLevels" id="xym-2h-sHg"/>
-                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableLogging" id="ixS-a7-Roc"/>
+                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableLogging" id="LiL-Df-Iy9"/>
                         <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_logLevel" previousBinding="xym-2h-sHg" id="xNm-w4-Qh0">
                             <dictionary key="options">
                                 <bool key="NSConditionallySetsEnabled" value="NO"/>

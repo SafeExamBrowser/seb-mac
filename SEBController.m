@@ -1384,8 +1384,9 @@ bool insideMatrix(){
     [self.systemManager adjustSC];
     
     // Close all browser windows (documents)
-    [[NSDocumentController sharedDocumentController] closeAllDocumentsWithDelegate:nil
-                                                               didCloseAllSelector:nil contextInfo: nil];
+    [[NSDocumentController sharedDocumentController] closeAllDocumentsWithDelegate:self
+                                                               didCloseAllSelector:@selector(documentController:didCloseAll:contextInfo:)
+                                                                       contextInfo: nil];
     self.browserController.currentMainHost = nil;
 
     // Re-Initialize file logger if logging enabled
@@ -1419,6 +1420,12 @@ bool insideMatrix(){
 //            }
 //        }
 //    }
+}
+
+
+- (void)documentController:(NSDocumentController *)docController  didCloseAll: (BOOL)didCloseAll contextInfo:(void *)contextInfo
+{
+    NSLog(@"documentController: %@ didCloseAll: %hhd contextInfo: %@", docController, didCloseAll, contextInfo);
 }
 
 

@@ -63,4 +63,8 @@
 }
 
 
+- (IBAction) checkboxClicked:(id)sender {
+    [allowSwitchToApplicationsButton setEnabled:!allowSwitchToApplicationsButton.enabled];
+}
+
 @end

@@ -40,10 +40,13 @@
 
 @interface PrefsApplicationsViewController : NSViewController <MBPreferencesModule> {
 
+    IBOutlet NSButton *allowSwitchToApplicationsButton;
 }
 
 - (NSString *)identifier;
 - (NSImage *)image;
+
+- (IBAction) checkboxClicked:(id)sender;
 
 
 @end
