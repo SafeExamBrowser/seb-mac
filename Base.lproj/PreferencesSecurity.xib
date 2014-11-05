@@ -8,25 +8,28 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsSecurityViewController">
             <connections>
-                <outlet property="chooseLogDirectory" destination="32" id="346"/>
+                <outlet property="chooseLogDirectoryControl" destination="32" id="PAj-RI-Adi"/>
+                <outlet property="chooseLogLevelControl" destination="sAF-ok-Vxz" id="gv7-Mj-Yj2"/>
                 <outlet property="kioskMode" destination="kBz-Xz-wNK" id="9SP-SX-zJf"/>
                 <outlet property="logDirectory" destination="35" id="344"/>
+                <outlet property="selectStandardDirectoryButton" destination="eiE-cV-UEx" id="04p-z9-Sbk"/>
                 <outlet property="view" destination="1" id="4"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1" userLabel="Security Preferences">
-            <rect key="frame" x="0.0" y="0.0" width="650" height="628"/>
+            <rect key="frame" x="0.0" y="0.0" width="650" height="690"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button toolTip="The log can help debugging SEB (send it to the developers) and to find out about possible manipulations" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="13">
-                    <rect key="frame" x="18" y="453" width="116" height="18"/>
+                    <rect key="frame" x="18" y="515" width="116" height="18"/>
                     <buttonCell key="cell" type="check" title="Enable logging" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="14">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
+                        <action selector="setEnableLogging:" target="-2" id="J03-FH-b6A"/>
                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableLogging" id="Odr-lh-gbx">
                             <dictionary key="options">
                                 <bool key="NSValidatesImmediately" value="YES"/>
@@ -35,17 +38,17 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="22">
-                    <rect key="frame" x="223" y="454" width="101" height="17"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Save log file to:" id="23">
+                    <rect key="frame" x="260" y="516" width="64" height="17"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Log level:" id="23">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="32">
-                    <rect key="frame" x="328" y="449" width="305" height="26"/>
+                    <rect key="frame" x="328" y="481" width="305" height="26"/>
                     <constraints>
-                        <constraint firstAttribute="width" priority="750" constant="300" id="BzA-vU-OlY"/>
+                        <constraint firstAttribute="width" constant="300" id="vFc-mv-bxw"/>
                     </constraints>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="33">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -68,17 +71,17 @@
                     </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="3me-3D-EEp">
-                    <rect key="frame" x="260" y="425" width="64" height="17"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Log level:" id="nui-Ct-A6q">
+                    <rect key="frame" x="223" y="486" width="101" height="17"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Save log file to:" id="nui-Ct-A6q">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="sAF-ok-Vxz" userLabel="Log Level Popup Button">
-                    <rect key="frame" x="328" y="420" width="305" height="26"/>
+                    <rect key="frame" x="328" y="510" width="305" height="26"/>
                     <constraints>
-                        <constraint firstAttribute="width" priority="750" constant="300" id="L5V-Vt-T9H"/>
+                        <constraint firstAttribute="width" constant="300" id="ZVb-rw-sUy"/>
                     </constraints>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="9HA-pg-gKw" id="9eI-c3-Dbw" userLabel="Log Level Pop Up Button Cell">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -106,7 +109,7 @@
                     </connections>
                 </popUpButton>
                 <button toolTip="Usually don't allow SEB to run in a virtual machine in order to prevent potential manipulation" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="76">
-                    <rect key="frame" x="18" y="531" width="614" height="18"/>
+                    <rect key="frame" x="18" y="593" width="614" height="18"/>
                     <buttonCell key="cell" type="check" title="Allow SEB to run inside virtual machine" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="77">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -116,7 +119,7 @@
                     </connections>
                 </button>
                 <button toolTip="Usually Fast User Switching shouldn't be allowed on BYOD exam clients" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="292">
-                    <rect key="frame" x="18" y="479" width="614" height="18"/>
+                    <rect key="frame" x="18" y="541" width="614" height="18"/>
                     <buttonCell key="cell" type="check" title="Allow user switching" bezelStyle="regularSquare" imagePosition="left" alignment="left" enabled="NO" state="on" inset="2" id="293">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -130,7 +133,7 @@
                     </connections>
                 </button>
                 <popUpButton toolTip="Policy that applies when an exam client doesn't have the SEB Service installed or running" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="93">
-                    <rect key="frame" x="18" y="564" width="615" height="26"/>
+                    <rect key="frame" x="18" y="626" width="615" height="26"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="94">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -154,7 +157,7 @@
                     </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="99">
-                    <rect key="frame" x="18" y="591" width="614" height="17"/>
+                    <rect key="frame" x="18" y="653" width="614" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="SEB Service policy" id="100">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -167,11 +170,11 @@
                     <tabViewItems>
                         <tabViewItem label="System Lockdown" identifier="1" id="UDI-4x-V3M">
                             <view key="view" verticalHuggingPriority="500" id="uoJ-Ks-O1o">
-                                <rect key="frame" x="10" y="33" width="604" height="373"/>
+                                <rect key="frame" x="10" y="33" width="604" height="423"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <box autoresizesSubviews="NO" verticalHuggingPriority="500" verticalCompressionResistancePriority="1000" title="Kiosk Mode" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="UEX-8o-YnQ">
-                                        <rect key="frame" x="13" y="270" width="283" height="100"/>
+                                        <rect key="frame" x="13" y="320" width="283" height="100"/>
                                         <view key="contentView">
                                             <rect key="frame" x="1" y="1" width="281" height="84"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -221,7 +224,7 @@
                                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </box>
                                     <button toolTip="Display control in SEB dock allowing to reconnect to Wi-Fi networks used before." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="22y-gA-uVN">
-                                        <rect key="frame" x="14" y="235" width="586" height="18"/>
+                                        <rect key="frame" x="14" y="285" width="586" height="18"/>
                                         <buttonCell key="cell" type="check" title="Enable WiFi control" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Nlp-Oe-Cqb">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -677,7 +680,7 @@
                     </textFieldCell>
                 </textField>
                 <button toolTip="Controls OS X screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows" translatesAutoresizingMaskIntoConstraints="NO" id="PH3-Cb-12g">
-                    <rect key="frame" x="18" y="505" width="160" height="18"/>
+                    <rect key="frame" x="18" y="567" width="160" height="18"/>
                     <buttonCell key="cell" type="check" title="Enable screen capture" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="zzi-ch-X4d">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -686,40 +689,81 @@
                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enablePrintScreen" id="bCq-h7-eqr"/>
                     </connections>
                 </button>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6DQ-Jd-s1A">
+                    <rect key="frame" x="330" y="432" width="300" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="300" id="Gbu-o7-jTg"/>
+                    </constraints>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="auD-JV-04z">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_logDirectoryWin" id="VLS-IC-WVK"/>
+                    </connections>
+                </textField>
+                <button toolTip="The log can help debugging SEB (send it to the developers) and to find out about possible manipulations" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eiE-cV-UEx">
+                    <rect key="frame" x="327" y="463" width="142" height="18"/>
+                    <buttonCell key="cell" type="check" title="Use standard directory" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="4vb-oP-Qf1">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="selectStandardDirectory:" target="-2" id="q2h-rr-kIf"/>
+                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableLogging" id="I1Q-8z-Sa1"/>
+                    </connections>
+                </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="H9Q-8A-xab">
+                    <rect key="frame" x="150" y="434" width="174" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Log file directory Windows:" id="dbm-W0-7Yt">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <constraints>
                 <constraint firstItem="13" firstAttribute="leading" secondItem="pBJ-HX-kB3" secondAttribute="leading" id="1Fr-7l-aZ1"/>
                 <constraint firstItem="76" firstAttribute="leading" secondItem="PH3-Cb-12g" secondAttribute="leading" id="48c-Cy-whl"/>
                 <constraint firstItem="93" firstAttribute="trailing" secondItem="99" secondAttribute="trailing" id="4rm-Md-YRc"/>
-                <constraint firstAttribute="trailing" secondItem="sAF-ok-Vxz" secondAttribute="trailing" constant="20" id="6oa-ds-9Bm"/>
+                <constraint firstItem="SZK-Aw-k1e" firstAttribute="top" secondItem="6DQ-Jd-s1A" secondAttribute="bottom" constant="31" id="6FW-gK-irq"/>
                 <constraint firstItem="76" firstAttribute="leading" secondItem="93" secondAttribute="leading" id="76B-ST-fRW"/>
-                <constraint firstItem="sAF-ok-Vxz" firstAttribute="leading" secondItem="3me-3D-EEp" secondAttribute="trailing" constant="8" symbolic="YES" id="95I-dc-aZO"/>
+                <constraint firstAttribute="trailing" secondItem="6DQ-Jd-s1A" secondAttribute="trailing" constant="20" id="78t-ci-3y6"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eiE-cV-UEx" secondAttribute="trailing" constant="20" id="80O-h7-HLI"/>
+                <constraint firstItem="32" firstAttribute="leading" secondItem="3me-3D-EEp" secondAttribute="trailing" constant="8" id="8ZL-ye-TMC"/>
+                <constraint firstAttribute="trailing" secondItem="sAF-ok-Vxz" secondAttribute="trailing" constant="20" id="8zg-Us-MVn"/>
+                <constraint firstItem="H9Q-8A-xab" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1" secondAttribute="leading" constant="20" id="Aey-Uc-l3f"/>
                 <constraint firstItem="99" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="B67-9c-2t5"/>
                 <constraint firstItem="PH3-Cb-12g" firstAttribute="top" secondItem="76" secondAttribute="bottom" constant="12" id="BiT-EG-tlD"/>
                 <constraint firstItem="13" firstAttribute="top" secondItem="292" secondAttribute="bottom" constant="12" id="CuQ-lK-71c"/>
+                <constraint firstItem="eiE-cV-UEx" firstAttribute="top" secondItem="32" secondAttribute="bottom" constant="6" id="E9S-JQ-R71"/>
                 <constraint firstItem="22" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="13" secondAttribute="trailing" constant="20" id="Ffw-cA-O3D"/>
+                <constraint firstAttribute="trailing" secondItem="32" secondAttribute="trailing" constant="20" id="Hrm-fJ-vy9"/>
                 <constraint firstAttribute="trailing" secondItem="76" secondAttribute="trailing" constant="20" id="KVm-Ga-RS0"/>
-                <constraint firstAttribute="trailing" secondItem="32" secondAttribute="trailing" constant="20" id="MBr-Bx-hd3"/>
                 <constraint firstItem="SZK-Aw-k1e" firstAttribute="leading" secondItem="pBJ-HX-kB3" secondAttribute="leading" id="N3J-Hn-YtI"/>
-                <constraint firstItem="32" firstAttribute="leading" secondItem="22" secondAttribute="trailing" constant="8" symbolic="YES" id="OX5-5c-yM7"/>
                 <constraint firstItem="76" firstAttribute="top" secondItem="93" secondAttribute="bottom" constant="20" id="Pfg-x9-9mr"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pBJ-HX-kB3" secondAttribute="trailing" constant="20" id="TAP-6o-GYN"/>
                 <constraint firstItem="93" firstAttribute="top" secondItem="99" secondAttribute="bottom" constant="3" id="UzH-yq-ugW"/>
+                <constraint firstItem="6DQ-Jd-s1A" firstAttribute="top" secondItem="eiE-cV-UEx" secondAttribute="bottom" constant="12" id="WIg-tW-xJC"/>
                 <constraint firstAttribute="trailing" secondItem="292" secondAttribute="trailing" constant="20" id="XB8-Fd-3pG"/>
                 <constraint firstItem="99" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" symbolic="YES" id="YBR-Jg-vBr"/>
                 <constraint firstItem="292" firstAttribute="leading" secondItem="13" secondAttribute="leading" id="YTS-ap-HKP"/>
                 <constraint firstAttribute="bottom" secondItem="SZK-Aw-k1e" secondAttribute="bottom" constant="10" id="ZeZ-jd-zYA"/>
-                <constraint firstItem="3me-3D-EEp" firstAttribute="top" secondItem="22" secondAttribute="bottom" constant="12" id="fLk-Hm-Uqy"/>
+                <constraint firstItem="32" firstAttribute="top" secondItem="sAF-ok-Vxz" secondAttribute="bottom" constant="8" id="Zj8-Zo-RB1"/>
+                <constraint firstItem="6DQ-Jd-s1A" firstAttribute="leading" secondItem="H9Q-8A-xab" secondAttribute="trailing" constant="8" id="a59-5o-jPf"/>
+                <constraint firstItem="32" firstAttribute="leading" secondItem="eiE-cV-UEx" secondAttribute="leading" id="aoC-ev-9pd"/>
+                <constraint firstItem="sAF-ok-Vxz" firstAttribute="leading" secondItem="22" secondAttribute="trailing" constant="8" id="fHE-gp-V2w"/>
                 <constraint firstItem="22" firstAttribute="baseline" secondItem="13" secondAttribute="baseline" id="h4Z-ug-OAG"/>
                 <constraint firstAttribute="trailing" secondItem="99" secondAttribute="trailing" constant="20" symbolic="YES" id="iU5-oJ-zbC"/>
-                <constraint firstItem="22" firstAttribute="centerY" secondItem="32" secondAttribute="centerY" id="ji8-ze-I40"/>
                 <constraint firstItem="93" firstAttribute="leading" secondItem="99" secondAttribute="leading" id="jud-Va-gdy"/>
-                <constraint firstItem="3me-3D-EEp" firstAttribute="centerY" secondItem="sAF-ok-Vxz" secondAttribute="centerY" id="oDe-2n-euN"/>
-                <constraint firstItem="SZK-Aw-k1e" firstAttribute="top" secondItem="3me-3D-EEp" secondAttribute="bottom" constant="24" id="och-ma-7rE"/>
+                <constraint firstItem="H9Q-8A-xab" firstAttribute="baseline" secondItem="6DQ-Jd-s1A" secondAttribute="baseline" id="olX-Tq-YuS"/>
                 <constraint firstItem="SZK-Aw-k1e" firstAttribute="top" secondItem="pBJ-HX-kB3" secondAttribute="bottom" constant="2" id="pBx-kl-Hfh"/>
                 <constraint firstAttribute="trailing" secondItem="SZK-Aw-k1e" secondAttribute="trailing" constant="20" id="pD8-oa-qZe"/>
+                <constraint firstItem="32" firstAttribute="baseline" secondItem="3me-3D-EEp" secondAttribute="baseline" constant="-1" id="pRz-sf-IA1"/>
+                <constraint firstItem="3me-3D-EEp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1" secondAttribute="leading" constant="20" id="pX3-D8-zxw"/>
                 <constraint firstItem="292" firstAttribute="top" secondItem="PH3-Cb-12g" secondAttribute="bottom" constant="12" id="t69-xy-fA4"/>
-                <constraint firstItem="pBJ-HX-kB3" firstAttribute="top" secondItem="13" secondAttribute="bottom" constant="38" id="tyF-6a-riw"/>
+                <constraint firstItem="sAF-ok-Vxz" firstAttribute="baseline" secondItem="22" secondAttribute="baseline" id="tEx-QM-hJk"/>
                 <constraint firstItem="76" firstAttribute="leading" secondItem="292" secondAttribute="leading" id="uck-h5-6Ic"/>
             </constraints>
         </customView>

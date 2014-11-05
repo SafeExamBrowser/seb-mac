@@ -43,7 +43,9 @@
     //NSButton *allowDownUploads;
     //IBOutlet NSPopUpButton *downloadPath;
     //IBOutlet NSButton *openDownloads;
-    IBOutlet NSPopUpButton *chooseLogDirectory;
+    IBOutlet NSPopUpButton *chooseLogLevelControl;
+    IBOutlet NSPopUpButton *chooseLogDirectoryControl;
+    IBOutlet NSButton *selectStandardDirectoryButton;
     IBOutlet NSMenuItem *logDirectory;
     IBOutlet NSMatrix *kioskMode;
 

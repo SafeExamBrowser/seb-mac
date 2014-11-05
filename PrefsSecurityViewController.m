@@ -73,21 +73,33 @@
 }
 
 
-//  
+// Manual re-/setting of enabled properties
+- (IBAction) setEnableLogging:(NSButton *)sender
+{
+    BOOL loggingEnabled = sender.state;
+    
+    chooseLogLevelControl.enabled = loggingEnabled;
+    chooseLogDirectoryControl.enabled = loggingEnabled;
+    selectStandardDirectoryButton.enabled = loggingEnabled;
+}
+
+
 - (void) setLogDirectory {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 	//NSMenuItem *downloadDirectory = [[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""];
     NSString *logPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
-    if (!logPath) {
+    if (logPath.length == 0) {
         //if there's no path saved in preferences, set standard path
         logPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
         [preferences setSecureObject:logPath forKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
     }    
     // display the download directory path in the menu
     [logDirectory setTitle:[[NSFileManager defaultManager] displayNameAtPath:logPath]];
-    [logDirectory setImage:[[NSWorkspace sharedWorkspace] iconForFile:logPath]];
-    [chooseLogDirectory selectItemAtIndex:0];
-    [chooseLogDirectory synchronizeTitleAndSelectedItem];
+    NSImage *logFolderIcon = [[NSWorkspace sharedWorkspace] iconForFile:logPath];
+    [logFolderIcon setSize:NSMakeSize(16, 16)];
+    [logDirectory setImage:logFolderIcon];
+    [chooseLogDirectoryControl selectItemAtIndex:0];
+    [chooseLogDirectoryControl synchronizeTitleAndSelectedItem];
 }
 
 
@@ -117,10 +129,28 @@
                               [preferences setSecureObject:fileName forKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
                               [self setLogDirectory];
                           } else {
-                              [chooseLogDirectory selectItemAtIndex:0];
-                              [chooseLogDirectory synchronizeTitleAndSelectedItem];
+                              [chooseLogDirectoryControl selectItemAtIndex:0];
+                              [chooseLogDirectoryControl synchronizeTitleAndSelectedItem];
                           }
                       }];
+}
+
+
+- (IBAction) selectStandardDirectory:(NSButton *)sender
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if (sender.state) {
+        chooseLogDirectoryControl.enabled = NO;
+        [preferences setSecureString:@"" forKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
+        // Clear log directory path in menu
+        [logDirectory setTitle:@""];
+        [logDirectory setImage:nil];
+        [chooseLogDirectoryControl selectItemAtIndex:0];
+        [chooseLogDirectoryControl synchronizeTitleAndSelectedItem];
+    } else {
+        chooseLogDirectoryControl.enabled = YES;
+        [self setLogDirectory];
+    }
 }
 
 
