@@ -11,8 +11,6 @@
 #import "SEBDockItemButton.h"
 #import "SEBDockItemMenu.h"
 
-#import "Constants.h"
-
 
 /**
  * @protocol    SEBDockItem

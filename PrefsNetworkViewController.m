@@ -39,7 +39,6 @@
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "SEBUIUserDefaultsController.h"
 #import "SEBKeychainManager.h"
-#import "Constants.h"
 
 @implementation PrefsNetworkViewController
 

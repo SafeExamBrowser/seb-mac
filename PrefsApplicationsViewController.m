@@ -63,8 +63,8 @@
 }
 
 
-- (IBAction) checkboxClicked:(id)sender {
-    [allowSwitchToApplicationsButton setEnabled:!allowSwitchToApplicationsButton.enabled];
+- (IBAction) allowSwitchToApplicationsButton:(NSButton *)sender {
+    [allowFlashFullscreen setEnabled:sender.state];
 }
 
 @end

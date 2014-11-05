@@ -53,6 +53,7 @@
 - (BOOL) checkExamSettings:(NSData *)examSettingsKey;
 - (void) updateExamSettingsKey:(NSDictionary *)settings;
 - (BOOL)updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt;
+- (BOOL)updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt newChecksum:(NSData **)newChecksumPtr;
 - (NSData *)checksumForPrefDictionary:(NSDictionary *)prefsDict;
 - (NSData *)checksumForLocalPrefDictionary:(NSDictionary *)prefsDict;
 

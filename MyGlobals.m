@@ -32,9 +32,7 @@
 //  Contributor(s): ______________________________________.
 //
 
-#import "MyGlobals.h"
 #import "SynthesizeSingleton.h"
-#import "DDLog.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 static int ddLogLevel = LOG_LEVEL_VERBOSE;

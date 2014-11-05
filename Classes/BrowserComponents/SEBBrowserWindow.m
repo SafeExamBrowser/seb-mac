@@ -33,8 +33,6 @@
 //
 
 #import "SEBBrowserWindow.h"
-#import "MyGlobals.h"
-#import "Constants.h"
 #import "SEBConfigFileManager.h"
 #import "SEBBrowserWindowDocument.h"
 #import "NSWindow+SEBWindow.h"

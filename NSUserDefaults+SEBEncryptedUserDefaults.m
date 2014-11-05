@@ -53,10 +53,6 @@
 #import "SEBCryptor.h"
 #import "SEBKeychainManager.h"
 #import "SEBConfigFileManager.h"
-#import "MyGlobals.h"
-#import "Constants.h"
-
-#import "CocoaLumberjack/CocoaLumberjack.h"
 
 @interface NSUserDefaults (SEBEncryptedUserDefaultsPrivate)
 
@@ -97,16 +93,14 @@ static NSNumber *_logLevel;
     if (privateUserDefaults != _usePrivateUserDefaults) {
         _usePrivateUserDefaults = privateUserDefaults;
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        BOOL success = [preferences synchronize];
-#ifdef DEBUG
-        NSLog(@"[preferences synchronize] = %@",[NSNumber numberWithBool:success]);
-#endif
+        [preferences synchronize];
+
         // Clear the cached UserDefaults dictionary
         _cachedUserDefaults = [NSMutableDictionary new];
     }
-#ifdef DEBUG
-    NSLog(@"SetUserDefaultsPrivate: %@, localUserDefaults: %@",[NSNumber numberWithBool:_usePrivateUserDefaults], localUserDefaults);
-#endif
+
+    DDLogDebug(@"SetUserDefaultsPrivate: %@, localUserDefaults: %@",[NSNumber numberWithBool:_usePrivateUserDefaults], localUserDefaults);
+
 }
 
 
@@ -435,9 +429,8 @@ static NSNumber *_logLevel;
 // Returns YES if SEB was started first time on this system (no SEB settings found in UserDefaults)
 - (BOOL)setSEBDefaults
 {
-#ifdef DEBUG
-    NSLog(@"Setting local preferences (client settings)");
-#endif
+    DDLogInfo(@"Setting local client settings (NSUserDefaults)");
+
     BOOL firstStart = NO;
     _cachedUserDefaults = [NSMutableDictionary new];
     
@@ -464,9 +457,8 @@ static NSNumber *_logLevel;
                 [currentUserDefaults removeAllObjects];
                 // Set the flag to indicate to user later that settings have been reset
                 [[MyGlobals sharedMyGlobals] setPreferencesReset:YES];
-#ifdef DEBUG
-                NSLog(@"Initial Exam Settings Key check failed: Local preferences have been reset!");
-#endif
+
+                DDLogError(@"Initial Exam Settings Key check failed: Local preferences have been reset!");
             }
         }
     } else {
@@ -502,9 +494,7 @@ static NSNumber *_logLevel;
     // Update Exam Settings Key
     [sharedSEBCryptor updateExamSettingsKey:_cachedUserDefaults];
 
-#ifdef DEBUG
-    NSLog(@"Local preferences (client settings) set");
-#endif
+    DDLogInfo(@"Local preferences (client settings) set");
 
     return firstStart;
 }
@@ -535,17 +525,13 @@ static NSNumber *_logLevel;
         if (value) {
             [filteredPrefsDict setObject:value forKey:[key substringFromIndex:24]];
         } else {
-#ifdef DEBUG
-            NSLog(@"dictionaryRepresentationSEB: nil value for key %@", key);
-#endif
             // If one value was nil, we skip this key/value
-//#ifdef DEBUG
-//            NSLog(@"Registred Defaults");
-//#endif
+            DDLogWarn(@"dictionaryRepresentationSEB: nil value for key %@", key);
         }
     }
     return filteredPrefsDict;
 }
+
 
 // Filter UserDefaults so only org_safeexambrowser_SEB_ keys are included in the returned NSSet
 - (NSSet *) sebKeysSet
@@ -564,10 +550,10 @@ static NSNumber *_logLevel;
     return filteredPrefsSet;
 }
 
-// Save imported settings into user defaults (either in private memory or local shared UserDefaults)
+// Save imported settings into user defaults (either in private memory or local client shared NSUserDefaults)
 - (void) storeSEBDictionary:(NSDictionary *)sebPreferencesDict
 {
-    // Write SEB default values to local preferences
+    // Write SEB default values to NSUserDefaults
     [self storeSEBDefaultSettings];
 
     // Write values from .seb config file to local preferences
@@ -575,8 +561,8 @@ static NSNumber *_logLevel;
         id value = [sebPreferencesDict objectForKey:key];
         NSString *keyWithPrefix = [self prefixKey:key];
         
-        // If imported settings are being saved into shared UserDefaults
-        // Import embedded certificates (and identities) into the keychain
+        // If imported settings are being saved into local client NSUserDefaults
+        // import embedded certificates (and identities) into the keychain
         // but don't save into local preferences
         if (!NSUserDefaults.userDefaultsPrivate && [key isEqualToString:@"embeddedCertificates"]) {
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
@@ -587,25 +573,23 @@ static NSNumber *_logLevel;
                     case certificateTypeSSLClientCertificate:
                         if (certificateData) {
                             BOOL success = [keychainManager importCertificateFromData:certificateData];
-#ifdef DEBUG
-                            NSLog(@"Importing SSL certificate <%@> into Keychain %@", [certificate objectForKey:@"name"], success ? @"succedded" : @"failed");
-#endif
+
+                            DDLogInfo(@"Importing SSL certificate <%@> into Keychain %@", [certificate objectForKey:@"name"], success ? @"succedded" : @"failed");
                         }
                         break;
                         
                     case certificateTypeIdentity:
                         if (certificateData) {
                             BOOL success = [keychainManager importIdentityFromData:certificateData];
-#ifdef DEBUG
-                            NSLog(@"Importing identity <%@> into Keychain %@", [certificate objectForKey:@"name"], success ? @"succedded" : @"failed");
-#endif
+
+                            DDLogInfo(@"Importing identity <%@> into Keychain %@", [certificate objectForKey:@"name"], success ? @"succedded" : @"failed");
                         }
                         break;
                 }
             }
             
         } else {
-            // other values can be saved into local preferences
+            // other values can be saved into shared NSUserDefaults
             [self setSecureObject:value forKey:keyWithPrefix];
         }
     }
@@ -671,10 +655,8 @@ static NSNumber *_logLevel;
             [preferences removeObjectForKey:key];
         }
     }
-#ifdef DEBUG
 //    prefsDict = [self getSEBUserDefaultsDomains];
-//    NSLog(@"SEB UserDefaults domains after resetSEBUserDefaults: %@", prefsDict);
-#endif
+//    DDLogDebug(@"SEB UserDefaults domains after resetSEBUserDefaults: %@", prefsDict);
 }
 
 
@@ -870,9 +852,9 @@ static NSNumber *_logLevel;
         [localUserDefaults setValue:value forKey:key];
         //NSString *keypath = [NSString stringWithFormat:@"values.%@", key];
         //[[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController] setValue:value forKeyPath:keypath];
-#ifdef DEBUG
+
         DDLogDebug(@"[localUserDefaults setObject:%@ forKey:%@]", [localUserDefaults valueForKey:key], key);
-#endif
+
     } else {
         if (value == nil || key == nil) {
             // Use non-secure method
@@ -893,16 +875,15 @@ static NSNumber *_logLevel;
             } else {
                 encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
                 if (error) {
-#ifdef DEBUG
-                DDLogError(@"PREFERENCES CORRUPTED ERROR at [self setObject:(encrypted %@) forKey:%@]", value, key);
-#endif
+
+                    DDLogError(@"PREFERENCES CORRUPTED ERROR at [self setObject:(encrypted %@) forKey:%@]", value, key);
+
                     [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
                     return;
                 } else {
                     [self setObject:encryptedData forKey:key];
-#ifdef DEBUG
+
                     DDLogDebug(@"[self setObject:(encrypted %@) forKey:%@]", value, key);
-#endif
                 }
             }
             
@@ -944,9 +925,9 @@ static NSNumber *_logLevel;
         NSError *error;
         NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
         if (error) {
-#ifdef DEBUG
+
             DDLogError(@"PREFERENCES CORRUPTED ERROR at [self secureDataForObject:%@ andKey:%@]", value, key);
-#endif
+
             [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
             return nil;
         }
@@ -1014,9 +995,9 @@ static NSNumber *_logLevel;
 - (id)_objectForKey:(NSString *)key
 {
     if (_usePrivateUserDefaults) {
-#ifdef DEBUG
+
         DDLogDebug(@"[localUserDefaults objectForKey:%@] = %@", key, [localUserDefaults valueForKey:key]);
-#endif
+
         return [localUserDefaults valueForKey:key];
         //NSString *keypath = [NSString stringWithFormat:@"values.%@", key];
         //return [[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController] valueForKeyPath:keypath];
@@ -1041,18 +1022,18 @@ static NSNumber *_logLevel;
         } else {
             decrypted = [[SEBCryptor sharedSEBCryptor] decryptData:encrypted forKey:key error:&error];
             if (error) {
-#ifdef DEBUG
+
                 DDLogError(@"PREFERENCES CORRUPTED ERROR at [self _objectForKey:%@], error: %@", key, error);
-#endif
+
                 [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
                 return nil;
             }
         }
 
         id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
-#ifdef DEBUG
+
         DDLogDebug(@"[self objectForKey:%@] = %@ (decrypted)", key, value);
-#endif
+
         return value;
     }
 }

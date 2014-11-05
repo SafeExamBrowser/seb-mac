@@ -12,8 +12,6 @@
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "NSWindow+SEBWindow.h"
 #import "SEBConfigFileManager.h"
-#import "MyGlobals.h"
-#import "Constants.h"
 
 @implementation SEBBrowserController
 
@@ -99,10 +97,10 @@
     
     // Get the document for the web view
     id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:webViewToClose.window];
+
     // Close document and therefore also window
-#ifdef DEBUG
-    NSLog(@"Now closing new document browser window. %@", webViewToClose);
-#endif
+    DDLogInfo(@"Now closing new document browser window. %@", webViewToClose);
+
     [myDocument close];
 }
 
@@ -116,9 +114,7 @@
         [[sender window] newSetLevel:NSModalPanelWindowLevel];
     }
     [browserWindowDocument showWindows];
-#ifdef DEBUG
-    NSLog(@"Now showing new document browser window for: %@",sender);
-#endif
+    DDLogInfo(@"Now showing new document browser window for: %@",sender);
     // Order new browser window to the front
     //[[sender window] makeKeyAndOrderFront:self];
 }
@@ -137,9 +133,7 @@
     // Preconfigure Window for full screen
     BOOL mainBrowserWindowShouldBeFullScreen = ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserViewMode"] == browserViewModeFullscreen);
     
-#ifdef DEBUG
-    NSLog(@"openMainBrowserWindow with browserViewMode: %hhd", mainBrowserWindowShouldBeFullScreen);
-#endif
+    DDLogInfo(@"Open MainBrowserWindow with browserViewMode: %hhd", mainBrowserWindowShouldBeFullScreen);
     
     // Open and maximize the browser window
     // (this is done here, after presentation options are set,
@@ -189,14 +183,12 @@
     
     // Load start URL from the system's user defaults database
     NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-#ifdef DEBUG
-    NSLog(@"Open MainBrowserWindow with start URL: %@", urlText);
-#endif
+
+    DDLogInfo(@"Open MainBrowserWindow with start URL: %@", urlText);
     
     // Add "SEB" to the browser's user agent, so the LMS SEB plugins recognize us
     NSString *customUserAgent = [self.webView userAgentForURL:[NSURL URLWithString:urlText]];
     [self.webView setCustomUserAgent:[customUserAgent stringByAppendingString:@" Safari/533.16 SEB"]];
-//    [self.webView setCustomUserAgent:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/600.1.17 (KHTML, like Gecko) Safari/533.16 SEB"];
     
     // Load start URL into browser window
     [[self.webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];
@@ -253,9 +245,7 @@
     
     //[additionalBrowserWindow makeKeyAndOrderFront:self];
     
-#ifdef DEBUG
-    NSLog(@"Open additional browser window with URL: %@", URL);
-#endif
+    DDLogInfo(@"Open additional browser window with URL: %@", URL);
     
     // Load start URL into browser window
     [[browserWindowDocument.mainWindowController.webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:URL]]];
@@ -334,15 +324,12 @@
 
 - (void) setStateForWindow:(SEBBrowserWindow *)browserWindow withWebView:(WebView *)webView
 {
-#ifdef DEBUG
-    NSLog(@"setStateForWindow: %@ withWebView: %@", browserWindow, webView);
-#endif
+    DDLogDebug(@"setStateForWindow: %@ withWebView: %@", browserWindow, webView);
+
     for (SEBBrowserOpenWindowWebView *openWindowWebView in self.openBrowserWindowsWebViews) {
         if ([openWindowWebView.webView isEqualTo:webView]) {
             [openWindowWebView setState:NSOnState];
-#ifdef DEBUG
-            NSLog(@"setState: NSOnState: %@", webView);
-#endif
+            DDLogDebug(@"setState: NSOnState: %@", webView);
         } else {
             [openWindowWebView setState:NSOffState];
         }
@@ -400,9 +387,8 @@
 
 - (void) openWindowSelected:(SEBBrowserOpenWindowWebView *)sender
 {
-#ifdef DEBUG
-    NSLog(@"Selected menu item: %@", sender);
-#endif
+    DDLogInfo(@"Selected menu item: %@", sender);
+
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [sender.browserWindow makeKeyAndOrderFront:self];
 }

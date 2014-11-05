@@ -63,8 +63,6 @@
 #import "SEBWindowSizeValueTransformer.h"
 #import "BoolValueTransformer.h"
 #import "IsEmptyCollectionValueTransformer.h"
-#import "MyGlobals.h"
-#import "Constants.h"
 
 io_connect_t  root_port; // a reference to the Root Power Domain IOService
 

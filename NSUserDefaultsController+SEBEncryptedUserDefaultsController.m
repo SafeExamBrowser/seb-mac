@@ -38,10 +38,6 @@
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
 #import "SEBCryptor.h"
-#import "Constants.h"
-
-#import "CocoaLumberjack/CocoaLumberjack.h"
-
 
 @implementation NSUserDefaultsController (SEBEncryptedUserDefaultsController)
 

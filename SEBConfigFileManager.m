@@ -150,15 +150,14 @@
         [self.sebController.preferencesController releasePreferencesWindow];
         
         // Switch to private UserDefaults (saved non-persistantly in memory instead in ~/Library/Preferences)
-        NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults]; //the mutable dictionary has to be created here, otherwise the preferences values will not be saved!
+        NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults]; //this mutable dictionary has to be referenced here, otherwise preferences values will not be saved!
         [NSUserDefaults setUserDefaultsPrivate:YES];
         
         // Write values from .seb config file to the local preferences (shared UserDefaults)
         [self storeIntoUserDefaults:sebPreferencesDict];
         
-#ifdef DEBUG
-        NSLog(@"Private preferences set: %@", privatePreferences);
-#endif
+        DDLogDebug(@"Private preferences set: %@", privatePreferences);
+
         if (forEditing == NO) {
             // if not editing reset credentials
             _currentConfigPassword = nil;
@@ -200,9 +199,8 @@
         _currentConfigPasswordIsHash = NO;
         _currentConfigKeyRef = nil;
 
-#ifdef DEBUG
-        NSLog(@"Should display dialog SEB Re-Configured");
-#endif
+        DDLogInfo(@"Should display dialog SEB Re-Configured");
+
         if ([[MyGlobals sharedMyGlobals] finishedInitializing]) {
             NSAlert *newAlert = [[NSAlert alloc] init];
             [newAlert setMessageText:NSLocalizedString(@"SEB Re-Configured", nil)];
@@ -263,9 +261,9 @@
 
     // Get 4-char prefix
     prefixString = [self getPrefixStringFromData:&sebData];
-#ifdef DEBUG
-    NSLog(@"Outer prefix of .seb settings file: %@",prefixString);
-#endif
+
+    DDLogInfo(@"Outer prefix of .seb settings file: %@",prefixString);
+
     NSError *error = nil;
 
     //// Check prefix identifying encryption modes
@@ -283,9 +281,9 @@
         // Get 4-char prefix again
         // and remaining data without prefix, which is either plain or still encoded with password
         prefixString = [self getPrefixStringFromData:&sebData];
-#ifdef DEBUG
-        NSLog(@"Inner prefix of .seb settings file: %@", prefixString);
-#endif
+
+        DDLogInfo(@"Inner prefix of .seb settings file: %@", prefixString);
+
     }
     
     // Prefix = pswd ("Password") ?
@@ -682,9 +680,9 @@
                         NSLocalizedString(@"OK", nil), nil, nil);
         return nil;
     }
-#ifdef DEBUG
-    NSLog(@"Private key retrieved with hash: %@", privateKeyRef);
-#endif
+
+    DDLogInfo(@"Private key retrieved with hash: %@", privateKeyRef);
+
     // If these settings are being decrypted for editing, we will return the decryption certificate reference
     // in the variable which was passed as reference when calling this method
     *privateKeyRefPtr = privateKeyRef;

@@ -34,7 +34,6 @@
 
 
 #import "CapWindow.h"
-#import "Constants.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 @implementation CapWindow

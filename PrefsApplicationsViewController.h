@@ -40,13 +40,13 @@
 
 @interface PrefsApplicationsViewController : NSViewController <MBPreferencesModule> {
 
-    IBOutlet NSButton *allowSwitchToApplicationsButton;
+    IBOutlet NSButton *allowFlashFullscreen;
 }
 
 - (NSString *)identifier;
 - (NSImage *)image;
 
-- (IBAction) checkboxClicked:(id)sender;
+- (IBAction) allowSwitchToApplicationsButton:(NSButton *)sender;
 
 
 @end

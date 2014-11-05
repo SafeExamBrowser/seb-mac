@@ -38,7 +38,6 @@
 #import "MBPreferencesController.h"
 #import "PreferencesController.h"
 #import "SEBKeychainManager.h"
-#import "Constants.h"
 
 @class PreferencesController;
 

@@ -4,6 +4,9 @@
 
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
+
+    #import "Constants.h"
+    #import "MyGlobals.h"
+    #import "CocoaLumberjack/CocoaLumberjack.h"
 #endif
 
-#import "MyGlobals.h"

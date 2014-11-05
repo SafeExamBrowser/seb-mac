@@ -36,7 +36,6 @@
 
 #import "PrefsSecurityViewController.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
-#import "Constants.h"
 
 @implementation PrefsSecurityViewController
 

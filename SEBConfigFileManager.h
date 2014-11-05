@@ -35,7 +35,6 @@
 
 #import <Foundation/Foundation.h>
 #import "SEBController.h"
-#import "Constants.h"
 
 @class SEBController;
 

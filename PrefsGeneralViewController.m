@@ -40,8 +40,6 @@
 #import "NSWindow+SEBWindow.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "RNEncryptor.h"
-#import "Constants.h"
-//#import "MyGlobals.h"
 
 
 @implementation PrefsGeneralViewController

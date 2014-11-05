@@ -40,8 +40,6 @@
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
 #import "SEBKeychainManager.h"
-#import "Constants.h"
-#import "MyGlobals.h"
 
 @implementation SEBCryptor
 
@@ -189,6 +187,12 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 // Returns true if the checksum actually changed
 - (BOOL)updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt
 {
+    NSData *newChecksum;
+    return [self updateEncryptedUserDefaults:updateUserDefaults updateSalt:generateNewSalt newChecksum:&newChecksum];
+}
+
+- (BOOL)updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt newChecksum:(NSData **)newChecksumPtr
+{
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
     // Get current salt for exam key
@@ -196,9 +200,8 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     // If there was no salt yet, then we generate it in any case
     if ([HMACKey isEqualToData:[NSData data]]) {
         [self generateExamKeySalt];
-#ifdef DEBUG
-        NSLog(@"Generated Browser Exam Key salt as there was none defined yet.");
-#endif
+
+        DDLogInfo(@"Generated Browser Exam Key salt as there was none defined yet.");
     }
 
     // Copy preferences to a dictionary
@@ -244,6 +247,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 
     // Convert preferences dictionary to XML property list
     NSData *HMACData = [self checksumForPrefDictionary:filteredPrefsDict];
+    *newChecksumPtr = HMACData;
     
     // Get current Browser Exam Key
     NSData *currentBrowserExamKey = [preferences secureDataForKey:@"org_safeexambrowser_currentData"];

@@ -8,7 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsApplicationsViewController">
             <connections>
-                <outlet property="allowSwitchToApplicationsButton" destination="134" id="MGu-2v-rvj"/>
+                <outlet property="allowFlashFullscreen" destination="134" id="9WV-mR-ZXO"/>
                 <outlet property="view" destination="1" id="4"/>
             </connections>
         </customObject>
@@ -35,7 +35,7 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="checkboxClicked:" target="-2" id="em3-VU-Iyt"/>
+                                            <action selector="allowSwitchToApplicationsButton:" target="-2" id="Fg8-dm-NeA"/>
                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowSwitchToApplications" id="207"/>
                                         </connections>
                                     </button>
@@ -48,6 +48,7 @@
                                         </buttonCell>
                                         <connections>
                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowFlashFullscreen" id="166"/>
+                                            <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowSwitchToApplications" id="IaI-5x-tWV"/>
                                         </connections>
                                     </button>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="345">

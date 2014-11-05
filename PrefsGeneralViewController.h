@@ -39,10 +39,8 @@
 #import <Cocoa/Cocoa.h>
 #import "MBPreferencesController.h"
 #import <CommonCrypto/CommonDigest.h>
-#import "MyGlobals.h"
 #import "PreferencesController.h"
 #import "SEBKeychainManager.h"
-#import "Constants.h"
 
 @class PreferencesController;
 
