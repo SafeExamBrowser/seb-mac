@@ -9,6 +9,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsBrowserViewController">
             <connections>
                 <outlet property="enablePlugIns" destination="107" id="195"/>
+                <outlet property="newBrowserWindowByLinkBlockForeignButton" destination="101" id="56g-jL-5S0"/>
+                <outlet property="newBrowserWindowByScriptBlockForeignButton" destination="103" id="hKO-zi-feW"/>
                 <outlet property="view" destination="1" id="111"/>
             </connections>
         </customObject>
@@ -48,6 +50,7 @@
                         </menu>
                     </popUpButtonCell>
                     <connections>
+                        <action selector="newBrowserWindowByLinkPolicyChanged:" target="-2" id="mEx-Gk-Jso"/>
                         <binding destination="227" name="contentValues" keyPath="org_safeexambrowser_SEB_newBrowserWindowByLinkPolicies" id="238"/>
                         <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy" previousBinding="238" id="239"/>
                     </connections>
@@ -76,6 +79,7 @@
                         </menu>
                     </popUpButtonCell>
                     <connections>
+                        <action selector="newBrowserWindowByScriptPolicyChanged:" target="-2" id="qdP-yM-dAA"/>
                         <binding destination="227" name="contentValues" keyPath="org_safeexambrowser_SEB_newBrowserWindowByScriptPolicies" id="250"/>
                         <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy" previousBinding="250" id="251"/>
                     </connections>

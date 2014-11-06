@@ -42,6 +42,8 @@
 
 @interface PrefsBrowserViewController : NSViewController <MBPreferencesModule> {
 	IBOutlet NSButton *enablePlugIns;
+    IBOutlet NSButton *newBrowserWindowByLinkBlockForeignButton;
+    IBOutlet NSButton *newBrowserWindowByScriptBlockForeignButton;
 
 }
 

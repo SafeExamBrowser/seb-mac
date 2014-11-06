@@ -64,4 +64,14 @@
 }
 
 
+- (IBAction) newBrowserWindowByLinkPolicyChanged:(NSPopUpButton *)sender
+{
+    newBrowserWindowByLinkBlockForeignButton.enabled = [sender indexOfSelectedItem] != getGenerallyBlocked;
+}
+
+- (IBAction) newBrowserWindowByScriptPolicyChanged:(NSPopUpButton *)sender
+{
+    newBrowserWindowByScriptBlockForeignButton.enabled = [sender indexOfSelectedItem] != getGenerallyBlocked;
+}
+
 @end
