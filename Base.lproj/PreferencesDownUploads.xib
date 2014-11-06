@@ -78,7 +78,7 @@
                     </connections>
                 </button>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="76">
-                    <rect key="frame" x="38" y="80" width="594" height="18"/>
+                    <rect key="frame" x="38" y="69" width="594" height="18"/>
                     <string key="toolTip">PDF files will not be displayed by SEB but downloaded and openend (if "Open files after downloading" is active!) by the application set in Finder (usually Preview or Adobe Acrobat).</string>
                     <buttonCell key="cell" type="check" title="Download and open PDF files instead of displaying them inline" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="77">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -144,7 +144,7 @@
                 <constraint firstItem="32" firstAttribute="top" secondItem="13" secondAttribute="bottom" constant="8" id="238"/>
                 <constraint firstItem="38" firstAttribute="top" secondItem="32" secondAttribute="bottom" constant="10" id="242"/>
                 <constraint firstItem="93" firstAttribute="top" secondItem="99" secondAttribute="bottom" constant="4" id="244"/>
-                <constraint firstItem="76" firstAttribute="top" secondItem="93" secondAttribute="bottom" constant="19" id="245"/>
+                <constraint firstItem="76" firstAttribute="top" secondItem="93" secondAttribute="bottom" constant="30" id="245"/>
                 <constraint firstItem="93" firstAttribute="leading" secondItem="76" secondAttribute="leading" id="249"/>
                 <constraint firstItem="93" firstAttribute="leading" secondItem="99" secondAttribute="leading" id="252"/>
                 <constraint firstItem="93" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="40" id="259"/>
@@ -153,7 +153,7 @@
                 <constraint firstAttribute="trailing" secondItem="265" secondAttribute="trailing" constant="20" symbolic="YES" id="272"/>
                 <constraint firstItem="265" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="273"/>
                 <constraint firstAttribute="bottom" secondItem="265" secondAttribute="bottom" constant="20" symbolic="YES" id="283"/>
-                <constraint firstItem="265" firstAttribute="top" secondItem="76" secondAttribute="bottom" constant="48" id="284"/>
+                <constraint firstItem="265" firstAttribute="top" secondItem="76" secondAttribute="bottom" constant="37" id="284"/>
             </constraints>
         </customView>
         <objectController automaticallyPreparesContent="YES" id="49">

@@ -40,12 +40,11 @@
 
 @interface PrefsDownUploadsViewController : NSViewController <MBPreferencesModule> {
 
-    //IBOutlet NSButton *allowThirdPartyApps;
-    //NSButton *allowDownUploads;
-    //IBOutlet NSPopUpButton *downloadPath;
-    //IBOutlet NSButton *openDownloads;
     IBOutlet NSPopUpButton *chooseDownloadDirectory;
+    IBOutlet NSButton *openDownloadsButton;
     IBOutlet NSMenuItem *downloadDirectory;
+    IBOutlet NSPopUpButton *chooseFileToUploadPolicyControl;
+    IBOutlet NSButton *downloadPDFFilesButton;
 
 }
 

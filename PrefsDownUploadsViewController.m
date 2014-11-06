@@ -60,7 +60,19 @@
 - (void)willBeDisplayed
 {
     [self setDownloadDirectory];
+}
+
+
+// Action to set the enabled property of dependent buttons
+// This is necessary because bindings don't work with private user defaults
+- (IBAction) allowDownUploadsButton:(NSButton *)sender
+{
+    BOOL downUploadsAllowed = sender.state;
     
+    chooseDownloadDirectory.enabled = downUploadsAllowed;
+    openDownloadsButton.enabled = downUploadsAllowed;
+    chooseFileToUploadPolicyControl.enabled = downUploadsAllowed;
+    downloadPDFFilesButton.enabled = downUploadsAllowed;
 }
 
 

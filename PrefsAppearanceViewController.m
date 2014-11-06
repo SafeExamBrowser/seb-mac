@@ -64,6 +64,8 @@
 }
 
 
+// Action to set the enabled property of dependent buttons
+// This is necessary because bindings don't work with private user defaults
 - (IBAction) browserViewModeMatrix:(NSMatrix *)sender
 {
     BOOL browserViewModeWindowSelected = [sender selectedRow] == browserViewModeWindow;
@@ -77,12 +79,16 @@
 }
 
 
+// Action to set the enabled property of dependent buttons
+// This is necessary because bindings don't work with private user defaults
 - (IBAction) enableBrowserWindowToolbarButton:(NSButton *)sender
 {
     hideBrowserWindowToolbar.enabled = [sender state];
 }
 
 
+// Action to set the enabled property of dependent buttons
+// This is necessary because bindings don't work with private user defaults
 - (IBAction) showTaskBarButton:(NSButton *)sender
 {
     taskBarHeight.enabled = [sender state];

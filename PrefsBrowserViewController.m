@@ -64,11 +64,15 @@
 }
 
 
+// Action to set the enabled property of dependent buttons
+// This is necessary because bindings don't work with private user defaults
 - (IBAction) newBrowserWindowByLinkPolicyChanged:(NSPopUpButton *)sender
 {
     newBrowserWindowByLinkBlockForeignButton.enabled = [sender indexOfSelectedItem] != getGenerallyBlocked;
 }
 
+// Action to set the enabled property of dependent buttons
+// This is necessary because bindings don't work with private user defaults
 - (IBAction) newBrowserWindowByScriptPolicyChanged:(NSPopUpButton *)sender
 {
     newBrowserWindowByScriptBlockForeignButton.enabled = [sender indexOfSelectedItem] != getGenerallyBlocked;
