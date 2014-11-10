@@ -44,8 +44,6 @@
 @interface PrefsConfigFileViewController : NSViewController <MBPreferencesModule> {
     IBOutlet NSPopUpButton *chooseIdentity;
 
-	//IBOutlet NSButtonCell *sebStartsExam;
-	//IBOutlet NSButtonCell *sebConfiguresClient;
     IBOutlet NSObjectController *controller;
 
     @private
@@ -86,9 +84,5 @@
 - (NSData *) encryptSEBSettingsWithSelectedCredentials;
 
 - (IBAction) changeConfigFilePurpose:(id)sender;
-
-//- (IBAction) saveSEBPrefs:(id)sender;
-//- (IBAction) saveSEBPrefsAs:(id)sender;
-//- (IBAction) openSEBPrefs:(id)sender;
 
 @end

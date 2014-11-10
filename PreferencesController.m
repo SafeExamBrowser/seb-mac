@@ -916,9 +916,8 @@
                     [NSUserDefaults setUserDefaultsPrivate:YES];
                     
                     [self.configFileManager storeIntoUserDefaults:localClientPreferences];
-#ifdef DEBUG
-                    NSLog(@"Private preferences set: %@", privatePreferences);
-#endif
+                    DDLogDebug(@"Private preferences set: %@", privatePreferences);
+
                     // Re-initialize and open preferences window
                     [self initPreferencesWindow];
                     [self reopenPreferencesWindow];

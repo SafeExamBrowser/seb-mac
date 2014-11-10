@@ -119,7 +119,7 @@
                     </connections>
                 </button>
                 <button toolTip="Usually Fast User Switching shouldn't be allowed on BYOD exam clients" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="292">
-                    <rect key="frame" x="18" y="541" width="614" height="18"/>
+                    <rect key="frame" x="18" y="541" width="151" height="18"/>
                     <buttonCell key="cell" type="check" title="Allow user switching" bezelStyle="regularSquare" imagePosition="left" alignment="left" enabled="NO" state="on" inset="2" id="293">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -722,6 +722,16 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button toolTip="Controls OS X screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows" translatesAutoresizingMaskIntoConstraints="NO" id="a9Y-jJ-E1h">
+                    <rect key="frame" x="328" y="567" width="242" height="18"/>
+                    <buttonCell key="cell" type="check" title="Disable app switcher when starting" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="JRL-fG-lI3">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableAppSwitcherCheck" id="iS6-fQ-xk6"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="13" firstAttribute="leading" secondItem="pBJ-HX-kB3" secondAttribute="leading" id="1Fr-7l-aZ1"/>
@@ -733,6 +743,7 @@
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eiE-cV-UEx" secondAttribute="trailing" constant="20" id="80O-h7-HLI"/>
                 <constraint firstItem="32" firstAttribute="leading" secondItem="3me-3D-EEp" secondAttribute="trailing" constant="8" id="8ZL-ye-TMC"/>
                 <constraint firstAttribute="trailing" secondItem="sAF-ok-Vxz" secondAttribute="trailing" constant="20" id="8zg-Us-MVn"/>
+                <constraint firstItem="a9Y-jJ-E1h" firstAttribute="leading" secondItem="sAF-ok-Vxz" secondAttribute="leading" id="ANx-68-Qvl"/>
                 <constraint firstItem="H9Q-8A-xab" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1" secondAttribute="leading" constant="20" id="Aey-Uc-l3f"/>
                 <constraint firstItem="99" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="B67-9c-2t5"/>
                 <constraint firstItem="PH3-Cb-12g" firstAttribute="top" secondItem="76" secondAttribute="bottom" constant="12" id="BiT-EG-tlD"/>
@@ -746,12 +757,13 @@
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pBJ-HX-kB3" secondAttribute="trailing" constant="20" id="TAP-6o-GYN"/>
                 <constraint firstItem="93" firstAttribute="top" secondItem="99" secondAttribute="bottom" constant="3" id="UzH-yq-ugW"/>
                 <constraint firstItem="6DQ-Jd-s1A" firstAttribute="top" secondItem="eiE-cV-UEx" secondAttribute="bottom" constant="12" id="WIg-tW-xJC"/>
-                <constraint firstAttribute="trailing" secondItem="292" secondAttribute="trailing" constant="20" id="XB8-Fd-3pG"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="292" secondAttribute="trailing" constant="20" symbolic="YES" id="XB8-Fd-3pG"/>
                 <constraint firstItem="99" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" symbolic="YES" id="YBR-Jg-vBr"/>
                 <constraint firstItem="292" firstAttribute="leading" secondItem="13" secondAttribute="leading" id="YTS-ap-HKP"/>
                 <constraint firstAttribute="bottom" secondItem="SZK-Aw-k1e" secondAttribute="bottom" constant="10" id="ZeZ-jd-zYA"/>
                 <constraint firstItem="32" firstAttribute="top" secondItem="sAF-ok-Vxz" secondAttribute="bottom" constant="8" id="Zj8-Zo-RB1"/>
                 <constraint firstItem="6DQ-Jd-s1A" firstAttribute="leading" secondItem="H9Q-8A-xab" secondAttribute="trailing" constant="8" id="a59-5o-jPf"/>
+                <constraint firstAttribute="trailing" secondItem="a9Y-jJ-E1h" secondAttribute="trailing" constant="82" id="ahO-eo-ggd"/>
                 <constraint firstItem="32" firstAttribute="leading" secondItem="eiE-cV-UEx" secondAttribute="leading" id="aoC-ev-9pd"/>
                 <constraint firstItem="sAF-ok-Vxz" firstAttribute="leading" secondItem="22" secondAttribute="trailing" constant="8" id="fHE-gp-V2w"/>
                 <constraint firstItem="22" firstAttribute="baseline" secondItem="13" secondAttribute="baseline" id="h4Z-ug-OAG"/>
@@ -764,6 +776,7 @@
                 <constraint firstItem="3me-3D-EEp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1" secondAttribute="leading" constant="20" id="pX3-D8-zxw"/>
                 <constraint firstItem="292" firstAttribute="top" secondItem="PH3-Cb-12g" secondAttribute="bottom" constant="12" id="t69-xy-fA4"/>
                 <constraint firstItem="sAF-ok-Vxz" firstAttribute="baseline" secondItem="22" secondAttribute="baseline" id="tEx-QM-hJk"/>
+                <constraint firstItem="a9Y-jJ-E1h" firstAttribute="baseline" secondItem="PH3-Cb-12g" secondAttribute="baseline" id="uD7-Vw-TBg"/>
                 <constraint firstItem="76" firstAttribute="leading" secondItem="292" secondAttribute="leading" id="uck-h5-6Ic"/>
             </constraints>
         </customView>

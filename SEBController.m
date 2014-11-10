@@ -318,8 +318,13 @@ bool insideMatrix();
 #endif
     
     if (_cmdShiftDown) {
-        quittingMyself = TRUE; //SEB is terminating itself
-        [NSApp terminate: nil]; //quit SEB
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAppSwitcherCheck"]) {
+            DDLogError(@"Command - Shift is pressed and forbidden, SEB will quit! (modifierFlags: %d)", modifierFlags);
+            quittingMyself = TRUE; //SEB is terminating itself
+            [NSApp terminate: nil]; //quit SEB
+        } else {
+            DDLogWarn(@"Command - Shift is pressed, but not forbidden in current settings (modifierFlags: %d)", modifierFlags);
+        }
     }
     
     // Switch to kiosk mode by setting the proper presentation options
@@ -603,13 +608,14 @@ bool insideMatrix();
     int modifierFlags = [NSEvent modifierFlags];
     _cmdShiftDown = (0 != (modifierFlags & (NSCommandKeyMask | NSShiftKeyMask)) );
     
-#ifdef DEBUG
-    NSLog(@"Command - Shift is pressed: %hhd, modifierFlags: %d", _cmdShiftDown, modifierFlags);
-#endif
-    
     if (_cmdShiftDown) {
-        quittingMyself = TRUE; //SEB is terminating itself
-        [NSApp terminate: nil]; //quit SEB
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAppSwitcherCheck"]) {
+            DDLogError(@"Command - Shift is pressed and forbidden, SEB will quit! (modifierFlags: %d)", modifierFlags);
+            quittingMyself = TRUE; //SEB is terminating itself
+            [NSApp terminate: nil]; //quit SEB
+        } else {
+            DDLogWarn(@"Command - Shift is pressed, but not forbidden in current settings (modifierFlags: %d)", modifierFlags);
+        }
     }
     
     // Reinforce the kiosk mode

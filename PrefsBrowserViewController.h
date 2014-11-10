@@ -36,7 +36,6 @@
 // Settings for using third party applications together with SEB
 
 #import <Cocoa/Cocoa.h>
-//#import <WebKit/WebKit.h>
 #import "MBPreferencesController.h"
 
 

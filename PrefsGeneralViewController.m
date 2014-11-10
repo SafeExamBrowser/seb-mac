@@ -118,20 +118,27 @@
 - (void)willBeDisplayed
 {
     [self loadPasswords:self];
+    _wasLoaded = YES;
 }
 
 
 // Method invoked when switching from this one to another tab
 - (void)willBeHidden
 {
-    [self savePasswords:self];
+    if (_wasLoaded) {
+        [self savePasswords:self];
+        _wasLoaded = NO;
+    }
 }
 
 
 - (void)windowWillClose:(NSNotification *)notification
 {
     if ([[MBPreferencesController sharedController].window isVisible]) {
-        [self savePasswords:self];	//save admin and quit passwords
+        if (_wasLoaded) {
+            [self savePasswords:self];	//save admin and quit passwords
+            _wasLoaded = NO;
+        }
     }
     // Unbind all programmatically set bindings
 //    NSButton *closeButton = [[MBPreferencesController sharedController].window standardWindowButton:NSWindowCloseButton];

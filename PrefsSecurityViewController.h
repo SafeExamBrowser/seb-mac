@@ -39,10 +39,6 @@
 
 @interface PrefsSecurityViewController : NSViewController <MBPreferencesModule> {
 
-    //IBOutlet NSButton *allowThirdPartyApps;
-    //NSButton *allowDownUploads;
-    //IBOutlet NSPopUpButton *downloadPath;
-    //IBOutlet NSButton *openDownloads;
     IBOutlet NSPopUpButton *chooseLogLevelControl;
     IBOutlet NSPopUpButton *chooseLogDirectoryControl;
     IBOutlet NSButton *selectStandardDirectoryButton;

@@ -156,7 +156,7 @@
         // Write values from .seb config file to the local preferences (shared UserDefaults)
         [self storeIntoUserDefaults:sebPreferencesDict];
         
-        DDLogDebug(@"Private preferences set: %@", privatePreferences);
+        NSLog(@"%s, Private preferences set: %@", __FUNCTION__, privatePreferences);
 
         if (forEditing == NO) {
             // if not editing reset credentials

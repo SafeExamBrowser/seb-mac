@@ -65,6 +65,9 @@
     
 	IBOutlet NSObjectController *controller;
 	MyGlobals *myGlobals;
+    
+    @private
+    BOOL _wasLoaded;
 }
 
 @property (weak, nonatomic) PreferencesController *preferencesController;
@@ -75,9 +78,6 @@
 
 - (NSString*) compareAdminPasswords;
 - (NSString*) compareQuitPasswords;
-
-//- (void) loadPasswords:(id)sender;
-//- (void) savePasswords:(id)sender;
 
 - (IBAction) pasteSavedStringFromPasteboard:(id)sender;
 - (IBAction) restartSEB:(id)sender;
