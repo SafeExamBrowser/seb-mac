@@ -61,7 +61,7 @@
 @class SEBSystemManager;
 @class SEBDockController;
 @class SEBBrowserController;
-//@class DDFileLogger;
+
 
 @interface SEBController : NSObject <NSApplicationDelegate> {
 	
@@ -72,10 +72,11 @@
     BOOL quittingMyself;
 
 	IBOutlet AboutWindow *aboutWindow;
+    IBOutlet NSWindow *cmdKeyAlertWindow;
     IBOutlet NSMenuItem *configMenu;
     IBOutlet NSMenu *settingsMenu;
     IBOutlet NSView *passwordView;
-	//IBOutlet NSSecureTextField *enterPassword;
+
     IBOutlet NSWindow *enterPasswordDialogWindow;
     IBOutlet NSTextField *enterPasswordDialog;
     	
@@ -83,18 +84,19 @@
 	IOPMAssertionID assertionID2;
     
     @private
-    BOOL _cmdShiftDown;
+    BOOL _cmdKeyDown;
     DDFileLogger *_myLogger;
+    BOOL _forceAppFolder;
 }
 
 - (void) closeAboutWindow;
-- (void) closeDocument: (id)sender;
+- (void) closeDocument:(id)sender;
 - (void) coverScreens;
-- (void) adjustScreenLocking: (id)sender;
+- (void) adjustScreenLocking:(id)sender;
 - (void) startTask;
 - (void) terminateScreencapture;
-- (void) regainActiveStatus: (id)sender;
-- (void) SEBgotActive: (id)sender;
+- (void) regainActiveStatus:(id)sender;
+- (void) SEBgotActive:(id)sender;
 - (void) startKioskMode;
 
 - (NSInteger) showEnterPasswordDialog:(NSString *)text modalForWindow:(NSWindow *)window windowTitle:(NSString *)title;
@@ -105,8 +107,8 @@
 - (void) requestedQuitWPwd:(id)sender;
 
 - (IBAction) openPreferences:(id)sender;
-- (IBAction) showAbout: (id)sender;
-- (IBAction) showHelp: (id)sender;
+- (IBAction) showAbout:(id)sender;
+- (IBAction) showHelp:(id)sender;
 
 - (void) requestedRestart:(NSNotification *)notification;
 

@@ -212,9 +212,19 @@ bool insideMatrix();
         // Regardless if switching to third party applications is allowed in current settings,
         // we need to first open the background cover windows with standard window levels
         [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
-        //    [self setElevateWindowLevels];
     }
     return self;
+}
+
+
+- (BOOL) isInApplicationsFolder:(NSString *)path
+{
+    // Check all the normal Application directories
+    NSArray *applicationDirs = NSSearchPathForDirectoriesInDomains(NSApplicationDirectory, NSAllDomainsMask, YES);
+    for (NSString *appDir in applicationDirs) {
+        if ([path hasPrefix:appDir]) return YES;
+    }
+    return NO;
 }
 
 
@@ -309,21 +319,34 @@ bool insideMatrix();
     // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
 	[self coverScreens];
 
-    // Check for cmd-shift hold down
+    
+    // Check if launched SEB is placed ("installed") in an Applications folder
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *currentSEBBundlePath =[[NSBundle mainBundle] bundlePath];
+    DDLogDebug(@"SEB was started up from this path: %@", currentSEBBundlePath);
+    if (![self isInApplicationsFolder:currentSEBBundlePath])
+    {
+        // Has SEB to be installed in an Applications folder?
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_forceAppFolderInstall"]) {
+            DDLogError(@"Current settings demand SEB to be installed in an Applications folder but it isn't, SEB will therefore quit!");
+            _forceAppFolder = YES;
+            quittingMyself = TRUE; //SEB is terminating itself
+            [NSApp terminate: nil]; //quit SEB
+        }
+    } else {
+        DDLogWarn(@"SEB was not started up from an Applications folder!");
+    }
+
+    // Check for command key being held down
     int modifierFlags = [NSEvent modifierFlags];
-    _cmdShiftDown = (0 != (modifierFlags & (NSCommandKeyMask | NSShiftKeyMask)) );
-    
-#ifdef DEBUG
-    NSLog(@"Command - Shift is pressed: %hhd, modifierFlags: %d", _cmdShiftDown, modifierFlags);
-#endif
-    
-    if (_cmdShiftDown) {
+    _cmdKeyDown = (0 != (modifierFlags & NSCommandKeyMask));
+    if (_cmdKeyDown) {
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAppSwitcherCheck"]) {
-            DDLogError(@"Command - Shift is pressed and forbidden, SEB will quit! (modifierFlags: %d)", modifierFlags);
+            DDLogError(@"Command key is pressed and forbidden, SEB will quit!");
             quittingMyself = TRUE; //SEB is terminating itself
             [NSApp terminate: nil]; //quit SEB
         } else {
-            DDLogWarn(@"Command - Shift is pressed, but not forbidden in current settings (modifierFlags: %d)", modifierFlags);
+            DDLogWarn(@"Command key is pressed, but not forbidden in current settings");
         }
     }
     
@@ -603,18 +626,17 @@ bool insideMatrix();
 #ifdef DEBUG
     NSLog(@"Performing after start actions");
 #endif
-
+    
     // Check for cmd-shift hold down
     int modifierFlags = [NSEvent modifierFlags];
-    _cmdShiftDown = (0 != (modifierFlags & (NSCommandKeyMask | NSShiftKeyMask)) );
-    
-    if (_cmdShiftDown) {
+    _cmdKeyDown = (0 != (modifierFlags & NSCommandKeyMask));
+    if (_cmdKeyDown) {
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAppSwitcherCheck"]) {
-            DDLogError(@"Command - Shift is pressed and forbidden, SEB will quit! (modifierFlags: %d)", modifierFlags);
+            DDLogError(@"Command key is pressed and forbidden, SEB will quit!");
             quittingMyself = TRUE; //SEB is terminating itself
             [NSApp terminate: nil]; //quit SEB
         } else {
-            DDLogWarn(@"Command - Shift is pressed, but not forbidden in current settings (modifierFlags: %d)", modifierFlags);
+            DDLogWarn(@"Command key is pressed, but not forbidden in current settings");
         }
     }
     
@@ -1479,12 +1501,12 @@ bool insideMatrix(){
     return;
 }*/
 
-- (void)requestedShowAbout:(NSNotification *)notification
+- (void) requestedShowAbout:(NSNotification *)notification
 {
     [self showAbout:self];
 }
 
-- (IBAction)showAbout: (id)sender
+- (IBAction)showAbout:(id)sender
 {
     [aboutWindow setStyleMask:NSBorderlessWindowMask];
 	[aboutWindow center];
@@ -1494,12 +1516,12 @@ bool insideMatrix(){
 }
 
 
-- (void)requestedShowHelp:(NSNotification *)notification
+- (void) requestedShowHelp:(NSNotification *)notification
 {
     [self showHelp:self];
 }
 
-- (IBAction)showHelp: (id)sender
+- (IBAction) showHelp: (id)sender
 {
     // Load manual page URL into browser window
     NSString *urlText = @"http://www.safeexambrowser.org/macosx";
@@ -1508,12 +1530,12 @@ bool insideMatrix(){
 }
 
 
-- (void)closeDocument:(id) document
+- (void) closeDocument:(id)document
 {
     [document close];
 }
 
-- (void)switchPluginsOn:(NSNotification *)notification
+- (void) switchPluginsOn:(NSNotification *)notification
 {
 #ifndef __i386__        // Plugins can't be switched on in the 32-bit Intel build
     [[self.webView preferences] setPlugInsEnabled:YES];
@@ -1524,7 +1546,7 @@ bool insideMatrix(){
 #pragma mark Delegates
 
 // Called when SEB should be terminated
-- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
+- (NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender {
 	if (quittingMyself) {
 		return NSTerminateNow; //SEB wants to quit, ok, so it should happen
 	} else { //SEB should be terminated externally(!)
@@ -1534,13 +1556,37 @@ bool insideMatrix(){
 
 
 // Called just before SEB will be terminated
-- (void)applicationWillTerminate:(NSNotification *)aNotification {
-  
-    if (_cmdShiftDown) {
+- (void) applicationWillTerminate:(NSNotification *)aNotification
+{
+    if (_forceAppFolder) {
+        // Show alert that SEB is not placed in Applications folder
+        NSString *applicationsDirectoryName = @"Applications";
+        NSString *localizedApplicationDirectoryName = [[NSFileManager defaultManager] displayNameAtPath:NSSearchPathForDirectoriesInDomains(NSApplicationDirectory, NSLocalDomainMask, YES).lastObject];
+        NSString *localizedAndInternalApplicationDirectoryName;
+        if ([localizedApplicationDirectoryName isEqualToString:applicationsDirectoryName]) {
+            // System language is English or the Applications folder is named identically in user's current language
+            localizedAndInternalApplicationDirectoryName = applicationsDirectoryName;
+        } else {
+            NSBundle *preferredLanguageBundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:[[NSLocale preferredLanguages] objectAtIndex:0] ofType:@"lproj"]];
+            if (preferredLanguageBundle) {
+                localizedAndInternalApplicationDirectoryName = [NSString stringWithFormat:@"%@ (\"%@\")", localizedApplicationDirectoryName, applicationsDirectoryName];
+            } else {
+                // User selected language is one which SEB doesn't support
+                localizedAndInternalApplicationDirectoryName = [NSString stringWithFormat:@"%@ (\"%@\")", applicationsDirectoryName, localizedApplicationDirectoryName];
+                localizedApplicationDirectoryName = applicationsDirectoryName;
+            }
+        }
+        NSAlert *newAlert = [[NSAlert alloc] init];
+        [newAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"SEB Not in %@ Folder!", nil), localizedApplicationDirectoryName]];
+        [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"SEB has to be placed in the %@ folder for all features working correctly. Move the \"Safe Exam Browser\" app to your %@ folder and make sure that you don't have any other versions of SEB installed on your system. SEB will quit now.", nil), localizedApplicationDirectoryName, localizedAndInternalApplicationDirectoryName]];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [newAlert setAlertStyle:NSCriticalAlertStyle];
+        [newAlert runModal];
+    } else if (_cmdKeyDown) {
         // Show alert that keys were hold while starting SEB
         NSAlert *newAlert = [[NSAlert alloc] init];
-        [newAlert setMessageText:NSLocalizedString(@"Holding Keys Not Allowed!", nil)];
-        [newAlert setInformativeText:NSLocalizedString(@"Holding keys pressed on the keyboard while starting SEB is not allowed. Restart SEB without holding any keys.", nil)];
+        [newAlert setMessageText:NSLocalizedString(@"Holding Command Key Not Allowed!", nil)];
+        [newAlert setInformativeText:NSLocalizedString(@"Holding the Command key down while starting SEB is not allowed. Restart SEB without holding any keys.", nil)];
         [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
         [newAlert setAlertStyle:NSCriticalAlertStyle];
         [newAlert runModal];
@@ -1593,7 +1639,7 @@ bool insideMatrix(){
 
 
 // Prevent an untitled document to be opened at application launch
-- (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender {
+- (BOOL) applicationShouldOpenUntitledFile:(NSApplication *)sender {
 #ifdef DEBUG
     NSLog(@"Invoked applicationShouldOpenUntitledFile with answer NO!");
 #endif
@@ -1614,7 +1660,7 @@ bool insideMatrix(){
 
 
 // Called when currentPresentationOptions change
-- (void)observeValueForKeyPath:(NSString *)keyPath
+- (void) observeValueForKeyPath:(NSString *)keyPath
 					  ofObject:id
                         change:(NSDictionary *)change
                        context:(void *)context
