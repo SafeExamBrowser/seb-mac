@@ -1404,6 +1404,19 @@ bool insideMatrix(){
     NSLog(@"Requested Restart");
 #endif
     
+    // Check if launched SEB is placed ("installed") in an Applications folder
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *currentSEBBundlePath =[[NSBundle mainBundle] bundlePath];
+    if (![self isInApplicationsFolder:currentSEBBundlePath]) {
+        // Has SEB to be installed in an Applications folder?
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_forceAppFolderInstall"]) {
+            DDLogError(@"Current settings require SEB to be installed in an Applications folder, but it isn't! SEB will therefore quit!");
+            _forceAppFolder = YES;
+            quittingMyself = TRUE; //SEB is terminating itself
+            [NSApp terminate: nil]; //quit SEB
+        }
+    }
+    
     // Adjust screen shot blocking
     [self.systemManager adjustSC];
     
