@@ -334,9 +334,7 @@
 
 // Action for the Help button in preferences
 - (IBAction) showHelp:(id)sender {
-//    // Order preferences window above other windows
-//    [[MBPreferencesController sharedController].window newSetLevel:NSModalPanelWindowLevel];
-    // Load manual page URL into browser window
+    // Open manual page URL in a new browser window
 	[[NSNotificationCenter defaultCenter]
      postNotificationName:@"requestShowHelpNotification" object:self];
 }
