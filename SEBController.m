@@ -324,17 +324,16 @@ bool insideMatrix();
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *currentSEBBundlePath =[[NSBundle mainBundle] bundlePath];
     DDLogDebug(@"SEB was started up from this path: %@", currentSEBBundlePath);
-    if (![self isInApplicationsFolder:currentSEBBundlePath])
-    {
+    if (![self isInApplicationsFolder:currentSEBBundlePath]) {
         // Has SEB to be installed in an Applications folder?
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_forceAppFolderInstall"]) {
-            DDLogError(@"Current settings demand SEB to be installed in an Applications folder but it isn't, SEB will therefore quit!");
+            DDLogError(@"Current settings require SEB to be installed in an Applications folder, but it isn't! SEB will therefore quit!");
             _forceAppFolder = YES;
             quittingMyself = TRUE; //SEB is terminating itself
             [NSApp terminate: nil]; //quit SEB
         }
     } else {
-        DDLogWarn(@"SEB was not started up from an Applications folder!");
+        DDLogInfo(@"SEB was started up from an Applications folder.");
     }
 
     // Check for command key being held down
@@ -1146,9 +1145,7 @@ bool insideMatrix(){
         NSLog(@"SEBController openSEBDock: dock enabled");
 #endif
         // Initialize the Dock
-        if (!self.dockController) {
-            self.dockController = [[SEBDockController alloc] init];
-        }
+        self.dockController = [[SEBDockController alloc] init];
         
         SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:@"Safe Exam Browser"
                                                                  icon:[NSApp applicationIconImage]
@@ -1179,6 +1176,7 @@ bool insideMatrix(){
 #endif
         if (self.dockController) {
             [self.dockController hideDock];
+            self.dockController = nil;
         }
     }
 }
