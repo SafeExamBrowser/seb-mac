@@ -334,15 +334,11 @@
 
 // Action for the Help button in preferences
 - (IBAction) showHelp:(id)sender {
-    [self savePasswords:self];	//save preferences
-    //stop the preferences window to be modal, so help page can be viewed properly
-    [[NSApplication sharedApplication] stopModal];
-    //but put it again above other windows
-    [[MBPreferencesController sharedController].window newSetLevel:NSModalPanelWindowLevel];
+//    // Order preferences window above other windows
+//    [[MBPreferencesController sharedController].window newSetLevel:NSModalPanelWindowLevel];
     // Load manual page URL into browser window
 	[[NSNotificationCenter defaultCenter]
      postNotificationName:@"requestShowHelpNotification" object:self];
-    
 }
 
 
