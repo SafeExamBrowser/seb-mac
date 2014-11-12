@@ -1272,8 +1272,14 @@ bool insideMatrix(){
                 case NSAlertDefaultReturn:
                     return; //Cancel: don't quit
                 default:
-					quittingMyself = TRUE; //SEB is terminating itself
-                    [NSApp terminate: nil]; //quit SEB
+                {
+                    if ([self.preferencesController preferencesAreOpen]) {
+                        [self.preferencesController quitSEB:self];
+                    } else {
+                        quittingMyself = TRUE; //SEB is terminating itself
+                        [NSApp terminate: nil]; //quit SEB
+                    }
+                }
             }
         }
     } 
@@ -1385,8 +1391,14 @@ bool insideMatrix(){
         case NSAlertDefaultReturn:
             return; //Cancel: don't quit
         default:
-            quittingMyself = TRUE; //SEB is terminating itself
-            [NSApp terminate: nil]; //quit SEB
+        {
+            if ([self.preferencesController preferencesAreOpen]) {
+                [self.preferencesController quitSEB:self];
+            } else {
+                quittingMyself = TRUE; //SEB is terminating itself
+                [NSApp terminate: nil]; //quit SEB
+            }
+        }
     }
 }
 
