@@ -367,14 +367,14 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy);
  * and also provides methods to get and set their log level during run time.
  **/
 
-+ (NSArray *)registeredClasses;
-+ (NSArray *)registeredClassNames;
-
-+ (DDLogLevel)logLevelForClass:(Class)aClass;
-+ (DDLogLevel)logLevelForClassWithName:(NSString *)aClassName;
-
-+ (void)setLogLevel:(DDLogLevel)logLevel forClass:(Class)aClass;
-+ (void)setLogLevel:(DDLogLevel)logLevel forClassWithName:(NSString *)aClassName;
+//+ (NSArray *)registeredClasses;
+//+ (NSArray *)registeredClassNames;
+//
+//+ (DDLogLevel)logLevelForClass:(Class)aClass;
+//+ (DDLogLevel)logLevelForClassWithName:(NSString *)aClassName;
+//
+//+ (void)setLogLevel:(DDLogLevel)logLevel forClass:(Class)aClass;
+//+ (void)setLogLevel:(DDLogLevel)logLevel forClassWithName:(NSString *)aClassName;
 
 @end
 

@@ -104,6 +104,10 @@
 
 // Get dictionary representation of all SEB user defaults
 - (NSDictionary *)dictionaryRepresentationSEB;
+
+// Filter UserDefaults so only org_safeexambrowser_SEB_ keys are included in the returned NSSet
+- (NSSet *) sebKeysSet;
+
 // Store settings dictionary into UserDefaults
 - (void)storeSEBDictionary:(NSDictionary *)sebPreferencesDict;
 // Write SEB default values to local preferences
@@ -111,8 +115,6 @@
 
 - (NSString *)prefixKey:(NSString *)key;
 
-// Get dictionary of all SEB settings (also local UI client settings)
-- (NSDictionary *)dictionarySEBUserDefaults;
 - (void)resetSEBUserDefaults;
 // Helper Method to get SEB's NSRegistrationDomain and application domain UserDefaults
 - (NSDictionary *)getSEBUserDefaultsDomains;

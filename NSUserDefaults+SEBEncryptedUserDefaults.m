@@ -65,17 +65,17 @@
 @implementation NSUserDefaults (SEBEncryptedUserDefaults)
 
 
-static NSMutableDictionary *localUserDefaults;
+static NSMutableDictionary *privateUserDefaults;
 static NSMutableDictionary *_cachedUserDefaults;
 static BOOL _usePrivateUserDefaults = NO;
 static NSNumber *_logLevel;
 
 + (NSMutableDictionary *)privateUserDefaults
 {
-    if (!localUserDefaults) {
-        localUserDefaults = [NSMutableDictionary dictionaryWithCapacity:21];
+    if (!privateUserDefaults) {
+        privateUserDefaults = [NSMutableDictionary dictionaryWithCapacity:108];
     }
-    return localUserDefaults;
+    return privateUserDefaults;
 }
 
 + (void)setupPrivateUserDefaults
@@ -88,10 +88,10 @@ static NSNumber *_logLevel;
 
 
 // Set user defaults to be stored privately in memory instead of StandardUserDefaults
-+ (void)setUserDefaultsPrivate:(BOOL)privateUserDefaults
++ (void)setUserDefaultsPrivate:(BOOL)usePrivateUserDefaults
 {
-    if (privateUserDefaults != _usePrivateUserDefaults) {
-        _usePrivateUserDefaults = privateUserDefaults;
+    if (usePrivateUserDefaults != _usePrivateUserDefaults) {
+        _usePrivateUserDefaults = usePrivateUserDefaults;
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         [preferences synchronize];
 
@@ -99,7 +99,7 @@ static NSNumber *_logLevel;
         _cachedUserDefaults = [NSMutableDictionary new];
     }
 
-    DDLogDebug(@"SetUserDefaultsPrivate: %@, localUserDefaults: %@",[NSNumber numberWithBool:_usePrivateUserDefaults], localUserDefaults);
+    DDLogDebug(@"SetUserDefaultsPrivate: %@, localUserDefaults: %@",[NSNumber numberWithBool:_usePrivateUserDefaults], privateUserDefaults);
 
 }
 
@@ -520,14 +520,7 @@ static NSNumber *_logLevel;
     
     // Remove prefix "org_safeexambrowser_SEB_" from keys
     for (NSString *key in filteredPrefsSet) {
-//        if ([key isEqualToString:@"org_safeexambrowser_SEB_downloadDirectoryOSX"]) {
-//            NSString *downloadPath = [preferences secureStringForKey:key];
-//            // generate a path with a tilde (~) substituted for the full path to the current user’s home directory
-//            // so that the path is portable to SEB clients with other user's home directories
-//            downloadPath = [downloadPath stringByAbbreviatingWithTildeInPath];
-//            [filteredPrefsDict setObject:downloadPath forKey:[key substringFromIndex:24]];
-//        } else {
-            id value = [self secureObjectForKey:key];
+        id value = [self secureObjectForKey:key];
         if (value) {
             [filteredPrefsDict setObject:value forKey:[key substringFromIndex:24]];
         } else {
@@ -593,7 +586,6 @@ static NSNumber *_logLevel;
                         break;
                 }
             }
-            
         } else {
             // other values can be saved into shared NSUserDefaults
             [self setSecureObject:value forKey:keyWithPrefix];
@@ -629,26 +621,7 @@ static NSNumber *_logLevel;
 }
 
 
-
-// Get dictionary of all SEB settings (also local UI client settings)
-- (NSDictionary *)dictionarySEBUserDefaults
-{
-    // Copy all UserDefaults in SEB's domain to a dictionary
-    NSDictionary *prefsDict = [self getSEBUserDefaultsDomains];
-    
-    // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
-    NSSet *filteredPrefsSet = [prefsDict keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop)
-                               {
-                                   if ([key hasPrefix:@"org_safeexambrowser_"])
-                                       return YES;
-                                   
-                                   else return NO;
-                               }];
-    NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:[filteredPrefsSet count]];
-    return filteredPrefsDict;
-}
-
-
+// Remove all SEB key/values from local client UserDefaults
 - (void)resetSEBUserDefaults
 {
     // Copy preferences to a dictionary
@@ -668,21 +641,27 @@ static NSNumber *_logLevel;
 
 - (NSDictionary *)getSEBUserDefaultsDomains
 {
-    // Copy preferences to a dictionary
-	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    [preferences synchronize];
-    NSDictionary *prefsDict;
-    
-//    // Get CFBundleIdentifier of the application
-//    NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
-//    NSString *bundleId = [bundleInfo objectForKey: @"CFBundleIdentifier"];
-    
-    // Include UserDefaults from NSRegistrationDomain and application domain
-    NSUserDefaults *appUserDefaults = [[NSUserDefaults alloc] init];
-    [appUserDefaults addSuiteNamed:@"NSRegistrationDomain"];
-//    [appUserDefaults addSuiteNamed: bundleId];
-    prefsDict = [appUserDefaults dictionaryRepresentation];
-    return prefsDict;
+    if (_usePrivateUserDefaults) {
+        /// Private UserDefaults are used
+        return [privateUserDefaults copy];
+    } else {
+        /// Local UserDefaults are used
+        // Copy preferences to a dictionary
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        [preferences synchronize];
+        NSDictionary *prefsDict;
+        
+        //    // Get CFBundleIdentifier of the application
+        //    NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
+        //    NSString *bundleId = [bundleInfo objectForKey: @"CFBundleIdentifier"];
+        
+        // Include UserDefaults from NSRegistrationDomain and application domain
+        NSUserDefaults *appUserDefaults = [[NSUserDefaults alloc] init];
+        [appUserDefaults addSuiteNamed:@"NSRegistrationDomain"];
+        //    [appUserDefaults addSuiteNamed: bundleId];
+        prefsDict = [appUserDefaults dictionaryRepresentation];
+        return prefsDict;
+    }
 }
 
 
@@ -855,11 +834,11 @@ static NSNumber *_logLevel;
 
     if (_usePrivateUserDefaults) {
         if (value == nil) value = [NSNull null];
-        [localUserDefaults setValue:value forKey:key];
+        [privateUserDefaults setValue:value forKey:key];
         //NSString *keypath = [NSString stringWithFormat:@"values.%@", key];
         //[[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController] setValue:value forKeyPath:keypath];
 
-        DDLogDebug(@"[localUserDefaults setObject:%@ forKey:%@]", [localUserDefaults valueForKey:key], key);
+        DDLogDebug(@"[localUserDefaults setObject:%@ forKey:%@]", [privateUserDefaults valueForKey:key], key);
 
     } else {
         if (value == nil || key == nil) {
@@ -1002,9 +981,9 @@ static NSNumber *_logLevel;
 {
     if (_usePrivateUserDefaults) {
 
-        DDLogDebug(@"[localUserDefaults objectForKey:%@] = %@", key, [localUserDefaults valueForKey:key]);
+        DDLogDebug(@"[localUserDefaults objectForKey:%@] = %@", key, [privateUserDefaults valueForKey:key]);
 
-        return [localUserDefaults valueForKey:key];
+        return [privateUserDefaults valueForKey:key];
         //NSString *keypath = [NSString stringWithFormat:@"values.%@", key];
         //return [[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController] valueForKeyPath:keypath];
     } else {

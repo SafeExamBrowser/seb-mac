@@ -203,18 +203,9 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 
         DDLogInfo(@"Generated Browser Exam Key salt as there was none defined yet.");
     }
-
-    // Copy preferences to a dictionary
-    NSDictionary *prefsDict = [preferences getSEBUserDefaultsDomains];
         
     // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
-    NSSet *filteredPrefsSet = [prefsDict keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop)
-                               {
-                                   if ([key hasPrefix:@"org_safeexambrowser_SEB_"])
-                                       return YES;
-                                   
-                                   else return NO;
-                               }];
+    NSSet *filteredPrefsSet = [preferences sebKeysSet];
     NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:[filteredPrefsSet count]];
 
     // get default settings

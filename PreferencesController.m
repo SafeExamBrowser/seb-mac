@@ -917,6 +917,7 @@
                     
                     [self.configFileManager storeIntoUserDefaults:localClientPreferences];
                     DDLogDebug(@"Private preferences set: %@", privatePreferences);
+                    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
 
                     // Re-initialize and open preferences window
                     [self initPreferencesWindow];
