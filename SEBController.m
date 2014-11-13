@@ -1441,6 +1441,21 @@ bool insideMatrix(){
     // Re-Initialize file logger if logging enabled
     [self initializeLogger];
     
+    // Check for command key being held down
+    int modifierFlags = [NSEvent modifierFlags];
+    _cmdKeyDown = (0 != (modifierFlags & NSCommandKeyMask));
+    if (_cmdKeyDown) {
+        // Show alert that keys were hold while starting SEB
+        DDLogWarn(@"Command key is pressed while restarting SEB, show dialog asking to release it.");
+        NSAlert *newAlert = [[NSAlert alloc] init];
+        [newAlert setMessageText:NSLocalizedString(@"Holding Command Key Not Allowed!", nil)];
+        [newAlert setInformativeText:NSLocalizedString(@"Holding the Command key down while restarting SEB is not allowed.", nil)];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [newAlert setAlertStyle:NSCriticalAlertStyle];
+        [newAlert runModal];
+        _cmdKeyDown = NO;
+    }
+    
     // Set kiosk/presentation mode in case it changed
     [self startKioskMode];
     
