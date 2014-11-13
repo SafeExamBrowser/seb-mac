@@ -634,6 +634,10 @@ static NSNumber *_logLevel;
             [preferences removeObjectForKey:key];
         }
     }
+    // Update Exam Settings Key
+    [_cachedUserDefaults removeAllObjects];
+    [[SEBCryptor sharedSEBCryptor] updateExamSettingsKey:_cachedUserDefaults];
+
 //    prefsDict = [self getSEBUserDefaultsDomains];
 //    DDLogDebug(@"SEB UserDefaults domains after resetSEBUserDefaults: %@", prefsDict);
 }

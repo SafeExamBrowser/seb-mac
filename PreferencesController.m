@@ -989,6 +989,17 @@
         // Release preferences window so bindings get synchronized properly with the new loaded values
         [self releasePreferencesWindow];
     }
+
+    // Reset UserDefaults (remove all SEB key/values)
+//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+//    NSDictionary *prefsDict = [preferences getSEBUserDefaultsDomains];
+//    
+//    // Remove all values for keys with prefix "org_safeexambrowser_" besides the exam settings key
+//    for (NSString *key in prefsDict) {
+//        if ([key hasPrefix:@"org_safeexambrowser_"] && ![key isEqualToString:@"org_safeexambrowser_currentData1"]) {
+//            [preferences removeObjectForKey:key];
+//        }
+//    }
     
     // Write just default SEB settings to UserDefaults
     NSDictionary *emptySettings = [NSDictionary dictionary];
