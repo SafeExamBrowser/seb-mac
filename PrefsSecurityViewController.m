@@ -90,15 +90,21 @@
 	//NSMenuItem *downloadDirectory = [[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""];
     NSString *logPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
     if (logPath.length == 0) {
-        //if there's no path saved in preferences, set standard path
-        logPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-        [preferences setSecureObject:logPath forKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
-    }    
-    // display the download directory path in the menu
-    [logDirectory setTitle:[[NSFileManager defaultManager] displayNameAtPath:logPath]];
-    NSImage *logFolderIcon = [[NSWorkspace sharedWorkspace] iconForFile:logPath];
-    [logFolderIcon setSize:NSMakeSize(16, 16)];
-    [logDirectory setImage:logFolderIcon];
+        //if there's no path saved in preferences, set empty image for folder icon
+        // Clear log directory path in menu
+        [logDirectory setTitle:@""];
+        [logDirectory setImage:nil];
+        selectStandardDirectoryButton.state = NSOnState;
+        chooseLogDirectoryControl.enabled = NO;
+    } else {
+        // display the download directory path in the menu
+        [logDirectory setTitle:[[NSFileManager defaultManager] displayNameAtPath:logPath]];
+        NSImage *logFolderIcon = [[NSWorkspace sharedWorkspace] iconForFile:logPath];
+        [logFolderIcon setSize:NSMakeSize(16, 16)];
+        [logDirectory setImage:logFolderIcon];
+        selectStandardDirectoryButton.state = NSOffState;
+        chooseLogDirectoryControl.enabled = YES;
+    }
     [chooseLogDirectoryControl selectItemAtIndex:0];
     [chooseLogDirectoryControl synchronizeTitleAndSelectedItem];
 }
@@ -150,7 +156,7 @@
         [chooseLogDirectoryControl synchronizeTitleAndSelectedItem];
     } else {
         chooseLogDirectoryControl.enabled = YES;
-        [self setLogDirectory];
+        //[self setLogDirectory];
     }
 }
 

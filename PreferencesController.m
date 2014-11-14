@@ -545,8 +545,10 @@
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSData *oldBrowserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
     
+    BOOL browserExamKeyChanged = [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+    
     // If private settings are active, check if those current settings have unsaved changes
-    if (NSUserDefaults.userDefaultsPrivate && [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO]) {
+    if (NSUserDefaults.userDefaultsPrivate && browserExamKeyChanged) {
         // There are unsaved changes
         SEBUnsavedSettingsAnswer answer = [self unsavedSettingsAlertWithText:
                       NSLocalizedString(@"Edited settings have unsaved changes.", nil)];
@@ -570,14 +572,9 @@
                 return;
             }
         }
-        
-    } else if (!NSUserDefaults.userDefaultsPrivate) {
-        
-        // If local settings active: Just re-generate Browser Exam Key
-        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
     }
 
-    // If settings changed:
+    // If settings changed since before opening preferences:
     if ([self settingsChanged]) {
         // Ask if edited settings should be applied or previously active settings restored
         SEBApplySettingsAnswers answer = [self askToApplySettingsAlert];
@@ -644,10 +641,13 @@
 	[self.generalVC windowWillClose:nil];
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSData *oldBrowserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
+    
+    BOOL browserExamKeyChanged = [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
     
     /// If private settings are active, check if those current settings have unsaved changes
-    
-    if (NSUserDefaults.userDefaultsPrivate && [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
+
+    if (NSUserDefaults.userDefaultsPrivate && browserExamKeyChanged) {
         // There are unsaved changes
         SEBUnsavedSettingsAnswer answer = [self unsavedSettingsAlert];
         switch(answer)
@@ -656,7 +656,8 @@
             {
                 // Save the current settings data first (this also updates the Browser Exam Key if saving is successful)
                 if (![self savePrefsAs:NO fileURLUpdate:NO]) {
-                    // Saving failed: Abort quitting
+                    // Saving failed: Abort quitting, restore old Browser Exam Key
+                    [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
                     return;
                 }
                 break;
@@ -664,7 +665,8 @@
                 
             case SEBUnsavedSettingsAnswerCancel:
             {
-                // Cancel: Don't quit
+                // Cancel: Don't quit, restore old Browser Exam Key
+                [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
                 return;
             }
         }

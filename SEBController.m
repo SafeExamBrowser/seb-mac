@@ -327,10 +327,14 @@ bool insideMatrix();
     if (![self isInApplicationsFolder:currentSEBBundlePath]) {
         // Has SEB to be installed in an Applications folder?
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_forceAppFolderInstall"]) {
+#ifndef DEBUG
             DDLogError(@"Current settings require SEB to be installed in an Applications folder, but it isn't! SEB will therefore quit!");
             _forceAppFolder = YES;
             quittingMyself = TRUE; //SEB is terminating itself
             [NSApp terminate: nil]; //quit SEB
+#else
+            DDLogDebug(@"Current settings require SEB to be installed in an Applications folder, but it isn't! SEB would quit if not Debug build.");
+#endif
         }
     } else {
         DDLogInfo(@"SEB was started up from an Applications folder.");
