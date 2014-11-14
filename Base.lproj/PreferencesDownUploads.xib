@@ -141,7 +141,12 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_logDirectoryWin" id="kHs-Vg-Mwc"/>
+                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_logDirectoryWin" id="wQN-pL-8MP">
+                            <dictionary key="options">
+                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                <bool key="NSValidatesImmediately" value="YES"/>
+                            </dictionary>
+                        </binding>
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eP3-ce-aHz">

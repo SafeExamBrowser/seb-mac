@@ -700,7 +700,12 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_logDirectoryWin" id="VLS-IC-WVK"/>
+                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_logDirectoryWin" id="9ZQ-Zu-L3i">
+                            <dictionary key="options">
+                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                <bool key="NSValidatesImmediately" value="YES"/>
+                            </dictionary>
+                        </binding>
                     </connections>
                 </textField>
                 <button toolTip="The log can help debugging SEB (send it to the developers) and to find out about possible manipulations" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="eiE-cV-UEx">

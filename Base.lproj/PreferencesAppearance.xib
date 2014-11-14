@@ -264,12 +264,13 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_showTaskBar" id="t9a-eZ-CdG"/>
-                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_taskBarHeight" id="iGu-2x-4mF">
+                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_taskBarHeight" id="uOf-4w-fbs">
                             <dictionary key="options">
                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                <bool key="NSValidatesImmediately" value="YES"/>
                             </dictionary>
                         </binding>
+                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_showTaskBar" id="t9a-eZ-CdG"/>
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RFK-qQ-lel">
