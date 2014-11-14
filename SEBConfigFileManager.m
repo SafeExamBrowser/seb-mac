@@ -706,6 +706,11 @@
 // from a data byte array which is returned without the stripped prefix
 -(NSData *) getPrefixDataFromData:(NSData **)data withLength:(NSUInteger)prefixLength
 {
+    // Check if data has at least the lenght of the prefix
+    if (prefixLength > [*data length]) {
+        return nil;
+    }
+    
     // Get prefix with indicated length
     NSRange prefixRange = {0, prefixLength};
     NSData *prefixData = [*data subdataWithRange:prefixRange];
