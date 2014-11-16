@@ -194,12 +194,6 @@
 		69CE9C6317378B9A0011609B /* SEBTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CE9C6117378B9A0011609B /* SEBTextField.h */; };
 		69CE9C6417378B9A0011609B /* SEBTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE9C6217378B9A0011609B /* SEBTextField.m */; };
 		69CE9C6517378B9A0011609B /* SEBTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE9C6217378B9A0011609B /* SEBTextField.m */; };
-		69CF8A1416FD0B550096625C /* SEBFilterRuleTableColumn.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CF8A1216FD0B550096625C /* SEBFilterRuleTableColumn.h */; };
-		69CF8A1516FD0B550096625C /* SEBFilterRuleTableColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CF8A1316FD0B550096625C /* SEBFilterRuleTableColumn.m */; };
-		69CF8A1616FD0B550096625C /* SEBFilterRuleTableColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CF8A1316FD0B550096625C /* SEBFilterRuleTableColumn.m */; };
-		69CF8A1916FD1C330096625C /* SEBFilterRuleExpressionTableColumn.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CF8A1716FD1C330096625C /* SEBFilterRuleExpressionTableColumn.h */; };
-		69CF8A1A16FD1C330096625C /* SEBFilterRuleExpressionTableColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CF8A1816FD1C330096625C /* SEBFilterRuleExpressionTableColumn.m */; };
-		69CF8A1B16FD1C330096625C /* SEBFilterRuleExpressionTableColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CF8A1816FD1C330096625C /* SEBFilterRuleExpressionTableColumn.m */; };
 		69D817E518017DDB00EB7885 /* SEBURLFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D817E318017DDB00EB7885 /* SEBURLFilter.h */; };
 		69D817E618017DDB00EB7885 /* SEBURLFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D817E418017DDB00EB7885 /* SEBURLFilter.m */; };
 		69D817E718017DDB00EB7885 /* SEBURLFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D817E418017DDB00EB7885 /* SEBURLFilter.m */; };
@@ -453,10 +447,6 @@
 		69CE9C5C17326AB90011609B /* SEBConfigFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SEBConfigFileManager.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69CE9C6117378B9A0011609B /* SEBTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBTextField.h; sourceTree = "<group>"; };
 		69CE9C6217378B9A0011609B /* SEBTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBTextField.m; sourceTree = "<group>"; };
-		69CF8A1216FD0B550096625C /* SEBFilterRuleTableColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBFilterRuleTableColumn.h; sourceTree = "<group>"; };
-		69CF8A1316FD0B550096625C /* SEBFilterRuleTableColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBFilterRuleTableColumn.m; sourceTree = "<group>"; };
-		69CF8A1716FD1C330096625C /* SEBFilterRuleExpressionTableColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBFilterRuleExpressionTableColumn.h; sourceTree = "<group>"; };
-		69CF8A1816FD1C330096625C /* SEBFilterRuleExpressionTableColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBFilterRuleExpressionTableColumn.m; sourceTree = "<group>"; };
 		69D5881F1189EB8F005AE3F1 /* SEBController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SEBController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		69D588201189EB8F005AE3F1 /* SEBController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SEBController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69D5983214C81FEA005FE98C /* NSWindow+SEBWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSWindow+SEBWindow.h"; sourceTree = "<group>"; };
@@ -728,17 +718,6 @@
 			name = "Value Transformers";
 			sourceTree = "<group>";
 		};
-		693D16C617160C8B0040AD7E /* TableView Subclasses */ = {
-			isa = PBXGroup;
-			children = (
-				69CF8A1216FD0B550096625C /* SEBFilterRuleTableColumn.h */,
-				69CF8A1316FD0B550096625C /* SEBFilterRuleTableColumn.m */,
-				69CF8A1716FD1C330096625C /* SEBFilterRuleExpressionTableColumn.h */,
-				69CF8A1816FD1C330096625C /* SEBFilterRuleExpressionTableColumn.m */,
-			);
-			name = "TableView Subclasses";
-			sourceTree = "<group>";
-		};
 		693D16C717160CD00040AD7E /* Preferences Window */ = {
 			isa = PBXGroup;
 			children = (
@@ -750,7 +729,6 @@
 				6901331A19B371CB0050574D /* PreferencesWindow.m */,
 				69CE9C5A173269E80011609B /* Preferences View Controllers */,
 				693D16C517160C660040AD7E /* Value Transformers */,
-				693D16C617160C8B0040AD7E /* TableView Subclasses */,
 			);
 			name = "Preferences Window";
 			sourceTree = "<group>";
@@ -1003,12 +981,10 @@
 				6909E3441A019F7A0086A741 /* DDFileLogger.h in Headers */,
 				690BBEB119D2C6E500F7C9C6 /* SEBDockItemButton.h in Headers */,
 				6921294716F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h in Headers */,
-				69CF8A1416FD0B550096625C /* SEBFilterRuleTableColumn.h in Headers */,
 				6901331B19B371CB0050574D /* PreferencesWindow.h in Headers */,
 				6909E3491A019F7A0086A741 /* DDLogMacros.h in Headers */,
 				6940A7611853B2AD00D9D00D /* NSData+NSDataZIPExtension.h in Headers */,
 				69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */,
-				69CF8A1916FD1C330096625C /* SEBFilterRuleExpressionTableColumn.h in Headers */,
 				6909E3501A019F7A0086A741 /* DDMultiFormatter.h in Headers */,
 				6909E33F1A019F7A0086A741 /* DDASLLogCapture.h in Headers */,
 				693647FA17122A0300EE41BC /* DropDownButton.h in Headers */,
@@ -1269,8 +1245,6 @@
 				6921294416F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */,
 				6921294916F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */,
 				69D817E718017DDB00EB7885 /* SEBURLFilter.m in Sources */,
-				69CF8A1616FD0B550096625C /* SEBFilterRuleTableColumn.m in Sources */,
-				69CF8A1B16FD1C330096625C /* SEBFilterRuleExpressionTableColumn.m in Sources */,
 				695BE5F619EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */,
 				693647FC17122A0300EE41BC /* DropDownButton.m in Sources */,
 				69CE9C5F17326AB90011609B /* SEBConfigFileManager.m in Sources */,
@@ -1341,9 +1315,7 @@
 				6921294816F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */,
 				69D817E618017DDB00EB7885 /* SEBURLFilter.m in Sources */,
 				6909E33E1A019F7A0086A741 /* DDAbstractDatabaseLogger.m in Sources */,
-				69CF8A1516FD0B550096625C /* SEBFilterRuleTableColumn.m in Sources */,
 				6909E3451A019F7A0086A741 /* DDFileLogger.m in Sources */,
-				69CF8A1A16FD1C330096625C /* SEBFilterRuleExpressionTableColumn.m in Sources */,
 				695BE5F519EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */,
 				693647FB17122A0300EE41BC /* DropDownButton.m in Sources */,
 				69CE9C5E17326AB90011609B /* SEBConfigFileManager.m in Sources */,

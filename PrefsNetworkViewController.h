@@ -37,7 +37,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MBPreferencesController.h"
-#import "DropDownButton.h"
 
 @interface PrefsNetworkViewController : NSViewController <MBPreferencesModule> {
 
@@ -45,8 +44,17 @@
     IBOutlet NSTabViewItem *urlFilterTab;
     
 	IBOutlet NSTableColumn *groupRowTableColumn;
-    IBOutlet NSTreeController *treeController;
-	IBOutlet DropDownButton *dropDownButton;
+
+    // Filter Section
+    IBOutlet NSTextField *selectedExpression;
+    IBOutlet NSTextField *scheme;
+    IBOutlet NSTextField *user;
+    IBOutlet NSTextField *password;
+    IBOutlet NSTextField *host;
+    IBOutlet NSTextField *port;
+    IBOutlet NSTextField *path;
+    IBOutlet NSTextField *query_string;
+    IBOutlet NSTextField *fragment;
 
     // Certificates section
     IBOutlet NSPopUpButton *chooseCertificate;
@@ -66,8 +74,15 @@
 - (NSString *)identifier;
 - (NSImage *)image;
 
-- (IBAction) dropDownAction:(id)sender;
-- (IBAction) addRuleItem:(id)sender;
+// Filter Section
+- (IBAction) scheme:(NSTextField *)sender;
+- (IBAction) user:(NSTextField *)sender;
+- (IBAction) password:(NSTextField *)sender;
+- (IBAction) host:(NSTextField *)sender;
+- (IBAction) port:(NSTextField *)sender;
+- (IBAction) path:(NSTextField *)sender;
+- (IBAction) query_string:(NSTextField *)sender;
+- (IBAction) fragment:(NSTextField *)sender;
 
 // Certificates section
 - (IBAction) identitySelected:(id)sender;
