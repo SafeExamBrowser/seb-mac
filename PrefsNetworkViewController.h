@@ -55,6 +55,7 @@
     IBOutlet NSTextField *path;
     IBOutlet NSTextField *query_string;
     IBOutlet NSTextField *fragment;
+    IBOutlet NSArrayController *filterArrayController;
 
     // Certificates section
     IBOutlet NSPopUpButton *chooseCertificate;

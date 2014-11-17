@@ -136,7 +136,8 @@
     NSString *expression = selectedExpression.stringValue;
     NSURL *expressionURL = [NSURL URLWithString:expression];
     NSURL *newExpressionURL = [[NSURL alloc] initWithScheme:(sender.stringValue.length == 0 ? @"" : sender.stringValue) host:expressionURL.host path:expressionURL.path];
-    selectedExpression.stringValue = [newExpressionURL absoluteString];
+    [filterArrayController setValue:[newExpressionURL absoluteString] forKeyPath:@"selection.expression"];
+//    selectedExpression.stringValue = [newExpressionURL absoluteString];
 }
 
 
