@@ -147,13 +147,15 @@
 }
 
 
-- (IBAction) scheme:(NSTextField *)sender
+- (NSURL *) getExpressionFromParts
 {
-    NSString *expression = selectedExpression.stringValue;
-    NSURL *expressionURL = [NSURL URLWithString:expression];
-    NSURL *newExpressionURL = [[NSURL alloc] initWithScheme:(sender.stringValue.length == 0 ? @"" : sender.stringValue) host:expressionURL.host path:expressionURL.path];
-    [filterArrayController setValue:[newExpressionURL absoluteString] forKeyPath:@"selection.expression"];
-//    selectedExpression.stringValue = [newExpressionURL absoluteString];
+    return [NSURL URLWithScheme:scheme.stringValue user:user.stringValue password:password.stringValue host:host.stringValue port:@([port.stringValue intValue]) path:path.stringValue query:query_string.stringValue fragment:fragment.stringValue];
+}
+
+- (IBAction) updateExpressionFromParts:(NSTextField *)sender
+{
+    NSURL *expressionURL = [self getExpressionFromParts];
+    [filterArrayController setValue:[expressionURL absoluteString] forKeyPath:@"selection.expression"];
 }
 
 

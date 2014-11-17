@@ -326,7 +326,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <action selector="scheme:" target="-2" id="7eA-be-nfl"/>
+                                                        <action selector="updateExpressionFromParts:" target="-2" id="J6A-mg-ahn"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jju-Ve-Ujz">
@@ -337,7 +337,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <action selector="user:" target="-2" id="XKe-OP-Og4"/>
+                                                        <action selector="updateExpressionFromParts:" target="-2" id="FT7-xr-0o6"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oXf-ig-TZU">
@@ -348,7 +348,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <action selector="password:" target="-2" id="6d0-IT-Ejz"/>
+                                                        <action selector="updateExpressionFromParts:" target="-2" id="CD1-Gq-Eyf"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VoK-Ej-Zql">
@@ -359,7 +359,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <action selector="host:" target="-2" id="T6d-KV-zAP"/>
+                                                        <action selector="updateExpressionFromParts:" target="-2" id="cGc-HA-3Zo"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IT5-aW-zsl">
@@ -370,7 +370,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <action selector="path:" target="-2" id="CuD-vD-qCg"/>
+                                                        <action selector="updateExpressionFromParts:" target="-2" id="ZyY-RV-nC6"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O5p-Jj-SLU">
@@ -381,7 +381,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <action selector="port:" target="-2" id="3sa-Ma-ai2"/>
+                                                        <action selector="updateExpressionFromParts:" target="-2" id="rkh-7G-esA"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1PT-7a-wz2">
@@ -392,7 +392,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <action selector="query_string:" target="-2" id="Myv-dY-2E9"/>
+                                                        <action selector="updateExpressionFromParts:" target="-2" id="KX2-2E-jte"/>
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3fo-3Z-d4k">
@@ -403,7 +403,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <connections>
-                                                        <action selector="fragment:" target="-2" id="68R-6Q-aFp"/>
+                                                        <action selector="updateExpressionFromParts:" target="-2" id="7rT-yM-zee"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>

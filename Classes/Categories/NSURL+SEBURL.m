@@ -40,6 +40,7 @@
 + (NSURL *) URLWithScheme:(NSString *)scheme user:(NSString *)user password:(NSString *)password host:(NSString *)host port:(NSNumber *)port path:(NSString *)path query:(NSString *)query fragment:(NSString *)fragment
 {
     NSURL *newURL;
+    newURL = [[NSURL alloc] initWithScheme:scheme host:host path:path];
     return newURL;
 }
 

@@ -76,7 +76,7 @@
 - (NSImage *)image;
 
 // Filter Section
-- (IBAction) scheme:(NSTextField *)sender;
+- (IBAction) updateExpressionFromParts:(NSTextField *)sender;
 - (IBAction) user:(NSTextField *)sender;
 - (IBAction) password:(NSTextField *)sender;
 - (IBAction) host:(NSTextField *)sender;
