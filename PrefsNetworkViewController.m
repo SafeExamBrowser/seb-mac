@@ -39,6 +39,7 @@
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "SEBUIUserDefaultsController.h"
 #import "SEBKeychainManager.h"
+#import "NSURL+SEBURL.h"
 
 @implementation PrefsNetworkViewController
 
@@ -70,6 +71,10 @@
 //    // Remove URL filter tab
 //    [networkTabView removeTabViewItem:urlFilterTab];
     
+    // Set URL filter expression parts if an expression is selected
+    NSString *selectedExpressionString = [filterArrayController valueForKeyPath:@"selection.expression"];
+    [self setPartsForExpression:selectedExpressionString];
+    
     //Load settings password from user defaults
     //[self loadPrefs];
     //[chooseIdentity synchronizeTitleAndSelectedItem];
@@ -100,6 +105,12 @@
 }
 
 
+- (void)tableViewSelectionDidChange:(NSNotification *)aNotification
+{
+    // Set URL filter expression parts if an expression is selected
+    NSString *selectedExpressionString = [filterArrayController valueForKeyPath:@"selection.expression"];
+    [self setPartsForExpression:selectedExpressionString];
+}
 
 
 /*
@@ -118,7 +129,12 @@
 // Filter Section
 - (IBAction) selectedExpression:(NSTextField *)sender
 {
-    NSString *expression = sender.stringValue;
+    [self setPartsForExpression:sender.stringValue];
+}
+
+
+- (void) setPartsForExpression:(NSString *)expression
+{
     NSURL *expressionURL = [NSURL URLWithString:expression];
     scheme.stringValue = expressionURL.scheme ? expressionURL.scheme : @"";
     user.stringValue = expressionURL.user ? expressionURL.user : @"";

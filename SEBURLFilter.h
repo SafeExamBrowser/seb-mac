@@ -37,4 +37,6 @@
 
 @interface SEBURLFilter : NSObject
 
++ (SEBURLFilter *)sharedSEBURLFilter;
+
 @end

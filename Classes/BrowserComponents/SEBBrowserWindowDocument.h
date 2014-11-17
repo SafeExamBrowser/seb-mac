@@ -1,5 +1,5 @@
 //
-//  MyDocument.h
+//  SEBBrowserWindowDocument.h
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 06.12.10.

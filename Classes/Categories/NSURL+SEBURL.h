@@ -1,8 +1,8 @@
 //
-//  SEBURLFilter.m
+//  NSURL+SEBURL.h
 //  SafeExamBrowser
 //
-//  Created by Daniel R. Schneider on 06.10.13.
+//  Created by Daniel R. Schneider on 17.11.14.
 //  Copyright (c) 2010-2014 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
@@ -32,25 +32,10 @@
 //  Contributor(s): ______________________________________.
 //
 
+#import <Foundation/Foundation.h>
 
-#import "SEBURLFilter.h"
+@interface NSURL (SEBURL)
 
-@implementation SEBURLFilter
-
-static SEBURLFilter *sharedSEBURLFilter = nil;
-
-+ (SEBURLFilter *)sharedSEBURLFilter
-{
-    @synchronized(self)
-    {
-        if (sharedSEBURLFilter == nil)
-        {
-            sharedSEBURLFilter = [[self alloc] init];
-        }
-    }
-    
-    return sharedSEBURLFilter;
-}
-
++ (NSURL *) URLWithScheme:(NSString *)scheme user:(NSString *)user password:(NSString *)password host:(NSString *)host port:(NSNumber *)port path:(NSString *)path query:(NSString *)query fragment:(NSString *)fragment;
 
 @end

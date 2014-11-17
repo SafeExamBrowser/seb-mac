@@ -38,7 +38,7 @@
 #import <Cocoa/Cocoa.h>
 #import "MBPreferencesController.h"
 
-@interface PrefsNetworkViewController : NSViewController <MBPreferencesModule> {
+@interface PrefsNetworkViewController : NSViewController <MBPreferencesModule, NSTableViewDelegate> {
 
     IBOutlet NSTabView *networkTabView;
     IBOutlet NSTabViewItem *urlFilterTab;

@@ -1,5 +1,5 @@
 //
-//  aboutView.m
+//  AboutView.m
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 30.10.10.

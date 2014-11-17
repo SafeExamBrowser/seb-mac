@@ -179,6 +179,9 @@
                                                             </connections>
                                                         </tableColumn>
                                                     </tableColumns>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="-2" id="NfH-33-Nq6"/>
+                                                    </connections>
                                                 </tableView>
                                             </subviews>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>

@@ -112,6 +112,9 @@
 		695C5CAF16CB210E008FC401 /* ExamIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAB16CB210E008FC401 /* ExamIcon.png */; };
 		695C5CB016CB210E008FC401 /* ExamIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAC16CB210E008FC401 /* ExamIcon@2x.png */; };
 		695C5CB216CB210E008FC401 /* ExamIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAC16CB210E008FC401 /* ExamIcon@2x.png */; };
+		69627F901A1A46D000E9F2A8 /* NSURL+SEBURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 69627F8E1A1A46CF00E9F2A8 /* NSURL+SEBURL.h */; };
+		69627F911A1A46D000E9F2A8 /* NSURL+SEBURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 69627F8F1A1A46D000E9F2A8 /* NSURL+SEBURL.m */; };
+		69627F921A1A46D000E9F2A8 /* NSURL+SEBURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 69627F8F1A1A46D000E9F2A8 /* NSURL+SEBURL.m */; };
 		696A3AE419F6FBC500274214 /* PreferencesConfigFile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AE719F6FBC500274214 /* PreferencesConfigFile.xib */; };
 		696A3AE519F6FBC500274214 /* PreferencesConfigFile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AE719F6FBC500274214 /* PreferencesConfigFile.xib */; };
 		696A3AE819F6FBCD00274214 /* PreferencesAppearance.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AEB19F6FBCD00274214 /* PreferencesAppearance.xib */; };
@@ -405,6 +408,8 @@
 		695BE5F319EC3FED00CA2BB4 /* SEBDockItemMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockItemMenu.m; path = Classes/SEBDock/SEBDockItemMenu.m; sourceTree = "<group>"; };
 		695C5CAB16CB210E008FC401 /* ExamIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ExamIcon.png; sourceTree = "<group>"; };
 		695C5CAC16CB210E008FC401 /* ExamIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ExamIcon@2x.png"; sourceTree = "<group>"; };
+		69627F8E1A1A46CF00E9F2A8 /* NSURL+SEBURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+SEBURL.h"; path = "Classes/Categories/NSURL+SEBURL.h"; sourceTree = "<group>"; };
+		69627F8F1A1A46D000E9F2A8 /* NSURL+SEBURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+SEBURL.m"; path = "Classes/Categories/NSURL+SEBURL.m"; sourceTree = "<group>"; };
 		6962F88D13A8C21B007C16F0 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		6969B1CC127B80410027FF8D /* AboutSEB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AboutSEB.png; sourceTree = "<group>"; };
 		6969B1D1127C7AB60027FF8D /* AboutWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutWindow.h; sourceTree = "<group>"; };
@@ -871,6 +876,8 @@
 				69D5983714C823AE005FE98C /* MethodSwizzling.m */,
 				6940A75F1853B2AD00D9D00D /* NSData+NSDataZIPExtension.h */,
 				6940A7601853B2AD00D9D00D /* NSData+NSDataZIPExtension.m */,
+				69627F8E1A1A46CF00E9F2A8 /* NSURL+SEBURL.h */,
+				69627F8F1A1A46D000E9F2A8 /* NSURL+SEBURL.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -997,6 +1004,7 @@
 				6909E3411A019F7A0086A741 /* DDASLLogger.h in Headers */,
 				69CE1C171741309C0072207D /* SEBFilterTreeController.h in Headers */,
 				690BBEAC19D2C6A000F7C9C6 /* SEBDockController.h in Headers */,
+				69627F901A1A46D000E9F2A8 /* NSURL+SEBURL.h in Headers */,
 				695BE5F419EC3FED00CA2BB4 /* SEBDockItemMenu.h in Headers */,
 				6909E34A1A019F7A0086A741 /* DDTTYLogger.h in Headers */,
 				6915F2E919C8F77600DAEA37 /* SEBDockWindow.h in Headers */,
@@ -1219,6 +1227,7 @@
 				690C6EE819E29E3600EDE103 /* SEBBrowserController.m in Sources */,
 				699731C618C8D6ED0069FE35 /* CapWindow.m in Sources */,
 				69903B1114CD7624007E7DF7 /* WebKit+WebKitExtensions.m in Sources */,
+				69627F921A1A46D000E9F2A8 /* NSURL+SEBURL.m in Sources */,
 				69903B1214CD7624007E7DF7 /* SEBBrowserWindowController.m in Sources */,
 				69903B1314CD7624007E7DF7 /* NSWindow+SEBWindow.m in Sources */,
 				69903B1414CD7624007E7DF7 /* MethodSwizzling.m in Sources */,
@@ -1283,6 +1292,7 @@
 				690C6EE719E29E3600EDE103 /* SEBBrowserController.m in Sources */,
 				699731C518C8D6ED0069FE35 /* CapWindow.m in Sources */,
 				69F7B61814F411FB00FD0761 /* WebKit+WebKitExtensions.m in Sources */,
+				69627F911A1A46D000E9F2A8 /* NSURL+SEBURL.m in Sources */,
 				69F7B61914F411FB00FD0761 /* SEBBrowserWindowController.m in Sources */,
 				69F7B61A14F411FB00FD0761 /* NSWindow+SEBWindow.m in Sources */,
 				6909E3511A019F7A0086A741 /* DDMultiFormatter.m in Sources */,
