@@ -72,8 +72,10 @@
 //    [networkTabView removeTabViewItem:urlFilterTab];
     
     // Set URL filter expression parts if an expression is selected
-    NSString *selectedExpressionString = [filterArrayController valueForKeyPath:@"selection.expression"];
-    [self setPartsForExpression:selectedExpressionString];
+    id selectedExpressionObject = [filterArrayController valueForKeyPath:@"selection.expression"];
+    if ([selectedExpression isKindOfClass:[NSString class]]) {
+        [self setPartsForExpression:(NSString *)selectedExpressionObject];
+    }
     
     //Load settings password from user defaults
     //[self loadPrefs];
@@ -108,8 +110,10 @@
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
     // Set URL filter expression parts if an expression is selected
-    NSString *selectedExpressionString = [filterArrayController valueForKeyPath:@"selection.expression"];
-    [self setPartsForExpression:selectedExpressionString];
+    id selectedExpressionObject = [filterArrayController valueForKeyPath:@"selection.expression"];
+    if ([selectedExpression isKindOfClass:[NSString class]]) {
+        [self setPartsForExpression:(NSString *)selectedExpressionObject];
+    }
 }
 
 
@@ -140,7 +144,8 @@
     user.stringValue = expressionURL.user ? expressionURL.user : @"";
     password.stringValue = expressionURL.password ? expressionURL.password : @"";
     host.stringValue = expressionURL.host ? expressionURL.host : @"";
-    port.stringValue = expressionURL.port ? expressionURL.port.stringValue : @"";
+//    port.stringValue = expressionURL.port ? expressionURL.port.stringValue : @"";
+    self.expressionPort = expressionURL.port ? expressionURL.port.stringValue : @"";
     path.stringValue = expressionURL.path ? expressionURL.path : @"";
     query_string.stringValue = expressionURL.query ? expressionURL.query : @"";
     fragment.stringValue = expressionURL.fragment ? expressionURL.fragment : @"";
@@ -149,55 +154,14 @@
 
 - (NSURL *) getExpressionFromParts
 {
-    return [NSURL URLWithScheme:scheme.stringValue user:user.stringValue password:password.stringValue host:host.stringValue port:@([port.stringValue intValue]) path:path.stringValue query:query_string.stringValue fragment:fragment.stringValue];
+//    return [NSURL URLWithScheme:scheme.stringValue user:user.stringValue password:password.stringValue host:host.stringValue port:@([port.stringValue intValue]) path:path.stringValue query:query_string.stringValue fragment:fragment.stringValue];
+    return [NSURL URLWithScheme:scheme.stringValue user:user.stringValue password:password.stringValue host:host.stringValue port:@([self.expressionPort intValue]) path:path.stringValue query:query_string.stringValue fragment:fragment.stringValue];
 }
 
 - (IBAction) updateExpressionFromParts:(NSTextField *)sender
 {
     NSURL *expressionURL = [self getExpressionFromParts];
     [filterArrayController setValue:[expressionURL absoluteString] forKeyPath:@"selection.expression"];
-}
-
-
-- (IBAction) user:(NSTextField *)sender
-{
-    
-}
-
-
-- (IBAction) password:(NSTextField *)sender
-{
-    
-}
-
-
-- (IBAction) host:(NSTextField *)sender
-{
-    
-}
-
-
-- (IBAction) port:(NSTextField *)sender
-{
-    
-}
-
-
-- (IBAction) path:(NSTextField *)sender
-{
-    
-}
-
-
-- (IBAction) query_string:(NSTextField *)sender
-{
-    
-}
-
-
-- (IBAction) fragment:(NSTextField *)sender
-{
-    
 }
 
 

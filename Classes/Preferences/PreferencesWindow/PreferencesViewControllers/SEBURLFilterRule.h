@@ -10,15 +10,10 @@
 
 @interface SEBURLFilterRule : NSMutableDictionary
 
-@property (strong, nonatomic) NSString *title;
+//@property (nonatomic, assign) BOOL active;
+//@property (nonatomic, assign) BOOL regex;
+//@property (nonatomic, retain) NSNumber *action;
+//@property (nonatomic, retain) NSString *expression;
 
-@property (strong, nonatomic) NSImage *icon;
-
-@property (strong, nonatomic) NSString *toolTip;
-
-@property (strong, nonatomic) NSMenu *menu;
-
-@property (weak, nonatomic) id target;
-@property (assign, nonatomic) SEL action;
 
 @end

@@ -71,19 +71,14 @@
 @property (strong, nonatomic) NSMutableArray *identitiesNames;
 @property (strong, nonatomic) NSArray *identities;
 
+@property (strong) NSString *expressionPort;
+
 
 - (NSString *)identifier;
 - (NSImage *)image;
 
 // Filter Section
 - (IBAction) updateExpressionFromParts:(NSTextField *)sender;
-- (IBAction) user:(NSTextField *)sender;
-- (IBAction) password:(NSTextField *)sender;
-- (IBAction) host:(NSTextField *)sender;
-- (IBAction) port:(NSTextField *)sender;
-- (IBAction) path:(NSTextField *)sender;
-- (IBAction) query_string:(NSTextField *)sender;
-- (IBAction) fragment:(NSTextField *)sender;
 
 // Certificates section
 - (IBAction) identitySelected:(id)sender;

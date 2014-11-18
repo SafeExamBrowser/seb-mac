@@ -17,7 +17,7 @@
                 <outlet property="networkTabView" destination="239" id="HEf-ZD-yId"/>
                 <outlet property="password" destination="oXf-ig-TZU" id="KPB-8U-bX3"/>
                 <outlet property="path" destination="IT5-aW-zsl" id="RDz-nA-Tim"/>
-                <outlet property="port" destination="O5p-Jj-SLU" id="OpA-f2-eKM"/>
+                <outlet property="port" destination="kr2-YI-gaU" id="AbR-Pf-c9E"/>
                 <outlet property="query_string" destination="1PT-7a-wz2" id="FZi-tY-aDf"/>
                 <outlet property="scheme" destination="3Lb-pY-2F1" id="yVp-dR-BPI"/>
                 <outlet property="selectedExpression" destination="9hw-i2-YWH" id="Rzm-5D-a1K"/>
@@ -66,7 +66,7 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="add:" target="Hmk-IV-hfb" id="GKt-Ok-gFe"/>
+                                            <action selector="add:" target="Hmk-IV-hfb" id="KOP-Ql-P7O"/>
                                         </connections>
                                     </button>
                                     <button toolTip="Remove a filter rule or action" translatesAutoresizingMaskIntoConstraints="NO" id="527">
@@ -88,7 +88,7 @@
                                             <rect key="frame" x="1" y="17" width="238" height="117"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="TDX-aF-oMF" id="1EV-b8-djc">
+                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" headerView="TDX-aF-oMF" id="1EV-b8-djc">
                                                     <rect key="frame" x="0.0" y="0.0" width="568" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
@@ -211,7 +211,7 @@
                                                     <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                                 </dictionary>
                                             </binding>
-                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableURLContentFilter" id="1970"/>
+                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_URLFilterEnableContentFilter" id="MHL-bs-7fZ"/>
                                         </connections>
                                     </button>
                                     <box autoresizesSubviews="NO" title="Selected Action" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="GZd-2h-HIq">
@@ -483,29 +483,6 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="O5p-Jj-SLU">
-                                                    <rect key="frame" x="501" y="75" width="60" height="22"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="60" id="wUM-bW-21h"/>
-                                                    </constraints>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="0Ov-QG-5pC">
-                                                        <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="YTX-4D-kwk">
-                                                            <real key="minimum" value="1"/>
-                                                            <integer key="maximum" value="65535"/>
-                                                        </numberFormatter>
-                                                        <font key="font" metaFont="system"/>
-                                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                    <connections>
-                                                        <action selector="updateExpressionFromParts:" target="-2" id="rkh-7G-esA"/>
-                                                        <binding destination="Hmk-IV-hfb" name="hidden" keyPath="selectedObjects" id="9Cd-KF-ZkG">
-                                                            <dictionary key="options">
-                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1PT-7a-wz2">
                                                     <rect key="frame" x="21" y="15" width="376" height="22"/>
                                                     <constraints>
@@ -589,6 +566,34 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
+                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kr2-YI-gaU">
+                                                    <rect key="frame" x="501" y="75" width="60" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="60" id="7oW-Ps-dSZ"/>
+                                                    </constraints>
+                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="liM-iq-MfT">
+                                                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="tmV-mF-tQv">
+                                                            <real key="minimum" value="1"/>
+                                                            <real key="maximum" value="65535"/>
+                                                        </numberFormatter>
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                    <connections>
+                                                        <action selector="updateExpressionFromParts:" target="-2" id="Bhh-OK-cRs"/>
+                                                        <binding destination="Hmk-IV-hfb" name="hidden" keyPath="selectedObjects" id="MTX-rc-Y5V">
+                                                            <dictionary key="options">
+                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                            </dictionary>
+                                                        </binding>
+                                                        <binding destination="-2" name="value" keyPath="self.expressionPort" id="KpC-uK-dbY">
+                                                            <dictionary key="options">
+                                                                <bool key="NSValidatesImmediately" value="YES"/>
+                                                            </dictionary>
+                                                        </binding>
+                                                    </connections>
+                                                </textField>
                                             </subviews>
                                         </view>
                                         <constraints>
@@ -604,18 +609,19 @@
                                             <constraint firstItem="9hw-i2-YWH" firstAttribute="leading" secondItem="GZd-2h-HIq" secondAttribute="leading" constant="11" id="Gax-cg-CH4"/>
                                             <constraint firstItem="oXf-ig-TZU" firstAttribute="top" secondItem="63j-33-Jdu" secondAttribute="bottom" constant="7" id="Jz5-l4-5Cf"/>
                                             <constraint firstItem="1QG-Ub-GkE" firstAttribute="top" secondItem="9hw-i2-YWH" secondAttribute="bottom" constant="8" symbolic="YES" id="L3q-wU-hnm"/>
+                                            <constraint firstItem="kr2-YI-gaU" firstAttribute="leading" secondItem="b1s-1U-Ybg" secondAttribute="trailing" constant="1" id="LJw-tJ-dlJ"/>
                                             <constraint firstItem="xPj-V3-hmo" firstAttribute="baseline" secondItem="oXf-ig-TZU" secondAttribute="baseline" id="MGL-Jp-4Ot"/>
                                             <constraint firstItem="9du-EF-v3O" firstAttribute="top" secondItem="9hw-i2-YWH" secondAttribute="bottom" constant="5" id="O0Z-G4-5ts"/>
+                                            <constraint firstItem="VoK-Ej-Zql" firstAttribute="baseline" secondItem="kr2-YI-gaU" secondAttribute="baseline" id="OK1-iD-pZD"/>
                                             <constraint firstAttribute="trailing" secondItem="3fo-3Z-d4k" secondAttribute="trailing" constant="11" id="P7v-Mv-PNQ"/>
                                             <constraint firstAttribute="bottom" secondItem="9hw-i2-YWH" secondAttribute="bottom" constant="179" id="PRB-kQ-4gj"/>
                                             <constraint firstItem="3Lb-pY-2F1" firstAttribute="baseline" secondItem="1gn-Vv-xlE" secondAttribute="baseline" id="Pbk-fp-5X7"/>
+                                            <constraint firstAttribute="trailing" secondItem="kr2-YI-gaU" secondAttribute="trailing" constant="11" id="PwD-Gw-uOf"/>
                                             <constraint firstItem="3fo-3Z-d4k" firstAttribute="baseline" secondItem="1PT-7a-wz2" secondAttribute="baseline" id="Q70-4q-IXI"/>
                                             <constraint firstAttribute="trailing" secondItem="9du-EF-v3O" secondAttribute="trailing" constant="11" id="QWc-hM-wZC"/>
                                             <constraint firstItem="jId-HY-bdq" firstAttribute="leading" secondItem="GZd-2h-HIq" secondAttribute="leading" constant="11" id="R3j-32-z0L"/>
-                                            <constraint firstItem="VoK-Ej-Zql" firstAttribute="baseline" secondItem="O5p-Jj-SLU" secondAttribute="baseline" id="STV-bQ-kId"/>
                                             <constraint firstItem="1gn-Vv-xlE" firstAttribute="leading" secondItem="3Lb-pY-2F1" secondAttribute="trailing" constant="2" id="UNo-aK-m9s"/>
                                             <constraint firstItem="ZAH-3m-Yk0" firstAttribute="baseline" secondItem="3fo-3Z-d4k" secondAttribute="baseline" id="URd-Uw-7iZ"/>
-                                            <constraint firstAttribute="trailing" secondItem="O5p-Jj-SLU" secondAttribute="trailing" constant="11" id="UWl-dz-2pb"/>
                                             <constraint firstAttribute="trailing" secondItem="9hw-i2-YWH" secondAttribute="trailing" constant="11" id="VvD-Bh-LXd"/>
                                             <constraint firstItem="1PT-7a-wz2" firstAttribute="top" secondItem="IT5-aW-zsl" secondAttribute="bottom" constant="8" id="WFz-sM-m2l"/>
                                             <constraint firstItem="3Lb-pY-2F1" firstAttribute="top" secondItem="63j-33-Jdu" secondAttribute="bottom" constant="7" id="bho-rO-mxe"/>
@@ -640,7 +646,6 @@
                                             <constraint firstItem="63j-33-Jdu" firstAttribute="leading" secondItem="jId-HY-bdq" secondAttribute="leading" id="tvX-9B-5Wt"/>
                                             <constraint firstItem="jju-Ve-Ujz" firstAttribute="leading" secondItem="1gn-Vv-xlE" secondAttribute="trailing" constant="1" id="uIa-JI-HKL"/>
                                             <constraint firstItem="QmW-O8-p1C" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1QG-Ub-GkE" secondAttribute="trailing" constant="8" symbolic="YES" id="usU-90-TP5"/>
-                                            <constraint firstItem="O5p-Jj-SLU" firstAttribute="leading" secondItem="b1s-1U-Ybg" secondAttribute="trailing" constant="1" id="v9x-kp-YMf"/>
                                             <constraint firstItem="jId-HY-bdq" firstAttribute="baseline" secondItem="1QG-Ub-GkE" secondAttribute="baseline" id="wPl-CF-fM5"/>
                                             <constraint firstItem="9du-EF-v3O" firstAttribute="baseline" secondItem="QmW-O8-p1C" secondAttribute="baseline" id="wcg-8l-i7M"/>
                                             <constraint firstItem="qXx-hw-dUi" firstAttribute="baseline" secondItem="IT5-aW-zsl" secondAttribute="baseline" id="wnD-rf-bSY"/>
@@ -1157,7 +1162,7 @@
                                                             </constraints>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1533">
                                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="1929">
-                                                                    <integer key="minimum" value="0"/>
+                                                                    <real key="minimum" value="1"/>
                                                                     <integer key="maximum" value="65535"/>
                                                                 </numberFormatter>
                                                                 <font key="font" metaFont="system"/>
@@ -1288,7 +1293,7 @@
                                                             </constraints>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1574">
                                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="1932">
-                                                                    <integer key="minimum" value="0"/>
+                                                                    <real key="minimum" value="1"/>
                                                                     <integer key="maximum" value="65535"/>
                                                                 </numberFormatter>
                                                                 <font key="font" metaFont="system"/>
@@ -1419,7 +1424,7 @@
                                                             </constraints>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1615">
                                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="1933">
-                                                                    <integer key="minimum" value="0"/>
+                                                                    <real key="minimum" value="1"/>
                                                                     <integer key="maximum" value="65535"/>
                                                                 </numberFormatter>
                                                                 <font key="font" metaFont="system"/>
@@ -1550,7 +1555,7 @@
                                                             </constraints>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1656">
                                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="1930">
-                                                                    <integer key="minimum" value="0"/>
+                                                                    <real key="minimum" value="1"/>
                                                                     <integer key="maximum" value="65535"/>
                                                                 </numberFormatter>
                                                                 <font key="font" metaFont="system"/>
@@ -1775,7 +1780,7 @@
         <userDefaultsController representsSharedInstance="YES" id="10"/>
         <userDefaultsController id="110" userLabel="SEB User Defaults Controller" customClass="SEBEncryptedUserDefaultsController"/>
         <userDefaultsController id="191" userLabel="SEB UI User Defaults Controller" customClass="SEBUIUserDefaultsController"/>
-        <arrayController id="Hmk-IV-hfb" userLabel="Filter Array Controller">
+        <arrayController automaticallyPreparesContent="YES" id="Hmk-IV-hfb" userLabel="Filter Array Controller" customClass="SEBFilterArrayController">
             <connections>
                 <binding destination="110" name="contentArray" keyPath="values.org_safeexambrowser_SEB_URLFilterRules" id="Rh4-zL-H9V">
                     <dictionary key="options">

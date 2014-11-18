@@ -14,7 +14,9 @@
 {
     self = [super init];
     if (self) {
-        
+        [self setObject:@YES forKey:@"active"];
+        [self setObject:@NO forKey:@"regex"];
+        [self setObject:[NSNumber numberWithLong:URLFilterActionAllow] forKey:@"action"];
     }
     return self;
 }

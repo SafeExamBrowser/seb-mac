@@ -56,7 +56,7 @@
     if (host.length > 0) {
         [newURLString appendString:host];
     }
-    if (port) {
+    if (port && (port.integerValue > 0) && (port.integerValue <= 65535)) {
         [newURLString appendFormat:@":%@", port.stringValue];
     }
     if (path.length > 0) {
