@@ -270,6 +270,9 @@
 		69F9110016CA5C720041EA38 /* PrefsNetworkViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F910FE16CA5C720041EA38 /* PrefsNetworkViewController.h */; };
 		69F9110116CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F910FF16CA5C720041EA38 /* PrefsNetworkViewController.m */; };
 		69F9110316CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F910FF16CA5C720041EA38 /* PrefsNetworkViewController.m */; };
+		69FF14A71A1B29F800912933 /* SEBURLFilterRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 69FF14A51A1B29F800912933 /* SEBURLFilterRule.h */; };
+		69FF14A81A1B29F800912933 /* SEBURLFilterRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF14A61A1B29F800912933 /* SEBURLFilterRule.m */; };
+		69FF14A91A1B29F800912933 /* SEBURLFilterRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF14A61A1B29F800912933 /* SEBURLFilterRule.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -502,6 +505,8 @@
 		69FA25BC19F714AD003E179A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreferencesResources.xib; sourceTree = "<group>"; };
 		69FA25BD19F714AD003E179A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreferencesNetwork.xib; sourceTree = "<group>"; };
 		69FA25BE19F714AD003E179A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreferencesSecurity.xib; sourceTree = "<group>"; };
+		69FF14A51A1B29F800912933 /* SEBURLFilterRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBURLFilterRule.h; path = Classes/Preferences/PreferencesWindow/PreferencesViewControllers/SEBURLFilterRule.h; sourceTree = "<group>"; };
+		69FF14A61A1B29F800912933 /* SEBURLFilterRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBURLFilterRule.m; path = Classes/Preferences/PreferencesWindow/PreferencesViewControllers/SEBURLFilterRule.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -939,6 +944,8 @@
 				695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */,
 				69CE1C151741309C0072207D /* SEBFilterTreeController.h */,
 				69CE1C161741309C0072207D /* SEBFilterTreeController.m */,
+				69FF14A51A1B29F800912933 /* SEBURLFilterRule.h */,
+				69FF14A61A1B29F800912933 /* SEBURLFilterRule.m */,
 			);
 			name = "Preferences View Controllers";
 			sourceTree = "<group>";
@@ -960,6 +967,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6909E3471A019F7A0086A741 /* DDLog.h in Headers */,
+				69FF14A71A1B29F800912933 /* SEBURLFilterRule.h in Headers */,
 				694B08A316B14ABF00E4997C /* SEBCryptor.h in Headers */,
 				6992499216C3B18B00DF6B53 /* PrefsConfigFileViewController.h in Headers */,
 				6992499C16C5B62000DF6B53 /* PrefsApplicationsViewController.h in Headers */,
@@ -1249,6 +1257,7 @@
 				69F9110316CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */,
 				695283E016CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */,
 				69F32DC616D23374003C9502 /* PrefsAppearanceViewController.m in Sources */,
+				69FF14A91A1B29F800912933 /* SEBURLFilterRule.m in Sources */,
 				6986653116DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */,
 				69DFAF3219C468E700CBE69F /* RNDecryptor.m in Sources */,
 				6921294416F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */,
@@ -1314,6 +1323,7 @@
 				6992499D16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */,
 				69DFAF2E19C468E700CBE69F /* RNCryptor.m in Sources */,
 				69DFAF3419C468E700CBE69F /* RNEncryptor.m in Sources */,
+				69FF14A81A1B29F800912933 /* SEBURLFilterRule.m in Sources */,
 				69F9110116CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */,
 				6909E3481A019F7A0086A741 /* DDLog.m in Sources */,
 				695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */,

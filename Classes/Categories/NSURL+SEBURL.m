@@ -39,9 +39,45 @@
 
 + (NSURL *) URLWithScheme:(NSString *)scheme user:(NSString *)user password:(NSString *)password host:(NSString *)host port:(NSNumber *)port path:(NSString *)path query:(NSString *)query fragment:(NSString *)fragment
 {
-    NSURL *newURL;
-    newURL = [[NSURL alloc] initWithScheme:scheme host:host path:path];
-    return newURL;
+//    NSURL *newURL;
+    NSMutableString *newURLString = [NSMutableString new];
+    if (scheme.length > 0) {
+        [newURLString appendFormat:@"%@://", scheme];
+    }
+    if (user.length > 0) {
+        [newURLString appendString:user];
+        
+        if (password.length > 0) {
+            [newURLString appendFormat:@":%@@", password];
+        } else {
+            [newURLString appendString:@"@"];
+        }
+    }
+    if (host.length > 0) {
+        [newURLString appendString:host];
+    }
+    if (port) {
+        [newURLString appendFormat:@":%@", port.stringValue];
+    }
+    if (path.length > 0) {
+        if ([[path substringToIndex:1] isEqualToString:@"/"]) {
+            [newURLString appendString:path];
+        } else {
+            [newURLString appendFormat:@"/%@", scheme];
+        }
+        
+        if (![[path substringFromIndex:path.length-1] isEqualToString:@"/"]) {
+            [newURLString appendString:@"/"];
+        }
+    }
+    if (query.length > 0) {
+        [newURLString appendFormat:@"?%@", query];
+    }
+    if (fragment.length > 0) {
+        [newURLString appendFormat:@"#%@", fragment];
+    }
+
+    return [NSURL URLWithString:newURLString];
 }
 
 
