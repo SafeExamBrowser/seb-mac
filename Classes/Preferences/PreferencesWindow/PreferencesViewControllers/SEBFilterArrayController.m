@@ -21,4 +21,13 @@
     return newObject;
 }
 
+
+//- (void)addObject:(id)object
+//{
+//    [super addObject:object];
+//    [self removeSelectedObjects:[self selectedObjects]];
+//    [self setSelectedObjects:@[object]];
+//}
+
+
 @end

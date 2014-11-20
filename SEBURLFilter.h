@@ -37,6 +37,15 @@
 
 @interface SEBURLFilter : NSObject
 
+
+@property (strong) NSMutableArray *permittedList;
+@property (strong) NSMutableArray *prohibitedList;
+
+
 + (SEBURLFilter *)sharedSEBURLFilter;
+
+- (BOOL) allowURL:(NSURL *)URLToFilter;
+
+- (NSString *)escapeBackslashes:(NSString *)regexString;
 
 @end

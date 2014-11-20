@@ -53,4 +53,45 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
 }
 
 
+// Updates filter rule arrays with current settings (UserDefaults)
+- (void) updateFilterRules
+{
+    
+}
+
+
+// Filter passed URL and return YES if it is allowed
+- (BOOL) allowURL:(NSURL *)URLToFilter
+{
+    // By default URLs are blocked
+    BOOL allowURL = NO;
+    
+    /// Apply current filter rules (expressions/actions) to URL
+    /// Apply prohibited filter expressions
+    
+//    NSString *regEx = [NSString stringWithFormat:@".*%@.*", yourSearchString];
+//    NSRange range = [stringToSearch rangeOfString:regEx options:NSRegularExpressionSearch];
+//    if (range.location != NSNotFound) {
+//        
+//    }
+    
+    // Return YES if URL is allowed or NO if it should be blocked
+    return allowURL;
+}
+
+
+- (NSString *)escapeBackslashes:(NSString *)regexString
+{
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\\\" options:NSRegularExpressionCaseInsensitive | NSRegularExpressionDotMatchesLineSeparators | NSRegularExpressionAnchorsMatchLines | NSRegularExpressionAllowCommentsAndWhitespace error:&error];
+    if (error == NULL)
+    {
+        return [regex stringByReplacingMatchesInString:regexString options:0 range:NSMakeRange(0, [regexString length]) withTemplate:@"\\\\"];
+    }
+    else
+    {
+        return regexString;
+    }
+}
+
 @end

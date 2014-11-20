@@ -72,9 +72,9 @@
 //    [networkTabView removeTabViewItem:urlFilterTab];
     
     // Set URL filter expression parts if an expression is selected
-    id selectedExpressionObject = [filterArrayController valueForKeyPath:@"selection.expression"];
-    if ([selectedExpression isKindOfClass:[NSString class]]) {
-        [self setPartsForExpression:(NSString *)selectedExpressionObject];
+    if ([filterArrayController selectedObjects].count) {
+        NSString *currentlySelectedExpression = [filterArrayController valueForKeyPath:@"selection.expression"];
+        [self setPartsForExpression:currentlySelectedExpression];
     }
     
     //Load settings password from user defaults
@@ -107,18 +107,37 @@
 }
 
 
+// Action to set the enabled property of dependent buttons
+// This is necessary because bindings don't work with private user defaults
+- (IBAction) URLFilterEnableChanged:(NSButton *)sender {
+    URLFilterEnableContentFilterButton.enabled = sender.state;
+}
+
+
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
     // Set URL filter expression parts if an expression is selected
-    id selectedExpressionObject = [filterArrayController valueForKeyPath:@"selection.expression"];
-    if ([selectedExpression isKindOfClass:[NSString class]]) {
-        [self setPartsForExpression:(NSString *)selectedExpressionObject];
+    if ([filterArrayController selectedObjects].count) {
+        NSString *currentlySelectedExpression = [filterArrayController valueForKeyPath:@"selection.expression"];
+        [self setPartsForExpression:currentlySelectedExpression];
     }
 }
 
 
-/*
+- (IBAction) addExpression:(id)sender
+{
+    NSMutableData *newObject = [filterArrayController newObject];
+    NSInteger selectedExpressionInTableView = [filterTableView selectedRow];
+    [filterArrayController addObject:newObject];
+    [filterArrayController setSelectionIndex:[[filterArrayController arrangedObjects] count]-1];
 
+    NSInteger newSelectedExpressionInTableView = [filterTableView numberOfSelectedRows];
+    DDLogDebug(@"Selected before: %ld, selected now: %ld", (long)selectedExpressionInTableView, (long)newSelectedExpressionInTableView);
+
+}
+
+
+/*
  // Get Proxies directory
  NSDictionary *proxySettings = (__bridge NSDictionary *)CFNetworkCopySystemProxySettings();
  NSArray *proxies = (__bridge NSArray *)CFNetworkCopyProxiesForURL((__bridge CFURLRef)[NSURL URLWithString:@"http://apple.com"], (__bridge CFDictionaryRef)proxySettings);
@@ -137,9 +156,22 @@
 }
 
 
+- (IBAction) regexChanged:(NSButton *)sender
+{
+    if (sender.state == YES) {
+        // If regex is switched on, we clear all expression URL parts
+        [self setPartsForExpression:nil];
+    } else {
+        [self setPartsForExpression:selectedExpression.stringValue];
+    }
+}
+
 - (void) setPartsForExpression:(NSString *)expression
 {
-    NSURL *expressionURL = [NSURL URLWithString:expression];
+    NSURL *expressionURL;
+    if ((BOOL)[filterArrayController valueForKeyPath:@"selection.regex"] == NO) {
+        expressionURL = [NSURL URLWithString:expression];
+    }
     scheme.stringValue = expressionURL.scheme ? expressionURL.scheme : @"";
     user.stringValue = expressionURL.user ? expressionURL.user : @"";
     password.stringValue = expressionURL.password ? expressionURL.password : @"";

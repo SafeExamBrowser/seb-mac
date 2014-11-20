@@ -46,6 +46,7 @@
 	IBOutlet NSTableColumn *groupRowTableColumn;
 
     // Filter Section
+    IBOutlet NSButton *URLFilterEnableContentFilterButton;
     IBOutlet NSTextField *selectedExpression;
     IBOutlet NSTextField *scheme;
     IBOutlet NSTextField *user;
@@ -56,6 +57,7 @@
     IBOutlet NSTextField *query_string;
     IBOutlet NSTextField *fragment;
     IBOutlet NSArrayController *filterArrayController;
+    __weak IBOutlet NSTableView *filterTableView;
 
     // Certificates section
     IBOutlet NSPopUpButton *chooseCertificate;
@@ -79,6 +81,7 @@
 
 // Filter Section
 - (IBAction) updateExpressionFromParts:(NSTextField *)sender;
+- (IBAction) addExpression:(id)sender;
 
 // Certificates section
 - (IBAction) identitySelected:(id)sender;
