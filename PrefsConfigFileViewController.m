@@ -155,6 +155,12 @@
 }
 
 
+// Return YES if currently opened settings are loaded from a file
+- (BOOL) editingSettingsFile {
+    return [self.preferencesController editingSettingsFile];
+}
+
+
 // Delegate called before the Exam settings preferences pane will be displayed
 - (void)willBeDisplayed {
     if (!self.identitiesNames) { //no identities available yet, get them from keychain
@@ -206,6 +212,11 @@
     }
 }
 
+
+- (void) revertLastSavedButtonSetEnabled:(id)sender
+{
+    revertLastFileButton.enabled = [self editingSettingsFile];
+}
 
 // Get selected config purpose
 - (sebConfigPurposes) getSelectedConfigPurpose

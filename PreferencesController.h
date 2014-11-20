@@ -86,6 +86,7 @@
 - (void) showPreferencesWindow:(NSNotification *)notification;
 - (BOOL) preferencesAreOpen;
 - (BOOL) usingPrivateDefaults;
+- (BOOL) editingSettingsFile;
 - (void) initPreferencesWindow;
 - (void) releasePreferencesWindow;
 

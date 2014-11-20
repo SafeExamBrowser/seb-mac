@@ -402,6 +402,13 @@
 }
 
 
+// Return YES if currently opened settings are loaded from a file
+- (BOOL) editingSettingsFile
+{
+    return [[[MyGlobals sharedMyGlobals] currentConfigURL] isFileURL];
+}
+
+
 // Check if passwords are confirmed
 - (BOOL) arePasswordsUnconfirmed
 {
@@ -841,6 +848,7 @@
                 return NO;
             } else if (fileURLUpdate) {
                 [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigFileURL];
+                [self.configFileVC revertLastSavedButtonSetEnabled:self];
                 [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
                 [[MBPreferencesController sharedController] setPreferencesWindowTitle];
             }
@@ -877,6 +885,7 @@
                     // Store the new path as the current config file path
                     if (NSUserDefaults.userDefaultsPrivate && fileURLUpdate && (saveAs || ![currentConfigFileURL isFileURL])) {
                         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:prefsFileURL];
+                        [self.configFileVC revertLastSavedButtonSetEnabled:self];
                         [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
                     }
                     if (NSUserDefaults.userDefaultsPrivate && fileURLUpdate) {
@@ -908,7 +917,8 @@
                     [self releasePreferencesWindow];
                     
                     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:prefsFileURL];
-                    
+                    [self.configFileVC revertLastSavedButtonSetEnabled:self];
+
                     // Get key/values from local shared client UserDefaults
                     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
                     NSDictionary *localClientPreferences = [preferences dictionaryRepresentationSEB];

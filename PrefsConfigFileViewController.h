@@ -52,6 +52,7 @@
 	IBOutlet NSMatrix *sebPurpose;
     IBOutlet NSSecureTextField *settingsPasswordField;
     IBOutlet NSSecureTextField *confirmSettingsPasswordField;
+    IBOutlet NSButton *revertLastFileButton;
 }
 
 @property (weak, nonatomic) PreferencesController *preferencesController;
@@ -62,6 +63,7 @@
 
 @property BOOL configPasswordIsHash;
 @property (readonly) BOOL usingPrivateDefaults;
+@property (readonly) BOOL editingSettingsFile;
 
 // Write-only properties
 @property (nonatomic) NSString *currentConfigFilePassword;
@@ -72,6 +74,9 @@
 - (SecKeyRef)currentConfigFileKeyRef UNAVAILABLE_ATTRIBUTE;
 
 - (BOOL) usingPrivateDefaults;
+- (BOOL) editingSettingsFile;
+
+- (void) revertLastSavedButtonSetEnabled:(id)sender;
 
 - (NSString*) compareSettingsPasswords;
 
