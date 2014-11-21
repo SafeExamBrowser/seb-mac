@@ -81,4 +81,10 @@
 }
 
 
+- (BOOL) containsFilterURL:(NSURL *)filterExpression
+{
+    return NO;
+}
+
+
 @end

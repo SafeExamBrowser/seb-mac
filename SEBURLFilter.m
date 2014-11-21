@@ -34,6 +34,8 @@
 
 
 #import "SEBURLFilter.h"
+#import "NSURL+SEBURL.h"
+#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 @implementation SEBURLFilter
 
@@ -56,18 +58,95 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
 // Updates filter rule arrays with current settings (UserDefaults)
 - (void) updateFilterRules
 {
+    [self.prohibitedList removeAllObjects];
+    [self.permittedList removeAllObjects];
     
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSArray *URLFilterRules = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_URLFilterRules"];
+    NSDictionary *URLFilterRule;
+    
+    for (URLFilterRule in URLFilterRules) {
+        
+        if (URLFilterRule[@"active"]) {
+            
+            NSString *expressionString = URLFilterRule[@"expression"];
+            id expression;
+            
+            BOOL regex = URLFilterRule[@"regex"];
+            if (regex) {
+                expression = expressionString;
+            } else {
+                expression = [NSURL URLWithString:expressionString];
+            }
+            
+            NSUInteger action = URLFilterRule[@"action"];
+            switch (action) {
+                case URLFilterActionBlock:
+                    [self.prohibitedList addObject:expression];
+                    break;
+                    
+                case URLFilterActionAllow:
+                    [self.permittedList addObject:expression];
+                    break;
+            }
+        }
+    }
 }
 
 
 // Filter passed URL and return YES if it is allowed
 - (BOOL) allowURL:(NSURL *)URLToFilter
 {
+    NSString* URLToFilterString = [URLToFilter absoluteString];
     // By default URLs are blocked
     BOOL allowURL = NO;
+    BOOL blockURL = NO;
+    id expression;
     
     /// Apply current filter rules (expressions/actions) to URL
     /// Apply prohibited filter expressions
+    
+    for (expression in self.prohibitedList) {
+        
+        if ([expression isKindOfClass:[NSString class]]) {
+            NSRange range = [URLToFilterString rangeOfString:expression options:NSRegularExpressionSearch || NSCaseInsensitiveSearch];
+            if (range.location != NSNotFound) {
+                blockURL = YES;
+                break;
+            }
+        }
+        
+        if ([expression isKindOfClass:[NSURL class]]) {
+            if ([URLToFilter containsFilterURL:expression]) {
+                blockURL = YES;
+                break;
+            }
+        }
+    }
+    
+    if (blockURL) {
+        return NO;
+    }
+    
+    /// Apply permitted filter expressions
+    
+    for (expression in self.permittedList) {
+        
+        if ([expression isKindOfClass:[NSString class]]) {
+            NSRange range = [URLToFilterString rangeOfString:expression options:NSRegularExpressionSearch || NSCaseInsensitiveSearch];
+            if (range.location != NSNotFound) {
+                allowURL = YES;
+                break;
+            }
+        }
+        
+        if ([expression isKindOfClass:[NSURL class]]) {
+            if ([URLToFilter containsFilterURL:expression]) {
+                allowURL = YES;
+                break;
+            }
+        }
+    }
     
 //    NSString *regEx = [NSString stringWithFormat:@".*%@.*", yourSearchString];
 //    NSRange range = [stringToSearch rangeOfString:regEx options:NSRegularExpressionSearch];
