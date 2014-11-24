@@ -38,6 +38,6 @@
 
 + (NSURL *) URLWithScheme:(NSString *)scheme user:(NSString *)user password:(NSString *)password host:(NSString *)host port:(NSNumber *)port path:(NSString *)path query:(NSString *)query fragment:(NSString *)fragment;
 
-- (BOOL) containsFilterURL:(NSURL *)filterExpression;
+- (BOOL) passesFilterExpression:(NSURL *)filterExpression;
 
 @end

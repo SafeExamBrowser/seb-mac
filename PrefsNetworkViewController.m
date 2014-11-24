@@ -40,6 +40,7 @@
 #import "SEBUIUserDefaultsController.h"
 #import "SEBKeychainManager.h"
 #import "NSURL+SEBURL.h"
+#import "SEBURLFilterExpression.h"
 
 @implementation PrefsNetworkViewController
 
@@ -168,9 +169,9 @@
 
 - (void) setPartsForExpression:(NSString *)expression
 {
-    NSURL *expressionURL;
+    SEBURLFilterExpression *expressionURL;
     if ((BOOL)[filterArrayController valueForKeyPath:@"selection.regex"] == NO) {
-        expressionURL = [NSURL URLWithString:expression];
+        expressionURL = [SEBURLFilterExpression filterExpressionWithString:expression];
     }
     scheme.stringValue = expressionURL.scheme ? expressionURL.scheme : @"";
     user.stringValue = expressionURL.user ? expressionURL.user : @"";
@@ -184,16 +185,16 @@
 }
 
 
-- (NSURL *) getExpressionFromParts
+- (SEBURLFilterExpression *) getExpressionFromParts
 {
 //    return [NSURL URLWithScheme:scheme.stringValue user:user.stringValue password:password.stringValue host:host.stringValue port:@([port.stringValue intValue]) path:path.stringValue query:query_string.stringValue fragment:fragment.stringValue];
-    return [NSURL URLWithScheme:scheme.stringValue user:user.stringValue password:password.stringValue host:host.stringValue port:@([self.expressionPort intValue]) path:path.stringValue query:query_string.stringValue fragment:fragment.stringValue];
+    return [[SEBURLFilterExpression alloc] initWithScheme:scheme.stringValue user:user.stringValue password:password.stringValue host:host.stringValue port:@([self.expressionPort intValue]) path:path.stringValue query:query_string.stringValue fragment:fragment.stringValue];
 }
 
 - (IBAction) updateExpressionFromParts:(NSTextField *)sender
 {
-    NSURL *expressionURL = [self getExpressionFromParts];
-    [filterArrayController setValue:[expressionURL absoluteString] forKeyPath:@"selection.expression"];
+    SEBURLFilterExpression *filterExpression = [self getExpressionFromParts];
+    [filterArrayController setValue:[filterExpression string] forKeyPath:@"selection.expression"];
 }
 
 

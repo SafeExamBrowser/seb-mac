@@ -35,6 +35,7 @@
 
 #import "SEBURLFilter.h"
 #import "NSURL+SEBURL.h"
+#import "SEBURLFilterExpression.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 @implementation SEBURLFilter
@@ -76,7 +77,7 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
             if (regex) {
                 expression = expressionString;
             } else {
-                expression = [NSURL URLWithString:expressionString];
+                expression = [SEBURLFilterExpression filterExpressionWithString:expressionString];
             }
             
             NSUInteger action = URLFilterRule[@"action"];
@@ -116,8 +117,8 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
             }
         }
         
-        if ([expression isKindOfClass:[NSURL class]]) {
-            if ([URLToFilter containsFilterURL:expression]) {
+        if ([expression isKindOfClass:[SEBURLFilterExpression class]]) {
+            if ([URLToFilter passesFilterExpression:expression]) {
                 blockURL = YES;
                 break;
             }
@@ -140,8 +141,8 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
             }
         }
         
-        if ([expression isKindOfClass:[NSURL class]]) {
-            if ([URLToFilter containsFilterURL:expression]) {
+        if ([expression isKindOfClass:[SEBURLFilterExpression class]]) {
+            if ([URLToFilter passesFilterExpression:expression]) {
                 allowURL = YES;
                 break;
             }

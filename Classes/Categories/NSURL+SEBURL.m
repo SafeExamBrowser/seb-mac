@@ -33,6 +33,7 @@
 //
 
 #import "NSURL+SEBURL.h"
+#import "SEBURLFilterExpression.h"
 
 @implementation NSURL (SEBURL)
 
@@ -81,9 +82,11 @@
 }
 
 
-- (BOOL) containsFilterURL:(NSURL *)filterExpression
+- (BOOL) passesFilterExpression:(SEBURLFilterExpression *)filterExpression
 {
-    return NO;
+    BOOL passesFilter = NO;
+    
+    return passesFilter;
 }
 
 

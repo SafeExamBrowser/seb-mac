@@ -221,7 +221,8 @@
 // Get selected config purpose
 - (sebConfigPurposes) getSelectedConfigPurpose
 {
-    sebConfigPurposes configPurpose = [sebPurpose selectedRow];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    sebConfigPurposes configPurpose = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];
     return configPurpose;
 }
 

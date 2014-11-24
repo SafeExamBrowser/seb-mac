@@ -232,6 +232,9 @@
 		69F32DC316D23374003C9502 /* PrefsAppearanceViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F32DC116D23374003C9502 /* PrefsAppearanceViewController.h */; };
 		69F32DC416D23374003C9502 /* PrefsAppearanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F32DC216D23374003C9502 /* PrefsAppearanceViewController.m */; };
 		69F32DC616D23374003C9502 /* PrefsAppearanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F32DC216D23374003C9502 /* PrefsAppearanceViewController.m */; };
+		69F45D3E1A2123C3009CF3AA /* SEBURLFilterExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F45D3C1A2123C3009CF3AA /* SEBURLFilterExpression.h */; };
+		69F45D3F1A2123C3009CF3AA /* SEBURLFilterExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F45D3D1A2123C3009CF3AA /* SEBURLFilterExpression.m */; };
+		69F45D401A2123C3009CF3AA /* SEBURLFilterExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F45D3D1A2123C3009CF3AA /* SEBURLFilterExpression.m */; };
 		69F60FAE19AB7A7E00A5F650 /* MenuTriangleDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F60FAC19AB7A7E00A5F650 /* MenuTriangleDown.png */; };
 		69F60FAF19AB7A7E00A5F650 /* MenuTriangleDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F60FAC19AB7A7E00A5F650 /* MenuTriangleDown.png */; };
 		69F60FB019AB7A7E00A5F650 /* MenuTriangleDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F60FAD19AB7A7E00A5F650 /* MenuTriangleDown@2x.png */; };
@@ -487,6 +490,8 @@
 		69F32DBD16D232C0003C9502 /* Appearance.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Appearance.icns; sourceTree = "<group>"; };
 		69F32DC116D23374003C9502 /* PrefsAppearanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsAppearanceViewController.h; sourceTree = "<group>"; };
 		69F32DC216D23374003C9502 /* PrefsAppearanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsAppearanceViewController.m; sourceTree = "<group>"; };
+		69F45D3C1A2123C3009CF3AA /* SEBURLFilterExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBURLFilterExpression.h; path = Classes/BrowserComponents/SEBURLFilterExpression.h; sourceTree = "<group>"; };
+		69F45D3D1A2123C3009CF3AA /* SEBURLFilterExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBURLFilterExpression.m; path = Classes/BrowserComponents/SEBURLFilterExpression.m; sourceTree = "<group>"; };
 		69F60FAC19AB7A7E00A5F650 /* MenuTriangleDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuTriangleDown.png; sourceTree = "<group>"; };
 		69F60FAD19AB7A7E00A5F650 /* MenuTriangleDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuTriangleDown@2x.png"; sourceTree = "<group>"; };
 		69F684CA143653880091CDA7 /* SEBBrowserWindowDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBBrowserWindowDocument.h; path = Classes/BrowserComponents/SEBBrowserWindowDocument.h; sourceTree = "<group>"; };
@@ -758,6 +763,8 @@
 				69D817E418017DDB00EB7885 /* SEBURLFilter.m */,
 				69009BDE19EA7F590083274C /* SEBBrowserOpenWindowWebView.h */,
 				69009BDF19EA7F590083274C /* SEBBrowserOpenWindowWebView.m */,
+				69F45D3C1A2123C3009CF3AA /* SEBURLFilterExpression.h */,
+				69F45D3D1A2123C3009CF3AA /* SEBURLFilterExpression.m */,
 			);
 			name = "Browser Components";
 			sourceTree = "<group>";
@@ -969,6 +976,7 @@
 				6909E3471A019F7A0086A741 /* DDLog.h in Headers */,
 				694B08A316B14ABF00E4997C /* SEBCryptor.h in Headers */,
 				6992499216C3B18B00DF6B53 /* PrefsConfigFileViewController.h in Headers */,
+				69F45D3E1A2123C3009CF3AA /* SEBURLFilterExpression.h in Headers */,
 				6992499C16C5B62000DF6B53 /* PrefsApplicationsViewController.h in Headers */,
 				69F9110016CA5C720041EA38 /* PrefsNetworkViewController.h in Headers */,
 				699282E319D0430A00270E86 /* CapWindowController.h in Headers */,
@@ -1220,6 +1228,7 @@
 				69903B0214CD7624007E7DF7 /* main.m in Sources */,
 				69903B0314CD7624007E7DF7 /* SEBController.m in Sources */,
 				69903B0414CD7624007E7DF7 /* CapView.m in Sources */,
+				69F45D401A2123C3009CF3AA /* SEBURLFilterExpression.m in Sources */,
 				69903B0514CD7624007E7DF7 /* AboutWindow.m in Sources */,
 				69903B0614CD7624007E7DF7 /* AboutView.m in Sources */,
 				69903B0714CD7624007E7DF7 /* SEBBrowserWindow.m in Sources */,
@@ -1308,6 +1317,7 @@
 				69F7B61B14F411FB00FD0761 /* MethodSwizzling.m in Sources */,
 				690BBEB219D2C6E500F7C9C6 /* SEBDockItemButton.m in Sources */,
 				69009BE119EA7F590083274C /* SEBBrowserOpenWindowWebView.m in Sources */,
+				69F45D3F1A2123C3009CF3AA /* SEBURLFilterExpression.m in Sources */,
 				6915F2EA19C8F77600DAEA37 /* SEBDockWindow.m in Sources */,
 				6940A7621853B2AD00D9D00D /* NSData+NSDataZIPExtension.m in Sources */,
 				693F135315767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
