@@ -82,12 +82,4 @@
 }
 
 
-- (BOOL) passesFilterExpression:(SEBURLFilterExpression *)filterExpression
-{
-    BOOL passesFilter = NO;
-    
-    return passesFilter;
-}
-
-
 @end

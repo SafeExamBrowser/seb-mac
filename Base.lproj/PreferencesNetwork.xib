@@ -209,6 +209,7 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
+                                            <action selector="URLFilterEnableContentFilterChanged:" target="-2" id="9Or-b5-pkX"/>
                                             <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_URLFilterEnable" id="1KF-lf-Ec2">
                                                 <dictionary key="options">
                                                     <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
@@ -428,14 +429,14 @@
                                                     </textFieldCell>
                                                     <connections>
                                                         <action selector="updateExpressionFromParts:" target="-2" id="FT7-xr-0o6"/>
-                                                        <binding destination="Hmk-IV-hfb" name="enabled" keyPath="selection.regex" id="Obc-J4-BVQ">
-                                                            <dictionary key="options">
-                                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                            </dictionary>
-                                                        </binding>
                                                         <binding destination="Hmk-IV-hfb" name="hidden" keyPath="selectedObjects" previousBinding="Obc-J4-BVQ" id="src-lC-wx1">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                            </dictionary>
+                                                        </binding>
+                                                        <binding destination="Hmk-IV-hfb" name="enabled" keyPath="selection.regex" id="Obc-J4-BVQ">
+                                                            <dictionary key="options">
+                                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                             </dictionary>
                                                         </binding>
                                                     </connections>
@@ -452,14 +453,14 @@
                                                     </textFieldCell>
                                                     <connections>
                                                         <action selector="updateExpressionFromParts:" target="-2" id="CD1-Gq-Eyf"/>
-                                                        <binding destination="Hmk-IV-hfb" name="enabled" keyPath="selection.regex" id="1OY-eO-e7t">
-                                                            <dictionary key="options">
-                                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                            </dictionary>
-                                                        </binding>
                                                         <binding destination="Hmk-IV-hfb" name="hidden" keyPath="selectedObjects" previousBinding="1OY-eO-e7t" id="TYD-MZ-q9y">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                            </dictionary>
+                                                        </binding>
+                                                        <binding destination="Hmk-IV-hfb" name="enabled" keyPath="selection.regex" id="1OY-eO-e7t">
+                                                            <dictionary key="options">
+                                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                             </dictionary>
                                                         </binding>
                                                     </connections>
@@ -476,14 +477,14 @@
                                                     </textFieldCell>
                                                     <connections>
                                                         <action selector="updateExpressionFromParts:" target="-2" id="cGc-HA-3Zo"/>
-                                                        <binding destination="Hmk-IV-hfb" name="enabled" keyPath="selection.regex" id="5mn-Ue-zJd">
-                                                            <dictionary key="options">
-                                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                            </dictionary>
-                                                        </binding>
                                                         <binding destination="Hmk-IV-hfb" name="hidden" keyPath="selectedObjects" previousBinding="5mn-Ue-zJd" id="YaZ-3d-e8a">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                            </dictionary>
+                                                        </binding>
+                                                        <binding destination="Hmk-IV-hfb" name="enabled" keyPath="selection.regex" id="5mn-Ue-zJd">
+                                                            <dictionary key="options">
+                                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                             </dictionary>
                                                         </binding>
                                                     </connections>
@@ -500,14 +501,14 @@
                                                     </textFieldCell>
                                                     <connections>
                                                         <action selector="updateExpressionFromParts:" target="-2" id="ZyY-RV-nC6"/>
-                                                        <binding destination="Hmk-IV-hfb" name="enabled" keyPath="selection.regex" id="pCE-Mo-Fto">
-                                                            <dictionary key="options">
-                                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                            </dictionary>
-                                                        </binding>
                                                         <binding destination="Hmk-IV-hfb" name="hidden" keyPath="selectedObjects" previousBinding="pCE-Mo-Fto" id="86g-Yh-mij">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                            </dictionary>
+                                                        </binding>
+                                                        <binding destination="Hmk-IV-hfb" name="enabled" keyPath="selection.regex" id="pCE-Mo-Fto">
+                                                            <dictionary key="options">
+                                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                             </dictionary>
                                                         </binding>
                                                     </connections>
@@ -524,14 +525,14 @@
                                                     </textFieldCell>
                                                     <connections>
                                                         <action selector="updateExpressionFromParts:" target="-2" id="KX2-2E-jte"/>
-                                                        <binding destination="Hmk-IV-hfb" name="enabled" keyPath="selection.regex" id="DWw-Ka-kBg">
-                                                            <dictionary key="options">
-                                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                            </dictionary>
-                                                        </binding>
                                                         <binding destination="Hmk-IV-hfb" name="hidden" keyPath="selectedObjects" previousBinding="DWw-Ka-kBg" id="lnB-db-ONE">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                            </dictionary>
+                                                        </binding>
+                                                        <binding destination="Hmk-IV-hfb" name="enabled" keyPath="selection.regex" id="DWw-Ka-kBg">
+                                                            <dictionary key="options">
+                                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                             </dictionary>
                                                         </binding>
                                                     </connections>
@@ -548,14 +549,14 @@
                                                     </textFieldCell>
                                                     <connections>
                                                         <action selector="updateExpressionFromParts:" target="-2" id="7rT-yM-zee"/>
-                                                        <binding destination="Hmk-IV-hfb" name="enabled" keyPath="selection.regex" id="eq7-pC-r2t">
-                                                            <dictionary key="options">
-                                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                            </dictionary>
-                                                        </binding>
                                                         <binding destination="Hmk-IV-hfb" name="hidden" keyPath="selectedObjects" previousBinding="eq7-pC-r2t" id="8dZ-RH-ytn">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                            </dictionary>
+                                                        </binding>
+                                                        <binding destination="Hmk-IV-hfb" name="enabled" keyPath="selection.regex" id="eq7-pC-r2t">
+                                                            <dictionary key="options">
+                                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                             </dictionary>
                                                         </binding>
                                                     </connections>
@@ -621,14 +622,14 @@
                                                     </textFieldCell>
                                                     <connections>
                                                         <action selector="updateExpressionFromParts:" target="-2" id="Bhh-OK-cRs"/>
-                                                        <binding destination="Hmk-IV-hfb" name="enabled" keyPath="selection.regex" id="oNg-jI-ezB">
-                                                            <dictionary key="options">
-                                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                            </dictionary>
-                                                        </binding>
                                                         <binding destination="Hmk-IV-hfb" name="hidden" keyPath="selectedObjects" previousBinding="oNg-jI-ezB" id="bqf-ba-mye">
                                                             <dictionary key="options">
                                                                 <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                            </dictionary>
+                                                        </binding>
+                                                        <binding destination="Hmk-IV-hfb" name="enabled" keyPath="selection.regex" id="oNg-jI-ezB">
+                                                            <dictionary key="options">
+                                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                             </dictionary>
                                                         </binding>
                                                         <binding destination="-2" name="value" keyPath="self.expressionPort" id="KpC-uK-dbY">

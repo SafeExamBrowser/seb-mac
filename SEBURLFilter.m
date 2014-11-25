@@ -59,10 +59,21 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
 // Updates filter rule arrays with current settings (UserDefaults)
 - (void) updateFilterRules
 {
-    [self.prohibitedList removeAllObjects];
-    [self.permittedList removeAllObjects];
+    if (self.prohibitedList) {
+        [self.prohibitedList removeAllObjects];
+    } else {
+        self.prohibitedList = [NSMutableArray new];
+    }
+    if (self.permittedList) {
+        [self.permittedList removeAllObjects];
+    } else {
+        self.permittedList = [NSMutableArray new];
+    }
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    self.enableURLFilter = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnable"];
+    self.enableContentFilter = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"];
+    
     NSArray *URLFilterRules = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_URLFilterRules"];
     NSDictionary *URLFilterRule;
     
@@ -80,7 +91,7 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
                 expression = [SEBURLFilterExpression filterExpressionWithString:expressionString];
             }
             
-            NSUInteger action = URLFilterRule[@"action"];
+            int action = [URLFilterRule[@"action"] intValue];
             switch (action) {
                 case URLFilterActionBlock:
                     [self.prohibitedList addObject:expression];
@@ -118,13 +129,12 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
         }
         
         if ([expression isKindOfClass:[SEBURLFilterExpression class]]) {
-            if ([URLToFilter passesFilterExpression:expression]) {
+            if ([self URL:(NSURL *)URLToFilter matchesFilterExpression:expression]) {
                 blockURL = YES;
                 break;
             }
         }
     }
-    
     if (blockURL) {
         return NO;
     }
@@ -142,21 +152,80 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
         }
         
         if ([expression isKindOfClass:[SEBURLFilterExpression class]]) {
-            if ([URLToFilter passesFilterExpression:expression]) {
+            if ([self URL:(NSURL *)URLToFilter matchesFilterExpression:expression]) {
                 allowURL = YES;
                 break;
             }
         }
     }
-    
-//    NSString *regEx = [NSString stringWithFormat:@".*%@.*", yourSearchString];
-//    NSRange range = [stringToSearch rangeOfString:regEx options:NSRegularExpressionSearch];
-//    if (range.location != NSNotFound) {
-//        
-//    }
-    
     // Return YES if URL is allowed or NO if it should be blocked
     return allowURL;
+}
+
+
+// Method comparing all components of a passed URL with the filter expression
+// and returning YES (= block) if it matches
+- (BOOL) URL:(NSURL *)URLToFilter matchesFilterExpression:(SEBURLFilterExpression *)filterExpression
+{
+    NSString *filterComponent;
+    
+    // If a scheme is indicated in the filter expression, it has to match
+    filterComponent = filterExpression.scheme;
+    if (filterComponent.length > 0 &&
+        [URLToFilter.scheme rangeOfString:filterComponent
+                                  options:NSRegularExpressionSearch || NSCaseInsensitiveSearch].location == NSNotFound) {
+            // Scheme of the URL to filter doesn't match the one from the filter expression: Exit with matching = NO
+            return NO;
+        }
+    
+    filterComponent = filterExpression.user;
+    if (filterComponent.length > 0 &&
+        [URLToFilter.user rangeOfString:filterComponent
+                                options:NSRegularExpressionSearch || NSCaseInsensitiveSearch].location == NSNotFound) {
+            return NO;
+        }
+    
+    filterComponent = filterExpression.password;
+    if (filterComponent.length > 0 &&
+        [URLToFilter.password rangeOfString:filterComponent
+                                options:NSRegularExpressionSearch || NSCaseInsensitiveSearch].location == NSNotFound) {
+            return NO;
+        }
+    
+    filterComponent = filterExpression.host;
+    if (filterComponent.length > 0 &&
+        [URLToFilter.host rangeOfString:filterComponent
+                                options:NSRegularExpressionSearch || NSCaseInsensitiveSearch].location == NSNotFound) {
+            return NO;
+        }
+    
+    if (filterExpression.port && URLToFilter.port &&
+        URLToFilter.port.intValue != filterExpression.port.intValue) {
+            return NO;
+        }
+    
+    filterComponent = filterExpression.path;
+    if (filterComponent.length > 0 &&
+        [URLToFilter.path rangeOfString:filterComponent
+                                options:NSRegularExpressionSearch || NSCaseInsensitiveSearch].location == NSNotFound) {
+            return NO;
+        }
+    
+    filterComponent = filterExpression.query;
+    if (filterComponent.length > 0 &&
+        [URLToFilter.query rangeOfString:filterComponent
+                                options:NSRegularExpressionSearch || NSCaseInsensitiveSearch].location == NSNotFound) {
+            return NO;
+        }
+    
+    filterComponent = filterExpression.fragment;
+    if (filterComponent.length > 0 &&
+        [URLToFilter.fragment rangeOfString:filterComponent
+                                options:NSRegularExpressionSearch || NSCaseInsensitiveSearch].location == NSNotFound) {
+            return NO;
+        }
+    
+    return YES;
 }
 
 

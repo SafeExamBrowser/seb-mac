@@ -40,6 +40,7 @@
 #import "SEBUIUserDefaultsController.h"
 #import "SEBKeychainManager.h"
 #import "NSURL+SEBURL.h"
+#import "SEBURLFilter.h"
 #import "SEBURLFilterExpression.h"
 
 @implementation PrefsNetworkViewController
@@ -112,6 +113,13 @@
 // This is necessary because bindings don't work with private user defaults
 - (IBAction) URLFilterEnableChanged:(NSButton *)sender {
     URLFilterEnableContentFilterButton.enabled = sender.state;
+    [SEBURLFilter sharedSEBURLFilter].enableURLFilter = sender.state;
+}
+
+
+// Action to set the enableContentFilter property of the sharedSEBURLFilter
+- (IBAction) URLFilterEnableContentFilterChanged:(NSButton *)sender {
+    [SEBURLFilter sharedSEBURLFilter].enableContentFilter = sender.state;
 }
 
 
@@ -182,6 +190,9 @@
     path.stringValue = expressionURL.path ? expressionURL.path : @"";
     query_string.stringValue = expressionURL.query ? expressionURL.query : @"";
     fragment.stringValue = expressionURL.fragment ? expressionURL.fragment : @"";
+    
+    // Update filter rules
+    [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
 }
 
 
@@ -195,10 +206,14 @@
 {
     SEBURLFilterExpression *filterExpression = [self getExpressionFromParts];
     [filterArrayController setValue:[filterExpression string] forKeyPath:@"selection.expression"];
+
+    // Update filter rules
+    [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
 }
 
 
-// Certificates Section
+
+/// Certificates Section
 
 // A certificate was selected in the drop down menu
 - (IBAction) certificateSelected:(id)sender

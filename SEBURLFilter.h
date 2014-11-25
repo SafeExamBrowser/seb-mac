@@ -37,12 +37,15 @@
 
 @interface SEBURLFilter : NSObject
 
-
+@property (readwrite) BOOL enableURLFilter;
+@property (readwrite) BOOL enableContentFilter;
 @property (strong) NSMutableArray *permittedList;
 @property (strong) NSMutableArray *prohibitedList;
 
 
 + (SEBURLFilter *)sharedSEBURLFilter;
+
+- (void) updateFilterRules;
 
 - (BOOL) allowURL:(NSURL *)URLToFilter;
 

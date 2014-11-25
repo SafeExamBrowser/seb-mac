@@ -51,6 +51,8 @@
 #include <IOKit/IOMessage.h>
 
 #import "PrefsBrowserViewController.h"
+#import "SEBURLFilter.h"
+
 #import "RNDecryptor.h"
 #import "SEBKeychainManager.h"
 #import "SEBCryptor.h"
@@ -208,6 +210,9 @@ bool insideMatrix();
 
         // Initialize file logger if it's enabled in settings
         [self initializeLogger];
+        
+        // Update URL filter flags and rules
+        [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
         
         // Regardless if switching to third party applications is allowed in current settings,
         // we need to first open the background cover windows with standard window levels
@@ -1370,6 +1375,9 @@ bool insideMatrix(){
 //    [self startKioskMode];
     BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
     [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
+
+    // Update URL filter flags and rules
+    [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];    
 }
 
 
@@ -1448,6 +1456,9 @@ bool insideMatrix(){
 
     // Re-Initialize file logger if logging enabled
     [self initializeLogger];
+    
+    // Update URL filter flags and rules
+    [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
     
     // Check for command key being held down
     int modifierFlags = [NSEvent modifierFlags];

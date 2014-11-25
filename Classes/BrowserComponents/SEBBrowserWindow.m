@@ -37,6 +37,7 @@
 #import "SEBBrowserWindowDocument.h"
 #import "NSWindow+SEBWindow.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
+#import "SEBURLFilter.h"
 
 
 @implementation SEBBrowserWindow
@@ -162,9 +163,7 @@
            options:bindingOptions];
     
     WebCacheModel defaultWebCacheModel = [webPrefs cacheModel];
-#ifdef DEBUG
-    NSLog(@"Default WebPreferences cacheModel: %lu", defaultWebCacheModel);
-#endif
+    DDLogDebug(@"Default WebPreferences cacheModel: %lu", defaultWebCacheModel);
     [webPrefs setCacheModel:WebCacheModelPrimaryWebBrowser];
     
     [self.webView setPreferences:webPrefs];
@@ -301,9 +300,7 @@
 // prevents the windows' position and size to be restored on restarting the app
 - (void)restoreStateWithCoder:(NSCoder *)coder
 {
-#ifdef DEBUG
-    NSLog(@"BrowserWindow %@: Prevented windows' position and size to be restored!", self);
-#endif
+    DDLogVerbose(@"BrowserWindow %@: Prevented windows' position and size to be restored!", self);
     return;
 }
 
@@ -387,23 +384,17 @@
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] != getGenerallyBlocked) {
         NSApplicationPresentationOptions presentationOptions = [NSApp currentSystemPresentationOptions];
-#ifdef DEBUG
-        NSLog(@"Current System Presentation Options: %lx",(long)presentationOptions);
-        NSLog(@"Saved System Presentation Options: %lx",(long)[[MyGlobals sharedMyGlobals] presentationOptions]);
-#endif
+        DDLogDebug(@"Current System Presentation Options: %lx",(long)presentationOptions);
+        DDLogDebug(@"Saved System Presentation Options: %lx",(long)[[MyGlobals sharedMyGlobals] presentationOptions]);
         if ((presentationOptions != [[MyGlobals sharedMyGlobals] presentationOptions]) || ([[MyGlobals sharedMyGlobals] flashChangedPresentationOptions])) {
             // request to open link in new window came from the flash plugin context menu while playing video in full screen mode
-#ifdef DEBUG
-            NSLog(@"Cancel opening link");
-#endif
+            DDLogDebug(@"Cancel opening link from Flash plugin context menu");
             return nil; // cancel opening link
         }
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
             WebView *newWindowWebView = [self.browserController openWebView];
-#ifdef DEBUG
-            NSLog(@"Now opening new document browser window. %@", newWindowWebView);
-            NSLog(@"Reqested from %@",sender);
-#endif
+            DDLogDebug(@"Now opening new document browser window. %@", newWindowWebView);
+            DDLogDebug(@"Reqested from %@",sender);
             //[[sender preferences] setPlugInsEnabled:NO];
             [[newWindowWebView mainFrame] loadRequest:request];
             return newWindowWebView;
@@ -546,9 +537,7 @@ initiatedByFrame:(WebFrame *)frame {
 // Get the URL of the page being loaded
 // Invoked when a page load is in progress in a given frame
 - (void)webView:(WebView *)sender didStartProvisionalLoadForFrame:(WebFrame *)frame {
-#ifdef DEBUG
-    NSLog(@"didStartProvisionalLoadForFrame request URL: %@", [[[[frame provisionalDataSource] request] URL] absoluteString]);
-#endif
+    DDLogInfo(@"didStartProvisionalLoadForFrame request URL: %@", [[[[frame provisionalDataSource] request] URL] absoluteString]);
     [self startProgressIndicatorAnimation];
     // Only report feedback for the main frame.
     if (frame == [sender mainFrame]){
@@ -568,9 +557,7 @@ initiatedByFrame:(WebFrame *)frame {
 // Invoked when a client redirect is cancelled
 - (void)webView:(WebView *)sender didCancelClientRedirectForFrame:(WebFrame *)frame
 {
-#ifdef DEBUG
-    NSLog(@"webView: %@ didCancelClientRedirectForFrame: %@", sender, frame);
-#endif
+    DDLogInfo(@"webView: %@ didCancelClientRedirectForFrame: %@", sender, frame);
 }
 
 
@@ -581,9 +568,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
        fireDate:(NSDate *)date
        forFrame:(WebFrame *)frame
 {
-#ifdef DEBUG
-    NSLog(@"willPerformClientRedirectToURL: %@", URL);
-#endif
+    DDLogInfo(@"willPerformClientRedirectToURL: %@", URL);
 }
 
 
@@ -614,10 +599,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
                                         [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"], 
                                         title];
         }
-#ifdef DEBUG
-        NSLog(@"BrowserWindow %@: Title of current Page: %@", self, appTitleString);
-        NSLog(@"BrowserWindow sharingType: %lx",(long)[[sender window] sharingType]);
-#endif
+        DDLogInfo(@"BrowserWindow %@: Title of current Page: %@", self, appTitleString);
         [sender.window setTitle:appTitleString];
     }
 }
@@ -692,14 +674,12 @@ willPerformClientRedirectToURL:(NSURL *)URL
 }
 
 
-//// Invoked when the JavaScript window object in a frame is ready for loading
-//- (void)webView:(WebView *)sender didClearWindowObject:(WebScriptObject *)windowObject
-//       forFrame:(WebFrame *)frame
-//{
-//#ifdef DEBUG
-//    NSLog(@"webView: %@ didClearWindowObject: %@ forFrame: %@", sender, windowObject, frame);
-//#endif
-//}
+// Invoked when the JavaScript window object in a frame is ready for loading
+- (void)webView:(WebView *)sender didClearWindowObject:(WebScriptObject *)windowObject
+       forFrame:(WebFrame *)frame
+{
+    DDLogDebug(@"webView: %@ didClearWindowObject: %@ forFrame: %@", sender, windowObject, frame);
+}
 
 
 #pragma mark WebResourceLoadDelegate Protocol
@@ -708,6 +688,14 @@ willPerformClientRedirectToURL:(NSURL *)URL
 // Invoked before a request is initiated for a resource and returns a possibly modified request
 - (NSURLRequest *)webView:(WebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource
 {
+    // If enabled, filter content
+    SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
+    if (URLFilter.enableContentFilter && ![URLFilter allowURL:request.URL]) {
+        // Content is not allowed
+        DDLogWarn(@"This content was blocked by the content filter: %@", request.URL.absoluteString);
+        return nil;
+    }
+
     NSString *fragment = [[request URL] fragment];
     NSString *absoluteRequestURL = [[request URL] absoluteString];
     NSString *requestURLStrippedFragment;
@@ -715,17 +703,12 @@ willPerformClientRedirectToURL:(NSURL *)URL
         // if there is a fragment
         requestURLStrippedFragment = [absoluteRequestURL substringToIndex:absoluteRequestURL.length - fragment.length - 1];
     } else requestURLStrippedFragment = absoluteRequestURL;
-#ifdef DEBUG
-//    NSLog(@"Full absolute request URL: %@", absoluteRequestURL);
-//    NSLog(@"Fragment: %@", fragment);
-//    NSLog(@"Request URL used to calculate RequestHash: %@", requestURLStrippedFragment);
-#endif
+    DDLogVerbose(@"Full absolute request URL: %@", absoluteRequestURL);
+    DDLogVerbose(@"Request URL used to calculate RequestHash: %@", requestURLStrippedFragment);
 
-#ifdef DEBUG
     NSDictionary *headerFields;
-    //headerFields = [request allHTTPHeaderFields];
-    //NSLog(@"All HTTP header fields: %@", headerFields);
-#endif
+    headerFields = [request allHTTPHeaderFields];
+    DDLogVerbose(@"All HTTP header fields: %@", headerFields);
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"]) {
         
@@ -744,9 +727,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
         unsigned char hashedChars[32];
         [browserExamKey getBytes:hashedChars length:32];
 
-#ifdef DEBUG
-        NSLog(@"Current Browser Exam Key: %@", browserExamKey);
-#endif
+        DDLogVerbose(@"Current Browser Exam Key: %@", browserExamKey);
         
         NSMutableString* browserExamKeyString = [[NSMutableString alloc] init];
         [browserExamKeyString setString:requestURLStrippedFragment];
@@ -754,10 +735,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
             [browserExamKeyString appendFormat: @"%02x", hashedChars[i]];
         }
         
-
-#ifdef DEBUG
-        NSLog(@"Current request URL + Browser Exam Key: %@", browserExamKeyString);
-#endif
+        DDLogVerbose(@"Current request URL + Browser Exam Key: %@", browserExamKeyString);
         
         //unsigned char hashedChars[32];
         
@@ -783,10 +761,8 @@ willPerformClientRedirectToURL:(NSURL *)URL
         }
         [modifiedRequest setValue:hashedString forHTTPHeaderField:@"X-SafeExamBrowser-RequestHash"];
 
-#ifdef DEBUG
         headerFields = [modifiedRequest allHTTPHeaderFields];
-        NSLog(@"All HTTP header fields in modified request: %@", headerFields);
-#endif
+        DDLogVerbose(@"All HTTP header fields in modified request: %@", headerFields);
         return modifiedRequest;
         
     } else {
@@ -800,9 +776,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
 - (void)webView:(WebView *)sender resource:(id)identifier didFailLoadingWithError:(NSError *)error
  fromDataSource:(WebDataSource *)dataSource
 {
-#ifdef DEBUG
-    NSLog(@"webView: %@ resource: %@ didFailLoadingWithError: %@ fromDataSource: %@", sender, identifier, error, dataSource);
-#endif
+    DDLogError(@"webView: %@ resource: %@ didFailLoadingWithError: %@ fromDataSource: %@", sender, identifier, error, dataSource);
 }
 
 
@@ -810,9 +784,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
 - (void)webView:(WebView *)sender plugInFailedWithError:(NSError *)error
      dataSource:(WebDataSource *)dataSource
 {
-#ifdef DEBUG
-    NSLog(@"webView: %@ plugInFailedWithError: %@ dataSource: %@", sender, error, dataSource);
-#endif
+    DDLogError(@"webView: %@ plugInFailedWithError: %@ dataSource: %@", sender, error, dataSource);
 }
 
 
@@ -820,9 +792,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
 - (void)webView:(WebView *)sender resource:(id)identifier didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
  fromDataSource:(WebDataSource *)dataSource
 {
-#ifdef DEBUG
-    NSLog(@"webView: %@ resource: %@ didReceiveAuthenticationChallenge: %@ fromDataSource: %@", sender, identifier, challenge, dataSource);
-#endif
+    DDLogInfo(@"webView: %@ resource: %@ didReceiveAuthenticationChallenge: %@ fromDataSource: %@", sender, identifier, challenge, dataSource);
 }
 
 
@@ -832,9 +802,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
 didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
  fromDataSource:(WebDataSource *)dataSource
 {
-#ifdef DEBUG
-    NSLog(@"webView: %@ resource: %@ didCancelAuthenticationChallenge: %@ fromDataSource: %@", sender, identifier, challenge, dataSource);
-#endif
+    DDLogInfo(@"webView: %@ resource: %@ didCancelAuthenticationChallenge: %@ fromDataSource: %@", sender, identifier, challenge, dataSource);
 }
 
 
@@ -847,9 +815,23 @@ didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 decisionListener:(id <WebPolicyDecisionListener>)listener {
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    DDLogInfo(@"decidePolicyForNavigationAction request URL: %@", [[request URL] absoluteString]);
+
+    // If enabled, filter URL
+    SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
+    if (URLFilter.enableURLFilter && ![URLFilter allowURL:request.URL]) {
+        // URL is not allowed
+        NSString *resourceURL = @"!";
 #ifdef DEBUG
-    NSLog(@"decidePolicyForNavigationAction request URL: %@", [[request URL] absoluteString]);
+        resourceURL = [NSString stringWithFormat:@": %@", [[request URL] absoluteString]];
 #endif
+        NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Resource Not Allowed", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:NSLocalizedString(@"Opening this link is not allowed%@", nil), resourceURL];
+        [newAlert setAlertStyle:NSCriticalAlertStyle];
+        [newAlert runModal];
+
+        [listener ignore];
+        return;
+    }
     
     // Check if this is a seb:// link
     if ([request.URL.scheme isEqualToString:@"seb"]) {
@@ -874,10 +856,8 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
     }
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptBlockForeign"]) {
         NSString *requestedHost = [[request mainDocumentURL] host];
-#ifdef DEBUG
-        NSLog(@"Current Host: %@", currentMainHost); 
-        NSLog(@"Requested Host: %@", requestedHost); 
-#endif
+        DDLogDebug(@"Current Host: %@", currentMainHost);
+        DDLogDebug(@"Requested Host: %@", requestedHost);
         // If current host is not the same as the requested host
         if (currentMainHost && (!requestedHost || ![currentMainHost isEqualToString:requestedHost])) {
             [listener ignore];
@@ -885,15 +865,11 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
             if (requestedHost && self.webView && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
                 // we have to close the new browser window which already has been openend by WebKit
                 // Get the document for my web view
-#ifdef DEBUG
-                NSLog(@"Originating browser window %@", sender);
-#endif
+                DDLogDebug(@"Originating browser window %@", sender);
                 // Close document and therefore also window
                 //Workaround: Flash crashes after closing window and then clicking some other link
                 [[self.webView preferences] setPlugInsEnabled:NO];
-#ifdef DEBUG
-                NSLog(@"Now closing new document browser window for: %@", self.webView);
-#endif
+                DDLogDebug(@"Now closing new document browser window for: %@", self.webView);
                 [self.browserController closeWebView:self.webView];
             }
             if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
@@ -953,6 +929,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
           frame:(WebFrame *)frame
 decisionListener:(id < WebPolicyDecisionListener >)listener
 {
+    DDLogDebug(@"decidePolicyForMIMEType: %@ requestURL: %@", type, request.URL.absoluteString);
     /*NSDictionary *headerFields = [request allHTTPHeaderFields];
 #ifdef DEBUG
     NSLog(@"Request URL: %@", [[request URL] absoluteString]);
@@ -974,9 +951,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         }
     }
     // If MIME type cannot be displayed by the WebView, then we download it
-#ifdef DEBUG
-    NSLog(@"MIME type to download is %@", type);
-#endif
+    DDLogInfo(@"MIME type to download is %@", type);
     [listener download];
     [self startDownloadingURL:request.URL];
 }
@@ -985,9 +960,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 - (void)webView:(WebView *)sender unableToImplementPolicyWithError:(NSError *)error
           frame:(WebFrame *)frame
 {
-#ifdef DEBUG
-    NSLog(@"webView: %@ unableToImplementPolicyWithError: %@ frame: %@", sender, error, frame);
-#endif
+    DDLogError(@"webView: %@ unableToImplementPolicyWithError: %@ frame: %@", sender, error, frame);
 }
 
 
@@ -1003,9 +976,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         // Create the download with the request and start loading the data.
         NSURLDownload  *theDownload = [[NSURLDownload alloc] initWithRequest:theRequest delegate:self];
         if (!theDownload) {
-#ifdef DEBUG
-            NSLog(@"Starting the download failed!"); //Inform the user that the download failed.
-#endif
+            DDLogError(@"Starting the download failed!"); //Inform the user that the download failed.
         }
     }
 }
@@ -1033,11 +1004,9 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     // Inform the user
     //[self presentError:error modalForWindow:[self windowForSheet] delegate:nil didPresentSelector:NULL contextInfo:NULL];
 
-#ifdef DEBUG
-    NSLog(@"Download failed! Error - %@ %@",
-          [error localizedDescription],
-          [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
-#endif
+    DDLogError(@"Download failed! Error - %@ %@",
+               [error localizedDescription],
+               [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
 }
 
 
@@ -1045,9 +1014,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 {
     // Release the download.
     
-#ifdef DEBUG
-    NSLog(@"Download of File %@ did finish.",downloadPath);
-#endif
+    DDLogInfo(@"Download of File %@ did finish.",downloadPath);
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_openDownloads"] == YES) {
     // Open downloaded file
@@ -1061,9 +1028,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     // path now contains the destination path
     // of the download, taking into account any
     // unique naming caused by -setDestination:allowOverwrite:
-#ifdef DEBUG
-    NSLog(@"Final file destination: %@",path);
-#endif
+    DDLogInfo(@"Final file destination: %@",path);
     downloadPath = path;
     NSMutableArray *downloadPaths = [NSMutableArray arrayWithArray:[[MyGlobals sharedMyGlobals] downloadPath]];
     if (!downloadPaths) {
