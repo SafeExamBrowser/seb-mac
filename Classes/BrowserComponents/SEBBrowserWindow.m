@@ -693,6 +693,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
     if (URLFilter.enableContentFilter && ![URLFilter allowURL:request.URL]) {
         // Content is not allowed
         DDLogWarn(@"This content was blocked by the content filter: %@", request.URL.absoluteString);
+        // Return nil instead of request
         return nil;
     }
 

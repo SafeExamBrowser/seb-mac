@@ -79,12 +79,12 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     
     for (URLFilterRule in URLFilterRules) {
         
-        if (URLFilterRule[@"active"]) {
+        if ([URLFilterRule[@"active"] boolValue] == YES) {
             
             NSString *expressionString = URLFilterRule[@"expression"];
             id expression;
             
-            BOOL regex = URLFilterRule[@"regex"];
+            BOOL regex = [URLFilterRule[@"regex"] boolValue];
             if (regex) {
                 expression = expressionString;
             } else {

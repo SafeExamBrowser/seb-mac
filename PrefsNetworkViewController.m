@@ -158,7 +158,9 @@
  */
 
 
-// Filter Section
+/// Filter Section
+
+// Filter expression field was changed
 - (IBAction) selectedExpression:(NSTextField *)sender
 {
     [self setPartsForExpression:sender.stringValue];
@@ -187,7 +189,8 @@
     host.stringValue = expressionURL.host ? expressionURL.host : @"";
 //    port.stringValue = expressionURL.port ? expressionURL.port.stringValue : @"";
     self.expressionPort = expressionURL.port ? expressionURL.port.stringValue : @"";
-    path.stringValue = expressionURL.path ? expressionURL.path : @"";
+    NSString *trimmedExpressionPath = [expressionURL.path stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" /"]];
+    path.stringValue = trimmedExpressionPath ? trimmedExpressionPath : @"";
     query_string.stringValue = expressionURL.query ? expressionURL.query : @"";
     fragment.stringValue = expressionURL.fragment ? expressionURL.fragment : @"";
     
@@ -198,15 +201,24 @@
 
 - (SEBURLFilterExpression *) getExpressionFromParts
 {
-//    return [NSURL URLWithScheme:scheme.stringValue user:user.stringValue password:password.stringValue host:host.stringValue port:@([port.stringValue intValue]) path:path.stringValue query:query_string.stringValue fragment:fragment.stringValue];
-    return [[SEBURLFilterExpression alloc] initWithScheme:scheme.stringValue user:user.stringValue password:password.stringValue host:host.stringValue port:@([self.expressionPort intValue]) path:path.stringValue query:query_string.stringValue fragment:fragment.stringValue];
+    NSString *slashedTrimmedExpressionPath = [NSString stringWithFormat:@"/%@",[path.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" /"]]];
+    
+    return [[SEBURLFilterExpression alloc] initWithScheme:scheme.stringValue user:user.stringValue password:password.stringValue host:host.stringValue port:@([self.expressionPort intValue]) path:slashedTrimmedExpressionPath query:query_string.stringValue fragment:fragment.stringValue];
 }
 
+
+// Called when one of the filter expression parts was changed
 - (IBAction) updateExpressionFromParts:(NSTextField *)sender
 {
     SEBURLFilterExpression *filterExpression = [self getExpressionFromParts];
-    [filterArrayController setValue:[filterExpression string] forKeyPath:@"selection.expression"];
+    NSString *filterExpressionString = [filterExpression string];
+    
+    // Set the expression in the text field
+    [filterArrayController setValue:filterExpressionString forKeyPath:@"selection.expression"];
 
+    // Update filter expression parts textfields (to take over proper formatting)
+    [self setPartsForExpression:filterExpressionString];
+    
     // Update filter rules
     [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
 }
