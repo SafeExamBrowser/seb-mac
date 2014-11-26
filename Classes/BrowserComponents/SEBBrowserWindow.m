@@ -518,7 +518,13 @@ initiatedByFrame:(WebFrame *)frame {
 	NSString *pageTitle = [sender stringByEvaluatingJavaScriptFromString:@"document.title"];
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [self makeKeyAndOrderFront:self];
-	NSRunAlertPanel(pageTitle, @"%@", message, NSLocalizedString(@"OK", nil), nil, nil);
+    
+    NSAlert *newAlert = [[NSAlert alloc] init];
+    [newAlert setMessageText:pageTitle];
+    [newAlert setInformativeText:message];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [newAlert setAlertStyle:NSInformationalAlertStyle];
+    [newAlert runModal];
 }
 
 
@@ -528,7 +534,14 @@ initiatedByFrame:(WebFrame *)frame {
 	NSString *pageTitle = [sender stringByEvaluatingJavaScriptFromString:@"document.title"];
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [self makeKeyAndOrderFront:self];
-	return NSRunAlertPanel(pageTitle, @"%@", message, NSLocalizedString(@"OK",nil), NSLocalizedString(@"Cancel",nil), nil);
+
+    NSAlert *newAlert = [[NSAlert alloc] init];
+    [newAlert setMessageText:pageTitle];
+    [newAlert setInformativeText:message];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [newAlert setAlertStyle:NSInformationalAlertStyle];
+    return [newAlert runModal];
 }
 
 
@@ -622,12 +635,12 @@ willPerformClientRedirectToURL:(NSURL *)URL
             
             NSString *titleString = NSLocalizedString(@"Error Loading Page",nil);
             NSString *messageString = [error localizedDescription];
-            NSPanel *alertPanel = NSGetAlertPanel(titleString, messageString, NSLocalizedString(@"Retry",nil), NSLocalizedString(@"Cancel",nil), nil, nil);
+            NSPanel *alertPanel = NSGetAlertPanel(titleString, messageString, NSLocalizedString(@"Retry", nil), NSLocalizedString(@"Cancel", nil), nil, nil);
             [alertPanel setLevel:NSScreenSaverWindowLevel];
             
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
             [self makeKeyAndOrderFront:self];
-            int answer = NSRunAlertPanel(titleString, messageString, NSLocalizedString(@"Retry",nil), NSLocalizedString(@"Cancel",nil), nil, nil);
+            int answer = NSRunAlertPanel(titleString, messageString, NSLocalizedString(@"Retry", nil), NSLocalizedString(@"Cancel", nil), nil, nil);
             switch(answer) {
                 case NSAlertDefaultReturn:
                     //Retry: try reloading
@@ -659,7 +672,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
             
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
             [self makeKeyAndOrderFront:self];
-            int answer = NSRunAlertPanel(titleString, messageString, NSLocalizedString(@"Retry",nil), NSLocalizedString(@"Cancel",nil), nil, nil);
+            int answer = NSRunAlertPanel(titleString, messageString, NSLocalizedString(@"Retry", nil), NSLocalizedString(@"Cancel", nil), nil, nil);
             switch(answer) {
                 case NSAlertDefaultReturn:
                     //Retry: try reloading
@@ -777,7 +790,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
 - (void)webView:(WebView *)sender resource:(id)identifier didFailLoadingWithError:(NSError *)error
  fromDataSource:(WebDataSource *)dataSource
 {
-    DDLogError(@"webView: %@ resource: %@ didFailLoadingWithError: %@ fromDataSource: %@", sender, identifier, error, dataSource);
+    DDLogError(@"webView: %@ resource: %@ didFailLoadingWithError: %@ fromDataSource: %@", sender, identifier, error.description, dataSource);
 }
 
 
@@ -786,6 +799,12 @@ willPerformClientRedirectToURL:(NSURL *)URL
      dataSource:(WebDataSource *)dataSource
 {
     DDLogError(@"webView: %@ plugInFailedWithError: %@ dataSource: %@", sender, error, dataSource);
+    NSAlert *newAlert = [[NSAlert alloc] init];
+    [newAlert setMessageText:error.localizedDescription];
+    [newAlert setInformativeText:error.localizedFailureReason];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [newAlert setAlertStyle:NSCriticalAlertStyle];
+    [newAlert runModal];
 }
 
 
