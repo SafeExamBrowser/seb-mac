@@ -635,7 +635,7 @@ bool insideMatrix();
     NSLog(@"Performing after start actions");
 #endif
     
-    // Check for cmd-shift hold down
+    // Check for command key being held down
     int modifierFlags = [NSEvent modifierFlags];
     _cmdKeyDown = (0 != (modifierFlags & NSCommandKeyMask));
     if (_cmdKeyDown) {

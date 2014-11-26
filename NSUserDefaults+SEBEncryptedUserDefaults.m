@@ -185,8 +185,6 @@ static NSNumber *_logLevel;
                                  [NSArray array],
                                  @"org_safeexambrowser_SEB_embeddedCertificates",
                                  [NSNumber numberWithBool:YES],
-                                 @"org_safeexambrowser_SEB_enableAppFolderCheck",
-                                 [NSNumber numberWithBool:YES],
                                  @"org_safeexambrowser_SEB_enableAppSwitcherCheck",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_enableBrowserWindowToolbar",
