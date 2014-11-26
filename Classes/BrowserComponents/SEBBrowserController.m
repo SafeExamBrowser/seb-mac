@@ -39,6 +39,9 @@
 #import "NSWindow+SEBWindow.h"
 #import "SEBConfigFileManager.h"
 
+#include "WebStorageManagerPrivate.h"
+#include "WebPreferencesPrivate.h"
+
 @implementation SEBBrowserController
 
 
@@ -52,8 +55,53 @@
         // Initialize SEB dock item menu for open browser windows/WebViews
         SEBDockItemMenu *dockMenu = [[SEBDockItemMenu alloc] initWithTitle:@""];
         self.openBrowserWindowsWebViewsMenu = dockMenu;
+        
     }
     return self;
+}
+
+
+// Create custom WebPreferences with bugfix for local storage not persisting application quit/start
+- (void) setCustomWebPreferencesForWebView:(WebView *)webView
+{
+    NSString* dbPath = [WebStorageManager _storageDirectoryPath];
+    
+    WebPreferences* prefs = [webView preferences];
+    NSString* localDBPath = [prefs _localStorageDatabasePath];
+    [prefs setAutosaves:YES];  //SET PREFS AUTOSAVE FIRST otherwise settings aren't saved.
+    [prefs setWebGLEnabled:YES];
+
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_removeLocalStorage"]) {
+        [prefs setLocalStorageEnabled:NO];
+        
+        [webView setPreferences:prefs];
+    } else {
+        // Check if paths match and if not, create a new local storage database file
+        // (otherwise localstorage file is erased when starting program)
+        // Thanks to Derek Wade!
+        if ([localDBPath isEqualToString:dbPath] == NO) {
+            // Define application cache quota
+            static const unsigned long long defaultTotalQuota = 10 * 1024 * 1024; // 10MB
+            static const unsigned long long defaultOriginQuota = 5 * 1024 * 1024; // 5MB
+            [prefs setApplicationCacheTotalQuota:defaultTotalQuota];
+            [prefs setApplicationCacheDefaultOriginQuota:defaultOriginQuota];
+            
+            [prefs setOfflineWebApplicationCacheEnabled:YES];
+            
+            [prefs setDatabasesEnabled:YES];
+            //        [prefs setDeveloperExtrasEnabled:[[NSUserDefaults standardUserDefaults] boolForKey: @"developer"]];
+#ifdef DEBUG
+            [prefs setDeveloperExtrasEnabled:YES];
+#endif
+            [prefs _setLocalStorageDatabasePath:dbPath];
+            [prefs setLocalStorageEnabled:YES];
+            
+            [webView setPreferences:prefs];
+        } else {
+            [prefs setLocalStorageEnabled:YES];
+        }
+    }
 }
 
 
@@ -81,6 +129,9 @@
     SEBBrowserWindow *newWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
     WebView *newWindowWebView = browserWindowDocument.mainWindowController.webView;
 
+    // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
+    [self setCustomWebPreferencesForWebView:newWindowWebView];
+    
     // Add the title to the SEB dock item menu with open webpages
     [self addBrowserWindow:(SEBBrowserWindow *)browserWindowDocument.mainWindowController.window
                withWebView:newWindowWebView
@@ -99,6 +150,9 @@
     SEBBrowserWindow *newWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
     WebView *newWindowWebView = browserWindowDocument.mainWindowController.webView;
     
+    // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
+    [self setCustomWebPreferencesForWebView:newWindowWebView];
+
     [self addBrowserWindow:(SEBBrowserWindow *)browserWindowDocument.mainWindowController.window
                withWebView:browserWindowDocument.mainWindowController.webView
                  withTitle:NSLocalizedString(@"Untitled", @"Title of a new opened browser window; Untitled")];
@@ -167,7 +221,10 @@
     SEBBrowserWindowDocument *browserWindowDocument = [self openBrowserWindowDocument];
     
     self.webView = browserWindowDocument.mainWindowController.webView;
-
+    
+    // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
+    [self setCustomWebPreferencesForWebView:self.webView];
+    
     self.mainBrowserWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
 
     // Check if the active screen (where the window is opened) changed in between opening dock

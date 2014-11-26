@@ -383,6 +383,8 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_quitURL",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_removeBrowserProfile",
+                                 [NSNumber numberWithBool:YES],
+                                 @"org_safeexambrowser_SEB_removeLocalStorage",
                                  [NSNumber numberWithLong:sebConfigPurposeStartingExam],
                                  @"org_safeexambrowser_SEB_sebConfigPurpose",
                                  [NSNumber numberWithLong:sebModeStartURL],

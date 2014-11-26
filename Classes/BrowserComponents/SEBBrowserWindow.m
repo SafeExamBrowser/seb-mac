@@ -453,7 +453,7 @@
                     [resultListener chooseFilename:lastDownloadPath];
                     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
                     [self makeKeyAndOrderFront:self];
-                    NSRunAlertPanel(NSLocalizedString(@"File automatically chosen", nil),
+                    NSRunAlertPanel(NSLocalizedString(@"File Automatically Chosen", nil),
                                     NSLocalizedString(@"SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.", nil),
                                     NSLocalizedString(@"OK", nil), nil, nil);
                     return;
@@ -464,8 +464,8 @@
                 // if the policy is "Only allow to upload the same file downloaded before"
                 [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
                 [self makeKeyAndOrderFront:self];
-                NSRunAlertPanel(NSLocalizedString(@"File to upload not found!", nil),
-                                NSLocalizedString(@"SEB is configured to only allow to upload a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.", nil),
+                NSRunAlertPanel(NSLocalizedString(@"File to Upload Not Found!", nil),
+                                NSLocalizedString(@"SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.", nil),
                                 NSLocalizedString(@"OK", nil), nil, nil);
                 return;
             }
@@ -690,7 +690,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
 {
     // If enabled, filter content
     SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
-    if (URLFilter.enableContentFilter && ![URLFilter allowURL:request.URL]) {
+    if (URLFilter.enableURLFilter && URLFilter.enableContentFilter && ![URLFilter allowURL:request.URL]) {
         // Content is not allowed
         DDLogWarn(@"This content was blocked by the content filter: %@", request.URL.absoluteString);
         // Return nil instead of request

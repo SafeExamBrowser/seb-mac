@@ -112,6 +112,8 @@
 		695C5CAF16CB210E008FC401 /* ExamIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAB16CB210E008FC401 /* ExamIcon.png */; };
 		695C5CB016CB210E008FC401 /* ExamIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAC16CB210E008FC401 /* ExamIcon@2x.png */; };
 		695C5CB216CB210E008FC401 /* ExamIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAC16CB210E008FC401 /* ExamIcon@2x.png */; };
+		69623A2C1A26180E00ED451C /* WebStorageManagerPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 69623A2B1A26180E00ED451C /* WebStorageManagerPrivate.h */; };
+		69623A2E1A26184900ED451C /* WebPreferencesPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 69623A2D1A26184900ED451C /* WebPreferencesPrivate.h */; };
 		69627F901A1A46D000E9F2A8 /* NSURL+SEBURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 69627F8E1A1A46CF00E9F2A8 /* NSURL+SEBURL.h */; };
 		69627F911A1A46D000E9F2A8 /* NSURL+SEBURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 69627F8F1A1A46D000E9F2A8 /* NSURL+SEBURL.m */; };
 		69627F921A1A46D000E9F2A8 /* NSURL+SEBURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 69627F8F1A1A46D000E9F2A8 /* NSURL+SEBURL.m */; };
@@ -414,6 +416,8 @@
 		695BE5F319EC3FED00CA2BB4 /* SEBDockItemMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockItemMenu.m; path = Classes/SEBDock/SEBDockItemMenu.m; sourceTree = "<group>"; };
 		695C5CAB16CB210E008FC401 /* ExamIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ExamIcon.png; sourceTree = "<group>"; };
 		695C5CAC16CB210E008FC401 /* ExamIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ExamIcon@2x.png"; sourceTree = "<group>"; };
+		69623A2B1A26180E00ED451C /* WebStorageManagerPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebStorageManagerPrivate.h; path = BugfixingSubclasses/WebStorageManagerPrivate.h; sourceTree = "<group>"; };
+		69623A2D1A26184900ED451C /* WebPreferencesPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebPreferencesPrivate.h; path = BugfixingSubclasses/WebPreferencesPrivate.h; sourceTree = "<group>"; };
 		69627F8E1A1A46CF00E9F2A8 /* NSURL+SEBURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+SEBURL.h"; path = "Classes/Categories/NSURL+SEBURL.h"; sourceTree = "<group>"; };
 		69627F8F1A1A46D000E9F2A8 /* NSURL+SEBURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+SEBURL.m"; path = "Classes/Categories/NSURL+SEBURL.m"; sourceTree = "<group>"; };
 		6962F88D13A8C21B007C16F0 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -962,6 +966,8 @@
 			children = (
 				69CE9C6117378B9A0011609B /* SEBTextField.h */,
 				69CE9C6217378B9A0011609B /* SEBTextField.m */,
+				69623A2B1A26180E00ED451C /* WebStorageManagerPrivate.h */,
+				69623A2D1A26184900ED451C /* WebPreferencesPrivate.h */,
 			);
 			name = "Bugfixing Subclasses";
 			sourceTree = "<group>";
@@ -1010,6 +1016,8 @@
 				69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */,
 				6909E3501A019F7A0086A741 /* DDMultiFormatter.h in Headers */,
 				6909E33F1A019F7A0086A741 /* DDASLLogCapture.h in Headers */,
+				69623A2E1A26184900ED451C /* WebPreferencesPrivate.h in Headers */,
+				69623A2C1A26180E00ED451C /* WebStorageManagerPrivate.h in Headers */,
 				693647FA17122A0300EE41BC /* DropDownButton.h in Headers */,
 				69DFAF2D19C468E700CBE69F /* RNCryptor.h in Headers */,
 				690BBEB619D30DF800F7C9C6 /* SEBDockView.h in Headers */,
