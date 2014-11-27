@@ -22,6 +22,10 @@
 
 + (SEBURLFilterExpression *) filterExpressionWithString:(NSString *)filterExpressionString;
 
++ (SEBURLFilterExpression *) regexFilterExpressionWithString:(NSString *)filterExpressionString;
+
++ (NSString *) regexForFilterString:(NSString *)filterString;
+
 - (id) initWithScheme:(NSString *)scheme user:(NSString *)user password:(NSString *)password host:(NSString *)host port:(NSNumber *)port path:(NSString *)path query:(NSString *)query fragment:(NSString *)fragment;
 
 - (NSString *) string;

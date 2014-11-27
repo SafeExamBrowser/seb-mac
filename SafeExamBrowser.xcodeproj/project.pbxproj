@@ -56,6 +56,9 @@
 		6915F2E919C8F77600DAEA37 /* SEBDockWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 6915F2E719C8F77600DAEA37 /* SEBDockWindow.h */; };
 		6915F2EA19C8F77600DAEA37 /* SEBDockWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6915F2E819C8F77600DAEA37 /* SEBDockWindow.m */; };
 		6915F2EB19C8F77600DAEA37 /* SEBDockWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6915F2E819C8F77600DAEA37 /* SEBDockWindow.m */; };
+		6917744A1A2776FB0039CC39 /* SEBURLFilterRegexExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 691774481A2776FB0039CC39 /* SEBURLFilterRegexExpression.h */; };
+		6917744B1A2776FB0039CC39 /* SEBURLFilterRegexExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 691774491A2776FB0039CC39 /* SEBURLFilterRegexExpression.m */; };
+		6917744C1A2776FB0039CC39 /* SEBURLFilterRegexExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 691774491A2776FB0039CC39 /* SEBURLFilterRegexExpression.m */; };
 		6921294216F91C6600AFC3B0 /* BoolValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6921294016F91C6600AFC3B0 /* BoolValueTransformer.h */; };
 		6921294316F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6921294116F91C6600AFC3B0 /* BoolValueTransformer.m */; };
 		6921294416F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6921294116F91C6600AFC3B0 /* BoolValueTransformer.m */; };
@@ -355,6 +358,8 @@
 		6914D6E819FE7B4E00934C6F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SEBBrowserWindow.strings; sourceTree = "<group>"; };
 		6915F2E719C8F77600DAEA37 /* SEBDockWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockWindow.h; path = Classes/SEBDock/SEBDockWindow.h; sourceTree = "<group>"; };
 		6915F2E819C8F77600DAEA37 /* SEBDockWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockWindow.m; path = Classes/SEBDock/SEBDockWindow.m; sourceTree = "<group>"; };
+		691774481A2776FB0039CC39 /* SEBURLFilterRegexExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBURLFilterRegexExpression.h; path = Classes/SEBURLFilter/SEBURLFilterRegexExpression.h; sourceTree = "<group>"; };
+		691774491A2776FB0039CC39 /* SEBURLFilterRegexExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBURLFilterRegexExpression.m; path = Classes/SEBURLFilter/SEBURLFilterRegexExpression.m; sourceTree = "<group>"; };
 		69196D8C19F99BA900ABF8E5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesSecurity.strings; sourceTree = "<group>"; };
 		69196D8D19F99BA900ABF8E5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesGeneral.strings; sourceTree = "<group>"; };
 		69196D8E19F99BA900ABF8E5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesDownUploads.strings; sourceTree = "<group>"; };
@@ -556,6 +561,7 @@
 				69CBEB531834C4D400FB0460 /* SystemManager */,
 				69428C97172E600000C87C58 /* Global */,
 				69428C93172E5E7300C87C58 /* Browser Components */,
+				691774471A2776850039CC39 /* SEBURLFilter */,
 				690BBEA919D2C44800F7C9C6 /* SEB Dock */,
 				69428C98172E602E00C87C58 /* Additional Views+Windows */,
 				69428C99172EFD7000C87C58 /* Config Files */,
@@ -712,6 +718,19 @@
 			name = "SEB Dock";
 			sourceTree = "<group>";
 		};
+		691774471A2776850039CC39 /* SEBURLFilter */ = {
+			isa = PBXGroup;
+			children = (
+				69D817E318017DDB00EB7885 /* SEBURLFilter.h */,
+				69D817E418017DDB00EB7885 /* SEBURLFilter.m */,
+				69F45D3C1A2123C3009CF3AA /* SEBURLFilterExpression.h */,
+				69F45D3D1A2123C3009CF3AA /* SEBURLFilterExpression.m */,
+				691774481A2776FB0039CC39 /* SEBURLFilterRegexExpression.h */,
+				691774491A2776FB0039CC39 /* SEBURLFilterRegexExpression.m */,
+			);
+			name = SEBURLFilter;
+			sourceTree = "<group>";
+		};
 		692F53D514ACFFF200011C84 /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
@@ -763,12 +782,8 @@
 				693D5A1614C59B4300E37C68 /* SEBBrowserWindowController.m */,
 				692891B012ACEBDC00EEE7C9 /* SEBBrowserWindow.h */,
 				692891B112ACEBDC00EEE7C9 /* SEBBrowserWindow.m */,
-				69D817E318017DDB00EB7885 /* SEBURLFilter.h */,
-				69D817E418017DDB00EB7885 /* SEBURLFilter.m */,
 				69009BDE19EA7F590083274C /* SEBBrowserOpenWindowWebView.h */,
 				69009BDF19EA7F590083274C /* SEBBrowserOpenWindowWebView.m */,
-				69F45D3C1A2123C3009CF3AA /* SEBURLFilterExpression.h */,
-				69F45D3D1A2123C3009CF3AA /* SEBURLFilterExpression.m */,
 			);
 			name = "Browser Components";
 			sourceTree = "<group>";
@@ -1022,6 +1037,7 @@
 				69DFAF2D19C468E700CBE69F /* RNCryptor.h in Headers */,
 				690BBEB619D30DF800F7C9C6 /* SEBDockView.h in Headers */,
 				69DFAF3919C468E700CBE69F /* RNCryptor+Private.h in Headers */,
+				6917744A1A2776FB0039CC39 /* SEBURLFilterRegexExpression.h in Headers */,
 				6909E34E1A019F7A0086A741 /* DDDispatchQueueLogFormatter.h in Headers */,
 				69CE9C5D17326AB90011609B /* SEBConfigFileManager.h in Headers */,
 				69CE9C6317378B9A0011609B /* SEBTextField.h in Headers */,
@@ -1288,6 +1304,7 @@
 				69CE1C191741309C0072207D /* SEBFilterTreeController.m in Sources */,
 				69DE764917FC2A9300EE5958 /* PrefsResourcesViewController.m in Sources */,
 				6901331D19B371CB0050574D /* PreferencesWindow.m in Sources */,
+				6917744C1A2776FB0039CC39 /* SEBURLFilterRegexExpression.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1311,6 +1328,7 @@
 				699282E419D0430A00270E86 /* CapWindowController.m in Sources */,
 				69F7B61314F411FB00FD0761 /* SEBBrowserWindowDocument.m in Sources */,
 				69F7B61514F411FB00FD0761 /* MyGlobals.m in Sources */,
+				6917744B1A2776FB0039CC39 /* SEBURLFilterRegexExpression.m in Sources */,
 				690BBEB719D30DF800F7C9C6 /* SEBDockView.m in Sources */,
 				6909E34B1A019F7A0086A741 /* DDTTYLogger.m in Sources */,
 				69F7B61614F411FB00FD0761 /* PrefsBrowserViewController.m in Sources */,

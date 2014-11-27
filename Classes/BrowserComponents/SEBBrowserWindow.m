@@ -847,7 +847,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
 #endif
         NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Resource Not Allowed", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:NSLocalizedString(@"Opening this link is not allowed%@", nil), resourceURL];
         [newAlert setAlertStyle:NSCriticalAlertStyle];
-        [newAlert runModal];
+//        [newAlert runModal];
 
         [listener ignore];
         return;

@@ -36,6 +36,7 @@
 #import "SEBURLFilter.h"
 #import "NSURL+SEBURL.h"
 #import "SEBURLFilterExpression.h"
+#import "SEBURLFilterRegexExpression.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 @implementation SEBURLFilter
@@ -57,7 +58,7 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
 
 
 // Updates filter rule arrays with current settings (UserDefaults)
-- (void) updateFilterRules
+- (NSError *) updateFilterRules
 {
     if (self.prohibitedList) {
         [self.prohibitedList removeAllObjects];
@@ -76,6 +77,7 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     
     NSArray *URLFilterRules = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_URLFilterRules"];
     NSDictionary *URLFilterRule;
+    NSError *error;
     
     for (URLFilterRule in URLFilterRules) {
         
@@ -86,11 +88,15 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
             
             BOOL regex = [URLFilterRule[@"regex"] boolValue];
             if (regex) {
-                expression = expressionString;
+                expression = [NSRegularExpression regularExpressionWithPattern:expressionString options:NSRegularExpressionCaseInsensitive error:&error];
             } else {
-                expression = [SEBURLFilterExpression filterExpressionWithString:expressionString];
+                expression = [SEBURLFilterRegexExpression regexFilterExpressionWithString:expressionString error:&error];
             }
-            
+            if (error) {
+                [self.prohibitedList removeAllObjects];
+                [self.permittedList removeAllObjects];
+                return error;
+            }
             int action = [URLFilterRule[@"action"] intValue];
             switch (action) {
                 case URLFilterActionBlock:
@@ -103,6 +109,7 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
             }
         }
     }
+    return nil;
 }
 
 
@@ -120,15 +127,14 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     
     for (expression in self.prohibitedList) {
         
-        if ([expression isKindOfClass:[NSString class]]) {
-            NSRange range = [URLToFilterString rangeOfString:expression options:NSRegularExpressionSearch || NSCaseInsensitiveSearch];
-            if (range.location != NSNotFound) {
+        if ([expression isKindOfClass:[NSRegularExpression class]]) {
+            if ([self regexFilterExpression:expression hasMatchesInString:URLToFilterString]) {
                 blockURL = YES;
                 break;
             }
         }
         
-        if ([expression isKindOfClass:[SEBURLFilterExpression class]]) {
+        if ([expression isKindOfClass:[SEBURLFilterRegexExpression class]]) {
             if ([self URL:(NSURL *)URLToFilter matchesFilterExpression:expression]) {
                 blockURL = YES;
                 break;
@@ -143,15 +149,14 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     
     for (expression in self.permittedList) {
         
-        if ([expression isKindOfClass:[NSString class]]) {
-            NSRange range = [URLToFilterString rangeOfString:expression options:NSRegularExpressionSearch || NSCaseInsensitiveSearch];
-            if (range.location != NSNotFound) {
+        if ([expression isKindOfClass:[NSRegularExpression class]]) {
+            if ([self regexFilterExpression:expression hasMatchesInString:URLToFilterString]) {
                 allowURL = YES;
                 break;
             }
         }
         
-        if ([expression isKindOfClass:[SEBURLFilterExpression class]]) {
+        if ([expression isKindOfClass:[SEBURLFilterRegexExpression class]]) {
             if ([self URL:(NSURL *)URLToFilter matchesFilterExpression:expression]) {
                 allowURL = YES;
                 break;
@@ -164,38 +169,34 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
 
 
 // Method comparing all components of a passed URL with the filter expression
-// and returning YES (= block) if it matches
-- (BOOL) URL:(NSURL *)URLToFilter matchesFilterExpression:(SEBURLFilterExpression *)filterExpression
+// and returning YES (= allow or block) if it matches
+- (BOOL) URL:(NSURL *)URLToFilter matchesFilterExpression:(SEBURLFilterRegexExpression *)filterExpression
 {
-    NSString *filterComponent;
+    NSRegularExpression *filterComponent;
     
     // If a scheme is indicated in the filter expression, it has to match
     filterComponent = filterExpression.scheme;
-    if (filterComponent.length > 0 &&
-        [URLToFilter.scheme rangeOfString:filterComponent
-                                  options:NSRegularExpressionSearch || NSCaseInsensitiveSearch].location == NSNotFound) {
+    if (filterComponent &&
+        ![self regexFilterExpression:filterComponent hasMatchesInString:URLToFilter.scheme]) {
             // Scheme of the URL to filter doesn't match the one from the filter expression: Exit with matching = NO
             return NO;
         }
     
     filterComponent = filterExpression.user;
-    if (filterComponent.length > 0 &&
-        [URLToFilter.user rangeOfString:filterComponent
-                                options:NSRegularExpressionSearch || NSCaseInsensitiveSearch].location == NSNotFound) {
+    if (filterComponent &&
+        ![self regexFilterExpression:filterComponent hasMatchesInString:URLToFilter.user]) {
             return NO;
         }
     
     filterComponent = filterExpression.password;
-    if (filterComponent.length > 0 &&
-        [URLToFilter.password rangeOfString:filterComponent
-                                options:NSRegularExpressionSearch || NSCaseInsensitiveSearch].location == NSNotFound) {
+    if (filterComponent &&
+        ![self regexFilterExpression:filterComponent hasMatchesInString:URLToFilter.password]) {
             return NO;
         }
     
     filterComponent = filterExpression.host;
-    if (filterComponent.length > 0 &&
-        [URLToFilter.host rangeOfString:filterComponent
-                                options:NSRegularExpressionSearch || NSCaseInsensitiveSearch].location == NSNotFound) {
+    if (filterComponent &&
+        ![self regexFilterExpression:filterComponent hasMatchesInString:URLToFilter.host]) {
             return NO;
         }
     
@@ -205,42 +206,32 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
         }
     
     filterComponent = filterExpression.path;
-    if (filterComponent.length > 0 &&
-        [URLToFilter.path rangeOfString:filterComponent
-                                options:NSRegularExpressionSearch || NSCaseInsensitiveSearch].location == NSNotFound) {
+    if (filterComponent &&
+        ![self regexFilterExpression:filterComponent hasMatchesInString:URLToFilter.path]) {
             return NO;
         }
     
     filterComponent = filterExpression.query;
-    if (filterComponent.length > 0 &&
-        [URLToFilter.query rangeOfString:filterComponent
-                                options:NSRegularExpressionSearch || NSCaseInsensitiveSearch].location == NSNotFound) {
+    if (filterComponent &&
+        ![self regexFilterExpression:filterComponent hasMatchesInString:URLToFilter.query]) {
             return NO;
         }
     
     filterComponent = filterExpression.fragment;
-    if (filterComponent.length > 0 &&
-        [URLToFilter.fragment rangeOfString:filterComponent
-                                options:NSRegularExpressionSearch || NSCaseInsensitiveSearch].location == NSNotFound) {
+    if (filterComponent &&
+        ![self regexFilterExpression:filterComponent hasMatchesInString:URLToFilter.fragment]) {
             return NO;
         }
     
+    // URL matches the filter expression
     return YES;
 }
 
 
-- (NSString *)escapeBackslashes:(NSString *)regexString
+- (BOOL) regexFilterExpression:(NSRegularExpression *)regexFilter hasMatchesInString:(NSString *)stringToMatch
 {
-    NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\\\" options:NSRegularExpressionCaseInsensitive | NSRegularExpressionDotMatchesLineSeparators | NSRegularExpressionAnchorsMatchLines | NSRegularExpressionAllowCommentsAndWhitespace error:&error];
-    if (error == NULL)
-    {
-        return [regex stringByReplacingMatchesInString:regexString options:0 range:NSMakeRange(0, [regexString length]) withTemplate:@"\\\\"];
-    }
-    else
-    {
-        return regexString;
-    }
+    return [regexFilter rangeOfFirstMatchInString:stringToMatch options:NSRegularExpressionCaseInsensitive range:NSMakeRange(0, stringToMatch.length)].location != NSNotFound;
 }
+
 
 @end

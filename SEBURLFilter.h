@@ -45,10 +45,8 @@
 
 + (SEBURLFilter *)sharedSEBURLFilter;
 
-- (void) updateFilterRules;
+- (NSError *)updateFilterRules;
 
-- (BOOL) allowURL:(NSURL *)URLToFilter;
-
-- (NSString *)escapeBackslashes:(NSString *)regexString;
+- (BOOL)allowURL:(NSURL *)URLToFilter;
 
 @end
