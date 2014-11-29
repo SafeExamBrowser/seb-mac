@@ -1514,40 +1514,42 @@ bool insideMatrix(){
 
 - (void)requestedReinforceKioskMode:(NSNotification *)notification
 {
+    if (![self.preferencesController preferencesAreOpen]) {
 #ifdef DEBUG
-    NSLog(@"Reinforcing the kiosk mode was requested");
+        NSLog(@"Reinforcing the kiosk mode was requested");
 #endif
-    // Switch the strict kiosk mode temporary off
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
-    [self switchKioskModeAppsAllowed:YES overrideShowMenuBar:NO];
-    
-    // Close the black background covering windows
-    [self closeCapWindows];
-
-    // Reopen the covering Windows and reset the windows elevation levels
+        // Switch the strict kiosk mode temporary off
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
+        [self switchKioskModeAppsAllowed:YES overrideShowMenuBar:NO];
+        
+        // Close the black background covering windows
+        [self closeCapWindows];
+        
+        // Reopen the covering Windows and reset the windows elevation levels
 #ifdef DEBUG
-    NSLog(@"requestedReinforceKioskMode: Reopening cap windows.");
+        NSLog(@"requestedReinforceKioskMode: Reopening cap windows.");
 #endif
-    if (self.browserController.mainBrowserWindow.isVisible) {
+        if (self.browserController.mainBrowserWindow.isVisible) {
+            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+            [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
+        }
+        
+        // Open new covering background windows on all currently available screens
+        [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
+        [self coverScreens];
+        
+        // Switch the proper kiosk mode on again
+        [self setElevateWindowLevels];
+        
+        //    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+        
+        BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
+        [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
+        
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
     }
-    
-    // Open new covering background windows on all currently available screens
-    [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
-	[self coverScreens];
-    
-    // Switch the proper kiosk mode on again
-    [self setElevateWindowLevels];
-
-//    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-
-    BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
-    [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
-
-    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-    [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
 }
 
 

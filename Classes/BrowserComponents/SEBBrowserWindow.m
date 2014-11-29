@@ -355,6 +355,18 @@
 }
 
 
+- (void) showURLFilterAlertForRequest:(NSURLRequest *)request
+{
+    NSString *resourceURL = @"!";
+#ifdef DEBUG
+    resourceURL = [NSString stringWithFormat:@": %@", [[request URL] absoluteString]];
+#endif
+    NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Resource Not Allowed", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:NSLocalizedString(@"Opening this link is not allowed%@", nil), resourceURL];
+    [newAlert setAlertStyle:NSCriticalAlertStyle];
+    [newAlert beginSheetModalForWindow:self completionHandler:nil];
+}
+
+
 #pragma mark Overriding NSWindow Methods
 
 // This method is called by NSWindow’s zoom: method while determining the frame a window may be zoomed to
@@ -840,15 +852,9 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
     // If enabled, filter URL
     SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
     if (URLFilter.enableURLFilter && ![URLFilter allowURL:request.URL]) {
-        // URL is not allowed
-        NSString *resourceURL = @"!";
-#ifdef DEBUG
-        resourceURL = [NSString stringWithFormat:@": %@", [[request URL] absoluteString]];
-#endif
-        NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Resource Not Allowed", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:NSLocalizedString(@"Opening this link is not allowed%@", nil), resourceURL];
-        [newAlert setAlertStyle:NSCriticalAlertStyle];
-//        [newAlert runModal];
-
+        // URL is not allowed: Show alert
+        [self showURLFilterAlertForRequest:request];
+        //Don't load the request
         [listener ignore];
         return;
     }
