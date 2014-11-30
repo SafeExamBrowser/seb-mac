@@ -849,6 +849,14 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     DDLogInfo(@"decidePolicyForNavigationAction request URL: %@", [[request URL] absoluteString]);
 
+    // Check if quit URL has been clicked (regardless of current URL Filter)
+    if ([[[request URL] absoluteString] isEqualTo:[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"]]) {
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"requestQuitWPwdNotification" object:self];
+        [listener ignore];
+        return;
+    }
+    
     // If enabled, filter URL
     SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
     if (URLFilter.enableURLFilter && ![URLFilter allowURL:request.URL]) {
@@ -863,14 +871,6 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
     if ([request.URL.scheme isEqualToString:@"seb"]) {
         // If the scheme is seb:// we (conditionally) download and open the linked .seb file
         [self.browserController downloadAndOpenSebConfigFromURL:request.URL];
-        [listener ignore];
-        return;
-    }
-    
-    // Check if quit URL has been clicked
-    if ([[[request URL] absoluteString] isEqualTo:[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"]]) {
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"requestQuitWPwdNotification" object:self];
         [listener ignore];
         return;
     }
