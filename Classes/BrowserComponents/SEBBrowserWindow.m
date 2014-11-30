@@ -361,7 +361,7 @@
 #ifdef DEBUG
     resourceURL = [NSString stringWithFormat:@": %@", [[request URL] absoluteString]];
 #endif
-    NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Resource Not Allowed", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:NSLocalizedString(@"Opening this link is not allowed%@", nil), resourceURL];
+    NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Resource Not Permitted", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:NSLocalizedString(@"It isn't allowed to open this link%@", nil), resourceURL];
     [newAlert setAlertStyle:NSCriticalAlertStyle];
     [newAlert beginSheetModalForWindow:self completionHandler:nil];
 }

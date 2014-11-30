@@ -109,11 +109,27 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
             }
         }
     }
+    
+    // Check if Start URL gets allowed by current filter rules and if not add a rule for the Start URL
+    NSString *startURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+    NSURL *startURL = [NSURL URLWithString:startURLString];
+    if (![self allowURL:startURL]) {
+        // If Start URL is not allowed: Create one using the full Start URL
+        id expression = [SEBURLFilterRegexExpression regexFilterExpressionWithString:startURLString error:&error];
+        if (error) {
+            [self.prohibitedList removeAllObjects];
+            [self.permittedList removeAllObjects];
+            return error;
+        }
+        // Add this Start URL filter expression to the permitted filter list
+        [self.permittedList addObject:expression];
+    }
+    // Updating filter rules worked; don't return any NSError
     return nil;
 }
 
 
-// Filter passed URL and return YES if it is allowed
+// Filter URL and return YES if it is allowed
 - (BOOL) allowURL:(NSURL *)URLToFilter
 {
     NSString* URLToFilterString = [URLToFilter absoluteString];
