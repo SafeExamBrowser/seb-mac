@@ -357,15 +357,38 @@
 
 - (void) showURLFilterAlertForRequest:(NSURLRequest *)request
 {
-    NSString *resourceURL = @"!";
+    NSString *resourceURLString = @"!";
 #ifdef DEBUG
-    resourceURL = [NSString stringWithFormat:@": %@", [[request URL] absoluteString]];
+    resourceURLString = [NSString stringWithFormat:@": %@", [[request URL] absoluteString]];
 #endif
-    NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Resource Not Permitted", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:NSLocalizedString(@"It isn't allowed to open this link%@", nil), resourceURL];
+    NSAlert *newAlert = [[NSAlert alloc] init];
+    [newAlert setMessageText:NSLocalizedString(@"Resource Not Permitted", nil)];
+    
+    // If the URL filter learning mode is switched on, supplement the alert
+    if ([SEBURLFilter sharedSEBURLFilter].learningMode) {
+        resourceURLString = [NSString stringWithFormat:@": %@", [[request URL] absoluteString]];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"Allow", nil)];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    } else {
+        [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    }
+    [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"It isn't allowed to open this link%@", nil), resourceURLString]];
     [newAlert setAlertStyle:NSCriticalAlertStyle];
-    [newAlert beginSheetModalForWindow:self completionHandler:nil];
+    [newAlert beginSheetModalForWindow:self modalDelegate:self didEndSelector:@selector(dismissedURLFilterAlert:returnCode:contextInfo:) contextInfo:nil];
 }
 
+- (void) dismissedURLFilterAlert:(NSAlert *)alert
+          returnCode:(NSInteger)returnCode
+         contextInfo:(void *)contextInfo
+{
+    // If the URL filter learning mode is switched on, handle the first button differently
+    if (returnCode == NSAlertFirstButtonReturn && [SEBURLFilter sharedSEBURLFilter].learningMode) {
+        // Allow URL (in filter learning mode)
+        
+        return;
+    }
+    // URL blocked: If the link was opend in a new window, we have to close that
+}
 
 #pragma mark Overriding NSWindow Methods
 
@@ -715,7 +738,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
 {
     // If enabled, filter content
     SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
-    if (URLFilter.enableURLFilter && URLFilter.enableContentFilter && ![URLFilter allowURL:request.URL]) {
+    if (URLFilter.enableURLFilter && URLFilter.enableContentFilter && ![URLFilter testURLAllowed:request.URL]) {
         // Content is not allowed
         DDLogWarn(@"This content was blocked by the content filter: %@", request.URL.absoluteString);
         // Return nil instead of request
@@ -848,6 +871,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     DDLogInfo(@"decidePolicyForNavigationAction request URL: %@", [[request URL] absoluteString]);
+    NSString *currentMainHost = self.browserController.currentMainHost;
 
     // Check if quit URL has been clicked (regardless of current URL Filter)
     if ([[[request URL] absoluteString] isEqualTo:[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"]]) {
@@ -859,10 +883,33 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
     
     // If enabled, filter URL
     SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
-    if (URLFilter.enableURLFilter && ![URLFilter allowURL:request.URL]) {
+    if (URLFilter.enableURLFilter && ![URLFilter testURLAllowed:request.URL]) {
         // URL is not allowed: Show alert
         [self showURLFilterAlertForRequest:request];
-        //Don't load the request
+
+        // Check if the link was opened by a script and
+        // if a temporary webview or a new browser window should be closed therefore
+        // If the new page is supposed to open in a new browser window
+        if (self.webView != sender) {
+            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
+                // Don't load the request
+                [listener ignore];
+                // we have to close the new browser window which already has been openend by WebKit
+                // Get the document for my web view
+                DDLogDebug(@"Originating browser window %@", sender);
+                // Close document and therefore also window
+                //Workaround: Flash crashes after closing window and then clicking some other link
+                [[self.webView preferences] setPlugInsEnabled:NO];
+                DDLogDebug(@"Now closing new document browser window for: %@", self.webView);
+                [self.browserController closeWebView:self.webView];
+            }
+            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
+                if (self.webView) {
+                    [sender close]; //close the temporary webview
+                }
+            }
+        }
+        // Don't load the request
         [listener ignore];
         return;
     }
@@ -875,7 +922,6 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         return;
     }
     
-    NSString *currentMainHost = self.browserController.currentMainHost;
     if (currentMainHost && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == getGenerallyBlocked) {
         [listener ignore];
         return;
@@ -929,6 +975,17 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     // First check if links requesting to be opened in a new windows are generally blocked
     if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] != getGenerallyBlocked) {
+
+        // If enabled, filter URL
+        SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
+        if (URLFilter.enableURLFilter && ![URLFilter testURLAllowed:request.URL]) {
+            // URL is not allowed: Show alert
+            [self showURLFilterAlertForRequest:request];
+            //Don't load the request
+            [listener ignore];
+            return;
+        }
+        
         // load link only if it's on the same host like the one of the current page
         if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkBlockForeign"] ||
             [self.browserController.currentMainHost isEqualToString:[[request mainDocumentURL] host]]) {

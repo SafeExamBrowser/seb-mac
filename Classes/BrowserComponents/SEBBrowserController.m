@@ -203,10 +203,10 @@
 // Set up SEB Browser and open the main window
 - (void) openMainBrowserWindow {
     
-    /*/ Save current WebKit Cookie Policy
+    // Save current WebKit Cookie Policy
      NSHTTPCookieAcceptPolicy cookiePolicy = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookieAcceptPolicy];
-     if (cookiePolicy == NSHTTPCookieAcceptPolicyAlways) NSLog(@"NSHTTPCookieAcceptPolicyAlways");
-     if (cookiePolicy == NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain) NSLog(@"NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain"); */
+     if (cookiePolicy == NSHTTPCookieAcceptPolicyAlways) DDLogInfo(@"NSHTTPCookieAcceptPolicyAlways");
+     if (cookiePolicy == NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain) DDLogInfo(@"NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain");
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     

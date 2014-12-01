@@ -52,7 +52,7 @@
     
 }
 
-@property(weak) SEBBrowserController *browserController;
+@property (weak) SEBBrowserController *browserController;
 @property (weak) IBOutlet WebView *webView;
 @property BOOL isFullScreen;
 

@@ -113,7 +113,7 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     // Check if Start URL gets allowed by current filter rules and if not add a rule for the Start URL
     NSString *startURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
     NSURL *startURL = [NSURL URLWithString:startURLString];
-    if (![self allowURL:startURL]) {
+    if (![self testURLAllowed:startURL]) {
         // If Start URL is not allowed: Create one using the full Start URL
         id expression = [SEBURLFilterRegexExpression regexFilterExpressionWithString:startURLString error:&error];
         if (error) {
@@ -130,7 +130,7 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
 
 
 // Filter URL and return YES if it is allowed
-- (BOOL) allowURL:(NSURL *)URLToFilter
+- (BOOL) testURLAllowed:(NSURL *)URLToFilter
 {
     NSString* URLToFilterString = [URLToFilter absoluteString];
     // By default URLs are blocked
@@ -246,7 +246,14 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
 
 - (BOOL) regexFilterExpression:(NSRegularExpression *)regexFilter hasMatchesInString:(NSString *)stringToMatch
 {
+    if (!stringToMatch) return NO;
     return [regexFilter rangeOfFirstMatchInString:stringToMatch options:NSRegularExpressionCaseInsensitive range:NSMakeRange(0, stringToMatch.length)].location != NSNotFound;
+}
+
+
+- (void) allowURL:(NSURL *)URLToAllow
+{
+    
 }
 
 

@@ -39,6 +39,7 @@
 
 @property (readwrite) BOOL enableURLFilter;
 @property (readwrite) BOOL enableContentFilter;
+@property (readwrite) BOOL learningMode;
 @property (strong) NSMutableArray *permittedList;
 @property (strong) NSMutableArray *prohibitedList;
 
@@ -47,6 +48,6 @@
 
 - (NSError *)updateFilterRules;
 
-- (BOOL)allowURL:(NSURL *)URLToFilter;
+- (BOOL)testURLAllowed:(NSURL *)URLToFilter;
 
 @end
