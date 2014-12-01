@@ -36,6 +36,7 @@
 #import "SEBConfigFileManager.h"
 #import "SEBBrowserWindowDocument.h"
 #import "NSWindow+SEBWindow.h"
+#import "WebKit+WebKitExtensions.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "SEBURLFilter.h"
 
@@ -351,11 +352,10 @@
     
     [progressIndicatorHolder removeFromSuperview];
     progressIndicatorHolder = nil;
-    
 }
 
 
-- (void) showURLFilterAlertForRequest:(NSURLRequest *)request
+- (void) showURLFilterAlertSheetForWindow:(NSWindow *)window forRequest:(NSURLRequest *)request
 {
     NSString *resourceURLString = @"!";
 #ifdef DEBUG
@@ -374,7 +374,15 @@
     }
     [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"It isn't allowed to open this link%@", nil), resourceURLString]];
     [newAlert setAlertStyle:NSCriticalAlertStyle];
-    [newAlert beginSheetModalForWindow:self modalDelegate:self didEndSelector:@selector(dismissedURLFilterAlert:returnCode:contextInfo:) contextInfo:nil];
+//    [newAlert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(dismissedURLFilterAlert:returnCode:contextInfo:) contextInfo:nil];
+    [newAlert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+        // If the URL filter learning mode is switched on, handle the first button differently
+        if (returnCode == NSAlertFirstButtonReturn && [SEBURLFilter sharedSEBURLFilter].learningMode) {
+            // Allow URL (in filter learning mode)
+            
+            return;
+        }
+    }];
 }
 
 - (void) dismissedURLFilterAlert:(NSAlert *)alert
@@ -384,10 +392,11 @@
     // If the URL filter learning mode is switched on, handle the first button differently
     if (returnCode == NSAlertFirstButtonReturn && [SEBURLFilter sharedSEBURLFilter].learningMode) {
         // Allow URL (in filter learning mode)
+        [alert.window orderOut:self];
         
         return;
     }
-    // URL blocked: If the link was opend in a new window, we have to close that
+    [alert.window orderOut:self];
 }
 
 #pragma mark Overriding NSWindow Methods
@@ -428,6 +437,7 @@
         }
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
             WebView *newWindowWebView = [self.browserController openWebView];
+            newWindowWebView.creatingWebView = self.webView;
             DDLogDebug(@"Now opening new document browser window. %@", newWindowWebView);
             DDLogDebug(@"Reqested from %@",sender);
             //[[sender preferences] setPlugInsEnabled:NO];
@@ -441,6 +451,7 @@
             [tempWebView setUIDelegate:self];
             [tempWebView setGroupName:@"SEBBrowserDocument"];
             [tempWebView setFrameLoadDelegate:self];
+            tempWebView.creatingWebView = self.webView;
             return tempWebView;
         }
         return nil;
@@ -869,97 +880,109 @@ didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
           frame:(WebFrame *)frame 
 decisionListener:(id <WebPolicyDecisionListener>)listener {
 
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    DDLogInfo(@"decidePolicyForNavigationAction request URL: %@", [[request URL] absoluteString]);
-    NSString *currentMainHost = self.browserController.currentMainHost;
+    if (request) {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        DDLogInfo(@"decidePolicyForNavigationAction request URL: %@", [[request URL] absoluteString]);
+        NSString *currentMainHost = self.browserController.currentMainHost;
+        NSString *requestedHost = [[request mainDocumentURL] host];
 
-    // Check if quit URL has been clicked (regardless of current URL Filter)
-    if ([[[request URL] absoluteString] isEqualTo:[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"]]) {
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"requestQuitWPwdNotification" object:self];
-        [listener ignore];
-        return;
-    }
-    
-    // If enabled, filter URL
-    SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
-    if (URLFilter.enableURLFilter && ![URLFilter testURLAllowed:request.URL]) {
-        // URL is not allowed: Show alert
-        [self showURLFilterAlertForRequest:request];
-
-        // Check if the link was opened by a script and
-        // if a temporary webview or a new browser window should be closed therefore
-        // If the new page is supposed to open in a new browser window
-        if (self.webView != sender) {
-            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
-                // Don't load the request
-                [listener ignore];
-                // we have to close the new browser window which already has been openend by WebKit
-                // Get the document for my web view
-                DDLogDebug(@"Originating browser window %@", sender);
-                // Close document and therefore also window
-                //Workaround: Flash crashes after closing window and then clicking some other link
-                [[self.webView preferences] setPlugInsEnabled:NO];
-                DDLogDebug(@"Now closing new document browser window for: %@", self.webView);
-                [self.browserController closeWebView:self.webView];
-            }
-            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
-                if (self.webView) {
-                    [sender close]; //close the temporary webview
+        // Check if quit URL has been clicked (regardless of current URL Filter)
+        if ([[[request URL] absoluteString] isEqualTo:[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"]]) {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"requestQuitWPwdNotification" object:self];
+            [listener ignore];
+            return;
+        }
+        
+        // If enabled, filter URL
+        SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
+        if (URLFilter.enableURLFilter && ![URLFilter testURLAllowed:request.URL]) {
+            /// URL is not allowed
+            
+            // Check if the link was opened by a script and
+            // if a temporary webview or a new browser window should be closed therefore
+            // If the new page is supposed to open in a new browser window
+            WebView *creatingWebView = [self.webView creatingWebView];
+            if (creatingWebView) {
+                if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
+                    // Don't load the request
+//                    [listener ignore];
+                    // we have to close the new browser window which already has been openend by WebKit
+                    // Get the document for my web view
+                    DDLogDebug(@"Originating browser window %@", sender);
+                    // Close document and therefore also window
+                    //Workaround: Flash crashes after closing window and then clicking some other link
+                    [[self.webView preferences] setPlugInsEnabled:NO];
+                    DDLogDebug(@"Now closing new document browser window for: %@", self.webView);
+                    [self.browserController closeWebView:self.webView];
                 }
+                if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
+                    if (self.webView) {
+                        [sender close]; //close the temporary webview
+                    }
+                }
+                // Show alert for URL is not allowed as sheet on the creating WebView window
+                [self showURLFilterAlertSheetForWindow:creatingWebView.window
+                                            forRequest:request];
+
+            } else {
+                // Show alert for URL is not allowed
+                [self showURLFilterAlertSheetForWindow:self
+                                            forRequest:request];
+            }
+
+            // Don't load the request
+            [listener ignore];
+            return;
+        }
+        
+        // Check if this is a seb:// link
+        if ([request.URL.scheme isEqualToString:@"seb"]) {
+            // If the scheme is seb:// we (conditionally) download and open the linked .seb file
+            [self.browserController downloadAndOpenSebConfigFromURL:request.URL];
+            [listener ignore];
+            return;
+        }
+        
+        if (currentMainHost && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == getGenerallyBlocked) {
+            [listener ignore];
+            return;
+        }
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptBlockForeign"]) {
+//            NSString *requestedHost = [[request mainDocumentURL] host];
+            DDLogDebug(@"Current Host: %@", currentMainHost);
+            DDLogDebug(@"Requested Host: %@", requestedHost);
+            // If current host is not the same as the requested host
+            if (currentMainHost && (!requestedHost || ![currentMainHost isEqualToString:requestedHost])) {
+                [listener ignore];
+                // If the new page is supposed to open in a new browser window
+                if (requestedHost && self.webView && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
+                    // we have to close the new browser window which already has been openend by WebKit
+                    // Get the document for my web view
+                    DDLogDebug(@"Originating browser window %@", sender);
+                    // Close document and therefore also window
+                    //Workaround: Flash crashes after closing window and then clicking some other link
+                    [[self.webView preferences] setPlugInsEnabled:NO];
+                    DDLogDebug(@"Now closing new document browser window for: %@", self.webView);
+                    [self.browserController closeWebView:self.webView];
+                }
+                if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
+                    if (self.webView) {
+                        [sender close]; //close the temporary webview
+                    }
+                }
+                return;
             }
         }
-        // Don't load the request
-        [listener ignore];
-        return;
-    }
-    
-    // Check if this is a seb:// link
-    if ([request.URL.scheme isEqualToString:@"seb"]) {
-        // If the scheme is seb:// we (conditionally) download and open the linked .seb file
-        [self.browserController downloadAndOpenSebConfigFromURL:request.URL];
-        [listener ignore];
-        return;
-    }
-    
-    if (currentMainHost && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == getGenerallyBlocked) {
-        [listener ignore];
-        return;
-    }
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptBlockForeign"]) {
-        NSString *requestedHost = [[request mainDocumentURL] host];
-        DDLogDebug(@"Current Host: %@", currentMainHost);
-        DDLogDebug(@"Requested Host: %@", requestedHost);
-        // If current host is not the same as the requested host
-        if (currentMainHost && (!requestedHost || ![currentMainHost isEqualToString:requestedHost])) {
-            [listener ignore];
-            // If the new page is supposed to open in a new browser window
-            if (requestedHost && self.webView && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
-                // we have to close the new browser window which already has been openend by WebKit
-                // Get the document for my web view
-                DDLogDebug(@"Originating browser window %@", sender);
-                // Close document and therefore also window
-                //Workaround: Flash crashes after closing window and then clicking some other link
-                [[self.webView preferences] setPlugInsEnabled:NO];
-                DDLogDebug(@"Now closing new document browser window for: %@", self.webView);
-                [self.browserController closeWebView:self.webView];
+        // Check if the new page is supposed to be opened in the same browser window
+        if (currentMainHost && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
+            if (self.webView && ![sender isEqual:self.webView]) {
+                // If the request's sender is the temporary webview, then we have to load the request now in the current webview
+                [listener ignore]; // ignore listener
+                [[self.webView mainFrame] loadRequest:request]; //load the new page in the same browser window
+                [sender close]; //close the temporary webview
+                return; //and return from here
             }
-            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
-                if (self.webView) {
-                    [sender close]; //close the temporary webview
-                }
-            }
-            return;
-        } 
-    }
-    // Check if the new page is supposed to be opened in the same browser window
-    if (currentMainHost && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
-        if (self.webView && ![sender isEqual:self.webView]) {
-            // If the request's sender is the temporary webview, then we have to load the request now in the current webview
-            [listener ignore]; // ignore listener
-            [[self.webView mainFrame] loadRequest:request]; //load the new page in the same browser window
-            [sender close]; //close the temporary webview
-            return; //and return from here
         }
     }
 
@@ -980,7 +1003,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
         if (URLFilter.enableURLFilter && ![URLFilter testURLAllowed:request.URL]) {
             // URL is not allowed: Show alert
-            [self showURLFilterAlertForRequest:request];
+            [self showURLFilterAlertSheetForWindow:self forRequest:request];
             //Don't load the request
             [listener ignore];
             return;
