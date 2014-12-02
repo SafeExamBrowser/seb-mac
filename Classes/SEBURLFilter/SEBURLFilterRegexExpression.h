@@ -24,4 +24,6 @@
 
 + (NSRegularExpression *) regexForFilterString:(NSString *)filterString error:(NSError **)error;
 
++ (NSRegularExpression *) regexForHostFilterString:(NSString *)filterString error:(NSError **)error;
+
 @end

@@ -69,13 +69,13 @@
         [expressionString appendFormat:@":%@", _port.stringValue];
     }
     if (_path.length > 0) {
-        if ([[_path substringToIndex:1] isEqualToString:@"/"]) {
+        if ([_path hasPrefix:@"/"]) {
             [expressionString appendString:_path];
         } else {
             [expressionString appendFormat:@"/%@", _scheme];
         }
         
-        if (![[_path substringFromIndex:_path.length-1] isEqualToString:@"/"]) {
+        if (![_path hasSuffix:@"/"]) {
             [expressionString appendString:@"/"];
         }
     }
