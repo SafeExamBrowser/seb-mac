@@ -47,20 +47,6 @@
 
 @implementation WebView (WebViewKVCSupport)
 
-static WebView *_creatingWebView;
-
-
-- (void) setCreatingWebView:(WebView *)creatingWebView
-{
-    _creatingWebView = creatingWebView;
-}
-
-- (WebView *) creatingWebView
-{
-    return _creatingWebView;
-}
-
-
 - (BOOL)maintainsBackForwardList
 {
     if ([self backForwardList]) {

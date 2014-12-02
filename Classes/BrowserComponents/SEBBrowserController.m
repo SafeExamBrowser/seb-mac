@@ -37,6 +37,7 @@
 #import "SEBBrowserOpenWindowWebView.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "NSWindow+SEBWindow.h"
+#import "WebKit+WebKitExtensions.h"
 #import "SEBConfigFileManager.h"
 
 #include "WebStorageManagerPrivate.h"
@@ -62,7 +63,7 @@
 
 
 // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
-- (void) setCustomWebPreferencesForWebView:(WebView *)webView
+- (void) setCustomWebPreferencesForWebView:(SEBWebView *)webView
 {
     NSString* dbPath = [WebStorageManager _storageDirectoryPath];
     
@@ -122,12 +123,13 @@
 
 
 // Open a new WebView
-- (WebView *) openWebView
+- (SEBWebView *) openWebView
 {
     SEBBrowserWindowDocument *browserWindowDocument = [self openBrowserWindowDocument];
 
     SEBBrowserWindow *newWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
-    WebView *newWindowWebView = browserWindowDocument.mainWindowController.webView;
+    SEBWebView *newWindowWebView = browserWindowDocument.mainWindowController.webView;
+    newWindowWebView.creatingWebView = nil;
 
     // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
     [self setCustomWebPreferencesForWebView:newWindowWebView];
@@ -143,13 +145,14 @@
 }
 
 // Open a new WebView and show its window
-- (WebView *) openAndShowWebView
+- (SEBWebView *) openAndShowWebView
 {
     SEBBrowserWindowDocument *browserWindowDocument = [self openBrowserWindowDocument];
 
     SEBBrowserWindow *newWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
-    WebView *newWindowWebView = browserWindowDocument.mainWindowController.webView;
-    
+    SEBWebView *newWindowWebView = browserWindowDocument.mainWindowController.webView;
+    newWindowWebView.creatingWebView = nil;
+
     // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
     [self setCustomWebPreferencesForWebView:newWindowWebView];
 
@@ -170,7 +173,7 @@
 }
 
 
-- (void) closeWebView:(WebView *) webViewToClose
+- (void) closeWebView:(SEBWebView *) webViewToClose
 {
     // Remove the entry for the WebView in a browser window from the array and dock item menu of open browser windows/WebViews
     [self removeBrowserWindow:(SEBBrowserWindow *)webViewToClose.window withWebView:webViewToClose];
@@ -186,7 +189,7 @@
 
 
 // Show new window containing webView
-- (void) webViewShow:(WebView *)sender
+- (void) webViewShow:(SEBWebView *)sender
 {
     SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] documentForWindow:[sender window]];
     [[sender window] setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
@@ -221,7 +224,8 @@
     SEBBrowserWindowDocument *browserWindowDocument = [self openBrowserWindowDocument];
     
     self.webView = browserWindowDocument.mainWindowController.webView;
-    
+    self.webView.creatingWebView = nil;
+
     // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
     [self setCustomWebPreferencesForWebView:self.webView];
     
@@ -393,7 +397,7 @@
 
 
 // Set web page title for a window/WebView
-- (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(WebView *)webView
+- (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView
 {
     for (SEBBrowserOpenWindowWebView *openWindowWebView in self.openBrowserWindowsWebViews) {
         if ([openWindowWebView.webView isEqualTo:webView]) {
@@ -405,7 +409,7 @@
 }
 
 
-- (void) setStateForWindow:(SEBBrowserWindow *)browserWindow withWebView:(WebView *)webView
+- (void) setStateForWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView
 {
     DDLogDebug(@"setStateForWindow: %@ withWebView: %@", browserWindow, webView);
 
@@ -421,7 +425,7 @@
 
 
 // Add an entry for a WebView in a browser window into the array and dock item menu of open browser windows/WebViews
-- (void) addBrowserWindow:(SEBBrowserWindow *)newBrowserWindow withWebView:(WebView *)newWebView withTitle:(NSString *)newTitle
+- (void) addBrowserWindow:(SEBBrowserWindow *)newBrowserWindow withWebView:(SEBWebView *)newWebView withTitle:(NSString *)newTitle
 {
     SEBBrowserOpenWindowWebView *newWindowWebView = [[SEBBrowserOpenWindowWebView alloc] initWithTitle:newTitle action:@selector(openWindowSelected:) keyEquivalent:@""];
     newWindowWebView.browserWindow = newBrowserWindow;
@@ -451,7 +455,7 @@
 
 
 // Remove an entry for a WebView in a browser window from the array and dock item menu of open browser windows/WebViews
-- (void) removeBrowserWindow:(SEBBrowserWindow *)browserWindow withWebView:(WebView *)webView
+- (void) removeBrowserWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView
 {
     SEBBrowserOpenWindowWebView *itemToRemove;
     for (SEBBrowserOpenWindowWebView *openWindowWebView in self.openBrowserWindowsWebViews) {

@@ -35,15 +35,17 @@
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
 #import "SEBBrowserWindow.h"
+#import "SEBWebView.h"
 #import "SEBDockController.h"
 #import "SEBDockItemButton.h"
 #import "SEBDockItemMenu.h"
 
 @class SEBBrowserWindow;
+@class SEBWebView;
 
 @interface SEBBrowserController : NSObject
 
-@property (strong) WebView *webView;
+@property (strong) SEBWebView *webView;
 @property (strong) SEBBrowserWindow *mainBrowserWindow;
 @property (strong) SEBDockController *dockController;
 @property (strong) SEBDockItemButton *sebDockItemButton;
@@ -52,10 +54,10 @@
 @property (strong) SEBDockItemMenu *openBrowserWindowsWebViewsMenu;
 @property(readwrite) BOOL reinforceKioskModeRequested;
 
-- (WebView *) openWebView;
-- (WebView *) openAndShowWebView;
-- (void) closeWebView:(WebView *) webViewToClose;
-- (void) webViewShow:(WebView *)sender;
+- (SEBWebView *) openWebView;
+- (SEBWebView *) openAndShowWebView;
+- (void) closeWebView:(SEBWebView *) webViewToClose;
+- (void) webViewShow:(SEBWebView *)sender;
 - (void) openMainBrowserWindow;
 - (void) adjustMainBrowserWindow;
 - (void) allBrowserWindowsChangeLevel:(BOOL)allowApps;
@@ -63,7 +65,7 @@
 - (void) openResourceWithURL:(NSString *)URL andTitle:(NSString *)title;
 - (void) downloadAndOpenSebConfigFromURL:(NSURL *)url;
 
-- (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(WebView *)webView;
-- (void) setStateForWindow:(SEBBrowserWindow *)browserWindow withWebView:(WebView *)webView;
+- (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView;
+- (void) setStateForWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView;
 
 @end

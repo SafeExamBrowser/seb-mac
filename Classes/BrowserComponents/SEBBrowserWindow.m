@@ -33,6 +33,7 @@
 //
 
 #import "SEBBrowserWindow.h"
+#import "SEBWebView.h"
 #import "SEBConfigFileManager.h"
 #import "SEBBrowserWindowDocument.h"
 #import "NSWindow+SEBWindow.h"
@@ -358,6 +359,7 @@
 - (void) showURLFilterAlertSheetForWindow:(NSWindow *)window forRequest:(NSURLRequest *)request
 {
     NSString *resourceURLString = @"!";
+    [SEBURLFilter sharedSEBURLFilter].learningMode = YES;
 #ifdef DEBUG
     resourceURLString = [NSString stringWithFormat:@": %@", [[request URL] absoluteString]];
 #endif
@@ -374,18 +376,20 @@
     }
     [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"It isn't allowed to open this link%@", nil), resourceURLString]];
     [newAlert setAlertStyle:NSCriticalAlertStyle];
+//    [newAlert beginSheetModalForWindow:window modalDelegate:self didEndSelector:nil contextInfo:nil];
 //    [newAlert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(dismissedURLFilterAlert:returnCode:contextInfo:) contextInfo:nil];
     [newAlert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
         // If the URL filter learning mode is switched on, handle the first button differently
         if (returnCode == NSAlertFirstButtonReturn && [SEBURLFilter sharedSEBURLFilter].learningMode) {
             // Allow URL (in filter learning mode)
-            
+            [[SEBURLFilter sharedSEBURLFilter] allowURL:request.URL];
+
             return;
         }
     }];
 }
 
-- (void) dismissedURLFilterAlert:(NSAlert *)alert
+- (void) alertDidEnd:(NSAlert *)alert
           returnCode:(NSInteger)returnCode
          contextInfo:(void *)contextInfo
 {
@@ -393,7 +397,6 @@
     if (returnCode == NSAlertFirstButtonReturn && [SEBURLFilter sharedSEBURLFilter].learningMode) {
         // Allow URL (in filter learning mode)
         [alert.window orderOut:self];
-        
         return;
     }
     [alert.window orderOut:self];
@@ -421,7 +424,7 @@
 #pragma mark WebUIDelegates
 
 // Handling of requests to open a link in a new window (including Javascript commands)
-- (WebView *)webView:(WebView *)sender createWebViewWithRequest:(NSURLRequest *)request
+- (SEBWebView *)webView:(SEBWebView *)sender createWebViewWithRequest:(NSURLRequest *)request
 {
     // Single browser window: [[self.webView mainFrame] loadRequest:request];
     // Multiple browser windows
@@ -436,7 +439,7 @@
             return nil; // cancel opening link
         }
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
-            WebView *newWindowWebView = [self.browserController openWebView];
+            SEBWebView *newWindowWebView = [self.browserController openWebView];
             newWindowWebView.creatingWebView = self.webView;
             DDLogDebug(@"Now opening new document browser window. %@", newWindowWebView);
             DDLogDebug(@"Reqested from %@",sender);
@@ -445,7 +448,7 @@
             return newWindowWebView;
         }
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
-            WebView *tempWebView = [[WebView alloc] init];
+            SEBWebView *tempWebView = [[SEBWebView alloc] init];
             //create a new temporary, invisible WebView
             [tempWebView setPolicyDelegate:self];
             [tempWebView setUIDelegate:self];
@@ -462,7 +465,7 @@
 
 
 // Show new window containing webView
-- (void)webViewShow:(WebView *)sender
+- (void)webViewShow:(SEBWebView *)sender
 {
     [self.browserController webViewShow:sender];
 }
@@ -477,7 +480,7 @@
 
 // Downloading and Uploading of Files //
 
-- (void)webView:(WebView *)sender runOpenPanelForFileButtonWithResultListener:(id < WebOpenPanelResultListener >)resultListener
+- (void)webView:(SEBWebView *)sender runOpenPanelForFileButtonWithResultListener:(id < WebOpenPanelResultListener >)resultListener
 // Choose file for upload
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -551,7 +554,7 @@
 
 
 // Delegate method for disabling right-click context menu
-- (NSArray *)webView:(WebView *)sender contextMenuItemsForElement:(NSDictionary *)element 
+- (NSArray *)webView:(SEBWebView *)sender contextMenuItemsForElement:(NSDictionary *)element 
     defaultMenuItems:(NSArray *)defaultMenuItems {
     // disable right-click context menu
     return NO;
@@ -559,7 +562,7 @@
 
 
 // Delegate method for JavaScript alert panel
-- (void)webView:(WebView *)sender runJavaScriptAlertPanelWithMessage:(NSString *)message 
+- (void)webView:(SEBWebView *)sender runJavaScriptAlertPanelWithMessage:(NSString *)message 
 initiatedByFrame:(WebFrame *)frame {
 	NSString *pageTitle = [sender stringByEvaluatingJavaScriptFromString:@"document.title"];
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
@@ -575,7 +578,7 @@ initiatedByFrame:(WebFrame *)frame {
 
 
 // Delegate method for JavaScript confirmation panel
-- (BOOL)webView:(WebView *)sender runJavaScriptConfirmPanelWithMessage:(NSString *)message 
+- (BOOL)webView:(SEBWebView *)sender runJavaScriptConfirmPanelWithMessage:(NSString *)message 
 initiatedByFrame:(WebFrame *)frame {
 	NSString *pageTitle = [sender stringByEvaluatingJavaScriptFromString:@"document.title"];
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
@@ -595,7 +598,7 @@ initiatedByFrame:(WebFrame *)frame {
 
 // Get the URL of the page being loaded
 // Invoked when a page load is in progress in a given frame
-- (void)webView:(WebView *)sender didStartProvisionalLoadForFrame:(WebFrame *)frame {
+- (void)webView:(SEBWebView *)sender didStartProvisionalLoadForFrame:(WebFrame *)frame {
     DDLogInfo(@"didStartProvisionalLoadForFrame request URL: %@", [[[[frame provisionalDataSource] request] URL] absoluteString]);
     [self startProgressIndicatorAnimation];
     // Only report feedback for the main frame.
@@ -608,20 +611,20 @@ initiatedByFrame:(WebFrame *)frame {
 
 
 // Invoked when a page load completes
-- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
+- (void)webView:(SEBWebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
     [self stopProgressIndicatorAnimation];
 }
 
 
 // Invoked when a client redirect is cancelled
-- (void)webView:(WebView *)sender didCancelClientRedirectForFrame:(WebFrame *)frame
+- (void)webView:(SEBWebView *)sender didCancelClientRedirectForFrame:(WebFrame *)frame
 {
     DDLogInfo(@"webView: %@ didCancelClientRedirectForFrame: %@", sender, frame);
 }
 
 
 // Invoked when a frame receives a client redirect and before it is fired
-- (void)webView:(WebView *)sender
+- (void)webView:(SEBWebView *)sender
 willPerformClientRedirectToURL:(NSURL *)URL
           delay:(NSTimeInterval)seconds
        fireDate:(NSDate *)date
@@ -632,7 +635,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
 
 
 // Update the URL of the current page in case of a server redirect
-- (void)webView:(WebView *)sender didReceiveServerRedirectForProvisionalLoadForFrame:(WebFrame *)frame {
+- (void)webView:(SEBWebView *)sender didReceiveServerRedirectForProvisionalLoadForFrame:(WebFrame *)frame {
     //[self stopProgressIndicatorAnimation];
     // Only report feedback for the main frame.
     if (frame == [sender mainFrame]){
@@ -643,7 +646,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
 }
 
 
-- (void)webView:(WebView *)sender didReceiveTitle:(NSString *)title forFrame:(WebFrame *)frame
+- (void)webView:(SEBWebView *)sender didReceiveTitle:(NSString *)title forFrame:(WebFrame *)frame
 {
     // Report feedback only for the main frame.
     if (frame == [sender mainFrame]){
@@ -667,7 +670,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
 /// Handle WebView load errors
 
 // Invoked if an error occurs when starting to load data for a page
-- (void)webView:(WebView *)sender didFailProvisionalLoadWithError:(NSError *)error
+- (void)webView:(SEBWebView *)sender didFailProvisionalLoadWithError:(NSError *)error
        forFrame:(WebFrame *)frame {
     
     [self stopProgressIndicatorAnimation];
@@ -702,7 +705,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
 
 
 // Invoked when an error occurs loading a committed data source
-- (void)webView:(WebView *)sender didFailLoadWithError:(NSError *)error forFrame:(WebFrame *)frame {
+- (void)webView:(SEBWebView *)sender didFailLoadWithError:(NSError *)error forFrame:(WebFrame *)frame {
     
     [self stopProgressIndicatorAnimation];
     
@@ -734,7 +737,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
 
 
 // Invoked when the JavaScript window object in a frame is ready for loading
-- (void)webView:(WebView *)sender didClearWindowObject:(WebScriptObject *)windowObject
+- (void)webView:(SEBWebView *)sender didClearWindowObject:(WebScriptObject *)windowObject
        forFrame:(WebFrame *)frame
 {
     DDLogDebug(@"webView: %@ didClearWindowObject: %@ forFrame: %@", sender, windowObject, frame);
@@ -745,7 +748,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
 
 // Generate and send the Browser Exam Key in modified header
 // Invoked before a request is initiated for a resource and returns a possibly modified request
-- (NSURLRequest *)webView:(WebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource
+- (NSURLRequest *)webView:(SEBWebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource
 {
     // If enabled, filter content
     SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
@@ -833,7 +836,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
 
 
 // Invoked when a resource failed to load
-- (void)webView:(WebView *)sender resource:(id)identifier didFailLoadingWithError:(NSError *)error
+- (void)webView:(SEBWebView *)sender resource:(id)identifier didFailLoadingWithError:(NSError *)error
  fromDataSource:(WebDataSource *)dataSource
 {
     DDLogError(@"webView: %@ resource: %@ didFailLoadingWithError: %@ fromDataSource: %@", sender, identifier, error.description, dataSource);
@@ -841,7 +844,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
 
 
 // Invoked when a plug-in fails to load
-- (void)webView:(WebView *)sender plugInFailedWithError:(NSError *)error
+- (void)webView:(SEBWebView *)sender plugInFailedWithError:(NSError *)error
      dataSource:(WebDataSource *)dataSource
 {
     DDLogError(@"webView: %@ plugInFailedWithError: %@ dataSource: %@", sender, error, dataSource);
@@ -855,7 +858,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
 
 
 // Invoked when an authentication challenge has been received for a resource
-- (void)webView:(WebView *)sender resource:(id)identifier didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+- (void)webView:(SEBWebView *)sender resource:(id)identifier didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
  fromDataSource:(WebDataSource *)dataSource
 {
     DDLogInfo(@"webView: %@ resource: %@ didReceiveAuthenticationChallenge: %@ fromDataSource: %@", sender, identifier, challenge, dataSource);
@@ -863,7 +866,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
 
 
 // Invoked when an authentication challenge for a resource was canceled
-- (void)webView:(WebView *)sender
+- (void)webView:(SEBWebView *)sender
        resource:(id)identifier
 didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
  fromDataSource:(WebDataSource *)dataSource
@@ -875,7 +878,7 @@ didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 // Opening Links in New Windows //
 
 // Handling of requests from web plugins to open a link in a new window
-- (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation 
+- (void)webView:(SEBWebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation 
         request:(NSURLRequest *)request 
           frame:(WebFrame *)frame 
 decisionListener:(id <WebPolicyDecisionListener>)listener {
@@ -902,7 +905,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
             // Check if the link was opened by a script and
             // if a temporary webview or a new browser window should be closed therefore
             // If the new page is supposed to open in a new browser window
-            WebView *creatingWebView = [self.webView creatingWebView];
+            SEBWebView *creatingWebView = [self.webView creatingWebView];
             if (creatingWebView) {
                 if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
                     // Don't load the request
@@ -991,7 +994,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
 
 
 // Open the link requesting to be opened in a new window according to settings
-- (void)webView:(WebView *)sender decidePolicyForNewWindowAction:(NSDictionary *)actionInformation 
+- (void)webView:(SEBWebView *)sender decidePolicyForNewWindowAction:(NSDictionary *)actionInformation 
 		request:(NSURLRequest *)request 
    newFrameName:(NSString *)frameName 
 decisionListener:(id <WebPolicyDecisionListener>)listener {
@@ -1014,7 +1017,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
             [self.browserController.currentMainHost isEqualToString:[[request mainDocumentURL] host]]) {
             if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] == openInNewWindow) {
                 // Open new browser window containing WebView and show it
-                WebView *newWebView = [self.browserController openAndShowWebView];
+                SEBWebView *newWebView = [self.browserController openAndShowWebView];
                 // Load URL request in new WebView
                 [[newWebView mainFrame] loadRequest:request];
             }
@@ -1030,7 +1033,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
 
 #pragma mark WebPolicyDelegates
 
-- (void)webView:(WebView *)sender decidePolicyForMIMEType:(NSString*)type
+- (void)webView:(SEBWebView *)sender decidePolicyForMIMEType:(NSString*)type
         request:(NSURLRequest *)request 
           frame:(WebFrame *)frame
 decisionListener:(id < WebPolicyDecisionListener >)listener
@@ -1063,7 +1066,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 }
 
 
-- (void)webView:(WebView *)sender unableToImplementPolicyWithError:(NSError *)error
+- (void)webView:(SEBWebView *)sender unableToImplementPolicyWithError:(NSError *)error
           frame:(WebFrame *)frame
 {
     DDLogError(@"webView: %@ unableToImplementPolicyWithError: %@ frame: %@", sender, error, frame);

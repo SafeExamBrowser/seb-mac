@@ -35,18 +35,20 @@
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebView.h>
 #import "SEBBrowserController.h"
+#import "SEBWebView.h"
 
 @class SEBBrowserController;
+@class SEBWebView;
 
 @interface SEBBrowserWindowController : NSWindowController <NSWindowDelegate>
 {
 @private
-     //IBOutlet WebView *webView;
+     //IBOutlet SEBWebView *webView;
     NSRect frameForNonFullScreenMode;
 }
 
 @property (assign) NSRect frameForNonFullScreenMode;
-@property (weak) IBOutlet WebView *webView;
+@property (weak) IBOutlet SEBWebView *webView;
 @property(weak) SEBBrowserController *browserController;
 
 - (IBAction) backForward: (id)sender;

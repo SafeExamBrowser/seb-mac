@@ -88,7 +88,7 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
             
             BOOL regex = [URLFilterRule[@"regex"] boolValue];
             if (regex) {
-                expression = [NSRegularExpression regularExpressionWithPattern:expressionString options:NSRegularExpressionCaseInsensitive error:&error];
+                expression = [NSRegularExpression regularExpressionWithPattern:expressionString options:NSRegularExpressionCaseInsensitive | NSRegularExpressionAnchorsMatchLines error:&error];
             } else {
                 expression = [SEBURLFilterRegexExpression regexFilterExpressionWithString:expressionString error:&error];
             }
@@ -247,13 +247,29 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
 - (BOOL) regexFilterExpression:(NSRegularExpression *)regexFilter hasMatchesInString:(NSString *)stringToMatch
 {
     if (!stringToMatch) return NO;
-    return [regexFilter rangeOfFirstMatchInString:stringToMatch options:NSRegularExpressionCaseInsensitive range:NSMakeRange(0, stringToMatch.length)].location != NSNotFound;
+    return [regexFilter rangeOfFirstMatchInString:stringToMatch options:NSRegularExpressionCaseInsensitive |  NSRegularExpressionAnchorsMatchLines range:NSMakeRange(0, stringToMatch.length)].location != NSNotFound;
 }
 
 
 - (void) allowURL:(NSURL *)URLToAllow
 {
+    NSError *error;
+    id expression;
+    expression = [SEBURLFilterRegexExpression regexFilterExpressionWithString:URLToAllow.absoluteString error:&error];
+    [self.permittedList addObject:expression];
     
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *URLFilterRules = [NSMutableArray arrayWithArray:[preferences secureArrayForKey:@"org_safeexambrowser_SEB_URLFilterRules"]];
+    NSDictionary *URLFilterRule = @{
+                                    @"active" : @YES,
+                                    @"regex" : @NO,
+                                    @"action" : [NSNumber numberWithLong:URLFilterActionAllow],
+                                    @"expression" : URLToAllow.absoluteString,
+                                    };
+    
+    [URLFilterRules addObject:URLFilterRule];
+    [preferences setSecureObject:URLFilterRules forKey:@"org_safeexambrowser_SEB_URLFilterRules"];
+
 }
 
 

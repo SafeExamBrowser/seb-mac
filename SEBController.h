@@ -48,6 +48,7 @@
 #import "SEBBrowserController.h"
 
 #import "SEBBrowserWindow.h"
+#import "SEBWebView.h"
 
 #import "SEBDockController.h"
 #import "SEBDockItem.h"
@@ -116,7 +117,7 @@
 
 @property(readwrite) BOOL f3Pressed;
 @property(readwrite) BOOL quittingMyself;
-@property(strong) WebView *webView;
+@property(strong) SEBWebView *webView;
 @property(strong) NSMutableArray *capWindows;
 @property(strong) IBOutlet NSSecureTextField *enterPassword;
 @property(strong) IBOutlet id preferencesController;

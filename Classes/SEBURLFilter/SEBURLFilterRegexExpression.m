@@ -36,10 +36,11 @@
         return nil;
         
     } else {
-        
         NSString *regexString = [NSRegularExpression escapedPatternForString:filterString];
         regexString = [regexString stringByReplacingOccurrencesOfString:@"\\*" withString:@".*?"];
-        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexString options:NSRegularExpressionCaseInsensitive error:error];
+        // Add regex command characters for matching at start and end of a line (part)
+        regexString = [NSString stringWithFormat:@"^%@$", regexString];
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexString options:NSRegularExpressionCaseInsensitive | NSRegularExpressionAnchorsMatchLines error:error];
         return regex;
     }
 }

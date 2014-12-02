@@ -44,8 +44,6 @@
 
 @interface WebView (WebViewKVCSupport)
 
-@property (strong, nonatomic) WebView *creatingWebView;
-
 - (BOOL)maintainsBackForwardList;
 
 @end

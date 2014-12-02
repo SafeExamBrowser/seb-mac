@@ -1583,7 +1583,7 @@ bool insideMatrix(){
 - (IBAction) showHelp: (id)sender
 {
     // Open new browser window containing WebView and show it
-    WebView *newWebView = [self.browserController openAndShowWebView];
+    SEBWebView *newWebView = [self.browserController openAndShowWebView];
     // Load manual page URL in new browser window
     NSString *urlText = @"http://www.safeexambrowser.org/macosx";
 	[[newWebView mainFrame] loadRequest:

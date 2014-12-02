@@ -50,4 +50,6 @@
 
 - (BOOL)testURLAllowed:(NSURL *)URLToFilter;
 
+- (void) allowURL:(NSURL *)URLToAllow;
+
 @end

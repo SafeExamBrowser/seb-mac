@@ -37,6 +37,7 @@
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
 
+#import "SEBWebView.h"
 #import "SEBEncryptedUserDefaultsController.h"
 #import "SEBBrowserController.h"
 
@@ -45,7 +46,7 @@
 @interface SEBBrowserWindow : NSWindow <NSWindowDelegate, NSURLDownloadDelegate>
 
 {
-    WebView *requestingWebView;
+    SEBWebView *requestingWebView;
     NSString *currentURL;
     NSString *downloadPath;
     NSView *progressIndicatorHolder;
@@ -53,7 +54,7 @@
 }
 
 @property (weak) SEBBrowserController *browserController;
-@property (weak) IBOutlet WebView *webView;
+@property (weak) IBOutlet SEBWebView *webView;
 @property BOOL isFullScreen;
 
 - (void) setCalculatedFrame;
