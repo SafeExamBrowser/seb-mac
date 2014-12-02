@@ -54,7 +54,7 @@
     IBOutlet NSTextField *host;
     IBOutlet NSTextField *port;
     IBOutlet NSTextField *path;
-    IBOutlet NSTextField *query_string;
+    IBOutlet NSTextField *query;
     IBOutlet NSTextField *fragment;
     IBOutlet NSArrayController *filterArrayController;
     __weak IBOutlet NSTableView *filterTableView;

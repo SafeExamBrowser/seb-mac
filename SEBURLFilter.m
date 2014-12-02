@@ -260,12 +260,12 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSMutableArray *URLFilterRules = [NSMutableArray arrayWithArray:[preferences secureArrayForKey:@"org_safeexambrowser_SEB_URLFilterRules"]];
-    NSDictionary *URLFilterRule = @{
+    NSMutableDictionary *URLFilterRule = [NSMutableDictionary dictionaryWithDictionary:@{
                                     @"active" : @YES,
                                     @"regex" : @NO,
                                     @"action" : [NSNumber numberWithLong:URLFilterActionAllow],
                                     @"expression" : URLToAllow.absoluteString,
-                                    };
+                                    }];
     
     [URLFilterRules addObject:URLFilterRule];
     [preferences setSecureObject:URLFilterRules forKey:@"org_safeexambrowser_SEB_URLFilterRules"];

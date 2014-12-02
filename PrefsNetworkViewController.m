@@ -191,7 +191,7 @@
     self.expressionPort = expressionURL.port ? expressionURL.port.stringValue : @"";
     NSString *trimmedExpressionPath = [expressionURL.path stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" /"]];
     path.stringValue = trimmedExpressionPath ? trimmedExpressionPath : @"";
-    query_string.stringValue = expressionURL.query ? expressionURL.query : @"";
+    query.stringValue = expressionURL.query ? expressionURL.query : @"";
     fragment.stringValue = expressionURL.fragment ? expressionURL.fragment : @"";
     
     // Update filter rules
@@ -201,9 +201,15 @@
 
 - (SEBURLFilterExpression *) getExpressionFromParts
 {
-    NSString *slashedTrimmedExpressionPath = [NSString stringWithFormat:@"/%@",[path.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" /"]]];
+    NSString *trimmedScheme = [scheme.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" :/"]];
+    NSString *trimmedUser = [user.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" /:@"]];
+    NSString *trimmedPassword = [password.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" /:@"]];
+    NSString *trimmedHost = [host.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" :/@?#"]];
+    NSString *trimmedPath = [path.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" :/?#"]];
+    NSString *trimmedQuery = [query.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" /?#"]];
+    NSString *trimmedFragment = [fragment.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" /?#"]];
     
-    return [[SEBURLFilterExpression alloc] initWithScheme:scheme.stringValue user:user.stringValue password:password.stringValue host:host.stringValue port:@([self.expressionPort intValue]) path:slashedTrimmedExpressionPath query:query_string.stringValue fragment:fragment.stringValue];
+    return [[SEBURLFilterExpression alloc] initWithScheme:trimmedScheme user:trimmedUser password:trimmedPassword host:trimmedHost port:@([self.expressionPort intValue]) path:trimmedPath query:trimmedQuery fragment:trimmedFragment];
 }
 
 
@@ -214,7 +220,9 @@
     NSString *filterExpressionString = [filterExpression string];
     
     // Set the expression in the text field
-    [filterArrayController setValue:filterExpressionString forKeyPath:@"selection.expression"];
+    if ([filterArrayController selectedObjects].count) {
+        [filterArrayController setValue:filterExpressionString forKeyPath:@"selection.expression"];
+    }
 
     // Update filter expression parts textfields (to take over proper formatting)
     [self setPartsForExpression:filterExpressionString];

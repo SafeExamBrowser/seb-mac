@@ -20,7 +20,7 @@
                 <outlet property="password" destination="oXf-ig-TZU" id="KPB-8U-bX3"/>
                 <outlet property="path" destination="IT5-aW-zsl" id="RDz-nA-Tim"/>
                 <outlet property="port" destination="kr2-YI-gaU" id="AbR-Pf-c9E"/>
-                <outlet property="query_string" destination="1PT-7a-wz2" id="FZi-tY-aDf"/>
+                <outlet property="query" destination="1PT-7a-wz2" id="T4z-dP-wsl"/>
                 <outlet property="scheme" destination="3Lb-pY-2F1" id="yVp-dR-BPI"/>
                 <outlet property="selectedExpression" destination="9hw-i2-YWH" id="Rzm-5D-a1K"/>
                 <outlet property="urlFilterTab" destination="240" id="OZl-OD-EiI"/>
