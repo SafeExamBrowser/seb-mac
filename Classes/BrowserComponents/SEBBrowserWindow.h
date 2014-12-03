@@ -55,6 +55,10 @@
 
 @property (weak) SEBBrowserController *browserController;
 @property (weak) IBOutlet SEBWebView *webView;
+@property (strong) IBOutlet NSWindow *URLFilterAlert;
+@property (strong) IBOutlet NSURL *URLFilterAlertURL;
+@property (weak) IBOutlet NSMatrix *filterPatternMatrix;
+@property (weak) IBOutlet NSTextField *filterExpressionField;
 @property BOOL isFullScreen;
 
 - (void) setCalculatedFrame;

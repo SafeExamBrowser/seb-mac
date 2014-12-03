@@ -358,36 +358,143 @@
 
 - (void) showURLFilterAlertSheetForWindow:(NSWindow *)window forRequest:(NSURLRequest *)request
 {
-    NSString *resourceURLString = @"!";
-    [SEBURLFilter sharedSEBURLFilter].learningMode = YES;
+    if (!window.attachedSheet) {
+        if (self.webView.dismissAll == NO) {
+            NSURL *resourceURL = request.URL;
+            self.URLFilterAlertURL = resourceURL;
+            if (!self.webView.notAllowedURLs) {
+                self.webView.notAllowedURLs = [NSMutableArray new];
+            }
+            BOOL containsURL = NO;
+            for (NSURL *notAllowedURL in self.webView.notAllowedURLs) {
+                if ([resourceURL isEqualTo:notAllowedURL]) {
+                    containsURL = YES;
+                    break;
+                }
+            }
+            if (containsURL == NO) {
+                [self.webView.notAllowedURLs addObject:resourceURL];
+                NSString *resourceURLString = @"!";
+//                [SEBURLFilter sharedSEBURLFilter].learningMode = YES;
 #ifdef DEBUG
-    resourceURLString = [NSString stringWithFormat:@": %@", [[request URL] absoluteString]];
+                resourceURLString = [NSString stringWithFormat:@": %@", [[request URL] absoluteString]];
 #endif
-    NSAlert *newAlert = [[NSAlert alloc] init];
-    [newAlert setMessageText:NSLocalizedString(@"Resource Not Permitted", nil)];
-    
-    // If the URL filter learning mode is switched on, supplement the alert
-    if ([SEBURLFilter sharedSEBURLFilter].learningMode) {
-        resourceURLString = [NSString stringWithFormat:@": %@", [[request URL] absoluteString]];
-        [newAlert addButtonWithTitle:NSLocalizedString(@"Allow", nil)];
-        [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-    } else {
-        [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-    }
-    [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"It isn't allowed to open this link%@", nil), resourceURLString]];
-    [newAlert setAlertStyle:NSCriticalAlertStyle];
-//    [newAlert beginSheetModalForWindow:window modalDelegate:self didEndSelector:nil contextInfo:nil];
-//    [newAlert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(dismissedURLFilterAlert:returnCode:contextInfo:) contextInfo:nil];
-    [newAlert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
-        // If the URL filter learning mode is switched on, handle the first button differently
-        if (returnCode == NSAlertFirstButtonReturn && [SEBURLFilter sharedSEBURLFilter].learningMode) {
-            // Allow URL (in filter learning mode)
-            [[SEBURLFilter sharedSEBURLFilter] allowURL:request.URL];
+                //                NSAlert *newAlert = [[NSAlert alloc] init];
+                //                [newAlert setMessageText:NSLocalizedString(@"Resource Not Permitted", nil)];
+                
+                // If the URL filter learning mode is switched on, supplement the alert
+                if ([SEBURLFilter sharedSEBURLFilter].learningMode) {
+                    //        resourceURLString = [NSString stringWithFormat:@": %@", [[request URL] absoluteString]];
+                    //        [newAlert addButtonWithTitle:NSLocalizedString(@"Allow", nil)];
+                    //        [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+                    
+//                    self.filterExpressionField.stringValue = [[request URL] absoluteString];
+                    [self changedFilterPattern:self.filterPatternMatrix];
 
-            return;
+                    [NSApp beginSheet: self.URLFilterAlert
+                       modalForWindow: window
+                        modalDelegate: nil
+                       didEndSelector: nil
+                          contextInfo: nil];
+                    NSInteger returnCode = [NSApp runModalForWindow: self.URLFilterAlert];
+                    // Dialog is up here.
+                    [NSApp endSheet: self.URLFilterAlert];
+                    [NSApp abortModal];
+                    [self.URLFilterAlert orderOut: self];
+                    switch (returnCode) {
+                        case SEBURLFilterAlertCancel:
+                            break;
+                            
+                        case SEBURLFilterAlertAllow:
+                            // Allow URL (in filter learning mode)
+                            [[SEBURLFilter sharedSEBURLFilter] addRuleAction:URLFilterActionAllow withFilterExpression:[SEBURLFilterExpression filterExpressionWithString:self.filterExpressionField.stringValue]];
+                            break;
+                            
+                        case SEBURLFilterAlertBlock:
+                            // Block URL (in filter learning mode)
+                            [[SEBURLFilter sharedSEBURLFilter] addRuleAction:URLFilterActionBlock withFilterExpression:[SEBURLFilterExpression filterExpressionWithString:self.filterExpressionField.stringValue]];
+                            break;
+                            
+                        case SEBURLFilterAlertDismissAll:
+                            break;
+                            
+                    }
+                } else {
+                    //                    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                }
+                //                [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"It isn't allowed to open this link%@", nil), resourceURLString]];
+                //                [newAlert setAlertStyle:NSCriticalAlertStyle];
+                //    [newAlert beginSheetModalForWindow:window modalDelegate:self didEndSelector:nil contextInfo:nil];
+                //    [newAlert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(dismissedURLFilterAlert:returnCode:contextInfo:) contextInfo:nil];
+                //    [newAlert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+                //        // If the URL filter learning mode is switched on, handle the first button differently
+                //        if (returnCode == NSAlertFirstButtonReturn && [SEBURLFilter sharedSEBURLFilter].learningMode) {
+                //            // Allow URL (in filter learning mode)
+                //            [[SEBURLFilter sharedSEBURLFilter] allowURL:request.URL];
+                //
+                //            return;
+                //        }
+                //    }];
+            }
         }
-    }];
+    }
 }
+
+- (IBAction) URLFilterAlertCancel: (id)sender {
+    [NSApp stopModalWithCode:SEBURLFilterAlertCancel];
+}
+
+- (IBAction) URLFilterAlertAllow: (id)sender {
+    [NSApp stopModalWithCode:SEBURLFilterAlertAllow];
+}
+
+- (IBAction) URLFilterAlertBlock: (id)sender {
+    [NSApp stopModalWithCode:SEBURLFilterAlertBlock];
+}
+
+- (IBAction) URLFilterAlertDismissAll: (id)sender {
+    self.webView.dismissAll = YES;
+    [NSApp stopModalWithCode:SEBURLFilterAlertDismissAll];
+}
+
+
+- (IBAction)editingFilterExpression:(NSTextField *)sender {
+    [self.filterPatternMatrix selectCellAtRow:SEBURLFilterAlertPatternCustom column:0];
+}
+
+
+- (IBAction)changedFilterPattern:(NSMatrix *)sender {
+    NSUInteger selectedFilterPattern = [sender selectedRow];
+    
+    NSString *scheme = self.URLFilterAlertURL.scheme;
+    
+    NSString *host = self.URLFilterAlertURL.host;
+    if (host) {
+        scheme = [scheme stringByAppendingString:@"://"];
+    } else {
+        host = @"";
+    }
+    
+    NSString *path = self.URLFilterAlertURL.path;
+    if (!path) path = @"";
+
+    switch (selectedFilterPattern) {
+            
+        case SEBURLFilterAlertPatternHost:
+            self.filterExpressionField.stringValue = [NSString stringWithFormat:@"%@%@", scheme, host];
+            break;
+            
+        case SEBURLFilterAlertPatternHostPath: {
+            self.filterExpressionField.stringValue = [NSString stringWithFormat:@"%@%@%@", scheme, host, path];
+            break;
+        }
+            
+        case SEBURLFilterAlertPatternCustom:
+            self.filterExpressionField.stringValue = self.URLFilterAlertURL.absoluteString;
+            break;
+    }
+}
+
 
 - (void) alertDidEnd:(NSAlert *)alert
           returnCode:(NSInteger)returnCode

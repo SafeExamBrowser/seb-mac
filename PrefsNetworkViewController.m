@@ -109,6 +109,15 @@
 }
 
 
+- (BOOL) URLFilterLearningMode {
+    return [SEBURLFilter sharedSEBURLFilter].learningMode;
+}
+
+- (void) setURLFilterLearningMode:(BOOL)learningMode {
+    [SEBURLFilter sharedSEBURLFilter].learningMode = learningMode;
+}
+
+
 // Action to set the enabled property of dependent buttons
 // This is necessary because bindings don't work with private user defaults
 - (IBAction) URLFilterEnableChanged:(NSButton *)sender {

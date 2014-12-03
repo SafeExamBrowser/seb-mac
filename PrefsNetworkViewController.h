@@ -74,6 +74,7 @@
 @property (strong, nonatomic) NSArray *identities;
 
 @property (strong) NSString *expressionPort;
+@property (readwrite) BOOL URLFilterLearningMode;
 
 
 - (NSString *)identifier;
@@ -82,6 +83,8 @@
 // Filter Section
 - (IBAction) updateExpressionFromParts:(NSTextField *)sender;
 - (IBAction) addExpression:(id)sender;
+- (BOOL) URLFilterLearningMode;
+- (void) setURLFilterLearningMode:(BOOL)learningMode;
 
 // Certificates section
 - (IBAction) identitySelected:(id)sender;

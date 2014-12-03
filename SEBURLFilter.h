@@ -34,6 +34,7 @@
 
 
 #import <Foundation/Foundation.h>
+#import "SEBURLFilterExpression.h"
 
 @interface SEBURLFilter : NSObject
 
@@ -50,6 +51,6 @@
 
 - (BOOL)testURLAllowed:(NSURL *)URLToFilter;
 
-- (void) allowURL:(NSURL *)URLToAllow;
+- (void) addRuleAction:(URLFilterRuleActions)action withFilterExpression:(SEBURLFilterExpression *)filterExpression;
 
 @end

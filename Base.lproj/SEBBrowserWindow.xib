@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6221" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6221" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6221"/>
@@ -23,12 +23,17 @@
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <webView id="5" userLabel="Web View" customClass="SEBWebView">
+                    <webView translatesAutoresizingMaskIntoConstraints="NO" id="5" userLabel="Web View" customClass="SEBWebView">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <webPreferences key="preferences" identifier="webView" defaultFontSize="16" defaultFixedFontSize="13" minimumFontSize="0"/>
                     </webView>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="5" firstAttribute="leading" secondItem="4" secondAttribute="leading" id="64B-6f-rpz"/>
+                    <constraint firstAttribute="bottom" secondItem="5" secondAttribute="bottom" id="GA2-Xe-Wn5"/>
+                    <constraint firstAttribute="trailing" secondItem="5" secondAttribute="trailing" id="scD-M3-sGF"/>
+                    <constraint firstItem="5" firstAttribute="top" secondItem="4" secondAttribute="top" id="ujy-11-0oB"/>
+                </constraints>
             </view>
             <toolbar key="toolbar" implicitIdentifier="BDAFF22A-CD78-4B87-BE08-89EB5FD8D41E" autosavesConfiguration="NO" allowsUserCustomization="NO" prefersToBeShown="NO" displayMode="iconOnly" sizeMode="regular" id="166">
                 <allowedToolbarItems>
@@ -97,12 +102,155 @@
                 </defaultToolbarItems>
             </toolbar>
             <connections>
+                <outlet property="URLFilterAlert" destination="5ay-Fd-lF5" id="d3h-Ce-1Bw"/>
                 <outlet property="delegate" destination="-2" id="8"/>
+                <outlet property="filterExpressionField" destination="vXv-y9-kAX" id="Cr0-aM-EZ3"/>
+                <outlet property="filterPatternMatrix" destination="JTI-Ar-k0D" id="0Q4-Dc-3J7"/>
                 <outlet property="webView" destination="5" id="6"/>
             </connections>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="182"/>
         <userDefaultsController id="184" userLabel="SEB User Defaults Controller" customClass="SEBEncryptedUserDefaultsController"/>
+        <window title="Resource Not Permitted" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" id="5ay-Fd-lF5" userLabel="URLNotAllowedAlert">
+            <windowStyleMask key="styleMask" titled="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
+            <rect key="contentRect" x="340" y="419" width="500" height="272"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1578"/>
+            <value key="minSize" type="size" width="412" height="108"/>
+            <view key="contentView" id="52A-2p-iMa">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="272"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ig8-v8-XUJ">
+                        <rect key="frame" x="384" y="5" width="102" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="90" id="Vye-IJ-fDc"/>
+                        </constraints>
+                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="baa-dD-Wnp">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="URLFilterAlertCancel:" target="3" id="AFS-OT-krL"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z9W-wM-LUg">
+                        <rect key="frame" x="282" y="5" width="102" height="32"/>
+                        <buttonCell key="cell" type="push" title="Allow" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vVz-K2-Hbd">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent">a</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="URLFilterAlertAllow:" target="3" id="ZDI-Oc-GRQ"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cja-1x-YEa">
+                        <rect key="frame" x="180" y="5" width="102" height="32"/>
+                        <buttonCell key="cell" type="push" title="Block" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="AcO-IT-BuS">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent">b</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="URLFilterAlertBlock:" target="3" id="w10-Ug-lBe"/>
+                        </connections>
+                    </button>
+                    <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JTI-Ar-k0D">
+                        <rect key="frame" x="31" y="158" width="449" height="58"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        <size key="cellSize" width="449" height="18"/>
+                        <size key="intercellSpacing" width="4" height="2"/>
+                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="ms5-0D-xhq">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <cells>
+                            <column>
+                                <buttonCell type="radio" title="Host" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="BmY-jI-Mu3">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <buttonCell type="radio" title="Host/Path" imagePosition="left" alignment="left" inset="2" id="TD9-Qa-GkX">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <buttonCell type="radio" title="Custom" imagePosition="left" alignment="left" inset="2" id="mk7-3C-ndY">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </column>
+                        </cells>
+                        <connections>
+                            <action selector="changedFilterPattern:" target="3" id="Gp0-4P-oUd"/>
+                        </connections>
+                    </matrix>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="vXv-y9-kAX">
+                        <rect key="frame" x="20" y="44" width="460" height="104"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="104" id="Te4-X5-rXC"/>
+                        </constraints>
+                        <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="2cx-QM-4wF">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <connections>
+                            <action selector="editingFilterExpression:" target="3" id="52Q-2O-gAR"/>
+                        </connections>
+                    </textField>
+                    <textField horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KaS-Nf-iUK" customClass="SEBTextField">
+                        <rect key="frame" x="18" y="224" width="464" height="34"/>
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="It's not allowed to open this link! You can create a new filter rule based on the following patterns:" id="B3X-Rp-SlN">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KId-E2-Y59">
+                        <rect key="frame" x="14" y="5" width="109" height="32"/>
+                        <buttonCell key="cell" type="push" title="Dismiss All" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FW8-h0-H13">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="URLFilterAlertDismissAll:" target="3" id="JC8-Gi-i7J"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="z9W-wM-LUg" firstAttribute="baseline" secondItem="ig8-v8-XUJ" secondAttribute="baseline" id="2gK-YW-WGc"/>
+                    <constraint firstItem="ig8-v8-XUJ" firstAttribute="width" secondItem="z9W-wM-LUg" secondAttribute="width" id="4os-if-NcJ"/>
+                    <constraint firstAttribute="trailing" secondItem="ig8-v8-XUJ" secondAttribute="trailing" constant="20" id="Jkv-88-Suu"/>
+                    <constraint firstAttribute="bottom" secondItem="cja-1x-YEa" secondAttribute="bottom" constant="12" id="LKE-jq-nJi"/>
+                    <constraint firstAttribute="trailing" secondItem="JTI-Ar-k0D" secondAttribute="trailing" constant="20" id="PXn-16-DAd"/>
+                    <constraint firstAttribute="trailing" secondItem="KaS-Nf-iUK" secondAttribute="trailing" constant="20" id="Pjm-w8-dlh"/>
+                    <constraint firstAttribute="trailing" secondItem="vXv-y9-kAX" secondAttribute="trailing" constant="20" symbolic="YES" id="Rt5-Cp-qRd"/>
+                    <constraint firstItem="KId-E2-Y59" firstAttribute="top" secondItem="vXv-y9-kAX" secondAttribute="bottom" constant="11" id="W9a-OI-5en"/>
+                    <constraint firstItem="JTI-Ar-k0D" firstAttribute="leading" secondItem="52A-2p-iMa" secondAttribute="leading" constant="31" id="WKU-Ob-HHJ"/>
+                    <constraint firstItem="KaS-Nf-iUK" firstAttribute="leading" secondItem="52A-2p-iMa" secondAttribute="leading" constant="20" id="cdY-WA-yD8"/>
+                    <constraint firstAttribute="bottom" secondItem="KId-E2-Y59" secondAttribute="bottom" constant="12" id="g59-ih-3HZ"/>
+                    <constraint firstItem="KId-E2-Y59" firstAttribute="leading" secondItem="52A-2p-iMa" secondAttribute="leading" constant="20" id="jRT-ik-uNO"/>
+                    <constraint firstItem="z9W-wM-LUg" firstAttribute="leading" secondItem="cja-1x-YEa" secondAttribute="trailing" constant="12" symbolic="YES" id="kBG-9I-cU3"/>
+                    <constraint firstItem="JTI-Ar-k0D" firstAttribute="top" secondItem="KaS-Nf-iUK" secondAttribute="bottom" constant="8" id="kdJ-f7-5ej"/>
+                    <constraint firstItem="ig8-v8-XUJ" firstAttribute="width" secondItem="cja-1x-YEa" secondAttribute="width" id="oAO-hH-b6Q"/>
+                    <constraint firstItem="vXv-y9-kAX" firstAttribute="leading" secondItem="52A-2p-iMa" secondAttribute="leading" constant="20" symbolic="YES" id="obw-Wg-dKF"/>
+                    <constraint firstItem="cja-1x-YEa" firstAttribute="top" secondItem="vXv-y9-kAX" secondAttribute="bottom" constant="11" id="q33-QY-9UU"/>
+                    <constraint firstItem="cja-1x-YEa" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="KId-E2-Y59" secondAttribute="trailing" constant="20" id="t2A-mp-Qie"/>
+                    <constraint firstItem="z9W-wM-LUg" firstAttribute="baseline" secondItem="cja-1x-YEa" secondAttribute="baseline" id="tjx-M4-vUb"/>
+                    <constraint firstItem="vXv-y9-kAX" firstAttribute="top" secondItem="JTI-Ar-k0D" secondAttribute="bottom" constant="10" id="uOv-AC-tIq"/>
+                    <constraint firstItem="ig8-v8-XUJ" firstAttribute="leading" secondItem="z9W-wM-LUg" secondAttribute="trailing" constant="12" symbolic="YES" id="wMi-JZ-IWX"/>
+                    <constraint firstItem="KaS-Nf-iUK" firstAttribute="top" secondItem="52A-2p-iMa" secondAttribute="top" constant="14" id="zdC-Ap-N4c"/>
+                </constraints>
+            </view>
+            <point key="canvasLocation" x="184" y="780"/>
+        </window>
     </objects>
     <resources>
         <image name="NSGoLeftTemplate" width="9" height="9"/>

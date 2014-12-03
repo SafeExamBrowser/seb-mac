@@ -35,7 +35,6 @@
 
 #import "SEBURLFilter.h"
 #import "NSURL+SEBURL.h"
-#import "SEBURLFilterExpression.h"
 #import "SEBURLFilterRegexExpression.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
@@ -251,11 +250,11 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
 }
 
 
-- (void) allowURL:(NSURL *)URLToAllow
+- (void) addRuleAction:(URLFilterRuleActions)action withFilterExpression:(SEBURLFilterExpression *)filterExpression
 {
     NSError *error;
     id expression;
-    expression = [SEBURLFilterRegexExpression regexFilterExpressionWithString:URLToAllow.absoluteString error:&error];
+    expression = [SEBURLFilterRegexExpression regexFilterExpressionWithString:filterExpression.string error:&error];
     [self.permittedList addObject:expression];
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -263,8 +262,8 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     NSMutableDictionary *URLFilterRule = [NSMutableDictionary dictionaryWithDictionary:@{
                                     @"active" : @YES,
                                     @"regex" : @NO,
-                                    @"action" : [NSNumber numberWithLong:URLFilterActionAllow],
-                                    @"expression" : URLToAllow.absoluteString,
+                                    @"action" : [NSNumber numberWithLong:action],
+                                    @"expression" : filterExpression.string,
                                     }];
     
     [URLFilterRules addObject:URLFilterRule];

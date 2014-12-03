@@ -114,6 +114,23 @@ typedef NSUInteger SEBEnterPasswordResponse;
 
 
 enum {
+    SEBURLFilterAlertPatternHost                 = 0,
+    SEBURLFilterAlertPatternHostPath             = 1,
+    SEBURLFilterAlertPatternCustom               = 2
+};
+typedef NSUInteger SEBURLFilterAlertPattern;
+
+
+enum {
+    SEBURLFilterAlertCancel                      = 0,
+    SEBURLFilterAlertAllow                       = 1,
+    SEBURLFilterAlertBlock                       = 2,
+    SEBURLFilterAlertDismissAll                  = 3
+};
+typedef NSUInteger SEBURLFilterAlertResponse;
+
+
+enum {
     sebModeStartURL                             = 0,
     sebModeSebServer                            = 1
 };

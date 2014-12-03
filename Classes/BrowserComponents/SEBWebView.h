@@ -11,5 +11,7 @@
 @interface SEBWebView : WebView
 
 @property (weak, nonatomic) SEBWebView *creatingWebView;
+@property (strong, nonatomic) NSMutableArray *notAllowedURLs;
+@property (readwrite) BOOL dismissAll;
 
 @end
