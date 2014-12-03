@@ -41,6 +41,7 @@
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "SEBURLFilter.h"
 
+#include <CoreServices/CoreServices.h>
 
 @implementation SEBBrowserWindow
 
@@ -995,7 +996,52 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         DDLogInfo(@"decidePolicyForNavigationAction request URL: %@", [[request URL] absoluteString]);
         NSString *currentMainHost = self.browserController.currentMainHost;
         NSString *requestedHost = [[request mainDocumentURL] host];
+        
+        // Get the DOMNode from the information about the action that triggered the navigation request
+        NSDictionary *webElementDict = [actionInformation valueForKey:@"WebActionElementKey"];
+        DOMNode *webElementDOMNode = [webElementDict valueForKey:@"WebElementDOMNode"];
+        DOMHTMLAnchorElement *parentNode = (DOMHTMLAnchorElement *)webElementDOMNode.parentNode;
+        if ([parentNode.nodeName isEqualToString:@"A"]) {
+            NSString *parentOuterHTML = parentNode.outerHTML;
+            NSRange rangeOfDownloadAttribute = [parentOuterHTML rangeOfString:@"download=\""];
+            NSString *filename = [parentOuterHTML substringFromIndex:rangeOfDownloadAttribute.location + rangeOfDownloadAttribute.length];
+            filename = [filename substringToIndex:[filename rangeOfString:@"\""].location];
+            self.downloadFilename = filename;
+        } else {
+            self.downloadFilename = nil;
+        }
 
+//        NSString *parentInnerHTML = parentNode.innerHTML;
+//        NSString *parentInnerText = parentNode.innerText;
+//        NSString *parentOuterText = parentNode.outerHTML;
+//        
+//        DOMHTMLCollection *children = parentNode.children;
+//        
+//        BOOL hasAttributes = parentNode.hasAttributes;
+//        BOOL hasChildren = parentNode.hasChildNodes;
+//        
+//        NSString *nodeValue = parentNode.nodeValue;
+//        DOMNode *parentParentNode = parentNode.parentNode;
+//        
+//        DOMNamedNodeMap *attributes = parentNode.attributes;
+//        DOMNode *attributeFileName = [attributes item:0];
+//        DOMNode *attributeFileName2 = [attributes item:1];
+//        
+//        
+//        NSArray *attributeKeys = attributes.attributeKeys;
+//        
+//        DOMNode *firstChild = parentNode.firstChild;
+//        NSString *firstChildName = firstChild.nodeName;
+//        NSString *firstChildValue = firstChild.nodeValue;
+//        
+//        DOMNode *lastChild = parentNode.lastChild;
+//        NSString *lastChildName = lastChild.nodeName;
+//        NSString *lastChildValue = lastChild.nodeValue;
+//        
+//        DOMNodeList *anchorElementChildNodes = parentNode.childNodes;
+//        DOMNodeIterator *nodeIterator = [[DOMNodeIterator alloc] ]anchorElementChildNodes;
+//        DOMNode *nextNode = nodeIterator.nextNode;
+        
         // Check if quit URL has been clicked (regardless of current URL Filter)
         if ([[[request URL] absoluteString] isEqualTo:[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"]]) {
             [[NSNotificationCenter defaultCenter]
@@ -1159,6 +1205,19 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         [listener ignore];
         return;
     }
+    // Check if it is a data: scheme to support the W3C saveAs() FileSaver interface
+    if ([request.URL.scheme isEqualToString:@"data"]) {
+        CFStringRef mimeType = (__bridge CFStringRef)type;
+        CFStringRef uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, mimeType, NULL);
+        CFStringRef extension = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassFilenameExtension);
+        self.downloadFileExtension = (__bridge NSString *)(extension);
+        DDLogInfo(@"data: content MIME type to download is %@, the file extension will be %@", type, extension);
+        [listener download];
+        [self startDownloadingURL:request.URL];
+    } else {
+        self.downloadFileExtension = nil;
+    }
+
     // Check for PDF file and according to settings either download or display it inline in the SEB browser
     if (![type isEqualToString:@"application/pdf"] || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"]) {
         if ([WebView canShowMIMEType:type]) {
@@ -1166,6 +1225,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
             return;
         }
     }
+    
     // If MIME type cannot be displayed by the WebView, then we download it
     DDLogInfo(@"MIME type to download is %@", type);
     [listener download];
@@ -1208,6 +1268,14 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         [preferences setSecureObject:downloadPath forKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
     }
     downloadPath = [downloadPath stringByExpandingTildeInPath];
+    if (self.downloadFilename) {
+        // If we got the filename from a <a download="... tag, we use that
+        // as WebKit doesn't recognize the filename and suggests "Unknown"
+        filename = self.downloadFilename;
+    } else if (self.downloadFileExtension) {
+        // If we didn't get the file name, at least set the file extension properly
+        filename = [NSString stringWithFormat:@"%@.%@", filename, self.downloadFileExtension];
+    }
     NSString *destinationFilename = [downloadPath stringByAppendingPathComponent:filename];
     [download setDestination:destinationFilename allowOverwrite:NO];
 }

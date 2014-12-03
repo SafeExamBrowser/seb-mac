@@ -1476,6 +1476,7 @@ bool insideMatrix(){
     }
     
     // Set kiosk/presentation mode in case it changed
+    [self setElevateWindowLevels];
     [self startKioskMode];
     
     // Adjust screen locking

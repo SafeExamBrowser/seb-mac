@@ -61,6 +61,9 @@
 @property (weak) IBOutlet NSTextField *filterExpressionField;
 @property BOOL isFullScreen;
 
+@property (strong) NSString *downloadFilename;
+@property (strong) NSString *downloadFileExtension;
+
 - (void) setCalculatedFrame;
 
 - (void) startProgressIndicatorAnimation;
