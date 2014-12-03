@@ -1002,10 +1002,19 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         DOMNode *webElementDOMNode = [webElementDict valueForKey:@"WebElementDOMNode"];
         DOMHTMLAnchorElement *parentNode = (DOMHTMLAnchorElement *)webElementDOMNode.parentNode;
         if ([parentNode.nodeName isEqualToString:@"A"]) {
+            NSString *filename;
             NSString *parentOuterHTML = parentNode.outerHTML;
-            NSRange rangeOfDownloadAttribute = [parentOuterHTML rangeOfString:@"download=\""];
-            NSString *filename = [parentOuterHTML substringFromIndex:rangeOfDownloadAttribute.location + rangeOfDownloadAttribute.length];
-            filename = [filename substringToIndex:[filename rangeOfString:@"\""].location];
+            NSRange rangeOfDownloadAttribute = [parentOuterHTML rangeOfString:@" download=\""];
+            if (rangeOfDownloadAttribute.location != NSNotFound) {
+                filename = [parentOuterHTML substringFromIndex:rangeOfDownloadAttribute.location + rangeOfDownloadAttribute.length];
+                filename = [filename substringToIndex:[filename rangeOfString:@"\" "].location];
+            } else {
+                rangeOfDownloadAttribute = [parentOuterHTML rangeOfString:@" download=\'"];
+                if (rangeOfDownloadAttribute.location != NSNotFound) {
+                    filename = [parentOuterHTML substringFromIndex:rangeOfDownloadAttribute.location + rangeOfDownloadAttribute.length];
+                    filename = [filename substringToIndex:[filename rangeOfString:@"\' "].location];
+                }
+            }
             self.downloadFilename = filename;
         } else {
             self.downloadFilename = nil;
