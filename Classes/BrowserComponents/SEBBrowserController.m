@@ -285,8 +285,10 @@
 // Adjust the size of the main browser window and bring it forward
 - (void) adjustMainBrowserWindow
 {
-    [self.mainBrowserWindow setCalculatedFrame];
-    [self.mainBrowserWindow makeKeyAndOrderFront:self];
+    if (self.mainBrowserWindow.isVisible) {
+        [self.mainBrowserWindow setCalculatedFrame];
+        [self.mainBrowserWindow makeKeyAndOrderFront:self];
+    }
 }
 
 

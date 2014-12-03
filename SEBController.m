@@ -1479,9 +1479,6 @@ bool insideMatrix(){
     [self setElevateWindowLevels];
     [self startKioskMode];
     
-    // Adjust screen locking
-    [self adjustScreenLocking:self];
-
     // Set up SEB Browser
     self.browserController = [[SEBBrowserController alloc] init];
     
@@ -1492,6 +1489,9 @@ bool insideMatrix(){
     // Reopen main browser window and load start URL
     [self.browserController openMainBrowserWindow];
 
+    // Adjust screen locking
+    [self adjustScreenLocking:self];
+    
     // ToDo: Opening of additional resources (but not only here, also when starting SEB)
 //    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 //    NSArray *additionalResources = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_additionalResources"];
