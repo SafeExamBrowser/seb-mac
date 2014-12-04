@@ -376,21 +376,14 @@
             if (containsURL == NO) {
                 [self.webView.notAllowedURLs addObject:resourceURL];
                 NSString *resourceURLString = @"!";
-//                [SEBURLFilter sharedSEBURLFilter].learningMode = YES;
 #ifdef DEBUG
                 resourceURLString = [NSString stringWithFormat:@": %@", [[request URL] absoluteString]];
 #endif
-                //                NSAlert *newAlert = [[NSAlert alloc] init];
-                //                [newAlert setMessageText:NSLocalizedString(@"Resource Not Permitted", nil)];
-                
                 // If the URL filter learning mode is switched on, supplement the alert
                 if ([SEBURLFilter sharedSEBURLFilter].learningMode) {
-                    //        resourceURLString = [NSString stringWithFormat:@": %@", [[request URL] absoluteString]];
-                    //        [newAlert addButtonWithTitle:NSLocalizedString(@"Allow", nil)];
-                    //        [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-                    
-//                    self.filterExpressionField.stringValue = [[request URL] absoluteString];
-                    [self changedFilterPattern:self.filterPatternMatrix];
+
+                    self.filterExpression = self.URLFilterAlertURL.absoluteString;
+                    self.filterExpressionField.stringValue = self.filterExpression;
 
                     [NSApp beginSheet: self.URLFilterAlert
                        modalForWindow: window
@@ -408,12 +401,12 @@
                             
                         case SEBURLFilterAlertAllow:
                             // Allow URL (in filter learning mode)
-                            [[SEBURLFilter sharedSEBURLFilter] addRuleAction:URLFilterActionAllow withFilterExpression:[SEBURLFilterExpression filterExpressionWithString:self.filterExpressionField.stringValue]];
+                            [[SEBURLFilter sharedSEBURLFilter] addRuleAction:URLFilterActionAllow withFilterExpression:[SEBURLFilterExpression filterExpressionWithString:self.filterExpression]];
                             break;
                             
                         case SEBURLFilterAlertBlock:
                             // Block URL (in filter learning mode)
-                            [[SEBURLFilter sharedSEBURLFilter] addRuleAction:URLFilterActionBlock withFilterExpression:[SEBURLFilterExpression filterExpressionWithString:self.filterExpressionField.stringValue]];
+                            [[SEBURLFilter sharedSEBURLFilter] addRuleAction:URLFilterActionBlock withFilterExpression:[SEBURLFilterExpression filterExpressionWithString:self.filterExpression]];
                             break;
                             
                         case SEBURLFilterAlertDismissAll:
@@ -423,19 +416,6 @@
                 } else {
                     //                    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
                 }
-                //                [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"It isn't allowed to open this link%@", nil), resourceURLString]];
-                //                [newAlert setAlertStyle:NSCriticalAlertStyle];
-                //    [newAlert beginSheetModalForWindow:window modalDelegate:self didEndSelector:nil contextInfo:nil];
-                //    [newAlert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(dismissedURLFilterAlert:returnCode:contextInfo:) contextInfo:nil];
-                //    [newAlert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
-                //        // If the URL filter learning mode is switched on, handle the first button differently
-                //        if (returnCode == NSAlertFirstButtonReturn && [SEBURLFilter sharedSEBURLFilter].learningMode) {
-                //            // Allow URL (in filter learning mode)
-                //            [[SEBURLFilter sharedSEBURLFilter] allowURL:request.URL];
-                //
-                //            return;
-                //        }
-                //    }];
             }
         }
     }
@@ -461,6 +441,7 @@
 
 - (IBAction)editingFilterExpression:(NSTextField *)sender {
     [self.filterPatternMatrix selectCellAtRow:SEBURLFilterAlertPatternCustom column:0];
+    self.filterExpression = self.filterExpressionField.stringValue;
 }
 
 
@@ -470,9 +451,12 @@
     NSString *scheme = self.URLFilterAlertURL.scheme;
     
     NSString *host = self.URLFilterAlertURL.host;
-    if (host) {
+    if (host.length > 0) {
         scheme = [scheme stringByAppendingString:@"://"];
     } else {
+        if (scheme.length > 0) {
+            scheme = [scheme stringByAppendingString:@":"];
+        }
         host = @"";
     }
     
@@ -482,16 +466,16 @@
     switch (selectedFilterPattern) {
             
         case SEBURLFilterAlertPatternHost:
-            self.filterExpressionField.stringValue = [NSString stringWithFormat:@"%@%@", scheme, host];
+            self.filterExpression = [NSString stringWithFormat:@"%@%@", scheme, host];
             break;
             
         case SEBURLFilterAlertPatternHostPath: {
-            self.filterExpressionField.stringValue = [NSString stringWithFormat:@"%@%@%@", scheme, host, path];
+            self.filterExpression = [NSString stringWithFormat:@"%@%@%@", scheme, host, path];
             break;
         }
             
         case SEBURLFilterAlertPatternCustom:
-            self.filterExpressionField.stringValue = self.URLFilterAlertURL.absoluteString;
+            self.filterExpression = self.filterExpressionField.stringValue;
             break;
     }
 }
@@ -560,8 +544,8 @@
             //create a new temporary, invisible WebView
             [tempWebView setPolicyDelegate:self];
             [tempWebView setUIDelegate:self];
-            [tempWebView setGroupName:@"SEBBrowserDocument"];
             [tempWebView setFrameLoadDelegate:self];
+            [tempWebView setGroupName:@"SEBBrowserDocument"];
             tempWebView.creatingWebView = self.webView;
             return tempWebView;
         }
@@ -885,15 +869,6 @@ willPerformClientRedirectToURL:(NSURL *)URL
         
         NSMutableURLRequest *modifiedRequest = [request mutableCopy];
         
-        /*/ Generate and store salt for exam key
-         NSData *HMACKey = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
-         [preferences setSecureObject:HMACKey forKey:@"org_safeexambrowser_SEB_examKeySalt"];
-         
-         NSMutableData *HMACData = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
-         
-         CCHmac(kCCHmacAlgSHA256, HMACKey.bytes, HMACKey.length, archivedPrefs.mutableBytes, archivedPrefs.length, [HMACData mutableBytes]);
-         */
-        //NSMutableData *browserExamKey = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
         NSData *browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
         unsigned char hashedChars[32];
         [browserExamKey getBytes:hashedChars length:32];
@@ -908,23 +883,11 @@ willPerformClientRedirectToURL:(NSURL *)URL
         
         DDLogVerbose(@"Current request URL + Browser Exam Key: %@", browserExamKeyString);
         
-        //unsigned char hashedChars[32];
-        
         const char *urlString = [browserExamKeyString UTF8String];
         
-        //CC_SHA256_CTX sha256;
-        //CC_SHA256_Init(&sha256);
-        //CC_SHA256_Update(&sha256, urlString, strlen(urlString));
-        //CC_SHA256_Update(&sha256, urlString, strlen(urlString));
-        //CC_SHA256_Update(&sha256, browserExamKey.bytes, browserExamKey.length);
-
-        //CC_SHA256_Final(hashedChars, &sha256);
-
         CC_SHA256(urlString,
                   strlen(urlString),
                   hashedChars);
-        //[browserExamKey getBytes:hashedChars length:32];
-        //browserExamKey = nil;
 
         NSMutableString* hashedString = [[NSMutableString alloc] init];
         for (int i = 0 ; i < 32 ; ++i) {
@@ -991,12 +954,12 @@ didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
           frame:(WebFrame *)frame 
 decisionListener:(id <WebPolicyDecisionListener>)listener {
 
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    DDLogInfo(@"decidePolicyForNavigationAction request URL: %@", [[request URL] absoluteString]);
+    NSString *currentMainHost = self.browserController.currentMainHost;
+    NSString *requestedHost = [[request mainDocumentURL] host];
+    
     if (request) {
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        DDLogInfo(@"decidePolicyForNavigationAction request URL: %@", [[request URL] absoluteString]);
-        NSString *currentMainHost = self.browserController.currentMainHost;
-        NSString *requestedHost = [[request mainDocumentURL] host];
-        
         // Get the DOMNode from the information about the action that triggered the navigation request
         NSDictionary *webElementDict = [actionInformation valueForKey:@"WebActionElementKey"];
         DOMNode *webElementDOMNode = [webElementDict valueForKey:@"WebElementDOMNode"];
@@ -1019,37 +982,6 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         } else {
             self.downloadFilename = nil;
         }
-
-//        NSString *parentInnerHTML = parentNode.innerHTML;
-//        NSString *parentInnerText = parentNode.innerText;
-//        NSString *parentOuterText = parentNode.outerHTML;
-//        
-//        DOMHTMLCollection *children = parentNode.children;
-//        
-//        BOOL hasAttributes = parentNode.hasAttributes;
-//        BOOL hasChildren = parentNode.hasChildNodes;
-//        
-//        NSString *nodeValue = parentNode.nodeValue;
-//        DOMNode *parentParentNode = parentNode.parentNode;
-//        
-//        DOMNamedNodeMap *attributes = parentNode.attributes;
-//        DOMNode *attributeFileName = [attributes item:0];
-//        DOMNode *attributeFileName2 = [attributes item:1];
-//        
-//        
-//        NSArray *attributeKeys = attributes.attributeKeys;
-//        
-//        DOMNode *firstChild = parentNode.firstChild;
-//        NSString *firstChildName = firstChild.nodeName;
-//        NSString *firstChildValue = firstChild.nodeValue;
-//        
-//        DOMNode *lastChild = parentNode.lastChild;
-//        NSString *lastChildName = lastChild.nodeName;
-//        NSString *lastChildValue = lastChild.nodeValue;
-//        
-//        DOMNodeList *anchorElementChildNodes = parentNode.childNodes;
-//        DOMNodeIterator *nodeIterator = [[DOMNodeIterator alloc] ]anchorElementChildNodes;
-//        DOMNode *nextNode = nodeIterator.nextNode;
         
         // Check if quit URL has been clicked (regardless of current URL Filter)
         if ([[[request URL] absoluteString] isEqualTo:[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"]]) {
@@ -1108,46 +1040,46 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
             [listener ignore];
             return;
         }
-        
-        if (currentMainHost && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == getGenerallyBlocked) {
+    }
+
+    if (currentMainHost && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == getGenerallyBlocked) {
+        [listener ignore];
+        return;
+    }
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptBlockForeign"]) {
+        //            NSString *requestedHost = [[request mainDocumentURL] host];
+        DDLogDebug(@"Current Host: %@", currentMainHost);
+        DDLogDebug(@"Requested Host: %@", requestedHost);
+        // If current host is not the same as the requested host
+        if (currentMainHost && (!requestedHost || ![currentMainHost isEqualToString:requestedHost])) {
             [listener ignore];
+            // If the new page is supposed to open in a new browser window
+            if (requestedHost && self.webView && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
+                // we have to close the new browser window which already has been openend by WebKit
+                // Get the document for my web view
+                DDLogDebug(@"Originating browser window %@", sender);
+                // Close document and therefore also window
+                //Workaround: Flash crashes after closing window and then clicking some other link
+                [[self.webView preferences] setPlugInsEnabled:NO];
+                DDLogDebug(@"Now closing new document browser window for: %@", self.webView);
+                [self.browserController closeWebView:self.webView];
+            }
+            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
+                if (self.webView) {
+                    [sender close]; //close the temporary webview
+                }
+            }
             return;
         }
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptBlockForeign"]) {
-//            NSString *requestedHost = [[request mainDocumentURL] host];
-            DDLogDebug(@"Current Host: %@", currentMainHost);
-            DDLogDebug(@"Requested Host: %@", requestedHost);
-            // If current host is not the same as the requested host
-            if (currentMainHost && (!requestedHost || ![currentMainHost isEqualToString:requestedHost])) {
-                [listener ignore];
-                // If the new page is supposed to open in a new browser window
-                if (requestedHost && self.webView && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
-                    // we have to close the new browser window which already has been openend by WebKit
-                    // Get the document for my web view
-                    DDLogDebug(@"Originating browser window %@", sender);
-                    // Close document and therefore also window
-                    //Workaround: Flash crashes after closing window and then clicking some other link
-                    [[self.webView preferences] setPlugInsEnabled:NO];
-                    DDLogDebug(@"Now closing new document browser window for: %@", self.webView);
-                    [self.browserController closeWebView:self.webView];
-                }
-                if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
-                    if (self.webView) {
-                        [sender close]; //close the temporary webview
-                    }
-                }
-                return;
-            }
-        }
-        // Check if the new page is supposed to be opened in the same browser window
-        if (currentMainHost && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
-            if (self.webView && ![sender isEqual:self.webView]) {
-                // If the request's sender is the temporary webview, then we have to load the request now in the current webview
-                [listener ignore]; // ignore listener
-                [[self.webView mainFrame] loadRequest:request]; //load the new page in the same browser window
-                [sender close]; //close the temporary webview
-                return; //and return from here
-            }
+    }
+    // Check if the new page is supposed to be opened in the same browser window
+    if (currentMainHost && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
+        if (self.webView && ![sender isEqual:self.webView]) {
+            // If the request's sender is the temporary webview, then we have to load the request now in the current webview
+            [listener ignore]; // ignore listener
+            [[self.webView mainFrame] loadRequest:request]; //load the new page in the same browser window
+            [sender close]; //close the temporary webview
+            return; //and return from here
         }
     }
 
@@ -1156,7 +1088,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
 
 
 // Open the link requesting to be opened in a new window according to settings
-- (void)webView:(SEBWebView *)sender decidePolicyForNewWindowAction:(NSDictionary *)actionInformation 
+- (void)webView:(SEBWebView *)sender decidePolicyForNewWindowAction:(NSDictionary *)actionInformation
 		request:(NSURLRequest *)request 
    newFrameName:(NSString *)frameName 
 decisionListener:(id <WebPolicyDecisionListener>)listener {
@@ -1223,6 +1155,26 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         DDLogInfo(@"data: content MIME type to download is %@, the file extension will be %@", type, extension);
         [listener download];
         [self startDownloadingURL:request.URL];
+        
+        // Close the temporary Window or WebView which has been opend by the data: download link
+        SEBWebView *creatingWebView = [self.webView creatingWebView];
+        if (creatingWebView) {
+            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
+                // we have to close the new browser window which already has been openend by WebKit
+                // Get the document for my web view
+                DDLogDebug(@"Originating browser window %@", sender);
+                // Close document and therefore also window
+                //Workaround: Flash crashes after closing window and then clicking some other link
+                [[self.webView preferences] setPlugInsEnabled:NO];
+                DDLogDebug(@"Now closing new document browser window for: %@", self.webView);
+                [self.browserController closeWebView:self.webView];
+            }
+            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
+                if (self.webView) {
+                    [sender close]; //close the temporary webview
+                }
+            }
+        }
     } else {
         self.downloadFileExtension = nil;
     }

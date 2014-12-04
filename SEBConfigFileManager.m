@@ -316,7 +316,7 @@
         } while (error && i>0);
         if (error || !sebDataDecrypted) {
             //wrong password entered in 5th try: stop reading .seb file
-            NSRunAlertPanel(NSLocalizedString(@"Cannot decrypt settings", nil),
+            NSRunAlertPanel(NSLocalizedString(@"Cannot Decrypt Settings", nil),
                             NSLocalizedString(@"You either entered the wrong password or these settings were saved with an incompatible SEB version.", nil),
                             NSLocalizedString(@"OK", nil), nil, nil);
             return nil;
@@ -350,7 +350,7 @@
                 } else {
                     // No valid prefix and no unencrypted file with valid header
                     // cancel reading .seb file
-                    NSRunAlertPanel(NSLocalizedString(@"Opening new settings failed!", nil),
+                    NSRunAlertPanel(NSLocalizedString(@"Opening New Settings Failed!", nil),
                                     NSLocalizedString(@"These settings cannot be used. They may have been created by an newer, incompatible version of SEB or are corrupted.", nil),
                                     NSLocalizedString(@"OK", nil), nil, nil);
                     return nil;
@@ -779,7 +779,7 @@
         // in all other cases:
         // Check if no password entered and no identity selected
         if (settingsPassword.length == 0 && !identityRef) {
-            int answer = NSRunAlertPanel(NSLocalizedString(@"No encryption credentials chosen",nil), NSLocalizedString(@"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted settings file, but this is not recommended for use in exams.",nil),
+            int answer = NSRunAlertPanel(NSLocalizedString(@"No Encryption Credentials Chosen",nil), NSLocalizedString(@"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted settings file, but this is not recommended for use in exams.",nil),
                                          NSLocalizedString(@"OK",nil), NSLocalizedString(@"Save unencrypted",nil), nil);
             switch(answer)
             {

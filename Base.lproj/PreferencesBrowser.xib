@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6221" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6221"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsBrowserViewController">
@@ -63,7 +63,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="94">
+                <popUpButton toolTip="USE WITH CARE: When &quot;… same window&quot; is selected, then some JavaScript/HTML5 features (like File API) might not work" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="94">
                     <rect key="frame" x="18" y="216" width="283" height="26"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="95">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -100,7 +100,7 @@
                 </button>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="103">
                     <rect key="frame" x="18" y="194" width="614" height="18"/>
-                    <string key="toolTip">USE WITH CARE: Hyperlinks invoked by JavaScript/plug-ins which direct to a different host than the one of the current main page will be ignored.</string>
+                    <string key="toolTip">USE WITH CARE: Hyperlinks invoked by JavaScript/plug-ins which direct to a different host than the one of the current main page will be ignored</string>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="409"/>
                     </constraints>

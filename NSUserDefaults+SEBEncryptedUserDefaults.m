@@ -379,7 +379,7 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_proxySettingsPolicy",
                                  @"",
                                  @"org_safeexambrowser_SEB_quitURL",
-                                 [NSNumber numberWithBool:NO],
+                                 [NSNumber numberWithBool:YES],
                                  @"org_safeexambrowser_SEB_removeBrowserProfile",
                                  [NSNumber numberWithBool:YES],
                                  @"org_safeexambrowser_SEB_removeLocalStorage",
@@ -688,7 +688,7 @@ static NSNumber *_logLevel;
             //if (defaultValue && !([value class] == [defaultValue class])) {
             // Class of newly loaded value is different than the one from the default value
             // If yes, then cancel reading .seb file
-            NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings failed!", nil),
+            NSRunAlertPanel(NSLocalizedString(@"Loading New SEB Settings Failed!", nil),
                             NSLocalizedString(@"This settings file cannot be used. It may have been created by an older, incompatible version of SEB or it is corrupted.", nil),
                             NSLocalizedString(@"OK", nil), nil, nil);
             return NO; //we abort reading the new settings here
