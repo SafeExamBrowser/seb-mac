@@ -386,6 +386,7 @@
 		6929228C19FD9F1B00B57347 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SEBBrowserWindow.xib; sourceTree = "<group>"; };
 		692F53D614AD03F300011C84 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		6932C9671191B7FE00688EBB /* SEBicon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = SEBicon.icns; sourceTree = "<group>"; };
+		693570AB1A30E914005DCABF /* SafeExamBrowser-2.0RCpre.dmg */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SafeExamBrowser-2.0RCpre.dmg"; sourceTree = "<group>"; };
 		693647F817122A0300EE41BC /* DropDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropDownButton.h; sourceTree = "<group>"; };
 		693647F917122A0300EE41BC /* DropDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropDownButton.m; sourceTree = "<group>"; };
 		693A94D711B68D8A0083C66D /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
@@ -615,6 +616,7 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				6909E31F1A019F7A0086A741 /* CocoaLumberjack */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
+				693570AB1A30E914005DCABF /* SafeExamBrowser-2.0RCpre.dmg */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
 			name = SEB;

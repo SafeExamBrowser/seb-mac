@@ -43,7 +43,7 @@
 
 @class SEBBrowserController;
 
-@interface SEBBrowserWindow : NSWindow <NSWindowDelegate, NSURLDownloadDelegate>
+@interface SEBBrowserWindow : NSWindow <NSWindowDelegate, NSURLDownloadDelegate, NSTextFieldDelegate>
 
 {
     SEBWebView *requestingWebView;
@@ -61,6 +61,8 @@
 @property (weak) IBOutlet NSMatrix *filterPatternMatrix;
 @property (weak) IBOutlet NSTextField *filterExpressionField;
 @property BOOL isFullScreen;
+@property (weak) IBOutlet NSButton *hostPatternButton;
+@property (weak) IBOutlet NSButton *hostPathPatternButton;
 
 @property (copy) NSString *downloadFilename;
 @property (copy) NSString *downloadFileExtension;

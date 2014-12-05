@@ -106,6 +106,8 @@
                 <outlet property="delegate" destination="-2" id="8"/>
                 <outlet property="filterExpressionField" destination="vXv-y9-kAX" id="Cr0-aM-EZ3"/>
                 <outlet property="filterPatternMatrix" destination="JTI-Ar-k0D" id="0Q4-Dc-3J7"/>
+                <outlet property="hostPathPatternButton" destination="mvP-Sq-mee" id="SuI-eq-o96"/>
+                <outlet property="hostPatternButton" destination="sfT-nQ-Hte" id="coC-VJ-cYE"/>
                 <outlet property="webView" destination="5" id="6"/>
             </connections>
         </window>
@@ -114,11 +116,11 @@
         <window title="Resource Not Permitted" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" id="5ay-Fd-lF5" userLabel="URLNotAllowedAlert">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
-            <rect key="contentRect" x="340" y="419" width="500" height="272"/>
+            <rect key="contentRect" x="340" y="419" width="500" height="274"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1578"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="52A-2p-iMa">
-                <rect key="frame" x="0.0" y="0.0" width="500" height="272"/>
+                <rect key="frame" x="0.0" y="0.0" width="500" height="274"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ig8-v8-XUJ">
@@ -160,7 +162,7 @@ DQ
                         </connections>
                     </button>
                     <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JTI-Ar-k0D">
-                        <rect key="frame" x="31" y="158" width="449" height="58"/>
+                        <rect key="frame" x="31" y="158" width="85" height="58"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         <size key="cellSize" width="85" height="18"/>
                         <size key="intercellSpacing" width="4" height="2"/>
@@ -193,17 +195,18 @@ DQ
                         <constraints>
                             <constraint firstAttribute="height" constant="104" id="Te4-X5-rXC"/>
                         </constraints>
-                        <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="2cx-QM-4wF">
+                        <textFieldCell key="cell" selectable="YES" editable="YES" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="2cx-QM-4wF">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                         <connections>
                             <action selector="editingFilterExpression:" target="3" id="52Q-2O-gAR"/>
+                            <outlet property="delegate" destination="3" id="oMx-vo-rUX"/>
                         </connections>
                     </textField>
                     <textField horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KaS-Nf-iUK" customClass="SEBTextField">
-                        <rect key="frame" x="18" y="224" width="464" height="34"/>
+                        <rect key="frame" x="18" y="224" width="464" height="36"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="It's not allowed to open this link! You can create a new filter rule based on the following patterns:" id="B3X-Rp-SlN">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -223,19 +226,62 @@ Gw
                             <action selector="URLFilterAlertDismissAll:" target="3" id="JC8-Gi-i7J"/>
                         </connections>
                     </button>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="sfT-nQ-Hte">
+                        <rect key="frame" x="124" y="195" width="53" height="21"/>
+                        <string key="toolTip">SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field.</string>
+                        <buttonCell key="cell" type="recessed" title="host.com" bezelStyle="recessed" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="H5P-Ew-Qp9">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="clickedHostPattern:" target="3" id="kTg-wn-Oqs"/>
+                        </connections>
+                    </button>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="mvP-Sq-mee">
+                        <rect key="frame" x="124" y="176" width="83" height="19"/>
+                        <string key="toolTip">SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field.</string>
+                        <buttonCell key="cell" type="recessed" title="host.com/path" bezelStyle="recessed" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="Poj-9Z-f7h">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="clickedHostPathPattern:" target="3" id="k7E-8G-yNV"/>
+                        </connections>
+                    </button>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="sIN-ro-zV3">
+                        <rect key="frame" x="124" y="156" width="234" height="21"/>
+                        <string key="toolTip">SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field.</string>
+                        <buttonCell key="cell" type="recessed" title="Click to restore full URL as filter expression" bezelStyle="recessed" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="lbT-D3-1dX">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="clickedCustomPattern:" target="3" id="ew8-6N-JZG"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="mvP-Sq-mee" firstAttribute="leading" secondItem="JTI-Ar-k0D" secondAttribute="trailing" constant="8" id="1Zx-kJ-POS"/>
                     <constraint firstItem="z9W-wM-LUg" firstAttribute="baseline" secondItem="ig8-v8-XUJ" secondAttribute="baseline" id="2gK-YW-WGc"/>
                     <constraint firstItem="ig8-v8-XUJ" firstAttribute="width" secondItem="z9W-wM-LUg" secondAttribute="width" id="4os-if-NcJ"/>
+                    <constraint firstItem="sIN-ro-zV3" firstAttribute="leading" secondItem="JTI-Ar-k0D" secondAttribute="trailing" constant="8" id="5gH-MG-8wm"/>
+                    <constraint firstItem="vXv-y9-kAX" firstAttribute="top" secondItem="sIN-ro-zV3" secondAttribute="bottom" constant="8" id="8Fd-iQ-Bwc"/>
+                    <constraint firstItem="mvP-Sq-mee" firstAttribute="top" secondItem="sfT-nQ-Hte" secondAttribute="bottom" id="Fn4-DB-lJm"/>
                     <constraint firstAttribute="trailing" secondItem="ig8-v8-XUJ" secondAttribute="trailing" constant="20" id="Jkv-88-Suu"/>
                     <constraint firstAttribute="bottom" secondItem="cja-1x-YEa" secondAttribute="bottom" constant="12" id="LKE-jq-nJi"/>
-                    <constraint firstAttribute="trailing" secondItem="JTI-Ar-k0D" secondAttribute="trailing" constant="20" id="PXn-16-DAd"/>
                     <constraint firstAttribute="trailing" secondItem="KaS-Nf-iUK" secondAttribute="trailing" constant="20" id="Pjm-w8-dlh"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="sfT-nQ-Hte" secondAttribute="trailing" constant="20" symbolic="YES" id="RhM-NB-taJ"/>
                     <constraint firstAttribute="trailing" secondItem="vXv-y9-kAX" secondAttribute="trailing" constant="20" symbolic="YES" id="Rt5-Cp-qRd"/>
+                    <constraint firstItem="sfT-nQ-Hte" firstAttribute="top" secondItem="KaS-Nf-iUK" secondAttribute="bottom" constant="8" id="U2m-A4-JhY"/>
                     <constraint firstItem="KId-E2-Y59" firstAttribute="top" secondItem="vXv-y9-kAX" secondAttribute="bottom" constant="11" id="W9a-OI-5en"/>
                     <constraint firstItem="JTI-Ar-k0D" firstAttribute="leading" secondItem="52A-2p-iMa" secondAttribute="leading" constant="31" id="WKU-Ob-HHJ"/>
+                    <constraint firstItem="sIN-ro-zV3" firstAttribute="top" secondItem="sfT-nQ-Hte" secondAttribute="bottom" constant="18" id="b8a-ME-2gX"/>
+                    <constraint firstItem="sfT-nQ-Hte" firstAttribute="leading" secondItem="JTI-Ar-k0D" secondAttribute="trailing" constant="8" id="beI-x3-Exq"/>
                     <constraint firstItem="KaS-Nf-iUK" firstAttribute="leading" secondItem="52A-2p-iMa" secondAttribute="leading" constant="20" id="cdY-WA-yD8"/>
                     <constraint firstAttribute="bottom" secondItem="KId-E2-Y59" secondAttribute="bottom" constant="12" id="g59-ih-3HZ"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mvP-Sq-mee" secondAttribute="trailing" constant="20" symbolic="YES" id="hI8-Mp-JzK"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="sIN-ro-zV3" secondAttribute="trailing" constant="20" symbolic="YES" id="hv2-GX-MlP"/>
+                    <constraint firstItem="vXv-y9-kAX" firstAttribute="top" secondItem="mvP-Sq-mee" secondAttribute="bottom" constant="28" id="iKv-c8-Qbl"/>
                     <constraint firstItem="KId-E2-Y59" firstAttribute="leading" secondItem="52A-2p-iMa" secondAttribute="leading" constant="20" id="jRT-ik-uNO"/>
                     <constraint firstItem="z9W-wM-LUg" firstAttribute="leading" secondItem="cja-1x-YEa" secondAttribute="trailing" constant="12" symbolic="YES" id="kBG-9I-cU3"/>
                     <constraint firstItem="JTI-Ar-k0D" firstAttribute="top" secondItem="KaS-Nf-iUK" secondAttribute="bottom" constant="8" id="kdJ-f7-5ej"/>

@@ -375,16 +375,22 @@
             }
             if (containsURL == NO) {
                 [self.webView.notAllowedURLs addObject:resourceURL];
-                NSString *resourceURLString = @"!";
-#ifdef DEBUG
-                resourceURLString = [NSString stringWithFormat:@": %@", [[request URL] absoluteString]];
-#endif
+
                 // If the URL filter learning mode is switched on, supplement the alert
                 if ([SEBURLFilter sharedSEBURLFilter].learningMode) {
 
-                    self.filterExpression = self.URLFilterAlertURL.absoluteString;
-                    self.filterExpressionField.stringValue = self.filterExpression;
+                    // Set filter expression according to selected pattern in the NSMatrix radio button group
+                    [self changedFilterPattern:self.filterPatternMatrix];
+                    
+                    // Set full URL in the filter expression text field
+                    self.filterExpressionField.stringValue = self.URLFilterAlertURL.absoluteString;
 
+                    // Set the host pattern label/button string
+                    self.hostPatternButton.title = [self filterExpressionForPattern:SEBURLFilterAlertPatternHost];
+                    
+                    // Set the host/path pattern label/button string
+                    self.hostPathPatternButton.title = [self filterExpressionForPattern:SEBURLFilterAlertPatternHostPath];
+                    
                     [NSApp beginSheet: self.URLFilterAlert
                        modalForWindow: window
                         modalDelegate: nil
@@ -421,6 +427,25 @@
     }
 }
 
+
+- (IBAction)clickedHostPattern:(id)sender
+{
+    self.filterExpression = [self filterExpressionForPattern:SEBURLFilterAlertPatternHost];
+    self.filterExpressionField.stringValue = self.filterExpression;
+}
+
+- (IBAction)clickedHostPathPattern:(id)sender
+{
+    self.filterExpression = [self filterExpressionForPattern:SEBURLFilterAlertPatternHostPath];
+    self.filterExpressionField.stringValue = self.filterExpression;
+}
+
+- (IBAction)clickedCustomPattern:(id)sender {
+    self.filterExpression = [self filterExpressionForPattern:SEBURLFilterAlertPatternCustom];
+    self.filterExpressionField.stringValue = self.filterExpression;
+}
+
+
 - (IBAction) URLFilterAlertCancel: (id)sender {
     [NSApp stopModalWithCode:SEBURLFilterAlertCancel];
 }
@@ -440,14 +465,25 @@
 
 
 - (IBAction)editingFilterExpression:(NSTextField *)sender {
-    [self.filterPatternMatrix selectCellAtRow:SEBURLFilterAlertPatternCustom column:0];
     self.filterExpression = self.filterExpressionField.stringValue;
 }
 
 
-- (IBAction)changedFilterPattern:(NSMatrix *)sender {
+- (void)textFieldDidBeginEditing:(NSTextField *)textField
+{
+    [self.filterPatternMatrix selectCellAtRow:SEBURLFilterAlertPatternCustom column:0];
+}
+
+- (IBAction)changedFilterPattern:(NSMatrix *)sender
+{
     NSUInteger selectedFilterPattern = [sender selectedRow];
     
+    self.filterExpression = [self filterExpressionForPattern:selectedFilterPattern];
+}
+
+
+- (NSString *)filterExpressionForPattern:(SEBURLFilterAlertPattern)filterPattern
+{
     NSString *scheme = self.URLFilterAlertURL.scheme;
     
     NSString *host = self.URLFilterAlertURL.host;
@@ -462,22 +498,21 @@
     
     NSString *path = self.URLFilterAlertURL.path;
     if (!path) path = @"";
-
-    switch (selectedFilterPattern) {
+    
+    switch (filterPattern) {
             
         case SEBURLFilterAlertPatternHost:
-            self.filterExpression = [NSString stringWithFormat:@"%@%@", scheme, host];
-            break;
+            return [NSString stringWithFormat:@"%@%@", scheme, host];
             
         case SEBURLFilterAlertPatternHostPath: {
-            self.filterExpression = [NSString stringWithFormat:@"%@%@%@", scheme, host, path];
-            break;
+            return [NSString stringWithFormat:@"%@%@%@", scheme, host, path];
         }
             
         case SEBURLFilterAlertPatternCustom:
-            self.filterExpression = self.filterExpressionField.stringValue;
-            break;
+            return self.URLFilterAlertURL.absoluteString;
     }
+    
+    return @"";
 }
 
 
@@ -970,12 +1005,12 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
             NSRange rangeOfDownloadAttribute = [parentOuterHTML rangeOfString:@" download=\""];
             if (rangeOfDownloadAttribute.location != NSNotFound) {
                 filename = [parentOuterHTML substringFromIndex:rangeOfDownloadAttribute.location + rangeOfDownloadAttribute.length];
-                filename = [filename substringToIndex:[filename rangeOfString:@"\" "].location];
+                filename = [filename substringToIndex:[filename rangeOfString:@"\""].location];
             } else {
                 rangeOfDownloadAttribute = [parentOuterHTML rangeOfString:@" download=\'"];
                 if (rangeOfDownloadAttribute.location != NSNotFound) {
                     filename = [parentOuterHTML substringFromIndex:rangeOfDownloadAttribute.location + rangeOfDownloadAttribute.length];
-                    filename = [filename substringToIndex:[filename rangeOfString:@"\' "].location];
+                    filename = [filename substringToIndex:[filename rangeOfString:@"\'"].location];
                 }
             }
             self.downloadFilename = filename;
