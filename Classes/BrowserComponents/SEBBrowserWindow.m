@@ -469,7 +469,7 @@
 }
 
 
-- (void)textFieldDidBeginEditing:(NSTextField *)textField
+- (void)controlTextDidChange:(NSNotification *)aNotification
 {
     [self.filterPatternMatrix selectCellAtRow:SEBURLFilterAlertPatternCustom column:0];
 }
