@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SEBURLFilterExpression.h"
 
 @interface SEBURLFilterRegexExpression : NSObject
 

@@ -14,7 +14,7 @@
 + (SEBURLFilterRegexExpression *) regexFilterExpressionWithString:(NSString *)filterExpressionString error:(NSError **)error
 {
     SEBURLFilterRegexExpression *filterExpression = [SEBURLFilterRegexExpression new];
-    NSURL *URLFromString = [NSURL URLWithString:filterExpressionString];
+    SEBURLFilterExpression *URLFromString = [SEBURLFilterExpression filterExpressionWithString:filterExpressionString];
     
     filterExpression.scheme = [self regexForFilterString:URLFromString.scheme error:error];
     filterExpression.user = [self regexForFilterString:URLFromString.user error:error];

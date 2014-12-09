@@ -218,8 +218,6 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_enableEsc",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_enableCtrlEsc",
-                                 [NSNumber numberWithBool:YES],
-                                 @"org_safeexambrowser_SEB_enableAltCtrl",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_enableAltEsc",
                                  [NSNumber numberWithBool:NO],
@@ -312,9 +310,6 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_openDownloads",
-//                                 [NSString stringWithFormat:@"SEB_OSX_%@_%@",
-//                                  [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
-//                                  [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]],
                                  @[
                                    @{
                                        @"active" : @YES,
@@ -403,8 +398,8 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_startURL",
                                  [NSNumber numberWithLong:40],
                                  @"org_safeexambrowser_SEB_taskBarHeight",
-                                 [NSNumber numberWithBool:NO],
-                                 @"org_safeexambrowser_SEB_touchOptimized",
+//                                 [NSNumber numberWithBool:NO],
+//                                 @"org_safeexambrowser_SEB_touchOptimized",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_URLFilterEnable",
                                  [NSNumber numberWithBool:NO],
@@ -423,7 +418,9 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting",
                                  [NSNumber numberWithBool:YES],
                                  @"org_safeexambrowser_elevateWindowLevels",
-                                 @"",
+                                 [NSString stringWithFormat:@"SEB_OSX_%@_%@",
+                                  [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
+                                  [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]],
                                  @"org_safeexambrowser_originatorVersion",
 
                                  nil];

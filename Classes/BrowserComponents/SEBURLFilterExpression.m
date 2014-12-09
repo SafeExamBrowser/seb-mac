@@ -14,9 +14,55 @@
 + (SEBURLFilterExpression *) filterExpressionWithString:(NSString *)filterExpressionString
 {
     SEBURLFilterExpression *filterExpression = [SEBURLFilterExpression new];
-    NSURL *URLFromString = [NSURL URLWithString:filterExpressionString];
     
-    filterExpression.scheme = URLFromString.scheme;
+    // Check if filter expression contains a scheme
+    NSString *scheme;
+    NSURL *URLFromString;
+    
+    if (filterExpressionString.length > 0) {
+        NSRange scanResult = [filterExpressionString rangeOfString:@"://"];
+        if (scanResult.location != NSNotFound) {
+            // Filter expression contains a scheme: save it and replace it with http
+            // (in case scheme contains a wildcard [NSURL URLWithString:... fails)
+            scheme = [filterExpressionString substringToIndex:scanResult.location];
+            filterExpressionString = [NSString stringWithFormat:@"http%@", [filterExpressionString substringFromIndex:scanResult.location]];
+            // Convert filter expression string to a NSURL
+            URLFromString = [NSURL URLWithString:filterExpressionString];
+        } else {
+            // Filter expression doesn't contain a scheme followed by an authority part,
+            // check for scheme followed by only a path (like about:blank or data:...)
+            // Convert filter expression string to a NSURL
+            URLFromString = [NSURL URLWithString:filterExpressionString];
+            scheme = URLFromString.scheme;
+            if (!scheme) {
+                // Temporary prefix it with a http:// scheme
+                filterExpressionString = [NSString stringWithFormat:@"http://%@", filterExpressionString];
+                // Convert filter expression string to a NSURL
+                URLFromString = [NSURL URLWithString:filterExpressionString];
+            }
+        }
+    }
+    
+//    // Create a muatable array to hold results of scanning the filter expression for relevant separators
+//    NSMutableArray *foundSeparators = [NSMutableArray new];
+//    
+//    /// Scan the filter expression string for all relevant URL separators
+//    // Scan for the scheme separator
+//    NSString *separator = @"://";
+//    NSRange scanResult = [filterExpressionString rangeOfString:separator];
+//    if (scanResult.location != NSNotFound) {
+//        NSDictionary *foundSeparator = @{
+//                                         @"separator" : separator,
+//                                         @"location" : [NSNumber numberWithInteger:scanResult.location],
+//                                         @"length" : [NSNumber numberWithInteger:scanResult.length],
+//                                         };
+//
+//        [foundSeparators addObject:foundSeparator];
+//    }
+    
+    /// Convert NSURL to a SEBURLFilterExpression
+    // Use the saved scheme instead of the temporary http://
+    filterExpression.scheme = scheme;
     filterExpression.user = URLFromString.user;
     filterExpression.password = URLFromString.password;
     filterExpression.host = URLFromString.host;

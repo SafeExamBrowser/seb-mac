@@ -321,7 +321,7 @@
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
-                <button toolTip="Remove local storage when quitting SEB. Caches are removed by SEB for Mac OS X always" translatesAutoresizingMaskIntoConstraints="NO" id="wFa-eR-NzK">
+                <button toolTip="Remove local storage when quitting SEB. Caches are removed always" translatesAutoresizingMaskIntoConstraints="NO" id="wFa-eR-NzK">
                     <rect key="frame" x="334" y="72" width="298" height="18"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="1JI-Zm-XAd"/>
