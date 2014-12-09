@@ -109,6 +109,9 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
         }
     }
     
+    // Convert these rules and add them to the XULRunner seb keys
+    [self createSebRuleLists];
+    
     // Check if Start URL gets allowed by current filter rules and if not add a rule for the Start URL
     NSString *startURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
     NSURL *startURL = [NSURL URLWithString:startURLString];
@@ -125,6 +128,58 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     }
     // Updating filter rules worked; don't return any NSError
     return nil;
+}
+
+
+// Convert these rules and add them to the XULRunner seb keys
+- (void) createSebRuleLists
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    // Set prohibited rules
+    NSString *sebRuleString = [self sebRuleStringForSEBURLFilterRuleList:self.prohibitedList];
+    [preferences setSecureString:sebRuleString forKey:@"org_safeexambrowser_SEB_blacklistURLFilter"];
+    
+    // Set permitted rules
+    sebRuleString = [self sebRuleStringForSEBURLFilterRuleList:self.permittedList];
+    [preferences setSecureString:sebRuleString forKey:@"org_safeexambrowser_SEB_whitelistURLFilter"];
+    
+    // All rules are regex
+    [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_urlFilterRegex"];
+    
+    // Set if content filter is enabled
+    [preferences setSecureBool:[preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"]
+                        forKey:@"org_safeexambrowser_SEB_urlFilterTrustedContent"];
+}
+
+
+- (NSString *) sebRuleStringForSEBURLFilterRuleList:(NSMutableArray *)filterRuleList
+{
+    if (filterRuleList.count == 0) {
+        // No rules defined
+        return @"";
+    }
+    
+    id expression;
+    NSMutableString *prohibitedList = [NSMutableString new];
+    for (expression in filterRuleList) {
+        if (expression) {
+            
+            if ([expression isKindOfClass:[NSRegularExpression class]]) {
+                if (prohibitedList.length == 0) {
+                    [prohibitedList appendString:[expression pattern]];
+                } else {
+                    [prohibitedList appendFormat:@";%@", [expression pattern]];
+                }
+            }
+            
+            if ([expression isKindOfClass:[SEBURLFilterRegexExpression class]]) {
+                [prohibitedList appendString:[expression string]];
+            }
+        }
+    }
+    
+    return [NSString stringWithString:prohibitedList];
 }
 
 

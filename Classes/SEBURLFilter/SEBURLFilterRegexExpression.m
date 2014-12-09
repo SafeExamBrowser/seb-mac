@@ -71,4 +71,74 @@
 }
 
 
+- (NSString *) string
+{
+    NSMutableString *expressionString = [NSMutableString new];
+    NSString *part;
+    [expressionString appendString:@"^"];
+    
+    // If there is a regex filter for scheme
+    if (_scheme) {
+        // get stripped regex pattern
+        part = [self stringForRegexFilter:_scheme];
+    } else {
+        // otherwise use the regex wildcard pattern for scheme
+        part = @".*?";
+    }
+    [expressionString appendFormat:@"%@://", part];
+
+    
+    if (_user) {
+        part = [self stringForRegexFilter:_user];
+
+        [expressionString appendString:[self stringForRegexFilter:_user]];
+        
+        if (_password) {
+            [expressionString appendFormat:@":%@@", [self stringForRegexFilter:_password]];
+        } else {
+            [expressionString appendString:@"@"];
+        }
+    }
+    if (_host) {
+        [expressionString appendString:[self stringForRegexFilter:_host]];
+    }
+    if (_port && (_port.integerValue > 0) && (_port.integerValue <= 65535)) {
+        [expressionString appendFormat:@":%@", _port.stringValue];
+    }
+    if (_path) {
+        NSString *path = [self stringForRegexFilter:_path];
+        if ([path hasPrefix:@"/"]) {
+            [expressionString appendString:path];
+        } else {
+            [expressionString appendFormat:@"/%@", path];
+        }
+        
+        if (![path hasSuffix:@"/"]) {
+            [expressionString appendString:@"/"];
+        }
+    }
+    if (_query) {
+        [expressionString appendFormat:@"?%@", [self stringForRegexFilter:_query]];
+    }
+    if (_fragment) {
+        [expressionString appendFormat:@"#%@", [self stringForRegexFilter:_fragment]];
+    }
+    [expressionString appendString:@"$"];
+
+    return expressionString;
+}
+
+
+- (NSString *) stringForRegexFilter:(NSRegularExpression *) regexFilter
+{
+    // Get pattern string from regular expression
+    NSString *regexPattern = [regexFilter pattern];
+    if (regexPattern.length <= 2) {
+        return @"";
+    }
+    // Remove the regex command characters for matching at start and end of a line
+    regexPattern = [regexPattern substringWithRange:NSMakeRange(1, regexPattern.length - 2)];
+    return regexPattern;
+}
+
 @end

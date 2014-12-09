@@ -118,7 +118,7 @@
         if ([_path hasPrefix:@"/"]) {
             [expressionString appendString:_path];
         } else {
-            [expressionString appendFormat:@"/%@", _scheme];
+            [expressionString appendFormat:@"/%@", _path];
         }
         
         if (![_path hasSuffix:@"/"]) {
