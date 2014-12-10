@@ -484,28 +484,18 @@
 
 - (NSString *)filterExpressionForPattern:(SEBURLFilterAlertPattern)filterPattern
 {
-    NSString *scheme = self.URLFilterAlertURL.scheme;
     
     NSString *host = self.URLFilterAlertURL.host;
-    if (host.length > 0) {
-        scheme = [scheme stringByAppendingString:@"://"];
-    } else {
-        if (scheme.length > 0) {
-            scheme = [scheme stringByAppendingString:@":"];
-        }
-        host = @"";
-    }
-    
     NSString *path = self.URLFilterAlertURL.path;
     if (!path) path = @"";
     
     switch (filterPattern) {
             
         case SEBURLFilterAlertPatternHost:
-            return [NSString stringWithFormat:@"%@%@", scheme, host];
+            return host;
             
         case SEBURLFilterAlertPatternHostPath: {
-            return [NSString stringWithFormat:@"%@%@%@", scheme, host, path];
+            return [NSString stringWithFormat:@"%@%@", host, path];
         }
             
         case SEBURLFilterAlertPatternCustom:
