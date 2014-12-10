@@ -1282,7 +1282,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     // Release the download.
     
     // Inform the user
-    //[self presentError:error modalForWindow:[self windowForSheet] delegate:nil didPresentSelector:NULL contextInfo:NULL];
+    [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
 
     DDLogError(@"Download failed! Error - %@ %@",
                [error localizedDescription],
@@ -1294,11 +1294,19 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 {
     // Release the download.
     
-    DDLogInfo(@"Download of File %@ did finish.",downloadPath);
+    DDLogInfo(@"Download of File %@ did finish.", downloadPath);
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_openDownloads"] == YES) {
     // Open downloaded file
     [[NSWorkspace sharedWorkspace] openFile:downloadPath];
+    } else {
+        // Inform user that download succeeded
+        NSAlert *newAlert = [[NSAlert alloc] init];
+        [newAlert setMessageText:NSLocalizedString(@"Download Finished", nil)];
+        [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ was downloaded.", nil), downloadPath]];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [newAlert setAlertStyle:NSInformationalAlertStyle];
+        [newAlert runModal];
     }
 }
 

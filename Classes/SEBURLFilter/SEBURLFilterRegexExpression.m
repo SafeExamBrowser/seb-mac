@@ -77,17 +77,18 @@
     NSString *part;
     [expressionString appendString:@"^"];
     
-    // If there is a regex filter for scheme
+    /// Scheme
     if (_scheme) {
+        // If there is a regex filter for scheme
         // get stripped regex pattern
         part = [self stringForRegexFilter:_scheme];
     } else {
         // otherwise use the regex wildcard pattern for scheme
         part = @".*?";
     }
-    [expressionString appendFormat:@"%@://", part];
+    [expressionString appendFormat:@"%@:\\/\\/", part];
 
-    
+    /// User/Password
     if (_user) {
         part = [self stringForRegexFilter:_user];
 
@@ -99,30 +100,45 @@
             [expressionString appendString:@"@"];
         }
     }
+    
+    /// Host
+    NSString *hostPort = @"";
     if (_host) {
-        [expressionString appendString:[self stringForRegexFilter:_host]];
+        hostPort = [self stringForRegexFilter:_host];
     }
+    
+    /// Port
     if (_port && (_port.integerValue > 0) && (_port.integerValue <= 65535)) {
-        [expressionString appendFormat:@":%@", _port.stringValue];
+        hostPort = [NSString stringWithFormat:@"%@:%@", hostPort, _port.stringValue];
     }
+    
+    // When there is a host, but no path
+    if (_host && !_path) {
+        hostPort = [NSString stringWithFormat:@"((%@)|(%@\\/.*?))", hostPort, hostPort];
+    }
+    
+    [expressionString appendString:hostPort];
+
+    /// Path
     if (_path) {
         NSString *path = [self stringForRegexFilter:_path];
-        if ([path hasPrefix:@"/"]) {
+        if ([path hasPrefix:@"\\/"]) {
             [expressionString appendString:path];
         } else {
-            [expressionString appendFormat:@"/%@", path];
-        }
-        
-        if (![path hasSuffix:@"/"]) {
-            [expressionString appendString:@"/"];
+            [expressionString appendFormat:@"\\/%@", path];
         }
     }
+    
+    /// Query
     if (_query) {
-        [expressionString appendFormat:@"?%@", [self stringForRegexFilter:_query]];
+        [expressionString appendFormat:@"\\?%@", [self stringForRegexFilter:_query]];
     }
+    
+    /// Fragment
     if (_fragment) {
         [expressionString appendFormat:@"#%@", [self stringForRegexFilter:_fragment]];
     }
+    
     [expressionString appendString:@"$"];
 
     return expressionString;

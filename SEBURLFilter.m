@@ -161,25 +161,29 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     }
     
     id expression;
-    NSMutableString *prohibitedList = [NSMutableString new];
+    NSMutableString *sebRuleString = [NSMutableString new];
     for (expression in filterRuleList) {
         if (expression) {
             
             if ([expression isKindOfClass:[NSRegularExpression class]]) {
-                if (prohibitedList.length == 0) {
-                    [prohibitedList appendString:[expression pattern]];
+                if (sebRuleString.length == 0) {
+                    [sebRuleString appendString:[expression pattern]];
                 } else {
-                    [prohibitedList appendFormat:@";%@", [expression pattern]];
+                    [sebRuleString appendFormat:@";%@", [expression pattern]];
                 }
             }
             
             if ([expression isKindOfClass:[SEBURLFilterRegexExpression class]]) {
-                [prohibitedList appendString:[expression string]];
+                if (sebRuleString.length == 0) {
+                    [sebRuleString appendString:[expression string]];
+                } else {
+                    [sebRuleString appendFormat:@";%@", [expression string]];
+                }
             }
         }
     }
     
-    return [NSString stringWithString:prohibitedList];
+    return [NSString stringWithString:sebRuleString];
 }
 
 

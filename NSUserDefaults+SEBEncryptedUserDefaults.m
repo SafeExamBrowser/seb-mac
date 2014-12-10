@@ -406,7 +406,7 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_URLFilterEnableContentFilter",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_urlFilterRegex",
-                                 [NSNumber numberWithBool:NO],
+                                 [NSNumber numberWithBool:YES],
                                  @"org_safeexambrowser_SEB_urlFilterTrustedContent",
                                  @"",
                                  @"org_safeexambrowser_SEB_blacklistURLFilter",
