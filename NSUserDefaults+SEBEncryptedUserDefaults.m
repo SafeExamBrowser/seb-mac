@@ -972,7 +972,7 @@ static NSNumber *_logLevel;
 		
 	} else {
 		static NSString *format = @"*** -[NSUserDefaults setSecureObject:forKey:]: Attempt to insert non-property value '%@' of class '%@'.";
-		NSLog(format, object, [object class]);
+		DDLogError(format, object, [object class]);
 		return NO;
 	}
 }

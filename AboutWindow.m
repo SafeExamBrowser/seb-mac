@@ -77,9 +77,7 @@
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
         [self setLevel:NSScreenSaverWindowLevel];
     }
-#ifdef DEBUG
-    NSLog(@"orderFront About Window");
-#endif
+    DDLogDebug(@"orderFront About Window");
 	[self orderFront:self];
     
     // Close the About SEB Window after a delay
@@ -90,15 +88,8 @@
 
 // Close the About Window
 - (void) closeAboutWindow:(NSNotification *)notification {
-#ifdef DEBUG
-    NSLog(@"Attempting to close About Window %@", self);
-#endif
+    DDLogDebug(@"Attempting to close About Window %@", self);
     [self orderOut:self];
-    
-    // ToTest
-//    [[NSNotificationCenter defaultCenter]
-//     postNotificationName:@"requestReinforceKioskMode" object:self];
-
 }
 
 

@@ -94,7 +94,7 @@
 // Closing of SEB Browser Window //
 - (BOOL)windowShouldClose:(id)sender
 {
-    NSLog(@"SEBBrowserWindow %@ windowShouldClose: %@", self, sender);
+    DDLogDebug(@"SEBBrowserWindow %@ windowShouldClose: %@", self, sender);
     if (self == self.browserController.mainBrowserWindow) {
         // Post a notification that SEB should conditionally quit
         [[NSNotificationCenter defaultCenter]
@@ -357,7 +357,7 @@
 }
 
 
-- (void) showURLFilterAlertSheetForWindow:(NSWindow *)window forRequest:(NSURLRequest *)request
+- (void) showURLFilterAlertSheetForWindow:(NSWindow *)window forRequest:(NSURLRequest *)request forContentFilter:(BOOL)contentFilter filterResponse:(URLFilterRuleActions)filterResponse
 {
     if (!window.attachedSheet) {
         if (self.webView.dismissAll == NO) {
@@ -869,13 +869,19 @@ willPerformClientRedirectToURL:(NSURL *)URL
 {
     // If enabled, filter content
     SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
-    if (URLFilter.enableURLFilter && URLFilter.enableContentFilter && ![URLFilter testURLAllowed:request.URL]) {
-        // Content is not allowed
-        DDLogWarn(@"This content was blocked by the content filter: %@", request.URL.absoluteString);
-        // Return nil instead of request
-        return nil;
+    if (URLFilter.enableURLFilter && URLFilter.enableContentFilter) {
+        URLFilterRuleActions filterActionResponse = [URLFilter testURLAllowed:request.URL];
+        if (filterActionResponse != URLFilterActionAllow) {
+            // Content is not allowed
+            
+            // URL is not allowed: Show alert
+            [self showURLFilterAlertSheetForWindow:self forRequest:request forContentFilter:YES filterResponse:filterActionResponse];
+            
+            DDLogWarn(@"This content was blocked by the content filter: %@", request.URL.absoluteString);
+            // Return nil instead of request
+            return nil;
+        }
     }
-
     NSString *fragment = [[request URL] fragment];
     NSString *absoluteRequestURL = [[request URL] absoluteString];
     NSString *requestURLStrippedFragment;
@@ -1018,44 +1024,48 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         
         // If enabled, filter URL
         SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
-        if (URLFilter.enableURLFilter && ![URLFilter testURLAllowed:request.URL]) {
-            /// URL is not allowed
-            
-            // Check if the link was opened by a script and
-            // if a temporary webview or a new browser window should be closed therefore
-            // If the new page is supposed to open in a new browser window
-            SEBWebView *creatingWebView = [self.webView creatingWebView];
-            if (creatingWebView) {
-                if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
-                    // Don't load the request
-//                    [listener ignore];
-                    // we have to close the new browser window which already has been openend by WebKit
-                    // Get the document for my web view
-                    DDLogDebug(@"Originating browser window %@", sender);
-                    // Close document and therefore also window
-                    //Workaround: Flash crashes after closing window and then clicking some other link
-                    [[self.webView preferences] setPlugInsEnabled:NO];
-                    DDLogDebug(@"Now closing new document browser window for: %@", self.webView);
-                    [self.browserController closeWebView:self.webView];
-                }
-                if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
-                    if (self.webView) {
-                        [sender close]; //close the temporary webview
+        if (URLFilter.enableURLFilter) {
+            URLFilterRuleActions filterActionResponse = [URLFilter testURLAllowed:request.URL];
+            if (filterActionResponse != URLFilterActionAllow) {
+                
+                /// URL is not allowed
+                
+                // Check if the link was opened by a script and
+                // if a temporary webview or a new browser window should be closed therefore
+                // If the new page is supposed to open in a new browser window
+                SEBWebView *creatingWebView = [self.webView creatingWebView];
+                if (creatingWebView) {
+                    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
+                        // Don't load the request
+                        //                    [listener ignore];
+                        // we have to close the new browser window which already has been openend by WebKit
+                        // Get the document for my web view
+                        DDLogDebug(@"Originating browser window %@", sender);
+                        // Close document and therefore also window
+                        //Workaround: Flash crashes after closing window and then clicking some other link
+                        [[self.webView preferences] setPlugInsEnabled:NO];
+                        DDLogDebug(@"Now closing new document browser window for: %@", self.webView);
+                        [self.browserController closeWebView:self.webView];
                     }
+                    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
+                        if (self.webView) {
+                            [sender close]; //close the temporary webview
+                        }
+                    }
+                    // Show alert for URL is not allowed as sheet on the creating WebView window
+                    [self showURLFilterAlertSheetForWindow:creatingWebView.window
+                                                forRequest:request forContentFilter:NO filterResponse:filterActionResponse];
+                    
+                } else {
+                    // Show alert for URL is not allowed
+                    [self showURLFilterAlertSheetForWindow:self
+                                                forRequest:request forContentFilter:NO filterResponse:filterActionResponse];
                 }
-                // Show alert for URL is not allowed as sheet on the creating WebView window
-                [self showURLFilterAlertSheetForWindow:creatingWebView.window
-                                            forRequest:request];
-
-            } else {
-                // Show alert for URL is not allowed
-                [self showURLFilterAlertSheetForWindow:self
-                                            forRequest:request];
+                
+                // Don't load the request
+                [listener ignore];
+                return;
             }
-
-            // Don't load the request
-            [listener ignore];
-            return;
         }
         
         // Check if this is a seb:// link
@@ -1123,12 +1133,15 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
 
         // If enabled, filter URL
         SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
-        if (URLFilter.enableURLFilter && ![URLFilter testURLAllowed:request.URL]) {
-            // URL is not allowed: Show alert
-            [self showURLFilterAlertSheetForWindow:self forRequest:request];
-            //Don't load the request
-            [listener ignore];
-            return;
+        if (URLFilter.enableURLFilter) {
+            URLFilterRuleActions filterActionResponse = [URLFilter testURLAllowed:request.URL];
+            if (filterActionResponse != URLFilterActionAllow) {
+                // URL is not allowed: Show alert
+                [self showURLFilterAlertSheetForWindow:self forRequest:request forContentFilter:NO filterResponse:filterActionResponse];
+                //Don't load the request
+                [listener ignore];
+                return;
+            }
         }
         
         // load link only if it's on the same host like the one of the current page

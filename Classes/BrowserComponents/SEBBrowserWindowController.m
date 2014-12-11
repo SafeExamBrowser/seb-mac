@@ -75,9 +75,7 @@
 
 - (void)windowDidBecomeMain:(NSNotification *)notification
 {
-#ifdef DEBUG
-    NSLog(@"BrowserWindow %@ did become main", self.window);
-#endif
+    DDLogDebug(@"BrowserWindow %@ did become main", self.window);
     if (self.browserController.reinforceKioskModeRequested) {
         self.browserController.reinforceKioskModeRequested = NO;
         [[NSNotificationCenter defaultCenter]
@@ -99,10 +97,7 @@
 - (void)windowDidBecomeKey:(NSNotification *)notification
 {
 //    [self.browserController setStateForWindow:(SEBBrowserWindow *)self.window withWebView:self.webView];
-    
-#ifdef DEBUG
-    NSLog(@"BrowserWindow %@ did become key", self.window);
-#endif
+    DDLogDebug(@"BrowserWindow %@ did become key", self.window);
 }
 
 
@@ -150,9 +145,7 @@
 // prevents the windows' position and size to be restored on restarting the app
 - (void)restoreStateWithCoder:(NSCoder *)coder
 {
-#ifdef DEBUG
-    NSLog(@"BrowserWindowController %@: Prevented windows' position and size to be restored!", self);
-#endif
+    DDLogDebug(@"BrowserWindowController %@: Prevented windows' position and size to be restored!", self);
     return;
 }
 
@@ -163,10 +156,7 @@
     if (![[[self webView] mainFrame] dataSource]) {
         NSString* appTitleString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
         appTitleString = [NSString stringWithFormat:@"Safe Exam Browser %@", appTitleString];
-#ifdef DEBUG
-        NSLog(@"BrowserWindow %@: Title of current Page: %@", self.window, appTitleString);
-        NSLog(@"BrowserWindow (2) sharingType: %lx",(long)[self.window sharingType]);
-#endif
+        DDLogInfo(@"BrowserWindow %@: Title of current Page: %@", self.window, appTitleString);
         return appTitleString;
     }
     return @"";

@@ -44,15 +44,11 @@
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
         if (windowLevel == NSNormalWindowLevel) {
             windowLevel = NSModalPanelWindowLevel;
-#ifdef DEBUG
-            NSLog(@"Window %@ level NSNormalWindowLevel changed to NSModalPanelWindowLevel", self);
-#endif
+            DDLogDebug(@"Window %@ level NSNormalWindowLevel changed to NSModalPanelWindowLevel", self);
         }
         if (windowLevel == NSModalPanelWindowLevel) {
             windowLevel = NSScreenSaverWindowLevel;
-#ifdef DEBUG
-            NSLog(@"Window %@ level NSModalPanelWindowLevel changed to NSScreenSaverWindowLevel", self);
-#endif
+            DDLogDebug(@"Window %@ level NSModalPanelWindowLevel changed to NSScreenSaverWindowLevel", self);
         }
     }
     [self newSetLevel:windowLevel]; //call the original(!) method

@@ -127,9 +127,6 @@
     if (![[MBPreferencesController sharedController].window delegate]) {
         // Set delegate only if it's not yet set!
         [[MBPreferencesController sharedController].window setDelegate:self];
-#ifdef DEBUG
-        NSLog(@"Set PreferencesController as delegate for preferences window");
-#endif
     }
 }
 
@@ -759,9 +756,7 @@
                       if (result == NSFileHandlingPanelOKButton)
                       {
                           NSURL *sebFileURL = [panel URL];
-#ifdef DEBUG
-                          NSLog(@"Loading .seb settings file with file URL %@", sebFileURL);
-#endif
+                          DDLogInfo(@"Loading .seb settings file with file URL %@", sebFileURL);
                           [self openSEBPrefsAtURL:sebFileURL];
 
                       }
@@ -1118,9 +1113,7 @@
     
     // If using private user defaults
     if (NSUserDefaults.userDefaultsPrivate) {
-#ifdef DEBUG
-        NSLog(@"Reverting private settings to last saved or opened .seb file");
-#endif
+        DDLogInfo(@"Reverting private settings to last saved or opened .seb file");
         NSError *error = nil;
         NSData *sebData = [NSData dataWithContentsOfURL:[[MyGlobals sharedMyGlobals] currentConfigURL] options:nil error:&error];
         
@@ -1142,9 +1135,7 @@
         }
     } else {
         // If using local client settings
-#ifdef DEBUG
-        NSLog(@"Reverting local client settings to settings before editing");
-#endif
+        DDLogInfo(@"Reverting local client settings to settings before editing");
         [self.configFileManager storeIntoUserDefaults:_settingsBeforeEditing];
     }
 }
@@ -1234,9 +1225,7 @@
         
         [self.configFileManager storeIntoUserDefaults:localClientPreferences];
         
-#ifdef DEBUG
-        NSLog(@"Private preferences set: %@", privatePreferences);
-#endif
+        DDLogVerbose(@"Private preferences set: %@", privatePreferences);
     }
     
     // Re-initialize and open preferences window

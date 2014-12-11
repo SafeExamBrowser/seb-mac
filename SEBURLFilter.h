@@ -49,7 +49,7 @@
 
 - (NSError *)updateFilterRules;
 
-- (BOOL)testURLAllowed:(NSURL *)URLToFilter;
+- (URLFilterRuleActions)testURLAllowed:(NSURL *)URLToFilter;
 
 - (void) addRuleAction:(URLFilterRuleActions)action withFilterExpression:(SEBURLFilterExpression *)filterExpression;
 

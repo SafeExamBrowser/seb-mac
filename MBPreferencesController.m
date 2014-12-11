@@ -370,9 +370,7 @@ static MBPreferencesController *sharedPreferencesController = nil;
 - (IBAction)dropDownAction:(id)sender
 {
 	// Drop down button clicked
-#ifdef DEBUG
-    NSLog(@"Drop down button clicked. Sender: %@", sender);
-#endif
+    DDLogDebug(@"Drop down button clicked. Sender: %@", sender);
 }
 
 @end

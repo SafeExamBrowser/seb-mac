@@ -106,12 +106,11 @@ bool insideMatrix();
 // Tells the application delegate to open a single file.
 // Returning YES if the file is successfully opened, and NO otherwise.
 //
-- (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename {
+- (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename
+{
     NSURL *sebFileURL = [NSURL fileURLWithPath:filename];
 
-#ifdef DEBUG
-    NSLog(@"Open file event: Loading .seb settings file with URL %@",sebFileURL);
-#endif
+    DDLogInfo(@"Open file event: Loading .seb settings file with URL %@",sebFileURL);
 
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
 
@@ -164,9 +163,7 @@ bool insideMatrix();
     if (url) {
         if ([url.pathExtension isEqualToString:@"seb"]) {
             // If we have a valid URL with the path for a .seb file, we download and open it (conditionally)
-#ifdef DEBUG
-            NSLog(@"Get URL event: Loading .seb settings file with URL %@", urlString);
-#endif
+            DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", urlString);
             [self.browserController downloadAndOpenSebConfigFromURL:url];
         }
     }
@@ -265,9 +262,7 @@ bool insideMatrix();
             [visibleApps addObject:appBundleID]; //add ID of the visible app
         }
         if ([iterApp ownsMenuBar]) {
-#ifdef DEBUG
-            NSLog(@"App %@ owns menu bar", iterApp);
-#endif
+            DDLogDebug(@"App %@ owns menu bar", iterApp);
         }
     }
 
@@ -464,7 +459,7 @@ bool insideMatrix();
                                                    CFSTR("Safe Exam Browser Kiosk Mode"), 
                                                    &assertionID1);
 	if (success == kIOReturnSuccess) {
-		NSLog(@"Display sleep is switched off now.");
+		DDLogDebug(@"Display sleep is switched off now.");
 	}
 #endif		
 	
@@ -491,7 +486,7 @@ bool insideMatrix();
     root_port = IORegisterForSystemPower( refCon, &notifyPortRef, MySleepCallBack, &notifierObject );
     if ( root_port == 0 )
     {
-        NSLog(@"IORegisterForSystemPower failed");
+        DDLogError(@"IORegisterForSystemPower failed");
     } else {
 	    // add the notification port to the application runloop
 		CFRunLoopAddSource( CFRunLoopGetCurrent(),
@@ -510,19 +505,15 @@ bool insideMatrix();
             if ((myAttrs & (1UL << 31)) | (myAttrs == 0x209)) {
                 // Bit 31 is set: VMware Hypervisor running (?)
                 // or gestaltX86AdditionalFeatures values of VirtualBox detected
-#ifdef DEBUG
-                NSLog(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine! gestaltX86AdditionalFeatures = %X", myAttrs);
-#endif
+                DDLogError(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine! gestaltX86AdditionalFeatures = %X", myAttrs);
                 NSRunAlertPanel(NSLocalizedString(@"Virtual Machine Detected!", nil),
                                 NSLocalizedString(@"You are not allowed to run SEB inside a virtual machine!", nil),
                                 NSLocalizedString(@"Quit", nil), nil, nil);
                 quittingMyself = TRUE; //SEB is terminating itself
                 [NSApp terminate: nil]; //quit SEB
                 
-#ifdef DEBUG
             } else {
-                NSLog(@"SEB is running on a native system (no VM) gestaltX86AdditionalFeatures = %X", myAttrs);
-#endif
+                DDLogInfo(@"SEB is running on a native system (no VM) gestaltX86AdditionalFeatures = %X", myAttrs);
             }
         }
         
@@ -530,7 +521,7 @@ bool insideMatrix();
         // STR or SIDT code?
         virtualMachine = insideMatrix();
         if (virtualMachine) {
-            NSLog(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine (Test2)!");
+            DDLogError(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine (Test2)!");
         }
     }
 
@@ -545,9 +536,7 @@ bool insideMatrix();
         // if there is a NSSting in the pasteboard, save it for later use
         //[[MyGlobals sharedMyGlobals] setPasteboardString:[copiedItems objectAtIndex:0]];
         [[MyGlobals sharedMyGlobals] setValue:[copiedItems objectAtIndex:0] forKey:@"pasteboardString"];
-#ifdef DEBUG
-        NSLog(@"String saved from pasteboard");
-#endif
+        DDLogDebug(@"String saved from pasteboard");
     } else {
         [[MyGlobals sharedMyGlobals] setValue:@"" forKey:@"pasteboardString"];
     }
@@ -631,9 +620,7 @@ bool insideMatrix();
 // Perform actions which require that SEB has finished setting up and has opened its windows
 - (void) performAfterStartActions:(NSNotification *)notification
 {
-#ifdef DEBUG
-    NSLog(@"Performing after start actions");
-#endif
+    DDLogInfo(@"Performing after start actions");
     
     // Check for command key being held down
     int modifierFlags = [NSEvent modifierFlags];
@@ -655,9 +642,7 @@ bool insideMatrix();
 //     postNotificationName:@"requestReinforceKioskMode" object:self];
     
     if ([[MyGlobals sharedMyGlobals] preferencesReset] == YES) {
-#ifdef DEBUG
-        NSLog(@"Presenting alert for 'Local SEB settings have been reset'");
-#endif
+        DDLogInfo(@"Presenting alert for 'Local SEB settings have been reset'");
         [self presentPreferencesCorruptedError];
     }
     
@@ -700,9 +685,7 @@ bool insideMatrix();
     [newAlert runModal];
     newAlert = nil;
 
-#ifdef DEBUG
-    NSLog(@"Dismissed alert for local SEB settings have been reset");
-#endif
+    DDLogInfo(@"Dismissed alert for local SEB settings have been reset");
 
     //    NSDictionary *newDict = @{ NSLocalizedDescriptionKey :
     //                                   NSLocalizedString(@"Local SEB settings are corrupted!", nil),
@@ -851,9 +834,7 @@ bool insideMatrix(){
 
 // Close the About Window
 - (void) closeAboutWindow {
-#ifdef DEBUG
-    NSLog(@"Attempting to close about window %@", aboutWindow);
-#endif
+    DDLogInfo(@"Attempting to close about window %@", aboutWindow);
     [aboutWindow orderOut:self];
 }
 
@@ -975,9 +956,7 @@ bool insideMatrix(){
 }
 
 - (void) terminateScreencapture {
-#ifdef DEBUG
-    NSLog(@"screencapture terminated");
-#endif
+    DDLogInfo(@"screencapture terminated");
 }
 
 - (void) regainActiveStatus: (id)sender {
@@ -1003,11 +982,8 @@ bool insideMatrix(){
 	BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
     if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen]) {
 		// if switching to ThirdPartyApps not allowed
-#ifdef DEBUG
-        NSLog(@"Regain active status after %@", [sender name]);
-#endif
+        DDLogDebug(@"Regain active status after %@", [sender name]);
 #ifndef DEBUG
-//        [NSApp activateIgnoringOtherApps: YES];
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications) withObject:NULL waitUntilDone:NO];
 //        [self startKioskMode];
@@ -1036,9 +1012,7 @@ bool insideMatrix(){
 
 
 - (void) SEBgotActive: (id)sender {
-#ifdef DEBUG
-    NSLog(@"SEB got active");
-#endif
+    DDLogDebug(@"SEB got active");
 //    [self startKioskMode];
 }
 
@@ -1063,9 +1037,7 @@ bool insideMatrix(){
 //    [self startKioskModeThirdPartyAppsAllowed:YES];
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
-#ifdef DEBUG
-    NSLog(@"startKioskMode switchToApplications %hhd", allowSwitchToThirdPartyApps);
-#endif
+    DDLogDebug(@"startKioskMode switchToApplications %hhd", allowSwitchToThirdPartyApps);
     [self startKioskModeThirdPartyAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
 
 }
@@ -1132,9 +1104,7 @@ bool insideMatrix(){
     @try {
         [[MyGlobals sharedMyGlobals] setStartKioskChangedPresentationOptions:YES];
         
-#ifdef DEBUG
-        NSLog(@"NSApp setPresentationOptions: %lo", presentationOptions);
-#endif
+        DDLogDebug(@"NSApp setPresentationOptions: %lo", presentationOptions);
         
         [NSApp setPresentationOptions:presentationOptions];
         [[MyGlobals sharedMyGlobals] setPresentationOptions:presentationOptions];
@@ -1150,9 +1120,7 @@ bool insideMatrix(){
 {
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
         
-#ifdef DEBUG
-        NSLog(@"SEBController openSEBDock: dock enabled");
-#endif
+        DDLogDebug(@"SEBController openSEBDock: dock enabled");
         // Initialize the Dock
         self.dockController = [[SEBDockController alloc] init];
         
@@ -1239,9 +1207,7 @@ bool insideMatrix(){
 
 
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-#ifdef DEBUG
-    NSLog(@"sheetDidEnd");
-#endif
+    DDLogDebug(@"sheetDidEnd");
 }
 
 
@@ -1333,9 +1299,7 @@ bool insideMatrix(){
             [configMenu setHidden:NO];
         } else {
             // Show preferences window
-#ifdef DEBUG
-            NSLog(@"openPreferences: Preferences already open, just show Window");
-#endif
+            DDLogDebug(@"openPreferences: Preferences already open, just show Window");
             [self.preferencesController showPreferencesWindow:nil];
         }
     }
@@ -1358,9 +1322,7 @@ bool insideMatrix(){
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
-#ifdef DEBUG
-    NSLog(@"Preferences window closed, reopening cap windows.");
-#endif
+    DDLogInfo(@"Preferences window closed, reopening cap windows.");
     
     // Open new covering background windows on all currently available screens
     [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];

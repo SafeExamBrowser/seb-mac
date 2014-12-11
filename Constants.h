@@ -156,9 +156,7 @@ typedef NSUInteger SEBKioskMode;
 enum {
     URLFilterActionBlock                        = 0,
     URLFilterActionAllow                        = 1,
-    URLFilterActionSkip                         = 2,
-    URLFilterActionAnd                          = 3,
-    URLFilterActionOr                           = 4
+    URLFilterActionUnknown                      = 2
 };
 typedef NSUInteger URLFilterRuleActions;
 

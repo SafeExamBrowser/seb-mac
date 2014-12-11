@@ -87,23 +87,17 @@
         NSURL *sebClientSettingsFileURL = [preferencesDirectory URLByAppendingPathComponent:@"Preferences/SebClientSettings.seb"];
         NSData *sebData = [NSData dataWithContentsOfURL:sebClientSettingsFileURL];
         if (sebData) {
-#ifdef DEBUG
-            NSLog(@"Reconfiguring SEB with SebClientSettings.seb from Preferences directory");
-#endif
+            DDLogInfo(@"Reconfiguring SEB with SebClientSettings.seb from Preferences directory");
             SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
             
             // Decrypt and store the .seb config file
             if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO]) {
                 // if successfull continue with new settings
-#ifdef DEBUG
-                NSLog(@"Reconfiguring SEB with SebClientSettings.seb was successful");
-#endif
+                DDLogInfo(@"Reconfiguring SEB with SebClientSettings.seb was successful");
                 // Delete the SebClientSettings.seb file from the Preferences directory
                 error = nil;
                 [[NSFileManager defaultManager] removeItemAtURL:sebClientSettingsFileURL error:&error];
-#ifdef DEBUG
-                NSLog(@"Attempted to remove SebClientSettings.seb from Preferences directory, result: %@", error);
-#endif
+                DDLogInfo(@"Attempted to remove SebClientSettings.seb from Preferences directory, result: %@", error);
                 // Restart SEB with new settings
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:@"requestRestartNotification" object:self];
@@ -156,7 +150,7 @@
         // Write values from .seb config file to the local preferences (shared UserDefaults)
         [self storeIntoUserDefaults:sebPreferencesDict];
         
-        NSLog(@"%s, Private preferences set: %@", __FUNCTION__, privatePreferences);
+        DDLogVerbose(@"%s, Private preferences set: %@", __FUNCTION__, privatePreferences);
 
         if (forEditing == NO) {
             // if not editing reset credentials
@@ -757,15 +751,11 @@
         // Serialization of the XML plist went wrong
         // Looks like there is a key with a NULL value
         // TO DO: Error handling for this unlikely case
-#ifdef DEBUG
-        NSLog(@"Serialization of the XML plist went wrong! Error: %@", error);
-#endif
+        DDLogError(@"Serialization of the XML plist went wrong! Error: %@", error);
     }
     
     NSMutableString *sebXML = [[NSMutableString alloc] initWithData:dataRep encoding:NSUTF8StringEncoding];
-#ifdef DEBUG
-    NSLog(@".seb XML plist: %@", sebXML);
-#endif
+    DDLogVerbose(@".seb XML plist: %@", sebXML);
     
     NSData *encryptedSebData = [sebXML dataUsingEncoding:NSUTF8StringEncoding];
     //NSData *encryptedSebData = [NSKeyedArchiver archivedDataWithRootObject:filteredPrefsDict];

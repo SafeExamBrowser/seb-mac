@@ -298,15 +298,7 @@
     if (![pasteboardString isEqualToString:@""]) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         [preferences setSecureString:pasteboardString forKey:@"org_safeexambrowser_SEB_startURL"];
-#ifdef DEBUG
-//        NSLog(@"Pasteboard string set in UserDefaults: %@", [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"]);
-//        NSLog(@"Pasteboard string in Start URL text field: %@", startURL.stringValue);
-#endif
         [startURL setStringValue:pasteboardString];
-#ifdef DEBUG
-        NSLog(@"Pasteboard string set in Start URL text field: %@", startURL.stringValue);
-        NSLog(@"Pasteboard string set in UserDefaults: %@", [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"]);
-#endif
     }
 }
 

@@ -188,7 +188,7 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
 
 
 // Filter URL and return YES if it is allowed
-- (BOOL) testURLAllowed:(NSURL *)URLToFilter
+- (URLFilterRuleActions) testURLAllowed:(NSURL *)URLToFilter
 {
     NSString* URLToFilterString = [URLToFilter absoluteString];
     // By default URLs are blocked
@@ -216,7 +216,7 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
         }
     }
     if (blockURL) {
-        return NO;
+        return URLFilterActionBlock;
     }
     
     /// Apply permitted filter expressions
@@ -237,8 +237,9 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
             }
         }
     }
-    // Return YES if URL is allowed or NO if it should be blocked
-    return allowURL;
+    // Return URLFilterActionAllow if URL is allowed or
+    // URLFilterActionUnknown if it's unknown (= it will anyways be blocked)
+    return allowURL ? URLFilterActionAllow : URLFilterActionUnknown;
 }
 
 

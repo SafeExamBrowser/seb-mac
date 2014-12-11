@@ -121,9 +121,9 @@
             [expressionString appendFormat:@"/%@", _path];
         }
         
-        if (![_path hasSuffix:@"/"]) {
-            [expressionString appendString:@"/"];
-        }
+//        if (![_path hasSuffix:@"/"]) {
+//            [expressionString appendString:@"/"];
+//        }
     }
     if (_query.length > 0) {
         [expressionString appendFormat:@"?%@", _query];

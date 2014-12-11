@@ -53,9 +53,7 @@
 //        [self.window setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary];
 
     }
-#ifdef DEBUG
-    NSLog(@"Cap window %@ init.", self);
-#endif
+    DDLogDebug(@"Cap window %@ init.", self);
 
     return self;
 }
@@ -64,9 +62,7 @@
 {
     [super windowDidLoad];
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
-#ifdef DEBUG
-    NSLog(@"Cap window %@ didLoad.", self.window);
-#endif
+    DDLogDebug(@"Cap window %@ didLoad.", self.window);
 }
 
 
@@ -84,9 +80,7 @@
     
 	// listen for these notifications so we can update our image based on the full-screen state
     
-#ifdef DEBUG
-    NSLog(@"Cap window %@ awakeFromNib.", self.window);
-#endif
+    DDLogDebug(@"Cap window %@ awakeFromNib.", self.window);
     [self.window setSharingType:NSWindowSharingNone];
 }
 
