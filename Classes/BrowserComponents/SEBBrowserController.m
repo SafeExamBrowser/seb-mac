@@ -162,11 +162,10 @@
     
     [browserWindowDocument.mainWindowController.window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
-        // Order new browser window to the front of our level
-        [browserWindowDocument.mainWindowController.window newSetLevel:NSModalPanelWindowLevel];
-        [browserWindowDocument.mainWindowController showWindow:self];
-    }
+    BOOL elevateWindowLevels = [preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
+    // Order new browser window to the front of our level
+    [self setLevelForBrowserWindow:browserWindowDocument.mainWindowController.window elevateLevels:elevateWindowLevels];
+    [browserWindowDocument.mainWindowController showWindow:self];
     [newWindow makeKeyAndOrderFront:self];
     
     return newWindowWebView;
@@ -193,9 +192,9 @@
 {
     SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] documentForWindow:[sender window]];
     [[sender window] setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
-        [[sender window] newSetLevel:NSModalPanelWindowLevel];
-    }
+    BOOL elevateWindowLevels = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
+    [self setLevelForBrowserWindow:[sender window] elevateLevels:elevateWindowLevels];
+
     [browserWindowDocument showWindows];
     DDLogInfo(@"Now showing new document browser window for: %@",sender);
     // Order new browser window to the front
@@ -251,7 +250,6 @@
     [self.mainBrowserWindow setCalculatedFrame];
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
         [self.mainBrowserWindow newSetLevel:NSModalPanelWindowLevel];
-        
     }
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     
@@ -299,13 +297,7 @@
     SEBBrowserWindowDocument *openWindowDocument;
     for (openWindowDocument in openWindowDocuments) {
         NSWindow *browserWindow = openWindowDocument.mainWindowController.window;
-        if (allowApps) {
-            // Order new browser window to the front of our level
-            [browserWindow newSetLevel:NSNormalWindowLevel];
-            [browserWindow orderFront:self];
-        } else {
-            [browserWindow newSetLevel:NSModalPanelWindowLevel];
-        }
+        [self setLevelForBrowserWindow:browserWindow elevateLevels:!allowApps];
     }
     // If the main browser window is displayed fullscreen and switching to apps is allowed,
     // we make the window stationary, so that it isn't scaled down from Exposé
@@ -319,6 +311,31 @@
 }
 
 
+- (void) setLevelForBrowserWindow:(NSWindow *)browserWindow elevateLevels:(BOOL)elevateLevels
+{
+    if (elevateLevels) {
+        if (self.mainBrowserWindow.isFullScreen && browserWindow != self.mainBrowserWindow) {
+            // If the main browser window is displayed fullscreen, then all auxillary windows
+            // get a higher level, to float on top
+            [browserWindow newSetLevel:NSModalPanelWindowLevel+1];
+        } else {
+            [browserWindow newSetLevel:NSModalPanelWindowLevel];
+        }
+    } else {
+        
+        // Order new browser window to the front of our level
+        if (self.mainBrowserWindow.isFullScreen && browserWindow != self.mainBrowserWindow) {
+            // If the main browser window is displayed fullscreen, then all auxillary windows
+            // get a higher level, to float on top
+            [browserWindow newSetLevel:NSNormalWindowLevel+1];
+        } else {
+            [browserWindow newSetLevel:NSNormalWindowLevel];
+        }
+        //[browserWindow orderFront:self];
+    }
+}
+
+
 // Open an allowed additional resource in a new browser window
 - (void)openResourceWithURL:(NSString *)URL andTitle:(NSString *)title
 {
@@ -326,10 +343,9 @@
     NSWindow *additionalBrowserWindow = browserWindowDocument.mainWindowController.window;
     [additionalBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
     [(SEBBrowserWindow *)additionalBrowserWindow setCalculatedFrame];
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
-        [additionalBrowserWindow newSetLevel:NSModalPanelWindowLevel];
-    }
-    //	[NSApp activateIgnoringOtherApps: YES];
+    BOOL elevateWindowLevels = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
+    [self setLevelForBrowserWindow:additionalBrowserWindow elevateLevels:elevateWindowLevels];
+
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     
     //[additionalBrowserWindow makeKeyAndOrderFront:self];
