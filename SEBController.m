@@ -188,9 +188,7 @@ bool insideMatrix();
         [MyGlobals sharedMyGlobals].reconfiguredWhileStarting = NO;
         
         [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
-#ifdef DEBUG
-        NSLog(@"Installed get URL event handler");
-#endif
+        DDLogDebug(@"Installed get URL event handler");
 
         // Add an observer for the request to unconditionally quit SEB
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -238,7 +236,7 @@ bool insideMatrix();
 	
 //    BOOL worked = [systemManager checkHTTPSProxySetting];
 //#ifdef DEBUG
-//    NSLog(@"Checking updating HTTPS proxy worked: %hhd", worked);
+//    DDLogDebug(@"Checking updating HTTPS proxy worked: %hhd", worked);
 //#endif
     
     // Flag initializing
@@ -967,13 +965,10 @@ bool insideMatrix(){
         if (userInfo) {
             NSRunningApplication *launchedApp = [userInfo objectForKey:NSWorkspaceApplicationKey];
 #ifdef DEBUG
-            NSLog(@"launched app localizedName: %@, executableURL: %@", [launchedApp localizedName], [launchedApp executableURL]);
+            DDLogInfo(@"launched app localizedName: %@, executableURL: %@", [launchedApp localizedName], [launchedApp executableURL]);
 #endif
             if ([[launchedApp localizedName] isEqualToString:@"iCab"]) {
                 [launchedApp forceTerminate];
-#ifdef DEBUG
-                NSLog(@"screencapture terminated");
-#endif
             }
         }
     }*/
@@ -1002,7 +997,7 @@ bool insideMatrix(){
                 //& isActive
                 BOOL successfullyHidden = [iterApp hide]; //hide the active app
 #ifdef DEBUG
-                NSLog(@"Successfully hidden app %@: %@", appBundleID, [NSNumber numberWithBool:successfullyHidden]);
+                DDLogInfo(@"Successfully hidden app %@: %@", appBundleID, [NSNumber numberWithBool:successfullyHidden]);
 #endif
             }
         }
@@ -1110,7 +1105,7 @@ bool insideMatrix(){
         [[MyGlobals sharedMyGlobals] setPresentationOptions:presentationOptions];
     }
     @catch(NSException *exception) {
-        NSLog(@"Error.  Make sure you have a valid combination of presentation options.");
+        DDLogError(@"Error.  Make sure you have a valid combination of presentation options.");
     }
 }
 
@@ -1148,9 +1143,7 @@ bool insideMatrix(){
         [self.dockController showDock];
 
     } else {
-#ifdef DEBUG
-        NSLog(@"SEBController openSEBDock: dock disabled");
-#endif
+        DDLogDebug(@"SEBController openSEBDock: dock disabled");
         if (self.dockController) {
             [self.dockController hideDock];
             self.dockController = nil;
@@ -1386,9 +1379,7 @@ bool insideMatrix(){
 
 - (void)requestedRestart:(NSNotification *)notification
 {
-#ifdef DEBUG
-    NSLog(@"Requested Restart");
-#endif
+    DDLogInfo(@"Requested Restart");
     
     // Check if launched SEB is placed ("installed") in an Applications folder
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -1471,16 +1462,14 @@ bool insideMatrix(){
 
 - (void)documentController:(NSDocumentController *)docController  didCloseAll: (BOOL)didCloseAll contextInfo:(void *)contextInfo
 {
-    NSLog(@"documentController: %@ didCloseAll: %hhd contextInfo: %@", docController, didCloseAll, contextInfo);
+    DDLogDebug(@"documentController: %@ didCloseAll: %hhd contextInfo: %@", docController, didCloseAll, contextInfo);
 }
 
 
 - (void)requestedReinforceKioskMode:(NSNotification *)notification
 {
     if (![self.preferencesController preferencesAreOpen]) {
-#ifdef DEBUG
-        NSLog(@"Reinforcing the kiosk mode was requested");
-#endif
+        DDLogDebug(@"Reinforcing the kiosk mode was requested");
         // Switch the strict kiosk mode temporary off
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
@@ -1490,9 +1479,7 @@ bool insideMatrix(){
         [self closeCapWindows];
         
         // Reopen the covering Windows and reset the windows elevation levels
-#ifdef DEBUG
-        NSLog(@"requestedReinforceKioskMode: Reopening cap windows.");
-#endif
+        DDLogDebug(@"requestedReinforceKioskMode: Reopening cap windows.");
         if (self.browserController.mainBrowserWindow.isVisible) {
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
             [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
@@ -1518,7 +1505,7 @@ bool insideMatrix(){
 
 /*- (void)documentController:(NSDocumentController *)docController  didCloseAll: (BOOL)didCloseAll contextInfo:(void *)contextInfo {
 #ifdef DEBUG
-    NSLog(@"All documents closed: %@", [NSNumber numberWithBool:didCloseAll]);
+    DDLogDebug(@"All documents closed: %@", [NSNumber numberWithBool:didCloseAll]);
 #endif
     return;
 }*/
@@ -1617,9 +1604,7 @@ bool insideMatrix(){
     }
     
     BOOL success = [self.systemManager restoreSC];
-#ifdef DEBUG
-    NSLog(@"Success of restoring SC: %hhd", success);
-#endif
+    DDLogDebug(@"Success of restoring SC: %hhd", success);
     
     runningAppsWhileTerminating = [[NSWorkspace sharedWorkspace] runningApplications];
     NSRunningApplication *iterApp;
@@ -1664,9 +1649,7 @@ bool insideMatrix(){
 
 // Prevent an untitled document to be opened at application launch
 - (BOOL) applicationShouldOpenUntitledFile:(NSApplication *)sender {
-#ifdef DEBUG
-    NSLog(@"Invoked applicationShouldOpenUntitledFile with answer NO!");
-#endif
+    DDLogDebug(@"Invoked applicationShouldOpenUntitledFile with answer NO!");
     return NO;
 }
 
@@ -1675,7 +1658,7 @@ bool insideMatrix(){
 	[self.browserController.browserWindow 
 	 makeKeyAndOrderFront:self];
 	#ifdef DEBUG
-	NSLog(@"[self.browserController.browserWindow makeKeyAndOrderFront]");
+	DDLogDebug(@"[self.browserController.browserWindow makeKeyAndOrderFront]");
 	NSBeep();
 	#endif
 	
@@ -1700,9 +1683,7 @@ bool insideMatrix(){
         // Load preferences from the system's user defaults database
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
-#ifdef DEBUG
-        NSLog(@"currentSystemPresentationOptions changed!");
-#endif
+        DDLogInfo(@"currentSystemPresentationOptions changed!");
         // If plugins are enabled and there is a Flash view in the webview ...
         if ([[self.webView preferences] arePlugInsEnabled]) {
             NSView* flashView = [self.browserController.mainBrowserWindow findFlashViewInView:webView];
@@ -1726,9 +1707,7 @@ bool insideMatrix(){
         //[(BrowserWindow*)self.browserController.browserWindow setCalculatedFrame];
         if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen]) {
             // If third party Apps are not allowed, we switch back to SEB
-#ifdef DEBUG
-            NSLog(@"Switched back to SEB after currentSystemPresentationOptions changed!");
-#endif
+            DDLogInfo(@"Switched back to SEB after currentSystemPresentationOptions changed!");
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
 
 //            [[NSNotificationCenter defaultCenter] postNotificationName:@"requestRegainActiveStatus" object:self];

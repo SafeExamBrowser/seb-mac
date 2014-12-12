@@ -140,7 +140,7 @@
 - (void)document:(NSDocument *)doc shouldClose:(BOOL)shouldClose contextInfo:(void  *)contextInfo
 {
     if (shouldClose) {
-        NSLog(@"Closing document!");
+        DDLogDebug(@"Closing document!");
         NSArray *windowControllers = [self windowControllers];
         // Get first window controller
         NSWindowController *windowController;

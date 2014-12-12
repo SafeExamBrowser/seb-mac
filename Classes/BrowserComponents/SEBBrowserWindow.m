@@ -181,7 +181,7 @@
     NSArray* MIMETypes = [WebView MIMETypesShownAsHTML];
     int i, count = [MIMETypes count];
     for (i=0; i<count; i++) {
-        NSLog(@"MIME type shown as HTML: %@", [MIMETypes objectAtIndex:i]);
+        DDLogInfo(@"MIME type shown as HTML: %@", [MIMETypes objectAtIndex:i]);
     }
 #endif*/
 
