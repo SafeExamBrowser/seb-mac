@@ -360,21 +360,25 @@
 - (BOOL) showURLFilterAlertSheetForWindow:(NSWindow *)window forRequest:(NSURLRequest *)request forContentFilter:(BOOL)contentFilter filterResponse:(URLFilterRuleActions)filterResponse
 {
     if (!window.attachedSheet) {
-        if (self.webView.dismissAll == NO) {
+        SEBWebView *creatingWebView = [self.webView creatingWebView];
+        if (!creatingWebView) {
+            creatingWebView = self.webView;
+        }
+        if (creatingWebView.dismissAll == NO) {
             NSURL *resourceURL = request.URL;
             self.URLFilterAlertURL = resourceURL;
-            if (!self.webView.notAllowedURLs) {
-                self.webView.notAllowedURLs = [NSMutableArray new];
+            if (!creatingWebView.notAllowedURLs) {
+                creatingWebView.notAllowedURLs = [NSMutableArray new];
             }
             BOOL containsURL = NO;
-            for (NSURL *notAllowedURL in self.webView.notAllowedURLs) {
+            for (NSURL *notAllowedURL in creatingWebView.notAllowedURLs) {
                 if ([resourceURL isEqualTo:notAllowedURL]) {
                     containsURL = YES;
                     break;
                 }
             }
             if (containsURL == NO) {
-                [self.webView.notAllowedURLs addObject:resourceURL];
+                [creatingWebView.notAllowedURLs addObject:resourceURL];
 
                 // If the URL filter learning mode is switched on, supplement the alert
                 if ([SEBURLFilter sharedSEBURLFilter].learningMode) {
@@ -461,7 +465,11 @@
 }
 
 - (IBAction) URLFilterAlertDismissAll: (id)sender {
-    self.webView.dismissAll = YES;
+    if (self.webView.creatingWebView) {
+        self.webView.creatingWebView.dismissAll = YES;
+    } else {
+        self.webView.dismissAll = YES;
+    }
     [NSApp stopModalWithCode:SEBURLFilterAlertDismissAll];
 }
 
@@ -488,8 +496,13 @@
 {
     
     NSString *host = self.URLFilterAlertURL.host;
+    if (host.length == 0) {
+        host = [self.URLFilterAlertURL.scheme stringByAppendingString:@":"];
+    }
     NSString *path = self.URLFilterAlertURL.path;
-    if (!path) path = @"";
+    if (!path) {
+        path = @"";
+    }
     
     switch (filterPattern) {
             
@@ -874,7 +887,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
     if (URLFilter.enableURLFilter && URLFilter.enableContentFilter) {
         URLFilterRuleActions filterActionResponse = [URLFilter testURLAllowed:request.URL];
         if (filterActionResponse != URLFilterActionAllow) {
-            /// Content is not allowed: Show teach URL alert if activated or just indicate URL is blocked
+            /// Content is not allowed: Show teach URL alert if activated or just indicate URL is blocked filterActionResponse == URLFilterActionBlock ||
             if (![self showURLFilterAlertSheetForWindow:self forRequest:request forContentFilter:YES filterResponse:filterActionResponse]) {
                 /// User didn't allow the content, don't load it
                 DDLogWarn(@"This content was blocked by the content filter: %@", request.URL.absoluteString);

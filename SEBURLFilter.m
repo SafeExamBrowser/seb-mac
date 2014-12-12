@@ -37,6 +37,7 @@
 #import "NSURL+SEBURL.h"
 #import "SEBURLFilterRegexExpression.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
+#import "SEBCryptor.h"
 
 @implementation SEBURLFilter
 
@@ -315,7 +316,15 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     NSError *error;
     id expression;
     expression = [SEBURLFilterRegexExpression regexFilterExpressionWithString:filterExpression.string error:&error];
-    [self.permittedList addObject:expression];
+    switch (action) {
+            case URLFilterActionAllow:
+            [self.permittedList addObject:expression];
+            break;
+
+            case URLFilterActionBlock:
+            [self.prohibitedList addObject:expression];
+            break;
+    }
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSMutableArray *URLFilterRules = [NSMutableArray arrayWithArray:[preferences secureArrayForKey:@"org_safeexambrowser_SEB_URLFilterRules"]];
@@ -328,7 +337,8 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     
     [URLFilterRules addObject:URLFilterRule];
     [preferences setSecureObject:URLFilterRules forKey:@"org_safeexambrowser_SEB_URLFilterRules"];
-
+    
+    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
 }
 
 
