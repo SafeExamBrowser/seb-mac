@@ -357,7 +357,7 @@
 }
 
 
-- (void) showURLFilterAlertSheetForWindow:(NSWindow *)window forRequest:(NSURLRequest *)request forContentFilter:(BOOL)contentFilter filterResponse:(URLFilterRuleActions)filterResponse
+- (BOOL) showURLFilterAlertSheetForWindow:(NSWindow *)window forRequest:(NSURLRequest *)request forContentFilter:(BOOL)contentFilter filterResponse:(URLFilterRuleActions)filterResponse
 {
     if (!window.attachedSheet) {
         if (self.webView.dismissAll == NO) {
@@ -403,28 +403,30 @@
                     [self.URLFilterAlert orderOut: self];
                     switch (returnCode) {
                         case SEBURLFilterAlertCancel:
-                            break;
+                            return NO;
                             
                         case SEBURLFilterAlertAllow:
                             // Allow URL (in filter learning mode)
                             [[SEBURLFilter sharedSEBURLFilter] addRuleAction:URLFilterActionAllow withFilterExpression:[SEBURLFilterExpression filterExpressionWithString:self.filterExpression]];
-                            break;
+                            return YES;
                             
                         case SEBURLFilterAlertBlock:
                             // Block URL (in filter learning mode)
                             [[SEBURLFilter sharedSEBURLFilter] addRuleAction:URLFilterActionBlock withFilterExpression:[SEBURLFilterExpression filterExpressionWithString:self.filterExpression]];
-                            break;
+                            return NO;
                             
                         case SEBURLFilterAlertDismissAll:
-                            break;
+                            return NO;
                             
                     }
                 } else {
-                    //                    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                    // Display "Resource Blocked" (or red "X") top/right in window title bar
+
                 }
             }
         }
     }
+    return NO;
 }
 
 
@@ -867,19 +869,18 @@ willPerformClientRedirectToURL:(NSURL *)URL
 // Invoked before a request is initiated for a resource and returns a possibly modified request
 - (NSURLRequest *)webView:(SEBWebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource
 {
-    // If enabled, filter content
+    //// If enabled, filter content
     SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
     if (URLFilter.enableURLFilter && URLFilter.enableContentFilter) {
         URLFilterRuleActions filterActionResponse = [URLFilter testURLAllowed:request.URL];
         if (filterActionResponse != URLFilterActionAllow) {
-            // Content is not allowed
-            
-            // URL is not allowed: Show alert
-            [self showURLFilterAlertSheetForWindow:self forRequest:request forContentFilter:YES filterResponse:filterActionResponse];
-            
-            DDLogWarn(@"This content was blocked by the content filter: %@", request.URL.absoluteString);
-            // Return nil instead of request
-            return nil;
+            /// Content is not allowed: Show teach URL alert if activated or just indicate URL is blocked
+            if (![self showURLFilterAlertSheetForWindow:self forRequest:request forContentFilter:YES filterResponse:filterActionResponse]) {
+                /// User didn't allow the content, don't load it
+                DDLogWarn(@"This content was blocked by the content filter: %@", request.URL.absoluteString);
+                // Return nil instead of request
+                return nil;
+            }
         }
     }
     NSString *fragment = [[request URL] fragment];
@@ -1028,43 +1029,42 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
             URLFilterRuleActions filterActionResponse = [URLFilter testURLAllowed:request.URL];
             if (filterActionResponse != URLFilterActionAllow) {
                 
-                /// URL is not allowed
+                //// URL is not allowed
                 
-                // Check if the link was opened by a script and
-                // if a temporary webview or a new browser window should be closed therefore
-                // If the new page is supposed to open in a new browser window
-                SEBWebView *creatingWebView = [self.webView creatingWebView];
-                if (creatingWebView) {
-                    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
-                        // Don't load the request
-                        //                    [listener ignore];
-                        // we have to close the new browser window which already has been openend by WebKit
-                        // Get the document for my web view
-                        DDLogDebug(@"Originating browser window %@", sender);
-                        // Close document and therefore also window
-                        //Workaround: Flash crashes after closing window and then clicking some other link
-                        [[self.webView preferences] setPlugInsEnabled:NO];
-                        DDLogDebug(@"Now closing new document browser window for: %@", self.webView);
-                        [self.browserController closeWebView:self.webView];
-                    }
-                    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
-                        if (self.webView) {
-                            [sender close]; //close the temporary webview
+                // If the learning mode is active, display according sheet and ask user if he wants to allow this URL
+                // Show alert for URL is not allowed as sheet on the WebView's window
+                if (![self showURLFilterAlertSheetForWindow:self
+                                                forRequest:request forContentFilter:NO filterResponse:filterActionResponse]) {
+                    /// User didn't allow the URL
+                    
+                    // Check if the link was opened by a script and
+                    // if a temporary webview or a new browser window should be closed therefore
+                    // If the new page is supposed to open in a new browser window
+                    SEBWebView *creatingWebView = [self.webView creatingWebView];
+                    if (creatingWebView) {
+                        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
+                            // Don't load the request
+                            //                    [listener ignore];
+                            // we have to close the new browser window which already has been openend by WebKit
+                            // Get the document for my web view
+                            DDLogDebug(@"Originating browser window %@", sender);
+                            // Close document and therefore also window
+                            //Workaround: Flash crashes after closing window and then clicking some other link
+                            [[self.webView preferences] setPlugInsEnabled:NO];
+                            DDLogDebug(@"Now closing new document browser window for: %@", self.webView);
+                            [self.browserController closeWebView:self.webView];
+                        }
+                        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
+                            if (self.webView) {
+                                [sender close]; //close the temporary webview
+                            }
                         }
                     }
-                    // Show alert for URL is not allowed as sheet on the creating WebView window
-                    [self showURLFilterAlertSheetForWindow:creatingWebView.window
-                                                forRequest:request forContentFilter:NO filterResponse:filterActionResponse];
                     
-                } else {
-                    // Show alert for URL is not allowed
-                    [self showURLFilterAlertSheetForWindow:self
-                                                forRequest:request forContentFilter:NO filterResponse:filterActionResponse];
+                    // Don't load the request
+                    [listener ignore];
+                    return;
                 }
-                
-                // Don't load the request
-                [listener ignore];
-                return;
             }
         }
         
@@ -1131,16 +1131,17 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
     // First check if links requesting to be opened in a new windows are generally blocked
     if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] != getGenerallyBlocked) {
 
-        // If enabled, filter URL
+        //// If enabled, filter URL
         SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
         if (URLFilter.enableURLFilter) {
             URLFilterRuleActions filterActionResponse = [URLFilter testURLAllowed:request.URL];
             if (filterActionResponse != URLFilterActionAllow) {
-                // URL is not allowed: Show alert
-                [self showURLFilterAlertSheetForWindow:self forRequest:request forContentFilter:NO filterResponse:filterActionResponse];
-                //Don't load the request
-                [listener ignore];
-                return;
+                /// URL is not allowed: Show teach URL alert if activated or just indicate URL is blocked
+                if (![self showURLFilterAlertSheetForWindow:self forRequest:request forContentFilter:NO filterResponse:filterActionResponse]) {
+                    // User didn't allow the URL: Don't load the request
+                    [listener ignore];
+                    return;
+                }
             }
         }
         
