@@ -306,8 +306,7 @@
     }
 
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-    [self.mainBrowserWindow
-     makeKeyAndOrderFront:self];
+    [self.mainBrowserWindow makeKeyAndOrderFront:self];
 }
 
 

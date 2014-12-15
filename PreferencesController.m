@@ -203,7 +203,7 @@
 - (void)windowWillClose:(NSNotification *)notification
 {
     if (self.preferencesAreOpen && !self.refreshingPreferences) {
-        self.sebController.browserController.reinforceKioskModeRequested = YES;
+//        self.sebController.browserController.reinforceKioskModeRequested = YES;
         // Post a notification that the preferences window closes
         if (restartSEB) {
             [[NSNotificationCenter defaultCenter]
