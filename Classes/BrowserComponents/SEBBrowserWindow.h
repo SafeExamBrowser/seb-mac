@@ -61,8 +61,10 @@
 @property (weak) IBOutlet NSMatrix *filterPatternMatrix;
 @property (weak) IBOutlet NSTextField *filterExpressionField;
 @property BOOL isFullScreen;
+@property (weak) IBOutlet NSButton *domainPatternButton;
 @property (weak) IBOutlet NSButton *hostPatternButton;
 @property (weak) IBOutlet NSButton *hostPathPatternButton;
+@property (weak) IBOutlet NSButton *directoryPatternButton;
 
 @property (copy) NSString *downloadFilename;
 @property (copy) NSString *downloadFileExtension;

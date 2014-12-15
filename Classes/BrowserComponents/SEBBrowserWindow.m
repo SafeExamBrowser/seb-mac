@@ -389,11 +389,17 @@
                     // Set full URL in the filter expression text field
                     self.filterExpressionField.stringValue = self.URLFilterAlertURL.absoluteString;
 
+                    // Set the domain pattern label/button string
+                    self.domainPatternButton.title = [self filterExpressionForPattern:SEBURLFilterAlertPatternDomain];
+                    
                     // Set the host pattern label/button string
                     self.hostPatternButton.title = [self filterExpressionForPattern:SEBURLFilterAlertPatternHost];
                     
                     // Set the host/path pattern label/button string
                     self.hostPathPatternButton.title = [self filterExpressionForPattern:SEBURLFilterAlertPatternHostPath];
+                    
+                    // Set the directory pattern label/button string
+                    self.directoryPatternButton.title = [self filterExpressionForPattern:SEBURLFilterAlertPatternDirectory];
                     
                     // If the (main) browser window is full screen, we don't show the dialog as sheet
                     if (window && self.browserController.mainBrowserWindow.isFullScreen) {
@@ -419,6 +425,11 @@
                             [[SEBURLFilter sharedSEBURLFilter] addRuleAction:URLFilterActionAllow withFilterExpression:[SEBURLFilterExpression filterExpressionWithString:self.filterExpression]];
                             return YES;
                             
+                        case SEBURLFilterAlertIgnore:
+                            // Ignore URL according to selected pattern (in filter learning mode)
+                            // Code ToDo
+                            return NO;
+                            
                         case SEBURLFilterAlertBlock:
                             // Block URL (in filter learning mode)
                             [[SEBURLFilter sharedSEBURLFilter] addRuleAction:URLFilterActionBlock withFilterExpression:[SEBURLFilterExpression filterExpressionWithString:self.filterExpression]];
@@ -439,6 +450,12 @@
 }
 
 
+- (IBAction)clickedDomainPattern:(id)sender
+{
+    self.filterExpression = [self filterExpressionForPattern:SEBURLFilterAlertPatternDomain];
+    self.filterExpressionField.stringValue = self.filterExpression;
+}
+
 - (IBAction)clickedHostPattern:(id)sender
 {
     self.filterExpression = [self filterExpressionForPattern:SEBURLFilterAlertPatternHost];
@@ -448,6 +465,12 @@
 - (IBAction)clickedHostPathPattern:(id)sender
 {
     self.filterExpression = [self filterExpressionForPattern:SEBURLFilterAlertPatternHostPath];
+    self.filterExpressionField.stringValue = self.filterExpression;
+}
+
+- (IBAction)clickedDirectoryPattern:(id)sender
+{
+    self.filterExpression = [self filterExpressionForPattern:SEBURLFilterAlertPatternDirectory];
     self.filterExpressionField.stringValue = self.filterExpression;
 }
 
@@ -465,11 +488,15 @@
     [NSApp stopModalWithCode:SEBURLFilterAlertAllow];
 }
 
+- (IBAction) URLFilterAlertIgnore: (id)sender {
+    [NSApp stopModalWithCode:SEBURLFilterAlertIgnore];
+}
+
 - (IBAction) URLFilterAlertBlock: (id)sender {
     [NSApp stopModalWithCode:SEBURLFilterAlertBlock];
 }
 
-- (IBAction) URLFilterAlertDismissAll: (id)sender {
+- (IBAction) URLFilterAlertIgnoreAll: (id)sender {
     if (self.webView.creatingWebView) {
         self.webView.creatingWebView.dismissAll = YES;
     } else {
@@ -509,14 +536,32 @@
     if (!path) {
         path = @"";
     }
+    NSString *directory;
+    if (self.URLFilterAlertURL.pathExtension) {
+        NSMutableArray *pathComponents = [NSMutableArray arrayWithArray:self.URLFilterAlertURL.pathComponents];
+        [pathComponents removeObjectAtIndex:0];
+        [pathComponents removeLastObject];
+        directory = [pathComponents componentsJoinedByString:@"/"];
+        directory = [NSString stringWithFormat:@"/%@/*", directory];
+    } else {
+        directory = [NSString stringWithFormat:@"%@/*", path];
+    }
+    
     
     switch (filterPattern) {
+            
+        case SEBURLFilterAlertPatternDomain:
+            return host;
             
         case SEBURLFilterAlertPatternHost:
             return host;
             
         case SEBURLFilterAlertPatternHostPath: {
             return [NSString stringWithFormat:@"%@%@", host, path];
+        }
+            
+        case SEBURLFilterAlertPatternDirectory: {
+            return [NSString stringWithFormat:@"%@%@", host, directory];
         }
             
         case SEBURLFilterAlertPatternCustom:

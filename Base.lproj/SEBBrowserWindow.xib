@@ -17,7 +17,7 @@
         <window title="Safe Exam Browser" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" visibleAtLaunch="NO" animationBehavior="default" id="3" userLabel="Browser Window" customClass="SEBBrowserWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="1024" height="768"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1578"/>
             <value key="minSize" type="size" width="394" height="247"/>
             <view key="contentView" id="4">
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
@@ -104,6 +104,8 @@
             <connections>
                 <outlet property="URLFilterAlert" destination="5ay-Fd-lF5" id="d3h-Ce-1Bw"/>
                 <outlet property="delegate" destination="-2" id="8"/>
+                <outlet property="directoryPatternButton" destination="KUW-Xw-ucJ" id="9XV-Mr-hWm"/>
+                <outlet property="domainPatternButton" destination="jnc-il-FuZ" id="Q18-Vr-mh7"/>
                 <outlet property="filterExpressionField" destination="vXv-y9-kAX" id="Cr0-aM-EZ3"/>
                 <outlet property="filterPatternMatrix" destination="JTI-Ar-k0D" id="0Q4-Dc-3J7"/>
                 <outlet property="hostPathPatternButton" destination="mvP-Sq-mee" id="SuI-eq-o96"/>
@@ -116,15 +118,15 @@
         <window title="Resource Not Permitted" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" id="5ay-Fd-lF5" userLabel="URLNotAllowedAlert">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
-            <rect key="contentRect" x="340" y="419" width="500" height="274"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="contentRect" x="340" y="419" width="570" height="313"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1578"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="52A-2p-iMa">
-                <rect key="frame" x="0.0" y="0.0" width="500" height="274"/>
+                <rect key="frame" x="0.0" y="0.0" width="570" height="313"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ig8-v8-XUJ">
-                        <rect key="frame" x="384" y="5" width="102" height="32"/>
+                        <rect key="frame" x="454" y="5" width="102" height="32"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="90" id="Vye-IJ-fDc"/>
                         </constraints>
@@ -140,7 +142,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z9W-wM-LUg">
-                        <rect key="frame" x="282" y="5" width="102" height="32"/>
+                        <rect key="frame" x="352" y="5" width="102" height="32"/>
                         <buttonCell key="cell" type="push" title="Allow" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vVz-K2-Hbd">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -151,7 +153,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cja-1x-YEa">
-                        <rect key="frame" x="180" y="5" width="102" height="32"/>
+                        <rect key="frame" x="148" y="5" width="102" height="32"/>
                         <buttonCell key="cell" type="push" title="Block" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="AcO-IT-BuS">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -162,7 +164,10 @@ DQ
                         </connections>
                     </button>
                     <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JTI-Ar-k0D">
-                        <rect key="frame" x="31" y="158" width="85" height="58"/>
+                        <rect key="frame" x="31" y="158" width="85" height="99"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="99" id="97k-RU-XCX"/>
+                        </constraints>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         <size key="cellSize" width="85" height="18"/>
                         <size key="intercellSpacing" width="4" height="2"/>
@@ -172,15 +177,23 @@ DQ
                         </buttonCell>
                         <cells>
                             <column>
-                                <buttonCell type="radio" title="Host" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="BmY-jI-Mu3">
+                                <buttonCell type="radio" title="Domain" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="BmY-jI-Mu3">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Host/Path" imagePosition="left" alignment="left" inset="2" id="TD9-Qa-GkX">
+                                <buttonCell type="radio" title="Host" imagePosition="left" alignment="left" inset="2" id="TD9-Qa-GkX">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Custom" imagePosition="left" alignment="left" inset="2" id="mk7-3C-ndY">
+                                <buttonCell type="radio" title="Host/Path" imagePosition="left" alignment="left" inset="2" id="mk7-3C-ndY">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <buttonCell type="radio" title="Directory" imagePosition="left" alignment="left" inset="2" id="aE8-n6-keh">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <buttonCell type="radio" title="Custom" imagePosition="left" alignment="left" inset="2" id="7wI-3Z-I1s">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -191,7 +204,7 @@ DQ
                         </connections>
                     </matrix>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="vXv-y9-kAX">
-                        <rect key="frame" x="20" y="44" width="460" height="104"/>
+                        <rect key="frame" x="20" y="44" width="530" height="104"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="104" id="Te4-X5-rXC"/>
                         </constraints>
@@ -206,7 +219,7 @@ DQ
                         </connections>
                     </textField>
                     <textField horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KaS-Nf-iUK" customClass="SEBTextField">
-                        <rect key="frame" x="18" y="224" width="464" height="36"/>
+                        <rect key="frame" x="18" y="265" width="534" height="34"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="It's not allowed to open this link! You can create a new filter rule based on the following patterns:" id="B3X-Rp-SlN">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -214,8 +227,8 @@ DQ
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KId-E2-Y59">
-                        <rect key="frame" x="14" y="5" width="109" height="32"/>
-                        <buttonCell key="cell" type="push" title="Dismiss All" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FW8-h0-H13">
+                        <rect key="frame" x="14" y="5" width="102" height="32"/>
+                        <buttonCell key="cell" type="push" title="Ignore All" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FW8-h0-H13">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                             <string key="keyEquivalent" base64-UTF8="YES">
@@ -223,13 +236,16 @@ Gw
 </string>
                         </buttonCell>
                         <connections>
-                            <action selector="URLFilterAlertDismissAll:" target="3" id="JC8-Gi-i7J"/>
+                            <action selector="URLFilterAlertIgnoreAll:" target="3" id="UpQ-ZL-pzb"/>
                         </connections>
                     </button>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="sfT-nQ-Hte">
-                        <rect key="frame" x="124" y="195" width="53" height="21"/>
+                        <rect key="frame" x="124" y="217" width="82" height="19"/>
                         <string key="toolTip">SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field.</string>
-                        <buttonCell key="cell" type="recessed" title="host.com" bezelStyle="recessed" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="H5P-Ew-Qp9">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="19" id="4fm-eH-cuM"/>
+                        </constraints>
+                        <buttonCell key="cell" type="recessed" title="www.host.com" bezelStyle="recessed" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="H5P-Ew-Qp9">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
@@ -237,10 +253,27 @@ Gw
                             <action selector="clickedHostPattern:" target="3" id="kTg-wn-Oqs"/>
                         </connections>
                     </button>
-                    <button translatesAutoresizingMaskIntoConstraints="NO" id="mvP-Sq-mee">
-                        <rect key="frame" x="124" y="176" width="83" height="19"/>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="jnc-il-FuZ">
+                        <rect key="frame" x="124" y="237" width="53" height="19"/>
                         <string key="toolTip">SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field.</string>
-                        <buttonCell key="cell" type="recessed" title="host.com/path" bezelStyle="recessed" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="Poj-9Z-f7h">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="19" id="6bD-qk-pYa"/>
+                        </constraints>
+                        <buttonCell key="cell" type="recessed" title="host.com" bezelStyle="recessed" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="gwZ-Bv-sYP">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="clickedDomainPattern:" target="3" id="cAs-Mb-b0i"/>
+                        </connections>
+                    </button>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="mvP-Sq-mee">
+                        <rect key="frame" x="124" y="197" width="112" height="19"/>
+                        <string key="toolTip">SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field.</string>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="19" id="cpa-WY-9B7"/>
+                        </constraints>
+                        <buttonCell key="cell" type="recessed" title="www.host.com/path" bezelStyle="recessed" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="Poj-9Z-f7h">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
@@ -249,8 +282,11 @@ Gw
                         </connections>
                     </button>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="sIN-ro-zV3">
-                        <rect key="frame" x="124" y="156" width="234" height="21"/>
+                        <rect key="frame" x="124" y="157" width="234" height="19"/>
                         <string key="toolTip">SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field.</string>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="19" id="Nd2-90-D0f"/>
+                        </constraints>
                         <buttonCell key="cell" type="recessed" title="Click to restore full URL as filter expression" bezelStyle="recessed" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="lbT-D3-1dX">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -259,43 +295,76 @@ Gw
                             <action selector="clickedFullURLPattern:" target="3" id="Bfo-nM-3Rx"/>
                         </connections>
                     </button>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="KUW-Xw-ucJ">
+                        <rect key="frame" x="124" y="177" width="147" height="19"/>
+                        <string key="toolTip">SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field.</string>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="19" id="C1B-Ur-e6Z"/>
+                        </constraints>
+                        <buttonCell key="cell" type="recessed" title="www.host.com/directory/*" bezelStyle="recessed" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="fhn-de-60C">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="clickedDirectoryPattern:" target="3" id="Qdf-4D-PTO"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8py-w9-weT">
+                        <rect key="frame" x="250" y="5" width="102" height="32"/>
+                        <buttonCell key="cell" type="push" title="Ignore" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9Wp-xb-WzU">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent">b</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="URLFilterAlertIgnore:" target="3" id="5dq-hG-ux0"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="mvP-Sq-mee" firstAttribute="leading" secondItem="JTI-Ar-k0D" secondAttribute="trailing" constant="8" id="1Zx-kJ-POS"/>
                     <constraint firstItem="z9W-wM-LUg" firstAttribute="baseline" secondItem="ig8-v8-XUJ" secondAttribute="baseline" id="2gK-YW-WGc"/>
+                    <constraint firstItem="vXv-y9-kAX" firstAttribute="top" secondItem="sIN-ro-zV3" secondAttribute="bottom" constant="9" id="46l-37-hUp"/>
+                    <constraint firstItem="sfT-nQ-Hte" firstAttribute="leading" secondItem="mvP-Sq-mee" secondAttribute="leading" id="4AZ-kx-n38"/>
+                    <constraint firstItem="sfT-nQ-Hte" firstAttribute="leading" secondItem="KUW-Xw-ucJ" secondAttribute="leading" id="4Kc-4T-u3j"/>
                     <constraint firstItem="ig8-v8-XUJ" firstAttribute="width" secondItem="z9W-wM-LUg" secondAttribute="width" id="4os-if-NcJ"/>
-                    <constraint firstItem="sIN-ro-zV3" firstAttribute="leading" secondItem="JTI-Ar-k0D" secondAttribute="trailing" constant="8" id="5gH-MG-8wm"/>
-                    <constraint firstItem="vXv-y9-kAX" firstAttribute="top" secondItem="sIN-ro-zV3" secondAttribute="bottom" constant="8" id="8Fd-iQ-Bwc"/>
-                    <constraint firstItem="mvP-Sq-mee" firstAttribute="top" secondItem="sfT-nQ-Hte" secondAttribute="bottom" id="Fn4-DB-lJm"/>
+                    <constraint firstItem="z9W-wM-LUg" firstAttribute="leading" secondItem="8py-w9-weT" secondAttribute="trailing" constant="12" symbolic="YES" id="6BJ-Zk-4wR"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="KUW-Xw-ucJ" secondAttribute="trailing" constant="20" symbolic="YES" id="JfX-yZ-wkV"/>
                     <constraint firstAttribute="trailing" secondItem="ig8-v8-XUJ" secondAttribute="trailing" constant="20" id="Jkv-88-Suu"/>
+                    <constraint firstItem="sfT-nQ-Hte" firstAttribute="top" secondItem="jnc-il-FuZ" secondAttribute="bottom" constant="1" id="Jxz-9W-R36"/>
+                    <constraint firstItem="ig8-v8-XUJ" firstAttribute="width" secondItem="8py-w9-weT" secondAttribute="width" id="KgE-G4-sSR"/>
                     <constraint firstAttribute="bottom" secondItem="cja-1x-YEa" secondAttribute="bottom" constant="12" id="LKE-jq-nJi"/>
+                    <constraint firstItem="jnc-il-FuZ" firstAttribute="top" secondItem="KaS-Nf-iUK" secondAttribute="bottom" constant="9" id="OC8-g9-GKN"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mvP-Sq-mee" secondAttribute="trailing" constant="20" symbolic="YES" id="PGr-4j-6ph"/>
+                    <constraint firstItem="KUW-Xw-ucJ" firstAttribute="top" secondItem="mvP-Sq-mee" secondAttribute="bottom" constant="1" id="PhL-Kj-HYb"/>
                     <constraint firstAttribute="trailing" secondItem="KaS-Nf-iUK" secondAttribute="trailing" constant="20" id="Pjm-w8-dlh"/>
-                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="sfT-nQ-Hte" secondAttribute="trailing" constant="20" symbolic="YES" id="RhM-NB-taJ"/>
+                    <constraint firstItem="8py-w9-weT" firstAttribute="leading" secondItem="cja-1x-YEa" secondAttribute="trailing" constant="12" symbolic="YES" id="QYj-rm-7O1"/>
                     <constraint firstAttribute="trailing" secondItem="vXv-y9-kAX" secondAttribute="trailing" constant="20" symbolic="YES" id="Rt5-Cp-qRd"/>
-                    <constraint firstItem="sfT-nQ-Hte" firstAttribute="top" secondItem="KaS-Nf-iUK" secondAttribute="bottom" constant="8" id="U2m-A4-JhY"/>
                     <constraint firstItem="KId-E2-Y59" firstAttribute="top" secondItem="vXv-y9-kAX" secondAttribute="bottom" constant="11" id="W9a-OI-5en"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="sfT-nQ-Hte" secondAttribute="trailing" constant="20" symbolic="YES" id="WHh-mF-Nrm"/>
                     <constraint firstItem="JTI-Ar-k0D" firstAttribute="leading" secondItem="52A-2p-iMa" secondAttribute="leading" constant="31" id="WKU-Ob-HHJ"/>
-                    <constraint firstItem="sIN-ro-zV3" firstAttribute="top" secondItem="sfT-nQ-Hte" secondAttribute="bottom" constant="18" id="b8a-ME-2gX"/>
-                    <constraint firstItem="sfT-nQ-Hte" firstAttribute="leading" secondItem="JTI-Ar-k0D" secondAttribute="trailing" constant="8" id="beI-x3-Exq"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jnc-il-FuZ" secondAttribute="trailing" constant="20" symbolic="YES" id="bOE-g5-OPw"/>
                     <constraint firstItem="KaS-Nf-iUK" firstAttribute="leading" secondItem="52A-2p-iMa" secondAttribute="leading" constant="20" id="cdY-WA-yD8"/>
+                    <constraint firstItem="z9W-wM-LUg" firstAttribute="baseline" secondItem="8py-w9-weT" secondAttribute="baseline" id="eCB-cF-ioY"/>
                     <constraint firstAttribute="bottom" secondItem="KId-E2-Y59" secondAttribute="bottom" constant="12" id="g59-ih-3HZ"/>
-                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mvP-Sq-mee" secondAttribute="trailing" constant="20" symbolic="YES" id="hI8-Mp-JzK"/>
-                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="sIN-ro-zV3" secondAttribute="trailing" constant="20" symbolic="YES" id="hv2-GX-MlP"/>
-                    <constraint firstItem="vXv-y9-kAX" firstAttribute="top" secondItem="mvP-Sq-mee" secondAttribute="bottom" constant="28" id="iKv-c8-Qbl"/>
+                    <constraint firstItem="sfT-nQ-Hte" firstAttribute="leading" secondItem="sIN-ro-zV3" secondAttribute="leading" id="gdi-rA-dH6"/>
+                    <constraint firstItem="mvP-Sq-mee" firstAttribute="top" secondItem="sfT-nQ-Hte" secondAttribute="bottom" constant="1" id="hK0-Ys-Viw"/>
                     <constraint firstItem="KId-E2-Y59" firstAttribute="leading" secondItem="52A-2p-iMa" secondAttribute="leading" constant="20" id="jRT-ik-uNO"/>
-                    <constraint firstItem="z9W-wM-LUg" firstAttribute="leading" secondItem="cja-1x-YEa" secondAttribute="trailing" constant="12" symbolic="YES" id="kBG-9I-cU3"/>
                     <constraint firstItem="JTI-Ar-k0D" firstAttribute="top" secondItem="KaS-Nf-iUK" secondAttribute="bottom" constant="8" id="kdJ-f7-5ej"/>
                     <constraint firstItem="ig8-v8-XUJ" firstAttribute="width" secondItem="cja-1x-YEa" secondAttribute="width" id="oAO-hH-b6Q"/>
                     <constraint firstItem="vXv-y9-kAX" firstAttribute="leading" secondItem="52A-2p-iMa" secondAttribute="leading" constant="20" symbolic="YES" id="obw-Wg-dKF"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="sIN-ro-zV3" secondAttribute="trailing" constant="20" symbolic="YES" id="ow5-og-SnT"/>
                     <constraint firstItem="cja-1x-YEa" firstAttribute="top" secondItem="vXv-y9-kAX" secondAttribute="bottom" constant="11" id="q33-QY-9UU"/>
+                    <constraint firstItem="sfT-nQ-Hte" firstAttribute="leading" secondItem="jnc-il-FuZ" secondAttribute="leading" id="sT3-XT-wDi"/>
                     <constraint firstItem="cja-1x-YEa" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="KId-E2-Y59" secondAttribute="trailing" constant="20" id="t2A-mp-Qie"/>
+                    <constraint firstItem="sIN-ro-zV3" firstAttribute="top" secondItem="KUW-Xw-ucJ" secondAttribute="bottom" constant="1" id="tW9-Dm-eQt"/>
                     <constraint firstItem="z9W-wM-LUg" firstAttribute="baseline" secondItem="cja-1x-YEa" secondAttribute="baseline" id="tjx-M4-vUb"/>
                     <constraint firstItem="vXv-y9-kAX" firstAttribute="top" secondItem="JTI-Ar-k0D" secondAttribute="bottom" constant="10" id="uOv-AC-tIq"/>
+                    <constraint firstItem="sIN-ro-zV3" firstAttribute="leading" secondItem="JTI-Ar-k0D" secondAttribute="trailing" constant="8" id="vjn-oL-4lU"/>
                     <constraint firstItem="ig8-v8-XUJ" firstAttribute="leading" secondItem="z9W-wM-LUg" secondAttribute="trailing" constant="12" symbolic="YES" id="wMi-JZ-IWX"/>
                     <constraint firstItem="KaS-Nf-iUK" firstAttribute="top" secondItem="52A-2p-iMa" secondAttribute="top" constant="14" id="zdC-Ap-N4c"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="184" y="780"/>
+            <point key="canvasLocation" x="219" y="799"/>
         </window>
     </objects>
     <resources>
