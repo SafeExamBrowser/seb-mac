@@ -256,7 +256,7 @@ Gw
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
-                            <action selector="clickedCustomPattern:" target="3" id="ew8-6N-JZG"/>
+                            <action selector="clickedFullURLPattern:" target="3" id="Bfo-nM-3Rx"/>
                         </connections>
                     </button>
                 </subviews>

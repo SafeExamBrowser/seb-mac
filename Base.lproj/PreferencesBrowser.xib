@@ -321,13 +321,14 @@
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
-                <button toolTip="Remove local storage when quitting SEB. Caches are removed always" translatesAutoresizingMaskIntoConstraints="NO" id="wFa-eR-NzK">
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="wFa-eR-NzK">
                     <rect key="frame" x="334" y="72" width="298" height="18"/>
+                    <string key="toolTip">If your web application uses local storage, you have to be sure data is saved encrypted and removed when no longer needed as SEB doesn't remove local storage</string>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="1JI-Zm-XAd"/>
                         <constraint firstAttribute="width" constant="294" id="3ac-H4-cA2"/>
                     </constraints>
-                    <buttonCell key="cell" type="check" title="Remove local storage (Mac)" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="29c-3t-HLf">
+                    <buttonCell key="cell" type="check" title="Disable local storage (Mac)" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="29c-3t-HLf">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>

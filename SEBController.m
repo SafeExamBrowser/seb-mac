@@ -1175,6 +1175,11 @@ bool insideMatrix(){
     if (title) enterPasswordDialogWindow.title = title;
     [enterPasswordDialog setStringValue:text];
     
+    // If the (main) browser window is full screen, we don't show the dialog as sheet
+    if (window && self.browserController.mainBrowserWindow.isFullScreen) {
+        window = nil;
+    }
+    
     [NSApp beginSheet: enterPasswordDialogWindow
        modalForWindow: window
         modalDelegate: nil

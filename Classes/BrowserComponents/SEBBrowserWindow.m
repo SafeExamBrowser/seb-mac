@@ -380,8 +380,8 @@
             if (containsURL == NO) {
                 [creatingWebView.notAllowedURLs addObject:resourceURL];
 
-                // If the URL filter learning mode is switched on, supplement the alert
-                if ([SEBURLFilter sharedSEBURLFilter].learningMode) {
+                // If the filter Response isn't block and the URL filter learning mode is switched on, supplement the alert
+                if (filterResponse != URLFilterActionBlock && [SEBURLFilter sharedSEBURLFilter].learningMode) {
 
                     // Set filter expression according to selected pattern in the NSMatrix radio button group
                     [self changedFilterPattern:self.filterPatternMatrix];
@@ -394,6 +394,11 @@
                     
                     // Set the host/path pattern label/button string
                     self.hostPathPatternButton.title = [self filterExpressionForPattern:SEBURLFilterAlertPatternHostPath];
+                    
+                    // If the (main) browser window is full screen, we don't show the dialog as sheet
+                    if (window && self.browserController.mainBrowserWindow.isFullScreen) {
+                        window = nil;
+                    }
                     
                     [NSApp beginSheet: self.URLFilterAlert
                        modalForWindow: window
@@ -446,8 +451,8 @@
     self.filterExpressionField.stringValue = self.filterExpression;
 }
 
-- (IBAction)clickedCustomPattern:(id)sender {
-    self.filterExpression = [self filterExpressionForPattern:SEBURLFilterAlertPatternCustom];
+- (IBAction)clickedFullURLPattern:(id)sender {
+    self.filterExpression = self.URLFilterAlertURL.absoluteString;
     self.filterExpressionField.stringValue = self.filterExpression;
 }
 
@@ -482,6 +487,7 @@
 - (void)controlTextDidChange:(NSNotification *)aNotification
 {
     [self.filterPatternMatrix selectCellAtRow:SEBURLFilterAlertPatternCustom column:0];
+    self.filterExpression = self.filterExpressionField.stringValue;
 }
 
 - (IBAction)changedFilterPattern:(NSMatrix *)sender
@@ -514,7 +520,7 @@
         }
             
         case SEBURLFilterAlertPatternCustom:
-            return self.URLFilterAlertURL.absoluteString;
+            return self.filterExpressionField.stringValue;
     }
     
     return @"";
