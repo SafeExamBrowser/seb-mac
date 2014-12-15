@@ -334,7 +334,11 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
                                     @"action" : [NSNumber numberWithLong:action],
                                     @"expression" : filterExpression.string,
                                     }];
-    
+
+    // Post a notification that a new filter rule action should be added
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"filterExpressionAdded" object:self userInfo:[NSDictionary dictionaryWithDictionary:URLFilterRule]];
+
     [URLFilterRules addObject:URLFilterRule];
     [preferences setSecureObject:URLFilterRules forKey:@"org_safeexambrowser_SEB_URLFilterRules"];
     

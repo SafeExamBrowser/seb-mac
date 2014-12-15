@@ -68,6 +68,19 @@
 	return [NSImage imageNamed:NSImageNameNetwork];
 }
 
+- (void) awakeFromNib
+{
+    // Add an observer for the notification that a filter expression has been added
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(filterExpressionAdded:)
+                                                 name:@"filterExpressionAdded" object:nil];
+}
+
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
 // Delegate called before the Network settings preferences pane will be displayed
 - (void)willBeDisplayed {
 //    // Remove URL filter tab
@@ -151,6 +164,13 @@
 
     NSInteger newSelectedExpressionInTableView = [filterTableView numberOfSelectedRows];
     DDLogDebug(@"Selected before: %ld, selected now: %ld", (long)selectedExpressionInTableView, (long)newSelectedExpressionInTableView);
+
+}
+
+
+- (void)filterExpressionAdded:(NSNotification *)notification
+{
+    [filterArrayController addObject:[NSMutableDictionary dictionaryWithDictionary:notification.userInfo]];
 
 }
 
