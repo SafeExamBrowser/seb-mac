@@ -40,10 +40,11 @@
 #import "SEBWebView.h"
 #import "SEBEncryptedUserDefaultsController.h"
 #import "SEBBrowserController.h"
+#import "SEBTextField.h"
 
 @class SEBBrowserController;
 
-@interface SEBBrowserWindow : NSWindow <NSWindowDelegate, NSURLDownloadDelegate, NSTextFieldDelegate>
+@interface SEBBrowserWindow : NSWindow <NSWindowDelegate, NSURLDownloadDelegate, NSTextViewDelegate>
 
 {
     SEBWebView *requestingWebView;
@@ -56,10 +57,11 @@
 @property (weak) SEBBrowserController *browserController;
 @property (weak) IBOutlet SEBWebView *webView;
 @property (strong) IBOutlet NSWindow *URLFilterAlert;
+@property (weak) IBOutlet SEBTextField *URLFilterAlertText;
 @property (strong) IBOutlet NSURL *URLFilterAlertURL;
 @property (strong) NSString *filterExpression;
 @property (weak) IBOutlet NSMatrix *filterPatternMatrix;
-@property (weak) IBOutlet NSTextField *filterExpressionField;
+@property (strong) IBOutlet NSTextView *filterExpressionField;
 @property BOOL isFullScreen;
 @property (weak) IBOutlet NSButton *domainPatternButton;
 @property (weak) IBOutlet NSButton *hostPatternButton;

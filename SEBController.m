@@ -469,7 +469,7 @@ bool insideMatrix();
 		&assertionID2); 
 #ifdef DEBUG
 	if (success == kIOReturnSuccess) {
-		NSLog(@"Idle sleep is switched off now.");
+		DDLogDebug(@"Idle sleep is switched off now.");
 	}
 #endif		
 */	
@@ -540,7 +540,7 @@ bool insideMatrix();
     }
 #ifdef DEBUG
 //    NSString *stringFromPasteboard = [[MyGlobals sharedMyGlobals] valueForKey:@"pasteboardString"];
-//    NSLog(@"Saved string from Pasteboard: %@", stringFromPasteboard);
+//    DDLogDebug(@"Saved string from Pasteboard: %@", stringFromPasteboard);
 #endif
     //NSInteger changeCount = [pasteboard clearContents];
     [pasteboard clearContents];
@@ -564,7 +564,7 @@ bool insideMatrix();
 	
 //    if ([[MyGlobals sharedMyGlobals] preferencesReset] == YES) {
 //#ifdef DEBUG
-//        NSLog(@"Presenting alert for 'Local SEB settings have been reset' after a delay of 2s");
+//        DDLogError(@"Presenting alert for 'Local SEB settings have been reset' after a delay of 2s");
 //#endif
 //        [self performSelector:@selector(presentPreferencesCorruptedError) withObject: nil afterDelay: 2];
 //    }
@@ -574,7 +574,7 @@ bool insideMatrix();
 		NSString *messageString = NSLocalizedString(@"FirstTimeUserNotice", nil);
 		NSRunAlertPanel(titleString, messageString, NSLocalizedString(@"OK", nil), nil, nil);
 #ifdef DEBUG
-        NSLog(@"%@\n%@",titleString, messageString);
+        DDLogDebug(@"%@\n%@",titleString, messageString);
 #endif
 	}*/
     
@@ -707,7 +707,7 @@ bool insideMatrix();
     //    // Update Exam Browser Key
     //    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
     //#ifdef DEBUG
-    //    NSLog(@"Local preferences have been reset!");
+    //    DDLogError(@"Local preferences have been reset!");
     //#endif
 }
 
@@ -878,7 +878,7 @@ bool insideMatrix(){
         //[window orderBack:self];
         //BOOL isWindowLoaded = capWindowController.isWindowLoaded;
 #ifdef DEBUG
-        //NSLog(@"Loaded capWindow %@, isWindowLoaded %@", loadedCapWindow, isWindowLoaded);
+        //DDLogDebug(@"Loaded capWindow %@, isWindowLoaded %@", loadedCapWindow, isWindowLoaded);
 #endif
     }
 }
@@ -947,7 +947,7 @@ bool insideMatrix(){
 		[task launch];
 	}
 	@catch (NSException * e) {
-		NSLog(@"Error.  Make sure you have a valid path and arguments.");
+		DDLogError(@"Error.  Make sure you have a valid path and arguments.");
 		
 	}
 	

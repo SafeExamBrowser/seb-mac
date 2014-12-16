@@ -180,9 +180,9 @@
  NSDictionary *proxySettings = (__bridge NSDictionary *)CFNetworkCopySystemProxySettings();
  NSArray *proxies = (__bridge NSArray *)CFNetworkCopyProxiesForURL((__bridge CFURLRef)[NSURL URLWithString:@"http://apple.com"], (__bridge CFDictionaryRef)proxySettings);
  NSDictionary *settings = [proxies objectAtIndex:0];
- NSLog(@"host=%@", [settings objectForKey:(NSString *)kCFProxyHostNameKey]);
- NSLog(@"port=%@", [settings objectForKey:(NSString *)kCFProxyPortNumberKey]);
- NSLog(@"type=%@", [settings objectForKey:(NSString *)kCFProxyTypeKey]);
+ DDLogDebug(@"host=%@", [settings objectForKey:(NSString *)kCFProxyHostNameKey]);
+ DDLogDebug(@"port=%@", [settings objectForKey:(NSString *)kCFProxyPortNumberKey]);
+ DDLogDebug(@"type=%@", [settings objectForKey:(NSString *)kCFProxyTypeKey]);
  
  */
 

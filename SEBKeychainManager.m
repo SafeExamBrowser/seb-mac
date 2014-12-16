@@ -130,10 +130,8 @@
                 [identitiesNames addObject:identityName];
             }
             
-#ifdef DEBUG
-            NSLog(@"Common name: %@ %@", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , CFArrayGetCount(emailAddressesRef) ? (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) : @"");
-            NSLog(@"Public key can be used for encryption, private key can be used for decryption");
-#endif
+            DDLogDebug(@"Common name: %@ %@", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , CFArrayGetCount(emailAddressesRef) ? (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) : @"");
+            DDLogDebug(@"Public key can be used for encryption, private key can be used for decryption");
             if (commonName) CFRelease(commonName);
             if (emailAddressesRef) CFRelease(emailAddressesRef);
         } else {
@@ -227,9 +225,7 @@
                     [certificatesNames addObject:certificateName];
                 }
                 
-#ifdef DEBUG
-                NSLog(@"Common name: %@ %@", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , CFArrayGetCount(emailAddressesRef) ? (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) : @"");
-#endif
+                DDLogDebug(@"Common name: %@ %@", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , CFArrayGetCount(emailAddressesRef) ? (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) : @"");
             }
         } else {
             [certificates removeObjectAtIndex:i];
@@ -277,7 +273,7 @@
             return subjectKeyIdentifier;
         }
     } else if (err == errKCNotAvailable) {
-        NSLog(@"Keychain Manager was not loaded.");
+        DDLogError(@"Keychain Manager was not loaded.");
         SecKeychainItemFreeAttributesAndData(retrievedAtts, NULL);
     }
     return nil;
@@ -340,7 +336,7 @@
     OSStatus status = SecCertificateCopyPublicKey(certificate, &key);
     if (status) {
         if (status == errSecItemNotFound) {
-            NSLog(@"No public key found in certificate.");
+            DDLogError(@"No public key found in certificate.");
             if (key) CFRelease(key);
             return nil;
         }
@@ -354,7 +350,7 @@
     OSStatus status = SecIdentityCreateWithCertificate(NULL, certificate, &identityRef);
     if (status) {
         if (status == errSecItemNotFound) {
-            NSLog(@"No associated private key found for certificate.");
+            DDLogError(@"No associated private key found for certificate.");
             return nil;
         }
     }
@@ -366,7 +362,7 @@
     SecKeyRef privateKeyRef = NULL;
     OSStatus status = SecIdentityCopyPrivateKey (*identityRef, &privateKeyRef);
     if (status != errSecSuccess) {
-        NSLog(@"No associated private key found for identity.");
+        DDLogError(@"No associated private key found for identity.");
         return nil;
     }
     return privateKeyRef;
@@ -528,7 +524,7 @@
     SecKeyRef publicKeyRef = NULL;
     OSStatus status = SecCertificateCopyPublicKey(certificate, &publicKeyRef);
     if (status != errSecSuccess) {
-            NSLog(@"No public key found in certificate.");
+            DDLogError(@"No public key found in certificate.");
             if (publicKeyRef) CFRelease(publicKeyRef);
             return nil;
     }
@@ -717,12 +713,10 @@
                                         keyData, kSecValueData,
                                         nil];
     OSStatus status = SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)attributesToUpdate);
-#ifdef DEBUG
     if (status != noErr) {
         NSError *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL];
-        NSLog(@"SecItemUpdate failed with error: %@", outError);
+        DDLogError(@"SecItemUpdate failed with error: %@", outError);
     }
-#endif
 	return (status == noErr);
 }
 
@@ -748,10 +742,8 @@
     CFTypeRef keyData = NULL;
     OSStatus status = SecItemCopyMatching((__bridge CFDictionaryRef)query, &keyData);
     if (status != errSecSuccess) {
-#ifdef DEBUG
         NSError *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL];
-        NSLog(@"SecItemCopyMatching failed with error: %@", outError);
-#endif
+        DDLogError(@"SecItemCopyMatching failed with error: %@", outError);
         return nil;
     }
     return (__bridge_transfer NSData *)keyData;

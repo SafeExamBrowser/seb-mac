@@ -55,15 +55,11 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
     if (scTempPath.length > 0) {
         
         /// There is a redirected location saved
-#ifdef DEBUG
-        NSLog(@"There was a persistantly saved redirected screencapture location (%@). Looks like SEB didn't quit properly when running last time.", scTempPath);
-#endif
+        DDLogWarn(@"There was a persistantly saved redirected screencapture location (%@). Looks like SEB didn't quit properly when running last time.", scTempPath);
         
         // Delete the last directory
         if ([self removeTempDirectory:scTempPath]) {
-#ifdef DEBUG
-            NSLog(@"Removing persitantly saved redirected screencapture directory %@ worked.", scTempPath);
-#endif
+            DDLogDebug(@"Removing persitantly saved redirected screencapture directory %@ worked.", scTempPath);
         }
         // Reset the redirected location
         [preferences setSecureString:@"" forKey:@"newDestination"];
@@ -72,9 +68,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         if (scLocation.length == 0) {
             // in case it wasn't saved properly, we reset to the OS X default sc location
             scLocation = @"~/Desktop";
-#ifdef DEBUG
-            NSLog(@"The persistantly saved original screencapture location wasn't found, it has been reset to the OS X default location %@", scLocation);
-#endif
+            DDLogWarn(@"The persistantly saved original screencapture location wasn't found, it has been reset to the OS X default location %@", scLocation);
         }
     } else {
         
@@ -82,9 +76,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         
         // Get current screencapture location
         scLocation = [self getCurrentSCLocation];
-#ifdef DEBUG
-        NSLog(@"Current screencapture location: %@", scLocation);
-#endif
+        DDLogDebug(@"Current screencapture location: %@", scLocation);
     }
     
     // Check if screenshots should be blocked in current settings
@@ -111,7 +103,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         NSFileManager *fileManager= [NSFileManager defaultManager];
         if(![fileManager fileExistsAtPath:scFullPath isDirectory:&isDir]) {
             if(![fileManager createDirectoryAtPath:scFullPath withIntermediateDirectories:YES attributes:nil error:NULL]) {
-                NSLog(@"Error: Creating folder failed %@", scFullPath);
+                DDLogError(@"Error: Creating folder failed %@", scFullPath);
                 // As a fallback just use the temp directory
                 scFullPath = NSTemporaryDirectory();
             }
@@ -119,21 +111,15 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         
         // Execute the redirect script
         if ([self executeSCAppleScript:scFullPath]) {
-#ifdef DEBUG
-            NSLog(@"sc redirect script didn't report an error");
-#endif
+            DDLogDebug(@"sc redirect script didn't report an error");
         }
         
         // Get and verify the new location
         NSString *location = [self getCurrentSCLocation];
         if ([scFullPath isEqualToString:location]) {
-#ifdef DEBUG
-            NSLog(@"Changed sc location successfully to: %@", location);
-#endif
+            DDLogDebug(@"Changed sc location successfully to: %@", location);
         } else {
-#ifdef DEBUG
-            NSLog(@"Failed changing sc location, location is: %@", location);
-#endif
+            DDLogDebug(@"Failed changing sc location, location is: %@", location);
             // If the sc location wasn't changed, we save an empty string to indicate this
             scTempPath = @"";
         }
@@ -161,33 +147,23 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         
         // Restore original SC path
         if ([self executeSCAppleScript:scLocation]) {
-#ifdef DEBUG
-            NSLog(@"sc restore original value (%@) script didn't report an error", scLocation);
-#endif
+            DDLogDebug(@"sc restore original value (%@) script didn't report an error", scLocation);
         }
         // Get and verify the new location
         NSString *location = [self getCurrentSCLocation];
         if ([scLocation isEqualToString:location]) {
-#ifdef DEBUG
-            NSLog(@"Restored sc location successfully to: %@", location);
-#endif
+            DDLogDebug(@"Restored sc location successfully to: %@", location);
         } else {
-#ifdef DEBUG
-            NSLog(@"Failed restoring sc location! Location is: %@", location);
-#endif
+            DDLogDebug(@"Failed restoring sc location! Location is: %@", location);
         }
         // Remove temporary directory
         if ([self removeTempDirectory:scTempPath]) {
             NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
             [preferences setSecureString:@"" forKey:@"newDestination"];
-#ifdef DEBUG
-            NSLog(@"Removed redirected temp sc location %@ successfully.", scTempPath);
-#endif
+            DDLogDebug(@"Removed redirected temp sc location %@ successfully.", scTempPath);
             return YES;
         } else {
-#ifdef DEBUG
-            NSLog(@"Failed removing redirected temp sc location %@", scTempPath);
-#endif
+            DDLogDebug(@"Failed removing redirected temp sc location %@", scTempPath);
             return NO;
         }
     }
@@ -257,10 +233,8 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         NSError *error = nil;
         
         // Read names of possible files contained in the temp sc directory
-#ifdef DEBUG
         NSArray *filesInTempDir = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:fullTempPath error:&error];
-        NSLog(@"Contents of the redirected sc directory: %@ or error when reading: %@", filesInTempDir, error);
-#endif
+        DDLogDebug(@"Contents of the redirected sc directory: %@ or error when reading: %@", filesInTempDir, error);
         
         [[NSFileManager defaultManager] removeItemAtPath:fullTempPath error:&error];
         return error == nil;

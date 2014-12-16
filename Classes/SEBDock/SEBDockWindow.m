@@ -40,7 +40,7 @@
 //- (void)sendEvent:(NSEvent *)theEvent
 //{
 //    if ([theEvent type] == NSMouseMoved) {
-//        NSLog(@"Mouse moved filtered");
+//        DDLogDebug(@"Mouse moved filtered");
 //    } else {
 //        [super sendEvent:theEvent];
 //    }

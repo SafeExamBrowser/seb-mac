@@ -47,9 +47,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-#ifdef DEBUG
-        NSLog(@"[SEBDockController init]");
-#endif
+        DDLogDebug(@"[SEBDockController init]");
         // Get dock height
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         CGFloat dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
@@ -92,9 +90,7 @@
 // Add dock items passed in array pinned to the left edge of the dock (from left to right)
 - (void) setLeftItems:(NSArray *)newLeftDockItems
 {
-#ifdef DEBUG
-    NSLog(@"[SEBDockController setLeftItems: %@]", newLeftDockItems);
-#endif
+    DDLogDebug(@"[SEBDockController setLeftItems: %@]", newLeftDockItems);
     if (_leftDockItems) {
         _leftDockItems = nil;
     }
@@ -170,9 +166,7 @@
 // Add dock items passed in array pinned to the right edge of the left items dock area
 - (void) setCenterItems:(NSArray *)newCenterDockItems
 {
-#ifdef DEBUG
-    NSLog(@"[SEBDockController setCenterItems: %@]", newCenterDockItems);
-#endif
+    DDLogDebug(@"[SEBDockController setCenterItems: %@]", newCenterDockItems);
     if (_centerDockItems) {
         _centerDockItems = nil;
     }
@@ -255,9 +249,7 @@
 // Add dock items passed in array pinned to the right edge of the dock (from right to left)
 - (void) setRightItems:(NSArray *)newRightDockItems
 {
-#ifdef DEBUG
-    NSLog(@"[SEBDockController setRightItems: %@]", newRightDockItems);
-#endif
+    DDLogDebug(@"[SEBDockController setRightItems: %@]", newRightDockItems);
     if (_rightDockItems) {
         _rightDockItems = nil;
     }
@@ -329,9 +321,7 @@
 
 - (void) showDock
 {
-#ifdef DEBUG
-    NSLog(@"[SEBDockController showDock]");
-#endif
+    DDLogDebug(@"[SEBDockController showDock]");
     [self.dockWindow setCalculatedFrame:self.window.screen];
     [self showWindow:self];
 }
@@ -339,9 +329,7 @@
 
 - (void) hideDock
 {
-#ifdef DEBUG
-    NSLog(@"[SEBDockController hideDock]");
-#endif
+    DDLogDebug(@"[SEBDockController hideDock]");
 //    [self.window orderOut:self];
     [self.window close];
 }
@@ -349,18 +337,14 @@
 
 - (void) adjustDock
 {
-#ifdef DEBUG
-    NSLog(@"[SEBDockController adjustDock]");
-#endif
+    DDLogDebug(@"[SEBDockController adjustDock]");
     [self.dockWindow setCalculatedFrame:self.window.screen];
 }
 
 
 - (void) moveDockToScreen:(NSScreen *)screen
 {
-#ifdef DEBUG
-    NSLog(@"[SEBDockController moveDockToScreen]");
-#endif
+    DDLogDebug(@"[SEBDockController moveDockToScreen]");
     [self.dockWindow setCalculatedFrame:screen];
 }
 

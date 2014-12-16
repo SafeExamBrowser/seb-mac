@@ -14,6 +14,11 @@
 		6901331C19B371CB0050574D /* PreferencesWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901331A19B371CB0050574D /* PreferencesWindow.m */; };
 		6901331D19B371CB0050574D /* PreferencesWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901331A19B371CB0050574D /* PreferencesWindow.m */; };
 		6905C5AB1961B4E5000008EC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6905C5AA1961B4E5000008EC /* SystemConfiguration.framework */; };
+		6906F3C21A3FA5EE0011CF93 /* NSURL+KKDomain.h in Headers */ = {isa = PBXBuildFile; fileRef = 6906F3C01A3FA5EE0011CF93 /* NSURL+KKDomain.h */; };
+		6906F3C31A3FA5EE0011CF93 /* NSURL+KKDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = 6906F3C11A3FA5EE0011CF93 /* NSURL+KKDomain.m */; };
+		6906F3C61A3FA60C0011CF93 /* NSString+KKDomain.h in Headers */ = {isa = PBXBuildFile; fileRef = 6906F3C41A3FA60C0011CF93 /* NSString+KKDomain.h */; };
+		6906F3C71A3FA60C0011CF93 /* NSString+KKDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = 6906F3C51A3FA60C0011CF93 /* NSString+KKDomain.m */; };
+		6906F3CD1A3FA7300011CF93 /* etld.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6906F3CC1A3FA7300011CF93 /* etld.plist */; };
 		6909E33A1A019F7A0086A741 /* CLIColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3211A019F7A0086A741 /* CLIColor.h */; };
 		6909E33B1A019F7A0086A741 /* CLIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3221A019F7A0086A741 /* CLIColor.m */; };
 		6909E33C1A019F7A0086A741 /* CocoaLumberjack.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3231A019F7A0086A741 /* CocoaLumberjack.h */; };
@@ -318,6 +323,11 @@
 		6901331919B371CB0050574D /* PreferencesWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesWindow.h; path = Classes/Preferences/PreferencesWindow/PreferencesWindow.h; sourceTree = "<group>"; };
 		6901331A19B371CB0050574D /* PreferencesWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreferencesWindow.m; path = Classes/Preferences/PreferencesWindow/PreferencesWindow.m; sourceTree = "<group>"; };
 		6905C5AA1961B4E5000008EC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		6906F3C01A3FA5EE0011CF93 /* NSURL+KKDomain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+KKDomain.h"; sourceTree = "<group>"; };
+		6906F3C11A3FA5EE0011CF93 /* NSURL+KKDomain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+KKDomain.m"; sourceTree = "<group>"; };
+		6906F3C41A3FA60C0011CF93 /* NSString+KKDomain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+KKDomain.h"; sourceTree = "<group>"; };
+		6906F3C51A3FA60C0011CF93 /* NSString+KKDomain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KKDomain.m"; sourceTree = "<group>"; };
+		6906F3CC1A3FA7300011CF93 /* etld.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = etld.plist; sourceTree = "<group>"; };
 		6909E3211A019F7A0086A741 /* CLIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLIColor.h; sourceTree = "<group>"; };
 		6909E3221A019F7A0086A741 /* CLIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLIColor.m; sourceTree = "<group>"; };
 		6909E3231A019F7A0086A741 /* CocoaLumberjack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaLumberjack.h; sourceTree = "<group>"; };
@@ -634,6 +644,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6906F3CC1A3FA7300011CF93 /* etld.plist */,
 				695AE31219FE634300F8C6A5 /* ExportForTranslation */,
 				69428C96172E5FBA00C87C58 /* User Interface */,
 				69428C95172E5F8B00C87C58 /* Images */,
@@ -917,6 +928,10 @@
 				6940A7601853B2AD00D9D00D /* NSData+NSDataZIPExtension.m */,
 				69627F8E1A1A46CF00E9F2A8 /* NSURL+SEBURL.h */,
 				69627F8F1A1A46D000E9F2A8 /* NSURL+SEBURL.m */,
+				6906F3C41A3FA60C0011CF93 /* NSString+KKDomain.h */,
+				6906F3C51A3FA60C0011CF93 /* NSString+KKDomain.m */,
+				6906F3C01A3FA5EE0011CF93 /* NSURL+KKDomain.h */,
+				6906F3C11A3FA5EE0011CF93 /* NSURL+KKDomain.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1004,6 +1019,7 @@
 			files = (
 				6909E3471A019F7A0086A741 /* DDLog.h in Headers */,
 				694B08A316B14ABF00E4997C /* SEBCryptor.h in Headers */,
+				6906F3C61A3FA60C0011CF93 /* NSString+KKDomain.h in Headers */,
 				6992499216C3B18B00DF6B53 /* PrefsConfigFileViewController.h in Headers */,
 				69F45D3E1A2123C3009CF3AA /* SEBURLFilterExpression.h in Headers */,
 				6992499C16C5B62000DF6B53 /* PrefsApplicationsViewController.h in Headers */,
@@ -1029,6 +1045,7 @@
 				6909E3431A019F7A0086A741 /* DDAssertMacros.h in Headers */,
 				69DFAF3319C468E700CBE69F /* RNEncryptor.h in Headers */,
 				69DFAF3A19C468E700CBE69F /* RNCryptor OS X-Prefix.pch in Headers */,
+				6906F3C21A3FA5EE0011CF93 /* NSURL+KKDomain.h in Headers */,
 				69D817E518017DDB00EB7885 /* SEBURLFilter.h in Headers */,
 				69263A9E1A2E0765006F1E31 /* SEBWebView.h in Headers */,
 				6909E3441A019F7A0086A741 /* DDFileLogger.h in Headers */,
@@ -1213,6 +1230,7 @@
 				695C5CAD16CB210E008FC401 /* ExamIcon.png in Resources */,
 				695C5CB016CB210E008FC401 /* ExamIcon@2x.png in Resources */,
 				696A3AFC19F6FC5600274214 /* PreferencesSecurity.xib in Resources */,
+				6906F3CD1A3FA7300011CF93 /* etld.plist in Resources */,
 				69F32DBE16D232C0003C9502 /* Appearance.icns in Resources */,
 				696A3AE819F6FBCD00274214 /* PreferencesAppearance.xib in Resources */,
 				69EC631319D60D16002DAD22 /* SEBShutDownIcon.icns in Resources */,
@@ -1377,6 +1395,7 @@
 				69F32DC416D23374003C9502 /* PrefsAppearanceViewController.m in Sources */,
 				6986652F16DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */,
 				69DFAF3119C468E700CBE69F /* RNDecryptor.m in Sources */,
+				6906F3C31A3FA5EE0011CF93 /* NSURL+KKDomain.m in Sources */,
 				6921294316F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */,
 				6921294816F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */,
 				69D817E618017DDB00EB7885 /* SEBURLFilter.m in Sources */,
@@ -1391,6 +1410,7 @@
 				69CE1C181741309C0072207D /* SEBFilterTreeController.m in Sources */,
 				69DE764817FC2A9300EE5958 /* PrefsResourcesViewController.m in Sources */,
 				6901331C19B371CB0050574D /* PreferencesWindow.m in Sources */,
+				6906F3C71A3FA60C0011CF93 /* NSString+KKDomain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

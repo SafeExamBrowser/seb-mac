@@ -40,6 +40,7 @@
 #import "WebKit+WebKitExtensions.h"
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "SEBURLFilter.h"
+#import "NSURL+KKDomain.h"
 
 #include <CoreServices/CoreServices.h>
 
@@ -387,7 +388,7 @@
                     [self changedFilterPattern:self.filterPatternMatrix];
                     
                     // Set full URL in the filter expression text field
-                    self.filterExpressionField.stringValue = self.URLFilterAlertURL.absoluteString;
+                    self.filterExpressionField.string = self.URLFilterAlertURL.absoluteString;
 
                     // Set the domain pattern label/button string
                     self.domainPatternButton.title = [self filterExpressionForPattern:SEBURLFilterAlertPatternDomain];
@@ -453,30 +454,30 @@
 - (IBAction)clickedDomainPattern:(id)sender
 {
     self.filterExpression = [self filterExpressionForPattern:SEBURLFilterAlertPatternDomain];
-    self.filterExpressionField.stringValue = self.filterExpression;
+    self.filterExpressionField.string = self.filterExpression;
 }
 
 - (IBAction)clickedHostPattern:(id)sender
 {
     self.filterExpression = [self filterExpressionForPattern:SEBURLFilterAlertPatternHost];
-    self.filterExpressionField.stringValue = self.filterExpression;
+    self.filterExpressionField.string = self.filterExpression;
 }
 
 - (IBAction)clickedHostPathPattern:(id)sender
 {
     self.filterExpression = [self filterExpressionForPattern:SEBURLFilterAlertPatternHostPath];
-    self.filterExpressionField.stringValue = self.filterExpression;
+    self.filterExpressionField.string = self.filterExpression;
 }
 
 - (IBAction)clickedDirectoryPattern:(id)sender
 {
     self.filterExpression = [self filterExpressionForPattern:SEBURLFilterAlertPatternDirectory];
-    self.filterExpressionField.stringValue = self.filterExpression;
+    self.filterExpressionField.string = self.filterExpression;
 }
 
 - (IBAction)clickedFullURLPattern:(id)sender {
     self.filterExpression = self.URLFilterAlertURL.absoluteString;
-    self.filterExpressionField.stringValue = self.filterExpression;
+    self.filterExpressionField.string = self.filterExpression;
 }
 
 
@@ -507,14 +508,14 @@
 
 
 - (IBAction)editingFilterExpression:(NSTextField *)sender {
-    self.filterExpression = self.filterExpressionField.stringValue;
+    self.filterExpression = self.filterExpressionField.string;
 }
 
 
-- (void)controlTextDidChange:(NSNotification *)aNotification
+- (void)textDidChange:(NSNotification *)aNotification
 {
     [self.filterPatternMatrix selectCellAtRow:SEBURLFilterAlertPatternCustom column:0];
-    self.filterExpression = self.filterExpressionField.stringValue;
+    self.filterExpression = self.filterExpressionField.string;
 }
 
 - (IBAction)changedFilterPattern:(NSMatrix *)sender
@@ -527,6 +528,10 @@
 
 - (NSString *)filterExpressionForPattern:(SEBURLFilterAlertPattern)filterPattern
 {
+    NSString *domain = [self.URLFilterAlertURL registeredDomain];
+    if (!domain) {
+        domain = @"";
+    }
     
     NSString *host = self.URLFilterAlertURL.host;
     if (host.length == 0) {
@@ -544,14 +549,18 @@
         directory = [pathComponents componentsJoinedByString:@"/"];
         directory = [NSString stringWithFormat:@"/%@/*", directory];
     } else {
-        directory = [NSString stringWithFormat:@"%@/*", path];
+        if (path.length > 1) {
+            directory = [NSString stringWithFormat:@"%@/*", path];
+        } else {
+            directory = @"";
+        }
     }
     
     
     switch (filterPattern) {
             
         case SEBURLFilterAlertPatternDomain:
-            return host;
+            return domain;
             
         case SEBURLFilterAlertPatternHost:
             return host;
@@ -565,7 +574,7 @@
         }
             
         case SEBURLFilterAlertPatternCustom:
-            return self.filterExpressionField.stringValue;
+            return self.filterExpressionField.string;
     }
     
     return @"";
@@ -1238,8 +1247,8 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     DDLogDebug(@"decidePolicyForMIMEType: %@ requestURL: %@", type, request.URL.absoluteString);
     /*NSDictionary *headerFields = [request allHTTPHeaderFields];
 #ifdef DEBUG
-    NSLog(@"Request URL: %@", [[request URL] absoluteString]);
-    NSLog(@"All HTTP header fields: %@", headerFields);
+    DDLogInfo(@"Request URL: %@", [[request URL] absoluteString]);
+    DDLogInfo(@"All HTTP header fields: %@", headerFields);
 #endif*/
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
