@@ -99,7 +99,7 @@ static NSNumber *_logLevel;
         _cachedUserDefaults = [NSMutableDictionary new];
     }
 
-    DDLogDebug(@"SetUserDefaultsPrivate: %@, localUserDefaults: %@",[NSNumber numberWithBool:_usePrivateUserDefaults], privateUserDefaults);
+    DDLogVerbose(@"SetUserDefaultsPrivate: %@, localUserDefaults: %@",[NSNumber numberWithBool:_usePrivateUserDefaults], privateUserDefaults);
 
 }
 
@@ -404,6 +404,8 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_URLFilterEnable",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_URLFilterEnableContentFilter",
+                                 [NSNumber numberWithLong:URLFilterMessageText],
+                                 @"org_safeexambrowser_SEB_URLFilterMessage",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_urlFilterRegex",
                                  [NSNumber numberWithBool:YES],
@@ -636,7 +638,7 @@ static NSNumber *_logLevel;
     [[SEBCryptor sharedSEBCryptor] updateExamSettingsKey:_cachedUserDefaults];
 
 //    prefsDict = [self getSEBUserDefaultsDomains];
-//    DDLogDebug(@"SEB UserDefaults domains after resetSEBUserDefaults: %@", prefsDict);
+//    DDLogVerbose(@"SEB UserDefaults domains after resetSEBUserDefaults: %@", prefsDict);
 }
 
 
@@ -839,7 +841,7 @@ static NSNumber *_logLevel;
         //NSString *keypath = [NSString stringWithFormat:@"values.%@", key];
         //[[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController] setValue:value forKeyPath:keypath];
 
-        DDLogDebug(@"[localUserDefaults setObject:%@ forKey:%@]", [privateUserDefaults valueForKey:key], key);
+        DDLogVerbose(@"[localUserDefaults setObject:%@ forKey:%@]", [privateUserDefaults valueForKey:key], key);
 
     } else {
         if (value == nil || key == nil) {
@@ -869,7 +871,7 @@ static NSNumber *_logLevel;
                 } else {
                     [self setObject:encryptedData forKey:key];
 
-                    DDLogDebug(@"[self setObject:(encrypted %@) forKey:%@]", value, key);
+                    DDLogVerbose(@"[self setObject:(encrypted %@) forKey:%@]", value, key);
                 }
             }
             
@@ -982,7 +984,7 @@ static NSNumber *_logLevel;
 {
     if (_usePrivateUserDefaults) {
 
-        DDLogDebug(@"[localUserDefaults objectForKey:%@] = %@", key, [privateUserDefaults valueForKey:key]);
+        DDLogVerbose(@"[localUserDefaults objectForKey:%@] = %@", key, [privateUserDefaults valueForKey:key]);
 
         return [privateUserDefaults valueForKey:key];
         //NSString *keypath = [NSString stringWithFormat:@"values.%@", key];
@@ -1018,7 +1020,7 @@ static NSNumber *_logLevel;
 
         id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
 
-        DDLogDebug(@"[self objectForKey:%@] = %@ (decrypted)", key, value);
+        DDLogVerbose(@"[self objectForKey:%@] = %@ (decrypted)", key, value);
 
         return value;
     }

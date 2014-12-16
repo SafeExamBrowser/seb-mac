@@ -49,9 +49,7 @@
     if ([NSUserDefaults userDefaultsPrivate]) {
         id value = [[NSUserDefaults privateUserDefaults] valueForKey:key];
         //id value = [self.defaults secureObjectForKey:key];
-#ifdef DEBUG
-        DDLogDebug(@"keypath: %@ [[NSUserDefaults privateUserDefaults] valueForKey:%@]] = %@", keyPath, key, value);
-#endif
+        DDLogVerbose(@"keypath: %@ [[NSUserDefaults privateUserDefaults] valueForKey:%@]] = %@", keyPath, key, value);
         return value;
     } else {
         NSData *encrypted = [super valueForKeyPath:keyPath];
@@ -67,9 +65,7 @@
         NSData *decrypted = [[SEBCryptor sharedSEBCryptor] decryptData:encrypted forKey: key error:&error];
         
         id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
-#ifdef DEBUG
-        DDLogDebug(@"[super valueForKeyPath:%@] = %@ (decrypted)", keyPath, value);
-#endif
+        DDLogVerbose(@"[super valueForKeyPath:%@] = %@ (decrypted)", keyPath, value);
         return value;
     }
 }
@@ -96,9 +92,7 @@
         [[NSUserDefaults privateUserDefaults] setValue:value forKey:key];
 //        [[NSUserDefaults standardUserDefaults] didChangeValueForKey:key];
         //[self.defaults setSecureObject:value forKey:key];
-#ifdef DEBUG
-        DDLogDebug(@"keypath: %@ [[NSUserDefaults privateUserDefaults] setValue:%@ forKey:%@]", keyPath, value, key);
-#endif
+        DDLogVerbose(@"keypath: %@ [[NSUserDefaults privateUserDefaults] setValue:%@ forKey:%@]", keyPath, value, key);
     } else {
         if (value == nil || keyPath == nil) {
             // Use non-secure method
@@ -113,9 +107,7 @@
 //                                                       error:&error];
             NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
             
-#ifdef DEBUG
-            DDLogDebug(@"[super setValue:(encrypted %@) forKeyPath:%@]", value, keyPath);
-#endif
+            DDLogVerbose(@"[super setValue:(encrypted %@) forKeyPath:%@]", value, keyPath);
             [super setValue:encryptedData forKeyPath:keyPath];
         }
     }

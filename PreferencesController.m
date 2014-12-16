@@ -923,7 +923,7 @@
                     [NSUserDefaults setUserDefaultsPrivate:YES];
                     
                     [self.configFileManager storeIntoUserDefaults:localClientPreferences];
-                    DDLogDebug(@"Private preferences set: %@", privatePreferences);
+                    DDLogVerbose(@"Private preferences set: %@", privatePreferences);
                     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
 
                     // Re-initialize and open preferences window

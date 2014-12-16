@@ -67,6 +67,7 @@
 @property (weak) IBOutlet NSButton *hostPatternButton;
 @property (weak) IBOutlet NSButton *hostPathPatternButton;
 @property (weak) IBOutlet NSButton *directoryPatternButton;
+@property (strong) NSView *filterMessageHolder;
 
 @property (copy) NSString *downloadFilename;
 @property (copy) NSString *downloadFileExtension;

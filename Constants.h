@@ -157,6 +157,13 @@ typedef NSUInteger SEBKioskMode;
 
 
 enum {
+    URLFilterMessageText                        = 0,
+    URLFilterMessageX                           = 1
+};
+typedef NSUInteger URLFilterMessages;
+
+
+enum {
     URLFilterActionBlock                        = 0,
     URLFilterActionAllow                        = 1,
     URLFilterActionUnknown                      = 2

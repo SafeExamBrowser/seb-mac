@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6221" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6221"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsNetworkViewController">
@@ -86,7 +86,7 @@
                                         </connections>
                                     </button>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="at3-bk-Nje">
-                                        <rect key="frame" x="17" y="272" width="570" height="341"/>
+                                        <rect key="frame" x="17" y="272" width="570" height="322"/>
                                         <clipView key="contentView" id="QXl-iW-Uh6">
                                             <rect key="frame" x="1" y="17" width="238" height="117"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -712,6 +712,33 @@
                                             <binding destination="-2" name="value" keyPath="self.URLFilterLearningMode" id="H4C-pa-i4L"/>
                                         </connections>
                                     </button>
+                                    <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wtP-tT-RxN">
+                                        <rect key="frame" x="33" y="599" width="554" height="18"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        <size key="cellSize" width="141" height="18"/>
+                                        <size key="intercellSpacing" width="4" height="2"/>
+                                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" controlSize="small" inset="2" id="MCw-h1-309">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="smallSystem"/>
+                                        </buttonCell>
+                                        <cells>
+                                            <column>
+                                                <buttonCell type="radio" title="Display &quot;URL Blocked!&quot;" imagePosition="left" alignment="left" controlSize="small" state="on" tag="1" inset="2" id="UCE-sZ-Ixh">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="smallSystem"/>
+                                                </buttonCell>
+                                            </column>
+                                            <column>
+                                                <buttonCell type="radio" title="Display &quot;X&quot;" imagePosition="left" alignment="left" controlSize="small" inset="2" id="gNh-Qf-Z8W">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="smallSystem"/>
+                                                </buttonCell>
+                                            </column>
+                                        </cells>
+                                        <connections>
+                                            <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_URLFilterMessage" id="pfM-NM-XPk"/>
+                                        </connections>
+                                    </matrix>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="454" firstAttribute="leading" secondItem="243" secondAttribute="leading" constant="17" id="456"/>
@@ -721,10 +748,13 @@
                                     <constraint firstItem="648" firstAttribute="leading" secondItem="243" secondAttribute="leading" constant="294" id="662"/>
                                     <constraint firstItem="527" firstAttribute="bottom" secondItem="526" secondAttribute="bottom" id="789"/>
                                     <constraint firstItem="648" firstAttribute="top" secondItem="243" secondAttribute="top" constant="5" id="22C-Sl-yrU"/>
+                                    <constraint firstItem="wtP-tT-RxN" firstAttribute="top" secondItem="648" secondAttribute="bottom" constant="4" id="25f-TM-OLF"/>
                                     <constraint firstItem="GZd-2h-HIq" firstAttribute="top" secondItem="527" secondAttribute="bottom" constant="8" id="4v2-cV-Ybx"/>
+                                    <constraint firstItem="wtP-tT-RxN" firstAttribute="leading" secondItem="243" secondAttribute="leading" constant="33" id="7hk-RL-ewk"/>
                                     <constraint firstAttribute="trailing" secondItem="PJT-Mq-ijG" secondAttribute="trailing" constant="17" id="9Rp-tD-xAu"/>
                                     <constraint firstItem="at3-bk-Nje" firstAttribute="leading" secondItem="243" secondAttribute="leading" constant="17" id="CQZ-2w-N2N"/>
                                     <constraint firstAttribute="trailing" secondItem="at3-bk-Nje" secondAttribute="trailing" constant="17" id="Dib-ic-40b"/>
+                                    <constraint firstAttribute="trailing" secondItem="wtP-tT-RxN" secondAttribute="trailing" constant="17" id="EOf-AG-r5j"/>
                                     <constraint firstItem="526" firstAttribute="top" secondItem="at3-bk-Nje" secondAttribute="bottom" constant="8" id="Ho8-nT-Ez1"/>
                                     <constraint firstItem="PJT-Mq-ijG" firstAttribute="bottom" secondItem="527" secondAttribute="bottom" id="LtL-mj-huO"/>
                                     <constraint firstItem="PJT-Mq-ijG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="527" secondAttribute="trailing" constant="43" id="VwO-VY-uiL"/>
@@ -733,8 +763,8 @@
                                     <constraint firstItem="648" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="454" secondAttribute="trailing" constant="8" symbolic="YES" id="iQ7-jb-Mnx"/>
                                     <constraint firstAttribute="bottom" secondItem="GZd-2h-HIq" secondAttribute="bottom" constant="9" id="j3m-Ap-KqS"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="648" secondAttribute="trailing" constant="20" symbolic="YES" id="jg7-de-xNG"/>
+                                    <constraint firstItem="at3-bk-Nje" firstAttribute="top" secondItem="wtP-tT-RxN" secondAttribute="bottom" constant="5" id="toN-Up-eKw"/>
                                     <constraint firstItem="GZd-2h-HIq" firstAttribute="leading" secondItem="243" secondAttribute="leading" constant="17" id="vyL-hN-CeY"/>
-                                    <constraint firstItem="at3-bk-Nje" firstAttribute="top" secondItem="648" secondAttribute="bottom" constant="8" id="yBj-lO-4AA"/>
                                 </constraints>
                             </view>
                         </tabViewItem>

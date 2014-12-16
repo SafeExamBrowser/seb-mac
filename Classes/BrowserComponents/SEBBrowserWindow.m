@@ -358,6 +358,84 @@
 }
 
 
+- (void) showURLFilterMessage {
+    
+    if (!self.filterMessageHolder) {
+        
+        NSRect frameRect = NSMakeRect(0,0,155,21); // This will change based on the size you need
+        NSTextField *message = [[NSTextField alloc] initWithFrame:frameRect];
+        message.bezeled = NO;
+        message.editable = NO;
+        message.drawsBackground = NO;
+        [message.cell setUsesSingleLineMode:YES];
+        CGFloat messageLabelYOffset = 0;
+
+        // Set message for URL blocked according to settings
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        switch ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_URLFilterMessage"]) {
+                
+            case URLFilterMessageText:
+                message.stringValue = NSLocalizedString(@"URL Blocked!", nil);
+                [message setFont:[NSFont systemFontOfSize:[NSFont smallSystemFontSize]]];
+                [message setTextColor:[NSColor redColor]];
+                break;
+                
+            case URLFilterMessageX:
+                message.stringValue = @"✕";
+                [message setFont:[NSFont systemFontOfSize:20]];
+                [message setTextColor:[NSColor darkGrayColor]];
+                messageLabelYOffset = 4;
+                break;
+        }
+
+        NSSize messageLabelSize = [message intrinsicContentSize];
+        [message setAlignment:NSRightTextAlignment];
+        CGFloat messageLabelWidth = messageLabelSize.width + 2;
+        CGFloat messageLabelHeight = messageLabelSize.height;
+        [message setFrameSize:NSMakeSize(messageLabelWidth, messageLabelHeight)];
+        
+        self.filterMessageHolder = [[NSView alloc] initWithFrame:message.frame];
+        [self.filterMessageHolder addSubview:message];
+        [self.filterMessageHolder setContentHuggingPriority:NSLayoutPriorityFittingSizeCompression-1.0 forOrientation:NSLayoutConstraintOrientationVertical];
+        
+        [message setFrame:NSMakeRect(
+                                     
+                                     0.5 * ([message superview].frame.size.width - message.frame.size.width),
+                                     (0.5 * ([message superview].frame.size.height - message.frame.size.height)) + messageLabelYOffset,
+                                     
+                                     message.frame.size.width,
+                                     message.frame.size.height
+                                     
+                                     )];
+        
+        [message setNextResponder:self.filterMessageHolder];
+        
+//    } else {
+//        if (self.isFullScreen) {
+//            [self adjustPositionOfViewInTitleBar:self.filterMessageHolder atrighto:10 verticalOffset:0];
+//        }
+    }
+    
+    // Show the message
+    if (self.isFullScreen) {
+        [self addViewToTitleBar:self.filterMessageHolder atRightOffset:43];
+    } else {
+        [self addViewToTitleBar:self.filterMessageHolder atRightOffset:5];
+    }
+    [self.filterMessageHolder setNextResponder:self];
+
+    // Remove the URL filter message after a delay
+    [self performSelector:@selector(hideURLFilterMessage) withObject: nil afterDelay: 1];
+
+}
+
+- (void) hideURLFilterMessage {
+    
+    [self.filterMessageHolder removeFromSuperview];
+//    self.filterMessageHolder = nil;
+}
+
+
 - (BOOL) showURLFilterAlertSheetForWindow:(NSWindow *)window forRequest:(NSURLRequest *)request forContentFilter:(BOOL)contentFilter filterResponse:(URLFilterRuleActions)filterResponse
 {
     if (!window.attachedSheet) {
@@ -365,31 +443,38 @@
         if (!creatingWebView) {
             creatingWebView = self.webView;
         }
-        if (creatingWebView.dismissAll == NO) {
-            NSURL *resourceURL = request.URL;
-            self.URLFilterAlertURL = resourceURL;
-            if (!creatingWebView.notAllowedURLs) {
-                creatingWebView.notAllowedURLs = [NSMutableArray new];
-            }
-            BOOL containsURL = NO;
-            for (NSURL *notAllowedURL in creatingWebView.notAllowedURLs) {
-                if ([resourceURL isEqualTo:notAllowedURL]) {
-                    containsURL = YES;
-                    break;
+        
+        // If the filter Response isn't block and the URL filter learning mode is switched on
+        if (filterResponse != URLFilterActionBlock && [SEBURLFilter sharedSEBURLFilter].learningMode) {
+            
+            if (creatingWebView.dismissAll == NO) {
+                NSURL *resourceURL = request.URL;
+                self.URLFilterAlertURL = resourceURL;
+                if (!creatingWebView.notAllowedURLs) {
+                    creatingWebView.notAllowedURLs = [NSMutableArray new];
                 }
-            }
-            if (containsURL == NO) {
-                [creatingWebView.notAllowedURLs addObject:resourceURL];
-
-                // If the filter Response isn't block and the URL filter learning mode is switched on, supplement the alert
-                if (filterResponse != URLFilterActionBlock && [SEBURLFilter sharedSEBURLFilter].learningMode) {
-
+                BOOL containsURL = NO;
+                for (NSURL *notAllowedURL in creatingWebView.notAllowedURLs) {
+                    if ([resourceURL isEqualTo:notAllowedURL]) {
+                        containsURL = YES;
+                        break;
+                    }
+                }
+                if (containsURL == NO) {
+                    [creatingWebView.notAllowedURLs addObject:resourceURL];
+                    
+                    // Set filter alert text depending if a URL or content was blocked
+                    if (contentFilter) {
+                        self.URLFilterAlertText.stringValue = NSLocalizedString(@"This embedded resource isn't allowed! You can create a new filter rule based on the following patterns:", nil);
+                    } else {
+                        self.URLFilterAlertText.stringValue = NSLocalizedString(@"It's not allowed to open this URL! You can create a new filter rule based on the following patterns:", nil);
+                    }
                     // Set filter expression according to selected pattern in the NSMatrix radio button group
                     [self changedFilterPattern:self.filterPatternMatrix];
                     
                     // Set full URL in the filter expression text field
                     self.filterExpressionField.string = self.URLFilterAlertURL.absoluteString;
-
+                    
                     // Set the domain pattern label/button string
                     self.domainPatternButton.title = [self filterExpressionForPattern:SEBURLFilterAlertPatternDomain];
                     
@@ -440,11 +525,12 @@
                             return NO;
                             
                     }
-                } else {
-                    // Display "Resource Blocked" (or red "X") top/right in window title bar
-
                 }
             }
+        } else if (contentFilter == NO) {
+            // The filter Response is block or the URL filter learning mode isn't switched on
+            // Display "URL Blocked" (or red "X") top/right in window title bar
+            [self showURLFilterMessage];
         }
     }
     return NO;
