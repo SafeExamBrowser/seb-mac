@@ -65,12 +65,13 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     } else {
         self.prohibitedList = [NSMutableArray new];
     }
+    
     if (self.permittedList) {
         [self.permittedList removeAllObjects];
     } else {
         self.permittedList = [NSMutableArray new];
     }
-    
+
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     self.enableURLFilter = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnable"];
     self.enableContentFilter = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"];
@@ -110,9 +111,6 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
         }
     }
     
-    // Convert these rules and add them to the XULRunner seb keys
-    [self createSebRuleLists];
-    
     // Check if Start URL gets allowed by current filter rules and if not add a rule for the Start URL
     NSString *startURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
     NSURL *startURL = [NSURL URLWithString:startURLString];
@@ -127,8 +125,48 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
         // Add this Start URL filter expression to the permitted filter list
         [self.permittedList addObject:expression];
     }
+    
+    // Convert these rules and add them to the XULRunner seb keys
+    [self createSebRuleLists];
+    
     // Updating filter rules worked; don't return any NSError
     return nil;
+}
+
+
+// Update Ignore List
+- (NSError *) updateIgnoreRuleList
+{
+    // Remove all entries in the ignore list or create the mutable array if it didn't exist
+    if (self.ignoreList) {
+        [self.ignoreList removeAllObjects];
+    } else {
+        self.ignoreList = [NSMutableArray new];
+    }
+    
+    // Read ignore list from settings and save it into the local array
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSArray *URLFilterIgnoreRules = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_URLFilterIgnoreList"];
+    NSError *error;
+    NSString *expressionString;
+    SEBURLFilterRegexExpression *expression;
+    
+    for (expressionString in URLFilterIgnoreRules) {
+        expression = [SEBURLFilterRegexExpression regexFilterExpressionWithString:expressionString error:&error];
+        [self.ignoreList addObject:expression];
+        if (error) {
+            [self.ignoreList removeAllObjects];
+            return error;
+        }
+    }
+    return nil;
+}
+
+
+// Clear Ignore List
+- (void) clearIgnoreRuleList
+{
+    [self.ignoreList removeAllObjects];
 }
 
 
@@ -249,7 +287,7 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
 {
     // By default URLs are not ignored
     BOOL ignoreURL = NO;
-    id expression;
+    SEBURLFilterRegexExpression *expression;
     
     /// Apply current ignore filter rules (expressions) to URL
     for (expression in self.ignoreList) {

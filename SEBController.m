@@ -208,6 +208,8 @@ bool insideMatrix();
         
         // Update URL filter flags and rules
         [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
+        // Update URL filter ignore rules
+        [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
         
         // Regardless if switching to third party applications is allowed in current settings,
         // we need to first open the background cover windows with standard window levels
@@ -1338,6 +1340,8 @@ bool insideMatrix(){
 
     // Update URL filter flags and rules
     [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];    
+    // Update URL filter ignore rules
+    [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
 }
 
 
@@ -1417,6 +1421,8 @@ bool insideMatrix(){
     
     // Update URL filter flags and rules
     [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
+    // Update URL filter ignore rules
+    [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
     
     // Check for command key being held down
     int modifierFlags = [NSEvent modifierFlags];

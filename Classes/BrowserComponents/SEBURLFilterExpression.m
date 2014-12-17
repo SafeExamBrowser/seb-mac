@@ -97,7 +97,11 @@
     //    NSURL *newURL;
     NSMutableString *expressionString = [NSMutableString new];
     if (_scheme.length > 0) {
-        [expressionString appendFormat:@"%@://", _scheme];
+        if (_host.length > 0) {
+            [expressionString appendFormat:@"%@://", _scheme];
+        } else {
+            [expressionString appendFormat:@"%@:", _scheme];
+        }
     }
     if (_user.length > 0) {
         [expressionString appendString:_user];

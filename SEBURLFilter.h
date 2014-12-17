@@ -50,6 +50,10 @@
 
 - (NSError *) updateFilterRules;
 
+- (NSError *) updateIgnoreRuleList;
+
+- (void) clearIgnoreRuleList;
+
 - (URLFilterRuleActions)testURLAllowed:(NSURL *)URLToFilter;
 
 - (BOOL) testURLIgnored:(NSURL *)URLToFilter;

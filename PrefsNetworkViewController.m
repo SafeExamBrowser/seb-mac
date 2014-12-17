@@ -122,6 +122,8 @@
 }
 
 
+/// Filter Section
+
 - (BOOL) URLFilterLearningMode {
     return [SEBURLFilter sharedSEBURLFilter].learningMode;
 }
@@ -168,26 +170,26 @@
 }
 
 
+- (IBAction)clearIgnoreList:(id)sender {
+    // Ask user if the ignore list should really be cleared
+    NSAlert *newAlert = [[NSAlert alloc] init];
+    [newAlert setMessageText:NSLocalizedString(@"Clear Ignored URL List", nil)];
+    [newAlert setInformativeText:NSLocalizedString(@"The list containing ignore filter expressions has only an effect on the \"Teach allowed/blocked URLs\" mode; loading ignored URLs/resources won't display a dialog anymore. They are blocked anyways, because all not allowed URLs are blocked by the URL filter. Do you want to clear the list now?", nil)];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Clear", nil)];
+    [newAlert setAlertStyle:NSInformationalAlertStyle];
+    if ([newAlert runModal] == NSAlertSecondButtonReturn) {
+        [[SEBURLFilter sharedSEBURLFilter] clearIgnoreRuleList];
+    }
+}
+
+
 - (void)filterExpressionAdded:(NSNotification *)notification
 {
     [filterArrayController addObject:[NSMutableDictionary dictionaryWithDictionary:notification.userInfo]];
 
 }
 
-
-/*
- // Get Proxies directory
- NSDictionary *proxySettings = (__bridge NSDictionary *)CFNetworkCopySystemProxySettings();
- NSArray *proxies = (__bridge NSArray *)CFNetworkCopyProxiesForURL((__bridge CFURLRef)[NSURL URLWithString:@"http://apple.com"], (__bridge CFDictionaryRef)proxySettings);
- NSDictionary *settings = [proxies objectAtIndex:0];
- DDLogDebug(@"host=%@", [settings objectForKey:(NSString *)kCFProxyHostNameKey]);
- DDLogDebug(@"port=%@", [settings objectForKey:(NSString *)kCFProxyPortNumberKey]);
- DDLogDebug(@"type=%@", [settings objectForKey:(NSString *)kCFProxyTypeKey]);
- 
- */
-
-
-/// Filter Section
 
 // Filter expression field was changed
 - (IBAction) selectedExpression:(NSTextField *)sender
@@ -308,6 +310,21 @@
         [chooseIdentity synchronizeTitleAndSelectedItem];
     }
 }
+
+
+
+/// Proxies Section
+
+/*
+ // Get Proxies directory
+ NSDictionary *proxySettings = (__bridge NSDictionary *)CFNetworkCopySystemProxySettings();
+ NSArray *proxies = (__bridge NSArray *)CFNetworkCopyProxiesForURL((__bridge CFURLRef)[NSURL URLWithString:@"http://apple.com"], (__bridge CFDictionaryRef)proxySettings);
+ NSDictionary *settings = [proxies objectAtIndex:0];
+ DDLogDebug(@"host=%@", [settings objectForKey:(NSString *)kCFProxyHostNameKey]);
+ DDLogDebug(@"port=%@", [settings objectForKey:(NSString *)kCFProxyPortNumberKey]);
+ DDLogDebug(@"type=%@", [settings objectForKey:(NSString *)kCFProxyTypeKey]);
+ 
+ */
 
 
 #pragma mark -

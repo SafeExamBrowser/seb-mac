@@ -16,4 +16,16 @@
     // Drawing code here.
 }
 
+
+- (void) reload:(id)sender
+{
+    // Reset the list of dismissed URLs and the dismissAll flag
+    // (for the Teach allowed/blocked URLs mode)
+    [self.notAllowedURLs removeAllObjects];
+    self.dismissAll = NO;
+    
+    // Reload page
+    [super reload:sender];
+}
+
 @end
