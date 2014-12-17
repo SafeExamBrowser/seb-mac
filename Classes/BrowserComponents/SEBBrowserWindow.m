@@ -488,7 +488,7 @@
                     self.directoryPatternButton.title = [self filterExpressionForPattern:SEBURLFilterAlertPatternDirectory];
                     
                     // If the (main) browser window is full screen, we don't show the dialog as sheet
-                    if (window && self.browserController.mainBrowserWindow.isFullScreen) {
+                    if (window && self.browserController.mainBrowserWindow.isFullScreen && window == self.browserController.mainBrowserWindow) {
                         window = nil;
                     }
                     
@@ -627,18 +627,20 @@
     if (!path) {
         path = @"";
     }
-    NSString *directory;
-    if (self.URLFilterAlertURL.pathExtension) {
+    NSString *directory = @"";
+    if (self.URLFilterAlertURL.pathExtension.length > 0) {
         NSMutableArray *pathComponents = [NSMutableArray arrayWithArray:self.URLFilterAlertURL.pathComponents];
-        [pathComponents removeObjectAtIndex:0];
-        [pathComponents removeLastObject];
-        directory = [pathComponents componentsJoinedByString:@"/"];
-        directory = [NSString stringWithFormat:@"/%@/*", directory];
+        if (pathComponents.count > 2) {
+            [pathComponents removeObjectAtIndex:0];
+            [pathComponents removeLastObject];
+            directory = [pathComponents componentsJoinedByString:@"/"];
+            directory = [NSString stringWithFormat:@"/%@/*", directory];
+        } else if (pathComponents.count == 2) {
+            directory = @"/*";
+        }
     } else {
         if (path.length > 1) {
             directory = [NSString stringWithFormat:@"%@/*", path];
-        } else {
-            directory = @"";
         }
     }
     
