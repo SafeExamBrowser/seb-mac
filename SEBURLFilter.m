@@ -167,6 +167,7 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
 - (void) clearIgnoreRuleList
 {
     [self.ignoreList removeAllObjects];
+    [[NSUserDefaults standardUserDefaults] setSecureObject:[NSArray array] forKey:@"org_safeexambrowser_SEB_URLFilterIgnoreList"];
 }
 
 
