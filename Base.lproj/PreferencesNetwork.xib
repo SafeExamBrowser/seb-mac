@@ -702,16 +702,6 @@
                                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </box>
-                                    <button toolTip="Helps to create filter rules for URLs or embedded content elements that should be allowed or blocked" translatesAutoresizingMaskIntoConstraints="NO" id="PJT-Mq-ijG">
-                                        <rect key="frame" x="362" y="241" width="227" height="18"/>
-                                        <buttonCell key="cell" type="check" title="Teach SEB allowed/blocked URLs" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="DSd-mL-qnG">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <binding destination="-2" name="value" keyPath="self.URLFilterLearningMode" id="H4C-pa-i4L"/>
-                                        </connections>
-                                    </button>
                                     <matrix toolTip="Chooses message/symbol which is displayed in the browser window toolbar when a URL isn't allowed" verticalHuggingPriority="750" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wtP-tT-RxN">
                                         <rect key="frame" x="33" y="599" width="554" height="18"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -739,6 +729,23 @@
                                             <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_URLFilterMessage" id="pfM-NM-XPk"/>
                                         </connections>
                                     </matrix>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Etc-6i-KPi">
+                                        <rect key="frame" x="437" y="232" width="156" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Clear Ignore List…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="iyL-Fn-jZ6">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                    <button toolTip="Helps to create filter rules for URLs or embedded content elements that should be allowed or blocked" translatesAutoresizingMaskIntoConstraints="NO" id="PJT-Mq-ijG">
+                                        <rect key="frame" x="201" y="241" width="227" height="18"/>
+                                        <buttonCell key="cell" type="check" title="Teach SEB allowed/blocked URLs" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="DSd-mL-qnG">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="-2" name="value" keyPath="self.URLFilterLearningMode" id="H4C-pa-i4L"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="454" firstAttribute="leading" secondItem="243" secondAttribute="leading" constant="17" id="456"/>
@@ -751,13 +758,15 @@
                                     <constraint firstItem="wtP-tT-RxN" firstAttribute="top" secondItem="648" secondAttribute="bottom" constant="4" id="25f-TM-OLF"/>
                                     <constraint firstItem="GZd-2h-HIq" firstAttribute="top" secondItem="527" secondAttribute="bottom" constant="8" id="4v2-cV-Ybx"/>
                                     <constraint firstItem="wtP-tT-RxN" firstAttribute="leading" secondItem="243" secondAttribute="leading" constant="33" id="7hk-RL-ewk"/>
-                                    <constraint firstAttribute="trailing" secondItem="PJT-Mq-ijG" secondAttribute="trailing" constant="17" id="9Rp-tD-xAu"/>
+                                    <constraint firstItem="527" firstAttribute="bottom" secondItem="PJT-Mq-ijG" secondAttribute="bottom" id="99v-9p-Nsh"/>
                                     <constraint firstItem="at3-bk-Nje" firstAttribute="leading" secondItem="243" secondAttribute="leading" constant="17" id="CQZ-2w-N2N"/>
                                     <constraint firstAttribute="trailing" secondItem="at3-bk-Nje" secondAttribute="trailing" constant="17" id="Dib-ic-40b"/>
                                     <constraint firstAttribute="trailing" secondItem="wtP-tT-RxN" secondAttribute="trailing" constant="17" id="EOf-AG-r5j"/>
                                     <constraint firstItem="526" firstAttribute="top" secondItem="at3-bk-Nje" secondAttribute="bottom" constant="8" id="Ho8-nT-Ez1"/>
-                                    <constraint firstItem="PJT-Mq-ijG" firstAttribute="bottom" secondItem="527" secondAttribute="bottom" id="LtL-mj-huO"/>
-                                    <constraint firstItem="PJT-Mq-ijG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="527" secondAttribute="trailing" constant="43" id="VwO-VY-uiL"/>
+                                    <constraint firstItem="Etc-6i-KPi" firstAttribute="centerY" secondItem="PJT-Mq-ijG" secondAttribute="centerY" id="IYe-bN-tic"/>
+                                    <constraint firstItem="PJT-Mq-ijG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="527" secondAttribute="trailing" constant="20" id="VwO-VY-uiL"/>
+                                    <constraint firstAttribute="trailing" secondItem="Etc-6i-KPi" secondAttribute="trailing" constant="17" id="dAd-C8-yhz"/>
+                                    <constraint firstItem="Etc-6i-KPi" firstAttribute="leading" secondItem="PJT-Mq-ijG" secondAttribute="trailing" constant="17" id="g4Q-cp-HMR"/>
                                     <constraint firstAttribute="trailing" secondItem="GZd-2h-HIq" secondAttribute="trailing" constant="17" id="gTn-Yy-n6C"/>
                                     <constraint firstItem="527" firstAttribute="top" secondItem="at3-bk-Nje" secondAttribute="bottom" constant="8" id="gpq-lS-BK0"/>
                                     <constraint firstItem="648" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="454" secondAttribute="trailing" constant="8" symbolic="YES" id="iQ7-jb-Mnx"/>

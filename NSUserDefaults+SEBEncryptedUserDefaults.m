@@ -404,6 +404,8 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_URLFilterEnable",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_URLFilterEnableContentFilter",
+                                 [NSArray array],
+                                 @"org_safeexambrowser_SEB_URLFilterIgnoreList",
                                  [NSNumber numberWithLong:URLFilterMessageText],
                                  @"org_safeexambrowser_SEB_URLFilterMessage",
                                  [NSNumber numberWithBool:NO],

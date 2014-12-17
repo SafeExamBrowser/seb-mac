@@ -447,12 +447,14 @@
         // If the filter Response isn't block and the URL filter learning mode is switched on
         if (filterResponse != URLFilterActionBlock && [SEBURLFilter sharedSEBURLFilter].learningMode) {
             
+            // Check if all non-allowed URLs should be dismissed in the current webview
             if (creatingWebView.dismissAll == NO) {
                 NSURL *resourceURL = request.URL;
                 self.URLFilterAlertURL = resourceURL;
                 if (!creatingWebView.notAllowedURLs) {
                     creatingWebView.notAllowedURLs = [NSMutableArray new];
                 }
+                // Check if the non-allowed URL has been dismissed for the current webview
                 BOOL containsURL = NO;
                 for (NSURL *notAllowedURL in creatingWebView.notAllowedURLs) {
                     if ([resourceURL isEqualTo:notAllowedURL]) {
@@ -461,69 +463,75 @@
                     }
                 }
                 if (containsURL == NO) {
-                    [creatingWebView.notAllowedURLs addObject:resourceURL];
                     
-                    // Set filter alert text depending if a URL or content was blocked
-                    if (contentFilter) {
-                        self.URLFilterAlertText.stringValue = NSLocalizedString(@"This embedded resource isn't allowed! You can create a new filter rule based on the following patterns:", nil);
-                    } else {
-                        self.URLFilterAlertText.stringValue = NSLocalizedString(@"It's not allowed to open this URL! You can create a new filter rule based on the following patterns:", nil);
-                    }
-                    // Set filter expression according to selected pattern in the NSMatrix radio button group
-                    [self changedFilterPattern:self.filterPatternMatrix];
-                    
-                    // Set full URL in the filter expression text field
-                    self.filterExpressionField.string = self.URLFilterAlertURL.absoluteString;
-                    
-                    // Set the domain pattern label/button string
-                    self.domainPatternButton.title = [self filterExpressionForPattern:SEBURLFilterAlertPatternDomain];
-                    
-                    // Set the host pattern label/button string
-                    self.hostPatternButton.title = [self filterExpressionForPattern:SEBURLFilterAlertPatternHost];
-                    
-                    // Set the host/path pattern label/button string
-                    self.hostPathPatternButton.title = [self filterExpressionForPattern:SEBURLFilterAlertPatternHostPath];
-                    
-                    // Set the directory pattern label/button string
-                    self.directoryPatternButton.title = [self filterExpressionForPattern:SEBURLFilterAlertPatternDirectory];
-                    
-                    // If the (main) browser window is full screen, we don't show the dialog as sheet
-                    if (window && self.browserController.mainBrowserWindow.isFullScreen && window == self.browserController.mainBrowserWindow) {
-                        window = nil;
-                    }
-                    
-                    [NSApp beginSheet: self.URLFilterAlert
-                       modalForWindow: window
-                        modalDelegate: nil
-                       didEndSelector: nil
-                          contextInfo: nil];
-                    NSInteger returnCode = [NSApp runModalForWindow: self.URLFilterAlert];
-                    // Dialog is up here.
-                    [NSApp endSheet: self.URLFilterAlert];
-                    [NSApp abortModal];
-                    [self.URLFilterAlert orderOut: self];
-                    switch (returnCode) {
-                        case SEBURLFilterAlertCancel:
-                            return NO;
-                            
-                        case SEBURLFilterAlertAllow:
-                            // Allow URL (in filter learning mode)
-                            [[SEBURLFilter sharedSEBURLFilter] addRuleAction:URLFilterActionAllow withFilterExpression:[SEBURLFilterExpression filterExpressionWithString:self.filterExpression]];
-                            return YES;
-                            
-                        case SEBURLFilterAlertIgnore:
-                            // Ignore URL according to selected pattern (in filter learning mode)
-                            // Code ToDo
-                            return NO;
-                            
-                        case SEBURLFilterAlertBlock:
-                            // Block URL (in filter learning mode)
-                            [[SEBURLFilter sharedSEBURLFilter] addRuleAction:URLFilterActionBlock withFilterExpression:[SEBURLFilterExpression filterExpressionWithString:self.filterExpression]];
-                            return NO;
-                            
-                        case SEBURLFilterAlertDismissAll:
-                            return NO;
-                            
+                    // Check if the non-allowed URL is in the ignore list for current settings
+                    if (![[SEBURLFilter sharedSEBURLFilter] testURLIgnored:resourceURL]) {
+                        
+                        // This non-allowed URL hasn't been dismissed yet, add it to the dismissed list
+                        [creatingWebView.notAllowedURLs addObject:resourceURL];
+                        
+                        // Set filter alert text depending if a URL or content was blocked
+                        if (contentFilter) {
+                            self.URLFilterAlertText.stringValue = NSLocalizedString(@"This embedded resource isn't allowed! You can create a new filter rule based on the following patterns:", nil);
+                        } else {
+                            self.URLFilterAlertText.stringValue = NSLocalizedString(@"It's not allowed to open this URL! You can create a new filter rule based on the following patterns:", nil);
+                        }
+                        // Set filter expression according to selected pattern in the NSMatrix radio button group
+                        [self changedFilterPattern:self.filterPatternMatrix];
+                        
+                        // Set full URL in the filter expression text field
+                        self.filterExpressionField.string = self.URLFilterAlertURL.absoluteString;
+                        
+                        // Set the domain pattern label/button string
+                        self.domainPatternButton.title = [self filterExpressionForPattern:SEBURLFilterAlertPatternDomain];
+                        
+                        // Set the host pattern label/button string
+                        self.hostPatternButton.title = [self filterExpressionForPattern:SEBURLFilterAlertPatternHost];
+                        
+                        // Set the host/path pattern label/button string
+                        self.hostPathPatternButton.title = [self filterExpressionForPattern:SEBURLFilterAlertPatternHostPath];
+                        
+                        // Set the directory pattern label/button string
+                        self.directoryPatternButton.title = [self filterExpressionForPattern:SEBURLFilterAlertPatternDirectory];
+                        
+                        // If the (main) browser window is full screen, we don't show the dialog as sheet
+                        if (window && self.browserController.mainBrowserWindow.isFullScreen && window == self.browserController.mainBrowserWindow) {
+                            window = nil;
+                        }
+                        
+                        [NSApp beginSheet: self.URLFilterAlert
+                           modalForWindow: window
+                            modalDelegate: nil
+                           didEndSelector: nil
+                              contextInfo: nil];
+                        NSInteger returnCode = [NSApp runModalForWindow: self.URLFilterAlert];
+                        // Dialog is up here.
+                        [NSApp endSheet: self.URLFilterAlert];
+                        [NSApp abortModal];
+                        [self.URLFilterAlert orderOut: self];
+                        switch (returnCode) {
+                            case SEBURLFilterAlertDismiss:
+                                return NO;
+                                
+                            case SEBURLFilterAlertAllow:
+                                // Allow URL (in filter learning mode)
+                                [[SEBURLFilter sharedSEBURLFilter] addRuleAction:URLFilterActionAllow withFilterExpression:[SEBURLFilterExpression filterExpressionWithString:self.filterExpression]];
+                                return YES;
+                                
+                            case SEBURLFilterAlertIgnore:
+                                // Ignore URL according to selected pattern (in filter learning mode)
+                                [[SEBURLFilter sharedSEBURLFilter] addRuleAction:URLFilterActionIgnore withFilterExpression:[SEBURLFilterExpression filterExpressionWithString:self.filterExpression]];
+                                return NO;
+                                
+                            case SEBURLFilterAlertBlock:
+                                // Block URL (in filter learning mode)
+                                [[SEBURLFilter sharedSEBURLFilter] addRuleAction:URLFilterActionBlock withFilterExpression:[SEBURLFilterExpression filterExpressionWithString:self.filterExpression]];
+                                return NO;
+                                
+                            case SEBURLFilterAlertDismissAll:
+                                return NO;
+                                
+                        }
                     }
                 }
             }
@@ -567,8 +575,8 @@
 }
 
 
-- (IBAction) URLFilterAlertCancel: (id)sender {
-    [NSApp stopModalWithCode:SEBURLFilterAlertCancel];
+- (IBAction) URLFilterAlertDismiss: (id)sender {
+    [NSApp stopModalWithCode:SEBURLFilterAlertDismiss];
 }
 
 - (IBAction) URLFilterAlertAllow: (id)sender {

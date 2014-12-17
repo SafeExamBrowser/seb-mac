@@ -43,13 +43,16 @@
 @property (readwrite) BOOL learningMode;
 @property (strong) NSMutableArray *permittedList;
 @property (strong) NSMutableArray *prohibitedList;
+@property (strong) NSMutableArray *ignoreList;
 
 
-+ (SEBURLFilter *)sharedSEBURLFilter;
++ (SEBURLFilter *) sharedSEBURLFilter;
 
-- (NSError *)updateFilterRules;
+- (NSError *) updateFilterRules;
 
 - (URLFilterRuleActions)testURLAllowed:(NSURL *)URLToFilter;
+
+- (BOOL) testURLIgnored:(NSURL *)URLToFilter;
 
 - (void) addRuleAction:(URLFilterRuleActions)action withFilterExpression:(SEBURLFilterExpression *)filterExpression;
 

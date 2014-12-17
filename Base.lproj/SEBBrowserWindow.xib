@@ -131,7 +131,7 @@
                         <constraints>
                             <constraint firstAttribute="width" constant="90" id="Vye-IJ-fDc"/>
                         </constraints>
-                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="baa-dD-Wnp">
+                        <buttonCell key="cell" type="push" title="Dismiss" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="baa-dD-Wnp">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                             <string key="keyEquivalent" base64-UTF8="YES">
@@ -139,7 +139,7 @@ DQ
 </string>
                         </buttonCell>
                         <connections>
-                            <action selector="URLFilterAlertCancel:" target="3" id="AFS-OT-krL"/>
+                            <action selector="URLFilterAlertDismiss:" target="3" id="osj-Ge-gIh"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z9W-wM-LUg">
@@ -213,8 +213,8 @@ DQ
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KId-E2-Y59">
-                        <rect key="frame" x="14" y="5" width="102" height="32"/>
-                        <buttonCell key="cell" type="push" title="Ignore All" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FW8-h0-H13">
+                        <rect key="frame" x="14" y="5" width="109" height="32"/>
+                        <buttonCell key="cell" type="push" title="Dismiss All" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FW8-h0-H13">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                             <string key="keyEquivalent" base64-UTF8="YES">

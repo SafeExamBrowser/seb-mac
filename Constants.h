@@ -124,7 +124,7 @@ typedef NSUInteger SEBURLFilterAlertPattern;
 
 
 enum {
-    SEBURLFilterAlertCancel                      = 0,
+    SEBURLFilterAlertDismiss                      = 0,
     SEBURLFilterAlertAllow                       = 1,
     SEBURLFilterAlertIgnore                      = 2,
     SEBURLFilterAlertBlock                       = 3,
@@ -166,7 +166,8 @@ typedef NSUInteger URLFilterMessages;
 enum {
     URLFilterActionBlock                        = 0,
     URLFilterActionAllow                        = 1,
-    URLFilterActionUnknown                      = 2
+    URLFilterActionIgnore                       = 2,
+    URLFilterActionUnknown                      = 3
 };
 typedef NSUInteger URLFilterRuleActions;
 
