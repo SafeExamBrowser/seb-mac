@@ -862,10 +862,16 @@ static NSNumber *_logLevel;
                                                     withSettings:kRNCryptorAES256Settings
                                                         password:userDefaultsMasala
                                                            error:&error];
+                if (error || !encryptedData) {
+                    DDLogError(@"PREFERENCES CORRUPTED ERROR after \[RNEncryptor encryptData:data withSettings:kRNCryptorAES256Settings password:userDefaultsMasala error:&error]");
+                    
+                    [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
+                    return;
+                }
                 [self setObject:encryptedData forKey:key];
             } else {
                 encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
-                if (error) {
+                if (error || !encryptedData) {
 
                     DDLogError(@"PREFERENCES CORRUPTED ERROR at [self setObject:(encrypted %@) forKey:%@]", value, key);
 
@@ -915,7 +921,7 @@ static NSNumber *_logLevel;
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
         NSError *error;
         NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
-        if (error) {
+        if (error || !encryptedData) {
 
             DDLogError(@"PREFERENCES CORRUPTED ERROR at [self secureDataForObject:%@ andKey:%@]", value, key);
 
@@ -1008,6 +1014,7 @@ static NSNumber *_logLevel;
                                             withPassword:userDefaultsMasala
                                                    error:&error];
             if (error) {
+                DDLogError(@"%s: Error at \[RNDecryptor decryptData:encrypted withPassword:userDefaultsMasala error:&error]", __FUNCTION__);
                 return nil;
             }
         } else {
