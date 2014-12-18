@@ -689,9 +689,10 @@ static NSNumber *_logLevel;
             //if (defaultValue && !([value class] == [defaultValue class])) {
             // Class of newly loaded value is different than the one from the default value
             // If yes, then cancel reading .seb file
-            NSRunAlertPanel(NSLocalizedString(@"Loading New SEB Settings Failed!", nil),
-                            NSLocalizedString(@"This settings file cannot be used. It may have been created by an older, incompatible version of SEB or it is corrupted.", nil),
+            NSRunAlertPanel(NSLocalizedString(@"Reading New Settings Failed!", nil),
+                            NSLocalizedString(@"These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted.", nil),
                             NSLocalizedString(@"OK", nil), nil, nil);
+            DDLogError(@"%s Value for key %@ is not having the correct class!", __FUNCTION__, key);
             return NO; //we abort reading the new settings here
         }
     }

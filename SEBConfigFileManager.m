@@ -246,7 +246,9 @@
     NSData *unzippedSebData = [sebData gzipInflate];
     // if unzipped data is not nil, then unzipping worked, we use unzipped data
     // if unzipped data is nil, then the source data may be an uncompressed .seb file, we proceed with it
-    if (unzippedSebData) sebData = unzippedSebData;
+    if (unzippedSebData) {
+        sebData = unzippedSebData;
+    }
 
     NSString *prefixString;
     
@@ -299,10 +301,14 @@
             if (forEditing && *sebFilePasswordPtr) {
                 password = *sebFilePasswordPtr;
             } else {
-                if ([self.sebController showEnterPasswordDialog:enterPasswordString modalForWindow:nil windowTitle:NSLocalizedString(@"Loading Settings",nil)] == SEBEnterPasswordCancel) return nil;
+                if ([self.sebController showEnterPasswordDialog:enterPasswordString modalForWindow:nil windowTitle:NSLocalizedString(@"Loading Settings",nil)] == SEBEnterPasswordCancel) {
+                    return nil;
+                }
                 password = [self.sebController.enterPassword stringValue];
             }
-            if (!password) return nil;
+            if (!password) {
+                return nil;
+            }
             error = nil;
             sebDataDecrypted = [RNDecryptor decryptData:sebData withPassword:password error:&error];
             enterPasswordString = NSLocalizedString(@"Wrong Password! Try again to enter the correct password:",nil);
@@ -313,6 +319,8 @@
             NSRunAlertPanel(NSLocalizedString(@"Cannot Decrypt Settings", nil),
                             NSLocalizedString(@"You either entered the wrong password or these settings were saved with an incompatible SEB version.", nil),
                             NSLocalizedString(@"OK", nil), nil, nil);
+            DDLogError(@"%s: Cannot Decrypt Settings: You either entered the wrong password or these settings were saved with an incompatible SEB version.", __FUNCTION__);
+
             return nil;
         } else {
             sebData = sebDataDecrypted;
@@ -345,8 +353,10 @@
                     // No valid prefix and no unencrypted file with valid header
                     // cancel reading .seb file
                     NSRunAlertPanel(NSLocalizedString(@"Opening New Settings Failed!", nil),
-                                    NSLocalizedString(@"These settings cannot be used. They may have been created by an newer, incompatible version of SEB or are corrupted.", nil),
+                                    NSLocalizedString(@"These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted.", nil),
                                     NSLocalizedString(@"OK", nil), nil, nil);
+                    DDLogError(@"%s: No valid prefix and no unencrypted file with valid header", __FUNCTION__);
+
                     return nil;
                 }
             }
@@ -366,7 +376,9 @@
     // Get preferences dictionary from decrypted data
     NSDictionary *sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:sebData forEditing:forEditing];
     // If we didn't get a preferences dict back, we abort reading settings
-    if (!sebPreferencesDict) return nil;
+    if (!sebPreferencesDict) {
+        return nil;
+    }
 
     // We need to set the right value for the key sebConfigPurpose to know later where to store the new settings
     [sebPreferencesDict setValue:[NSNumber numberWithInt:sebConfigPurposeStartingExam] forKey:@"sebConfigPurpose"];
@@ -466,6 +478,8 @@
                         NSRunAlertPanel(NSLocalizedString(@"Cannot Reconfigure SEB Settings", nil),
                                         NSLocalizedString(@"You either entered the wrong password or these settings were saved with an incompatible SEB version.", nil),
                                         NSLocalizedString(@"OK", nil), nil, nil);
+                        DDLogError(@"%s: Cannot Reconfigure SEB Settings: You either entered the wrong password or these settings were saved with an incompatible SEB version.", __FUNCTION__);
+
                         return nil;
                     }
                 }
@@ -496,6 +510,8 @@
                 NSRunAlertPanel(NSLocalizedString(@"Cannot Decrypt SEB Settings", nil),
                                 NSLocalizedString(@"You either entered the wrong password or these settings were saved with an incompatible SEB version.", nil),
                                 NSLocalizedString(@"OK", nil), nil, nil);
+                DDLogError(@"%s: Cannot Decrypt SEB Settings: You either entered the wrong password or these settings were saved with an incompatible SEB version.", __FUNCTION__);
+
                 return nil;
             } else {
                 // Decrypting with entered password worked: We save it for returning it later
@@ -520,12 +536,16 @@
         // Get preferences dictionary from decrypted data
         sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:sebData forEditing:forEditing];
         // If we didn't get a preferences dict back, we abort reading settings
-        if (!sebPreferencesDict) return nil;
+        if (!sebPreferencesDict) {
+            return nil;
+        }
     }
 
     // Check if a some value is from a wrong class (another than the value from default settings)
     // and quit reading .seb file if a wrong value was found
-    if (![preferences checkClassOfSettings:sebPreferencesDict]) return nil;
+    if (![preferences checkClassOfSettings:sebPreferencesDict]) {
+        return nil;
+    }
     
     // We need to set the right value for the key sebConfigPurpose to know later where to store the new settings
     [sebPreferencesDict setValue:[NSNumber numberWithInt:sebConfigPurposeConfiguringClient] forKey:@"sebConfigPurpose"];
@@ -613,6 +633,8 @@
         NSRunAlertPanel(NSLocalizedString(@"Loading Settings", nil),
                         NSLocalizedString(@"If you don't enter the right administrator password from these settings you cannot open them.", nil),
                         NSLocalizedString(@"OK", nil), nil, nil);
+        DDLogError(@"%s: Loading Settings: If you don't enter the right administrator password from these settings you cannot open them.", __FUNCTION__);
+        
         return NO;
     }
     // Right password entered
@@ -672,6 +694,8 @@
         NSRunAlertPanel(NSLocalizedString(@"Error Decrypting Settings", nil),
                         NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil),
                         NSLocalizedString(@"OK", nil), nil, nil);
+        DDLogError(@"%s: Error Decrypting Settings: The identity needed to decrypt settings has not been found in the keychain!", __FUNCTION__);
+
         return nil;
     }
 
@@ -702,6 +726,7 @@
 {
     // Check if data has at least the lenght of the prefix
     if (prefixLength > [*data length]) {
+        DDLogError(@"%s: Data is shorter than prefix!", __FUNCTION__);
         return nil;
     }
     
@@ -750,8 +775,16 @@
     if (error || !dataRep) {
         // Serialization of the XML plist went wrong
         // Looks like there is a key with a NULL value
-        // TO DO: Error handling for this unlikely case
-        DDLogError(@"Serialization of the XML plist went wrong! Error: %@", error);
+        DDLogError(@"%s: Serialization of the XML plist went wrong! Error: %@", __FUNCTION__, error);
+        
+        NSAlert *newAlert = [[NSAlert alloc] init];
+        [newAlert setMessageText:NSLocalizedString(@"Settings Corrupted", nil)];
+        [newAlert setInformativeText:NSLocalizedString(@"Current settings are corrupted. Load valid settings or reset to default settings.", nil)];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [newAlert setAlertStyle:NSCriticalAlertStyle];
+        [newAlert runModal];
+
+        return nil;
     }
     
     NSMutableString *sebXML = [[NSMutableString alloc] initWithData:dataRep encoding:NSUTF8StringEncoding];
