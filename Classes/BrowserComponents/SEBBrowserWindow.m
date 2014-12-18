@@ -967,6 +967,8 @@ willPerformClientRedirectToURL:(NSURL *)URL
         
         if ([error code] !=  WebKitErrorFrameLoadInterruptedByPolicyChange) //this error can be ignored
         {
+            DDLogError(@"Error at %s: %@", __FUNCTION__, error.description);
+
             //Close the About Window first, because it would hide the error alert
             [[NSNotificationCenter defaultCenter] postNotificationName:@"requestCloseAboutWindowNotification" object:self];
             
@@ -982,6 +984,8 @@ willPerformClientRedirectToURL:(NSURL *)URL
                 case NSAlertDefaultReturn:
                     //Retry: try reloading
                     //self.browserController.currentMainHost = nil;
+                    DDLogInfo(@"Trying to reload after %s: Request: %@ URL: %@", __FUNCTION__, [[frame provisionalDataSource] request], [[frame provisionalDataSource] request].URL);
+
                     [[sender mainFrame] loadRequest:[[frame provisionalDataSource] request]];
                     return;
                 default:
@@ -1001,6 +1005,8 @@ willPerformClientRedirectToURL:(NSURL *)URL
         
         if ([error code] !=  WebKitErrorFrameLoadInterruptedByPolicyChange) //this error can be ignored
         {
+            DDLogError(@"Error at %s: %@", __FUNCTION__, error.description);
+
             //Close the About Window first, because it would hide the error alert
             [[NSNotificationCenter defaultCenter] postNotificationName:@"requestCloseAboutWindowNotification" object:self];
             
@@ -1014,6 +1020,8 @@ willPerformClientRedirectToURL:(NSURL *)URL
                 case NSAlertDefaultReturn:
                     //Retry: try reloading
                     //self.browserController.currentMainHost = setCurrentMainHost:nil;
+                    DDLogInfo(@"Trying to reload after %s: Request: %@ URL: %@", __FUNCTION__, [[frame dataSource] request], [[frame dataSource] request].URL);
+
                     [[sender mainFrame] loadRequest:[[frame dataSource] request]];
                     return;
                 default:
@@ -1119,7 +1127,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
 - (void)webView:(SEBWebView *)sender plugInFailedWithError:(NSError *)error
      dataSource:(WebDataSource *)dataSource
 {
-    DDLogError(@"webView: %@ plugInFailedWithError: %@ dataSource: %@", sender, error, dataSource);
+    DDLogError(@"webView: %@ plugInFailedWithError: %@ dataSource: %@", sender, error.description, dataSource);
     NSAlert *newAlert = [[NSAlert alloc] init];
     [newAlert setMessageText:error.localizedDescription];
     [newAlert setInformativeText:error.localizedFailureReason];
@@ -1405,7 +1413,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 - (void)webView:(SEBWebView *)sender unableToImplementPolicyWithError:(NSError *)error
           frame:(WebFrame *)frame
 {
-    DDLogError(@"webView: %@ unableToImplementPolicyWithError: %@ frame: %@", sender, error, frame);
+    DDLogError(@"webView: %@ unableToImplementPolicyWithError: %@ frame: %@", sender, error.description, frame);
 }
 
 
@@ -1458,7 +1466,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     [self presentError:error modalForWindow:self delegate:nil didPresentSelector:NULL contextInfo:NULL];
 
     DDLogError(@"Download failed! Error - %@ %@",
-               [error localizedDescription],
+               error.description,
                [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
 }
 
