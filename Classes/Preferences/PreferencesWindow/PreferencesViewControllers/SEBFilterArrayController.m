@@ -22,6 +22,15 @@
 }
 
 
+- (void) remove:(id)sender
+{
+    NSUInteger selectedObjectIndex = [self selectionIndex];
+    [super remove:sender];
+    if (selectedObjectIndex != 0) {
+        [self setSelectionIndex:selectedObjectIndex-1];
+    }
+}
+
 //- (void)addObject:(id)object
 //{
 //    [super addObject:object];
