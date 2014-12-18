@@ -383,10 +383,23 @@
     NSError *error = nil;
     NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL options:nil error:&error];
     
-    if (error) {
+    if (error || !sebData) {
         // Error when reading configuration data
         [NSApp presentError:error];
+        DDLogError(@"%s: Reading a settings file with path %@ didn't work, error: %@", __FUNCTION__, sebFileURL.absoluteString, error.description);
+
     } else {
+        if (sebData.length == 0) {
+            DDLogError(@"%s: Loaded settings file with path %@ was empty!", __FUNCTION__, sebFileURL.absoluteString);
+
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:NSLocalizedString(@"Opening Settings Failed", nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"Loaded settings are empty and cannot be used.", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [newAlert setAlertStyle:NSCriticalAlertStyle];
+            [newAlert runModal];
+            return;
+        }
         // Decrypt and store the .seb config file
         if ([self.configFileManager storeDecryptedSEBSettings:sebData forEditing:YES]) {
             // if successfull save the path to the file for possible editing in the preferences window

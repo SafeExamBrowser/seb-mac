@@ -1021,7 +1021,7 @@ static NSNumber *_logLevel;
             decrypted = [[SEBCryptor sharedSEBCryptor] decryptData:encrypted forKey:key error:&error];
             if (error) {
 
-                DDLogError(@"PREFERENCES CORRUPTED ERROR at [self _objectForKey:%@], error: %@", key, error);
+                DDLogError(@"PREFERENCES CORRUPTED ERROR at [self _objectForKey:%@], error: %@", key, error.description);
 
                 [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
                 return nil;

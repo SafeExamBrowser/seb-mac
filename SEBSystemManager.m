@@ -234,7 +234,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         
         // Read names of possible files contained in the temp sc directory
         NSArray *filesInTempDir = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:fullTempPath error:&error];
-        DDLogDebug(@"Contents of the redirected sc directory: %@ or error when reading: %@", filesInTempDir, error);
+        DDLogDebug(@"Contents of the redirected sc directory: %@ or error when reading: %@", filesInTempDir, error.description);
         
         [[NSFileManager defaultManager] removeItemAtPath:fullTempPath error:&error];
         return error == nil;

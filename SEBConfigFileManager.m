@@ -97,7 +97,7 @@
                 // Delete the SebClientSettings.seb file from the Preferences directory
                 error = nil;
                 [[NSFileManager defaultManager] removeItemAtURL:sebClientSettingsFileURL error:&error];
-                DDLogInfo(@"Attempted to remove SebClientSettings.seb from Preferences directory, result: %@", error);
+                DDLogInfo(@"Attempted to remove SebClientSettings.seb from Preferences directory, result: %@", error.description);
                 // Restart SEB with new settings
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:@"requestRestartNotification" object:self];
@@ -476,9 +476,9 @@
                     if (!passwordsMatch) {
                         //wrong password entered in 5th try: stop reading .seb file
                         NSRunAlertPanel(NSLocalizedString(@"Cannot Reconfigure SEB Settings", nil),
-                                        NSLocalizedString(@"You either entered the wrong password or these settings were saved with an incompatible SEB version.", nil),
+                                        NSLocalizedString(@"You didn't enter the the correct current SEB administrator password.", nil),
                                         NSLocalizedString(@"OK", nil), nil, nil);
-                        DDLogError(@"%s: Cannot Reconfigure SEB Settings: You either entered the wrong password or these settings were saved with an incompatible SEB version.", __FUNCTION__);
+                        DDLogError(@"%s: Cannot Reconfigure SEB Settings: You didn't enter the the correct current SEB administrator password.", __FUNCTION__);
 
                         return nil;
                     }
@@ -493,7 +493,9 @@
             do {
                 i--;
                 // Prompt for password
-                if ([self.sebController showEnterPasswordDialog:enterPasswordString modalForWindow:nil windowTitle:NSLocalizedString(@"Loading Settings",nil)] == SEBEnterPasswordCancel) return nil;
+                if ([self.sebController showEnterPasswordDialog:enterPasswordString modalForWindow:nil windowTitle:NSLocalizedString(@"Loading Settings",nil)] == SEBEnterPasswordCancel) {
+                    return nil;
+                }
                 password = [self.sebController.enterPassword stringValue];
                 if (!password) {
                     password = @"";
@@ -565,6 +567,8 @@
     NSDictionary *sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:sebData error:&error];
     if (error) {
         [NSApp presentError:error];
+        DDLogError(@"%s: Serialization of the XML plist went wrong! Error: %@", __FUNCTION__, error.description);
+
         return nil; //we abort reading the new settings here
     }
     /// In editing mode, if the current administrator password isn't the same as in the new settings,
@@ -653,6 +657,7 @@
                                                                                    error:&plistError];
     if (plistError) {
         // If it exists, then add the localized error reason from serializing the plist to the error object
+        DDLogError(@"%s: Serialization of the XML plist went wrong! Error: %@", __FUNCTION__, plistError.description);
         NSString *failureReason = [plistError localizedFailureReason];
         if (!failureReason) failureReason = @"";
         NSMutableDictionary *newErrorDict =
@@ -775,7 +780,7 @@
     if (error || !dataRep) {
         // Serialization of the XML plist went wrong
         // Looks like there is a key with a NULL value
-        DDLogError(@"%s: Serialization of the XML plist went wrong! Error: %@", __FUNCTION__, error);
+        DDLogError(@"%s: Serialization of the XML plist went wrong! Error: %@", __FUNCTION__, error.description);
         
         NSAlert *newAlert = [[NSAlert alloc] init];
         [newAlert setMessageText:NSLocalizedString(@"Settings Corrupted", nil)];

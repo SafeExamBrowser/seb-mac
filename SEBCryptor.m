@@ -94,15 +94,19 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSData *defaultsKey = [keychainManager retrieveKey];
     if (defaultsKey) {
         _currentKey = defaultsKey;
-//#ifdef DEBUG
-//        NSLog(@"UserDefaults key %@ retrieved.", _currentKey);
-//#endif
+#ifdef DEBUG
+        DDLogVerbose(@"UserDefaults key %@ retrieved.", _currentKey);
+#else
+        DDLogDebug(@"UserDefaults key retrieved.");
+#endif
     } else {
         _currentKey = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
         [keychainManager storeKey:_currentKey];
-//#ifdef DEBUG
-//        NSLog(@"Generated UserDefaults key %@ as there was none defined yet.", _currentKey);
-//#endif
+#ifdef DEBUG
+        DDLogVerbose(@"Generated UserDefaults key %@ as there was none defined yet.", _currentKey);
+#else
+        DDLogDebug(@"Generated UserDefaults key as there was none defined yet.");
+#endif
     }
     return (defaultsKey != nil);
 }
@@ -112,9 +116,11 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 {
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     _currentKey = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
-//#ifdef DEBUG
-//    NSLog(@"Updated UserDefaults key to %@", _currentKey);
-//#endif
+#ifdef DEBUG
+    DDLogVerbose(@"Updated UserDefaults key to %@", _currentKey);
+#else
+    DDLogDebug(@"Updated UserDefaults key");
+#endif
     return [keychainManager updateKey:_currentKey];
 }
 
@@ -127,17 +133,18 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     CCHmac(kCCHmacAlgSHA256, keyData.bytes, keyData.length, _currentKey.bytes, _currentKey.length, HMACData.mutableBytes);
 
     NSString *password = [HMACData base64Encoding];
-//#ifdef DEBUG
-//    NSLog(@"Encrypt UD password: %@, error: %@", password, *error);
-//#endif
     
     NSData *encryptedData = [RNEncryptor encryptData:data
                                         withSettings:kSEBCryptorAES256Settings
                                             password:password
                                                error:error];
-//#ifdef DEBUG
-//    NSLog(@"Encrypted UD, error: %@", *error);
-//#endif
+    if (error) {
+#ifdef DEBUG
+        DDLogVerbose(@"Encrypt UserDefaults with key %@, error: %@", password, [*error description]);
+#else
+        DDLogError(@"Encrypt UserDefaults with key, error: %@", [*error description]);
+#endif
+    }
     return encryptedData;
 }
 
@@ -150,15 +157,16 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     CCHmac(kCCHmacAlgSHA256, keyData.bytes, keyData.length, _currentKey.bytes, _currentKey.length, HMACData.mutableBytes);
     
     NSString *password = [HMACData base64Encoding];
-//#ifdef DEBUG
-//    NSLog(@"Decrypt UD password: %@, error: %@", password, *error);
-//#endif
     NSData *decryptedData = [RNDecryptor decryptData:encryptedData withSettings:kSEBCryptorAES256Settings
                                             password:password
                                                error:error];
-//#ifdef DEBUG
-//    NSLog(@"Decrypted UD, error: %@", *error);
-//#endif
+    if (error) {
+#ifdef DEBUG
+        DDLogVerbose(@"Decrypt UserDefaults with key %@, error: %@", password, [*error description]);
+#else
+        DDLogError(@"Encrypt UserDefaults with key, error: %@", [*error description]);
+#endif
+    }
     return decryptedData;
 }
 
@@ -220,6 +228,8 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         if (valueClass && defaultValueClass && !([defaultValue isKindOfClass:valueClass] || [value isKindOfClass:defaultValueClass])) {
             // Class of local preferences value is different than the one from the default value
             // If yes, then cancel reading .seb file and create error object
+            DDLogError(@"%s Value for key %@ is not having the correct class!", __FUNCTION__, key);
+            DDLogError(@"Triggering present alert for 'Local SEB settings have been reset'");
             [self presentPreferencesCorruptedError];
             // Return value: Checksum changed
             return YES;
@@ -278,6 +288,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSData *HMACData;
     if (error || !archivedPrefs) {
         // Serialization of the XML plist went wrong
+        DDLogError(@"%s: Serialization of the XML plist went wrong! Error: %@", __FUNCTION__, error.description);
         // Pref key is empty
         HMACData = [NSData data];
     } else {
@@ -301,12 +312,13 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
                                                                         error:&error];
 //    NSData *archivedPrefs = [NSJSONSerialization dataWithJSONObject:prefsDict options:0 error:&error];
 #ifdef DEBUG
-//    NSLog(@"LocalPrefDictionary: %@", [[NSString alloc] initWithData:archivedPrefs encoding:NSUTF8StringEncoding]);
+    DDLogVerbose(@"LocalPrefDictionary: %@", [[NSString alloc] initWithData:archivedPrefs encoding:NSUTF8StringEncoding]);
 #endif
     
     NSData *HMACData;
     if (error || !archivedPrefs) {
         // Serialization of the XML plist went wrong
+        DDLogError(@"%s: Serialization of the XML plist went wrong! Error: %@", __FUNCTION__, error.description);
         // Pref key is empty
         HMACData = [NSData data];
     } else {
@@ -378,6 +390,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 
     // Set the flag to indicate to user later that settings have been reset
     [[MyGlobals sharedMyGlobals] setPreferencesReset:YES];
+    DDLogError(@"%s: \[\[MyGlobals sharedMyGlobals] setPreferencesReset:YES]", __FUNCTION__);
     // Reset settings to the default values
 //	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 //    [preferences resetSEBUserDefaults];
