@@ -9,6 +9,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsNetworkViewController">
             <connections>
                 <outlet property="URLFilterEnableContentFilterButton" destination="648" id="25v-NI-dvx"/>
+                <outlet property="URLFilterMessageControl" destination="wtP-tT-RxN" id="187-9Q-m8P"/>
                 <outlet property="certificatesArrayController" destination="1875" id="1890"/>
                 <outlet property="chooseCertificate" destination="1779" id="1905"/>
                 <outlet property="chooseIdentity" destination="1814" id="1888"/>
@@ -50,7 +51,7 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="URLFilterEnableChanged:" target="-2" id="CZu-9r-mni"/>
+                                            <action selector="URLFilterEnableChanged:" target="-2" id="hC2-Fh-9E2"/>
                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_URLFilterEnable" id="rTf-4S-Lc2">
                                                 <dictionary key="options">
                                                     <bool key="NSConditionallySetsEnabled" value="NO"/>
@@ -726,6 +727,7 @@
                                             </column>
                                         </cells>
                                         <connections>
+                                            <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_URLFilterEnable" id="mnn-Tn-BxZ"/>
                                             <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_URLFilterMessage" id="pfM-NM-XPk"/>
                                         </connections>
                                     </matrix>

@@ -42,6 +42,7 @@
 
     IBOutlet NSTabView *networkTabView;
     IBOutlet NSTabViewItem *urlFilterTab;
+    IBOutlet NSMatrix *URLFilterMessageControl;
     
 	IBOutlet NSTableColumn *groupRowTableColumn;
 

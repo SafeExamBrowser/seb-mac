@@ -137,7 +137,7 @@
 // This is necessary because bindings don't work with private user defaults
 - (IBAction) URLFilterEnableChanged:(NSButton *)sender {
     URLFilterEnableContentFilterButton.enabled = sender.state;
-    [SEBURLFilter sharedSEBURLFilter].enableURLFilter = sender.state;
+    URLFilterMessageControl.enabled = sender.state;
 }
 
 
