@@ -373,7 +373,6 @@
 		691774481A2776FB0039CC39 /* SEBURLFilterRegexExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBURLFilterRegexExpression.h; path = Classes/SEBURLFilter/SEBURLFilterRegexExpression.h; sourceTree = "<group>"; };
 		691774491A2776FB0039CC39 /* SEBURLFilterRegexExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBURLFilterRegexExpression.m; path = Classes/SEBURLFilter/SEBURLFilterRegexExpression.m; sourceTree = "<group>"; };
 		69196D8C19F99BA900ABF8E5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesSecurity.strings; sourceTree = "<group>"; };
-		69196D9119F99BAA00ABF8E5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesApplications.strings; sourceTree = "<group>"; };
 		69196D9319F99BAB00ABF8E5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesNetwork.strings; sourceTree = "<group>"; };
 		69196D9419F99BAB00ABF8E5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesResources.strings; sourceTree = "<group>"; };
 		69196D9619F99BAE00ABF8E5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/MainMenu.strings; sourceTree = "<group>"; };
@@ -460,6 +459,7 @@
 		69A68D9A1A460F4900ACA34E /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesBrowser.xib; sourceTree = "<group>"; };
 		69A68D9B1A460FC400ACA34E /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesDownUploads.xib; sourceTree = "<group>"; };
 		69A68D9C1A46103500ACA34E /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesExam.xib; sourceTree = "<group>"; };
+		69A68D9D1A46108F00ACA34E /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesApplications.xib; sourceTree = "<group>"; };
 		69A9A22A1368784500840AE1 /* MBPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBPreferencesController.h; sourceTree = "<group>"; };
 		69A9A22B1368784500840AE1 /* MBPreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MBPreferencesController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69A9A22E1369AF9600840AE1 /* LICENCE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
@@ -1460,7 +1460,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				69FA25BB19F714AD003E179A /* Base */,
-				69196D9119F99BAA00ABF8E5 /* de */,
+				69A68D9D1A46108F00ACA34E /* de */,
 			);
 			name = PreferencesApplications.xib;
 			sourceTree = "<group>";
