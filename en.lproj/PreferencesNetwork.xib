@@ -735,6 +735,7 @@
                                     </matrix>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Etc-6i-KPi">
                                         <rect key="frame" x="437" y="235" width="156" height="32"/>
+                                        <string key="toolTip">Clear the list containing ignore filter expressions. This list has only an effect on the 'Teach allowed/blocked URLs' mode; loading ignored URLs/resources won't display a dialog anymore. They are blocked anyways, because all not allowed URLs are blocked by the URL filter</string>
                                         <buttonCell key="cell" type="push" title="Clear Ignore List…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="iyL-Fn-jZ6">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -1068,7 +1069,7 @@
                                                                 <binding destination="1721" name="value" keyPath="selection.AutoConfigurationURL" id="1960"/>
                                                             </connections>
                                                         </textField>
-                                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1168">
+                                                        <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1168">
                                                             <rect key="frame" x="192" y="80" width="126" height="32"/>
                                                             <buttonCell key="cell" type="push" title="Choose File…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1169">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

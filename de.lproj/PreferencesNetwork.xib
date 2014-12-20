@@ -737,6 +737,7 @@
                                     </matrix>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Etc-6i-KPi">
                                         <rect key="frame" x="382" y="235" width="211" height="32"/>
+                                        <string key="toolTip">Löschen der Liste mit Filterregeln für zu ignorierende URLs. Diese hat nur im Filterregeln-Lernen-Modus eine Wirkung, für ignorierte URLs/Ressourcen wird dauerhaft keine Warnung angezeigt. Blockiert werden diese URLs sowieso, weil alle nicht explizit erlaubten URLs vom Filter blockiert werden</string>
                                         <buttonCell key="cell" type="push" title="Ignorieren-Liste löschen …" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="iyL-Fn-jZ6">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
