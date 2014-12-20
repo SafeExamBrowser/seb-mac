@@ -49,7 +49,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="32">
-                    <rect key="frame" x="328" y="481" width="305" height="26"/>
+                    <rect key="frame" x="328" y="480" width="305" height="26"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="300" id="vFc-mv-bxw"/>
                     </constraints>
@@ -171,16 +171,16 @@
                     </textFieldCell>
                 </textField>
                 <tabView toolTip="Detail settings for locking down the system and specific system features" verticalHuggingPriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="SZK-Aw-k1e">
-                    <rect key="frame" x="13" y="0.0" width="624" height="407"/>
+                    <rect key="frame" x="13" y="0.0" width="624" height="406"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="System Lockdown" identifier="1" id="UDI-4x-V3M">
                             <view key="view" verticalHuggingPriority="500" id="uoJ-Ks-O1o">
-                                <rect key="frame" x="10" y="33" width="604" height="335"/>
+                                <rect key="frame" x="10" y="33" width="604" height="360"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <box autoresizesSubviews="NO" verticalHuggingPriority="500" verticalCompressionResistancePriority="1000" title="Kiosk Mode" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="UEX-8o-YnQ">
-                                        <rect key="frame" x="13" y="232" width="283" height="100"/>
+                                        <rect key="frame" x="13" y="257" width="283" height="100"/>
                                         <view key="contentView">
                                             <rect key="frame" x="1" y="1" width="281" height="84"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -231,7 +231,7 @@
                                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </box>
                                     <button toolTip="Display control in SEB dock allowing to reconnect to Wi-Fi networks used before." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="22y-gA-uVN">
-                                        <rect key="frame" x="14" y="197" width="586" height="18"/>
+                                        <rect key="frame" x="14" y="222" width="586" height="18"/>
                                         <buttonCell key="cell" type="check" title="Enable WiFi control" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Nlp-Oe-Cqb">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -679,7 +679,7 @@
                     </tabViewItems>
                 </tabView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="pBJ-HX-kB3">
-                    <rect key="frame" x="18" y="403" width="137" height="14"/>
+                    <rect key="frame" x="18" y="404" width="137" height="14"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Settings for SEB Windows" id="ADm-4H-Zh3">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -697,7 +697,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6DQ-Jd-s1A">
-                    <rect key="frame" x="330" y="430" width="300" height="22"/>
+                    <rect key="frame" x="330" y="429" width="300" height="22"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="300" id="Gbu-o7-jTg"/>
                     </constraints>
@@ -716,7 +716,7 @@
                     </connections>
                 </textField>
                 <button verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="eiE-cV-UEx">
-                    <rect key="frame" x="327" y="461" width="142" height="18"/>
+                    <rect key="frame" x="327" y="460" width="142" height="18"/>
                     <buttonCell key="cell" type="check" title="Use standard directory" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="4vb-oP-Qf1">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
@@ -727,7 +727,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="H9Q-8A-xab">
-                    <rect key="frame" x="150" y="432" width="174" height="17"/>
+                    <rect key="frame" x="150" y="431" width="174" height="17"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="b1w-R0-Uoj"/>
                     </constraints>
@@ -771,6 +771,7 @@
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eiE-cV-UEx" secondAttribute="trailing" constant="20" id="80O-h7-HLI"/>
                 <constraint firstItem="32" firstAttribute="leading" secondItem="3me-3D-EEp" secondAttribute="trailing" constant="8" id="8ZL-ye-TMC"/>
                 <constraint firstAttribute="trailing" secondItem="sAF-ok-Vxz" secondAttribute="trailing" constant="20" id="8zg-Us-MVn"/>
+                <constraint firstItem="3me-3D-EEp" firstAttribute="baseline" secondItem="32" secondAttribute="baseline" id="8zo-XV-smH"/>
                 <constraint firstItem="a9Y-jJ-E1h" firstAttribute="leading" secondItem="sAF-ok-Vxz" secondAttribute="leading" id="ANx-68-Qvl"/>
                 <constraint firstItem="H9Q-8A-xab" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1" secondAttribute="leading" priority="750" constant="20" id="Aey-Uc-l3f"/>
                 <constraint firstItem="99" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="B67-9c-2t5"/>
@@ -783,12 +784,12 @@
                 <constraint firstItem="SZK-Aw-k1e" firstAttribute="leading" secondItem="pBJ-HX-kB3" secondAttribute="leading" id="N3J-Hn-YtI"/>
                 <constraint firstItem="76" firstAttribute="top" secondItem="93" secondAttribute="bottom" constant="20" id="Pfg-x9-9mr"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pBJ-HX-kB3" secondAttribute="trailing" constant="20" id="TAP-6o-GYN"/>
+                <constraint firstItem="sAF-ok-Vxz" firstAttribute="baseline" secondItem="22" secondAttribute="baseline" id="TN3-dq-hsd"/>
                 <constraint firstItem="93" firstAttribute="top" secondItem="99" secondAttribute="bottom" constant="3" id="UzH-yq-ugW"/>
                 <constraint firstItem="6DQ-Jd-s1A" firstAttribute="top" secondItem="eiE-cV-UEx" secondAttribute="bottom" constant="12" id="WIg-tW-xJC"/>
                 <constraint firstItem="99" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" symbolic="YES" id="YBR-Jg-vBr"/>
                 <constraint firstItem="292" firstAttribute="leading" secondItem="13" secondAttribute="leading" id="YTS-ap-HKP"/>
                 <constraint firstAttribute="bottom" secondItem="SZK-Aw-k1e" secondAttribute="bottom" constant="10" id="ZeZ-jd-zYA"/>
-                <constraint firstItem="32" firstAttribute="top" secondItem="sAF-ok-Vxz" secondAttribute="bottom" constant="8" id="Zj8-Zo-RB1"/>
                 <constraint firstItem="6DQ-Jd-s1A" firstAttribute="leading" secondItem="H9Q-8A-xab" secondAttribute="trailing" constant="8" id="a59-5o-jPf"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="a9Y-jJ-E1h" secondAttribute="trailing" constant="20" symbolic="YES" id="ahO-eo-ggd"/>
                 <constraint firstItem="32" firstAttribute="leading" secondItem="eiE-cV-UEx" secondAttribute="leading" id="aoC-ev-9pd"/>
@@ -800,9 +801,9 @@
                 <constraint firstItem="Gly-dr-m3X" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="PH3-Cb-12g" secondAttribute="trailing" constant="20" id="kyF-dF-3pS"/>
                 <constraint firstItem="a9Y-jJ-E1h" firstAttribute="top" secondItem="93" secondAttribute="bottom" constant="20" id="oeY-vJ-RcJ"/>
                 <constraint firstItem="H9Q-8A-xab" firstAttribute="baseline" secondItem="6DQ-Jd-s1A" secondAttribute="baseline" id="olX-Tq-YuS"/>
-                <constraint firstItem="SZK-Aw-k1e" firstAttribute="top" secondItem="pBJ-HX-kB3" secondAttribute="bottom" constant="2" id="pBx-kl-Hfh"/>
+                <constraint firstItem="SZK-Aw-k1e" firstAttribute="top" secondItem="pBJ-HX-kB3" secondAttribute="bottom" constant="4" id="pBx-kl-Hfh"/>
                 <constraint firstAttribute="trailing" secondItem="SZK-Aw-k1e" secondAttribute="trailing" constant="20" id="pD8-oa-qZe"/>
-                <constraint firstItem="32" firstAttribute="baseline" secondItem="3me-3D-EEp" secondAttribute="baseline" constant="-1" id="pRz-sf-IA1"/>
+                <constraint firstItem="32" firstAttribute="baseline" secondItem="3me-3D-EEp" secondAttribute="baseline" id="pRz-sf-IA1"/>
                 <constraint firstItem="3me-3D-EEp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1" secondAttribute="leading" constant="20" id="pX3-D8-zxw"/>
                 <constraint firstItem="292" firstAttribute="top" secondItem="PH3-Cb-12g" secondAttribute="bottom" constant="12" id="t69-xy-fA4"/>
                 <constraint firstItem="sAF-ok-Vxz" firstAttribute="baseline" secondItem="22" secondAttribute="baseline" id="tEx-QM-hJk"/>

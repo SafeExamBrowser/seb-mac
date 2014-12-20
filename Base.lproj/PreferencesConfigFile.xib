@@ -108,7 +108,7 @@
                 </button>
                 <button toolTip="Revert to the local client settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1137">
                     <rect key="frame" x="225" y="46" width="200" height="32"/>
-                    <buttonCell key="cell" type="push" title="Local Client Settings" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1138">
+                    <buttonCell key="cell" type="push" title="Local Client Settings" bezelStyle="rounded" alignment="center" scrollable="YES" lineBreakMode="clipping" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1138">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>

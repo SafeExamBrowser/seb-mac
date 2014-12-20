@@ -7,9 +7,6 @@
 /* Class = "NSTextFieldCell"; title = "/"; ObjectID = "2io-Hc-2AG"; */
 "2io-Hc-2AG.title" = "/";
 
-/* (No Commment) */
-"3f7-DM-fXx.title" = "und";
-
 /* Class = "NSTableColumn"; headerCell.title = "Action"; ObjectID = "6U6-cT-k15"; */
 "6U6-cT-k15.headerCell.title" = "Aktion";
 
@@ -205,20 +202,11 @@
 /* Class = "NSButtonCell"; title = "Display 'URL Blocked!'"; ObjectID = "UCE-sZ-Ixh"; */
 "UCE-sZ-Ixh.title" = "'Blockierte URL!' anzeigen";
 
-/* (No Commment) */
-"VvL-UW-Mzn.title" = "überspringen";
-
 /* Class = "NSTextFieldCell"; title = "#"; ObjectID = "bcq-qY-qJM"; */
 "bcq-qY-qJM.title" = "#";
 
 /* Class = "NSTextFieldCell"; title = "Action"; ObjectID = "cCY-tB-p0Y"; */
 "cCY-tB-p0Y.title" = "Aktion";
-
-/* (No Commment) */
-"d4p-TC-j2w.title" = "erlauben";
-
-/* (No Commment) */
-"egv-X8-A5H.title" = "blockieren";
 
 /* Class = "NSButtonCell"; title = "Regex"; ObjectID = "f49-Sx-zE7"; */
 "f49-Sx-zE7.title" = "Regex";
@@ -249,7 +237,4 @@
 
 /* Class = "NSMatrix"; ibShadowedToolTip = "Chooses message/symbol which is displayed in the browser window toolbar when a URL isn't allowed"; ObjectID = "wtP-tT-RxN"; */
 "wtP-tT-RxN.ibShadowedToolTip" = "Hinweis auswählen, der im Browserfenster angezeigt wird, wenn eine URL nicht erlaubt ist";
-
-/* (No Commment) */
-"y6S-eJ-81W.title" = "oder";
 

@@ -215,7 +215,7 @@
 "721.title" = "OK";
 
 /* Class = "NSTextFieldCell"; title = "© 2010-2014 Daniel R. Schneider, ETH Zürich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen\n\nImportant parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board."; ObjectID = "871"; */
-"871.title" = "© 2010-2014 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browsers von Stefan Schneider, Universität von Giessen\n\nDieses Projekt wurde teilweise im Rahmen der von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten Kooperationsprojektes 'Learning Infrastructure' (Teil des CRUS-Programms 'Wissenschaftliche Information: Zugang, Verarbeitung und Speicherung') durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat. ";
+"871.title" = "© 2010-2014 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browsers von Stefan Schneider, Universität von Giessen\n\nDieses Projekt wurde teilweise im Rahmen der von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat. ";
 
 /* Class = "NSMenuItem"; title = "Reload Page"; ObjectID = "887"; */
 "887.title" = "Seite neu laden";

@@ -848,7 +848,7 @@
             </trans-unit>
             <trans-unit id="1184.title">
                 <source>Code Signatures...</source>
-                <target>Code-Signaturen…</target>
+                <target>Code-Signaturen …</target>
                 <note>Class = "NSButtonCell"; title = "Code Signatures..."; ObjectID = "1184";</note>
             </trans-unit>
             <trans-unit id="1304.title">
@@ -868,7 +868,7 @@
             </trans-unit>
             <trans-unit id="1601.title">
                 <source>Choose Process...</source>
-                <target>Prozess auswählen…</target>
+                <target>Prozess auswählen …</target>
                 <note>Class = "NSButtonCell"; title = "Choose Process..."; ObjectID = "1601";</note>
             </trans-unit>
             <trans-unit id="1840.title">
@@ -898,7 +898,7 @@
             </trans-unit>
             <trans-unit id="1846.title">
                 <source>Choose Executable...</source>
-                <target>Executable auswählen…</target>
+                <target>Executable auswählen …</target>
                 <note>Class = "NSButtonCell"; title = "Choose Executable..."; ObjectID = "1846";</note>
             </trans-unit>
             <trans-unit id="1847.title">
@@ -908,7 +908,7 @@
             </trans-unit>
             <trans-unit id="1853.title">
                 <source>Choose Process...</source>
-                <target>Prozess auswählen…</target>
+                <target>Prozess auswählen …</target>
                 <note>Class = "NSButtonCell"; title = "Choose Process..."; ObjectID = "1853";</note>
             </trans-unit>
             <trans-unit id="1854.ibShadowedToolTip">
@@ -998,7 +998,7 @@
             </trans-unit>
             <trans-unit id="1923.title">
                 <source>Code Signatures...</source>
-                <target>Code-Signaturen…</target>
+                <target>Code-Signaturen …</target>
                 <note>Class = "NSButtonCell"; title = "Code Signatures..."; ObjectID = "1923";</note>
             </trans-unit>
             <trans-unit id="1929.headerCell.title">
@@ -1334,7 +1334,7 @@
             </trans-unit>
             <trans-unit id="1047.title">
                 <source>Open Settings...</source>
-                <target>Öffnen…</target>
+                <target>Öffnen …</target>
                 <note>Class = "NSButtonCell"; title = "Open Settings..."; ObjectID = "1047";</note>
             </trans-unit>
             <trans-unit id="1060.ibShadowedToolTip">
@@ -1364,12 +1364,12 @@
             </trans-unit>
             <trans-unit id="1107.title">
                 <source>Save Settings As...</source>
-                <target>Speichern als…</target>
+                <target>Speichern als …</target>
                 <note>Class = "NSButtonCell"; title = "Save Settings As..."; ObjectID = "1107";</note>
             </trans-unit>
             <trans-unit id="1120.title">
                 <source>Revert Settings to…</source>
-                <target>Einstellungen zurücksetzen…</target>
+                <target>Einstellungen zurücksetzen …</target>
                 <note>Class = "NSTextFieldCell"; title = "Revert Settings to…"; ObjectID = "1120";</note>
             </trans-unit>
             <trans-unit id="1137.ibShadowedToolTip">
@@ -1409,7 +1409,7 @@
             </trans-unit>
             <trans-unit id="1190.title">
                 <source>Use Current Settings to…</source>
-                <target>Einstellungen benutzen…</target>
+                <target>Einstellungen benutzen …</target>
                 <note>Class = "NSTextFieldCell"; title = "Use Current Settings to…"; ObjectID = "1190";</note>
             </trans-unit>
             <trans-unit id="1292.ibShadowedToolTip">
@@ -1461,7 +1461,7 @@
             </trans-unit>
             <trans-unit id="36.title">
                 <source>Other…</source>
-                <target>Auswählen…</target>
+                <target>Auswählen …</target>
                 <note>Class = "NSMenuItem"; title = "Other…"; ObjectID = "36";</note>
             </trans-unit>
             <trans-unit id="38.ibShadowedToolTip">
@@ -1852,7 +1852,7 @@
             </trans-unit>
             <trans-unit id="1169.title">
                 <source>Choose File…</source>
-                <target>Datei auswählen…</target>
+                <target>Datei auswählen …</target>
                 <note>Class = "NSButtonCell"; title = "Choose File…"; ObjectID = "1169";</note>
             </trans-unit>
             <trans-unit id="1178.title">
@@ -1992,7 +1992,7 @@
             </trans-unit>
             <trans-unit id="1783.title">
                 <source>Choose SSL certificate to embed into settings ...</source>
-                <target>In Konfiguration einzubettendes SSL-Zertifikat auswählen…</target>
+                <target>In Konfiguration einzubettendes SSL-Zertifikat auswählen …</target>
                 <note>Class = "NSTextFieldCell"; title = "Choose SSL certificate to embed into settings ..."; ObjectID = "1783";</note>
             </trans-unit>
             <trans-unit id="1814.ibShadowedToolTip">
@@ -2002,7 +2002,7 @@
             </trans-unit>
             <trans-unit id="1818.title">
                 <source>Choose identity to embed into settings ...</source>
-                <target>In Konfiguration einzubettende Identität auswählen…</target>
+                <target>In Konfiguration einzubettende Identität auswählen …</target>
                 <note>Class = "NSTextFieldCell"; title = "Choose identity to embed into settings ..."; ObjectID = "1818";</note>
             </trans-unit>
             <trans-unit id="1836.headerCell.title">
@@ -2066,7 +2066,7 @@
             </trans-unit>
             <trans-unit id="gNh-Qf-Z8W.title">
                 <source>Display 'X'</source>
-                <target>Bei aktivem URL-Filter und wenn kein übereinstimmender 'blockieren' oder 'erlauben'  Filterausdruck gefunden wird, wird die URL verworfen</target>
+                <target>'X' anzeigen</target>
                 <note>Class = "NSButtonCell"; title = "Display 'X'"; ObjectID = "gNh-Qf-Z8W";</note>
             </trans-unit>
             <trans-unit id="iBm-Ni-pSi.title">
@@ -2076,7 +2076,7 @@
             </trans-unit>
             <trans-unit id="iyL-Fn-jZ6.title">
                 <source>Clear Ignore List…</source>
-                <target>Ignorieren-Liste löschen…</target>
+                <target>Ignorieren-Liste löschen …</target>
                 <note>Class = "NSButtonCell"; title = "Clear Ignore List…"; ObjectID = "iyL-Fn-jZ6";</note>
             </trans-unit>
             <trans-unit id="jId-HY-bdq.ibShadowedToolTip">
@@ -2143,7 +2143,7 @@
             </trans-unit>
             <trans-unit id="2442.title">
                 <source>Choose File...</source>
-                <target>Datei auswählen…</target>
+                <target>Datei auswählen …</target>
                 <note>Class = "NSButtonCell"; title = "Choose File..."; ObjectID = "2442";</note>
             </trans-unit>
             <trans-unit id="2490.ibShadowedToolTip">
@@ -2270,7 +2270,7 @@
             </trans-unit>
             <trans-unit id="36.title">
                 <source>Other…</source>
-                <target>Andere…</target>
+                <target>Andere …</target>
                 <note>Class = "NSMenuItem"; title = "Other…"; ObjectID = "36";</note>
             </trans-unit>
             <trans-unit id="76.ibShadowedToolTip">
@@ -2929,7 +2929,7 @@
             </trans-unit>
             <trans-unit id="Fetching identities">
                 <source>Fetching identities</source>
-                <target>Identitäten werden geladen…</target>
+                <target>Identitäten werden geladen …</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="File Automatically Chosen">
@@ -3484,12 +3484,12 @@
             </trans-unit>
             <trans-unit id="open in new window">
                 <source>open in new window</source>
-                <target>Öffnen in neuem Fenster</target>
+                <target>öffnen in neuem Fenster</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="open in same window">
                 <source>open in same window</source>
-                <target>Öffnen im selben Fenster</target>
+                <target>öffnen im selben Fenster</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="quit">

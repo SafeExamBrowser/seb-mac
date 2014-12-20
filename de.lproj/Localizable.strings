@@ -167,7 +167,7 @@
 "Important Notice for First Time Users" = "Wichtiger Hinweis für neue Benutzer";
 
 /* No comment provided by engineer. */
-"Important parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board." = "Dieses Projekt wurde teilweise im Rahmen der von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten Kooperationsprojektes 'Learning Infrastructure' (Teil des CRUS-Programms 'Wissenschaftliche Information: Zugang, Verarbeitung und Speicherung') durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.";
+"Important parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board." = "Dieses Projekt wurde teilweise im Rahmen der von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.";
 
 /* No comment provided by engineer. */
 "Info" = "Info";
@@ -258,6 +258,9 @@
 
 /* No comment provided by engineer. */
 "Quit" = "Beenden";
+
+/* No comment provided by engineer. */
+"Quit SEB" = "SEB Beenden";
 
 /* No comment provided by engineer. */
 "Quit Safe Exam Browser" = "Safe Exam Browser beenden";
@@ -368,7 +371,7 @@
 "Untitled" = "Unbenannt";
 
 /* No comment provided by engineer. */
-"Verbose" = "Verbose";
+"Verbose" = "Alles";
 
 /* No comment provided by engineer. */
 "Version" = "Version";
@@ -377,7 +380,7 @@
 "Virtual Machine Detected!" = "Virtuelle Maschine erkannt!";
 
 /* No comment provided by engineer. */
-"Warning" = "Warnung";
+"Warning" = "Warnungen";
 
 /* No comment provided by engineer. */
 "Web Proxy (HTTP)" = "Web-Proxy (HTTP)";

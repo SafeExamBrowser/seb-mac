@@ -263,7 +263,7 @@
                                                     </connections>
                                                 </button>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QmW-O8-p1C">
-                                                    <rect key="frame" x="420" y="158" width="45" height="17"/>
+                                                    <rect key="frame" x="420" y="160" width="45" height="17"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Action" id="cCY-tB-p0Y">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -338,7 +338,7 @@
                                                     </connections>
                                                 </textField>
                                                 <popUpButton toolTip="Action when the filter rule expression matches (allow or block resource)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9du-EF-v3O">
-                                                    <rect key="frame" x="469" y="151" width="95" height="31"/>
+                                                    <rect key="frame" x="469" y="153" width="95" height="26"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="JEh-9U-yXY"/>
                                                     </constraints>
@@ -662,7 +662,6 @@
                                             <constraint firstItem="kr2-YI-gaU" firstAttribute="leading" secondItem="b1s-1U-Ybg" secondAttribute="trailing" constant="1" id="LJw-tJ-dlJ"/>
                                             <constraint firstItem="xPj-V3-hmo" firstAttribute="baseline" secondItem="oXf-ig-TZU" secondAttribute="baseline" id="MGL-Jp-4Ot"/>
                                             <constraint firstAttribute="bottom" secondItem="1PT-7a-wz2" secondAttribute="bottom" constant="11" id="Nko-GF-PGR"/>
-                                            <constraint firstItem="9du-EF-v3O" firstAttribute="top" secondItem="9hw-i2-YWH" secondAttribute="bottom" constant="5" id="O0Z-G4-5ts"/>
                                             <constraint firstItem="VoK-Ej-Zql" firstAttribute="baseline" secondItem="kr2-YI-gaU" secondAttribute="baseline" id="OK1-iD-pZD"/>
                                             <constraint firstAttribute="trailing" secondItem="3fo-3Z-d4k" secondAttribute="trailing" constant="11" id="P7v-Mv-PNQ"/>
                                             <constraint firstItem="3Lb-pY-2F1" firstAttribute="baseline" secondItem="1gn-Vv-xlE" secondAttribute="baseline" id="Pbk-fp-5X7"/>
@@ -684,7 +683,7 @@
                                             <constraint firstItem="jId-HY-bdq" firstAttribute="top" secondItem="9hw-i2-YWH" secondAttribute="bottom" constant="8" symbolic="YES" id="g3E-kd-Yu2"/>
                                             <constraint firstItem="VoK-Ej-Zql" firstAttribute="leading" secondItem="GZd-2h-HIq" secondAttribute="leading" constant="11" id="gBk-Vo-N0J"/>
                                             <constraint firstItem="oXf-ig-TZU" firstAttribute="baseline" secondItem="jju-Ve-Ujz" secondAttribute="baseline" id="gbP-TY-xHl"/>
-                                            <constraint firstItem="QmW-O8-p1C" firstAttribute="baseline" secondItem="1QG-Ub-GkE" secondAttribute="baseline" id="go3-Dw-Zyk"/>
+                                            <constraint firstItem="QmW-O8-p1C" firstAttribute="baseline" secondItem="1QG-Ub-GkE" secondAttribute="baseline" constant="-2" id="go3-Dw-Zyk"/>
                                             <constraint firstItem="oXf-ig-TZU" firstAttribute="leading" secondItem="xPj-V3-hmo" secondAttribute="trailing" constant="1" id="i22-sW-qHA"/>
                                             <constraint firstItem="3fo-3Z-d4k" firstAttribute="leading" secondItem="ZAH-3m-Yk0" secondAttribute="trailing" constant="2" id="j99-no-vQp"/>
                                             <constraint firstItem="VoK-Ej-Zql" firstAttribute="top" secondItem="oXf-ig-TZU" secondAttribute="bottom" constant="8" id="k7S-lJ-Cqx"/>
@@ -706,7 +705,7 @@
                                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </box>
-                                    <matrix toolTip="Chooses message/symbol which is displayed in the browser window toolbar when a URL isn't allowed" verticalHuggingPriority="750" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wtP-tT-RxN">
+                                    <matrix toolTip="Chooses message/symbol which is displayed in the browser window toolbar when a URL isn't allowed" verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wtP-tT-RxN">
                                         <rect key="frame" x="33" y="599" width="554" height="18"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         <size key="cellSize" width="138" height="18"/>
@@ -717,13 +716,13 @@
                                         </buttonCell>
                                         <cells>
                                             <column>
-                                                <buttonCell type="radio" title="Display 'URL Blocked!'" imagePosition="left" alignment="left" controlSize="small" state="on" tag="1" inset="2" id="UCE-sZ-Ixh">
+                                                <buttonCell type="radio" title="Display 'URL Blocked!'" imagePosition="left" alignment="left" controlSize="small" scrollable="YES" lineBreakMode="clipping" state="on" tag="1" inset="2" id="UCE-sZ-Ixh">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="smallSystem"/>
                                                 </buttonCell>
                                             </column>
                                             <column>
-                                                <buttonCell type="radio" title="Display 'X'" imagePosition="left" alignment="left" controlSize="small" inset="2" id="gNh-Qf-Z8W">
+                                                <buttonCell type="radio" title="Display 'X'" imagePosition="left" alignment="left" controlSize="small" scrollable="YES" lineBreakMode="clipping" inset="2" id="gNh-Qf-Z8W">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="smallSystem"/>
                                                 </buttonCell>

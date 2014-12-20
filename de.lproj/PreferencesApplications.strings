@@ -202,7 +202,7 @@
 /* Class = "NSButtonCell"; title = "Current user"; ObjectID = "1920"; */
 "1920.title" = "Aktueller Benutzer";
 
-/* Class = "NSButtonCell"; title = "Strong kill (risk of data loss) "; ObjectID = "1921"; */
+/* Class = "NSButtonCell"; title = "Strong kill (risk of data loss)"; ObjectID = "1921"; */
 "1921.title" = "Sofort beenden (Datenverlust möglich)";
 
 /* Class = "NSButtonCell"; title = "Code Signatures..."; ObjectID = "1923"; */
@@ -226,6 +226,6 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Kill process in a not-nice way, which may cause data loss if the application had unsaved data"; ObjectID = "2244"; */
 "2244.ibShadowedToolTip" = "Prozesse sofort beenden, was einen Verlust von nicht gesicherten Daten zur Folge haben könnte";
 
-/* Class = "NSButtonCell"; title = "Strong kill (risk of data loss) "; ObjectID = "2246"; */
+/* Class = "NSButtonCell"; title = "Strong kill (risk of data loss)"; ObjectID = "2246"; */
 "2246.title" = "Sofort beenden (Datenverlust möglich)";
 
