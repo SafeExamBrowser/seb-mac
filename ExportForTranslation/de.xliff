@@ -3535,7 +3535,8 @@
             </trans-unit>
         </body>
     </file>
-    <file original="en.lproj/SafeExamBrowser-Info.plist" source-language="en" datatype="plaintext" target-language="de">
+    <file original="Base
+        .lproj/SafeExamBrowser-Info.plist" source-language="en" datatype="plaintext" target-language="de">
         <header>
             <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.2" build-num="6C86e"></tool>
         </header>

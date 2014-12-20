@@ -145,7 +145,6 @@
 		696EB10716CAAFF600707B0F /* ApplicationsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */; };
 		696F28E815751ED600780DA8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696F28E715751ED600780DA8 /* Security.framework */; };
 		696F28EA15751F1900780DA8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696F28E715751ED600780DA8 /* Security.framework */; };
-		697155D61A4628A700722A6E /* SafeExamBrowser-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 697155D51A4628A700722A6E /* SafeExamBrowser-Info.plist */; };
 		6986652E16DAE184009C0226 /* SEBWindowSizeValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */; };
 		6986652F16DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */; };
 		6986653116DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */; };
@@ -368,7 +367,6 @@
 		690D23471451EF2400CCCFF9 /* PrefsBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsBrowserViewController.m; sourceTree = "<group>"; };
 		690D234A1452000800CCCFF9 /* BrowserIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BrowserIcon.png; path = Resources/Icons/BrowserIcon.png; sourceTree = "<group>"; };
 		690D234B1452000800CCCFF9 /* BrowserIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BrowserIcon@2x.png"; path = "Resources/Icons/BrowserIcon@2x.png"; sourceTree = "<group>"; };
-		6914D6E719FE7B2400934C6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6915F2E719C8F77600DAEA37 /* SEBDockWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockWindow.h; path = Classes/SEBDock/SEBDockWindow.h; sourceTree = "<group>"; };
 		6915F2E819C8F77600DAEA37 /* SEBDockWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockWindow.m; path = Classes/SEBDock/SEBDockWindow.m; sourceTree = "<group>"; };
 		691774481A2776FB0039CC39 /* SEBURLFilterRegexExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBURLFilterRegexExpression.h; path = Classes/SEBURLFilter/SEBURLFilterRegexExpression.h; sourceTree = "<group>"; };
@@ -383,7 +381,6 @@
 		69263A9D1A2E0765006F1E31 /* SEBWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBWebView.m; path = Classes/BrowserComponents/SEBWebView.m; sourceTree = "<group>"; };
 		692891B012ACEBDC00EEE7C9 /* SEBBrowserWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBBrowserWindow.h; path = Classes/BrowserComponents/SEBBrowserWindow.h; sourceTree = "<group>"; };
 		692891B112ACEBDC00EEE7C9 /* SEBBrowserWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SEBBrowserWindow.m; path = Classes/BrowserComponents/SEBBrowserWindow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		6929228C19FD9F1B00B57347 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SEBBrowserWindow.xib; sourceTree = "<group>"; };
 		692F53D614AD03F300011C84 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		6932C9671191B7FE00688EBB /* SEBicon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = SEBicon.icns; path = Resources/Icons/SEBicon.icns; sourceTree = "<group>"; };
 		693570AB1A30E914005DCABF /* SafeExamBrowser-2.0RCpre.dmg */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SafeExamBrowser-2.0RCpre.dmg"; sourceTree = "<group>"; };
@@ -434,7 +431,6 @@
 		696EB10016CAAFF600707B0F /* ApplicationsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ApplicationsIcon.png; path = Resources/Icons/ApplicationsIcon.png; sourceTree = "<group>"; };
 		696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ApplicationsIcon@2x.png"; path = "Resources/Icons/ApplicationsIcon@2x.png"; sourceTree = "<group>"; };
 		696F28E715751ED600780DA8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		697155D51A4628A700722A6E /* SafeExamBrowser-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SafeExamBrowser-Info.plist"; sourceTree = "<group>"; };
 		6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBWindowSizeValueTransformer.h; sourceTree = "<group>"; };
 		6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBWindowSizeValueTransformer.m; sourceTree = "<group>"; };
 		69903B1E14CD7624007E7DF7 /* Safe Exam Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Safe Exam Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -490,6 +486,18 @@
 		69D817E418017DDB00EB7885 /* SEBURLFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBURLFilter.m; sourceTree = "<group>"; };
 		69DD2FCF1201C416009B1005 /* CapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapView.h; sourceTree = "<group>"; };
 		69DD2FD01201C416009B1005 /* CapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CapView.m; sourceTree = "<group>"; };
+		69DD928F1A462EBA004072E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		69DD92901A462ECD004072E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SEBBrowserWindow.xib; sourceTree = "<group>"; };
+		69DD92911A462ED4004072E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PreferencesGeneral.xib; sourceTree = "<group>"; };
+		69DD92921A462EDA004072E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PreferencesConfigFile.xib; sourceTree = "<group>"; };
+		69DD92931A462EEF004072E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PreferencesAppearance.xib; sourceTree = "<group>"; };
+		69DD92941A462EF6004072E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PreferencesBrowser.xib; sourceTree = "<group>"; };
+		69DD92951A462EFB004072E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PreferencesDownUploads.xib; sourceTree = "<group>"; };
+		69DD92961A462F00004072E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PreferencesExam.xib; sourceTree = "<group>"; };
+		69DD92971A462F06004072E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PreferencesApplications.xib; sourceTree = "<group>"; };
+		69DD92981A462F13004072E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PreferencesResources.xib; sourceTree = "<group>"; };
+		69DD92991A462F1A004072E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PreferencesNetwork.xib; sourceTree = "<group>"; };
+		69DD929A1A462F23004072E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PreferencesSecurity.xib; sourceTree = "<group>"; };
 		69DE764517FC2A9300EE5958 /* PrefsResourcesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsResourcesViewController.h; sourceTree = "<group>"; };
 		69DE764617FC2A9300EE5958 /* PrefsResourcesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsResourcesViewController.m; sourceTree = "<group>"; };
 		69DFAF2319C468E700CBE69F /* RNCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCryptor.h; sourceTree = "<group>"; };
@@ -521,17 +529,7 @@
 		69F7B62514F411FB00FD0761 /* Safe Exam Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Safe Exam Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		69F910FE16CA5C720041EA38 /* PrefsNetworkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsNetworkViewController.h; sourceTree = "<group>"; };
 		69F910FF16CA5C720041EA38 /* PrefsNetworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsNetworkViewController.m; sourceTree = "<group>"; };
-		69FA25B419F714AC003E179A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		69FA25B519F714AC003E179A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreferencesGeneral.xib; sourceTree = "<group>"; };
-		69FA25B619F714AC003E179A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreferencesConfigFile.xib; sourceTree = "<group>"; };
-		69FA25B719F714AC003E179A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreferencesAppearance.xib; sourceTree = "<group>"; };
-		69FA25B819F714AD003E179A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreferencesBrowser.xib; sourceTree = "<group>"; };
-		69FA25B919F714AD003E179A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreferencesDownUploads.xib; sourceTree = "<group>"; };
-		69FA25BA19F714AD003E179A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreferencesExam.xib; sourceTree = "<group>"; };
-		69FA25BB19F714AD003E179A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreferencesApplications.xib; sourceTree = "<group>"; };
-		69FA25BC19F714AD003E179A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreferencesResources.xib; sourceTree = "<group>"; };
-		69FA25BD19F714AD003E179A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreferencesNetwork.xib; sourceTree = "<group>"; };
-		69FA25BE19F714AD003E179A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreferencesSecurity.xib; sourceTree = "<group>"; };
+		69FCE8941A462B3300D1EB0A /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = de; path = "de.lproj/SafeExamBrowser-Info.plist"; sourceTree = "<group>"; };
 		69FF14AA1A1BB10300912933 /* SEBFilterArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBFilterArrayController.h; path = Classes/Preferences/PreferencesWindow/PreferencesViewControllers/SEBFilterArrayController.h; sourceTree = "<group>"; };
 		69FF14AB1A1BB10300912933 /* SEBFilterArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBFilterArrayController.m; path = Classes/Preferences/PreferencesWindow/PreferencesViewControllers/SEBFilterArrayController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -624,7 +622,7 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				6909E31F1A019F7A0086A741 /* CocoaLumberjack */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
-				697155D51A4628A700722A6E /* SafeExamBrowser-Info.plist */,
+				69D547711A46294A00A5482E /* SafeExamBrowser-Info.plist */,
 				693570AB1A30E914005DCABF /* SafeExamBrowser-2.0RCpre.dmg */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -1137,7 +1135,6 @@
 			knownRegions = (
 				en,
 				de,
-				Base,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* SEB */;
 			projectDirPath = "";
@@ -1228,7 +1225,6 @@
 				69F32DBE16D232C0003C9502 /* Appearance.icns in Resources */,
 				696A3AE819F6FBCD00274214 /* PreferencesAppearance.xib in Resources */,
 				69EC631319D60D16002DAD22 /* SEBShutDownIcon.icns in Resources */,
-				697155D61A4628A700722A6E /* SafeExamBrowser-Info.plist in Resources */,
 				696A3AF419F6FC3F00274214 /* PreferencesResources.xib in Resources */,
 				69428CCE172F0C1300C87C58 /* SecurityIcon.png in Resources */,
 				69F60FB019AB7A7E00A5F650 /* MenuTriangleDown@2x.png in Resources */,
@@ -1415,8 +1411,8 @@
 		1DDD58140DA1D0A300B32029 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				69FA25B419F714AC003E179A /* Base */,
 				69A68DA01A4612DC00ACA34E /* de */,
+				69DD928F1A462EBA004072E5 /* en */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -1424,8 +1420,8 @@
 		6929228D19FD9F1B00B57347 /* SEBBrowserWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				6929228C19FD9F1B00B57347 /* Base */,
 				690B0A121A46084200CD5FEF /* de */,
+				69DD92901A462ECD004072E5 /* en */,
 			);
 			name = SEBBrowserWindow.xib;
 			sourceTree = "<group>";
@@ -1433,8 +1429,8 @@
 		696A3AE719F6FBC500274214 /* PreferencesConfigFile.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				69FA25B619F714AC003E179A /* Base */,
 				690B0A101A45ED8000CD5FEF /* de */,
+				69DD92921A462EDA004072E5 /* en */,
 			);
 			name = PreferencesConfigFile.xib;
 			sourceTree = "<group>";
@@ -1442,8 +1438,8 @@
 		696A3AEB19F6FBCD00274214 /* PreferencesAppearance.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				69FA25B719F714AC003E179A /* Base */,
 				69A68D991A460E3B00ACA34E /* de */,
+				69DD92931A462EEF004072E5 /* en */,
 			);
 			name = PreferencesAppearance.xib;
 			sourceTree = "<group>";
@@ -1451,8 +1447,8 @@
 		696A3AEF19F6FBEA00274214 /* PreferencesExam.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				69FA25BA19F714AD003E179A /* Base */,
 				69A68D9C1A46103500ACA34E /* de */,
+				69DD92961A462F00004072E5 /* en */,
 			);
 			name = PreferencesExam.xib;
 			sourceTree = "<group>";
@@ -1460,8 +1456,8 @@
 		696A3AF319F6FBF600274214 /* PreferencesApplications.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				69FA25BB19F714AD003E179A /* Base */,
 				69A68D9D1A46108F00ACA34E /* de */,
+				69DD92971A462F06004072E5 /* en */,
 			);
 			name = PreferencesApplications.xib;
 			sourceTree = "<group>";
@@ -1469,8 +1465,8 @@
 		696A3AF719F6FC3F00274214 /* PreferencesResources.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				69FA25BC19F714AD003E179A /* Base */,
 				69A68DA11A46143E00ACA34E /* de */,
+				69DD92981A462F13004072E5 /* en */,
 			);
 			name = PreferencesResources.xib;
 			sourceTree = "<group>";
@@ -1478,8 +1474,8 @@
 		696A3AFB19F6FC4C00274214 /* PreferencesNetwork.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				69FA25BD19F714AD003E179A /* Base */,
 				69A68D9E1A46118B00ACA34E /* de */,
+				69DD92991A462F1A004072E5 /* en */,
 			);
 			name = PreferencesNetwork.xib;
 			sourceTree = "<group>";
@@ -1487,8 +1483,8 @@
 		696A3AFF19F6FC5600274214 /* PreferencesSecurity.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				69FA25BE19F714AD003E179A /* Base */,
 				69A68D9F1A46126300ACA34E /* de */,
+				69DD929A1A462F23004072E5 /* en */,
 			);
 			name = PreferencesSecurity.xib;
 			sourceTree = "<group>";
@@ -1496,16 +1492,23 @@
 		69BE8662145872C900E87C22 /* PreferencesBrowser.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				69FA25B819F714AD003E179A /* Base */,
 				69A68D9A1A460F4900ACA34E /* de */,
+				69DD92941A462EF6004072E5 /* en */,
 			);
 			name = PreferencesBrowser.xib;
+			sourceTree = "<group>";
+		};
+		69D547711A46294A00A5482E /* SafeExamBrowser-Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				69FCE8941A462B3300D1EB0A /* de */,
+			);
+			name = "SafeExamBrowser-Info.plist";
 			sourceTree = "<group>";
 		};
 		69EA170119FA77A0001E0C51 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				6914D6E719FE7B2400934C6F /* Base */,
 				69A3022919FE7B8F00B9A0F3 /* de */,
 			);
 			name = Localizable.strings;
@@ -1514,8 +1517,8 @@
 		69FC9057136C9A00009B55CB /* PreferencesGeneral.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				69FA25B519F714AC003E179A /* Base */,
 				690B0A0E1A45ED4800CD5FEF /* de */,
+				69DD92911A462ED4004072E5 /* en */,
 			);
 			name = PreferencesGeneral.xib;
 			sourceTree = "<group>";
@@ -1523,8 +1526,8 @@
 		69FC905C136CA80F009B55CB /* PreferencesDownUploads.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				69FA25B919F714AD003E179A /* Base */,
 				69A68D9B1A460FC400ACA34E /* de */,
+				69DD92951A462EFB004072E5 /* en */,
 			);
 			name = PreferencesDownUploads.xib;
 			sourceTree = "<group>";
@@ -1548,7 +1551,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SEB_Prefix.pch;
-				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
+				INFOPLIST_FILE = "Base.lproj/SafeExamBrowser-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1578,7 +1581,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SEB_Prefix.pch;
-				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
+				INFOPLIST_FILE = "Base.lproj/SafeExamBrowser-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
