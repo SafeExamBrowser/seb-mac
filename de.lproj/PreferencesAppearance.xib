@@ -21,9 +21,9 @@
             <rect key="frame" x="0.0" y="0.0" width="650" height="290"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <button toolTip="Show the OS X menu bar to allow accessing settings like Wi-Fi" translatesAutoresizingMaskIntoConstraints="NO" id="13">
+                <button toolTip="OS X Menüleiste anzeigen für Zugriff auf Einstellungen wie WLAN" translatesAutoresizingMaskIntoConstraints="NO" id="13">
                     <rect key="frame" x="18" y="38" width="614" height="18"/>
-                    <buttonCell key="cell" type="check" title="Show menu bar" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="14">
+                    <buttonCell key="cell" type="check" title="Menüleiste anzeigen" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="14">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -32,9 +32,9 @@
                     </connections>
                 </button>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="76">
-                    <rect key="frame" x="18" y="18" width="173" height="18"/>
-                    <string key="toolTip">The SEB dock shows and switches between open browser windows, allowed resources and applications and can display additional controls</string>
-                    <buttonCell key="cell" type="check" title="Show SEB dock/task bar" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="77">
+                    <rect key="frame" x="18" y="18" width="200" height="18"/>
+                    <string key="toolTip">Das SEB-Dock zeigt und schaltet um auf offene Browserfenster, zugelassene Ressourcen und Drittapplikationen und kann zusätzliche Funktionen beinhalten</string>
+                    <buttonCell key="cell" type="check" title="SEB-Dock/Taskbar anzeigen" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="77">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -47,9 +47,9 @@
                         </binding>
                     </connections>
                 </button>
-                <button toolTip="Displays a toolbar on top of the browser window which can also be hidden by the user" translatesAutoresizingMaskIntoConstraints="NO" id="371">
+                <button toolTip="Symbolleiste anzeigen" translatesAutoresizingMaskIntoConstraints="NO" id="371">
                     <rect key="frame" x="18" y="92" width="614" height="18"/>
-                    <buttonCell key="cell" type="check" title="Enable browser window toolbar" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="372">
+                    <buttonCell key="cell" type="check" title="Symbolleiste anzeigen" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="372">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -63,9 +63,10 @@
                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableBrowserWindowToolbar" id="382"/>
                     </connections>
                 </button>
-                <button toolTip="Hide browser window toolbar by default. It can be unhiden using  the View menu or Alt-Command-T." translatesAutoresizingMaskIntoConstraints="NO" id="383">
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="383">
                     <rect key="frame" x="38" y="72" width="594" height="18"/>
-                    <buttonCell key="cell" type="check" title="Hide toolbar as default" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="384">
+                    <string key="toolTip">Browserfenster-Symbolleiste standardmässig ausblenden. Sie kann mittels Darstellung-Menü oder den Tasten Alt-Cmd-T (Wahl-Befehl-T) angezeigt werden.</string>
+                    <buttonCell key="cell" type="check" title="Symbolleiste standardmässig ausblenden" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="384">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -91,13 +92,13 @@
                         </binding>
                     </connections>
                 </button>
-                <box autoresizesSubviews="NO" title="Main browser window size and position" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="540">
+                <box autoresizesSubviews="NO" title="Grösse und Position Haupt-Browserfenster" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="540">
                     <rect key="frame" x="17" y="128" width="616" height="88"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="614" height="72"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <comboBox toolTip="Window width in pixel or percentage of total screen width" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="594">
+                            <comboBox toolTip="Fensterbreite in Punkten oder Prozent der Bildschirmbreite" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="594">
                                 <rect key="frame" x="154" y="38" width="90" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="87" id="731"/>
@@ -122,7 +123,7 @@
                                     <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_mainBrowserWindowWidth" id="729"/>
                                 </connections>
                             </comboBox>
-                            <comboBox toolTip="Window height in pixel or percentage of total screen height" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="596">
+                            <comboBox toolTip="Fensterhöhe in Punkten oder Prozent der Bildschirmhöhe" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="596">
                                 <rect key="frame" x="154" y="10" width="90" height="26"/>
                                 <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="607">
                                     <font key="font" metaFont="system"/>
@@ -145,22 +146,22 @@
                                 </connections>
                             </comboBox>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="597">
-                                <rect key="frame" x="102" y="14" width="46" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Height" id="606">
+                                <rect key="frame" x="111" y="14" width="37" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Höhe" id="606">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="598">
-                                <rect key="frame" x="343" y="42" width="145" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Horizontal positioning" id="605">
+                                <rect key="frame" x="316" y="42" width="172" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Horizontale Positionierung" id="605">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <popUpButton toolTip="Position browser window on the left, right or centered" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="599">
+                            <popUpButton toolTip="Browserfenster link, rechts oder zentriert positionieren" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="599">
                                 <rect key="frame" x="492" y="35" width="107" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="102" id="708"/>
@@ -188,7 +189,7 @@
                             </popUpButton>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="723">
                                 <rect key="frame" x="108" y="42" width="40" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Width" id="724">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Breite" id="724">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -231,11 +232,11 @@
                     </buttonCell>
                     <cells>
                         <column>
-                            <buttonCell type="radio" title="Use browser window" imagePosition="left" alignment="left" state="on" toolTip="Use a browser window which can be scaled and moved around, also to another screen when available" tag="1" inset="2" id="745">
+                            <buttonCell type="radio" title="Browserfenster verwenden" imagePosition="left" alignment="left" state="on" toolTip="Browserfenster verwenden, welches skaliert und bewegt werden kann, so auch auf einen zweiten Bildschirm" tag="1" inset="2" id="745">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
-                            <buttonCell type="radio" title="Use full screen mode" imagePosition="left" alignment="left" toolTip="Display the SEB browser full screen" inset="2" id="746">
+                            <buttonCell type="radio" title="Vollbildmodus benutzen" imagePosition="left" alignment="left" toolTip="SEB-Browser im Vollbild anzeigen" inset="2" id="746">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -250,7 +251,7 @@
                         </binding>
                     </connections>
                 </matrix>
-                <textField toolTip="SEB Dock height in points (pixel height x 2 on Retina displays)" horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DiJ-eI-WGU">
+                <textField toolTip="SEB-Dockhöhe in Punkten" horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DiJ-eI-WGU">
                     <rect key="frame" x="590" y="17" width="40" height="22"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="40" id="kWi-jS-1Ll"/>
@@ -275,8 +276,8 @@
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RFK-qQ-lel">
-                    <rect key="frame" x="501" y="19" width="81" height="17"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Dock height" usesSingleLineMode="YES" id="3KI-5c-L1K">
+                    <rect key="frame" x="505" y="19" width="77" height="17"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Dock-Höhe" usesSingleLineMode="YES" id="3KI-5c-L1K">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
