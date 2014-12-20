@@ -39,7 +39,10 @@
                 </button>
                 <textField verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="22">
                     <rect key="frame" x="260" y="516" width="64" height="17"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Log level:" id="23">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="17" id="DmB-Cd-Pc3"/>
+                    </constraints>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Log level:" usesSingleLineMode="YES" id="23">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -72,6 +75,9 @@
                 </popUpButton>
                 <textField verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="3me-3D-EEp">
                     <rect key="frame" x="223" y="486" width="101" height="17"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="17" id="yB6-cE-kLd"/>
+                    </constraints>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Save log file to:" id="nui-Ct-A6q">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -179,10 +185,11 @@
                                             <rect key="frame" x="1" y="1" width="281" height="84"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <matrix verticalCompressionResistancePriority="1000" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kBz-Xz-wNK">
+                                                <matrix verticalCompressionResistancePriority="1000" allowsEmptySelection="NO" autosizesCells="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kBz-Xz-wNK">
                                                     <rect key="frame" x="18" y="16" width="245" height="58"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="58" id="6vk-1a-Npb"/>
+                                                        <constraint firstAttribute="width" constant="245" id="QZ6-L9-1A2"/>
                                                     </constraints>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     <size key="cellSize" width="189" height="18"/>
@@ -193,15 +200,15 @@
                                                     </buttonCell>
                                                     <cells>
                                                         <column>
-                                                            <buttonCell type="radio" title="Create new desktop" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="AwA-eq-zFC">
+                                                            <buttonCell type="radio" title="Create new desktop" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" state="on" tag="1" inset="2" id="AwA-eq-zFC">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
-                                                            <buttonCell type="radio" title="Disable Explorer Shell" imagePosition="left" alignment="left" inset="2" id="dpL-te-8hi">
+                                                            <buttonCell type="radio" title="Disable Explorer Shell" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" inset="2" id="dpL-te-8hi">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
-                                                            <buttonCell type="radio" title="None (for debugging only)" imagePosition="left" alignment="left" inset="2" id="KbI-Yu-DVk">
+                                                            <buttonCell type="radio" title="None (for debugging only)" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" inset="2" id="KbI-Yu-DVk">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
@@ -719,9 +726,12 @@
                         <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableLogging" id="I1Q-8z-Sa1"/>
                     </connections>
                 </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="H9Q-8A-xab">
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="H9Q-8A-xab">
                     <rect key="frame" x="150" y="432" width="174" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Log file directory Windows:" id="dbm-W0-7Yt">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="17" id="b1w-R0-Uoj"/>
+                    </constraints>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Log file directory Windows:" usesSingleLineMode="YES" id="dbm-W0-7Yt">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -762,12 +772,12 @@
                 <constraint firstItem="32" firstAttribute="leading" secondItem="3me-3D-EEp" secondAttribute="trailing" constant="8" id="8ZL-ye-TMC"/>
                 <constraint firstAttribute="trailing" secondItem="sAF-ok-Vxz" secondAttribute="trailing" constant="20" id="8zg-Us-MVn"/>
                 <constraint firstItem="a9Y-jJ-E1h" firstAttribute="leading" secondItem="sAF-ok-Vxz" secondAttribute="leading" id="ANx-68-Qvl"/>
-                <constraint firstItem="H9Q-8A-xab" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1" secondAttribute="leading" constant="20" id="Aey-Uc-l3f"/>
+                <constraint firstItem="H9Q-8A-xab" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1" secondAttribute="leading" priority="750" constant="20" id="Aey-Uc-l3f"/>
                 <constraint firstItem="99" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="B67-9c-2t5"/>
                 <constraint firstItem="PH3-Cb-12g" firstAttribute="top" secondItem="76" secondAttribute="bottom" constant="12" id="BiT-EG-tlD"/>
                 <constraint firstItem="13" firstAttribute="top" secondItem="292" secondAttribute="bottom" constant="22" id="CuQ-lK-71c"/>
                 <constraint firstItem="eiE-cV-UEx" firstAttribute="top" secondItem="32" secondAttribute="bottom" constant="8" id="E9S-JQ-R71"/>
-                <constraint firstItem="22" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="13" secondAttribute="trailing" constant="20" id="Ffw-cA-O3D"/>
+                <constraint firstItem="22" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="13" secondAttribute="trailing" priority="750" constant="20" id="Ffw-cA-O3D"/>
                 <constraint firstItem="a9Y-jJ-E1h" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="76" secondAttribute="trailing" constant="20" id="G2m-Uu-New"/>
                 <constraint firstAttribute="trailing" secondItem="32" secondAttribute="trailing" constant="20" id="Hrm-fJ-vy9"/>
                 <constraint firstItem="SZK-Aw-k1e" firstAttribute="leading" secondItem="pBJ-HX-kB3" secondAttribute="leading" id="N3J-Hn-YtI"/>

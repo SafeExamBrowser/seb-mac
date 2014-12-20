@@ -202,9 +202,6 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Helps to create filter rules for URLs or embedded content elements that should be allowed or blocked"; ObjectID = "PJT-Mq-ijG"; */
 "PJT-Mq-ijG.ibShadowedToolTip" = "Hilft beim Erstellen von Filterregeln für URLs oder eingebettete Inhaltselemente, die erlaubt oder blockiert werden sollen";
 
-/* Class = "NSTextFieldCell"; title = "scheme://username:password@host:port/path?query#fragment"; ObjectID = "SI9-ap-07c"; */
-"SI9-ap-07c.title" = "";
-
 /* Class = "NSButtonCell"; title = "Display 'URL Blocked!'"; ObjectID = "UCE-sZ-Ixh"; */
 "UCE-sZ-Ixh.title" = "'Blockierte URL!' anzeigen";
 

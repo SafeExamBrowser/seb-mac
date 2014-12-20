@@ -37,13 +37,13 @@
             </trans-unit>
             <trans-unit id="56.title">
                 <source>SEB</source>
-                <note>Class = "NSMenuItem"; title = "SEB"; ObjectID = "56";</note>
                 <target>SEB</target>
+                <note>Class = "NSMenuItem"; title = "SEB"; ObjectID = "56";</note>
             </trans-unit>
             <trans-unit id="57.title">
                 <source>SEB</source>
-                <note>Class = "NSMenu"; title = "SEB"; ObjectID = "57";</note>
                 <target>SEB</target>
+                <note>Class = "NSMenu"; title = "SEB"; ObjectID = "57";</note>
             </trans-unit>
             <trans-unit id="58.title">
                 <source>About SEB</source>
@@ -367,7 +367,7 @@
             </trans-unit>
             <trans-unit id="871.title">
                 <source>© 2010-2014 Daniel R. Schneider, ETH Zürich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen\n\nImportant parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board.</source>
-                <target>© 2010-2014 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browsers von Stefan Schneider, Universität von Giessen\n\nDieses Projekt wurde teilweise im Rahmen der von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten Kooperationsprojektes 'Learning Infrastructure' (Teil des CRUS-Programms 'Wissenschaftliche Information: Zugang, Verarbeitung und Speicherung') durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat. </target>
+                <target>© 2010-2014 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browsers von Stefan Schneider, Universität von Giessen\n\nDieses Projekt wurde teilweise im Rahmen der von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat. </target>
                 <note>Class = "NSTextFieldCell"; title = "© 2010-2014 Daniel R. Schneider, ETH Zürich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen\n\nImportant parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board."; ObjectID = "871";</note>
             </trans-unit>
             <trans-unit id="887.title">
@@ -584,7 +584,6 @@
             </trans-unit>
             <trans-unit id="607.ibShadowedObjectValues[0]">
                 <source>100%</source>
-                <target></target>
                 <note>Class = "NSComboBoxCell"; 607.ibShadowedObjectValues[0] = "100%"; ObjectID = "607";</note>
             </trans-unit>
             <trans-unit id="607.ibShadowedObjectValues[1]">
@@ -993,9 +992,9 @@
                 <note>Class = "NSButtonCell"; title = "Current user"; ObjectID = "1920";</note>
             </trans-unit>
             <trans-unit id="1921.title">
-                <source>Strong kill (risk of data loss) </source>
+                <source>Strong kill (risk of data loss)</source>
                 <target>Sofort beenden (Datenverlust möglich)</target>
-                <note>Class = "NSButtonCell"; title = "Strong kill (risk of data loss) "; ObjectID = "1921";</note>
+                <note>Class = "NSButtonCell"; title = "Strong kill (risk of data loss)"; ObjectID = "1921";</note>
             </trans-unit>
             <trans-unit id="1923.title">
                 <source>Code Signatures...</source>
@@ -1033,9 +1032,9 @@
                 <note>Class = "NSButton"; ibShadowedToolTip = "Kill process in a not-nice way, which may cause data loss if the application had unsaved data"; ObjectID = "2244";</note>
             </trans-unit>
             <trans-unit id="2246.title">
-                <source>Strong kill (risk of data loss) </source>
+                <source>Strong kill (risk of data loss)</source>
                 <target>Sofort beenden (Datenverlust möglich)</target>
-                <note>Class = "NSButtonCell"; title = "Strong kill (risk of data loss) "; ObjectID = "2246";</note>
+                <note>Class = "NSButtonCell"; title = "Strong kill (risk of data loss)"; ObjectID = "2246";</note>
             </trans-unit>
         </body>
     </file>
@@ -1718,13 +1717,8 @@
             </trans-unit>
             <trans-unit id="2io-Hc-2AG.title">
                 <source>/</source>
-                <note>Class = "NSTextFieldCell"; title = "/"; ObjectID = "2io-Hc-2AG";</note>
                 <target>/</target>
-            </trans-unit>
-            <trans-unit id="3f7-DM-fXx.title">
-                <source>and</source>
-                <target>und</target>
-                <note>Class = "NSMenuItem"; title = "and"; ObjectID = "3f7-DM-fXx";</note>
+                <note>Class = "NSTextFieldCell"; title = "/"; ObjectID = "2io-Hc-2AG";</note>
             </trans-unit>
             <trans-unit id="6U6-cT-k15.headerCell.title">
                 <source>Action</source>
@@ -1743,8 +1737,8 @@
             </trans-unit>
             <trans-unit id="27i-17-3S4.title">
                 <source>:</source>
-                <note>Class = "NSTextFieldCell"; title = ":"; ObjectID = "27i-17-3S4";</note>
                 <target>:</target>
+                <note>Class = "NSTextFieldCell"; title = ":"; ObjectID = "27i-17-3S4";</note>
             </trans-unit>
             <trans-unit id="240.label">
                 <source>Filter</source>
@@ -1908,8 +1902,8 @@
             </trans-unit>
             <trans-unit id="1531.title">
                 <source>:</source>
-                <note>Class = "NSTextFieldCell"; title = ":"; ObjectID = "1531";</note>
                 <target>:</target>
+                <note>Class = "NSTextFieldCell"; title = ":"; ObjectID = "1531";</note>
             </trans-unit>
             <trans-unit id="1536.title">
                 <source>Secure Web Proxy Server</source>
@@ -1933,8 +1927,8 @@
             </trans-unit>
             <trans-unit id="1572.title">
                 <source>:</source>
-                <note>Class = "NSTextFieldCell"; title = ":"; ObjectID = "1572";</note>
                 <target>:</target>
+                <note>Class = "NSTextFieldCell"; title = ":"; ObjectID = "1572";</note>
             </trans-unit>
             <trans-unit id="1577.title">
                 <source>FTP Proxy Server</source>
@@ -1958,8 +1952,8 @@
             </trans-unit>
             <trans-unit id="1613.title">
                 <source>:</source>
-                <note>Class = "NSTextFieldCell"; title = ":"; ObjectID = "1613";</note>
                 <target>:</target>
+                <note>Class = "NSTextFieldCell"; title = ":"; ObjectID = "1613";</note>
             </trans-unit>
             <trans-unit id="1618.title">
                 <source>SOCKS Proxy Server</source>
@@ -1983,8 +1977,8 @@
             </trans-unit>
             <trans-unit id="1654.title">
                 <source>:</source>
-                <note>Class = "NSTextFieldCell"; title = ":"; ObjectID = "1654";</note>
                 <target>:</target>
+                <note>Class = "NSTextFieldCell"; title = ":"; ObjectID = "1654";</note>
             </trans-unit>
             <trans-unit id="1659.title">
                 <source>Streaming Proxy Server</source>
@@ -2028,8 +2022,8 @@
             </trans-unit>
             <trans-unit id="D1T-ZJ-mqa.title">
                 <source>@</source>
-                <note>Class = "NSTextFieldCell"; title = "@"; ObjectID = "D1T-ZJ-mqa";</note>
                 <target>@</target>
+                <note>Class = "NSTextFieldCell"; title = "@"; ObjectID = "D1T-ZJ-mqa";</note>
             </trans-unit>
             <trans-unit id="DSd-mL-qnG.title">
                 <source>Teach SEB allowed/blocked URLs</source>
@@ -2049,37 +2043,21 @@
             <trans-unit id="SI9-ap-07c.title">
                 <source>scheme://username:password@host:port/path?query#fragment</source>
                 <note>Class = "NSTextFieldCell"; title = "scheme://username:password@host:port/path?query#fragment"; ObjectID = "SI9-ap-07c";</note>
-                <target></target>
             </trans-unit>
             <trans-unit id="UCE-sZ-Ixh.title">
                 <source>Display 'URL Blocked!'</source>
                 <target>'Blockierte URL!' anzeigen</target>
                 <note>Class = "NSButtonCell"; title = "Display 'URL Blocked!'"; ObjectID = "UCE-sZ-Ixh";</note>
             </trans-unit>
-            <trans-unit id="VvL-UW-Mzn.title">
-                <source>skip</source>
-                <target>überspringen</target>
-                <note>Class = "NSMenuItem"; title = "skip"; ObjectID = "VvL-UW-Mzn";</note>
-            </trans-unit>
             <trans-unit id="bcq-qY-qJM.title">
                 <source>#</source>
-                <note>Class = "NSTextFieldCell"; title = "#"; ObjectID = "bcq-qY-qJM";</note>
                 <target>#</target>
+                <note>Class = "NSTextFieldCell"; title = "#"; ObjectID = "bcq-qY-qJM";</note>
             </trans-unit>
             <trans-unit id="cCY-tB-p0Y.title">
                 <source>Action</source>
                 <target>Aktion</target>
                 <note>Class = "NSTextFieldCell"; title = "Action"; ObjectID = "cCY-tB-p0Y";</note>
-            </trans-unit>
-            <trans-unit id="d4p-TC-j2w.title">
-                <source>allow</source>
-                <target>erlauben</target>
-                <note>Class = "NSMenuItem"; title = "allow"; ObjectID = "d4p-TC-j2w";</note>
-            </trans-unit>
-            <trans-unit id="egv-X8-A5H.title">
-                <source>block</source>
-                <target>blockieren</target>
-                <note>Class = "NSMenuItem"; title = "block"; ObjectID = "egv-X8-A5H";</note>
             </trans-unit>
             <trans-unit id="f49-Sx-zE7.title">
                 <source>Regex</source>
@@ -2113,32 +2091,23 @@
             </trans-unit>
             <trans-unit id="tJm-ce-zDQ.title">
                 <source>:</source>
-                <note>Class = "NSTextFieldCell"; title = ":"; ObjectID = "tJm-ce-zDQ";</note>
                 <target>:</target>
+                <note>Class = "NSTextFieldCell"; title = ":"; ObjectID = "tJm-ce-zDQ";</note>
             </trans-unit>
             <trans-unit id="uKK-FD-wnl.title">
                 <source>://</source>
-                <note>Class = "NSTextFieldCell"; title = "://"; ObjectID = "uKK-FD-wnl";</note>
                 <target>://</target>
+                <note>Class = "NSTextFieldCell"; title = "://"; ObjectID = "uKK-FD-wnl";</note>
             </trans-unit>
             <trans-unit id="wOI-qb-1mB.title">
                 <source>?</source>
-                <note>Class = "NSTextFieldCell"; title = "?"; ObjectID = "wOI-qb-1mB";</note>
                 <target>?</target>
+                <note>Class = "NSTextFieldCell"; title = "?"; ObjectID = "wOI-qb-1mB";</note>
             </trans-unit>
             <trans-unit id="wtP-tT-RxN.ibShadowedToolTip">
                 <source>Chooses message/symbol which is displayed in the browser window toolbar when a URL isn't allowed</source>
-                <note>Class = "NSMatrix"; ibShadowedToolTip = "Chooses message/symbol which is displayed in the browser window toolbar when a URL isn't allowed"; ObjectID = "wtP-tT-RxN";</note>
                 <target>Hinweis auswählen, der im Browserfenster angezeigt wird, wenn eine URL nicht erlaubt ist</target>
-            </trans-unit>
-            <trans-unit id="xPR-2O-w0D.title">
-                <source>OtherViews</source>
-                <note>Class = "NSMenu"; title = "OtherViews"; ObjectID = "xPR-2O-w0D";</note>
-            </trans-unit>
-            <trans-unit id="y6S-eJ-81W.title">
-                <source>or</source>
-                <target>oder</target>
-                <note>Class = "NSMenuItem"; title = "or"; ObjectID = "y6S-eJ-81W";</note>
+                <note>Class = "NSMatrix"; ibShadowedToolTip = "Chooses message/symbol which is displayed in the browser window toolbar when a URL isn't allowed"; ObjectID = "wtP-tT-RxN";</note>
             </trans-unit>
         </body>
     </file>
@@ -2471,8 +2440,8 @@
             </trans-unit>
             <trans-unit id="a9Y-jJ-E1h.ibShadowedToolTip">
                 <source>SEB checks for the command key being held down while SEB is starting up. This prevents using the application switcher to mess with SEB's kiosk mode</source>
-                <note>Class = "NSButton"; ibShadowedToolTip = "SEB checks for the command key being held down while SEB is starting up. This prevents using the application switcher to mess with SEB's kiosk mode"; ObjectID = "a9Y-jJ-E1h";</note>
                 <target>SEB überprüft während des Aufstartens, ob die Befehlstaste (cmd) gedrückt gehalten wird. Dies verhindert Manipulationen mit Hilfe des Programmumschalters</target>
+                <note>Class = "NSButton"; ibShadowedToolTip = "SEB checks for the command key being held down while SEB is starting up. This prevents using the application switcher to mess with SEB's kiosk mode"; ObjectID = "a9Y-jJ-E1h";</note>
             </trans-unit>
             <trans-unit id="bTO-u1-Mao.title">
                 <source>Enable Alt-Esc</source>
@@ -2481,28 +2450,28 @@
             </trans-unit>
             <trans-unit id="dYr-I9-VL8.title">
                 <source>While running SEB</source>
-                <note>Class = "NSBox"; title = "While running SEB"; ObjectID = "dYr-I9-VL8";</note>
                 <target>Während SEB läuft</target>
+                <note>Class = "NSBox"; title = "While running SEB"; ObjectID = "dYr-I9-VL8";</note>
             </trans-unit>
             <trans-unit id="dbm-W0-7Yt.title">
                 <source>Log file directory Windows:</source>
-                <note>Class = "NSTextFieldCell"; title = "Log file directory Windows:"; ObjectID = "dbm-W0-7Yt";</note>
                 <target>Log-Dateiverzeichnis Windows:</target>
+                <note>Class = "NSTextFieldCell"; title = "Log file directory Windows:"; ObjectID = "dbm-W0-7Yt";</note>
             </trans-unit>
             <trans-unit id="dpL-te-8hi.title">
                 <source>Disable Explorer Shell</source>
-                <note>Class = "NSButtonCell"; title = "Disable Explorer Shell"; ObjectID = "dpL-te-8hi";</note>
                 <target>Windows Explorer deaktivieren</target>
+                <note>Class = "NSButtonCell"; title = "Disable Explorer Shell"; ObjectID = "dpL-te-8hi";</note>
             </trans-unit>
             <trans-unit id="i04-6r-xmo.title">
                 <source>Options in the Windows Security Screen invoked by Ctrl-Alt-Del</source>
-                <note>Class = "NSTextFieldCell"; title = "Options in the Windows Security Screen invoked by Ctrl-Alt-Del"; ObjectID = "i04-6r-xmo";</note>
                 <target>Optionen im durch Ctrl-Alt-Del geöffneten Windows-Sicherheitsfenster</target>
+                <note>Class = "NSTextFieldCell"; title = "Options in the Windows Security Screen invoked by Ctrl-Alt-Del"; ObjectID = "i04-6r-xmo";</note>
             </trans-unit>
             <trans-unit id="ifL-Zz-OJp.label">
                 <source>Registry</source>
-                <note>Class = "NSTabViewItem"; label = "Registry"; ObjectID = "ifL-Zz-OJp";</note>
                 <target>Registry</target>
+                <note>Class = "NSTabViewItem"; label = "Registry"; ObjectID = "ifL-Zz-OJp";</note>
             </trans-unit>
             <trans-unit id="n1l-UI-Mxa.title">
                 <source>Enable F3</source>
@@ -2521,8 +2490,8 @@
             </trans-unit>
             <trans-unit id="nui-Ct-A6q.title">
                 <source>Save log file to:</source>
-                <note>Class = "NSTextFieldCell"; title = "Save log file to:"; ObjectID = "nui-Ct-A6q";</note>
                 <target>Log speichern:</target>
+                <note>Class = "NSTextFieldCell"; title = "Save log file to:"; ObjectID = "nui-Ct-A6q";</note>
             </trans-unit>
             <trans-unit id="q3q-Xm-TRl.title">
                 <source>Enable F9</source>
@@ -2606,27 +2575,15 @@
                 <note>Class = "NSToolbarItem"; label = "Back/Forward"; ObjectID = "175";</note>
                 <target>Zurück/Vorwärts</target>
             </trans-unit>
-            <trans-unit id="175.paletteLabel">
-                <source>SegmentButton</source>
-                <note>Class = "NSToolbarItem"; paletteLabel = "SegmentButton"; ObjectID = "175";</note>
-            </trans-unit>
             <trans-unit id="179.label">
                 <source>Zoom</source>
                 <note>Class = "NSToolbarItem"; label = "Zoom"; ObjectID = "179";</note>
                 <target>Zoom</target>
             </trans-unit>
-            <trans-unit id="179.paletteLabel">
-                <source>SegmentButton</source>
-                <note>Class = "NSToolbarItem"; paletteLabel = "SegmentButton"; ObjectID = "179";</note>
-            </trans-unit>
             <trans-unit id="192.label">
                 <source>Reload</source>
                 <note>Class = "NSToolbarItem"; label = "Reload"; ObjectID = "192";</note>
                 <target>Neu laden</target>
-            </trans-unit>
-            <trans-unit id="192.paletteLabel">
-                <source>Button</source>
-                <note>Class = "NSToolbarItem"; paletteLabel = "Button"; ObjectID = "192";</note>
             </trans-unit>
             <trans-unit id="AcO-IT-BuS.title">
                 <source>Block</source>
@@ -2651,7 +2608,6 @@
             <trans-unit id="H5P-Ew-Qp9.title">
                 <source>www.host.com</source>
                 <note>Class = "NSButtonCell"; title = "www.host.com"; ObjectID = "H5P-Ew-Qp9";</note>
-                <target></target>
             </trans-unit>
             <trans-unit id="KId-E2-Y59.ibShadowedToolTip">
                 <source>Dismiss all not unknown URLs/resources of the current HTTP request. Reloading a page shows dismissed URLs again</source>
@@ -2670,6 +2626,7 @@
             <trans-unit id="TD9-Qa-GkX.title">
                 <source>Host</source>
                 <note>Class = "NSButtonCell"; title = "Host"; ObjectID = "TD9-Qa-GkX";</note>
+                <target>Host</target>
             </trans-unit>
             <trans-unit id="aE8-n6-keh.title">
                 <source>Directory</source>
@@ -2689,17 +2646,15 @@
             <trans-unit id="fhn-de-60C.title">
                 <source>www.host.com/directory/*</source>
                 <note>Class = "NSButtonCell"; title = "www.host.com/directory/*"; ObjectID = "fhn-de-60C";</note>
-                <target>www.host.com/verzeichnis/*</target>
             </trans-unit>
             <trans-unit id="gwZ-Bv-sYP.title">
                 <source>host.com</source>
                 <note>Class = "NSButtonCell"; title = "host.com"; ObjectID = "gwZ-Bv-sYP";</note>
-                <target></target>
             </trans-unit>
             <trans-unit id="ig8-v8-XUJ.ibShadowedToolTip">
                 <source>Dismiss current unknown URL/resource, so it doesn't show up again on this page. Reloading a page shows dismissed URLs again</source>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Dismiss current unknown URL/resource, so it doesn't show up again on this page. Reloading a page shows dismissed URLs again"; ObjectID = "ig8-v8-XUJ";</note>
-                <target>Diese unbekannte URL/Ressource verwerfen, sodass sie nicht mehr angezeigt wird auf dieser Webseite. Neu laden der Seite zeigt verworfene URLs wieder an </target>
+                <target>Diese unbekannte URL/Ressource verwerfen, sodass sie nicht mehr angezeigt wird auf dieser Webseite. Neu laden der Seite zeigt verworfene URLs wieder an</target>
             </trans-unit>
             <trans-unit id="jnc-il-FuZ.ibShadowedToolTip">
                 <source>Click to copy the registred domain part of the current URL into the custom filter expression text field</source>
@@ -2724,12 +2679,12 @@
             <trans-unit id="mvP-Sq-mee.ibShadowedToolTip">
                 <source>Click to copy the host/path part of the current URL into the custom filter expression text field</source>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Click to copy the host/path part of the current URL into the custom filter expression text field"; ObjectID = "mvP-Sq-mee";</note>
-                <target>Anklicken, um den Host/Verzeichnis-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren</target>
+                <target>Anklicken, um den Host/Pfad-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren</target>
             </trans-unit>
             <trans-unit id="sIN-ro-zV3.ibShadowedToolTip">
                 <source>Click to restore the full current URL into the custom filter expression text field</source>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Click to restore the full current URL into the custom filter expression text field"; ObjectID = "sIN-ro-zV3";</note>
-                <target>Anklicken, um die komplette aktuelle URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren</target>
+                <target>Anklicken, um den Host/Verzeichnis-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren</target>
             </trans-unit>
             <trans-unit id="sfT-nQ-Hte.ibShadowedToolTip">
                 <source>Click to copy the host part of the current URL into the custom filter expression text field</source>
@@ -2769,28 +2724,28 @@
             </trans-unit>
             <trans-unit id="Appearance">
                 <source>Appearance</source>
-                <note>Title of 'Appearance' preference pane</note>
                 <target>Darstellung</target>
+                <note>Title of 'Appearance' preference pane</note>
             </trans-unit>
             <trans-unit id="Applications">
                 <source>Applications</source>
-                <note>Title of 'Applications' preference pane</note>
                 <target>Applikationen</target>
+                <note>Title of 'Applications' preference pane</note>
             </trans-unit>
             <trans-unit id="Apply">
                 <source>Apply</source>
-                <note>No comment provided by engineer.</note>
                 <target>Anwenden</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Apply Anyways">
                 <source>Apply Anyways</source>
-                <note>No comment provided by engineer.</note>
                 <target>Trotzdem anwenden</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Apply Edited Settings?">
                 <source>Apply Edited Settings?</source>
-                <note>No comment provided by engineer.</note>
                 <target>Bearbeitete Einstellungen anwenden?</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Are you sure you want to quit SEB?">
                 <source>Are you sure you want to quit SEB?</source>
@@ -2799,13 +2754,13 @@
             </trans-unit>
             <trans-unit id="Auto Proxy Discovery">
                 <source>Auto Proxy Discovery</source>
-                <note>No comment provided by engineer.</note>
                 <target>Automatische Proxy-Entdeckung</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Automatic Proxy Configuration">
                 <source>Automatic Proxy Configuration</source>
-                <note>No comment provided by engineer.</note>
                 <target>Autom. Proxy-Konfiguration</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Browser">
                 <source>Browser</source>
@@ -2819,23 +2774,23 @@
             </trans-unit>
             <trans-unit id="Cannot Decrypt SEB Settings">
                 <source>Cannot Decrypt SEB Settings</source>
-                <note>No comment provided by engineer.</note>
                 <target>SEB-Konfiguration kann nicht entschlüsselt werden</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Cannot Decrypt Settings">
                 <source>Cannot Decrypt Settings</source>
-                <note>No comment provided by engineer.</note>
                 <target>Konfiguration kann nicht entschlüsselt werden</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Cannot Reconfigure SEB Settings">
                 <source>Cannot Reconfigure SEB Settings</source>
-                <note>No comment provided by engineer.</note>
                 <target>Konfiguration kann nicht umkonfiguriert werden</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Center">
                 <source>Center</source>
+                <target>Zentrieren</target>
                 <note>No comment provided by engineer.</note>
-                <target>Zentriert</target>
             </trans-unit>
             <trans-unit id="Choose">
                 <source>Choose</source>
@@ -2844,53 +2799,53 @@
             </trans-unit>
             <trans-unit id="Clear">
                 <source>Clear</source>
-                <note>No comment provided by engineer.</note>
                 <target>Löschen</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Clear Ignored URL List">
                 <source>Clear Ignored URL List</source>
-                <note>No comment provided by engineer.</note>
                 <target>Ignorierte URLs löschen</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Config File">
                 <source>Config File</source>
-                <note>Title of 'Config File' preference pane</note>
                 <target>Konfiguration</target>
+                <note>Title of 'Config File' preference pane</note>
             </trans-unit>
             <trans-unit id="Continue">
                 <source>Continue</source>
-                <note>No comment provided by engineer.</note>
                 <target>Weiter</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Current settings are corrupted. Load valid settings or reset to default settings.">
                 <source>Current settings are corrupted. Load valid settings or reset to default settings.</source>
-                <note>No comment provided by engineer.</note>
                 <target>Die aktuellen Einstellungen sind beschädigt. Laden Sie eine andere Konfiguration oder setzen Sie auf die Voreinstellungen zurück</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Current settings have unsaved changes. If you don't save those first, you will loose them.">
                 <source>Current settings have unsaved changes. If you don't save those first, you will loose them.</source>
-                <note>No comment provided by engineer.</note>
                 <target>Aktuelle Einstellungen haben ungesicherte Änderungen. Wenn Sie nicht zuerst sichern, verlieren Sie diese.</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Debug">
                 <source>Debug</source>
-                <note>No comment provided by engineer.</note>
                 <target>Debug</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Do you want to continue editing the saved settings file?">
                 <source>Do you want to continue editing the saved settings file?</source>
-                <note>No comment provided by engineer.</note>
                 <target>Wollen Sie die gespeicherten Einstellungen weiter bearbeiten?</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Don't Apply">
                 <source>Don't Apply</source>
-                <note>No comment provided by engineer.</note>
                 <target>Nicht Anwenden</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Don't Save">
                 <source>Don't Save</source>
-                <note>No comment provided by engineer.</note>
                 <target>Nicht Speichern</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Down/Uploads">
                 <source>Down/Uploads</source>
@@ -2904,28 +2859,28 @@
             </trans-unit>
             <trans-unit id="Edit File">
                 <source>Edit File</source>
-                <note>No comment provided by engineer.</note>
                 <target>Datei bearbeiten</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Edit Saved Settings?">
                 <source>Edit Saved Settings?</source>
-                <note>No comment provided by engineer.</note>
                 <target>Abgespeicherte Einstellungen bearbeiten?</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Edited settings have unsaved changes.">
                 <source>Edited settings have unsaved changes.</source>
-                <note>No comment provided by engineer.</note>
                 <target>Bearbeitete Einstellungen haben ungesicherte Änderungen.</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Either an incompatible version of SEB has been used on this computer or the preferences file has been manipulated. In the first case you can quit SEB now and use the previous version to export settings as a .seb config file for reconfiguring the new version. Otherwise local settings need to be reset to the default values in order for SEB to continue running.">
                 <source>Either an incompatible version of SEB has been used on this computer or the preferences file has been manipulated. In the first case you can quit SEB now and use the previous version to export settings as a .seb config file for reconfiguring the new version. Otherwise local settings need to be reset to the default values in order for SEB to continue running.</source>
-                <note>No comment provided by engineer.</note>
                 <target>Entweder wurde eine inkompatible SEB-Version auf diesem Rechner benutzt oder die Einstellungen-Datei wurde beschädigt. Im ersten Fall können Sie SEB jetzt beenden und die vorherige SEB-Version benutzen, um die Einstellungen zu exportieren und danach zum Konfigurieren der neuen Version zu benutzen. Anderenfalls müssen die lokalen Einstellungen zurückgesetzt werden, damit SEB weiter laufen kann.</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Enter Password:">
                 <source>Enter Password:</source>
-                <note>No comment provided by engineer.</note>
                 <target>Passwort eingeben:</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Enter administrator password:">
                 <source>Enter administrator password:</source>
@@ -2934,8 +2889,8 @@
             </trans-unit>
             <trans-unit id="Enter password used to encrypt these settings:">
                 <source>Enter password used to encrypt these settings:</source>
-                <note>No comment provided by engineer.</note>
                 <target>Zum Verschlüsseln dieser Einstellungen benutztes Passwort eingeben:</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Enter quit password:">
                 <source>Enter quit password:</source>
@@ -2949,13 +2904,13 @@
             </trans-unit>
             <trans-unit id="Error">
                 <source>Error</source>
-                <note>No comment provided by engineer.</note>
                 <target>Fehler</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Error Decrypting Settings">
                 <source>Error Decrypting Settings</source>
-                <note>No comment provided by engineer.</note>
                 <target>Fehler beim Entschüsseln der Einstellungen</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Error Loading Page">
                 <source>Error Loading Page</source>
@@ -2964,28 +2919,28 @@
             </trans-unit>
             <trans-unit id="Exam">
                 <source>Exam</source>
-                <note>Title of 'Exam' preference pane</note>
                 <target>Prüfung</target>
+                <note>Title of 'Exam' preference pane</note>
             </trans-unit>
             <trans-unit id="FTP Proxy">
                 <source>FTP Proxy</source>
-                <note>No comment provided by engineer.</note>
                 <target>FTP-Proxy</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Fetching identities">
                 <source>Fetching identities</source>
-                <note>No comment provided by engineer.</note>
                 <target>Identitäten werden geladen…</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="File Automatically Chosen">
                 <source>File Automatically Chosen</source>
-                <note>No comment provided by engineer.</note>
                 <target>Datei automatisch ausgewählt</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="File to Upload Not Found!">
                 <source>File to Upload Not Found!</source>
-                <note>No comment provided by engineer.</note>
                 <target>Datei zum Heraufladen nicht gefunden!</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="FirstTimeUserNotice">
                 <source>FirstTimeUserNotice</source>
@@ -2999,8 +2954,8 @@
             </trans-unit>
             <trans-unit id="Holding Command Key Not Allowed!">
                 <source>Holding Command Key Not Allowed!</source>
-                <note>No comment provided by engineer.</note>
                 <target>Befehlstaste drücken nicht erlaubt!</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Holding the Command key down while restarting SEB is not allowed.">
                 <source>Holding the Command key down while restarting SEB is not allowed.</source>
@@ -3014,8 +2969,8 @@
             </trans-unit>
             <trans-unit id="Identity">
                 <source>Identity</source>
-                <note>No comment provided by engineer.</note>
                 <target>Identität</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="If you don't enter the correct SEB administrator password, then you cannot open preferences.">
                 <source>If you don't enter the correct SEB administrator password, then you cannot open preferences.</source>
@@ -3039,108 +2994,108 @@
             </trans-unit>
             <trans-unit id="Important parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board.">
                 <source>Important parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board.</source>
+                <target>Dieses Projekt wurde teilweise im Rahmen der von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.</target>
                 <note>No comment provided by engineer.</note>
-                <target>Dieses Projekt wurde teilweise im Rahmen der von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten Kooperationsprojektes 'Learning Infrastructure' (Teil des CRUS-Programms 'Wissenschaftliche Information: Zugang, Verarbeitung und Speicherung') durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.</target>
             </trans-unit>
             <trans-unit id="Info">
                 <source>Info</source>
-                <note>No comment provided by engineer.</note>
                 <target>Info</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="It's not allowed to open this URL! You can create a new filter rule based on the following patterns:">
                 <source>It's not allowed to open this URL! You can create a new filter rule based on the following patterns:</source>
-                <note>No comment provided by engineer.</note>
                 <target>Es ist nicht erlaubt, diese URL zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Left">
                 <source>Left</source>
-                <note>No comment provided by engineer.</note>
                 <target>Links</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Loaded settings are empty and cannot be used.">
                 <source>Loaded settings are empty and cannot be used.</source>
-                <note>No comment provided by engineer.</note>
                 <target>Geladene Konfigurationdatei ist leer und kann nicht benutzt werden.</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Loading New SEB Settings Not Allowed!">
                 <source>Loading New SEB Settings Not Allowed!</source>
-                <note>No comment provided by engineer.</note>
                 <target>Neue Einstellungen laden nicht erlaubt!</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Loading Settings">
                 <source>Loading Settings</source>
-                <note>No comment provided by engineer.</note>
                 <target>Einstellungen werden geladen</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Loading new settings failed!">
                 <source>Loading new settings failed!</source>
-                <note>No comment provided by engineer.</note>
                 <target>Neue Einstellungen laden fehlgeschlagen!</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Loading settings">
                 <source>Loading settings</source>
-                <note>No comment provided by engineer.</note>
                 <target>Einstellungen werden geladen</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Local Client Settings">
                 <source>Local Client Settings</source>
-                <note>No comment provided by engineer.</note>
                 <target>Lokale Client-Einstellungen</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Local SEB Settings Have Been Reset">
                 <source>Local SEB Settings Have Been Reset</source>
-                <note>No comment provided by engineer.</note>
                 <target>Lokale Client-Einstellungen wurden zurückgesetzt</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Local SEB settings are corrupted!">
                 <source>Local SEB settings are corrupted!</source>
-                <note>No comment provided by engineer.</note>
                 <target>Lokale Client-Einstellungen sind beschädigt!</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.">
                 <source>Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.</source>
-                <note>No comment provided by engineer.</note>
                 <target>Die lokalen Client-Einstellungen haben die Option 'Einstellungen-Fenster darf auf Client geöffnet werden' deaktiviert, was das Öffnen des Einstellungen-Fensters selbst nach einem Neustart von SEB verhindert. Sind Sie sicher, dass Sie das anwenden wollen? Ansonsten können Sie diese Option zurücksetzen.</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.\n\nReset local settings and continue?">
                 <source>Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.\n\nReset local settings and continue?</source>
-                <note>No comment provided by engineer.</note>
                 <target>Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt oder beschädigt. Sie können die Einstellungen jetzt zurücksetzen oder SEB jetzt beenden und die vorherige SEB-Version benutzen, um die Einstellungen zu exportieren und danach zum Konfigurieren der neuen Version zu benutzen.\n\nLokale Einstellungen zurücksetzen und weiterfahren?</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.">
                 <source>Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.</source>
-                <note>No comment provided by engineer.</note>
                 <target>Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt oder beschädigt. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um SEB wieder korrekt zu konfigurieren.</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Local settings of this SEB client have been reconfigured. Do you want to continue working with SEB now or quit?">
                 <source>Local settings of this SEB client have been reconfigured. Do you want to continue working with SEB now or quit?</source>
-                <note>No comment provided by engineer.</note>
                 <target>Lokale Einstelllungen von SEB wurden neu konfiguriert. Wollen Sie jetzt mit SEB weiter arbeiten oder beenden?</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Local settings of this SEB client have been reconfigured. Do you want to start working with SEB now or quit?">
                 <source>Local settings of this SEB client have been reconfigured. Do you want to start working with SEB now or quit?</source>
-                <note>No comment provided by engineer.</note>
                 <target>Lokale Einstelllungen von SEB wurden neu konfiguriert. Wollen Sie jetzt mit SEB arbeiten oder beenden?</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Main Browser Window">
                 <source>Main Browser Window</source>
-                <note>No comment provided by engineer.</note>
                 <target>Haupt-Browserfenster</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Network">
                 <source>Network</source>
-                <note>Title of 'Network' preference pane</note>
                 <target>Netzwerk</target>
+                <note>Title of 'Network' preference pane</note>
             </trans-unit>
             <trans-unit id="No Encryption Credentials Chosen">
                 <source>No Encryption Credentials Chosen</source>
-                <note>No comment provided by engineer.</note>
                 <target>Keine Verschlüsselung gewählt</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="None">
                 <source>None</source>
-                <note>No comment provided by engineer.</note>
                 <target>Keine</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="OK">
                 <source>OK</source>
@@ -3149,28 +3104,28 @@
             </trans-unit>
             <trans-unit id="OS X">
                 <source>OS X</source>
-                <note>No comment provided by engineer.</note>
                 <target>OS X</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Opening New Settings Failed!">
                 <source>Opening New Settings Failed!</source>
-                <note>No comment provided by engineer.</note>
                 <target>Öffnen neuer Einstellungen fehlgeschlagen!</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Opening Preferences Disabled">
                 <source>Opening Preferences Disabled</source>
-                <note>No comment provided by engineer.</note>
                 <target>Öffnen neuer Einstellungen nicht möglich</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Opening Settings Failed">
                 <source>Opening Settings Failed</source>
-                <note>No comment provided by engineer.</note>
                 <target>Öffnen der Einstellungen fehlgeschlagen!</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Override">
                 <source>Override</source>
-                <note>No comment provided by engineer.</note>
                 <target>Ignorieren</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Paste from saved clipboard">
                 <source>Paste from saved clipboard</source>
@@ -3192,30 +3147,35 @@
                 <target>Beenden</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
+            <trans-unit id="Quit SEB">
+                <source>Quit SEB</source>
+                <note>No comment provided by engineer.</note>
+                <target>SEB Beenden</target>
+            </trans-unit>
             <trans-unit id="Quit Safe Exam Browser">
                 <source>Quit Safe Exam Browser</source>
-                <note>No comment provided by engineer.</note>
                 <target>Safe Exam Browser beenden</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Reading New Settings Failed!">
                 <source>Reading New Settings Failed!</source>
-                <note>No comment provided by engineer.</note>
                 <target>Neue Einstellungen laden fehlgeschlagen!</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Reconfigure SEB Settings">
                 <source>Reconfigure SEB Settings</source>
-                <note>No comment provided by engineer.</note>
                 <target>Einstelllungen neu konfigurieren</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Reset">
                 <source>Reset</source>
-                <note>No comment provided by engineer.</note>
                 <target>Zurücksetzen</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Resources">
                 <source>Resources</source>
-                <note>Title of 'Resources' preference pane</note>
                 <target>Ressourcen</target>
+                <note>Title of 'Resources' preference pane</note>
             </trans-unit>
             <trans-unit id="Retry">
                 <source>Retry</source>
@@ -3224,33 +3184,33 @@
             </trans-unit>
             <trans-unit id="Right">
                 <source>Right</source>
-                <note>No comment provided by engineer.</note>
                 <target>Rechts</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="SEB Not in %@ Folder!">
                 <source>SEB Not in %@ Folder!</source>
-                <note>No comment provided by engineer.</note>
                 <target>SEB nicht im %@ Verzeichnis!</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="SEB Re-Configured">
                 <source>SEB Re-Configured</source>
-                <note>No comment provided by engineer.</note>
                 <target>SEB neu konfiguriert</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="SEB has to be placed in the %@ folder for all features working correctly. Move the 'Safe Exam Browser' app to your %@ folder and make sure that you don't have any other versions of SEB installed on your system. SEB will quit now.">
                 <source>SEB has to be placed in the %1$@ folder for all features working correctly. Move the 'Safe Exam Browser' app to your %2$@ folder and make sure that you don't have any other versions of SEB installed on your system. SEB will quit now.</source>
-                <note>No comment provided by engineer.</note>
                 <target>SEB muss im %1$@ Verzeichnis installiert werden. Bewegen Sie die 'Safe Exam Browser' App in Ihr %2$@ Verzeichnis und stellen Sie sicher, dass Sie keine anderen Versionen von SEB auf ihrem System installiert haben. SEB wird jetzt beendet.</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.">
                 <source>SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.</source>
-                <note>No comment provided by engineer.</note>
                 <target>SEB läuft bereits im Prüfungsmodus und es ist nicht erlaubt, diesen durch den Start einer anderen Prüfung zu unterbrechen. Beenden Sie die Prüfung und starten Sie SEB neu.</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.">
                 <source>SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.</source>
-                <note>No comment provided by engineer.</note>
                 <target>SEB ist so konfiguriert, dass nur eine zuvor heruntergelade Datei heraufgeladen werden kann. Laden Sie eine Datei herunter und wenn Sie diese in einer Drittapplikation bearbeiten, speichern Sie diese mit demselben Dateinamen im gleichen Verzeichnis.</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.">
                 <source>SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.</source>
@@ -3259,38 +3219,38 @@
             </trans-unit>
             <trans-unit id="SOCKS Proxy">
                 <source>SOCKS Proxy</source>
-                <note>No comment provided by engineer.</note>
                 <target>SOCKS-Proxy</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="SSL Certificate">
                 <source>SSL Certificate</source>
-                <note>No comment provided by engineer.</note>
                 <target>SSL-Zertifikat</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Save Changes">
                 <source>Save Changes</source>
-                <note>No comment provided by engineer.</note>
                 <target>Änderungen speichern</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Save settings to display its Browser Exam Key">
                 <source>Save settings to display its Browser Exam Key</source>
-                <note>No comment provided by engineer.</note>
                 <target>Einstellungen speichern, um ihren Browser Exam Key anzuzeigen</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Save unencrypted">
                 <source>Save unencrypted</source>
-                <note>No comment provided by engineer.</note>
                 <target>Unverschlüsselt speichern</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Secure Web Proxy (HTTPS)">
                 <source>Secure Web Proxy (HTTPS)</source>
-                <note>No comment provided by engineer.</note>
                 <target>Sicherer Web-Proxy (HTTPS)</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Security">
                 <source>Security</source>
-                <note>Title of 'Security' preference pane</note>
                 <target>Sicherheit</target>
+                <note>Title of 'Security' preference pane</note>
             </trans-unit>
             <trans-unit id="Select">
                 <source>Select</source>
@@ -3299,83 +3259,83 @@
             </trans-unit>
             <trans-unit id="Settings Corrupted">
                 <source>Settings Corrupted</source>
-                <note>No comment provided by engineer.</note>
                 <target>Einstellungen sind beschädigt</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Settings have been saved, use this file to reconfigure local settings of a SEB client.">
                 <source>Settings have been saved, use this file to reconfigure local settings of a SEB client.</source>
-                <note>No comment provided by engineer.</note>
                 <target>Konfiguration wurde gespeichert, benutzen Sie diese Datei um die lokalen Einstellungen eines SEB-Clients umzukonfigurieren.</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Settings have been saved, use this file to start the exam with SEB.">
                 <source>Settings have been saved, use this file to start the exam with SEB.</source>
-                <note>No comment provided by engineer.</note>
                 <target>Konfiguration wurde gespeichert, benutzen Sie diese Datei um eine Prüfung zu starten.</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Start">
                 <source>Start</source>
-                <note>No comment provided by engineer.</note>
                 <target>Start</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Streaming Proxy (RTSP)">
                 <source>Streaming Proxy (RTSP)</source>
-                <note>No comment provided by engineer.</note>
                 <target>Streaming-Proxy (RTSP)</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="The identity needed to decrypt settings has not been found in the keychain!">
                 <source>The identity needed to decrypt settings has not been found in the keychain!</source>
-                <note>No comment provided by engineer.</note>
                 <target>Identität zur Entschlüsselung dieser SEB-Konfigurationsdatei wurde im Schlüsselbund nicht gefunden!</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="The list containing ignore filter expressions has only an effect on the 'Teach allowed/blocked URLs' mode; loading ignored URLs/resources won't display a dialog anymore. They are blocked anyways, because all not allowed URLs are blocked by the URL filter. Do you want to clear the list now?">
                 <source>The list containing ignore filter expressions has only an effect on the 'Teach allowed/blocked URLs' mode; loading ignored URLs/resources won't display a dialog anymore. They are blocked anyways, because all not allowed URLs are blocked by the URL filter. Do you want to clear the list now?</source>
-                <note>No comment provided by engineer.</note>
                 <target>Die Liste mit Filterregeln für zu ignorierende URLs hat nur im Filterregeln-Lernen-Modus eine Wirkung, für ignorierte URLs/Ressourcen wird dauerhaft keine Warnung angezeigt. Blockiert werden diese URLs sowieso, weil alle nicht explizit erlaubten URLs vom Filter blockiert werden. Wollen Sie die Liste nun löschen?</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="These settings are corrupted and cannot be used.">
                 <source>These settings are corrupted and cannot be used.</source>
-                <note>No comment provided by engineer.</note>
                 <target>Diese Einstellungen sind beschädigt und können nicht benutzt werden.</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted.">
                 <source>These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted.</source>
-                <note>No comment provided by engineer.</note>
                 <target>Diese Einstellungen können nicht benutzt werden. Sie wurden entweder von einer inkompatiblen SEB-Version erstellt oder sind beschädigt</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="These settings have the option 'Allow to open preferences window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.">
                 <source>These settings have the option 'Allow to open preferences window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.</source>
-                <note>No comment provided by engineer.</note>
                 <target>Diese Einstellungen haben die Option 'Einstellungen-Fenster darf auf Client geöffnet werden' deaktiviert. Sind Sie sicher, dass Sie das anwenden wollen? Ansonsten können Sie diese Option während der aktuellen Session ignorieren.</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="This embedded resource isn't allowed! You can create a new filter rule based on the following patterns:">
                 <source>This embedded resource isn't allowed! You can create a new filter rule based on the following patterns:</source>
-                <note>No comment provided by engineer.</note>
                 <target>Es ist nicht erlaubt, diese eingebettete Ressouce zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="URL Blocked!">
                 <source>URL Blocked!</source>
-                <note>No comment provided by engineer.</note>
                 <target>Blockierte URL!</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Unconfirmed Password">
                 <source>Unconfirmed Password</source>
-                <note>No comment provided by engineer.</note>
                 <target>Unbestätigtes Passwort</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Unsaved Changes">
                 <source>Unsaved Changes</source>
-                <note>No comment provided by engineer.</note>
                 <target>Ungesicherte Änderungen</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Untitled">
                 <source>Untitled</source>
-                <note>Title of a new opened browser window; Untitled</note>
                 <target>Unbenannt</target>
+                <note>Title of a new opened browser window; Untitled</note>
             </trans-unit>
             <trans-unit id="Verbose">
                 <source>Verbose</source>
+                <target>Alles</target>
                 <note>No comment provided by engineer.</note>
-                <target>Verbose</target>
             </trans-unit>
             <trans-unit id="Version">
                 <source>Version</source>
@@ -3384,38 +3344,38 @@
             </trans-unit>
             <trans-unit id="Virtual Machine Detected!">
                 <source>Virtual Machine Detected!</source>
-                <note>No comment provided by engineer.</note>
                 <target>Virtuelle Maschine erkannt!</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Warning">
                 <source>Warning</source>
+                <target>Warnungen</target>
                 <note>No comment provided by engineer.</note>
-                <target>Warnung</target>
             </trans-unit>
             <trans-unit id="Web Proxy (HTTP)">
                 <source>Web Proxy (HTTP)</source>
-                <note>No comment provided by engineer.</note>
                 <target>Web-Proxy (HTTP)</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Win">
                 <source>Win</source>
-                <note>No comment provided by engineer.</note>
                 <target>Win</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Writing Settings Failed">
                 <source>Writing Settings Failed</source>
-                <note>No comment provided by engineer.</note>
                 <target>Speichern der Einstellungen fehlgeschlagen</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Writing Settings Succeeded">
                 <source>Writing Settings Succeeded</source>
-                <note>No comment provided by engineer.</note>
                 <target>Einstellungen gespeichert</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Wrong Admin Password">
                 <source>Wrong Admin Password</source>
-                <note>No comment provided by engineer.</note>
                 <target>Falsches Administrator-Passwort</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Wrong Password! Try again to enter the correct current SEB administrator password:">
                 <source>Wrong Password! Try again to enter the correct current SEB administrator password:</source>
@@ -3424,13 +3384,13 @@
             </trans-unit>
             <trans-unit id="Wrong Password! Try again to enter the correct password used to encrypt these settings:">
                 <source>Wrong Password! Try again to enter the correct password used to encrypt these settings:</source>
-                <note>No comment provided by engineer.</note>
                 <target>Falsches Passwort! Bitte erneut versuchen, das korrrekte zur Verschlüsselung dieser Einstellungen benutzte Passwort einzugeben:</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Wrong Password! Try again to enter the correct password:">
                 <source>Wrong Password! Try again to enter the correct password:</source>
-                <note>No comment provided by engineer.</note>
                 <target>Falsches Passwort! Bitte erneut versuchen, das korrrekte Passwort einzugeben:</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Wrong Quit Password">
                 <source>Wrong Quit Password</source>
@@ -3439,8 +3399,8 @@
             </trans-unit>
             <trans-unit id="Wrong password! Try again to enter the correct SEB administrator password from these settings:">
                 <source>Wrong password! Try again to enter the correct SEB administrator password from these settings:</source>
-                <note>No comment provided by engineer.</note>
                 <target>Falsches Passwort! Bitte erneut versuchen, das korrrekte SEB Administrator-Passwort aus diesen Einstellungen einzugeben:</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="You are not allowed to run SEB inside a virtual machine!">
                 <source>You are not allowed to run SEB inside a virtual machine!</source>
@@ -3449,33 +3409,33 @@
             </trans-unit>
             <trans-unit id="You can only reconfigure SEB by entering the current SEB administrator password:">
                 <source>You can only reconfigure SEB by entering the current SEB administrator password:</source>
-                <note>No comment provided by engineer.</note>
                 <target>Sie können SEB nur nach Eingabe des aktuellen SEB-Administrator-Passwortes neu konfigurieren:</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="You didn't enter the the correct current SEB administrator password.">
                 <source>You didn't enter the the correct current SEB administrator password.</source>
-                <note>No comment provided by engineer.</note>
                 <target>Sie haben das SEB Administrator-Passwort nicht korrekt eingegeben.</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="You edited settings. Do you want to apply them or continue using previous settings (current settings will be discarded)?">
                 <source>You edited settings. Do you want to apply them or continue using previous settings (current settings will be discarded)?</source>
-                <note>No comment provided by engineer.</note>
                 <target>Sie haben die Einstellungen bearbeitet. Wollen Sie diese anwenden oder mit den vorherigen Einstellungen weiterfahren (bearbeitete Einstellungen werden verworfen)?</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="You edited settings. Do you want to apply them or continue using previous settings?">
                 <source>You edited settings. Do you want to apply them or continue using previous settings?</source>
-                <note>No comment provided by engineer.</note>
                 <target>Sie haben die Einstellungen bearbeitet. Wollen Sie diese anwenden oder mit den vorherigen Einstellungen weiterfahren?</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="You either entered the wrong password or these settings were saved with an incompatible SEB version.">
                 <source>You either entered the wrong password or these settings were saved with an incompatible SEB version.</source>
-                <note>No comment provided by engineer.</note>
                 <target>Sie haben entweder ein falsches Passwort eingegeben oder diese Konfiguration wude mit einer inkompatiblen SEB-Version erstellt.</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted settings file, but this is not recommended for use in exams.">
                 <source>You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted settings file, but this is not recommended for use in exams.</source>
-                <note>No comment provided by engineer.</note>
                 <target>Sie sollten entweder ein Passwort oder eine kryptografische Identität zum Verschlüsseln der Konfigurationsdatei verwenden.\n\nSie können eine unverschlüsselte Datei speichern, aber dies ist nicht für die Benutzung in Prüfungen empfohlen.</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="administrator">
                 <source>administrator</source>
@@ -3564,11 +3524,9 @@
             </trans-unit>
             <trans-unit id="CFBundleName">
                 <source>SafeExamBrowser</source>
-                <target></target>
             </trans-unit>
             <trans-unit id="CFBundleShortVersionString">
                 <source>2.0</source>
-                <target></target>
             </trans-unit>
             <trans-unit id="NSHumanReadableCopyright">
                 <source>© 2010-2014 Daniel R. Schneider, ETH Zürich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>

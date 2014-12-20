@@ -1,5 +1,5 @@
 /* Class = "NSButtonCell"; title = "Force installation in Applications folder"; ObjectID = "0Ey-3L-Lb6"; */
-"0Ey-3L-Lb6.title" = "Installation im Programmverzeichnis erzwingen";
+"0Ey-3L-Lb6.title" = "SEB im Programmverzeichnis erzwingen";
 
 /* Class = "NSButtonCell"; title = "Enable F11"; ObjectID = "0ob-OM-tPV"; */
 "0ob-OM-tPV.title" = "F11 erlauben";
@@ -38,7 +38,7 @@
 "76.ibShadowedToolTip" = "Normalerweise sollte der Betrieb von SEB innerhalb einer virtuellen Maschine nicht erlaubt werden, um potentielle Manipulationen zu verhindern";
 
 /* Class = "NSButtonCell"; title = "Allow to run inside virtual machine"; ObjectID = "77"; */
-"77.title" = "Betrieb innerhalb virtueller Maschine erlauben";
+"77.title" = "Betrieb in virtueller Maschine erlauben";
 
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Policy that applies when an exam client doesn't have the SEB Service installed or running"; ObjectID = "93"; */
 "93.ibShadowedToolTip" = "Richtline, die angewendet wird, wenn der SEB-Hintergrundservice auf einem Prüfungs-Client nicht installiert ist";
@@ -86,7 +86,7 @@
 "IXz-wb-IuQ.title" = "F8 erlauben";
 
 /* Class = "NSButtonCell"; title = "Disable app switcher when starting"; ObjectID = "JRL-fG-lI3"; */
-"JRL-fG-lI3.title" = "Programmumschalter während Start verbieten";
+"JRL-fG-lI3.title" = "Start: Programmumschalter verbieten";
 
 /* Class = "NSButtonCell"; title = "None (for debugging only)"; ObjectID = "KbI-Yu-DVk"; */
 "KbI-Yu-DVk.title" = "Keiner (nur für Debugging)";

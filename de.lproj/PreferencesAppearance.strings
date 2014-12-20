@@ -43,9 +43,6 @@
 /* Class = "NSTextFieldCell"; title = "Height"; ObjectID = "606"; */
 "606.title" = "Höhe";
 
-/* Class = "NSComboBoxCell"; 607.ibShadowedObjectValues[0] = "100%"; ObjectID = "607"; */
-"607.ibShadowedObjectValues[0]" = "";
-
 /* Class = "NSTextFieldCell"; title = "Width"; ObjectID = "724"; */
 "724.title" = "Breite";
 

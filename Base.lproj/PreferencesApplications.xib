@@ -332,7 +332,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <scrollView toolTip="Arguments to append to the executable of the application when starting it. Checkbox selects if an argument is active." autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="733">
+                                                <scrollView toolTip="Arguments to append to the executable of the application when starting it. Checkbox selects if an argument is active." verticalHuggingPriority="750" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="733">
                                                     <rect key="frame" x="98" y="122" width="458" height="69"/>
                                                     <clipView key="contentView" id="UYw-pC-SvI">
                                                         <rect key="frame" x="1" y="1" width="456" height="65"/>
@@ -520,19 +520,12 @@
                                                         </binding>
                                                     </connections>
                                                 </button>
-                                                <button toolTip="Show details about the application/process code signature" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1183">
+                                                <button hidden="YES" toolTip="Show details about the application/process code signature" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1183">
                                                     <rect key="frame" x="407" y="56" width="155" height="32"/>
                                                     <buttonCell key="cell" type="push" title="Code Signatures..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1184">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
-                                                    <connections>
-                                                        <binding destination="610" name="hidden" keyPath="selectedObjects" id="1191">
-                                                            <dictionary key="options">
-                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
                                                 </button>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1303">
                                                     <rect key="frame" x="16" y="260" width="22" height="17"/>
@@ -618,7 +611,6 @@
                                             <constraint firstItem="654" firstAttribute="leading" secondItem="653" secondAttribute="trailing" constant="8" symbolic="YES" id="670"/>
                                             <constraint firstAttribute="trailing" secondItem="654" secondAttribute="trailing" constant="16" id="671"/>
                                             <constraint firstAttribute="trailing" secondItem="674" secondAttribute="trailing" constant="16" id="683"/>
-                                            <constraint firstItem="641" firstAttribute="trailing" secondItem="673" secondAttribute="trailing" id="685"/>
                                             <constraint firstItem="733" firstAttribute="top" secondItem="687" secondAttribute="bottom" constant="8" symbolic="YES" id="746"/>
                                             <constraint firstAttribute="trailing" secondItem="733" secondAttribute="trailing" constant="16" id="753"/>
                                             <constraint firstItem="645" firstAttribute="top" secondItem="405" secondAttribute="top" constant="24" id="760"/>
@@ -667,6 +659,7 @@
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2244" secondAttribute="trailing" constant="16" id="8Yx-FQ-1W3"/>
                                             <constraint firstItem="2201" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="405" secondAttribute="leading" constant="16" id="BiY-0B-UKk"/>
                                             <constraint firstItem="1183" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="982" secondAttribute="trailing" constant="8" symbolic="YES" id="EUx-Sr-b1j"/>
+                                            <constraint firstAttribute="width" constant="570" id="LFt-kV-hcU"/>
                                             <constraint firstItem="674" firstAttribute="leading" secondItem="645" secondAttribute="leading" id="Qhz-K6-oz5"/>
                                             <constraint firstItem="673" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1314" secondAttribute="trailing" constant="8" symbolic="YES" id="aNZ-8V-TAM"/>
                                             <constraint firstItem="687" firstAttribute="top" secondItem="2202" secondAttribute="bottom" constant="7" id="dCp-5s-lMX"/>
@@ -707,14 +700,14 @@
                                             <action selector="remove:" target="610" id="620"/>
                                         </connections>
                                     </button>
-                                    <button toolTip="Allows choosing an application (or a process executable file) which will be added to the list of permitted processes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="495">
+                                    <button hidden="YES" toolTip="Allows choosing an application (or a process executable file) which will be added to the list of permitted processes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="495">
                                         <rect key="frame" x="60" y="370" width="175" height="32"/>
                                         <buttonCell key="cell" type="push" title="Choose Application..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="496">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
-                                    <button toolTip="For choosing a running process which will be added to the list of permitted processes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1600">
+                                    <button hidden="YES" toolTip="For choosing a running process which will be added to the list of permitted processes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1600">
                                         <rect key="frame" x="235" y="370" width="150" height="32"/>
                                         <buttonCell key="cell" type="push" title="Choose Process..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1601">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1044,19 +1037,12 @@
                                                         </binding>
                                                     </connections>
                                                 </button>
-                                                <button toolTip="Show details about the application/process code signature" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1854">
+                                                <button hidden="YES" toolTip="Show details about the application/process code signature" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1854">
                                                     <rect key="frame" x="408" y="11" width="155" height="32"/>
                                                     <buttonCell key="cell" type="push" title="Code Signatures..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1923">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
-                                                    <connections>
-                                                        <binding destination="1726" name="hidden" keyPath="selectedObjects" id="1954">
-                                                            <dictionary key="options">
-                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
                                                 </button>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1899">
                                                     <rect key="frame" x="16" y="79" width="22" height="17"/>
@@ -1143,7 +1129,7 @@
                                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </box>
-                                    <button toolTip="For choosing a running process which will be added to the list of prohibited processes." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1841">
+                                    <button hidden="YES" toolTip="For choosing a running process which will be added to the list of prohibited processes." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1841">
                                         <rect key="frame" x="235" y="190" width="150" height="32"/>
                                         <buttonCell key="cell" type="push" title="Choose Process..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1853">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1185,7 +1171,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button toolTip="Allows choosing the process executable file (or application) which will be added to the list of prohibited processes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1845">
+                                    <button hidden="YES" toolTip="Allows choosing the process executable file (or application) which will be added to the list of prohibited processes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1845">
                                         <rect key="frame" x="64" y="190" width="171" height="32"/>
                                         <buttonCell key="cell" type="push" title="Choose Executable..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1846">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

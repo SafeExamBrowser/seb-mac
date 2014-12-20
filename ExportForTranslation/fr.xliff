@@ -804,8 +804,8 @@
         <note>Class = "NSButtonCell"; title = "Current user"; ObjectID = "1920";</note>
       </trans-unit>
       <trans-unit id="1921.title">
-        <source>Strong kill (risk of data loss) </source>
-        <note>Class = "NSButtonCell"; title = "Strong kill (risk of data loss) "; ObjectID = "1921";</note>
+        <source>Strong kill (risk of data loss)</source>
+        <note>Class = "NSButtonCell"; title = "Strong kill (risk of data loss)"; ObjectID = "1921";</note>
       </trans-unit>
       <trans-unit id="1923.title">
         <source>Code Signatures...</source>
@@ -836,8 +836,8 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Kill process in a not-nice way, which may cause data loss if the application had unsaved data"; ObjectID = "2244";</note>
       </trans-unit>
       <trans-unit id="2246.title">
-        <source>Strong kill (risk of data loss) </source>
-        <note>Class = "NSButtonCell"; title = "Strong kill (risk of data loss) "; ObjectID = "2246";</note>
+        <source>Strong kill (risk of data loss)</source>
+        <note>Class = "NSButtonCell"; title = "Strong kill (risk of data loss)"; ObjectID = "2246";</note>
       </trans-unit>
     </body>
   </file>
@@ -1401,10 +1401,6 @@
         <source>/</source>
         <note>Class = "NSTextFieldCell"; title = "/"; ObjectID = "2io-Hc-2AG";</note>
       </trans-unit>
-      <trans-unit id="3f7-DM-fXx.title">
-        <source>and</source>
-        <note>Class = "NSMenuItem"; title = "and"; ObjectID = "3f7-DM-fXx";</note>
-      </trans-unit>
       <trans-unit id="6U6-cT-k15.headerCell.title">
         <source>Action</source>
         <note>Class = "NSTableColumn"; headerCell.title = "Action"; ObjectID = "6U6-cT-k15";</note>
@@ -1669,10 +1665,6 @@
         <source>Display 'URL Blocked!'</source>
         <note>Class = "NSButtonCell"; title = "Display 'URL Blocked!'"; ObjectID = "UCE-sZ-Ixh";</note>
       </trans-unit>
-      <trans-unit id="VvL-UW-Mzn.title">
-        <source>skip</source>
-        <note>Class = "NSMenuItem"; title = "skip"; ObjectID = "VvL-UW-Mzn";</note>
-      </trans-unit>
       <trans-unit id="bcq-qY-qJM.title">
         <source>#</source>
         <note>Class = "NSTextFieldCell"; title = "#"; ObjectID = "bcq-qY-qJM";</note>
@@ -1680,14 +1672,6 @@
       <trans-unit id="cCY-tB-p0Y.title">
         <source>Action</source>
         <note>Class = "NSTextFieldCell"; title = "Action"; ObjectID = "cCY-tB-p0Y";</note>
-      </trans-unit>
-      <trans-unit id="d4p-TC-j2w.title">
-        <source>allow</source>
-        <note>Class = "NSMenuItem"; title = "allow"; ObjectID = "d4p-TC-j2w";</note>
-      </trans-unit>
-      <trans-unit id="egv-X8-A5H.title">
-        <source>block</source>
-        <note>Class = "NSMenuItem"; title = "block"; ObjectID = "egv-X8-A5H";</note>
       </trans-unit>
       <trans-unit id="f49-Sx-zE7.title">
         <source>Regex</source>
@@ -1728,14 +1712,6 @@
       <trans-unit id="wtP-tT-RxN.ibShadowedToolTip">
         <source>Chooses message/symbol which is displayed in the browser window toolbar when a URL isn't allowed</source>
         <note>Class = "NSMatrix"; ibShadowedToolTip = "Chooses message/symbol which is displayed in the browser window toolbar when a URL isn't allowed"; ObjectID = "wtP-tT-RxN";</note>
-      </trans-unit>
-      <trans-unit id="xPR-2O-w0D.title">
-        <source>OtherViews</source>
-        <note>Class = "NSMenu"; title = "OtherViews"; ObjectID = "xPR-2O-w0D";</note>
-      </trans-unit>
-      <trans-unit id="y6S-eJ-81W.title">
-        <source>or</source>
-        <note>Class = "NSMenuItem"; title = "or"; ObjectID = "y6S-eJ-81W";</note>
       </trans-unit>
     </body>
   </file>
@@ -2114,25 +2090,13 @@
         <source>Back/Forward</source>
         <note>Class = "NSToolbarItem"; label = "Back/Forward"; ObjectID = "175";</note>
       </trans-unit>
-      <trans-unit id="175.paletteLabel">
-        <source>SegmentButton</source>
-        <note>Class = "NSToolbarItem"; paletteLabel = "SegmentButton"; ObjectID = "175";</note>
-      </trans-unit>
       <trans-unit id="179.label">
         <source>Zoom</source>
         <note>Class = "NSToolbarItem"; label = "Zoom"; ObjectID = "179";</note>
       </trans-unit>
-      <trans-unit id="179.paletteLabel">
-        <source>SegmentButton</source>
-        <note>Class = "NSToolbarItem"; paletteLabel = "SegmentButton"; ObjectID = "179";</note>
-      </trans-unit>
       <trans-unit id="192.label">
         <source>Reload</source>
         <note>Class = "NSToolbarItem"; label = "Reload"; ObjectID = "192";</note>
-      </trans-unit>
-      <trans-unit id="192.paletteLabel">
-        <source>Button</source>
-        <note>Class = "NSToolbarItem"; paletteLabel = "Button"; ObjectID = "192";</note>
       </trans-unit>
       <trans-unit id="AcO-IT-BuS.title">
         <source>Block</source>
@@ -2587,6 +2551,10 @@
       </trans-unit>
       <trans-unit id="Quit">
         <source>Quit</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Quit SEB">
+        <source>Quit SEB</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Quit Safe Exam Browser">

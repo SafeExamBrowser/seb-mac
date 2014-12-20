@@ -62,8 +62,8 @@
                                     <button toolTip="Add a filter rule" translatesAutoresizingMaskIntoConstraints="NO" id="526">
                                         <rect key="frame" x="17" y="246" width="22" height="21"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="531"/>
-                                            <constraint firstAttribute="width" constant="22" id="656"/>
+                                            <constraint firstAttribute="width" constant="22" id="LXq-Xr-0eI"/>
+                                            <constraint firstAttribute="height" constant="21" id="abk-IT-zqh"/>
                                         </constraints>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="532">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -380,9 +380,12 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="63j-33-Jdu">
+                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="63j-33-Jdu">
                                                     <rect key="frame" x="11" y="134" width="405" height="17"/>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="scheme://username:password@host:port/path?query#fragment" id="SI9-ap-07c">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="17" id="iuH-05-SfK"/>
+                                                    </constraints>
+                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="scheme://username:password@host:port/path?query#fragment" usesSingleLineMode="YES" id="SI9-ap-07c">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -755,20 +758,19 @@
                                 <constraints>
                                     <constraint firstItem="454" firstAttribute="leading" secondItem="243" secondAttribute="leading" constant="17" id="456"/>
                                     <constraint firstItem="454" firstAttribute="top" secondItem="243" secondAttribute="top" constant="5" id="479"/>
-                                    <constraint firstItem="527" firstAttribute="leading" secondItem="526" secondAttribute="trailing" constant="-1" id="548"/>
-                                    <constraint firstItem="526" firstAttribute="leading" secondItem="243" secondAttribute="leading" constant="17" id="556"/>
                                     <constraint firstItem="648" firstAttribute="leading" secondItem="243" secondAttribute="leading" constant="294" id="662"/>
-                                    <constraint firstItem="527" firstAttribute="bottom" secondItem="526" secondAttribute="bottom" id="789"/>
                                     <constraint firstItem="648" firstAttribute="top" secondItem="243" secondAttribute="top" constant="5" id="22C-Sl-yrU"/>
                                     <constraint firstItem="wtP-tT-RxN" firstAttribute="top" secondItem="648" secondAttribute="bottom" constant="4" id="25f-TM-OLF"/>
                                     <constraint firstItem="GZd-2h-HIq" firstAttribute="top" secondItem="527" secondAttribute="bottom" constant="8" id="4v2-cV-Ybx"/>
                                     <constraint firstItem="wtP-tT-RxN" firstAttribute="leading" secondItem="243" secondAttribute="leading" constant="33" id="7hk-RL-ewk"/>
                                     <constraint firstItem="527" firstAttribute="bottom" secondItem="PJT-Mq-ijG" secondAttribute="bottom" id="99v-9p-Nsh"/>
+                                    <constraint firstItem="526" firstAttribute="trailing" secondItem="527" secondAttribute="leading" constant="1" id="CIY-18-oZE"/>
                                     <constraint firstItem="at3-bk-Nje" firstAttribute="leading" secondItem="243" secondAttribute="leading" constant="17" id="CQZ-2w-N2N"/>
+                                    <constraint firstItem="GZd-2h-HIq" firstAttribute="top" secondItem="526" secondAttribute="bottom" constant="8" symbolic="YES" id="DK2-QL-PAe"/>
                                     <constraint firstAttribute="trailing" secondItem="at3-bk-Nje" secondAttribute="trailing" constant="17" id="Dib-ic-40b"/>
                                     <constraint firstAttribute="trailing" secondItem="wtP-tT-RxN" secondAttribute="trailing" constant="17" id="EOf-AG-r5j"/>
-                                    <constraint firstItem="526" firstAttribute="top" secondItem="at3-bk-Nje" secondAttribute="bottom" constant="8" id="Ho8-nT-Ez1"/>
                                     <constraint firstItem="Etc-6i-KPi" firstAttribute="centerY" secondItem="PJT-Mq-ijG" secondAttribute="centerY" id="IYe-bN-tic"/>
+                                    <constraint firstItem="526" firstAttribute="leading" secondItem="GZd-2h-HIq" secondAttribute="leading" id="KAV-3s-Kgu"/>
                                     <constraint firstItem="PJT-Mq-ijG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="527" secondAttribute="trailing" constant="20" id="VwO-VY-uiL"/>
                                     <constraint firstAttribute="trailing" secondItem="Etc-6i-KPi" secondAttribute="trailing" constant="17" id="dAd-C8-yhz"/>
                                     <constraint firstItem="Etc-6i-KPi" firstAttribute="leading" secondItem="PJT-Mq-ijG" secondAttribute="trailing" constant="17" id="g4Q-cp-HMR"/>
@@ -777,6 +779,7 @@
                                     <constraint firstItem="648" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="454" secondAttribute="trailing" constant="8" symbolic="YES" id="iQ7-jb-Mnx"/>
                                     <constraint firstAttribute="bottom" secondItem="GZd-2h-HIq" secondAttribute="bottom" constant="9" id="j3m-Ap-KqS"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="648" secondAttribute="trailing" constant="20" symbolic="YES" id="jg7-de-xNG"/>
+                                    <constraint firstItem="526" firstAttribute="top" secondItem="527" secondAttribute="top" id="n8b-ri-aDs"/>
                                     <constraint firstItem="at3-bk-Nje" firstAttribute="top" secondItem="wtP-tT-RxN" secondAttribute="bottom" constant="5" id="toN-Up-eKw"/>
                                     <constraint firstItem="GZd-2h-HIq" firstAttribute="leading" secondItem="243" secondAttribute="leading" constant="17" id="vyL-hN-CeY"/>
                                 </constraints>
