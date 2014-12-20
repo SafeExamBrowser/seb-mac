@@ -24,11 +24,11 @@
                     <tabViewItems>
                         <tabViewItem label="Permitted Processes" identifier="1" id="240">
                             <view key="view" id="243">
-                                <rect key="frame" x="10" y="33" width="665" height="614"/>
+                                <rect key="frame" x="10" y="33" width="604" height="614"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="5">
-                                        <rect key="frame" x="15" y="588" width="574" height="18"/>
+                                        <rect key="frame" x="15" y="588" width="288" height="18"/>
                                         <string key="toolTip">Decreases security of the kiosk mode by allowing process switcher (Cmd+Tab). The blacked out background of SEB also doesn't cover some alerts and modal windows in this mode.</string>
                                         <buttonCell key="cell" type="check" title="Allow switching to third party applications" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="6">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -40,7 +40,7 @@
                                         </connections>
                                     </button>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="134">
-                                        <rect key="frame" x="33" y="567" width="556" height="18"/>
+                                        <rect key="frame" x="33" y="567" width="240" height="18"/>
                                         <string key="toolTip">Playing videos full screen with Flash is a security problem. Better use HTML5 video instead of Flash! When switching to third party applications is disabled, Flash fullscreen mode isn't possible at all.</string>
                                         <buttonCell key="cell" type="check" title="Allow Flash to switch to full screen mode" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="135">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -256,9 +256,6 @@
                                                 </textField>
                                                 <textField toolTip="Optional, should explain what kind of process this is, because this might not be obvious only from the executable's name." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="654">
                                                     <rect key="frame" x="98" y="287" width="458" height="22"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" priority="320" constant="458" id="1216"/>
-                                                    </constraints>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="656">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -552,8 +549,11 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <popUpButton toolTip="Indicates on which operating system the permitted process runs" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1314">
+                                                <popUpButton toolTip="Indicates on which operating system the permitted process runs" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1314">
                                                     <rect key="frame" x="42" y="253" width="75" height="26"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="70" id="yd6-Ea-gPd"/>
+                                                    </constraints>
                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1319" id="1315">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="menu"/>
@@ -656,8 +656,6 @@
                                             <constraint firstItem="982" firstAttribute="top" secondItem="956" secondAttribute="bottom" constant="6" symbolic="YES" id="1807"/>
                                             <constraint firstItem="2201" firstAttribute="baseline" secondItem="2202" secondAttribute="baseline" id="2217"/>
                                             <constraint firstItem="686" firstAttribute="baseline" secondItem="687" secondAttribute="baseline" id="2218"/>
-                                            <constraint firstItem="687" firstAttribute="top" secondItem="405" secondAttribute="top" constant="142" id="2224"/>
-                                            <constraint firstItem="2202" firstAttribute="trailing" secondItem="674" secondAttribute="trailing" id="2231"/>
                                             <constraint firstItem="2202" firstAttribute="top" secondItem="674" secondAttribute="bottom" constant="7" id="2236"/>
                                             <constraint firstItem="2202" firstAttribute="leading" secondItem="674" secondAttribute="leading" id="2239"/>
                                             <constraint firstItem="687" firstAttribute="leading" secondItem="654" secondAttribute="leading" id="2240"/>
@@ -669,12 +667,16 @@
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2244" secondAttribute="trailing" constant="16" id="8Yx-FQ-1W3"/>
                                             <constraint firstItem="2201" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="405" secondAttribute="leading" constant="16" id="BiY-0B-UKk"/>
                                             <constraint firstItem="1183" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="982" secondAttribute="trailing" constant="8" symbolic="YES" id="EUx-Sr-b1j"/>
+                                            <constraint firstItem="674" firstAttribute="leading" secondItem="645" secondAttribute="leading" id="Qhz-K6-oz5"/>
                                             <constraint firstItem="673" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1314" secondAttribute="trailing" constant="8" symbolic="YES" id="aNZ-8V-TAM"/>
+                                            <constraint firstItem="687" firstAttribute="top" secondItem="2202" secondAttribute="bottom" constant="7" id="dCp-5s-lMX"/>
                                             <constraint firstItem="772" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="405" secondAttribute="leading" constant="16" id="fgV-HS-kyq"/>
                                             <constraint firstItem="896" firstAttribute="baseline" secondItem="948" secondAttribute="baseline" id="jZE-ih-zg1"/>
                                             <constraint firstItem="1183" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="956" secondAttribute="trailing" constant="8" symbolic="YES" id="joh-2V-PIC"/>
                                             <constraint firstItem="641" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="637" secondAttribute="trailing" constant="8" symbolic="YES" id="kD8-6l-F09"/>
-                                            <constraint firstItem="686" firstAttribute="leading" secondItem="405" secondAttribute="leading" constant="60" id="vpt-kz-WDX"/>
+                                            <constraint firstItem="887" firstAttribute="leading" secondItem="2202" secondAttribute="leading" id="ufp-Vb-VUO"/>
+                                            <constraint firstItem="686" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="405" secondAttribute="leading" constant="60" id="vpt-kz-WDX"/>
+                                            <constraint firstAttribute="trailing" secondItem="2202" secondAttribute="trailing" constant="16" id="yo2-1i-qcj"/>
                                         </constraints>
                                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -722,11 +724,10 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="5" firstAttribute="leading" secondItem="243" secondAttribute="leading" constant="17" id="252"/>
-                                    <constraint firstAttribute="trailing" secondItem="5" secondAttribute="trailing" constant="78" id="310"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5" secondAttribute="trailing" constant="20" symbolic="YES" id="310"/>
                                     <constraint firstItem="134" firstAttribute="top" secondItem="5" secondAttribute="bottom" constant="8" symbolic="YES" id="339"/>
-                                    <constraint firstAttribute="trailing" secondItem="134" secondAttribute="trailing" constant="78" id="340"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="134" secondAttribute="trailing" constant="20" symbolic="YES" id="340"/>
                                     <constraint firstItem="345" firstAttribute="leading" secondItem="243" secondAttribute="leading" constant="17" id="354"/>
-                                    <constraint firstAttribute="trailing" secondItem="345" secondAttribute="trailing" constant="78" id="358"/>
                                     <constraint firstItem="405" firstAttribute="trailing" secondItem="345" secondAttribute="trailing" id="411"/>
                                     <constraint firstItem="463" firstAttribute="leading" secondItem="405" secondAttribute="leading" id="475"/>
                                     <constraint firstItem="463" firstAttribute="leading" secondItem="243" secondAttribute="leading" constant="17" id="476"/>
@@ -742,10 +743,12 @@
                                     <constraint firstItem="1600" firstAttribute="baseline" secondItem="495" secondAttribute="baseline" id="1604"/>
                                     <constraint firstItem="1600" firstAttribute="leading" secondItem="495" secondAttribute="trailing" constant="12" symbolic="YES" id="1605"/>
                                     <constraint firstItem="463" firstAttribute="top" secondItem="243" secondAttribute="top" constant="216" id="1811"/>
-                                    <constraint firstItem="345" firstAttribute="top" secondItem="243" secondAttribute="top" constant="57" id="2112"/>
                                     <constraint firstItem="5" firstAttribute="top" secondItem="243" secondAttribute="top" constant="10" id="2114"/>
                                     <constraint firstItem="345" firstAttribute="top" secondItem="134" secondAttribute="bottom" constant="13" id="2116"/>
                                     <constraint firstAttribute="bottom" secondItem="405" secondAttribute="bottom" constant="9" id="2144"/>
+                                    <constraint firstAttribute="trailing" secondItem="345" secondAttribute="trailing" constant="17" id="QV6-Kd-Cak"/>
+                                    <constraint firstItem="405" firstAttribute="leading" secondItem="243" secondAttribute="leading" constant="17" id="TIn-qt-fXR"/>
+                                    <constraint firstAttribute="trailing" secondItem="405" secondAttribute="trailing" constant="17" id="WSq-cj-MAB"/>
                                 </constraints>
                             </view>
                         </tabViewItem>
@@ -842,6 +845,9 @@
                                             </subviews>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </clipView>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="360" id="6QI-wO-4vx"/>
+                                        </constraints>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="1925">
                                             <rect key="frame" x="1" y="174" width="568" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -855,7 +861,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
-                                    <box autoresizesSubviews="NO" misplaced="YES" title="Selected Process" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="1840">
+                                    <box autoresizesSubviews="NO" title="Selected Process" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="1840">
                                         <rect key="frame" x="14" y="5" width="577" height="184"/>
                                         <view key="contentView">
                                             <rect key="frame" x="1" y="1" width="575" height="168"/>
@@ -879,7 +885,7 @@
                                                         </binding>
                                                     </connections>
                                                 </button>
-                                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1897">
+                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1897">
                                                     <rect key="frame" x="182" y="139" width="72" height="17"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Executable" id="1909">
                                                         <font key="font" metaFont="system"/>
@@ -894,7 +900,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField toolTip="Process name, usually the file name of the executable" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1893">
+                                                <textField toolTip="Process name, usually the file name of the executable" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1893">
                                                     <rect key="frame" x="260" y="137" width="297" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="297" id="1915"/>
@@ -927,7 +933,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField toolTip="Optional, to explain what kind of process this is, because this might not be obvious only from the executable's name" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1895">
+                                                <textField toolTip="Optional, to explain what kind of process this is, because this might not be obvious only from the executable's name" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1895">
                                                     <rect key="frame" x="98" y="107" width="459" height="22"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1911">
                                                         <font key="font" metaFont="system"/>
@@ -942,7 +948,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1857">
+                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1857">
                                                     <rect key="frame" x="222" y="49" width="32" height="17"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="User" id="1918">
                                                         <font key="font" metaFont="system"/>
@@ -957,7 +963,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1896">
+                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1896">
                                                     <rect key="frame" x="260" y="47" width="297" height="22"/>
                                                     <string key="toolTip">User identifier under which this process is running. If no user is indicated, then the process is killed regardless under which user it is running. Instead the check box 'current user' can be used.</string>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1910">
@@ -974,7 +980,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField toolTip="Identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1859">
+                                                <textField toolTip="Identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1859">
                                                     <rect key="frame" x="260" y="77" width="297" height="22"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1916">
                                                         <font key="font" metaFont="system"/>
@@ -990,7 +996,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1858">
+                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1858">
                                                     <rect key="frame" x="193" y="79" width="61" height="17"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Identifier" id="1917">
                                                         <font key="font" metaFont="system"/>
@@ -1038,7 +1044,7 @@
                                                         </binding>
                                                     </connections>
                                                 </button>
-                                                <button toolTip="Show details about the application/process code signature" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1854">
+                                                <button toolTip="Show details about the application/process code signature" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1854">
                                                     <rect key="frame" x="408" y="11" width="155" height="32"/>
                                                     <buttonCell key="cell" type="push" title="Code Signatures..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1923">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1103,8 +1109,6 @@
                                             <constraint firstItem="1900" firstAttribute="baseline" secondItem="1899" secondAttribute="baseline" id="1864"/>
                                             <constraint firstItem="1900" firstAttribute="leading" secondItem="1899" secondAttribute="trailing" constant="8" symbolic="YES" id="1865"/>
                                             <constraint firstItem="1856" firstAttribute="leading" secondItem="1840" secondAttribute="leading" constant="16" id="1866"/>
-                                            <constraint firstItem="1856" firstAttribute="centerY" secondItem="1857" secondAttribute="centerY" id="1867"/>
-                                            <constraint firstItem="1856" firstAttribute="top" secondItem="1857" secondAttribute="top" id="1868"/>
                                             <constraint firstItem="1895" firstAttribute="baseline" secondItem="1894" secondAttribute="baseline" id="1869"/>
                                             <constraint firstItem="1895" firstAttribute="leading" secondItem="1894" secondAttribute="trailing" constant="8" symbolic="YES" id="1870"/>
                                             <constraint firstItem="1895" firstAttribute="top" secondItem="1893" secondAttribute="bottom" constant="8" id="1872"/>
@@ -1126,11 +1130,14 @@
                                             <constraint firstAttribute="trailing" secondItem="1854" secondAttribute="trailing" constant="16" id="1891"/>
                                             <constraint firstItem="1854" firstAttribute="top" secondItem="1896" secondAttribute="bottom" constant="8" symbolic="YES" id="1892"/>
                                             <constraint firstAttribute="trailing" secondItem="1895" secondAttribute="trailing" constant="16" id="1981"/>
+                                            <constraint firstAttribute="width" constant="571" id="3iD-zS-axd"/>
                                             <constraint firstItem="1857" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1856" secondAttribute="trailing" constant="8" symbolic="YES" id="BED-jC-x3U"/>
                                             <constraint firstItem="1896" firstAttribute="top" secondItem="1859" secondAttribute="bottom" constant="8" id="IDI-CW-at6"/>
+                                            <constraint firstItem="1856" firstAttribute="top" secondItem="1857" secondAttribute="top" id="IKK-Sh-kbU"/>
                                             <constraint firstItem="1897" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1898" secondAttribute="trailing" constant="8" symbolic="YES" id="Z1E-Gp-6nH"/>
                                             <constraint firstItem="1858" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1900" secondAttribute="trailing" constant="8" symbolic="YES" id="aNd-Tg-1ov"/>
                                             <constraint firstItem="1854" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1855" secondAttribute="trailing" constant="8" symbolic="YES" id="bQM-w6-ch8"/>
+                                            <constraint firstItem="1856" firstAttribute="centerY" secondItem="1857" secondAttribute="centerY" id="fIZ-Gl-sj7"/>
                                             <constraint firstItem="1859" firstAttribute="top" secondItem="1895" secondAttribute="bottom" constant="8" id="i1n-Bu-MJ8"/>
                                         </constraints>
                                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
@@ -1204,7 +1211,6 @@
                                     <constraint firstItem="1843" firstAttribute="top" secondItem="1839" secondAttribute="bottom" constant="8" symbolic="YES" id="2298"/>
                                     <constraint firstAttribute="bottom" secondItem="1840" secondAttribute="bottom" constant="9" id="2303"/>
                                     <constraint firstItem="1840" firstAttribute="top" secondItem="1843" secondAttribute="bottom" constant="8" symbolic="YES" id="2307"/>
-                                    <constraint firstItem="1840" firstAttribute="top" secondItem="242" secondAttribute="top" constant="425" id="2308"/>
                                     <constraint firstItem="1840" firstAttribute="top" secondItem="1842" secondAttribute="bottom" constant="8" symbolic="YES" id="2309"/>
                                 </constraints>
                             </view>
@@ -1212,7 +1218,7 @@
                     </tabViewItems>
                 </tabView>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="299">
-                    <rect key="frame" x="18" y="664" width="553" height="18"/>
+                    <rect key="frame" x="18" y="664" width="136" height="18"/>
                     <string key="toolTip">SEB monitors which processes/applications are running during an exam. Those which are not permitted are hiddden, those which are prohibited will be closed/killed.</string>
                     <buttonCell key="cell" type="check" title="Monitor processes" bezelStyle="regularSquare" imagePosition="left" alignment="left" enabled="NO" inset="2" id="301">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1231,12 +1237,12 @@
                 <constraint firstItem="239" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="244"/>
                 <constraint firstAttribute="trailing" secondItem="239" secondAttribute="trailing" constant="20" symbolic="YES" id="248"/>
                 <constraint firstItem="299" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="306"/>
-                <constraint firstAttribute="trailing" secondItem="299" secondAttribute="trailing" constant="81" id="307"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="299" secondAttribute="trailing" constant="81" id="307"/>
                 <constraint firstItem="299" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" symbolic="YES" id="308"/>
                 <constraint firstItem="239" firstAttribute="top" secondItem="1" secondAttribute="top" constant="46" id="502"/>
                 <constraint firstAttribute="bottom" secondItem="239" secondAttribute="bottom" constant="10" id="2142"/>
             </constraints>
-            <point key="canvasLocation" x="109" y="155"/>
+            <point key="canvasLocation" x="108" y="155"/>
         </customView>
         <objectController automaticallyPreparesContent="YES" id="49">
             <declaredKeys>
