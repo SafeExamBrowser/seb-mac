@@ -352,7 +352,7 @@
 		6909E3391A019F7A0086A741 /* DDMultiFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMultiFormatter.m; sourceTree = "<group>"; };
 		690B0A0E1A45ED4800CD5FEF /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesGeneral.xib; sourceTree = "<group>"; };
 		690B0A101A45ED8000CD5FEF /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesConfigFile.xib; sourceTree = "<group>"; };
-		690B0A111A46059600CD5FEF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SEBBrowserWindow.strings; sourceTree = "<group>"; };
+		690B0A121A46084200CD5FEF /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/SEBBrowserWindow.xib; sourceTree = "<group>"; };
 		690B5B6019DBEAA400704F36 /* SEBDockItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockItem.h; path = Classes/SEBDock/SEBDockItem.h; sourceTree = "<group>"; };
 		690B5B6119DBEAA400704F36 /* SEBDockItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockItem.m; path = Classes/SEBDock/SEBDockItem.m; sourceTree = "<group>"; };
 		690BBEAA19D2C6A000F7C9C6 /* SEBDockController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockController.h; path = Classes/SEBDock/SEBDockController.h; sourceTree = "<group>"; };
@@ -1424,7 +1424,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				6929228C19FD9F1B00B57347 /* Base */,
-				690B0A111A46059600CD5FEF /* de */,
+				690B0A121A46084200CD5FEF /* de */,
 			);
 			name = SEBBrowserWindow.xib;
 			sourceTree = "<group>";
