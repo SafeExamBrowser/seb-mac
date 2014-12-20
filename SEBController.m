@@ -1178,7 +1178,7 @@ bool insideMatrix(){
     [enterPasswordDialog setStringValue:text];
     
     // If the (main) browser window is full screen, we don't show the dialog as sheet
-    if (window && self.browserController.mainBrowserWindow.isFullScreen) {
+    if (window && (self.browserController.mainBrowserWindow.isFullScreen || [self.preferencesController preferencesAreOpen])) {
         window = nil;
     }
     

@@ -130,7 +130,7 @@
                                                                 <binding destination="Hmk-IV-hfb" name="value" keyPath="arrangedObjects.regex" id="CMO-PK-xQb"/>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn identifier="Expression" width="434" minWidth="10" maxWidth="3.4028234663852886e+38" id="pon-KO-X4n">
+                                                        <tableColumn identifier="Expression" width="420" minWidth="10" maxWidth="3.4028234663852886e+38" id="pon-KO-X4n">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Ausdruck">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -146,7 +146,7 @@
                                                                 <binding destination="Hmk-IV-hfb" name="value" keyPath="arrangedObjects.expression" id="jRF-Ry-bNb"/>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="66" minWidth="10" maxWidth="3.4028234663852886e+38" id="6U6-cT-k15">
+                                                        <tableColumn width="80" minWidth="10" maxWidth="3.4028234663852886e+38" id="6U6-cT-k15">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Aktion">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>

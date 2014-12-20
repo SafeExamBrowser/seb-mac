@@ -373,47 +373,52 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSError *error;
-    id expression;
-    expression = [SEBURLFilterRegexExpression regexFilterExpressionWithString:filterExpression.string error:&error];
-    switch (action) {
-        case URLFilterActionAllow:
-            [self.permittedList addObject:expression];
-            break;
+    NSString *filterExpressionString = filterExpression.string;
+    if (filterExpressionString.length > 0) {
+        id expression;
+        expression = [SEBURLFilterRegexExpression regexFilterExpressionWithString:filterExpressionString error:&error];
+        if (!error && !expression) {
+            switch (action) {
+                case URLFilterActionAllow:
+                    [self.permittedList addObject:expression];
+                    break;
+                    
+                case URLFilterActionBlock:
+                    [self.prohibitedList addObject:expression];
+                    break;
+                    
+                case URLFilterActionIgnore: {
+                    // Add an filter rule expression to the ignore list
+                    [self.ignoreList addObject:expression];
+                    // And to settings
+                    NSMutableArray *URLFilterRules = [NSMutableArray arrayWithArray:[preferences secureArrayForKey:@"org_safeexambrowser_SEB_URLFilterIgnoreList"]];
+                    [URLFilterRules addObject:filterExpression.string];
+                    [preferences setSecureObject:URLFilterRules forKey:@"org_safeexambrowser_SEB_URLFilterIgnoreList"];
+                    
+                    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+                    
+                    return;
+                }
+            }
             
-        case URLFilterActionBlock:
-            [self.prohibitedList addObject:expression];
-            break;
+            NSMutableArray *URLFilterRules = [NSMutableArray arrayWithArray:[preferences secureArrayForKey:@"org_safeexambrowser_SEB_URLFilterRules"]];
+            NSMutableDictionary *URLFilterRule = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                                 @"active" : @YES,
+                                                                                                 @"regex" : @NO,
+                                                                                                 @"action" : [NSNumber numberWithLong:action],
+                                                                                                 @"expression" : filterExpression.string,
+                                                                                                 }];
             
-        case URLFilterActionIgnore: {
-            // Add an filter rule expression to the ignore list
-            [self.ignoreList addObject:expression];
-            // And to settings
-            NSMutableArray *URLFilterRules = [NSMutableArray arrayWithArray:[preferences secureArrayForKey:@"org_safeexambrowser_SEB_URLFilterIgnoreList"]];
-            [URLFilterRules addObject:filterExpression.string];
-            [preferences setSecureObject:URLFilterRules forKey:@"org_safeexambrowser_SEB_URLFilterIgnoreList"];
+            // Post a notification that a new filter rule action should be added
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"filterExpressionAdded" object:self userInfo:[NSDictionary dictionaryWithDictionary:URLFilterRule]];
+            
+            [URLFilterRules addObject:URLFilterRule];
+            [preferences setSecureObject:URLFilterRules forKey:@"org_safeexambrowser_SEB_URLFilterRules"];
             
             [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-
-            return;
         }
     }
-    
-    NSMutableArray *URLFilterRules = [NSMutableArray arrayWithArray:[preferences secureArrayForKey:@"org_safeexambrowser_SEB_URLFilterRules"]];
-    NSMutableDictionary *URLFilterRule = [NSMutableDictionary dictionaryWithDictionary:@{
-                                    @"active" : @YES,
-                                    @"regex" : @NO,
-                                    @"action" : [NSNumber numberWithLong:action],
-                                    @"expression" : filterExpression.string,
-                                    }];
-
-    // Post a notification that a new filter rule action should be added
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"filterExpressionAdded" object:self userInfo:[NSDictionary dictionaryWithDictionary:URLFilterRule]];
-
-    [URLFilterRules addObject:URLFilterRule];
-    [preferences setSecureObject:URLFilterRules forKey:@"org_safeexambrowser_SEB_URLFilterRules"];
-    
-    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
 }
 
 

@@ -460,6 +460,7 @@
 		69A68D9F1A46126300ACA34E /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesSecurity.xib; sourceTree = "<group>"; };
 		69A68DA01A4612DC00ACA34E /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		69A68DA11A46143E00ACA34E /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesResources.xib; sourceTree = "<group>"; };
+		69A68DA21A46164E00ACA34E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = de; path = "de.lproj/SafeExamBrowser-Info.plist"; sourceTree = "<group>"; };
 		69A9A22A1368784500840AE1 /* MBPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBPreferencesController.h; sourceTree = "<group>"; };
 		69A9A22B1368784500840AE1 /* MBPreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MBPreferencesController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69A9A22E1369AF9600840AE1 /* LICENCE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
@@ -1136,7 +1137,6 @@
 			knownRegions = (
 				en,
 				de,
-				fr,
 				Base,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* SEB */;
@@ -1496,6 +1496,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				6972078D19FA787A004D7316 /* en */,
+				69A68DA21A46164E00ACA34E /* de */,
 			);
 			name = "SafeExamBrowser-Info.plist";
 			sourceTree = "<group>";
