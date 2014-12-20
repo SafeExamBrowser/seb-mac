@@ -164,7 +164,7 @@ DQ
                             <action selector="URLFilterAlertBlock:" target="3" id="w10-Ug-lBe"/>
                         </connections>
                     </button>
-                    <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JTI-Ar-k0D">
+                    <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JTI-Ar-k0D">
                         <rect key="frame" x="31" y="158" width="85" height="99"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="99" id="97k-RU-XCX"/>
@@ -172,29 +172,29 @@ DQ
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         <size key="cellSize" width="85" height="18"/>
                         <size key="intercellSpacing" width="4" height="2"/>
-                        <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" inset="2" id="ms5-0D-xhq">
+                        <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" inset="2" id="ms5-0D-xhq">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <cells>
                             <column>
-                                <buttonCell type="radio" title="Domain" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="BmY-jI-Mu3">
+                                <buttonCell type="radio" title="Domain" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" state="on" tag="1" inset="2" id="BmY-jI-Mu3">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Host" imagePosition="left" alignment="left" inset="2" id="TD9-Qa-GkX">
+                                <buttonCell type="radio" title="Host" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" inset="2" id="TD9-Qa-GkX">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Host/Path" imagePosition="left" alignment="left" inset="2" id="mk7-3C-ndY">
+                                <buttonCell type="radio" title="Host/Path" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" inset="2" id="mk7-3C-ndY">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Directory" imagePosition="left" alignment="left" inset="2" id="aE8-n6-keh">
+                                <buttonCell type="radio" title="Directory" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" inset="2" id="aE8-n6-keh">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Custom" imagePosition="left" alignment="left" inset="2" id="7wI-3Z-I1s">
+                                <buttonCell type="radio" title="Custom" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" inset="2" id="7wI-3Z-I1s">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
