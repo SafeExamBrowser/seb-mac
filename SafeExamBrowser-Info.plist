@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string></string>
+	<string>Safe Exam Browser</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -50,7 +50,7 @@
 	<key>CFBundleIconFile</key>
 	<string>SEBicon</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.safeexambrowser.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>org.safeexambrowser.$(PRODUCT_NAME:rfc1034identifier)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -77,7 +77,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1D2D</string>
+	<string>1D3A</string>
 	<key>ClickToFlashOptOut</key>
 	<true/>
 	<key>LSApplicationCategoryType</key>
@@ -85,7 +85,7 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>© 2010-2014 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browsers von Stefan Schneider, Universität von Giessen</string>
+	<string>© 2010-2014 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>

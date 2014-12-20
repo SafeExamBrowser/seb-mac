@@ -52,8 +52,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 // Read Info.plist values from bundle
 - (id)infoValueForKey:(NSString*)key
 {
-    if ([[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:key])
+    if ([[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:key]) {
         return [[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:key];
+    }
 	
     return [[[NSBundle mainBundle] infoDictionary] objectForKey:key];
 }
