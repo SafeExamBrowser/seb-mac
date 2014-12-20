@@ -705,7 +705,7 @@
                                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </box>
-                                    <matrix toolTip="Chooses message/symbol which is displayed in the browser window toolbar when a URL isn't allowed" verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wtP-tT-RxN">
+                                    <matrix toolTip="Chooses message/symbol which is displayed in the browser window toolbar when a URL isn't allowed" verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wtP-tT-RxN">
                                         <rect key="frame" x="33" y="599" width="554" height="18"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         <size key="cellSize" width="138" height="18"/>

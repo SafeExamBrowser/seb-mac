@@ -128,7 +128,7 @@
 "FTP Proxy" = "FTP-Proxy";
 
 /* No comment provided by engineer. */
-"Fetching identities" = "Identitäten werden geladen…";
+"Fetching identities" = "Identitäten werden geladen …";
 
 /* No comment provided by engineer. */
 "File Automatically Chosen" = "Datei automatisch ausgewählt";
@@ -461,10 +461,10 @@
 "manually with file requester" = "manuell mit Dateidialog";
 
 /* No comment provided by engineer. */
-"open in new window" = "Öffnen in neuem Fenster";
+"open in new window" = "öffnen in neuem Fenster";
 
 /* No comment provided by engineer. */
-"open in same window" = "Öffnen im selben Fenster";
+"open in same window" = "öffnen im selben Fenster";
 
 /* No comment provided by engineer. */
 "quit" = "Beenden";

@@ -14,7 +14,7 @@
 "2439.ibShadowedToolTip" = "Ressource entfernen";
 
 /* Class = "NSButtonCell"; title = "Choose File..."; ObjectID = "2442"; */
-"2442.title" = "Datei auswählen…";
+"2442.title" = "Datei auswählen …";
 
 /* Class = "NSTextField"; ibShadowedToolTip = "Title of the resource which is displayed in the SEB dock/task bar"; ObjectID = "2490"; */
 "2490.ibShadowedToolTip" = "Titel der Ressource, die im SEB-Dock angezeigt wird";

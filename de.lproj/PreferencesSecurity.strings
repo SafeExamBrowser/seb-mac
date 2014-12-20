@@ -32,7 +32,7 @@
 "35.title" = "Verzeichnis";
 
 /* Class = "NSMenuItem"; title = "Other…"; ObjectID = "36"; */
-"36.title" = "Andere…";
+"36.title" = "Andere …";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Usually don't allow SEB to run in a virtual machine in order to prevent potential manipulation"; ObjectID = "76"; */
 "76.ibShadowedToolTip" = "Normalerweise sollte der Betrieb von SEB innerhalb einer virtuellen Maschine nicht erlaubt werden, um potentielle Manipulationen zu verhindern";

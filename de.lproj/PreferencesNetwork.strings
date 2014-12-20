@@ -86,7 +86,7 @@
 "1157.title" = "URL:";
 
 /* Class = "NSButtonCell"; title = "Choose File…"; ObjectID = "1169"; */
-"1169.title" = "Datei auswählen…";
+"1169.title" = "Datei auswählen …";
 
 /* Class = "NSTextFieldCell"; title = "If your network administrator provided you with the address of an automatic proxy configuration (.pac) file, enter it above."; ObjectID = "1178"; */
 "1178.title" = "Falls Sie von Ihrem Netzwerkadministrator die Adresse einer automatischen Proxy-Konfigurationsdatei (.pac) erhalten haben, geben Sie diese oben an.";
@@ -170,13 +170,13 @@
 "1779.ibShadowedToolTip" = "SSL/TLS-Zertifikate aus dem Schlüsselbund. Dies erlaubt, selbst-signierte Zertifikate auf Prüfungs-Clients zu verteilen";
 
 /* Class = "NSTextFieldCell"; title = "Choose SSL certificate to embed into settings ..."; ObjectID = "1783"; */
-"1783.title" = "In Konfiguration einzubettendes SSL-Zertifikat auswählen…";
+"1783.title" = "In Konfiguration einzubettendes SSL-Zertifikat auswählen …";
 
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Identities (X.509 certificates with RSA public key and associated private key) from the default keychain which can be used for encrypting and decrypting. Export the chosen identity (in Keychain Access utility) and install it on your SEB clients."; ObjectID = "1814"; */
 "1814.ibShadowedToolTip" = "Kryptografische Identitäten (X.509 Zertifikate mit öffentlichem RSA-Schlüssel und dazugehörigem privaten Schlüssel) im Schlüsselbund, die für Verschlüsselung und Entschlüsselung benutzt werden können. Exportieren Sie die ausgewählte Identität in der Schlüsselbundverwaltung und installieren Sie diese auf ihren SEB-Clients";
 
 /* Class = "NSTextFieldCell"; title = "Choose identity to embed into settings ..."; ObjectID = "1818"; */
-"1818.title" = "In Konfiguration einzubettende Identität auswählen…";
+"1818.title" = "In Konfiguration einzubettende Identität auswählen …";
 
 /* Class = "NSTableColumn"; headerCell.title = "Kind"; ObjectID = "1836"; */
 "1836.headerCell.title" = "Art";
@@ -212,13 +212,13 @@
 "f49-Sx-zE7.title" = "Regex";
 
 /* Class = "NSButtonCell"; title = "Display 'X'"; ObjectID = "gNh-Qf-Z8W"; */
-"gNh-Qf-Z8W.title" = "Bei aktivem URL-Filter und wenn kein übereinstimmender 'blockieren' oder 'erlauben'  Filterausdruck gefunden wird, wird die URL verworfen";
+"gNh-Qf-Z8W.title" = "'X' anzeigen";
 
 /* Class = "NSButtonCell"; title = "Active"; ObjectID = "iBm-Ni-pSi"; */
 "iBm-Ni-pSi.title" = "Aktiv";
 
 /* Class = "NSButtonCell"; title = "Clear Ignore List…"; ObjectID = "iyL-Fn-jZ6"; */
-"iyL-Fn-jZ6.title" = "Ignorieren-Liste löschen…";
+"iyL-Fn-jZ6.title" = "Ignorieren-Liste löschen …";
 
 /* Class = "NSButton"; ibShadowedToolTip = "URL filter action item is active"; ObjectID = "jId-HY-bdq"; */
 "jId-HY-bdq.ibShadowedToolTip" = "URL-Filterregel ist aktiv";

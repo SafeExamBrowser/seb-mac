@@ -17,7 +17,7 @@
 "35.title" = "Verzeichnis";
 
 /* Class = "NSMenuItem"; title = "Other…"; ObjectID = "36"; */
-"36.title" = "Auswählen…";
+"36.title" = "Auswählen …";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Downloaded files will be opened with the according application, which has to be set correctly in the system for each used file type"; ObjectID = "38"; */
 "38.ibShadowedToolTip" = "Geladene Dateien werden mit der zugehörigen Applikation geöffnet, diese muss im System für den entsprechenden Dateityp korrekt eingestellt sein";

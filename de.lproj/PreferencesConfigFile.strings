@@ -56,7 +56,7 @@
 "1046.ibShadowedToolTip" = "Konfigurationsdatei zum Editieren öffnen";
 
 /* Class = "NSButtonCell"; title = "Open Settings..."; ObjectID = "1047"; */
-"1047.title" = "Öffnen…";
+"1047.title" = "Öffnen …";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Revert to last saved (or opened) settings"; ObjectID = "1060"; */
 "1060.ibShadowedToolTip" = "Zurücksetzen auf zuletzt gespeicherte (oder geöffnete) Einstellungen";
@@ -74,10 +74,10 @@
 "1106.ibShadowedToolTip" = "Dateiname und Zielverzeichnis für das Speichern der Einstellungen wählen";
 
 /* Class = "NSButtonCell"; title = "Save Settings As..."; ObjectID = "1107"; */
-"1107.title" = "Speichern als…";
+"1107.title" = "Speichern als …";
 
 /* Class = "NSTextFieldCell"; title = "Revert Settings to…"; ObjectID = "1120"; */
-"1120.title" = "Einstellungen zurücksetzen…";
+"1120.title" = "Einstellungen zurücksetzen …";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Revert to the local client settings"; ObjectID = "1137"; */
 "1137.ibShadowedToolTip" = "Zurücksetzen auf lokale Client-Einstellungen";
@@ -101,7 +101,7 @@
 "1174.title" = "Konfigurationsdatei bearbeiten:";
 
 /* Class = "NSTextFieldCell"; title = "Use Current Settings to…"; ObjectID = "1190"; */
-"1190.title" = "Einstellungen benutzen…";
+"1190.title" = "Einstellungen benutzen …";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Apply current settings and restart SEB"; ObjectID = "1292"; */
 "1292.ibShadowedToolTip" = "Einstellungen anwenden und SEB neu starten";

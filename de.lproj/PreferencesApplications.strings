@@ -116,7 +116,7 @@
 "1183.ibShadowedToolTip" = "Details zur Code-Signatur der Applikation/Prozess anzeigen";
 
 /* Class = "NSButtonCell"; title = "Code Signatures..."; ObjectID = "1184"; */
-"1184.title" = "Code-Signaturen…";
+"1184.title" = "Code-Signaturen …";
 
 /* Class = "NSTextFieldCell"; title = "OS"; ObjectID = "1304"; */
 "1304.title" = "OS";
@@ -128,7 +128,7 @@
 "1600.ibShadowedToolTip" = "Einen momentan laufenden Prozess auswählen, der zu den erlaubten Prozessen hinzugefügt wird";
 
 /* Class = "NSButtonCell"; title = "Choose Process..."; ObjectID = "1601"; */
-"1601.title" = "Prozess auswählen…";
+"1601.title" = "Prozess auswählen …";
 
 /* Class = "NSBox"; title = "Selected Process"; ObjectID = "1840"; */
 "1840.title" = "Ausgewählter Prozess";
@@ -146,13 +146,13 @@
 "1845.ibShadowedToolTip" = "Auswählen der Applikation oder der ausführbaren Datei des Prozesses, die zu den verbotenen Prozessen hinzugefügt wird";
 
 /* Class = "NSButtonCell"; title = "Choose Executable..."; ObjectID = "1846"; */
-"1846.title" = "Executable auswählen…";
+"1846.title" = "Executable auswählen …";
 
 /* Class = "NSTextFieldCell"; title = "System processes which are not allowed to run during exam"; ObjectID = "1847"; */
 "1847.title" = "Systemprozesse, die während einer Prüfung nicht laufen dürfen";
 
 /* Class = "NSButtonCell"; title = "Choose Process..."; ObjectID = "1853"; */
-"1853.title" = "Prozess auswählen…";
+"1853.title" = "Prozess auswählen …";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Show details about the application/process code signature"; ObjectID = "1854"; */
 "1854.ibShadowedToolTip" = "";
@@ -206,7 +206,7 @@
 "1921.title" = "Sofort beenden (Datenverlust möglich)";
 
 /* Class = "NSButtonCell"; title = "Code Signatures..."; ObjectID = "1923"; */
-"1923.title" = "Code-Signaturen…";
+"1923.title" = "Code-Signaturen …";
 
 /* Class = "NSTableColumn"; headerCell.title = "Executable"; ObjectID = "1929"; */
 "1929.headerCell.title" = "Executable";
