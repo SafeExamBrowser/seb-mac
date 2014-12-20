@@ -113,8 +113,6 @@
 		695283E016CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */; };
 		695AE31819FE634300F8C6A5 /* de.xliff in Resources */ = {isa = PBXBuildFile; fileRef = 695AE31319FE634300F8C6A5 /* de.xliff */; };
 		695AE31A19FE634300F8C6A5 /* fr.xliff in Resources */ = {isa = PBXBuildFile; fileRef = 695AE31419FE634300F8C6A5 /* fr.xliff */; };
-		695AE31C19FE634300F8C6A5 /* old-de.xliff in Resources */ = {isa = PBXBuildFile; fileRef = 695AE31519FE634300F8C6A5 /* old-de.xliff */; };
-		695AE31E19FE634300F8C6A5 /* old-fr.xliff in Resources */ = {isa = PBXBuildFile; fileRef = 695AE31619FE634300F8C6A5 /* old-fr.xliff */; };
 		695BE5F419EC3FED00CA2BB4 /* SEBDockItemMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 695BE5F219EC3FED00CA2BB4 /* SEBDockItemMenu.h */; };
 		695BE5F519EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 695BE5F319EC3FED00CA2BB4 /* SEBDockItemMenu.m */; };
 		695BE5F619EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 695BE5F319EC3FED00CA2BB4 /* SEBDockItemMenu.m */; };
@@ -430,8 +428,6 @@
 		695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsSecurityViewController.m; sourceTree = "<group>"; };
 		695AE31319FE634300F8C6A5 /* de.xliff */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = de.xliff; sourceTree = "<group>"; };
 		695AE31419FE634300F8C6A5 /* fr.xliff */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fr.xliff; sourceTree = "<group>"; };
-		695AE31519FE634300F8C6A5 /* old-de.xliff */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "old-de.xliff"; sourceTree = "<group>"; };
-		695AE31619FE634300F8C6A5 /* old-fr.xliff */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "old-fr.xliff"; sourceTree = "<group>"; };
 		695BE5F219EC3FED00CA2BB4 /* SEBDockItemMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockItemMenu.h; path = Classes/SEBDock/SEBDockItemMenu.h; sourceTree = "<group>"; };
 		695BE5F319EC3FED00CA2BB4 /* SEBDockItemMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockItemMenu.m; path = Classes/SEBDock/SEBDockItemMenu.m; sourceTree = "<group>"; };
 		695C5CAB16CB210E008FC401 /* ExamIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ExamIcon.png; path = Resources/Icons/ExamIcon.png; sourceTree = "<group>"; };
@@ -907,8 +903,6 @@
 			children = (
 				695AE31319FE634300F8C6A5 /* de.xliff */,
 				695AE31419FE634300F8C6A5 /* fr.xliff */,
-				695AE31519FE634300F8C6A5 /* old-de.xliff */,
-				695AE31619FE634300F8C6A5 /* old-fr.xliff */,
 			);
 			path = ExportForTranslation;
 			sourceTree = "<group>";
@@ -1179,12 +1173,10 @@
 				696A3AF919F6FC4C00274214 /* PreferencesNetwork.xib in Resources */,
 				696EB10416CAAFF600707B0F /* ApplicationsIcon.png in Resources */,
 				696EB10716CAAFF600707B0F /* ApplicationsIcon@2x.png in Resources */,
-				695AE31C19FE634300F8C6A5 /* old-de.xliff in Resources */,
 				69EFA36C16CB121200E967B4 /* DownUploadIcon.png in Resources */,
 				69EFA36F16CB121200E967B4 /* DownUploadIcon@2x.png in Resources */,
 				695C5CAF16CB210E008FC401 /* ExamIcon.png in Resources */,
 				695AE31A19FE634300F8C6A5 /* fr.xliff in Resources */,
-				695AE31E19FE634300F8C6A5 /* old-fr.xliff in Resources */,
 				695C5CB216CB210E008FC401 /* ExamIcon@2x.png in Resources */,
 				696A3AFD19F6FC5600274214 /* PreferencesSecurity.xib in Resources */,
 				69F32DC016D232C0003C9502 /* Appearance.icns in Resources */,

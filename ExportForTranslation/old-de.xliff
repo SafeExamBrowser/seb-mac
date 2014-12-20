@@ -373,8 +373,8 @@
             </trans-unit>
             <trans-unit id="871.title">
                 <source>© 2010-2013 Daniel R. Schneider, ETH Zürich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen\nWebKit © 2003-2013 Apple Computer, Inc.  All rights reserved.\n\nThis project has been carried out as part of the program \</source>
-                <note>Class = "NSTextFieldCell"; title = "© 2010-2013 Daniel R. Schneider, ETH Zürich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen\nWebKit © 2003-2013 Apple Computer, Inc.  All rights reserved.\n\nThis project has been carried out as part of the program \"AAA/SWITCH – e-Infrastructure for e-Science” lead by SWITCH, the Swiss National Research and Education Network, and was supported by funds from the ETH Board."; ObjectID = "871";</note>
-                <target>© 2010-2014 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browsers von Stefan Schneider, Universität von Giessen\n\n Dieses Projekt wurde teilweise im Rahmen der von SWITCH geleiteten Programms \"AAA/SWITCH – e-Infrastructure für e-Science\" und des durch SWITCH koordinierten Kooperationsprojektes \"Learning Infrastructure\" (Teil des CRUS-Programms \"Wissenschaftliche Information: Zugang, Verarbeitung und Speicherung\") durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.</target>
+                <note>Class = "NSTextFieldCell"; title = "© 2010-2013 Daniel R. Schneider, ETH Zürich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen\nWebKit © 2003-2013 Apple Computer, Inc.  All rights reserved.\n\nThis project has been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science” lead by SWITCH, the Swiss National Research and Education Network, and was supported by funds from the ETH Board."; ObjectID = "871";</note>
+                <target>© 2010-2014 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browsers von Stefan Schneider, Universität von Giessen\n\n Dieses Projekt wurde teilweise im Rahmen der von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten Kooperationsprojektes 'Learning Infrastructure' (Teil des CRUS-Programms 'Wissenschaftliche Information: Zugang, Verarbeitung und Speicherung') durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.</target>
             </trans-unit>
             <trans-unit id="887.title">
                 <source>Reload Page</source>
@@ -984,7 +984,7 @@
             </trans-unit>
             <trans-unit id="1896.ibShadowedToolTip">
                 <source>User identifier under which this process is running. If no user is indicated, then the process is killed regardless under which user it is running. Instead the check box \</source>
-                <note>Class = "NSTextField"; ibShadowedToolTip = "User identifier under which this process is running. If no user is indicated, then the process is killed regardless under which user it is running. Instead the check box \"current user\" can be used."; ObjectID = "1896";</note>
+                <note>Class = "NSTextField"; ibShadowedToolTip = "User identifier under which this process is running. If no user is indicated, then the process is killed regardless under which user it is running. Instead the check box 'current user' can be used."; ObjectID = "1896";</note>
             </trans-unit>
             <trans-unit id="1898.ibShadowedToolTip">
                 <source>This prohibited process item is active</source>
@@ -1506,7 +1506,7 @@
             </trans-unit>
             <trans-unit id="76.ibShadowedToolTip">
                 <source>PDF files will not be displayed by SEB but downloaded and openend (if \</source>
-                <note>Class = "NSButton"; ibShadowedToolTip = "PDF files will not be displayed by SEB but downloaded and openend (if \"Open files after downloading\" is active!) by the application set in Finder (usually Preview or Adobe Acrobat)."; ObjectID = "76";</note>
+                <note>Class = "NSButton"; ibShadowedToolTip = "PDF files will not be displayed by SEB but downloaded and openend (if 'Open files after downloading' is active!) by the application set in Finder (usually Preview or Adobe Acrobat)."; ObjectID = "76";</note>
             </trans-unit>
             <trans-unit id="77.title">
                 <source>Download and open PDF files instead of displaying them inline</source>
@@ -1573,7 +1573,7 @@
             </trans-unit>
             <trans-unit id="442.title">
                 <source>Place this Quit Link to the \</source>
-                <note>Class = "NSTextFieldCell"; title = "Place this Quit Link to the \"feedback\" page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password."; ObjectID = "442";</note>
+                <note>Class = "NSTextFieldCell"; title = "Place this Quit Link to the 'feedback' page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password."; ObjectID = "442";</note>
             </trans-unit>
             <trans-unit id="688.ibShadowedToolTip">
                 <source>If a Quit Link is entered, it works regardless of other quit settings in the General pane</source>
@@ -1632,7 +1632,7 @@
             </trans-unit>
             <trans-unit id="95.ibShadowedToolTip">
                 <source>Displays the SEB online manual at www.safeexambrowser.org/macosx. Use \</source>
-                <note>Class = "NSButton"; ibShadowedToolTip = "Displays the SEB online manual at www.safeexambrowser.org/macosx. Use \"Restart\" here in preferences window to show your start URL again."; ObjectID = "95";</note>
+                <note>Class = "NSButton"; ibShadowedToolTip = "Displays the SEB online manual at www.safeexambrowser.org/macosx. Use 'Restart' here in preferences window to show your start URL again."; ObjectID = "95";</note>
             </trans-unit>
             <trans-unit id="97.title">
                 <source>About</source>

@@ -2,7 +2,7 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Base.lproj/MainMenu.xib" source-language="en" datatype="plaintext" target-language="fr">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.1" build-num="6A1052d"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.2" build-num="6C86e"/>
     </header>
     <body>
       <trans-unit id="0h8-R9-UfE.title">
@@ -28,10 +28,6 @@
       <trans-unit id="24.title">
         <source>Window</source>
         <note>Class = "NSMenu"; title = "Window"; ObjectID = "24";</note>
-      </trans-unit>
-      <trans-unit id="29.title">
-        <source>AMainMenu</source>
-        <note>Class = "NSMenu"; title = "AMainMenu"; ObjectID = "29";</note>
       </trans-unit>
       <trans-unit id="56.title">
         <source>SEB</source>
@@ -289,10 +285,6 @@
         <source>SEB Help</source>
         <note>Class = "NSMenuItem"; title = "SEB Help"; ObjectID = "492";</note>
       </trans-unit>
-      <trans-unit id="714.title">
-        <source>Window</source>
-        <note>Class = "NSWindow"; title = "Window"; ObjectID = "714";</note>
-      </trans-unit>
       <trans-unit id="720.title">
         <source>Cancel</source>
         <note>Class = "NSButtonCell"; title = "Cancel"; ObjectID = "720";</note>
@@ -302,8 +294,8 @@
         <note>Class = "NSButtonCell"; title = "OK"; ObjectID = "721";</note>
       </trans-unit>
       <trans-unit id="871.title">
-        <source>© 2010-2013 Daniel R. Schneider, ETH Zürich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen\nWebKit © 2003-2013 Apple Computer, Inc.  All rights reserved.\n\nThis project has been carried out as part of the program \</source>
-        <note>Class = "NSTextFieldCell"; title = "© 2010-2013 Daniel R. Schneider, ETH Zürich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen\nWebKit © 2003-2013 Apple Computer, Inc.  All rights reserved.\n\nThis project has been carried out as part of the program \"AAA/SWITCH – e-Infrastructure for e-Science” lead by SWITCH, the Swiss National Research and Education Network, and was supported by funds from the ETH Board."; ObjectID = "871";</note>
+        <source>© 2010-2014 Daniel R. Schneider, ETH Zürich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen\n\nImportant parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board.</source>
+        <note>Class = "NSTextFieldCell"; title = "© 2010-2014 Daniel R. Schneider, ETH Zürich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen\n\nImportant parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board."; ObjectID = "871";</note>
       </trans-unit>
       <trans-unit id="887.title">
         <source>Reload Page</source>
@@ -413,7 +405,7 @@
   </file>
   <file original="Base.lproj/PreferencesAppearance.xib" source-language="en" datatype="plaintext" target-language="fr">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.1" build-num="6A1052d"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.2" build-num="6C86e"/>
     </header>
     <body>
       <trans-unit id="3KI-5c-L1K.title">
@@ -468,22 +460,6 @@
         <source>Position browser window on the left, right or centered</source>
         <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Position browser window on the left, right or centered"; ObjectID = "599";</note>
       </trans-unit>
-      <trans-unit id="601.title">
-        <source>OtherViews</source>
-        <note>Class = "NSMenu"; title = "OtherViews"; ObjectID = "601";</note>
-      </trans-unit>
-      <trans-unit id="602.title">
-        <source>Item 3</source>
-        <note>Class = "NSMenuItem"; title = "Item 3"; ObjectID = "602";</note>
-      </trans-unit>
-      <trans-unit id="603.title">
-        <source>Item 2</source>
-        <note>Class = "NSMenuItem"; title = "Item 2"; ObjectID = "603";</note>
-      </trans-unit>
-      <trans-unit id="604.title">
-        <source>Item 1</source>
-        <note>Class = "NSMenuItem"; title = "Item 1"; ObjectID = "604";</note>
-      </trans-unit>
       <trans-unit id="605.title">
         <source>Horizontal positioning</source>
         <note>Class = "NSTextFieldCell"; title = "Horizontal positioning"; ObjectID = "605";</note>
@@ -528,10 +504,6 @@
         <source>Width</source>
         <note>Class = "NSTextFieldCell"; title = "Width"; ObjectID = "724";</note>
       </trans-unit>
-      <trans-unit id="744.title">
-        <source>Radio</source>
-        <note>Class = "NSButtonCell"; title = "Radio"; ObjectID = "744";</note>
-      </trans-unit>
       <trans-unit id="745.ibShadowedToolTip">
         <source>Use a browser window which can be scaled and moved around, also to another screen when available</source>
         <note>Class = "NSButtonCell"; ibShadowedToolTip = "Use a browser window which can be scaled and moved around, also to another screen when available"; ObjectID = "745";</note>
@@ -556,7 +528,7 @@
   </file>
   <file original="Base.lproj/PreferencesApplications.xib" source-language="en" datatype="plaintext" target-language="fr">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.1" build-num="6A1052d"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.2" build-num="6C86e"/>
     </header>
     <body>
       <trans-unit id="5.ibShadowedToolTip">
@@ -595,10 +567,6 @@
         <source>Executable</source>
         <note>Class = "NSTableColumn"; headerCell.title = "Executable"; ObjectID = "351";</note>
       </trans-unit>
-      <trans-unit id="352.title">
-        <source>Text Cell</source>
-        <note>Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "352";</note>
-      </trans-unit>
       <trans-unit id="360.headerCell.title">
         <source>OS</source>
         <note>Class = "NSTableColumn"; headerCell.title = "OS"; ObjectID = "360";</note>
@@ -626,10 +594,6 @@
       <trans-unit id="537.headerCell.title">
         <source>Title</source>
         <note>Class = "NSTableColumn"; headerCell.title = "Title"; ObjectID = "537";</note>
-      </trans-unit>
-      <trans-unit id="538.title">
-        <source>Text Cell</source>
-        <note>Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "538";</note>
       </trans-unit>
       <trans-unit id="637.ibShadowedToolTip">
         <source>Permitted process item is active</source>
@@ -727,10 +691,6 @@
         <source>Code Signatures...</source>
         <note>Class = "NSButtonCell"; title = "Code Signatures..."; ObjectID = "1184";</note>
       </trans-unit>
-      <trans-unit id="1291.title">
-        <source>Text Cell</source>
-        <note>Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "1291";</note>
-      </trans-unit>
       <trans-unit id="1304.title">
         <source>OS</source>
         <note>Class = "NSTextFieldCell"; title = "OS"; ObjectID = "1304";</note>
@@ -738,30 +698,6 @@
       <trans-unit id="1314.ibShadowedToolTip">
         <source>Indicates on which operating system the permitted process runs</source>
         <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Indicates on which operating system the permitted process runs"; ObjectID = "1314";</note>
-      </trans-unit>
-      <trans-unit id="1316.title">
-        <source>OtherViews</source>
-        <note>Class = "NSMenu"; title = "OtherViews"; ObjectID = "1316";</note>
-      </trans-unit>
-      <trans-unit id="1317.title">
-        <source>OS</source>
-        <note>Class = "NSMenuItem"; title = "OS"; ObjectID = "1317";</note>
-      </trans-unit>
-      <trans-unit id="1318.title">
-        <source>Item 2</source>
-        <note>Class = "NSMenuItem"; title = "Item 2"; ObjectID = "1318";</note>
-      </trans-unit>
-      <trans-unit id="1319.title">
-        <source>Item 3</source>
-        <note>Class = "NSMenuItem"; title = "Item 3"; ObjectID = "1319";</note>
-      </trans-unit>
-      <trans-unit id="1330.title">
-        <source>OtherViews</source>
-        <note>Class = "NSMenu"; title = "OtherViews"; ObjectID = "1330";</note>
-      </trans-unit>
-      <trans-unit id="1331.title">
-        <source>Pop Up</source>
-        <note>Class = "NSMenuItem"; title = "Pop Up"; ObjectID = "1331";</note>
       </trans-unit>
       <trans-unit id="1600.ibShadowedToolTip">
         <source>For choosing a running process which will be added to the list of permitted processes</source>
@@ -828,8 +764,8 @@
         <note>Class = "NSTextField"; ibShadowedToolTip = "Optional, to explain what kind of process this is, because this might not be obvious only from the executable's name"; ObjectID = "1895";</note>
       </trans-unit>
       <trans-unit id="1896.ibShadowedToolTip">
-        <source>User identifier under which this process is running. If no user is indicated, then the process is killed regardless under which user it is running. Instead the check box \</source>
-        <note>Class = "NSTextField"; ibShadowedToolTip = "User identifier under which this process is running. If no user is indicated, then the process is killed regardless under which user it is running. Instead the check box \"current user\" can be used."; ObjectID = "1896";</note>
+        <source>User identifier under which this process is running. If no user is indicated, then the process is killed regardless under which user it is running. Instead the check box 'current user' can be used.</source>
+        <note>Class = "NSTextField"; ibShadowedToolTip = "User identifier under which this process is running. If no user is indicated, then the process is killed regardless under which user it is running. Instead the check box 'current user' can be used."; ObjectID = "1896";</note>
       </trans-unit>
       <trans-unit id="1898.ibShadowedToolTip">
         <source>This prohibited process item is active</source>
@@ -838,22 +774,6 @@
       <trans-unit id="1900.ibShadowedToolTip">
         <source>Indicates on which operating system the prohibited process runs</source>
         <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Indicates on which operating system the prohibited process runs"; ObjectID = "1900";</note>
-      </trans-unit>
-      <trans-unit id="1902.title">
-        <source>OtherViews</source>
-        <note>Class = "NSMenu"; title = "OtherViews"; ObjectID = "1902";</note>
-      </trans-unit>
-      <trans-unit id="1903.title">
-        <source>Item 1</source>
-        <note>Class = "NSMenuItem"; title = "Item 1"; ObjectID = "1903";</note>
-      </trans-unit>
-      <trans-unit id="1904.title">
-        <source>Item 2</source>
-        <note>Class = "NSMenuItem"; title = "Item 2"; ObjectID = "1904";</note>
-      </trans-unit>
-      <trans-unit id="1905.title">
-        <source>Item 3</source>
-        <note>Class = "NSMenuItem"; title = "Item 3"; ObjectID = "1905";</note>
       </trans-unit>
       <trans-unit id="1906.title">
         <source>OS</source>
@@ -903,22 +823,6 @@
         <source>Description</source>
         <note>Class = "NSTableColumn"; headerCell.title = "Description"; ObjectID = "1931";</note>
       </trans-unit>
-      <trans-unit id="1932.title">
-        <source>Text Cell</source>
-        <note>Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "1932";</note>
-      </trans-unit>
-      <trans-unit id="1934.title">
-        <source>OtherViews</source>
-        <note>Class = "NSMenu"; title = "OtherViews"; ObjectID = "1934";</note>
-      </trans-unit>
-      <trans-unit id="1935.title">
-        <source>Pop Up</source>
-        <note>Class = "NSMenuItem"; title = "Pop Up"; ObjectID = "1935";</note>
-      </trans-unit>
-      <trans-unit id="1936.title">
-        <source>Text Cell</source>
-        <note>Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "1936";</note>
-      </trans-unit>
       <trans-unit id="2202.ibShadowedToolTip">
         <source>SEB Windows: Comma separated list of window handling processes for a specific type of permitted applications (like Java apps)</source>
         <note>Class = "NSTextField"; ibShadowedToolTip = "SEB Windows: Comma separated list of window handling processes for a specific type of permitted applications (like Java apps)"; ObjectID = "2202";</note>
@@ -939,44 +843,20 @@
   </file>
   <file original="Base.lproj/PreferencesBrowser.xib" source-language="en" datatype="plaintext" target-language="fr">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.1" build-num="6A1052d"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.2" build-num="6C86e"/>
     </header>
     <body>
-      <trans-unit id="87.title">
-        <source>OtherViews</source>
-        <note>Class = "NSMenu"; title = "OtherViews"; ObjectID = "87";</note>
-      </trans-unit>
-      <trans-unit id="89.title">
-        <source>open in same window</source>
-        <note>Class = "NSMenuItem"; title = "open in same window"; ObjectID = "89";</note>
-      </trans-unit>
-      <trans-unit id="90.title">
-        <source>get generally blocked</source>
-        <note>Class = "NSMenuItem"; title = "get generally blocked"; ObjectID = "90";</note>
+      <trans-unit id="29c-3t-HLf.title">
+        <source>Disable local storage (Mac)</source>
+        <note>Class = "NSButtonCell"; title = "Disable local storage (Mac)"; ObjectID = "29c-3t-HLf";</note>
       </trans-unit>
       <trans-unit id="91.title">
         <source>Links requesting to be opened in a new browser window ...</source>
         <note>Class = "NSTextFieldCell"; title = "Links requesting to be opened in a new browser window ..."; ObjectID = "91";</note>
       </trans-unit>
-      <trans-unit id="92.title">
-        <source>open in new window</source>
-        <note>Class = "NSMenuItem"; title = "open in new window"; ObjectID = "92";</note>
-      </trans-unit>
-      <trans-unit id="96.title">
-        <source>OtherViews</source>
-        <note>Class = "NSMenu"; title = "OtherViews"; ObjectID = "96";</note>
-      </trans-unit>
-      <trans-unit id="97.title">
-        <source>open in new window</source>
-        <note>Class = "NSMenuItem"; title = "open in new window"; ObjectID = "97";</note>
-      </trans-unit>
-      <trans-unit id="98.title">
-        <source>get generally blocked</source>
-        <note>Class = "NSMenuItem"; title = "get generally blocked"; ObjectID = "98";</note>
-      </trans-unit>
-      <trans-unit id="99.title">
-        <source>open in same window</source>
-        <note>Class = "NSMenuItem"; title = "open in same window"; ObjectID = "99";</note>
+      <trans-unit id="94.ibShadowedToolTip">
+        <source>USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work</source>
+        <note>Class = "NSPopUpButton"; ibShadowedToolTip = "USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work"; ObjectID = "94";</note>
       </trans-unit>
       <trans-unit id="100.title">
         <source>Links in JavaScript/plug-ins ...</source>
@@ -991,8 +871,8 @@
         <note>Class = "NSButtonCell"; title = "block when directing to a different server"; ObjectID = "102";</note>
       </trans-unit>
       <trans-unit id="103.ibShadowedToolTip">
-        <source>USE WITH CARE: Hyperlinks invoked by JavaScript/plug-ins which direct to a different host than the one of the current main page will be ignored.</source>
-        <note>Class = "NSButton"; ibShadowedToolTip = "USE WITH CARE: Hyperlinks invoked by JavaScript/plug-ins which direct to a different host than the one of the current main page will be ignored."; ObjectID = "103";</note>
+        <source>USE WITH CARE: Hyperlinks invoked by JavaScript/plug-ins which direct to a different host than the one of the current main page will be ignored</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "USE WITH CARE: Hyperlinks invoked by JavaScript/plug-ins which direct to a different host than the one of the current main page will be ignored"; ObjectID = "103";</note>
       </trans-unit>
       <trans-unit id="104.title">
         <source>block when directing to a different server</source>
@@ -1106,39 +986,27 @@
         <source>800</source>
         <note>Class = "NSComboBoxCell"; 591.ibShadowedObjectValues[3] = "800"; ObjectID = "591";</note>
       </trans-unit>
-      <trans-unit id="594.title">
-        <source>OtherViews</source>
-        <note>Class = "NSMenu"; title = "OtherViews"; ObjectID = "594";</note>
-      </trans-unit>
-      <trans-unit id="595.title">
-        <source>Item 3</source>
-        <note>Class = "NSMenuItem"; title = "Item 3"; ObjectID = "595";</note>
-      </trans-unit>
-      <trans-unit id="596.title">
-        <source>Item 2</source>
-        <note>Class = "NSMenuItem"; title = "Item 2"; ObjectID = "596";</note>
-      </trans-unit>
-      <trans-unit id="597.title">
-        <source>Item 1</source>
-        <note>Class = "NSMenuItem"; title = "Item 1"; ObjectID = "597";</note>
-      </trans-unit>
       <trans-unit id="598.title">
         <source>Horizontal positioning</source>
         <note>Class = "NSTextFieldCell"; title = "Horizontal positioning"; ObjectID = "598";</note>
       </trans-unit>
       <trans-unit id="661.ibShadowedToolTip">
-        <source>Remove XULRunner browser profile when quitting SEB</source>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Remove XULRunner browser profile when quitting SEB"; ObjectID = "661";</note>
+        <source>Remove XULRunner browser profile (containing caches and also local storage) when quitting SEB</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Remove XULRunner browser profile (containing caches and also local storage) when quitting SEB"; ObjectID = "661";</note>
       </trans-unit>
       <trans-unit id="663.title">
         <source>Remove profile (Win)</source>
         <note>Class = "NSButtonCell"; title = "Remove profile (Win)"; ObjectID = "663";</note>
       </trans-unit>
+      <trans-unit id="wFa-eR-NzK.ibShadowedToolTip">
+        <source>If your web application uses local storage, you have to be sure data is saved encrypted and removed when no longer needed as SEB doesn't remove local storage</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "If your web application uses local storage, you have to be sure data is saved encrypted and removed when no longer needed as SEB doesn't remove local storage"; ObjectID = "wFa-eR-NzK";</note>
+      </trans-unit>
     </body>
   </file>
   <file original="Base.lproj/PreferencesConfigFile.xib" source-language="en" datatype="plaintext" target-language="fr">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.1" build-num="6A1052d"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.2" build-num="6C86e"/>
     </header>
     <body>
       <trans-unit id="3.ibShadowedToolTip">
@@ -1152,14 +1020,6 @@
       <trans-unit id="69.ibShadowedToolTip">
         <source>Identities (X.509 certificates with RSA public key and associated private key) in your default keychain which can be used for encrypting and decrypting. Export the chosen identity (in Keychain Access utility) and install it on your SEB clients.</source>
         <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Identities (X.509 certificates with RSA public key and associated private key) in your default keychain which can be used for encrypting and decrypting. Export the chosen identity (in Keychain Access utility) and install it on your SEB clients."; ObjectID = "69";</note>
-      </trans-unit>
-      <trans-unit id="71.title">
-        <source>OtherViews</source>
-        <note>Class = "NSMenu"; title = "OtherViews"; ObjectID = "71";</note>
-      </trans-unit>
-      <trans-unit id="73.title">
-        <source>None</source>
-        <note>Class = "NSMenuItem"; title = "None"; ObjectID = "73";</note>
       </trans-unit>
       <trans-unit id="75.title">
         <source>Choose identity to be used for encrypting SEB settings file ...</source>
@@ -1196,10 +1056,6 @@
       <trans-unit id="239.title">
         <source>Use SEB settings file for ...</source>
         <note>Class = "NSTextFieldCell"; title = "Use SEB settings file for ..."; ObjectID = "239";</note>
-      </trans-unit>
-      <trans-unit id="250.title">
-        <source>Radio</source>
-        <note>Class = "NSButtonCell"; title = "Radio"; ObjectID = "250";</note>
       </trans-unit>
       <trans-unit id="251.ibShadowedToolTip">
         <source>A settings file saved with this option will start the exam with its settings, but won't change the local SEB settings.</source>
@@ -1305,7 +1161,7 @@
   </file>
   <file original="Base.lproj/PreferencesDownUploads.xib" source-language="en" datatype="plaintext" target-language="fr">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.1" build-num="6A1052d"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.2" build-num="6C86e"/>
     </header>
     <body>
       <trans-unit id="13.ibShadowedToolTip">
@@ -1320,13 +1176,13 @@
         <source>Save downloaded files to:</source>
         <note>Class = "NSTextFieldCell"; title = "Save downloaded files to:"; ObjectID = "23";</note>
       </trans-unit>
+      <trans-unit id="24Q-1c-lTs.title">
+        <source>Download directory Windows:</source>
+        <note>Class = "NSTextFieldCell"; title = "Download directory Windows:"; ObjectID = "24Q-1c-lTs";</note>
+      </trans-unit>
       <trans-unit id="32.ibShadowedToolTip">
         <source>Choose download directory</source>
         <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Choose download directory"; ObjectID = "32";</note>
-      </trans-unit>
-      <trans-unit id="34.title">
-        <source>OtherViews</source>
-        <note>Class = "NSMenu"; title = "OtherViews"; ObjectID = "34";</note>
       </trans-unit>
       <trans-unit id="35.title">
         <source>Directory</source>
@@ -1345,8 +1201,8 @@
         <note>Class = "NSButtonCell"; title = "Open files after downloading"; ObjectID = "39";</note>
       </trans-unit>
       <trans-unit id="76.ibShadowedToolTip">
-        <source>PDF files will not be displayed by SEB but downloaded and openend (if \</source>
-        <note>Class = "NSButton"; ibShadowedToolTip = "PDF files will not be displayed by SEB but downloaded and openend (if \"Open files after downloading\" is active!) by the application set in Finder (usually Preview or Adobe Acrobat)."; ObjectID = "76";</note>
+        <source>PDF files will not be displayed by SEB but downloaded and openend (if 'Open files after downloading' is active!) by the application set in Finder (usually Preview or Adobe Acrobat).</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "PDF files will not be displayed by SEB but downloaded and openend (if 'Open files after downloading' is active!) by the application set in Finder (usually Preview or Adobe Acrobat)."; ObjectID = "76";</note>
       </trans-unit>
       <trans-unit id="77.title">
         <source>Download and open PDF files instead of displaying them inline</source>
@@ -1355,22 +1211,6 @@
       <trans-unit id="93.ibShadowedToolTip">
         <source>SEB can let users choose the file to upload or automatically use the same file which was downloaded before. If not found, a file requester or an error is presented depending on this setting.</source>
         <note>Class = "NSPopUpButton"; ibShadowedToolTip = "SEB can let users choose the file to upload or automatically use the same file which was downloaded before. If not found, a file requester or an error is presented depending on this setting."; ObjectID = "93";</note>
-      </trans-unit>
-      <trans-unit id="95.title">
-        <source>OtherViews</source>
-        <note>Class = "NSMenu"; title = "OtherViews"; ObjectID = "95";</note>
-      </trans-unit>
-      <trans-unit id="96.title">
-        <source>by only allowing to upload the same file downloaded before</source>
-        <note>Class = "NSMenuItem"; title = "by only allowing to upload the same file downloaded before"; ObjectID = "96";</note>
-      </trans-unit>
-      <trans-unit id="97.title">
-        <source>manually with file requester</source>
-        <note>Class = "NSMenuItem"; title = "manually with file requester"; ObjectID = "97";</note>
-      </trans-unit>
-      <trans-unit id="98.title">
-        <source>by attempting to upload same file downloaded before</source>
-        <note>Class = "NSMenuItem"; title = "by attempting to upload same file downloaded before"; ObjectID = "98";</note>
       </trans-unit>
       <trans-unit id="100.title">
         <source>Choose file to upload …</source>
@@ -1388,7 +1228,7 @@
   </file>
   <file original="Base.lproj/PreferencesExam.xib" source-language="en" datatype="plaintext" target-language="fr">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.1" build-num="6A1052d"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.2" build-num="6C86e"/>
     </header>
     <body>
       <trans-unit id="9.title">
@@ -1412,8 +1252,8 @@
         <note>Class = "NSTextFieldCell"; title = "Link to quit SEB after exam"; ObjectID = "276";</note>
       </trans-unit>
       <trans-unit id="442.title">
-        <source>Place this Quit Link to the \</source>
-        <note>Class = "NSTextFieldCell"; title = "Place this Quit Link to the \"feedback\" page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password."; ObjectID = "442";</note>
+        <source>Place this Quit Link to the 'feedback' page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password.</source>
+        <note>Class = "NSTextFieldCell"; title = "Place this Quit Link to the 'feedback' page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password."; ObjectID = "442";</note>
       </trans-unit>
       <trans-unit id="688.ibShadowedToolTip">
         <source>If a Quit Link is entered, it works regardless of other quit settings in the General pane</source>
@@ -1435,7 +1275,7 @@
   </file>
   <file original="Base.lproj/PreferencesGeneral.xib" source-language="en" datatype="plaintext" target-language="fr">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.1" build-num="6A1052d"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.2" build-num="6C86e"/>
     </header>
     <body>
       <trans-unit id="78.ibShadowedToolTip">
@@ -1455,8 +1295,8 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Saves preferences and exits SEB"; ObjectID = "88";</note>
       </trans-unit>
       <trans-unit id="92.ibShadowedToolTip">
-        <source>If selected, users can quit SEB with Command+Q, window close or quit button. Otherwise use a quit link in your exam system or shutdown/restart the computer.</source>
-        <note>Class = "NSButton"; ibShadowedToolTip = "If selected, users can quit SEB with Command+Q, window close or quit button. Otherwise use a quit link in your exam system or shutdown/restart the computer."; ObjectID = "92";</note>
+        <source>Users can quit SEB with Command-Q, window close or quit button. Otherwise use a quit link in your exam system or shutdown/restart the computer</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Users can quit SEB with Command-Q, window close or quit button. Otherwise use a quit link in your exam system or shutdown/restart the computer"; ObjectID = "92";</note>
       </trans-unit>
       <trans-unit id="93.ibShadowedToolTip">
         <source>Password required to open the configuration file for editing or to show the preferences window. It is recommended to set one!</source>
@@ -1467,8 +1307,8 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Displays information about Safe Exam Browser – SEB"; ObjectID = "94";</note>
       </trans-unit>
       <trans-unit id="95.ibShadowedToolTip">
-        <source>Displays the SEB online manual at www.safeexambrowser.org/macosx. Use \</source>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Displays the SEB online manual at www.safeexambrowser.org/macosx. Use \"Restart\" here in preferences window to show your start URL again."; ObjectID = "95";</note>
+        <source>Displays the SEB online manual at www.safeexambrowser.org/macosx</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Displays the SEB online manual at www.safeexambrowser.org/macosx"; ObjectID = "95";</note>
       </trans-unit>
       <trans-unit id="97.title">
         <source>About</source>
@@ -1546,9 +1386,41 @@
   </file>
   <file original="Base.lproj/PreferencesNetwork.xib" source-language="en" datatype="plaintext" target-language="fr">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.1" build-num="6A1052d"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.2" build-num="6C86e"/>
     </header>
     <body>
+      <trans-unit id="1QG-Ub-GkE.ibShadowedToolTip">
+        <source>Selected action is a regular expression</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Selected action is a regular expression"; ObjectID = "1QG-Ub-GkE";</note>
+      </trans-unit>
+      <trans-unit id="1Uy-Tf-eb7.headerCell.title">
+        <source>Regex</source>
+        <note>Class = "NSTableColumn"; headerCell.title = "Regex"; ObjectID = "1Uy-Tf-eb7";</note>
+      </trans-unit>
+      <trans-unit id="2io-Hc-2AG.title">
+        <source>/</source>
+        <note>Class = "NSTextFieldCell"; title = "/"; ObjectID = "2io-Hc-2AG";</note>
+      </trans-unit>
+      <trans-unit id="3f7-DM-fXx.title">
+        <source>and</source>
+        <note>Class = "NSMenuItem"; title = "and"; ObjectID = "3f7-DM-fXx";</note>
+      </trans-unit>
+      <trans-unit id="6U6-cT-k15.headerCell.title">
+        <source>Action</source>
+        <note>Class = "NSTableColumn"; headerCell.title = "Action"; ObjectID = "6U6-cT-k15";</note>
+      </trans-unit>
+      <trans-unit id="9du-EF-v3O.ibShadowedToolTip">
+        <source>Action when the filter rule expression matches (allow or block resource)</source>
+        <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Action when the filter rule expression matches (allow or block resource)"; ObjectID = "9du-EF-v3O";</note>
+      </trans-unit>
+      <trans-unit id="9hw-i2-YWH.ibShadowedToolTip">
+        <source>Application title which is displayed in the application chooser and SEB dock/task bar</source>
+        <note>Class = "NSTextField"; ibShadowedToolTip = "Application title which is displayed in the application chooser and SEB dock/task bar"; ObjectID = "9hw-i2-YWH";</note>
+      </trans-unit>
+      <trans-unit id="27i-17-3S4.title">
+        <source>:</source>
+        <note>Class = "NSTextFieldCell"; title = ":"; ObjectID = "27i-17-3S4";</note>
+      </trans-unit>
       <trans-unit id="240.label">
         <source>Filter</source>
         <note>Class = "NSTabViewItem"; label = "Filter"; ObjectID = "240";</note>
@@ -1570,12 +1442,12 @@
         <note>Class = "NSButtonCell"; title = "Activate URL filtering"; ObjectID = "455";</note>
       </trans-unit>
       <trans-unit id="526.ibShadowedToolTip">
-        <source>Add a filter rule or action</source>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Add a filter rule or action"; ObjectID = "526";</note>
+        <source>Add a filter rule</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Add a filter rule"; ObjectID = "526";</note>
       </trans-unit>
       <trans-unit id="527.ibShadowedToolTip">
-        <source>Remove a filter rule or action</source>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Remove a filter rule or action"; ObjectID = "527";</note>
+        <source>Remove a filter rule</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Remove a filter rule"; ObjectID = "527";</note>
       </trans-unit>
       <trans-unit id="648.ibShadowedToolTip">
         <source>Not only web page URLs are filtered using the URL filter rules, but also all embedded resources</source>
@@ -1585,57 +1457,9 @@
         <source>Filter also embedded content</source>
         <note>Class = "NSButtonCell"; title = "Filter also embedded content"; ObjectID = "649";</note>
       </trans-unit>
-      <trans-unit id="669.headerCell.title">
-        <source>Active</source>
-        <note>Class = "NSTableColumn"; headerCell.title = "Active"; ObjectID = "669";</note>
-      </trans-unit>
-      <trans-unit id="670.headerCell.title">
-        <source>Regex</source>
-        <note>Class = "NSTableColumn"; headerCell.title = "Regex"; ObjectID = "670";</note>
-      </trans-unit>
-      <trans-unit id="688.headerCell.title">
-        <source>Expression</source>
-        <note>Class = "NSTableColumn"; headerCell.title = "Expression"; ObjectID = "688";</note>
-      </trans-unit>
-      <trans-unit id="689.title">
-        <source>Text Cell</source>
-        <note>Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "689";</note>
-      </trans-unit>
-      <trans-unit id="690.headerCell.title">
-        <source>Action</source>
-        <note>Class = "NSTableColumn"; headerCell.title = "Action"; ObjectID = "690";</note>
-      </trans-unit>
-      <trans-unit id="693.title">
-        <source>OtherViews</source>
-        <note>Class = "NSMenu"; title = "OtherViews"; ObjectID = "693";</note>
-      </trans-unit>
-      <trans-unit id="694.title">
-        <source>block</source>
-        <note>Class = "NSMenuItem"; title = "block"; ObjectID = "694";</note>
-      </trans-unit>
-      <trans-unit id="695.title">
-        <source>allow</source>
-        <note>Class = "NSMenuItem"; title = "allow"; ObjectID = "695";</note>
-      </trans-unit>
-      <trans-unit id="696.title">
-        <source>skip</source>
-        <note>Class = "NSMenuItem"; title = "skip"; ObjectID = "696";</note>
-      </trans-unit>
-      <trans-unit id="697.title">
-        <source>and</source>
-        <note>Class = "NSMenuItem"; title = "and"; ObjectID = "697";</note>
-      </trans-unit>
-      <trans-unit id="698.title">
-        <source>or</source>
-        <note>Class = "NSMenuItem"; title = "or"; ObjectID = "698";</note>
-      </trans-unit>
       <trans-unit id="744.headerCell.title">
         <source>Description</source>
         <note>Class = "NSTableColumn"; headerCell.title = "Description"; ObjectID = "744";</note>
-      </trans-unit>
-      <trans-unit id="745.title">
-        <source>Text Cell</source>
-        <note>Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "745";</note>
       </trans-unit>
       <trans-unit id="759.title">
         <source>Add Rule</source>
@@ -1649,17 +1473,9 @@
         <source>Select a protocol to configure:</source>
         <note>Class = "NSTextFieldCell"; title = "Select a protocol to configure:"; ObjectID = "769";</note>
       </trans-unit>
-      <trans-unit id="812.title">
-        <source>Text Cell</source>
-        <note>Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "812";</note>
-      </trans-unit>
       <trans-unit id="855.title">
         <source>Proxy Configuration File</source>
         <note>Class = "NSTextFieldCell"; title = "Proxy Configuration File"; ObjectID = "855";</note>
-      </trans-unit>
-      <trans-unit id="1038.title">
-        <source>Radio</source>
-        <note>Class = "NSButtonCell"; title = "Radio"; ObjectID = "1038";</note>
       </trans-unit>
       <trans-unit id="1039.ibShadowedToolTip">
         <source>Proxy settings of the exam client are used</source>
@@ -1700,26 +1516,6 @@
       <trans-unit id="1178.title">
         <source>If your network administrator provided you with the address of an automatic proxy configuration (.pac) file, enter it above.</source>
         <note>Class = "NSTextFieldCell"; title = "If your network administrator provided you with the address of an automatic proxy configuration (.pac) file, enter it above."; ObjectID = "1178";</note>
-      </trans-unit>
-      <trans-unit id="1194.label">
-        <source>Item 2</source>
-        <note>Class = "NSTabViewItem"; label = "Item 2"; ObjectID = "1194";</note>
-      </trans-unit>
-      <trans-unit id="1196.label">
-        <source>Item 3</source>
-        <note>Class = "NSTabViewItem"; label = "Item 3"; ObjectID = "1196";</note>
-      </trans-unit>
-      <trans-unit id="1198.label">
-        <source>Item 4</source>
-        <note>Class = "NSTabViewItem"; label = "Item 4"; ObjectID = "1198";</note>
-      </trans-unit>
-      <trans-unit id="1200.label">
-        <source>Item 5</source>
-        <note>Class = "NSTabViewItem"; label = "Item 5"; ObjectID = "1200";</note>
-      </trans-unit>
-      <trans-unit id="1202.label">
-        <source>Item 6</source>
-        <note>Class = "NSTabViewItem"; label = "Item 6"; ObjectID = "1202";</note>
       </trans-unit>
       <trans-unit id="1215.title">
         <source>Web Proxy Server</source>
@@ -1825,14 +1621,6 @@
         <source>SSL/TLS certificates from the default keychain. This allows to distribute self-signed certificates to exam clients</source>
         <note>Class = "NSPopUpButton"; ibShadowedToolTip = "SSL/TLS certificates from the default keychain. This allows to distribute self-signed certificates to exam clients"; ObjectID = "1779";</note>
       </trans-unit>
-      <trans-unit id="1781.title">
-        <source>OtherViews</source>
-        <note>Class = "NSMenu"; title = "OtherViews"; ObjectID = "1781";</note>
-      </trans-unit>
-      <trans-unit id="1782.title">
-        <source>None</source>
-        <note>Class = "NSMenuItem"; title = "None"; ObjectID = "1782";</note>
-      </trans-unit>
       <trans-unit id="1783.title">
         <source>Choose SSL certificate to embed into settings ...</source>
         <note>Class = "NSTextFieldCell"; title = "Choose SSL certificate to embed into settings ..."; ObjectID = "1783";</note>
@@ -1840,14 +1628,6 @@
       <trans-unit id="1814.ibShadowedToolTip">
         <source>Identities (X.509 certificates with RSA public key and associated private key) from the default keychain which can be used for encrypting and decrypting. Export the chosen identity (in Keychain Access utility) and install it on your SEB clients.</source>
         <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Identities (X.509 certificates with RSA public key and associated private key) from the default keychain which can be used for encrypting and decrypting. Export the chosen identity (in Keychain Access utility) and install it on your SEB clients."; ObjectID = "1814";</note>
-      </trans-unit>
-      <trans-unit id="1816.title">
-        <source>OtherViews</source>
-        <note>Class = "NSMenu"; title = "OtherViews"; ObjectID = "1816";</note>
-      </trans-unit>
-      <trans-unit id="1817.title">
-        <source>None</source>
-        <note>Class = "NSMenuItem"; title = "None"; ObjectID = "1817";</note>
       </trans-unit>
       <trans-unit id="1818.title">
         <source>Choose identity to embed into settings ...</source>
@@ -1861,27 +1641,107 @@
         <source>Name</source>
         <note>Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "1837";</note>
       </trans-unit>
-      <trans-unit id="1838.title">
-        <source>Text Cell</source>
-        <note>Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "1838";</note>
-      </trans-unit>
       <trans-unit id="1863.ibShadowedToolTip">
         <source>Remove certificate/identity from settings</source>
         <note>Class = "NSButton"; ibShadowedToolTip = "Remove certificate/identity from settings"; ObjectID = "1863";</note>
       </trans-unit>
-      <trans-unit id="1892.title">
-        <source>OtherViews</source>
-        <note>Class = "NSMenu"; title = "OtherViews"; ObjectID = "1892";</note>
+      <trans-unit id="D1T-ZJ-mqa.title">
+        <source>@</source>
+        <note>Class = "NSTextFieldCell"; title = "@"; ObjectID = "D1T-ZJ-mqa";</note>
       </trans-unit>
-      <trans-unit id="1893.title">
-        <source>Pop Up</source>
-        <note>Class = "NSMenuItem"; title = "Pop Up"; ObjectID = "1893";</note>
+      <trans-unit id="DSd-mL-qnG.title">
+        <source>Teach SEB allowed/blocked URLs</source>
+        <note>Class = "NSButtonCell"; title = "Teach SEB allowed/blocked URLs"; ObjectID = "DSd-mL-qnG";</note>
+      </trans-unit>
+      <trans-unit id="GZd-2h-HIq.title">
+        <source>Selected Action</source>
+        <note>Class = "NSBox"; title = "Selected Action"; ObjectID = "GZd-2h-HIq";</note>
+      </trans-unit>
+      <trans-unit id="PJT-Mq-ijG.ibShadowedToolTip">
+        <source>Helps to create filter rules for URLs or embedded content elements that should be allowed or blocked</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Helps to create filter rules for URLs or embedded content elements that should be allowed or blocked"; ObjectID = "PJT-Mq-ijG";</note>
+      </trans-unit>
+      <trans-unit id="SI9-ap-07c.title">
+        <source>scheme://username:password@host:port/path?query#fragment</source>
+        <note>Class = "NSTextFieldCell"; title = "scheme://username:password@host:port/path?query#fragment"; ObjectID = "SI9-ap-07c";</note>
+      </trans-unit>
+      <trans-unit id="UCE-sZ-Ixh.title">
+        <source>Display 'URL Blocked!'</source>
+        <note>Class = "NSButtonCell"; title = "Display 'URL Blocked!'"; ObjectID = "UCE-sZ-Ixh";</note>
+      </trans-unit>
+      <trans-unit id="VvL-UW-Mzn.title">
+        <source>skip</source>
+        <note>Class = "NSMenuItem"; title = "skip"; ObjectID = "VvL-UW-Mzn";</note>
+      </trans-unit>
+      <trans-unit id="bcq-qY-qJM.title">
+        <source>#</source>
+        <note>Class = "NSTextFieldCell"; title = "#"; ObjectID = "bcq-qY-qJM";</note>
+      </trans-unit>
+      <trans-unit id="cCY-tB-p0Y.title">
+        <source>Action</source>
+        <note>Class = "NSTextFieldCell"; title = "Action"; ObjectID = "cCY-tB-p0Y";</note>
+      </trans-unit>
+      <trans-unit id="d4p-TC-j2w.title">
+        <source>allow</source>
+        <note>Class = "NSMenuItem"; title = "allow"; ObjectID = "d4p-TC-j2w";</note>
+      </trans-unit>
+      <trans-unit id="egv-X8-A5H.title">
+        <source>block</source>
+        <note>Class = "NSMenuItem"; title = "block"; ObjectID = "egv-X8-A5H";</note>
+      </trans-unit>
+      <trans-unit id="f49-Sx-zE7.title">
+        <source>Regex</source>
+        <note>Class = "NSButtonCell"; title = "Regex"; ObjectID = "f49-Sx-zE7";</note>
+      </trans-unit>
+      <trans-unit id="gNh-Qf-Z8W.title">
+        <source>Display 'X'</source>
+        <note>Class = "NSButtonCell"; title = "Display 'X'"; ObjectID = "gNh-Qf-Z8W";</note>
+      </trans-unit>
+      <trans-unit id="iBm-Ni-pSi.title">
+        <source>Active</source>
+        <note>Class = "NSButtonCell"; title = "Active"; ObjectID = "iBm-Ni-pSi";</note>
+      </trans-unit>
+      <trans-unit id="iyL-Fn-jZ6.title">
+        <source>Clear Ignore List…</source>
+        <note>Class = "NSButtonCell"; title = "Clear Ignore List…"; ObjectID = "iyL-Fn-jZ6";</note>
+      </trans-unit>
+      <trans-unit id="jId-HY-bdq.ibShadowedToolTip">
+        <source>URL filter action item is active</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "URL filter action item is active"; ObjectID = "jId-HY-bdq";</note>
+      </trans-unit>
+      <trans-unit id="pon-KO-X4n.headerCell.title">
+        <source>Expression</source>
+        <note>Class = "NSTableColumn"; headerCell.title = "Expression"; ObjectID = "pon-KO-X4n";</note>
+      </trans-unit>
+      <trans-unit id="tJm-ce-zDQ.title">
+        <source>:</source>
+        <note>Class = "NSTextFieldCell"; title = ":"; ObjectID = "tJm-ce-zDQ";</note>
+      </trans-unit>
+      <trans-unit id="uKK-FD-wnl.title">
+        <source>://</source>
+        <note>Class = "NSTextFieldCell"; title = "://"; ObjectID = "uKK-FD-wnl";</note>
+      </trans-unit>
+      <trans-unit id="wOI-qb-1mB.title">
+        <source>?</source>
+        <note>Class = "NSTextFieldCell"; title = "?"; ObjectID = "wOI-qb-1mB";</note>
+      </trans-unit>
+      <trans-unit id="wtP-tT-RxN.ibShadowedToolTip">
+        <source>Chooses message/symbol which is displayed in the browser window toolbar when a URL isn't allowed</source>
+        <note>Class = "NSMatrix"; ibShadowedToolTip = "Chooses message/symbol which is displayed in the browser window toolbar when a URL isn't allowed"; ObjectID = "wtP-tT-RxN";</note>
+      </trans-unit>
+      <trans-unit id="xPR-2O-w0D.title">
+        <source>OtherViews</source>
+        <note>Class = "NSMenu"; title = "OtherViews"; ObjectID = "xPR-2O-w0D";</note>
+      </trans-unit>
+      <trans-unit id="y6S-eJ-81W.title">
+        <source>or</source>
+        <note>Class = "NSMenuItem"; title = "or"; ObjectID = "y6S-eJ-81W";</note>
       </trans-unit>
     </body>
   </file>
   <file original="Base.lproj/PreferencesResources.xib" source-language="en" datatype="plaintext" target-language="fr">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.1" build-num="6A1052d"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.2" build-num="6C86e"/>
     </header>
     <body>
       <trans-unit id="2301.title">
@@ -1940,14 +1800,6 @@
         <source>URL or File Name</source>
         <note>Class = "NSTableColumn"; headerCell.title = "URL or File Name"; ObjectID = "2526";</note>
       </trans-unit>
-      <trans-unit id="2527.title">
-        <source>Text Cell</source>
-        <note>Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "2527";</note>
-      </trans-unit>
-      <trans-unit id="2531.title">
-        <source>Text Cell</source>
-        <note>Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "2531";</note>
-      </trans-unit>
       <trans-unit id="2612.ibShadowedToolTip">
         <source>Full URL of the resource (if external) or file name including file type extension</source>
         <note>Class = "NSTextField"; ibShadowedToolTip = "Full URL of the resource (if external) or file name including file type extension"; ObjectID = "2612";</note>
@@ -1968,9 +1820,13 @@
   </file>
   <file original="Base.lproj/PreferencesSecurity.xib" source-language="en" datatype="plaintext" target-language="fr">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.1" build-num="6A1052d"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.2" build-num="6C86e"/>
     </header>
     <body>
+      <trans-unit id="0Ey-3L-Lb6.title">
+        <source>Force installation in Applications folder</source>
+        <note>Class = "NSButtonCell"; title = "Force installation in Applications folder"; ObjectID = "0Ey-3L-Lb6";</note>
+      </trans-unit>
       <trans-unit id="0ob-OM-tPV.title">
         <source>Enable F11</source>
         <note>Class = "NSButtonCell"; title = "Enable F11"; ObjectID = "0ob-OM-tPV";</note>
@@ -1982,6 +1838,10 @@
       <trans-unit id="3Kv-Y4-p4B.label">
         <source>Hooked Keys</source>
         <note>Class = "NSTabViewItem"; label = "Hooked Keys"; ObjectID = "3Kv-Y4-p4B";</note>
+      </trans-unit>
+      <trans-unit id="4vb-oP-Qf1.title">
+        <source>Use standard directory</source>
+        <note>Class = "NSButtonCell"; title = "Use standard directory"; ObjectID = "4vb-oP-Qf1";</note>
       </trans-unit>
       <trans-unit id="8N0-8l-hwO.title">
         <source>Enable Ctrl-Esc</source>
@@ -2000,12 +1860,8 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Display control in SEB dock allowing to reconnect to Wi-Fi networks used before."; ObjectID = "22y-gA-uVN";</note>
       </trans-unit>
       <trans-unit id="23.title">
-        <source>Save log file to:</source>
-        <note>Class = "NSTextFieldCell"; title = "Save log file to:"; ObjectID = "23";</note>
-      </trans-unit>
-      <trans-unit id="34.title">
-        <source>OtherViews</source>
-        <note>Class = "NSMenu"; title = "OtherViews"; ObjectID = "34";</note>
+        <source>Log level:</source>
+        <note>Class = "NSTextFieldCell"; title = "Log level:"; ObjectID = "23";</note>
       </trans-unit>
       <trans-unit id="35.title">
         <source>Directory</source>
@@ -2020,16 +1876,12 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Usually don't allow SEB to run in a virtual machine in order to prevent potential manipulation"; ObjectID = "76";</note>
       </trans-unit>
       <trans-unit id="77.title">
-        <source>Allow SEB to run inside virtual machine</source>
-        <note>Class = "NSButtonCell"; title = "Allow SEB to run inside virtual machine"; ObjectID = "77";</note>
+        <source>Allow to run inside virtual machine</source>
+        <note>Class = "NSButtonCell"; title = "Allow to run inside virtual machine"; ObjectID = "77";</note>
       </trans-unit>
       <trans-unit id="93.ibShadowedToolTip">
         <source>Policy that applies when an exam client doesn't have the SEB Service installed or running</source>
         <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Policy that applies when an exam client doesn't have the SEB Service installed or running"; ObjectID = "93";</note>
-      </trans-unit>
-      <trans-unit id="95.title">
-        <source>OtherViews</source>
-        <note>Class = "NSMenu"; title = "OtherViews"; ObjectID = "95";</note>
       </trans-unit>
       <trans-unit id="100.title">
         <source>SEB Service policy</source>
@@ -2063,6 +1915,10 @@
         <source>Function Keys</source>
         <note>Class = "NSBox"; title = "Function Keys"; ObjectID = "Eqg-kF-Hjl";</note>
       </trans-unit>
+      <trans-unit id="FaM-aF-JR1.title">
+        <source>Directory</source>
+        <note>Class = "NSMenuItem"; title = "Directory"; ObjectID = "FaM-aF-JR1";</note>
+      </trans-unit>
       <trans-unit id="Fmg-wZ-Cpg.title">
         <source>Enable F6</source>
         <note>Class = "NSButtonCell"; title = "Enable F6"; ObjectID = "Fmg-wZ-Cpg";</note>
@@ -2071,13 +1927,21 @@
         <source>Enable Print Screen</source>
         <note>Class = "NSButtonCell"; title = "Enable Print Screen"; ObjectID = "GQb-uN-fJO";</note>
       </trans-unit>
+      <trans-unit id="Gly-dr-m3X.ibShadowedToolTip">
+        <source>SEB enforces to be installed in an Applications folder (/Applications or ~/Applications)</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "SEB enforces to be installed in an Applications folder (/Applications or ~/Applications)"; ObjectID = "Gly-dr-m3X";</note>
+      </trans-unit>
       <trans-unit id="IWf-Eq-wzJ.title">
-        <source>Enable Alt-Ctrl</source>
-        <note>Class = "NSButtonCell"; title = "Enable Alt-Ctrl"; ObjectID = "IWf-Eq-wzJ";</note>
+        <source>Enable Alt-Mousewheel</source>
+        <note>Class = "NSButtonCell"; title = "Enable Alt-Mousewheel"; ObjectID = "IWf-Eq-wzJ";</note>
       </trans-unit>
       <trans-unit id="IXz-wb-IuQ.title">
         <source>Enable F8</source>
         <note>Class = "NSButtonCell"; title = "Enable F8"; ObjectID = "IXz-wb-IuQ";</note>
+      </trans-unit>
+      <trans-unit id="JRL-fG-lI3.title">
+        <source>Disable app switcher when starting</source>
+        <note>Class = "NSButtonCell"; title = "Disable app switcher when starting"; ObjectID = "JRL-fG-lI3";</note>
       </trans-unit>
       <trans-unit id="KbI-Yu-DVk.title">
         <source>None (for debugging only)</source>
@@ -2102,10 +1966,6 @@
       <trans-unit id="PWk-fT-HdC.title">
         <source>Enable Right Mouse</source>
         <note>Class = "NSButtonCell"; title = "Enable Right Mouse"; ObjectID = "PWk-fT-HdC";</note>
-      </trans-unit>
-      <trans-unit id="Q7m-zi-za1.title">
-        <source>Radio</source>
-        <note>Class = "NSButtonCell"; title = "Radio"; ObjectID = "Q7m-zi-za1";</note>
       </trans-unit>
       <trans-unit id="Rgp-1k-Eaw.title">
         <source>Enable Change a password</source>
@@ -2143,6 +2003,10 @@
         <source>Enable VMware Client Shade</source>
         <note>Class = "NSButtonCell"; title = "Enable VMware Client Shade"; ObjectID = "Y3K-X1-40d";</note>
       </trans-unit>
+      <trans-unit id="a9Y-jJ-E1h.ibShadowedToolTip">
+        <source>SEB checks for the command key being held down while SEB is starting up. This prevents using the application switcher to mess with SEB's kiosk mode</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "SEB checks for the command key being held down while SEB is starting up. This prevents using the application switcher to mess with SEB's kiosk mode"; ObjectID = "a9Y-jJ-E1h";</note>
+      </trans-unit>
       <trans-unit id="bTO-u1-Mao.title">
         <source>Enable Alt-Esc</source>
         <note>Class = "NSButtonCell"; title = "Enable Alt-Esc"; ObjectID = "bTO-u1-Mao";</note>
@@ -2150,6 +2014,10 @@
       <trans-unit id="dYr-I9-VL8.title">
         <source>While running SEB</source>
         <note>Class = "NSBox"; title = "While running SEB"; ObjectID = "dYr-I9-VL8";</note>
+      </trans-unit>
+      <trans-unit id="dbm-W0-7Yt.title">
+        <source>Log file directory Windows:</source>
+        <note>Class = "NSTextFieldCell"; title = "Log file directory Windows:"; ObjectID = "dbm-W0-7Yt";</note>
       </trans-unit>
       <trans-unit id="dpL-te-8hi.title">
         <source>Disable Explorer Shell</source>
@@ -2174,6 +2042,10 @@
       <trans-unit id="nZw-6z-Ph8.title">
         <source>Enable Esc</source>
         <note>Class = "NSButtonCell"; title = "Enable Esc"; ObjectID = "nZw-6z-Ph8";</note>
+      </trans-unit>
+      <trans-unit id="nui-Ct-A6q.title">
+        <source>Save log file to:</source>
+        <note>Class = "NSTextFieldCell"; title = "Save log file to:"; ObjectID = "nui-Ct-A6q";</note>
       </trans-unit>
       <trans-unit id="q3q-Xm-TRl.title">
         <source>Enable F9</source>
@@ -2215,12 +2087,28 @@
   </file>
   <file original="Base.lproj/SEBBrowserWindow.xib" source-language="en" datatype="plaintext" target-language="fr">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.1" build-num="6A1052d"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.2" build-num="6C86e"/>
     </header>
     <body>
       <trans-unit id="3.title">
         <source>Safe Exam Browser</source>
         <note>Class = "SEBBrowserWindow"; title = "Safe Exam Browser"; ObjectID = "3";</note>
+      </trans-unit>
+      <trans-unit id="5ay-Fd-lF5.title">
+        <source>Resource Not Permitted</source>
+        <note>Class = "NSWindow"; title = "Resource Not Permitted"; ObjectID = "5ay-Fd-lF5";</note>
+      </trans-unit>
+      <trans-unit id="7wI-3Z-I1s.title">
+        <source>Custom</source>
+        <note>Class = "NSButtonCell"; title = "Custom"; ObjectID = "7wI-3Z-I1s";</note>
+      </trans-unit>
+      <trans-unit id="8py-w9-weT.ibShadowedToolTip">
+        <source>Add a filter rule for the current URL/resource to the ignore list, based on the selected pattern. Ignored URLs don't show a warning permanently in the URL filter teach mode</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Add a filter rule for the current URL/resource to the ignore list, based on the selected pattern. Ignored URLs don't show a warning permanently in the URL filter teach mode"; ObjectID = "8py-w9-weT";</note>
+      </trans-unit>
+      <trans-unit id="9Wp-xb-WzU.title">
+        <source>Ignore</source>
+        <note>Class = "NSButtonCell"; title = "Ignore"; ObjectID = "9Wp-xb-WzU";</note>
       </trans-unit>
       <trans-unit id="175.label">
         <source>Back/Forward</source>
@@ -2246,11 +2134,107 @@
         <source>Button</source>
         <note>Class = "NSToolbarItem"; paletteLabel = "Button"; ObjectID = "192";</note>
       </trans-unit>
+      <trans-unit id="AcO-IT-BuS.title">
+        <source>Block</source>
+        <note>Class = "NSButtonCell"; title = "Block"; ObjectID = "AcO-IT-BuS";</note>
+      </trans-unit>
+      <trans-unit id="B3X-Rp-SlN.title">
+        <source>It's not allowed to open this link! You can create a new filter rule based on the following patterns:</source>
+        <note>Class = "NSTextFieldCell"; title = "It's not allowed to open this link! You can create a new filter rule based on the following patterns:"; ObjectID = "B3X-Rp-SlN";</note>
+      </trans-unit>
+      <trans-unit id="BmY-jI-Mu3.title">
+        <source>Domain</source>
+        <note>Class = "NSButtonCell"; title = "Domain"; ObjectID = "BmY-jI-Mu3";</note>
+      </trans-unit>
+      <trans-unit id="FW8-h0-H13.title">
+        <source>Dismiss All</source>
+        <note>Class = "NSButtonCell"; title = "Dismiss All"; ObjectID = "FW8-h0-H13";</note>
+      </trans-unit>
+      <trans-unit id="H5P-Ew-Qp9.title">
+        <source>www.host.com</source>
+        <note>Class = "NSButtonCell"; title = "www.host.com"; ObjectID = "H5P-Ew-Qp9";</note>
+      </trans-unit>
+      <trans-unit id="KId-E2-Y59.ibShadowedToolTip">
+        <source>Dismiss all not unknown URLs/resources of the current HTTP request. Reloading a page shows dismissed URLs again</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Dismiss all not unknown URLs/resources of the current HTTP request. Reloading a page shows dismissed URLs again"; ObjectID = "KId-E2-Y59";</note>
+      </trans-unit>
+      <trans-unit id="KUW-Xw-ucJ.ibShadowedToolTip">
+        <source>Click to copy the host/directory part of the current URL into the custom filter expression text field</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Click to copy the host/directory part of the current URL into the custom filter expression text field"; ObjectID = "KUW-Xw-ucJ";</note>
+      </trans-unit>
+      <trans-unit id="Poj-9Z-f7h.title">
+        <source>www.host.com/path</source>
+        <note>Class = "NSButtonCell"; title = "www.host.com/path"; ObjectID = "Poj-9Z-f7h";</note>
+      </trans-unit>
+      <trans-unit id="TD9-Qa-GkX.title">
+        <source>Host</source>
+        <note>Class = "NSButtonCell"; title = "Host"; ObjectID = "TD9-Qa-GkX";</note>
+      </trans-unit>
+      <trans-unit id="aE8-n6-keh.title">
+        <source>Directory</source>
+        <note>Class = "NSButtonCell"; title = "Directory"; ObjectID = "aE8-n6-keh";</note>
+      </trans-unit>
+      <trans-unit id="baa-dD-Wnp.title">
+        <source>Dismiss</source>
+        <note>Class = "NSButtonCell"; title = "Dismiss"; ObjectID = "baa-dD-Wnp";</note>
+      </trans-unit>
+      <trans-unit id="cja-1x-YEa.ibShadowedToolTip">
+        <source>Add a block filter rule for the current URL/resource based on the selected pattern</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Add a block filter rule for the current URL/resource based on the selected pattern"; ObjectID = "cja-1x-YEa";</note>
+      </trans-unit>
+      <trans-unit id="fhn-de-60C.title">
+        <source>www.host.com/directory/*</source>
+        <note>Class = "NSButtonCell"; title = "www.host.com/directory/*"; ObjectID = "fhn-de-60C";</note>
+      </trans-unit>
+      <trans-unit id="gwZ-Bv-sYP.title">
+        <source>host.com</source>
+        <note>Class = "NSButtonCell"; title = "host.com"; ObjectID = "gwZ-Bv-sYP";</note>
+      </trans-unit>
+      <trans-unit id="ig8-v8-XUJ.ibShadowedToolTip">
+        <source>Dismiss current unknown URL/resource, so it doesn't show up again on this page. Reloading a page shows dismissed URLs again</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Dismiss current unknown URL/resource, so it doesn't show up again on this page. Reloading a page shows dismissed URLs again"; ObjectID = "ig8-v8-XUJ";</note>
+      </trans-unit>
+      <trans-unit id="jnc-il-FuZ.ibShadowedToolTip">
+        <source>Click to copy the registred domain part of the current URL into the custom filter expression text field</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Click to copy the registred domain part of the current URL into the custom filter expression text field"; ObjectID = "jnc-il-FuZ";</note>
+      </trans-unit>
+      <trans-unit id="kPG-Y4-EWv.ibShadowedToolTip">
+        <source>Shows initially the full URL, can be edited to create a custom URL filter expression. You can use the wildcard character * too. Click the links above to copy the according pattern into this field</source>
+        <note>Class = "NSScrollView"; ibShadowedToolTip = "Shows initially the full URL, can be edited to create a custom URL filter expression. You can use the wildcard character * too. Click the links above to copy the according pattern into this field"; ObjectID = "kPG-Y4-EWv";</note>
+      </trans-unit>
+      <trans-unit id="lbT-D3-1dX.title">
+        <source>Click to restore full URL as filter expression</source>
+        <note>Class = "NSButtonCell"; title = "Click to restore full URL as filter expression"; ObjectID = "lbT-D3-1dX";</note>
+      </trans-unit>
+      <trans-unit id="mk7-3C-ndY.title">
+        <source>Host/Path</source>
+        <note>Class = "NSButtonCell"; title = "Host/Path"; ObjectID = "mk7-3C-ndY";</note>
+      </trans-unit>
+      <trans-unit id="mvP-Sq-mee.ibShadowedToolTip">
+        <source>Click to copy the host/path part of the current URL into the custom filter expression text field</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Click to copy the host/path part of the current URL into the custom filter expression text field"; ObjectID = "mvP-Sq-mee";</note>
+      </trans-unit>
+      <trans-unit id="sIN-ro-zV3.ibShadowedToolTip">
+        <source>Click to restore the full current URL into the custom filter expression text field</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Click to restore the full current URL into the custom filter expression text field"; ObjectID = "sIN-ro-zV3";</note>
+      </trans-unit>
+      <trans-unit id="sfT-nQ-Hte.ibShadowedToolTip">
+        <source>Click to copy the host part of the current URL into the custom filter expression text field</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Click to copy the host part of the current URL into the custom filter expression text field"; ObjectID = "sfT-nQ-Hte";</note>
+      </trans-unit>
+      <trans-unit id="vVz-K2-Hbd.title">
+        <source>Allow</source>
+        <note>Class = "NSButtonCell"; title = "Allow"; ObjectID = "vVz-K2-Hbd";</note>
+      </trans-unit>
+      <trans-unit id="z9W-wM-LUg.ibShadowedToolTip">
+        <source>Add an allow filter rule for the current URL/resource based on the selected pattern</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Add an allow filter rule for the current URL/resource based on the selected pattern"; ObjectID = "z9W-wM-LUg";</note>
+      </trans-unit>
     </body>
   </file>
   <file original="en.lproj/Localizable.strings" source-language="en" datatype="plaintext" target-language="fr">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.1" build-num="6A1052d"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.2" build-num="6C86e"/>
     </header>
     <body>
       <trans-unit id=" 1">
@@ -2261,20 +2245,8 @@
         <source> copy</source>
         <note>word indicating the duplicate of a file, same as in Finder ' copy'</note>
       </trans-unit>
-      <trans-unit id=" disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.">
-        <source>Local client settings have the option \</source>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id=" disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.">
-        <source>These settings have the option \</source>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="Add Action to Rule">
-        <source>Add Action to Rule</source>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="Add Rule">
-        <source>Add Rule</source>
+      <trans-unit id="%@ was downloaded.">
+        <source>%@ was downloaded.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Appearance">
@@ -2295,10 +2267,6 @@
       </trans-unit>
       <trans-unit id="Apply Edited Settings?">
         <source>Apply Edited Settings?</source>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="Apply Settings?">
-        <source>Apply Settings?</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Are you sure you want to quit SEB?">
@@ -2325,12 +2293,12 @@
         <source>Cannot Decrypt SEB Settings</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Cannot Reconfigure SEB Settings">
-        <source>Cannot Reconfigure SEB Settings</source>
+      <trans-unit id="Cannot Decrypt Settings">
+        <source>Cannot Decrypt Settings</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Cannot decrypt settings">
-        <source>Cannot decrypt settings</source>
+      <trans-unit id="Cannot Reconfigure SEB Settings">
+        <source>Cannot Reconfigure SEB Settings</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Center">
@@ -2341,6 +2309,14 @@
         <source>Choose</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Clear">
+        <source>Clear</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Clear Ignored URL List">
+        <source>Clear Ignored URL List</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Config File">
         <source>Config File</source>
         <note>Title of 'Config File' preference pane</note>
@@ -2349,12 +2325,16 @@
         <source>Continue</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="CopyrightPart2">
-        <source>CopyrightPart2</source>
+      <trans-unit id="Current settings are corrupted. Load valid settings or reset to default settings.">
+        <source>Current settings are corrupted. Load valid settings or reset to default settings.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Current settings have unsaved changes. If you don't save those first, you will loose them.">
         <source>Current settings have unsaved changes. If you don't save those first, you will loose them.</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Debug">
+        <source>Debug</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Do you want to continue editing the saved settings file?">
@@ -2372,6 +2352,10 @@
       <trans-unit id="Down/Uploads">
         <source>Down/Uploads</source>
         <note>Title of 'Down/Uploads' preference pane</note>
+      </trans-unit>
+      <trans-unit id="Download Finished">
+        <source>Download Finished</source>
+        <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Edit File">
         <source>Edit File</source>
@@ -2409,6 +2393,10 @@
         <source>Enter the SEB administrator password used in these settings:</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Error">
+        <source>Error</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Error Decrypting Settings">
         <source>Error Decrypting Settings</source>
         <note>No comment provided by engineer.</note>
@@ -2429,12 +2417,12 @@
         <source>Fetching identities</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="File automatically chosen">
-        <source>File automatically chosen</source>
+      <trans-unit id="File Automatically Chosen">
+        <source>File Automatically Chosen</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="File to upload not found!">
-        <source>File to upload not found!</source>
+      <trans-unit id="File to Upload Not Found!">
+        <source>File to Upload Not Found!</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="FirstTimeUserNotice">
@@ -2445,12 +2433,16 @@
         <source>General</source>
         <note>Title of 'General' preference pane</note>
       </trans-unit>
-      <trans-unit id="Holding Keys Not Allowed!">
-        <source>Holding Keys Not Allowed!</source>
+      <trans-unit id="Holding Command Key Not Allowed!">
+        <source>Holding Command Key Not Allowed!</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Holding keys pressed on the keyboard while starting SEB is not allowed. Restart SEB without holding any keys.">
-        <source>Holding keys pressed on the keyboard while starting SEB is not allowed. Restart SEB without holding any keys.</source>
+      <trans-unit id="Holding the Command key down while restarting SEB is not allowed.">
+        <source>Holding the Command key down while restarting SEB is not allowed.</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Holding the Command key down while starting SEB is not allowed. Restart SEB without holding any keys.">
+        <source>Holding the Command key down while starting SEB is not allowed. Restart SEB without holding any keys.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Identity">
@@ -2473,20 +2465,32 @@
         <source>Important Notice for First Time Users</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Important parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board.">
+        <source>Important parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board.</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Info">
+        <source>Info</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="It's not allowed to open this URL! You can create a new filter rule based on the following patterns:">
+        <source>It's not allowed to open this URL! You can create a new filter rule based on the following patterns:</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Left">
         <source>Left</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Loaded settings are empty and cannot be used.">
+        <source>Loaded settings are empty and cannot be used.</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Loading New SEB Settings Not Allowed!">
+        <source>Loading New SEB Settings Not Allowed!</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Loading Settings">
         <source>Loading Settings</source>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="Loading new SEB settings failed!">
-        <source>Loading new SEB settings failed!</source>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="Loading new SEB settings not allowed!">
-        <source>Loading new SEB settings not allowed!</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Loading new settings failed!">
@@ -2507,6 +2511,10 @@
       </trans-unit>
       <trans-unit id="Local SEB settings are corrupted!">
         <source>Local SEB settings are corrupted!</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.">
+        <source>Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.\n\nReset local settings and continue?">
@@ -2533,8 +2541,8 @@
         <source>Network</source>
         <note>Title of 'Network' preference pane</note>
       </trans-unit>
-      <trans-unit id="No encryption credentials chosen">
-        <source>No encryption credentials chosen</source>
+      <trans-unit id="No Encryption Credentials Chosen">
+        <source>No Encryption Credentials Chosen</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="None">
@@ -2549,12 +2557,16 @@
         <source>OS X</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Opening New Settings Failed!">
+        <source>Opening New Settings Failed!</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Opening Preferences Disabled">
         <source>Opening Preferences Disabled</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Opening new settings failed!">
-        <source>Opening new settings failed!</source>
+      <trans-unit id="Opening Settings Failed">
+        <source>Opening Settings Failed</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Override">
@@ -2581,6 +2593,10 @@
         <source>Quit Safe Exam Browser</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Reading New Settings Failed!">
+        <source>Reading New Settings Failed!</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Reconfigure SEB Settings">
         <source>Reconfigure SEB Settings</source>
         <note>No comment provided by engineer.</note>
@@ -2601,16 +2617,24 @@
         <source>Right</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="SEB Not in %@ Folder!">
+        <source>SEB Not in %@ Folder!</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="SEB Re-Configured">
         <source>SEB Re-Configured</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="SEB has to be placed in the %@ folder for all features working correctly. Move the 'Safe Exam Browser' app to your %@ folder and make sure that you don't have any other versions of SEB installed on your system. SEB will quit now.">
+        <source>SEB has to be placed in the %1$@ folder for all features working correctly. Move the 'Safe Exam Browser' app to your %2$@ folder and make sure that you don't have any other versions of SEB installed on your system. SEB will quit now.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.">
         <source>SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="SEB is configured to only allow to upload a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.">
-        <source>SEB is configured to only allow to upload a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.</source>
+      <trans-unit id="SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.">
+        <source>SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.">
@@ -2649,6 +2673,10 @@
         <source>Select</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Settings Corrupted">
+        <source>Settings Corrupted</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Settings have been saved, use this file to reconfigure local settings of a SEB client.">
         <source>Settings have been saved, use this file to reconfigure local settings of a SEB client.</source>
         <note>No comment provided by engineer.</note>
@@ -2669,16 +2697,28 @@
         <source>The identity needed to decrypt settings has not been found in the keychain!</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="The list containing ignore filter expressions has only an effect on the 'Teach allowed/blocked URLs' mode; loading ignored URLs/resources won't display a dialog anymore. They are blocked anyways, because all not allowed URLs are blocked by the URL filter. Do you want to clear the list now?">
+        <source>The list containing ignore filter expressions has only an effect on the 'Teach allowed/blocked URLs' mode; loading ignored URLs/resources won't display a dialog anymore. They are blocked anyways, because all not allowed URLs are blocked by the URL filter. Do you want to clear the list now?</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="These settings are corrupted and cannot be used.">
         <source>These settings are corrupted and cannot be used.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="These settings cannot be used. They may have been created by an newer, incompatible version of SEB or are corrupted.">
-        <source>These settings cannot be used. They may have been created by an newer, incompatible version of SEB or are corrupted.</source>
+      <trans-unit id="These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted.">
+        <source>These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="This settings file cannot be used. It may have been created by an older, incompatible version of SEB or it is corrupted.">
-        <source>This settings file cannot be used. It may have been created by an older, incompatible version of SEB or it is corrupted.</source>
+      <trans-unit id="These settings have the option 'Allow to open preferences window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.">
+        <source>These settings have the option 'Allow to open preferences window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="This embedded resource isn't allowed! You can create a new filter rule based on the following patterns:">
+        <source>This embedded resource isn't allowed! You can create a new filter rule based on the following patterns:</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="URL Blocked!">
+        <source>URL Blocked!</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Unconfirmed Password">
@@ -2693,12 +2733,20 @@
         <source>Untitled</source>
         <note>Title of a new opened browser window; Untitled</note>
       </trans-unit>
+      <trans-unit id="Verbose">
+        <source>Verbose</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Version">
         <source>Version</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Virtual Machine Detected!">
         <source>Virtual Machine Detected!</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Warning">
+        <source>Warning</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Web Proxy (HTTP)">
@@ -2749,6 +2797,10 @@
         <source>You can only reconfigure SEB by entering the current SEB administrator password:</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="You didn't enter the the correct current SEB administrator password.">
+        <source>You didn't enter the the correct current SEB administrator password.</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="You edited settings. Do you want to apply them or continue using previous settings (current settings will be discarded)?">
         <source>You edited settings. Do you want to apply them or continue using previous settings (current settings will be discarded)?</source>
         <note>No comment provided by engineer.</note>
@@ -2781,10 +2833,6 @@
         <source>allow to use SEB without service</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="and">
-        <source>and</source>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="block">
         <source>block</source>
         <note>No comment provided by engineer.</note>
@@ -2813,20 +2861,12 @@
         <source>open in same window</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="or">
-        <source>or</source>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="quit">
         <source>quit</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="settings">
         <source>settings</source>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="skip">
-        <source>skip</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="untitled">
@@ -2841,7 +2881,7 @@
   </file>
   <file original="en.lproj/SafeExamBrowser-Info.plist" source-language="en" datatype="plaintext" target-language="fr">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.1" build-num="6A1052d"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="6.2" build-num="6C86e"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName">
@@ -2851,7 +2891,7 @@
         <source>SafeExamBrowser</source>
       </trans-unit>
       <trans-unit id="CFBundleShortVersionString">
-        <source>2.0RC</source>
+        <source>2.0</source>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright">
         <source>© 2010-2014 Daniel R. Schneider, ETH Zürich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>

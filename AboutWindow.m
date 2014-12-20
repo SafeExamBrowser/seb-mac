@@ -48,7 +48,7 @@
 	[version setStringValue: versionString];
 	
 	NSString* copyrightString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"NSHumanReadableCopyright"];
-	copyrightString = [NSString stringWithFormat:@"%@\n%@", copyrightString, NSLocalizedString(@"CopyrightPart2",nil)];
+	copyrightString = [NSString stringWithFormat:@"%@\n%@", copyrightString, NSLocalizedString(@"Important parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board.",nil)];
 
 	[copyright setStringValue: copyrightString];
 }	

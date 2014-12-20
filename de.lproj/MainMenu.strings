@@ -16,6 +16,12 @@
 /* Class = "NSMenu"; title = "Window"; ObjectID = "24"; */
 "24.title" = "Fenster";
 
+/* Class = "NSMenuItem"; title = "SEB"; ObjectID = "56"; */
+"56.title" = "SEB";
+
+/* Class = "NSMenu"; title = "SEB"; ObjectID = "57"; */
+"57.title" = "SEB";
+
 /* Class = "NSMenuItem"; title = "About SEB"; ObjectID = "58"; */
 "58.title" = "Über SEB";
 
@@ -102,6 +108,9 @@
 
 /* Class = "NSMenuItem"; title = "Find…"; ObjectID = "209"; */
 "209.title" = "Suchen …";
+
+/* Class = "NSMenuItem"; title = "Jump to Selection"; ObjectID = "210"; */
+"210.title" = "Auswahl anzeigen";
 
 /* Class = "NSMenuItem"; title = "Speech"; ObjectID = "211"; */
 "211.title" = "Sprachausgabe";
@@ -199,17 +208,14 @@
 /* Class = "NSMenuItem"; title = "SEB Help"; ObjectID = "492"; */
 "492.title" = "SEB Hilfe";
 
-/* Class = "NSWindow"; title = "Window"; ObjectID = "714"; */
-"714.title" = "Fenster";
-
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "720"; */
 "720.title" = "Abbrechen";
 
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "721"; */
 "721.title" = "OK";
 
-/* Class = "NSTextFieldCell"; title = "© 2010-2013 Daniel R. Schneider, ETH Zürich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen\nWebKit © 2003-2013 Apple Computer, Inc.  All rights reserved.\n\nThis project has been carried out as part of the program \"AAA/SWITCH – e-Infrastructure for e-Science” lead by SWITCH, the Swiss National Research and Education Network, and was supported by funds from the ETH Board."; ObjectID = "871"; */
-"871.title" = "© 2010-2014 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browsers von Stefan Schneider, Universität von Giessen\n\n Dieses Projekt wurde teilweise im Rahmen der von SWITCH geleiteten Programms \"AAA/SWITCH – e-Infrastructure für e-Science\" und des durch SWITCH koordinierten Kooperationsprojektes \"Learning Infrastructure\" (Teil des CRUS-Programms \"Wissenschaftliche Information: Zugang, Verarbeitung und Speicherung\") durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.";
+/* Class = "NSTextFieldCell"; title = "© 2010-2014 Daniel R. Schneider, ETH Zürich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen\n\nImportant parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board."; ObjectID = "871"; */
+"871.title" = "© 2010-2014 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browsers von Stefan Schneider, Universität von Giessen\n\nDieses Projekt wurde teilweise im Rahmen der von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten Kooperationsprojektes 'Learning Infrastructure' (Teil des CRUS-Programms 'Wissenschaftliche Information: Zugang, Verarbeitung und Speicherung') durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat. ";
 
 /* Class = "NSMenuItem"; title = "Reload Page"; ObjectID = "887"; */
 "887.title" = "Seite neu laden";
@@ -251,7 +257,7 @@
 "QrI-qU-IU3.title" = "Sichern als …";
 
 /* Class = "NSMenuItem"; title = "Apply and Restart"; ObjectID = "Thx-Ic-L6f"; */
-"Thx-Ic-L6f.title" = "Anwenden und Neustarten";
+"Thx-Ic-L6f.title" = "Anwenden und Neustart";
 
 /* Class = "NSMenuItem"; title = "Settings"; ObjectID = "UaS-yv-Dq3"; */
 "UaS-yv-Dq3.title" = "Einstellungen";
@@ -281,7 +287,7 @@
 "pMV-oP-mZU.title" = "Zurücksetzen auf Datei";
 
 /* Class = "NSMenuItem"; title = "Apply and Restart"; ObjectID = "sFU-ql-51U"; */
-"sFU-ql-51U.title" = "Anwenden und neustarten";
+"sFU-ql-51U.title" = "Anwenden und Neustart";
 
 /* Class = "NSMenu"; title = "Settings"; ObjectID = "sdD-uM-Hx0"; */
 "sdD-uM-Hx0.title" = "Einstellungen";

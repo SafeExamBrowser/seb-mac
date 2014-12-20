@@ -245,7 +245,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 
 - (BOOL) executeSCAppleScript:(NSString *)location
 {
-    NSString *appleScriptSource = [NSString stringWithFormat:@"do shell script \"defaults write com.apple.screencapture location %@ && killall SystemUIServer\"", location];
+    NSString *appleScriptSource = [NSString stringWithFormat:@"do shell script 'defaults write com.apple.screencapture location %@ && killall SystemUIServer'", location];
     NSAppleScript* appleScript = [[NSAppleScript alloc] initWithSource:appleScriptSource];
     
     NSDictionary* errorDict;

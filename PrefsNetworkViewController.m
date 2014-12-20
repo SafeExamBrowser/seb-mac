@@ -174,7 +174,7 @@
     // Ask user if the ignore list should really be cleared
     NSAlert *newAlert = [[NSAlert alloc] init];
     [newAlert setMessageText:NSLocalizedString(@"Clear Ignored URL List", nil)];
-    [newAlert setInformativeText:NSLocalizedString(@"The list containing ignore filter expressions has only an effect on the \"Teach allowed/blocked URLs\" mode; loading ignored URLs/resources won't display a dialog anymore. They are blocked anyways, because all not allowed URLs are blocked by the URL filter. Do you want to clear the list now?", nil)];
+    [newAlert setInformativeText:NSLocalizedString(@"The list containing ignore filter expressions has only an effect on the 'Teach allowed/blocked URLs' mode; loading ignored URLs/resources won't display a dialog anymore. They are blocked anyways, because all not allowed URLs are blocked by the URL filter. Do you want to clear the list now?", nil)];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Clear", nil)];
     [newAlert setAlertStyle:NSInformationalAlertStyle];

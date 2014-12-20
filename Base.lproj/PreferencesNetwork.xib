@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6221" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6221"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsNetworkViewController">
@@ -135,7 +135,7 @@
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                             </tableHeaderCell>
-                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="Kb3-Nm-aKg">
+                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" id="Kb3-Nm-aKg">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -154,21 +154,21 @@
                                                             <popUpButtonCell key="dataCell" type="bevel" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="bezel" imageScaling="proportionallyDown" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" id="IsM-ED-WeJ">
                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="menu"/>
-                                                                <menu key="menu" title="OtherViews" id="xPR-2O-w0D">
+                                                                <menu key="menu" id="xPR-2O-w0D">
                                                                     <items>
-                                                                        <menuItem title="block" id="egv-X8-A5H">
+                                                                        <menuItem id="egv-X8-A5H">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                         </menuItem>
-                                                                        <menuItem title="allow" id="d4p-TC-j2w">
+                                                                        <menuItem id="d4p-TC-j2w">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                         </menuItem>
-                                                                        <menuItem title="skip" id="VvL-UW-Mzn">
+                                                                        <menuItem id="VvL-UW-Mzn">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                         </menuItem>
-                                                                        <menuItem title="and" id="3f7-DM-fXx">
+                                                                        <menuItem id="3f7-DM-fXx">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                         </menuItem>
-                                                                        <menuItem title="or" id="y6S-eJ-81W">
+                                                                        <menuItem id="y6S-eJ-81W">
                                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                                         </menuItem>
                                                                     </items>
@@ -342,14 +342,14 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="JEh-9U-yXY"/>
                                                     </constraints>
-                                                    <popUpButtonCell key="cell" type="push" title="Action" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="rBw-Ge-oBv" id="dIN-ch-gsc">
+                                                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="dIN-ch-gsc">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="menu"/>
-                                                        <menu key="menu" title="OtherViews" id="NhP-7L-y3h">
+                                                        <menu key="menu" id="NhP-7L-y3h">
                                                             <items>
-                                                                <menuItem title="Action" state="on" id="rBw-Ge-oBv"/>
-                                                                <menuItem title="Item 2" id="SRf-SV-dj8"/>
-                                                                <menuItem title="Item 3" id="bOf-ha-OLj"/>
+                                                                <menuItem id="rBw-Ge-oBv"/>
+                                                                <menuItem id="SRf-SV-dj8"/>
+                                                                <menuItem id="bOf-ha-OLj"/>
                                                             </items>
                                                         </menu>
                                                     </popUpButtonCell>
@@ -706,21 +706,21 @@
                                     <matrix toolTip="Chooses message/symbol which is displayed in the browser window toolbar when a URL isn't allowed" verticalHuggingPriority="750" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wtP-tT-RxN">
                                         <rect key="frame" x="33" y="599" width="554" height="18"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        <size key="cellSize" width="141" height="18"/>
+                                        <size key="cellSize" width="138" height="18"/>
                                         <size key="intercellSpacing" width="4" height="2"/>
-                                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" controlSize="small" inset="2" id="MCw-h1-309">
+                                        <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" controlSize="small" inset="2" id="MCw-h1-309">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
                                         </buttonCell>
                                         <cells>
                                             <column>
-                                                <buttonCell type="radio" title="Display &quot;URL Blocked!&quot;" imagePosition="left" alignment="left" controlSize="small" state="on" tag="1" inset="2" id="UCE-sZ-Ixh">
+                                                <buttonCell type="radio" title="Display 'URL Blocked!'" imagePosition="left" alignment="left" controlSize="small" state="on" tag="1" inset="2" id="UCE-sZ-Ixh">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="smallSystem"/>
                                                 </buttonCell>
                                             </column>
                                             <column>
-                                                <buttonCell type="radio" title="Display &quot;X&quot;" imagePosition="left" alignment="left" controlSize="small" inset="2" id="gNh-Qf-Z8W">
+                                                <buttonCell type="radio" title="Display 'X'" imagePosition="left" alignment="left" controlSize="small" inset="2" id="gNh-Qf-Z8W">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="smallSystem"/>
                                                 </buttonCell>
@@ -797,12 +797,12 @@
                                     </textField>
                                     <popUpButton toolTip="SSL/TLS certificates from the default keychain. This allows to distribute self-signed certificates to exam clients" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1779">
                                         <rect key="frame" x="14" y="595" width="576" height="22"/>
-                                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="1780">
+                                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="1782" id="1780">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
-                                            <menu key="menu" title="OtherViews" id="1781">
+                                            <menu key="menu" id="1781">
                                                 <items>
-                                                    <menuItem title="None" id="1782"/>
+                                                    <menuItem id="1782"/>
                                                 </items>
                                             </menu>
                                         </popUpButtonCell>
@@ -821,12 +821,12 @@
                                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1814">
                                         <rect key="frame" x="14" y="548" width="576" height="22"/>
                                         <string key="toolTip">Identities (X.509 certificates with RSA public key and associated private key) from the default keychain which can be used for encrypting and decrypting. Export the chosen identity (in Keychain Access utility) and install it on your SEB clients.</string>
-                                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="1815">
+                                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="1817" id="1815">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
-                                            <menu key="menu" title="OtherViews" id="1816">
+                                            <menu key="menu" id="1816">
                                                 <items>
-                                                    <menuItem title="None" id="1817"/>
+                                                    <menuItem id="1817"/>
                                                 </items>
                                             </menu>
                                         </popUpButtonCell>
@@ -853,12 +853,12 @@
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                                             </tableHeaderCell>
-                                                            <popUpButtonCell key="dataCell" type="bevel" title="Pop Up" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" enabled="NO" refusesFirstResponder="YES" state="on" borderStyle="bezel" imageScaling="proportionallyDown" inset="2" arrowPosition="noArrow" preferredEdge="maxY" autoenablesItems="NO" selectedItem="1893" id="1891">
+                                                            <popUpButtonCell key="dataCell" type="bevel" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" enabled="NO" refusesFirstResponder="YES" state="on" borderStyle="bezel" imageScaling="proportionallyDown" inset="2" arrowPosition="noArrow" preferredEdge="maxY" autoenablesItems="NO" selectedItem="1893" id="1891">
                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="smallSystem"/>
-                                                                <menu key="menu" title="OtherViews" autoenablesItems="NO" id="1892">
+                                                                <menu key="menu" autoenablesItems="NO" id="1892">
                                                                     <items>
-                                                                        <menuItem title="Pop Up" state="on" id="1893"/>
+                                                                        <menuItem state="on" id="1893"/>
                                                                     </items>
                                                                 </menu>
                                                                 <connections>
@@ -880,7 +880,7 @@
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                                             </tableHeaderCell>
-                                                            <textFieldCell key="dataCell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" alignment="left" title="Text Cell" id="1838">
+                                                            <textFieldCell key="dataCell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" alignment="left" id="1838">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -989,7 +989,7 @@
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                                             </tableHeaderCell>
-                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="812">
+                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" id="812">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1100,7 +1100,7 @@
                                                     </constraints>
                                                 </view>
                                             </tabViewItem>
-                                            <tabViewItem label="Item 2" identifier="" id="1194" userLabel="Tab View Item - HTTP">
+                                            <tabViewItem identifier="" id="1194" userLabel="Tab View Item - HTTP">
                                                 <view key="view" id="1195">
                                                     <rect key="frame" x="0.0" y="0.0" width="312" height="160"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1231,7 +1231,7 @@
                                                     </constraints>
                                                 </view>
                                             </tabViewItem>
-                                            <tabViewItem label="Item 3" identifier="" id="1196" userLabel="Tab View Item - HTTPS">
+                                            <tabViewItem identifier="" id="1196" userLabel="Tab View Item - HTTPS">
                                                 <view key="view" id="1197">
                                                     <rect key="frame" x="0.0" y="0.0" width="312" height="160"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1362,7 +1362,7 @@
                                                     </constraints>
                                                 </view>
                                             </tabViewItem>
-                                            <tabViewItem label="Item 4" identifier="" id="1198" userLabel="Tab View Item - FTP">
+                                            <tabViewItem identifier="" id="1198" userLabel="Tab View Item - FTP">
                                                 <view key="view" id="1199">
                                                     <rect key="frame" x="0.0" y="0.0" width="312" height="160"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1493,7 +1493,7 @@
                                                     </constraints>
                                                 </view>
                                             </tabViewItem>
-                                            <tabViewItem label="Item 5" identifier="" id="1200" userLabel="Tab View Item - SOCKS">
+                                            <tabViewItem identifier="" id="1200" userLabel="Tab View Item - SOCKS">
                                                 <view key="view" id="1201">
                                                     <rect key="frame" x="0.0" y="0.0" width="312" height="160"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1624,7 +1624,7 @@
                                                     </constraints>
                                                 </view>
                                             </tabViewItem>
-                                            <tabViewItem label="Item 6" identifier="" id="1202" userLabel="Tab View Item - RTSP">
+                                            <tabViewItem identifier="" id="1202" userLabel="Tab View Item - RTSP">
                                                 <view key="view" id="1203">
                                                     <rect key="frame" x="0.0" y="0.0" width="312" height="160"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1768,7 +1768,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         <size key="cellSize" width="570" height="18"/>
                                         <size key="intercellSpacing" width="4" height="2"/>
-                                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="1038">
+                                        <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" inset="2" id="1038">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -1873,7 +1873,7 @@
                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
             </tableHeaderCell>
-            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="745">
+            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" id="745">
                 <font key="font" metaFont="system"/>
                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6221" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="6254"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6221"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="6221"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SEBBrowserWindowController">
@@ -37,7 +37,7 @@
             </view>
             <toolbar key="toolbar" implicitIdentifier="BDAFF22A-CD78-4B87-BE08-89EB5FD8D41E" autosavesConfiguration="NO" allowsUserCustomization="NO" prefersToBeShown="NO" displayMode="iconOnly" sizeMode="regular" id="166">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="FC8FE802-AA82-4102-ACE1-2024646D31EE" label="Back/Forward" paletteLabel="SegmentButton" id="175">
+                    <toolbarItem implicitItemIdentifier="FC8FE802-AA82-4102-ACE1-2024646D31EE" label="Back/Forward" paletteLabel="" id="175">
                         <nil key="toolTip"/>
                         <size key="minSize" width="51" height="25"/>
                         <size key="maxSize" width="104" height="32"/>
@@ -57,7 +57,7 @@
                             </connections>
                         </segmentedControl>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="AB23B6BC-BAD9-48C6-889A-B71807EFB63D" label="Zoom" paletteLabel="SegmentButton" id="179">
+                    <toolbarItem implicitItemIdentifier="AB23B6BC-BAD9-48C6-889A-B71807EFB63D" label="Zoom" paletteLabel="" id="179">
                         <nil key="toolTip"/>
                         <size key="minSize" width="51" height="25"/>
                         <size key="maxSize" width="51" height="32"/>
@@ -77,7 +77,7 @@
                         </segmentedControl>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="176"/>
-                    <toolbarItem implicitItemIdentifier="84F62431-3DD3-4394-83F6-D0215AD95868" label="Reload" paletteLabel="Button" image="NSRefreshTemplate" id="192">
+                    <toolbarItem implicitItemIdentifier="84F62431-3DD3-4394-83F6-D0215AD95868" label="Reload" paletteLabel="" image="NSRefreshTemplate" id="192">
                         <nil key="toolTip"/>
                         <size key="minSize" width="25" height="25"/>
                         <size key="maxSize" width="25" height="25"/>
@@ -126,7 +126,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="570" height="313"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ig8-v8-XUJ">
+                    <button toolTip="Dismiss current unknown URL/resource, so it doesn't show up again on this page. Reloading a page shows dismissed URLs again" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ig8-v8-XUJ">
                         <rect key="frame" x="454" y="5" width="102" height="32"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="90" id="Vye-IJ-fDc"/>
@@ -142,7 +142,7 @@ DQ
                             <action selector="URLFilterAlertDismiss:" target="3" id="osj-Ge-gIh"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z9W-wM-LUg">
+                    <button toolTip="Add an allow filter rule for the current URL/resource based on the selected pattern" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z9W-wM-LUg">
                         <rect key="frame" x="352" y="5" width="102" height="32"/>
                         <buttonCell key="cell" type="push" title="Allow" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vVz-K2-Hbd">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -153,7 +153,7 @@ DQ
                             <action selector="URLFilterAlertAllow:" target="3" id="ZDI-Oc-GRQ"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cja-1x-YEa">
+                    <button toolTip="Add a block filter rule for the current URL/resource based on the selected pattern" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cja-1x-YEa">
                         <rect key="frame" x="148" y="5" width="102" height="32"/>
                         <buttonCell key="cell" type="push" title="Block" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="AcO-IT-BuS">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -172,7 +172,7 @@ DQ
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         <size key="cellSize" width="85" height="18"/>
                         <size key="intercellSpacing" width="4" height="2"/>
-                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="ms5-0D-xhq">
+                        <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" inset="2" id="ms5-0D-xhq">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -212,7 +212,7 @@ DQ
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KId-E2-Y59">
+                    <button toolTip="Dismiss all not unknown URLs/resources of the current HTTP request. Reloading a page shows dismissed URLs again" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KId-E2-Y59">
                         <rect key="frame" x="14" y="5" width="109" height="32"/>
                         <buttonCell key="cell" type="push" title="Dismiss All" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FW8-h0-H13">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -225,9 +225,8 @@ Gw
                             <action selector="URLFilterAlertIgnoreAll:" target="3" id="UpQ-ZL-pzb"/>
                         </connections>
                     </button>
-                    <button translatesAutoresizingMaskIntoConstraints="NO" id="sfT-nQ-Hte">
+                    <button toolTip="Click to copy the host part of the current URL into the custom filter expression text field" translatesAutoresizingMaskIntoConstraints="NO" id="sfT-nQ-Hte">
                         <rect key="frame" x="124" y="217" width="82" height="19"/>
-                        <string key="toolTip">SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field.</string>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="4fm-eH-cuM"/>
                         </constraints>
@@ -239,9 +238,8 @@ Gw
                             <action selector="clickedHostPattern:" target="3" id="kTg-wn-Oqs"/>
                         </connections>
                     </button>
-                    <button translatesAutoresizingMaskIntoConstraints="NO" id="jnc-il-FuZ">
+                    <button toolTip="Click to copy the registred domain part of the current URL into the custom filter expression text field" translatesAutoresizingMaskIntoConstraints="NO" id="jnc-il-FuZ">
                         <rect key="frame" x="124" y="237" width="53" height="19"/>
-                        <string key="toolTip">SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field.</string>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="6bD-qk-pYa"/>
                         </constraints>
@@ -253,9 +251,8 @@ Gw
                             <action selector="clickedDomainPattern:" target="3" id="cAs-Mb-b0i"/>
                         </connections>
                     </button>
-                    <button translatesAutoresizingMaskIntoConstraints="NO" id="mvP-Sq-mee">
+                    <button toolTip="Click to copy the host/path part of the current URL into the custom filter expression text field" translatesAutoresizingMaskIntoConstraints="NO" id="mvP-Sq-mee">
                         <rect key="frame" x="124" y="197" width="112" height="19"/>
-                        <string key="toolTip">SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field.</string>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="cpa-WY-9B7"/>
                         </constraints>
@@ -267,9 +264,8 @@ Gw
                             <action selector="clickedHostPathPattern:" target="3" id="k7E-8G-yNV"/>
                         </connections>
                     </button>
-                    <button translatesAutoresizingMaskIntoConstraints="NO" id="sIN-ro-zV3">
+                    <button toolTip="Click to restore the full current URL into the custom filter expression text field" translatesAutoresizingMaskIntoConstraints="NO" id="sIN-ro-zV3">
                         <rect key="frame" x="124" y="157" width="234" height="19"/>
-                        <string key="toolTip">SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field.</string>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="Nd2-90-D0f"/>
                         </constraints>
@@ -281,9 +277,8 @@ Gw
                             <action selector="clickedFullURLPattern:" target="3" id="Bfo-nM-3Rx"/>
                         </connections>
                     </button>
-                    <button translatesAutoresizingMaskIntoConstraints="NO" id="KUW-Xw-ucJ">
+                    <button toolTip="Click to copy the host/directory part of the current URL into the custom filter expression text field" translatesAutoresizingMaskIntoConstraints="NO" id="KUW-Xw-ucJ">
                         <rect key="frame" x="124" y="177" width="147" height="19"/>
-                        <string key="toolTip">SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field.</string>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="C1B-Ur-e6Z"/>
                         </constraints>
@@ -297,6 +292,7 @@ Gw
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8py-w9-weT">
                         <rect key="frame" x="250" y="5" width="102" height="32"/>
+                        <string key="toolTip">Add a filter rule for the current URL/resource to the ignore list, based on the selected pattern. Ignored URLs don't show a warning permanently in the URL filter teach mode</string>
                         <buttonCell key="cell" type="push" title="Ignore" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9Wp-xb-WzU">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -308,6 +304,7 @@ Gw
                     </button>
                     <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kPG-Y4-EWv">
                         <rect key="frame" x="20" y="44" width="530" height="104"/>
+                        <string key="toolTip">Shows initially the full URL, can be edited to create a custom URL filter expression. You can use the wildcard character * too. Click the links above to copy the according pattern into this field</string>
                         <clipView key="contentView" id="c8z-5s-Dgt">
                             <rect key="frame" x="1" y="1" width="223" height="133"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

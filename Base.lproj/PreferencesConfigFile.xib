@@ -148,9 +148,9 @@
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="70">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
-                        <menu key="menu" title="OtherViews" id="71">
+                        <menu key="menu" id="71">
                             <items>
-                                <menuItem title="None" id="73"/>
+                                <menuItem id="73"/>
                             </items>
                         </menu>
                     </popUpButtonCell>
@@ -177,10 +177,7 @@
                     </connections>
                 </secureTextField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="111">
-                    <rect key="frame" x="247" y="204" width="127" height="17"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="123" id="951"/>
-                    </constraints>
+                    <rect key="frame" x="257" y="204" width="117" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Settings password" id="118">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -188,10 +185,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="112">
-                    <rect key="frame" x="192" y="174" width="182" height="17"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="178" id="953"/>
-                    </constraints>
+                    <rect key="frame" x="203" y="174" width="171" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Confirm settings password" id="117">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -259,7 +253,7 @@
                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     <size key="cellSize" width="460" height="18"/>
                     <size key="intercellSpacing" width="4" height="4"/>
-                    <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="250">
+                    <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" inset="2" id="250">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>

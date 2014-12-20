@@ -89,7 +89,7 @@
 "Continue" = "Continue";
 
 /* No comment provided by engineer. */
-"CopyrightPart2" = "CopyrightPart2";
+"Important parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board." = "Important parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board.";
 
 /* No comment provided by engineer. */
 "Current settings have unsaved changes. If you don't save those first, you will loose them." = "Current settings have unsaved changes. If you don't save those first, you will loose them.";
@@ -206,7 +206,7 @@
 "Local Client Settings" = "Local Client Settings";
 
 /* No comment provided by engineer. */
-"Local client settings have the option \'Allow to open preferences window on client\' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option." = "Local client settings have the option \'Allow to open preferences window on client\' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.";
+"Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option." = "Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.";
 
 /* No comment provided by engineer. */
 "Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.\n\nReset local settings and continue?" = "Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.\n\nReset local settings and continue?";
@@ -359,13 +359,7 @@
 "These settings are corrupted and cannot be used." = "These settings are corrupted and cannot be used.";
 
 /* No comment provided by engineer. */
-"These settings cannot be used. They may have been created by an newer, incompatible version of SEB or are corrupted." = "These settings cannot be used. They may have been created by an newer, incompatible version of SEB or are corrupted.";
-
-/* No comment provided by engineer. */
-"These settings have the option \'Allow to open preferences window on client\' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session." = "These settings have the option \'Allow to open preferences window on client\' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.";
-
-/* No comment provided by engineer. */
-"This settings file cannot be used. It may have been created by an older, incompatible version of SEB or it is corrupted." = "This settings file cannot be used. It may have been created by an older, incompatible version of SEB or it is corrupted.";
+"These settings have the option 'Allow to open preferences window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session." = "These settings have the option 'Allow to open preferences window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.";
 
 /* No comment provided by engineer. */
 "Unconfirmed Password" = "Unconfirmed Password";
