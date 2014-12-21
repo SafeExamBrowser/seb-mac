@@ -9,10 +9,8 @@
 /* Begin PBXBuildFile section */
 		69009BE019EA7F590083274C /* SEBBrowserOpenWindowWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 69009BDE19EA7F590083274C /* SEBBrowserOpenWindowWebView.h */; };
 		69009BE119EA7F590083274C /* SEBBrowserOpenWindowWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69009BDF19EA7F590083274C /* SEBBrowserOpenWindowWebView.m */; };
-		69009BE219EA7F590083274C /* SEBBrowserOpenWindowWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69009BDF19EA7F590083274C /* SEBBrowserOpenWindowWebView.m */; };
 		6901331B19B371CB0050574D /* PreferencesWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 6901331919B371CB0050574D /* PreferencesWindow.h */; };
 		6901331C19B371CB0050574D /* PreferencesWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901331A19B371CB0050574D /* PreferencesWindow.m */; };
-		6901331D19B371CB0050574D /* PreferencesWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901331A19B371CB0050574D /* PreferencesWindow.m */; };
 		6905C5AB1961B4E5000008EC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6905C5AA1961B4E5000008EC /* SystemConfiguration.framework */; };
 		6906F3C21A3FA5EE0011CF93 /* NSURL+KKDomain.h in Headers */ = {isa = PBXBuildFile; fileRef = 6906F3C01A3FA5EE0011CF93 /* NSURL+KKDomain.h */; };
 		6906F3C31A3FA5EE0011CF93 /* NSURL+KKDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = 6906F3C11A3FA5EE0011CF93 /* NSURL+KKDomain.m */; };
@@ -45,212 +43,113 @@
 		6909E3511A019F7A0086A741 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3391A019F7A0086A741 /* DDMultiFormatter.m */; };
 		690B5B6219DBEAA400704F36 /* SEBDockItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 690B5B6019DBEAA400704F36 /* SEBDockItem.h */; };
 		690B5B6319DBEAA400704F36 /* SEBDockItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 690B5B6119DBEAA400704F36 /* SEBDockItem.m */; };
-		690B5B6419DBEAA400704F36 /* SEBDockItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 690B5B6119DBEAA400704F36 /* SEBDockItem.m */; };
 		690BBEAC19D2C6A000F7C9C6 /* SEBDockController.h in Headers */ = {isa = PBXBuildFile; fileRef = 690BBEAA19D2C6A000F7C9C6 /* SEBDockController.h */; };
 		690BBEAD19D2C6A000F7C9C6 /* SEBDockController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690BBEAB19D2C6A000F7C9C6 /* SEBDockController.m */; };
-		690BBEAE19D2C6A000F7C9C6 /* SEBDockController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690BBEAB19D2C6A000F7C9C6 /* SEBDockController.m */; };
 		690BBEB119D2C6E500F7C9C6 /* SEBDockItemButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 690BBEAF19D2C6E500F7C9C6 /* SEBDockItemButton.h */; };
 		690BBEB219D2C6E500F7C9C6 /* SEBDockItemButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 690BBEB019D2C6E500F7C9C6 /* SEBDockItemButton.m */; };
-		690BBEB319D2C6E500F7C9C6 /* SEBDockItemButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 690BBEB019D2C6E500F7C9C6 /* SEBDockItemButton.m */; };
 		690BBEB619D30DF800F7C9C6 /* SEBDockView.h in Headers */ = {isa = PBXBuildFile; fileRef = 690BBEB419D30DF800F7C9C6 /* SEBDockView.h */; };
 		690BBEB719D30DF800F7C9C6 /* SEBDockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 690BBEB519D30DF800F7C9C6 /* SEBDockView.m */; };
-		690BBEB819D30DF800F7C9C6 /* SEBDockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 690BBEB519D30DF800F7C9C6 /* SEBDockView.m */; };
 		690C6EE619E29E3600EDE103 /* SEBBrowserController.h in Headers */ = {isa = PBXBuildFile; fileRef = 690C6EE419E29E3600EDE103 /* SEBBrowserController.h */; };
 		690C6EE719E29E3600EDE103 /* SEBBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690C6EE519E29E3600EDE103 /* SEBBrowserController.m */; };
-		690C6EE819E29E3600EDE103 /* SEBBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690C6EE519E29E3600EDE103 /* SEBBrowserController.m */; };
 		6915F2E919C8F77600DAEA37 /* SEBDockWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 6915F2E719C8F77600DAEA37 /* SEBDockWindow.h */; };
 		6915F2EA19C8F77600DAEA37 /* SEBDockWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6915F2E819C8F77600DAEA37 /* SEBDockWindow.m */; };
-		6915F2EB19C8F77600DAEA37 /* SEBDockWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6915F2E819C8F77600DAEA37 /* SEBDockWindow.m */; };
 		6917744A1A2776FB0039CC39 /* SEBURLFilterRegexExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 691774481A2776FB0039CC39 /* SEBURLFilterRegexExpression.h */; };
 		6917744B1A2776FB0039CC39 /* SEBURLFilterRegexExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 691774491A2776FB0039CC39 /* SEBURLFilterRegexExpression.m */; };
-		6917744C1A2776FB0039CC39 /* SEBURLFilterRegexExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 691774491A2776FB0039CC39 /* SEBURLFilterRegexExpression.m */; };
 		6921294216F91C6600AFC3B0 /* BoolValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6921294016F91C6600AFC3B0 /* BoolValueTransformer.h */; };
 		6921294316F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6921294116F91C6600AFC3B0 /* BoolValueTransformer.m */; };
-		6921294416F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6921294116F91C6600AFC3B0 /* BoolValueTransformer.m */; };
 		6921294716F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6921294516F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h */; };
 		6921294816F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6921294616F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m */; };
-		6921294916F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6921294616F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m */; };
 		69263A9E1A2E0765006F1E31 /* SEBWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 69263A9C1A2E0765006F1E31 /* SEBWebView.h */; };
 		69263A9F1A2E0765006F1E31 /* SEBWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69263A9D1A2E0765006F1E31 /* SEBWebView.m */; };
 		6929228A19FD9F1B00B57347 /* SEBBrowserWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6929228D19FD9F1B00B57347 /* SEBBrowserWindow.xib */; };
-		6929228B19FD9F1B00B57347 /* SEBBrowserWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6929228D19FD9F1B00B57347 /* SEBBrowserWindow.xib */; };
 		693647FA17122A0300EE41BC /* DropDownButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 693647F817122A0300EE41BC /* DropDownButton.h */; };
 		693647FB17122A0300EE41BC /* DropDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 693647F917122A0300EE41BC /* DropDownButton.m */; };
-		693647FC17122A0300EE41BC /* DropDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 693647F917122A0300EE41BC /* DropDownButton.m */; };
 		693EB53E15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693EB53D15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m */; };
-		693EB54015EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693EB53D15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m */; };
 		693F135315767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 693F135215767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m */; };
-		693F135515767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 693F135215767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m */; };
 		6940A7611853B2AD00D9D00D /* NSData+NSDataZIPExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 6940A75F1853B2AD00D9D00D /* NSData+NSDataZIPExtension.h */; };
 		6940A7621853B2AD00D9D00D /* NSData+NSDataZIPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940A7601853B2AD00D9D00D /* NSData+NSDataZIPExtension.m */; };
-		6940A7631853B2AD00D9D00D /* NSData+NSDataZIPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940A7601853B2AD00D9D00D /* NSData+NSDataZIPExtension.m */; };
 		6940A7671853B62000D9D00D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6940A7661853B62000D9D00D /* libz.dylib */; };
 		69428CCE172F0C1300C87C58 /* SecurityIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CCC172F0C1300C87C58 /* SecurityIcon.png */; };
-		69428CCF172F0C1300C87C58 /* SecurityIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CCC172F0C1300C87C58 /* SecurityIcon.png */; };
 		69428CD0172F0C1300C87C58 /* SecurityIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CCD172F0C1300C87C58 /* SecurityIcon@2x.png */; };
-		69428CD1172F0C1300C87C58 /* SecurityIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CCD172F0C1300C87C58 /* SecurityIcon@2x.png */; };
 		69428CE2172F284B00C87C58 /* SEBDocumentIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 69428CE1172F284B00C87C58 /* SEBDocumentIcon.icns */; };
-		69428CE3172F284B00C87C58 /* SEBDocumentIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 69428CE1172F284B00C87C58 /* SEBDocumentIcon.icns */; };
 		69428CEC172F2B5700C87C58 /* sebConfigIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CEA172F2B5700C87C58 /* sebConfigIcon.png */; };
-		69428CED172F2B5700C87C58 /* sebConfigIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CEA172F2B5700C87C58 /* sebConfigIcon.png */; };
 		69428CEE172F2B5700C87C58 /* sebConfigIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CEB172F2B5700C87C58 /* sebConfigIcon@2x.png */; };
-		69428CEF172F2B5700C87C58 /* sebConfigIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CEB172F2B5700C87C58 /* sebConfigIcon@2x.png */; };
 		69428CF4172F2E2500C87C58 /* ZoomTextIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CF0172F2E2500C87C58 /* ZoomTextIn.png */; };
-		69428CF5172F2E2500C87C58 /* ZoomTextIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CF0172F2E2500C87C58 /* ZoomTextIn.png */; };
 		69428CF6172F2E2500C87C58 /* ZoomTextIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CF1172F2E2500C87C58 /* ZoomTextIn@2x.png */; };
-		69428CF7172F2E2500C87C58 /* ZoomTextIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CF1172F2E2500C87C58 /* ZoomTextIn@2x.png */; };
 		69428CF8172F2E2500C87C58 /* ZoomTextOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CF2172F2E2500C87C58 /* ZoomTextOut.png */; };
-		69428CF9172F2E2500C87C58 /* ZoomTextOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CF2172F2E2500C87C58 /* ZoomTextOut.png */; };
 		69428CFA172F2E2500C87C58 /* ZoomTextOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CF3172F2E2500C87C58 /* ZoomTextOut@2x.png */; };
-		69428CFB172F2E2500C87C58 /* ZoomTextOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CF3172F2E2500C87C58 /* ZoomTextOut@2x.png */; };
 		6943D0771655054600AB6B1D /* PrefsExamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6943D0751655054600AB6B1D /* PrefsExamViewController.m */; };
-		6943D0791655054600AB6B1D /* PrefsExamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6943D0751655054600AB6B1D /* PrefsExamViewController.m */; };
 		694B08A316B14ABF00E4997C /* SEBCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 694B08A116B14ABF00E4997C /* SEBCryptor.h */; };
 		694B08A416B14ABF00E4997C /* SEBCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 694B08A216B14ABF00E4997C /* SEBCryptor.m */; };
-		694B08A616B14ABF00E4997C /* SEBCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 694B08A216B14ABF00E4997C /* SEBCryptor.m */; };
 		695283DD16CDB54C0055AF6F /* PrefsSecurityViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */; };
 		695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */; };
-		695283E016CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */; };
-		695AE31819FE634300F8C6A5 /* de.xliff in Resources */ = {isa = PBXBuildFile; fileRef = 695AE31319FE634300F8C6A5 /* de.xliff */; };
-		695AE31A19FE634300F8C6A5 /* fr.xliff in Resources */ = {isa = PBXBuildFile; fileRef = 695AE31419FE634300F8C6A5 /* fr.xliff */; };
 		695BE5F419EC3FED00CA2BB4 /* SEBDockItemMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 695BE5F219EC3FED00CA2BB4 /* SEBDockItemMenu.h */; };
 		695BE5F519EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 695BE5F319EC3FED00CA2BB4 /* SEBDockItemMenu.m */; };
-		695BE5F619EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 695BE5F319EC3FED00CA2BB4 /* SEBDockItemMenu.m */; };
 		695C5CAD16CB210E008FC401 /* ExamIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAB16CB210E008FC401 /* ExamIcon.png */; };
-		695C5CAF16CB210E008FC401 /* ExamIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAB16CB210E008FC401 /* ExamIcon.png */; };
 		695C5CB016CB210E008FC401 /* ExamIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAC16CB210E008FC401 /* ExamIcon@2x.png */; };
-		695C5CB216CB210E008FC401 /* ExamIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAC16CB210E008FC401 /* ExamIcon@2x.png */; };
 		69623A2C1A26180E00ED451C /* WebStorageManagerPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 69623A2B1A26180E00ED451C /* WebStorageManagerPrivate.h */; };
 		69623A2E1A26184900ED451C /* WebPreferencesPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 69623A2D1A26184900ED451C /* WebPreferencesPrivate.h */; };
 		69627F901A1A46D000E9F2A8 /* NSURL+SEBURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 69627F8E1A1A46CF00E9F2A8 /* NSURL+SEBURL.h */; };
 		69627F911A1A46D000E9F2A8 /* NSURL+SEBURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 69627F8F1A1A46D000E9F2A8 /* NSURL+SEBURL.m */; };
-		69627F921A1A46D000E9F2A8 /* NSURL+SEBURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 69627F8F1A1A46D000E9F2A8 /* NSURL+SEBURL.m */; };
 		696A3AE419F6FBC500274214 /* PreferencesConfigFile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AE719F6FBC500274214 /* PreferencesConfigFile.xib */; };
-		696A3AE519F6FBC500274214 /* PreferencesConfigFile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AE719F6FBC500274214 /* PreferencesConfigFile.xib */; };
 		696A3AE819F6FBCD00274214 /* PreferencesAppearance.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AEB19F6FBCD00274214 /* PreferencesAppearance.xib */; };
-		696A3AE919F6FBCD00274214 /* PreferencesAppearance.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AEB19F6FBCD00274214 /* PreferencesAppearance.xib */; };
 		696A3AEC19F6FBEA00274214 /* PreferencesExam.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AEF19F6FBEA00274214 /* PreferencesExam.xib */; };
-		696A3AED19F6FBEA00274214 /* PreferencesExam.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AEF19F6FBEA00274214 /* PreferencesExam.xib */; };
 		696A3AF019F6FBF600274214 /* PreferencesApplications.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AF319F6FBF600274214 /* PreferencesApplications.xib */; };
-		696A3AF119F6FBF600274214 /* PreferencesApplications.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AF319F6FBF600274214 /* PreferencesApplications.xib */; };
 		696A3AF419F6FC3F00274214 /* PreferencesResources.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AF719F6FC3F00274214 /* PreferencesResources.xib */; };
-		696A3AF519F6FC3F00274214 /* PreferencesResources.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AF719F6FC3F00274214 /* PreferencesResources.xib */; };
 		696A3AF819F6FC4C00274214 /* PreferencesNetwork.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AFB19F6FC4C00274214 /* PreferencesNetwork.xib */; };
-		696A3AF919F6FC4C00274214 /* PreferencesNetwork.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AFB19F6FC4C00274214 /* PreferencesNetwork.xib */; };
 		696A3AFC19F6FC5600274214 /* PreferencesSecurity.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AFF19F6FC5600274214 /* PreferencesSecurity.xib */; };
-		696A3AFD19F6FC5600274214 /* PreferencesSecurity.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AFF19F6FC5600274214 /* PreferencesSecurity.xib */; };
 		696EB10216CAAFF600707B0F /* ApplicationsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 696EB10016CAAFF600707B0F /* ApplicationsIcon.png */; };
-		696EB10416CAAFF600707B0F /* ApplicationsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 696EB10016CAAFF600707B0F /* ApplicationsIcon.png */; };
 		696EB10516CAAFF600707B0F /* ApplicationsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */; };
-		696EB10716CAAFF600707B0F /* ApplicationsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */; };
 		696F28E815751ED600780DA8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696F28E715751ED600780DA8 /* Security.framework */; };
-		696F28EA15751F1900780DA8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696F28E715751ED600780DA8 /* Security.framework */; };
 		6986652E16DAE184009C0226 /* SEBWindowSizeValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */; };
 		6986652F16DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */; };
-		6986653116DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */; };
-		69903AF414CD7624007E7DF7 /* LICENCE in Resources */ = {isa = PBXBuildFile; fileRef = 69A9A22E1369AF9600840AE1 /* LICENCE */; };
-		69903AF514CD7624007E7DF7 /* PreferencesGeneral.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FC9057136C9A00009B55CB /* PreferencesGeneral.xib */; };
-		69903AF614CD7624007E7DF7 /* PreferencesDownUploads.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FC905C136CA80F009B55CB /* PreferencesDownUploads.xib */; };
-		69903AF714CD7624007E7DF7 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
-		69903AF814CD7624007E7DF7 /* SEBicon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 6932C9671191B7FE00688EBB /* SEBicon.icns */; };
-		69903AFD14CD7624007E7DF7 /* BrowserIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 690D234A1452000800CCCFF9 /* BrowserIcon.png */; };
-		69903AFE14CD7624007E7DF7 /* BrowserIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 690D234B1452000800CCCFF9 /* BrowserIcon@2x.png */; };
-		69903AFF14CD7624007E7DF7 /* PreferencesBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69BE8662145872C900E87C22 /* PreferencesBrowser.xib */; };
-		69903B0114CD7624007E7DF7 /* PrefsGeneralViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A9A233136AF6E000840AE1 /* PrefsGeneralViewController.m */; };
-		69903B0214CD7624007E7DF7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
-		69903B0314CD7624007E7DF7 /* SEBController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D588201189EB8F005AE3F1 /* SEBController.m */; };
-		69903B0414CD7624007E7DF7 /* CapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DD2FD01201C416009B1005 /* CapView.m */; };
-		69903B0514CD7624007E7DF7 /* AboutWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6969B1D2127C7AB60027FF8D /* AboutWindow.m */; };
-		69903B0614CD7624007E7DF7 /* AboutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E13AEF127C812900CB81E1 /* AboutView.m */; };
-		69903B0714CD7624007E7DF7 /* SEBBrowserWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 692891B112ACEBDC00EEE7C9 /* SEBBrowserWindow.m */; };
-		69903B0814CD7624007E7DF7 /* MBPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A9A22B1368784500840AE1 /* MBPreferencesController.m */; };
-		69903B0914CD7624007E7DF7 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C52802136AFDBD00F9F000 /* PreferencesController.m */; };
-		69903B0A14CD7624007E7DF7 /* PrefsDownUploadsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C52805136AFE9500F9F000 /* PrefsDownUploadsViewController.m */; };
-		69903B0B14CD7624007E7DF7 /* SEBBrowserWindowDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F684CB143653880091CDA7 /* SEBBrowserWindowDocument.m */; };
-		69903B0D14CD7624007E7DF7 /* MyGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 6991A79114471F8C00F9149D /* MyGlobals.m */; };
-		69903B0F14CD7624007E7DF7 /* PrefsBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690D23471451EF2400CCCFF9 /* PrefsBrowserViewController.m */; };
-		69903B1014CD7624007E7DF7 /* SEBEncryptedUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 691CD9AB1468947E00B43CDC /* SEBEncryptedUserDefaultsController.m */; };
-		69903B1114CD7624007E7DF7 /* WebKit+WebKitExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6946373F1498FEF000C896D0 /* WebKit+WebKitExtensions.m */; };
-		69903B1214CD7624007E7DF7 /* SEBBrowserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693D5A1614C59B4300E37C68 /* SEBBrowserWindowController.m */; };
-		69903B1314CD7624007E7DF7 /* NSWindow+SEBWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D5983314C81FEA005FE98C /* NSWindow+SEBWindow.m */; };
-		69903B1414CD7624007E7DF7 /* MethodSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D5983714C823AE005FE98C /* MethodSwizzling.m */; };
-		69903B1614CD7624007E7DF7 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6962F88D13A8C21B007C16F0 /* WebKit.framework */; };
-		69903B1714CD7624007E7DF7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		69903B1814CD7624007E7DF7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A94D711B68D8A0083C66D /* Carbon.framework */; };
-		69903B1914CD7624007E7DF7 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6947949C12B050AA00651933 /* IOKit.framework */; };
 		6992499216C3B18B00DF6B53 /* PrefsConfigFileViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992499016C3B18B00DF6B53 /* PrefsConfigFileViewController.h */; };
 		6992499316C3B18B00DF6B53 /* PrefsConfigFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992499116C3B18B00DF6B53 /* PrefsConfigFileViewController.m */; };
-		6992499516C3B18B00DF6B53 /* PrefsConfigFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992499116C3B18B00DF6B53 /* PrefsConfigFileViewController.m */; };
 		6992499C16C5B62000DF6B53 /* PrefsApplicationsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992499A16C5B62000DF6B53 /* PrefsApplicationsViewController.h */; };
 		6992499D16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992499B16C5B62000DF6B53 /* PrefsApplicationsViewController.m */; };
-		6992499F16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992499B16C5B62000DF6B53 /* PrefsApplicationsViewController.m */; };
 		699282E319D0430A00270E86 /* CapWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 699282E119D0430A00270E86 /* CapWindowController.h */; };
 		699282E419D0430A00270E86 /* CapWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699282E219D0430A00270E86 /* CapWindowController.m */; };
-		699282E519D0430A00270E86 /* CapWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699282E219D0430A00270E86 /* CapWindowController.m */; };
 		699731C418C8D6ED0069FE35 /* CapWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 699731C218C8D6ED0069FE35 /* CapWindow.h */; };
 		699731C518C8D6ED0069FE35 /* CapWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 699731C318C8D6ED0069FE35 /* CapWindow.m */; };
-		699731C618C8D6ED0069FE35 /* CapWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 699731C318C8D6ED0069FE35 /* CapWindow.m */; };
 		699C540415EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */ = {isa = PBXBuildFile; fileRef = 699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */; };
-		699C540615EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */ = {isa = PBXBuildFile; fileRef = 699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */; };
 		699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */; };
-		699C540A15EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */; };
 		69B2EB871A435E2000B5AE67 /* AboutSEB.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2EB851A435E2000B5AE67 /* AboutSEB.png */; };
 		69B2EB881A435E2000B5AE67 /* AboutSEB@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2EB861A435E2000B5AE67 /* AboutSEB@2x.png */; };
 		69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CBEB541834C55C00FB0460 /* SEBSystemManager.h */; };
 		69CBEB571834C55D00FB0460 /* SEBSystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBEB551834C55C00FB0460 /* SEBSystemManager.m */; };
-		69CBEB581834C55D00FB0460 /* SEBSystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBEB551834C55C00FB0460 /* SEBSystemManager.m */; };
 		69CE1C171741309C0072207D /* SEBFilterTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CE1C151741309C0072207D /* SEBFilterTreeController.h */; };
 		69CE1C181741309C0072207D /* SEBFilterTreeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE1C161741309C0072207D /* SEBFilterTreeController.m */; };
-		69CE1C191741309C0072207D /* SEBFilterTreeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE1C161741309C0072207D /* SEBFilterTreeController.m */; };
 		69CE9C5D17326AB90011609B /* SEBConfigFileManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CE9C5B17326AB90011609B /* SEBConfigFileManager.h */; };
 		69CE9C5E17326AB90011609B /* SEBConfigFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE9C5C17326AB90011609B /* SEBConfigFileManager.m */; };
-		69CE9C5F17326AB90011609B /* SEBConfigFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE9C5C17326AB90011609B /* SEBConfigFileManager.m */; };
 		69CE9C6317378B9A0011609B /* SEBTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CE9C6117378B9A0011609B /* SEBTextField.h */; };
 		69CE9C6417378B9A0011609B /* SEBTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE9C6217378B9A0011609B /* SEBTextField.m */; };
-		69CE9C6517378B9A0011609B /* SEBTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE9C6217378B9A0011609B /* SEBTextField.m */; };
 		69D817E518017DDB00EB7885 /* SEBURLFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D817E318017DDB00EB7885 /* SEBURLFilter.h */; };
 		69D817E618017DDB00EB7885 /* SEBURLFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D817E418017DDB00EB7885 /* SEBURLFilter.m */; };
-		69D817E718017DDB00EB7885 /* SEBURLFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D817E418017DDB00EB7885 /* SEBURLFilter.m */; };
 		69DD929E1A463435004072E5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69DD92A01A463435004072E5 /* InfoPlist.strings */; };
 		69DE764717FC2A9300EE5958 /* PrefsResourcesViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69DE764517FC2A9300EE5958 /* PrefsResourcesViewController.h */; };
 		69DE764817FC2A9300EE5958 /* PrefsResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DE764617FC2A9300EE5958 /* PrefsResourcesViewController.m */; };
-		69DE764917FC2A9300EE5958 /* PrefsResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DE764617FC2A9300EE5958 /* PrefsResourcesViewController.m */; };
 		69DFAF2D19C468E700CBE69F /* RNCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2319C468E700CBE69F /* RNCryptor.h */; };
 		69DFAF2E19C468E700CBE69F /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2419C468E700CBE69F /* RNCryptor.m */; };
-		69DFAF2F19C468E700CBE69F /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2419C468E700CBE69F /* RNCryptor.m */; };
 		69DFAF3019C468E700CBE69F /* RNDecryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2519C468E700CBE69F /* RNDecryptor.h */; };
 		69DFAF3119C468E700CBE69F /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2619C468E700CBE69F /* RNDecryptor.m */; };
-		69DFAF3219C468E700CBE69F /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2619C468E700CBE69F /* RNDecryptor.m */; };
 		69DFAF3319C468E700CBE69F /* RNEncryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2719C468E700CBE69F /* RNEncryptor.h */; };
 		69DFAF3419C468E700CBE69F /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2819C468E700CBE69F /* RNEncryptor.m */; };
-		69DFAF3519C468E700CBE69F /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2819C468E700CBE69F /* RNEncryptor.m */; };
 		69DFAF3619C468E700CBE69F /* RNCryptorEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2919C468E700CBE69F /* RNCryptorEngine.h */; };
 		69DFAF3719C468E700CBE69F /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2A19C468E700CBE69F /* RNCryptorEngine.m */; };
-		69DFAF3819C468E700CBE69F /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2A19C468E700CBE69F /* RNCryptorEngine.m */; };
 		69DFAF3919C468E700CBE69F /* RNCryptor+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2B19C468E700CBE69F /* RNCryptor+Private.h */; };
 		69DFAF3A19C468E700CBE69F /* RNCryptor OS X-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2C19C468E700CBE69F /* RNCryptor OS X-Prefix.pch */; };
 		69EA170319FA77A0001E0C51 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69EA170119FA77A0001E0C51 /* Localizable.strings */; };
-		69EA170419FA77A0001E0C51 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69EA170119FA77A0001E0C51 /* Localizable.strings */; };
 		69EC631319D60D16002DAD22 /* SEBShutDownIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 69EC631219D60D16002DAD22 /* SEBShutDownIcon.icns */; };
-		69EC631419D60D16002DAD22 /* SEBShutDownIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 69EC631219D60D16002DAD22 /* SEBShutDownIcon.icns */; };
 		69EFA36A16CB121200E967B4 /* DownUploadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EFA36816CB121200E967B4 /* DownUploadIcon.png */; };
-		69EFA36C16CB121200E967B4 /* DownUploadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EFA36816CB121200E967B4 /* DownUploadIcon.png */; };
 		69EFA36D16CB121200E967B4 /* DownUploadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EFA36916CB121200E967B4 /* DownUploadIcon@2x.png */; };
-		69EFA36F16CB121200E967B4 /* DownUploadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EFA36916CB121200E967B4 /* DownUploadIcon@2x.png */; };
 		69F293AE164A324B00875C00 /* SEBKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F293AD164A324B00875C00 /* SEBKeychainManager.m */; };
-		69F293B0164A324B00875C00 /* SEBKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F293AD164A324B00875C00 /* SEBKeychainManager.m */; };
 		69F32DBE16D232C0003C9502 /* Appearance.icns in Resources */ = {isa = PBXBuildFile; fileRef = 69F32DBD16D232C0003C9502 /* Appearance.icns */; };
-		69F32DC016D232C0003C9502 /* Appearance.icns in Resources */ = {isa = PBXBuildFile; fileRef = 69F32DBD16D232C0003C9502 /* Appearance.icns */; };
 		69F32DC316D23374003C9502 /* PrefsAppearanceViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F32DC116D23374003C9502 /* PrefsAppearanceViewController.h */; };
 		69F32DC416D23374003C9502 /* PrefsAppearanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F32DC216D23374003C9502 /* PrefsAppearanceViewController.m */; };
-		69F32DC616D23374003C9502 /* PrefsAppearanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F32DC216D23374003C9502 /* PrefsAppearanceViewController.m */; };
 		69F45D3E1A2123C3009CF3AA /* SEBURLFilterExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F45D3C1A2123C3009CF3AA /* SEBURLFilterExpression.h */; };
 		69F45D3F1A2123C3009CF3AA /* SEBURLFilterExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F45D3D1A2123C3009CF3AA /* SEBURLFilterExpression.m */; };
-		69F45D401A2123C3009CF3AA /* SEBURLFilterExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F45D3D1A2123C3009CF3AA /* SEBURLFilterExpression.m */; };
 		69F60FAE19AB7A7E00A5F650 /* MenuTriangleDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F60FAC19AB7A7E00A5F650 /* MenuTriangleDown.png */; };
-		69F60FAF19AB7A7E00A5F650 /* MenuTriangleDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F60FAC19AB7A7E00A5F650 /* MenuTriangleDown.png */; };
 		69F60FB019AB7A7E00A5F650 /* MenuTriangleDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F60FAD19AB7A7E00A5F650 /* MenuTriangleDown@2x.png */; };
-		69F60FB119AB7A7E00A5F650 /* MenuTriangleDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F60FAD19AB7A7E00A5F650 /* MenuTriangleDown@2x.png */; };
 		69F7B5FC14F411FB00FD0761 /* LICENCE in Resources */ = {isa = PBXBuildFile; fileRef = 69A9A22E1369AF9600840AE1 /* LICENCE */; };
 		69F7B5FD14F411FB00FD0761 /* PreferencesGeneral.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FC9057136C9A00009B55CB /* PreferencesGeneral.xib */; };
 		69F7B5FE14F411FB00FD0761 /* PreferencesDownUploads.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FC905C136CA80F009B55CB /* PreferencesDownUploads.xib */; };
@@ -283,22 +182,11 @@
 		69F7B62014F411FB00FD0761 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6947949C12B050AA00651933 /* IOKit.framework */; };
 		69F9110016CA5C720041EA38 /* PrefsNetworkViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F910FE16CA5C720041EA38 /* PrefsNetworkViewController.h */; };
 		69F9110116CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F910FF16CA5C720041EA38 /* PrefsNetworkViewController.m */; };
-		69F9110316CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F910FF16CA5C720041EA38 /* PrefsNetworkViewController.m */; };
 		69FF14AC1A1BB10300912933 /* SEBFilterArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69FF14AA1A1BB10300912933 /* SEBFilterArrayController.h */; };
 		69FF14AD1A1BB10300912933 /* SEBFilterArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF14AB1A1BB10300912933 /* SEBFilterArrayController.m */; };
-		69FF14AE1A1BB10300912933 /* SEBFilterArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF14AB1A1BB10300912933 /* SEBFilterArrayController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		69903B1A14CD7624007E7DF7 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		69F7B62114F411FB00FD0761 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -322,6 +210,7 @@
 		6901331919B371CB0050574D /* PreferencesWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesWindow.h; path = Classes/Preferences/PreferencesWindow/PreferencesWindow.h; sourceTree = "<group>"; };
 		6901331A19B371CB0050574D /* PreferencesWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreferencesWindow.m; path = Classes/Preferences/PreferencesWindow/PreferencesWindow.m; sourceTree = "<group>"; };
 		6905C5AA1961B4E5000008EC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		6905FFB41A46B8D900CFD36C /* SafeExamBrowser-2.0.dmg */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SafeExamBrowser-2.0.dmg"; sourceTree = "<group>"; };
 		6906F3C01A3FA5EE0011CF93 /* NSURL+KKDomain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+KKDomain.h"; sourceTree = "<group>"; };
 		6906F3C11A3FA5EE0011CF93 /* NSURL+KKDomain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+KKDomain.m"; sourceTree = "<group>"; };
 		6906F3C41A3FA60C0011CF93 /* NSString+KKDomain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+KKDomain.h"; sourceTree = "<group>"; };
@@ -384,7 +273,6 @@
 		692891B112ACEBDC00EEE7C9 /* SEBBrowserWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SEBBrowserWindow.m; path = Classes/BrowserComponents/SEBBrowserWindow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		692F53D614AD03F300011C84 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		6932C9671191B7FE00688EBB /* SEBicon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = SEBicon.icns; path = Resources/Icons/SEBicon.icns; sourceTree = "<group>"; };
-		693570AB1A30E914005DCABF /* SafeExamBrowser-2.0RCpre.dmg */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SafeExamBrowser-2.0RCpre.dmg"; sourceTree = "<group>"; };
 		693647F817122A0300EE41BC /* DropDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropDownButton.h; sourceTree = "<group>"; };
 		693647F917122A0300EE41BC /* DropDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropDownButton.m; sourceTree = "<group>"; };
 		693A94D711B68D8A0083C66D /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
@@ -434,7 +322,6 @@
 		696F28E715751ED600780DA8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBWindowSizeValueTransformer.h; sourceTree = "<group>"; };
 		6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBWindowSizeValueTransformer.m; sourceTree = "<group>"; };
-		69903B1E14CD7624007E7DF7 /* Safe Exam Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Safe Exam Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6991A78F14471F5A00F9149D /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		6991A79014471F8C00F9149D /* MyGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGlobals.h; sourceTree = "<group>"; };
 		6991A79114471F8C00F9149D /* MyGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGlobals.m; sourceTree = "<group>"; };
@@ -537,18 +424,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		69903B1514CD7624007E7DF7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				69903B1614CD7624007E7DF7 /* WebKit.framework in Frameworks */,
-				69903B1714CD7624007E7DF7 /* Cocoa.framework in Frameworks */,
-				69903B1814CD7624007E7DF7 /* Carbon.framework in Frameworks */,
-				69903B1914CD7624007E7DF7 /* IOKit.framework in Frameworks */,
-				696F28EA15751F1900780DA8 /* Security.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		69F7B61C14F411FB00FD0761 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -609,7 +484,6 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				69903B1E14CD7624007E7DF7 /* Safe Exam Browser.app */,
 				69F7B62514F411FB00FD0761 /* Safe Exam Browser.app */,
 			);
 			name = Products;
@@ -624,8 +498,8 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				6909E31F1A019F7A0086A741 /* CocoaLumberjack */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
-				693570AB1A30E914005DCABF /* SafeExamBrowser-2.0RCpre.dmg */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				6905FFB41A46B8D900CFD36C /* SafeExamBrowser-2.0.dmg */,
 			);
 			name = SEB;
 			sourceTree = "<group>";
@@ -1077,25 +951,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		69903AF214CD7624007E7DF7 /* Safe Exam Browser AppStore */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 69903B1B14CD7624007E7DF7 /* Build configuration list for PBXNativeTarget "Safe Exam Browser AppStore" */;
-			buildPhases = (
-				69903AF314CD7624007E7DF7 /* Resources */,
-				69903B0014CD7624007E7DF7 /* Sources */,
-				69903B1514CD7624007E7DF7 /* Frameworks */,
-				69903B1A14CD7624007E7DF7 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Safe Exam Browser AppStore";
-			productInstallPath = "$(HOME)/Applications";
-			productName = SEB;
-			productReference = 69903B1E14CD7624007E7DF7 /* Safe Exam Browser.app */;
-			productType = "com.apple.product-type.application";
-		};
 		69F7B5FA14F411FB00FD0761 /* Safe Exam Browser */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69F7B62214F411FB00FD0761 /* Build configuration list for PBXNativeTarget "Safe Exam Browser" */;
@@ -1143,58 +998,11 @@
 			projectRoot = "";
 			targets = (
 				69F7B5FA14F411FB00FD0761 /* Safe Exam Browser */,
-				69903AF214CD7624007E7DF7 /* Safe Exam Browser AppStore */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		69903AF314CD7624007E7DF7 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				69903AF414CD7624007E7DF7 /* LICENCE in Resources */,
-				69903AF514CD7624007E7DF7 /* PreferencesGeneral.xib in Resources */,
-				69903AF614CD7624007E7DF7 /* PreferencesDownUploads.xib in Resources */,
-				69903AF714CD7624007E7DF7 /* MainMenu.xib in Resources */,
-				69EA170419FA77A0001E0C51 /* Localizable.strings in Resources */,
-				69903AF814CD7624007E7DF7 /* SEBicon.icns in Resources */,
-				6929228B19FD9F1B00B57347 /* SEBBrowserWindow.xib in Resources */,
-				69903AFD14CD7624007E7DF7 /* BrowserIcon.png in Resources */,
-				69903AFE14CD7624007E7DF7 /* BrowserIcon@2x.png in Resources */,
-				69903AFF14CD7624007E7DF7 /* PreferencesBrowser.xib in Resources */,
-				699C540615EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */,
-				69F60FAF19AB7A7E00A5F650 /* MenuTriangleDown.png in Resources */,
-				696A3AED19F6FBEA00274214 /* PreferencesExam.xib in Resources */,
-				696A3AE519F6FBC500274214 /* PreferencesConfigFile.xib in Resources */,
-				696A3AF119F6FBF600274214 /* PreferencesApplications.xib in Resources */,
-				695AE31819FE634300F8C6A5 /* de.xliff in Resources */,
-				696A3AF919F6FC4C00274214 /* PreferencesNetwork.xib in Resources */,
-				696EB10416CAAFF600707B0F /* ApplicationsIcon.png in Resources */,
-				696EB10716CAAFF600707B0F /* ApplicationsIcon@2x.png in Resources */,
-				69EFA36C16CB121200E967B4 /* DownUploadIcon.png in Resources */,
-				69EFA36F16CB121200E967B4 /* DownUploadIcon@2x.png in Resources */,
-				695C5CAF16CB210E008FC401 /* ExamIcon.png in Resources */,
-				695AE31A19FE634300F8C6A5 /* fr.xliff in Resources */,
-				695C5CB216CB210E008FC401 /* ExamIcon@2x.png in Resources */,
-				696A3AFD19F6FC5600274214 /* PreferencesSecurity.xib in Resources */,
-				69F32DC016D232C0003C9502 /* Appearance.icns in Resources */,
-				696A3AE919F6FBCD00274214 /* PreferencesAppearance.xib in Resources */,
-				69EC631419D60D16002DAD22 /* SEBShutDownIcon.icns in Resources */,
-				696A3AF519F6FC3F00274214 /* PreferencesResources.xib in Resources */,
-				69428CCF172F0C1300C87C58 /* SecurityIcon.png in Resources */,
-				69F60FB119AB7A7E00A5F650 /* MenuTriangleDown@2x.png in Resources */,
-				69428CD1172F0C1300C87C58 /* SecurityIcon@2x.png in Resources */,
-				69428CE3172F284B00C87C58 /* SEBDocumentIcon.icns in Resources */,
-				69428CED172F2B5700C87C58 /* sebConfigIcon.png in Resources */,
-				69428CEF172F2B5700C87C58 /* sebConfigIcon@2x.png in Resources */,
-				69428CF5172F2E2500C87C58 /* ZoomTextIn.png in Resources */,
-				69428CF7172F2E2500C87C58 /* ZoomTextIn@2x.png in Resources */,
-				69428CF9172F2E2500C87C58 /* ZoomTextOut.png in Resources */,
-				69428CFB172F2E2500C87C58 /* ZoomTextOut@2x.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		69F7B5FB14F411FB00FD0761 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1263,72 +1071,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		69903B0014CD7624007E7DF7 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				69FF14AE1A1BB10300912933 /* SEBFilterArrayController.m in Sources */,
-				69DFAF3819C468E700CBE69F /* RNCryptorEngine.m in Sources */,
-				69903B0114CD7624007E7DF7 /* PrefsGeneralViewController.m in Sources */,
-				69903B0214CD7624007E7DF7 /* main.m in Sources */,
-				69903B0314CD7624007E7DF7 /* SEBController.m in Sources */,
-				69903B0414CD7624007E7DF7 /* CapView.m in Sources */,
-				69F45D401A2123C3009CF3AA /* SEBURLFilterExpression.m in Sources */,
-				69903B0514CD7624007E7DF7 /* AboutWindow.m in Sources */,
-				69903B0614CD7624007E7DF7 /* AboutView.m in Sources */,
-				69903B0714CD7624007E7DF7 /* SEBBrowserWindow.m in Sources */,
-				69903B0814CD7624007E7DF7 /* MBPreferencesController.m in Sources */,
-				69903B0914CD7624007E7DF7 /* PreferencesController.m in Sources */,
-				69903B0A14CD7624007E7DF7 /* PrefsDownUploadsViewController.m in Sources */,
-				69CBEB581834C55D00FB0460 /* SEBSystemManager.m in Sources */,
-				699282E519D0430A00270E86 /* CapWindowController.m in Sources */,
-				69903B0B14CD7624007E7DF7 /* SEBBrowserWindowDocument.m in Sources */,
-				69903B0D14CD7624007E7DF7 /* MyGlobals.m in Sources */,
-				690BBEB819D30DF800F7C9C6 /* SEBDockView.m in Sources */,
-				69903B0F14CD7624007E7DF7 /* PrefsBrowserViewController.m in Sources */,
-				69903B1014CD7624007E7DF7 /* SEBEncryptedUserDefaultsController.m in Sources */,
-				690C6EE819E29E3600EDE103 /* SEBBrowserController.m in Sources */,
-				699731C618C8D6ED0069FE35 /* CapWindow.m in Sources */,
-				69903B1114CD7624007E7DF7 /* WebKit+WebKitExtensions.m in Sources */,
-				69627F921A1A46D000E9F2A8 /* NSURL+SEBURL.m in Sources */,
-				69903B1214CD7624007E7DF7 /* SEBBrowserWindowController.m in Sources */,
-				69903B1314CD7624007E7DF7 /* NSWindow+SEBWindow.m in Sources */,
-				69903B1414CD7624007E7DF7 /* MethodSwizzling.m in Sources */,
-				690BBEB319D2C6E500F7C9C6 /* SEBDockItemButton.m in Sources */,
-				69009BE219EA7F590083274C /* SEBBrowserOpenWindowWebView.m in Sources */,
-				6915F2EB19C8F77600DAEA37 /* SEBDockWindow.m in Sources */,
-				6940A7631853B2AD00D9D00D /* NSData+NSDataZIPExtension.m in Sources */,
-				693F135515767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
-				693EB54015EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */,
-				699C540A15EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */,
-				6943D0791655054600AB6B1D /* PrefsExamViewController.m in Sources */,
-				69F293B0164A324B00875C00 /* SEBKeychainManager.m in Sources */,
-				694B08A616B14ABF00E4997C /* SEBCryptor.m in Sources */,
-				690B5B6419DBEAA400704F36 /* SEBDockItem.m in Sources */,
-				6992499516C3B18B00DF6B53 /* PrefsConfigFileViewController.m in Sources */,
-				6992499F16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */,
-				69DFAF2F19C468E700CBE69F /* RNCryptor.m in Sources */,
-				69DFAF3519C468E700CBE69F /* RNEncryptor.m in Sources */,
-				69F9110316CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */,
-				695283E016CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */,
-				69F32DC616D23374003C9502 /* PrefsAppearanceViewController.m in Sources */,
-				6986653116DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */,
-				69DFAF3219C468E700CBE69F /* RNDecryptor.m in Sources */,
-				6921294416F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */,
-				6921294916F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */,
-				69D817E718017DDB00EB7885 /* SEBURLFilter.m in Sources */,
-				695BE5F619EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */,
-				693647FC17122A0300EE41BC /* DropDownButton.m in Sources */,
-				69CE9C5F17326AB90011609B /* SEBConfigFileManager.m in Sources */,
-				690BBEAE19D2C6A000F7C9C6 /* SEBDockController.m in Sources */,
-				69CE9C6517378B9A0011609B /* SEBTextField.m in Sources */,
-				69CE1C191741309C0072207D /* SEBFilterTreeController.m in Sources */,
-				69DE764917FC2A9300EE5958 /* PrefsResourcesViewController.m in Sources */,
-				6901331D19B371CB0050574D /* PreferencesWindow.m in Sources */,
-				6917744C1A2776FB0039CC39 /* SEBURLFilterRegexExpression.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		69F7B60814F411FB00FD0761 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1539,75 +1281,13 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		69903B1C14CD7624007E7DF7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)\"",
-				);
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = SEB_Prefix.pch;
-				INFOPLIST_FILE = "Base.lproj/SafeExamBrowser-Info.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)\"",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "Safe Exam Browser";
-				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
-				SYMROOT = ../build;
-				VALID_ARCHS = "x86_64 i386";
-			};
-			name = Debug;
-		};
-		69903B1D14CD7624007E7DF7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)\"",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = SEB_Prefix.pch;
-				INFOPLIST_FILE = "Base.lproj/SafeExamBrowser-Info.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)\"",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = "Safe Exam Browser";
-				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
-				SYMROOT = ../build;
-				VALID_ARCHS = "x86_64 i386";
-			};
-			name = Release;
-		};
 		69F7B62314F411FB00FD0761 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = "";
@@ -1644,8 +1324,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = "";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1679,7 +1359,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application: Daniel Schneider";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CURRENT_PROJECT_VERSION = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1691,7 +1371,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "Safe Exam Browser";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "33344a09-4f23-4443-b744-72e1e9e25cb7";
 				SDKROOT = macosx;
 				SYMROOT = ../build;
 				VALID_ARCHS = x86_64;
@@ -1702,7 +1382,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application: Daniel Schneider";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CURRENT_PROJECT_VERSION = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1711,7 +1391,7 @@
 				INSTALL_PATH = /Installer;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "Safe Exam Browser";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "33344a09-4f23-4443-b744-72e1e9e25cb7";
 				SDKROOT = macosx;
 				SYMROOT = ../build;
 				VALID_ARCHS = x86_64;
@@ -1721,15 +1401,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		69903B1B14CD7624007E7DF7 /* Build configuration list for PBXNativeTarget "Safe Exam Browser AppStore" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				69903B1C14CD7624007E7DF7 /* Debug */,
-				69903B1D14CD7624007E7DF7 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		69F7B62214F411FB00FD0761 /* Build configuration list for PBXNativeTarget "Safe Exam Browser" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

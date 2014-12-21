@@ -2628,9 +2628,9 @@
                 <note>Class = "NSButtonCell"; title = "www.host.com"; ObjectID = "H5P-Ew-Qp9";</note>
             </trans-unit>
             <trans-unit id="KId-E2-Y59.ibShadowedToolTip">
-                <source>Dismiss all not unknown URLs/resources of the current HTTP request. Reloading a page shows dismissed URLs again</source>
+                <source>Dismiss all unknown URLs/resources of the current HTTP request. Reloading a page shows dismissed URLs again</source>
                 <target>Alle unbekannten URLs/Ressourcen des aktullen HTTP-Requests verwerfen. Neu laden einer Seite zeigt verworfene URLs wieder an</target>
-                <note>Class = "NSButton"; ibShadowedToolTip = "Dismiss all not unknown URLs/resources of the current HTTP request. Reloading a page shows dismissed URLs again"; ObjectID = "KId-E2-Y59";</note>
+                <note>Class = "NSButton"; ibShadowedToolTip = "Dismiss all unknown URLs/resources of the current HTTP request. Reloading a page shows dismissed URLs again"; ObjectID = "KId-E2-Y59";</note>
             </trans-unit>
             <trans-unit id="KUW-Xw-ucJ.ibShadowedToolTip">
                 <source>Click to copy the host/directory part of the current URL into the custom filter expression text field</source>

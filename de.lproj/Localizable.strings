@@ -167,7 +167,7 @@
 "Important Notice for First Time Users" = "Wichtiger Hinweis für neue Benutzer";
 
 /* No comment provided by engineer. */
-"Important parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board." = "Dieses Projekt wurde teilweise im Rahmen der von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.";
+"Important parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board." = "Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.";
 
 /* No comment provided by engineer. */
 "Info" = "Info";
@@ -284,13 +284,13 @@
 "Right" = "Rechts";
 
 /* No comment provided by engineer. */
-"SEB Not in %@ Folder!" = "SEB nicht im %@ Verzeichnis!";
+"SEB Not in %@ Folder!" = "SEB nicht im Verzeichnis %@!";
 
 /* No comment provided by engineer. */
 "SEB Re-Configured" = "SEB neu konfiguriert";
 
 /* No comment provided by engineer. */
-"SEB has to be placed in the %@ folder for all features working correctly. Move the 'Safe Exam Browser' app to your %@ folder and make sure that you don't have any other versions of SEB installed on your system. SEB will quit now." = "SEB muss im %1$@ Verzeichnis installiert werden. Bewegen Sie die 'Safe Exam Browser' App in Ihr %2$@ Verzeichnis und stellen Sie sicher, dass Sie keine anderen Versionen von SEB auf ihrem System installiert haben. SEB wird jetzt beendet.";
+"SEB has to be placed in the %@ folder for all features working correctly. Move the 'Safe Exam Browser' app to your %@ folder and make sure that you don't have any other versions of SEB installed on your system. SEB will quit now." = "SEB muss im Verzeichnis %1$@ installiert werden. Bewegen Sie die 'Safe Exam Browser' App in Ihr Verzeichnis %2$@ und stellen Sie sicher, dass Sie keine anderen Versionen von SEB auf ihrem System installiert haben. SEB wird jetzt beendet.";
 
 /* No comment provided by engineer. */
 "SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam." = "SEB läuft bereits im Prüfungsmodus und es ist nicht erlaubt, diesen durch den Start einer anderen Prüfung zu unterbrechen. Beenden Sie die Prüfung und starten Sie SEB neu.";
