@@ -65,43 +65,51 @@
 // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
 - (void) setCustomWebPreferencesForWebView:(SEBWebView *)webView
 {
-    NSString* dbPath = [WebStorageManager _storageDirectoryPath];
-    
-    WebPreferences* prefs = [webView preferences];
-    NSString* localDBPath = [prefs _localStorageDatabasePath];
-    [prefs setAutosaves:YES];  //SET PREFS AUTOSAVE FIRST otherwise settings aren't saved.
-    [prefs setWebGLEnabled:YES];
-
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_removeLocalStorage"]) {
-        [prefs setLocalStorageEnabled:NO];
+    DDLogDebug(@"Testing if WebStorageManager respondsToSelector:@selector(_storageDirectoryPath)");
+    if ([WebStorageManager respondsToSelector: @selector(_storageDirectoryPath)]) {
+        NSString* dbPath = [WebStorageManager _storageDirectoryPath];
+        WebPreferences* prefs = [webView preferences];
+        if (![prefs respondsToSelector:@selector(_localStorageDatabasePath)]) {
+            DDLogError(@"WebPreferences did not respond to selector _localStorageDatabasePath. Local Storage won't be available!");
+            return;
+        }
+        NSString* localDBPath = [prefs _localStorageDatabasePath];
+        [prefs setAutosaves:YES];  //SET PREFS AUTOSAVE FIRST otherwise settings aren't saved.
+        [prefs setWebGLEnabled:YES];
         
-        [webView setPreferences:prefs];
-    } else {
-        // Check if paths match and if not, create a new local storage database file
-        // (otherwise localstorage file is erased when starting program)
-        // Thanks to Derek Wade!
-        if ([localDBPath isEqualToString:dbPath] == NO) {
-            // Define application cache quota
-            static const unsigned long long defaultTotalQuota = 10 * 1024 * 1024; // 10MB
-            static const unsigned long long defaultOriginQuota = 5 * 1024 * 1024; // 5MB
-            [prefs setApplicationCacheTotalQuota:defaultTotalQuota];
-            [prefs setApplicationCacheDefaultOriginQuota:defaultOriginQuota];
-            
-            [prefs setOfflineWebApplicationCacheEnabled:YES];
-            
-            [prefs setDatabasesEnabled:YES];
-            //        [prefs setDeveloperExtrasEnabled:[[NSUserDefaults standardUserDefaults] boolForKey: @"developer"]];
-#ifdef DEBUG
-            [prefs setDeveloperExtrasEnabled:YES];
-#endif
-            [prefs _setLocalStorageDatabasePath:dbPath];
-            [prefs setLocalStorageEnabled:YES];
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_removeLocalStorage"]) {
+            [prefs setLocalStorageEnabled:NO];
             
             [webView setPreferences:prefs];
         } else {
-            [prefs setLocalStorageEnabled:YES];
+            // Check if paths match and if not, create a new local storage database file
+            // (otherwise localstorage file is erased when starting program)
+            // Thanks to Derek Wade!
+            if ([localDBPath isEqualToString:dbPath] == NO) {
+                // Define application cache quota
+                static const unsigned long long defaultTotalQuota = 10 * 1024 * 1024; // 10MB
+                static const unsigned long long defaultOriginQuota = 5 * 1024 * 1024; // 5MB
+                [prefs setApplicationCacheTotalQuota:defaultTotalQuota];
+                [prefs setApplicationCacheDefaultOriginQuota:defaultOriginQuota];
+                
+                [prefs setOfflineWebApplicationCacheEnabled:YES];
+                
+                [prefs setDatabasesEnabled:YES];
+                //        [prefs setDeveloperExtrasEnabled:[[NSUserDefaults standardUserDefaults] boolForKey: @"developer"]];
+#ifdef DEBUG
+                [prefs setDeveloperExtrasEnabled:YES];
+#endif
+                [prefs _setLocalStorageDatabasePath:dbPath];
+                [prefs setLocalStorageEnabled:YES];
+                
+                [webView setPreferences:prefs];
+            } else {
+                [prefs setLocalStorageEnabled:YES];
+            }
         }
+    } else {
+        DDLogError(@"WebStorageManager did not respond to selector _storageDirectoryPath. Local Storage won't be available!");
     }
 }
 
