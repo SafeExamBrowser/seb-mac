@@ -1181,10 +1181,10 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
                 filename = [parentOuterHTML substringFromIndex:rangeOfDownloadAttribute.location + rangeOfDownloadAttribute.length];
                 filename = [filename substringToIndex:[filename rangeOfString:@"'"].location];
             } else {
-                rangeOfDownloadAttribute = [parentOuterHTML rangeOfString:@" download=\'"];
+                rangeOfDownloadAttribute = [parentOuterHTML rangeOfString:@" download=\""];
                 if (rangeOfDownloadAttribute.location != NSNotFound) {
                     filename = [parentOuterHTML substringFromIndex:rangeOfDownloadAttribute.location + rangeOfDownloadAttribute.length];
-                    filename = [filename substringToIndex:[filename rangeOfString:@"\'"].location];
+                    filename = [filename substringToIndex:[filename rangeOfString:@"\""].location];
                 }
             }
             self.downloadFilename = filename;
