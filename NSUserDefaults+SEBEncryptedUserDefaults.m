@@ -680,10 +680,15 @@ static NSNumber *_logLevel;
     for (NSString *key in sebPreferencesDict) {
         NSString *keyWithPrefix = [self prefixKey:key];
         id value = [sebPreferencesDict objectForKey:key];
+#ifdef DEBUG
+        NSLog(@"%s Value for key %@ is %@", __FUNCTION__, key, value);
+#else
+        DDLogVerbose(@"%s Value for key %@ is %@", __FUNCTION__, key, value);
+#endif
         id defaultValue = [defaultSettings objectForKey:keyWithPrefix];
         Class valueClass = [value superclass];
         Class defaultValueClass = [defaultValue superclass];
-        if (valueClass && defaultValueClass && !([defaultValue isKindOfClass:valueClass] || [value isKindOfClass:defaultValueClass])) {
+        if (!value || (valueClass && defaultValueClass && !([defaultValue isKindOfClass:valueClass] || [value isKindOfClass:defaultValueClass]))) {
             //if (valueClass && defaultValueClass && valueClass != defaultValueClass) {
             //if (!(object_getClass([value class]) == object_getClass([defaultValue class]))) {
             //if (defaultValue && !([value class] == [defaultValue class])) {
@@ -692,7 +697,7 @@ static NSNumber *_logLevel;
             NSRunAlertPanel(NSLocalizedString(@"Reading New Settings Failed!", nil),
                             NSLocalizedString(@"These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted.", nil),
                             NSLocalizedString(@"OK", nil), nil, nil);
-            DDLogError(@"%s Value for key %@ is not having the correct class!", __FUNCTION__, key);
+            DDLogError(@"%s Value for key %@ is NULL or doesn't have the correct class!", __FUNCTION__, key);
             return NO; //we abort reading the new settings here
         }
     }

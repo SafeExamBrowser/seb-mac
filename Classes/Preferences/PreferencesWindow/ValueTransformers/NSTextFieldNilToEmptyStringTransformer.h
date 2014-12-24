@@ -1,8 +1,8 @@
 //
-//  SEBWebView.h
+//  NSTextFieldNilToEmptyStringTransformer.h
 //  SafeExamBrowser
 //
-//  Created by Daniel R. Schneider on 02.12.14.
+//  Created by Daniel R. Schneider on 24.12.14.
 //  Copyright (c) 2010-2014 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
@@ -32,12 +32,8 @@
 //  Contributor(s): ______________________________________.
 //
 
-#import <WebKit/WebKit.h>
+#import <Foundation/Foundation.h>
 
-@interface SEBWebView : WebView
-
-@property (weak, nonatomic) SEBWebView *creatingWebView;
-@property (strong, nonatomic) NSMutableArray *notAllowedURLs;
-@property (readwrite) BOOL dismissAll;
+@interface NSTextFieldNilToEmptyStringTransformer : NSValueTransformer
 
 @end

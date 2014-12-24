@@ -65,6 +65,7 @@
 #import "SEBWindowSizeValueTransformer.h"
 #import "BoolValueTransformer.h"
 #import "IsEmptyCollectionValueTransformer.h"
+#import "NSTextFieldNilToEmptyStringTransformer.h"
 
 io_connect_t  root_port; // a reference to the Root Power Domain IOService
 
@@ -99,7 +100,11 @@ bool insideMatrix();
     IsEmptyCollectionValueTransformer *isEmptyCollectionValueTransformer = [[IsEmptyCollectionValueTransformer alloc] init];
     [NSValueTransformer setValueTransformer:isEmptyCollectionValueTransformer
                                     forName:@"isEmptyCollectionValueTransformer"];
-
+    
+    NSTextFieldNilToEmptyStringTransformer *textFieldNilToEmptyStringTransformer = [[NSTextFieldNilToEmptyStringTransformer alloc] init];
+    [NSValueTransformer setValueTransformer:textFieldNilToEmptyStringTransformer
+                                    forName:@"NSTextFieldNilToEmptyStringTransformer"];
+    
 }
 
 

@@ -352,9 +352,7 @@
                 } else {
                     // No valid prefix and no unencrypted file with valid header
                     // cancel reading .seb file
-                    NSRunAlertPanel(NSLocalizedString(@"Opening New Settings Failed!", nil),
-                                    NSLocalizedString(@"These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted.", nil),
-                                    NSLocalizedString(@"OK", nil), nil, nil);
+                    [self showAlertCorruptedSettingsWithTitle:NSLocalizedString(@"Opening New Settings Failed!", nil) andText:nil];
                     DDLogError(@"%s: No valid prefix and no unencrypted file with valid header", __FUNCTION__);
 
                     return nil;
@@ -747,6 +745,26 @@
 }
 
 
+- (void) showAlertCorruptedSettings {
+    [self showAlertCorruptedSettingsWithTitle:nil andText:nil];
+}
+
+- (void) showAlertCorruptedSettingsWithTitle:(NSString *)title andText:(NSString *)informativeText {
+    if (!title) {
+        title = NSLocalizedString(@"Settings Corrupted", nil);
+    }
+    if (!informativeText) {
+        informativeText = NSLocalizedString(@"These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted.", nil);
+    }
+    NSAlert *newAlert = [[NSAlert alloc] init];
+    [newAlert setMessageText:title];
+    [newAlert setInformativeText:informativeText];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [newAlert setAlertStyle:NSCriticalAlertStyle];
+    [newAlert runModal];
+}
+
+
 #pragma mark Generate Encrypted .seb Settings Data
 
 // Read SEB settings from UserDefaults and encrypt them using provided security credentials
@@ -782,12 +800,7 @@
         // Looks like there is a key with a NULL value
         DDLogError(@"%s: Serialization of the XML plist went wrong! Error: %@", __FUNCTION__, error.description);
         
-        NSAlert *newAlert = [[NSAlert alloc] init];
-        [newAlert setMessageText:NSLocalizedString(@"Settings Corrupted", nil)];
-        [newAlert setInformativeText:NSLocalizedString(@"Current settings are corrupted. Load valid settings or reset to default settings.", nil)];
-        [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-        [newAlert setAlertStyle:NSCriticalAlertStyle];
-        [newAlert runModal];
+        [self showAlertCorruptedSettingsWithTitle:nil andText:nil];
 
         return nil;
     }

@@ -311,10 +311,11 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="228" name="value" keyPath="values.org_safeexambrowser_SEB_startURL" id="389">
+                        <binding destination="228" name="value" keyPath="values.org_safeexambrowser_SEB_startURL" id="RfE-bT-aMJ">
                             <dictionary key="options">
                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                 <bool key="NSValidatesImmediately" value="YES"/>
+                                <string key="NSValueTransformerName">NSTextFieldNilToEmptyStringTransformer</string>
                             </dictionary>
                         </binding>
                     </connections>

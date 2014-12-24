@@ -709,10 +709,11 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_logDirectoryWin" id="9ZQ-Zu-L3i">
+                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_logDirectoryWin" id="iED-GH-8AQ">
                             <dictionary key="options">
                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                 <bool key="NSValidatesImmediately" value="YES"/>
+                                <string key="NSValueTransformerName">NSTextFieldNilToEmptyStringTransformer</string>
                             </dictionary>
                         </binding>
                     </connections>

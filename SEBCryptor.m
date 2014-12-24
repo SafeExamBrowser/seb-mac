@@ -138,7 +138,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
                                         withSettings:kSEBCryptorAES256Settings
                                             password:password
                                                error:error];
-    if (error) {
+    if (*error) {
 #ifdef DEBUG
         DDLogVerbose(@"Encrypt UserDefaults with key %@, error: %@", password, [*error description]);
 #else
@@ -160,7 +160,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSData *decryptedData = [RNDecryptor decryptData:encryptedData withSettings:kSEBCryptorAES256Settings
                                             password:password
                                                error:error];
-    if (error) {
+    if (*error) {
 #ifdef DEBUG
         DDLogVerbose(@"Decrypt UserDefaults with key %@, error: %@", password, [*error description]);
 #else
@@ -311,14 +311,14 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
                                                                       options:0
                                                                         error:&error];
 //    NSData *archivedPrefs = [NSJSONSerialization dataWithJSONObject:prefsDict options:0 error:&error];
-#ifdef DEBUG
-    DDLogVerbose(@"LocalPrefDictionary: %@", [[NSString alloc] initWithData:archivedPrefs encoding:NSUTF8StringEncoding]);
-#endif
-    
     NSData *HMACData;
     if (error || !archivedPrefs) {
         // Serialization of the XML plist went wrong
         DDLogError(@"%s: Serialization of the XML plist went wrong! Error: %@", __FUNCTION__, error.description);
+#ifdef DEBUG
+        DDLogVerbose(@"LocalPrefDictionary XML plist: %@", [[NSString alloc] initWithData:archivedPrefs encoding:NSUTF8StringEncoding]);
+#endif
+        
         // Pref key is empty
         HMACData = [NSData data];
     } else {

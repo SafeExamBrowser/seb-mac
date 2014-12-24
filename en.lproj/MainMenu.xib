@@ -104,41 +104,41 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="Settings" hidden="YES" id="UaS-yv-Dq3" userLabel="Menu Item - Settings">
+                <menuItem title="Settings" hidden="YES" id="UaS-yv-Dq3">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Settings" id="LkZ-vD-zaJ" userLabel="Menu - Settings">
+                    <menu key="submenu" title="Settings" id="LkZ-vD-zaJ">
                         <items>
-                            <menuItem title="Open…" keyEquivalent="o" id="KqQ-9i-HSM" userLabel="Menu Item - Open…">
+                            <menuItem title="Open…" keyEquivalent="o" id="KqQ-9i-HSM">
                                 <connections>
                                     <action selector="openSEBPrefs:" target="892" id="9bK-OH-8A7"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Save" keyEquivalent="s" id="0h8-R9-UfE" userLabel="Menu Item - Save">
+                            <menuItem title="Save" keyEquivalent="s" id="0h8-R9-UfE">
                                 <connections>
                                     <action selector="saveSEBPrefs:" target="892" id="rsu-BH-ozt"/>
                                     <binding destination="892" name="enabled" keyPath="self.usingPrivateDefaults" id="eQ1-7k-sdy"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Save As…" keyEquivalent="S" id="QrI-qU-IU3" userLabel="Menu Item - Save As…">
+                            <menuItem title="Save As…" keyEquivalent="S" id="QrI-qU-IU3">
                                 <connections>
                                     <action selector="saveSEBPrefsAs:" target="892" id="iV6-0L-KIV"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="AoA-DI-i9G"/>
-                            <menuItem title="Revert to Defaults" id="icu-d0-oaR" userLabel="Menu Item - Revert to Defaults">
+                            <menuItem title="Revert to Defaults" id="icu-d0-oaR">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="revertToDefaultSettings:" target="892" id="WPm-5b-efW"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Revert to Client Settings" id="lIX-w9-SMd" userLabel="Menu Item - Revert to Client Settings">
+                            <menuItem title="Revert to Client Settings" id="lIX-w9-SMd">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="revertToLocalClientSettings:" target="892" id="QOA-9e-4ah"/>
                                     <binding destination="892" name="enabled" keyPath="self.usingPrivateDefaults" id="hKa-aI-k3d"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Revert to Last Saved" id="pMV-oP-mZU" userLabel="Menu Item - Revert to Last Saved">
+                            <menuItem title="Revert to Last Saved" id="pMV-oP-mZU">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="revertToLastSaved:" target="892" id="ISy-d0-mPg"/>
@@ -461,7 +461,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="109"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1578"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="715">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
@@ -544,7 +544,7 @@ Gw
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="340" y="419" width="550" height="300"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1578"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
             <view key="contentView" id="860" customClass="AboutView">
                 <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -595,42 +595,42 @@ Important parts of this project have been carried out as part of the program 'AA
         <userDefaultsController id="899" customClass="SEBEncryptedUserDefaultsController"/>
         <userDefaultsController id="993" userLabel="SEB User Defaults Controller" customClass="SEBEncryptedUserDefaultsController"/>
         <userDefaultsController id="994"/>
-        <menu title="Settings" id="sdD-uM-Hx0" userLabel="Menu - Popup Menu Settings">
+        <menu title="Settings" id="sdD-uM-Hx0" userLabel="Popup Menu Settings">
             <items>
                 <menuItem id="9WS-P0-r7q">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
-                <menuItem title="Open…" keyEquivalent="o" id="HGQ-o5-kHC" userLabel="Menu Item - Open…">
+                <menuItem title="Open…" keyEquivalent="o" id="HGQ-o5-kHC">
                     <connections>
                         <action selector="openSEBPrefs:" target="892" id="1ec-0Q-Kbb"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Save" keyEquivalent="s" id="eiW-K5-gGu" userLabel="Menu Item - Save">
+                <menuItem title="Save" keyEquivalent="s" id="eiW-K5-gGu">
                     <connections>
                         <action selector="saveSEBPrefs:" target="892" id="q4x-CI-6gx"/>
                         <binding destination="892" name="enabled" keyPath="self.usingPrivateDefaults" id="ZHQ-mh-TPs"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Save As…" keyEquivalent="S" id="gQN-UT-3wR" userLabel="Menu Item - Save As…">
+                <menuItem title="Save As…" keyEquivalent="S" id="gQN-UT-3wR">
                     <connections>
                         <action selector="saveSEBPrefsAs:" target="892" id="cv4-Tp-6nh"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="RJq-rX-98q"/>
-                <menuItem title="Revert to Defaults" id="aG5-0k-cAL" userLabel="Menu Item - Revert to Defaults">
+                <menuItem title="Revert to Defaults" id="aG5-0k-cAL">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="revertToDefaultSettings:" target="892" id="ehv-Yr-M1Z"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Revert to Client Settings" id="9NP-zj-EeW" userLabel="Menu Item - Revert to Client Settings">
+                <menuItem title="Revert to Client Settings" id="9NP-zj-EeW">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="revertToLocalClientSettings:" target="892" id="wh8-uL-K45"/>
                         <binding destination="892" name="enabled" keyPath="self.usingPrivateDefaults" id="hoC-Jo-QqW"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Revert to Last Saved" id="MYP-4t-dpx" userLabel="Menu Item - Revert to Last Saved">
+                <menuItem title="Revert to Last Saved" id="MYP-4t-dpx">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="revertToLastSaved:" target="892" id="VPW-cR-UAN"/>

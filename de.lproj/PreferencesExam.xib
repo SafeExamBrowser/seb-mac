@@ -90,9 +90,10 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_quitURL" id="1032">
+                        <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_quitURL" id="2K8-pJ-dCW">
                             <dictionary key="options">
                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                <string key="NSValueTransformerName">NSTextFieldNilToEmptyStringTransformer</string>
                             </dictionary>
                         </binding>
                         <outlet property="delegate" destination="-2" id="1029"/>

@@ -82,5 +82,7 @@
 
 - (NSData *) getPrefixDataFromData:(NSData **)data withLength:(NSUInteger)prefixLength;
 
+- (void) showAlertCorruptedSettings;
+- (void) showAlertCorruptedSettingsWithTitle:(NSString *)title andText:(NSString *)informativeText;
 
 @end
