@@ -79,6 +79,8 @@
 {
     _currentConfigFilePassword = password;
     self.configPasswordIsHash = passwordIsHash;
+    // This initializes password text fields and the identity menu according to those passed values
+    [self willBeDisplayed];
 }
 
 

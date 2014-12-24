@@ -332,8 +332,8 @@
 
 - (void) setConfigFileCredentials
 {
-    [self.configFileVC setSettingsPassword:_currentConfigPassword isHash:_currentConfigPasswordIsHash];
     [self.configFileVC setCurrentConfigFileKeyRef:_currentConfigKeyRef];
+    [self.configFileVC setSettingsPassword:_currentConfigPassword isHash:_currentConfigPasswordIsHash];
 }
 
 
