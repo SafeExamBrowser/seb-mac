@@ -330,7 +330,7 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_permittedProcesses",
                                  [NSArray array],
                                  @"org_safeexambrowser_SEB_prohibitedProcesses",
-                                 @{
+                                 [NSMutableDictionary dictionaryWithDictionary:@{
                                    @"AutoConfigurationEnabled" : @NO,
                                    @"AutoConfigurationJavaScript" : @"",
                                    @"AutoConfigurationURL" : @"",
@@ -368,7 +368,7 @@ static NSNumber *_logLevel;
                                    @"SOCKSProxy" : @"",
                                    @"SOCKSRequiresPassword" : @NO,
                                    @"SOCKSUsername" : @""
-                                   },
+                                   }],
                                  @"org_safeexambrowser_SEB_proxies",
                                  [NSNumber numberWithLong:useSystemProxySettings],
                                  @"org_safeexambrowser_SEB_proxySettingsPolicy",
@@ -878,7 +878,7 @@ static NSNumber *_logLevel;
                 encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
                 if (error || !encryptedData) {
 
-                    DDLogError(@"PREFERENCES CORRUPTED ERROR at [self setObject:(encrypted %@) forKey:%@]", value, key);
+                    DDLogError(@"PREFERENCES CORRUPTED ERROR in [self setObject:(encrypted %@) forKey:%@]", value, key);
 
                     [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
                     return;
@@ -928,7 +928,7 @@ static NSNumber *_logLevel;
         NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
         if (error || !encryptedData) {
 
-            DDLogError(@"PREFERENCES CORRUPTED ERROR at [self secureDataForObject:%@ andKey:%@]", value, key);
+            DDLogError(@"PREFERENCES CORRUPTED ERROR in [self secureDataForObject:%@ andKey:%@]", value, key);
 
             [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
             return nil;
@@ -1019,14 +1019,14 @@ static NSNumber *_logLevel;
                                             withPassword:userDefaultsMasala
                                                    error:&error];
             if (error) {
-                DDLogError(@"%s: Error at \[RNDecryptor decryptData:encrypted withPassword:userDefaultsMasala error:&error]", __FUNCTION__);
+                DDLogError(@"%s: Error in \[RNDecryptor decryptData:encrypted withPassword:userDefaultsMasala error:&error]", __FUNCTION__);
                 return nil;
             }
         } else {
             decrypted = [[SEBCryptor sharedSEBCryptor] decryptData:encrypted forKey:key error:&error];
             if (error) {
 
-                DDLogError(@"PREFERENCES CORRUPTED ERROR at [self _objectForKey:%@], error: %@", key, error.description);
+                DDLogError(@"PREFERENCES CORRUPTED ERROR in [self _objectForKey:%@], error: %@", key, error.description);
 
                 [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
                 return nil;

@@ -254,8 +254,11 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField toolTip="Optional, should explain what kind of process this is, because this might not be obvious only from the executable's name." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="654">
+                                                <textField toolTip="Optional, should explain what kind of process this is, because this might not be obvious only from the executable's name." verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="654">
                                                     <rect key="frame" x="98" y="287" width="458" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="458" id="FgG-C1-ZYu"/>
+                                                    </constraints>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="656">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -299,7 +302,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="687">
+                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="687">
                                                     <rect key="frame" x="98" y="199" width="458" height="22"/>
                                                     <string key="toolTip">Filesystem path (formatted system specific) to the process executable’s directory (excluding the file name). If the path is not given or relative, then SEB searches system provided paths for applications.</string>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="689">
@@ -332,7 +335,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <scrollView toolTip="Arguments to append to the executable of the application when starting it. Checkbox selects if an argument is active." verticalHuggingPriority="750" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="733">
+                                                <scrollView toolTip="Arguments to append to the executable of the application when starting it. Checkbox selects if an argument is active." verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="733">
                                                     <rect key="frame" x="98" y="122" width="458" height="69"/>
                                                     <clipView key="contentView" id="UYw-pC-SvI">
                                                         <rect key="frame" x="1" y="1" width="456" height="65"/>
@@ -926,8 +929,11 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField toolTip="Optional, to explain what kind of process this is, because this might not be obvious only from the executable's name" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1895">
+                                                <textField toolTip="Optional, to explain what kind of process this is, because this might not be obvious only from the executable's name" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1895">
                                                     <rect key="frame" x="98" y="107" width="459" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="459" id="meT-rp-QAd"/>
+                                                    </constraints>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1911">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>

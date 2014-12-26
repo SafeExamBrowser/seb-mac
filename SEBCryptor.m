@@ -225,7 +225,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         id defaultValue = [defaultSettings objectForKey:key];
         Class valueClass = [value superclass];
         Class defaultValueClass = [defaultValue superclass];
-        if (valueClass && defaultValueClass && !([defaultValue isKindOfClass:valueClass] || [value isKindOfClass:defaultValueClass])) {
+        if (!value || (valueClass && defaultValueClass && !([defaultValue isKindOfClass:valueClass] || [value isKindOfClass:defaultValueClass]))) {
             // Class of local preferences value is different than the one from the default value
             // If yes, then cancel reading .seb file and create error object
             DDLogError(@"%s Value for key %@ is not having the correct class!", __FUNCTION__, key);

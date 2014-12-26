@@ -967,7 +967,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
         
         if ([error code] !=  WebKitErrorFrameLoadInterruptedByPolicyChange) //this error can be ignored
         {
-            DDLogError(@"Error at %s: %@", __FUNCTION__, error.description);
+            DDLogError(@"Error in %s: %@", __FUNCTION__, error.description);
 
             //Close the About Window first, because it would hide the error alert
             [[NSNotificationCenter defaultCenter] postNotificationName:@"requestCloseAboutWindowNotification" object:self];
@@ -1005,7 +1005,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
         
         if ([error code] !=  WebKitErrorFrameLoadInterruptedByPolicyChange) //this error can be ignored
         {
-            DDLogError(@"Error at %s: %@", __FUNCTION__, error.description);
+            DDLogError(@"Error in %s: %@", __FUNCTION__, error.description);
 
             //Close the About Window first, because it would hide the error alert
             [[NSNotificationCenter defaultCenter] postNotificationName:@"requestCloseAboutWindowNotification" object:self];

@@ -1130,7 +1130,11 @@
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                             <connections>
-                                                                <binding destination="1721" name="value" keyPath="selection.HTTPProxy" id="1947"/>
+                                                                <binding destination="1721" name="value" keyPath="selection.HTTPProxy" id="rlE-dA-seC">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">NSTextFieldNilToEmptyStringTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
                                                             </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1226">
@@ -1180,7 +1184,11 @@
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                             <connections>
-                                                                <binding destination="1721" name="value" keyPath="selection.HTTPUser" id="1949"/>
+                                                                <binding destination="1721" name="value" keyPath="selection.HTTPUser" id="gOf-Un-Bad">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">NSTextFieldNilToEmptyStringTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
                                                             </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1258">
@@ -1210,7 +1218,11 @@
                                                                 </allowedInputSourceLocales>
                                                             </secureTextFieldCell>
                                                             <connections>
-                                                                <binding destination="1721" name="value" keyPath="selection.HTTPPassword" id="1950"/>
+                                                                <binding destination="1721" name="value" keyPath="selection.HTTPPassword" id="bEl-wY-Dwg">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">NSTextFieldNilToEmptyStringTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
                                                             </connections>
                                                         </secureTextField>
                                                     </subviews>

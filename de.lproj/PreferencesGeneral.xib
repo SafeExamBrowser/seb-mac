@@ -40,6 +40,7 @@
                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                             </dictionary>
                         </binding>
+                        <outlet property="nextKeyView" destination="79" id="y6P-Pe-9N2"/>
                     </connections>
                 </secureTextField>
                 <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="79">
@@ -64,6 +65,7 @@
                                 <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                             </dictionary>
                         </binding>
+                        <outlet property="nextKeyView" destination="83" id="oG5-Jb-wLO"/>
                     </connections>
                 </secureTextField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="80">
@@ -222,6 +224,7 @@
                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                             </dictionary>
                         </binding>
+                        <outlet property="nextKeyView" destination="78" id="p65-hX-6hN"/>
                     </connections>
                 </secureTextField>
                 <button toolTip="Informationen über Safe Exam Browser – SEB anzeigen" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="94">
@@ -318,6 +321,7 @@
                                 <string key="NSValueTransformerName">NSTextFieldNilToEmptyStringTransformer</string>
                             </dictionary>
                         </binding>
+                        <outlet property="nextKeyView" destination="93" id="hdt-zs-CeF"/>
                     </connections>
                 </textField>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="92">

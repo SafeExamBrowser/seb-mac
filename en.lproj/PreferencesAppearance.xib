@@ -120,6 +120,7 @@
                                         </dictionary>
                                     </binding>
                                     <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_mainBrowserWindowWidth" id="729"/>
+                                    <outlet property="nextKeyView" destination="596" id="cfc-Eu-Ai1"/>
                                 </connections>
                             </comboBox>
                             <comboBox toolTip="Window height in pixel or percentage of total screen height" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="596">
@@ -142,6 +143,7 @@
                                         </dictionary>
                                     </binding>
                                     <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_mainBrowserWindowHeight" id="730"/>
+                                    <outlet property="nextKeyView" destination="DiJ-eI-WGU" id="uDT-j9-Jhg"/>
                                 </connections>
                             </comboBox>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="597">
