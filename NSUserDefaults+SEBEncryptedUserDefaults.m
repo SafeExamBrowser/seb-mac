@@ -192,7 +192,7 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_enableJava",
                                  [NSNumber numberWithBool:YES],
                                  @"org_safeexambrowser_SEB_enableJavaScript",
-                                 [NSNumber numberWithBool:NO],
+                                 [NSNumber numberWithBool:YES],
                                  @"org_safeexambrowser_SEB_enableLogging",
                                  [NSNumber numberWithBool:YES],
                                  @"org_safeexambrowser_SEB_enablePlugIns",

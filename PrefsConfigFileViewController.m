@@ -193,10 +193,14 @@
     {
         [self setValue:_currentConfigFilePassword forKey:@"settingsPassword"];
         [self setValue:_currentConfigFilePassword forKey:@"confirmSettingsPassword"];
+        // Reset the password string from the currently open config file
+        _currentConfigFilePassword = nil;
     }
     
+    // If there is a identity reference from the currently open config file
     if (_currentConfigFileKeyRef) {
         [self selectSettingsIdentity:_currentConfigFileKeyRef];
+        _currentConfigFileKeyRef = nil;
     }
 }
 
@@ -267,11 +271,18 @@
     sebConfigPurposes configPurpose = [self getSelectedConfigPurpose];
 
     // Get SecIdentityRef for selected identity
-    SecIdentityRef identityRef = [self getSelectedIdentity];
+    SecIdentityRef identityRef;
+    // Is there one saved from the currently open config file?
+    if (_currentConfigFileKeyRef) {
+        identityRef = (SecIdentityRef)_currentConfigFileKeyRef;
+    } else {
+        identityRef = [self getSelectedIdentity];
+    }
     
     // Get password
     NSString *encryptingPassword;
-    if (self.configPasswordIsHash) {
+    // Is there one saved from the currently open config file?
+    if (_currentConfigFilePassword) {
         encryptingPassword = _currentConfigFilePassword;
     } else {
         encryptingPassword = settingsPassword;
