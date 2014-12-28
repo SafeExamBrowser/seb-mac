@@ -561,10 +561,8 @@ static NSNumber *_logLevel;
         id value = [sebPreferencesDict objectForKey:key];
         NSString *keyWithPrefix = [self prefixKey:key];
         
-        // If imported settings are being saved into local client NSUserDefaults
-        // import embedded certificates (and identities) into the keychain
-        // but don't save into local preferences
-        if (!NSUserDefaults.userDefaultsPrivate && [key isEqualToString:@"embeddedCertificates"]) {
+        // Import embedded certificates (and identities) into the keychain
+        if ([key isEqualToString:@"embeddedCertificates"]) {
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
             for (NSDictionary *certificate in value) {
                 int certificateType = [[certificate objectForKey:@"type"] integerValue];
@@ -586,6 +584,12 @@ static NSNumber *_logLevel;
                         }
                         break;
                 }
+            }
+            // If imported settings are being saved into local client NSUserDefaults
+            // don't save embedded certificates into local preferences
+            if (NSUserDefaults.userDefaultsPrivate) {
+                // Private UserDefaults: Keep embedded certificates in settings
+                [self setSecureObject:value forKey:keyWithPrefix];
             }
         } else {
             // other values can be saved into shared NSUserDefaults

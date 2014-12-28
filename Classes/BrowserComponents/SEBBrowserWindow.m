@@ -1368,6 +1368,8 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         CFStringRef uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, mimeType, NULL);
         CFStringRef extension = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassFilenameExtension);
         self.downloadFileExtension = (__bridge NSString *)(extension);
+        if (uti) CFRelease(uti);
+        if (extension) CFRelease(extension);
         DDLogInfo(@"data: content MIME type to download is %@, the file extension will be %@", type, extension);
         [listener download];
         [self startDownloadingURL:request.URL];

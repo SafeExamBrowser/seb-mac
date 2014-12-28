@@ -211,7 +211,7 @@
     // If settings password is confirmed
     if (![self compareSettingsPasswords]) {
         _currentConfigFilePassword = settingsPassword;
-        _currentConfigFileKeyRef = [self.keychainManager getPrivateKeyRefFromIdentityRef:[self getSelectedIdentity]];;
+        _currentConfigFileKeyRef = [self.keychainManager copyPrivateKeyRefFromIdentityRef:[self getSelectedIdentity]];;
     } else {
         // if it's not confirmed properly, then clear the settings password textFields
         [self resetSettingsPasswordFields];
@@ -240,11 +240,12 @@
     int i, count = [self.identities count];
     for (i=0; i<count; i++) {
         SecIdentityRef identityFromKeychain = (__bridge SecIdentityRef)self.identities[i];
-        SecKeyRef privateKeyRef = [self.keychainManager getPrivateKeyRefFromIdentityRef:identityFromKeychain];
+        SecKeyRef privateKeyRef = [self.keychainManager copyPrivateKeyRefFromIdentityRef:identityFromKeychain];
         if (settingsPrivateKeyRef == privateKeyRef) {
             [chooseIdentity selectItemAtIndex:i+1];
             break;
         }
+        if (privateKeyRef) CFRelease(privateKeyRef);
     }
 }
 

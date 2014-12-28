@@ -118,7 +118,7 @@
     if (_user) {
         part = [self stringForRegexFilter:_user];
 
-        [expressionString appendString:[self stringForRegexFilter:_user]];
+        [expressionString appendString:part];
         
         if (_password) {
             [expressionString appendFormat:@":%@@", [self stringForRegexFilter:_password]];

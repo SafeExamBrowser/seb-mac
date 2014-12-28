@@ -878,13 +878,14 @@
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     
     //get certificate from selected identity
-    SecCertificateRef certificateRef = [keychainManager getCertificateFromIdentity:identityRef];
+    SecCertificateRef certificateRef = [keychainManager copyCertificateFromIdentity:identityRef];
     
     //get public key hash from selected identity's certificate
     NSData* publicKeyHash = [keychainManager getPublicKeyHashFromCertificate:certificateRef];
     
     //encrypt data using public key
     NSData *encryptedData = [keychainManager encryptData:data withPublicKeyFromCertificate:certificateRef];
+    CFRelease(certificateRef);
     
     //Prefix indicating data has been encrypted with a public key identified by hash
     NSString *prefixString = @"pkhs";
