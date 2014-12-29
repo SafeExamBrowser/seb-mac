@@ -91,7 +91,7 @@
             SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
             
             // Decrypt and store the .seb config file
-            if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO]) {
+            if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO forceConfiguringClient:YES]) {
                 // if successfull continue with new settings
                 DDLogInfo(@"Reconfiguring SEB with SebClientSettings.seb was successful");
                 // Delete the SebClientSettings.seb file from the Preferences directory
@@ -110,9 +110,14 @@
 }
 
 
+-(BOOL) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing
+{
+    return [self storeDecryptedSEBSettings:sebData forEditing:forEditing forceConfiguringClient:NO];
+}
+
 
 // Decrypt, parse and use new SEB settings
--(BOOL) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing
+-(BOOL) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing forceConfiguringClient:(BOOL)forceConfiguringClient
 {
     NSDictionary *sebPreferencesDict;
     NSString *sebFilePassword = nil;
@@ -134,7 +139,7 @@
     // Reset SEB, close third party applications
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
-    if (forEditing || [[sebPreferencesDict valueForKey:@"sebConfigPurpose"] intValue] == sebConfigPurposeStartingExam) {
+    if (!forceConfiguringClient && (forEditing || [[sebPreferencesDict valueForKey:@"sebConfigPurpose"] intValue] == sebConfigPurposeStartingExam)) {
 
         ///
         /// If these SEB settings are ment to start an exam or we're in editing mode
@@ -195,27 +200,29 @@
 
         DDLogInfo(@"Should display dialog SEB Re-Configured");
 
-        if ([[MyGlobals sharedMyGlobals] finishedInitializing]) {
-            NSAlert *newAlert = [[NSAlert alloc] init];
-            [newAlert setMessageText:NSLocalizedString(@"SEB Re-Configured", nil)];
-            [newAlert setInformativeText:NSLocalizedString(@"Local settings of this SEB client have been reconfigured. Do you want to continue working with SEB now or quit?", nil)];
-            [newAlert addButtonWithTitle:NSLocalizedString(@"Continue", nil)];
-            [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
-            int answer = [newAlert runModal];
-            switch(answer)
-            {
-                case NSAlertFirstButtonReturn:
-                    
-                    break; //Continue running SEB
-                    
-                case NSAlertSecondButtonReturn:
-                    
-                    self.sebController.quittingMyself = TRUE; //SEB is terminating itself
-                    [NSApp terminate: nil]; //quit SEB
+        if (!forceConfiguringClient) {
+            if ([[MyGlobals sharedMyGlobals] finishedInitializing]) {
+                NSAlert *newAlert = [[NSAlert alloc] init];
+                [newAlert setMessageText:NSLocalizedString(@"SEB Re-Configured", nil)];
+                [newAlert setInformativeText:NSLocalizedString(@"Local settings of this SEB client have been reconfigured. Do you want to continue working with SEB now or quit?", nil)];
+                [newAlert addButtonWithTitle:NSLocalizedString(@"Continue", nil)];
+                [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+                int answer = [newAlert runModal];
+                switch(answer)
+                {
+                    case NSAlertFirstButtonReturn:
+                        
+                        break; //Continue running SEB
+                        
+                    case NSAlertSecondButtonReturn:
+                        
+                        self.sebController.quittingMyself = TRUE; //SEB is terminating itself
+                        [NSApp terminate: nil]; //quit SEB
+                }
+            } else {
+                // Set the flag to eventually display the dialog later
+                [MyGlobals sharedMyGlobals].reconfiguredWhileStarting = YES;
             }
-        } else {
-            // Set the flag to eventually display the dialog later
-            [MyGlobals sharedMyGlobals].reconfiguredWhileStarting = YES;
         }
         
         // If opening the preferences window is allowed
