@@ -284,16 +284,14 @@
                     }
                     DDLogDebug(@"%s: No extended key usage server authentification has been found. %@This certificate will be skipped.", __FUNCTION__, errorDescription);
                 }
+                if (emailAddressesRef) CFRelease(emailAddressesRef);
             } else {
                 DDLogError(@"Error in %s: SecCertificateCopyEmailAddresses returned %@. This identity will be skipped.", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
             }
-            if (emailAddressesRef) CFRelease(emailAddressesRef);
-            
+            if (commonName) CFRelease(commonName);
         } else {
             DDLogError(@"Error in %s: SecCertificateCopyCommonName returned %@. This identity will be skipped.", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
         }
-        if (commonName) CFRelease(commonName);
-        
         // Currently iterated certificate cannot be used: remove it from the list
         [certificates removeObjectAtIndex:i];
         i--;
