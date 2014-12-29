@@ -1596,16 +1596,16 @@ bool insideMatrix(){
         } else {
             NSBundle *preferredLanguageBundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:[[NSLocale preferredLanguages] objectAtIndex:0] ofType:@"lproj"]];
             if (preferredLanguageBundle) {
-                localizedAndInternalApplicationDirectoryName = [NSString stringWithFormat:@"%@ ('%@')", localizedApplicationDirectoryName, applicationsDirectoryName];
+                localizedAndInternalApplicationDirectoryName = [NSString stringWithFormat:@"'%@' ('%@')", localizedApplicationDirectoryName, applicationsDirectoryName];
             } else {
                 // User selected language is one which SEB doesn't support
-                localizedAndInternalApplicationDirectoryName = [NSString stringWithFormat:@"%@ ('%@')", applicationsDirectoryName, localizedApplicationDirectoryName];
+                localizedAndInternalApplicationDirectoryName = [NSString stringWithFormat:@"'%@' ('%@')", applicationsDirectoryName, localizedApplicationDirectoryName];
                 localizedApplicationDirectoryName = applicationsDirectoryName;
             }
         }
         NSAlert *newAlert = [[NSAlert alloc] init];
         [newAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"SEB Not in %@ Folder!", nil), localizedApplicationDirectoryName]];
-        [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"SEB has to be placed in the %@ folder for all features working correctly. Move the 'Safe Exam Browser' app to your %@ folder and make sure that you don't have any other versions of SEB installed on your system. SEB will quit now.", nil), localizedApplicationDirectoryName, localizedAndInternalApplicationDirectoryName]];
+        [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"SEB has to be placed in the '%@' folder for all features working correctly. Move the 'Safe Exam Browser' app to your %@ folder and make sure that you don't have any other versions of SEB installed on your system. SEB will quit now.", nil), localizedApplicationDirectoryName, localizedAndInternalApplicationDirectoryName]];
         [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
         [newAlert setAlertStyle:NSCriticalAlertStyle];
         [newAlert runModal];

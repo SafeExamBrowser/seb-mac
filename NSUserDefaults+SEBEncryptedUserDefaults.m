@@ -559,6 +559,13 @@ static NSNumber *_logLevel;
     // Write values from .seb config file to local preferences
     for (NSString *key in sebPreferencesDict) {
         id value = [sebPreferencesDict objectForKey:key];
+        
+        // NSDictionaries need to be converted to NSMutableDictionary, otherwise bindings
+        // will cause a crash when trying to modify the dictionary
+        if ([value isKindOfClass:[NSDictionary class]]) {
+            value = [NSMutableDictionary dictionaryWithDictionary:value];
+        }
+        
         NSString *keyWithPrefix = [self prefixKey:key];
         
         // Import embedded certificates (and identities) into the keychain

@@ -81,108 +81,102 @@
     NSString *identityName;
     int i, count = [identities count];
     for (i=0; i<count; i++) {
-        @try {
-            SecIdentityRef identityRef = (__bridge SecIdentityRef)[identities objectAtIndex:i];
-            if (SecIdentityCopyCertificate(identityRef, &certificateRef) == noErr) {
-                if (SecIdentityCopyPrivateKey(identityRef, &privateKeyRef) == noErr) {
-                    /*SecPolicyRef policyRef = SecPolicyCreateBasicX509();
-                     //status = SecPolicySetValue(policyRef, )
-                     SecTrustRef trustRef;
-                     status = SecTrustCreateWithCertificates((CFArrayRef)certificateRef, policyRef, &trustRef);
-                     SecTrustResultType trustResult;
-                     if (status == noErr) {
-                     status = SecTrustEvaluate(trustRef, &trustResult);
-                     }*/
-                    const CSSM_KEY *pubKey;
-                    if ((status = SecCertificateCopyPublicKey(certificateRef, &publicKeyRef)) == noErr) {
-                        if ((status = SecKeyGetCSSMKey(publicKeyRef, &pubKey)) == noErr) {
-                            const CSSM_KEY *privKey;
-                            if ((status = SecKeyGetCSSMKey(privateKeyRef, &privKey)) == noErr) {
-                                if (((pubKey->KeyHeader.AlgorithmId ==
-                                      CSSM_ALGID_RSA) &&
-                                     ((pubKey->KeyHeader.KeyUsage & CSSM_KEYUSE_ENCRYPT) ||
-                                      (pubKey->KeyHeader.KeyUsage & CSSM_KEYUSE_WRAP) ||
-                                      (pubKey->KeyHeader.KeyUsage & CSSM_KEYUSE_ANY)))
-                                    && ((privKey->KeyHeader.AlgorithmId ==
-                                         CSSM_ALGID_RSA) &&
-                                        ((privKey->KeyHeader.KeyUsage & CSSM_KEYUSE_DECRYPT) ||
-                                         (privKey->KeyHeader.KeyUsage & CSSM_KEYUSE_WRAP) ||
-                                         (privKey->KeyHeader.KeyUsage & CSSM_KEYUSE_ANY))))
-                                {
-                                    if ((status = SecCertificateCopyCommonName(certificateRef, &commonName)) == noErr) {
-                                        if ((status = SecCertificateCopyEmailAddresses(certificateRef, &emailAddressesRef)) == noErr) {
-                                            identityName = [NSString stringWithFormat:@"%@%@",
-                                                            (__bridge NSString *)commonName ?
-                                                            [NSString stringWithFormat:@"%@ ",(__bridge NSString *)commonName] :
-                                                            @"" ,
-                                                            CFArrayGetCount(emailAddressesRef) ?
-                                                            (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) :
-                                                            @""];
-                                            // Check if there is already an identitiy with the identical name (can happen)
-                                            if ([identitiesNames containsObject:identityName]) {
-                                                // If yes, we need to make the name unique; we add the public key hash
-                                                // Get public key hash from selected identity's certificate
-                                                NSData* publicKeyHash = [self getPublicKeyHashFromCertificate:certificateRef];
-                                                if (!publicKeyHash) {
-                                                    DDLogError(@"Error in %s: Could not get public key hash form certificate. Generated a random hash.", __FUNCTION__);
-                                                    // If the hash couldn't be determinded (what actually shouldn't happen): Create random data instead
-                                                    publicKeyHash = [RNCryptor randomDataOfLength:20];
-                                                }
-                                                unsigned char hashedChars[20];
-                                                [publicKeyHash getBytes:hashedChars length:20];
-                                                NSMutableString* hashedString = [NSMutableString new];
-                                                for (int i = 0 ; i < 20 ; ++i) {
-                                                    [hashedString appendFormat: @"%02x", hashedChars[i]];
-                                                }
-                                                [identitiesNames addObject:[NSString stringWithFormat:@"%@ %@",identityName, hashedString]];
-                                            } else {
-                                                [identitiesNames addObject:identityName];
+        SecIdentityRef identityRef = (__bridge SecIdentityRef)[identities objectAtIndex:i];
+        if (SecIdentityCopyCertificate(identityRef, &certificateRef) == noErr) {
+            if (SecIdentityCopyPrivateKey(identityRef, &privateKeyRef) == noErr) {
+                /*SecPolicyRef policyRef = SecPolicyCreateBasicX509();
+                 //status = SecPolicySetValue(policyRef, )
+                 SecTrustRef trustRef;
+                 status = SecTrustCreateWithCertificates((CFArrayRef)certificateRef, policyRef, &trustRef);
+                 SecTrustResultType trustResult;
+                 if (status == noErr) {
+                 status = SecTrustEvaluate(trustRef, &trustResult);
+                 }*/
+                const CSSM_KEY *pubKey;
+                if ((status = SecCertificateCopyPublicKey(certificateRef, &publicKeyRef)) == noErr) {
+                    if ((status = SecKeyGetCSSMKey(publicKeyRef, &pubKey)) == noErr) {
+                        const CSSM_KEY *privKey;
+                        if ((status = SecKeyGetCSSMKey(privateKeyRef, &privKey)) == noErr) {
+                            if (((pubKey->KeyHeader.AlgorithmId ==
+                                  CSSM_ALGID_RSA) &&
+                                 ((pubKey->KeyHeader.KeyUsage & CSSM_KEYUSE_ENCRYPT) ||
+                                  (pubKey->KeyHeader.KeyUsage & CSSM_KEYUSE_WRAP) ||
+                                  (pubKey->KeyHeader.KeyUsage & CSSM_KEYUSE_ANY)))
+                                && ((privKey->KeyHeader.AlgorithmId ==
+                                     CSSM_ALGID_RSA) &&
+                                    ((privKey->KeyHeader.KeyUsage & CSSM_KEYUSE_DECRYPT) ||
+                                     (privKey->KeyHeader.KeyUsage & CSSM_KEYUSE_WRAP) ||
+                                     (privKey->KeyHeader.KeyUsage & CSSM_KEYUSE_ANY))))
+                            {
+                                if ((status = SecCertificateCopyCommonName(certificateRef, &commonName)) == noErr) {
+                                    if ((status = SecCertificateCopyEmailAddresses(certificateRef, &emailAddressesRef)) == noErr) {
+                                        identityName = [NSString stringWithFormat:@"%@%@",
+                                                        (__bridge NSString *)commonName ?
+                                                        [NSString stringWithFormat:@"%@ ",(__bridge NSString *)commonName] :
+                                                        @"" ,
+                                                        CFArrayGetCount(emailAddressesRef) ?
+                                                        (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) :
+                                                        @""];
+                                        // Check if there is already an identitiy with the identical name (can happen)
+                                        if ([identitiesNames containsObject:identityName]) {
+                                            // If yes, we need to make the name unique; we add the public key hash
+                                            // Get public key hash from selected identity's certificate
+                                            NSData* publicKeyHash = [self getPublicKeyHashFromCertificate:certificateRef];
+                                            if (!publicKeyHash) {
+                                                DDLogError(@"Error in %s: Could not get public key hash form certificate. Generated a random hash.", __FUNCTION__);
+                                                // If the hash couldn't be determinded (what actually shouldn't happen): Create random data instead
+                                                publicKeyHash = [RNCryptor randomDataOfLength:20];
                                             }
-                                            
-                                            DDLogDebug(@"Common name: %@ %@", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , CFArrayGetCount(emailAddressesRef) ? (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) : @"");
-                                            DDLogDebug(@"Public key can be used for encryption, private key can be used for decryption");
-                                            if (emailAddressesRef) CFRelease(emailAddressesRef);
-                                            if (commonName) CFRelease(commonName);
-                                            if (publicKeyRef) CFRelease(publicKeyRef);
-                                            if (privateKeyRef) CFRelease(privateKeyRef);
-                                            if (certificateRef) CFRelease(certificateRef);
-                                            // Continue with next element
-                                            continue;
-                                            
+                                            unsigned char hashedChars[20];
+                                            [publicKeyHash getBytes:hashedChars length:20];
+                                            NSMutableString* hashedString = [NSMutableString new];
+                                            for (int i = 0 ; i < 20 ; ++i) {
+                                                [hashedString appendFormat: @"%02x", hashedChars[i]];
+                                            }
+                                            [identitiesNames addObject:[NSString stringWithFormat:@"%@ %@",identityName, hashedString]];
                                         } else {
-                                            DDLogError(@"Error in %s: SecCertificateCopyEmailAddresses returned %@. This identity will be skipped.", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
+                                            [identitiesNames addObject:identityName];
                                         }
+                                        
+                                        DDLogDebug(@"Common name: %@ %@", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , CFArrayGetCount(emailAddressesRef) ? (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) : @"");
+                                        DDLogDebug(@"Public key can be used for encryption, private key can be used for decryption");
                                         if (emailAddressesRef) CFRelease(emailAddressesRef);
-
+                                        if (commonName) CFRelease(commonName);
+                                        if (publicKeyRef) CFRelease(publicKeyRef);
+                                        if (privateKeyRef) CFRelease(privateKeyRef);
+                                        if (certificateRef) CFRelease(certificateRef);
+                                        // Continue with next element
+                                        continue;
+                                        
                                     } else {
-                                        DDLogError(@"Error in %s: SecCertificateCopyCommonName returned %@. This identity will be skipped.", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
+                                        DDLogError(@"Error in %s: SecCertificateCopyEmailAddresses returned %@. This identity will be skipped.", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
                                     }
+                                    
                                     if (commonName) CFRelease(commonName);
+                                } else {
+                                    DDLogError(@"Error in %s: SecCertificateCopyCommonName returned %@. This identity will be skipped.", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
                                 }
-                            } else {
-                                DDLogError(@"Error in %s: SecKeyGetCSSMKey(privateKey) returned %@. This identity will be skipped.", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
                             }
                         } else {
-                            DDLogError(@"Error in %s: SecKeyGetCSSMKey(publicKey) returned %@. This identity will be skipped.", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
+                            DDLogError(@"Error in %s: SecKeyGetCSSMKey(privateKey) returned %@. This identity will be skipped.", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
                         }
                     } else {
-                        DDLogError(@"Error in %s: SecCertificateCopyPublicKey returned %@. This identity will be skipped.", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
+                        DDLogError(@"Error in %s: SecKeyGetCSSMKey(publicKey) returned %@. This identity will be skipped.", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
                     }
+                    
                     if (publicKeyRef) CFRelease(publicKeyRef);
-
                 } else {
-                    DDLogError(@"Error in %s: SecIdentityCopyPrivateKey returned %@. This identity will be skipped.", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
+                    DDLogError(@"Error in %s: SecCertificateCopyPublicKey returned %@. This identity will be skipped.", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
                 }
+                
                 if (privateKeyRef) CFRelease(privateKeyRef);
-
             } else {
-                DDLogError(@"Error in %s: SecIdentityCopyCertificate returned %@. This identity will be skipped.", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
+                DDLogError(@"Error in %s: SecIdentityCopyPrivateKey returned %@. This identity will be skipped.", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
             }
+            
             if (certificateRef) CFRelease(certificateRef);
-        }
-        @catch (NSException *exception) {
-            // Something went wrong with this identity, an exeption got thrown
-            DDLogError(@"Error in %s: Something went wrong with this identity (which will be skipped), threw exception %@.", __FUNCTION__, exception.description);
+        } else {
+            DDLogError(@"Error in %s: SecIdentityCopyCertificate returned %@. This identity will be skipped.", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
         }
         
         // Currently iterated identity cannot be used: remove it from the list

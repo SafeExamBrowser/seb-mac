@@ -443,10 +443,10 @@
             <connections>
                 <outlet property="aboutWindow" destination="859" id="881"/>
                 <outlet property="configMenu" destination="UaS-yv-Dq3" id="BeT-pj-jga"/>
-                <outlet property="enterPassword" destination="716" id="933"/>
-                <outlet property="enterPasswordDialog" destination="962" id="968"/>
-                <outlet property="enterPasswordDialogWindow" destination="714" id="903"/>
-                <outlet property="passwordView" destination="715" id="pkY-p4-0a6"/>
+                <outlet property="enterPassword" destination="8aH-DI-gaF" id="kts-El-Lns"/>
+                <outlet property="enterPasswordDialog" destination="14K-iu-K30" id="q2y-Bh-2KY"/>
+                <outlet property="enterPasswordDialogWindow" destination="rLU-be-IrT" id="2h2-Gv-9U4"/>
+                <outlet property="passwordView" destination="vWC-gd-xPh" id="zMg-ha-awY"/>
                 <outlet property="preferencesController" destination="892" id="893"/>
                 <outlet property="settingsMenu" destination="sdD-uM-Hx0" id="ITi-w4-GBJ"/>
             </connections>
@@ -457,88 +457,6 @@
                 <outlet property="settingsMenu" destination="sdD-uM-Hx0" id="mxI-KK-acg"/>
             </connections>
         </customObject>
-        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" animationBehavior="default" id="714" userLabel="Password Dialog">
-            <windowStyleMask key="styleMask" titled="YES"/>
-            <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
-            <rect key="contentRect" x="340" y="419" width="412" height="109"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
-            <value key="minSize" type="size" width="412" height="108"/>
-            <view key="contentView" id="715">
-                <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="716">
-                        <rect key="frame" x="20" y="43" width="372" height="22"/>
-                        <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" placeholderString="" drawsBackground="YES" usesSingleLineMode="YES" id="723">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                            <allowedInputSourceLocales>
-                                <string>NSAllRomanInputSourcesLocaleIdentifier</string>
-                            </allowedInputSourceLocales>
-                        </secureTextFieldCell>
-                    </secureTextField>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="718">
-                        <rect key="frame" x="302" y="5" width="96" height="32"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="84" id="fvj-iJ-BmY"/>
-                        </constraints>
-                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="721">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                        </buttonCell>
-                        <connections>
-                            <action selector="okEnterPassword:" target="543" id="727"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="719">
-                        <rect key="frame" x="206" y="5" width="96" height="32"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="84" id="BAY-gz-1i8"/>
-                        </constraints>
-                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="720">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
-Gw
-</string>
-                        </buttonCell>
-                        <connections>
-                            <action selector="cancelEnterPassword:" target="543" id="726"/>
-                        </connections>
-                    </button>
-                    <textField horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="962" customClass="SEBTextField">
-                        <rect key="frame" x="17" y="77" width="378" height="18"/>
-                        <constraints>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="18" id="ptb-D9-jla"/>
-                        </constraints>
-                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Enter password:" id="963">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                </subviews>
-                <constraints>
-                    <constraint firstItem="718" firstAttribute="trailing" secondItem="716" secondAttribute="trailing" id="ABc-Fe-HhG"/>
-                    <constraint firstAttribute="bottom" secondItem="719" secondAttribute="bottom" constant="12" id="ANH-24-cQQ"/>
-                    <constraint firstItem="718" firstAttribute="top" secondItem="716" secondAttribute="bottom" constant="10" id="Ett-3f-H55"/>
-                    <constraint firstItem="962" firstAttribute="leading" secondItem="715" secondAttribute="leading" constant="19" id="ICp-FO-nHb"/>
-                    <constraint firstItem="962" firstAttribute="top" secondItem="715" secondAttribute="top" constant="14" id="IXY-L1-qqK"/>
-                    <constraint firstItem="718" firstAttribute="leading" secondItem="719" secondAttribute="trailing" constant="12" symbolic="YES" id="TwH-SC-vvG"/>
-                    <constraint firstItem="719" firstAttribute="baseline" secondItem="718" secondAttribute="baseline" id="W7r-qe-Pc5"/>
-                    <constraint firstItem="716" firstAttribute="top" secondItem="962" secondAttribute="bottom" constant="12" id="hxl-1d-2Ah"/>
-                    <constraint firstItem="716" firstAttribute="leading" secondItem="715" secondAttribute="leading" constant="20" symbolic="YES" id="iQr-dj-fP5"/>
-                    <constraint firstItem="719" firstAttribute="top" secondItem="716" secondAttribute="bottom" constant="10" id="r9U-nV-4Qb"/>
-                    <constraint firstAttribute="trailing" secondItem="716" secondAttribute="trailing" constant="20" symbolic="YES" id="tNb-I9-Rcf"/>
-                    <constraint firstAttribute="bottom" secondItem="718" secondAttribute="bottom" constant="12" id="uxJ-cC-urK"/>
-                    <constraint firstAttribute="trailing" secondItem="962" secondAttribute="trailing" constant="19" id="xUr-eX-LlY"/>
-                </constraints>
-            </view>
-        </window>
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="859" userLabel="About Window" customClass="AboutWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
@@ -658,5 +576,97 @@ Important parts of this project have been carried out as part of the program 'AA
                 </menuItem>
             </items>
         </menu>
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" animationBehavior="default" id="rLU-be-IrT" userLabel="Password Dialog">
+            <windowStyleMask key="styleMask" titled="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
+            <rect key="contentRect" x="340" y="419" width="412" height="109"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <value key="minSize" type="size" width="412" height="108"/>
+            <view key="contentView" id="vWC-gd-xPh">
+                <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="w4A-0q-NaR">
+                        <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
+                        <subviews>
+                            <textField horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="14K-iu-K30" customClass="SEBTextField">
+                                <rect key="frame" x="18" y="77" width="376" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="18" id="eit-hR-UwU"/>
+                                </constraints>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Enter password:" id="anq-S4-gmN">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5C8-Dy-pUH">
+                                <rect key="frame" x="301" y="5" width="96" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="84" id="OMm-AP-8xl"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="iQ5-CR-q1d">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="okEnterPassword:" target="543" id="q3T-O9-vp6"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bGb-Fd-rpF">
+                                <rect key="frame" x="205" y="5" width="96" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="84" id="HqM-8Y-m9g"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Qlt-2p-OmY">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="cancelEnterPassword:" target="543" id="MN8-6W-D4Q"/>
+                                </connections>
+                            </button>
+                            <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8aH-DI-gaF">
+                                <rect key="frame" x="20" y="43" width="371" height="22"/>
+                                <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" placeholderString="" drawsBackground="YES" usesSingleLineMode="YES" id="WHV-Hz-eSu">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <allowedInputSourceLocales>
+                                        <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                    </allowedInputSourceLocales>
+                                </secureTextFieldCell>
+                            </secureTextField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="14K-iu-K30" secondAttribute="trailing" constant="20" symbolic="YES" id="1ev-YA-Rcd"/>
+                            <constraint firstItem="5C8-Dy-pUH" firstAttribute="trailing" secondItem="8aH-DI-gaF" secondAttribute="trailing" id="6Q4-gU-mNd"/>
+                            <constraint firstAttribute="height" priority="550" id="6VF-iV-9Kd"/>
+                            <constraint firstItem="8aH-DI-gaF" firstAttribute="top" secondItem="14K-iu-K30" secondAttribute="bottom" constant="12" id="M2C-HP-QBp"/>
+                            <constraint firstItem="5C8-Dy-pUH" firstAttribute="baseline" secondItem="bGb-Fd-rpF" secondAttribute="baseline" id="NFm-uW-WUc"/>
+                            <constraint firstItem="14K-iu-K30" firstAttribute="leading" secondItem="w4A-0q-NaR" secondAttribute="leading" constant="20" symbolic="YES" id="Nhl-bP-yU5"/>
+                            <constraint firstAttribute="bottom" secondItem="bGb-Fd-rpF" secondAttribute="bottom" constant="12" id="bbz-0W-sOY"/>
+                            <constraint firstItem="14K-iu-K30" firstAttribute="top" secondItem="w4A-0q-NaR" secondAttribute="top" constant="14" id="gC5-Zd-us9"/>
+                            <constraint firstItem="bGb-Fd-rpF" firstAttribute="top" secondItem="8aH-DI-gaF" secondAttribute="bottom" constant="10" id="hSu-Zt-wY9"/>
+                            <constraint firstItem="5C8-Dy-pUH" firstAttribute="leading" secondItem="bGb-Fd-rpF" secondAttribute="trailing" constant="12" symbolic="YES" id="rHg-Em-JLz"/>
+                            <constraint firstItem="14K-iu-K30" firstAttribute="leading" secondItem="8aH-DI-gaF" secondAttribute="leading" id="tjH-Uv-Nic"/>
+                            <constraint firstAttribute="trailing" secondItem="8aH-DI-gaF" secondAttribute="trailing" constant="21" id="zRM-Ju-67V"/>
+                        </constraints>
+                    </customView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="w4A-0q-NaR" secondAttribute="trailing" id="0fE-5r-2Ry"/>
+                    <constraint firstItem="w4A-0q-NaR" firstAttribute="leading" secondItem="vWC-gd-xPh" secondAttribute="leading" id="Ie8-FF-4Zs"/>
+                    <constraint firstAttribute="bottom" secondItem="w4A-0q-NaR" secondAttribute="bottom" id="UfA-5T-Ram"/>
+                    <constraint firstItem="w4A-0q-NaR" firstAttribute="top" secondItem="vWC-gd-xPh" secondAttribute="top" id="aam-jB-cCA"/>
+                </constraints>
+            </view>
+        </window>
     </objects>
 </document>
