@@ -100,13 +100,17 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         DDLogDebug(@"UserDefaults key retrieved.");
 #endif
     } else {
+        DDLogDebug(@"UserDefaults not found, probably it wasn't yet existing, creating a new one.");
         _currentKey = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
-        [keychainManager storeKey:_currentKey];
+        if ([keychainManager storeKey:_currentKey]) {
 #ifdef DEBUG
-        DDLogVerbose(@"Generated UserDefaults key %@ as there was none defined yet.", _currentKey);
+            DDLogVerbose(@"Generated UserDefaults key %@ as there was none defined yet.", _currentKey);
 #else
-        DDLogDebug(@"Generated UserDefaults key as there was none defined yet.");
+            DDLogDebug(@"Generated UserDefaults key as there was none defined yet.");
 #endif
+        } else {
+            DDLogError(@"Could not save new UserDefaults key to keychain. Local settings will be reset to default values when starting SEB next time.");
+        }
     }
     return (defaultsKey != nil);
 }
@@ -117,9 +121,9 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     _currentKey = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
 #ifdef DEBUG
-    DDLogVerbose(@"Updated UserDefaults key to %@", _currentKey);
+    DDLogVerbose(@"Updating UserDefaults key to %@", _currentKey);
 #else
-    DDLogDebug(@"Updated UserDefaults key");
+    DDLogDebug(@"Updating UserDefaults key");
 #endif
     return [keychainManager updateKey:_currentKey];
 }

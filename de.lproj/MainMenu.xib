@@ -457,7 +457,7 @@
                 <outlet property="settingsMenu" destination="sdD-uM-Hx0" id="mxI-KK-acg"/>
             </connections>
         </customObject>
-        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" id="714" userLabel="Password Dialog">
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" animationBehavior="default" id="714" userLabel="Password Dialog">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="109"/>

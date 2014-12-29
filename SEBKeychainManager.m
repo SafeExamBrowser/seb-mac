@@ -730,79 +730,86 @@
 // Add a generic key to the keychain
 - (BOOL) storeKey:(NSData *)keyData
 {
-    NSString *keyID = @"0";
+    NSString *keyID = @"4815162342";
     return [self storeKeyWithID:keyID keyData:keyData];
 }
 
 // Add key with ID to the keychain
 - (BOOL) storeKeyWithID:(NSString *)keyID keyData:(NSData *)keyData
 {
-    NSData *attrGeneric = [[[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleIdentifier"] dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *service = [[NSBundle mainBundle] bundleIdentifier];
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
                            (__bridge id)kSecClassGenericPassword, (__bridge id)kSecClass,
-                           attrGeneric, (__bridge id)kSecAttrGeneric,
+                           service, (__bridge id)kSecAttrService,
+                           keyID, (__bridge id)kSecAttrGeneric,
+                           keyID, (__bridge id)kSecAttrAccount,
+                           //(__bridge id)kSecAttrAccessibleAfterFirstUnlock, (__bridge id)kSecAttrAccessible,
                            (__bridge id)kCFBooleanTrue, (__bridge id)kSecAttrIsInvisible,
                            keyData, (__bridge id)kSecValueData,
                            nil];
     OSStatus status = SecItemAdd((__bridge CFDictionaryRef)query, NULL);
-    if (status != noErr) {
-        NSError *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL];
+    if (status != errSecSuccess) {
+        NSError *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
         DDLogError(@"SecItemAdd failed with error: %@. Will now try SecItemUpdate.", outError);
 //        [NSApp presentError:outError];
-        [self updateKeyWithID:keyID keyData:keyData];
+        return [self updateKeyWithID:keyID keyData:keyData];
     }
-	return (status == noErr);
+	return (status == errSecSuccess);
 }
 
 
 // Update a generic key in the keychain
 - (BOOL) updateKey:(NSData *)keyData
 {
-    NSString *keyID = @"";
+    NSString *keyID = @"4815162342";
     return [self updateKeyWithID:keyID keyData:keyData];
 }
 
 // Update a key with ID in the keychain
 - (BOOL) updateKeyWithID:(NSString *)keyID keyData:(NSData *)keyData
 {
-    NSData *attrGeneric = [[[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleIdentifier"] dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *service = [[NSBundle mainBundle] bundleIdentifier];
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
                            (__bridge id)kSecClassGenericPassword, (__bridge id)kSecClass,
-                           attrGeneric, (__bridge id)kSecAttrGeneric,
+                           service, (__bridge id)kSecAttrService,
+                           keyID, (__bridge id)kSecAttrGeneric,
+                           keyID, (__bridge id)kSecAttrAccount,
                            (__bridge id)kCFBooleanTrue, (__bridge id)kSecAttrIsInvisible,
                            (__bridge id)kSecMatchLimitOne, (__bridge id)kSecMatchLimit,
                            nil];
     NSDictionary *attributesToUpdate = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        keyData, kSecValueData,
+                                        keyData, (__bridge id)kSecValueData,
                                         nil];
     OSStatus status = SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)attributesToUpdate);
-    if (status != noErr) {
+    if (status != errSecSuccess) {
         NSError *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL];
         DDLogError(@"SecItemUpdate failed with error: %@", outError);
     }
-	return (status == noErr);
+	return (status == errSecSuccess);
 }
 
 
 // Get a generic key from the keychain
 - (NSData *) retrieveKey
 {
-    NSString *keyID = @"";
+    NSString *keyID = @"4815162342";
     return [self retrieveKeyWithID:keyID];
 }
 
 // Get a key with ID from the keychain
 - (NSData *) retrieveKeyWithID:(NSString *)keyID
 {
-    NSData *attrGeneric = [[[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleIdentifier"] dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *service = [[NSBundle mainBundle] bundleIdentifier];
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
                            (__bridge id)kSecClassGenericPassword, (__bridge id)kSecClass,
-                           attrGeneric, (__bridge id)kSecAttrGeneric,
+                           service, (__bridge id)kSecAttrService,
+                           keyID, (__bridge id)kSecAttrGeneric,
+                           keyID, (__bridge id)kSecAttrAccount,
                            (__bridge id)kCFBooleanTrue, (__bridge id)kSecAttrIsInvisible,
                            (__bridge id)kCFBooleanTrue, (__bridge id)kSecReturnData,
                            (__bridge id)kSecMatchLimitOne, (__bridge id)kSecMatchLimit,
                            nil];
-    CFTypeRef keyData = NULL;
+    CFTypeRef keyData = nil;
     OSStatus status = SecItemCopyMatching((__bridge CFDictionaryRef)query, &keyData);
     if (status != errSecSuccess) {
         NSError *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL];
