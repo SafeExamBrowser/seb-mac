@@ -56,7 +56,7 @@
 #import "SEBEncryptedUserDefaultsController.h"
 #import "SEBSystemManager.h"
 
-#import "CocoaLumberjack/CocoaLumberjack.h"
+#import "CocoaLumberjack.h"
 
 @class PreferencesController;
 @class SEBSystemManager;
