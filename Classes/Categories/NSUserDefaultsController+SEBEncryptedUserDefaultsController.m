@@ -116,7 +116,7 @@
         [[MyGlobals sharedMyGlobals] setDDLogLevel:preferences.logLevel.intValue];
     }
     if ([key isEqualToString:@"org_safeexambrowser_SEB_enableLogging"]) {
-        if ((BOOL)value == NO) {
+        if ([value boolValue] == NO) {
             [[MyGlobals sharedMyGlobals] setDDLogLevel:nil];
         } else {
             [[MyGlobals sharedMyGlobals] setDDLogLevel:preferences.logLevel.intValue];
