@@ -211,7 +211,7 @@
 - (void) setPartsForExpression:(NSString *)expression
 {
     SEBURLFilterExpression *expressionURL;
-    BOOL selectionRegex = (BOOL)[filterArrayController valueForKeyPath:@"selection.regex"];
+    BOOL selectionRegex = [[filterArrayController valueForKeyPath:@"selection.regex"] boolValue];
     if (selectionRegex == NO) {
         expressionURL = [SEBURLFilterExpression filterExpressionWithString:expression];
     }
