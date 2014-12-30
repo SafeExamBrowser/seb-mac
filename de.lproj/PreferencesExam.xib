@@ -64,7 +64,7 @@
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="274">
                     <rect key="frame" x="18" y="107" width="614" height="17"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Link, mit dem SEB nach der Prüfung beendet werden kann" id="276">
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Quit-Link, mit dem SEB nach der Prüfung beendet werden kann" id="276">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -77,12 +77,12 @@
                     </constraints>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="442">
                         <font key="font" metaFont="smallSystem"/>
-                        <string key="title">ACHTUNG: Wenn 'Öffnen im selben Fenster' ausgewählt ist, dann funktionieren einige JavaScript/HTML5 Funktionen (wie File API) nicht</string>
+                        <string key="title">Dieser Beenden-Link sollte auf der 'Feedback'-Seite plaziert werden, die nach Abgabe einer Prüfung angezeigt wird. Anklicken des Links beendet SEB, ohne dass ein Beenden-Passwort eingegeben werden müsste.</string>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField toolTip="Wenn ein Quit-Link angegeben ist, funktioniert dieser unabhängig von anderen Beenden-Einstellungen auf der Seite " verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="688">
+                <textField toolTip="Wenn ein Beenden-Link angegeben ist, funktioniert dieser unabhängig von anderen Beenden-Einstellungen auf der Seite Allgemein" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="688">
                     <rect key="frame" x="20" y="77" width="610" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="URL beginnend mit http:// oder https://" drawsBackground="YES" id="689">
                         <font key="font" metaFont="system"/>
@@ -90,9 +90,10 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_quitURL" id="1032">
+                        <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_quitURL" id="2K8-pJ-dCW">
                             <dictionary key="options">
                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                <string key="NSValueTransformerName">NSTextFieldNilToEmptyStringTransformer</string>
                             </dictionary>
                         </binding>
                         <outlet property="delegate" destination="-2" id="1029"/>

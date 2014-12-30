@@ -254,11 +254,11 @@
                         </tabViewItem>
                         <tabViewItem label="Registry" identifier="2" id="ifL-Zz-OJp">
                             <view key="view" verticalHuggingPriority="500" id="lui-jD-ROw">
-                                <rect key="frame" x="10" y="33" width="604" height="361"/>
+                                <rect key="frame" x="10" y="33" width="604" height="360"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z35-jm-R60">
-                                        <rect key="frame" x="15" y="343" width="344" height="15"/>
+                                        <rect key="frame" x="15" y="342" width="344" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="15" id="ilN-45-5uj"/>
                                         </constraints>
@@ -269,7 +269,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <box autoresizesSubviews="NO" verticalHuggingPriority="500" title="While running SEB" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="dYr-I9-VL8">
-                                        <rect key="frame" x="13" y="94" width="283" height="241"/>
+                                        <rect key="frame" x="13" y="93" width="283" height="241"/>
                                         <view key="contentView">
                                             <rect key="frame" x="1" y="1" width="281" height="225"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -393,11 +393,11 @@
                         </tabViewItem>
                         <tabViewItem label="Hooked Keys" identifier="" id="3Kv-Y4-p4B">
                             <view key="view" verticalHuggingPriority="500" id="wcR-7a-nHQ">
-                                <rect key="frame" x="10" y="33" width="604" height="361"/>
+                                <rect key="frame" x="10" y="33" width="604" height="360"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <box autoresizesSubviews="NO" verticalHuggingPriority="500" title="Special Keys" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Dce-pG-aKy">
-                                        <rect key="frame" x="13" y="118" width="283" height="240"/>
+                                        <rect key="frame" x="13" y="117" width="283" height="240"/>
                                         <view key="contentView">
                                             <rect key="frame" x="1" y="1" width="281" height="224"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -508,7 +508,7 @@
                                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </box>
                                     <box autoresizesSubviews="NO" verticalHuggingPriority="500" title="Function Keys" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Eqg-kF-Hjl">
-                                        <rect key="frame" x="308" y="14" width="283" height="344"/>
+                                        <rect key="frame" x="308" y="13" width="283" height="344"/>
                                         <view key="contentView">
                                             <rect key="frame" x="1" y="1" width="281" height="328"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -707,10 +707,11 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_logDirectoryWin" id="9ZQ-Zu-L3i">
+                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_logDirectoryWin" id="Qlb-UC-yb6">
                             <dictionary key="options">
                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                 <bool key="NSValidatesImmediately" value="YES"/>
+                                <string key="NSValueTransformerName">NSTextFieldNilToEmptyStringTransformer</string>
                             </dictionary>
                         </binding>
                     </connections>

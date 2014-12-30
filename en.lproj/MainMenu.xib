@@ -104,41 +104,41 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="Settings" hidden="YES" id="UaS-yv-Dq3" userLabel="Menu Item - Settings">
+                <menuItem title="Settings" hidden="YES" id="UaS-yv-Dq3">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Settings" id="LkZ-vD-zaJ" userLabel="Menu - Settings">
+                    <menu key="submenu" title="Settings" id="LkZ-vD-zaJ">
                         <items>
-                            <menuItem title="Open…" keyEquivalent="o" id="KqQ-9i-HSM" userLabel="Menu Item - Open…">
+                            <menuItem title="Open…" keyEquivalent="o" id="KqQ-9i-HSM">
                                 <connections>
                                     <action selector="openSEBPrefs:" target="892" id="9bK-OH-8A7"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Save" keyEquivalent="s" id="0h8-R9-UfE" userLabel="Menu Item - Save">
+                            <menuItem title="Save" keyEquivalent="s" id="0h8-R9-UfE">
                                 <connections>
                                     <action selector="saveSEBPrefs:" target="892" id="rsu-BH-ozt"/>
                                     <binding destination="892" name="enabled" keyPath="self.usingPrivateDefaults" id="eQ1-7k-sdy"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Save As…" keyEquivalent="S" id="QrI-qU-IU3" userLabel="Menu Item - Save As…">
+                            <menuItem title="Save As…" keyEquivalent="S" id="QrI-qU-IU3">
                                 <connections>
                                     <action selector="saveSEBPrefsAs:" target="892" id="iV6-0L-KIV"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="AoA-DI-i9G"/>
-                            <menuItem title="Revert to Defaults" id="icu-d0-oaR" userLabel="Menu Item - Revert to Defaults">
+                            <menuItem title="Revert to Defaults" id="icu-d0-oaR">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="revertToDefaultSettings:" target="892" id="WPm-5b-efW"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Revert to Client Settings" id="lIX-w9-SMd" userLabel="Menu Item - Revert to Client Settings">
+                            <menuItem title="Revert to Client Settings" id="lIX-w9-SMd">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="revertToLocalClientSettings:" target="892" id="QOA-9e-4ah"/>
                                     <binding destination="892" name="enabled" keyPath="self.usingPrivateDefaults" id="hKa-aI-k3d"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Revert to Last Saved" id="pMV-oP-mZU" userLabel="Menu Item - Revert to Last Saved">
+                            <menuItem title="Revert to Last Saved" id="pMV-oP-mZU">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="revertToLastSaved:" target="892" id="ISy-d0-mPg"/>
@@ -443,10 +443,10 @@
             <connections>
                 <outlet property="aboutWindow" destination="859" id="881"/>
                 <outlet property="configMenu" destination="UaS-yv-Dq3" id="BeT-pj-jga"/>
-                <outlet property="enterPassword" destination="716" id="933"/>
-                <outlet property="enterPasswordDialog" destination="962" id="968"/>
-                <outlet property="enterPasswordDialogWindow" destination="714" id="903"/>
-                <outlet property="passwordView" destination="715" id="pkY-p4-0a6"/>
+                <outlet property="enterPassword" destination="8aH-DI-gaF" id="kts-El-Lns"/>
+                <outlet property="enterPasswordDialog" destination="14K-iu-K30" id="q2y-Bh-2KY"/>
+                <outlet property="enterPasswordDialogWindow" destination="rLU-be-IrT" id="2h2-Gv-9U4"/>
+                <outlet property="passwordView" destination="vWC-gd-xPh" id="zMg-ha-awY"/>
                 <outlet property="preferencesController" destination="892" id="893"/>
                 <outlet property="settingsMenu" destination="sdD-uM-Hx0" id="ITi-w4-GBJ"/>
             </connections>
@@ -557,7 +557,7 @@ Gw
                         </constraints>
                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" id="871">
                             <font key="font" metaFont="miniSystem"/>
-                            <string key="title">© 2010-2014 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen
+                            <string key="title">© 2010-2015 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen
 
 Important parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board.</string>
                             <color key="textColor" red="0.1467391304" green="0.1467391304" blue="0.1467391304" alpha="1" colorSpace="calibratedRGB"/>
@@ -595,42 +595,42 @@ Important parts of this project have been carried out as part of the program 'AA
         <userDefaultsController id="899" customClass="SEBEncryptedUserDefaultsController"/>
         <userDefaultsController id="993" userLabel="SEB User Defaults Controller" customClass="SEBEncryptedUserDefaultsController"/>
         <userDefaultsController id="994"/>
-        <menu title="Settings" id="sdD-uM-Hx0" userLabel="Menu - Popup Menu Settings">
+        <menu title="Settings" id="sdD-uM-Hx0" userLabel="Popup Menu Settings">
             <items>
                 <menuItem id="9WS-P0-r7q">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
-                <menuItem title="Open…" keyEquivalent="o" id="HGQ-o5-kHC" userLabel="Menu Item - Open…">
+                <menuItem title="Open…" keyEquivalent="o" id="HGQ-o5-kHC">
                     <connections>
                         <action selector="openSEBPrefs:" target="892" id="1ec-0Q-Kbb"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Save" keyEquivalent="s" id="eiW-K5-gGu" userLabel="Menu Item - Save">
+                <menuItem title="Save" keyEquivalent="s" id="eiW-K5-gGu">
                     <connections>
                         <action selector="saveSEBPrefs:" target="892" id="q4x-CI-6gx"/>
                         <binding destination="892" name="enabled" keyPath="self.usingPrivateDefaults" id="ZHQ-mh-TPs"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Save As…" keyEquivalent="S" id="gQN-UT-3wR" userLabel="Menu Item - Save As…">
+                <menuItem title="Save As…" keyEquivalent="S" id="gQN-UT-3wR">
                     <connections>
                         <action selector="saveSEBPrefsAs:" target="892" id="cv4-Tp-6nh"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="RJq-rX-98q"/>
-                <menuItem title="Revert to Defaults" id="aG5-0k-cAL" userLabel="Menu Item - Revert to Defaults">
+                <menuItem title="Revert to Defaults" id="aG5-0k-cAL">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="revertToDefaultSettings:" target="892" id="ehv-Yr-M1Z"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Revert to Client Settings" id="9NP-zj-EeW" userLabel="Menu Item - Revert to Client Settings">
+                <menuItem title="Revert to Client Settings" id="9NP-zj-EeW">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="revertToLocalClientSettings:" target="892" id="wh8-uL-K45"/>
                         <binding destination="892" name="enabled" keyPath="self.usingPrivateDefaults" id="hoC-Jo-QqW"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Revert to Last Saved" id="MYP-4t-dpx" userLabel="Menu Item - Revert to Last Saved">
+                <menuItem title="Revert to Last Saved" id="MYP-4t-dpx">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="revertToLastSaved:" target="892" id="VPW-cR-UAN"/>
@@ -658,5 +658,97 @@ Important parts of this project have been carried out as part of the program 'AA
                 </menuItem>
             </items>
         </menu>
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" animationBehavior="default" id="rLU-be-IrT" userLabel="Password Dialog">
+            <windowStyleMask key="styleMask" titled="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
+            <rect key="contentRect" x="340" y="419" width="412" height="109"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <value key="minSize" type="size" width="412" height="108"/>
+            <view key="contentView" id="vWC-gd-xPh">
+                <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="w4A-0q-NaR">
+                        <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
+                        <subviews>
+                            <textField horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="14K-iu-K30" customClass="SEBTextField">
+                                <rect key="frame" x="18" y="77" width="376" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="18" id="eit-hR-UwU"/>
+                                </constraints>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Enter password:" id="anq-S4-gmN">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5C8-Dy-pUH">
+                                <rect key="frame" x="301" y="5" width="96" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="84" id="OMm-AP-8xl"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="iQ5-CR-q1d">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="okEnterPassword:" target="543" id="q3T-O9-vp6"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bGb-Fd-rpF">
+                                <rect key="frame" x="205" y="5" width="96" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="84" id="HqM-8Y-m9g"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Qlt-2p-OmY">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="cancelEnterPassword:" target="543" id="MN8-6W-D4Q"/>
+                                </connections>
+                            </button>
+                            <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8aH-DI-gaF">
+                                <rect key="frame" x="20" y="43" width="371" height="22"/>
+                                <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" placeholderString="" drawsBackground="YES" usesSingleLineMode="YES" id="WHV-Hz-eSu">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <allowedInputSourceLocales>
+                                        <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                    </allowedInputSourceLocales>
+                                </secureTextFieldCell>
+                            </secureTextField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="14K-iu-K30" secondAttribute="trailing" constant="20" symbolic="YES" id="1ev-YA-Rcd"/>
+                            <constraint firstItem="5C8-Dy-pUH" firstAttribute="trailing" secondItem="8aH-DI-gaF" secondAttribute="trailing" id="6Q4-gU-mNd"/>
+                            <constraint firstAttribute="height" priority="550" id="6VF-iV-9Kd"/>
+                            <constraint firstItem="8aH-DI-gaF" firstAttribute="top" secondItem="14K-iu-K30" secondAttribute="bottom" constant="12" id="M2C-HP-QBp"/>
+                            <constraint firstItem="5C8-Dy-pUH" firstAttribute="baseline" secondItem="bGb-Fd-rpF" secondAttribute="baseline" id="NFm-uW-WUc"/>
+                            <constraint firstItem="14K-iu-K30" firstAttribute="leading" secondItem="w4A-0q-NaR" secondAttribute="leading" constant="20" symbolic="YES" id="Nhl-bP-yU5"/>
+                            <constraint firstAttribute="bottom" secondItem="bGb-Fd-rpF" secondAttribute="bottom" constant="12" id="bbz-0W-sOY"/>
+                            <constraint firstItem="14K-iu-K30" firstAttribute="top" secondItem="w4A-0q-NaR" secondAttribute="top" constant="14" id="gC5-Zd-us9"/>
+                            <constraint firstItem="bGb-Fd-rpF" firstAttribute="top" secondItem="8aH-DI-gaF" secondAttribute="bottom" constant="10" id="hSu-Zt-wY9"/>
+                            <constraint firstItem="5C8-Dy-pUH" firstAttribute="leading" secondItem="bGb-Fd-rpF" secondAttribute="trailing" constant="12" symbolic="YES" id="rHg-Em-JLz"/>
+                            <constraint firstItem="14K-iu-K30" firstAttribute="leading" secondItem="8aH-DI-gaF" secondAttribute="leading" id="tjH-Uv-Nic"/>
+                            <constraint firstAttribute="trailing" secondItem="8aH-DI-gaF" secondAttribute="trailing" constant="21" id="zRM-Ju-67V"/>
+                        </constraints>
+                    </customView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="w4A-0q-NaR" secondAttribute="trailing" id="0fE-5r-2Ry"/>
+                    <constraint firstItem="w4A-0q-NaR" firstAttribute="leading" secondItem="vWC-gd-xPh" secondAttribute="leading" id="Ie8-FF-4Zs"/>
+                    <constraint firstAttribute="bottom" secondItem="w4A-0q-NaR" secondAttribute="bottom" id="UfA-5T-Ram"/>
+                    <constraint firstItem="w4A-0q-NaR" firstAttribute="top" secondItem="vWC-gd-xPh" secondAttribute="top" id="aam-jB-cCA"/>
+                </constraints>
+            </view>
+        </window>
     </objects>
 </document>

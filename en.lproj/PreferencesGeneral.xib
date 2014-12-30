@@ -40,6 +40,7 @@
                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                             </dictionary>
                         </binding>
+                        <outlet property="nextKeyView" destination="79" id="tJo-WV-rBZ"/>
                     </connections>
                 </secureTextField>
                 <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="79">
@@ -64,6 +65,7 @@
                                 <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                             </dictionary>
                         </binding>
+                        <outlet property="nextKeyView" destination="83" id="hBi-mi-AMC"/>
                     </connections>
                 </secureTextField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="80">
@@ -221,6 +223,7 @@
                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                             </dictionary>
                         </binding>
+                        <outlet property="nextKeyView" destination="78" id="Nsb-6d-HBw"/>
                     </connections>
                 </secureTextField>
                 <button toolTip="Displays information about Safe Exam Browser – SEB" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="94">
@@ -310,12 +313,14 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="228" name="value" keyPath="values.org_safeexambrowser_SEB_startURL" id="389">
+                        <binding destination="228" name="value" keyPath="values.org_safeexambrowser_SEB_startURL" id="z54-4d-hC3">
                             <dictionary key="options">
                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                 <bool key="NSValidatesImmediately" value="YES"/>
+                                <string key="NSValueTransformerName">NSTextFieldNilToEmptyStringTransformer</string>
                             </dictionary>
                         </binding>
+                        <outlet property="nextKeyView" destination="93" id="nbV-Az-no4"/>
                     </connections>
                 </textField>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="92">

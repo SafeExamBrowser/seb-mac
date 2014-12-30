@@ -3,7 +3,7 @@
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 06.12.10.
-//  Copyright (c) 2010-2014 Daniel R. Schneider, ETH Zurich, 
+//  Copyright (c) 2010-2015 Daniel R. Schneider, ETH Zurich, 
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2014 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2015 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -967,7 +967,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
         
         if ([error code] !=  WebKitErrorFrameLoadInterruptedByPolicyChange) //this error can be ignored
         {
-            DDLogError(@"Error at %s: %@", __FUNCTION__, error.description);
+            DDLogError(@"Error in %s: %@", __FUNCTION__, error.description);
 
             //Close the About Window first, because it would hide the error alert
             [[NSNotificationCenter defaultCenter] postNotificationName:@"requestCloseAboutWindowNotification" object:self];
@@ -1005,7 +1005,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
         
         if ([error code] !=  WebKitErrorFrameLoadInterruptedByPolicyChange) //this error can be ignored
         {
-            DDLogError(@"Error at %s: %@", __FUNCTION__, error.description);
+            DDLogError(@"Error in %s: %@", __FUNCTION__, error.description);
 
             //Close the About Window first, because it would hide the error alert
             [[NSNotificationCenter defaultCenter] postNotificationName:@"requestCloseAboutWindowNotification" object:self];
@@ -1181,10 +1181,10 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
                 filename = [parentOuterHTML substringFromIndex:rangeOfDownloadAttribute.location + rangeOfDownloadAttribute.length];
                 filename = [filename substringToIndex:[filename rangeOfString:@"'"].location];
             } else {
-                rangeOfDownloadAttribute = [parentOuterHTML rangeOfString:@" download=\'"];
+                rangeOfDownloadAttribute = [parentOuterHTML rangeOfString:@" download=\""];
                 if (rangeOfDownloadAttribute.location != NSNotFound) {
                     filename = [parentOuterHTML substringFromIndex:rangeOfDownloadAttribute.location + rangeOfDownloadAttribute.length];
-                    filename = [filename substringToIndex:[filename rangeOfString:@"\'"].location];
+                    filename = [filename substringToIndex:[filename rangeOfString:@"\""].location];
                 }
             }
             self.downloadFilename = filename;
@@ -1368,6 +1368,8 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         CFStringRef uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, mimeType, NULL);
         CFStringRef extension = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassFilenameExtension);
         self.downloadFileExtension = (__bridge NSString *)(extension);
+        if (uti) CFRelease(uti);
+        if (extension) CFRelease(extension);
         DDLogInfo(@"data: content MIME type to download is %@, the file extension will be %@", type, extension);
         [listener download];
         [self startDownloadingURL:request.URL];

@@ -104,41 +104,41 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="Einstellungen" hidden="YES" id="UaS-yv-Dq3" userLabel="Menu Item - Settings">
+                <menuItem title="Einstellungen" hidden="YES" id="UaS-yv-Dq3" userLabel="Settings">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Einstellungen" id="LkZ-vD-zaJ" userLabel="Menu - Settings">
+                    <menu key="submenu" title="Einstellungen" id="LkZ-vD-zaJ" userLabel="Settings">
                         <items>
-                            <menuItem title="Öffnen …" keyEquivalent="o" id="KqQ-9i-HSM" userLabel="Menu Item - Open…">
+                            <menuItem title="Öffnen …" keyEquivalent="o" id="KqQ-9i-HSM" userLabel="Open…">
                                 <connections>
                                     <action selector="openSEBPrefs:" target="892" id="9bK-OH-8A7"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Sichern" keyEquivalent="s" id="0h8-R9-UfE" userLabel="Menu Item - Save">
+                            <menuItem title="Sichern" keyEquivalent="s" id="0h8-R9-UfE" userLabel="Save">
                                 <connections>
                                     <action selector="saveSEBPrefs:" target="892" id="rsu-BH-ozt"/>
                                     <binding destination="892" name="enabled" keyPath="self.usingPrivateDefaults" id="eQ1-7k-sdy"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Sichern als …" keyEquivalent="S" id="QrI-qU-IU3" userLabel="Menu Item - Save As…">
+                            <menuItem title="Sichern als …" keyEquivalent="S" id="QrI-qU-IU3" userLabel="Save As…">
                                 <connections>
                                     <action selector="saveSEBPrefsAs:" target="892" id="iV6-0L-KIV"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="AoA-DI-i9G"/>
-                            <menuItem title="Zurücksetzen auf Voreinstellungen" id="icu-d0-oaR" userLabel="Menu Item - Revert to Defaults">
+                            <menuItem title="Zurücksetzen auf Voreinstellungen" id="icu-d0-oaR" userLabel="Revert to Defaults">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="revertToDefaultSettings:" target="892" id="WPm-5b-efW"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Zurücksetzen auf Client-Einstellungen" id="lIX-w9-SMd" userLabel="Menu Item - Revert to Client Settings">
+                            <menuItem title="Zurücksetzen auf Client-Einstellungen" id="lIX-w9-SMd" userLabel="Revert to Client Settings">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="revertToLocalClientSettings:" target="892" id="QOA-9e-4ah"/>
                                     <binding destination="892" name="enabled" keyPath="self.usingPrivateDefaults" id="hKa-aI-k3d"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Zurücksetzen auf Datei" id="pMV-oP-mZU" userLabel="Menu Item - Revert to Last Saved">
+                            <menuItem title="Zurücksetzen auf Datei" id="pMV-oP-mZU" userLabel="Revert to Last Saved">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="revertToLastSaved:" target="892" id="ISy-d0-mPg"/>
@@ -443,8 +443,8 @@
             <connections>
                 <outlet property="aboutWindow" destination="859" id="881"/>
                 <outlet property="configMenu" destination="UaS-yv-Dq3" id="BeT-pj-jga"/>
-                <outlet property="enterPassword" destination="716" id="933"/>
-                <outlet property="enterPasswordDialog" destination="962" id="968"/>
+                <outlet property="enterPassword" destination="xzj-TX-rfD" id="FAf-tw-5PH"/>
+                <outlet property="enterPasswordDialog" destination="ai2-MA-9HC" id="n75-rQ-p6g"/>
                 <outlet property="enterPasswordDialogWindow" destination="714" id="903"/>
                 <outlet property="passwordView" destination="715" id="pkY-p4-0a6"/>
                 <outlet property="preferencesController" destination="892" id="893"/>
@@ -457,7 +457,7 @@
                 <outlet property="settingsMenu" destination="sdD-uM-Hx0" id="mxI-KK-acg"/>
             </connections>
         </customObject>
-        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" id="714" userLabel="Password Dialog">
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" animationBehavior="default" id="714" userLabel="Password Dialog">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="109"/>
@@ -467,75 +467,85 @@
                 <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="716">
-                        <rect key="frame" x="20" y="43" width="372" height="22"/>
-                        <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" placeholderString="" drawsBackground="YES" usesSingleLineMode="YES" id="723">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                            <allowedInputSourceLocales>
-                                <string>NSAllRomanInputSourcesLocaleIdentifier</string>
-                            </allowedInputSourceLocales>
-                        </secureTextFieldCell>
-                    </secureTextField>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="718">
-                        <rect key="frame" x="302" y="5" width="96" height="32"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="84" id="fvj-iJ-BmY"/>
-                        </constraints>
-                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="721">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="yYA-VJ-wIP">
+                        <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
+                        <subviews>
+                            <textField horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="ai2-MA-9HC" customClass="SEBTextField">
+                                <rect key="frame" x="18" y="77" width="376" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="18" id="dDx-LU-poP"/>
+                                </constraints>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Passwort:" id="hTk-Tf-x0B">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Msk-Vm-Cl1">
+                                <rect key="frame" x="301" y="5" width="96" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="84" id="IOS-ty-YWh"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9ng-vJ-BaZ">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
-                        </buttonCell>
-                        <connections>
-                            <action selector="okEnterPassword:" target="543" id="727"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="719">
-                        <rect key="frame" x="206" y="5" width="96" height="32"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="84" id="BAY-gz-1i8"/>
-                        </constraints>
-                        <buttonCell key="cell" type="push" title="Abbrechen" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="720">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
+                                </buttonCell>
+                                <connections>
+                                    <action selector="okEnterPassword:" target="543" id="5JO-Te-SHC"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GUn-v1-1JM">
+                                <rect key="frame" x="205" y="5" width="96" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="84" id="hvD-sU-I2e"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="Abbrechen" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="n9I-9J-2Qs">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
 Gw
 </string>
-                        </buttonCell>
-                        <connections>
-                            <action selector="cancelEnterPassword:" target="543" id="726"/>
-                        </connections>
-                    </button>
-                    <textField horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="962" customClass="SEBTextField">
-                        <rect key="frame" x="17" y="77" width="378" height="18"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="cancelEnterPassword:" target="543" id="Cxs-aj-hrD"/>
+                                </connections>
+                            </button>
+                            <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xzj-TX-rfD">
+                                <rect key="frame" x="20" y="43" width="371" height="22"/>
+                                <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" placeholderString="" drawsBackground="YES" usesSingleLineMode="YES" id="67c-SK-Yvs">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <allowedInputSourceLocales>
+                                        <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                    </allowedInputSourceLocales>
+                                </secureTextFieldCell>
+                            </secureTextField>
+                        </subviews>
                         <constraints>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="18" id="ptb-D9-jla"/>
+                            <constraint firstItem="Msk-Vm-Cl1" firstAttribute="leading" secondItem="GUn-v1-1JM" secondAttribute="trailing" constant="12" symbolic="YES" id="4x4-CZ-32j"/>
+                            <constraint firstItem="ai2-MA-9HC" firstAttribute="top" secondItem="yYA-VJ-wIP" secondAttribute="top" constant="14" id="6tj-ON-XxN"/>
+                            <constraint firstItem="ai2-MA-9HC" firstAttribute="leading" secondItem="yYA-VJ-wIP" secondAttribute="leading" constant="20" symbolic="YES" id="6vG-Bg-QRf"/>
+                            <constraint firstAttribute="trailing" secondItem="xzj-TX-rfD" secondAttribute="trailing" constant="21" id="8w7-Ea-5FL"/>
+                            <constraint firstItem="Msk-Vm-Cl1" firstAttribute="trailing" secondItem="xzj-TX-rfD" secondAttribute="trailing" id="Eqh-GH-HNa"/>
+                            <constraint firstAttribute="trailing" secondItem="ai2-MA-9HC" secondAttribute="trailing" constant="20" symbolic="YES" id="Flv-we-EEh"/>
+                            <constraint firstItem="ai2-MA-9HC" firstAttribute="leading" secondItem="xzj-TX-rfD" secondAttribute="leading" id="RxD-Zh-zCS"/>
+                            <constraint firstAttribute="bottom" secondItem="GUn-v1-1JM" secondAttribute="bottom" constant="12" id="Sz1-cD-OIQ"/>
+                            <constraint firstItem="xzj-TX-rfD" firstAttribute="top" secondItem="ai2-MA-9HC" secondAttribute="bottom" constant="12" id="W6z-uu-yX6"/>
+                            <constraint firstItem="GUn-v1-1JM" firstAttribute="top" secondItem="xzj-TX-rfD" secondAttribute="bottom" constant="10" id="fKj-Nb-rLX"/>
+                            <constraint firstAttribute="height" priority="550" id="hpe-gg-uY0"/>
+                            <constraint firstItem="Msk-Vm-Cl1" firstAttribute="baseline" secondItem="GUn-v1-1JM" secondAttribute="baseline" id="vQO-6B-btg"/>
                         </constraints>
-                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Passwort:" id="963">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
+                    </customView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="718" firstAttribute="trailing" secondItem="716" secondAttribute="trailing" id="ABc-Fe-HhG"/>
-                    <constraint firstAttribute="bottom" secondItem="719" secondAttribute="bottom" constant="12" id="ANH-24-cQQ"/>
-                    <constraint firstItem="718" firstAttribute="top" secondItem="716" secondAttribute="bottom" constant="10" id="Ett-3f-H55"/>
-                    <constraint firstItem="962" firstAttribute="leading" secondItem="715" secondAttribute="leading" constant="19" id="ICp-FO-nHb"/>
-                    <constraint firstItem="962" firstAttribute="top" secondItem="715" secondAttribute="top" constant="14" id="IXY-L1-qqK"/>
-                    <constraint firstItem="718" firstAttribute="leading" secondItem="719" secondAttribute="trailing" constant="12" symbolic="YES" id="TwH-SC-vvG"/>
-                    <constraint firstItem="719" firstAttribute="baseline" secondItem="718" secondAttribute="baseline" id="W7r-qe-Pc5"/>
-                    <constraint firstItem="716" firstAttribute="top" secondItem="962" secondAttribute="bottom" constant="12" id="hxl-1d-2Ah"/>
-                    <constraint firstItem="716" firstAttribute="leading" secondItem="715" secondAttribute="leading" constant="20" symbolic="YES" id="iQr-dj-fP5"/>
-                    <constraint firstItem="719" firstAttribute="top" secondItem="716" secondAttribute="bottom" constant="10" id="r9U-nV-4Qb"/>
-                    <constraint firstAttribute="trailing" secondItem="716" secondAttribute="trailing" constant="20" symbolic="YES" id="tNb-I9-Rcf"/>
-                    <constraint firstAttribute="bottom" secondItem="718" secondAttribute="bottom" constant="12" id="uxJ-cC-urK"/>
-                    <constraint firstAttribute="trailing" secondItem="962" secondAttribute="trailing" constant="19" id="xUr-eX-LlY"/>
+                    <constraint firstAttribute="bottom" secondItem="yYA-VJ-wIP" secondAttribute="bottom" id="K3a-ox-nNm"/>
+                    <constraint firstItem="yYA-VJ-wIP" firstAttribute="top" secondItem="715" secondAttribute="top" id="MFP-6x-3Vy"/>
+                    <constraint firstAttribute="trailing" secondItem="yYA-VJ-wIP" secondAttribute="trailing" id="Z4J-yH-xyU"/>
+                    <constraint firstItem="yYA-VJ-wIP" firstAttribute="leading" secondItem="715" secondAttribute="leading" id="wh5-5l-efM"/>
                 </constraints>
             </view>
         </window>
@@ -557,9 +567,9 @@ Gw
                         </constraints>
                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" id="871">
                             <font key="font" metaFont="miniSystem"/>
-                            <string key="title">© 2010-2014 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browsers von Stefan Schneider, Universität von Giessen
+                            <string key="title">© 2010-2015 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browsers von Stefan Schneider, Universität von Giessen
 
-Dieses Projekt wurde teilweise im Rahmen der von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat. </string>
+Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat. </string>
                             <color key="textColor" red="0.1467391304" green="0.1467391304" blue="0.1467391304" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -595,42 +605,42 @@ Dieses Projekt wurde teilweise im Rahmen der von SWITCH geleiteten Programms 'AA
         <userDefaultsController id="899" customClass="SEBEncryptedUserDefaultsController"/>
         <userDefaultsController id="993" userLabel="SEB User Defaults Controller" customClass="SEBEncryptedUserDefaultsController"/>
         <userDefaultsController id="994"/>
-        <menu title="Einstellungen" id="sdD-uM-Hx0" userLabel="Menu - Popup Menu Settings">
+        <menu title="Einstellungen" id="sdD-uM-Hx0" userLabel="Popup Menu Settings">
             <items>
                 <menuItem id="9WS-P0-r7q">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
-                <menuItem title="Öffnen …" keyEquivalent="o" id="HGQ-o5-kHC" userLabel="Menu Item - Open…">
+                <menuItem title="Öffnen …" keyEquivalent="o" id="HGQ-o5-kHC" userLabel="Open…">
                     <connections>
                         <action selector="openSEBPrefs:" target="892" id="1ec-0Q-Kbb"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Sichern" keyEquivalent="s" id="eiW-K5-gGu" userLabel="Menu Item - Save">
+                <menuItem title="Sichern" keyEquivalent="s" id="eiW-K5-gGu" userLabel="Save">
                     <connections>
                         <action selector="saveSEBPrefs:" target="892" id="q4x-CI-6gx"/>
                         <binding destination="892" name="enabled" keyPath="self.usingPrivateDefaults" id="ZHQ-mh-TPs"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Sichern als …" keyEquivalent="S" id="gQN-UT-3wR" userLabel="Menu Item - Save As…">
+                <menuItem title="Sichern als …" keyEquivalent="S" id="gQN-UT-3wR" userLabel="Save As…">
                     <connections>
                         <action selector="saveSEBPrefsAs:" target="892" id="cv4-Tp-6nh"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="RJq-rX-98q"/>
-                <menuItem title="Zurücksetzen auf Voreinstellungen" id="aG5-0k-cAL" userLabel="Menu Item - Revert to Defaults">
+                <menuItem title="Zurücksetzen auf Voreinstellungen" id="aG5-0k-cAL" userLabel="Revert to Defaults">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="revertToDefaultSettings:" target="892" id="ehv-Yr-M1Z"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Zurücksetzen auf Client-Einstellungen" id="9NP-zj-EeW" userLabel="Menu Item - Revert to Client Settings">
+                <menuItem title="Zurücksetzen auf Client-Einstellungen" id="9NP-zj-EeW" userLabel="Revert to Client Settings">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="revertToLocalClientSettings:" target="892" id="wh8-uL-K45"/>
                         <binding destination="892" name="enabled" keyPath="self.usingPrivateDefaults" id="hoC-Jo-QqW"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Zurücksetzen auf Datei" id="MYP-4t-dpx" userLabel="Menu Item - Revert to Last Saved">
+                <menuItem title="Zurücksetzen auf Datei" id="MYP-4t-dpx" userLabel="Revert to Last Saved">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="revertToLastSaved:" target="892" id="VPW-cR-UAN"/>
