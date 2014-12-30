@@ -1559,7 +1559,7 @@
             </trans-unit>
             <trans-unit id="688.ibShadowedToolTip">
                 <source>If a Quit Link is entered, it works regardless of other quit settings in the General pane</source>
-                <target>Wenn ein Quit-Link angegeben ist, funktioniert dieser unabhängig von anderen Beenden-Einstellungen auf der Seite </target>
+                <target>Wenn ein Quit-Link angegeben ist, funktioniert dieser unabhängig von anderen Beenden-Einstellungen auf der Seite Allgemein</target>
                 <note>Class = "NSTextField"; ibShadowedToolTip = "If a Quit Link is entered, it works regardless of other quit settings in the General pane"; ObjectID = "688";</note>
             </trans-unit>
             <trans-unit id="689.placeholderString">

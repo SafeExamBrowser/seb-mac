@@ -37,6 +37,6 @@
 
     #import "Constants.h"
     #import "MyGlobals.h"
-    #import "CocoaLumberjack/CocoaLumberjack.h"
+    #import "CocoaLumberjack.h"
 #endif
 
