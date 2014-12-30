@@ -259,6 +259,7 @@
 		690D23471451EF2400CCCFF9 /* PrefsBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsBrowserViewController.m; sourceTree = "<group>"; };
 		690D234A1452000800CCCFF9 /* BrowserIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BrowserIcon.png; path = Resources/Icons/BrowserIcon.png; sourceTree = "<group>"; };
 		690D234B1452000800CCCFF9 /* BrowserIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BrowserIcon@2x.png"; path = "Resources/Icons/BrowserIcon@2x.png"; sourceTree = "<group>"; };
+		690D80DC1A52370E00A3218B /* SafeExamBrowser-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SafeExamBrowser-Info.plist"; sourceTree = "<group>"; };
 		6913E5C21A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTextFieldNilToEmptyStringTransformer.h; sourceTree = "<group>"; };
 		6913E5C31A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTextFieldNilToEmptyStringTransformer.m; sourceTree = "<group>"; };
 		6915F2E719C8F77600DAEA37 /* SEBDockWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockWindow.h; path = Classes/SEBDock/SEBDockWindow.h; sourceTree = "<group>"; };
@@ -529,6 +530,7 @@
 				69DD92A01A463435004072E5 /* InfoPlist.strings */,
 				69EA170119FA77A0001E0C51 /* Localizable.strings */,
 				69A9A22E1369AF9600840AE1 /* LICENCE */,
+				690D80DC1A52370E00A3218B /* SafeExamBrowser-Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
