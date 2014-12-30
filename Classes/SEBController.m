@@ -1225,7 +1225,7 @@ bool insideMatrix(){
 		
         if (![hashedQuitPassword isEqualToString:@""]) {
 			// if quit password is set, then restrict quitting
-            if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit password:",nil)  modalForWindow:self.browserController.mainBrowserWindow windowTitle:nil] == SEBEnterPasswordCancel) return;
+            if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit password:",nil)  modalForWindow:self.browserController.mainBrowserWindow windowTitle:@""] == SEBEnterPasswordCancel) return;
             NSString *password = [self.enterPassword stringValue];
 			
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
@@ -1275,7 +1275,7 @@ bool insideMatrix(){
             NSString *hashedAdminPW = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
             if (![hashedAdminPW isEqualToString:@""]) {
                 // If admin password is set, then restrict access to the preferences window
-                if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter administrator password:",nil)  modalForWindow:self.browserController.mainBrowserWindow windowTitle:nil] == SEBEnterPasswordCancel) return;
+                if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter administrator password:",nil)  modalForWindow:self.browserController.mainBrowserWindow windowTitle:@""] == SEBEnterPasswordCancel) return;
                 NSString *password = [self.enterPassword stringValue];
                 SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
                 if ([hashedAdminPW caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] != NSOrderedSame) {
