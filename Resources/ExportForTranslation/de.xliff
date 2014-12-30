@@ -366,9 +366,9 @@
                 <note>Class = "NSButtonCell"; title = "OK"; ObjectID = "721";</note>
             </trans-unit>
             <trans-unit id="871.title">
-                <source>© 2010-2014 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen\n\nImportant parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board.</source>
-                <target>© 2010-2014 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browsers von Stefan Schneider, Universität von Giessen\n\nDieses Projekt wurde teilweise im Rahmen der von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat. </target>
-                <note>Class = "NSTextFieldCell"; title = "© 2010-2014 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen\n\nImportant parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board."; ObjectID = "871";</note>
+                <source>© 2010-2015 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen\n\nImportant parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board.</source>
+                <target>© 2010-2015 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browsers von Stefan Schneider, Universität von Giessen\n\nDieses Projekt wurde teilweise im Rahmen der von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat. </target>
+                <note>Class = "NSTextFieldCell"; title = "© 2010-2015 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen\n\nImportant parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board."; ObjectID = "871";</note>
             </trans-unit>
             <trans-unit id="887.title">
                 <source>Reload Page</source>
@@ -3552,8 +3552,8 @@
                 <source>2.0</source>
             </trans-unit>
             <trans-unit id="NSHumanReadableCopyright">
-                <source>© 2010-2014 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
-                <target>© 2010-2014 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browsers von Stefan Schneider, Universität von Giessen</target>
+                <source>© 2010-2015 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
+                <target>© 2010-2015 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browsers von Stefan Schneider, Universität von Giessen</target>
             </trans-unit>
         </body>
     </file>

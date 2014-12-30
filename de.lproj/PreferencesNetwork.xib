@@ -825,7 +825,7 @@
                                     </textField>
                                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1814">
                                         <rect key="frame" x="14" y="548" width="576" height="22"/>
-                                        <string key="toolTip">Kryptografische Identitäten (X.509 Zertifikate mit öffentlichem RSA-Schlüssel und dazugehörigem privaten Schlüssel) im Schlüsselbund, die für Verschlüsselung und Entschlüsselung benutzt werden können. Exportieren Sie die ausgewählte Identität in der Schlüsselbundverwaltung und installieren Sie diese auf ihren SEB-Clients</string>
+                                        <string key="toolTip">Kryptografische Identitäten (X.509 Zertifikate mit öffentlichem RSA-Schlüssel und dazugehörigem privaten Schlüssel) im Schlüsselbund, die für Verschlüsselung und Entschlüsselung benutzt werden können. Exportieren Sie die ausgewählte Identität in der Schlüsselbundverwaltung und installieren Sie diese auf Ihren SEB-Clients</string>
                                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="1817" id="1815">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>

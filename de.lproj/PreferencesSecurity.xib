@@ -24,7 +24,7 @@
             <subviews>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="13">
                     <rect key="frame" x="18" y="515" width="111" height="18"/>
-                    <string key="toolTip">Das Log kann beim Debugging von SEB helfen (senden Sie ihre Log-Dateien an die SEB-Entwickler) und eventuelle Manipulationen aufdecken</string>
+                    <string key="toolTip">Das Log kann beim Debugging von SEB helfen (senden Sie Ihre Log-Dateien an die SEB-Entwickler) und eventuelle Manipulationen aufdecken</string>
                     <buttonCell key="cell" type="check" title="Log aktivieren" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="14">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
