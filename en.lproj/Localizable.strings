@@ -89,7 +89,7 @@
 "Continue" = "Continue";
 
 /* No comment provided by engineer. */
-"Important parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board." = "Important parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board.";
+"Parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board." = "Parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board.";
 
 /* No comment provided by engineer. */
 "Current settings have unsaved changes. If you don't save those first, you will loose them." = "Current settings have unsaved changes. If you don't save those first, you will loose them.";
@@ -389,7 +389,7 @@
 "Win" = "Win";
 
 /* No comment provided by engineer. */
-"Writing Settings Failed" = "Writing Settings Failed";
+"Saving Settings Failed" = "Saving Settings Failed";
 
 /* No comment provided by engineer. */
 "Writing Settings Succeeded" = "Writing Settings Succeeded";

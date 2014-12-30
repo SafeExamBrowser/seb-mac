@@ -115,13 +115,13 @@
 	PrefsAppearanceViewController *appearance = [[PrefsAppearanceViewController alloc] initWithNibName:@"PreferencesAppearance" bundle:nil];
 	PrefsBrowserViewController *browser = [[PrefsBrowserViewController alloc] initWithNibName:@"PreferencesBrowser" bundle:nil];
 	PrefsDownUploadsViewController *downuploads = [[PrefsDownUploadsViewController alloc] initWithNibName:@"PreferencesDownUploads" bundle:nil];
-	PrefsExamViewController *exam = [[PrefsExamViewController alloc] initWithNibName:@"PreferencesExam" bundle:nil];
+	self.examVC = [[PrefsExamViewController alloc] initWithNibName:@"PreferencesExam" bundle:nil];
 	PrefsApplicationsViewController *applications = [[PrefsApplicationsViewController alloc] initWithNibName:@"PreferencesApplications" bundle:nil];
 //	PrefsResourcesViewController *resources = [[PrefsResourcesViewController alloc] initWithNibName:@"PreferencesResources" bundle:nil];
 	PrefsNetworkViewController *network = [[PrefsNetworkViewController alloc] initWithNibName:@"PreferencesNetwork" bundle:nil];
 	PrefsSecurityViewController *security = [[PrefsSecurityViewController alloc] initWithNibName:@"PreferencesSecurity" bundle:nil];
 //	[[MBPreferencesController sharedController] setModules:[NSArray arrayWithObjects:self.generalVC, self.configFileVC, appearance, browser, downuploads, exam, applications, resources, network, security, nil]];
-    [[MBPreferencesController sharedController] setModules:[NSArray arrayWithObjects:self.generalVC, self.configFileVC, appearance, browser, downuploads, exam, applications, network, security, nil]];
+    [[MBPreferencesController sharedController] setModules:[NSArray arrayWithObjects:self.generalVC, self.configFileVC, appearance, browser, downuploads, self.examVC, applications, network, security, nil]];
     // Set self as the window delegate to be able to post a notification when preferences window is closing
     // will be overridden when the general pane is displayed (loaded from nib)
     if (![[MBPreferencesController sharedController].window delegate]) {
@@ -847,18 +847,20 @@
             // "Save": Rewrite the file openend before
             NSError *error;
             if (![encryptedSebData writeToURL:currentConfigFileURL options:NSDataWritingAtomic error:&error]) {
-                // If the prefs file couldn't be written to app bundle
-                NSRunAlertPanel(NSLocalizedString(@"Writing Settings Failed", nil),
+                // If the prefs file couldn't be saved
+                NSRunAlertPanel(NSLocalizedString(@"Saving Settings Failed", nil),
                                 @"%@", [error localizedDescription],
                                 NSLocalizedString(@"OK", nil), nil, nil);
                 [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
                 [preferences setSecureObject:oldBrowserExamKeySalt forKey:@"org_safeexambrowser_SEB_examKeySalt"];
                 return NO;
-            } else if (fileURLUpdate) {
-                [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigFileURL];
-                [self.configFileVC revertLastSavedButtonSetEnabled:self];
-                [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
-                [[MBPreferencesController sharedController] setPreferencesWindowTitle];
+            } else {
+                if (fileURLUpdate) {
+                    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigFileURL];
+                    [self.configFileVC revertLastSavedButtonSetEnabled:self];
+                    [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
+                    [[MBPreferencesController sharedController] setPreferencesWindowTitle];
+                }
             }
             
         } else {
@@ -881,7 +883,7 @@
                 if (![encryptedSebData writeToURL:prefsFileURL options:NSDataWritingAtomic error:&error]) {
                     //if (![filteredPrefsDict writeToURL:prefsFileURL atomically:YES]) {
                     // If the prefs file couldn't be written
-                    NSRunAlertPanel(NSLocalizedString(@"Writing Settings Failed", nil),
+                    NSRunAlertPanel(NSLocalizedString(@"Saving Settings Failed", nil),
                                     @"%@", [error localizedDescription],
                                     NSLocalizedString(@"OK", nil), nil, nil);
                     [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
@@ -909,6 +911,8 @@
                 return NO;
             }
         }
+        [self.examVC displayBrowserExamKey];
+
         // When Save As with local user defaults we ask if the saved file should be edited further
         if (saveAs && !NSUserDefaults.userDefaultsPrivate) {
             NSAlert *newAlert = [[NSAlert alloc] init];

@@ -59,7 +59,6 @@
 // Before displaying pane set the download directory
 - (void)willBeDisplayed
 {
-    [self setDownloadDirectory];
     
 }
 
@@ -92,56 +91,6 @@
 - (IBAction) showTaskBarButton:(NSButton *)sender
 {
     taskBarHeight.enabled = [sender state];
-}
-
-
-- (void) setDownloadDirectory {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-	//NSMenuItem *downloadDirectory = [[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""];
-    NSString *downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
-    if (!downloadPath) {
-        //if there's no path saved in preferences, set standard path
-        downloadPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Downloads"];
-        [preferences setSecureObject:downloadPath forKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
-    }    
-    // display the download directory path in the menu
-    [downloadDirectory setTitle:[[NSFileManager defaultManager] displayNameAtPath:downloadPath]];
-    [downloadDirectory setImage:[[NSWorkspace sharedWorkspace] iconForFile:downloadPath]];
-    [chooseDownloadDirectory selectItemAtIndex:0];
-    [chooseDownloadDirectory synchronizeTitleAndSelectedItem];
-}
-
-
-- (IBAction) chooseDirectory:(id)sender {
-    // Create the File Open Dialog class.
-    NSOpenPanel* openFilePanel = [NSOpenPanel openPanel];
-    
-    // Disable the selection of files in the dialog
-    [openFilePanel setCanChooseFiles:NO];
-    
-    // Enable the selection of directories in the dialog
-    [openFilePanel setCanChooseDirectories:YES];
-    
-    // Change text of the open button in file dialog
-    [openFilePanel setPrompt:NSLocalizedString(@"Select",nil)];
-    
-    // Display the dialog.  If the OK button was pressed,
-    // process the files.
-    [openFilePanel beginSheetModalForWindow:[MBPreferencesController sharedController].window
-                      completionHandler:^(NSInteger result) {
-                          if (result == NSFileHandlingPanelOKButton) {
-                              // Get an array containing the full filenames of all
-                              // files and directories selected.
-                              NSArray* files = [openFilePanel URLs];
-                              NSString* fileName = [[files objectAtIndex:0] path];
-                              NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-                              [preferences setSecureObject:fileName forKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
-                              [self setDownloadDirectory];
-                          } else {
-                              [chooseDownloadDirectory selectItemAtIndex:0];
-                              [chooseDownloadDirectory synchronizeTitleAndSelectedItem];
-                          }
-                      }];
 }
 
 

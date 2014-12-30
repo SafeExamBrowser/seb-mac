@@ -11,6 +11,7 @@
                 <outlet property="enableBrowserWindowToolbar" destination="371" id="3XD-hv-0YN"/>
                 <outlet property="hideBrowserWindowToolbar" destination="383" id="ttW-Va-HwR"/>
                 <outlet property="mainBrowserWindowHeight" destination="596" id="EjC-Fw-AWi"/>
+                <outlet property="mainBrowserWindowPositioning" destination="599" id="ahg-iV-t8n"/>
                 <outlet property="mainBrowserWindowWidth" destination="594" id="Oja-Ub-DtH"/>
                 <outlet property="view" destination="1" id="4"/>
             </connections>

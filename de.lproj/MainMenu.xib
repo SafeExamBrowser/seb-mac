@@ -587,6 +587,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
                     </textField>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottom" secondItem="870" secondAttribute="bottom" constant="12" id="Dwb-wg-f1g"/>
                     <constraint firstItem="872" firstAttribute="top" secondItem="860" secondAttribute="top" constant="88" id="aoC-Eg-7gz"/>
                     <constraint firstAttribute="trailing" secondItem="870" secondAttribute="trailing" constant="22" id="f8E-um-xv9"/>
                     <constraint firstItem="870" firstAttribute="top" secondItem="872" secondAttribute="bottom" constant="14" id="gVb-YQ-vDv"/>

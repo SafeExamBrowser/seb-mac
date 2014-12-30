@@ -52,6 +52,7 @@
 @class SEBConfigFileManager;
 @class PrefsGeneralViewController;
 @class PrefsConfigFileViewController;
+@class PrefsExamViewController;
 
 
 @interface PreferencesController : NSObject <NSWindowDelegate> {
@@ -72,6 +73,7 @@
 @property (strong, nonatomic) SEBConfigFileManager *configFileManager;
 @property (strong, nonatomic) PrefsGeneralViewController *generalVC;
 @property (strong, nonatomic) PrefsConfigFileViewController *configFileVC;
+@property (strong, nonatomic) PrefsExamViewController *examVC;
 
 // Write-only properties
 @property (nonatomic) NSString *currentConfigPassword;
