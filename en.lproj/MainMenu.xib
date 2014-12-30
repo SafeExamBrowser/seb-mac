@@ -462,22 +462,22 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="340" y="419" width="550" height="300"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
             <view key="contentView" id="860" customClass="AboutView">
                 <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="870">
-                        <rect key="frame" x="325" y="15" width="205" height="165"/>
+                    <textField verticalHuggingPriority="550" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="870">
+                        <rect key="frame" x="325" y="12" width="205" height="168"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="165" id="LTe-P4-WGh"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="168" id="LTe-P4-WGh"/>
                             <constraint firstAttribute="width" constant="201" id="fbt-kn-prC"/>
                         </constraints>
                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" id="871">
                             <font key="font" metaFont="miniSystem"/>
                             <string key="title">© 2010-2015 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen
 
-Important parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board.</string>
+Parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network, and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board.</string>
                             <color key="textColor" red="0.1467391304" green="0.1467391304" blue="0.1467391304" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -495,6 +495,7 @@ Important parts of this project have been carried out as part of the program 'AA
                     </textField>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottom" secondItem="870" secondAttribute="bottom" constant="12" id="86s-Pf-grZ"/>
                     <constraint firstItem="872" firstAttribute="top" secondItem="860" secondAttribute="top" constant="88" id="aoC-Eg-7gz"/>
                     <constraint firstAttribute="trailing" secondItem="870" secondAttribute="trailing" constant="22" id="f8E-um-xv9"/>
                     <constraint firstItem="870" firstAttribute="top" secondItem="872" secondAttribute="bottom" constant="16" id="gVb-YQ-vDv"/>
@@ -580,7 +581,7 @@ Important parts of this project have been carried out as part of the program 'AA
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="109"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="vWC-gd-xPh">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>

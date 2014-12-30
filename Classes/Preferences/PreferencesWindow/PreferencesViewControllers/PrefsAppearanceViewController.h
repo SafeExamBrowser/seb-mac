@@ -40,9 +40,6 @@
 
 @interface PrefsAppearanceViewController : NSViewController <MBPreferencesModule> {
 
-    IBOutlet NSPopUpButton *chooseDownloadDirectory;
-    IBOutlet NSMenuItem *downloadDirectory;
-    
     IBOutlet NSComboBox *mainBrowserWindowWidth;
     IBOutlet NSComboBox *mainBrowserWindowHeight;
     IBOutlet NSPopUpButton *mainBrowserWindowPositioning;
@@ -55,10 +52,6 @@
 
 - (NSString *)identifier;
 - (NSImage *)image;
-
-- (void) setDownloadDirectory;
-
-- (IBAction) chooseDirectory:(id)sender;
 
 - (IBAction) browserViewModeMatrix:(NSMatrix *)sender;
 - (IBAction) enableBrowserWindowToolbarButton:(NSButton *)sender;
