@@ -563,9 +563,7 @@
                           keychain, // Don't import into a keychain
                           NULL);
     if (oserr) {
-#ifdef DEBUG
-        fprintf(stderr, "SecItemImport failed (oserr=%d)\n", oserr);
-#endif
+        DDLogError(@"SecItemImport failed (oserr=%d)\n", oserr);
         return NO;
     }
     return YES;
@@ -686,11 +684,6 @@
     assert(crtn == CSSM_OK);
     CSSM_DeleteContext(ccHandle);
     
-#ifdef DEBUG
-    fprintf(stderr, "DecryptData output %ld bytes\n",
-            ptext.Length);
-    fprintf(stderr, "[%s]\n", ptext.Data);
-#endif
     if(crtn) {
 		cssmPerror("cdsaEncrypt", crtn);
 		return nil;

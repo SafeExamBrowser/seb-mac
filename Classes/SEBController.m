@@ -775,7 +775,7 @@ OSStatus MyHotKeyHandler(EventHandlerCallRef nextHandler,EventRef theEvent,
 // Method called by I/O Kit power management
 void MySleepCallBack( void * refCon, io_service_t service, natural_t messageType, void * messageArgument )
 {
-    printf( "messageType %08lx, arg %08lx\n",
+    DDLogDebug(@"messageType %08lx, arg %08lx\n",
 		   (long unsigned int)messageType,
 		   (long unsigned int)messageArgument );
 	
