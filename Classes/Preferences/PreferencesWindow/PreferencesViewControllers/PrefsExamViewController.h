@@ -52,6 +52,6 @@
 - (BOOL) usingPrivateDefaults;
 - (IBAction) generateBrowserExamKey:(id)sender;
 - (IBAction) checkboxClicked:(id)sender;
-
+- (void)displayBrowserExamKey;
 
 @end
