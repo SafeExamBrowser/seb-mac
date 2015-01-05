@@ -30,6 +30,9 @@
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="5">
                                         <rect key="frame" x="15" y="588" width="297" height="18"/>
                                         <string key="toolTip">Setzt die Sicherheit des Kiosk-Modus herab durch Zulassen des Programmumschalters cmd-Tab (Befehlstaste-Tabulator). SEB muss in einem gesicherten Benutzerkonto betrieben werden!</string>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="14" id="VUG-EF-yNl"/>
+                                        </constraints>
                                         <buttonCell key="cell" type="check" title="Umschalten auf Drittapplikationen erlauben" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="6">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -42,6 +45,9 @@
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="134">
                                         <rect key="frame" x="33" y="567" width="182" height="18"/>
                                         <string key="toolTip">Videos mittels Flash im Vollbildmodus abzuspielen ist ein Sicherheitsproblem. Deshalb wird empfohlen, HTML5-Video anstatt Flash zu benutzen (dort ist der Vollbildmodus kein Problem). Bei deaktiviertem Umschalten auf Drittapplikationen ist der Flash-Vollbildmodus grundsätzlich nicht möglich.</string>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="12" id="Cqq-up-bqG"/>
+                                        </constraints>
                                         <buttonCell key="cell" type="check" title="Flash-Vollbildmodus erlauben" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="135">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
@@ -57,7 +63,7 @@
                                             <rect key="frame" x="1" y="17" width="568" height="133"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="348" id="346">
+                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveName="PermittedProcessTableView" headerView="348" id="346">
                                                     <rect key="frame" x="0.0" y="0.0" width="568" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
@@ -139,6 +145,9 @@
                                             </subviews>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </clipView>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="151" id="IvS-gS-3VA"/>
+                                        </constraints>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="347">
                                             <rect key="frame" x="1" y="174" width="568" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -681,9 +690,10 @@
                                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </box>
                                     <button toolTip="Erlaubten Prozess hinzufügen" translatesAutoresizingMaskIntoConstraints="NO" id="463">
-                                        <rect key="frame" x="17" y="377" width="20" height="21"/>
+                                        <rect key="frame" x="17" y="377" width="22" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="468"/>
+                                            <constraint firstAttribute="width" constant="22" id="kUC-yy-s4V"/>
                                         </constraints>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="469">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -694,7 +704,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="Prozess entfernen" translatesAutoresizingMaskIntoConstraints="NO" id="464">
-                                        <rect key="frame" x="36" y="377" width="22" height="21"/>
+                                        <rect key="frame" x="38" y="377" width="22" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="22" id="466"/>
                                         </constraints>
@@ -707,14 +717,14 @@
                                         </connections>
                                     </button>
                                     <button hidden="YES" toolTip="Ermöglicht eine Applikation/Prozess-Executable auszuwählen, welche zur Liste der erlaubten Prozesse hinzugefügt wird." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="495">
-                                        <rect key="frame" x="60" y="370" width="200" height="32"/>
+                                        <rect key="frame" x="66" y="370" width="200" height="32"/>
                                         <buttonCell key="cell" type="push" title="Applikation auswählen …" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="496">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                     <button hidden="YES" toolTip="Einen momentan laufenden Prozess auswählen, der zu den erlaubten Prozessen hinzugefügt wird" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1600">
-                                        <rect key="frame" x="260" y="370" width="175" height="32"/>
+                                        <rect key="frame" x="266" y="370" width="175" height="32"/>
                                         <buttonCell key="cell" type="push" title="Prozess auswählen …" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1601">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -731,16 +741,15 @@
                                     <constraint firstItem="463" firstAttribute="leading" secondItem="405" secondAttribute="leading" id="475"/>
                                     <constraint firstItem="463" firstAttribute="leading" secondItem="243" secondAttribute="leading" constant="17" id="476"/>
                                     <constraint firstItem="464" firstAttribute="leading" secondItem="463" secondAttribute="trailing" constant="-1" id="478"/>
-                                    <constraint firstItem="495" firstAttribute="leading" secondItem="464" secondAttribute="trailing" constant="8" symbolic="YES" id="500"/>
+                                    <constraint firstItem="495" firstAttribute="leading" secondItem="464" secondAttribute="trailing" constant="12" id="500"/>
                                     <constraint firstItem="495" firstAttribute="top" secondItem="464" secondAttribute="top" id="501"/>
                                     <constraint firstItem="405" firstAttribute="top" secondItem="464" secondAttribute="bottom" constant="8" symbolic="YES" id="515"/>
                                     <constraint firstItem="405" firstAttribute="top" secondItem="463" secondAttribute="bottom" constant="8" symbolic="YES" id="517"/>
                                     <constraint firstItem="134" firstAttribute="leading" secondItem="243" secondAttribute="leading" constant="36" id="533"/>
-                                    <constraint firstItem="134" firstAttribute="leading" secondItem="464" secondAttribute="leading" id="534"/>
                                     <constraint firstItem="463" firstAttribute="top" secondItem="345" secondAttribute="bottom" constant="8" symbolic="YES" id="998"/>
                                     <constraint firstItem="464" firstAttribute="top" secondItem="345" secondAttribute="bottom" constant="8" symbolic="YES" id="999"/>
                                     <constraint firstItem="1600" firstAttribute="baseline" secondItem="495" secondAttribute="baseline" id="1604"/>
-                                    <constraint firstItem="1600" firstAttribute="leading" secondItem="495" secondAttribute="trailing" constant="12" symbolic="YES" id="1605"/>
+                                    <constraint firstItem="1600" firstAttribute="leading" secondItem="495" secondAttribute="trailing" constant="12" id="1605"/>
                                     <constraint firstItem="463" firstAttribute="top" secondItem="243" secondAttribute="top" constant="216" id="1811"/>
                                     <constraint firstItem="5" firstAttribute="top" secondItem="243" secondAttribute="top" constant="10" id="2114"/>
                                     <constraint firstItem="345" firstAttribute="top" secondItem="134" secondAttribute="bottom" constant="13" id="2116"/>
@@ -762,7 +771,7 @@
                                             <rect key="frame" x="1" y="17" width="568" height="342"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="1926" id="1924">
+                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveName="ProhibitedProcessTableView" headerView="1926" id="1924">
                                                     <rect key="frame" x="0.0" y="0.0" width="568" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
@@ -1138,17 +1147,17 @@
                                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </box>
                                     <button hidden="YES" toolTip="Einen momentan laufenden Prozess auswählen, der zu den erlaubten Prozessen hinzugefügt wird" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1841">
-                                        <rect key="frame" x="259" y="190" width="175" height="32"/>
+                                        <rect key="frame" x="261" y="190" width="175" height="32"/>
                                         <buttonCell key="cell" type="push" title="Prozess auswählen …" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1853">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                     <button toolTip="Verbotenen Prozess hinzufügen" translatesAutoresizingMaskIntoConstraints="NO" id="1842">
-                                        <rect key="frame" x="17" y="197" width="20" height="21"/>
+                                        <rect key="frame" x="17" y="197" width="22" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="1851"/>
-                                            <constraint firstAttribute="width" constant="20" id="1852"/>
+                                            <constraint firstAttribute="width" constant="22" id="1852"/>
                                         </constraints>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="1850">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1159,7 +1168,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="Prozess entfernen" translatesAutoresizingMaskIntoConstraints="NO" id="1843">
-                                        <rect key="frame" x="36" y="197" width="22" height="21"/>
+                                        <rect key="frame" x="38" y="197" width="22" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="22" id="2090"/>
                                         </constraints>
@@ -1180,7 +1189,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <button hidden="YES" toolTip="Auswählen der Applikation oder der ausführbaren Datei des Prozesses, die zu den verbotenen Prozessen hinzugefügt wird" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1845">
-                                        <rect key="frame" x="64" y="190" width="195" height="32"/>
+                                        <rect key="frame" x="66" y="190" width="195" height="32"/>
                                         <buttonCell key="cell" type="push" title="Executable auswählen …" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1846">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -1194,7 +1203,7 @@
                                     <constraint firstItem="1843" firstAttribute="leading" secondItem="1842" secondAttribute="trailing" constant="-1" id="2052"/>
                                     <constraint firstItem="1843" firstAttribute="top" secondItem="1845" secondAttribute="top" id="2075"/>
                                     <constraint firstItem="1845" firstAttribute="leading" secondItem="1843" secondAttribute="trailing" constant="12" id="2084"/>
-                                    <constraint firstItem="1841" firstAttribute="leading" secondItem="1845" secondAttribute="trailing" constant="12" symbolic="YES" id="2087"/>
+                                    <constraint firstItem="1841" firstAttribute="leading" secondItem="1845" secondAttribute="trailing" constant="12" id="2087"/>
                                     <constraint firstItem="1839" firstAttribute="top" secondItem="242" secondAttribute="top" constant="28" id="2106"/>
                                     <constraint firstItem="1844" firstAttribute="top" secondItem="242" secondAttribute="top" constant="7" id="2108"/>
                                     <constraint firstItem="1839" firstAttribute="top" secondItem="1844" secondAttribute="bottom" constant="7" id="2109"/>
