@@ -1157,7 +1157,7 @@ didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 
 // Opening Links in New Windows //
 
-// Handling of requests from web plugins to open a link in a new window
+// Handling of requests from JavaScript and web plugins to open a link in a new window
 - (void)webView:(SEBWebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation 
         request:(NSURLRequest *)request 
           frame:(WebFrame *)frame 
