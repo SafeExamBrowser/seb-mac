@@ -99,7 +99,7 @@
     } else {
         // display the download directory path in the menu
         [logDirectory setTitle:[[NSFileManager defaultManager] displayNameAtPath:logPath]];
-        NSImage *logFolderIcon = [[NSWorkspace sharedWorkspace] iconForFile:logPath];
+        NSImage *logFolderIcon = [[NSWorkspace sharedWorkspace] iconForFile:[logPath stringByExpandingTildeInPath]];
         [logFolderIcon setSize:NSMakeSize(16, 16)];
         [logDirectory setImage:logFolderIcon];
         selectStandardDirectoryButton.state = NSOffState;
@@ -133,7 +133,7 @@
                               NSArray* files = [openFilePanel URLs];
                               NSString* fileName = [[files objectAtIndex:0] path];
                               NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-                              [preferences setSecureObject:fileName forKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
+                              [preferences setSecureObject:[fileName stringByAbbreviatingWithTildeInPath] forKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
                               [self setLogDirectory];
                           } else {
                               [chooseLogDirectoryControl selectItemAtIndex:0];
