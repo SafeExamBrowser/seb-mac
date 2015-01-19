@@ -1354,6 +1354,13 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     DDLogInfo(@"Request URL: %@", [[request URL] absoluteString]);
     DDLogInfo(@"All HTTP header fields: %@", headerFields);
 #endif*/
+    
+    // Check if this link had the "download" attribute, then we download the linked resource and don't try to display it
+    if (self.downloadFilename) {
+        DDLogInfo(@"Link to resource %@ had the 'download' attribute, force download it.", request.URL.absoluteString);
+        [listener download];
+        [self startDownloadingURL:request.URL];
+    }
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (([type isEqualToString:@"application/seb"]) || ([request.URL.pathExtension isEqualToString:@"seb"])) {
@@ -1399,6 +1406,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 
     // Check for PDF file and according to settings either download or display it inline in the SEB browser
     if (![type isEqualToString:@"application/pdf"] || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"]) {
+        // MIME type isn't PDF or downloading of PDFs isn't allowed
         if ([WebView canShowMIMEType:type]) {
             [listener use];
             return;
