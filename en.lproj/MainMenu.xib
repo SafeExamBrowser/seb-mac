@@ -372,7 +372,7 @@
                                     <binding destination="993" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableBrowserWindowToolbar" id="997"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Fullscreen" keyEquivalent="f" id="YsN-Cb-3bf">
+                            <menuItem title="Fullscreen" hidden="YES" keyEquivalent="f" id="YsN-Cb-3bf">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="906"/>
@@ -390,16 +390,19 @@
                             <menuItem title="Regular Text Size" keyEquivalent="0" id="912">
                                 <connections>
                                     <action selector="makeTextStandardSize:" target="-1" id="915"/>
+                                    <binding destination="993" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="fNf-38-JK3"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Larger Text" keyEquivalent="+" id="907">
                                 <connections>
                                     <action selector="makeTextLarger:" target="-1" id="911"/>
+                                    <binding destination="993" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="Ylx-Kc-jZd"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Smaller Text" keyEquivalent="-" id="908">
                                 <connections>
                                     <action selector="makeTextSmaller:" target="-1" id="916"/>
+                                    <binding destination="993" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="yCR-jA-49v"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="tHi-e8-X1t"/>
@@ -407,12 +410,14 @@
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
                                     <action selector="zoomPageIn:" target="-1" id="36P-gY-dce"/>
+                                    <binding destination="993" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomPage" id="lg3-lG-YWt"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Zoom Page Out" keyEquivalent="-" id="npk-yl-ONe">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
                                     <action selector="zoomPageOut:" target="-1" id="DFn-rT-GTs"/>
+                                    <binding destination="993" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomPage" id="msk-H7-Tes"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -764,5 +769,6 @@ Gw
                 </constraints>
             </view>
         </window>
+        <userDefaultsController representsSharedInstance="YES" id="SRG-SJ-3eg"/>
     </objects>
 </document>

@@ -358,18 +358,18 @@
 }
 
 
-//- (IBAction)zoomPageIn:(id)sender
-//{
-//    [self.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.zoom = \"1.5\""];
-//}
-//
-//
-//- (IBAction)zoomPageOut:(id)sender;
-//{
-//    [self.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.zoom = \"0.5\""];
-//}
-//
-//
+- (IBAction)zoomPageIn:(id)sender
+{
+    [self.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.zoom = \"1.5\""];
+}
+
+
+- (IBAction)zoomPageOut:(id)sender;
+{
+    [self.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.zoom = \"0.5\""];
+}
+
+
 - (void) showURLFilterMessage {
     
     if (!self.filterMessageHolder) {
