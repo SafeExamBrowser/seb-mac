@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6221" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6724" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6221"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6724"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsBrowserViewController">
@@ -56,7 +56,7 @@
                     </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="93">
-                    <rect key="frame" x="18" y="248" width="282" height="17"/>
+                    <rect key="frame" x="18" y="248" width="274" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Links in JavaScript/plug-ins ..." id="100">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -64,7 +64,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton toolTip="USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="94">
-                    <rect key="frame" x="18" y="216" width="283" height="26"/>
+                    <rect key="frame" x="18" y="216" width="275" height="26"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="95">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -85,7 +85,7 @@
                     </connections>
                 </popUpButton>
                 <button toolTip="Hyperlinks which direct to a different host than the one of the current main page will be ignored" translatesAutoresizingMaskIntoConstraints="NO" id="101">
-                    <rect key="frame" x="18" y="377" width="282" height="18"/>
+                    <rect key="frame" x="18" y="377" width="274" height="18"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="410"/>
                     </constraints>
@@ -114,7 +114,7 @@
                     </connections>
                 </button>
                 <button toolTip="Enables web plugins like Flash. For security reasons it's recommended to disable this option if plugin content is not used." translatesAutoresizingMaskIntoConstraints="NO" id="107">
-                    <rect key="frame" x="18" y="160" width="122" height="18"/>
+                    <rect key="frame" x="18" y="160" width="118" height="18"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="408"/>
                     </constraints>
@@ -127,7 +127,7 @@
                     </connections>
                 </button>
                 <button toolTip="Enables Java applets" translatesAutoresizingMaskIntoConstraints="NO" id="168">
-                    <rect key="frame" x="18" y="140" width="93" height="18"/>
+                    <rect key="frame" x="18" y="140" width="97" height="18"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="407"/>
                     </constraints>
@@ -140,7 +140,7 @@
                     </connections>
                 </button>
                 <button toolTip="Enables JavaScript. Please note that most modern websites need JavaScript for full functionality." translatesAutoresizingMaskIntoConstraints="NO" id="171">
-                    <rect key="frame" x="334" y="160" width="129" height="18"/>
+                    <rect key="frame" x="334" y="160" width="134" height="18"/>
                     <buttonCell key="cell" type="check" title="Enable JavaScript" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="172">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -150,7 +150,7 @@
                     </connections>
                 </button>
                 <button toolTip="Disables pop-up windows (often advertisement) opened by JavaScript without an user action such as a button click" translatesAutoresizingMaskIntoConstraints="NO" id="176">
-                    <rect key="frame" x="334" y="140" width="166" height="18"/>
+                    <rect key="frame" x="334" y="140" width="165" height="18"/>
                     <buttonCell key="cell" type="check" title="Block pop-up windows" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="177">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -160,7 +160,7 @@
                     </connections>
                 </button>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="180">
-                    <rect key="frame" x="18" y="106" width="208" height="18"/>
+                    <rect key="frame" x="18" y="106" width="201" height="18"/>
                     <string key="toolTip">Disabling browsing to previously visited pages (by cmd + Cursor left) may increase security, because browsing back might allow to leave an exam</string>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="412"/>
@@ -174,7 +174,7 @@
                     </connections>
                 </button>
                 <button toolTip="Remove XULRunner browser profile (containing caches and also local storage) when quitting SEB" translatesAutoresizingMaskIntoConstraints="NO" id="661">
-                    <rect key="frame" x="18" y="72" width="152" height="18"/>
+                    <rect key="frame" x="18" y="72" width="149" height="18"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="662"/>
                     </constraints>
@@ -239,7 +239,7 @@
                                 </connections>
                             </comboBox>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="586">
-                                <rect key="frame" x="108" y="42" width="40" height="17"/>
+                                <rect key="frame" x="108" y="43" width="40" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Width" id="587">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -264,7 +264,7 @@
                                 </connections>
                             </comboBox>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="571">
-                                <rect key="frame" x="102" y="14" width="46" height="17"/>
+                                <rect key="frame" x="103" y="14" width="45" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Height" id="590">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -272,7 +272,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="568">
-                                <rect key="frame" x="343" y="42" width="145" height="17"/>
+                                <rect key="frame" x="349" y="43" width="139" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Horizontal positioning" id="598">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -280,7 +280,7 @@
                                 </textFieldCell>
                             </textField>
                             <popUpButton toolTip="Position new browser windows on the left, right or centered" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="569">
-                                <rect key="frame" x="492" y="35" width="107" height="26"/>
+                                <rect key="frame" x="492" y="36" width="107" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="102" id="593"/>
                                 </constraints>

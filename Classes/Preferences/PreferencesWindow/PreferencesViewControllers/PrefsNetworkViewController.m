@@ -366,4 +366,23 @@
     [tableView reloadData];
 }
 
+
+// Saves the proxy exception list to settings
+- (IBAction)saveProxyExceptionsList:(NSTextField *)sender
+{
+    NSString *exceptionsListString = sender.stringValue;
+    NSArray *exceptionsList = [exceptionsListString componentsSeparatedByString:@","];
+    NSMutableArray *parsedExceptionsList = [NSMutableArray new];
+    for (NSString *exceptionHost in exceptionsList) {
+        NSString *parsedExceptionHost = [exceptionHost stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if (parsedExceptionHost.length > 0) {
+            [parsedExceptionsList addObject:parsedExceptionHost];
+        }
+    }
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary *proxies = [NSMutableDictionary dictionaryWithDictionary:[preferences secureObjectForKey:@"org_safeexambrowser_SEB_proxies"]];
+    [proxies setObject:[parsedExceptionsList copy] forKey:@"ExceptionsList"];
+    [preferences setSecureObject:proxies forKey:@"org_safeexambrowser_SEB_proxies"];
+}
+
 @end

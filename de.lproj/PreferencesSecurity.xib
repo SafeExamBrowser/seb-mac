@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6221" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6724" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6221"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6724"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsSecurityViewController">
@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="13">
-                    <rect key="frame" x="18" y="515" width="111" height="18"/>
+                    <rect key="frame" x="18" y="515" width="109" height="18"/>
                     <string key="toolTip">Das Log kann beim Debugging von SEB helfen (senden Sie Ihre Log-Dateien an die SEB-Entwickler) und eventuelle Manipulationen aufdecken</string>
                     <buttonCell key="cell" type="check" title="Log aktivieren" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="14">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -39,7 +39,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="22">
-                    <rect key="frame" x="257" y="516" width="67" height="17"/>
+                    <rect key="frame" x="258" y="516" width="66" height="17"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="DmB-Cd-Pc3"/>
                     </constraints>
@@ -116,7 +116,7 @@
                     </connections>
                 </popUpButton>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="76">
-                    <rect key="frame" x="18" y="603" width="264" height="18"/>
+                    <rect key="frame" x="18" y="603" width="258" height="18"/>
                     <string key="toolTip">Normalerweise sollte der Betrieb von SEB innerhalb einer virtuellen Maschine nicht erlaubt werden, um potentielle Manipulationen zu verhindern</string>
                     <buttonCell key="cell" type="check" title="Betrieb in virtueller Maschine erlauben" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="77">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -127,7 +127,7 @@
                     </connections>
                 </button>
                 <button toolTip="Üblicherweise sollte der schnelle Benutzerwechsel auf studentischen Prüfungsrechnern ausgeschaltet werden" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="292">
-                    <rect key="frame" x="18" y="551" width="250" height="18"/>
+                    <rect key="frame" x="18" y="551" width="249" height="18"/>
                     <buttonCell key="cell" type="check" title="Schnellen Benutzerwechsel erlauben" bezelStyle="regularSquare" imagePosition="left" alignment="left" enabled="NO" state="on" inset="2" id="293">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -194,7 +194,7 @@
                                                         <constraint firstAttribute="width" constant="245" id="QZ6-L9-1A2"/>
                                                     </constraints>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="cellSize" width="215" height="18"/>
+                                                    <size key="cellSize" width="212" height="18"/>
                                                     <size key="intercellSpacing" width="4" height="2"/>
                                                     <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" inset="2" id="Q7m-zi-za1">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -260,7 +260,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z35-jm-R60">
-                                        <rect key="frame" x="15" y="342" width="385" height="15"/>
+                                        <rect key="frame" x="15" y="342" width="377" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="15" id="ilN-45-5uj"/>
                                         </constraints>
@@ -277,7 +277,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="V4D-Fb-Kmw">
-                                                    <rect key="frame" x="16" y="198" width="199" height="18"/>
+                                                    <rect key="frame" x="16" y="198" width="196" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Benutzer wechseln erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="rm8-cp-dzk">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -287,7 +287,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9pf-GF-fho">
-                                                    <rect key="frame" x="16" y="172" width="196" height="18"/>
+                                                    <rect key="frame" x="16" y="172" width="191" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Computer sperren erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="n9V-3H-mM5">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -297,7 +297,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hen-ae-pBM">
-                                                    <rect key="frame" x="16" y="146" width="190" height="18"/>
+                                                    <rect key="frame" x="16" y="146" width="185" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Kennwort ändern erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Rgp-1k-Eaw">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -307,7 +307,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MNx-PR-dde">
-                                                    <rect key="frame" x="16" y="120" width="219" height="18"/>
+                                                    <rect key="frame" x="16" y="120" width="213" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Task-Manager starten erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="uiU-JQ-4Yc">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -317,7 +317,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GqG-hZ-nUG">
-                                                    <rect key="frame" x="16" y="94" width="145" height="18"/>
+                                                    <rect key="frame" x="16" y="94" width="142" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Abmelden erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="LTi-lL-sOs">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -327,7 +327,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zzE-IO-a4g">
-                                                    <rect key="frame" x="16" y="68" width="178" height="18"/>
+                                                    <rect key="frame" x="16" y="68" width="172" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Herunterfahren erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Ouk-wE-FFP">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -337,7 +337,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="smt-W3-qyD">
-                                                    <rect key="frame" x="16" y="42" width="223" height="18"/>
+                                                    <rect key="frame" x="16" y="42" width="220" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Erleichterte Bedienung erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="AtG-6Z-aRN">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -347,7 +347,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="w1d-t7-rBY">
-                                                    <rect key="frame" x="16" y="16" width="214" height="18"/>
+                                                    <rect key="frame" x="16" y="16" width="212" height="18"/>
                                                     <buttonCell key="cell" type="check" title="VMware Client Shade erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Y3K-X1-40d">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -405,7 +405,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="xUc-ld-ncn">
-                                                    <rect key="frame" x="16" y="198" width="101" height="18"/>
+                                                    <rect key="frame" x="16" y="198" width="102" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Esc erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="nZw-6z-Ph8">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -415,7 +415,7 @@
                                                     </connections>
                                                 </button>
                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="kET-K1-KC9">
-                                                    <rect key="frame" x="16" y="172" width="132" height="18"/>
+                                                    <rect key="frame" x="16" y="172" width="130" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Ctrl-Esc erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="8N0-8l-hwO">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -425,7 +425,7 @@
                                                     </connections>
                                                 </button>
                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="tps-Vh-eQM">
-                                                    <rect key="frame" x="16" y="146" width="126" height="18"/>
+                                                    <rect key="frame" x="16" y="146" width="124" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Alt-Esc erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="bTO-u1-Mao">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -435,7 +435,7 @@
                                                     </connections>
                                                 </button>
                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="P7D-T2-kNc">
-                                                    <rect key="frame" x="16" y="120" width="129" height="18"/>
+                                                    <rect key="frame" x="16" y="120" width="123" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Alt-Tab erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ufj-NR-s2G">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -445,7 +445,7 @@
                                                     </connections>
                                                 </button>
                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="Lpd-Dm-mJe">
-                                                    <rect key="frame" x="16" y="94" width="122" height="18"/>
+                                                    <rect key="frame" x="16" y="94" width="117" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Alt-F4 erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="TMW-TW-FOP">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -465,7 +465,7 @@
                                                     </connections>
                                                 </button>
                                                 <button toolTip="Print Screen erlauben, entspricht OS X Bildschirmfoto (cmd-3 und cmd-4) " translatesAutoresizingMaskIntoConstraints="NO" id="wUs-SE-6xn">
-                                                    <rect key="frame" x="16" y="42" width="157" height="18"/>
+                                                    <rect key="frame" x="16" y="42" width="155" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Print Screen erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="GQb-uN-fJO">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -475,7 +475,7 @@
                                                     </connections>
                                                 </button>
                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="P88-5S-xeR">
-                                                    <rect key="frame" x="16" y="16" width="160" height="18"/>
+                                                    <rect key="frame" x="16" y="16" width="155" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Alt-Mausrad erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="IWf-Eq-wzJ">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -516,7 +516,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Tdg-eI-qqw">
-                                                    <rect key="frame" x="16" y="302" width="97" height="18"/>
+                                                    <rect key="frame" x="16" y="302" width="95" height="18"/>
                                                     <buttonCell key="cell" type="check" title="F1 erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="2n4-f2-W9F">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -526,7 +526,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KAI-Zl-SVs">
-                                                    <rect key="frame" x="16" y="276" width="97" height="18"/>
+                                                    <rect key="frame" x="16" y="276" width="95" height="18"/>
                                                     <buttonCell key="cell" type="check" title="F2 erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="rd9-dL-Qhi">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -536,7 +536,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="d7f-VX-pCo">
-                                                    <rect key="frame" x="16" y="250" width="97" height="18"/>
+                                                    <rect key="frame" x="16" y="250" width="95" height="18"/>
                                                     <buttonCell key="cell" type="check" title="F3 erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="n1l-UI-Mxa">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -546,7 +546,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UJn-5k-GnI">
-                                                    <rect key="frame" x="16" y="224" width="97" height="18"/>
+                                                    <rect key="frame" x="16" y="224" width="95" height="18"/>
                                                     <buttonCell key="cell" type="check" title="F4 erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="yCu-0c-Hf1">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -556,7 +556,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="L4a-yA-hrc">
-                                                    <rect key="frame" x="16" y="198" width="97" height="18"/>
+                                                    <rect key="frame" x="16" y="198" width="95" height="18"/>
                                                     <buttonCell key="cell" type="check" title="F5 erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="q9c-zv-s6c">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -566,7 +566,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Wqq-sW-IQe">
-                                                    <rect key="frame" x="16" y="172" width="97" height="18"/>
+                                                    <rect key="frame" x="16" y="172" width="95" height="18"/>
                                                     <buttonCell key="cell" type="check" title="F6 erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Fmg-wZ-Cpg">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -576,7 +576,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7n5-ya-ICf">
-                                                    <rect key="frame" x="16" y="146" width="97" height="18"/>
+                                                    <rect key="frame" x="16" y="146" width="95" height="18"/>
                                                     <buttonCell key="cell" type="check" title="F7 erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="TED-sf-9ZX">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -586,7 +586,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AR2-HL-Z0a">
-                                                    <rect key="frame" x="16" y="120" width="97" height="18"/>
+                                                    <rect key="frame" x="16" y="120" width="95" height="18"/>
                                                     <buttonCell key="cell" type="check" title="F8 erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="IXz-wb-IuQ">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -596,7 +596,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jDL-8d-xFd">
-                                                    <rect key="frame" x="16" y="94" width="97" height="18"/>
+                                                    <rect key="frame" x="16" y="94" width="95" height="18"/>
                                                     <buttonCell key="cell" type="check" title="F9 erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="q3q-Xm-TRl">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -606,7 +606,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="crj-v2-PEo">
-                                                    <rect key="frame" x="16" y="68" width="105" height="18"/>
+                                                    <rect key="frame" x="16" y="68" width="103" height="18"/>
                                                     <buttonCell key="cell" type="check" title="F10 erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="UUd-ek-uMg">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -616,7 +616,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h36-BC-RvT">
-                                                    <rect key="frame" x="16" y="42" width="105" height="18"/>
+                                                    <rect key="frame" x="16" y="42" width="103" height="18"/>
                                                     <buttonCell key="cell" type="check" title="F11 erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0ob-OM-tPV">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -626,7 +626,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GCo-yY-4HB">
-                                                    <rect key="frame" x="16" y="16" width="105" height="18"/>
+                                                    <rect key="frame" x="16" y="16" width="103" height="18"/>
                                                     <buttonCell key="cell" type="check" title="F12 erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="UcT-h8-nFW">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -681,7 +681,7 @@
                     </tabViewItems>
                 </tabView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="pBJ-HX-kB3">
-                    <rect key="frame" x="18" y="404" width="166" height="14"/>
+                    <rect key="frame" x="18" y="404" width="170" height="14"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Einstellungen für SEB Windows" id="ADm-4H-Zh3">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -689,7 +689,7 @@
                     </textFieldCell>
                 </textField>
                 <button toolTip="OS X Bildschirmfoto (cmd-3 und cmd-4) erlauben, entspricht " translatesAutoresizingMaskIntoConstraints="NO" id="PH3-Cb-12g">
-                    <rect key="frame" x="18" y="577" width="172" height="18"/>
+                    <rect key="frame" x="18" y="577" width="169" height="18"/>
                     <buttonCell key="cell" type="check" title="Bildschirmfoto erlauben" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="zzi-ch-X4d">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -719,7 +719,7 @@
                     </connections>
                 </textField>
                 <button verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="eiE-cV-UEx">
-                    <rect key="frame" x="327" y="460" width="183" height="18"/>
+                    <rect key="frame" x="327" y="460" width="182" height="18"/>
                     <buttonCell key="cell" type="check" title="Standardverzeichnis benutzen" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="4vb-oP-Qf1">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
@@ -730,7 +730,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="H9Q-8A-xab">
-                    <rect key="frame" x="123" y="431" width="201" height="17"/>
+                    <rect key="frame" x="126" y="431" width="198" height="17"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="b1w-R0-Uoj"/>
                     </constraints>
@@ -741,7 +741,7 @@
                     </textFieldCell>
                 </textField>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="a9Y-jJ-E1h">
-                    <rect key="frame" x="328" y="603" width="257" height="18"/>
+                    <rect key="frame" x="328" y="603" width="253" height="18"/>
                     <string key="toolTip">SEB überprüft während des Aufstartens, ob die Befehlstaste (cmd) gedrückt gehalten wird. Dies verhindert Manipulationen mit Hilfe des Programmumschalters</string>
                     <buttonCell key="cell" type="check" title="Start: Programmumschalter verbieten" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="JRL-fG-lI3">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -752,7 +752,7 @@
                     </connections>
                 </button>
                 <button toolTip="SEB verlangt, in einem Programmverzeichnis installiert zu werden (/Programme oder ~/Applications)" translatesAutoresizingMaskIntoConstraints="NO" id="Gly-dr-m3X">
-                    <rect key="frame" x="328" y="577" width="273" height="18"/>
+                    <rect key="frame" x="328" y="577" width="271" height="18"/>
                     <buttonCell key="cell" type="check" title="SEB im Programmverzeichnis erzwingen" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0Ey-3L-Lb6">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
