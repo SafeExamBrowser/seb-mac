@@ -388,33 +388,39 @@
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="905"/>
                             <menuItem title="Originalgrösse" keyEquivalent="0" id="912">
+                                <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
                                     <action selector="makeTextStandardSize:" target="-1" id="915"/>
                                     <binding destination="993" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="dn1-FD-m4p"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Text vergrössern" keyEquivalent="+" id="907">
+                                <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
                                     <action selector="makeTextLarger:" target="-1" id="911"/>
                                     <binding destination="993" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="MOJ-Bw-Jza"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Text verkleinern" keyEquivalent="-" id="908">
+                                <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
                                     <action selector="makeTextSmaller:" target="-1" id="916"/>
                                     <binding destination="993" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="xTV-tu-tuL"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="UJg-1x-aXk"/>
+                            <menuItem title="Originalgrösse" keyEquivalent="0" id="sW3-Rj-5zc">
+                                <connections>
+                                    <action selector="resetPageZoom:" target="-1" id="SAr-qj-Db9"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Seite vergrössern" keyEquivalent="+" id="hNy-Se-1xF">
-                                <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
                                     <action selector="zoomPageIn:" target="-1" id="1Kn-UB-GfA"/>
                                     <binding destination="993" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomPage" id="Hk0-b6-XVu"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Seite verkleinern" keyEquivalent="-" id="QhH-0b-wJT">
-                                <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
                                     <action selector="zoomPageOut:" target="-1" id="73v-iJ-p0s"/>
                                     <binding destination="993" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomPage" id="SUQ-7v-pAi"/>

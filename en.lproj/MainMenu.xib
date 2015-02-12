@@ -388,33 +388,39 @@
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="905"/>
                             <menuItem title="Regular Text Size" keyEquivalent="0" id="912">
+                                <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
                                     <action selector="makeTextStandardSize:" target="-1" id="915"/>
                                     <binding destination="993" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="fNf-38-JK3"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Larger Text" keyEquivalent="+" id="907">
+                                <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
                                     <action selector="makeTextLarger:" target="-1" id="911"/>
                                     <binding destination="993" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="Ylx-Kc-jZd"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Smaller Text" keyEquivalent="-" id="908">
+                                <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
                                     <action selector="makeTextSmaller:" target="-1" id="916"/>
                                     <binding destination="993" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="yCR-jA-49v"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="tHi-e8-X1t"/>
+                            <menuItem title="Actual Size" keyEquivalent="0" id="fhi-DK-hWE">
+                                <connections>
+                                    <action selector="resetPageZoom:" target="-1" id="vJV-Dd-eoM"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Zoom Page In" keyEquivalent="+" id="S4Y-jw-8zY">
-                                <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
                                     <action selector="zoomPageIn:" target="-1" id="36P-gY-dce"/>
                                     <binding destination="993" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomPage" id="lg3-lG-YWt"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Zoom Page Out" keyEquivalent="-" id="npk-yl-ONe">
-                                <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
                                     <action selector="zoomPageOut:" target="-1" id="DFn-rT-GTs"/>
                                     <binding destination="993" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomPage" id="msk-H7-Tes"/>

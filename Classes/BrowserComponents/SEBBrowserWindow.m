@@ -358,6 +358,12 @@
 }
 
 
+- (IBAction)resetPageZoom:(id)sender
+{
+    
+}
+
+
 - (IBAction)zoomPageIn:(id)sender
 {
     [self.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.zoom = \"1.5\""];
