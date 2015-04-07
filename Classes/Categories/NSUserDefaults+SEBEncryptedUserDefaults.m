@@ -147,6 +147,8 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_allowPreferencesWindow",
                                  [NSNumber numberWithBool:YES],
                                  @"org_safeexambrowser_SEB_allowQuit",
+                                 @NO,
+                                 @"org_safeexambrowser_SEB_allowSpellCheck",
                                  [NSNumber numberWithBool:NO],
                                  @"org_safeexambrowser_SEB_allowSwitchToApplications",
                                  [NSNumber numberWithBool:YES],
