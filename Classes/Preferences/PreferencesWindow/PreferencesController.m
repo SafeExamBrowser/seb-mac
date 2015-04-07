@@ -806,6 +806,9 @@
     if ([self arePasswordsUnconfirmed]) {
         return NO;
     }
+    
+    // Save settings in the General pane
+    [self.generalVC windowWillClose:nil];
    
     // Get selected config purpose
     sebConfigPurposes configPurpose = [self.configFileVC getSelectedConfigPurpose];
