@@ -52,6 +52,7 @@
 
 #import "PrefsBrowserViewController.h"
 #import "SEBURLFilter.h"
+#import "SEBURLProtocol.h"
 
 #import "RNDecryptor.h"
 #import "SEBKeychainManager.h"
@@ -180,6 +181,9 @@ bool insideMatrix();
 - (id)init {
     self = [super init];
     if (self) {
+        
+        // Register custom SEB NSURL protocol class
+//        [NSURLProtocol registerClass:[SEBURLProtocol class]];
         
         // Initialize console loggers
 #ifdef DEBUG
@@ -1433,15 +1437,23 @@ bool insideMatrix(){
     int modifierFlags = [NSEvent modifierFlags];
     _cmdKeyDown = (0 != (modifierFlags & NSCommandKeyMask));
     if (_cmdKeyDown) {
-        // Show alert that keys were hold while starting SEB
-        DDLogWarn(@"Command key is pressed while restarting SEB, show dialog asking to release it.");
-        NSAlert *newAlert = [[NSAlert alloc] init];
-        [newAlert setMessageText:NSLocalizedString(@"Holding Command Key Not Allowed!", nil)];
-        [newAlert setInformativeText:NSLocalizedString(@"Holding the Command key down while restarting SEB is not allowed.", nil)];
-        [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-        [newAlert setAlertStyle:NSCriticalAlertStyle];
-        [newAlert runModal];
-        _cmdKeyDown = NO;
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAppSwitcherCheck"]) {
+            // Show alert that keys were hold while starting SEB
+            DDLogWarn(@"Command key is pressed while restarting SEB, show dialog asking to release it.");
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:NSLocalizedString(@"Holding Command Key Not Allowed!", nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"Holding the Command key down while restarting SEB is not allowed.", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [newAlert setAlertStyle:NSCriticalAlertStyle];
+            [newAlert runModal];
+            _cmdKeyDown = NO;
+            
+            quittingMyself = TRUE; //SEB is terminating itself
+            [NSApp terminate: nil]; //quit SEB
+        } else {
+            DDLogWarn(@"Command key is pressed, but not forbidden in current settings");
+        }
+
     }
     
     // Set kiosk/presentation mode in case it changed
