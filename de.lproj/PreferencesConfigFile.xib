@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6221" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6724" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6221"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6724"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsConfigFileViewController">
@@ -12,7 +12,6 @@
                 <outlet property="confirmSettingsPasswordField" destination="110" id="1341"/>
                 <outlet property="controller" destination="560" id="562"/>
                 <outlet property="revertLastFileButton" destination="1060" id="dDg-hf-qXj"/>
-                <outlet property="revertLastFileSettings" destination="1060" id="oIb-z0-qo4"/>
                 <outlet property="sebPurpose" destination="249" id="675"/>
                 <outlet property="settingsPasswordField" destination="114" id="1342"/>
                 <outlet property="view" destination="1" id="2"/>
@@ -176,7 +175,7 @@
                         </binding>
                     </connections>
                 </secureTextField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="111">
+                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="111">
                     <rect key="frame" x="165" y="204" width="209" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Passwort für Konfigurationsdatei" id="118">
                         <font key="font" metaFont="system"/>
@@ -184,7 +183,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="112">
+                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="112">
                     <rect key="frame" x="96" y="174" width="278" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Passwort für Konfigurationsdatei bestätigen" id="117">
                         <font key="font" metaFont="system"/>
@@ -192,7 +191,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="113">
+                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="113">
                     <rect key="frame" x="378" y="152" width="137" height="17"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="950"/>
@@ -289,7 +288,7 @@
                         <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_allowPreferencesWindow" id="595"/>
                     </connections>
                 </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1119">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1119">
                     <rect key="frame" x="229" y="116" width="165" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Einstellungen zurücksetzen …" id="1120">
                         <font key="font" metaFont="smallSystem"/>
@@ -297,7 +296,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1189">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1189">
                     <rect key="frame" x="440" y="116" width="144" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Einstellungen benutzen …" id="1190">
                         <font key="font" metaFont="smallSystem"/>
@@ -315,7 +314,7 @@
                         <action selector="revertToDefaultSettings:" target="-2" id="1364"/>
                     </connections>
                 </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1172">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1172">
                     <rect key="frame" x="18" y="116" width="173" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Konfigurationsdatei bearbeiten:" id="1174">
                         <font key="font" metaFont="smallSystem"/>

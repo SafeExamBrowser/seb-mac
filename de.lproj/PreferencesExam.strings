@@ -1,0 +1,30 @@
+
+/* Class = "NSTextFieldCell"; title = "Browser Exam Key"; ObjectID = "9"; */
+"9.title" = "Browser Exam Key";
+
+/* Class = "NSButton"; ibShadowedToolTip = "SEB löscht die Zwischenablage beim Beenden, also kopieren Sie den Browser Exam Key jetzt in Ihr Prüfungssystem oder benutzen Sie diese Option"; ObjectID = "20"; */
+"20.ibShadowedToolTip" = "SEB löscht die Zwischenablage beim Beenden, also kopieren Sie den Browser Exam Key jetzt in Ihr Prüfungssystem oder benutzen Sie diese Option";
+
+/* Class = "NSButtonCell"; title = "Browser Exam Key in die Zwischenablage kopieren"; ObjectID = "21"; */
+"21.title" = "Browser Exam Key in die Zwischenablage kopieren";
+
+/* Class = "NSTextFieldCell"; title = "Dieser Schlüssel (der von der SEB-Konfiguration und Programmversion abhängt) muss in das entsprechende Feld in den Prüfungseinstellungen eines mit SEB 2.0 kompatiblen Systems kopiert werden."; ObjectID = "33"; */
+"33.title" = "Dieser Schlüssel (der von der SEB-Konfiguration und Programmversion abhängt) muss in das entsprechende Feld in den Prüfungseinstellungen eines mit SEB 2.0 kompatiblen Systems kopiert werden.";
+
+/* Class = "NSTextFieldCell"; title = "Quit-Link, mit dem SEB nach der Prüfung beendet werden kann"; ObjectID = "276"; */
+"276.title" = "Quit-Link, mit dem SEB nach der Prüfung beendet werden kann";
+
+/* Class = "NSTextFieldCell"; title = "Dieser Beenden-Link sollte auf der 'Feedback'-Seite plaziert werden, die nach Abgabe einer Prüfung angezeigt wird. Anklicken des Links beendet SEB, ohne dass ein Beenden-Passwort eingegeben werden müsste."; ObjectID = "442"; */
+"442.title" = "Dieser Beenden-Link sollte auf der 'Feedback'-Seite plaziert werden, die nach Abgabe einer Prüfung angezeigt wird. Anklicken des Links beendet SEB, ohne dass ein Beenden-Passwort eingegeben werden müsste.";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Wenn ein Beenden-Link angegeben ist, funktioniert dieser unabhängig von anderen Beenden-Einstellungen auf der Seite Allgemein"; ObjectID = "688"; */
+"688.ibShadowedToolTip" = "Wenn ein Beenden-Link angegeben ist, funktioniert dieser unabhängig von anderen Beenden-Einstellungen auf der Seite Allgemein";
+
+/* Class = "NSTextFieldCell"; placeholderString = "URL beginnend mit http:// oder https://"; ObjectID = "689"; */
+"689.placeholderString" = "URL beginnend mit http:// oder https://";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Der Browser Exam Key wird an den verbundenen Webserver gesendet, um den SEB-Client und seine Einstellungen gegenüber einem kompatiblen Prüfungssystem zu authentifizieren"; ObjectID = "970"; */
+"970.ibShadowedToolTip" = "Der Browser Exam Key wird an den verbundenen Webserver gesendet, um den SEB-Client und seine Einstellungen gegenüber einem kompatiblen Prüfungssystem zu authentifizieren";
+
+/* Class = "NSButtonCell"; title = "Browser Exam Key im HTTP-Header senden"; ObjectID = "971"; */
+"971.title" = "Browser Exam Key im HTTP-Header senden";

@@ -126,7 +126,7 @@
                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowVirtualMachine" id="341"/>
                     </connections>
                 </button>
-                <button toolTip="Üblicherweise sollte der schnelle Benutzerwechsel auf studentischen Prüfungsrechnern ausgeschaltet werden" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="292">
+                <button hidden="YES" toolTip="Üblicherweise sollte der schnelle Benutzerwechsel auf studentischen Prüfungsrechnern ausgeschaltet werden" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="292">
                     <rect key="frame" x="18" y="551" width="249" height="18"/>
                     <buttonCell key="cell" type="check" title="Schnellen Benutzerwechsel erlauben" bezelStyle="regularSquare" imagePosition="left" alignment="left" enabled="NO" state="on" inset="2" id="293">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>

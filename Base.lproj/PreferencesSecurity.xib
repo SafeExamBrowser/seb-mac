@@ -124,7 +124,7 @@
                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowVirtualMachine" id="341"/>
                     </connections>
                 </button>
-                <button toolTip="Usually Fast User Switching shouldn't be allowed on BYOD exam clients" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="292">
+                <button hidden="YES" toolTip="Usually Fast User Switching shouldn't be allowed on BYOD exam clients" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="292">
                     <rect key="frame" x="18" y="551" width="149" height="18"/>
                     <buttonCell key="cell" type="check" title="Allow user switching" bezelStyle="regularSquare" imagePosition="left" alignment="left" enabled="NO" state="on" inset="2" id="293">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>

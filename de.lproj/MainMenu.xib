@@ -276,6 +276,13 @@
                                         </menuItem>
                                     </items>
                                 </menu>
+                                <connections>
+                                    <binding destination="993" name="hidden" keyPath="values.org_safeexambrowser_SEB_allowSpellCheck" id="4c3-zV-TpM">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
                             </menuItem>
                             <menuItem title="Ersetzungen" id="348">
                                 <menu key="submenu" title="Ersetzungen" id="349">

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6724" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7528.3" systemVersion="14C1514" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6724"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7528.3"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsNetworkViewController">
@@ -41,7 +41,7 @@
                     <tabViewItems>
                         <tabViewItem label="Filter" identifier="1" id="240">
                             <view key="view" id="243">
-                                <rect key="frame" x="10" y="33" width="605" height="640"/>
+                                <rect key="frame" x="10" y="33" width="604" height="640"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button toolTip="When URL filtering is active and no matching block or allow expression is found), then the processed URL is discarded" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="454">
@@ -97,7 +97,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="568" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
                                                         <tableColumn width="18" minWidth="18" maxWidth="1000" id="4bs-wS-8te">
@@ -848,7 +848,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="568" height="16"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
                                                         <tableColumn editable="NO" width="95.3671875" minWidth="40" maxWidth="1000" id="1836">
@@ -972,7 +972,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="238" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
                                                         <tableColumn identifier="keyName" width="18" minWidth="18" maxWidth="1000" id="810">
