@@ -535,26 +535,7 @@ bool insideMatrix();
     }
 
 
-// Clear Pasteboard, but save the current content in case it is a NSString
-    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard]; 
-    //NSArray *classes = [[NSArray alloc] initWithObjects:[NSString class], [NSAttributedString class], nil];
-    NSArray *classes = [[NSArray alloc] initWithObjects:[NSString class], nil];
-    NSDictionary *options = [NSDictionary dictionary];
-    NSArray *copiedItems = [pasteboard readObjectsForClasses:classes options:options];
-    if ((copiedItems != nil) && [copiedItems count]) {
-        // if there is a NSSting in the pasteboard, save it for later use
-        //[[MyGlobals sharedMyGlobals] setPasteboardString:[copiedItems objectAtIndex:0]];
-        [[MyGlobals sharedMyGlobals] setValue:[copiedItems objectAtIndex:0] forKey:@"pasteboardString"];
-        DDLogDebug(@"String saved from pasteboard");
-    } else {
-        [[MyGlobals sharedMyGlobals] setValue:@"" forKey:@"pasteboardString"];
-    }
-#ifdef DEBUG
-//    NSString *stringFromPasteboard = [[MyGlobals sharedMyGlobals] valueForKey:@"pasteboardString"];
-//    DDLogDebug(@"Saved string from Pasteboard: %@", stringFromPasteboard);
-#endif
-    //NSInteger changeCount = [pasteboard clearContents];
-    [pasteboard clearContents];
+    [self clearPasteboardSavingCurrentString];
 
     // Set up SEB Browser
     self.browserController = [[SEBBrowserController alloc] init];
@@ -1121,6 +1102,54 @@ bool insideMatrix(){
 }
 
 
+// Clear Pasteboard, but save the current content in case it is a NSString
+- (void)clearPasteboardSavingCurrentString
+{
+    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
+    //NSArray *classes = [[NSArray alloc] initWithObjects:[NSString class], [NSAttributedString class], nil];
+    NSArray *classes = [[NSArray alloc] initWithObjects:[NSString class], nil];
+    NSDictionary *options = [NSDictionary dictionary];
+    NSArray *copiedItems = [pasteboard readObjectsForClasses:classes options:options];
+    if ((copiedItems != nil) && [copiedItems count]) {
+        // if there is a NSSting in the pasteboard, save it for later use
+        //[[MyGlobals sharedMyGlobals] setPasteboardString:[copiedItems objectAtIndex:0]];
+        [[MyGlobals sharedMyGlobals] setValue:[copiedItems objectAtIndex:0] forKey:@"pasteboardString"];
+        DDLogDebug(@"String saved from pasteboard");
+    } else {
+        [[MyGlobals sharedMyGlobals] setValue:@"" forKey:@"pasteboardString"];
+    }
+#ifdef DEBUG
+    //    NSString *stringFromPasteboard = [[MyGlobals sharedMyGlobals] valueForKey:@"pasteboardString"];
+    //    DDLogDebug(@"Saved string from Pasteboard: %@", stringFromPasteboard);
+#endif
+    //NSInteger changeCount = [pasteboard clearContents];
+    [pasteboard clearContents];
+}
+
+
+// Clear Pasteboard when quitting/restarting SEB,
+// If selected in Preferences, then the current Browser Exam Key is copied to the pasteboard instead
+- (void)clearPasteboardCopyingBrowserExamKey
+{
+    // Clear Pasteboard
+    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
+    [pasteboard clearContents];
+    
+    // Write Browser Exam Key to clipboard if enabled in prefs
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting"]) {
+        NSData *browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
+        unsigned char hashedChars[32];
+        [browserExamKey getBytes:hashedChars length:32];
+        NSMutableString* browserExamKeyString = [[NSMutableString alloc] init];
+        for (int i = 0 ; i < 32 ; ++i) {
+            [browserExamKeyString appendFormat: @"%02x", hashedChars[i]];
+        }
+        [pasteboard writeObjects:[NSArray arrayWithObject:browserExamKeyString]];
+    }
+}
+
+
 // Set up and display SEB Dock
 - (void) openSEBDock
 {
@@ -1398,6 +1427,9 @@ bool insideMatrix(){
 - (void)requestedRestart:(NSNotification *)notification
 {
     DDLogInfo(@"Requested Restart");
+
+    // Clear Pasteboard
+    [self clearPasteboardSavingCurrentString];
     
     // Check if launched SEB is placed ("installed") in an Applications folder
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -1643,24 +1675,10 @@ bool insideMatrix(){
             [iterApp unhide]; //unhide the originally visible application
         }
     }
-    // Clear Pasteboard
-    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
-    [pasteboard clearContents];
-    
-	// Write Browser Exam Key to clipboard if enabled in prefs
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting"]) {
-        NSData *browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
-        unsigned char hashedChars[32];
-        [browserExamKey getBytes:hashedChars length:32];
-        NSMutableString* browserExamKeyString = [[NSMutableString alloc] init];
-        for (int i = 0 ; i < 32 ; ++i) {
-            [browserExamKeyString appendFormat: @"%02x", hashedChars[i]];
-        }
-        [pasteboard writeObjects:[NSArray arrayWithObject:browserExamKeyString]];
-    }
+    [self clearPasteboardCopyingBrowserExamKey];
     
 	// Clear the current Browser Exam Key
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_currentData"];
 
 	// Clear the browser cache in ~/Library/Caches/org.safeexambrowser.SEB.Safe-Exam-Browser/
