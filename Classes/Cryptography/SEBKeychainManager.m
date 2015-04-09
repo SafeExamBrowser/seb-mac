@@ -230,14 +230,15 @@
     for (i=0; i<count; i++) {
         SecCertificateRef certificateRef = (__bridge SecCertificateRef)[certificates objectAtIndex:i];
         if ((status = SecCertificateCopyCommonName(certificateRef, &commonName)) == noErr) {
+
             if ((status = SecCertificateCopyEmailAddresses(certificateRef, &emailAddressesRef)) == noErr) {
                 CFErrorRef error = NULL;
                 NSDictionary *values = (NSDictionary *)CFBridgingRelease(SecCertificateCopyValues (certificateRef, (__bridge CFArrayRef)[NSArray arrayWithObject:(__bridge id)(kSecOIDExtendedKeyUsage)], &error));
                 // Keep only certificates which have an extended key usage server authentification
-                if ([values count]) {
-                    NSDictionary *value = [values objectForKey:(__bridge id)(kSecOIDExtendedKeyUsage)];
-                    NSArray *extendedKeyUsages = [value objectForKey:(__bridge id)(kSecPropertyKeyValue)];
-                    if ([extendedKeyUsages containsObject:[NSData dataWithBytes:keyUsageServerAuthentication length:8]]) {
+//                if ([values count]) {
+//                    NSDictionary *value = [values objectForKey:(__bridge id)(kSecOIDExtendedKeyUsage)];
+//                    NSArray *extendedKeyUsages = [value objectForKey:(__bridge id)(kSecPropertyKeyValue)];
+//                    if ([extendedKeyUsages containsObject:[NSData dataWithBytes:keyUsageServerAuthentication length:8]]) {
                         certificateName = [NSString stringWithFormat:@"%@",
                                            (__bridge NSString *)commonName ?
                                            //There is a commonName: just take that as a name
@@ -270,14 +271,14 @@
                         if (emailAddressesRef) CFRelease(emailAddressesRef);
 
                         continue;
-                    }
-                } else {
-                    NSString *errorDescription = @"";
-                    if (error != NULL) {
-                        errorDescription = [NSString stringWithFormat:@"SecCertificateCopyValues error: %@. ", CFBridgingRelease(CFErrorCopyDescription(error))];
-                    }
-                    DDLogDebug(@"%s: No extended key usage server authentification has been found. %@This certificate will be skipped.", __FUNCTION__, errorDescription);
-                }
+//                    }
+//                } else {
+//                    NSString *errorDescription = @"";
+//                    if (error != NULL) {
+//                        errorDescription = [NSString stringWithFormat:@"SecCertificateCopyValues error: %@. ", CFBridgingRelease(CFErrorCopyDescription(error))];
+//                    }
+//                    DDLogDebug(@"Common name: %@. No extended key usage server authentification has been found. %@ This certificate will be skipped.", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , errorDescription);
+//                }
                 if (emailAddressesRef) CFRelease(emailAddressesRef);
             } else {
                 DDLogError(@"Error in %s: SecCertificateCopyEmailAddresses returned %@. This identity will be skipped.", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
@@ -430,9 +431,12 @@
     
     SecItemImportExportKeyParameters keyParams;
     
+    NSString *password = userDefaultsMasala;
+
     keyParams.version = SEC_KEY_IMPORT_EXPORT_PARAMS_VERSION;
     keyParams.flags = 0;
-    keyParams.passphrase = NULL;
+    keyParams.passphrase = (__bridge CFTypeRef)(password);
+//    keyParams.passphrase = NULL;
     keyParams.alertTitle = NULL;
     keyParams.alertPrompt = NULL;
     keyParams.accessRef = NULL;
@@ -444,7 +448,8 @@
     
     OSStatus success = SecItemExport (
                                       certificate,
-                                      kSecFormatX509Cert,
+//                                      kSecFormatNetscapeCertSequence,
+                                      kSecFormatPKCS12,
                                       0,
                                       &keyParams,
                                       &exportedData
@@ -453,6 +458,7 @@
     if (success == errSecSuccess) {
         return (NSData*)CFBridgingRelease(exportedData);
     } else {
+        DDLogError(@"Error in %s: SecItemImport of embedded certificate failed %@", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:success userInfo:NULL]);
         if (exportedData) CFRelease(exportedData);
         return nil;
     }
@@ -463,31 +469,44 @@
 
     SecItemImportExportKeyParameters keyParams;
     
+    NSString *password = userDefaultsMasala;
+    
     keyParams.version = SEC_KEY_IMPORT_EXPORT_PARAMS_VERSION;
     keyParams.flags = 0;
-    keyParams.passphrase = NULL;
+    keyParams.passphrase = (__bridge CFTypeRef)(password);
+//    keyParams.passphrase = NULL;
     keyParams.alertTitle = NULL;
     keyParams.alertPrompt = NULL;
     keyParams.accessRef = NULL;
     // These two values are for import
+//    keyParams.keyUsage = (__bridge CFArrayRef)[NSArray arrayWithObjects:(__bridge id)(kSecAttrCanSign), (__bridge id)(kSecAttrCanWrap), nil];
     keyParams.keyUsage = NULL;
     keyParams.keyAttributes = NULL;
     
-    SecExternalItemType itemType = kSecItemTypeCertificate;
-    SecExternalFormat externalFormat = kSecFormatX509Cert;
+    SecExternalItemType itemType = kSecItemTypeUnknown;
+//    SecExternalFormat externalFormat = kSecFormatPEMSequence;
+//    SecExternalItemType itemType = kSecItemTypeCertificate;
+//    SecExternalFormat externalFormat = kSecFormatX509Cert;
+//    SecExternalItemType itemType = kSecItemTypeAggregate;
+    SecExternalFormat externalFormat = kSecFormatPKCS12;
+//    SecExternalFormat externalFormat = kSecFormatUnknown;
+//    SecExternalFormat externalFormat = kSecFormatPKCS7;
     int flags = 0;
     
     SecKeychainRef keychain;
     SecKeychainCopyDefault(&keychain);
     
+    CFArrayRef outItems;
+    
     OSStatus status = SecItemImport((__bridge CFDataRef)certificateData,
-                                   NULL, // filename or extension
+//                                    (__bridge CFStringRef)@".cert", // filename or extension
+                                    NULL, // filename or extension
                                    &externalFormat, // See SecExternalFormat for details
                                    &itemType, // item type
                                    flags, // See SecItemImportExportFlags for details
                                    &keyParams,
                                    keychain, // Don't import into a keychain
-                                   NULL);
+                                   &outItems);
     if (keychain) CFRelease(keychain);
     if (status != noErr) {
         if (status == errKCDuplicateItem) {
