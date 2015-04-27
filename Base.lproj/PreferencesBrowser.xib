@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6724" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6724"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7702"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsBrowserViewController">
@@ -21,50 +21,23 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="84">
-                    <rect key="frame" x="18" y="432" width="613" height="17"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="609" id="612"/>
-                    </constraints>
+                    <rect key="frame" x="18" y="432" width="367" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Links requesting to be opened in a new browser window ..." id="91">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="85">
-                    <rect key="frame" x="17" y="400" width="299" height="26"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="294" id="557"/>
-                    </constraints>
-                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="89" id="86">
-                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
-                        <menu key="menu" id="87">
-                            <items>
-                                <menuItem id="90"/>
-                                <menuItem id="89"/>
-                                <menuItem id="92">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                            </items>
-                        </menu>
-                    </popUpButtonCell>
-                    <connections>
-                        <action selector="newBrowserWindowByLinkPolicyChanged:" target="-2" id="mEx-Gk-Jso"/>
-                        <binding destination="227" name="contentValues" keyPath="org_safeexambrowser_SEB_newBrowserWindowByLinkPolicies" id="238"/>
-                        <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy" previousBinding="238" id="239"/>
-                    </connections>
-                </popUpButton>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="93">
-                    <rect key="frame" x="18" y="248" width="274" height="17"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Links in JavaScript/plug-ins ..." id="100">
+                    <rect key="frame" x="18" y="248" width="191" height="17"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Links in JavaScript/plug-ins ..." usesSingleLineMode="YES" id="100">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <popUpButton toolTip="USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="94">
-                    <rect key="frame" x="18" y="216" width="275" height="26"/>
+                <popUpButton toolTip="USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="94">
+                    <rect key="frame" x="18" y="216" width="295" height="26"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="95">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -98,7 +71,7 @@
                         <binding destination="122" name="enabled" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy" id="210"/>
                     </connections>
                 </button>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="103">
+                <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="103">
                     <rect key="frame" x="18" y="194" width="614" height="18"/>
                     <string key="toolTip">USE WITH CARE: Hyperlinks invoked by JavaScript/plug-ins which direct to a different host than the one of the current main page will be ignored</string>
                     <constraints>
@@ -336,6 +309,30 @@
                         <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_removeLocalStorage" id="rEm-R6-sYb"/>
                     </connections>
                 </button>
+                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="85">
+                    <rect key="frame" x="18" y="400" width="295" height="26"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="290" id="557"/>
+                    </constraints>
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="89" id="86">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="87">
+                            <items>
+                                <menuItem id="90"/>
+                                <menuItem id="89"/>
+                                <menuItem id="92">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="newBrowserWindowByLinkPolicyChanged:" target="-2" id="mEx-Gk-Jso"/>
+                        <binding destination="227" name="contentValues" keyPath="org_safeexambrowser_SEB_newBrowserWindowByLinkPolicies" id="238"/>
+                        <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy" previousBinding="238" id="239"/>
+                    </connections>
+                </popUpButton>
             </subviews>
             <constraints>
                 <constraint firstItem="176" firstAttribute="baseline" secondItem="168" secondAttribute="baseline" id="257"/>
@@ -354,10 +351,8 @@
                 <constraint firstItem="94" firstAttribute="top" secondItem="93" secondAttribute="bottom" constant="8" symbolic="YES" id="400"/>
                 <constraint firstItem="447" firstAttribute="top" secondItem="413" secondAttribute="bottom" constant="3" id="452"/>
                 <constraint firstItem="94" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="545"/>
-                <constraint firstItem="85" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="19" id="549"/>
+                <constraint firstItem="85" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="549"/>
                 <constraint firstItem="103" firstAttribute="leading" secondItem="93" secondAttribute="leading" id="555"/>
-                <constraint firstItem="93" firstAttribute="trailing" secondItem="94" secondAttribute="trailing" id="563"/>
-                <constraint firstItem="101" firstAttribute="centerX" secondItem="93" secondAttribute="centerX" id="565"/>
                 <constraint firstItem="567" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="608"/>
                 <constraint firstAttribute="trailing" secondItem="567" secondAttribute="trailing" constant="20" symbolic="YES" id="615"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="171" secondAttribute="trailing" constant="20" symbolic="YES" id="628"/>
@@ -375,14 +370,17 @@
                 <constraint firstItem="413" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="7li-U0-v6o"/>
                 <constraint firstItem="wFa-eR-NzK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="661" secondAttribute="trailing" constant="8" symbolic="YES" id="9rH-vf-CRc"/>
                 <constraint firstItem="107" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="GAW-ar-HK4"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="93" secondAttribute="trailing" constant="20" id="GKK-Sk-LbH"/>
                 <constraint firstItem="661" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="JM3-ow-GFh"/>
                 <constraint firstItem="wFa-eR-NzK" firstAttribute="baseline" secondItem="661" secondAttribute="baseline" id="Jeu-nT-O6A"/>
                 <constraint firstItem="176" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="168" secondAttribute="trailing" constant="20" id="K4M-yl-eg3"/>
                 <constraint firstItem="171" firstAttribute="leading" secondItem="wFa-eR-NzK" secondAttribute="leading" id="SLH-0K-iN8"/>
                 <constraint firstItem="168" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="Z0F-CD-mjD"/>
                 <constraint firstItem="180" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="cmz-m0-WAd"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="84" secondAttribute="trailing" constant="20" id="ntT-5s-yzS"/>
                 <constraint firstItem="103" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="sIi-Ds-kbq"/>
                 <constraint firstAttribute="trailing" secondItem="wFa-eR-NzK" secondAttribute="trailing" constant="20" symbolic="YES" id="uby-tN-Awj"/>
+                <constraint firstItem="93" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="w5S-rd-NXr"/>
             </constraints>
         </customView>
         <userDefaultsController id="122" userLabel="SEB User Defaults Controller" customClass="SEBEncryptedUserDefaultsController"/>

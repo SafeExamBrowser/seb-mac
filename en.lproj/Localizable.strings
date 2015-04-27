@@ -269,7 +269,7 @@
 "Paste from saved clipboard" = "Paste from saved clipboard";
 
 /* No comment provided by engineer. */
-"Please confirm password" = "Please confirm password";
+"Please enter correct confirm password" = "Please enter correct confirm password";
 
 /* No comment provided by engineer. */
 "Please confirm the %@ password first." = "Please confirm the %@ password first.";

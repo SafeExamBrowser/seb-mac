@@ -42,7 +42,7 @@
 
 - (NSString *)title
 {
-	return NSLocalizedString(@"Appearance", @"Title of 'Appearance' preference pane");
+	return NSLocalizedString(@"User Interface", @"Title of 'Appearance' preference pane");
 }
 
 - (NSString *)identifier

@@ -5,7 +5,7 @@
 "%@ was downloaded." = "%@ wurde heruntergeladen.";
 
 /* Title of 'Appearance' preference pane */
-"Appearance" = "Darstellung";
+"User Interface" = "Benutzeroberfläche";
 
 /* Title of 'Applications' preference pane */
 "Applications" = "Applikationen";
@@ -251,7 +251,7 @@
 "Paste from saved clipboard" = "Einfügen aus gesicherter Zwischenablage";
 
 /* No comment provided by engineer. */
-"Please confirm password" = "Bitte Passwort bestätigen";
+"Please enter correct confirm password" = "Bitte selbes Passwort erneut eingeben";
 
 /* No comment provided by engineer. */
 "Please confirm the %@ password first." = "Bitte %@ Passwort zuerst bestätigen";

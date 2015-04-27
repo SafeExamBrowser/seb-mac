@@ -214,6 +214,13 @@ enum {
 typedef NSUInteger SEBDisabledPreferencesAnswer;
 
 
+enum {
+    SEBZoomModePage                             = 0,
+    SEBZoomModeText                             = 1
+};
+typedef NSUInteger SEBZoomModes;
+
+
 static NSString __unused *userDefaultsMasala = @"Di𝈭l𝈖Ch𝈒ah𝉇t𝈁a𝉈Hai1972";
 
 static NSString __unused *sebErrorDomain = @"org.safeexambrowser.SEBCryptor";
