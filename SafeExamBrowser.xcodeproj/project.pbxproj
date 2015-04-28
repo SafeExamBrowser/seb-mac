@@ -343,7 +343,6 @@
 		699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBUIUserDefaultsController.h; path = Classes/Preferences/SEBUIUserDefaultsController.h; sourceTree = "<group>"; };
 		699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBUIUserDefaultsController.m; path = Classes/Preferences/SEBUIUserDefaultsController.m; sourceTree = "<group>"; };
 		69A3022919FE7B8F00B9A0F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		69A68D991A460E3B00ACA34E /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesAppearance.xib; sourceTree = "<group>"; };
 		69A68D9B1A460FC400ACA34E /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesDownUploads.xib; sourceTree = "<group>"; };
 		69A68D9D1A46108F00ACA34E /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesApplications.xib; sourceTree = "<group>"; };
 		69A68D9E1A46118B00ACA34E /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesNetwork.xib; sourceTree = "<group>"; };
@@ -378,6 +377,7 @@
 		69D817E318017DDB00EB7885 /* SEBURLFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBURLFilter.h; sourceTree = "<group>"; };
 		69D817E418017DDB00EB7885 /* SEBURLFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBURLFilter.m; sourceTree = "<group>"; };
 		69D9A1641AEE405C005680FF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesBrowser.strings; sourceTree = "<group>"; };
+		69D9A1651AEFAD06005680FF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesAppearance.strings; sourceTree = "<group>"; };
 		69DD2FCF1201C416009B1005 /* CapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapView.h; sourceTree = "<group>"; };
 		69DD2FD01201C416009B1005 /* CapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CapView.m; sourceTree = "<group>"; };
 		69DD929F1A463435004072E5 /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1213,8 +1213,8 @@
 		696A3AEB19F6FBCD00274214 /* PreferencesAppearance.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				69A68D991A460E3B00ACA34E /* de */,
 				69F0A32E1AD3FFDA008A3553 /* Base */,
+				69D9A1651AEFAD06005680FF /* de */,
 			);
 			name = PreferencesAppearance.xib;
 			sourceTree = "<group>";

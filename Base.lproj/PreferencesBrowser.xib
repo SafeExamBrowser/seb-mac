@@ -36,8 +36,11 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <popUpButton toolTip="USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="94">
+                <popUpButton toolTip="USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="94">
                     <rect key="frame" x="18" y="216" width="295" height="26"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="290" id="kDR-nM-nNw"/>
+                    </constraints>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="95">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>

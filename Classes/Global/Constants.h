@@ -43,7 +43,8 @@
 
 enum {
     browserViewModeWindow                       = 0,
-    browserViewModeFullscreen                   = 1
+    browserViewModeFullscreen                   = 1,
+    browserViewModeTouch                        = 2
 };
 typedef NSUInteger browserViewModes;
 

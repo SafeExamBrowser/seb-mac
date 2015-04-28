@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6724" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6724"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7702"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsAppearanceViewController">
@@ -19,11 +19,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1" userLabel="Appearance Preferences">
-            <rect key="frame" x="0.0" y="0.0" width="650" height="360"/>
+            <rect key="frame" x="0.0" y="0.0" width="650" height="571"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button toolTip="Show the OS X menu bar to allow accessing settings like Wi-Fi" translatesAutoresizingMaskIntoConstraints="NO" id="13">
-                    <rect key="frame" x="18" y="108" width="614" height="18"/>
+                    <rect key="frame" x="18" y="284" width="614" height="18"/>
                     <buttonCell key="cell" type="check" title="Show menu bar" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="14">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -32,39 +32,8 @@
                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showMenuBar" id="281"/>
                     </connections>
                 </button>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="76">
-                    <rect key="frame" x="18" y="88" width="176" height="18"/>
-                    <string key="toolTip">The SEB dock shows and switches between open browser windows, allowed resources and applications and can display additional controls</string>
-                    <buttonCell key="cell" type="check" title="Show SEB dock/task bar" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="77">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="showTaskBarButton:" target="-2" id="BJM-L8-i03"/>
-                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showTaskBar" id="741">
-                            <dictionary key="options">
-                                <bool key="NSConditionallySetsEnabled" value="NO"/>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </button>
-                <button toolTip="Text in browser windows can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="S0v-zb-D4L">
-                    <rect key="frame" x="18" y="58" width="129" height="18"/>
-                    <buttonCell key="cell" type="check" title="Enable text zoom" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="zfV-ml-478">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="showTaskBarButton:" target="-2" id="HYH-Xh-b8e"/>
-                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="L4B-bb-wb6">
-                            <dictionary key="options">
-                                <bool key="NSConditionallySetsEnabled" value="NO"/>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </button>
                 <button toolTip="Displays a toolbar on top of the browser window which can also be hidden by the user" translatesAutoresizingMaskIntoConstraints="NO" id="371">
-                    <rect key="frame" x="18" y="162" width="614" height="18"/>
+                    <rect key="frame" x="18" y="328" width="614" height="18"/>
                     <buttonCell key="cell" type="check" title="Enable browser window toolbar" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="372">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -80,7 +49,7 @@
                     </connections>
                 </button>
                 <button toolTip="Hide browser window toolbar by default. It can be unhiden using  the View menu or Alt-Command-T." translatesAutoresizingMaskIntoConstraints="NO" id="383">
-                    <rect key="frame" x="38" y="142" width="594" height="18"/>
+                    <rect key="frame" x="38" y="308" width="594" height="18"/>
                     <buttonCell key="cell" type="check" title="Hide toolbar as default" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="384">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -108,7 +77,7 @@
                     </connections>
                 </button>
                 <box autoresizesSubviews="NO" title="Main browser window size and position" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="540">
-                    <rect key="frame" x="17" y="198" width="616" height="88"/>
+                    <rect key="frame" x="17" y="355" width="616" height="88"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="614" height="72"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -235,86 +204,178 @@
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
-                <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="743">
-                    <rect key="frame" x="20" y="302" width="610" height="38"/>
+                <box autoresizesSubviews="NO" title="Browser view mode" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Xr6-D9-xmk">
+                    <rect key="frame" x="17" y="454" width="616" height="102"/>
+                    <view key="contentView">
+                        <rect key="frame" x="1" y="1" width="614" height="86"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="743">
+                                <rect key="frame" x="18" y="17" width="578" height="58"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="58" id="IYm-P2-CKq"/>
+                                </constraints>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                <size key="cellSize" width="578" height="18"/>
+                                <size key="intercellSpacing" width="4" height="2"/>
+                                <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" inset="2" id="744">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <cells>
+                                    <column>
+                                        <buttonCell type="radio" title="Use browser window" imagePosition="left" alignment="left" state="on" toolTip="Use a browser window which can be scaled and moved around, also to another screen when available" tag="1" inset="2" id="745">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <buttonCell type="radio" title="Use full screen mode" imagePosition="left" alignment="left" toolTip="Display the SEB browser full screen" inset="2" id="746">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <buttonCell type="radio" title="Touch optimized (Win)" imagePosition="left" alignment="left" inset="2" id="qpg-Rd-u54">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </column>
+                                </cells>
+                                <connections>
+                                    <action selector="browserViewModeMatrix:" target="-2" id="2Hi-Hx-0wB"/>
+                                    <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="753">
+                                        <dictionary key="options">
+                                            <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </matrix>
+                        </subviews>
+                    </view>
                     <constraints>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="38" id="cpj-Su-O3J"/>
+                        <constraint firstAttribute="trailing" secondItem="743" secondAttribute="trailing" constant="16" id="Idc-Ai-3Bt"/>
+                        <constraint firstItem="743" firstAttribute="top" secondItem="Xr6-D9-xmk" secondAttribute="top" constant="26" id="Qy3-l4-US6"/>
+                        <constraint firstItem="743" firstAttribute="leading" secondItem="Xr6-D9-xmk" secondAttribute="leading" constant="16" id="hQO-oE-T6v"/>
+                        <constraint firstAttribute="bottom" secondItem="743" secondAttribute="bottom" constant="14" id="p5G-Xh-fw9"/>
                     </constraints>
-                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    <size key="cellSize" width="610" height="18"/>
-                    <size key="intercellSpacing" width="4" height="2"/>
-                    <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" inset="2" id="744">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <cells>
-                        <column>
-                            <buttonCell type="radio" title="Use browser window" imagePosition="left" alignment="left" state="on" toolTip="Use a browser window which can be scaled and moved around, also to another screen when available" tag="1" inset="2" id="745">
-                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <buttonCell type="radio" title="Use full screen mode" imagePosition="left" alignment="left" toolTip="Display the SEB browser full screen" inset="2" id="746">
-                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                        </column>
-                    </cells>
-                    <connections>
-                        <action selector="browserViewModeMatrix:" target="-2" id="2Hi-Hx-0wB"/>
-                        <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="753">
-                            <dictionary key="options">
-                                <bool key="NSConditionallySetsEnabled" value="NO"/>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </matrix>
-                <textField toolTip="SEB Dock height in points (pixel height x 2 on Retina displays)" horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DiJ-eI-WGU">
-                    <rect key="frame" x="590" y="87" width="40" height="22"/>
+                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </box>
+                <box autoresizesSubviews="NO" title="SEB dock/task bar" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Q3v-Xi-ylG">
+                    <rect key="frame" x="17" y="134" width="616" height="137"/>
+                    <view key="contentView">
+                        <rect key="frame" x="1" y="1" width="614" height="121"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField toolTip="SEB Dock height in points (pixel height x 2 on Retina displays)" horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DiJ-eI-WGU">
+                                <rect key="frame" x="561" y="93" width="40" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="kWi-jS-1Ll"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="Ngq-60-2cc">
+                                    <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="Mo3-nk-rKF">
+                                        <real key="minimum" value="40"/>
+                                        <real key="maximum" value="256"/>
+                                    </numberFormatter>
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_showTaskBar" id="t9a-eZ-CdG"/>
+                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_taskBarHeight" id="uOf-4w-fbs">
+                                        <dictionary key="options">
+                                            <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                            <bool key="NSValidatesImmediately" value="YES"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RFK-qQ-lel">
+                                <rect key="frame" x="475" y="95" width="78" height="17"/>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Dock height" usesSingleLineMode="YES" id="3KI-5c-L1K">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="76">
+                                <rect key="frame" x="11" y="94" width="122" height="18"/>
+                                <string key="toolTip">The SEB dock shows and switches between open browser windows, allowed resources and applications and can display additional controls</string>
+                                <buttonCell key="cell" type="check" title="Show SEB dock" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="77">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="showTaskBarButton:" target="-2" id="BJM-L8-i03"/>
+                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showTaskBar" id="741">
+                                        <dictionary key="options">
+                                            <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </button>
+                            <button toolTip="Allow using check spelling/grammar and 'correct spelling automatically'" translatesAutoresizingMaskIntoConstraints="NO" id="E2T-SZ-Z6U">
+                                <rect key="frame" x="30" y="54" width="143" height="18"/>
+                                <buttonCell key="cell" type="check" title="Show reload button" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="3wD-Cd-yYF">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showReloadButton" id="oOi-QJ-KuB"/>
+                                </connections>
+                            </button>
+                            <button toolTip="Allow using check spelling/grammar and 'correct spelling automatically'" translatesAutoresizingMaskIntoConstraints="NO" id="VqV-Zw-hin">
+                                <rect key="frame" x="30" y="34" width="88" height="18"/>
+                                <buttonCell key="cell" type="check" title="Show time" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="6CP-QX-2NV">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showTime" id="x9p-Aq-LZQ"/>
+                                </connections>
+                            </button>
+                            <button toolTip="Allow using check spelling/grammar and 'correct spelling automatically'" translatesAutoresizingMaskIntoConstraints="NO" id="cvI-1t-MPD">
+                                <rect key="frame" x="30" y="14" width="159" height="18"/>
+                                <buttonCell key="cell" type="check" title="Show keyboard layout" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="NVt-Gb-hG5">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showInputLanguage" id="LmJ-5H-c7O"/>
+                                </connections>
+                            </button>
+                            <button toolTip="Allow using check spelling/grammar and 'correct spelling automatically'" translatesAutoresizingMaskIntoConstraints="NO" id="NYh-TA-SfI">
+                                <rect key="frame" x="30" y="74" width="174" height="18"/>
+                                <buttonCell key="cell" type="check" title="Show Wi-Fi control (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="vAt-Tk-BEf">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowWLAN" id="PCt-gx-309"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </view>
                     <constraints>
-                        <constraint firstAttribute="width" constant="40" id="kWi-jS-1Ll"/>
+                        <constraint firstAttribute="trailing" secondItem="DiJ-eI-WGU" secondAttribute="trailing" constant="11" id="3xn-4Y-LMB"/>
+                        <constraint firstItem="DiJ-eI-WGU" firstAttribute="top" secondItem="Q3v-Xi-ylG" secondAttribute="top" constant="21" id="5V3-vv-GUl"/>
+                        <constraint firstItem="RFK-qQ-lel" firstAttribute="baseline" secondItem="DiJ-eI-WGU" secondAttribute="baseline" id="9JH-e2-x72"/>
+                        <constraint firstItem="76" firstAttribute="top" secondItem="Q3v-Xi-ylG" secondAttribute="top" constant="26" id="9lj-62-P3q"/>
+                        <constraint firstItem="DiJ-eI-WGU" firstAttribute="leading" secondItem="RFK-qQ-lel" secondAttribute="trailing" constant="10" id="A3k-yO-ANt"/>
+                        <constraint firstItem="VqV-Zw-hin" firstAttribute="top" secondItem="E2T-SZ-Z6U" secondAttribute="bottom" constant="6" id="PIb-IS-TrV"/>
+                        <constraint firstItem="NYh-TA-SfI" firstAttribute="leading" secondItem="Q3v-Xi-ylG" secondAttribute="leading" constant="30" id="QQv-ds-pCd"/>
+                        <constraint firstItem="VqV-Zw-hin" firstAttribute="leading" secondItem="Q3v-Xi-ylG" secondAttribute="leading" constant="30" id="Tje-Xx-7Fc"/>
+                        <constraint firstItem="RFK-qQ-lel" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="76" secondAttribute="trailing" constant="20" id="UCW-Ic-RAu"/>
+                        <constraint firstItem="cvI-1t-MPD" firstAttribute="leading" secondItem="Q3v-Xi-ylG" secondAttribute="leading" constant="30" id="WaP-cv-GE8"/>
+                        <constraint firstItem="RFK-qQ-lel" firstAttribute="baseline" secondItem="76" secondAttribute="baseline" id="XPe-w4-iRV"/>
+                        <constraint firstItem="E2T-SZ-Z6U" firstAttribute="top" secondItem="NYh-TA-SfI" secondAttribute="bottom" constant="6" id="hbP-Lr-5IZ"/>
+                        <constraint firstItem="NYh-TA-SfI" firstAttribute="top" secondItem="76" secondAttribute="bottom" constant="6" id="iJa-tf-ogX"/>
+                        <constraint firstItem="cvI-1t-MPD" firstAttribute="top" secondItem="VqV-Zw-hin" secondAttribute="bottom" constant="6" id="o91-O4-hFh"/>
+                        <constraint firstAttribute="bottom" secondItem="cvI-1t-MPD" secondAttribute="bottom" constant="13" id="slx-ZV-NIJ"/>
+                        <constraint firstItem="E2T-SZ-Z6U" firstAttribute="leading" secondItem="Q3v-Xi-ylG" secondAttribute="leading" constant="30" id="uRx-Cd-IbN"/>
+                        <constraint firstItem="76" firstAttribute="leading" secondItem="Q3v-Xi-ylG" secondAttribute="leading" constant="11" id="yuK-Cq-kuL"/>
                     </constraints>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="Ngq-60-2cc">
-                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="Mo3-nk-rKF">
-                            <real key="minimum" value="40"/>
-                            <real key="maximum" value="256"/>
-                        </numberFormatter>
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_showTaskBar" id="t9a-eZ-CdG"/>
-                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_taskBarHeight" id="uOf-4w-fbs">
-                            <dictionary key="options">
-                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                                <bool key="NSValidatesImmediately" value="YES"/>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RFK-qQ-lel">
-                    <rect key="frame" x="504" y="89" width="78" height="17"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Dock height" usesSingleLineMode="YES" id="3KI-5c-L1K">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <button toolTip="Pages can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="baa-Wm-1db">
-                    <rect key="frame" x="18" y="38" width="137" height="18"/>
-                    <buttonCell key="cell" type="check" title="Enable page zoom" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="YEg-Qr-xf0">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="showTaskBarButton:" target="-2" id="b8d-rn-Q0H"/>
-                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableZoomPage" id="qbh-Ts-jQp">
-                            <dictionary key="options">
-                                <bool key="NSConditionallySetsEnabled" value="NO"/>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </button>
+                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </box>
                 <button toolTip="Allow using check spelling/grammar and 'correct spelling automatically'" translatesAutoresizingMaskIntoConstraints="NO" id="2KI-tS-neq">
                     <rect key="frame" x="18" y="18" width="148" height="18"/>
                     <buttonCell key="cell" type="check" title="Allow spell checking" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="9oR-jn-THC">
@@ -325,39 +386,136 @@
                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowSpellCheck" id="NOB-hj-Urb"/>
                     </connections>
                 </button>
+                <box autoresizesSubviews="NO" title="Enable zoom (Mac/Win)" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="VBE-Ah-xWx">
+                    <rect key="frame" x="17" y="45" width="301" height="78"/>
+                    <view key="contentView">
+                        <rect key="frame" x="1" y="1" width="299" height="62"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button toolTip="Pages can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="baa-Wm-1db">
+                                <rect key="frame" x="11" y="35" width="137" height="18"/>
+                                <buttonCell key="cell" type="check" title="Enable page zoom" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="YEg-Qr-xf0">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="showTaskBarButton:" target="-2" id="b8d-rn-Q0H"/>
+                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableZoomPage" id="qbh-Ts-jQp">
+                                        <dictionary key="options">
+                                            <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </button>
+                            <button toolTip="Text in browser windows can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="S0v-zb-D4L">
+                                <rect key="frame" x="11" y="15" width="129" height="18"/>
+                                <buttonCell key="cell" type="check" title="Enable text zoom" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="zfV-ml-478">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="showTaskBarButton:" target="-2" id="HYH-Xh-b8e"/>
+                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="L4B-bb-wb6">
+                                        <dictionary key="options">
+                                            <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </view>
+                    <constraints>
+                        <constraint firstItem="baa-Wm-1db" firstAttribute="leading" secondItem="VBE-Ah-xWx" secondAttribute="leading" constant="11" id="7mm-3E-fS2"/>
+                        <constraint firstItem="baa-Wm-1db" firstAttribute="top" secondItem="VBE-Ah-xWx" secondAttribute="top" constant="26" id="8JK-Nm-Cqy"/>
+                        <constraint firstItem="S0v-zb-D4L" firstAttribute="leading" secondItem="VBE-Ah-xWx" secondAttribute="leading" constant="11" id="Brq-WG-YYh"/>
+                        <constraint firstAttribute="width" constant="295" id="bkR-ni-LYn"/>
+                        <constraint firstItem="S0v-zb-D4L" firstAttribute="top" secondItem="baa-Wm-1db" secondAttribute="bottom" constant="6" id="gFi-VH-BE9"/>
+                        <constraint firstAttribute="bottom" secondItem="S0v-zb-D4L" secondAttribute="bottom" constant="14" id="msq-N6-xOJ"/>
+                    </constraints>
+                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </box>
+                <box autoresizesSubviews="NO" title="Zoom mode Win (Ctrl-Mousewheel)" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="eGR-0O-pYN">
+                    <rect key="frame" x="332" y="45" width="301" height="78"/>
+                    <view key="contentView">
+                        <rect key="frame" x="1" y="1" width="299" height="62"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yCR-0v-z7a">
+                                <rect key="frame" x="13" y="15" width="273" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="TrX-AT-ZeX"/>
+                                </constraints>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                <size key="cellSize" width="267" height="18"/>
+                                <size key="intercellSpacing" width="4" height="2"/>
+                                <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" inset="2" id="WBf-bg-fBA">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <cells>
+                                    <column>
+                                        <buttonCell type="radio" title="Use page zoom" imagePosition="left" alignment="left" state="on" toolTip="Use a browser window which can be scaled and moved around, also to another screen when available" tag="1" inset="2" id="iqK-dQ-5mz">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <buttonCell type="radio" title="Use text zoom" imagePosition="left" alignment="left" toolTip="Display the SEB browser full screen" inset="2" id="Hgy-sG-HYK">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </column>
+                                </cells>
+                                <connections>
+                                    <action selector="browserViewModeMatrix:" target="-2" id="X9o-AZ-rek"/>
+                                    <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_zoomMode" id="xSg-K4-3qn">
+                                        <dictionary key="options">
+                                            <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </matrix>
+                        </subviews>
+                    </view>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="yCR-0v-z7a" secondAttribute="bottom" constant="12" id="6Sw-Up-hCX"/>
+                        <constraint firstAttribute="trailing" secondItem="yCR-0v-z7a" secondAttribute="trailing" constant="11" id="AvZ-Tj-61u"/>
+                        <constraint firstAttribute="width" constant="295" id="GtO-to-54z"/>
+                        <constraint firstItem="yCR-0v-z7a" firstAttribute="leading" secondItem="eGR-0O-pYN" secondAttribute="leading" constant="11" id="Ncd-Nm-0FU"/>
+                        <constraint firstItem="yCR-0v-z7a" firstAttribute="top" secondItem="eGR-0O-pYN" secondAttribute="top" constant="24" id="nv8-hh-wMB"/>
+                    </constraints>
+                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </box>
             </subviews>
             <constraints>
                 <constraint firstItem="13" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="213"/>
-                <constraint firstItem="76" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="273"/>
                 <constraint firstAttribute="trailing" secondItem="371" secondAttribute="trailing" constant="20" symbolic="YES" id="378"/>
                 <constraint firstItem="371" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="380"/>
                 <constraint firstItem="383" firstAttribute="top" secondItem="371" secondAttribute="bottom" constant="6" symbolic="YES" id="390"/>
                 <constraint firstAttribute="trailing" secondItem="383" secondAttribute="trailing" constant="20" symbolic="YES" id="408"/>
                 <constraint firstItem="383" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="40" id="410"/>
-                <constraint firstItem="76" firstAttribute="top" secondItem="13" secondAttribute="bottom" constant="6" symbolic="YES" id="429"/>
                 <constraint firstAttribute="trailing" secondItem="13" secondAttribute="trailing" constant="20" symbolic="YES" id="437"/>
-                <constraint firstItem="13" firstAttribute="top" secondItem="383" secondAttribute="bottom" constant="20" id="456"/>
+                <constraint firstItem="13" firstAttribute="top" secondItem="383" secondAttribute="bottom" constant="10" id="456"/>
                 <constraint firstItem="540" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="542"/>
                 <constraint firstAttribute="trailing" secondItem="540" secondAttribute="trailing" constant="20" symbolic="YES" id="559"/>
-                <constraint firstItem="743" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="747"/>
-                <constraint firstItem="743" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" symbolic="YES" id="748"/>
-                <constraint firstItem="540" firstAttribute="top" secondItem="743" secondAttribute="bottom" constant="16" id="755"/>
-                <constraint firstItem="371" firstAttribute="top" secondItem="540" secondAttribute="bottom" constant="24" id="756"/>
-                <constraint firstAttribute="trailing" secondItem="743" secondAttribute="trailing" constant="20" id="757"/>
-                <constraint firstItem="2KI-tS-neq" firstAttribute="leading" secondItem="baa-Wm-1db" secondAttribute="leading" id="4GK-7A-8TI"/>
-                <constraint firstItem="S0v-zb-D4L" firstAttribute="leading" secondItem="76" secondAttribute="leading" id="5Iu-xy-YOY"/>
-                <constraint firstItem="76" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="7t2-OM-2PO"/>
-                <constraint firstItem="76" firstAttribute="baseline" secondItem="RFK-qQ-lel" secondAttribute="baseline" id="FRe-Og-NW6"/>
-                <constraint firstItem="2KI-tS-neq" firstAttribute="top" secondItem="baa-Wm-1db" secondAttribute="bottom" constant="6" symbolic="YES" id="Kcn-Qp-pBX"/>
-                <constraint firstItem="baa-Wm-1db" firstAttribute="leading" secondItem="S0v-zb-D4L" secondAttribute="leading" id="L2i-Kv-P2i"/>
-                <constraint firstItem="baa-Wm-1db" firstAttribute="top" secondItem="S0v-zb-D4L" secondAttribute="bottom" constant="6" symbolic="YES" id="Mi3-Ij-f0P"/>
-                <constraint firstAttribute="trailing" secondItem="DiJ-eI-WGU" secondAttribute="trailing" constant="20" id="PWt-f0-4mT"/>
-                <constraint firstItem="DiJ-eI-WGU" firstAttribute="leading" secondItem="RFK-qQ-lel" secondAttribute="trailing" constant="10" id="Yk9-6k-eZC"/>
-                <constraint firstItem="RFK-qQ-lel" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="76" secondAttribute="trailing" constant="20" id="cxX-X4-2fH"/>
-                <constraint firstAttribute="bottom" secondItem="2KI-tS-neq" secondAttribute="bottom" constant="20" id="dDh-dE-7OD"/>
-                <constraint firstItem="DiJ-eI-WGU" firstAttribute="baseline" secondItem="RFK-qQ-lel" secondAttribute="baseline" id="fSI-Jk-7Qv"/>
-                <constraint firstItem="S0v-zb-D4L" firstAttribute="top" secondItem="76" secondAttribute="bottom" constant="16" id="sBt-Qd-Gje"/>
+                <constraint firstItem="371" firstAttribute="top" secondItem="540" secondAttribute="bottom" constant="15" id="756"/>
+                <constraint firstItem="eGR-0O-pYN" firstAttribute="top" secondItem="Q3v-Xi-ylG" secondAttribute="bottom" constant="15" id="4Vb-7h-293"/>
+                <constraint firstItem="VBE-Ah-xWx" firstAttribute="top" secondItem="Q3v-Xi-ylG" secondAttribute="bottom" constant="15" id="IaV-rQ-53E"/>
+                <constraint firstItem="Q3v-Xi-ylG" firstAttribute="top" secondItem="13" secondAttribute="bottom" constant="15" id="KTa-gI-5tX"/>
+                <constraint firstItem="2KI-tS-neq" firstAttribute="top" secondItem="VBE-Ah-xWx" secondAttribute="bottom" constant="15" id="PTJ-aD-CtY"/>
+                <constraint firstItem="2KI-tS-neq" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="Pcz-AM-66S"/>
+                <constraint firstItem="eGR-0O-pYN" firstAttribute="leading" secondItem="VBE-Ah-xWx" secondAttribute="trailing" constant="20" id="RzO-bC-W8E"/>
+                <constraint firstAttribute="bottom" secondItem="2KI-tS-neq" secondAttribute="bottom" constant="20" id="YYA-un-4cf"/>
+                <constraint firstItem="Xr6-D9-xmk" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="ZcR-R0-gxS"/>
+                <constraint firstAttribute="trailing" secondItem="Xr6-D9-xmk" secondAttribute="trailing" constant="20" id="bgb-3q-V4U"/>
+                <constraint firstItem="540" firstAttribute="top" secondItem="Xr6-D9-xmk" secondAttribute="bottom" constant="15" id="mj8-B2-jAa"/>
+                <constraint firstItem="Q3v-Xi-ylG" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="nA1-7S-hPq"/>
+                <constraint firstAttribute="trailing" secondItem="eGR-0O-pYN" secondAttribute="trailing" constant="20" id="oQS-bh-HcE"/>
+                <constraint firstItem="VBE-Ah-xWx" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="uPW-FW-Nxi"/>
+                <constraint firstItem="Xr6-D9-xmk" firstAttribute="top" secondItem="1" secondAttribute="top" constant="15" id="yVI-7K-0yQ"/>
+                <constraint firstAttribute="trailing" secondItem="Q3v-Xi-ylG" secondAttribute="trailing" constant="20" id="zPg-iu-rdN"/>
             </constraints>
+            <point key="canvasLocation" x="368" y="594.5"/>
         </customView>
         <objectController automaticallyPreparesContent="YES" id="49">
             <declaredKeys>

@@ -1,0 +1,105 @@
+
+/* Class = "NSButton"; ibShadowedToolTip = "OS X Menüleiste anzeigen für Zugriff auf Einstellungen wie WLAN"; ObjectID = "13"; */
+"13.ibShadowedToolTip" = "OS X Menüleiste anzeigen für Zugriff auf Einstellungen wie WLAN";
+
+/* Class = "NSButtonCell"; title = "Menüleiste anzeigen"; ObjectID = "14"; */
+"14.title" = "Menüleiste anzeigen";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Das SEB-Dock zeigt und schaltet um auf offene Browserfenster, zugelassene Ressourcen und Drittapplikationen und kann zusätzliche Funktionen beinhalten"; ObjectID = "76"; */
+"76.ibShadowedToolTip" = "Das SEB-Dock zeigt und schaltet um auf offene Browserfenster, zugelassene Ressourcen und Drittapplikationen und kann zusätzliche Funktionen beinhalten";
+
+/* Class = "NSButtonCell"; title = "SEB-Dock/Taskbar anzeigen"; ObjectID = "77"; */
+"77.title" = "SEB-Dock/Taskbar anzeigen";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Symbolleiste anzeigen"; ObjectID = "371"; */
+"371.ibShadowedToolTip" = "Symbolleiste anzeigen";
+
+/* Class = "NSButtonCell"; title = "Symbolleiste anzeigen"; ObjectID = "372"; */
+"372.title" = "Symbolleiste anzeigen";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Browserfenster-Symbolleiste standardmässig ausblenden. Sie kann mittels Darstellung-Menü oder den Tasten Alt-Cmd-T (Wahl-Befehl-T) angezeigt werden."; ObjectID = "383"; */
+"383.ibShadowedToolTip" = "Browserfenster-Symbolleiste standardmässig ausblenden. Sie kann mittels Darstellung-Menü oder den Tasten Alt-Cmd-T (Wahl-Befehl-T) angezeigt werden.";
+
+/* Class = "NSButtonCell"; title = "Symbolleiste standardmässig ausblenden"; ObjectID = "384"; */
+"384.title" = "Symbolleiste standardmässig ausblenden";
+
+/* Class = "NSBox"; title = "Grösse und Position Haupt-Browserfenster"; ObjectID = "540"; */
+"540.title" = "Grösse und Position Haupt-Browserfenster";
+
+/* Class = "NSComboBox"; ibShadowedToolTip = "Fensterbreite in Punkten oder Prozent der Bildschirmbreite"; ObjectID = "594"; */
+"594.ibShadowedToolTip" = "Fensterbreite in Punkten oder Prozent der Bildschirmbreite";
+
+/* Class = "NSComboBox"; ibShadowedToolTip = "Fensterhöhe in Punkten oder Prozent der Bildschirmhöhe"; ObjectID = "596"; */
+"596.ibShadowedToolTip" = "Fensterhöhe in Punkten oder Prozent der Bildschirmhöhe";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Browserfenster link, rechts oder zentriert positionieren"; ObjectID = "599"; */
+"599.ibShadowedToolTip" = "Browserfenster link, rechts oder zentriert positionieren";
+
+/* Class = "NSTextFieldCell"; title = "Horizontale Positionierung"; ObjectID = "605"; */
+"605.title" = "Horizontale Positionierung";
+
+/* Class = "NSTextFieldCell"; title = "Höhe"; ObjectID = "606"; */
+"606.title" = "Höhe";
+
+/* Class = "NSComboBoxCell"; 607.ibShadowedObjectValues[0] = "100%"; ObjectID = "607"; */
+"607.ibShadowedObjectValues[0]" = "100%";
+
+/* Class = "NSComboBoxCell"; 607.ibShadowedObjectValues[1] = "80%"; ObjectID = "607"; */
+"607.ibShadowedObjectValues[1]" = "80%";
+
+/* Class = "NSComboBoxCell"; 607.ibShadowedObjectValues[2] = "600"; ObjectID = "607"; */
+"607.ibShadowedObjectValues[2]" = "600";
+
+/* Class = "NSComboBoxCell"; 607.ibShadowedObjectValues[3] = "800"; ObjectID = "607"; */
+"607.ibShadowedObjectValues[3]" = "800";
+
+/* Class = "NSComboBoxCell"; 611.ibShadowedObjectValues[0] = "50%"; ObjectID = "611"; */
+"611.ibShadowedObjectValues[0]" = "50%";
+
+/* Class = "NSComboBoxCell"; 611.ibShadowedObjectValues[1] = "100%"; ObjectID = "611"; */
+"611.ibShadowedObjectValues[1]" = "100%";
+
+/* Class = "NSComboBoxCell"; 611.ibShadowedObjectValues[2] = "800"; ObjectID = "611"; */
+"611.ibShadowedObjectValues[2]" = "800";
+
+/* Class = "NSComboBoxCell"; 611.ibShadowedObjectValues[3] = "1000"; ObjectID = "611"; */
+"611.ibShadowedObjectValues[3]" = "1000";
+
+/* Class = "NSTextFieldCell"; title = "Breite"; ObjectID = "724"; */
+"724.title" = "Breite";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Browserfenster verwenden, welches skaliert und bewegt werden kann, so auch auf einen zweiten Bildschirm"; ObjectID = "745"; */
+"745.ibShadowedToolTip" = "Browserfenster verwenden, welches skaliert und bewegt werden kann, so auch auf einen zweiten Bildschirm";
+
+/* Class = "NSButtonCell"; title = "Browserfenster verwenden"; ObjectID = "745"; */
+"745.title" = "Browserfenster verwenden";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "SEB-Browser im Vollbild anzeigen"; ObjectID = "746"; */
+"746.ibShadowedToolTip" = "SEB-Browser im Vollbild anzeigen";
+
+/* Class = "NSButtonCell"; title = "Vollbildmodus benutzen"; ObjectID = "746"; */
+"746.title" = "Vollbildmodus benutzen";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Rechtschreib- und Grammatikprüfung und 'Rechtschreibung automatisch korrigieren' erlauben"; ObjectID = "1IM-nr-3eY"; */
+"1IM-nr-3eY.ibShadowedToolTip" = "Rechtschreib- und Grammatikprüfung und 'Rechtschreibung automatisch korrigieren' erlauben";
+
+/* Class = "NSTextFieldCell"; title = "Dock-Höhe"; ObjectID = "3KI-5c-L1K"; */
+"3KI-5c-L1K.title" = "Dock-Höhe";
+
+/* Class = "NSButtonCell"; title = "Text-Zoom erlauben"; ObjectID = "DAs-fc-jpK"; */
+"DAs-fc-jpK.title" = "Text-Zoom erlauben";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "SEB-Dockhöhe in Punkten"; ObjectID = "DiJ-eI-WGU"; */
+"DiJ-eI-WGU.ibShadowedToolTip" = "SEB-Dockhöhe in Punkten";
+
+/* Class = "NSButtonCell"; title = "Seiten-Zoom erlauben"; ObjectID = "Vis-I2-3aI"; */
+"Vis-I2-3aI.title" = "Seiten-Zoom erlauben";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Text in Browserfenstern kann mit cmd/Befehlstaste +/- und den Befehlen im Darstellung-Menü und der Browserfenster-Werkzeugleiste vergrössert/verkleinert werden"; ObjectID = "XDQ-AJ-pqz"; */
+"XDQ-AJ-pqz.ibShadowedToolTip" = "Text in Browserfenstern kann mit cmd/Befehlstaste +/- und den Befehlen im Darstellung-Menü und der Browserfenster-Werkzeugleiste vergrössert/verkleinert werden";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Seiten können mit ctrl-cmd/Befehlstaste +/- und den Befehlen im Darstellung-Menü und der Browserfenster-Werkzeugleiste vergrössert/verkleinert werden"; ObjectID = "coB-B5-rMb"; */
+"coB-B5-rMb.ibShadowedToolTip" = "Seiten können mit ctrl-cmd/Befehlstaste +/- und den Befehlen im Darstellung-Menü und der Browserfenster-Werkzeugleiste vergrössert/verkleinert werden";
+
+/* Class = "NSButtonCell"; title = "Rechtschreibeprüfung erlauben"; ObjectID = "w6M-mm-NWs"; */
+"w6M-mm-NWs.title" = "Rechtschreibeprüfung erlauben";
