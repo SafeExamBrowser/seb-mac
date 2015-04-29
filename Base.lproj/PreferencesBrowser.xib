@@ -28,6 +28,30 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="85">
+                    <rect key="frame" x="18" y="400" width="295" height="26"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="290" id="557"/>
+                    </constraints>
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="89" id="86">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="87">
+                            <items>
+                                <menuItem id="90"/>
+                                <menuItem id="89"/>
+                                <menuItem id="92">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="newBrowserWindowByLinkPolicyChanged:" target="-2" id="mEx-Gk-Jso"/>
+                        <binding destination="227" name="contentValues" keyPath="org_safeexambrowser_SEB_newBrowserWindowByLinkPolicies" id="238"/>
+                        <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy" previousBinding="238" id="239"/>
+                    </connections>
+                </popUpButton>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="93">
                     <rect key="frame" x="18" y="248" width="191" height="17"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Links in JavaScript/plug-ins ..." usesSingleLineMode="YES" id="100">
@@ -312,30 +336,20 @@
                         <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_removeLocalStorage" id="rEm-R6-sYb"/>
                     </connections>
                 </button>
-                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="85">
-                    <rect key="frame" x="18" y="400" width="295" height="26"/>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="Du9-dQ-GIJ">
+                    <rect key="frame" x="334" y="106" width="152" height="18"/>
+                    <string key="toolTip">Disabling browsing to previously visited pages (by cmd + Cursor left) may increase security, because browsing back might allow to leave an exam</string>
                     <constraints>
-                        <constraint firstAttribute="width" constant="290" id="557"/>
+                        <constraint firstAttribute="height" constant="14" id="LQP-Ah-wDU"/>
                     </constraints>
-                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="89" id="86">
-                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
-                        <menu key="menu" id="87">
-                            <items>
-                                <menuItem id="90"/>
-                                <menuItem id="89"/>
-                                <menuItem id="92">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                            </items>
-                        </menu>
-                    </popUpButtonCell>
+                    <buttonCell key="cell" type="check" title="Show reload warning" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="16K-h7-SCc">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
                     <connections>
-                        <action selector="newBrowserWindowByLinkPolicyChanged:" target="-2" id="mEx-Gk-Jso"/>
-                        <binding destination="227" name="contentValues" keyPath="org_safeexambrowser_SEB_newBrowserWindowByLinkPolicies" id="238"/>
-                        <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy" previousBinding="238" id="239"/>
+                        <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_showReloadWarning" id="X4L-5u-iRh"/>
                     </connections>
-                </popUpButton>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="176" firstAttribute="baseline" secondItem="168" secondAttribute="baseline" id="257"/>
@@ -370,6 +384,7 @@
                 <constraint firstItem="661" firstAttribute="top" secondItem="180" secondAttribute="bottom" constant="20" id="678"/>
                 <constraint firstAttribute="bottom" secondItem="447" secondAttribute="bottom" constant="25" id="687"/>
                 <constraint firstItem="413" firstAttribute="top" secondItem="661" secondAttribute="bottom" constant="20" id="688"/>
+                <constraint firstItem="Du9-dQ-GIJ" firstAttribute="leading" secondItem="176" secondAttribute="leading" id="7kD-Iu-Fbo"/>
                 <constraint firstItem="413" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="7li-U0-v6o"/>
                 <constraint firstItem="wFa-eR-NzK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="661" secondAttribute="trailing" constant="8" symbolic="YES" id="9rH-vf-CRc"/>
                 <constraint firstItem="107" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="GAW-ar-HK4"/>
@@ -377,9 +392,13 @@
                 <constraint firstItem="661" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="JM3-ow-GFh"/>
                 <constraint firstItem="wFa-eR-NzK" firstAttribute="baseline" secondItem="661" secondAttribute="baseline" id="Jeu-nT-O6A"/>
                 <constraint firstItem="176" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="168" secondAttribute="trailing" constant="20" id="K4M-yl-eg3"/>
+                <constraint firstItem="wFa-eR-NzK" firstAttribute="top" secondItem="Du9-dQ-GIJ" secondAttribute="bottom" constant="20" id="PGl-tD-Iha"/>
                 <constraint firstItem="171" firstAttribute="leading" secondItem="wFa-eR-NzK" secondAttribute="leading" id="SLH-0K-iN8"/>
+                <constraint firstItem="Du9-dQ-GIJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="180" secondAttribute="trailing" constant="20" id="ToF-WI-5qS"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Du9-dQ-GIJ" secondAttribute="trailing" constant="20" id="Ue8-J0-BnX"/>
                 <constraint firstItem="168" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="Z0F-CD-mjD"/>
                 <constraint firstItem="180" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="cmz-m0-WAd"/>
+                <constraint firstItem="Du9-dQ-GIJ" firstAttribute="top" secondItem="176" secondAttribute="bottom" constant="20" id="gGx-1w-82J"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="84" secondAttribute="trailing" constant="20" id="ntT-5s-yzS"/>
                 <constraint firstItem="103" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="sIi-Ds-kbq"/>
                 <constraint firstAttribute="trailing" secondItem="wFa-eR-NzK" secondAttribute="trailing" constant="20" symbolic="YES" id="uby-tN-Awj"/>
