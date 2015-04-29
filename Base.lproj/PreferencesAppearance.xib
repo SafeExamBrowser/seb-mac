@@ -156,7 +156,7 @@
                         <rect key="frame" x="1" y="1" width="614" height="86"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="743">
+                            <matrix toolTip="Use a browser window which can be scaled and moved around, show main  window full screen or use the tablet mode (Win)" verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="743">
                                 <rect key="frame" x="18" y="17" width="578" height="58"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="58" id="IYm-P2-CKq"/>
@@ -170,11 +170,11 @@
                                 </buttonCell>
                                 <cells>
                                     <column>
-                                        <buttonCell type="radio" title="Use browser window" imagePosition="left" alignment="left" state="on" toolTip="Use a browser window which can be scaled and moved around, also to another screen when available" tag="1" inset="2" id="745">
+                                        <buttonCell type="radio" title="Use browser window" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="745">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
-                                        <buttonCell type="radio" title="Use full screen mode" imagePosition="left" alignment="left" toolTip="Display the SEB browser full screen" inset="2" id="746">
+                                        <buttonCell type="radio" title="Use full screen mode" imagePosition="left" alignment="left" inset="2" id="746">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
