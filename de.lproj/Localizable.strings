@@ -419,7 +419,7 @@
 "You can only reconfigure SEB by entering the current SEB administrator password:" = "Sie können SEB nur nach Eingabe des aktuellen SEB-Administrator-Passwortes neu konfigurieren:";
 
 /* No comment provided by engineer. */
-"You didn't enter the the correct current SEB administrator password." = "Sie haben das SEB Administrator-Passwort nicht korrekt eingegeben.";
+"You didn't enter the correct current SEB administrator password." = "Sie haben das SEB Administrator-Passwort nicht korrekt eingegeben.";
 
 /* No comment provided by engineer. */
 "You edited settings. Do you want to apply them or continue using previous settings (current settings will be discarded)?" = "Sie haben die Einstellungen bearbeitet. Wollen Sie diese anwenden oder mit den vorherigen Einstellungen weiterfahren (bearbeitete Einstellungen werden verworfen)?";

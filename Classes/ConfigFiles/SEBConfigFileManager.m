@@ -465,7 +465,8 @@
         // identify this password as hash
         *passwordIsHashPtr = true;
     }
-    // Decryption worked
+    /// Decryption worked
+    
     // Ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
     decryptedSebData = [decryptedSebData gzipInflate];
     // Check if the openend reconfiguring seb file has the same admin password inside as the current one
@@ -497,7 +498,7 @@
             // allow reconfiguring only if the user enters the right one
             // We don't check this for the case the current admin password was used to encrypt the new settings
             // In this case there can be a new admin pw defined in the new settings and users don't need to enter the old one
-            if (*passwordIsHashPtr == false) {
+            if (*passwordIsHashPtr == false && hashedAdminPassword.length > 0) {
                 // Allow up to 5 attempts for entering current admin password
                 int i = 5;
                 NSString *password = nil;
@@ -525,9 +526,9 @@
                 if (!passwordsMatch) {
                     //wrong password entered in 5th try: stop reading .seb file
                     NSRunAlertPanel(NSLocalizedString(@"Cannot Reconfigure SEB Settings", nil),
-                                    NSLocalizedString(@"You didn't enter the the correct current SEB administrator password.", nil),
+                                    NSLocalizedString(@"You didn't enter the correct current SEB administrator password.", nil),
                                     NSLocalizedString(@"OK", nil), nil, nil);
-                    DDLogError(@"%s: Cannot Reconfigure SEB Settings: You didn't enter the the correct current SEB administrator password.", __FUNCTION__);
+                    DDLogError(@"%s: Cannot Reconfigure SEB Settings: You didn't enter the correct current SEB administrator password.", __FUNCTION__);
                     
                     return nil;
                 }
@@ -595,9 +596,41 @@
 }
 
 
+// Get preferences dictionary from decrypted data
+-(NSDictionary *) getPreferencesDictionaryFromConfigData:(NSData *)sebData error:(NSError **)error
+{
+    NSError *plistError = nil;
+    //NSString *sebPreferencesXML = [[NSString alloc] initWithData:sebData encoding:NSUTF8StringEncoding];
+    NSDictionary *sebPreferencesDict = [NSPropertyListSerialization propertyListWithData:sebData
+                                                                                 options:0
+                                                                                  format:NULL
+                                                                                   error:&plistError];
+    if (plistError) {
+        // If it exists, then add the localized error reason from serializing the plist to the error object
+        DDLogError(@"%s: Serialization of the XML plist went wrong! Error: %@", __FUNCTION__, plistError.description);
+        NSString *failureReason = [plistError localizedFailureReason];
+        if (!failureReason) failureReason = @"";
+        NSMutableDictionary *newErrorDict =
+        [NSMutableDictionary dictionaryWithDictionary:@{ NSLocalizedDescriptionKey :
+                                                             NSLocalizedString(@"Loading new settings failed!", nil),
+                                                         NSLocalizedRecoverySuggestionErrorKey :
+                                                             [NSString stringWithFormat:@"%@\n%@", NSLocalizedString(@"These settings are corrupted and cannot be used.", nil), failureReason]
+                                                         }];
+        
+        NSError *newError = [[NSError alloc] initWithDomain:sebErrorDomain
+                                                       code:1 userInfo:newErrorDict];
+        *error = newError;
+        sebPreferencesDict = nil; //we don't have any settings to return
+    }
+    return sebPreferencesDict;
+}
+
+
 // Ask user to enter password and compare it to the passed (hashed) password string
 - (BOOL) askForPasswordAndCompareToHashedPassword:(NSString *)sebFileHashedAdminPassword
 {
+    // Check if there wasn't a hashed password (= empty password)
+    if (sebFileHashedAdminPassword.length == 0) return true;
     // Ask for a SEB administrator password and
     // allow opening settings only if the user enters the right one
     // Allow up to 5 attempts for entering admin password
@@ -636,36 +669,6 @@
     }
     // Right password entered
     return YES;
-}
-
-
-// Get preferences dictionary from decrypted data
--(NSDictionary *) getPreferencesDictionaryFromConfigData:(NSData *)sebData error:(NSError **)error
-{
-    NSError *plistError = nil;
-    //NSString *sebPreferencesXML = [[NSString alloc] initWithData:sebData encoding:NSUTF8StringEncoding];
-    NSDictionary *sebPreferencesDict = [NSPropertyListSerialization propertyListWithData:sebData
-                                                                                 options:0
-                                                                                  format:NULL
-                                                                                   error:&plistError];
-    if (plistError) {
-        // If it exists, then add the localized error reason from serializing the plist to the error object
-        DDLogError(@"%s: Serialization of the XML plist went wrong! Error: %@", __FUNCTION__, plistError.description);
-        NSString *failureReason = [plistError localizedFailureReason];
-        if (!failureReason) failureReason = @"";
-        NSMutableDictionary *newErrorDict =
-        [NSMutableDictionary dictionaryWithDictionary:@{ NSLocalizedDescriptionKey :
-                                                             NSLocalizedString(@"Loading new settings failed!", nil),
-                                                         NSLocalizedRecoverySuggestionErrorKey :
-                                                             [NSString stringWithFormat:@"%@\n%@", NSLocalizedString(@"These settings are corrupted and cannot be used.", nil), failureReason]
-                                                         }];
-        
-        NSError *newError = [[NSError alloc] initWithDomain:sebErrorDomain
-                                                       code:1 userInfo:newErrorDict];
-        *error = newError;
-        sebPreferencesDict = nil; //we don't have any settings to return
-    }
-    return sebPreferencesDict;
 }
 
 
