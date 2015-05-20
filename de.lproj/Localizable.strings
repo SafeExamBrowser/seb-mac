@@ -251,7 +251,7 @@
 "Paste from saved clipboard" = "Einfügen aus gesicherter Zwischenablage";
 
 /* No comment provided by engineer. */
-"Please enter correct confirm password" = "Bitte selbes Passwort erneut eingeben";
+"Please enter correct confirm password" = "Bitte gleiches Passwort erneut eingeben";
 
 /* No comment provided by engineer. */
 "Please confirm the %@ password first." = "Bitte %@ Passwort zuerst bestätigen";

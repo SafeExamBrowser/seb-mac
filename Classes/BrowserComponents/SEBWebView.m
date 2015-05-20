@@ -33,6 +33,7 @@
 //
 
 #import "SEBWebView.h"
+#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 @implementation SEBWebView
 
@@ -53,5 +54,19 @@
     // Reload page
     [super reload:sender];
 }
+
+
+// Optional blocking of dictionary lookup (by 3-finger tap)
+-(void)quickLookWithEvent:(NSEvent *)event
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictionaryLookup"]) {
+        [super quickLookWithEvent:event];
+        DDLogInfo(@"Dictionary look-up was used! %s", __FUNCTION__);
+    } else {
+        DDLogInfo(@"Dictionary look-up was blocked! %s", __FUNCTION__);
+    }
+}
+
 
 @end

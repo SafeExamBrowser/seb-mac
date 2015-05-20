@@ -140,6 +140,8 @@ static NSNumber *_logLevel;
                                  @NO,
                                  @"org_safeexambrowser_SEB_allowBrowsingBackForward",
                                  @NO,
+                                 @"org_safeexambrowser_SEB_allowDictionaryLookup",
+                                 @NO,
                                  @"org_safeexambrowser_SEB_allowDownUploads",
                                  @NO,
                                  @"org_safeexambrowser_SEB_allowFlashFullscreen",
