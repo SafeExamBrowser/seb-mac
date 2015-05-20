@@ -511,12 +511,24 @@
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
+                <button toolTip="Allow looking up text elements on a web site using the 3-finger tap" translatesAutoresizingMaskIntoConstraints="NO" id="mbj-mD-F32">
+                    <rect key="frame" x="333" y="18" width="170" height="18"/>
+                    <buttonCell key="cell" type="check" title="Allow dictionary look up" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="iYV-Zg-Pat">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowDictionaryLookup" id="SdL-Ts-JPM"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="540" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="542"/>
                 <constraint firstAttribute="trailing" secondItem="540" secondAttribute="trailing" constant="20" symbolic="YES" id="559"/>
                 <constraint firstItem="d5d-zh-qxU" firstAttribute="top" secondItem="540" secondAttribute="bottom" constant="15" id="0KW-G3-PRd"/>
                 <constraint firstItem="eGR-0O-pYN" firstAttribute="top" secondItem="Q3v-Xi-ylG" secondAttribute="bottom" constant="15" id="4Vb-7h-293"/>
+                <constraint firstItem="mbj-mD-F32" firstAttribute="top" secondItem="eGR-0O-pYN" secondAttribute="bottom" constant="15" id="BAI-Wp-i4d"/>
+                <constraint firstItem="mbj-mD-F32" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2KI-tS-neq" secondAttribute="trailing" constant="20" id="FPg-XV-mG9"/>
                 <constraint firstItem="VBE-Ah-xWx" firstAttribute="top" secondItem="Q3v-Xi-ylG" secondAttribute="bottom" constant="15" id="IaV-rQ-53E"/>
                 <constraint firstItem="2KI-tS-neq" firstAttribute="top" secondItem="VBE-Ah-xWx" secondAttribute="bottom" constant="15" id="PTJ-aD-CtY"/>
                 <constraint firstItem="2KI-tS-neq" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="Pcz-AM-66S"/>
@@ -526,7 +538,10 @@
                 <constraint firstAttribute="bottom" secondItem="2KI-tS-neq" secondAttribute="bottom" constant="20" id="YYA-un-4cf"/>
                 <constraint firstItem="Xr6-D9-xmk" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="ZcR-R0-gxS"/>
                 <constraint firstAttribute="trailing" secondItem="Xr6-D9-xmk" secondAttribute="trailing" constant="20" id="bgb-3q-V4U"/>
+                <constraint firstItem="mbj-mD-F32" firstAttribute="leading" secondItem="eGR-0O-pYN" secondAttribute="leading" id="bxO-67-def"/>
+                <constraint firstAttribute="bottom" secondItem="mbj-mD-F32" secondAttribute="bottom" constant="20" id="dao-gv-zqe"/>
                 <constraint firstItem="d5d-zh-qxU" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="gec-YD-0h1"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mbj-mD-F32" secondAttribute="trailing" constant="20" id="keL-yz-9yL"/>
                 <constraint firstItem="540" firstAttribute="top" secondItem="Xr6-D9-xmk" secondAttribute="bottom" constant="15" id="mj8-B2-jAa"/>
                 <constraint firstItem="Q3v-Xi-ylG" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="nA1-7S-hPq"/>
                 <constraint firstAttribute="trailing" secondItem="eGR-0O-pYN" secondAttribute="trailing" constant="20" id="oQS-bh-HcE"/>

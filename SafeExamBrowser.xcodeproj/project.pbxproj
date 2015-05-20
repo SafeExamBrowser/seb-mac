@@ -11,6 +11,7 @@
 		69009BE119EA7F590083274C /* SEBBrowserOpenWindowWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69009BDF19EA7F590083274C /* SEBBrowserOpenWindowWebView.m */; };
 		6901331B19B371CB0050574D /* PreferencesWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 6901331919B371CB0050574D /* PreferencesWindow.h */; };
 		6901331C19B371CB0050574D /* PreferencesWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901331A19B371CB0050574D /* PreferencesWindow.m */; };
+		6902C96E1B0CF6CE00715855 /* SEBShutDownIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 6902C96D1B0CF6CE00715855 /* SEBShutDownIcon.iconset */; };
 		6905C5AB1961B4E5000008EC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6905C5AA1961B4E5000008EC /* SystemConfiguration.framework */; };
 		6906F3C21A3FA5EE0011CF93 /* NSURL+KKDomain.h in Headers */ = {isa = PBXBuildFile; fileRef = 6906F3C01A3FA5EE0011CF93 /* NSURL+KKDomain.h */; };
 		6906F3C31A3FA5EE0011CF93 /* NSURL+KKDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = 6906F3C11A3FA5EE0011CF93 /* NSURL+KKDomain.m */; };
@@ -141,7 +142,6 @@
 		69DFAF3919C468E700CBE69F /* RNCryptor+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2B19C468E700CBE69F /* RNCryptor+Private.h */; };
 		69DFAF3A19C468E700CBE69F /* RNCryptor OS X-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2C19C468E700CBE69F /* RNCryptor OS X-Prefix.pch */; };
 		69EA170319FA77A0001E0C51 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69EA170119FA77A0001E0C51 /* Localizable.strings */; };
-		69EC631319D60D16002DAD22 /* SEBShutDownIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 69EC631219D60D16002DAD22 /* SEBShutDownIcon.icns */; };
 		69EFA36A16CB121200E967B4 /* DownUploadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EFA36816CB121200E967B4 /* DownUploadIcon.png */; };
 		69EFA36D16CB121200E967B4 /* DownUploadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EFA36916CB121200E967B4 /* DownUploadIcon@2x.png */; };
 		69F0A3391AD40237008A3553 /* SEBURLProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F0A3371AD40237008A3553 /* SEBURLProtocol.h */; };
@@ -214,6 +214,7 @@
 		6901331919B371CB0050574D /* PreferencesWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesWindow.h; path = Classes/Preferences/PreferencesWindow/PreferencesWindow.h; sourceTree = "<group>"; };
 		6901331A19B371CB0050574D /* PreferencesWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreferencesWindow.m; path = Classes/Preferences/PreferencesWindow/PreferencesWindow.m; sourceTree = "<group>"; };
 		6902C96C1B0BA16000715855 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesConfigFile.strings; sourceTree = "<group>"; };
+		6902C96D1B0CF6CE00715855 /* SEBShutDownIcon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = SEBShutDownIcon.iconset; sourceTree = "<group>"; };
 		6905C5AA1961B4E5000008EC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6905FFB41A46B8D900CFD36C /* SafeExamBrowser-2.0.dmg */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SafeExamBrowser-2.0.dmg"; sourceTree = "<group>"; };
 		6906F3C01A3FA5EE0011CF93 /* NSURL+KKDomain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+KKDomain.h"; sourceTree = "<group>"; };
@@ -396,7 +397,6 @@
 		69DFAF2C19C468E700CBE69F /* RNCryptor OS X-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNCryptor OS X-Prefix.pch"; sourceTree = "<group>"; };
 		69E13AEE127C812900CB81E1 /* AboutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutView.h; sourceTree = "<group>"; };
 		69E13AEF127C812900CB81E1 /* AboutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutView.m; sourceTree = "<group>"; };
-		69EC631219D60D16002DAD22 /* SEBShutDownIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = SEBShutDownIcon.icns; path = Resources/Icons/SEBShutDownIcon.icns; sourceTree = "<group>"; };
 		69EFA36816CB121200E967B4 /* DownUploadIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DownUploadIcon.png; path = Resources/Icons/DownUploadIcon.png; sourceTree = "<group>"; };
 		69EFA36916CB121200E967B4 /* DownUploadIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "DownUploadIcon@2x.png"; path = "Resources/Icons/DownUploadIcon@2x.png"; sourceTree = "<group>"; };
 		69F0A32A1AD3FFDA008A3553 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -699,7 +699,7 @@
 		69428C94172E5F1D00C87C58 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
-				69EC631219D60D16002DAD22 /* SEBShutDownIcon.icns */,
+				6902C96D1B0CF6CE00715855 /* SEBShutDownIcon.iconset */,
 				69F60FAC19AB7A7E00A5F650 /* MenuTriangleDown.png */,
 				69F60FAD19AB7A7E00A5F650 /* MenuTriangleDown@2x.png */,
 				69428CE1172F284B00C87C58 /* SEBDocumentIcon.icns */,
@@ -1046,6 +1046,7 @@
 				69F7B60714F411FB00FD0761 /* PreferencesBrowser.xib in Resources */,
 				69B2EB881A435E2000B5AE67 /* AboutSEB@2x.png in Resources */,
 				699C540415EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */,
+				6902C96E1B0CF6CE00715855 /* SEBShutDownIcon.iconset in Resources */,
 				69F60FAE19AB7A7E00A5F650 /* MenuTriangleDown.png in Resources */,
 				696A3AEC19F6FBEA00274214 /* PreferencesExam.xib in Resources */,
 				696A3AE419F6FBC500274214 /* PreferencesConfigFile.xib in Resources */,
@@ -1062,7 +1063,6 @@
 				6906F3CD1A3FA7300011CF93 /* etld.plist in Resources */,
 				69F32DBE16D232C0003C9502 /* Appearance.icns in Resources */,
 				696A3AE819F6FBCD00274214 /* PreferencesAppearance.xib in Resources */,
-				69EC631319D60D16002DAD22 /* SEBShutDownIcon.icns in Resources */,
 				696A3AF419F6FC3F00274214 /* PreferencesResources.xib in Resources */,
 				69DD929E1A463435004072E5 /* InfoPlist.strings in Resources */,
 				69428CCE172F0C1300C87C58 /* SecurityIcon.png in Resources */,
