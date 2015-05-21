@@ -56,10 +56,15 @@
 }
 
 
-// Before displaying pane set the download directory
+// Before displaying pane set browser view mode correctly even when touch optimized is selected
 - (void)willBeDisplayed
 {
-    
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL browserViewModeTouchSelected = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_touchOptimized"];
+    if (browserViewModeTouchSelected) {
+        [browserViewModeMatrix selectCellAtRow:browserViewModeTouch column:0];
+    }
+    [self browserViewModeMatrix:browserViewModeMatrix];
 }
 
 
@@ -75,6 +80,11 @@
     
     enableBrowserWindowToolbar.enabled = browserViewModeWindowSelected;
     hideBrowserWindowToolbar.enabled = browserViewModeWindowSelected && enableBrowserWindowToolbar.state;
+    
+    BOOL browserViewModeTouchSelected = [sender selectedRow] == browserViewModeTouch;
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setSecureBool:browserViewModeTouchSelected forKey:@"org_safeexambrowser_SEB_touchOptimized"];
+    [preferences setSecureBool:browserViewModeTouchSelected forKey:@"org_safeexambrowser_SEB_browserScreenKeyboard"];
 }
 
 

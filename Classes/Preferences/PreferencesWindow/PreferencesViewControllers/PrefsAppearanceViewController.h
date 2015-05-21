@@ -48,6 +48,7 @@
     IBOutlet NSButton *hideBrowserWindowToolbar;
     
     IBOutlet NSTextField *taskBarHeight;
+    __weak IBOutlet NSMatrix *browserViewModeMatrix;
 }
 
 - (NSString *)identifier;

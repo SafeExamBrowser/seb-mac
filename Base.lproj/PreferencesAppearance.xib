@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsAppearanceViewController">
             <connections>
+                <outlet property="browserViewModeMatrix" destination="743" id="5Iq-M1-vCE"/>
                 <outlet property="enableBrowserWindowToolbar" destination="371" id="3XD-hv-0YN"/>
                 <outlet property="hideBrowserWindowToolbar" destination="383" id="ttW-Va-HwR"/>
                 <outlet property="mainBrowserWindowHeight" destination="596" id="EjC-Fw-AWi"/>
