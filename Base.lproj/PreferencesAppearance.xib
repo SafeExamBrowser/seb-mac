@@ -10,11 +10,16 @@
             <connections>
                 <outlet property="browserViewModeMatrix" destination="743" id="5Iq-M1-vCE"/>
                 <outlet property="enableBrowserWindowToolbar" destination="371" id="3XD-hv-0YN"/>
+                <outlet property="enablePageZoomButton" destination="baa-Wm-1db" id="hin-0u-gRP"/>
+                <outlet property="enableTextZoomButton" destination="S0v-zb-D4L" id="5vN-0f-eGs"/>
                 <outlet property="hideBrowserWindowToolbar" destination="383" id="ttW-Va-HwR"/>
                 <outlet property="mainBrowserWindowHeight" destination="596" id="EjC-Fw-AWi"/>
                 <outlet property="mainBrowserWindowPositioning" destination="599" id="1w2-zk-PKr"/>
                 <outlet property="mainBrowserWindowWidth" destination="594" id="Oja-Ub-DtH"/>
+                <outlet property="usePageZoomRadioButton" destination="iqK-dQ-5mz" id="cDU-JZ-xGK"/>
+                <outlet property="useTextZoomRadioButton" destination="Hgy-sG-HYK" id="Cle-wC-b05"/>
                 <outlet property="view" destination="1" id="4"/>
+                <outlet property="zoomModeMatrix" destination="yCR-0v-z7a" id="32o-LO-8eY"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -346,7 +351,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="showTaskBarButton:" target="-2" id="b8d-rn-Q0H"/>
+                                    <action selector="enablePageZoomButton:" target="-2" id="Sxc-mD-ZJd"/>
                                     <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableZoomPage" id="qbh-Ts-jQp">
                                         <dictionary key="options">
                                             <bool key="NSConditionallySetsEnabled" value="NO"/>
@@ -361,7 +366,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="showTaskBarButton:" target="-2" id="HYH-Xh-b8e"/>
+                                    <action selector="enableTextZoomButton:" target="-2" id="gnX-tg-N2H"/>
                                     <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="L4B-bb-wb6">
                                         <dictionary key="options">
                                             <bool key="NSConditionallySetsEnabled" value="NO"/>
@@ -405,15 +410,20 @@
                                         <buttonCell type="radio" title="Use page zoom" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="iqK-dQ-5mz">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
+                                            <connections>
+                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomPage" id="uPH-1p-SR9"/>
+                                            </connections>
                                         </buttonCell>
                                         <buttonCell type="radio" title="Use text zoom" imagePosition="left" alignment="left" inset="2" id="Hgy-sG-HYK">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
+                                            <connections>
+                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="Koi-wB-kDd"/>
+                                            </connections>
                                         </buttonCell>
                                     </column>
                                 </cells>
                                 <connections>
-                                    <action selector="browserViewModeMatrix:" target="-2" id="X9o-AZ-rek"/>
                                     <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_zoomMode" id="xSg-K4-3qn">
                                         <dictionary key="options">
                                             <bool key="NSConditionallySetsEnabled" value="NO"/>

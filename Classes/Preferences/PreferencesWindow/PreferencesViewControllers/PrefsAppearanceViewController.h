@@ -49,6 +49,11 @@
     
     IBOutlet NSTextField *taskBarHeight;
     __weak IBOutlet NSMatrix *browserViewModeMatrix;
+    __weak IBOutlet NSButton *enablePageZoomButton;
+    __weak IBOutlet NSButton *enableTextZoomButton;
+    __weak IBOutlet NSButtonCell *usePageZoomRadioButton;
+    __weak IBOutlet NSButtonCell *useTextZoomRadioButton;
+    __weak IBOutlet NSMatrix *zoomModeMatrix;
 }
 
 - (NSString *)identifier;
@@ -57,5 +62,7 @@
 - (IBAction) browserViewModeMatrix:(NSMatrix *)sender;
 - (IBAction) enableBrowserWindowToolbarButton:(NSButton *)sender;
 - (IBAction) showTaskBarButton:(NSButton *)sender;
+- (IBAction) enablePageZoomButton:(NSButton *)sender;
+- (IBAction) enableTextZoomButton:(NSButton *)sender;
 
 @end

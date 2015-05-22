@@ -104,4 +104,44 @@
 }
 
 
+- (IBAction)enablePageZoomButton:(NSButton *)sender {
+    // Action to set the enabled property of dependent buttons
+    // This is necessary because bindings don't work with private user defaults
+    usePageZoomRadioButton.enabled = [sender state];
+
+    // Change zoom mode when disabling page zoom and text zoom is enabled
+    if (sender.state == false && enableTextZoomButton.state == true && [zoomModeMatrix selectedRow] == SEBZoomModePage) {
+        [zoomModeMatrix selectCellAtRow:SEBZoomModeText column:0];
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        [preferences setSecureInteger:SEBZoomModeText forKey:@"org_safeexambrowser_SEB_zoomMode"];
+    }
+    // Change zoom mode when enabling page zoom and text zoom is disabled
+    if (sender.state == true && enableTextZoomButton.state == false && [zoomModeMatrix selectedRow] == SEBZoomModeText) {
+        [zoomModeMatrix selectCellAtRow:SEBZoomModePage column:0];
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        [preferences setSecureInteger:SEBZoomModePage forKey:@"org_safeexambrowser_SEB_zoomMode"];
+    }
+}
+
+
+- (IBAction)enableTextZoomButton:(NSButton *)sender {
+    // Action to set the enabled property of dependent buttons
+    // This is necessary because bindings don't work with private user defaults
+    useTextZoomRadioButton.enabled = [sender state];
+    
+    // Change zoom mode when disabling text zoom and page zoom is enabled
+    if (sender.state == false && enablePageZoomButton.state == true && [zoomModeMatrix selectedRow] == SEBZoomModeText) {
+        [zoomModeMatrix selectCellAtRow:SEBZoomModePage column:0];
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        [preferences setSecureInteger:SEBZoomModePage forKey:@"org_safeexambrowser_SEB_zoomMode"];
+    }
+    // Change zoom mode when enabling text zoom and page zoom is enabled
+    if (sender.state == true && enablePageZoomButton.state == false && [zoomModeMatrix selectedRow] == SEBZoomModePage) {
+        [zoomModeMatrix selectCellAtRow:SEBZoomModeText column:0];
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        [preferences setSecureInteger:SEBZoomModeText forKey:@"org_safeexambrowser_SEB_zoomMode"];
+    }
+}
+
+
 @end
