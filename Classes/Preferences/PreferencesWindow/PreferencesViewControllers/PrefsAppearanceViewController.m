@@ -85,6 +85,15 @@
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences setSecureBool:browserViewModeTouchSelected forKey:@"org_safeexambrowser_SEB_touchOptimized"];
     [preferences setSecureBool:browserViewModeTouchSelected forKey:@"org_safeexambrowser_SEB_browserScreenKeyboard"];
+    
+    if (browserViewModeTouchSelected && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_createNewDesktop"]) {
+        NSAlert *newAlert = [[NSAlert alloc] init];
+        [newAlert setMessageText:NSLocalizedString(@"Touch Optimized Mode Warning", nil)];
+        [newAlert setInformativeText:NSLocalizedString(@"Touch optimization will not work when kiosk mode is set to 'Create new desktop', please change kiosk mode to 'Disable Explorer Shell' in the Security pane.", nil)];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [newAlert setAlertStyle:NSCriticalAlertStyle];
+        [newAlert runModal];
+    }
 }
 
 
