@@ -66,6 +66,8 @@
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
     SEBBrowserWindow *browserWindow = (SEBBrowserWindow *)self.window;
     [browserWindow setCalculatedFrame];
+    self.browserController.activeBrowserWindow = (SEBBrowserWindow *)self.window;
+
     //[browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
 //    [browserWindow setCollectionBehavior:NSWindowCollectionBehaviorStationary | NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary];
 //    [browserWindow setLevel:NSDockWindowLevel];
@@ -81,6 +83,7 @@
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"requestReinforceKioskMode" object:self];
     }
+    self.browserController.activeBrowserWindow = (SEBBrowserWindow *)self.window;
     [self.browserController setStateForWindow:(SEBBrowserWindow *)self.window withWebView:self.webView];
     
     // If this is the main browser window, check if it's still on the same screen as when the dock was opened

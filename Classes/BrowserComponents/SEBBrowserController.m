@@ -274,17 +274,24 @@
     //[self.browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
     [self.mainBrowserWindow makeKeyAndOrderFront:self];
     
-    // Load start URL from the system's user defaults database
+    // Load start URL from the system's user defaults
     NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
 
     DDLogInfo(@"Open MainBrowserWindow with start URL: %@", urlText);
     
-    // Add "SEB" to the browser's user agent, so the LMS SEB plugins recognize us
-    NSString *customUserAgent = [self.webView userAgentForURL:[NSURL URLWithString:urlText]];
-    [self.webView setCustomUserAgent:[customUserAgent stringByAppendingString:@" Safari/533.16 SEB"]];
+    [self openURLString:urlText withSEBUserAgentInWebView:self.webView];
+}
+
+
+- (void) openURLString:(NSString *)urlText withSEBUserAgentInWebView:(SEBWebView *)webView
+{
+    // Add "SEB <version number>" to the browser's user agent, so the LMS SEB plugins recognize us
+    NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
+    NSString *customUserAgent = [webView userAgentForURL:[NSURL URLWithString:urlText]];
+    [webView setCustomUserAgent:[customUserAgent stringByAppendingString:[NSString stringWithFormat:@" Safari/533.16 SEB %@", versionString]]];
     
     // Load start URL into browser window
-    [[self.webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];
+    [[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];
 }
 
 
@@ -504,5 +511,33 @@
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [sender.browserWindow makeKeyAndOrderFront:self];
 }
+
+
+#pragma mark SEB Dock Buttons Action Methods
+
+- (void) restartDockButtonPressed
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamUseStartURL"]) {
+        // Load start URL from the system's user defaults
+        NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+        DDLogInfo(@"Reloading Start URL in main browser window: %@", urlText);
+        [self openURLString:urlText withSEBUserAgentInWebView:self.webView];
+    } else {
+        NSString* restartExamURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamURL"];
+        if (restartExamURL.length > 0) {
+            // Load restart exam URL into the main browser window
+            DDLogInfo(@"Reloading Restart Exam URL in main browser window: %@", restartExamURL);
+            [self openURLString:restartExamURL withSEBUserAgentInWebView:self.webView];
+        }
+    }
+}
+
+
+- (void) reloadDockButtonPressed
+{
+    [self.activeBrowserWindow.webView reload:self];
+}
+
 
 @end

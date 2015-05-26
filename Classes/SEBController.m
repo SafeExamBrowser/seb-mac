@@ -1161,12 +1161,15 @@ bool insideMatrix(){
         // Initialize the Dock
         self.dockController = [[SEBDockController alloc] init];
         
-        SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:@"Safe Exam Browser"
-                                                                 icon:[NSApp applicationIconImage]
-                                                              toolTip:nil
-                                                                 menu:self.browserController.openBrowserWindowsWebViewsMenu
-                                                               target:self
-                                                               action:@selector(buttonPressed)];
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableSebBrowser"]) {
+            SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:@"Safe Exam Browser"
+                                                                     icon:[NSApp applicationIconImage]
+                                                                  toolTip:nil
+                                                                     menu:self.browserController.openBrowserWindowsWebViewsMenu
+                                                                   target:self
+                                                                   action:@selector(buttonPressed)];
+            [self.dockController setLeftItems:[NSArray arrayWithObjects:dockItemSEB, nil]];
+        }
         
         // Initialize right dock items (controlls and info widgets)
         NSMutableArray *rightDockItems = [NSMutableArray array];
@@ -1181,7 +1184,9 @@ bool insideMatrix(){
             [rightDockItems addObject:dockItemShutDown];
         }
         
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamUseStartURL"] || [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamURL"].length > 0) {
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableSebBrowser"] &&
+            ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamUseStartURL"] ||
+            [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamURL"].length > 0)) {
             NSString *restartButtonToolTip = [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamText"];
             if (restartButtonToolTip.length == 0) {
                 restartButtonToolTip = NSLocalizedString(@"Restart Exam",nil);
@@ -1194,20 +1199,20 @@ bool insideMatrix(){
                                                                         action:@selector(restartButtonPressed)];
             [rightDockItems addObject:dockItemShutDown];
         }
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableSebBrowser"] &&
+            [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
             SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil
-                                                                          icon:[NSImage imageNamed:@"SEBShutDownIcon"]
-                                                                       toolTip:NSLocalizedString(@"Quit SEB",nil)
+                                                                          icon:[NSImage imageNamed:@"SEBReloadIcon"]
+                                                                       toolTip:NSLocalizedString(@"Reload Current Page",nil)
                                                                           menu:nil
                                                                         target:self
-                                                                        action:@selector(quitButtonPressed)];
+                                                                        action:@selector(reloadButtonPressed)];
             [rightDockItems addObject:dockItemShutDown];
         }
         
         
-        // Set dock items
-        [self.dockController setLeftItems:[NSArray arrayWithObjects:dockItemSEB, nil]];
-               
+        // Set right dock items
+        
 //        [self.dockController setCenterItems:[NSArray arrayWithObjects:dockItemSEB, dockItemShutDown, nil]];
         
         [self.dockController setRightItems:rightDockItems];
@@ -1229,6 +1234,18 @@ bool insideMatrix(){
 {
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
+}
+
+
+- (void) restartButtonPressed
+{
+    [self.browserController restartDockButtonPressed];
+}
+
+
+- (void) reloadButtonPressed
+{
+    [self.browserController reloadDockButtonPressed];
 }
 
 

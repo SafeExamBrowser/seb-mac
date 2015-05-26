@@ -92,6 +92,14 @@
 }
 
 
+// Action to set the enabled property of dependent buttons
+// This is necessary because bindings don't work with private user defaults
+- (IBAction) enableBrowserWindowToolbarButton:(NSButton *)sender
+{
+    restartExamURLTextField.enabled = [sender state];
+}
+
+
 - (IBAction) generateBrowserExamKey:(id)sender {
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
     [self displayBrowserExamKey];
@@ -113,6 +121,12 @@
 }
 
 
+- (IBAction)restartExamUseStartURL:(NSButton *)sender {
+    restartExamURLTextField.enabled = ![sender state];
+    [self displayMessageOrReGenerateKey];
+}
+
+
 - (void)browserExamKeyChanged
 {
     // Check if settings/
@@ -121,7 +135,7 @@
 }
 
 
-- (IBAction) checkboxClicked:(id)sender {
+- (IBAction) restartExamPasswordProtected:(id)sender {
     [self displayMessageOrReGenerateKey];
 }
 

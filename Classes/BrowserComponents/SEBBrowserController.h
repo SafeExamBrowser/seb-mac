@@ -47,6 +47,7 @@
 
 @property (strong) SEBWebView *webView;
 @property (strong) SEBBrowserWindow *mainBrowserWindow;
+@property (weak) SEBBrowserWindow *activeBrowserWindow;
 @property (strong) SEBDockController *dockController;
 @property (strong) SEBDockItemButton *sebDockItemButton;
 @property (strong) NSString *currentMainHost;
@@ -62,10 +63,14 @@
 - (void) adjustMainBrowserWindow;
 - (void) allBrowserWindowsChangeLevel:(BOOL)allowApps;
 
+- (void) openURLString:(NSString *)urlText withSEBUserAgentInWebView:(SEBWebView *)webView;
 - (void) openResourceWithURL:(NSString *)URL andTitle:(NSString *)title;
 - (void) downloadAndOpenSebConfigFromURL:(NSURL *)url;
 
 - (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView;
 - (void) setStateForWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView;
+
+- (void) restartDockButtonPressed;
+- (void) reloadDockButtonPressed;
 
 @end

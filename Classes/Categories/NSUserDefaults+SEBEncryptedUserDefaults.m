@@ -399,6 +399,8 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_restartExamText",
                                  @"",
                                  @"org_safeexambrowser_SEB_restartExamURL",
+                                 @NO,
+                                 @"org_safeexambrowser_SEB_restartExamUseStartURL",
                                  [NSNumber numberWithLong:sebConfigPurposeStartingExam],
                                  @"org_safeexambrowser_SEB_sebConfigPurpose",
                                  [NSNumber numberWithLong:sebModeStartURL],

@@ -40,6 +40,7 @@
 @interface PrefsExamViewController : NSViewController <MBPreferencesModule, NSTextFieldDelegate> {
     IBOutlet NSTextField *examKey;
 	IBOutlet NSTextField *quitURL;
+    __weak IBOutlet NSTextField *restartExamURLTextField;
 
     IBOutlet NSObjectController *controller;
     
@@ -51,7 +52,8 @@
 
 - (BOOL) usingPrivateDefaults;
 - (IBAction) generateBrowserExamKey:(id)sender;
-- (IBAction) checkboxClicked:(id)sender;
-- (void)displayBrowserExamKey;
+- (IBAction) restartExamUseStartURL:(NSButton *)sender;
+- (IBAction) restartExamPasswordProtected:(id)sender;
+- (void) displayBrowserExamKey;
 
 @end
