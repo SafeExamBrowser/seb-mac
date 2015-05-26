@@ -1153,7 +1153,9 @@ bool insideMatrix(){
 // Set up and display SEB Dock
 - (void) openSEBDock
 {
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
         
         DDLogDebug(@"SEBController openSEBDock: dock enabled");
         // Initialize the Dock
@@ -1166,18 +1168,49 @@ bool insideMatrix(){
                                                                target:self
                                                                action:@selector(buttonPressed)];
         
-        SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil
-                                                                      icon:[NSImage imageNamed:@"SEBShutDownIcon"]
-                                                                   toolTip:NSLocalizedString(@"Quit SEB",nil)
-                                                                      menu:nil
-                                                                    target:self
-                                                                    action:@selector(quitButtonPressed)];
+        // Initialize right dock items (controlls and info widgets)
+        NSMutableArray *rightDockItems = [NSMutableArray array];
         
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"]) {
+            SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil
+                                                                          icon:[NSImage imageNamed:@"SEBShutDownIcon"]
+                                                                       toolTip:NSLocalizedString(@"Quit SEB",nil)
+                                                                          menu:nil
+                                                                        target:self
+                                                                        action:@selector(quitButtonPressed)];
+            [rightDockItems addObject:dockItemShutDown];
+        }
+        
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamUseStartURL"] || [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamURL"].length > 0) {
+            NSString *restartButtonToolTip = [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamText"];
+            if (restartButtonToolTip.length == 0) {
+                restartButtonToolTip = NSLocalizedString(@"Restart Exam",nil);
+            }
+            SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil
+                                                                          icon:[NSImage imageNamed:@"SEBRestartIcon"]
+                                                                       toolTip:restartButtonToolTip
+                                                                          menu:nil
+                                                                        target:self
+                                                                        action:@selector(restartButtonPressed)];
+            [rightDockItems addObject:dockItemShutDown];
+        }
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
+            SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil
+                                                                          icon:[NSImage imageNamed:@"SEBShutDownIcon"]
+                                                                       toolTip:NSLocalizedString(@"Quit SEB",nil)
+                                                                          menu:nil
+                                                                        target:self
+                                                                        action:@selector(quitButtonPressed)];
+            [rightDockItems addObject:dockItemShutDown];
+        }
+        
+        
+        // Set dock items
         [self.dockController setLeftItems:[NSArray arrayWithObjects:dockItemSEB, nil]];
                
 //        [self.dockController setCenterItems:[NSArray arrayWithObjects:dockItemSEB, dockItemShutDown, nil]];
         
-        [self.dockController setRightItems:[NSArray arrayWithObjects:dockItemShutDown, nil]];
+        [self.dockController setRightItems:rightDockItems];
         
         // Display the dock
         [self.dockController showDock];
