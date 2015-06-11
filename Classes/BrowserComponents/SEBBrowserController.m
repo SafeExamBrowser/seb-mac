@@ -257,7 +257,7 @@
     [self.mainBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
     [self.mainBrowserWindow setCalculatedFrame];
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
-        [self.mainBrowserWindow newSetLevel:NSModalPanelWindowLevel];
+        [self.mainBrowserWindow newSetLevel:NSMainMenuWindowLevel+3];
     }
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     
@@ -331,9 +331,9 @@
         if (self.mainBrowserWindow.isFullScreen && browserWindow != self.mainBrowserWindow) {
             // If the main browser window is displayed fullscreen, then all auxillary windows
             // get a higher level, to float on top
-            [browserWindow newSetLevel:NSModalPanelWindowLevel+1];
+            [browserWindow newSetLevel:NSMainMenuWindowLevel+4];
         } else {
-            [browserWindow newSetLevel:NSModalPanelWindowLevel];
+            [browserWindow newSetLevel:NSMainMenuWindowLevel+3];
         }
     } else {
         

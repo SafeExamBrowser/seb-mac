@@ -72,7 +72,7 @@
         iconSize = dockHeight - 2 * verticalPadding;
         
         self.window = self.dockWindow;
-        [self.window setLevel:NSMainMenuWindowLevel+2];
+        [self.window setLevel:NSMainMenuWindowLevel+6];
         [self.window setAcceptsMouseMovedEvents:YES];
 
     }

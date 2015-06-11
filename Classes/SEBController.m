@@ -854,7 +854,7 @@ bool insideMatrix(){
         [window setBackgroundColor:[NSColor blackColor]];
         [window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
         if (!allowSwitchToThirdPartyApps) {
-            [window setLevel:NSTornOffMenuWindowLevel];
+            [window setLevel:NSMainMenuWindowLevel+2];
         }
         //[window orderBack:self];
         [self.capWindows addObject: window];
@@ -1046,7 +1046,7 @@ bool insideMatrix(){
                 capWindow.collectionBehavior = NSWindowCollectionBehaviorStationary;
             }
         } else {
-            [capWindow newSetLevel:NSTornOffMenuWindowLevel];
+            [capWindow newSetLevel:NSMainMenuWindowLevel+2];
         }
     }
     
