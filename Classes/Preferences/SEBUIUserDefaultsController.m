@@ -64,6 +64,15 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
     return [NSArray arrayWithObjects:NSLocalizedString(@"get generally blocked", nil), NSLocalizedString(@"open in same window", nil), NSLocalizedString(@"open in new window", nil), nil];
 }
 
+
+- (NSArray *) org_safeexambrowser_SEB_browserUserAgentEnvironments {
+    return [NSArray arrayWithObjects:
+            NSLocalizedString(@"Standard user agent", nil),
+            NSLocalizedString(@"User agent for desktop ", nil),
+            NSLocalizedString(@"open in new window", nil), nil];
+}
+
+
 - (NSArray *) org_safeexambrowser_SEB_chooseFileToUploadPolicies {
     return [NSArray arrayWithObjects:NSLocalizedString(@"manually with file requester", nil), NSLocalizedString(@"by attempting to upload same file downloaded before", nil), NSLocalizedString(@"by only allowing to upload the same file downloaded before", nil), nil];
 }
