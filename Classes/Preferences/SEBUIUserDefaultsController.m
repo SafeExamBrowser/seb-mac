@@ -68,8 +68,8 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
 - (NSArray *) org_safeexambrowser_SEB_browserUserAgentEnvironments {
     return [NSArray arrayWithObjects:
             NSLocalizedString(@"Standard user agent", nil),
-            NSLocalizedString(@"User agent for desktop ", nil),
-            NSLocalizedString(@"open in new window", nil), nil];
+            NSLocalizedString(@"Win: User agent for desktop mode", nil),
+            NSLocalizedString(@"Win: User agent for touch/tablet mode", nil), nil];
 }
 
 
