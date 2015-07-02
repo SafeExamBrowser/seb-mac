@@ -451,6 +451,8 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_URLFilterRules",
                                  [NSNumber numberWithLong:SEBZoomModePage],
                                  @"org_safeexambrowser_SEB_zoomMode",
+                                 [NSNumber numberWithLong:0],
+                                 @"org_safeexambrowser_browserUserAgentEnvironment",
                                  @NO,
                                  @"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting",
                                  @YES,
