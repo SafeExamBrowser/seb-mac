@@ -385,15 +385,15 @@
                                 <rect key="frame" x="13" y="14" width="588" height="112"/>
                                 <font key="font" metaFont="system"/>
                                 <tabViewItems>
-                                    <tabViewItem identifier="2" id="L24-up-Pfm">
+                                    <tabViewItem identifier="2" id="L24-up-Pfm" userLabel="Tab View Item - Mac">
                                         <view key="view" id="iMq-Vx-Q8E">
                                             <rect key="frame" x="0.0" y="0.0" width="588" height="112"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <matrix verticalHuggingPriority="750" misplaced="YES" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b7C-9j-OYg">
-                                                    <rect key="frame" x="0.0" y="74" width="118" height="38"/>
+                                                <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b7C-9j-OYg">
+                                                    <rect key="frame" x="0.0" y="74" width="140" height="38"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="cellSize" width="118" height="18"/>
+                                                    <size key="cellSize" width="71" height="18"/>
                                                     <size key="intercellSpacing" width="4" height="2"/>
                                                     <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="aZZ-Qg-4Cz">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -401,7 +401,7 @@
                                                     </buttonCell>
                                                     <cells>
                                                         <column>
-                                                            <buttonCell type="radio" title="Default WebKit:" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="Lq8-Fi-SDM">
+                                                            <buttonCell type="radio" title="Default:" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="Lq8-Fi-SDM">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
@@ -412,9 +412,12 @@
                                                         </column>
                                                     </cells>
                                                 </matrix>
-                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dP1-5V-zqF">
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dP1-5V-zqF">
                                                     <rect key="frame" x="146" y="95" width="444" height="17"/>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="EZ4-9b-Idz">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" priority="990" constant="440" id="6uZ-Pp-JIu"/>
+                                                    </constraints>
+                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Default user agent Mac" id="EZ4-9b-Idz">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
