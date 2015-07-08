@@ -411,6 +411,9 @@
                                                             </buttonCell>
                                                         </column>
                                                     </cells>
+                                                    <connections>
+                                                        <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserUserAgentMac" id="4k3-RK-DGV"/>
+                                                    </connections>
                                                 </matrix>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dP1-5V-zqF">
                                                     <rect key="frame" x="146" y="95" width="444" height="17"/>
@@ -430,6 +433,15 @@
                                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
+                                                    <connections>
+                                                        <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserUserAgentMacCustom" id="8xq-8U-ARB">
+                                                            <dictionary key="options">
+                                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                                <bool key="NSValidatesImmediately" value="YES"/>
+                                                                <string key="NSValueTransformerName">NSTextFieldNilToEmptyStringTransformer</string>
+                                                            </dictionary>
+                                                        </binding>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>

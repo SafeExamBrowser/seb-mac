@@ -41,6 +41,29 @@
 #define sebConfigFilePrefixLength               4
 #define publicKeyHashLenght                     20
 
+
+enum {
+    browserUserAgentModeMacDefault              = 0,
+    browserUserAgentModeMacCustom               = 1
+};
+typedef NSUInteger browserUserAgentModeMac;
+
+
+enum {
+    browserUserAgentModeWinDesktopDefault       = 0,
+    browserUserAgentModeWinDesktopCustom        = 1
+};
+typedef NSUInteger browserUserAgentModeWinDesktop;
+
+
+enum {
+    browserUserAgentModeWinTouchDefault         = 0,
+    browserUserAgentModeWinTouchIPad            = 1,
+    browserUserAgentModeWinTouchCustom          = 2
+};
+typedef NSUInteger browserUserAgentModeWinTouch;
+
+
 enum {
     browserViewModeWindow                       = 0,
     browserViewModeFullscreen                   = 1,
