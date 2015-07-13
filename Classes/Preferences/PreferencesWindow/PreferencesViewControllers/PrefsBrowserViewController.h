@@ -43,6 +43,7 @@
 	IBOutlet NSButton *enablePlugIns;
     IBOutlet NSButton *newBrowserWindowByLinkBlockForeignButton;
     IBOutlet NSButton *newBrowserWindowByScriptBlockForeignButton;
+    __weak IBOutlet NSTextField *defaultUserAgentMac;
 
 }
 
