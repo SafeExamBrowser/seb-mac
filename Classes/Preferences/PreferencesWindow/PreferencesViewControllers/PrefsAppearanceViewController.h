@@ -49,6 +49,7 @@
     
     IBOutlet NSTextField *taskBarHeight;
     __weak IBOutlet NSMatrix *browserViewModeMatrix;
+    __weak IBOutlet NSButton *enableTouchExit;
     __weak IBOutlet NSButton *enablePageZoomButton;
     __weak IBOutlet NSButton *enableTextZoomButton;
     __weak IBOutlet NSButtonCell *usePageZoomRadioButton;

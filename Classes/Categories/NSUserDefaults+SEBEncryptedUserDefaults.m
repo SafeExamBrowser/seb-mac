@@ -221,6 +221,8 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_enablePlugIns",
                                  @YES,
                                  @"org_safeexambrowser_SEB_enableSebBrowser",
+                                 @false,
+                                 @"org_safeexambrowser_SEB_enableTouchExit",
                                  [NSData data],
                                  @"org_safeexambrowser_SEB_examKeySalt",
                                  [NSNumber numberWithLong:2],

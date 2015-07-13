@@ -82,6 +82,7 @@
     hideBrowserWindowToolbar.enabled = browserViewModeWindowSelected && enableBrowserWindowToolbar.state;
     
     BOOL browserViewModeTouchSelected = [sender selectedRow] == browserViewModeTouch;
+    enableTouchExit.enabled = browserViewModeTouchSelected;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences setSecureBool:browserViewModeTouchSelected forKey:@"org_safeexambrowser_SEB_touchOptimized"];
     [preferences setSecureBool:browserViewModeTouchSelected forKey:@"org_safeexambrowser_SEB_browserScreenKeyboard"];

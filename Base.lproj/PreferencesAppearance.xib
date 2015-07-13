@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
@@ -12,6 +12,7 @@
                 <outlet property="enableBrowserWindowToolbar" destination="371" id="3XD-hv-0YN"/>
                 <outlet property="enablePageZoomButton" destination="baa-Wm-1db" id="hin-0u-gRP"/>
                 <outlet property="enableTextZoomButton" destination="S0v-zb-D4L" id="5vN-0f-eGs"/>
+                <outlet property="enableTouchExit" destination="8IN-wN-3ta" id="hLt-hv-s6Q"/>
                 <outlet property="hideBrowserWindowToolbar" destination="383" id="ttW-Va-HwR"/>
                 <outlet property="mainBrowserWindowHeight" destination="596" id="EjC-Fw-AWi"/>
                 <outlet property="mainBrowserWindowPositioning" destination="599" id="1w2-zk-PKr"/>
@@ -163,12 +164,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <matrix toolTip="Use a browser window which can be scaled and moved around, show main  window full screen or use the tablet mode (Win)" verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="743">
-                                <rect key="frame" x="18" y="17" width="578" height="58"/>
+                                <rect key="frame" x="18" y="17" width="279" height="58"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="58" id="IYm-P2-CKq"/>
                                 </constraints>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                <size key="cellSize" width="578" height="18"/>
+                                <size key="cellSize" width="279" height="18"/>
                                 <size key="intercellSpacing" width="4" height="2"/>
                                 <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" inset="2" id="744">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -199,12 +200,27 @@
                                     </binding>
                                 </connections>
                             </matrix>
+                            <button toolTip="SEB can be quit with a swipe down from the upper display edge" translatesAutoresizingMaskIntoConstraints="NO" id="8IN-wN-3ta">
+                                <rect key="frame" x="315" y="17" width="288" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="284" id="btg-Sa-Pjg"/>
+                                </constraints>
+                                <buttonCell key="cell" type="check" title="Enable touch exit (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="09Z-lD-USh">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableTouchExit" id="ImE-zI-lQy"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="743" secondAttribute="trailing" constant="16" id="Idc-Ai-3Bt"/>
+                        <constraint firstItem="8IN-wN-3ta" firstAttribute="bottom" secondItem="743" secondAttribute="bottom" constant="-2" id="C97-kR-03V"/>
                         <constraint firstItem="743" firstAttribute="top" secondItem="Xr6-D9-xmk" secondAttribute="top" constant="26" id="Qy3-l4-US6"/>
                         <constraint firstItem="743" firstAttribute="leading" secondItem="Xr6-D9-xmk" secondAttribute="leading" constant="16" id="hQO-oE-T6v"/>
+                        <constraint firstItem="8IN-wN-3ta" firstAttribute="leading" secondItem="743" secondAttribute="trailing" constant="20" id="heb-hh-Dw5"/>
+                        <constraint firstAttribute="trailing" secondItem="8IN-wN-3ta" secondAttribute="trailing" constant="11" id="jUg-mr-rOb"/>
                         <constraint firstAttribute="bottom" secondItem="743" secondAttribute="bottom" constant="14" id="p5G-Xh-fw9"/>
                     </constraints>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
