@@ -288,7 +288,10 @@
     // Add "SEB <version number>" to the browser's user agent, so the LMS SEB plugins recognize us
     NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
     NSString *customUserAgent = [webView userAgentForURL:[NSURL URLWithString:urlText]];
-    [webView setCustomUserAgent:[customUserAgent stringByAppendingString:[NSString stringWithFormat:@" Safari/533.16 SEB %@", versionString]]];
+    customUserAgent = [customUserAgent stringByAppendingString:[NSString stringWithFormat:@" Safari/533.16 SEB %@", versionString]];
+    [[MyGlobals sharedMyGlobals] setValue:customUserAgent forKey:@"defaultUserAgent"];
+
+    [webView setCustomUserAgent:customUserAgent];
     
     // Load start URL into browser window
     [[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];

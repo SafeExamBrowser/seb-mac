@@ -56,6 +56,8 @@
 @property(readwrite) BOOL reconfiguredWhileStarting;
 @property(readwrite) BOOL shouldGoFullScreen;
 @property(readwrite) NSUInteger logLevel;
+@property(copy, readwrite) NSString *defaultUserAgent;
+
 
 - (id)infoValueForKey:(NSString*)key;
 - (void)setDDLogLevel:(SEBLogLevel)sebLogLevel;
