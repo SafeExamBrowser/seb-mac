@@ -1,0 +1,195 @@
+
+/* Class = "NSButton"; ibShadowedToolTip = "Das Log kann beim Debugging von SEB helfen (senden Sie Ihre Log-Dateien an die SEB-Entwickler) und eventuelle Manipulationen aufdecken"; ObjectID = "13"; */
+"13.ibShadowedToolTip" = "Das Log kann beim Debugging von SEB helfen (senden Sie Ihre Log-Dateien an die SEB-Entwickler) und eventuelle Manipulationen aufdecken";
+
+/* Class = "NSButtonCell"; title = "Log aktivieren"; ObjectID = "14"; */
+"14.title" = "Log aktivieren";
+
+/* Class = "NSTextFieldCell"; title = "Log-Stufe"; ObjectID = "23"; */
+"23.title" = "Log-Stufe";
+
+/* Class = "NSMenuItem"; title = "Verzeichnis"; ObjectID = "35"; */
+"35.title" = "Verzeichnis";
+
+/* Class = "NSMenuItem"; title = "Andere …"; ObjectID = "36"; */
+"36.title" = "Andere …";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Normalerweise sollte der Betrieb von SEB innerhalb einer virtuellen Maschine nicht erlaubt werden, um potentielle Manipulationen zu verhindern"; ObjectID = "76"; */
+"76.ibShadowedToolTip" = "Normalerweise sollte der Betrieb von SEB innerhalb einer virtuellen Maschine nicht erlaubt werden, um potentielle Manipulationen zu verhindern";
+
+/* Class = "NSButtonCell"; title = "Betrieb in virtueller Maschine erlauben"; ObjectID = "77"; */
+"77.title" = "Betrieb in virtueller Maschine erlauben";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Richtline, die angewendet wird, wenn der SEB-Hintergrundservice auf einem Prüfungs-Client nicht installiert ist"; ObjectID = "93"; */
+"93.ibShadowedToolTip" = "Richtline, die angewendet wird, wenn der SEB-Hintergrundservice auf einem Prüfungs-Client nicht installiert ist";
+
+/* Class = "NSTextFieldCell"; title = "SEB-Service Richtlinie"; ObjectID = "100"; */
+"100.title" = "SEB-Service Richtlinie";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Üblicherweise sollte der schnelle Benutzerwechsel auf studentischen Prüfungsrechnern ausgeschaltet werden"; ObjectID = "292"; */
+"292.ibShadowedToolTip" = "Üblicherweise sollte der schnelle Benutzerwechsel auf studentischen Prüfungsrechnern ausgeschaltet werden";
+
+/* Class = "NSButtonCell"; title = "Schnellen Benutzerwechsel erlauben"; ObjectID = "293"; */
+"293.title" = "Schnellen Benutzerwechsel erlauben";
+
+/* Class = "NSButtonCell"; title = "SEB im Programmverzeichnis erzwingen"; ObjectID = "0Ey-3L-Lb6"; */
+"0Ey-3L-Lb6.title" = "SEB im Programmverzeichnis erzwingen";
+
+/* Class = "NSButtonCell"; title = "F11 erlauben"; ObjectID = "0ob-OM-tPV"; */
+"0ob-OM-tPV.title" = "F11 erlauben";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Steuerfläche in SEB-Taskleiste anzeigen, mit der das erneute Verbinden mit WLAN-Netzen möglich ist"; ObjectID = "22y-gA-uVN"; */
+"22y-gA-uVN.ibShadowedToolTip" = "Steuerfläche in SEB-Taskleiste anzeigen, mit der das erneute Verbinden mit WLAN-Netzen möglich ist";
+
+/* Class = "NSButtonCell"; title = "F1 erlauben"; ObjectID = "2n4-f2-W9F"; */
+"2n4-f2-W9F.title" = "F1 erlauben";
+
+/* Class = "NSTabViewItem"; label = "Abgefangene Tasten"; ObjectID = "3Kv-Y4-p4B"; */
+"3Kv-Y4-p4B.label" = "Abgefangene Tasten";
+
+/* Class = "NSButtonCell"; title = "Standardverzeichnis benutzen"; ObjectID = "4vb-oP-Qf1"; */
+"4vb-oP-Qf1.title" = "Standardverzeichnis benutzen";
+
+/* Class = "NSButtonCell"; title = "Ctrl-Esc erlauben"; ObjectID = "8N0-8l-hwO"; */
+"8N0-8l-hwO.title" = "Ctrl-Esc erlauben";
+
+/* Class = "NSTextFieldCell"; title = "Einstellungen für SEB Windows"; ObjectID = "ADm-4H-Zh3"; */
+"ADm-4H-Zh3.title" = "Einstellungen für SEB Windows";
+
+/* Class = "NSButtonCell"; title = "Erleichterte Bedienung erlauben"; ObjectID = "AtG-6Z-aRN"; */
+"AtG-6Z-aRN.title" = "Erleichterte Bedienung erlauben";
+
+/* Class = "NSButtonCell"; title = "Neuen Desktop erstellen"; ObjectID = "AwA-eq-zFC"; */
+"AwA-eq-zFC.title" = "Neuen Desktop erstellen";
+
+/* Class = "NSBox"; title = "Spezialtasten"; ObjectID = "Dce-pG-aKy"; */
+"Dce-pG-aKy.title" = "Spezialtasten";
+
+/* Class = "NSBox"; title = "Funktionstasten"; ObjectID = "Eqg-kF-Hjl"; */
+"Eqg-kF-Hjl.title" = "Funktionstasten";
+
+/* Class = "NSMenuItem"; title = "Verzeichnis"; ObjectID = "FaM-aF-JR1"; */
+"FaM-aF-JR1.title" = "Verzeichnis";
+
+/* Class = "NSButtonCell"; title = "F6 erlauben"; ObjectID = "Fmg-wZ-Cpg"; */
+"Fmg-wZ-Cpg.title" = "F6 erlauben";
+
+/* Class = "NSButtonCell"; title = "Print Screen erlauben"; ObjectID = "GQb-uN-fJO"; */
+"GQb-uN-fJO.title" = "Print Screen erlauben";
+
+/* Class = "NSButton"; ibShadowedToolTip = "SEB verlangt, in einem Programmverzeichnis installiert zu werden (/Programme oder ~/Applications)"; ObjectID = "Gly-dr-m3X"; */
+"Gly-dr-m3X.ibShadowedToolTip" = "SEB verlangt, in einem Programmverzeichnis installiert zu werden (/Programme oder ~/Applications)";
+
+/* Class = "NSButtonCell"; title = "Alt-Mausrad erlauben"; ObjectID = "IWf-Eq-wzJ"; */
+"IWf-Eq-wzJ.title" = "Alt-Mausrad erlauben";
+
+/* Class = "NSButtonCell"; title = "F8 erlauben"; ObjectID = "IXz-wb-IuQ"; */
+"IXz-wb-IuQ.title" = "F8 erlauben";
+
+/* Class = "NSButtonCell"; title = "Start: Programmumschalter verbieten"; ObjectID = "JRL-fG-lI3"; */
+"JRL-fG-lI3.title" = "Start: Programmumschalter verbieten";
+
+/* Class = "NSButtonCell"; title = "Keiner (nur für Debugging)"; ObjectID = "KbI-Yu-DVk"; */
+"KbI-Yu-DVk.title" = "Keiner (nur für Debugging)";
+
+/* Class = "NSButtonCell"; title = "Abmelden erlauben"; ObjectID = "LTi-lL-sOs"; */
+"LTi-lL-sOs.title" = "Abmelden erlauben";
+
+/* Class = "NSButtonCell"; title = "WLAN-Steuerung aktivieren"; ObjectID = "Nlp-Oe-Cqb"; */
+"Nlp-Oe-Cqb.title" = "WLAN-Steuerung aktivieren";
+
+/* Class = "NSButtonCell"; title = "Herunterfahren erlauben"; ObjectID = "Ouk-wE-FFP"; */
+"Ouk-wE-FFP.title" = "Herunterfahren erlauben";
+
+/* Class = "NSButton"; ibShadowedToolTip = "OS X Bildschirmfoto (cmd-3 und cmd-4) erlauben, entspricht "; ObjectID = "PH3-Cb-12g"; */
+"PH3-Cb-12g.ibShadowedToolTip" = "OS X Bildschirmfoto (cmd-3 und cmd-4) erlauben, entspricht ";
+
+/* Class = "NSButtonCell"; title = "Rechte Maustaste erlauben"; ObjectID = "PWk-fT-HdC"; */
+"PWk-fT-HdC.title" = "Rechte Maustaste erlauben";
+
+/* Class = "NSButtonCell"; title = "Kennwort ändern erlauben"; ObjectID = "Rgp-1k-Eaw"; */
+"Rgp-1k-Eaw.title" = "Kennwort ändern erlauben";
+
+/* Class = "NSTabView"; ibShadowedToolTip = "Detail-Einstellungen zum Sperren des Systems und spezifische System-Funktionen"; ObjectID = "SZK-Aw-k1e"; */
+"SZK-Aw-k1e.ibShadowedToolTip" = "Detail-Einstellungen zum Sperren des Systems und spezifische System-Funktionen";
+
+/* Class = "NSButtonCell"; title = "F7 erlauben"; ObjectID = "TED-sf-9ZX"; */
+"TED-sf-9ZX.title" = "F7 erlauben";
+
+/* Class = "NSButtonCell"; title = "Alt-F4 erlauben"; ObjectID = "TMW-TW-FOP"; */
+"TMW-TW-FOP.title" = "Alt-F4 erlauben";
+
+/* Class = "NSTabViewItem"; label = "System sperren"; ObjectID = "UDI-4x-V3M"; */
+"UDI-4x-V3M.label" = "System sperren";
+
+/* Class = "NSBox"; title = "Kiosk-Modus"; ObjectID = "UEX-8o-YnQ"; */
+"UEX-8o-YnQ.title" = "Kiosk-Modus";
+
+/* Class = "NSButtonCell"; title = "F10 erlauben"; ObjectID = "UUd-ek-uMg"; */
+"UUd-ek-uMg.title" = "F10 erlauben";
+
+/* Class = "NSButtonCell"; title = "F12 erlauben"; ObjectID = "UcT-h8-nFW"; */
+"UcT-h8-nFW.title" = "F12 erlauben";
+
+/* Class = "NSButtonCell"; title = "VMware Client Shade erlauben"; ObjectID = "Y3K-X1-40d"; */
+"Y3K-X1-40d.title" = "VMware Client Shade erlauben";
+
+/* Class = "NSButton"; ibShadowedToolTip = "SEB überprüft während des Aufstartens, ob die Befehlstaste (cmd) gedrückt gehalten wird. Dies verhindert Manipulationen mit Hilfe des Programmumschalters"; ObjectID = "a9Y-jJ-E1h"; */
+"a9Y-jJ-E1h.ibShadowedToolTip" = "SEB überprüft während des Aufstartens, ob die Befehlstaste (cmd) gedrückt gehalten wird. Dies verhindert Manipulationen mit Hilfe des Programmumschalters";
+
+/* Class = "NSButtonCell"; title = "Alt-Esc erlauben"; ObjectID = "bTO-u1-Mao"; */
+"bTO-u1-Mao.title" = "Alt-Esc erlauben";
+
+/* Class = "NSBox"; title = "Während SEB läuft"; ObjectID = "dYr-I9-VL8"; */
+"dYr-I9-VL8.title" = "Während SEB läuft";
+
+/* Class = "NSTextFieldCell"; title = "Log-Dateiverzeichnis Windows:"; ObjectID = "dbm-W0-7Yt"; */
+"dbm-W0-7Yt.title" = "Log-Dateiverzeichnis Windows:";
+
+/* Class = "NSButtonCell"; title = "Windows Explorer deaktivieren"; ObjectID = "dpL-te-8hi"; */
+"dpL-te-8hi.title" = "Windows Explorer deaktivieren";
+
+/* Class = "NSTextFieldCell"; title = "Optionen im durch Ctrl-Alt-Del geöffneten Windows-Sicherheitsfenster"; ObjectID = "i04-6r-xmo"; */
+"i04-6r-xmo.title" = "Optionen im durch Ctrl-Alt-Del geöffneten Windows-Sicherheitsfenster";
+
+/* Class = "NSTabViewItem"; label = "Registry"; ObjectID = "ifL-Zz-OJp"; */
+"ifL-Zz-OJp.label" = "Registry";
+
+/* Class = "NSButtonCell"; title = "F3 erlauben"; ObjectID = "n1l-UI-Mxa"; */
+"n1l-UI-Mxa.title" = "F3 erlauben";
+
+/* Class = "NSButtonCell"; title = "Computer sperren erlauben"; ObjectID = "n9V-3H-mM5"; */
+"n9V-3H-mM5.title" = "Computer sperren erlauben";
+
+/* Class = "NSButtonCell"; title = "Esc erlauben"; ObjectID = "nZw-6z-Ph8"; */
+"nZw-6z-Ph8.title" = "Esc erlauben";
+
+/* Class = "NSTextFieldCell"; title = "Log speichern:"; ObjectID = "nui-Ct-A6q"; */
+"nui-Ct-A6q.title" = "Log speichern:";
+
+/* Class = "NSButtonCell"; title = "F9 erlauben"; ObjectID = "q3q-Xm-TRl"; */
+"q3q-Xm-TRl.title" = "F9 erlauben";
+
+/* Class = "NSButtonCell"; title = "F5 erlauben"; ObjectID = "q9c-zv-s6c"; */
+"q9c-zv-s6c.title" = "F5 erlauben";
+
+/* Class = "NSButtonCell"; title = "F2 erlauben"; ObjectID = "rd9-dL-Qhi"; */
+"rd9-dL-Qhi.title" = "F2 erlauben";
+
+/* Class = "NSButtonCell"; title = "Benutzer wechseln erlauben"; ObjectID = "rm8-cp-dzk"; */
+"rm8-cp-dzk.title" = "Benutzer wechseln erlauben";
+
+/* Class = "NSButtonCell"; title = "Alt-Tab erlauben"; ObjectID = "ufj-NR-s2G"; */
+"ufj-NR-s2G.title" = "Alt-Tab erlauben";
+
+/* Class = "NSButtonCell"; title = "Task-Manager starten erlauben"; ObjectID = "uiU-JQ-4Yc"; */
+"uiU-JQ-4Yc.title" = "Task-Manager starten erlauben";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Print Screen erlauben, entspricht OS X Bildschirmfoto (cmd-3 und cmd-4) "; ObjectID = "wUs-SE-6xn"; */
+"wUs-SE-6xn.ibShadowedToolTip" = "Print Screen erlauben, entspricht OS X Bildschirmfoto (cmd-3 und cmd-4) ";
+
+/* Class = "NSButtonCell"; title = "F4 erlauben"; ObjectID = "yCu-0c-Hf1"; */
+"yCu-0c-Hf1.title" = "F4 erlauben";
+
+/* Class = "NSButtonCell"; title = "Bildschirmfoto erlauben"; ObjectID = "zzi-ch-X4d"; */
+"zzi-ch-X4d.title" = "Bildschirmfoto erlauben";

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
@@ -230,25 +230,11 @@
                                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </box>
-                                    <button toolTip="Display control in SEB dock allowing to reconnect to Wi-Fi networks used before." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="22y-gA-uVN">
-                                        <rect key="frame" x="14" y="222" width="586" height="18"/>
-                                        <buttonCell key="cell" type="check" title="Enable WiFi control" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Nlp-Oe-Cqb">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowWLAN" id="ipk-S4-Uci"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="22y-gA-uVN" secondAttribute="bottom" priority="500" constant="20" id="6t2-2R-8Ej"/>
                                     <constraint firstItem="UEX-8o-YnQ" firstAttribute="top" secondItem="uoJ-Ks-O1o" secondAttribute="top" constant="3" id="AdT-BE-YaZ"/>
                                     <constraint firstItem="UEX-8o-YnQ" firstAttribute="leading" secondItem="uoJ-Ks-O1o" secondAttribute="leading" constant="16" id="CjY-Th-kNe"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="UEX-8o-YnQ" secondAttribute="trailing" constant="16" id="Pb9-lU-Xkb"/>
-                                    <constraint firstItem="22y-gA-uVN" firstAttribute="leading" secondItem="UEX-8o-YnQ" secondAttribute="leading" id="rs9-Hx-QUo"/>
-                                    <constraint firstAttribute="trailing" secondItem="22y-gA-uVN" secondAttribute="trailing" constant="6" id="sPE-ew-7YS"/>
-                                    <constraint firstItem="22y-gA-uVN" firstAttribute="top" secondItem="UEX-8o-YnQ" secondAttribute="bottom" priority="500" constant="23" id="yse-wf-BpT"/>
                                 </constraints>
                             </view>
                         </tabViewItem>
