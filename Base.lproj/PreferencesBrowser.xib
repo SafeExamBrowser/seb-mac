@@ -17,11 +17,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1" userLabel="Browser Preferences">
-            <rect key="frame" x="0.0" y="5" width="650" height="685"/>
+            <rect key="frame" x="0.0" y="0.0" width="650" height="650"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="84">
-                    <rect key="frame" x="18" y="648" width="367" height="17"/>
+                    <rect key="frame" x="18" y="613" width="367" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Links requesting to be opened in a new browser window ..." id="91">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -29,9 +29,9 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="85">
-                    <rect key="frame" x="18" y="616" width="295" height="26"/>
+                    <rect key="frame" x="18" y="581" width="305" height="26"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="290" id="557"/>
+                        <constraint firstAttribute="width" constant="300" id="557"/>
                     </constraints>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="89" id="86">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -53,7 +53,7 @@
                     </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="93">
-                    <rect key="frame" x="18" y="464" width="191" height="17"/>
+                    <rect key="frame" x="18" y="434" width="191" height="17"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Links in JavaScript/plug-ins ..." usesSingleLineMode="YES" id="100">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -61,9 +61,9 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton toolTip="USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="94">
-                    <rect key="frame" x="18" y="432" width="295" height="26"/>
+                    <rect key="frame" x="18" y="402" width="305" height="26"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="290" id="kDR-nM-nNw"/>
+                        <constraint firstAttribute="width" constant="300" id="74c-aj-gJk"/>
                     </constraints>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="95">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -85,7 +85,7 @@
                     </connections>
                 </popUpButton>
                 <button toolTip="Hyperlinks which direct to a different host than the one of the current main page will be ignored" translatesAutoresizingMaskIntoConstraints="NO" id="101">
-                    <rect key="frame" x="18" y="593" width="274" height="18"/>
+                    <rect key="frame" x="18" y="558" width="274" height="18"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="410"/>
                     </constraints>
@@ -99,7 +99,7 @@
                     </connections>
                 </button>
                 <box autoresizesSubviews="NO" title="New browser window size and position" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="567">
-                    <rect key="frame" x="17" y="497" width="616" height="88"/>
+                    <rect key="frame" x="17" y="462" width="616" height="88"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="614" height="72"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -208,7 +208,7 @@
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
                 <box autoresizesSubviews="NO" title="Browser Security" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="7nL-Z2-JAg">
-                    <rect key="frame" x="17" y="290" width="616" height="130"/>
+                    <rect key="frame" x="17" y="260" width="616" height="130"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="614" height="114"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -323,6 +323,7 @@
                         <constraint firstItem="180" firstAttribute="top" secondItem="168" secondAttribute="bottom" constant="12" id="d6V-oe-n6u"/>
                         <constraint firstItem="661" firstAttribute="leading" secondItem="7nL-Z2-JAg" secondAttribute="leading" constant="11" id="fqK-5A-hRu"/>
                         <constraint firstItem="661" firstAttribute="top" secondItem="180" secondAttribute="bottom" constant="12" id="g0w-j9-THs"/>
+                        <constraint firstAttribute="height" constant="126" id="gk3-er-8Tc"/>
                         <constraint firstItem="168" firstAttribute="leading" secondItem="7nL-Z2-JAg" secondAttribute="leading" constant="11" id="gmF-DP-eFk"/>
                         <constraint firstItem="wFa-eR-NzK" firstAttribute="top" secondItem="Du9-dQ-GIJ" secondAttribute="bottom" constant="12" id="lk7-mG-JWH"/>
                         <constraint firstAttribute="trailing" secondItem="176" secondAttribute="trailing" constant="10" id="px9-MU-eQa"/>
@@ -340,7 +341,7 @@
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
                 <box autoresizesSubviews="NO" title="User agent" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="ckm-lX-Woj">
-                    <rect key="frame" x="17" y="97" width="616" height="182"/>
+                    <rect key="frame" x="17" y="67" width="616" height="182"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="614" height="166"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -368,20 +369,23 @@
                             </popUpButton>
                             <tabView drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="WH0-5V-GCS">
                                 <rect key="frame" x="13" y="14" width="588" height="112"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" priority="750" constant="112" id="rSZ-FD-lbj"/>
+                                </constraints>
                                 <font key="font" metaFont="system"/>
                                 <tabViewItems>
                                     <tabViewItem identifier="2" id="L24-up-Pfm" userLabel="Tab View Item - Mac">
                                         <view key="view" id="iMq-Vx-Q8E">
-                                            <rect key="frame" x="0.0" y="0.0" width="588" height="124"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="588" height="112"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b7C-9j-OYg">
-                                                    <rect key="frame" x="0.0" y="86" width="71" height="38"/>
+                                                <matrix horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b7C-9j-OYg">
+                                                    <rect key="frame" x="0.0" y="72" width="71" height="40"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="71" id="eGl-fr-ZrI"/>
+                                                        <constraint firstAttribute="height" constant="40" id="i0t-CT-Vxp"/>
                                                     </constraints>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="cellSize" width="71" height="18"/>
+                                                    <size key="cellSize" width="71" height="19"/>
                                                     <size key="intercellSpacing" width="4" height="2"/>
                                                     <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="aZZ-Qg-4Cz">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -404,7 +408,7 @@
                                                     </connections>
                                                 </matrix>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FHC-Y1-NDD">
-                                                    <rect key="frame" x="0.0" y="56" width="588" height="22"/>
+                                                    <rect key="frame" x="0.0" y="46" width="588" height="22"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="LaG-ca-Rqa">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -421,7 +425,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q4N-Ge-wgZ">
-                                                    <rect key="frame" x="-2" y="20" width="592" height="28"/>
+                                                    <rect key="frame" x="-2" y="14" width="592" height="28"/>
                                                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" id="X0g-7e-XAl">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <string key="title">Custom user agent string (SEB appends its version number automatically). Default string depends on installed Safari/WebKit version and therefore can differ on exam clients.</string>
@@ -429,8 +433,11 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dP1-5V-zqF">
-                                                    <rect key="frame" x="457" y="105" width="131" height="19"/>
+                                                <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="dP1-5V-zqF">
+                                                    <rect key="frame" x="79" y="93" width="509" height="19"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="509" id="Cwd-hh-LeB"/>
+                                                    </constraints>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="Default user agent Mac" id="EZ4-9b-Idz">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -441,16 +448,15 @@
                                             <constraints>
                                                 <constraint firstItem="b7C-9j-OYg" firstAttribute="leading" secondItem="iMq-Vx-Q8E" secondAttribute="leading" id="2Fr-Ls-XXn"/>
                                                 <constraint firstAttribute="trailing" secondItem="Q4N-Ge-wgZ" secondAttribute="trailing" id="52C-5i-N0O"/>
-                                                <constraint firstItem="dP1-5V-zqF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="b7C-9j-OYg" secondAttribute="trailing" constant="8" symbolic="YES" id="7l2-uZ-WCV"/>
+                                                <constraint firstItem="dP1-5V-zqF" firstAttribute="leading" secondItem="b7C-9j-OYg" secondAttribute="trailing" constant="8" symbolic="YES" id="7l2-uZ-WCV"/>
+                                                <constraint firstItem="Q4N-Ge-wgZ" firstAttribute="top" secondItem="FHC-Y1-NDD" secondAttribute="bottom" constant="4" id="A5V-or-s1l"/>
                                                 <constraint firstItem="b7C-9j-OYg" firstAttribute="top" secondItem="iMq-Vx-Q8E" secondAttribute="top" id="Clw-M4-z2w"/>
                                                 <constraint firstItem="Q4N-Ge-wgZ" firstAttribute="leading" secondItem="iMq-Vx-Q8E" secondAttribute="leading" id="DNg-SG-Spy"/>
                                                 <constraint firstItem="dP1-5V-zqF" firstAttribute="top" secondItem="b7C-9j-OYg" secondAttribute="top" id="IhJ-90-YCM"/>
-                                                <constraint firstItem="FHC-Y1-NDD" firstAttribute="top" secondItem="b7C-9j-OYg" secondAttribute="bottom" constant="8" id="Qzc-eM-o1y"/>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Q4N-Ge-wgZ" secondAttribute="bottom" constant="20" symbolic="YES" id="R1D-VZ-SO6"/>
+                                                <constraint firstItem="FHC-Y1-NDD" firstAttribute="top" secondItem="b7C-9j-OYg" secondAttribute="bottom" constant="4" id="Qzc-eM-o1y"/>
                                                 <constraint firstItem="FHC-Y1-NDD" firstAttribute="leading" secondItem="iMq-Vx-Q8E" secondAttribute="leading" id="Ujo-So-TWG"/>
                                                 <constraint firstAttribute="trailing" secondItem="dP1-5V-zqF" secondAttribute="trailing" id="WKa-A0-3MH"/>
                                                 <constraint firstAttribute="trailing" secondItem="FHC-Y1-NDD" secondAttribute="trailing" id="qPi-fr-1A5"/>
-                                                <constraint firstItem="Q4N-Ge-wgZ" firstAttribute="top" secondItem="FHC-Y1-NDD" secondAttribute="bottom" constant="8" symbolic="YES" id="wH8-8R-0EO"/>
                                             </constraints>
                                         </view>
                                     </tabViewItem>
@@ -460,12 +466,12 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KFV-q6-A2b">
-                                                    <rect key="frame" x="0.0" y="70" width="124" height="38"/>
+                                                    <rect key="frame" x="0.0" y="72" width="124" height="40"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="124" id="85O-j8-Aj8"/>
+                                                        <constraint firstAttribute="height" constant="40" id="cj4-7i-4tw"/>
                                                     </constraints>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="cellSize" width="124" height="18"/>
+                                                    <size key="cellSize" width="124" height="19"/>
                                                     <size key="intercellSpacing" width="4" height="2"/>
                                                     <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="cM3-iz-gU7">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -488,7 +494,7 @@
                                                     </connections>
                                                 </matrix>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YGc-0N-3Cu">
-                                                    <rect key="frame" x="0.0" y="40" width="588" height="22"/>
+                                                    <rect key="frame" x="0.0" y="46" width="588" height="22"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="LF0-fd-Wdg">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -504,8 +510,11 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Z3B-Za-z4X">
-                                                    <rect key="frame" x="403" y="89" width="185" height="19"/>
+                                                <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Z3B-Za-z4X">
+                                                    <rect key="frame" x="132" y="93" width="456" height="19"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" priority="750" constant="456" id="nwA-PJ-FOI"/>
+                                                    </constraints>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="Desktop mode default user agent" id="0dZ-Z1-Pzs">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -513,28 +522,27 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0JX-76-Lv7">
-                                                    <rect key="frame" x="-2" y="4" width="592" height="28"/>
+                                                    <rect key="frame" x="-2" y="14" width="592" height="28"/>
                                                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" id="FfE-2h-C1L">
                                                         <font key="font" metaFont="smallSystem"/>
-                                                        <string key="title">Custom user agent string (SEB appends its version number automatically). Default string depends on installed Safari/WebKit version and therefore can differ on exam clients.</string>
+                                                        <string key="title">Custom user agent string (SEB appends its version number automatically). Default string depends on installed SEB for Windows version and therefore can differ on exam clients.</string>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="0JX-76-Lv7" firstAttribute="top" secondItem="YGc-0N-3Cu" secondAttribute="bottom" constant="8" symbolic="YES" id="73Y-z4-H7q"/>
-                                                <constraint firstItem="KFV-q6-A2b" firstAttribute="top" secondItem="OdS-lv-NbA" secondAttribute="top" constant="4" id="77x-0T-QYU"/>
-                                                <constraint firstItem="YGc-0N-3Cu" firstAttribute="top" secondItem="KFV-q6-A2b" secondAttribute="bottom" constant="8" id="BV8-FQ-J22"/>
+                                                <constraint firstItem="KFV-q6-A2b" firstAttribute="top" secondItem="OdS-lv-NbA" secondAttribute="top" id="77x-0T-QYU"/>
+                                                <constraint firstItem="YGc-0N-3Cu" firstAttribute="top" secondItem="KFV-q6-A2b" secondAttribute="bottom" constant="4" id="BV8-FQ-J22"/>
+                                                <constraint firstItem="0JX-76-Lv7" firstAttribute="top" secondItem="YGc-0N-3Cu" secondAttribute="bottom" constant="4" id="HEt-Ks-9nN"/>
                                                 <constraint firstItem="0JX-76-Lv7" firstAttribute="leading" secondItem="OdS-lv-NbA" secondAttribute="leading" id="Lpi-kX-8qE"/>
                                                 <constraint firstItem="YGc-0N-3Cu" firstAttribute="leading" secondItem="OdS-lv-NbA" secondAttribute="leading" id="U8c-aH-KkJ"/>
                                                 <constraint firstItem="Z3B-Za-z4X" firstAttribute="top" secondItem="KFV-q6-A2b" secondAttribute="top" id="VJe-tT-G9c"/>
                                                 <constraint firstAttribute="trailing" secondItem="Z3B-Za-z4X" secondAttribute="trailing" id="WUy-vy-KDB"/>
                                                 <constraint firstAttribute="trailing" secondItem="0JX-76-Lv7" secondAttribute="trailing" id="aaI-HE-vor"/>
-                                                <constraint firstItem="Z3B-Za-z4X" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="KFV-q6-A2b" secondAttribute="trailing" constant="8" symbolic="YES" id="bCK-IS-QVv"/>
+                                                <constraint firstItem="Z3B-Za-z4X" firstAttribute="leading" secondItem="KFV-q6-A2b" secondAttribute="trailing" constant="8" symbolic="YES" id="bCK-IS-QVv"/>
                                                 <constraint firstItem="KFV-q6-A2b" firstAttribute="leading" secondItem="OdS-lv-NbA" secondAttribute="leading" id="j1a-6O-mSo"/>
                                                 <constraint firstAttribute="trailing" secondItem="YGc-0N-3Cu" secondAttribute="trailing" id="qE5-OK-JHc"/>
-                                                <constraint firstAttribute="bottom" secondItem="0JX-76-Lv7" secondAttribute="bottom" constant="4" id="wT7-B0-DEa"/>
                                             </constraints>
                                         </view>
                                     </tabViewItem>
@@ -543,14 +551,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="588" height="112"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i2L-Fg-eTj">
-                                                    <rect key="frame" x="0.0" y="54" width="109" height="58"/>
+                                                <matrix verticalHuggingPriority="750" misplaced="YES" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i2L-Fg-eTj">
+                                                    <rect key="frame" x="0.0" y="51" width="109" height="61"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="58" id="bOX-9E-wqR"/>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="109" id="pn1-o3-ZJI"/>
+                                                        <constraint firstAttribute="height" constant="61" id="ftz-gm-N7b"/>
                                                     </constraints>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="cellSize" width="109" height="18"/>
+                                                    <size key="cellSize" width="109" height="19"/>
                                                     <size key="intercellSpacing" width="4" height="2"/>
                                                     <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="YMc-Kb-9O0">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -576,8 +583,8 @@
                                                         <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserUserAgentWinTouchMode" id="YNV-gT-xXs"/>
                                                     </connections>
                                                 </matrix>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="34u-Jt-GbJ">
-                                                    <rect key="frame" x="0.0" y="24" width="588" height="22"/>
+                                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="34u-Jt-GbJ">
+                                                    <rect key="frame" x="0.0" y="25" width="588" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="rYC-K7-FYo"/>
                                                     </constraints>
@@ -596,17 +603,31 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XSw-aj-V6a">
-                                                    <rect key="frame" x="416" y="93" width="172" height="19"/>
+                                                <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XSw-aj-V6a">
+                                                    <rect key="frame" x="117" y="93" width="471" height="19"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="471" id="SNq-un-FaU"/>
+                                                    </constraints>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="Default touch mode user agent" id="dqB-SD-Yjy">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="twb-Ov-Zlx">
-                                                    <rect key="frame" x="497" y="74" width="91" height="19"/>
+                                                <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="twb-Ov-Zlx">
+                                                    <rect key="frame" x="117" y="72" width="471" height="19"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="471" id="taW-kG-eHg"/>
+                                                    </constraints>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="iPad user agent" id="XDW-SF-gll">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7tl-BN-q8i">
+                                                    <rect key="frame" x="-2" y="4" width="542" height="17"/>
+                                                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Default string depends on installed SEB for Windows version and therefore can differ on exam clients." id="9wd-E4-JwC">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -614,17 +635,20 @@
                                                 </textField>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="7tl-BN-q8i" secondAttribute="bottom" constant="4" id="0Ry-Qh-cMr"/>
                                                 <constraint firstAttribute="trailing" secondItem="XSw-aj-V6a" secondAttribute="trailing" id="804-qK-l0D"/>
+                                                <constraint firstItem="7tl-BN-q8i" firstAttribute="top" secondItem="34u-Jt-GbJ" secondAttribute="bottom" constant="4" id="DB1-NT-SxN"/>
+                                                <constraint firstItem="7tl-BN-q8i" firstAttribute="leading" secondItem="YKQ-wn-UQR" secondAttribute="leading" id="Fcz-A1-i10"/>
                                                 <constraint firstAttribute="trailing" secondItem="34u-Jt-GbJ" secondAttribute="trailing" id="HwC-Gj-rvA"/>
-                                                <constraint firstAttribute="bottom" secondItem="34u-Jt-GbJ" secondAttribute="bottom" constant="24" id="Wfe-Yi-1Dp"/>
                                                 <constraint firstItem="i2L-Fg-eTj" firstAttribute="leading" secondItem="YKQ-wn-UQR" secondAttribute="leading" id="X1e-Ma-Cwl"/>
-                                                <constraint firstItem="34u-Jt-GbJ" firstAttribute="top" secondItem="i2L-Fg-eTj" secondAttribute="bottom" constant="8" id="Ybg-fw-uJN"/>
+                                                <constraint firstItem="34u-Jt-GbJ" firstAttribute="top" secondItem="i2L-Fg-eTj" secondAttribute="bottom" constant="4" id="Ybg-fw-uJN"/>
                                                 <constraint firstItem="i2L-Fg-eTj" firstAttribute="top" secondItem="YKQ-wn-UQR" secondAttribute="top" id="cDL-b9-NKt"/>
                                                 <constraint firstItem="twb-Ov-Zlx" firstAttribute="centerY" secondItem="i2L-Fg-eTj" secondAttribute="centerY" id="ckJ-MN-hjJ"/>
-                                                <constraint firstItem="XSw-aj-V6a" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="i2L-Fg-eTj" secondAttribute="trailing" constant="8" symbolic="YES" id="jRj-Gq-lpk"/>
-                                                <constraint firstItem="twb-Ov-Zlx" firstAttribute="trailing" secondItem="XSw-aj-V6a" secondAttribute="trailing" id="mqp-GE-9fp"/>
+                                                <constraint firstItem="XSw-aj-V6a" firstAttribute="leading" secondItem="i2L-Fg-eTj" secondAttribute="trailing" constant="8" symbolic="YES" id="jRj-Gq-lpk"/>
+                                                <constraint firstItem="twb-Ov-Zlx" firstAttribute="leading" secondItem="XSw-aj-V6a" secondAttribute="leading" id="q6A-jx-7uT"/>
                                                 <constraint firstItem="XSw-aj-V6a" firstAttribute="top" secondItem="i2L-Fg-eTj" secondAttribute="top" id="qat-Oy-oCM"/>
                                                 <constraint firstItem="34u-Jt-GbJ" firstAttribute="leading" secondItem="YKQ-wn-UQR" secondAttribute="leading" id="rgv-i3-Sd6"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="7tl-BN-q8i" secondAttribute="trailing" id="yYT-5D-RL6"/>
                                             </constraints>
                                         </view>
                                     </tabViewItem>
@@ -691,12 +715,12 @@
                 <constraint firstAttribute="trailing" secondItem="567" secondAttribute="trailing" constant="20" symbolic="YES" id="615"/>
                 <constraint firstAttribute="trailing" secondItem="413" secondAttribute="trailing" constant="20" symbolic="YES" id="629"/>
                 <constraint firstAttribute="trailing" secondItem="447" secondAttribute="trailing" constant="19" id="632"/>
-                <constraint firstItem="93" firstAttribute="top" secondItem="567" secondAttribute="bottom" constant="20" id="636"/>
+                <constraint firstItem="93" firstAttribute="top" secondItem="567" secondAttribute="bottom" constant="15" id="636"/>
                 <constraint firstItem="567" firstAttribute="top" secondItem="101" secondAttribute="bottom" constant="10" id="637"/>
                 <constraint firstItem="447" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="21" id="655"/>
                 <constraint firstAttribute="bottom" secondItem="447" secondAttribute="bottom" constant="20" id="687"/>
                 <constraint firstItem="413" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="7li-U0-v6o"/>
-                <constraint firstItem="413" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ckm-lX-Woj" secondAttribute="bottom" constant="15" id="CHj-AO-sj0"/>
+                <constraint firstItem="413" firstAttribute="top" secondItem="ckm-lX-Woj" secondAttribute="bottom" constant="20" id="CHj-AO-sj0"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="93" secondAttribute="trailing" constant="20" id="GKK-Sk-LbH"/>
                 <constraint firstItem="7nL-Z2-JAg" firstAttribute="top" secondItem="94" secondAttribute="bottom" constant="15" id="IpC-6h-9gS"/>
                 <constraint firstItem="7nL-Z2-JAg" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="Olb-Uq-w5w"/>
@@ -707,7 +731,7 @@
                 <constraint firstAttribute="trailing" secondItem="7nL-Z2-JAg" secondAttribute="trailing" constant="20" symbolic="YES" id="vkW-6j-Emv"/>
                 <constraint firstItem="93" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="w5S-rd-NXr"/>
             </constraints>
-            <point key="canvasLocation" x="283" y="492.5"/>
+            <point key="canvasLocation" x="283" y="475"/>
         </customView>
         <userDefaultsController id="122" userLabel="SEB User Defaults Controller" customClass="SEBEncryptedUserDefaultsController"/>
         <userDefaultsController id="227" userLabel="SEB UI User Defaults Controller" customClass="SEBUIUserDefaultsController"/>
