@@ -1276,32 +1276,32 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         [listener ignore];
         return;
     }
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptBlockForeign"]) {
-        //            NSString *requestedHost = [[request mainDocumentURL] host];
-        DDLogDebug(@"Current Host: %@", currentMainHost);
-        DDLogDebug(@"Requested Host: %@", requestedHost);
-        // If current host is not the same as the requested host
-        if (currentMainHost && (!requestedHost || ![currentMainHost isEqualToString:requestedHost])) {
-            [listener ignore];
-            // If the new page is supposed to open in a new browser window
-            if (requestedHost && self.webView && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
-                // we have to close the new browser window which already has been openend by WebKit
-                // Get the document for my web view
-                DDLogDebug(@"Originating browser window %@", sender);
-                // Close document and therefore also window
-                //Workaround: Flash crashes after closing window and then clicking some other link
-                [[self.webView preferences] setPlugInsEnabled:NO];
-                DDLogDebug(@"Now closing new document browser window for: %@", self.webView);
-                [self.browserController closeWebView:self.webView];
-            }
-            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
-                if (self.webView) {
-                    [sender close]; //close the temporary webview
-                }
-            }
-            return;
-        }
-    }
+//    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptBlockForeign"]) {
+//        //            NSString *requestedHost = [[request mainDocumentURL] host];
+//        DDLogDebug(@"Current Host: %@", currentMainHost);
+//        DDLogDebug(@"Requested Host: %@", requestedHost);
+//        // If current host is not the same as the requested host
+//        if (currentMainHost && (!requestedHost || ![currentMainHost isEqualToString:requestedHost])) {
+//            [listener ignore];
+//            // If the new page is supposed to open in a new browser window
+//            if (requestedHost && self.webView && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
+//                // we have to close the new browser window which already has been openend by WebKit
+//                // Get the document for my web view
+//                DDLogDebug(@"Originating browser window %@", sender);
+//                // Close document and therefore also window
+//                //Workaround: Flash crashes after closing window and then clicking some other link
+//                [[self.webView preferences] setPlugInsEnabled:NO];
+//                DDLogDebug(@"Now closing new document browser window for: %@", self.webView);
+//                [self.browserController closeWebView:self.webView];
+//            }
+//            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
+//                if (self.webView) {
+//                    [sender close]; //close the temporary webview
+//                }
+//            }
+//            return;
+//        }
+//    }
     // Check if the new page is supposed to be opened in the same browser window
     if (currentMainHost && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
         if (self.webView && ![sender isEqual:self.webView]) {
