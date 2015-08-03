@@ -11,18 +11,17 @@
                 <outlet property="defaultUserAgentMac" destination="dP1-5V-zqF" id="d74-lR-5xV"/>
                 <outlet property="enablePlugIns" destination="107" id="195"/>
                 <outlet property="newBrowserWindowByLinkBlockForeignButton" destination="101" id="56g-jL-5S0"/>
-                <outlet property="newBrowserWindowByScriptBlockForeignButton" destination="103" id="hKO-zi-feW"/>
                 <outlet property="view" destination="1" id="111"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1" userLabel="Browser Preferences">
-            <rect key="frame" x="0.0" y="0.0" width="650" height="688"/>
+            <rect key="frame" x="0.0" y="5" width="650" height="685"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="84">
-                    <rect key="frame" x="18" y="651" width="367" height="17"/>
+                    <rect key="frame" x="18" y="648" width="367" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Links requesting to be opened in a new browser window ..." id="91">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -30,7 +29,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="85">
-                    <rect key="frame" x="18" y="619" width="295" height="26"/>
+                    <rect key="frame" x="18" y="616" width="295" height="26"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="290" id="557"/>
                     </constraints>
@@ -54,7 +53,7 @@
                     </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="93">
-                    <rect key="frame" x="18" y="467" width="191" height="17"/>
+                    <rect key="frame" x="18" y="464" width="191" height="17"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Links in JavaScript/plug-ins ..." usesSingleLineMode="YES" id="100">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -62,7 +61,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton toolTip="USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="94">
-                    <rect key="frame" x="18" y="435" width="295" height="26"/>
+                    <rect key="frame" x="18" y="432" width="295" height="26"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="290" id="kDR-nM-nNw"/>
                     </constraints>
@@ -86,7 +85,7 @@
                     </connections>
                 </popUpButton>
                 <button toolTip="Hyperlinks which direct to a different host than the one of the current main page will be ignored" translatesAutoresizingMaskIntoConstraints="NO" id="101">
-                    <rect key="frame" x="18" y="596" width="274" height="18"/>
+                    <rect key="frame" x="18" y="593" width="274" height="18"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="410"/>
                     </constraints>
@@ -99,23 +98,8 @@
                         <binding destination="122" name="enabled" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy" id="210"/>
                     </connections>
                 </button>
-                <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="103">
-                    <rect key="frame" x="18" y="413" width="614" height="18"/>
-                    <string key="toolTip">USE WITH CARE: Hyperlinks invoked by JavaScript/plug-ins which direct to a different host than the one of the current main page will be ignored</string>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="14" id="409"/>
-                    </constraints>
-                    <buttonCell key="cell" type="check" title="block when directing to a different server" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="104">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowByScriptBlockForeign" id="201"/>
-                        <binding destination="122" name="enabled" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy" id="211"/>
-                    </connections>
-                </button>
                 <box autoresizesSubviews="NO" title="New browser window size and position" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="567">
-                    <rect key="frame" x="17" y="500" width="616" height="88"/>
+                    <rect key="frame" x="17" y="497" width="616" height="88"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="614" height="72"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -224,7 +208,7 @@
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
                 <box autoresizesSubviews="NO" title="Browser Security" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="7nL-Z2-JAg">
-                    <rect key="frame" x="17" y="270" width="616" height="130"/>
+                    <rect key="frame" x="17" y="290" width="616" height="130"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="614" height="114"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -355,13 +339,13 @@
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
-                <box autoresizesSubviews="NO" misplaced="YES" title="User agent" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="ckm-lX-Woj">
-                    <rect key="frame" x="17" y="62" width="616" height="182"/>
+                <box autoresizesSubviews="NO" title="User agent" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="ckm-lX-Woj">
+                    <rect key="frame" x="17" y="97" width="616" height="182"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="614" height="166"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <popUpButton toolTip="USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UsO-tg-591">
+                            <popUpButton toolTip="USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UsO-tg-591">
                                 <rect key="frame" x="11" y="131" width="593" height="26"/>
                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="50h-rm-tb3">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -382,17 +366,17 @@
                                     <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_browserUserAgentEnvironment" previousBinding="hs7-nc-o7A" id="FnP-tl-2nu"/>
                                 </connections>
                             </popUpButton>
-                            <tabView misplaced="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="WH0-5V-GCS">
+                            <tabView drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="WH0-5V-GCS">
                                 <rect key="frame" x="13" y="14" width="588" height="112"/>
                                 <font key="font" metaFont="system"/>
                                 <tabViewItems>
                                     <tabViewItem identifier="2" id="L24-up-Pfm" userLabel="Tab View Item - Mac">
                                         <view key="view" id="iMq-Vx-Q8E">
-                                            <rect key="frame" x="0.0" y="0.0" width="588" height="127"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="588" height="124"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b7C-9j-OYg">
-                                                    <rect key="frame" x="0.0" y="89" width="71" height="38"/>
+                                                    <rect key="frame" x="0.0" y="86" width="71" height="38"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="71" id="eGl-fr-ZrI"/>
                                                     </constraints>
@@ -420,7 +404,7 @@
                                                     </connections>
                                                 </matrix>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FHC-Y1-NDD">
-                                                    <rect key="frame" x="0.0" y="59" width="588" height="22"/>
+                                                    <rect key="frame" x="0.0" y="56" width="588" height="22"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="LaG-ca-Rqa">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -437,7 +421,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q4N-Ge-wgZ">
-                                                    <rect key="frame" x="-2" y="23" width="592" height="28"/>
+                                                    <rect key="frame" x="-2" y="20" width="592" height="28"/>
                                                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" id="X0g-7e-XAl">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <string key="title">Custom user agent string (SEB appends its version number automatically). Default string depends on installed Safari/WebKit version and therefore can differ on exam clients.</string>
@@ -446,7 +430,7 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dP1-5V-zqF">
-                                                    <rect key="frame" x="457" y="108" width="131" height="19"/>
+                                                    <rect key="frame" x="457" y="105" width="131" height="19"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="Default user agent Mac" id="EZ4-9b-Idz">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -456,7 +440,6 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="b7C-9j-OYg" firstAttribute="leading" secondItem="iMq-Vx-Q8E" secondAttribute="leading" id="2Fr-Ls-XXn"/>
-                                                <constraint firstItem="FHC-Y1-NDD" firstAttribute="trailing" secondItem="iMq-Vx-Q8E" secondAttribute="trailing" id="2aG-UP-dnm"/>
                                                 <constraint firstAttribute="trailing" secondItem="Q4N-Ge-wgZ" secondAttribute="trailing" id="52C-5i-N0O"/>
                                                 <constraint firstItem="dP1-5V-zqF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="b7C-9j-OYg" secondAttribute="trailing" constant="8" symbolic="YES" id="7l2-uZ-WCV"/>
                                                 <constraint firstItem="b7C-9j-OYg" firstAttribute="top" secondItem="iMq-Vx-Q8E" secondAttribute="top" id="Clw-M4-z2w"/>
@@ -475,12 +458,174 @@
                                         <view key="view" id="OdS-lv-NbA">
                                             <rect key="frame" x="0.0" y="0.0" width="588" height="112"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KFV-q6-A2b">
+                                                    <rect key="frame" x="0.0" y="70" width="124" height="38"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="124" id="85O-j8-Aj8"/>
+                                                    </constraints>
+                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                    <size key="cellSize" width="124" height="18"/>
+                                                    <size key="intercellSpacing" width="4" height="2"/>
+                                                    <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="cM3-iz-gU7">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <cells>
+                                                        <column>
+                                                            <buttonCell type="radio" title="Desktop default:" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="fzm-2I-vcw">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <buttonCell type="radio" title="Custom" imagePosition="left" alignment="left" inset="2" id="kJa-eD-szz">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                        </column>
+                                                    </cells>
+                                                    <connections>
+                                                        <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserUserAgentWinDesktopMode" id="tBa-PL-j1j"/>
+                                                    </connections>
+                                                </matrix>
+                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YGc-0N-3Cu">
+                                                    <rect key="frame" x="0.0" y="40" width="588" height="22"/>
+                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="LF0-fd-Wdg">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                    <connections>
+                                                        <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserUserAgentWinDesktopModeCustom" id="YHv-k2-gGZ">
+                                                            <dictionary key="options">
+                                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                                <bool key="NSValidatesImmediately" value="YES"/>
+                                                                <string key="NSValueTransformerName">NSTextFieldNilToEmptyStringTransformer</string>
+                                                            </dictionary>
+                                                        </binding>
+                                                    </connections>
+                                                </textField>
+                                                <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Z3B-Za-z4X">
+                                                    <rect key="frame" x="403" y="89" width="185" height="19"/>
+                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="Desktop mode default user agent" id="0dZ-Z1-Pzs">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0JX-76-Lv7">
+                                                    <rect key="frame" x="-2" y="4" width="592" height="28"/>
+                                                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" id="FfE-2h-C1L">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <string key="title">Custom user agent string (SEB appends its version number automatically). Default string depends on installed Safari/WebKit version and therefore can differ on exam clients.</string>
+                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="0JX-76-Lv7" firstAttribute="top" secondItem="YGc-0N-3Cu" secondAttribute="bottom" constant="8" symbolic="YES" id="73Y-z4-H7q"/>
+                                                <constraint firstItem="KFV-q6-A2b" firstAttribute="top" secondItem="OdS-lv-NbA" secondAttribute="top" constant="4" id="77x-0T-QYU"/>
+                                                <constraint firstItem="YGc-0N-3Cu" firstAttribute="top" secondItem="KFV-q6-A2b" secondAttribute="bottom" constant="8" id="BV8-FQ-J22"/>
+                                                <constraint firstItem="0JX-76-Lv7" firstAttribute="leading" secondItem="OdS-lv-NbA" secondAttribute="leading" id="Lpi-kX-8qE"/>
+                                                <constraint firstItem="YGc-0N-3Cu" firstAttribute="leading" secondItem="OdS-lv-NbA" secondAttribute="leading" id="U8c-aH-KkJ"/>
+                                                <constraint firstItem="Z3B-Za-z4X" firstAttribute="top" secondItem="KFV-q6-A2b" secondAttribute="top" id="VJe-tT-G9c"/>
+                                                <constraint firstAttribute="trailing" secondItem="Z3B-Za-z4X" secondAttribute="trailing" id="WUy-vy-KDB"/>
+                                                <constraint firstAttribute="trailing" secondItem="0JX-76-Lv7" secondAttribute="trailing" id="aaI-HE-vor"/>
+                                                <constraint firstItem="Z3B-Za-z4X" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="KFV-q6-A2b" secondAttribute="trailing" constant="8" symbolic="YES" id="bCK-IS-QVv"/>
+                                                <constraint firstItem="KFV-q6-A2b" firstAttribute="leading" secondItem="OdS-lv-NbA" secondAttribute="leading" id="j1a-6O-mSo"/>
+                                                <constraint firstAttribute="trailing" secondItem="YGc-0N-3Cu" secondAttribute="trailing" id="qE5-OK-JHc"/>
+                                                <constraint firstAttribute="bottom" secondItem="0JX-76-Lv7" secondAttribute="bottom" constant="4" id="wT7-B0-DEa"/>
+                                            </constraints>
                                         </view>
                                     </tabViewItem>
                                     <tabViewItem identifier="" id="WWd-bW-7cg" userLabel="Tab View Item - Win Touch">
                                         <view key="view" id="YKQ-wn-UQR">
                                             <rect key="frame" x="0.0" y="0.0" width="588" height="112"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i2L-Fg-eTj">
+                                                    <rect key="frame" x="0.0" y="54" width="109" height="58"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="58" id="bOX-9E-wqR"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="109" id="pn1-o3-ZJI"/>
+                                                    </constraints>
+                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                    <size key="cellSize" width="109" height="18"/>
+                                                    <size key="intercellSpacing" width="4" height="2"/>
+                                                    <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="YMc-Kb-9O0">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <cells>
+                                                        <column>
+                                                            <buttonCell type="radio" title="Touch default:" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="al8-58-HPQ">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <buttonCell type="radio" title="iPad" imagePosition="left" alignment="left" inset="2" id="mRw-O9-H0n">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <buttonCell type="radio" title="Custom" imagePosition="left" alignment="left" inset="2" id="qVa-6O-Lcc">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                        </column>
+                                                    </cells>
+                                                    <connections>
+                                                        <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserUserAgentWinTouchMode" id="YNV-gT-xXs"/>
+                                                    </connections>
+                                                </matrix>
+                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="34u-Jt-GbJ">
+                                                    <rect key="frame" x="0.0" y="24" width="588" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="22" id="rYC-K7-FYo"/>
+                                                    </constraints>
+                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="d4G-jS-hUH">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                    <connections>
+                                                        <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserUserAgentWinTouchModeCustom" id="DBE-IV-5fQ">
+                                                            <dictionary key="options">
+                                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                                <bool key="NSValidatesImmediately" value="YES"/>
+                                                                <string key="NSValueTransformerName">NSTextFieldNilToEmptyStringTransformer</string>
+                                                            </dictionary>
+                                                        </binding>
+                                                    </connections>
+                                                </textField>
+                                                <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XSw-aj-V6a">
+                                                    <rect key="frame" x="416" y="93" width="172" height="19"/>
+                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="Default touch mode user agent" id="dqB-SD-Yjy">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                                <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="twb-Ov-Zlx">
+                                                    <rect key="frame" x="497" y="74" width="91" height="19"/>
+                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="iPad user agent" id="XDW-SF-gll">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="XSw-aj-V6a" secondAttribute="trailing" id="804-qK-l0D"/>
+                                                <constraint firstAttribute="trailing" secondItem="34u-Jt-GbJ" secondAttribute="trailing" id="HwC-Gj-rvA"/>
+                                                <constraint firstAttribute="bottom" secondItem="34u-Jt-GbJ" secondAttribute="bottom" constant="24" id="Wfe-Yi-1Dp"/>
+                                                <constraint firstItem="i2L-Fg-eTj" firstAttribute="leading" secondItem="YKQ-wn-UQR" secondAttribute="leading" id="X1e-Ma-Cwl"/>
+                                                <constraint firstItem="34u-Jt-GbJ" firstAttribute="top" secondItem="i2L-Fg-eTj" secondAttribute="bottom" constant="8" id="Ybg-fw-uJN"/>
+                                                <constraint firstItem="i2L-Fg-eTj" firstAttribute="top" secondItem="YKQ-wn-UQR" secondAttribute="top" id="cDL-b9-NKt"/>
+                                                <constraint firstItem="twb-Ov-Zlx" firstAttribute="centerY" secondItem="i2L-Fg-eTj" secondAttribute="centerY" id="ckJ-MN-hjJ"/>
+                                                <constraint firstItem="XSw-aj-V6a" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="i2L-Fg-eTj" secondAttribute="trailing" constant="8" symbolic="YES" id="jRj-Gq-lpk"/>
+                                                <constraint firstItem="twb-Ov-Zlx" firstAttribute="trailing" secondItem="XSw-aj-V6a" secondAttribute="trailing" id="mqp-GE-9fp"/>
+                                                <constraint firstItem="XSw-aj-V6a" firstAttribute="top" secondItem="i2L-Fg-eTj" secondAttribute="top" id="qat-Oy-oCM"/>
+                                                <constraint firstItem="34u-Jt-GbJ" firstAttribute="leading" secondItem="YKQ-wn-UQR" secondAttribute="leading" id="rgv-i3-Sd6"/>
+                                            </constraints>
                                         </view>
                                     </tabViewItem>
                                 </tabViewItems>
@@ -522,6 +667,9 @@
                 </button>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="447">
                     <rect key="frame" x="19" y="20" width="614" height="14"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="14" id="mYD-wH-oFy"/>
+                    </constraints>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="to start another application in kiosk mode (for example a virtual desktop infrastructure client)" id="449">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -535,35 +683,31 @@
                 <constraint firstItem="85" firstAttribute="top" secondItem="84" secondAttribute="bottom" constant="8" symbolic="YES" id="271"/>
                 <constraint firstItem="84" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="272"/>
                 <constraint firstItem="101" firstAttribute="top" secondItem="85" secondAttribute="bottom" constant="10" id="311"/>
-                <constraint firstItem="103" firstAttribute="top" secondItem="94" secondAttribute="bottom" constant="9" id="312"/>
                 <constraint firstItem="94" firstAttribute="top" secondItem="93" secondAttribute="bottom" constant="8" symbolic="YES" id="400"/>
                 <constraint firstItem="447" firstAttribute="top" secondItem="413" secondAttribute="bottom" constant="5" id="452"/>
                 <constraint firstItem="94" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="545"/>
                 <constraint firstItem="85" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="549"/>
-                <constraint firstItem="103" firstAttribute="leading" secondItem="93" secondAttribute="leading" id="555"/>
                 <constraint firstItem="567" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="608"/>
                 <constraint firstAttribute="trailing" secondItem="567" secondAttribute="trailing" constant="20" symbolic="YES" id="615"/>
                 <constraint firstAttribute="trailing" secondItem="413" secondAttribute="trailing" constant="20" symbolic="YES" id="629"/>
                 <constraint firstAttribute="trailing" secondItem="447" secondAttribute="trailing" constant="19" id="632"/>
-                <constraint firstAttribute="trailing" secondItem="103" secondAttribute="trailing" constant="20" symbolic="YES" id="633"/>
                 <constraint firstItem="93" firstAttribute="top" secondItem="567" secondAttribute="bottom" constant="20" id="636"/>
                 <constraint firstItem="567" firstAttribute="top" secondItem="101" secondAttribute="bottom" constant="10" id="637"/>
                 <constraint firstItem="447" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="21" id="655"/>
                 <constraint firstAttribute="bottom" secondItem="447" secondAttribute="bottom" constant="20" id="687"/>
                 <constraint firstItem="413" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="7li-U0-v6o"/>
-                <constraint firstItem="413" firstAttribute="top" secondItem="ckm-lX-Woj" secondAttribute="bottom" constant="15" id="CHj-AO-sj0"/>
+                <constraint firstItem="413" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ckm-lX-Woj" secondAttribute="bottom" constant="15" id="CHj-AO-sj0"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="93" secondAttribute="trailing" constant="20" id="GKK-Sk-LbH"/>
+                <constraint firstItem="7nL-Z2-JAg" firstAttribute="top" secondItem="94" secondAttribute="bottom" constant="15" id="IpC-6h-9gS"/>
                 <constraint firstItem="7nL-Z2-JAg" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="Olb-Uq-w5w"/>
                 <constraint firstItem="ckm-lX-Woj" firstAttribute="top" secondItem="7nL-Z2-JAg" secondAttribute="bottom" constant="15" id="VcV-xv-PZ8"/>
                 <constraint firstItem="ckm-lX-Woj" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="if3-Mp-Esf"/>
                 <constraint firstAttribute="trailing" secondItem="ckm-lX-Woj" secondAttribute="trailing" constant="20" symbolic="YES" id="kSl-VT-ft4"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="84" secondAttribute="trailing" constant="20" id="ntT-5s-yzS"/>
-                <constraint firstItem="103" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="sIi-Ds-kbq"/>
-                <constraint firstItem="7nL-Z2-JAg" firstAttribute="top" secondItem="103" secondAttribute="bottom" constant="15" id="ssQ-4A-0Yi"/>
                 <constraint firstAttribute="trailing" secondItem="7nL-Z2-JAg" secondAttribute="trailing" constant="20" symbolic="YES" id="vkW-6j-Emv"/>
                 <constraint firstItem="93" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="w5S-rd-NXr"/>
             </constraints>
-            <point key="canvasLocation" x="283" y="500"/>
+            <point key="canvasLocation" x="283" y="492.5"/>
         </customView>
         <userDefaultsController id="122" userLabel="SEB User Defaults Controller" customClass="SEBEncryptedUserDefaultsController"/>
         <userDefaultsController id="227" userLabel="SEB UI User Defaults Controller" customClass="SEBUIUserDefaultsController"/>

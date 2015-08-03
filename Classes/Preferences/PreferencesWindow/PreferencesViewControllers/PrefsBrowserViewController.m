@@ -43,7 +43,11 @@
 #ifdef __i386__        // Plugins can't be switched on in the 32-bit Intel build
     [enablePlugIns setEnabled:NO]; // disable the checkbox for plug-ins
 #endif
-    [defaultUserAgentMac setStringValue:[[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"]];
+    NSString *defaultUserAgent = [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"];
+    if (defaultUserAgent.length == 0) {
+        defaultUserAgent = @"";
+    }
+    [defaultUserAgentMac setStringValue:defaultUserAgent];
 }
 
 

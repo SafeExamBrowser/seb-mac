@@ -793,7 +793,7 @@
                                 <subviews>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="1778">
                                         <rect key="frame" x="18" y="620" width="571" height="17"/>
-                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Choose SSL certificate to embed into settings ..." id="1783">
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Choose TLS/SSL certificate to embed into settings ..." id="1783">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
