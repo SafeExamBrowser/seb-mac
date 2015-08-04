@@ -559,7 +559,7 @@
                     </tabViewItems>
                 </tabView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="pBJ-HX-kB3">
-                    <rect key="frame" x="18" y="404" width="143" height="14"/>
+                    <rect key="frame" x="26" y="404" width="143" height="14"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Settings for SEB Windows" id="ADm-4H-Zh3">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -788,7 +788,7 @@
                 <constraint firstItem="99" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="B67-9c-2t5"/>
                 <constraint firstItem="PH3-Cb-12g" firstAttribute="top" secondItem="76" secondAttribute="bottom" constant="6" symbolic="YES" id="BiT-EG-tlD"/>
                 <constraint firstItem="a9Y-jJ-E1h" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="76" secondAttribute="trailing" constant="20" id="G2m-Uu-New"/>
-                <constraint firstItem="SZK-Aw-k1e" firstAttribute="leading" secondItem="pBJ-HX-kB3" secondAttribute="leading" id="N3J-Hn-YtI"/>
+                <constraint firstItem="SZK-Aw-k1e" firstAttribute="leading" secondItem="pBJ-HX-kB3" secondAttribute="leading" constant="-8" id="N3J-Hn-YtI"/>
                 <constraint firstItem="76" firstAttribute="top" secondItem="93" secondAttribute="bottom" constant="15" id="Pfg-x9-9mr"/>
                 <constraint firstItem="pBJ-HX-kB3" firstAttribute="top" secondItem="M5z-0E-3yB" secondAttribute="bottom" constant="15" id="PwU-Tn-2TO"/>
                 <constraint firstAttribute="trailing" secondItem="292" secondAttribute="trailing" constant="20" id="SNH-IN-m2g"/>
