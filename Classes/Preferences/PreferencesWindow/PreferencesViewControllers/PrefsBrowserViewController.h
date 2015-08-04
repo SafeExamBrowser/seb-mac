@@ -44,6 +44,9 @@
     IBOutlet NSButton *newBrowserWindowByLinkBlockForeignButton;
     IBOutlet NSButton *newBrowserWindowByScriptBlockForeignButton;
     __weak IBOutlet NSTextField *defaultUserAgentMac;
+    __weak IBOutlet NSTextField *userAgentWinDesktopDefault;
+    __weak IBOutlet NSTextField *userAgentWinTouchDefault;
+    __weak IBOutlet NSTextField *userAgentWinTouchiPad;
 
 }
 

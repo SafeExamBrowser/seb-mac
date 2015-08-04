@@ -48,6 +48,9 @@
         defaultUserAgent = @"";
     }
     [defaultUserAgentMac setStringValue:defaultUserAgent];
+    [userAgentWinDesktopDefault setStringValue:SEBWinUserAgentDesktopDefault];
+    [userAgentWinTouchDefault setStringValue:SEBWinUserAgentTouchDefault];
+    [userAgentWinTouchiPad setStringValue:SEBWinUserAgentTouchiPad];
 }
 
 

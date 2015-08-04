@@ -11,6 +11,9 @@
                 <outlet property="defaultUserAgentMac" destination="dP1-5V-zqF" id="d74-lR-5xV"/>
                 <outlet property="enablePlugIns" destination="107" id="195"/>
                 <outlet property="newBrowserWindowByLinkBlockForeignButton" destination="101" id="56g-jL-5S0"/>
+                <outlet property="userAgentWinDesktopDefault" destination="Z3B-Za-z4X" id="h12-gB-ot4"/>
+                <outlet property="userAgentWinTouchDefault" destination="XSw-aj-V6a" id="zQ6-EM-JTv"/>
+                <outlet property="userAgentWinTouchiPad" destination="twb-Ov-Zlx" id="ubR-Ge-bjX"/>
                 <outlet property="view" destination="1" id="111"/>
             </connections>
         </customObject>
@@ -515,7 +518,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" priority="750" constant="456" id="nwA-PJ-FOI"/>
                                                     </constraints>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="Desktop mode default user agent" id="0dZ-Z1-Pzs">
+                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="Desktop mode default user agent" id="0dZ-Z1-Pzs">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -551,7 +554,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="588" height="112"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <matrix verticalHuggingPriority="750" misplaced="YES" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i2L-Fg-eTj">
+                                                <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i2L-Fg-eTj">
                                                     <rect key="frame" x="0.0" y="51" width="109" height="61"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="61" id="ftz-gm-N7b"/>
@@ -583,7 +586,7 @@
                                                         <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserUserAgentWinTouchMode" id="YNV-gT-xXs"/>
                                                     </connections>
                                                 </matrix>
-                                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="34u-Jt-GbJ">
+                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="34u-Jt-GbJ">
                                                     <rect key="frame" x="0.0" y="25" width="588" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="rYC-K7-FYo"/>
@@ -603,31 +606,31 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XSw-aj-V6a">
+                                                <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="XSw-aj-V6a">
                                                     <rect key="frame" x="117" y="93" width="471" height="19"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="471" id="SNq-un-FaU"/>
                                                     </constraints>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="Default touch mode user agent" id="dqB-SD-Yjy">
+                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="Default touch mode user agent" id="dqB-SD-Yjy">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="twb-Ov-Zlx">
+                                                <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="twb-Ov-Zlx">
                                                     <rect key="frame" x="117" y="72" width="471" height="19"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="471" id="taW-kG-eHg"/>
                                                     </constraints>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="iPad user agent" id="XDW-SF-gll">
+                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="iPad user agent" id="XDW-SF-gll">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7tl-BN-q8i">
-                                                    <rect key="frame" x="-2" y="4" width="542" height="17"/>
-                                                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Default string depends on installed SEB for Windows version and therefore can differ on exam clients." id="9wd-E4-JwC">
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7tl-BN-q8i">
+                                                    <rect key="frame" x="-2" y="7" width="542" height="14"/>
+                                                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Default strings depend on installed SEB for Windows version and therefore can differ on exam clients." id="9wd-E4-JwC">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -635,7 +638,7 @@
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="7tl-BN-q8i" secondAttribute="bottom" constant="4" id="0Ry-Qh-cMr"/>
+                                                <constraint firstAttribute="bottom" secondItem="7tl-BN-q8i" secondAttribute="bottom" constant="7" id="0Ry-Qh-cMr"/>
                                                 <constraint firstAttribute="trailing" secondItem="XSw-aj-V6a" secondAttribute="trailing" id="804-qK-l0D"/>
                                                 <constraint firstItem="7tl-BN-q8i" firstAttribute="top" secondItem="34u-Jt-GbJ" secondAttribute="bottom" constant="4" id="DB1-NT-SxN"/>
                                                 <constraint firstItem="7tl-BN-q8i" firstAttribute="leading" secondItem="YKQ-wn-UQR" secondAttribute="leading" id="Fcz-A1-i10"/>
