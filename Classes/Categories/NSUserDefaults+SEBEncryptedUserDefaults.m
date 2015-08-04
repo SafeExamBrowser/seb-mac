@@ -345,15 +345,17 @@ static NSNumber *_logLevel;
                                        @"allowUserToChooseApp" : @NO,
                                        @"allowedExecutables" : @"",
                                        @"arguments" : @[],
-                                       @"autohide" : @NO,
                                        @"autostart" : @YES,
                                        @"description" : @"",
                                        @"executable" : @"xulrunner.exe",
+                                       @"iconInTaskbar" : @YES,
                                        @"identifier" : @"XULRunner",
                                        @"os" : @1,
                                        @"path" : @"../xulrunner/",
+                                       @"runInBackground" : @NO,
                                        @"strongKill" : @YES,
                                        @"title" : @"SEB",
+                                       @"windowHandlingProcess" : @""
                                        }
                                    ],
                                  @"org_safeexambrowser_SEB_permittedProcesses",
