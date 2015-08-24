@@ -139,6 +139,13 @@ static MBPreferencesController *sharedPreferencesController = nil;
     // Set preferences title as module title – settings title
     [self setPreferencesWindowTitle];
 
+    // Send the current module the willBeDisplayed message
+    id<MBPreferencesModule> defaultModule = [self _getSelectedModule];
+
+    if ([(NSObject *)defaultModule respondsToSelector:@selector(willBeDisplayed)]) {
+        [defaultModule willBeDisplayed];
+    }
+
 	[self.window center];
     
     NSPoint topLeftPoint;
@@ -242,21 +249,27 @@ static MBPreferencesController *sharedPreferencesController = nil;
 		
 		// Change to the correct module
 		if ([self.modules count]) {
-			id<MBPreferencesModule> defaultModule = nil;
-			
-			// Check the autosave info
-			NSString *savedIdentifier = [[NSUserDefaults standardUserDefaults] stringForKey:MBPreferencesSelectionAutosaveKey];
-			defaultModule = [self moduleForIdentifier:savedIdentifier];
-			
-			if (!defaultModule) {
-				defaultModule = [self.modules objectAtIndex:0];
-			}
-			
+            id<MBPreferencesModule> defaultModule = [self _getSelectedModule];
 			[self _changeToModule:defaultModule];
 		}
-		
 	}
 }
+
+
+// Get the last selected module from the preferences autosave info
+- (id<MBPreferencesModule>)_getSelectedModule {
+    id<MBPreferencesModule> defaultModule = nil;
+    // Check the autosave info
+    NSString *savedIdentifier = [[NSUserDefaults standardUserDefaults] stringForKey:MBPreferencesSelectionAutosaveKey];
+    defaultModule = [self moduleForIdentifier:savedIdentifier];
+    
+    if (!defaultModule) {
+        defaultModule = [self.modules objectAtIndex:0];
+    }
+    
+    return defaultModule;
+}
+
 
 - (void)_selectModule:(NSToolbarItem *)sender
 {
