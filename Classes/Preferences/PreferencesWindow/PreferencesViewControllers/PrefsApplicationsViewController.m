@@ -56,13 +56,6 @@
 }
 
 
-// Before displaying pane set the download directory
-- (void)willBeDisplayed
-{
-    
-}
-
-
 // Action to set the enabled property of dependent buttons
 // This is necessary because bindings don't work with private user defaults
 - (IBAction) allowSwitchToApplicationsButton:(NSButton *)sender {

@@ -57,6 +57,7 @@
 @property(readwrite) BOOL shouldGoFullScreen;
 @property(readwrite) NSUInteger logLevel;
 @property(copy, readwrite) NSString *defaultUserAgent;
+@property(copy, readwrite) NSString *currentUserAgent;
 
 
 - (id)infoValueForKey:(NSString*)key;

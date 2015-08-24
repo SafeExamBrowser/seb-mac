@@ -745,7 +745,7 @@
             return nil; // cancel opening link
         }
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
-            SEBWebView *newWindowWebView = [self.browserController openWebView];
+            SEBWebView *newWindowWebView = [self.browserController openAndShowWebView];
             newWindowWebView.creatingWebView = self.webView;
             DDLogDebug(@"Now opening new document browser window. %@", newWindowWebView);
             DDLogDebug(@"Reqested from %@",sender);
@@ -1248,8 +1248,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
                             [[self.webView preferences] setPlugInsEnabled:NO];
                             DDLogDebug(@"Now closing new document browser window for: %@", self.webView);
                             [self.browserController closeWebView:self.webView];
-                        }
-                        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
+                        } else if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
                             if (self.webView) {
                                 [sender close]; //close the temporary webview
                             }
@@ -1304,6 +1303,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
 //    }
     // Check if the new page is supposed to be opened in the same browser window
     if (currentMainHost && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
+        // Check if the request's sender is different than the current webview (means the sender is the temporary webview)
         if (self.webView && ![sender isEqual:self.webView]) {
             // If the request's sender is the temporary webview, then we have to load the request now in the current webview
             [listener ignore]; // ignore listener

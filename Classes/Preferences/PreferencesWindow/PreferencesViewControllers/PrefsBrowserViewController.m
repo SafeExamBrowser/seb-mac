@@ -43,11 +43,6 @@
 #ifdef __i386__        // Plugins can't be switched on in the 32-bit Intel build
     [enablePlugIns setEnabled:NO]; // disable the checkbox for plug-ins
 #endif
-    NSString *defaultUserAgent = [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"];
-    if (defaultUserAgent.length == 0) {
-        defaultUserAgent = @"";
-    }
-    [defaultUserAgentMac setStringValue:defaultUserAgent];
     [userAgentWinDesktopDefault setStringValue:SEBWinUserAgentDesktopDefault];
     [userAgentWinTouchDefault setStringValue:SEBWinUserAgentTouchDefault];
     [userAgentWinTouchiPad setStringValue:SEBWinUserAgentTouchiPad];
@@ -69,6 +64,16 @@
     //NSImage *browserIcon = [[NSImage alloc] initWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/BrowserIcon.png"]];
     //if (browserIcon) return browserIcon; else return [NSImage imageNamed:@"NSAdvanced"];
     return [NSImage imageNamed:@"BrowserIcon"];
+}
+
+
+- (void)willBeDisplayed
+{
+    NSString *defaultUserAgent = [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"];
+    if (defaultUserAgent.length == 0) {
+        defaultUserAgent = @"";
+    }
+    [defaultUserAgentMac setStringValue:defaultUserAgent];
 }
 
 

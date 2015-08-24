@@ -65,6 +65,20 @@
 // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
 - (void) setCustomWebPreferencesForWebView:(SEBWebView *)webView
 {
+    // Set browser user agent according to settings
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
+    NSString *overrideUserAgent;
+    
+    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserUserAgentMac"] == browserUserAgentModeMacDefault) {
+        overrideUserAgent = [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"];
+    } else {
+        overrideUserAgent = [preferences secureStringForKey:@"org_safeexambrowser_SEB_browserUserAgentMacCustom"];
+    }
+    // Add "SEB <version number>" to the browser's user agent, so the LMS SEB plugins recognize us
+    overrideUserAgent = [overrideUserAgent stringByAppendingString:[NSString stringWithFormat:@" SEB %@", versionString]];
+    [webView setCustomUserAgent:overrideUserAgent];
+    
     DDLogDebug(@"Testing if WebStorageManager respondsToSelector:@selector(_storageDirectoryPath)");
     if ([WebStorageManager respondsToSelector: @selector(_storageDirectoryPath)]) {
         NSString* dbPath = [WebStorageManager _storageDirectoryPath];
@@ -77,7 +91,6 @@
         [prefs setAutosaves:YES];  //SET PREFS AUTOSAVE FIRST otherwise settings aren't saved.
         [prefs setWebGLEnabled:YES];
         
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_removeLocalStorage"]) {
             [prefs setLocalStorageEnabled:NO];
             
@@ -130,28 +143,6 @@
 }
 
 
-// Open a new WebView
-- (SEBWebView *) openWebView
-{
-    SEBBrowserWindowDocument *browserWindowDocument = [self openBrowserWindowDocument];
-
-    SEBBrowserWindow *newWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
-    SEBWebView *newWindowWebView = browserWindowDocument.mainWindowController.webView;
-    newWindowWebView.creatingWebView = nil;
-
-    // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
-    [self setCustomWebPreferencesForWebView:newWindowWebView];
-    
-    // Add the title to the SEB dock item menu with open webpages
-    [self addBrowserWindow:(SEBBrowserWindow *)browserWindowDocument.mainWindowController.window
-               withWebView:newWindowWebView
-                 withTitle:NSLocalizedString(@"Untitled", @"Title of a new opened browser window; Untitled")];
-    
-    [newWindow makeKeyAndOrderFront:self];
-    
-    return newWindowWebView;
-}
-
 // Open a new WebView and show its window
 - (SEBWebView *) openAndShowWebView
 {
@@ -165,7 +156,7 @@
     [self setCustomWebPreferencesForWebView:newWindowWebView];
 
     [self addBrowserWindow:(SEBBrowserWindow *)browserWindowDocument.mainWindowController.window
-               withWebView:browserWindowDocument.mainWindowController.webView
+               withWebView:newWindowWebView
                  withTitle:NSLocalizedString(@"Untitled", @"Title of a new opened browser window; Untitled")];
     
     [browserWindowDocument.mainWindowController.window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
@@ -199,9 +190,9 @@
 - (void) webViewShow:(SEBWebView *)sender
 {
     SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] documentForWindow:[sender window]];
-    [[sender window] setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-    BOOL elevateWindowLevels = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
-    [self setLevelForBrowserWindow:[sender window] elevateLevels:elevateWindowLevels];
+//    [[sender window] setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+//    BOOL elevateWindowLevels = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
+//    [self setLevelForBrowserWindow:[sender window] elevateLevels:elevateWindowLevels];
 
     [browserWindowDocument showWindows];
     DDLogInfo(@"Now showing new document browser window for: %@",sender);
@@ -286,12 +277,14 @@
 - (void) openURLString:(NSString *)urlText withSEBUserAgentInWebView:(SEBWebView *)webView
 {
     // Add "SEB <version number>" to the browser's user agent, so the LMS SEB plugins recognize us
-    NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
+//    NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
     NSString *customUserAgent = [webView userAgentForURL:[NSURL URLWithString:urlText]];
-    customUserAgent = [customUserAgent stringByAppendingString:[NSString stringWithFormat:@" Safari/533.16 SEB %@", versionString]];
+    customUserAgent = [customUserAgent stringByAppendingString:SEBUserAgentDefaultSuffix];
     [[MyGlobals sharedMyGlobals] setValue:customUserAgent forKey:@"defaultUserAgent"];
 
-    [webView setCustomUserAgent:customUserAgent];
+//    customUserAgent = [customUserAgent stringByAppendingString:[NSString stringWithFormat:@" SEB %@", versionString]];
+//
+//    [webView setCustomUserAgent:customUserAgent];
     
     // Load start URL into browser window
     [[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];
