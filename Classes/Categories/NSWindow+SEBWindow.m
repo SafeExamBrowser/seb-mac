@@ -43,11 +43,11 @@
 {
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
         if (windowLevel == NSNormalWindowLevel) {
-            windowLevel = NSMainMenuWindowLevel+4;
+            windowLevel = NSMainMenuWindowLevel+5;
             DDLogDebug(@"Window %@ level NSNormalWindowLevel changed to NSMainMenuWindowLevel+3", self);
         }
         if (windowLevel == NSModalPanelWindowLevel) {
-            windowLevel = NSMainMenuWindowLevel+5;
+            windowLevel = NSMainMenuWindowLevel+6;
             DDLogDebug(@"Window %@ level NSModalPanelWindowLevel changed to NSMainMenuWindowLevel+4", self);
         }
     }

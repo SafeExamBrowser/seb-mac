@@ -993,7 +993,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
             NSString *titleString = NSLocalizedString(@"Error Loading Page",nil);
             NSString *messageString = [error localizedDescription];
             NSPanel *alertPanel = NSGetAlertPanel(titleString, messageString, NSLocalizedString(@"Retry", nil), NSLocalizedString(@"Cancel", nil), nil, nil);
-            [alertPanel setLevel:NSMainMenuWindowLevel+3];
+            [alertPanel setLevel:NSMainMenuWindowLevel+5];
             
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
             [self makeKeyAndOrderFront:self];

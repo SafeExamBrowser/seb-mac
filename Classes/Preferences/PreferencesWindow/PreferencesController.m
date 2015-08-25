@@ -500,6 +500,7 @@
     [newAlert addButtonWithTitle:NSLocalizedString(@"Don't Save", nil)];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     [newAlert setAlertStyle:NSWarningAlertStyle];
+    [newAlert.window setLevel:NSMainMenuWindowLevel+5];
     switch([newAlert runModal])
     {
         case NSAlertFirstButtonReturn:
