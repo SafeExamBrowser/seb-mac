@@ -388,7 +388,7 @@
                                                         <constraint firstAttribute="height" constant="40" id="i0t-CT-Vxp"/>
                                                     </constraints>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="cellSize" width="71" height="19"/>
+                                                    <size key="cellSize" width="71" height="18"/>
                                                     <size key="intercellSpacing" width="4" height="2"/>
                                                     <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="aZZ-Qg-4Cz">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>

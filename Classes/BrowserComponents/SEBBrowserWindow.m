@@ -874,7 +874,7 @@ initiatedByFrame:(WebFrame *)frame {
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [self makeKeyAndOrderFront:self];
     
-    NSAlert *newAlert = [[NSAlert alloc] init];
+    SEBAlert *newAlert = [[SEBAlert alloc] init];
     [newAlert setMessageText:pageTitle];
     [newAlert setInformativeText:message];
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
@@ -890,7 +890,7 @@ initiatedByFrame:(WebFrame *)frame {
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [self makeKeyAndOrderFront:self];
 
-    NSAlert *newAlert = [[NSAlert alloc] init];
+    SEBAlert *newAlert = [[SEBAlert alloc] init];
     [newAlert setMessageText:pageTitle];
     [newAlert setInformativeText:message];
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
@@ -1146,7 +1146,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
      dataSource:(WebDataSource *)dataSource
 {
     DDLogError(@"webView: %@ plugInFailedWithError: %@ dataSource: %@", sender, error.description, dataSource);
-    NSAlert *newAlert = [[NSAlert alloc] init];
+    SEBAlert *newAlert = [[SEBAlert alloc] init];
     [newAlert setMessageText:error.localizedDescription];
     [newAlert setInformativeText:error.localizedFailureReason];
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
@@ -1510,7 +1510,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     [[NSWorkspace sharedWorkspace] openFile:downloadPath];
     } else {
         // Inform user that download succeeded
-        NSAlert *newAlert = [[NSAlert alloc] init];
+        SEBAlert *newAlert = [[SEBAlert alloc] init];
         [newAlert setMessageText:NSLocalizedString(@"Download Finished", nil)];
         [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ was downloaded.", nil), downloadPath]];
         [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];

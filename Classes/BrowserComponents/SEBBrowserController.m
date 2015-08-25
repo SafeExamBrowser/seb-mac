@@ -532,7 +532,7 @@
 
 - (void) reloadDockButtonPressed
 {
-    [self.activeBrowserWindow.webView reload:self];
+    [self.activeBrowserWindow.webView reload:self.activeBrowserWindow];
 }
 
 

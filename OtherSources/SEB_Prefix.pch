@@ -38,5 +38,7 @@
     #import "Constants.h"
     #import "MyGlobals.h"
     #import "CocoaLumberjack.h"
+    #import "SEBAlert.h"
+
 #endif
 
