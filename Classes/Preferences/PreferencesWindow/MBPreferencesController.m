@@ -63,7 +63,7 @@ NSString *MBPreferencesSelectionAutosaveKey = @"MBPreferencesSelection";
         //[prefsWindow setLevel:NSModalPanelWindowLevel];
         //[prefsWindow setLevel:NSNormalWindowLevel];
         self.window = prefsWindow;
-        [self.window newSetLevel:NSMainMenuWindowLevel+4];
+        [self.window setLevel:NSModalPanelWindowLevel];
         
         [self _setupToolbar];
     }
