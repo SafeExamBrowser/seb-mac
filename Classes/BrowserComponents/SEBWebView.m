@@ -33,7 +33,6 @@
 //
 
 #import "SEBWebView.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 @implementation SEBWebView
 
@@ -48,7 +47,7 @@
 {
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_showReloadWarning"]) {
         
-        SEBAlert *newAlert = [[SEBAlert alloc] init];
+        NSAlert *newAlert = [[NSAlert alloc] init];
         [newAlert setMessageText:NSLocalizedString(@"Reload Current Page", nil)];
         [newAlert setInformativeText:NSLocalizedString(@"Do you really want to reload the current web page?", nil)];
         [newAlert addButtonWithTitle:NSLocalizedString(@"Reload", nil)];
@@ -75,7 +74,7 @@
         };
         
         if (self.window.styleMask == NSBorderlessWindowMask) {
-            NSModalResponse answer = NSRunAlertPanel(NSLocalizedString(@"Reload Current Page", nil), NSLocalizedString(@"Do you really want to reload the current web page?", nil), NSLocalizedString(@"Reload", nil), NSLocalizedString(@"Cancel", nil), nil, nil);
+            NSModalResponse answer = [newAlert runModal];
             conditionalReload(answer);
         } else {
             [newAlert beginSheetModalForWindow:self.window completionHandler:(void (^)(NSModalResponse answer))conditionalReload];
