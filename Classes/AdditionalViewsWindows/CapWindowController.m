@@ -35,7 +35,6 @@
 
 #import "CapWindowController.h"
 #import "CapWindow.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "MyGlobals.h"
 
 

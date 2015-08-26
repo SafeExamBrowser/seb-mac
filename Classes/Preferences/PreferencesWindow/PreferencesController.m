@@ -36,7 +36,6 @@
 
 #import "PreferencesController.h"
 #import "MBPreferencesController.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "SEBCryptor.h"
 
 
@@ -392,7 +391,7 @@
         if (sebData.length == 0) {
             DDLogError(@"%s: Loaded settings file with path %@ was empty!", __FUNCTION__, sebFileURL.absoluteString);
 
-            SEBAlert *newAlert = [[SEBAlert alloc] init];
+            NSAlert *newAlert = [[NSAlert alloc] init];
             [newAlert setMessageText:NSLocalizedString(@"Opening Settings Failed", nil)];
             [newAlert setInformativeText:NSLocalizedString(@"Loaded settings are empty and cannot be used.", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
@@ -466,7 +465,7 @@
     ? NSLocalizedString(@"Override", nil)
     : NSLocalizedString(@"Reset", nil);
     
-    SEBAlert *newAlert = [[SEBAlert alloc] init];
+    NSAlert *newAlert = [[NSAlert alloc] init];
     [newAlert setMessageText:NSLocalizedString(@"Opening Preferences Disabled", nil)];
     [newAlert setInformativeText:informativeText];
     [newAlert addButtonWithTitle:defaultButtonText];
@@ -493,7 +492,7 @@
 
 - (SEBUnsavedSettingsAnswer) unsavedSettingsAlertWithText:(NSString *)informativeText
 {
-    SEBAlert *newAlert = [[SEBAlert alloc] init];
+    NSAlert *newAlert = [[NSAlert alloc] init];
     [newAlert setMessageText:NSLocalizedString(@"Unsaved Changes", nil)];
     [newAlert setInformativeText:informativeText];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Save Changes", nil)];
@@ -515,7 +514,7 @@
 // Ask if edited settings should be applied or previously active settings restored
 - (SEBApplySettingsAnswers) askToApplySettingsAlert
 {
-    SEBAlert *newAlert = [[SEBAlert alloc] init];
+    NSAlert *newAlert = [[NSAlert alloc] init];
     [newAlert setMessageText:NSLocalizedString(@"Apply Edited Settings?", nil)];
     if (NSUserDefaults.userDefaultsPrivate) {
         [newAlert setInformativeText:NSLocalizedString(@"You edited settings. Do you want to apply them or continue using previous settings?", nil)];
@@ -918,7 +917,7 @@
 
         // When Save As with local user defaults we ask if the saved file should be edited further
         if (saveAs && !NSUserDefaults.userDefaultsPrivate) {
-            SEBAlert *newAlert = [[SEBAlert alloc] init];
+            NSAlert *newAlert = [[NSAlert alloc] init];
             [newAlert setMessageText:NSLocalizedString(@"Edit Saved Settings?", nil)];
             [newAlert setInformativeText:NSLocalizedString(@"Do you want to continue editing the saved settings file?", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Edit File", nil)];

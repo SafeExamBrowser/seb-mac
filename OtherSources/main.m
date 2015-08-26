@@ -35,7 +35,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import "NSWindow+SEBWindow.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 int main(int argc, char *argv[])
 {

@@ -36,7 +36,6 @@
 #import "SEBSystemManager.h"
 #import "SEBCryptor.h"
 #import "RNCryptor.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #include <SystemConfiguration/SystemConfiguration.h>
 
 Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);

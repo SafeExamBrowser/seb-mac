@@ -33,7 +33,6 @@
 //
 
 #import "SynthesizeSingleton.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 static int ddLogLevel = LOG_LEVEL_VERBOSE;
 

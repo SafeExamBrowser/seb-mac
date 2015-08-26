@@ -36,7 +36,6 @@
 // Settings use of third party applications together with SEB
 
 #import "PrefsAppearanceViewController.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 @implementation PrefsAppearanceViewController
 
@@ -88,7 +87,7 @@
     [preferences setSecureBool:browserViewModeTouchSelected forKey:@"org_safeexambrowser_SEB_browserScreenKeyboard"];
     
     if (browserViewModeTouchSelected && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_createNewDesktop"]) {
-        SEBAlert *newAlert = [[SEBAlert alloc] init];
+        NSAlert *newAlert = [[NSAlert alloc] init];
         [newAlert setMessageText:NSLocalizedString(@"Touch Optimized Mode Warning", nil)];
         [newAlert setInformativeText:NSLocalizedString(@"Touch optimization will not work when kiosk mode is set to 'Create new desktop', please change kiosk mode to 'Disable Explorer Shell' in the Security pane.", nil)];
         [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];

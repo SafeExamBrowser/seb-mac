@@ -34,7 +34,6 @@
 
 #import "NSWindow+SEBWindow.h"
 #import "MethodSwizzling.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 @implementation NSWindow (SEBWindow)
 

@@ -35,7 +35,6 @@
 // Preferences Security Pane
 
 #import "PrefsSecurityViewController.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 @implementation PrefsSecurityViewController
 

@@ -33,7 +33,6 @@
 //
 
 #import "SEBEncryptedUserDefaultsController.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "NSUserDefaultsController+SEBEncryptedUserDefaultsController.h"
 
 

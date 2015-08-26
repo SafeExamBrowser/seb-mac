@@ -58,7 +58,6 @@
 #import "SEBKeychainManager.h"
 #import "SEBCryptor.h"
 #import "NSWindow+SEBWindow.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "SEBConfigFileManager.h"
 
 #import "SEBDockItemMenu.h"
@@ -640,7 +639,7 @@ bool insideMatrix();
     SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
     if (![configFileManager reconfigureClientWithSebClientSettings] && [MyGlobals sharedMyGlobals].reconfiguredWhileStarting) {
         // Show alert that SEB was reconfigured
-        SEBAlert *newAlert = [[SEBAlert alloc] init];
+        NSAlert *newAlert = [[NSAlert alloc] init];
         [newAlert setMessageText:NSLocalizedString(@"SEB Re-Configured", nil)];
         [newAlert setInformativeText:NSLocalizedString(@"Local settings of this SEB client have been reconfigured. Do you want to start working with SEB now or quit?", nil)];
         [newAlert addButtonWithTitle:NSLocalizedString(@"Start", nil)];
@@ -670,7 +669,7 @@ bool insideMatrix();
 - (void)presentPreferencesCorruptedError
 {
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-    SEBAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Local SEB Settings Have Been Reset", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:NSLocalizedString(@"Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.", nil)];
+    NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Local SEB Settings Have Been Reset", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:NSLocalizedString(@"Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.", nil)];
     [newAlert setAlertStyle:NSCriticalAlertStyle];
     [newAlert runModal];
     newAlert = nil;
@@ -1318,7 +1317,7 @@ bool insideMatrix(){
                 [NSApp terminate: nil]; //quit SEB
             } else {
                 // Wrong quit password was entered
-                SEBAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Wrong Quit Password", nil)
+                NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Wrong Quit Password", nil)
                                                     defaultButton:NSLocalizedString(@"OK", nil)
                                                   alternateButton:nil
                                                       otherButton:nil
@@ -1364,7 +1363,7 @@ bool insideMatrix(){
                 if ([hashedAdminPW caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] != NSOrderedSame) {
                     //if hash of entered password is not equal to the one in preferences
                     // Wrong admin password was entered
-                    SEBAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Wrong Admin Password", nil)
+                    NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Wrong Admin Password", nil)
                                                         defaultButton:NSLocalizedString(@"OK", nil)
                                                       alternateButton:nil                                                      otherButton:nil
                                             informativeTextWithFormat:NSLocalizedString(@"If you don't enter the correct SEB administrator password, then you cannot open preferences.", nil)];
@@ -1522,7 +1521,7 @@ bool insideMatrix(){
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAppSwitcherCheck"]) {
             // Show alert that keys were hold while starting SEB
             DDLogWarn(@"Command key is pressed while restarting SEB, show dialog asking to release it.");
-            SEBAlert *newAlert = [[SEBAlert alloc] init];
+            NSAlert *newAlert = [[NSAlert alloc] init];
             [newAlert setMessageText:NSLocalizedString(@"Holding Command Key Not Allowed!", nil)];
             [newAlert setInformativeText:NSLocalizedString(@"Holding the Command key down while restarting SEB is not allowed.", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
@@ -1697,7 +1696,7 @@ bool insideMatrix(){
                 localizedApplicationDirectoryName = applicationsDirectoryName;
             }
         }
-        SEBAlert *newAlert = [[SEBAlert alloc] init];
+        NSAlert *newAlert = [[NSAlert alloc] init];
         [newAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"SEB Not in %@ Folder!", nil), localizedApplicationDirectoryName]];
         [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"SEB has to be placed in the %@ folder in order for all features to work correctly. Move the 'Safe Exam Browser' app to your %@ folder and make sure that you don't have any other versions of SEB installed on your system. SEB will quit now.", nil), localizedApplicationDirectoryName, localizedAndInternalApplicationDirectoryName]];
         [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
@@ -1705,7 +1704,7 @@ bool insideMatrix(){
         [newAlert runModal];
     } else if (_cmdKeyDown) {
         // Show alert that keys were hold while starting SEB
-        SEBAlert *newAlert = [[SEBAlert alloc] init];
+        NSAlert *newAlert = [[NSAlert alloc] init];
         [newAlert setMessageText:NSLocalizedString(@"Holding Command Key Not Allowed!", nil)];
         [newAlert setInformativeText:NSLocalizedString(@"Holding the Command key down while starting SEB is not allowed. Restart SEB without holding any keys.", nil)];
         [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];

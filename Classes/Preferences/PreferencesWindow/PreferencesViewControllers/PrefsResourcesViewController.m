@@ -36,7 +36,6 @@
 // Settings for resources which should be used together with SEB
 
 #import "PrefsResourcesViewController.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 @implementation PrefsResourcesViewController
 

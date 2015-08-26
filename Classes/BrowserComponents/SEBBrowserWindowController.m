@@ -36,7 +36,6 @@
 #import "MyGlobals.h"
 #import <WebKit/WebKit.h>
 #import "SEBBrowserWindow.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 
 @implementation SEBBrowserWindowController

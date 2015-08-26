@@ -34,7 +34,6 @@
 
 
 #import "SEBConfigFileManager.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "RNDecryptor.h"
 #import "RNEncryptor.h"
 #import "SEBKeychainManager.h"
@@ -202,7 +201,7 @@
 
         if (!forceConfiguringClient) {
             if ([[MyGlobals sharedMyGlobals] finishedInitializing]) {
-                SEBAlert *newAlert = [[SEBAlert alloc] init];
+                NSAlert *newAlert = [[NSAlert alloc] init];
                 [newAlert setMessageText:NSLocalizedString(@"SEB Re-Configured", nil)];
                 [newAlert setInformativeText:NSLocalizedString(@"Local settings of this SEB client have been reconfigured. Do you want to continue working with SEB now or quit?", nil)];
                 [newAlert addButtonWithTitle:NSLocalizedString(@"Continue", nil)];
@@ -754,7 +753,7 @@
     if (!informativeText) {
         informativeText = NSLocalizedString(@"These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted.", nil);
     }
-    SEBAlert *newAlert = [[SEBAlert alloc] init];
+    NSAlert *newAlert = [[NSAlert alloc] init];
     [newAlert setMessageText:title];
     [newAlert setInformativeText:informativeText];
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
