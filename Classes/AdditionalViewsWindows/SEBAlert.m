@@ -10,13 +10,6 @@
 
 @implementation SEBAlert
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        [self.window setLevel:NSMainMenuWindowLevel+5];
-    }
-    return self;
-}
+
 
 @end

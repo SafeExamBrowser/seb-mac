@@ -164,6 +164,7 @@
     BOOL elevateWindowLevels = [preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
     // Order new browser window to the front of our level
     [self setLevelForBrowserWindow:browserWindowDocument.mainWindowController.window elevateLevels:elevateWindowLevels];
+    self.activeBrowserWindow = newWindow;
     [browserWindowDocument.mainWindowController showWindow:self];
     [newWindow makeKeyAndOrderFront:self];
     
@@ -263,6 +264,7 @@
     [self addBrowserWindow:self.mainBrowserWindow withWebView:self.webView withTitle:NSLocalizedString(@"Main Browser Window", nil)];
     
     //[self.browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
+    [self.mainBrowserWindow makeMainWindow];
     [self.mainBrowserWindow makeKeyAndOrderFront:self];
     
     // Load start URL from the system's user defaults
