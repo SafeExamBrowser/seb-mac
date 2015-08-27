@@ -839,7 +839,7 @@ bool insideMatrix(){
     }
     NSScreen *iterScreen;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
+    BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
     for (iterScreen in screens)
     {
         //NSRect frame = size of the current screen;
@@ -847,21 +847,24 @@ bool insideMatrix(){
         NSUInteger styleMask = NSBorderlessWindowMask;
         NSRect rect = [NSWindow contentRectForFrameRect:frame styleMask:styleMask];
         
-        // If switching to third party apps isn't allowed and showing menu bar
-        if (!allowSwitchToThirdPartyApps && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"]) {
-            // Reduce size of covering background windows to not cover the menu bar
-            rect.size.height -= 22;
-            rect.origin.y += 22;
-        }
         //set origin of the window rect to left bottom corner (important for non-main screens, since they have offsets)
         rect.origin.x = 0;
         rect.origin.y = 0;
+
+        // If switching to third party apps isn't allowed and showing menu bar
+        if (!allowSwitchToThirdPartyApps && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"]) {
+            // Reduce size of covering background windows to not cover the menu bar
+            rect.size.height -= 22;
+            //rect.origin.y += 22;
+        }
         CapWindow *window = [[CapWindow alloc] initWithContentRect:rect styleMask:styleMask backing: NSBackingStoreBuffered defer:NO screen:iterScreen];
         [window setReleasedWhenClosed:NO];
         [window setBackgroundColor:[NSColor blackColor]];
         [window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
         if (!allowSwitchToThirdPartyApps) {
-            [window setLevel:NSMainMenuWindowLevel+2];
+            [window newSetLevel:NSMainMenuWindowLevel+2];
+        } else {
+            [window newSetLevel:NSNormalWindowLevel];
         }
         //[window orderBack:self];
         [self.capWindows addObject: window];
