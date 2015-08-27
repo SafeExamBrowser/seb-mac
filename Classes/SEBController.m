@@ -838,13 +838,21 @@ bool insideMatrix(){
         [self.capWindows removeAllObjects];
     }
     NSScreen *iterScreen;
-    BOOL allowSwitchToThirdPartyApps = ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
     for (iterScreen in screens)
     {
         //NSRect frame = size of the current screen;
         NSRect frame = [iterScreen frame];
         NSUInteger styleMask = NSBorderlessWindowMask;
         NSRect rect = [NSWindow contentRectForFrameRect:frame styleMask:styleMask];
+        
+        // If switching to third party apps isn't allowed and showing menu bar
+        if (!allowSwitchToThirdPartyApps && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"]) {
+            // Reduce size of covering background windows to not cover the menu bar
+            rect.size.height -= 22;
+            rect.origin.y += 22;
+        }
         //set origin of the window rect to left bottom corner (important for non-main screens, since they have offsets)
         rect.origin.x = 0;
         rect.origin.y = 0;

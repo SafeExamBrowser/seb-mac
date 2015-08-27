@@ -153,7 +153,8 @@ static MBPreferencesController *sharedPreferencesController = nil;
     topLeftPoint.y = self.window.screen.frame.size.height - 44;
     
     [self.window setFrameTopLeftPoint:topLeftPoint];
-    
+    [self.window setLevel:NSModalPanelWindowLevel];
+
 	[super showWindow:sender];
 //    [[NSApplication sharedApplication] runModalForWindow:self.window];
 }
