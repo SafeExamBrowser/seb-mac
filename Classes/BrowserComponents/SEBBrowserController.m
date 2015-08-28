@@ -265,6 +265,7 @@
     //[self.browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
     [self.mainBrowserWindow makeMainWindow];
     [self.mainBrowserWindow makeKeyAndOrderFront:self];
+    self.activeBrowserWindow = self.mainBrowserWindow;
     
     // Load start URL from the system's user defaults
     NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
@@ -533,6 +534,7 @@
 
 - (void) reloadDockButtonPressed
 {
+    DDLogInfo(@"Reloading current browser window: %@", self.activeBrowserWindow);
     [self.activeBrowserWindow.webView reload:self.activeBrowserWindow];
 }
 
