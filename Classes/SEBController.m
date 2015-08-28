@@ -1249,7 +1249,51 @@ bool insideMatrix(){
 
 - (void) restartButtonPressed
 {
-    [self.browserController restartDockButtonPressed];
+    // Get custom (if it was set) or standard restart exam text
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *restartExamText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamText"];
+    if (restartExamText.length == 0) {
+        restartExamText = NSLocalizedString(@"Restart Exam",nil);
+    }
+
+    // Check if restarting is protected with the quit/restart password (and one is set)
+    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+    
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamPasswordProtected"] && ![hashedQuitPassword isEqualToString:@""]) {
+        // if quit/restart password is set, then restrict quitting
+        if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit/restart password:",nil) modalForWindow:self.browserController.mainBrowserWindow windowTitle:restartExamText] == SEBEnterPasswordCancel) return;
+        NSString *password = [self.enterPassword stringValue];
+        
+        SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+        if ([hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
+            // if the correct quit/restart password was entered, restart the exam
+            [self.browserController restartDockButtonPressed];
+            return;
+        } else {
+            // Wrong quit password was entered
+            NSAlert *newAlert = [NSAlert alertWithMessageText:restartExamText
+                                                defaultButton:NSLocalizedString(@"OK", nil)
+                                              alternateButton:nil
+                                                  otherButton:nil
+                                    informativeTextWithFormat:NSLocalizedString(@"Wrong quit/restart password.", nil)];
+            [newAlert setAlertStyle:NSCriticalAlertStyle];
+            [newAlert runModal];
+            return;
+        }
+    }
+    
+    // if no quit password is required, then confirm quitting
+    int answer = NSRunAlertPanel(restartExamText, NSLocalizedString(@"Are you sure?",nil),
+                                 NSLocalizedString(@"Cancel",nil), NSLocalizedString(@"OK",nil), nil);
+    switch(answer)
+    {
+        case NSAlertDefaultReturn:
+            return; //Cancel: don't restart exam
+        default:
+        {
+            [self.browserController restartDockButtonPressed];
+        }
+    }
 }
 
 
