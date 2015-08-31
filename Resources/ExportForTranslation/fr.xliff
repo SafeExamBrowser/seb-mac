@@ -2645,8 +2645,8 @@
         <source>Settings Corrupted</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Settings have been saved, use this file to reconfigure local settings of a SEB client.">
-        <source>Settings have been saved, use this file to reconfigure local settings of a SEB client.</source>
+      <trans-unit id="Settings have been saved, use this file to configure local settings of a SEB client.">
+        <source>Settings have been saved, use this file to configure local settings of a SEB client.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Settings have been saved, use this file to start an exam with SEB.">
@@ -2729,8 +2729,8 @@
         <source>Writing Settings Failed</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Writing Settings Succeeded">
-        <source>Writing Settings Succeeded</source>
+      <trans-unit id="Saving Settings Succeeded">
+        <source>Saving Settings Succeeded</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Wrong Admin Password">
