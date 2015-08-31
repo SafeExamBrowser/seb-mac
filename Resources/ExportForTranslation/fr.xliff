@@ -2649,8 +2649,8 @@
         <source>Settings have been saved, use this file to reconfigure local settings of a SEB client.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Settings have been saved, use this file to start the exam with SEB.">
-        <source>Settings have been saved, use this file to start the exam with SEB.</source>
+      <trans-unit id="Settings have been saved, use this file to start an exam with SEB.">
+        <source>Settings have been saved, use this file to start an exam with SEB.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Start">

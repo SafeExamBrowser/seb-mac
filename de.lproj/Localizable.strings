@@ -332,7 +332,7 @@
 "Settings have been saved, use this file to reconfigure local settings of a SEB client." = "Konfiguration wurde gespeichert, benutzen Sie diese Datei um die lokalen Einstellungen eines SEB-Clients umzukonfigurieren.";
 
 /* No comment provided by engineer. */
-"Settings have been saved, use this file to start the exam with SEB." = "Konfiguration wurde gespeichert, benutzen Sie diese Datei um eine Prüfung zu starten.";
+"Settings have been saved, use this file to start an exam with SEB." = "Konfiguration wurde gespeichert, benutzen Sie diese Datei um eine Prüfung zu starten.";
 
 /* No comment provided by engineer. */
 "Start" = "Start";

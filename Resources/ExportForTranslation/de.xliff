@@ -3288,7 +3288,7 @@
                 <target>Konfiguration wurde gespeichert, benutzen Sie diese Datei um die lokalen Einstellungen eines SEB-Clients umzukonfigurieren.</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
-            <trans-unit id="Settings have been saved, use this file to start the exam with SEB.">
+            <trans-unit id="Settings have been saved, use this file to start an exam with SEB.">
                 <source>Settings have been saved, use this file to start the exam with SEB.</source>
                 <target>Konfiguration wurde gespeichert, benutzen Sie diese Datei um eine Prüfung zu starten.</target>
                 <note>No comment provided by engineer.</note>

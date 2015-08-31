@@ -902,7 +902,9 @@
                     }
                     if (NSUserDefaults.userDefaultsPrivate && fileURLUpdate) {
                         [[MBPreferencesController sharedController] setPreferencesWindowTitle];
-                        NSString *settingsSavedMessage = configPurpose ? NSLocalizedString(@"Settings have been saved, use this file to reconfigure local settings of a SEB client.", nil) : NSLocalizedString(@"Settings have been saved, use this file to start the exam with SEB.", nil);
+                    }
+                    if (fileURLUpdate) {
+                        NSString *settingsSavedMessage = configPurpose ? NSLocalizedString(@"Settings have been saved, use this file to reconfigure local settings of a SEB client.", nil) : NSLocalizedString(@"Settings have been saved, use this file to start an exam with SEB.", nil);
                         NSRunAlertPanel(NSLocalizedString(@"Writing Settings Succeeded", nil), @"%@", NSLocalizedString(@"OK", nil), nil, nil,settingsSavedMessage);
                     }
                 }
