@@ -904,8 +904,13 @@
                         [[MBPreferencesController sharedController] setPreferencesWindowTitle];
                     }
                     if (fileURLUpdate) {
+                        NSString *settingsSavedTitle = configPurpose ? NSLocalizedString(@"Settings for Configuring Client", nil) : NSLocalizedString(@"Settings for Starting Exam", nil);
                         NSString *settingsSavedMessage = configPurpose ? NSLocalizedString(@"Settings have been saved, use this file to configure local settings of a SEB client.", nil) : NSLocalizedString(@"Settings have been saved, use this file to start an exam with SEB.", nil);
-                        NSRunAlertPanel(NSLocalizedString(@"Saving Settings Succeeded", nil), @"%@", NSLocalizedString(@"OK", nil), nil, nil,settingsSavedMessage);
+                        NSAlert *settingsSavedAlert = [[NSAlert alloc] init];
+                        [settingsSavedAlert setMessageText:settingsSavedTitle];
+                        [settingsSavedAlert setInformativeText:settingsSavedMessage];
+                        [settingsSavedAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                        [settingsSavedAlert runModal];
                     }
                 }
             } else {

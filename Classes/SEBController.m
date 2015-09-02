@@ -1684,7 +1684,7 @@ bool insideMatrix(){
     [aboutWindow setStyleMask:NSBorderlessWindowMask];
 	[aboutWindow center];
 	//[aboutWindow orderFront:self];
-    //[aboutWindow setLevel:NSScreenSaverWindowLevel];
+    //[aboutWindow setLevel:NSMainMenuWindowLevel];
     [[NSApplication sharedApplication] runModalForWindow:aboutWindow];
 }
 
