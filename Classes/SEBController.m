@@ -376,7 +376,10 @@ bool insideMatrix();
 			forKeyPath:@"currentSystemPresentationOptions"
 			   options:NSKeyValueObservingOptionNew
 			   context:NULL];
-		
+
+    CFArrayRef windowList = CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly, kCGNullWindowID);
+
+    
     // Add a observer for changes of the screen configuration
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(adjustScreenLocking:)
                                                  name:NSApplicationDidChangeScreenParametersNotification
@@ -777,6 +780,7 @@ void MySleepCallBack( void * refCon, io_service_t service, natural_t messageType
 			 */
 			
             // cancel idle sleep
+            DDLogDebug(@"kIOMessageCanSystemSleep: IOCancelPowerChange");
             IOCancelPowerChange( root_port, (long)messageArgument );
             // uncomment to allow idle sleep
             //IOAllowPowerChange( root_port, (long)messageArgument );
