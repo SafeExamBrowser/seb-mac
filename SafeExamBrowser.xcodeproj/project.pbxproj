@@ -72,6 +72,15 @@
 		6940A7611853B2AD00D9D00D /* NSData+NSDataZIPExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 6940A75F1853B2AD00D9D00D /* NSData+NSDataZIPExtension.h */; };
 		6940A7621853B2AD00D9D00D /* NSData+NSDataZIPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940A7601853B2AD00D9D00D /* NSData+NSDataZIPExtension.m */; };
 		6940A7671853B62000D9D00D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6940A7661853B62000D9D00D /* libz.dylib */; };
+		6940B96A1BA0F2FB008C8CFC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940B9691BA0F2FB008C8CFC /* main.m */; };
+		6940B96D1BA0F2FB008C8CFC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940B96C1BA0F2FB008C8CFC /* AppDelegate.m */; };
+		6940B9701BA0F2FB008C8CFC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940B96F1BA0F2FB008C8CFC /* ViewController.m */; };
+		6940B9731BA0F2FB008C8CFC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6940B9711BA0F2FB008C8CFC /* Main.storyboard */; };
+		6940B9761BA0F2FB008C8CFC /* SEB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6940B9741BA0F2FB008C8CFC /* SEB.xcdatamodeld */; };
+		6940B9781BA0F2FB008C8CFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6940B9771BA0F2FB008C8CFC /* Assets.xcassets */; };
+		6940B97B1BA0F2FB008C8CFC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6940B9791BA0F2FB008C8CFC /* LaunchScreen.storyboard */; };
+		6940B9861BA0F2FB008C8CFC /* SEBTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940B9851BA0F2FB008C8CFC /* SEBTests.m */; };
+		6940B9911BA0F2FB008C8CFC /* SEBUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940B9901BA0F2FB008C8CFC /* SEBUITests.m */; };
 		69428CCE172F0C1300C87C58 /* SecurityIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CCC172F0C1300C87C58 /* SecurityIcon.png */; };
 		69428CD0172F0C1300C87C58 /* SecurityIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CCD172F0C1300C87C58 /* SecurityIcon@2x.png */; };
 		69428CE2172F284B00C87C58 /* SEBDocumentIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 69428CE1172F284B00C87C58 /* SEBDocumentIcon.icns */; };
@@ -122,6 +131,7 @@
 		69A444001B14AAAC00577693 /* SEBRestartIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69A443FE1B14AAAC00577693 /* SEBRestartIcon.iconset */; };
 		69B2EB871A435E2000B5AE67 /* AboutSEB.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2EB851A435E2000B5AE67 /* AboutSEB.png */; };
 		69B2EB881A435E2000B5AE67 /* AboutSEB@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2EB861A435E2000B5AE67 /* AboutSEB@2x.png */; };
+		69BB07441BA11CD40065E1F2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69BB07431BA11CD40065E1F2 /* WebKit.framework */; };
 		69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CBEB541834C55C00FB0460 /* SEBSystemManager.h */; };
 		69CBEB571834C55D00FB0460 /* SEBSystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBEB551834C55C00FB0460 /* SEBSystemManager.m */; };
 		69CE1C171741309C0072207D /* SEBFilterTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CE1C151741309C0072207D /* SEBFilterTreeController.h */; };
@@ -193,6 +203,23 @@
 		69FF14AC1A1BB10300912933 /* SEBFilterArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69FF14AA1A1BB10300912933 /* SEBFilterArrayController.h */; };
 		69FF14AD1A1BB10300912933 /* SEBFilterArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF14AB1A1BB10300912933 /* SEBFilterArrayController.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6940B9821BA0F2FB008C8CFC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6940B9651BA0F2FB008C8CFC;
+			remoteInfo = SEB;
+		};
+		6940B98D1BA0F2FB008C8CFC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6940B9651BA0F2FB008C8CFC;
+			remoteInfo = SEB;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		69F7B62114F411FB00FD0761 /* CopyFiles */ = {
@@ -298,6 +325,23 @@
 		6940A7601853B2AD00D9D00D /* NSData+NSDataZIPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+NSDataZIPExtension.m"; sourceTree = "<group>"; };
 		6940A7641853B4BC00D9D00D /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = usr/lib/libssl.dylib; sourceTree = SDKROOT; };
 		6940A7661853B62000D9D00D /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		6940B9661BA0F2FB008C8CFC /* SEB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SEB.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6940B9691BA0F2FB008C8CFC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6940B96B1BA0F2FB008C8CFC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		6940B96C1BA0F2FB008C8CFC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		6940B96E1BA0F2FB008C8CFC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		6940B96F1BA0F2FB008C8CFC /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		6940B9721BA0F2FB008C8CFC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6940B9751BA0F2FB008C8CFC /* SEB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SEB.xcdatamodel; sourceTree = "<group>"; };
+		6940B9771BA0F2FB008C8CFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6940B97A1BA0F2FB008C8CFC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		6940B97C1BA0F2FB008C8CFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6940B9811BA0F2FB008C8CFC /* SEBTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SEBTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6940B9851BA0F2FB008C8CFC /* SEBTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEBTests.m; sourceTree = "<group>"; };
+		6940B9871BA0F2FB008C8CFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6940B98C1BA0F2FB008C8CFC /* SEBUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SEBUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6940B9901BA0F2FB008C8CFC /* SEBUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEBUITests.m; sourceTree = "<group>"; };
+		6940B9921BA0F2FB008C8CFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69428CCC172F0C1300C87C58 /* SecurityIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SecurityIcon.png; path = Resources/Icons/SecurityIcon.png; sourceTree = "<group>"; };
 		69428CCD172F0C1300C87C58 /* SecurityIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SecurityIcon@2x.png"; path = "Resources/Icons/SecurityIcon@2x.png"; sourceTree = "<group>"; };
 		69428CE1172F284B00C87C58 /* SEBDocumentIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = SEBDocumentIcon.icns; path = Resources/Icons/SEBDocumentIcon.icns; sourceTree = "<group>"; };
@@ -363,6 +407,7 @@
 		69A9A234136AF6E000840AE1 /* PrefsDownUploadsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsDownUploadsViewController.h; sourceTree = "<group>"; };
 		69B2EB851A435E2000B5AE67 /* AboutSEB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AboutSEB.png; path = Resources/Images/AboutSEB.png; sourceTree = "<group>"; };
 		69B2EB861A435E2000B5AE67 /* AboutSEB@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AboutSEB@2x.png"; path = "Resources/Images/AboutSEB@2x.png"; sourceTree = "<group>"; };
+		69BB07431BA11CD40065E1F2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		69C52802136AFDBD00F9F000 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PreferencesController.m; path = Classes/Preferences/PreferencesWindow/PreferencesController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69C52805136AFE9500F9F000 /* PrefsDownUploadsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsDownUploadsViewController.m; sourceTree = "<group>"; };
 		69CB8AFD136AFC6E00C08450 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesController.h; path = Classes/Preferences/PreferencesWindow/PreferencesController.h; sourceTree = "<group>"; };
@@ -441,6 +486,28 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		6940B9631BA0F2FB008C8CFC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69BB07441BA11CD40065E1F2 /* WebKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6940B97E1BA0F2FB008C8CFC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6940B9891BA0F2FB008C8CFC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69F7B61C14F411FB00FD0761 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -502,6 +569,9 @@
 			isa = PBXGroup;
 			children = (
 				69F7B62514F411FB00FD0761 /* Safe Exam Browser.app */,
+				6940B9661BA0F2FB008C8CFC /* SEB.app */,
+				6940B9811BA0F2FB008C8CFC /* SEBTests.xctest */,
+				6940B98C1BA0F2FB008C8CFC /* SEBUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -510,6 +580,9 @@
 			isa = PBXGroup;
 			children = (
 				080E96DDFE201D6D7F000001 /* Classes */,
+				6940B9671BA0F2FB008C8CFC /* SEB */,
+				6940B9841BA0F2FB008C8CFC /* SEBTests */,
+				6940B98F1BA0F2FB008C8CFC /* SEBUITests */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				6909E31F1A019F7A0086A741 /* CocoaLumberjack */,
@@ -549,6 +622,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				69BB07431BA11CD40065E1F2 /* WebKit.framework */,
 				6905C5AA1961B4E5000008EC /* SystemConfiguration.framework */,
 				6940A7661853B62000D9D00D /* libz.dylib */,
 				6940A7641853B4BC00D9D00D /* libssl.dylib */,
@@ -681,6 +755,65 @@
 				693D16C517160C660040AD7E /* Value Transformers */,
 			);
 			name = "Preferences Window";
+			sourceTree = "<group>";
+		};
+		6940B9671BA0F2FB008C8CFC /* SEB */ = {
+			isa = PBXGroup;
+			children = (
+				6940B99C1BA0FBD6008C8CFC /* Resources */,
+				6940B96B1BA0F2FB008C8CFC /* AppDelegate.h */,
+				6940B96C1BA0F2FB008C8CFC /* AppDelegate.m */,
+				6940B96E1BA0F2FB008C8CFC /* ViewController.h */,
+				6940B96F1BA0F2FB008C8CFC /* ViewController.m */,
+				6940B9711BA0F2FB008C8CFC /* Main.storyboard */,
+				6940B9771BA0F2FB008C8CFC /* Assets.xcassets */,
+				6940B9791BA0F2FB008C8CFC /* LaunchScreen.storyboard */,
+				6940B97C1BA0F2FB008C8CFC /* Info.plist */,
+				6940B9741BA0F2FB008C8CFC /* SEB.xcdatamodeld */,
+				6940B9681BA0F2FB008C8CFC /* Supporting Files */,
+			);
+			path = SEB;
+			sourceTree = "<group>";
+		};
+		6940B9681BA0F2FB008C8CFC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6940B9691BA0F2FB008C8CFC /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6940B9841BA0F2FB008C8CFC /* SEBTests */ = {
+			isa = PBXGroup;
+			children = (
+				6940B9851BA0F2FB008C8CFC /* SEBTests.m */,
+				6940B9871BA0F2FB008C8CFC /* Info.plist */,
+			);
+			path = SEBTests;
+			sourceTree = "<group>";
+		};
+		6940B98F1BA0F2FB008C8CFC /* SEBUITests */ = {
+			isa = PBXGroup;
+			children = (
+				6940B9901BA0F2FB008C8CFC /* SEBUITests.m */,
+				6940B9921BA0F2FB008C8CFC /* Info.plist */,
+			);
+			path = SEBUITests;
+			sourceTree = "<group>";
+		};
+		6940B99C1BA0FBD6008C8CFC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6940B99D1BA0FBDF008C8CFC /* Icons */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		6940B99D1BA0FBDF008C8CFC /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Icons;
 			sourceTree = "<group>";
 		};
 		69428C93172E5E7300C87C58 /* Browser Components */ = {
@@ -992,6 +1125,59 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		6940B9651BA0F2FB008C8CFC /* SEB */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6940B9991BA0F2FB008C8CFC /* Build configuration list for PBXNativeTarget "SEB" */;
+			buildPhases = (
+				6940B9621BA0F2FB008C8CFC /* Sources */,
+				6940B9631BA0F2FB008C8CFC /* Frameworks */,
+				6940B9641BA0F2FB008C8CFC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SEB;
+			productName = SEB;
+			productReference = 6940B9661BA0F2FB008C8CFC /* SEB.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6940B9801BA0F2FB008C8CFC /* SEBTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6940B99A1BA0F2FB008C8CFC /* Build configuration list for PBXNativeTarget "SEBTests" */;
+			buildPhases = (
+				6940B97D1BA0F2FB008C8CFC /* Sources */,
+				6940B97E1BA0F2FB008C8CFC /* Frameworks */,
+				6940B97F1BA0F2FB008C8CFC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6940B9831BA0F2FB008C8CFC /* PBXTargetDependency */,
+			);
+			name = SEBTests;
+			productName = SEBTests;
+			productReference = 6940B9811BA0F2FB008C8CFC /* SEBTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		6940B98B1BA0F2FB008C8CFC /* SEBUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6940B99B1BA0F2FB008C8CFC /* Build configuration list for PBXNativeTarget "SEBUITests" */;
+			buildPhases = (
+				6940B9881BA0F2FB008C8CFC /* Sources */,
+				6940B9891BA0F2FB008C8CFC /* Frameworks */,
+				6940B98A1BA0F2FB008C8CFC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6940B98E1BA0F2FB008C8CFC /* PBXTargetDependency */,
+			);
+			name = SEBUITests;
+			productName = SEBUITests;
+			productReference = 6940B98C1BA0F2FB008C8CFC /* SEBUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		69F7B5FA14F411FB00FD0761 /* Safe Exam Browser */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69F7B62214F411FB00FD0761 /* Build configuration list for PBXNativeTarget "Safe Exam Browser" */;
@@ -1021,6 +1207,18 @@
 			attributes = {
 				LastUpgradeCheck = 0610;
 				TargetAttributes = {
+					6940B9651BA0F2FB008C8CFC = {
+						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = 6F38DNSC7X;
+					};
+					6940B9801BA0F2FB008C8CFC = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = 6940B9651BA0F2FB008C8CFC;
+					};
+					6940B98B1BA0F2FB008C8CFC = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = 6940B9651BA0F2FB008C8CFC;
+					};
 					69F7B5FA14F411FB00FD0761 = {
 						DevelopmentTeam = 6F38DNSC7X;
 					};
@@ -1040,11 +1238,38 @@
 			projectRoot = "";
 			targets = (
 				69F7B5FA14F411FB00FD0761 /* Safe Exam Browser */,
+				6940B9651BA0F2FB008C8CFC /* SEB */,
+				6940B9801BA0F2FB008C8CFC /* SEBTests */,
+				6940B98B1BA0F2FB008C8CFC /* SEBUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		6940B9641BA0F2FB008C8CFC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6940B97B1BA0F2FB008C8CFC /* LaunchScreen.storyboard in Resources */,
+				6940B9781BA0F2FB008C8CFC /* Assets.xcassets in Resources */,
+				6940B9731BA0F2FB008C8CFC /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6940B97F1BA0F2FB008C8CFC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6940B98A1BA0F2FB008C8CFC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69F7B5FB14F411FB00FD0761 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1115,6 +1340,33 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		6940B9621BA0F2FB008C8CFC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6940B9701BA0F2FB008C8CFC /* ViewController.m in Sources */,
+				6940B96D1BA0F2FB008C8CFC /* AppDelegate.m in Sources */,
+				6940B9761BA0F2FB008C8CFC /* SEB.xcdatamodeld in Sources */,
+				6940B96A1BA0F2FB008C8CFC /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6940B97D1BA0F2FB008C8CFC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6940B9861BA0F2FB008C8CFC /* SEBTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6940B9881BA0F2FB008C8CFC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6940B9911BA0F2FB008C8CFC /* SEBUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69F7B60814F411FB00FD0761 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1199,6 +1451,19 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		6940B9831BA0F2FB008C8CFC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6940B9651BA0F2FB008C8CFC /* SEB */;
+			targetProxy = 6940B9821BA0F2FB008C8CFC /* PBXContainerItemProxy */;
+		};
+		6940B98E1BA0F2FB008C8CFC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6940B9651BA0F2FB008C8CFC /* SEB */;
+			targetProxy = 6940B98D1BA0F2FB008C8CFC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		1DDD58140DA1D0A300B32029 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
@@ -1216,6 +1481,22 @@
 				69F0A32B1AD3FFDA008A3553 /* Base */,
 			);
 			name = SEBBrowserWindow.xib;
+			sourceTree = "<group>";
+		};
+		6940B9711BA0F2FB008C8CFC /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6940B9721BA0F2FB008C8CFC /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		6940B9791BA0F2FB008C8CFC /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6940B97A1BA0F2FB008C8CFC /* Base */,
+			);
+			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 		696A3AE719F6FBC500274214 /* PreferencesConfigFile.xib */ = {
@@ -1328,6 +1609,267 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		6940B9931BA0F2FB008C8CFC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = SEB/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SEB;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 armv7s";
+			};
+			name = Debug;
+		};
+		6940B9941BA0F2FB008C8CFC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = SEB/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SEB;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s";
+			};
+			name = Release;
+		};
+		6940B9951BA0F2FB008C8CFC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = SEBTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SEBTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SEB.app/SEB";
+			};
+			name = Debug;
+		};
+		6940B9961BA0F2FB008C8CFC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = SEBTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SEBTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SEB.app/SEB";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6940B9971BA0F2FB008C8CFC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = SEBUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SEBUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "33344a09-4f23-4443-b744-72e1e9e25cb7";
+				SDKROOT = iphoneos;
+				TEST_TARGET_NAME = SEB;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		6940B9981BA0F2FB008C8CFC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = SEBUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SEBUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "33344a09-4f23-4443-b744-72e1e9e25cb7";
+				SDKROOT = iphoneos;
+				TEST_TARGET_NAME = SEB;
+				USES_XCTRUNNER = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		69F7B62314F411FB00FD0761 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1415,6 +1957,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = /Installer;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "Safe Exam Browser";
@@ -1436,6 +1979,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = /Installer;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "Safe Exam Browser";
 				PROVISIONING_PROFILE = "33344a09-4f23-4443-b744-72e1e9e25cb7";
@@ -1448,6 +1992,33 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6940B9991BA0F2FB008C8CFC /* Build configuration list for PBXNativeTarget "SEB" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6940B9931BA0F2FB008C8CFC /* Debug */,
+				6940B9941BA0F2FB008C8CFC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6940B99A1BA0F2FB008C8CFC /* Build configuration list for PBXNativeTarget "SEBTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6940B9951BA0F2FB008C8CFC /* Debug */,
+				6940B9961BA0F2FB008C8CFC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6940B99B1BA0F2FB008C8CFC /* Build configuration list for PBXNativeTarget "SEBUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6940B9971BA0F2FB008C8CFC /* Debug */,
+				6940B9981BA0F2FB008C8CFC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		69F7B62214F411FB00FD0761 /* Build configuration list for PBXNativeTarget "Safe Exam Browser" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1467,6 +2038,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6940B9741BA0F2FB008C8CFC /* SEB.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6940B9751BA0F2FB008C8CFC /* SEB.xcdatamodel */,
+			);
+			currentVersion = 6940B9751BA0F2FB008C8CFC /* SEB.xcdatamodel */;
+			path = SEB.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
 }
