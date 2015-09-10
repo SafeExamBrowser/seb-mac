@@ -7,6 +7,7 @@
 //
 
 #import <WebKit/WebKit.h>
+#import "Constants.h"
 
 //#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
@@ -50,6 +51,7 @@ static NSMutableSet *browserWindowControllers;
 
     // Load start URL from the system's user defaults
     NSString *urlText = @"http://safeexambrowser.org/exams"; //[preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+//    NSString *urlText = @"https://view.ethz.ch/portal/webclient/index.html#/login";
     
     self.request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlText]];
 

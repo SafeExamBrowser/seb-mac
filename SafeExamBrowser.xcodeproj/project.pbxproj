@@ -58,6 +58,10 @@
 		6915F2EA19C8F77600DAEA37 /* SEBDockWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6915F2E819C8F77600DAEA37 /* SEBDockWindow.m */; };
 		6917744A1A2776FB0039CC39 /* SEBURLFilterRegexExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 691774481A2776FB0039CC39 /* SEBURLFilterRegexExpression.h */; };
 		6917744B1A2776FB0039CC39 /* SEBURLFilterRegexExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 691774491A2776FB0039CC39 /* SEBURLFilterRegexExpression.m */; };
+		691CC4111BA134070020D3EC /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2419C468E700CBE69F /* RNCryptor.m */; };
+		691CC4121BA134070020D3EC /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2619C468E700CBE69F /* RNDecryptor.m */; };
+		691CC4131BA134070020D3EC /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2819C468E700CBE69F /* RNEncryptor.m */; };
+		691CC4141BA134070020D3EC /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2A19C468E700CBE69F /* RNCryptorEngine.m */; };
 		6921294216F91C6600AFC3B0 /* BoolValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6921294016F91C6600AFC3B0 /* BoolValueTransformer.h */; };
 		6921294316F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6921294116F91C6600AFC3B0 /* BoolValueTransformer.m */; };
 		6921294716F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6921294516F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h */; };
@@ -1336,10 +1340,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				691CC4131BA134070020D3EC /* RNEncryptor.m in Sources */,
 				6940B9701BA0F2FB008C8CFC /* ViewController.m in Sources */,
 				6940B96D1BA0F2FB008C8CFC /* AppDelegate.m in Sources */,
 				6940B9761BA0F2FB008C8CFC /* SEB.xcdatamodeld in Sources */,
 				6940B96A1BA0F2FB008C8CFC /* main.m in Sources */,
+				691CC4141BA134070020D3EC /* RNCryptorEngine.m in Sources */,
+				691CC4121BA134070020D3EC /* RNDecryptor.m in Sources */,
+				691CC4111BA134070020D3EC /* RNCryptor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
