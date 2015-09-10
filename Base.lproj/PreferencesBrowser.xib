@@ -441,7 +441,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="509" id="Cwd-hh-LeB"/>
                                                     </constraints>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="Default user agent Mac" id="EZ4-9b-Idz">
+                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="Default user agent Mac" id="EZ4-9b-Idz">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -474,7 +474,7 @@
                                                         <constraint firstAttribute="height" constant="40" id="cj4-7i-4tw"/>
                                                     </constraints>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="cellSize" width="124" height="19"/>
+                                                    <size key="cellSize" width="124" height="18"/>
                                                     <size key="intercellSpacing" width="4" height="2"/>
                                                     <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="cM3-iz-gU7">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -560,7 +560,7 @@
                                                         <constraint firstAttribute="height" constant="61" id="ftz-gm-N7b"/>
                                                     </constraints>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="cellSize" width="109" height="19"/>
+                                                    <size key="cellSize" width="109" height="18"/>
                                                     <size key="intercellSpacing" width="4" height="2"/>
                                                     <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="YMc-Kb-9O0">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>

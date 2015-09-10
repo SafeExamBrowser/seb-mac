@@ -138,6 +138,13 @@
     SEBBrowserWindow *newWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
     newWindow.browserController = self;
     
+    // Enable or disable spell checking
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL allowSpellCheck = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
+    
+//    NSTextView *textView = (NSTextView *)[newWindow firstResponder];
+    [newWindow.webView setContinuousSpellCheckingEnabled:allowSpellCheck];
+    
     return browserWindowDocument;
 }
 

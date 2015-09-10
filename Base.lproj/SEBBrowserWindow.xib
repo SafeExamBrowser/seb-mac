@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6724" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6724"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="6724"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="7706"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SEBBrowserWindowController">
@@ -53,6 +53,11 @@
                             </segmentedCell>
                             <connections>
                                 <action selector="backForward:" target="-2" id="188"/>
+                                <binding destination="184" name="hidden" keyPath="values.org_safeexambrowser_SEB_allowBrowsingBackForward" previousBinding="202" id="f8s-fA-CtF">
+                                    <dictionary key="options">
+                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                    </dictionary>
+                                </binding>
                                 <binding destination="184" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowBrowsingBackForward" id="202"/>
                             </connections>
                         </segmentedControl>
@@ -73,6 +78,11 @@
                             </segmentedCell>
                             <connections>
                                 <action selector="zoomText:" target="-2" id="189"/>
+                                <binding destination="184" name="hidden" keyPath="values.org_safeexambrowser_SEB_enableZoomText" previousBinding="00Q-6e-zmc" id="aIX-zS-ebR">
+                                    <dictionary key="options">
+                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                    </dictionary>
+                                </binding>
                                 <binding destination="184" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="00Q-6e-zmc"/>
                             </connections>
                         </segmentedControl>
