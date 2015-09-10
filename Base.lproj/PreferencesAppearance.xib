@@ -473,11 +473,6 @@
                                 </buttonCell>
                                 <connections>
                                     <action selector="enableBrowserWindowToolbarButton:" target="-2" id="uOW-IG-c4f"/>
-                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="c7O-bL-fW2">
-                                        <dictionary key="options">
-                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                        </dictionary>
-                                    </binding>
                                     <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableBrowserWindowToolbar" id="382"/>
                                 </connections>
                             </button>
@@ -488,12 +483,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="IMa-wq-GLL">
-                                        <dictionary key="options">
-                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                        </dictionary>
-                                    </binding>
-                                    <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_enableBrowserWindowToolbar" previousBinding="IMa-wq-GLL" id="aPf-UJ-HBC">
+                                    <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableBrowserWindowToolbar" id="Dcv-uf-TA1">
                                         <dictionary key="options">
                                             <integer key="NSMultipleValuesPlaceholder" value="-1"/>
                                             <integer key="NSNoSelectionPlaceholder" value="-1"/>

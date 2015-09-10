@@ -76,10 +76,7 @@
     mainBrowserWindowWidth.enabled = browserViewModeWindowSelected;
     mainBrowserWindowHeight.enabled = browserViewModeWindowSelected;
     mainBrowserWindowPositioning.enabled = browserViewModeWindowSelected;
-    
-    enableBrowserWindowToolbar.enabled = browserViewModeWindowSelected;
-    hideBrowserWindowToolbar.enabled = browserViewModeWindowSelected && enableBrowserWindowToolbar.state;
-    
+       
     BOOL browserViewModeTouchSelected = [sender selectedRow] == browserViewModeTouch;
     enableTouchExit.enabled = browserViewModeTouchSelected;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
