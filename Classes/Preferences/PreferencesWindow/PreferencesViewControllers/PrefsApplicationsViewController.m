@@ -36,7 +36,6 @@
 // Settings use of third party applications together with SEB
 
 #import "PrefsApplicationsViewController.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 @implementation PrefsApplicationsViewController
 

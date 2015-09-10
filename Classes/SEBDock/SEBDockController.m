@@ -36,7 +36,6 @@
 #import "SEBDockWindow.h"
 #import "SEBDockView.h"
 #import "SEBDockItemButton.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 @interface SEBDockController ()
 

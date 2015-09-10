@@ -38,7 +38,6 @@
 
 #import "PrefsGeneralViewController.h"
 #import "NSWindow+SEBWindow.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "RNEncryptor.h"
 
 

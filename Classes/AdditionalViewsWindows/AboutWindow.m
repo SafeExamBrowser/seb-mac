@@ -34,7 +34,6 @@
 
 #import "AboutWindow.h"
 #import "MyGlobals.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 @implementation AboutWindow
 

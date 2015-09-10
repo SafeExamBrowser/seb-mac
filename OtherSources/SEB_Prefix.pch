@@ -38,7 +38,7 @@
     #import "Constants.h"
     #import "MyGlobals.h"
     #import "CocoaLumberjack.h"
-    #import "SEBAlert.h"
+    #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 #endif
 

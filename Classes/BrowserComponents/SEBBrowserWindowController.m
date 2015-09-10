@@ -36,7 +36,6 @@
 #import "MyGlobals.h"
 #import <WebKit/WebKit.h>
 #import "SEBBrowserWindow.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 
 @implementation SEBBrowserWindowController
@@ -100,6 +99,7 @@
 - (void)windowDidBecomeKey:(NSNotification *)notification
 {
 //    [self.browserController setStateForWindow:(SEBBrowserWindow *)self.window withWebView:self.webView];
+    self.browserController.activeBrowserWindow = (SEBBrowserWindow *)self.window;
     DDLogDebug(@"BrowserWindow %@ did become key", self.window);
 }
 

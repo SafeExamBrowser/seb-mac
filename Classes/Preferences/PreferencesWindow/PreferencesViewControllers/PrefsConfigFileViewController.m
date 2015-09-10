@@ -34,7 +34,6 @@
 
 
 #import "PrefsConfigFileViewController.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "SEBUIUserDefaultsController.h"
 #import "SEBEncryptedUserDefaultsController.h"
 #import "SEBConfigFileManager.h"

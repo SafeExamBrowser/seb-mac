@@ -36,7 +36,6 @@
 #import "SEBURLFilter.h"
 #import "NSURL+SEBURL.h"
 #import "SEBURLFilterRegexExpression.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "SEBCryptor.h"
 
 @implementation SEBURLFilter

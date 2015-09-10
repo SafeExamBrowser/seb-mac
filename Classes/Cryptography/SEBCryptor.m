@@ -34,7 +34,6 @@
 
 
 #import "SEBCryptor.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "SEBEncryptedUserDefaultsController.h"
 #import "RNCryptor.h"
 #import "RNEncryptor.h"

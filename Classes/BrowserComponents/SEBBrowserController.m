@@ -35,7 +35,6 @@
 #import "SEBBrowserController.h"
 #import "SEBBrowserWindowDocument.h"
 #import "SEBBrowserOpenWindowWebView.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "NSWindow+SEBWindow.h"
 #import "WebKit+WebKitExtensions.h"
 #import "SEBConfigFileManager.h"
@@ -164,6 +163,7 @@
     BOOL elevateWindowLevels = [preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
     // Order new browser window to the front of our level
     [self setLevelForBrowserWindow:browserWindowDocument.mainWindowController.window elevateLevels:elevateWindowLevels];
+    self.activeBrowserWindow = newWindow;
     [browserWindowDocument.mainWindowController showWindow:self];
     [newWindow makeKeyAndOrderFront:self];
     
@@ -223,6 +223,13 @@
     
     self.webView = browserWindowDocument.mainWindowController.webView;
     self.webView.creatingWebView = nil;
+    
+    // Load start URL from the system's user defaults
+    NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+    
+    // Save the default user agent of the installed WebKit version
+    NSString *customUserAgent = [self.webView userAgentForURL:[NSURL URLWithString:urlText]];
+    [[MyGlobals sharedMyGlobals] setValue:customUserAgent forKey:@"defaultUserAgent"];
 
     // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
     [self setCustomWebPreferencesForWebView:self.webView];
@@ -263,11 +270,10 @@
     [self addBrowserWindow:self.mainBrowserWindow withWebView:self.webView withTitle:NSLocalizedString(@"Main Browser Window", nil)];
     
     //[self.browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
+    [self.mainBrowserWindow makeMainWindow];
     [self.mainBrowserWindow makeKeyAndOrderFront:self];
+    self.activeBrowserWindow = self.mainBrowserWindow;
     
-    // Load start URL from the system's user defaults
-    NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-
     DDLogInfo(@"Open MainBrowserWindow with start URL: %@", urlText);
     
     [self openURLString:urlText withSEBUserAgentInWebView:self.webView];
@@ -276,16 +282,6 @@
 
 - (void) openURLString:(NSString *)urlText withSEBUserAgentInWebView:(SEBWebView *)webView
 {
-    // Add "SEB <version number>" to the browser's user agent, so the LMS SEB plugins recognize us
-//    NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
-    NSString *customUserAgent = [webView userAgentForURL:[NSURL URLWithString:urlText]];
-    customUserAgent = [customUserAgent stringByAppendingString:SEBUserAgentDefaultSuffix];
-    [[MyGlobals sharedMyGlobals] setValue:customUserAgent forKey:@"defaultUserAgent"];
-
-//    customUserAgent = [customUserAgent stringByAppendingString:[NSString stringWithFormat:@" SEB %@", versionString]];
-//
-//    [webView setCustomUserAgent:customUserAgent];
-    
     // Load start URL into browser window
     [[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];
 }
@@ -509,11 +505,29 @@
 }
 
 
+// Close all additional browser windows (except the main browser window)
+- (void) closeAllAdditionalBrowserWindows
+{
+    NSArray *openWindowDocuments = [[NSDocumentController sharedDocumentController] documents];
+    SEBBrowserWindowDocument *openWindowDocument;
+    for (openWindowDocument in openWindowDocuments) {
+        SEBBrowserWindow *browserWindow = (SEBBrowserWindow *)openWindowDocument.mainWindowController.window;
+        if (browserWindow != self.mainBrowserWindow) {
+            [self closeWebView:browserWindow.webView];
+        }
+    }
+}
+
+
 #pragma mark SEB Dock Buttons Action Methods
 
 - (void) restartDockButtonPressed
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    // Close all browser windows (documents)
+    [self closeAllAdditionalBrowserWindows];
+    
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamUseStartURL"]) {
         // Load start URL from the system's user defaults
         NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
@@ -532,6 +546,7 @@
 
 - (void) reloadDockButtonPressed
 {
+    DDLogInfo(@"Reloading current browser window: %@", self.activeBrowserWindow);
     [self.activeBrowserWindow.webView reload:self.activeBrowserWindow];
 }
 

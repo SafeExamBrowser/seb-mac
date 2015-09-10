@@ -36,7 +36,6 @@
 #import "SEBSystemManager.h"
 #import "SEBCryptor.h"
 #import "RNCryptor.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #include <SystemConfiguration/SystemConfiguration.h>
 
 Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
@@ -245,7 +244,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 
 - (BOOL) executeSCAppleScript:(NSString *)location
 {
-    NSString *appleScriptSource = [NSString stringWithFormat:@"do shell script 'defaults write com.apple.screencapture location %@ && killall SystemUIServer'", location];
+    NSString *appleScriptSource = [NSString stringWithFormat:@"do shell script \"defaults write com.apple.screencapture location %@ && killall SystemUIServer\"", location];
     NSAppleScript* appleScript = [[NSAppleScript alloc] initWithSource:appleScriptSource];
     
     NSDictionary* errorDict;

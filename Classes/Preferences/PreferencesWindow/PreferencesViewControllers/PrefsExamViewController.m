@@ -34,7 +34,6 @@
 
 
 #import "PrefsExamViewController.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "SEBUIUserDefaultsController.h"
 #import "SEBEncryptedUserDefaultsController.h"
 #import "RNEncryptor.h"

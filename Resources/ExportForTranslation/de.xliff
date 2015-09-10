@@ -3283,12 +3283,12 @@
                 <target>Einstellungen sind beschädigt</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
-            <trans-unit id="Settings have been saved, use this file to reconfigure local settings of a SEB client.">
-                <source>Settings have been saved, use this file to reconfigure local settings of a SEB client.</source>
+            <trans-unit id="Settings have been saved, use this file to configure local settings of a SEB client.">
+                <source>Settings have been saved, use this file to configure local settings of a SEB client.</source>
                 <target>Konfiguration wurde gespeichert, benutzen Sie diese Datei um die lokalen Einstellungen eines SEB-Clients umzukonfigurieren.</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
-            <trans-unit id="Settings have been saved, use this file to start the exam with SEB.">
+            <trans-unit id="Settings have been saved, use this file to start an exam with SEB.">
                 <source>Settings have been saved, use this file to start the exam with SEB.</source>
                 <target>Konfiguration wurde gespeichert, benutzen Sie diese Datei um eine Prüfung zu starten.</target>
                 <note>No comment provided by engineer.</note>
@@ -3388,8 +3388,8 @@
                 <target>Speichern der Einstellungen fehlgeschlagen</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
-            <trans-unit id="Writing Settings Succeeded">
-                <source>Writing Settings Succeeded</source>
+            <trans-unit id="Saving Settings Succeeded">
+                <source>Saving Settings Succeeded</source>
                 <target>Einstellungen gespeichert</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>

@@ -33,7 +33,6 @@
 //
 
 #import "SEBWebView.h"
-#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 @implementation SEBWebView
 
@@ -47,22 +46,41 @@
 - (void) reload:(id)sender
 {
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_showReloadWarning"]) {
-        int answer = NSRunAlertPanel(NSLocalizedString(@"Reload Current Page", nil), NSLocalizedString(@"Do you really want to reload the current web page?", nil), NSLocalizedString(@"Reload", nil), NSLocalizedString(@"Cancel", nil), nil, nil);
-        switch(answer) {
-            case NSAlertDefaultReturn:
-                break;
-            default:
-                return;
+        
+        NSAlert *newAlert = [[NSAlert alloc] init];
+        [newAlert setMessageText:NSLocalizedString(@"Reload Current Page", nil)];
+        [newAlert setInformativeText:NSLocalizedString(@"Do you really want to reload the current web page?", nil)];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"Reload", nil)];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+        [newAlert setAlertStyle:NSWarningAlertStyle];
+
+
+        void (^conditionalReload)(NSModalResponse) = ^void (NSModalResponse answer) {
+            switch(answer) {
+                case NSAlertFirstButtonReturn:
+                    // Reset the list of dismissed URLs and the dismissAll flag
+                    // (for the Teach allowed/blocked URLs mode)
+                    [self.notAllowedURLs removeAllObjects];
+                    self.dismissAll = NO;
+                    
+                    // Reload page
+                    DDLogInfo(@"Reloading current webpage");
+                    [super reload:sender];
+                    break;
+                    
+                default:
+                    return;
+            }
+        };
+        
+        if (self.window.styleMask == NSBorderlessWindowMask) {
+            NSModalResponse answer = [newAlert runModal];
+            conditionalReload(answer);
+        } else {
+            [newAlert beginSheetModalForWindow:self.window completionHandler:(void (^)(NSModalResponse answer))conditionalReload];
         }
+        
     }
-    // Reset the list of dismissed URLs and the dismissAll flag
-    // (for the Teach allowed/blocked URLs mode)
-    [self.notAllowedURLs removeAllObjects];
-    self.dismissAll = NO;
-    
-    // Reload page
-    DDLogInfo(@"Reloading current webpage");
-    [super reload:sender];
 }
 
 
