@@ -377,8 +377,6 @@ bool insideMatrix();
 			   options:NSKeyValueObservingOptionNew
 			   context:NULL];
 
-    CFArrayRef windowList = CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly, kCGNullWindowID);
-
     
     // Add a observer for changes of the screen configuration
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(adjustScreenLocking:)
@@ -638,6 +636,33 @@ bool insideMatrix();
         [self presentPreferencesCorruptedError];
     }
     
+    // Check if the Force Quit window is open
+    while ([self forceQuitWindowOpen]) {
+        // Show alert that the Force Quit window is open
+        DDLogError(@"Force Quit window is open, show error message and ask user to close it or quit SEB.");
+        NSAlert *newAlert = [[NSAlert alloc] init];
+        [newAlert setMessageText:NSLocalizedString(@"Force Quit Window Is Open", nil)];
+        [newAlert setInformativeText:NSLocalizedString(@"SEB cannot run when the Force Quit window is open. Close the window or quit SEB.", nil)];
+        [newAlert setAlertStyle:NSCriticalAlertStyle];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+        int answer = [newAlert runModal];
+        switch(answer)
+        {
+            case NSAlertFirstButtonReturn:
+                DDLogError(@"Force Quit window was open, user clicked retry");
+                break; // Test if window is closed now
+                
+            case NSAlertSecondButtonReturn:
+            {
+                // Quit SEB
+                DDLogError(@"Force Quit window was open, user decided to quit SEB.");
+                quittingMyself = TRUE; //SEB is terminating itself
+                [NSApp terminate: nil]; //quit SEB
+            }
+        }
+    }
+    
     // Check if there is a SebClientSettings.seb file saved in the preferences directory
     SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
     if (![configFileManager reconfigureClientWithSebClientSettings] && [MyGlobals sharedMyGlobals].reconfiguredWhileStarting) {
@@ -666,6 +691,21 @@ bool insideMatrix();
     
     // Set flag that SEB is initialized: Now showing alerts is allowed
     [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
+}
+
+
+// Check if the Force Quit window is open
+- (BOOL)forceQuitWindowOpen
+{
+    BOOL forceQuitWindowOpen = false;
+    NSArray *windowList = CFBridgingRelease(CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly, kCGNullWindowID));
+    for (NSDictionary *windowInformation in windowList) {
+        if ([[windowInformation valueForKey:@"kCGWindowOwnerName"] isEqualToString:@"loginwindow"]) {
+            forceQuitWindowOpen = true;
+            break;
+        }
+    }
+    return forceQuitWindowOpen;
 }
 
 
