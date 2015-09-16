@@ -327,27 +327,9 @@ bool insideMatrix();
     // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
 	[self coverScreens];
 
-    
     // Check if launched SEB is placed ("installed") in an Applications folder
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *currentSEBBundlePath =[[NSBundle mainBundle] bundlePath];
-    DDLogDebug(@"SEB was started up from this path: %@", currentSEBBundlePath);
-    if (![self isInApplicationsFolder:currentSEBBundlePath]) {
-        // Has SEB to be installed in an Applications folder?
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_forceAppFolderInstall"]) {
-#ifndef DEBUG
-            DDLogError(@"Current settings require SEB to be installed in an Applications folder, but it isn't! SEB will therefore quit!");
-            _forceAppFolder = YES;
-            quittingMyself = TRUE; //SEB is terminating itself
-            [NSApp terminate: nil]; //quit SEB
-#else
-            DDLogDebug(@"Current settings require SEB to be installed in an Applications folder, but it isn't! SEB would quit if not Debug build.");
-#endif
-        }
-    } else {
-        DDLogInfo(@"SEB was started up from an Applications folder.");
-    }
-
+    [self installedInApplicationsFolder];
+    
     // Check for command key being held down
     int modifierFlags = [NSEvent modifierFlags];
     _cmdKeyDown = (0 != (modifierFlags & NSCommandKeyMask));
@@ -641,7 +623,7 @@ bool insideMatrix();
         // Show alert that the Force Quit window is open
         DDLogError(@"Force Quit window is open, show error message and ask user to close it or quit SEB.");
         NSAlert *newAlert = [[NSAlert alloc] init];
-        [newAlert setMessageText:NSLocalizedString(@"Force Quit Window Is Open", nil)];
+        [newAlert setMessageText:NSLocalizedString(@"Close Force Quit Window", nil)];
         [newAlert setInformativeText:NSLocalizedString(@"SEB cannot run when the Force Quit window is open. Close the window or quit SEB.", nil)];
         [newAlert setAlertStyle:NSCriticalAlertStyle];
         [newAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
@@ -691,6 +673,33 @@ bool insideMatrix();
     
     // Set flag that SEB is initialized: Now showing alerts is allowed
     [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
+}
+
+
+// Check if SEB is placed ("installed") in an Applications folder
+- (BOOL)installedInApplicationsFolder
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *currentSEBBundlePath =[[NSBundle mainBundle] bundlePath];
+    BOOL installedInApplicationsFolder = false;
+    DDLogDebug(@"SEB was started up from this path: %@", currentSEBBundlePath);
+    if (![self isInApplicationsFolder:currentSEBBundlePath]) {
+        // Has SEB to be installed in an Applications folder?
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_forceAppFolderInstall"]) {
+#ifndef DEBUG
+            DDLogError(@"Current settings require SEB to be installed in an Applications folder, but it isn't! SEB will therefore quit!");
+            _forceAppFolder = YES;
+            quittingMyself = TRUE; //SEB is terminating itself
+            [NSApp terminate: nil]; //quit SEB
+#else
+            DDLogDebug(@"Current settings require SEB to be installed in an Applications folder, but it isn't! SEB would quit if not Debug build.");
+#endif
+        }
+    } else {
+        DDLogInfo(@"SEB was started up from an Applications folder.");
+        installedInApplicationsFolder = true;
+    }
+    return installedInApplicationsFolder;
 }
 
 
@@ -1580,21 +1589,7 @@ bool insideMatrix(){
     [self clearPasteboardSavingCurrentString];
     
     // Check if launched SEB is placed ("installed") in an Applications folder
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *currentSEBBundlePath =[[NSBundle mainBundle] bundlePath];
-    if (![self isInApplicationsFolder:currentSEBBundlePath]) {
-        // Has SEB to be installed in an Applications folder?
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_forceAppFolderInstall"]) {
-#ifndef DEBUG
-            DDLogError(@"Current settings require SEB to be installed in an Applications folder, but it isn't! SEB will therefore quit!");
-            _forceAppFolder = YES;
-            quittingMyself = TRUE; //SEB is terminating itself
-            [NSApp terminate: nil]; //quit SEB
-#else
-            DDLogDebug(@"Current settings require SEB to be installed in an Applications folder, but it isn't! SEB would quit if not Debug build.");
-#endif
-        }
-    }
+    [self installedInApplicationsFolder];
     
     // Adjust screen shot blocking
     [self.systemManager adjustSC];
@@ -1619,7 +1614,7 @@ bool insideMatrix(){
     if (_cmdKeyDown) {
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAppSwitcherCheck"]) {
             // Show alert that keys were hold while starting SEB
-            DDLogWarn(@"Command key is pressed while restarting SEB, show dialog asking to release it.");
+            DDLogError(@"Command key is pressed while restarting SEB, show dialog asking to release it.");
             NSAlert *newAlert = [[NSAlert alloc] init];
             [newAlert setMessageText:NSLocalizedString(@"Holding Command Key Not Allowed!", nil)];
             [newAlert setInformativeText:NSLocalizedString(@"Holding the Command key down while restarting SEB is not allowed.", nil)];
