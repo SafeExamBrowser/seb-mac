@@ -575,6 +575,18 @@ bool insideMatrix();
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
+    [[[NSWorkspace sharedWorkspace] notificationCenter]
+     addObserver:self
+     selector:@selector(switchHandler:)
+     name:NSWorkspaceSessionDidBecomeActiveNotification
+     object:nil];
+    
+    [[[NSWorkspace sharedWorkspace] notificationCenter]
+     addObserver:self
+     selector:@selector(switchHandler:)
+     name:NSWorkspaceSessionDidResignActiveNotification
+     object:nil];
+    
     [self performSelector:@selector(performAfterStartActions:) withObject: nil afterDelay: 2];
 }
 
@@ -1765,6 +1777,21 @@ bool insideMatrix(){
 #ifndef __i386__        // Plugins can't be switched on in the 32-bit Intel build
     [[self.webView preferences] setPlugInsEnabled:YES];
 #endif
+}
+
+
+// Handler called when user switch happens
+- (void) switchHandler:(NSNotification*) notification
+{
+    if ([[notification name] isEqualToString:
+         NSWorkspaceSessionDidResignActiveNotification])
+    {
+        // Perform deactivation tasks here.
+    }
+    else
+    {
+        // Perform activation tasks here.
+    }
 }
 
 
