@@ -75,9 +75,21 @@
 				<string>seb</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLIconFile</key>
+			<string>sebConfigIcon</string>
+			<key>CFBundleURLName</key>
+			<string>org.safeexambrowser.sebs</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>sebs</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>5000440453143289922</string>
+	<string>306320852543641891</string>
 	<key>ClickToFlashOptOut</key>
 	<true/>
 	<key>LSApplicationCategoryType</key>
