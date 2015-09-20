@@ -1387,40 +1387,40 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         return;
     }
     // Check if it is a data: scheme to support the W3C saveAs() FileSaver interface
-    if ([request.URL.scheme isEqualToString:@"data"]) {
-        CFStringRef mimeType = (__bridge CFStringRef)type;
-        CFStringRef uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, mimeType, NULL);
-        CFStringRef extension = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassFilenameExtension);
-        self.downloadFileExtension = (__bridge NSString *)(extension);
-        if (uti) CFRelease(uti);
-        if (extension) CFRelease(extension);
-        DDLogInfo(@"data: content MIME type to download is %@, the file extension will be %@", type, extension);
-        [listener download];
-        [self startDownloadingURL:request.URL];
-        
-        // Close the temporary Window or WebView which has been opend by the data: download link
-        SEBWebView *creatingWebView = [self.webView creatingWebView];
-        if (creatingWebView) {
-            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
-                // we have to close the new browser window which already has been openend by WebKit
-                // Get the document for my web view
-                DDLogDebug(@"Originating browser window %@", sender);
-                // Close document and therefore also window
-                //Workaround: Flash crashes after closing window and then clicking some other link
-                [[self.webView preferences] setPlugInsEnabled:NO];
-                DDLogDebug(@"Now closing new document browser window for: %@", self.webView);
-                [self.browserController closeWebView:self.webView];
-            }
-            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
-                if (self.webView) {
-                    [sender close]; //close the temporary webview
-                }
-            }
-        }
-    } else {
-        self.downloadFileExtension = nil;
-    }
-
+//    if ([request.URL.scheme isEqualToString:@"data"]) {
+//        CFStringRef mimeType = (__bridge CFStringRef)type;
+//        CFStringRef uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, mimeType, NULL);
+//        CFStringRef extension = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassFilenameExtension);
+//        self.downloadFileExtension = (__bridge NSString *)(extension);
+//        if (uti) CFRelease(uti);
+//        if (extension) CFRelease(extension);
+//        DDLogInfo(@"data: content MIME type to download is %@, the file extension will be %@", type, extension);
+//        [listener download];
+//        [self startDownloadingURL:request.URL];
+//        
+//        // Close the temporary Window or WebView which has been opend by the data: download link
+//        SEBWebView *creatingWebView = [self.webView creatingWebView];
+//        if (creatingWebView) {
+//            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
+//                // we have to close the new browser window which already has been openend by WebKit
+//                // Get the document for my web view
+//                DDLogDebug(@"Originating browser window %@", sender);
+//                // Close document and therefore also window
+//                //Workaround: Flash crashes after closing window and then clicking some other link
+//                [[self.webView preferences] setPlugInsEnabled:NO];
+//                DDLogDebug(@"Now closing new document browser window for: %@", self.webView);
+//                [self.browserController closeWebView:self.webView];
+//            }
+//            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
+//                if (self.webView) {
+//                    [sender close]; //close the temporary webview
+//                }
+//            }
+//        }
+//    } else {
+//        self.downloadFileExtension = nil;
+//    }
+//
     // Check for PDF file and according to settings either download or display it inline in the SEB browser
     if (![type isEqualToString:@"application/pdf"] || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"]) {
         // MIME type isn't PDF or downloading of PDFs isn't allowed

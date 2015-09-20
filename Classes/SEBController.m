@@ -327,39 +327,11 @@ bool insideMatrix();
     // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
 	[self coverScreens];
 
-    
     // Check if launched SEB is placed ("installed") in an Applications folder
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *currentSEBBundlePath =[[NSBundle mainBundle] bundlePath];
-    DDLogDebug(@"SEB was started up from this path: %@", currentSEBBundlePath);
-    if (![self isInApplicationsFolder:currentSEBBundlePath]) {
-        // Has SEB to be installed in an Applications folder?
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_forceAppFolderInstall"]) {
-#ifndef DEBUG
-            DDLogError(@"Current settings require SEB to be installed in an Applications folder, but it isn't! SEB will therefore quit!");
-            _forceAppFolder = YES;
-            quittingMyself = TRUE; //SEB is terminating itself
-            [NSApp terminate: nil]; //quit SEB
-#else
-            DDLogDebug(@"Current settings require SEB to be installed in an Applications folder, but it isn't! SEB would quit if not Debug build.");
-#endif
-        }
-    } else {
-        DDLogInfo(@"SEB was started up from an Applications folder.");
-    }
-
+    [self installedInApplicationsFolder];
+    
     // Check for command key being held down
-    int modifierFlags = [NSEvent modifierFlags];
-    _cmdKeyDown = (0 != (modifierFlags & NSCommandKeyMask));
-    if (_cmdKeyDown) {
-        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAppSwitcherCheck"]) {
-            DDLogError(@"Command key is pressed and forbidden, SEB will quit!");
-            quittingMyself = TRUE; //SEB is terminating itself
-            [NSApp terminate: nil]; //quit SEB
-        } else {
-            DDLogWarn(@"Command key is pressed, but not forbidden in current settings");
-        }
-    }
+    [self appSwitcherCheck];
     
     // Switch to kiosk mode by setting the proper presentation options
     [self startKioskMode];
@@ -376,8 +348,6 @@ bool insideMatrix();
 			forKeyPath:@"currentSystemPresentationOptions"
 			   options:NSKeyValueObservingOptionNew
 			   context:NULL];
-
-    CFArrayRef windowList = CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly, kCGNullWindowID);
 
     
     // Add a observer for changes of the screen configuration
@@ -605,6 +575,18 @@ bool insideMatrix();
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
+    [[[NSWorkspace sharedWorkspace] notificationCenter]
+     addObserver:self
+     selector:@selector(switchHandler:)
+     name:NSWorkspaceSessionDidBecomeActiveNotification
+     object:nil];
+    
+    [[[NSWorkspace sharedWorkspace] notificationCenter]
+     addObserver:self
+     selector:@selector(switchHandler:)
+     name:NSWorkspaceSessionDidResignActiveNotification
+     object:nil];
+    
     [self performSelector:@selector(performAfterStartActions:) withObject: nil afterDelay: 2];
 }
 
@@ -615,17 +597,7 @@ bool insideMatrix();
     DDLogInfo(@"Performing after start actions");
     
     // Check for command key being held down
-    int modifierFlags = [NSEvent modifierFlags];
-    _cmdKeyDown = (0 != (modifierFlags & NSCommandKeyMask));
-    if (_cmdKeyDown) {
-        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAppSwitcherCheck"]) {
-            DDLogError(@"Command key is pressed and forbidden, SEB will quit!");
-            quittingMyself = TRUE; //SEB is terminating itself
-            [NSApp terminate: nil]; //quit SEB
-        } else {
-            DDLogWarn(@"Command key is pressed, but not forbidden in current settings");
-        }
-    }
+    [self appSwitcherCheck];
     
     // Reinforce the kiosk mode
     [self requestedReinforceKioskMode:nil];
@@ -638,6 +610,9 @@ bool insideMatrix();
         [self presentPreferencesCorruptedError];
     }
     
+    // Check if the Force Quit window is open
+    [self forceQuitWindowCheck];
+
     // Check if there is a SebClientSettings.seb file saved in the preferences directory
     SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
     if (![configFileManager reconfigureClientWithSebClientSettings] && [MyGlobals sharedMyGlobals].reconfiguredWhileStarting) {
@@ -666,6 +641,118 @@ bool insideMatrix();
     
     // Set flag that SEB is initialized: Now showing alerts is allowed
     [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
+}
+
+
+// Check if SEB is placed ("installed") in an Applications folder
+- (BOOL)installedInApplicationsFolder
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *currentSEBBundlePath =[[NSBundle mainBundle] bundlePath];
+    BOOL installedInApplicationsFolder = false;
+    DDLogDebug(@"SEB was started up from this path: %@", currentSEBBundlePath);
+    if (![self isInApplicationsFolder:currentSEBBundlePath]) {
+        // Has SEB to be installed in an Applications folder?
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_forceAppFolderInstall"]) {
+#ifndef DEBUG
+            DDLogError(@"Current settings require SEB to be installed in an Applications folder, but it isn't! SEB will therefore quit!");
+            _forceAppFolder = YES;
+            quittingMyself = TRUE; //SEB is terminating itself
+            [NSApp terminate: nil]; //quit SEB
+#else
+            DDLogDebug(@"Current settings require SEB to be installed in an Applications folder, but it isn't! SEB would quit if not Debug build.");
+#endif
+        }
+    } else {
+        DDLogInfo(@"SEB was started up from an Applications folder.");
+        installedInApplicationsFolder = true;
+    }
+    return installedInApplicationsFolder;
+}
+
+
+// Check for command key being held down
+- (void)appSwitcherCheck
+{
+    int modifierFlags = [NSEvent modifierFlags];
+    _cmdKeyDown = (0 != (modifierFlags & NSCommandKeyMask));
+    if (_cmdKeyDown) {
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAppSwitcherCheck"]) {
+            DDLogError(@"Command key is pressed and forbidden, SEB cannot restart");
+            quittingMyself = TRUE; //SEB is terminating itself
+            [NSApp terminate: nil]; //quit SEB
+        } else {
+            DDLogWarn(@"Command key is pressed, but not forbidden in current settings");
+        }
+    }
+}
+
+
+-(BOOL)commandKeyPressed
+{
+    int modifierFlags = [NSEvent modifierFlags];
+    BOOL cmdKeyDown = (0 != (modifierFlags & NSCommandKeyMask));
+    if (cmdKeyDown) {
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAppSwitcherCheck"]) {
+            // Show alert that keys were hold while starting SEB
+            DDLogError(@"Command key is pressed while restarting SEB, show dialog asking to release it.");
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:NSLocalizedString(@"Holding Command Key Not Allowed!", nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"Holding the Command key down while restarting SEB is not allowed, release it to continue.", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [newAlert setAlertStyle:NSCriticalAlertStyle];
+            [newAlert runModal];
+        } else {
+            DDLogWarn(@"Command key is pressed, but not forbidden in current settings");
+        }
+    }
+    return cmdKeyDown;
+}
+
+
+// Check if the Force Quit window is open
+- (void)forceQuitWindowCheck
+{
+    while ([self forceQuitWindowOpen]) {
+        // Show alert that the Force Quit window is open
+        DDLogError(@"Force Quit window is open, show error message and ask user to close it or quit SEB.");
+        NSAlert *newAlert = [[NSAlert alloc] init];
+        [newAlert setMessageText:NSLocalizedString(@"Close Force Quit Window", nil)];
+        [newAlert setInformativeText:NSLocalizedString(@"SEB cannot run when the Force Quit window is open. Close the window or quit SEB.", nil)];
+        [newAlert setAlertStyle:NSCriticalAlertStyle];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+        int answer = [newAlert runModal];
+        switch(answer)
+        {
+            case NSAlertFirstButtonReturn:
+                DDLogError(@"Force Quit window was open, user clicked retry");
+                break; // Test if window is closed now
+                
+            case NSAlertSecondButtonReturn:
+            {
+                // Quit SEB
+                DDLogError(@"Force Quit window was open, user decided to quit SEB.");
+                quittingMyself = TRUE; //SEB is terminating itself
+                [NSApp terminate: nil]; //quit SEB
+            }
+        }
+    }
+}
+
+
+// Check if the Force Quit window is open
+- (BOOL)forceQuitWindowOpen
+{
+    BOOL forceQuitWindowOpen = false;
+    NSArray *windowList = CFBridgingRelease(CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly, kCGNullWindowID));
+    for (NSDictionary *windowInformation in windowList) {
+        if ([[windowInformation valueForKey:@"kCGWindowOwnerName"] isEqualToString:@"loginwindow"]) {
+            forceQuitWindowOpen = true;
+            break;
+        }
+    }
+    return forceQuitWindowOpen;
 }
 
 
@@ -956,8 +1043,8 @@ bool insideMatrix(){
 		DDLogError(@"Error.  Make sure you have a valid path and arguments.");
 		
 	}
-	
 }
+
 
 - (void) terminateScreencapture {
     DDLogInfo(@"screencapture terminated");
@@ -1540,21 +1627,7 @@ bool insideMatrix(){
     [self clearPasteboardSavingCurrentString];
     
     // Check if launched SEB is placed ("installed") in an Applications folder
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *currentSEBBundlePath =[[NSBundle mainBundle] bundlePath];
-    if (![self isInApplicationsFolder:currentSEBBundlePath]) {
-        // Has SEB to be installed in an Applications folder?
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_forceAppFolderInstall"]) {
-#ifndef DEBUG
-            DDLogError(@"Current settings require SEB to be installed in an Applications folder, but it isn't! SEB will therefore quit!");
-            _forceAppFolder = YES;
-            quittingMyself = TRUE; //SEB is terminating itself
-            [NSApp terminate: nil]; //quit SEB
-#else
-            DDLogDebug(@"Current settings require SEB to be installed in an Applications folder, but it isn't! SEB would quit if not Debug build.");
-#endif
-        }
-    }
+    [self installedInApplicationsFolder];
     
     // Adjust screen shot blocking
     [self.systemManager adjustSC];
@@ -1574,31 +1647,16 @@ bool insideMatrix(){
     [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
     
     // Check for command key being held down
-    int modifierFlags = [NSEvent modifierFlags];
-    _cmdKeyDown = (0 != (modifierFlags & NSCommandKeyMask));
-    if (_cmdKeyDown) {
-        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAppSwitcherCheck"]) {
-            // Show alert that keys were hold while starting SEB
-            DDLogWarn(@"Command key is pressed while restarting SEB, show dialog asking to release it.");
-            NSAlert *newAlert = [[NSAlert alloc] init];
-            [newAlert setMessageText:NSLocalizedString(@"Holding Command Key Not Allowed!", nil)];
-            [newAlert setInformativeText:NSLocalizedString(@"Holding the Command key down while restarting SEB is not allowed.", nil)];
-            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-            [newAlert setAlertStyle:NSCriticalAlertStyle];
-            [newAlert runModal];
-            _cmdKeyDown = NO;
-            
-            quittingMyself = TRUE; //SEB is terminating itself
-            [NSApp terminate: nil]; //quit SEB
-        } else {
-            DDLogWarn(@"Command key is pressed, but not forbidden in current settings");
-        }
-
+    while ([self commandKeyPressed]) {
+        DDLogError(@"Command key was pressed and forbidden, retest");
     }
     
     // Set kiosk/presentation mode in case it changed
     [self setElevateWindowLevels];
     [self startKioskMode];
+    
+    // Check if the Force Quit window is open
+    [self forceQuitWindowCheck];
     
     // Set up SEB Browser
     self.browserController = [[SEBBrowserController alloc] init];
@@ -1719,6 +1777,21 @@ bool insideMatrix(){
 #ifndef __i386__        // Plugins can't be switched on in the 32-bit Intel build
     [[self.webView preferences] setPlugInsEnabled:YES];
 #endif
+}
+
+
+// Handler called when user switch happens
+- (void) switchHandler:(NSNotification*) notification
+{
+    if ([[notification name] isEqualToString:
+         NSWorkspaceSessionDidResignActiveNotification])
+    {
+        // Perform deactivation tasks here.
+    }
+    else
+    {
+        // Perform activation tasks here.
+    }
 }
 
 

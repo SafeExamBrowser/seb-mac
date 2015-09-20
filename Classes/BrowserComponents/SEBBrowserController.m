@@ -399,6 +399,15 @@
                         return;
                     }
                 }
+            } else if ([url.scheme isEqualToString:@"sebs"]) {
+                // If it's a sebs:// URL, we try to download it by https
+                NSURL *httpsURL = [[NSURL alloc] initWithScheme:@"https" host:url.host path:url.path];
+                sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
+                // Couldn't download the .seb file: present an error and abort
+                if (error) {
+                    [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
+                    return;
+                }
             } else {
                 sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
                 if (error) {

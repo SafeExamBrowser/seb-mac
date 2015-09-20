@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9046" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9046"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="9046"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SEBBrowserWindowController">
@@ -42,7 +42,7 @@
                         <size key="minSize" width="51" height="25"/>
                         <size key="maxSize" width="104" height="32"/>
                         <segmentedControl key="view" verticalHuggingPriority="750" id="173">
-                            <rect key="frame" x="19" y="14" width="51" height="25"/>
+                            <rect key="frame" x="0.0" y="14" width="51" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="174">
                                 <font key="font" metaFont="system"/>
@@ -53,12 +53,12 @@
                             </segmentedCell>
                             <connections>
                                 <action selector="backForward:" target="-2" id="188"/>
+                                <binding destination="184" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowBrowsingBackForward" id="202"/>
                                 <binding destination="184" name="hidden" keyPath="values.org_safeexambrowser_SEB_allowBrowsingBackForward" previousBinding="202" id="f8s-fA-CtF">
                                     <dictionary key="options">
                                         <string key="NSValueTransformerName">NSNegateBoolean</string>
                                     </dictionary>
                                 </binding>
-                                <binding destination="184" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowBrowsingBackForward" id="202"/>
                             </connections>
                         </segmentedControl>
                     </toolbarItem>
@@ -67,7 +67,7 @@
                         <size key="minSize" width="51" height="25"/>
                         <size key="maxSize" width="51" height="32"/>
                         <segmentedControl key="view" verticalHuggingPriority="750" id="180">
-                            <rect key="frame" x="19" y="14" width="51" height="25"/>
+                            <rect key="frame" x="0.0" y="14" width="51" height="25"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="181">
                                 <font key="font" metaFont="system"/>
@@ -78,12 +78,12 @@
                             </segmentedCell>
                             <connections>
                                 <action selector="zoomText:" target="-2" id="189"/>
+                                <binding destination="184" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="00Q-6e-zmc"/>
                                 <binding destination="184" name="hidden" keyPath="values.org_safeexambrowser_SEB_enableZoomText" previousBinding="00Q-6e-zmc" id="aIX-zS-ebR">
                                     <dictionary key="options">
                                         <string key="NSValueTransformerName">NSNegateBoolean</string>
                                     </dictionary>
                                 </binding>
-                                <binding destination="184" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="00Q-6e-zmc"/>
                             </connections>
                         </segmentedControl>
                     </toolbarItem>
@@ -93,7 +93,7 @@
                         <size key="minSize" width="25" height="25"/>
                         <size key="maxSize" width="25" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="190">
-                            <rect key="frame" x="9" y="14" width="25" height="25"/>
+                            <rect key="frame" x="0.0" y="14" width="25" height="25"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRefreshTemplate" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="191">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
