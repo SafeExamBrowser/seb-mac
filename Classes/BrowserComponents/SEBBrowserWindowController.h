@@ -53,6 +53,7 @@
 
 - (IBAction) backForward: (id)sender;
 - (IBAction) zoomText: (id)sender;
+- (IBAction) zoomPage: (id)sender;
 
 //- (id) webView;
 
