@@ -80,6 +80,7 @@ bool insideMatrix();
 @synthesize quittingMyself;	//create getter and setter for flag that SEB is quitting itself
 @synthesize webView;
 @synthesize capWindows;
+@synthesize coveringWindows;
 
 #pragma mark Application Delegate Methods
 
@@ -919,18 +920,35 @@ bool insideMatrix(){
 }
 
 
+
+
 // Open background windows on all available screens to prevent Finder becoming active when clicking on the desktop background
 - (void) coverScreens {
-    // Open background windows on all available screens to prevent Finder becoming active when clicking on the desktop background
-    NSArray *screens = [NSScreen screens];	// get all available screens
-    if (!self.capWindows) {
-        self.capWindows = [NSMutableArray arrayWithCapacity:1];	// array for storing our cap (covering) background windows
-    } else {
-        [self.capWindows removeAllObjects];
-    }
-    NSScreen *iterScreen;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
+    NSUInteger windowLevel;
+    if (!allowSwitchToThirdPartyApps) {
+        windowLevel = NSMainMenuWindowLevel+2;
+    } else {
+        windowLevel = NSNormalWindowLevel;
+    }
+
+    BOOL excludeMenuBar = !allowSwitchToThirdPartyApps && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
+    
+    NSArray *_coveringWindows = [self fillScreensWithCoveringWindowsColor:[NSColor blackColor] windowLevel:windowLevel excludeMenuBar:excludeMenuBar];
+    if (!self.capWindows) {
+        self.capWindows = [NSMutableArray arrayWithArray:_coveringWindows];	// array for storing our cap (covering) background windows
+    } else {
+        [self.capWindows removeAllObjects];
+        [self.capWindows addObjectsFromArray:_coveringWindows];
+    }
+}
+
+                           
+- (NSArray *) fillScreensWithCoveringWindowsColor:(NSColor *)windowColor windowLevel:(NSUInteger)windowLevel excludeMenuBar:(BOOL) excludeMenuBar {
+    NSMutableArray *_coveringWindows = [NSMutableArray new];	// array for storing our cap (covering)  windows
+    NSArray *screens = [NSScreen screens];	// get all available screens
+    NSScreen *iterScreen;
     for (iterScreen in screens)
     {
         //NSRect frame = size of the current screen;
@@ -943,22 +961,19 @@ bool insideMatrix(){
         rect.origin.y = 0;
 
         // If switching to third party apps isn't allowed and showing menu bar
-        if (!allowSwitchToThirdPartyApps && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"]) {
+        if (excludeMenuBar) {
             // Reduce size of covering background windows to not cover the menu bar
             rect.size.height -= 22;
-            //rect.origin.y += 22;
         }
         CapWindow *window = [[CapWindow alloc] initWithContentRect:rect styleMask:styleMask backing: NSBackingStoreBuffered defer:NO screen:iterScreen];
         [window setReleasedWhenClosed:NO];
-        [window setBackgroundColor:[NSColor blackColor]];
-        [window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-        if (!allowSwitchToThirdPartyApps) {
-            [window newSetLevel:NSMainMenuWindowLevel+2];
-        } else {
-            [window newSetLevel:NSNormalWindowLevel];
+        [window setBackgroundColor:windowColor];
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+            [window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
         }
+        [window newSetLevel:windowLevel];
         //[window orderBack:self];
-        [self.capWindows addObject: window];
+        [_coveringWindows addObject: window];
         NSView *superview = [window contentView];
         CapView *capview = [[CapView alloc] initWithFrame:rect];
         [superview addSubview:capview];
@@ -974,6 +989,7 @@ bool insideMatrix(){
         //DDLogDebug(@"Loaded capWindow %@, isWindowLoaded %@", loadedCapWindow, isWindowLoaded);
 #endif
     }
+    return [NSArray arrayWithArray:_coveringWindows];
 }
 
 
@@ -1007,12 +1023,18 @@ bool insideMatrix(){
 
 - (void) closeCapWindows
 {
+    [self closeCoveringWindows:self.capWindows];
+}
+
+
+- (void) closeCoveringWindows:(NSArray *)windows
+{
     // Close the covering windows
 	int windowIndex;
-	int windowCount = [self.capWindows count];
+	int windowCount = [windows count];
     for (windowIndex = 0; windowIndex < windowCount; windowIndex++ )
     {
-		[(NSWindow *)[self.capWindows objectAtIndex:windowIndex] close];
+		[(NSWindow *)[windows objectAtIndex:windowIndex] close];
 	}
 }
 
@@ -1787,10 +1809,67 @@ bool insideMatrix(){
          NSWorkspaceSessionDidResignActiveNotification])
     {
         // Perform deactivation tasks here.
+        self.didResignActiveTime = [NSDate date];
+        DDLogError(@"SessionDidResignActive: User switch / switched to login window detected!");
+        self.coveringWindows = [self fillScreensWithCoveringWindowsColor:[NSColor redColor] windowLevel:NSScreenSaverWindowLevel+1 excludeMenuBar:false];
+        NSWindow *coveringWindow = self.coveringWindows[0];
+        NSView *coveringView = coveringWindow.contentView;
+        [coveringView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+        [coveringView setTranslatesAutoresizingMaskIntoConstraints:true];
+        
+        [coveringView addSubview:sebLockedView];
+
+        NSLog(@"Frame of superview: %f, %f", sebLockedView.superview.frame.size.width, sebLockedView.superview.frame.size.height);
+        NSMutableArray *constraints = [NSMutableArray new];
+        [constraints addObject:[NSLayoutConstraint constraintWithItem:sebLockedView
+                                                            attribute:NSLayoutAttributeCenterX
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:sebLockedView.superview
+                                                            attribute:NSLayoutAttributeCenterX
+                                                           multiplier:1.0
+                                                             constant:0.0]];
+        
+        [constraints addObject:[NSLayoutConstraint constraintWithItem:sebLockedView
+                                                            attribute:NSLayoutAttributeCenterY
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:sebLockedView.superview
+                                                            attribute:NSLayoutAttributeCenterY
+                                                           multiplier:1.0
+                                                             constant:0.0]];
+        
+        [sebLockedView.superview addConstraints:constraints];
+
     }
     else
     {
         // Perform activation tasks here.
+        
+        DDLogError(@"SessionDidBecomeActive: Switched back after user switch / login window!");
+        // Check if restarting is protected with the quit/restart password (and one is set)
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+        NSWindow *coveringWindow = self.coveringWindows[0];
+        NSString *screensLockedText = NSLocalizedString(@"SEB is locked because a user switch was attempted. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.", nil);
+        
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamPasswordProtected"] && ![hashedQuitPassword isEqualToString:@""]) {
+            BOOL correctPasswordEntered = false;
+            do {
+                // if quit/restart password is set, then restrict quitting
+                
+//                if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit/restart password:",nil) modalForWindow:coveringWindow windowTitle:screensLockedText] == SEBEnterPasswordCancel) return;
+                NSString *password = [self.enterPassword stringValue];
+                
+                SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+                correctPasswordEntered = ([hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame);
+            } while (!correctPasswordEntered);
+            // if the correct quit/restart password was entered, close the covering windows
+            [self closeCoveringWindows:self.coveringWindows];
+        } else {
+            // if no quit password is required, then confirm quitting
+            NSRunAlertPanel(screensLockedText, NSLocalizedString(@"Do you want to unlock SEB?",nil), NSLocalizedString(@"OK",nil), nil, nil);
+            [self closeCoveringWindows:self.coveringWindows];
+
+        }
     }
 }
 

@@ -77,6 +77,7 @@
     IBOutlet NSMenuItem *configMenu;
     IBOutlet NSMenu *settingsMenu;
     IBOutlet NSView *passwordView;
+    IBOutlet NSView *sebLockedView;
 
     IBOutlet NSWindow *enterPasswordDialogWindow;
     IBOutlet NSTextField *enterPasswordDialog;
@@ -119,10 +120,13 @@
 @property(readwrite) BOOL quittingMyself;
 @property(strong) SEBWebView *webView;
 @property(strong) NSMutableArray *capWindows;
+@property(strong) NSArray *coveringWindows;
 @property(strong) IBOutlet NSSecureTextField *enterPassword;
 @property(strong) IBOutlet id preferencesController;
 @property(strong) IBOutlet SEBSystemManager *systemManager;
 @property(strong) SEBDockController *dockController;
 @property(strong) SEBBrowserController *browserController;
+@property(strong) NSDate *didResignActiveTime;
+@property(strong) NSDate *didBecomeActiveTime;
 
 @end

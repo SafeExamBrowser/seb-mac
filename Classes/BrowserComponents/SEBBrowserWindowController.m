@@ -190,7 +190,6 @@
 {
     if ([sender selectedSegment] == 0) {
         [[NSApplication sharedApplication] sendAction:@selector(zoomPageOut:) to:self.webView from:self];
-//        [self.window.firstResponder zoomPageIn:self];
     } else {
         [[NSApplication sharedApplication] sendAction:@selector(zoomPageIn:) to:self.webView from:self];
     }
