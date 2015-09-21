@@ -84,28 +84,30 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
         if ([URLFilterRule[@"active"] boolValue] == YES) {
             
             NSString *expressionString = URLFilterRule[@"expression"];
-            id expression;
-            
-            BOOL regex = [URLFilterRule[@"regex"] boolValue];
-            if (regex) {
-                expression = [NSRegularExpression regularExpressionWithPattern:expressionString options:NSRegularExpressionCaseInsensitive | NSRegularExpressionAnchorsMatchLines error:&error];
-            } else {
-                expression = [SEBURLFilterRegexExpression regexFilterExpressionWithString:expressionString error:&error];
-            }
-            if (error) {
-                [self.prohibitedList removeAllObjects];
-                [self.permittedList removeAllObjects];
-                return error;
-            }
-            int action = [URLFilterRule[@"action"] intValue];
-            switch (action) {
-                case URLFilterActionBlock:
-                    [self.prohibitedList addObject:expression];
-                    break;
-                    
-                case URLFilterActionAllow:
-                    [self.permittedList addObject:expression];
-                    break;
+            if (expressionString.length > 0) {
+                id expression;
+                
+                BOOL regex = [URLFilterRule[@"regex"] boolValue];
+                if (regex) {
+                    expression = [NSRegularExpression regularExpressionWithPattern:expressionString options:NSRegularExpressionCaseInsensitive | NSRegularExpressionAnchorsMatchLines error:&error];
+                } else {
+                    expression = [SEBURLFilterRegexExpression regexFilterExpressionWithString:expressionString error:&error];
+                }
+                if (error) {
+                    [self.prohibitedList removeAllObjects];
+                    [self.permittedList removeAllObjects];
+                    return error;
+                }
+                int action = [URLFilterRule[@"action"] intValue];
+                switch (action) {
+                    case URLFilterActionBlock:
+                        [self.prohibitedList addObject:expression];
+                        break;
+                        
+                    case URLFilterActionAllow:
+                        [self.permittedList addObject:expression];
+                        break;
+                }
             }
         }
     }
