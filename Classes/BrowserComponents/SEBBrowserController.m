@@ -165,7 +165,9 @@
                withWebView:newWindowWebView
                  withTitle:NSLocalizedString(@"Untitled", @"Title of a new opened browser window; Untitled")];
     
-    [browserWindowDocument.mainWindowController.window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+        [browserWindowDocument.mainWindowController.window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+    }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL elevateWindowLevels = [preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
     // Order new browser window to the front of our level
@@ -259,7 +261,9 @@
         [self.mainBrowserWindow setReleasedWhenClosed:YES];
     }
     
-    [self.mainBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+        [self.mainBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+    }
     [self.mainBrowserWindow setCalculatedFrame];
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
         [self.mainBrowserWindow newSetLevel:NSMainMenuWindowLevel+3];
@@ -354,7 +358,9 @@
 {
     SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
     NSWindow *additionalBrowserWindow = browserWindowDocument.mainWindowController.window;
-    [additionalBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+        [additionalBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+    }
     [(SEBBrowserWindow *)additionalBrowserWindow setCalculatedFrame];
     BOOL elevateWindowLevels = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
     [self setLevelForBrowserWindow:additionalBrowserWindow elevateLevels:elevateWindowLevels];

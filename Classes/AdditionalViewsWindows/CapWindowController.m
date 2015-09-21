@@ -80,7 +80,9 @@
 	// listen for these notifications so we can update our image based on the full-screen state
     
     DDLogDebug(@"Cap window %@ awakeFromNib.", self.window);
-    [self.window setSharingType:NSWindowSharingNone];
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+        [self.window setSharingType:NSWindowSharingNone];
+    }
 }
 
 
