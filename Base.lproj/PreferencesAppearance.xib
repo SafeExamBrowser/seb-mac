@@ -192,7 +192,6 @@
                                     </column>
                                 </cells>
                                 <connections>
-                                    <action selector="browserViewModeMatrix:" target="-2" id="2Hi-Hx-0wB"/>
                                     <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserViewMode" id="753">
                                         <dictionary key="options">
                                             <bool key="NSConditionallySetsEnabled" value="NO"/>
