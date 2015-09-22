@@ -235,10 +235,10 @@
                 CFErrorRef error = NULL;
                 NSDictionary *values = (NSDictionary *)CFBridgingRelease(SecCertificateCopyValues (certificateRef, (__bridge CFArrayRef)[NSArray arrayWithObject:(__bridge id)(kSecOIDExtendedKeyUsage)], &error));
                 // Keep only certificates which have an extended key usage server authentification
-//                if ([values count]) {
-//                    NSDictionary *value = [values objectForKey:(__bridge id)(kSecOIDExtendedKeyUsage)];
-//                    NSArray *extendedKeyUsages = [value objectForKey:(__bridge id)(kSecPropertyKeyValue)];
-//                    if ([extendedKeyUsages containsObject:[NSData dataWithBytes:keyUsageServerAuthentication length:8]]) {
+                if ([values count]) {
+                    NSDictionary *value = [values objectForKey:(__bridge id)(kSecOIDExtendedKeyUsage)];
+                    NSArray *extendedKeyUsages = [value objectForKey:(__bridge id)(kSecPropertyKeyValue)];
+                    if ([extendedKeyUsages containsObject:[NSData dataWithBytes:keyUsageServerAuthentication length:8]]) {
                         certificateName = [NSString stringWithFormat:@"%@",
                                            (__bridge NSString *)commonName ?
                                            //There is a commonName: just take that as a name
@@ -271,14 +271,14 @@
                         if (emailAddressesRef) CFRelease(emailAddressesRef);
 
                         continue;
-//                    }
-//                } else {
-//                    NSString *errorDescription = @"";
-//                    if (error != NULL) {
-//                        errorDescription = [NSString stringWithFormat:@"SecCertificateCopyValues error: %@. ", CFBridgingRelease(CFErrorCopyDescription(error))];
-//                    }
-//                    DDLogDebug(@"Common name: %@. No extended key usage server authentification has been found. %@ This certificate will be skipped.", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , errorDescription);
-//                }
+                    }
+                } else {
+                    NSString *errorDescription = @"";
+                    if (error != NULL) {
+                        errorDescription = [NSString stringWithFormat:@"SecCertificateCopyValues error: %@. ", CFBridgingRelease(CFErrorCopyDescription(error))];
+                    }
+                    DDLogDebug(@"Common name: %@. No extended key usage server authentification has been found. %@ This certificate will be skipped.", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , errorDescription);
+                }
                 if (emailAddressesRef) CFRelease(emailAddressesRef);
             } else {
                 DDLogError(@"Error in %s: SecCertificateCopyEmailAddresses returned %@. This identity will be skipped.", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
