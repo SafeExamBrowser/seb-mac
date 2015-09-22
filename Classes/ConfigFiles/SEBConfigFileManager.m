@@ -188,6 +188,32 @@
         //switch to system's UserDefaults
         [NSUserDefaults setUserDefaultsPrivate:NO];
         
+        // Check if we have embedded identities and import them into the Windows Certifcate Store
+        //NSArray *certificates = [sebPreferencesDict valueForKey:@"embeddedCertificates"];
+        NSMutableArray *embeddedCertificates = [sebPreferencesDict valueForKey:@"embeddedCertificates"];
+        if (embeddedCertificates) {
+            //NSMutableArray *embeddedCertificates = [NSMutableArray arrayWithArray:certificates];
+            SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+            for (int i = embeddedCertificates.count - 1; i >= 0; i--)
+            {
+                // Get the Embedded Certificate
+                NSDictionary *embeddedCertificate = embeddedCertificates[i];
+                // Is it an identity?
+                if ([[embeddedCertificate objectForKey:@"type"] integerValue] == certificateTypeIdentity)
+                {
+                    // Store the identity into the Keychain
+                    NSData *certificateData = [embeddedCertificate objectForKey:@"certificateData"];
+                    if (certificateData) {
+                        BOOL success = [keychainManager importIdentityFromData:certificateData];
+                        
+                        DDLogInfo(@"Importing identity <%@> into Keychain %@", [embeddedCertificate objectForKey:@"name"], success ? @"succedded" : @"failed");
+                    }
+                }
+                // Remove the identity from settings, as it should be only stored in the Certificate Store and not in the locally stored settings file
+                [embeddedCertificates removeObjectAtIndex:i];
+            }
+        }
+        
         // Write values from .seb config file to the local preferences (shared UserDefaults)
         [self storeIntoUserDefaults:sebPreferencesDict];
         

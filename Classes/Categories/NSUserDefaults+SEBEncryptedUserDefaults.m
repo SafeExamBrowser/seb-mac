@@ -615,43 +615,8 @@ static NSNumber *_logLevel;
         if ([value isKindOfClass:[NSDictionary class]]) {
             value = [NSMutableDictionary dictionaryWithDictionary:value];
         }
-        
         NSString *keyWithPrefix = [self prefixKey:key];
-        
-        // Import embedded certificates (and identities) into the keychain
-        if ([key isEqualToString:@"embeddedCertificates"]) {
-            SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-            for (NSDictionary *certificate in value) {
-                int certificateType = [[certificate objectForKey:@"type"] integerValue];
-                NSData *certificateData = [certificate objectForKey:@"certificateData"];
-                switch (certificateType) {
-                    case certificateTypeSSLClientCertificate:
-                        if (certificateData) {
-                            BOOL success = [keychainManager importCertificateFromData:certificateData];
-
-                            DDLogInfo(@"Importing SSL certificate <%@> into Keychain %@", [certificate objectForKey:@"name"], success ? @"succedded" : @"failed");
-                        }
-                        break;
-                        
-                    case certificateTypeIdentity:
-                        if (certificateData) {
-                            BOOL success = [keychainManager importIdentityFromData:certificateData];
-
-                            DDLogInfo(@"Importing identity <%@> into Keychain %@", [certificate objectForKey:@"name"], success ? @"succedded" : @"failed");
-                        }
-                        break;
-                }
-            }
-            // If imported settings are being saved into local client NSUserDefaults
-            // don't save embedded certificates into local preferences
-            if (NSUserDefaults.userDefaultsPrivate) {
-                // Private UserDefaults: Keep embedded certificates in settings
-                [self setSecureObject:value forKey:keyWithPrefix];
-            }
-        } else {
-            // other values can be saved into shared NSUserDefaults
-            [self setSecureObject:value forKey:keyWithPrefix];
-        }
+        [self setSecureObject:value forKey:keyWithPrefix];
     }
 }
 

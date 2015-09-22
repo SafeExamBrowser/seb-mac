@@ -67,6 +67,9 @@
 #import "IsEmptyCollectionValueTransformer.h"
 #import "NSTextFieldNilToEmptyStringTransformer.h"
 
+#include <SystemConfiguration/SystemConfiguration.h>
+
+
 io_connect_t  root_port; // a reference to the Root Power Domain IOService
 
 
@@ -809,12 +812,22 @@ bool insideMatrix();
             logPath = nil;
         } else {
             logPath = [logPath stringByExpandingTildeInPath];
+            // Add subdirectory with the name of the computer
         }
         DDLogFileManagerDefault* logFileManager = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:logPath];
         _myLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
         _myLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
         _myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
         [DDLog addLogger:_myLogger];
+        
+        NSString *localHostname = (NSString *)CFBridgingRelease(SCDynamicStoreCopyLocalHostName(NULL));
+        NSString *userName = NSUserName();
+        NSString *fullUserName = NSFullUserName();
+
+        DDLogInfo(@"---------- INITIALIZING SEB - STARTING SESSION -------------");
+        DDLogInfo(@"Local hostname: %@", localHostname);
+        DDLogInfo(@"User name: %@", userName);
+        DDLogInfo(@"Full user name: %@", fullUserName);
     }
 }
 
@@ -1643,7 +1656,7 @@ bool insideMatrix(){
 
 - (void)requestedRestart:(NSNotification *)notification
 {
-    DDLogInfo(@"Requested Restart");
+    DDLogInfo(@"---------- RESTARTING SEB SESSION -------------");
 
     // Clear Pasteboard
     [self clearPasteboardSavingCurrentString];
@@ -1950,6 +1963,7 @@ bool insideMatrix(){
 	IOPMAssertionRelease(assertionID1);
 	/*// Allow system to sleep again
 	success = IOPMAssertionRelease(assertionID2);*/
+    DDLogInfo(@"---------- EXITING SEB - ENDING SESSION -------------");
 }
 
 
