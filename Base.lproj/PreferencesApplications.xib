@@ -562,7 +562,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <popUpButton toolTip="Indicates on which operating system the permitted process runs" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1314">
+                                                <popUpButton toolTip="Indicates on which operating system the permitted process runs. OS X is currently not supported." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1314">
                                                     <rect key="frame" x="44" y="253" width="75" height="26"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="70" id="yd6-Ea-gPd"/>
@@ -1084,7 +1084,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <popUpButton toolTip="Indicates on which operating system the prohibited process runs" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1900">
+                                                <popUpButton toolTip="Indicates on which operating system the prohibited process runs. OS X is currently not supported." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1900">
                                                     <rect key="frame" x="44" y="72" width="75" height="26"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="70" id="ooY-Jz-CeW"/>
@@ -1229,9 +1229,9 @@
                     </tabViewItems>
                 </tabView>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="299">
-                    <rect key="frame" x="18" y="664" width="137" height="18"/>
+                    <rect key="frame" x="18" y="664" width="171" height="18"/>
                     <string key="toolTip">SEB monitors which processes/applications are running during an exam. Those which are not permitted are hiddden, those which are prohibited will be closed/killed.</string>
-                    <buttonCell key="cell" type="check" title="Monitor processes" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="301">
+                    <buttonCell key="cell" type="check" title="Monitor processes (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="301">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
