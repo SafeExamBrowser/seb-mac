@@ -1,77 +1,85 @@
+/* Class = "NSTextFieldCell"; title = "Desktop mode default user agent"; ObjectID = "0dZ-Z1-Pzs"; */
+"0dZ-Z1-Pzs.title" = "Useragent für Desktop-Modus";
 
-/* Class = "NSTextFieldCell"; title = "Links, die in einem neuen Browserfenster geöffnet werden sollen …"; ObjectID = "91"; */
+/* Class = "NSBox"; title = "Browser Security"; ObjectID = "7nL-Z2-JAg"; */
+"7nL-Z2-JAg.title" = "Browser-Sicherheit";
+
+/* Class = "NSTextFieldCell"; title = "Default strings depend on installed SEB for Windows version and therefore can differ on exam clients."; ObjectID = "9wd-E4-JwC"; */
+"9wd-E4-JwC.title" = "Standard-Strings hängen von der installierten SEB-Version ab und können deswegen auf Prüfungs-Clients abweichen. ";
+
+/* Class = "NSButtonCell"; title = "Show reload warning"; ObjectID = "16K-h7-SCc"; */
+"16K-h7-SCc.title" = "Reload-Warnung anzeigen";
+
+/* Class = "NSButtonCell"; title = "Disable local storage (Mac)"; ObjectID = "29c-3t-HLf"; */
+"29c-3t-HLf.title" = "Local Storage deaktivieren (Mac)";
+
+/* Class = "NSTextFieldCell"; title = "Links requesting to be opened in a new browser window ..."; ObjectID = "91"; */
 "91.title" = "Links, die in einem neuen Browserfenster geöffnet werden sollen …";
 
-/* Class = "NSPopUpButton"; ibShadowedToolTip = "ACHTUNG: Wenn 'Öffnen im selben Fenster' ausgewählt ist, dann funktionieren einige JavaScript/HTML5 Funktionen (wie File API) nicht"; ObjectID = "94"; */
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work"; ObjectID = "94"; */
 "94.ibShadowedToolTip" = "ACHTUNG: Wenn 'Öffnen im selben Fenster' ausgewählt ist, dann funktionieren einige JavaScript/HTML5 Funktionen (wie File API) nicht";
 
-/* Class = "NSTextFieldCell"; title = "Links in JavaScript/Plug-Ins ..."; ObjectID = "100"; */
+/* Class = "NSTextFieldCell"; title = "Links in JavaScript/plug-ins ..."; ObjectID = "100"; */
 "100.title" = "Links in JavaScript/Plug-Ins ...";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Hyperlinks werden ignoriert, wenn sie auf einen anderen Server als den der aktuellen Webseite führen"; ObjectID = "101"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Hyperlinks which direct to a different host than the one of the current main page will be ignored"; ObjectID = "101"; */
 "101.ibShadowedToolTip" = "Hyperlinks werden ignoriert, wenn sie auf einen anderen Server als den der aktuellen Webseite führen";
 
-/* Class = "NSButtonCell"; title = "blockieren, wenn Ziel auf anderem Server"; ObjectID = "102"; */
+/* Class = "NSButtonCell"; title = "block when directing to a different server"; ObjectID = "102"; */
 "102.title" = "blockieren, wenn Ziel auf anderem Server";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Hyperlinks aufgerufen von JavaScript/Plug-Ins werden ignoriert, wenn sie auf einen anderen Server als den der aktuellen Webseite führen. Diese Funktion führt auf vielen Webseiten zu Fehlfunktionen!"; ObjectID = "103"; */
-"103.ibShadowedToolTip" = "Hyperlinks aufgerufen von JavaScript/Plug-Ins werden ignoriert, wenn sie auf einen anderen Server als den der aktuellen Webseite führen. Diese Funktion führt auf vielen Webseiten zu Fehlfunktionen!";
-
-/* Class = "NSButtonCell"; title = "blockieren, wenn Ziel auf anderem Server"; ObjectID = "104"; */
-"104.title" = "blockieren, wenn Ziel auf anderem Server";
-
-/* Class = "NSButton"; ibShadowedToolTip = "Erlaubt Web-Plug-Ins wie Flash. Aus Sicherheitsgründen wird empfohlen, diese Option auszuschalten, wenn keine Plug-In-Inhalte benötigt werden"; ObjectID = "107"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Enables web plugins like Flash. For security reasons it's recommended to disable this option if plugin content is not used."; ObjectID = "107"; */
 "107.ibShadowedToolTip" = "Erlaubt Web-Plug-Ins wie Flash. Aus Sicherheitsgründen wird empfohlen, diese Option auszuschalten, wenn keine Plug-In-Inhalte benötigt werden";
 
-/* Class = "NSButtonCell"; title = "Plug-Ins aktivieren"; ObjectID = "108"; */
+/* Class = "NSButtonCell"; title = "Enable plug-ins"; ObjectID = "108"; */
 "108.title" = "Plug-Ins aktivieren";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Java-Applets zulassen. SEB ist nur mit Java 1.6 kompatibel, nicht mit Java 1.7 und 1.8"; ObjectID = "168"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Enables Java applets"; ObjectID = "168"; */
 "168.ibShadowedToolTip" = "Java-Applets zulassen. SEB ist nur mit Java 1.6 kompatibel, nicht mit Java 1.7 und 1.8";
 
-/* Class = "NSButtonCell"; title = "Java aktivieren"; ObjectID = "169"; */
+/* Class = "NSButtonCell"; title = "Enable Java"; ObjectID = "169"; */
 "169.title" = "Java aktivieren";
 
-/* Class = "NSButton"; ibShadowedToolTip = "JavaScript aktivieren. Bitte beachten: Die meisten modernen Websites benötigen JavaScript für volle Funktionalität"; ObjectID = "171"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Enables JavaScript. Please note that most modern websites need JavaScript for full functionality."; ObjectID = "171"; */
 "171.ibShadowedToolTip" = "JavaScript aktivieren. Bitte beachten: Die meisten modernen Websites benötigen JavaScript für volle Funktionalität";
 
-/* Class = "NSButtonCell"; title = "JavaScript aktivieren"; ObjectID = "172"; */
+/* Class = "NSButtonCell"; title = "Enable JavaScript"; ObjectID = "172"; */
 "172.title" = "JavaScript aktivieren";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Blockiert Pop-Up-Fenster (häufig Werbung), die per JavaScript ohne eine Benutzeraktion wie einen Klick auf eine Schaltfläche geöffnet werden"; ObjectID = "176"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Disables pop-up windows (often advertisement) opened by JavaScript without an user action such as a button click"; ObjectID = "176"; */
 "176.ibShadowedToolTip" = "Blockiert Pop-Up-Fenster (häufig Werbung), die per JavaScript ohne eine Benutzeraktion wie einen Klick auf eine Schaltfläche geöffnet werden";
 
-/* Class = "NSButtonCell"; title = "Pop-Ups unterdrücken"; ObjectID = "177"; */
+/* Class = "NSButtonCell"; title = "Block pop-up windows"; ObjectID = "177"; */
 "177.title" = "Pop-Ups unterdrücken";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Ausschalten der Funktion, auf bereits besuchte Seiten zurückzukehren (per Befehlstaste - Cursor links) verhindert, eine Prüfung zu verlassen, indem man auf eine Startseite ausserhalb des Prüfungs-Servers zurückkehrt"; ObjectID = "180"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Disabling browsing to previously visited pages (by cmd + Cursor left) may increase security, because browsing back might allow to leave an exam"; ObjectID = "180"; */
 "180.ibShadowedToolTip" = "Ausschalten der Funktion, auf bereits besuchte Seiten zurückzukehren (per Befehlstaste - Cursor links) verhindert, eine Prüfung zu verlassen, indem man auf eine Startseite ausserhalb des Prüfungs-Servers zurückkehrt";
 
-/* Class = "NSButtonCell"; title = "Vorwärts-/Rückwärts-Surfen erlauben"; ObjectID = "181"; */
+/* Class = "NSButtonCell"; title = "Allow browsing back/forward"; ObjectID = "181"; */
 "181.title" = "Vorwärts-/Rückwärts-Surfen erlauben";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Das SEB-Dock zeigt und schaltet um auf offene Browserfenster, zugelassene Ressourcen und Drittapplikationen und kann zusätzliche Funktionen beinhalten"; ObjectID = "413"; */
+/* Class = "NSButton"; ibShadowedToolTip = "When the SEB browser is disabled, no browser window is openend. Use this option with specific third party applications allowed."; ObjectID = "413"; */
 "413.ibShadowedToolTip" = "Das SEB-Dock zeigt und schaltet um auf offene Browserfenster, zugelassene Ressourcen und Drittapplikationen und kann zusätzliche Funktionen beinhalten";
 
-/* Class = "NSButtonCell"; title = "SEB ohne Browserfenster benutzen"; ObjectID = "415"; */
+/* Class = "NSButtonCell"; title = "Use SEB without browser window"; ObjectID = "415"; */
 "415.title" = "SEB ohne Browserfenster benutzen";
 
-/* Class = "NSTextFieldCell"; title = "um eine Drittapplikation im Kiosk-Modus zu starten (z.B. einen Client für virtuelle Desktop-Infrastruktur)"; ObjectID = "449"; */
+/* Class = "NSTextFieldCell"; title = "to start another application in kiosk mode (for example a virtual desktop infrastructure client)"; ObjectID = "449"; */
 "449.title" = "um eine Drittapplikation im Kiosk-Modus zu starten (z.B. einen Client für virtuelle Desktop-Infrastruktur)";
 
-/* Class = "NSBox"; title = "Grösse und Position von neuen Browserfenstern"; ObjectID = "567"; */
+/* Class = "NSBox"; title = "New browser window size and position"; ObjectID = "567"; */
 "567.title" = "Grösse und Position von neuen Browserfenstern";
 
-/* Class = "NSPopUpButton"; ibShadowedToolTip = "Neue Browserfenster links, rechts oder zentriert positionieren"; ObjectID = "569"; */
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Position new browser windows on the left, right or centered"; ObjectID = "569"; */
 "569.ibShadowedToolTip" = "Neue Browserfenster links, rechts oder zentriert positionieren";
 
-/* Class = "NSComboBox"; ibShadowedToolTip = "Fensterhöhe in Pixeln oder Prozent der Bildschirmhöhe"; ObjectID = "570"; */
+/* Class = "NSComboBox"; ibShadowedToolTip = "Window height in pixel or percentage of total screen height"; ObjectID = "570"; */
 "570.ibShadowedToolTip" = "Fensterhöhe in Pixeln oder Prozent der Bildschirmhöhe";
 
-/* Class = "NSComboBox"; ibShadowedToolTip = "Fensterbreite in Pixeln oder Prozent der Bildschirmbreite"; ObjectID = "585"; */
+/* Class = "NSComboBox"; ibShadowedToolTip = "Window width in pixel or percentage of total screen width"; ObjectID = "585"; */
 "585.ibShadowedToolTip" = "Fensterbreite in Pixeln oder Prozent der Bildschirmbreite";
 
-/* Class = "NSTextFieldCell"; title = "Breite"; ObjectID = "587"; */
+/* Class = "NSTextFieldCell"; title = "Width"; ObjectID = "587"; */
 "587.title" = "Breite";
 
 /* Class = "NSComboBoxCell"; 589.ibShadowedObjectValues[0] = "50%"; ObjectID = "589"; */
@@ -86,7 +94,7 @@
 /* Class = "NSComboBoxCell"; 589.ibShadowedObjectValues[3] = "1000"; ObjectID = "589"; */
 "589.ibShadowedObjectValues[3]" = "1000";
 
-/* Class = "NSTextFieldCell"; title = "Höhe"; ObjectID = "590"; */
+/* Class = "NSTextFieldCell"; title = "Height"; ObjectID = "590"; */
 "590.title" = "Höhe";
 
 /* Class = "NSComboBoxCell"; 591.ibShadowedObjectValues[0] = "100%"; ObjectID = "591"; */
@@ -101,17 +109,48 @@
 /* Class = "NSComboBoxCell"; 591.ibShadowedObjectValues[3] = "800"; ObjectID = "591"; */
 "591.ibShadowedObjectValues[3]" = "800";
 
-/* Class = "NSTextFieldCell"; title = "Horizontale Positionierung"; ObjectID = "598"; */
+/* Class = "NSTextFieldCell"; title = "Horizontal positioning"; ObjectID = "598"; */
 "598.title" = "Horizontale Positionierung";
 
-/* Class = "NSButton"; ibShadowedToolTip = "XULRunner Browser-Profil beim Beenden von SEB löschen (enthält Caches und auch Local Storage)"; ObjectID = "661"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Remove XULRunner browser profile (containing caches and also local storage) when quitting SEB"; ObjectID = "661"; */
 "661.ibShadowedToolTip" = "XULRunner Browser-Profil beim Beenden von SEB löschen (enthält Caches und auch Local Storage)";
 
-/* Class = "NSButtonCell"; title = "Profil löschen (Win)"; ObjectID = "663"; */
+/* Class = "NSButtonCell"; title = "Remove profile (Win)"; ObjectID = "663"; */
 "663.title" = "Profil löschen (Win)";
 
-/* Class = "NSButtonCell"; title = "Local Storage deaktivieren (Mac)"; ObjectID = "29c-3t-HLf"; */
-"29c-3t-HLf.title" = "Local Storage deaktivieren (Mac)";
+/* Class = "NSTextFieldCell"; title = "Default user agent Mac"; ObjectID = "EZ4-9b-Idz"; */
+"EZ4-9b-Idz.title" = "Standard Mac-Useragent";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Wenn eine Web-Applikation benutzt wird, sollte sichergestellt sein, dass kritische Daten verschlüsselt gespeichert und entfernt werden, wenn sie nicht mehr benötigt werden, weil SEB Local Storage nicht löscht"; ObjectID = "wFa-eR-NzK"; */
+/* Class = "NSButtonCell"; title = "Default:"; ObjectID = "Lq8-Fi-SDM"; */
+"Lq8-Fi-SDM.title" = "Standard:";
+
+/* Class = "NSTextFieldCell"; title = "iPad user agent"; ObjectID = "XDW-SF-gll"; */
+"XDW-SF-gll.title" = "iPad-Useragent";
+
+/* Class = "NSButtonCell"; title = "Custom"; ObjectID = "YE5-tr-HaY"; */
+"YE5-tr-HaY.title" = "Benutzerdefiniert";
+
+/* Class = "NSButtonCell"; title = "Touch default:"; ObjectID = "al8-58-HPQ"; */
+"al8-58-HPQ.title" = "Touch-Standard:";
+
+/* Class = "NSBox"; title = "User agent"; ObjectID = "ckm-lX-Woj"; */
+"ckm-lX-Woj.title" = "Useragent";
+
+/* Class = "NSTextFieldCell"; title = "Default touch mode user agent"; ObjectID = "dqB-SD-Yjy"; */
+"dqB-SD-Yjy.title" = "Standard-Useragent Touch-Modus";
+
+/* Class = "NSButtonCell"; title = "Desktop default:"; ObjectID = "fzm-2I-vcw"; */
+"fzm-2I-vcw.title" = "Desktop Standard:";
+
+/* Class = "NSButtonCell"; title = "Custom"; ObjectID = "kJa-eD-szz"; */
+"kJa-eD-szz.title" = "Benutzerdefiniert";
+
+/* Class = "NSButtonCell"; title = "iPad"; ObjectID = "mRw-O9-H0n"; */
+"mRw-O9-H0n.title" = "iPad";
+
+/* Class = "NSButtonCell"; title = "Custom"; ObjectID = "qVa-6O-Lcc"; */
+"qVa-6O-Lcc.title" = "Benutzerdefiniert";
+
+/* Class = "NSButton"; ibShadowedToolTip = "If your web application uses local storage, you have to be sure data is saved encrypted and removed when no longer needed as SEB doesn't remove local storage"; ObjectID = "wFa-eR-NzK"; */
 "wFa-eR-NzK.ibShadowedToolTip" = "Wenn eine Web-Applikation benutzt wird, sollte sichergestellt sein, dass kritische Daten verschlüsselt gespeichert und entfernt werden, wenn sie nicht mehr benötigt werden, weil SEB Local Storage nicht löscht";
+
