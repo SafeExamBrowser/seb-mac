@@ -44,7 +44,7 @@
 
 @class SEBBrowserController;
 
-@interface SEBBrowserWindow : NSWindow <NSWindowDelegate, NSURLDownloadDelegate, NSTextViewDelegate>
+@interface SEBBrowserWindow : NSWindow <NSWindowDelegate, NSURLDownloadDelegate, NSTextViewDelegate, WebUIDelegate, WebPolicyDelegate, WebFrameLoadDelegate, WebResourceLoadDelegate>
 
 {
     SEBWebView *requestingWebView;
