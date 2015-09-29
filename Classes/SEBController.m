@@ -579,17 +579,17 @@ bool insideMatrix();
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
-    [[[NSWorkspace sharedWorkspace] notificationCenter]
-     addObserver:self
-     selector:@selector(switchHandler:)
-     name:NSWorkspaceSessionDidBecomeActiveNotification
-     object:nil];
-    
-    [[[NSWorkspace sharedWorkspace] notificationCenter]
-     addObserver:self
-     selector:@selector(switchHandler:)
-     name:NSWorkspaceSessionDidResignActiveNotification
-     object:nil];
+//    [[[NSWorkspace sharedWorkspace] notificationCenter]
+//     addObserver:self
+//     selector:@selector(switchHandler:)
+//     name:NSWorkspaceSessionDidBecomeActiveNotification
+//     object:nil];
+//    
+//    [[[NSWorkspace sharedWorkspace] notificationCenter]
+//     addObserver:self
+//     selector:@selector(switchHandler:)
+//     name:NSWorkspaceSessionDidResignActiveNotification
+//     object:nil];
     
     [self performSelector:@selector(performAfterStartActions:) withObject: nil afterDelay: 2];
 }
