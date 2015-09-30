@@ -477,7 +477,6 @@
                 <outlet property="enterPassword" destination="8aH-DI-gaF" id="kts-El-Lns"/>
                 <outlet property="enterPasswordDialog" destination="14K-iu-K30" id="q2y-Bh-2KY"/>
                 <outlet property="enterPasswordDialogWindow" destination="rLU-be-IrT" id="2h2-Gv-9U4"/>
-                <outlet property="lockedAlertPasswordField" destination="E6M-vB-bca" id="XEI-GR-cJj"/>
                 <outlet property="lockedAlertPasswordOkButton" destination="saq-WU-u0D" id="myr-WE-x7u"/>
                 <outlet property="lockedAlertTextView" destination="FId-0c-znr" id="t0u-g1-If8"/>
                 <outlet property="lockedAlertWrongPasswordLabel" destination="cZ9-xX-IzI" id="4Z9-in-0L3"/>
@@ -788,7 +787,7 @@ Gw
             </view>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="SRG-SJ-3eg"/>
-        <customView translatesAutoresizingMaskIntoConstraints="NO" id="Re1-C5-57e">
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="Re1-C5-57e" customClass="SEBLockedView">
             <rect key="frame" x="0.0" y="0.0" width="500" height="503"/>
             <subviews>
                 <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E6M-vB-bca">
@@ -877,9 +876,12 @@ Gw
                         <constraint firstAttribute="width" constant="20" id="k7i-7N-vWO"/>
                     </constraints>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSGoRightTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="UCd-sc-sOC">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="passwordEntered:" target="Re1-C5-57e" id="4my-Gh-sY0"/>
+                    </connections>
                 </button>
             </subviews>
             <constraints>
@@ -902,6 +904,10 @@ Gw
                 <constraint firstItem="saq-WU-u0D" firstAttribute="centerY" secondItem="E6M-vB-bca" secondAttribute="centerY" id="rjI-YY-BR9"/>
                 <constraint firstItem="saq-WU-u0D" firstAttribute="leading" secondItem="E6M-vB-bca" secondAttribute="trailing" constant="8" id="soY-M9-brc"/>
             </constraints>
+            <connections>
+                <outlet property="lockedAlertPasswordField" destination="E6M-vB-bca" id="p0M-8N-5zx"/>
+                <outlet property="passwordWrongLabel" destination="cZ9-xX-IzI" id="rxI-dt-f3D"/>
+            </connections>
             <point key="canvasLocation" x="440" y="933"/>
         </customView>
     </objects>

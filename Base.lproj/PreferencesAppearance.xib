@@ -362,7 +362,7 @@
                         <rect key="frame" x="1" y="1" width="299" height="62"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button toolTip="Pages can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="baa-Wm-1db">
+                            <button toolTip="Pages can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="baa-Wm-1db">
                                 <rect key="frame" x="11" y="35" width="137" height="18"/>
                                 <buttonCell key="cell" type="check" title="Enable page zoom" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="YEg-Qr-xf0">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -377,7 +377,7 @@
                                     </binding>
                                 </connections>
                             </button>
-                            <button toolTip="Text in browser windows can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="S0v-zb-D4L">
+                            <button toolTip="Text in browser windows can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="S0v-zb-D4L">
                                 <rect key="frame" x="11" y="15" width="129" height="18"/>
                                 <buttonCell key="cell" type="check" title="Enable text zoom" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="zfV-ml-478">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>

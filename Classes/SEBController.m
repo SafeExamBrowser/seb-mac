@@ -579,17 +579,17 @@ bool insideMatrix();
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
-//    [[[NSWorkspace sharedWorkspace] notificationCenter]
-//     addObserver:self
-//     selector:@selector(switchHandler:)
-//     name:NSWorkspaceSessionDidBecomeActiveNotification
-//     object:nil];
-//    
-//    [[[NSWorkspace sharedWorkspace] notificationCenter]
-//     addObserver:self
-//     selector:@selector(switchHandler:)
-//     name:NSWorkspaceSessionDidResignActiveNotification
-//     object:nil];
+    [[[NSWorkspace sharedWorkspace] notificationCenter]
+     addObserver:self
+     selector:@selector(switchHandler:)
+     name:NSWorkspaceSessionDidBecomeActiveNotification
+     object:nil];
+    
+    [[[NSWorkspace sharedWorkspace] notificationCenter]
+     addObserver:self
+     selector:@selector(switchHandler:)
+     name:NSWorkspaceSessionDidResignActiveNotification
+     object:nil];
     
     [self performSelector:@selector(performAfterStartActions:) withObject: nil afterDelay: 2];
 }
@@ -988,7 +988,8 @@ bool insideMatrix(){
         //[window orderBack:self];
         [_coveringWindows addObject: window];
         NSView *superview = [window contentView];
-        CapView *capview = [[CapView alloc] initWithFrame:rect];
+//        CapView *capview = [[CapView alloc] initWithFrame:rect];
+        NSView *capview = [[NSView alloc] initWithFrame:rect];
         [superview addSubview:capview];
         
         //[window orderBack:self];
@@ -1859,30 +1860,11 @@ bool insideMatrix(){
         
         DDLogError(@"SessionDidBecomeActive: Switched back after user switch / login window!");
         // Check if restarting is protected with the quit/restart password (and one is set)
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
         NSWindow *coveringWindow = self.coveringWindows[0];
-        NSString *screensLockedText = NSLocalizedString(@"SEB is locked because a user switch was attempted. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.", nil);
+//        NSString *screensLockedText = NSLocalizedString(@"SEB is locked because a user switch was attempted. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.", nil);
         
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamPasswordProtected"] && ![hashedQuitPassword isEqualToString:@""]) {
-            BOOL correctPasswordEntered = false;
-            do {
-                // if quit/restart password is set, then restrict quitting
-                
-//                if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit/restart password:",nil) modalForWindow:coveringWindow windowTitle:screensLockedText] == SEBEnterPasswordCancel) return;
-                NSString *password = [self.enterPassword stringValue];
-                
-                SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-                correctPasswordEntered = ([hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame);
-            } while (!correctPasswordEntered);
-            // if the correct quit/restart password was entered, close the covering windows
-            [self closeCoveringWindows:self.coveringWindows];
-        } else {
-            // if no quit password is required, then confirm quitting
-            NSRunAlertPanel(screensLockedText, NSLocalizedString(@"Do you want to unlock SEB?",nil), NSLocalizedString(@"OK",nil), nil, nil);
-            [self closeCoveringWindows:self.coveringWindows];
-
-        }
+        [NSApp runModalForWindow:coveringWindow];
+        [self closeCoveringWindows:self.coveringWindows];
     }
 }
 
