@@ -7,7 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "SEBController.h"
+
+@class SEBController;
 
 @interface SEBLockedView : NSView
+
+@property (nonatomic, strong) SEBController *sebController;
 
 @end

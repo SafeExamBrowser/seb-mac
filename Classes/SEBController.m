@@ -948,7 +948,7 @@ bool insideMatrix(){
 
     BOOL excludeMenuBar = !allowSwitchToThirdPartyApps && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
     
-    NSArray *_coveringWindows = [self fillScreensWithCoveringWindowsColor:[NSColor blackColor] windowLevel:windowLevel excludeMenuBar:excludeMenuBar];
+    NSArray *_coveringWindows = [self fillScreensWithCoveringWindows:coveringWindowBackground windowLevel:windowLevel excludeMenuBar:excludeMenuBar];
     if (!self.capWindows) {
         self.capWindows = [NSMutableArray arrayWithArray:_coveringWindows];	// array for storing our cap (covering) background windows
     } else {
@@ -958,7 +958,7 @@ bool insideMatrix(){
 }
 
                            
-- (NSArray *) fillScreensWithCoveringWindowsColor:(NSColor *)windowColor windowLevel:(NSUInteger)windowLevel excludeMenuBar:(BOOL) excludeMenuBar {
+- (NSArray *) fillScreensWithCoveringWindows:(coveringWindowKind)coveringWindowKind windowLevel:(NSUInteger)windowLevel excludeMenuBar:(BOOL)excludeMenuBar {
     NSMutableArray *_coveringWindows = [NSMutableArray new];	// array for storing our cap (covering)  windows
     NSArray *screens = [NSScreen screens];	// get all available screens
     NSScreen *iterScreen;
@@ -978,7 +978,29 @@ bool insideMatrix(){
             // Reduce size of covering background windows to not cover the menu bar
             rect.size.height -= 22;
         }
-        CapWindow *window = [[CapWindow alloc] initWithContentRect:rect styleMask:styleMask backing: NSBackingStoreBuffered defer:NO screen:iterScreen];
+        DDLogDebug(@"Opening %@ covering window with frame %@ and window level %ld", coveringWindowKind == coveringWindowBackground ? @"background" : @"lockdown alert", CGRectCreateDictionaryRepresentation(rect), windowLevel);
+        id window;
+        id capview;
+        NSColor *windowColor;
+        switch (coveringWindowKind) {
+            case coveringWindowBackground: {
+                window = [[NSWindow alloc] initWithContentRect:rect styleMask:styleMask backing: NSBackingStoreBuffered defer:NO screen:iterScreen];
+                capview = [[CapView alloc] initWithFrame:rect];
+                windowColor = [NSColor blackColor];
+                break;
+            }
+                
+            case coveringWindowLockdownAlert: {
+                window = [[CapWindow alloc] initWithContentRect:rect styleMask:styleMask backing: NSBackingStoreBuffered defer:NO screen:iterScreen];
+                capview = [[NSView alloc] initWithFrame:rect];
+                windowColor = [NSColor redColor];
+                break;
+            }
+                
+            default:
+                return nil;
+        }
+        
         [window setReleasedWhenClosed:NO];
         [window setBackgroundColor:windowColor];
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
@@ -988,8 +1010,6 @@ bool insideMatrix(){
         //[window orderBack:self];
         [_coveringWindows addObject: window];
         NSView *superview = [window contentView];
-//        CapView *capview = [[CapView alloc] initWithFrame:rect];
-        NSView *capview = [[NSView alloc] initWithFrame:rect];
         [superview addSubview:capview];
         
         //[window orderBack:self];
@@ -1060,7 +1080,7 @@ bool insideMatrix(){
 	NSString *pathToTask=@"/Applications/Preview.app/Contents/MacOS/Preview";
 	
 	// Parameter and path to XUL-SEB Application
-	NSArray *taskArguments=[NSArray arrayWithObjects:nil];
+	NSArray *taskArguments=[NSArray arrayWithObjects:@"", nil];
 	
 	// Allocate and initialize a new NSTask
     NSTask *task=[[NSTask alloc] init];
@@ -1825,11 +1845,13 @@ bool insideMatrix(){
         // Perform deactivation tasks here.
         self.didResignActiveTime = [NSDate date];
         DDLogError(@"SessionDidResignActive: User switch / switched to login window detected!");
-        self.coveringWindows = [self fillScreensWithCoveringWindowsColor:[NSColor redColor] windowLevel:NSScreenSaverWindowLevel+1 excludeMenuBar:false];
+        self.coveringWindows = [self fillScreensWithCoveringWindows:coveringWindowLockdownAlert windowLevel:NSScreenSaverWindowLevel excludeMenuBar:false];
         NSWindow *coveringWindow = self.coveringWindows[0];
         NSView *coveringView = coveringWindow.contentView;
         [coveringView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
         [coveringView setTranslatesAutoresizingMaskIntoConstraints:true];
+        
+        sebLockedView.sebController = self;
         
         [coveringView addSubview:sebLockedView];
 
@@ -1860,11 +1882,11 @@ bool insideMatrix(){
         
         DDLogError(@"SessionDidBecomeActive: Switched back after user switch / login window!");
         // Check if restarting is protected with the quit/restart password (and one is set)
-        NSWindow *coveringWindow = self.coveringWindows[0];
+//        NSWindow *coveringWindow = self.coveringWindows[0];
 //        NSString *screensLockedText = NSLocalizedString(@"SEB is locked because a user switch was attempted. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.", nil);
         
-        [NSApp runModalForWindow:coveringWindow];
-        [self closeCoveringWindows:self.coveringWindows];
+//        [NSApp runModalForWindow:coveringWindow];
+//        [self closeCoveringWindows:self.coveringWindows];
     }
 }
 

@@ -81,6 +81,13 @@ typedef NSUInteger browserWindowPositionings;
 
 
 enum {
+    coveringWindowBackground                    = 0,
+    coveringWindowLockdownAlert                 = 1
+};
+typedef NSUInteger coveringWindowKind;
+
+
+enum {
     certificateTypeSSLClientCertificate         = 0,
     certificateTypeIdentity                     = 1,
 };

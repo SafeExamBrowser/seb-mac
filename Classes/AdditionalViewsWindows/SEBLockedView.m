@@ -21,6 +21,8 @@
 
 
 - (IBAction)passwordEntered:(id)sender {
+    DDLogDebug(@"Lockdown alert covering window has frame %@ and window level %ld", CGRectCreateDictionaryRepresentation(self.superview.frame), self.window.level);
+
     // Check if restarting is protected with the quit/restart password (and one is set)
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
@@ -31,19 +33,17 @@
         
         SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
         if ([hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
-            [NSApp stopModal];
+            [lockedAlertPasswordField setStringValue:@""];
+            [passwordWrongLabel setHidden:true];
+            [self.sebController closeCoveringWindows:self.sebController.coveringWindows];
+            return;
+//            [NSApp stopModal];
         }
-        lockedAlertPasswordField.stringValue = @"";
+        [lockedAlertPasswordField setStringValue:@""];
         passwordWrongLabel.hidden = false;
         
     }
 }
 
-
-- (void)drawRect:(NSRect)dirtyRect {
-    [super drawRect:dirtyRect];
-    
-    // Drawing code here.
-}
 
 @end

@@ -43,6 +43,7 @@
 #import "CapView.h"
 #import "CapWindow.h"
 #import "CapWindowController.h"
+#import "SEBLockedView.h"
 
 #import "AboutWindow.h"
 #import "SEBBrowserController.h"
@@ -62,6 +63,7 @@
 @class SEBSystemManager;
 @class SEBDockController;
 @class SEBBrowserController;
+@class SEBLockedView;
 
 
 @interface SEBController : NSObject <NSApplicationDelegate> {
@@ -77,7 +79,7 @@
     IBOutlet NSMenuItem *configMenu;
     IBOutlet NSMenu *settingsMenu;
     IBOutlet NSView *passwordView;
-    IBOutlet NSView *sebLockedView;
+    IBOutlet SEBLockedView *sebLockedView;
 
     IBOutlet NSWindow *enterPasswordDialogWindow;
     IBOutlet NSTextField *enterPasswordDialog;
@@ -115,6 +117,8 @@
 - (void) requestedRestart:(NSNotification *)notification;
 
 - (BOOL) applicationShouldOpenUntitledFile:(NSApplication *)sender;
+
+- (void) closeCoveringWindows:(NSArray *)windows;
 
 @property(readwrite) BOOL f3Pressed;
 @property(readwrite) BOOL quittingMyself;

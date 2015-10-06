@@ -49,10 +49,11 @@
 ////    }
 //    return collectionBehavior;
 //}
-//- (BOOL)canBecomeKeyWindow
-//{
-//    return YES;
-//}
+
+- (BOOL)canBecomeKeyWindow
+{
+    return YES;
+}
 
 
 @end

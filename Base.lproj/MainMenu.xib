@@ -787,7 +787,7 @@ Gw
             </view>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="SRG-SJ-3eg"/>
-        <customView translatesAutoresizingMaskIntoConstraints="NO" id="Re1-C5-57e" customClass="SEBLockedView">
+        <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Re1-C5-57e" customClass="SEBLockedView">
             <rect key="frame" x="0.0" y="0.0" width="500" height="503"/>
             <subviews>
                 <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E6M-vB-bca">
@@ -803,8 +803,11 @@ Gw
                             <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                         </allowedInputSourceLocales>
                     </secureTextFieldCell>
+                    <connections>
+                        <action selector="passwordEntered:" target="Re1-C5-57e" id="7Ol-cw-aCO"/>
+                    </connections>
                 </secureTextField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="i1K-9z-xtU">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i1K-9z-xtU">
                     <rect key="frame" x="173" y="458" width="153" height="25"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="SEB Is Locked!" id="h8S-7a-w0u">
                         <font key="font" size="20" name="HelveticaNeue-Bold"/>
@@ -821,14 +824,14 @@ Gw
                     </textFieldCell>
                 </textField>
                 <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cZ9-xX-IzI">
-                    <rect key="frame" x="171" y="15" width="157" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Enter correct password" id="aOo-kP-rSF">
+                    <rect key="frame" x="147" y="15" width="205" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Please enter correct password!" id="aOo-kP-rSF">
                         <font key="font" size="13" name=".HelveticaNeueDeskInterface-Bold"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N8L-96-Ced">
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N8L-96-Ced">
                     <rect key="frame" x="18" y="399" width="464" height="51"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="LsF-1w-rA0">
                         <font key="font" metaFont="system"/>
