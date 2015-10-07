@@ -28,20 +28,17 @@
     NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     NSString *screensLockedText = NSLocalizedString(@"SEB is locked because a user switch was attempted. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.", nil);
 
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamPasswordProtected"] && ![hashedQuitPassword isEqualToString:@""]) {
-        NSString *password = lockedAlertPasswordField.stringValue;
-        
-        SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-        if ([hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
-            [lockedAlertPasswordField setStringValue:@""];
-            [passwordWrongLabel setHidden:true];
-            [self.sebController closeLockdownWindows];
-            return;
-        }
+    NSString *password = lockedAlertPasswordField.stringValue;
+    
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    if (hashedQuitPassword.length == 0 || [hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
         [lockedAlertPasswordField setStringValue:@""];
-        passwordWrongLabel.hidden = false;
-        
+        [passwordWrongLabel setHidden:true];
+        [self.sebController closeLockdownWindows];
+        return;
     }
+    [lockedAlertPasswordField setStringValue:@""];
+    passwordWrongLabel.hidden = false;
 }
 
 
