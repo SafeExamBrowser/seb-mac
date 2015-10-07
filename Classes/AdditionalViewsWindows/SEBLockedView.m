@@ -35,9 +35,8 @@
         if ([hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
             [lockedAlertPasswordField setStringValue:@""];
             [passwordWrongLabel setHidden:true];
-            [self.sebController closeCoveringWindows:self.sebController.coveringWindows];
+            [self.sebController closeLockdownWindows];
             return;
-//            [NSApp stopModal];
         }
         [lockedAlertPasswordField setStringValue:@""];
         passwordWrongLabel.hidden = false;

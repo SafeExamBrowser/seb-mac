@@ -118,7 +118,7 @@
 
 - (BOOL) applicationShouldOpenUntitledFile:(NSApplication *)sender;
 
-- (void) closeCoveringWindows:(NSArray *)windows;
+- (void) closeLockdownWindows;
 
 @property(readwrite) BOOL f3Pressed;
 @property(readwrite) BOOL quittingMyself;

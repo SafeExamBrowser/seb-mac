@@ -1061,6 +1061,12 @@ bool insideMatrix(){
 }
 
 
+- (void) closeLockdownWindows
+{
+    [self closeCoveringWindows:self.coveringWindows];
+}
+
+
 - (void) closeCoveringWindows:(NSArray *)windows
 {
     // Close the covering windows
@@ -1885,8 +1891,6 @@ bool insideMatrix(){
 //        NSWindow *coveringWindow = self.coveringWindows[0];
 //        NSString *screensLockedText = NSLocalizedString(@"SEB is locked because a user switch was attempted. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.", nil);
         
-//        [NSApp runModalForWindow:coveringWindow];
-//        [self closeCoveringWindows:self.coveringWindows];
     }
 }
 
