@@ -7,7 +7,6 @@
 //
 
 #import "SEBLockedView.h"
-#import "SEBKeychainManager.h"
 
 @interface SEBLockedView() {
     
@@ -26,12 +25,16 @@
     // Check if restarting is protected with the quit/restart password (and one is set)
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-    NSString *screensLockedText = NSLocalizedString(@"SEB is locked because a user switch was attempted. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.", nil);
+    //NSString *screensLockedText = NSLocalizedString(@"SEB is locked because a user switch was attempted. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.", nil);
 
     NSString *password = lockedAlertPasswordField.stringValue;
+    DDLogDebug(@"Lockdown alert user entered password: %@, compare it with hashed quit password %@", password, hashedQuitPassword);
     
-    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    if (hashedQuitPassword.length == 0 || [hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
+    if (!self.keychainManager) {
+        self.keychainManager = [[SEBKeychainManager alloc] init];
+    }
+    if (hashedQuitPassword.length == 0 || [hashedQuitPassword caseInsensitiveCompare:[self.keychainManager generateSHAHashString:password]] == NSOrderedSame) {
+        DDLogDebug(@"Lockdown alert user entered correct password: %@", password);
         [lockedAlertPasswordField setStringValue:@""];
         [passwordWrongLabel setHidden:true];
         [self.sebController closeLockdownWindows];

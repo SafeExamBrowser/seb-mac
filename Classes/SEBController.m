@@ -948,12 +948,12 @@ bool insideMatrix(){
 
     BOOL excludeMenuBar = !allowSwitchToThirdPartyApps && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
     
-    NSArray *_coveringWindows = [self fillScreensWithCoveringWindows:coveringWindowBackground windowLevel:windowLevel excludeMenuBar:excludeMenuBar];
+    NSArray *backgroundCoveringWindows = [self fillScreensWithCoveringWindows:coveringWindowBackground windowLevel:windowLevel excludeMenuBar:excludeMenuBar];
     if (!self.capWindows) {
-        self.capWindows = [NSMutableArray arrayWithArray:_coveringWindows];	// array for storing our cap (covering) background windows
+        self.capWindows = [NSMutableArray arrayWithArray:backgroundCoveringWindows];	// array for storing our cap (covering) background windows
     } else {
         [self.capWindows removeAllObjects];
-        [self.capWindows addObjectsFromArray:_coveringWindows];
+        [self.capWindows addObjectsFromArray:backgroundCoveringWindows];
     }
 }
 
@@ -1076,6 +1076,7 @@ bool insideMatrix(){
     {
 		[(NSWindow *)[windows objectAtIndex:windowIndex] close];
 	}
+    
 }
 
 

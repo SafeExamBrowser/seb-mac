@@ -8,11 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 #import "SEBController.h"
+#import "SEBKeychainManager.h"
 
 @class SEBController;
 
 @interface SEBLockedView : NSView
 
-@property (nonatomic, strong) SEBController *sebController;
+@property (strong) SEBController *sebController;
+@property (strong) SEBKeychainManager *keychainManager;
 
 @end
