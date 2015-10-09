@@ -124,7 +124,7 @@
 @property(readwrite) BOOL quittingMyself;
 @property(strong) SEBWebView *webView;
 @property(strong) NSMutableArray *capWindows;
-@property(strong) NSMutableArray *coveringWindows;
+@property(strong) NSMutableArray *lockdownWindows;
 @property(strong) IBOutlet NSSecureTextField *enterPassword;
 @property(strong) IBOutlet id preferencesController;
 @property(strong) IBOutlet SEBSystemManager *systemManager;

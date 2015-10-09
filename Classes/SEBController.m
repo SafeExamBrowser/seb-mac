@@ -83,7 +83,7 @@ bool insideMatrix();
 @synthesize quittingMyself;	//create getter and setter for flag that SEB is quitting itself
 @synthesize webView;
 @synthesize capWindows;
-@synthesize coveringWindows;
+@synthesize lockdownWindows;
 
 #pragma mark Application Delegate Methods
 
@@ -958,8 +958,8 @@ bool insideMatrix(){
 }
 
                            
-- (NSArray *) fillScreensWithCoveringWindows:(coveringWindowKind)coveringWindowKind windowLevel:(NSUInteger)windowLevel excludeMenuBar:(BOOL)excludeMenuBar {
-    NSMutableArray *_coveringWindows = [NSMutableArray new];	// array for storing our cap (covering)  windows
+- (NSMutableArray *) fillScreensWithCoveringWindows:(coveringWindowKind)coveringWindowKind windowLevel:(NSUInteger)windowLevel excludeMenuBar:(BOOL)excludeMenuBar {
+    NSMutableArray *coveringWindows = [NSMutableArray new];	// array for storing our cap (covering)  windows
     NSArray *screens = [NSScreen screens];	// get all available screens
     NSScreen *iterScreen;
     for (iterScreen in screens)
@@ -1001,14 +1001,14 @@ bool insideMatrix(){
                 return nil;
         }
         
-        [window setReleasedWhenClosed:NO];
+        [window setReleasedWhenClosed:YES];
         [window setBackgroundColor:windowColor];
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
             [window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
         }
         [window newSetLevel:windowLevel];
         //[window orderBack:self];
-        [_coveringWindows addObject: window];
+        [coveringWindows addObject: window];
         NSView *superview = [window contentView];
         [superview addSubview:capview];
         
@@ -1023,7 +1023,7 @@ bool insideMatrix(){
         //DDLogDebug(@"Loaded capWindow %@, isWindowLoaded %@", loadedCapWindow, isWindowLoaded);
 #endif
     }
-    return [NSArray arrayWithArray:_coveringWindows];
+    return coveringWindows;
 }
 
 
@@ -1063,11 +1063,11 @@ bool insideMatrix(){
 
 - (void) closeLockdownWindows
 {
-    [self closeCoveringWindows:self.coveringWindows];
+    [self closeCoveringWindows:self.lockdownWindows];
 }
 
 
-- (void) closeCoveringWindows:(NSArray *)windows
+- (void) closeCoveringWindows:(NSMutableArray *)windows
 {
     // Close the covering windows
 	int windowIndex;
@@ -1076,7 +1076,7 @@ bool insideMatrix(){
     {
 		[(NSWindow *)[windows objectAtIndex:windowIndex] close];
 	}
-    
+    [windows removeAllObjects];
 }
 
 
@@ -1852,8 +1852,8 @@ bool insideMatrix(){
         // Perform deactivation tasks here.
         self.didResignActiveTime = [NSDate date];
         DDLogError(@"SessionDidResignActive: User switch / switched to login window detected!");
-        self.coveringWindows = [self fillScreensWithCoveringWindows:coveringWindowLockdownAlert windowLevel:NSScreenSaverWindowLevel excludeMenuBar:false];
-        NSWindow *coveringWindow = self.coveringWindows[0];
+        self.lockdownWindows = [self fillScreensWithCoveringWindows:coveringWindowLockdownAlert windowLevel:NSScreenSaverWindowLevel excludeMenuBar:false];
+        NSWindow *coveringWindow = self.lockdownWindows[0];
         NSView *coveringView = coveringWindow.contentView;
         [coveringView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
         [coveringView setTranslatesAutoresizingMaskIntoConstraints:true];

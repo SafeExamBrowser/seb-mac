@@ -496,7 +496,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="109"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="715">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
@@ -579,7 +579,7 @@ Gw
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="340" y="419" width="550" height="300"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" id="860" customClass="AboutView">
                 <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -698,7 +698,7 @@ Parts of this project have been carried out as part of the program 'AAA/SWITCH â
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="109"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="vWC-gd-xPh">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
@@ -790,7 +790,7 @@ Gw
         <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Re1-C5-57e" customClass="SEBLockedView">
             <rect key="frame" x="0.0" y="0.0" width="500" height="503"/>
             <subviews>
-                <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E6M-vB-bca">
+                <secureTextField canDrawConcurrently="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E6M-vB-bca">
                     <rect key="frame" x="65" y="40" width="370" height="22"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="370" id="QBc-XF-qdA"/>
@@ -908,7 +908,7 @@ Gw
                 <constraint firstItem="saq-WU-u0D" firstAttribute="leading" secondItem="E6M-vB-bca" secondAttribute="trailing" constant="8" id="soY-M9-brc"/>
             </constraints>
             <connections>
-                <outlet property="lockedAlertPasswordField" destination="E6M-vB-bca" id="p0M-8N-5zx"/>
+                <outlet property="lockedAlertPasswordField" destination="zlv-PW-SH6" id="CFM-eP-MB0"/>
                 <outlet property="passwordWrongLabel" destination="cZ9-xX-IzI" id="rxI-dt-f3D"/>
             </connections>
             <point key="canvasLocation" x="440" y="933"/>
