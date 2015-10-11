@@ -57,6 +57,9 @@
         self.dockWindow = [[SEBDockWindow alloc] initWithContentRect:initialContentRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
         self.dockWindow.releasedWhenClosed = YES;
         self.dockWindow.collectionBehavior = NSWindowCollectionBehaviorStationary;
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+            [self.dockWindow setSharingType:NSWindowSharingNone];
+        }
         self.dockWindow.height = dockHeight;
         
         NSView *superview = [self.dockWindow contentView];

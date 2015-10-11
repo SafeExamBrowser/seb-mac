@@ -1183,7 +1183,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     DDLogInfo(@"decidePolicyForNavigationAction request URL: %@", [[request URL] absoluteString]);
     NSString *currentMainHost = self.browserController.currentMainHost;
-    NSString *requestedHost = [[request mainDocumentURL] host];
+    //NSString *requestedHost = [[request mainDocumentURL] host];
     
     if (request) {
         // Get the DOMNode from the information about the action that triggered the navigation request

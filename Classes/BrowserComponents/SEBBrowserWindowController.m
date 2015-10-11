@@ -185,4 +185,14 @@
     }
 }
 
+
+- (IBAction) zoomPage: (id)sender
+{
+    if ([sender selectedSegment] == 0) {
+        [[NSApplication sharedApplication] sendAction:@selector(zoomPageOut:) to:self.webView from:self];
+    } else {
+        [[NSApplication sharedApplication] sendAction:@selector(zoomPageIn:) to:self.webView from:self];
+    }
+}
+
 @end

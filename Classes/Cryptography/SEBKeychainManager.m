@@ -235,10 +235,10 @@
                 CFErrorRef error = NULL;
                 NSDictionary *values = (NSDictionary *)CFBridgingRelease(SecCertificateCopyValues (certificateRef, (__bridge CFArrayRef)[NSArray arrayWithObject:(__bridge id)(kSecOIDExtendedKeyUsage)], &error));
                 // Keep only certificates which have an extended key usage server authentification
-//                if ([values count]) {
-//                    NSDictionary *value = [values objectForKey:(__bridge id)(kSecOIDExtendedKeyUsage)];
-//                    NSArray *extendedKeyUsages = [value objectForKey:(__bridge id)(kSecPropertyKeyValue)];
-//                    if ([extendedKeyUsages containsObject:[NSData dataWithBytes:keyUsageServerAuthentication length:8]]) {
+                if ([values count]) {
+                    NSDictionary *value = [values objectForKey:(__bridge id)(kSecOIDExtendedKeyUsage)];
+                    NSArray *extendedKeyUsages = [value objectForKey:(__bridge id)(kSecPropertyKeyValue)];
+                    if ([extendedKeyUsages containsObject:[NSData dataWithBytes:keyUsageServerAuthentication length:8]]) {
                         certificateName = [NSString stringWithFormat:@"%@",
                                            (__bridge NSString *)commonName ?
                                            //There is a commonName: just take that as a name
@@ -271,14 +271,14 @@
                         if (emailAddressesRef) CFRelease(emailAddressesRef);
 
                         continue;
-//                    }
-//                } else {
-//                    NSString *errorDescription = @"";
-//                    if (error != NULL) {
-//                        errorDescription = [NSString stringWithFormat:@"SecCertificateCopyValues error: %@. ", CFBridgingRelease(CFErrorCopyDescription(error))];
-//                    }
-//                    DDLogDebug(@"Common name: %@. No extended key usage server authentification has been found. %@ This certificate will be skipped.", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , errorDescription);
-//                }
+                    }
+                } else {
+                    NSString *errorDescription = @"";
+                    if (error != NULL) {
+                        errorDescription = [NSString stringWithFormat:@"SecCertificateCopyValues error: %@. ", CFBridgingRelease(CFErrorCopyDescription(error))];
+                    }
+                    DDLogDebug(@"Common name: %@. No extended key usage server authentification has been found. %@ This certificate will be skipped.", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , errorDescription);
+                }
                 if (emailAddressesRef) CFRelease(emailAddressesRef);
             } else {
                 DDLogError(@"Error in %s: SecCertificateCopyEmailAddresses returned %@. This identity will be skipped.", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
@@ -552,6 +552,39 @@
 
 - (BOOL) importIdentityFromData:(NSData*)identityData
 {
+    // Create a trusted application object for SEB
+    SecTrustedApplicationRef trustedApplicationRef;
+    OSStatus oserr = SecTrustedApplicationCreateFromPath(NULL, &trustedApplicationRef);
+    if (oserr) {
+        DDLogError(@"SecTrustedApplicationCreateFromPath failed, cannot create trusted application object for SEB (oserr=%d)\n", oserr);
+        if (trustedApplicationRef) CFRelease(trustedApplicationRef);
+        return NO;
+    }
+    // Create a access control list entry
+    NSArray *trustedApplications = [NSArray arrayWithObjects:(__bridge id)trustedApplicationRef, nil];
+    SecAccessRef access = NULL;
+    NSString *accessLabel = @"Safe Exam Browser";
+
+    oserr = SecAccessCreate((__bridge CFStringRef)accessLabel,(__bridge CFArrayRef)trustedApplications, &access);
+    if (trustedApplicationRef) CFRelease(trustedApplicationRef);
+    if (oserr) {
+        DDLogError(@"SecAccessCreate failed, cannot create access object for SEB (oserr=%d)\n", oserr);
+        if (trustedApplicationRef) CFRelease(trustedApplicationRef);
+        if (access) CFRelease(access);
+        return NO;
+    }
+
+    
+//    SecACLRef accessControlRef;
+//    oserr = SecACLCreateWithSimpleContents(access, (__bridge CFArrayRef)([NSArray arrayWithObject:(__bridge id)trustedApplicationRef]), (__bridge CFStringRef)accessLabel, kSecKeychainPromptUnsigned, &accessControlRef);
+//    if (oserr) {
+//        DDLogError(@"SecACLCreateWithSimpleContents failed, cannot create access control list entry for SEB (oserr=%d)\n", oserr);
+//        if (trustedApplicationRef) CFRelease(trustedApplicationRef);
+//        if (access) CFRelease(access);
+//        if (accessControlRef) CFRelease(accessControlRef);
+//        return NO;
+//    }
+
     SecItemImportExportKeyParameters keyParams;
     
     NSString *password = userDefaultsMasala;
@@ -561,7 +594,7 @@
     keyParams.passphrase = (__bridge CFTypeRef)(password);
     keyParams.alertTitle = NULL;
     keyParams.alertPrompt = NULL;
-    keyParams.accessRef = NULL;
+    keyParams.accessRef = access;
     // These two values are for import
     keyParams.keyUsage = NULL;
     keyParams.keyAttributes = NULL;
@@ -573,14 +606,18 @@
     SecKeychainRef keychain;
     SecKeychainCopyDefault(&keychain);
 
-    OSStatus oserr = SecItemImport((__bridge CFDataRef)identityData,
+    oserr = SecItemImport((__bridge CFDataRef)identityData,
                           NULL, // filename or extension
                           &externalFormat, // See SecExternalFormat for details
                           &itemType, // item type
                           flags, // See SecItemImportExportFlags for details
                           &keyParams,
-                          keychain, // Don't import into a keychain
+                          keychain, // Import into a keychain
                           NULL);
+    
+    if (access) CFRelease(access);
+    if (keychain) CFRelease(keychain);
+
     if (oserr) {
         DDLogError(@"SecItemImport failed (oserr=%d)\n", oserr);
         return NO;

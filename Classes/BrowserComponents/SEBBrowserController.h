@@ -55,7 +55,6 @@
 @property (strong) SEBDockItemMenu *openBrowserWindowsWebViewsMenu;
 @property (readwrite) BOOL reinforceKioskModeRequested;
 
-- (SEBWebView *) openWebView;
 - (SEBWebView *) openAndShowWebView;
 - (void) closeWebView:(SEBWebView *) webViewToClose;
 - (void) webViewShow:(SEBWebView *)sender;

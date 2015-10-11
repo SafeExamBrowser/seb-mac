@@ -81,6 +81,13 @@ typedef NSUInteger browserWindowPositionings;
 
 
 enum {
+    coveringWindowBackground                    = 0,
+    coveringWindowLockdownAlert                 = 1
+};
+typedef NSUInteger coveringWindowKind;
+
+
+enum {
     certificateTypeSSLClientCertificate         = 0,
     certificateTypeIdentity                     = 1,
 };
@@ -249,10 +256,11 @@ static NSString __unused *userDefaultsMasala = @"Di𝈭l𝈖Ch𝈒ah𝉇t𝈁a�
 
 static NSString __unused *sebErrorDomain = @"org.safeexambrowser.SEBCryptor";
 
-static NSString __unused *SEBUserAgentDefaultSuffix = @" Safari/533.16";
-static NSString __unused *SEBWinUserAgentDesktopDefault = @"Mozilla/5.0 (Windows NT 6.3; rv:38.0) Gecko/20100101 Firefox/38.0";
-static NSString __unused *SEBWinUserAgentTouchDefault = @"Mozilla/5.0 (Windows NT 6.3; rv:38.0; Touch) Gecko/20100101 Firefox/38.0";
-static NSString __unused *SEBWinUserAgentTouchiPad = @"Mozilla/5.0 (iPad; CPU OS 8_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12B410 Safari/600.1.4";
+static NSString __unused *SEBUserAgentDefaultSuffix = @" Safari/";
+static NSString __unused *SEBUserAgentDefaultSafariVersion = @"600.8.9";
+static NSString __unused *SEBWinUserAgentDesktopDefault = @"Mozilla/5.0 (Windows NT 6.3; rv:41.0) Gecko/20100101 Firefox/41";
+static NSString __unused *SEBWinUserAgentTouchDefault = @"Mozilla/5.0 (Windows NT 6.3; rv:41.0; Touch) Gecko/20100101 Firefox/41";
+static NSString __unused *SEBWinUserAgentTouchiPad = @"Mozilla/5.0 (iPad; CPU OS 9_0_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13A452 Safari/601.1";
 
 static unsigned char __unused keyUsageServerAuthentication[8] = {0x2b, 0x06, 0x01, 0x05, 0x05, 0x07, 0x03, 0x01};
 

@@ -4,9 +4,6 @@
 /* No comment provided by engineer. */
 "%@ was downloaded." = "%@ wurde heruntergeladen.";
 
-/* Title of 'Appearance' preference pane */
-"User Interface" = "Benutzeroberfläche";
-
 /* Title of 'Applications' preference pane */
 "Applications" = "Applikationen";
 
@@ -19,8 +16,14 @@
 /* No comment provided by engineer. */
 "Apply Edited Settings?" = "Bearbeitete Einstellungen anwenden?";
 
+/* (No Commment) */
+"Apply Settings?" = "Einstellungen anwenden?";
+
 /* No comment provided by engineer. */
 "Are you sure you want to quit SEB?" = "Sind Sie sicher, dass Sie SEB beenden wollen?";
+
+/* No comment provided by engineer. */
+"Are you sure?" = "Sind Sie sicher?";
 
 /* No comment provided by engineer. */
 "Auto Proxy Discovery" = "Automatische Proxy-Entdeckung";
@@ -43,6 +46,9 @@
 /* No comment provided by engineer. */
 "Cannot Reconfigure SEB Settings" = "Konfiguration kann nicht umkonfiguriert werden";
 
+/* (No Commment) */
+"Cannot decrypt settings" = "Einstellungen können nicht entschlüsselt werden";
+
 /* No comment provided by engineer. */
 "Center" = "Zentrieren";
 
@@ -55,14 +61,14 @@
 /* No comment provided by engineer. */
 "Clear Ignored URL List" = "Ignorierte URLs löschen";
 
+/* No comment provided by engineer. */
+"Close Force Quit Window" = "Fenster 'Programme sofort beenden' schliessen";
+
 /* Title of 'Config File' preference pane */
 "Config File" = "Konfiguration";
 
 /* No comment provided by engineer. */
 "Continue" = "Weiter";
-
-/* No comment provided by engineer. */
-"Current settings are corrupted. Load valid settings or reset to default settings." = "Die aktuellen Einstellungen sind beschädigt. Laden Sie eine andere Konfiguration oder setzen Sie auf die Voreinstellungen zurück";
 
 /* No comment provided by engineer. */
 "Current settings have unsaved changes. If you don't save those first, you will loose them." = "Aktuelle Einstellungen haben ungesicherte Änderungen. Wenn Sie nicht zuerst sichern, verlieren Sie diese.";
@@ -71,7 +77,13 @@
 "Debug" = "Debug";
 
 /* No comment provided by engineer. */
+"Do you really want to reload the current web page?" = "Wollen Sie die aktuelle Webseite wirklich neu laden?";
+
+/* No comment provided by engineer. */
 "Do you want to continue editing the saved settings file?" = "Wollen Sie die gespeicherten Einstellungen weiter bearbeiten?";
+
+/* No comment provided by engineer. */
+"Do you want to unlock SEB?" = "Wollen Sie SEB entsperren?";
 
 /* No comment provided by engineer. */
 "Don't Apply" = "Nicht Anwenden";
@@ -110,6 +122,9 @@
 "Enter quit password:" = "Beenden-Passwort eingeben:";
 
 /* No comment provided by engineer. */
+"Enter quit/restart password:" = "Beenden-/Neustart-Passwort eingeben:";
+
+/* No comment provided by engineer. */
 "Enter the SEB administrator password used in these settings:" = "Geben Sie das in diesen Einstellungen verwendete Administrator-Passwort ein:";
 
 /* No comment provided by engineer. */
@@ -133,11 +148,19 @@
 /* No comment provided by engineer. */
 "File Automatically Chosen" = "Datei automatisch ausgewählt";
 
+/* (No Commment) */
+"File automatically chosen" = "Datei automatisch ausgewählt";
+
 /* No comment provided by engineer. */
 "File to Upload Not Found!" = "Datei zum Heraufladen nicht gefunden!";
 
+/* (No Commment) */
+"File to upload not found!" = "Datei zum Heraufladen nicht gefunden!";
+
 /* No comment provided by engineer. */
-"FirstTimeUserNotice" = "Bitte benutzen Sie die Fenster-Schliessen-Taste oder Cmd-Q (Befehlstaste-Q) um SEB zu beenden und (fn-)F3-F6 um die Einstellungen zu öffnen.\n\nDieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-URL eingeben. Sie sollten dort ausserdem ein Beenden-Passwort und ein Administrator-Passwort festlegen, um das Beenden von SEB und den Zugang zu den Einstellungen einzuschränken.";
+"FirstTimeUserNotice" = "Bitte benutzen Sie die Fenster-Schliessen-Taste oder Cmd-Q (Befehlstaste-Q) um SEB zu beenden und (fn-)F3-F6 um die Einstellungen zu öffnen.
+
+Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-URL eingeben. Sie sollten dort ausserdem ein Beenden-Passwort und ein Administrator-Passwort festlegen, um das Beenden von SEB und den Zugang zu den Einstellungen einzuschränken.";
 
 /* Title of 'General' preference pane */
 "General" = "Allgemein";
@@ -146,7 +169,7 @@
 "Holding Command Key Not Allowed!" = "Befehlstaste drücken nicht erlaubt!";
 
 /* No comment provided by engineer. */
-"Holding the Command key down while restarting SEB is not allowed." = "Drücken der Befehlstaste (cmd) während des SEB Neustarts ist nicht erlaubt";
+"Holding the Command key down while restarting SEB is not allowed, release it to continue." = "Drücken der Befehlstaste (cmd) während des Neustarts von SEB ist nicht erlaubt. Zum Weiterfahren Taste loslassen.";
 
 /* No comment provided by engineer. */
 "Holding the Command key down while starting SEB is not allowed. Restart SEB without holding any keys." = "Drücken der Befehlstaste (cmd) während des Aufstartens von SEB ist nicht erlaubt. Starten Sie SEB neu, ohne irgendwelche Tasten gedrückt zu halten.";
@@ -167,9 +190,6 @@
 "Important Notice for First Time Users" = "Wichtiger Hinweis für neue Benutzer";
 
 /* No comment provided by engineer. */
-"Parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board." = "Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.";
-
-/* No comment provided by engineer. */
 "Info" = "Info";
 
 /* No comment provided by engineer. */
@@ -186,6 +206,12 @@
 
 /* No comment provided by engineer. */
 "Loading Settings" = "Einstellungen werden geladen";
+
+/* (No Commment) */
+"Loading new SEB settings failed!" = "Laden von neuen SEB-Einstellungen fehlgeschlagen!";
+
+/* (No Commment) */
+"Loading new SEB settings not allowed!" = "Laden von neuen SEB-Einstellungen nicht erlaubt!";
 
 /* No comment provided by engineer. */
 "Loading new settings failed!" = "Neue Einstellungen laden fehlgeschlagen!";
@@ -206,7 +232,11 @@
 "Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option." = "Die lokalen Client-Einstellungen haben die Option 'Einstellungen-Fenster darf auf Client geöffnet werden' deaktiviert, was das Öffnen des Einstellungen-Fensters selbst nach einem Neustart von SEB verhindert. Sind Sie sicher, dass Sie das anwenden wollen? Ansonsten können Sie diese Option zurücksetzen.";
 
 /* No comment provided by engineer. */
-"Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.\n\nReset local settings and continue?" = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt oder beschädigt. Sie können die Einstellungen jetzt zurücksetzen oder SEB jetzt beenden und die vorherige SEB-Version benutzen, um die Einstellungen zu exportieren und danach zum Konfigurieren der neuen Version zu benutzen.\n\nLokale Einstellungen zurücksetzen und weiterfahren?";
+"Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.
+
+Reset local settings and continue?" = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt oder beschädigt. Sie können die Einstellungen jetzt zurücksetzen oder SEB jetzt beenden und die vorherige SEB-Version benutzen, um die Einstellungen zu exportieren und danach zum Konfigurieren der neuen Version zu benutzen.
+
+Lokale Einstellungen zurücksetzen und weiterfahren?";
 
 /* No comment provided by engineer. */
 "Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly." = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt oder beschädigt. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um SEB wieder korrekt zu konfigurieren.";
@@ -226,6 +256,9 @@
 /* No comment provided by engineer. */
 "No Encryption Credentials Chosen" = "Keine Verschlüsselung gewählt";
 
+/* (No Commment) */
+"No encryption credentials chosen" = "Keine Verschlüsselung gewählt";
+
 /* No comment provided by engineer. */
 "None" = "Keine";
 
@@ -244,17 +277,23 @@
 /* No comment provided by engineer. */
 "Opening Settings Failed" = "Öffnen der Einstellungen fehlgeschlagen!";
 
+/* (No Commment) */
+"Opening new settings failed!" = "Öffnen neuer Einstellungen fehlgeschlagen!";
+
 /* No comment provided by engineer. */
 "Override" = "Ignorieren";
+
+/* No comment provided by engineer. */
+"Parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board." = "Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.";
 
 /* No comment provided by engineer. */
 "Paste from saved clipboard" = "Einfügen aus gesicherter Zwischenablage";
 
 /* No comment provided by engineer. */
-"Please enter correct confirm password" = "Bitte gleiches Passwort erneut eingeben";
+"Please confirm the %@ password first." = "Bitte %@ Passwort zuerst bestätigen";
 
 /* No comment provided by engineer. */
-"Please confirm the %@ password first." = "Bitte %@ Passwort zuerst bestätigen";
+"Please enter correct confirm password" = "Bitte gleiches Passwort erneut eingeben";
 
 /* No comment provided by engineer. */
 "Quit" = "Beenden";
@@ -272,10 +311,19 @@
 "Reconfigure SEB Settings" = "Einstelllungen neu konfigurieren";
 
 /* No comment provided by engineer. */
+"Reload" = "Neu Laden";
+
+/* No comment provided by engineer. */
+"Reload Current Page" = "Aktuelle Seite neu laden";
+
+/* No comment provided by engineer. */
 "Reset" = "Zurücksetzen";
 
 /* Title of 'Resources' preference pane */
 "Resources" = "Ressourcen";
+
+/* No comment provided by engineer. */
+"Restart Exam" = "Prüfung neu starten";
 
 /* No comment provided by engineer. */
 "Retry" = "Wiederholen";
@@ -290,13 +338,22 @@
 "SEB Re-Configured" = "SEB neu konfiguriert";
 
 /* No comment provided by engineer. */
+"SEB cannot run when the Force Quit window is open. Close the window or quit SEB." = "SEB kann nicht gestartet werden, wenn das Fenster 'Programme sofort beenden' geöffnet ist. Dieses Fenster schliessen oder SEB beenden.";
+
+/* No comment provided by engineer. */
 "SEB has to be placed in the %@ folder in order for all features to work correctly. Move the 'Safe Exam Browser' app to your %@ folder and make sure that you don't have any other versions of SEB installed on your system. SEB will quit now." = "SEB muss im Verzeichnis '%1$@' installiert werden. Bewegen Sie die 'Safe Exam Browser' App in Ihr Verzeichnis %2$@ und stellen Sie sicher, dass Sie keine anderen Versionen von SEB auf Ihrem System installiert haben. SEB wird jetzt beendet.";
 
 /* No comment provided by engineer. */
 "SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam." = "SEB läuft bereits im Prüfungsmodus und es ist nicht erlaubt, diesen durch den Start einer anderen Prüfung zu unterbrechen. Beenden Sie die Prüfung und starten Sie SEB neu.";
 
+/* (No Commment) */
+"SEB is configured to only allow to upload a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path." = "SEB ist so konfiguriert, dass nur eine zuvor heruntergelade Datei heraufgeladen werden kann. Laden Sie eine Datei herunter und wenn Sie diese in einer Drittapplikation bearbeiten, speichern Sie diese mit demselben Dateinamen im gleichen Verzeichnis.";
+
 /* No comment provided by engineer. */
 "SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path." = "SEB ist so konfiguriert, dass nur eine zuvor heruntergelade Datei heraufgeladen werden kann. Laden Sie eine Datei herunter und wenn Sie diese in einer Drittapplikation bearbeiten, speichern Sie diese mit demselben Dateinamen im gleichen Verzeichnis.";
+
+/* No comment provided by engineer. */
+"SEB is locked because a user switch was attempted. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil versucht wurde, den Benutzer zu wechseln. Es ist nur mit dem Neustart-/Beenden-Passwort (welches üblicherweise die Prüfungsaufsicht kennt) möglich, SEB zu entsperren.";
 
 /* No comment provided by engineer. */
 "SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path." = "SEB wird die zuvor heruntergeladene Datei heraufladen. Wenn also eine Datei heruntergeladen und in einer Drittapplikation bearbeitet wird, muss diese mit demselben Dateinamen im selben Verzeichnis wieder gespeichert werden.";
@@ -317,6 +374,12 @@
 "Save unencrypted" = "Unverschlüsselt speichern";
 
 /* No comment provided by engineer. */
+"Saving Settings Failed" = "Speichern der Einstellungen fehlgeschlagen";
+
+/* (No Commment) */
+"Saving Settings Succeeded" = "Einstellungen gespeichert";
+
+/* No comment provided by engineer. */
 "Secure Web Proxy (HTTPS)" = "Sicherer Web-Proxy (HTTPS)";
 
 /* Title of 'Security' preference pane */
@@ -329,10 +392,19 @@
 "Settings Corrupted" = "Einstellungen sind beschädigt";
 
 /* No comment provided by engineer. */
+"Settings for Configuring Client" = "Einstellungen zum Umkonfigurieren eines SEB-Clients";
+
+/* No comment provided by engineer. */
+"Settings for Starting Exam" = "Einstellungen zum Starten einer Prüfung";
+
+/* No comment provided by engineer. */
 "Settings have been saved, use this file to configure local settings of a SEB client." = "Konfiguration wurde gespeichert, benutzen Sie diese Datei um die lokalen Einstellungen eines SEB-Clients umzukonfigurieren.";
 
 /* No comment provided by engineer. */
 "Settings have been saved, use this file to start an exam with SEB." = "Konfiguration wurde gespeichert, benutzen Sie diese Datei um eine Prüfung zu starten.";
+
+/* No comment provided by engineer. */
+"Standard user agent" = "Standard Useragent";
 
 /* No comment provided by engineer. */
 "Start" = "Start";
@@ -359,6 +431,9 @@
 "This embedded resource isn't allowed! You can create a new filter rule based on the following patterns:" = "Es ist nicht erlaubt, diese eingebettete Ressouce zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:";
 
 /* No comment provided by engineer. */
+"Touch Optimized Mode Warning" = "Warnung Modus Touch-Optimized";
+
+/* No comment provided by engineer. */
 "URL Blocked!" = "Blockierte URL!";
 
 /* No comment provided by engineer. */
@@ -369,6 +444,9 @@
 
 /* Title of a new opened browser window; Untitled */
 "Untitled" = "Unbenannt";
+
+/* Title of 'Appearance' preference pane */
+"User Interface" = "Benutzeroberfläche";
 
 /* No comment provided by engineer. */
 "Verbose" = "Alles";
@@ -389,10 +467,10 @@
 "Win" = "Win";
 
 /* No comment provided by engineer. */
-"Saving Settings Failed" = "Speichern der Einstellungen fehlgeschlagen";
+"Win: User agent for desktop mode" = "Win: Useragent für Desktop-Modus";
 
 /* No comment provided by engineer. */
-"Saving Settings Succeeded" = "Einstellungen gespeichert";
+"Win: User agent for touch/tablet mode" = "Win: Useragent für Touch-/Tablet-Modus";
 
 /* No comment provided by engineer. */
 "Wrong Admin Password" = "Falsches Administrator-Passwort";
@@ -413,6 +491,9 @@
 "Wrong password! Try again to enter the correct SEB administrator password from these settings:" = "Falsches Passwort! Bitte erneut versuchen, das korrrekte SEB Administrator-Passwort aus diesen Einstellungen einzugeben:";
 
 /* No comment provided by engineer. */
+"Wrong quit/restart password." = "Falsches Beenden-/Neustart-Passwort";
+
+/* No comment provided by engineer. */
 "You are not allowed to run SEB inside a virtual machine!" = "Es ist nicht erlaubt, SEB innerhalb einer virtuellen Maschine zu betreiben!";
 
 /* No comment provided by engineer. */
@@ -431,7 +512,11 @@
 "You either entered the wrong password or these settings were saved with an incompatible SEB version." = "Sie haben entweder ein falsches Passwort eingegeben oder diese Konfiguration wude mit einer inkompatiblen SEB-Version erstellt.";
 
 /* No comment provided by engineer. */
-"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted settings file, but this is not recommended for use in exams." = "Sie sollten entweder ein Passwort oder eine kryptografische Identität zum Verschlüsseln der Konfigurationsdatei verwenden.\n\nSie können eine unverschlüsselte Datei speichern, aber dies ist nicht für die Benutzung in Prüfungen empfohlen.";
+"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.
+
+You can save an unencrypted settings file, but this is not recommended for use in exams." = "Sie sollten entweder ein Passwort oder eine kryptografische Identität zum Verschlüsseln der Konfigurationsdatei verwenden.
+
+Sie können eine unverschlüsselte Datei speichern, aber dies ist nicht für die Benutzung in Prüfungen empfohlen.";
 
 /* No comment provided by engineer. */
 "administrator" = "Administrator";

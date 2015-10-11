@@ -165,7 +165,9 @@
                withWebView:newWindowWebView
                  withTitle:NSLocalizedString(@"Untitled", @"Title of a new opened browser window; Untitled")];
     
-    [browserWindowDocument.mainWindowController.window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+        [browserWindowDocument.mainWindowController.window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+    }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL elevateWindowLevels = [preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
     // Order new browser window to the front of our level
@@ -234,8 +236,19 @@
     // Load start URL from the system's user defaults
     NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
     
-    // Save the default user agent of the installed WebKit version
+    /// Save the default user agent of the installed WebKit version
     NSString *customUserAgent = [self.webView userAgentForURL:[NSURL URLWithString:urlText]];
+    // Get WebKit version number string to use it as Safari version
+    NSRange webKitSubstring = [customUserAgent rangeOfString:@"AppleWebKit/"];
+    NSString *webKitVersion;
+    if (webKitSubstring.location != NSNotFound && (webKitSubstring.location + webKitSubstring.length) < customUserAgent.length) {
+        webKitVersion = [customUserAgent substringFromIndex:webKitSubstring.location + webKitSubstring.length];
+        webKitVersion = [[webKitVersion stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]  componentsSeparatedByString:@" "][0];
+    } else {
+        webKitVersion = SEBUserAgentDefaultSafariVersion;
+    }
+    
+    customUserAgent = [customUserAgent stringByAppendingString:[NSString stringWithFormat:@"%@%@", SEBUserAgentDefaultSuffix, webKitVersion]];
     [[MyGlobals sharedMyGlobals] setValue:customUserAgent forKey:@"defaultUserAgent"];
 
     // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
@@ -259,7 +272,9 @@
         [self.mainBrowserWindow setReleasedWhenClosed:YES];
     }
     
-    [self.mainBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+        [self.mainBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+    }
     [self.mainBrowserWindow setCalculatedFrame];
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
         [self.mainBrowserWindow newSetLevel:NSMainMenuWindowLevel+3];
@@ -354,7 +369,9 @@
 {
     SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
     NSWindow *additionalBrowserWindow = browserWindowDocument.mainWindowController.window;
-    [additionalBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+        [additionalBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+    }
     [(SEBBrowserWindow *)additionalBrowserWindow setCalculatedFrame];
     BOOL elevateWindowLevels = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
     [self setLevelForBrowserWindow:additionalBrowserWindow elevateLevels:elevateWindowLevels];

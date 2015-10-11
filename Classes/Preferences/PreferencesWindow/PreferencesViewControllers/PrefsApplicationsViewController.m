@@ -59,6 +59,14 @@
 // This is necessary because bindings don't work with private user defaults
 - (IBAction) allowSwitchToApplicationsButton:(NSButton *)sender {
     allowFlashFullscreen.enabled = sender.state;
+    if (sender.state) {
+        NSAlert *newAlert = [[NSAlert alloc] init];
+        [newAlert setMessageText:NSLocalizedString(@"Allow Switching to Third Party Applications Security Warning", nil)];
+        [newAlert setInformativeText:NSLocalizedString(@"This setting allows to switch to any application on the exam client computer. Use this option only when running SEB in a special user account managed by parental controls, with only SEB and the desired applications allowed.", nil)];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [newAlert setAlertStyle:NSCriticalAlertStyle];
+        [newAlert runModal];
+    }
 }
 
 @end

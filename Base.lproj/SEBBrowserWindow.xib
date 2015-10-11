@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9046" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9046"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="9046"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="8191"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SEBBrowserWindowController">
@@ -62,7 +62,34 @@
                             </connections>
                         </segmentedControl>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="AB23B6BC-BAD9-48C6-889A-B71807EFB63D" label="Zoom" paletteLabel="" id="179">
+                    <toolbarItem implicitItemIdentifier="3082AAA6-C29B-4778-98BC-31306EF71511" label="Zoom" paletteLabel="" id="ZLD-BY-T5K" userLabel="ZoomPage">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="51" height="25"/>
+                        <size key="maxSize" width="51" height="32"/>
+                        <segmentedControl key="view" verticalHuggingPriority="750" id="4DV-qc-FmI">
+                            <rect key="frame" x="0.0" y="14" width="51" height="28"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="qkO-f0-59m">
+                                <font key="font" metaFont="system"/>
+                                <segments>
+                                    <segment image="ZoomPageOut" imageScaling="none" width="24"/>
+                                    <segment image="ZoomPageIn" imageScaling="none" width="24" tag="1"/>
+                                </segments>
+                                <connections>
+                                    <action selector="zoomPage:" target="-2" id="wj3-sW-hfi"/>
+                                </connections>
+                            </segmentedCell>
+                            <connections>
+                                <binding destination="184" name="hidden" keyPath="values.org_safeexambrowser_SEB_enableZoomPage" previousBinding="bci-Ec-sPB" id="EG8-Uk-F9x">
+                                    <dictionary key="options">
+                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                    </dictionary>
+                                </binding>
+                                <binding destination="184" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomPage" id="bci-Ec-sPB"/>
+                            </connections>
+                        </segmentedControl>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="AB23B6BC-BAD9-48C6-889A-B71807EFB63D" label="Zoom" paletteLabel="" id="179" userLabel="ZoomText">
                         <nil key="toolTip"/>
                         <size key="minSize" width="51" height="25"/>
                         <size key="maxSize" width="51" height="32"/>
@@ -108,6 +135,7 @@
                 <defaultToolbarItems>
                     <toolbarItem reference="175"/>
                     <toolbarItem reference="176"/>
+                    <toolbarItem reference="ZLD-BY-T5K"/>
                     <toolbarItem reference="179"/>
                     <toolbarItem reference="192"/>
                 </defaultToolbarItems>
@@ -215,7 +243,7 @@ DQ
                             <action selector="changedFilterPattern:" target="3" id="Gp0-4P-oUd"/>
                         </connections>
                     </matrix>
-                    <textField horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KaS-Nf-iUK" customClass="SEBTextField">
+                    <textField horizontalCompressionResistancePriority="250" misplaced="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KaS-Nf-iUK" customClass="SEBTextField">
                         <rect key="frame" x="18" y="265" width="534" height="34"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="It's not allowed to open this link! You can create a new filter rule based on the following patterns:" id="B3X-Rp-SlN">
                             <font key="font" metaFont="system"/>
@@ -313,15 +341,15 @@ Gw
                             <action selector="URLFilterAlertIgnore:" target="3" id="5dq-hG-ux0"/>
                         </connections>
                     </button>
-                    <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kPG-Y4-EWv">
+                    <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kPG-Y4-EWv">
                         <rect key="frame" x="20" y="44" width="530" height="104"/>
                         <string key="toolTip">Shows initially the full URL, can be edited to create a custom URL filter expression. You can use the wildcard character * too. Click the links above to copy the according pattern into this field</string>
                         <clipView key="contentView" id="c8z-5s-Dgt">
-                            <rect key="frame" x="1" y="1" width="223" height="133"/>
+                            <rect key="frame" x="1" y="1" width="528" height="102"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView importsGraphics="NO" richText="NO" findStyle="panel" allowsUndo="YES" usesRuler="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="ES5-oW-j8Q">
-                                    <rect key="frame" x="0.0" y="0.0" width="223" height="133"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="528" height="102"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <size key="minSize" width="528" height="102"/>
@@ -394,6 +422,8 @@ Gw
         <image name="NSGoLeftTemplate" width="9" height="12"/>
         <image name="NSGoRightTemplate" width="9" height="12"/>
         <image name="NSRefreshTemplate" width="11" height="15"/>
+        <image name="ZoomPageIn" width="20" height="20"/>
+        <image name="ZoomPageOut" width="20" height="20"/>
         <image name="ZoomTextIn" width="20" height="20"/>
         <image name="ZoomTextOut" width="20" height="20"/>
     </resources>

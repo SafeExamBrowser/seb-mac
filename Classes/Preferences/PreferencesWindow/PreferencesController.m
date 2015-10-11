@@ -226,7 +226,7 @@
     restartSEB = NO;
     
     // Save settings in the General pane
-    [self.generalVC windowWillClose:nil];
+    [self.generalVC windowWillClose:[NSNotification notificationWithName:NSWindowWillCloseNotification object:nil]];
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSData *oldBrowserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
@@ -556,7 +556,7 @@
 - (IBAction) restartSEB:(id)sender {
 
     // Save passwords in General pane
-	[self.generalVC windowWillClose:nil];
+	[self.generalVC windowWillClose:[NSNotification notificationWithName:NSWindowWillCloseNotification object:nil]];
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSData *oldBrowserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
@@ -654,7 +654,7 @@
 - (IBAction) quitSEB:(id)sender {
 
     // Save passwords in General pane
-	[self.generalVC windowWillClose:nil];
+	[self.generalVC windowWillClose:[NSNotification notificationWithName:NSWindowWillCloseNotification object:nil]];
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSData *oldBrowserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
@@ -807,7 +807,7 @@
     }
     
     // Save settings in the General pane
-    [self.generalVC windowWillClose:nil];
+    [self.generalVC windowWillClose:[NSNotification notificationWithName:NSWindowWillCloseNotification object:nil]];
    
     // Get selected config purpose
     sebConfigPurposes configPurpose = [self.configFileVC getSelectedConfigPurpose];

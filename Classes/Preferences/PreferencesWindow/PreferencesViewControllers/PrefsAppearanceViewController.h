@@ -57,6 +57,8 @@
     __weak IBOutlet NSMatrix *zoomModeMatrix;
 }
 
+@property(readwrite) BOOL touchOptimizedWarning;
+
 - (NSString *)identifier;
 - (NSImage *)image;
 

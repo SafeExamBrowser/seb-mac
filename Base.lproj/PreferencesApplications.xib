@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsApplicationsViewController">
@@ -29,7 +29,7 @@
                                 <subviews>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="5">
                                         <rect key="frame" x="15" y="588" width="280" height="18"/>
-                                        <string key="toolTip">Decreases security of the kiosk mode by allowing process switcher (Cmd+Tab). The blacked out background of SEB also doesn't cover some alerts and modal windows in this mode.</string>
+                                        <string key="toolTip">Decreases security of the kiosk mode by allowing the process switcher (Cmd+Tab). The blacked out background of SEB also doesn't cover some alerts and modal windows in this mode.</string>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="14" id="n1G-IX-Eg8"/>
                                         </constraints>
@@ -562,7 +562,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <popUpButton toolTip="Indicates on which operating system the permitted process runs" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1314">
+                                                <popUpButton toolTip="Indicates on which operating system the permitted process runs. OS X is currently not supported." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1314">
                                                     <rect key="frame" x="44" y="253" width="75" height="26"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="70" id="yd6-Ea-gPd"/>
@@ -1084,7 +1084,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <popUpButton toolTip="Indicates on which operating system the prohibited process runs" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1900">
+                                                <popUpButton toolTip="Indicates on which operating system the prohibited process runs. OS X is currently not supported." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1900">
                                                     <rect key="frame" x="44" y="72" width="75" height="26"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="70" id="ooY-Jz-CeW"/>
@@ -1229,9 +1229,9 @@
                     </tabViewItems>
                 </tabView>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="299">
-                    <rect key="frame" x="18" y="664" width="137" height="18"/>
+                    <rect key="frame" x="18" y="664" width="171" height="18"/>
                     <string key="toolTip">SEB monitors which processes/applications are running during an exam. Those which are not permitted are hiddden, those which are prohibited will be closed/killed.</string>
-                    <buttonCell key="cell" type="check" title="Monitor processes" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="301">
+                    <buttonCell key="cell" type="check" title="Monitor processes (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="301">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
