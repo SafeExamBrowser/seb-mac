@@ -1921,10 +1921,9 @@ bool insideMatrix(){
     NSPoint topLeftPoint;
     topLeftPoint.x = mainScreen.frame.origin.x + mainScreen.frame.size.width - informationHUD.frame.size.width - 22;
     topLeftPoint.y = mainScreen.frame.origin.y + mainScreen.frame.size.height - 44;
-    
     [informationHUD setFrameTopLeftPoint:topLeftPoint];
-//    [self.window setLevel:NSModalPanelWindowLevel];
     
+    [informationHUD setLevel:NSModalPanelWindowLevel];
     [informationHUD makeKeyAndOrderFront:nil];
 
 }
