@@ -1850,6 +1850,7 @@ bool insideMatrix(){
          NSWorkspaceSessionDidResignActiveNotification])
     {
         // Perform deactivation tasks here.
+        
         if (!sebLockedViewController.resignActiveLogString) {
             sebLockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
         }
@@ -1899,15 +1900,13 @@ bool insideMatrix(){
         self.didBecomeActiveTime = [NSDate date];
         [sebLockedViewController appendErrorString:NSLocalizedString(@"Switched back after user switch / login window\n", nil) withTime:self.didBecomeActiveTime];
         
-
-        
-
-//        [self setResignActiveLogString:[self.resignActiveLogString stringByAppendingString: [NSString stringWithFormat:NSLocalizedString(@"%@ SessionDidBecomeActive: Switched back after user switch / login window!\n", self.didBecomeActiveTime)]]];
-//        [self setResignActiveLogString:[[NSAttributedString alloc] initWithAttributedString:self.resignActiveLogString stringByAppendingString: [NSString stringWithFormat:NSLocalizedString(@"%@ SessionDidBecomeActive: Switched back after user switch / login window!\n", self.didBecomeActiveTime)]]];
-
-        // Check if restarting is protected with the quit/restart password (and one is set)
-//        NSWindow *coveringWindow = self.coveringWindows[0];
-//        NSString *screensLockedText = NSLocalizedString(@"SEB is locked because a user switch was attempted. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.", nil);
+        // Calculate time difference between session resigning active and becoming active again
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *components = [calendar components:NSMinuteCalendarUnit | NSSecondCalendarUnit
+                                                   fromDate:self.didResignActiveTime
+                                                     toDate:self.didBecomeActiveTime
+                                                    options:false];
+        [sebLockedViewController appendErrorString:[NSString stringWithFormat:NSLocalizedString(@"  SEB exam session was inactive for %ld:%.2ld minutes\n", nil), components.minute, components.second] withTime:nil];
         
     }
 }

@@ -42,6 +42,8 @@
         [self.sebController closeLockdownWindows];
         return;
     }
+    DDLogError(@"Lockdown alert: Wrong quit/restart password entred, asking to try again");
+    [self appendErrorString:NSLocalizedString(@"Wrong password entered!\n", nil) withTime:[NSDate date]];
     [lockedAlertPasswordField setStringValue:@""];
     passwordWrongLabel.hidden = false;
 }
