@@ -269,6 +269,7 @@
                 if ([dockItem respondsToSelector:@selector(action)]) {
                     [newDockItemButton setTarget:dockItem.target];
                     [newDockItemButton setAction:dockItem.action];
+                    [newDockItemButton setHighlighted:true];
                 }
                 [newDockItemButton setToolTip:dockItem.toolTip];
                 dockItemView = newDockItemButton;
