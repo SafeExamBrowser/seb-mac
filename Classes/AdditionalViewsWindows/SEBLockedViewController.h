@@ -12,9 +12,12 @@
 
 @class SEBController;
 
-@interface SEBLockedView : NSView
+@interface SEBLockedViewController : NSViewController
 
 @property (strong) SEBController *sebController;
 @property (strong) SEBKeychainManager *keychainManager;
+@property (readwrite, copy) NSAttributedString *resignActiveLogString;
+
+- (void)appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
 
 @end

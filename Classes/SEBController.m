@@ -1850,51 +1850,67 @@ bool insideMatrix(){
          NSWorkspaceSessionDidResignActiveNotification])
     {
         // Perform deactivation tasks here.
+        if (!sebLockedViewController.resignActiveLogString) {
+            sebLockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
+        }
         self.didResignActiveTime = [NSDate date];
-        DDLogError(@"SessionDidResignActive: User switch / switched to login window detected!");
+        DDLogError(@"SessionDidResignActive: User switch / switch to login window detected!");
         self.lockdownWindows = [self fillScreensWithCoveringWindows:coveringWindowLockdownAlert windowLevel:NSScreenSaverWindowLevel excludeMenuBar:false];
         NSWindow *coveringWindow = self.lockdownWindows[0];
         NSView *coveringView = coveringWindow.contentView;
         [coveringView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
         [coveringView setTranslatesAutoresizingMaskIntoConstraints:true];
         
-        sebLockedView.sebController = self;
+        sebLockedViewController.sebController = self;
         
-        [coveringView addSubview:sebLockedView];
+        [coveringView addSubview:sebLockedViewController.view];
 
-        NSLog(@"Frame of superview: %f, %f", sebLockedView.superview.frame.size.width, sebLockedView.superview.frame.size.height);
+        NSLog(@"Frame of superview: %f, %f", sebLockedViewController.view.superview.frame.size.width, sebLockedViewController.view.superview.frame.size.height);
         NSMutableArray *constraints = [NSMutableArray new];
-        [constraints addObject:[NSLayoutConstraint constraintWithItem:sebLockedView
+        [constraints addObject:[NSLayoutConstraint constraintWithItem:sebLockedViewController.view
                                                             attribute:NSLayoutAttributeCenterX
                                                             relatedBy:NSLayoutRelationEqual
-                                                               toItem:sebLockedView.superview
+                                                               toItem:sebLockedViewController.view.superview
                                                             attribute:NSLayoutAttributeCenterX
                                                            multiplier:1.0
                                                              constant:0.0]];
         
-        [constraints addObject:[NSLayoutConstraint constraintWithItem:sebLockedView
+        [constraints addObject:[NSLayoutConstraint constraintWithItem:sebLockedViewController.view
                                                             attribute:NSLayoutAttributeCenterY
                                                             relatedBy:NSLayoutRelationEqual
-                                                               toItem:sebLockedView.superview
+                                                               toItem:sebLockedViewController.view.superview
                                                             attribute:NSLayoutAttributeCenterY
                                                            multiplier:1.0
                                                              constant:0.0]];
         
-        [sebLockedView.superview addConstraints:constraints];
-
+        [sebLockedViewController.view.superview addConstraints:constraints];
+        
+        // Add log string for resign active
+        [sebLockedViewController appendErrorString:NSLocalizedString(@"User switch / switch to login window detected\n", nil) withTime:self.didResignActiveTime];
+        
     }
     else
     {
         // Perform activation tasks here.
         
         DDLogError(@"SessionDidBecomeActive: Switched back after user switch / login window!");
+        
+        // Add log string for becoming active
+        self.didBecomeActiveTime = [NSDate date];
+        [sebLockedViewController appendErrorString:NSLocalizedString(@"Switched back after user switch / login window\n", nil) withTime:self.didBecomeActiveTime];
+        
+
+        
+
+//        [self setResignActiveLogString:[self.resignActiveLogString stringByAppendingString: [NSString stringWithFormat:NSLocalizedString(@"%@ SessionDidBecomeActive: Switched back after user switch / login window!\n", self.didBecomeActiveTime)]]];
+//        [self setResignActiveLogString:[[NSAttributedString alloc] initWithAttributedString:self.resignActiveLogString stringByAppendingString: [NSString stringWithFormat:NSLocalizedString(@"%@ SessionDidBecomeActive: Switched back after user switch / login window!\n", self.didBecomeActiveTime)]]];
+
         // Check if restarting is protected with the quit/restart password (and one is set)
 //        NSWindow *coveringWindow = self.coveringWindows[0];
 //        NSString *screensLockedText = NSLocalizedString(@"SEB is locked because a user switch was attempted. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.", nil);
         
     }
 }
-
 
 #pragma mark Delegates
 

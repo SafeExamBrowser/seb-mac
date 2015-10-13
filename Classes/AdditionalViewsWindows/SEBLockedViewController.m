@@ -6,22 +6,22 @@
 //
 //
 
-#import "SEBLockedView.h"
+#import "SEBLockedViewController.h"
 
-@interface SEBLockedView() {
+@interface SEBLockedViewController() {
     
-    __weak IBOutlet NSSecureTextFieldCell *lockedAlertPasswordField;
+    __weak IBOutlet NSSecureTextField *lockedAlertPasswordField;
     __weak IBOutlet NSTextField *passwordWrongLabel;
 }
 @end
 
 
-@implementation SEBLockedView
+@implementation SEBLockedViewController
 
 
 
 - (IBAction)passwordEntered:(id)sender {
-    DDLogDebug(@"Lockdown alert: Covering window has frame %@ and window level %ld", CGRectCreateDictionaryRepresentation(self.superview.frame), self.window.level);
+    DDLogDebug(@"Lockdown alert: Covering window has frame %@ and window level %ld", CGRectCreateDictionaryRepresentation(self.view.superview.frame), self.view.window.level);
 
     // Check if restarting is protected with the quit/restart password (and one is set)
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -38,12 +38,29 @@
         DDLogDebug(@"Lockdown alert: User entered correct password, closing lockdown windows");
         [lockedAlertPasswordField setStringValue:@""];
         [passwordWrongLabel setHidden:true];
-        [self removeFromSuperview];
+        [self.view removeFromSuperview];
         [self.sebController closeLockdownWindows];
         return;
     }
     [lockedAlertPasswordField setStringValue:@""];
     passwordWrongLabel.hidden = false;
+}
+
+
+- (void)appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime {
+    NSMutableAttributedString *logString = [self.resignActiveLogString mutableCopy];
+    if (errorTime) {
+        NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
+        [timeFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss "];
+        NSString *theTime = [timeFormat stringFromDate:errorTime];
+        NSAttributedString *attributedTimeString = [[NSAttributedString alloc] initWithString:theTime];
+        [logString appendAttributedString:attributedTimeString];
+    }
+    NSMutableAttributedString *attributedErrorString = [[NSMutableAttributedString alloc] initWithString:errorString];
+    [attributedErrorString setAttributes:@{NSFontAttributeName:[NSFont boldSystemFontOfSize:[NSFont systemFontSize]]} range:NSMakeRange(0, attributedErrorString.length)];
+    [logString appendAttributedString:attributedErrorString];
+    
+    [self setResignActiveLogString:[logString copy]];
 }
 
 

@@ -477,12 +477,9 @@
                 <outlet property="enterPassword" destination="8aH-DI-gaF" id="kts-El-Lns"/>
                 <outlet property="enterPasswordDialog" destination="14K-iu-K30" id="q2y-Bh-2KY"/>
                 <outlet property="enterPasswordDialogWindow" destination="rLU-be-IrT" id="2h2-Gv-9U4"/>
-                <outlet property="lockedAlertPasswordOkButton" destination="saq-WU-u0D" id="myr-WE-x7u"/>
-                <outlet property="lockedAlertTextView" destination="FId-0c-znr" id="t0u-g1-If8"/>
-                <outlet property="lockedAlertWrongPasswordLabel" destination="cZ9-xX-IzI" id="4Z9-in-0L3"/>
                 <outlet property="passwordView" destination="vWC-gd-xPh" id="zMg-ha-awY"/>
                 <outlet property="preferencesController" destination="892" id="893"/>
-                <outlet property="sebLockedView" destination="Re1-C5-57e" id="pWr-K8-21T"/>
+                <outlet property="sebLockedViewController" destination="agr-W5-n2K" id="S5k-x9-ugM"/>
                 <outlet property="settingsMenu" destination="sdD-uM-Hx0" id="ITi-w4-GBJ"/>
             </connections>
         </customObject>
@@ -787,7 +784,7 @@ Gw
             </view>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="SRG-SJ-3eg"/>
-        <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Re1-C5-57e" customClass="SEBLockedView">
+        <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Re1-C5-57e" userLabel="SEB Locked View">
             <rect key="frame" x="0.0" y="0.0" width="500" height="503"/>
             <subviews>
                 <secureTextField canDrawConcurrently="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E6M-vB-bca">
@@ -804,7 +801,7 @@ Gw
                         </allowedInputSourceLocales>
                     </secureTextFieldCell>
                     <connections>
-                        <action selector="passwordEntered:" target="Re1-C5-57e" id="7Ol-cw-aCO"/>
+                        <action selector="passwordEntered:" target="agr-W5-n2K" id="77E-Dv-cCw"/>
                     </connections>
                 </secureTextField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i1K-9z-xtU">
@@ -833,8 +830,8 @@ Gw
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N8L-96-Ced">
                     <rect key="frame" x="18" y="399" width="464" height="51"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="LsF-1w-rA0">
-                        <font key="font" metaFont="system"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" allowsEditingTextAttributes="YES" id="LsF-1w-rA0">
+                        <font key="font" size="13" name=".HelveticaNeueDeskInterface-Bold"/>
                         <string key="title">SEB is locked because it was attempted to switch the user. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.</string>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -846,15 +843,22 @@ Gw
                         <rect key="frame" x="1" y="1" width="458" height="280"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView editable="NO" drawsBackground="NO" importsGraphics="NO" verticallyResizable="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="FId-0c-znr">
+                            <textView editable="NO" drawsBackground="NO" importsGraphics="NO" verticallyResizable="NO" findStyle="bar" allowsNonContiguousLayout="YES" smartInsertDelete="YES" id="FId-0c-znr">
                                 <rect key="frame" x="0.0" y="0.0" width="458" height="280"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <size key="minSize" width="458" height="280"/>
+                                <size key="minSize" width="443" height="279"/>
                                 <size key="maxSize" width="460" height="1000"/>
                                 <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <size key="minSize" width="458" height="280"/>
+                                <size key="minSize" width="443" height="279"/>
                                 <size key="maxSize" width="460" height="1000"/>
+                                <connections>
+                                    <binding destination="agr-W5-n2K" name="attributedString" keyPath="self.resignActiveLogString" id="xr6-Qg-1hN">
+                                        <dictionary key="options">
+                                            <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -881,10 +885,10 @@ Gw
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSGoRightTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="UCd-sc-sOC">
                         <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
+                        <connections>
+                            <action selector="passwordEntered:" target="agr-W5-n2K" id="v6W-nL-cg7"/>
+                        </connections>
                     </buttonCell>
-                    <connections>
-                        <action selector="passwordEntered:" target="Re1-C5-57e" id="4my-Gh-sY0"/>
-                    </connections>
                 </button>
             </subviews>
             <constraints>
@@ -907,12 +911,15 @@ Gw
                 <constraint firstItem="saq-WU-u0D" firstAttribute="centerY" secondItem="E6M-vB-bca" secondAttribute="centerY" id="rjI-YY-BR9"/>
                 <constraint firstItem="saq-WU-u0D" firstAttribute="leading" secondItem="E6M-vB-bca" secondAttribute="trailing" constant="8" id="soY-M9-brc"/>
             </constraints>
-            <connections>
-                <outlet property="lockedAlertPasswordField" destination="zlv-PW-SH6" id="CFM-eP-MB0"/>
-                <outlet property="passwordWrongLabel" destination="cZ9-xX-IzI" id="rxI-dt-f3D"/>
-            </connections>
             <point key="canvasLocation" x="440" y="933"/>
         </customView>
+        <viewController id="agr-W5-n2K" userLabel="SEB Locked View Controller" customClass="SEBLockedViewController">
+            <connections>
+                <outlet property="lockedAlertPasswordField" destination="E6M-vB-bca" id="0bI-FS-sC0"/>
+                <outlet property="passwordWrongLabel" destination="cZ9-xX-IzI" id="2Xz-pn-weo"/>
+                <outlet property="view" destination="Re1-C5-57e" id="bGA-Gx-ekw"/>
+            </connections>
+        </viewController>
     </objects>
     <resources>
         <image name="NSGoRightTemplate" width="9" height="12"/>
