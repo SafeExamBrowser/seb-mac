@@ -40,8 +40,8 @@
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Policy that applies when an exam client doesn't have the SEB Service installed or running"; ObjectID = "93"; */
 "93.ibShadowedToolTip" = "Richtline, die angewendet wird, wenn der SEB-Hintergrundservice auf einem Prüfungs-Client nicht installiert ist";
 
-/* Class = "NSTextFieldCell"; title = "SEB Service policy"; ObjectID = "100"; */
-"100.title" = "SEB-Service Richtlinie";
+/* Class = "NSTextFieldCell"; title = "SEB Service policy (Win)"; ObjectID = "100"; */
+"100.title" = "SEB-Service Richtlinie (Win)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Usually Fast User Switching shouldn't be allowed on BYOD exam clients"; ObjectID = "292"; */
 "292.ibShadowedToolTip" = "Üblicherweise sollte der schnelle Benutzerwechsel auf studentischen Prüfungsrechnern ausgeschaltet werden";

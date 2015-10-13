@@ -23,7 +23,7 @@
 "299.ibShadowedToolTip" = "SEB überwacht, welche Prozesse/Applikationen während einer Prüfung laufen. Die nicht explizit erlaubten werden ausgeblendet, die verbotenen werden beendet";
 
 /* Class = "NSButtonCell"; title = "Monitor processes (Win)"; ObjectID = "301"; */
-"301.title" = "Prozesse überwachen";
+"301.title" = "Prozesse überwachen (Win)";
 
 /* Class = "NSTableColumn"; headerCell.title = "Executable"; ObjectID = "351"; */
 "351.headerCell.title" = "Executable";

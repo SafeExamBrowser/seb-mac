@@ -70,8 +70,8 @@
 /* Class = "NSButtonCell"; ibShadowedToolTip = "Proxy settings provided in these SEB settings are used"; ObjectID = "1040"; */
 "1040.ibShadowedToolTip" = "Proxy-Einstellungen aus dieser SEB-Konfiguration werden benutzt";
 
-/* Class = "NSButtonCell"; title = "Use SEB proxy settings"; ObjectID = "1040"; */
-"1040.title" = "SEB Proxy-Einstellungen benutzen";
+/* Class = "NSButtonCell"; title = "Use SEB proxy settings (Win)"; ObjectID = "1040"; */
+"1040.title" = "SEB Proxy-Einstellungen benutzen (Win)";
 
 /* Class = "NSButtonCell"; title = "Exclude simple hostnames"; ObjectID = "1059"; */
 "1059.title" = "Einfache Hostnamen ausschliessen";
@@ -169,7 +169,7 @@
 /* Class = "NSTextFieldCell"; title = "Streaming Proxy Server"; ObjectID = "1659"; */
 "1659.title" = "Streaming-Proxy (RTSP)";
 
-/* Class = "NSPopUpButton"; ibShadowedToolTip = "SSL/TLS certificates from the default keychain. This allows to distribute self-signed certificates to exam clients"; ObjectID = "1779"; */
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "TLS/SSL certificates from the default keychain. This allows to distribute self-signed certificates to exam clients (Win only)"; ObjectID = "1779"; */
 "1779.ibShadowedToolTip" = "SSL/TLS-Zertifikate aus dem Schlüsselbund. Dies erlaubt, selbst-signierte Zertifikate auf Prüfungs-Clients zu verteilen";
 
 /* Class = "NSTextFieldCell"; title = "Choose TLS/SSL certificate to embed into settings ..."; ObjectID = "1783"; */

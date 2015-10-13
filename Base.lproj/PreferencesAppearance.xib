@@ -293,8 +293,8 @@
                                 </connections>
                             </button>
                             <button toolTip="Show current time" translatesAutoresizingMaskIntoConstraints="NO" id="VqV-Zw-hin">
-                                <rect key="frame" x="30" y="35" width="88" height="18"/>
-                                <buttonCell key="cell" type="check" title="Show time" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="6CP-QX-2NV">
+                                <rect key="frame" x="30" y="35" width="122" height="18"/>
+                                <buttonCell key="cell" type="check" title="Show time (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="6CP-QX-2NV">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -303,8 +303,8 @@
                                 </connections>
                             </button>
                             <button toolTip="Shows current keyboard layout and allows to change it" translatesAutoresizingMaskIntoConstraints="NO" id="cvI-1t-MPD">
-                                <rect key="frame" x="30" y="15" width="159" height="18"/>
-                                <buttonCell key="cell" type="check" title="Show keyboard layout" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="NVt-Gb-hG5">
+                                <rect key="frame" x="30" y="15" width="194" height="18"/>
+                                <buttonCell key="cell" type="check" title="Show keyboard layout (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="NVt-Gb-hG5">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>

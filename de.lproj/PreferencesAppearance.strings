@@ -7,8 +7,8 @@
 /* Class = "NSButtonCell"; title = "Show reload button"; ObjectID = "3wD-Cd-yYF"; */
 "3wD-Cd-yYF.title" = "Taste 'Neu Laden' anzeigen";
 
-/* Class = "NSButtonCell"; title = "Show time"; ObjectID = "6CP-QX-2NV"; */
-"6CP-QX-2NV.title" = "Uhrzeit anzeigen";
+/* Class = "NSButtonCell"; title = "Show time (Win)"; ObjectID = "6CP-QX-2NV"; */
+"6CP-QX-2NV.title" = "Uhrzeit anzeigen (Win)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "SEB can be quit with a swipe down from the upper display edge"; ObjectID = "8IN-wN-3ta"; */
 "8IN-wN-3ta.ibShadowedToolTip" = "SEB kann mit einem Wischen von der oberen Bildschirmkante herunter beendet werden";
@@ -103,8 +103,8 @@
 /* Class = "NSButtonCell"; title = "Use text zoom"; ObjectID = "Hgy-sG-HYK"; */
 "Hgy-sG-HYK.title" = "Text-Zoom verwenden";
 
-/* Class = "NSButtonCell"; title = "Show keyboard layout"; ObjectID = "NVt-Gb-hG5"; */
-"NVt-Gb-hG5.title" = "Auswahl Tastaturbelegung anzeigen";
+/* Class = "NSButtonCell"; title = "Show keyboard layout (Win)"; ObjectID = "NVt-Gb-hG5"; */
+"NVt-Gb-hG5.title" = "Auswahl Tastaturbelegung anzeigen (Win)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Allows to reconnect to WiFi networks which have previously been connected to"; ObjectID = "NYh-TA-SfI"; */
 "NYh-TA-SfI.ibShadowedToolTip" = "Erlaubt es, die Verbindung mit WLAN-Netzwerken wiederherzustellen";
@@ -112,7 +112,7 @@
 /* Class = "NSBox"; title = "SEB dock/task bar"; ObjectID = "Q3v-Xi-ylG"; */
 "Q3v-Xi-ylG.title" = "SEB Dock/Taskleiste";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Text in browser windows can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar"; ObjectID = "S0v-zb-D4L"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Text in browser windows can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar"; ObjectID = "S0v-zb-D4L"; */
 "S0v-zb-D4L.ibShadowedToolTip" = "Text in Browserfenstern kann mit Ctrl-Cmd +/- oder den Befehlen im Menü Darstellung und der Browserfenster-Werkzeugleiste vergrössert/verkleinert werden";
 
 /* Class = "NSBox"; title = "Enable zoom (Mac/Win)"; ObjectID = "VBE-Ah-xWx"; */
@@ -127,7 +127,7 @@
 /* Class = "NSButtonCell"; title = "Enable page zoom"; ObjectID = "YEg-Qr-xf0"; */
 "YEg-Qr-xf0.title" = "Seiten-Zoom zulassen";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Pages can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar"; ObjectID = "baa-Wm-1db"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Pages can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar"; ObjectID = "baa-Wm-1db"; */
 "baa-Wm-1db.ibShadowedToolTip" = "Webseiten können mit Cmd +/- oder den Befehlen im Menü Darstellung und der Browserfenster-Werkzeugleiste skaliert werden";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Shows current keyboard layout and allows to change it"; ObjectID = "cvI-1t-MPD"; */
