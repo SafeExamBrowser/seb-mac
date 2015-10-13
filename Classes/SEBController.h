@@ -132,5 +132,6 @@
 @property(strong) SEBBrowserController *browserController;
 @property(strong) NSDate *didResignActiveTime;
 @property(strong) NSDate *didBecomeActiveTime;
+@property(strong) NSDate *didResumeExamTime;
 
 @end

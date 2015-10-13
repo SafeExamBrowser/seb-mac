@@ -35,9 +35,25 @@
         self.keychainManager = [[SEBKeychainManager alloc] init];
     }
     if (hashedQuitPassword.length == 0 || [hashedQuitPassword caseInsensitiveCompare:[self.keychainManager generateSHAHashString:password]] == NSOrderedSame) {
-        DDLogDebug(@"Lockdown alert: User entered correct password, closing lockdown windows");
         [lockedAlertPasswordField setStringValue:@""];
         [passwordWrongLabel setHidden:true];
+
+        // Add log information about closing lockdown alert
+        DDLogError(@"Lockdown alert: Correct password entered, closing lockdown windows");
+        self.sebController.didResumeExamTime = [NSDate date];
+        [self appendErrorString:NSLocalizedString(@"Correct password entered, closing lockdown windows\n", nil) withTime:self.sebController.didResumeExamTime];
+        // Calculate time difference between session resigning active and closing lockdown alert
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *components = [calendar components:NSMinuteCalendarUnit | NSSecondCalendarUnit
+                                                   fromDate:self.sebController.didResignActiveTime
+                                                     toDate:self.sebController.didResumeExamTime
+                                                    options:false];
+        
+        DDLogError(@"Lockdown alert: Correct password entered, closing lockdown windows");
+        NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"  SEB was locked (exam interupted) for %ld:%.2ld (minutes:seconds)\n", nil), components.minute, components.second];
+        DDLogError(@"Lockdown alert: %@", lockedTimeInfo);
+        [self appendErrorString:lockedTimeInfo withTime:nil];
+
         [self.view removeFromSuperview];
         [self.sebController closeLockdownWindows];
         return;

@@ -1906,8 +1906,7 @@ bool insideMatrix(){
                                                    fromDate:self.didResignActiveTime
                                                      toDate:self.didBecomeActiveTime
                                                     options:false];
-        [sebLockedViewController appendErrorString:[NSString stringWithFormat:NSLocalizedString(@"  SEB exam session was inactive for %ld:%.2ld minutes\n", nil), components.minute, components.second] withTime:nil];
-        
+        [sebLockedViewController appendErrorString:[NSString stringWithFormat:NSLocalizedString(@"  SEB session was inactive for %ld:%.2ld (minutes:seconds)\n", nil), components.minute, components.second] withTime:nil];
     }
 }
 
