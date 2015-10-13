@@ -50,15 +50,16 @@
                                                     options:false];
         
         DDLogError(@"Lockdown alert: Correct password entered, closing lockdown windows");
-        NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"  SEB was locked (exam interupted) for %ld:%.2ld (minutes:seconds)\n", nil), components.minute, components.second];
+        NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second];
         DDLogError(@"Lockdown alert: %@", lockedTimeInfo);
-        [self appendErrorString:lockedTimeInfo withTime:nil];
+        [self appendErrorString:[NSString stringWithFormat:@"  %@\n", lockedTimeInfo] withTime:nil];
 
         [self.view removeFromSuperview];
         [self.sebController closeLockdownWindows];
+        [self.sebController openInfoHUD:lockedTimeInfo];
         return;
     }
-    DDLogError(@"Lockdown alert: Wrong quit/restart password entred, asking to try again");
+    DDLogError(@"Lockdown alert: Wrong quit/restart password entered, asking to try again");
     [self appendErrorString:NSLocalizedString(@"Wrong password entered!\n", nil) withTime:[NSDate date]];
     [lockedAlertPasswordField setStringValue:@""];
     passwordWrongLabel.hidden = false;

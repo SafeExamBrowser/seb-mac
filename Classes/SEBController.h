@@ -80,6 +80,8 @@
     IBOutlet NSMenu *settingsMenu;
     IBOutlet NSView *passwordView;
     IBOutlet SEBLockedViewController *sebLockedViewController;
+    IBOutlet NSPanel *informationHUD;
+    IBOutlet NSTextField *informationHUDLabel;
 
     IBOutlet NSWindow *enterPasswordDialogWindow;
     IBOutlet NSTextField *enterPasswordDialog;
@@ -119,6 +121,7 @@
 - (BOOL) applicationShouldOpenUntitledFile:(NSApplication *)sender;
 
 - (void) closeLockdownWindows;
+- (void) openInfoHUD:(NSString *)lockedTimeInfo;
 
 @property(readwrite) BOOL f3Pressed;
 @property(readwrite) BOOL quittingMyself;

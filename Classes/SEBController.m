@@ -1910,6 +1910,26 @@ bool insideMatrix(){
     }
 }
 
+
+- (void) openInfoHUD:(NSString *)lockedTimeInfo
+{
+    [informationHUDLabel setStringValue:lockedTimeInfo];
+    //[informationHUD center];
+    NSArray *screens = [NSScreen screens];	// get all available screens
+    NSScreen *mainScreen = screens[0];
+    
+    NSPoint topLeftPoint;
+    topLeftPoint.x = mainScreen.frame.origin.x + mainScreen.frame.size.width - informationHUD.frame.size.width - 22;
+    topLeftPoint.y = mainScreen.frame.origin.y + mainScreen.frame.size.height - 44;
+    
+    [informationHUD setFrameTopLeftPoint:topLeftPoint];
+//    [self.window setLevel:NSModalPanelWindowLevel];
+    
+    [informationHUD makeKeyAndOrderFront:nil];
+
+}
+
+
 #pragma mark Delegates
 
 // Called when SEB should be terminated

@@ -477,6 +477,8 @@
                 <outlet property="enterPassword" destination="8aH-DI-gaF" id="kts-El-Lns"/>
                 <outlet property="enterPasswordDialog" destination="14K-iu-K30" id="q2y-Bh-2KY"/>
                 <outlet property="enterPasswordDialogWindow" destination="rLU-be-IrT" id="2h2-Gv-9U4"/>
+                <outlet property="informationHUD" destination="kwi-CI-5lx" id="mna-B2-nsm"/>
+                <outlet property="informationHUDLabel" destination="j4C-Za-nAA" id="IF4-wB-5bP"/>
                 <outlet property="passwordView" destination="vWC-gd-xPh" id="zMg-ha-awY"/>
                 <outlet property="preferencesController" destination="892" id="893"/>
                 <outlet property="sebLockedViewController" destination="agr-W5-n2K" id="S5k-x9-ugM"/>
@@ -493,7 +495,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="109"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="715">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
@@ -576,7 +578,7 @@ Gw
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="340" y="419" width="550" height="300"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
             <view key="contentView" id="860" customClass="AboutView">
                 <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -695,7 +697,7 @@ Parts of this project have been carried out as part of the program 'AAA/SWITCH â
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="109"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="vWC-gd-xPh">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
@@ -784,7 +786,7 @@ Gw
             </view>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="SRG-SJ-3eg"/>
-        <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Re1-C5-57e" userLabel="SEB Locked View">
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="Re1-C5-57e" userLabel="SEB Locked View">
             <rect key="frame" x="0.0" y="0.0" width="500" height="503"/>
             <subviews>
                 <secureTextField canDrawConcurrently="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E6M-vB-bca">
@@ -804,7 +806,7 @@ Gw
                         <action selector="passwordEntered:" target="agr-W5-n2K" id="77E-Dv-cCw"/>
                     </connections>
                 </secureTextField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i1K-9z-xtU">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="i1K-9z-xtU">
                     <rect key="frame" x="173" y="458" width="153" height="25"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="SEB Is Locked!" id="h8S-7a-w0u">
                         <font key="font" size="20" name="HelveticaNeue-Bold"/>
@@ -828,7 +830,7 @@ Gw
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N8L-96-Ced">
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N8L-96-Ced">
                     <rect key="frame" x="18" y="399" width="464" height="51"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" allowsEditingTextAttributes="YES" id="LsF-1w-rA0">
                         <font key="font" size="13" name=".HelveticaNeueDeskInterface-Bold"/>
@@ -843,14 +845,14 @@ Gw
                         <rect key="frame" x="1" y="1" width="458" height="280"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView editable="NO" drawsBackground="NO" importsGraphics="NO" verticallyResizable="NO" findStyle="bar" allowsNonContiguousLayout="YES" smartInsertDelete="YES" id="FId-0c-znr">
+                            <textView editable="NO" selectable="NO" drawsBackground="NO" importsGraphics="NO" verticallyResizable="NO" findStyle="bar" allowsNonContiguousLayout="YES" id="FId-0c-znr">
                                 <rect key="frame" x="0.0" y="0.0" width="458" height="280"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <size key="minSize" width="443" height="279"/>
+                                <size key="minSize" width="458" height="280"/>
                                 <size key="maxSize" width="460" height="1000"/>
                                 <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <size key="minSize" width="443" height="279"/>
+                                <size key="minSize" width="458" height="280"/>
                                 <size key="maxSize" width="460" height="1000"/>
                                 <connections>
                                     <binding destination="agr-W5-n2K" name="attributedString" keyPath="self.resignActiveLogString" id="xr6-Qg-1hN">
@@ -920,6 +922,33 @@ Gw
                 <outlet property="view" destination="Re1-C5-57e" id="bGA-Gx-ekw"/>
             </connections>
         </viewController>
+        <window title="Information" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="kwi-CI-5lx" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" HUD="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="274" width="500" height="45"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
+            <view key="contentView" id="94S-Ha-RmY">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="45"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="j4C-Za-nAA">
+                        <rect key="frame" x="18" y="17" width="464" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="6w8-6M-a1v">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="j4C-Za-nAA" secondAttribute="bottom" constant="17" id="5xQ-Eh-WVO"/>
+                    <constraint firstItem="j4C-Za-nAA" firstAttribute="top" secondItem="94S-Ha-RmY" secondAttribute="top" constant="11" id="Lif-VR-Tzv"/>
+                    <constraint firstAttribute="trailing" secondItem="j4C-Za-nAA" secondAttribute="trailing" constant="20" id="Qed-TR-6cQ"/>
+                    <constraint firstItem="j4C-Za-nAA" firstAttribute="leading" secondItem="94S-Ha-RmY" secondAttribute="leading" constant="20" id="ldA-ax-rGe"/>
+                </constraints>
+            </view>
+            <point key="canvasLocation" x="355" y="1286.5"/>
+        </window>
     </objects>
     <resources>
         <image name="NSGoRightTemplate" width="9" height="12"/>
