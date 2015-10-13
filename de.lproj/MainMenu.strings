@@ -1,0 +1,306 @@
+
+/* Class = "NSMenuItem"; title = "Alle nach vorne bringen"; ObjectID = "5"; */
+"5.title" = "Alle nach vorne bringen";
+
+/* Class = "NSMenuItem"; title = "Fenster"; ObjectID = "19"; */
+"19.title" = "Fenster";
+
+/* Class = "NSMenu"; title = "Fenster"; ObjectID = "24"; */
+"24.title" = "Fenster";
+
+/* Class = "NSMenuItem"; title = "SEB"; ObjectID = "56"; */
+"56.title" = "SEB";
+
+/* Class = "NSMenu"; title = "SEB"; ObjectID = "57"; */
+"57.title" = "SEB";
+
+/* Class = "NSMenuItem"; title = "Über SEB"; ObjectID = "58"; */
+"58.title" = "Über SEB";
+
+/* Class = "NSMenuItem"; title = "Öffnen …"; ObjectID = "72"; */
+"72.title" = "Öffnen …";
+
+/* Class = "NSMenuItem"; title = "Sichern"; ObjectID = "75"; */
+"75.title" = "Sichern";
+
+/* Class = "NSMenuItem"; title = "Papierformat …"; ObjectID = "77"; */
+"77.title" = "Papierformat …";
+
+/* Class = "NSMenuItem"; title = "Drucken …"; ObjectID = "78"; */
+"78.title" = "Drucken …";
+
+/* Class = "NSMenuItem"; title = "Duplizieren …"; ObjectID = "80"; */
+"80.title" = "Duplizieren …";
+
+/* Class = "NSMenu"; title = "Datei"; ObjectID = "81"; */
+"81.title" = "Datei";
+
+/* Class = "NSMenuItem"; title = "Neu"; ObjectID = "82"; */
+"82.title" = "Neu";
+
+/* Class = "NSMenuItem"; title = "Datei"; ObjectID = "83"; */
+"83.title" = "Datei";
+
+/* Class = "NSMenuItem"; title = "Zurücksetzen auf Datei …"; ObjectID = "112"; */
+"112.title" = "Zurücksetzen auf Datei …";
+
+/* Class = "NSMenuItem"; title = "Benutzte Dokumente"; ObjectID = "124"; */
+"124.title" = "Benutzte Dokumente";
+
+/* Class = "NSMenu"; title = "Benutzte Dokumente"; ObjectID = "125"; */
+"125.title" = "Benutzte Dokumente";
+
+/* Class = "NSMenuItem"; title = "Menü zurücksetzen"; ObjectID = "126"; */
+"126.title" = "Menü zurücksetzen";
+
+/* Class = "NSMenuItem"; title = "Einstellungen …"; ObjectID = "129"; */
+"129.title" = "Einstellungen …";
+
+/* Class = "NSMenuItem"; title = "SEB beenden"; ObjectID = "136"; */
+"136.title" = "SEB beenden";
+
+/* Class = "NSMenuItem"; title = "Sprachausgabe stoppen"; ObjectID = "195"; */
+"195.title" = "Sprachausgabe stoppen";
+
+/* Class = "NSMenuItem"; title = "Sprachausgabe starten"; ObjectID = "196"; */
+"196.title" = "Sprachausgabe starten";
+
+/* Class = "NSMenuItem"; title = "Kopieren"; ObjectID = "197"; */
+"197.title" = "Kopieren";
+
+/* Class = "NSMenuItem"; title = "Alles auswählen"; ObjectID = "198"; */
+"198.title" = "Alles auswählen";
+
+/* Class = "NSMenuItem"; title = "Ausschneiden"; ObjectID = "199"; */
+"199.title" = "Ausschneiden";
+
+/* Class = "NSMenu"; title = "Rechtschreibung und Grammatik"; ObjectID = "200"; */
+"200.title" = "Rechtschreibung und Grammatik";
+
+/* Class = "NSMenuItem"; title = "Dokument jetzt prüfen"; ObjectID = "201"; */
+"201.title" = "Dokument jetzt prüfen";
+
+/* Class = "NSMenuItem"; title = "Löschen"; ObjectID = "202"; */
+"202.title" = "Löschen";
+
+/* Class = "NSMenuItem"; title = "Einfügen"; ObjectID = "203"; */
+"203.title" = "Einfügen";
+
+/* Class = "NSMenuItem"; title = "Rechtschreibung und Grammatik einblenden"; ObjectID = "204"; */
+"204.title" = "Rechtschreibung und Grammatik einblenden";
+
+/* Class = "NSMenu"; title = "Bearbeiten"; ObjectID = "205"; */
+"205.title" = "Bearbeiten";
+
+/* Class = "NSMenuItem"; title = "Widerrufen"; ObjectID = "207"; */
+"207.title" = "Widerrufen";
+
+/* Class = "NSMenuItem"; title = "Weitersuchen (vorwärts)"; ObjectID = "208"; */
+"208.title" = "Weitersuchen (vorwärts)";
+
+/* Class = "NSMenuItem"; title = "Suchen …"; ObjectID = "209"; */
+"209.title" = "Suchen …";
+
+/* Class = "NSMenuItem"; title = "Auswahl anzeigen"; ObjectID = "210"; */
+"210.title" = "Auswahl anzeigen";
+
+/* Class = "NSMenuItem"; title = "Sprachausgabe"; ObjectID = "211"; */
+"211.title" = "Sprachausgabe";
+
+/* Class = "NSMenu"; title = "Sprachausgabe"; ObjectID = "212"; */
+"212.title" = "Sprachausgabe";
+
+/* Class = "NSMenuItem"; title = "Weitersuchen (rückwärts)"; ObjectID = "213"; */
+"213.title" = "Weitersuchen (rückwärts)";
+
+/* Class = "NSMenuItem"; title = "Wiederholen"; ObjectID = "215"; */
+"215.title" = "Wiederholen";
+
+/* Class = "NSMenuItem"; title = "Rechtschreibung und Grammatik"; ObjectID = "216"; */
+"216.title" = "Rechtschreibung und Grammatik";
+
+/* Class = "NSMenuItem"; title = "Bearbeiten"; ObjectID = "217"; */
+"217.title" = "Bearbeiten";
+
+/* Class = "NSMenuItem"; title = "Suchen"; ObjectID = "218"; */
+"218.title" = "Suchen";
+
+/* Class = "NSMenuItem"; title = "Während der Texteingabe prüfen"; ObjectID = "219"; */
+"219.title" = "Während der Texteingabe prüfen";
+
+/* Class = "NSMenu"; title = "Suchen"; ObjectID = "220"; */
+"220.title" = "Suchen";
+
+/* Class = "NSMenuItem"; title = "In Auswahl suchen"; ObjectID = "221"; */
+"221.title" = "In Auswahl suchen";
+
+/* Class = "NSMenuItem"; title = "Zoomen"; ObjectID = "239"; */
+"239.title" = "Zoomen";
+
+/* Class = "NSMenuItem"; title = "Darstellung"; ObjectID = "295"; */
+"295.title" = "Darstellung";
+
+/* Class = "NSMenu"; title = "Darstellung"; ObjectID = "296"; */
+"296.title" = "Darstellung";
+
+/* Class = "NSMenuItem"; title = "Symbolleiste anzeigen"; ObjectID = "297"; */
+"297.title" = "Symbolleiste anzeigen";
+
+/* Class = "NSMenuItem"; title = "Rechtschreib- und Grammatikprüfung"; ObjectID = "346"; */
+"346.title" = "Rechtschreib- und Grammatikprüfung";
+
+/* Class = "NSMenuItem"; title = "Ersetzungen"; ObjectID = "348"; */
+"348.title" = "Ersetzungen";
+
+/* Class = "NSMenu"; title = "Ersetzungen"; ObjectID = "349"; */
+"349.title" = "Ersetzungen";
+
+/* Class = "NSMenuItem"; title = "Intelligentes Kopieren/Einsetzen"; ObjectID = "350"; */
+"350.title" = "Intelligentes Kopieren/Einsetzen";
+
+/* Class = "NSMenuItem"; title = "Intelligente Anführungszeichen"; ObjectID = "351"; */
+"351.title" = "Intelligente Anführungszeichen";
+
+/* Class = "NSMenuItem"; title = "Intelligente Links"; ObjectID = "354"; */
+"354.title" = "Intelligente Links";
+
+/* Class = "NSMenuItem"; title = "Transformationen"; ObjectID = "450"; */
+"450.title" = "Transformationen";
+
+/* Class = "NSMenu"; title = "Transformationen"; ObjectID = "451"; */
+"451.title" = "Transformationen";
+
+/* Class = "NSMenuItem"; title = "Grossbuchstaben"; ObjectID = "452"; */
+"452.title" = "Grossbuchstaben";
+
+/* Class = "NSMenuItem"; title = "Rechtschreibung autom. korrigieren"; ObjectID = "454"; */
+"454.title" = "Rechtschreibung autom. korrigieren";
+
+/* Class = "NSMenuItem"; title = "Ersetzungen einblenden"; ObjectID = "457"; */
+"457.title" = "Ersetzungen einblenden";
+
+/* Class = "NSMenuItem"; title = "Intelligente Bindestriche"; ObjectID = "460"; */
+"460.title" = "Intelligente Bindestriche";
+
+/* Class = "NSMenuItem"; title = "Text ersetzen"; ObjectID = "462"; */
+"462.title" = "Text ersetzen";
+
+/* Class = "NSMenuItem"; title = "Kleinbuchstaben"; ObjectID = "465"; */
+"465.title" = "Kleinbuchstaben";
+
+/* Class = "NSMenuItem"; title = "Grossschreiben"; ObjectID = "466"; */
+"466.title" = "Grossschreiben";
+
+/* Class = "NSMenuItem"; title = "Hilfe"; ObjectID = "490"; */
+"490.title" = "Hilfe";
+
+/* Class = "NSMenu"; title = "Hilfe"; ObjectID = "491"; */
+"491.title" = "Hilfe";
+
+/* Class = "NSMenuItem"; title = "SEB Hilfe"; ObjectID = "492"; */
+"492.title" = "SEB Hilfe";
+
+/* Class = "NSTextFieldCell"; title = "© 2010-2015 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browsers von Stefan Schneider, Universität von Giessen\n\nDieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat. "; ObjectID = "871"; */
+"871.title" = "© 2010-2015 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browsers von Stefan Schneider, Universität von Giessen\n\nDieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat. ";
+
+/* Class = "NSMenuItem"; title = "Seite neu laden"; ObjectID = "887"; */
+"887.title" = "Seite neu laden";
+
+/* Class = "NSMenuItem"; title = "Entsperren …"; ObjectID = "904"; */
+"904.title" = "Entsperren …";
+
+/* Class = "NSMenuItem"; title = "Text vergrössern"; ObjectID = "907"; */
+"907.title" = "Text vergrössern";
+
+/* Class = "NSMenuItem"; title = "Text verkleinern"; ObjectID = "908"; */
+"908.title" = "Text verkleinern";
+
+/* Class = "NSMenuItem"; title = "Originalgrösse"; ObjectID = "912"; */
+"912.title" = "Originalgrösse";
+
+/* Class = "NSMenuItem"; title = "Stopp"; ObjectID = "913"; */
+"913.title" = "Stopp";
+
+/* Class = "NSMenuItem"; title = "Sichern"; ObjectID = "0h8-R9-UfE"; */
+"0h8-R9-UfE.title" = "Sichern";
+
+/* Class = "NSMenuItem"; title = "Duplikat bearbeiten"; ObjectID = "8GV-gd-2lK"; */
+"8GV-gd-2lK.title" = "Duplikat bearbeiten";
+
+/* Class = "NSMenuItem"; title = "Zurücksetzen auf Client-Einstellungen"; ObjectID = "9NP-zj-EeW"; */
+"9NP-zj-EeW.title" = "Zurücksetzen auf Client-Einstellungen";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "9ng-vJ-BaZ"; */
+"9ng-vJ-BaZ.title" = "OK";
+
+/* Class = "NSMenuItem"; title = "Öffnen …"; ObjectID = "HGQ-o5-kHC"; */
+"HGQ-o5-kHC.title" = "Öffnen …";
+
+/* Class = "NSMenuItem"; title = "Öffnen …"; ObjectID = "KqQ-9i-HSM"; */
+"KqQ-9i-HSM.title" = "Öffnen …";
+
+/* Class = "NSMenuItem"; title = "Client konfigurieren"; ObjectID = "LTv-Us-Cro"; */
+"LTv-Us-Cro.title" = "Client konfigurieren";
+
+/* Class = "NSMenu"; title = "Einstellungen"; ObjectID = "LkZ-vD-zaJ"; */
+"LkZ-vD-zaJ.title" = "Einstellungen";
+
+/* Class = "NSMenuItem"; title = "Zurücksetzen auf Datei"; ObjectID = "MYP-4t-dpx"; */
+"MYP-4t-dpx.title" = "Zurücksetzen auf Datei";
+
+/* Class = "NSMenuItem"; title = "Seite verkleinern"; ObjectID = "QhH-0b-wJT"; */
+"QhH-0b-wJT.title" = "Seite verkleinern";
+
+/* Class = "NSMenuItem"; title = "Sichern als …"; ObjectID = "QrI-qU-IU3"; */
+"QrI-qU-IU3.title" = "Sichern als …";
+
+/* Class = "NSMenuItem"; title = "Anwenden und Neustart"; ObjectID = "Thx-Ic-L6f"; */
+"Thx-Ic-L6f.title" = "Anwenden und Neustart";
+
+/* Class = "NSMenuItem"; title = "Einstellungen"; ObjectID = "UaS-yv-Dq3"; */
+"UaS-yv-Dq3.title" = "Einstellungen";
+
+/* Class = "NSMenuItem"; title = "Duplikat bearbeiten"; ObjectID = "YC0-l9-3YS"; */
+"YC0-l9-3YS.title" = "Duplikat bearbeiten";
+
+/* Class = "NSMenuItem"; title = "Vollbild ein"; ObjectID = "YsN-Cb-3bf"; */
+"YsN-Cb-3bf.title" = "Vollbild ein";
+
+/* Class = "NSMenuItem"; title = "Zurücksetzen auf Voreinstellungen"; ObjectID = "aG5-0k-cAL"; */
+"aG5-0k-cAL.title" = "Zurücksetzen auf Voreinstellungen";
+
+/* Class = "NSMenuItem"; title = "Sichern"; ObjectID = "eiW-K5-gGu"; */
+"eiW-K5-gGu.title" = "Sichern";
+
+/* Class = "NSMenuItem"; title = "Sichern als …"; ObjectID = "gQN-UT-3wR"; */
+"gQN-UT-3wR.title" = "Sichern als …";
+
+/* Class = "NSMenuItem"; title = "Seite vergrössern"; ObjectID = "hNy-Se-1xF"; */
+"hNy-Se-1xF.title" = "Seite vergrössern";
+
+/* Class = "NSTextFieldCell"; title = "Passwort:"; ObjectID = "hTk-Tf-x0B"; */
+"hTk-Tf-x0B.title" = "Passwort:";
+
+/* Class = "NSMenuItem"; title = "Zurücksetzen auf Voreinstellungen"; ObjectID = "icu-d0-oaR"; */
+"icu-d0-oaR.title" = "Zurücksetzen auf Voreinstellungen";
+
+/* Class = "NSMenuItem"; title = "Zurücksetzen auf Client-Einstellungen"; ObjectID = "lIX-w9-SMd"; */
+"lIX-w9-SMd.title" = "Zurücksetzen auf Client-Einstellungen";
+
+/* Class = "NSButtonCell"; title = "Abbrechen"; ObjectID = "n9I-9J-2Qs"; */
+"n9I-9J-2Qs.title" = "Abbrechen";
+
+/* Class = "NSMenuItem"; title = "Zurücksetzen auf Datei"; ObjectID = "pMV-oP-mZU"; */
+"pMV-oP-mZU.title" = "Zurücksetzen auf Datei";
+
+/* Class = "NSMenuItem"; title = "Anwenden und Neustart"; ObjectID = "sFU-ql-51U"; */
+"sFU-ql-51U.title" = "Anwenden und Neustart";
+
+/* Class = "NSMenuItem"; title = "Originalgrösse"; ObjectID = "sW3-Rj-5zc"; */
+"sW3-Rj-5zc.title" = "Originalgrösse";
+
+/* Class = "NSMenu"; title = "Einstellungen"; ObjectID = "sdD-uM-Hx0"; */
+"sdD-uM-Hx0.title" = "Einstellungen";
+
+/* Class = "NSMenuItem"; title = "Client konfigurieren"; ObjectID = "ztz-q9-fV1"; */
+"ztz-q9-fV1.title" = "Client konfigurieren";
