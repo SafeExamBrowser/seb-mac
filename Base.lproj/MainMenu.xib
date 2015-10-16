@@ -787,7 +787,7 @@ Gw
         </window>
         <userDefaultsController representsSharedInstance="YES" id="SRG-SJ-3eg"/>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="Re1-C5-57e" userLabel="SEB Locked View">
-            <rect key="frame" x="0.0" y="0.0" width="500" height="503"/>
+            <rect key="frame" x="0.0" y="0.0" width="500" height="500"/>
             <subviews>
                 <secureTextField canDrawConcurrently="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E6M-vB-bca">
                     <rect key="frame" x="65" y="40" width="370" height="22"/>
@@ -807,7 +807,7 @@ Gw
                     </connections>
                 </secureTextField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="i1K-9z-xtU">
-                    <rect key="frame" x="173" y="458" width="153" height="25"/>
+                    <rect key="frame" x="173" y="455" width="153" height="25"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="SEB Is Locked!" id="h8S-7a-w0u">
                         <font key="font" size="20" name="HelveticaNeue-Bold"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -831,7 +831,7 @@ Gw
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N8L-96-Ced">
-                    <rect key="frame" x="18" y="399" width="464" height="51"/>
+                    <rect key="frame" x="18" y="399" width="464" height="48"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" allowsEditingTextAttributes="YES" id="LsF-1w-rA0">
                         <font key="font" size="13" name=".HelveticaNeueDeskInterface-Bold"/>
                         <string key="title">SEB is locked because it was attempted to switch the user. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.</string>
@@ -913,7 +913,7 @@ Gw
                 <constraint firstItem="saq-WU-u0D" firstAttribute="centerY" secondItem="E6M-vB-bca" secondAttribute="centerY" id="rjI-YY-BR9"/>
                 <constraint firstItem="saq-WU-u0D" firstAttribute="leading" secondItem="E6M-vB-bca" secondAttribute="trailing" constant="8" id="soY-M9-brc"/>
             </constraints>
-            <point key="canvasLocation" x="440" y="933"/>
+            <point key="canvasLocation" x="440" y="931"/>
         </customView>
         <viewController id="agr-W5-n2K" userLabel="SEB Locked View Controller" customClass="SEBLockedViewController">
             <connections>
