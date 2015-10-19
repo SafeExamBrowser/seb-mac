@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SEBBrowserWindowController">
             <connections>
+                <outlet property="backForwardButtons" destination="173" id="lIt-Jq-0zg"/>
                 <outlet property="webView" destination="5" id="7"/>
                 <outlet property="window" destination="3" id="10"/>
             </connections>
@@ -47,14 +48,13 @@
                             <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="174">
                                 <font key="font" metaFont="system"/>
                                 <segments>
-                                    <segment image="NSGoLeftTemplate" imageScaling="none" width="24"/>
-                                    <segment image="NSGoRightTemplate" imageScaling="none" width="24" selected="YES" tag="1"/>
+                                    <segment image="NSGoLeftTemplate" imageScaling="none" width="24" enabled="NO"/>
+                                    <segment image="NSGoRightTemplate" imageScaling="none" width="24" enabled="NO" tag="1"/>
                                 </segments>
                             </segmentedCell>
                             <connections>
                                 <action selector="backForward:" target="-2" id="188"/>
-                                <binding destination="-2" name="enabled" keyPath="self.backForwardEnabled" id="K0i-4X-epS"/>
-                                <binding destination="184" name="hidden" keyPath="values.org_safeexambrowser_SEB_allowBrowsingBackForward" previousBinding="K0i-4X-epS" id="vAJ-OL-l7O">
+                                <binding destination="184" name="hidden" keyPath="values.org_safeexambrowser_SEB_allowBrowsingBackForward" id="rhc-i0-g9V">
                                     <dictionary key="options">
                                         <string key="NSValueTransformerName">NSNegateBoolean</string>
                                     </dictionary>
@@ -73,7 +73,7 @@
                                 <font key="font" metaFont="system"/>
                                 <segments>
                                     <segment image="ZoomPageOut" imageScaling="none" width="24"/>
-                                    <segment image="ZoomPageIn" imageScaling="none" width="24" selected="YES" tag="1"/>
+                                    <segment image="ZoomPageIn" imageScaling="none" width="24" tag="1"/>
                                 </segments>
                                 <connections>
                                     <action selector="zoomPage:" target="-2" id="wj3-sW-hfi"/>
@@ -100,7 +100,7 @@
                                 <font key="font" metaFont="system"/>
                                 <segments>
                                     <segment image="ZoomTextOut" imageScaling="none" width="24"/>
-                                    <segment image="ZoomTextIn" imageScaling="none" width="24" selected="YES" tag="1"/>
+                                    <segment image="ZoomTextIn" imageScaling="none" width="24" tag="1"/>
                                 </segments>
                             </segmentedCell>
                             <connections>

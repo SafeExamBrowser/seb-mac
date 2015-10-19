@@ -43,21 +43,17 @@
 @interface SEBBrowserWindowController : NSWindowController <NSWindowDelegate>
 {
 @private
-     //IBOutlet SEBWebView *webView;
     NSRect frameForNonFullScreenMode;
 }
 
 @property (assign) NSRect frameForNonFullScreenMode;
 @property (weak) IBOutlet SEBWebView *webView;
+@property (weak) IBOutlet NSSegmentedControl *backForwardButtons;
 @property(weak) SEBBrowserController *browserController;
-@property (readonly) BOOL backForwardEnabled;
 
 - (IBAction) backForward: (id)sender;
 - (IBAction) zoomText: (id)sender;
 - (IBAction) zoomPage: (id)sender;
 
-- (BOOL) backForwardEnabled;
-
-//- (id) webView;
 
 @end

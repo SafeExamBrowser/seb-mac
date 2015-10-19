@@ -1689,6 +1689,9 @@ bool insideMatrix(){
     // Clear Pasteboard
     [self clearPasteboardSavingCurrentString];
     
+    // Clear browser back/forward list (page cache)
+    [self.browserController clearBackForwardList];
+    
     // Check if launched SEB is placed ("installed") in an Applications folder
     [self installedInApplicationsFolder];
     

@@ -59,6 +59,7 @@
 - (void) closeWebView:(SEBWebView *) webViewToClose;
 - (void) webViewShow:(SEBWebView *)sender;
 - (void) openMainBrowserWindow;
+- (void) clearBackForwardList;
 - (void) adjustMainBrowserWindow;
 - (void) allBrowserWindowsChangeLevel:(BOOL)allowApps;
 

@@ -301,6 +301,15 @@
 }
 
 
+- (void) clearBackForwardList
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    [self.mainBrowserWindow.webView setMaintainsBackForwardList:NO];
+    [self.mainBrowserWindow.webView setMaintainsBackForwardList:[preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"]];
+}
+
+
 - (void) openURLString:(NSString *)urlText withSEBUserAgentInWebView:(SEBWebView *)webView
 {
     // Load start URL into browser window
@@ -556,6 +565,8 @@
 - (void) restartDockButtonPressed
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    [self clearBackForwardList];
     
     // Close all browser windows (documents)
     [self closeAllAdditionalBrowserWindows];

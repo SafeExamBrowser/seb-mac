@@ -161,17 +161,6 @@
 }
 
 
-- (BOOL) backForwardEnabled
-{
-//    if ([sender selectedSegment] == 0) {
-//        [sender setEnabled:self.webView.canGoBack forSegment:[sender selectedSegment]];
-//    } else {
-//        [sender setEnabled:self.webView.canGoForward forSegment:[sender selectedSegment]];
-//    }
-    return YES;
-}
-
-
 - (IBAction) backForward: (id)sender
 {
     if ([sender selectedSegment] == 0) {

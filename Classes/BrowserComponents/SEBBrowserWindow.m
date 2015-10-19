@@ -701,6 +701,15 @@
     [alert.window orderOut:self];
 }
 
+
+// Enable back/forward buttons according to availablility for this webview
+- (void)backForwardButtonsSetEnabled {
+    NSSegmentedControl *backForwardButtons = [(SEBBrowserWindowController *)self.windowController backForwardButtons];
+    [backForwardButtons setEnabled:self.webView.canGoBack forSegment:0];
+    [backForwardButtons setEnabled:self.webView.canGoForward forSegment:1];
+}
+
+
 #pragma mark Overriding NSWindow Methods
 
 // This method is called by NSWindow’s zoom: method while determining the frame a window may be zoomed to
@@ -900,6 +909,7 @@ initiatedByFrame:(WebFrame *)frame {
 - (void)webView:(SEBWebView *)sender didStartProvisionalLoadForFrame:(WebFrame *)frame {
     DDLogInfo(@"didStartProvisionalLoadForFrame request URL: %@", [[[[frame provisionalDataSource] request] URL] absoluteString]);
     [self startProgressIndicatorAnimation];
+    
     // Only report feedback for the main frame.
     if (frame == [sender mainFrame]){
         self.browserController.currentMainHost = [[[[frame provisionalDataSource] request] URL] host];
@@ -911,6 +921,9 @@ initiatedByFrame:(WebFrame *)frame {
 
 // Invoked when a page load completes
 - (void)webView:(SEBWebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
+
+    [self backForwardButtonsSetEnabled];
+    
     [self stopProgressIndicatorAnimation];
 }
 
@@ -972,6 +985,11 @@ willPerformClientRedirectToURL:(NSURL *)URL
 - (void)webView:(SEBWebView *)sender didFailProvisionalLoadWithError:(NSError *)error
        forFrame:(WebFrame *)frame {
     
+    // Enable back/forward buttons according to availablility for this webview
+    NSSegmentedControl *backForwardButtons = [(SEBBrowserWindowController *)self.windowController backForwardButtons];
+    [backForwardButtons setEnabled:self.webView.canGoBack forSegment:0];
+    [backForwardButtons setEnabled:self.webView.canGoForward forSegment:1];
+    
     [self stopProgressIndicatorAnimation];
     
     if ([error code] != -999) {
@@ -1009,6 +1027,11 @@ willPerformClientRedirectToURL:(NSURL *)URL
 
 // Invoked when an error occurs loading a committed data source
 - (void)webView:(SEBWebView *)sender didFailLoadWithError:(NSError *)error forFrame:(WebFrame *)frame {
+    
+    // Enable back/forward buttons according to availablility for this webview
+    NSSegmentedControl *backForwardButtons = [(SEBBrowserWindowController *)self.windowController backForwardButtons];
+    [backForwardButtons setEnabled:self.webView.canGoBack forSegment:0];
+    [backForwardButtons setEnabled:self.webView.canGoForward forSegment:1];
     
     [self stopProgressIndicatorAnimation];
     

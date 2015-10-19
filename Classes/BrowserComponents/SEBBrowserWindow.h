@@ -37,6 +37,7 @@
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
 
+#import "SEBBrowserWindowController.h"
 #import "SEBWebView.h"
 #import "SEBEncryptedUserDefaultsController.h"
 #import "SEBBrowserController.h"
