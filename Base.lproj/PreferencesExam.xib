@@ -62,6 +62,9 @@
                             </textField>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="obm-ub-zDL">
                                 <rect key="frame" x="11" y="43" width="415" height="14"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="14" id="EbE-qf-e51"/>
+                                </constraints>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Title/tool tip text of the restart button (leave empty for localized standard text)" id="pdT-tX-Sdp">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -151,6 +154,7 @@
                                 <rect key="frame" x="13" y="99" width="588" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="588" id="gG8-II-QoC"/>
+                                    <constraint firstAttribute="height" constant="22" id="jdJ-nL-pyU"/>
                                 </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="15">
                                     <font key="font" metaFont="system"/>
@@ -161,6 +165,9 @@
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="20">
                                 <rect key="frame" x="31" y="40" width="321" height="18"/>
                                 <string key="toolTip">SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB</string>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="12" id="aQ7-cr-7uB"/>
+                                </constraints>
                                 <buttonCell key="cell" type="check" title="Copy Browser Exam Key to clipboard when quitting SEB" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="21">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
@@ -181,6 +188,9 @@
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="970">
                                 <rect key="frame" x="11" y="12" width="274" height="18"/>
                                 <string key="toolTip">The Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system</string>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="14" id="693-Gg-esx"/>
+                                </constraints>
                                 <buttonCell key="cell" type="check" title="Send Browser Exam Key in HTTP header" bezelStyle="regularSquare" imagePosition="left" inset="2" id="971">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -268,6 +278,7 @@
                 <constraint firstItem="26k-Q1-RaL" firstAttribute="top" secondItem="57Q-JV-oaf" secondAttribute="bottom" constant="20" id="FVu-9s-KJ5"/>
                 <constraint firstItem="26k-Q1-RaL" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="N3J-CS-yEh"/>
                 <constraint firstAttribute="trailing" secondItem="czI-08-Q8k" secondAttribute="trailing" constant="20" id="ruI-x9-QmF"/>
+                <constraint firstItem="26k-Q1-RaL" firstAttribute="top" secondItem="1" secondAttribute="top" constant="187" id="wXx-6a-anZ"/>
                 <constraint firstAttribute="trailing" secondItem="57Q-JV-oaf" secondAttribute="trailing" constant="20" id="xRI-qy-fkv"/>
                 <constraint firstItem="57Q-JV-oaf" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" id="xsc-X4-PkJ"/>
                 <constraint firstItem="czI-08-Q8k" firstAttribute="top" secondItem="26k-Q1-RaL" secondAttribute="bottom" constant="20" id="yeN-9B-htr"/>

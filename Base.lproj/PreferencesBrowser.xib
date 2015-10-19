@@ -20,11 +20,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1" userLabel="Browser Preferences">
-            <rect key="frame" x="0.0" y="0.0" width="650" height="650"/>
+            <rect key="frame" x="0.0" y="0.0" width="650" height="649"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="84">
-                    <rect key="frame" x="18" y="613" width="367" height="17"/>
+                    <rect key="frame" x="18" y="613" width="367" height="16"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Links requesting to be opened in a new browser window ..." id="91">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -270,7 +270,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enableBrowsingBackForward" id="209"/>
+                                    <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_allowBrowsingBackForward" id="6v2-eF-cEt"/>
                                 </connections>
                             </button>
                             <button toolTip="Remove XULRunner browser profile (containing caches and also local storage) when quitting SEB" translatesAutoresizingMaskIntoConstraints="NO" id="661">
@@ -427,7 +427,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q4N-Ge-wgZ">
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q4N-Ge-wgZ">
                                                     <rect key="frame" x="-2" y="14" width="592" height="28"/>
                                                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" id="X0g-7e-XAl">
                                                         <font key="font" metaFont="smallSystem"/>
@@ -525,7 +525,7 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0JX-76-Lv7">
-                                                    <rect key="frame" x="-2" y="14" width="592" height="28"/>
+                                                    <rect key="frame" x="-2" y="16" width="592" height="26"/>
                                                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" id="FfE-2h-C1L">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <string key="title">Custom user agent string (SEB appends its version number automatically). Default string depends on installed SEB for Windows version and therefore can differ on exam clients.</string>
