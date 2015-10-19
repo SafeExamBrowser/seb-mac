@@ -50,10 +50,13 @@
 @property (assign) NSRect frameForNonFullScreenMode;
 @property (weak) IBOutlet SEBWebView *webView;
 @property(weak) SEBBrowserController *browserController;
+@property (readonly) BOOL backForwardEnabled;
 
 - (IBAction) backForward: (id)sender;
 - (IBAction) zoomText: (id)sender;
 - (IBAction) zoomPage: (id)sender;
+
+- (BOOL) backForwardEnabled;
 
 //- (id) webView;
 

@@ -85,12 +85,6 @@
 }
 
 
-//- (NSWindowCollectionBehavior)collectionBehavior {
-
-//    return NSWindowCollectionBehaviorFullScreenAuxiliary | NSWindowCollectionBehaviorCanJoinAllSpaces;
-//}
-
-
 // Closing of SEB Browser Window //
 - (BOOL)windowShouldClose:(id)sender
 {

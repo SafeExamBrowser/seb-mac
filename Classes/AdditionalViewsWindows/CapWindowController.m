@@ -48,8 +48,6 @@
     self = [super initWithWindow:window];
     if (self) {
         // Initialization code here.
-//        [self.window setCollectionBehavior:NSWindowCollectionBehaviorStationary | NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary];
-//        [self.window setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary];
 
     }
     DDLogDebug(@"Cap window %@ init.", self);
@@ -70,15 +68,6 @@
 // -------------------------------------------------------------------------------
 - (void)awakeFromNib
 {
-    // To specify we want our given window to be the full screen primary one, we can
-    // use the following:
-    //[self.window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
-    //
-    // But since we have already set this in our xib file for our NSWindow object
-    //  (Full Screen -> Primary Window) this line of code it not needed.
-    
-	// listen for these notifications so we can update our image based on the full-screen state
-    
     DDLogDebug(@"Cap window %@ awakeFromNib.", self.window);
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
         [self.window setSharingType:NSWindowSharingNone];

@@ -66,11 +66,6 @@
     SEBBrowserWindow *browserWindow = (SEBBrowserWindow *)self.window;
     [browserWindow setCalculatedFrame];
     self.browserController.activeBrowserWindow = (SEBBrowserWindow *)self.window;
-
-    //[browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
-//    [browserWindow setCollectionBehavior:NSWindowCollectionBehaviorStationary | NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary];
-//    [browserWindow setLevel:NSDockWindowLevel];
-//    [browserWindow setLevel:kCGMainMenuWindowLevel-1];
 }
 
 
@@ -163,6 +158,17 @@
         return appTitleString;
     }
     return @"";
+}
+
+
+- (BOOL) backForwardEnabled
+{
+//    if ([sender selectedSegment] == 0) {
+//        [sender setEnabled:self.webView.canGoBack forSegment:[sender selectedSegment]];
+//    } else {
+//        [sender setEnabled:self.webView.canGoForward forSegment:[sender selectedSegment]];
+//    }
+    return YES;
 }
 
 

@@ -291,7 +291,6 @@
     
     [self addBrowserWindow:self.mainBrowserWindow withWebView:self.webView withTitle:NSLocalizedString(@"Main Browser Window", nil)];
     
-    //[self.browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
     [self.mainBrowserWindow makeMainWindow];
     [self.mainBrowserWindow makeKeyAndOrderFront:self];
     self.activeBrowserWindow = self.mainBrowserWindow;
