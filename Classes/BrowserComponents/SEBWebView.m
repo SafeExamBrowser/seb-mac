@@ -46,14 +46,14 @@
 - (void) reload:(id)sender
 {
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_showReloadWarning"]) {
-        
+
+        // Display warning and ask if to reload page
         NSAlert *newAlert = [[NSAlert alloc] init];
         [newAlert setMessageText:NSLocalizedString(@"Reload Current Page", nil)];
         [newAlert setInformativeText:NSLocalizedString(@"Do you really want to reload the current web page?", nil)];
         [newAlert addButtonWithTitle:NSLocalizedString(@"Reload", nil)];
         [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
         [newAlert setAlertStyle:NSWarningAlertStyle];
-
 
         void (^conditionalReload)(NSModalResponse) = ^void (NSModalResponse answer) {
             switch(answer) {
@@ -66,9 +66,11 @@
                     // Reload page
                     DDLogInfo(@"Reloading current webpage");
                     [super reload:sender];
+
                     break;
                     
                 default:
+                    // Return without reloading page
                     return;
             }
         };
@@ -80,6 +82,11 @@
             [newAlert beginSheetModalForWindow:self.window completionHandler:(void (^)(NSModalResponse answer))conditionalReload];
         }
         
+    } else {
+        
+        // Reload page without displaying warning
+        DDLogInfo(@"Reloading current webpage");
+        [super reload:sender];
     }
 }
 
