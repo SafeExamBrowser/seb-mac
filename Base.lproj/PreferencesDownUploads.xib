@@ -8,7 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsDownUploadsViewController">
             <connections>
-                <outlet property="allowPDFPlugIn" destination="AAd-LS-TUP" id="wCt-E9-72S"/>
+                <outlet property="allowPDFPlugInButton" destination="AAd-LS-TUP" id="K3E-1Z-9i4"/>
                 <outlet property="chooseDownloadDirectory" destination="33" id="62"/>
                 <outlet property="chooseFileToUploadPolicyControl" destination="93" id="gjm-C7-4c6"/>
                 <outlet property="downloadDirectory" destination="35" id="58"/>
@@ -168,12 +168,12 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
+                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowPDFPlugIn" id="Ibh-RV-wAI"/>
                         <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_downloadPDFFiles" id="Ctg-bw-SHO">
                             <dictionary key="options">
                                 <string key="NSValueTransformerName">NSNegateBoolean</string>
                             </dictionary>
                         </binding>
-                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowPDFPlugIn" id="Ibh-RV-wAI"/>
                     </connections>
                 </button>
             </subviews>
