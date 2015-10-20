@@ -45,6 +45,7 @@
     IBOutlet NSMenuItem *downloadDirectory;
     IBOutlet NSPopUpButton *chooseFileToUploadPolicyControl;
     IBOutlet NSButton *downloadPDFFilesButton;
+    IBOutlet NSButton *allowPDFPlugIn;
 
 }
 

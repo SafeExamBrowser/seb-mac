@@ -1035,12 +1035,12 @@ willPerformClientRedirectToURL:(NSURL *)URL
     
     [self stopProgressIndicatorAnimation];
     
-    if ([error code] != -999) {
+    DDLogError(@"Error in %s: %lx %@", __FUNCTION__, (long)error.code, error.description);
+    
+    if (error.code != -999) {
         
-        if ([error code] !=  WebKitErrorFrameLoadInterruptedByPolicyChange) //this error can be ignored
+        if (error.code !=  WebKitErrorFrameLoadInterruptedByPolicyChange && error.code != 204) //these errors can be ignored (204 = Plug-in handled load)
         {
-            DDLogError(@"Error in %s: %@", __FUNCTION__, error.description);
-
             //Close the About Window first, because it would hide the error alert
             [[NSNotificationCenter defaultCenter] postNotificationName:@"requestCloseAboutWindowNotification" object:self];
             

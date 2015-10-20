@@ -104,4 +104,31 @@
 }
 
 
+//+ (BOOL)_canShowMIMEType:(NSString *)MIMEType allowingPlugins:(BOOL)allowPlugins
+//{
+//    if (allowPlugins && [MIMEType isEqualToString:@"application/pdf"])
+//    {
+//        return NO;
+//    }
+//    else
+//    {
+//        return [WebView _canShowMIMEType:MIMEType allowingPlugins:allowPlugins];
+//    }
+//}
+
+
+- (WebBasePluginPackage *)_pluginForMIMEType:(NSString *)MIMEType
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([MIMEType isEqualToString:@"application/pdf"] && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPDFPlugIn"])
+    {
+        return nil; // [super _pluginForMIMEType:@"application/my-plugin-type"];
+    }
+    else
+    {
+        return [super _pluginForMIMEType:MIMEType];
+    }
+}
+
+
 @end

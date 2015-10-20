@@ -144,6 +144,8 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_allowDownUploads",
                                  @NO,
                                  @"org_safeexambrowser_SEB_allowFlashFullscreen",
+                                 @NO,
+                                 @"org_safeexambrowser_SEB_allowPDFPlugIn",
                                  @YES,
                                  @"org_safeexambrowser_SEB_allowPreferencesWindow",
                                  @YES,

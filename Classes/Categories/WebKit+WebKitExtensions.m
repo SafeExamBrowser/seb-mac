@@ -57,3 +57,20 @@
 }
 
 @end
+
+
+//@implementation WebView (DisablePlugin)
+//
+//- (WebBasePluginPackage *)_pluginForMIMEType:(NSString *)MIMEType
+//{
+//    if ( [MIMEType isEqualToString:@"application/x-shockwave-flash"] )
+//    {
+//        return [super _pluginForMIMEType:@"application/my-plugin-type"];
+//    }
+//    else
+//    {
+//        return [super _pluginForMIMEType:MIMEType];
+//    }
+//}
+//
+//@end

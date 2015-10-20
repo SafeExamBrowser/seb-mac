@@ -34,6 +34,8 @@
 
 #import <WebKit/WebKit.h>
 
+//@class WebBasePluginPackage;
+
 
 @interface WebPreferences (WebPreferencesKVCSupport)
 
@@ -47,3 +49,9 @@
 - (BOOL)maintainsBackForwardList;
 
 @end
+
+
+//@interface WebView (DisablePlugin)
+//- (WebBasePluginPackage *)_pluginForMIMEType:(NSString *)MIMEType;
+//
+//@end
