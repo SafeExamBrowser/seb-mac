@@ -473,7 +473,6 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				69CE9C6017378B360011609B /* Bugfixing Subclasses */,
 				69D5881F1189EB8F005AE3F1 /* SEBController.h */,
 				69D588201189EB8F005AE3F1 /* SEBController.m */,
 				69CBEB531834C4D400FB0460 /* SystemManager */,
@@ -485,6 +484,7 @@
 				692F53D514ACFFF200011C84 /* Preferences */,
 				69428C99172EFD7000C87C58 /* Config Files */,
 				696F28D815751DF600780DA8 /* Cryptography */,
+				69CE9C6017378B360011609B /* Bugfixing Subclasses */,
 				695AF20C149128A300B18DD8 /* Categories */,
 			);
 			name = Classes;
