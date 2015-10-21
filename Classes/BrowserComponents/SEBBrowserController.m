@@ -41,6 +41,7 @@
 
 #include "WebStorageManagerPrivate.h"
 #include "WebPreferencesPrivate.h"
+#import "WebPluginDatabase.h"
 
 @implementation SEBBrowserController
 
@@ -51,11 +52,20 @@
     if (self) {
         
         self.openBrowserWindowsWebViews = [NSMutableArray new];
-        
+
+//        WebBasePluginPackage *pluginPackage = [[WebPluginDatabase sharedDatabase] pluginForMIMEType:@"application/pdf"];
+//        [[WebPluginDatabase sharedDatabase] _removePlugin:pluginPackage];
+//        pluginPackage = [[WebPluginDatabase sharedDatabase] pluginForMIMEType:@"application/pdf"];
+//        [[WebPluginDatabase sharedDatabase] _removePlugin:pluginPackage];
+//        pluginPackage = [[WebPluginDatabase sharedDatabase] pluginForMIMEType:@"application/pdf"];
+//        NSArray *plugins = [[WebPluginDatabase sharedDatabase] plugins];
+
         // Initialize SEB dock item menu for open browser windows/WebViews
         SEBDockItemMenu *dockMenu = [[SEBDockItemMenu alloc] initWithTitle:@""];
         self.openBrowserWindowsWebViewsMenu = dockMenu;
-        
+
+        //[[WebPluginDatabase sharedDatabase] destroyAllPluginInstanceViews];
+    
     }
     return self;
 }
@@ -63,7 +73,7 @@
 
 // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
 - (void) setCustomWebPreferencesForWebView:(SEBWebView *)webView
-{
+{    
     // Set browser user agent according to settings
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];

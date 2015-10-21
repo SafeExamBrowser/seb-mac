@@ -43,7 +43,11 @@
 @property (strong, nonatomic) NSMutableArray *notAllowedURLs;
 @property (readwrite) BOOL dismissAll;
 
-//+ (BOOL)_canShowMIMEType:(NSString *)MIMEType allowingPlugins:(BOOL)allowPlugins;
+- (NSArray *)plugins;
+
++ (void)_registerPluginMIMEType:(NSString *)MIMEType;
+
++ (BOOL)_canShowMIMEType:(NSString *)MIMEType allowingPlugins:(BOOL)allowPlugins;
 
 - (WebBasePluginPackage *)_pluginForMIMEType:(NSString *)MIMEType;
 

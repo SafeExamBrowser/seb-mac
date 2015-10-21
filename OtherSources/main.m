@@ -35,6 +35,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "NSWindow+SEBWindow.h"
+#import "WebKit+WebKitExtensions.h"
 
 int main(int argc, char *argv[])
 {
@@ -42,6 +43,8 @@ int main(int argc, char *argv[])
 
     // Swizzle NSWindow setLevel: Method
     [NSWindow setupChangingWindowLevels];
+    [WebView setupOverridePlugins];
+
     //[NSUserDefaults setupPrivateUserDefaults];
 
     return NSApplicationMain(argc,  (const char **) argv);

@@ -33,13 +33,16 @@
 //
 
 #import "SEBWebView.h"
+#import "WebPluginDatabase.h"
+
 
 @implementation SEBWebView
 
-- (void)drawRect:(NSRect)dirtyRect {
-    [super drawRect:dirtyRect];
-    
-    // Drawing code here.
+
+- (NSArray *)plugins
+{
+    NSArray *plugins = [[WebPluginDatabase sharedDatabase] plugins];
+    return plugins;
 }
 
 
@@ -104,17 +107,18 @@
 }
 
 
-//+ (BOOL)_canShowMIMEType:(NSString *)MIMEType allowingPlugins:(BOOL)allowPlugins
-//{
-//    if (allowPlugins && [MIMEType isEqualToString:@"application/pdf"])
-//    {
-//        return NO;
-//    }
-//    else
-//    {
-//        return [WebView _canShowMIMEType:MIMEType allowingPlugins:allowPlugins];
-//    }
-//}
++ (BOOL)_canShowMIMEType:(NSString *)MIMEType allowingPlugins:(BOOL)allowPlugins
+{
+    if (!allowPlugins && [MIMEType isEqualToString:@"application/pdf"])
+    {
+        return YES;
+    }
+    else
+    {
+        BOOL canShowType = [WebView _canShowMIMEType:MIMEType allowingPlugins:allowPlugins];
+        return canShowType;
+    }
+}
 
 
 - (WebBasePluginPackage *)_pluginForMIMEType:(NSString *)MIMEType
@@ -122,13 +126,15 @@
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([MIMEType isEqualToString:@"application/pdf"] && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPDFPlugIn"])
     {
-        return nil; // [super _pluginForMIMEType:@"application/my-plugin-type"];
+        return nil;
     }
     else
     {
-        return [super _pluginForMIMEType:MIMEType];
+        WebBasePluginPackage *plugInPackage = [super _pluginForMIMEType:MIMEType];
+        return plugInPackage;
     }
 }
+
 
 
 @end

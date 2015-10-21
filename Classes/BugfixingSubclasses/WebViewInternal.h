@@ -177,7 +177,7 @@
 ////#endif
 //+ (BOOL)_viewClass:(Class *)vClass andRepresentationClass:(Class *)rClass forMIMEType:(NSString *)MIMEType allowingPlugins:(BOOL)allowPlugins;
 //- (BOOL)_viewClass:(Class *)vClass andRepresentationClass:(Class *)rClass forMIMEType:(NSString *)MIMEType;
-//+ (void)_registerPluginMIMEType:(NSString *)MIMEType;
++ (void)_registerPluginMIMEType:(NSString *)MIMEType;
 //+ (void)_unregisterPluginMIMEType:(NSString *)MIMEType;
 + (BOOL)_canShowMIMEType:(NSString *)MIMEType allowingPlugins:(BOOL)allowPlugins;
 //- (BOOL)_canShowMIMEType:(NSString *)MIMEType;

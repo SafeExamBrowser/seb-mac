@@ -51,6 +51,18 @@
 @end
 
 
+@interface WebView (WebViewOverrideSetPlugin)
+
++ (void)setupOverridePlugins;
+
+//+ (void)_registerPluginMIMEType:(NSString *)MIMEType;
+
++ (void)_newRegisterPluginMIMEType:(NSString *)MIMEType;
+
+
+@end
+
+
 //@interface WebView (DisablePlugin)
 //- (WebBasePluginPackage *)_pluginForMIMEType:(NSString *)MIMEType;
 //
