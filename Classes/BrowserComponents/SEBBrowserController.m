@@ -53,21 +53,32 @@
         
         self.openBrowserWindowsWebViews = [NSMutableArray new];
 
-//        WebBasePluginPackage *pluginPackage = [[WebPluginDatabase sharedDatabase] pluginForMIMEType:@"application/pdf"];
-//        [[WebPluginDatabase sharedDatabase] _removePlugin:pluginPackage];
-//        pluginPackage = [[WebPluginDatabase sharedDatabase] pluginForMIMEType:@"application/pdf"];
-//        [[WebPluginDatabase sharedDatabase] _removePlugin:pluginPackage];
-//        pluginPackage = [[WebPluginDatabase sharedDatabase] pluginForMIMEType:@"application/pdf"];
-//        NSArray *plugins = [[WebPluginDatabase sharedDatabase] plugins];
-
         // Initialize SEB dock item menu for open browser windows/WebViews
         SEBDockItemMenu *dockMenu = [[SEBDockItemMenu alloc] initWithTitle:@""];
         self.openBrowserWindowsWebViewsMenu = dockMenu;
-
-        //[[WebPluginDatabase sharedDatabase] destroyAllPluginInstanceViews];
-    
     }
     return self;
+}
+
+
+// Close all browser windows and unload WebKit bundle
+// which is necessary to reset plug-in MIME type registrations
+- (void) restartWebKit
+{
+//    NSBundle *pdfPlugin = [NSBundle bundleWithIdentifier:@"com.adobe.acrobat.pdfviewer"];
+//    if (pdfPlugin.loaded) {
+//        [pdfPlugin unload];
+//    }
+    
+    NSBundle *webKit = [NSBundle bundleWithIdentifier:@"com.apple.WebKit"];
+    if (webKit.loaded) {
+        BOOL success = [webKit unload];
+        DDLogDebug(@"Unloading WebKit %@successfull", success ? @"" : @"not ");
+    }
+    [WebView _unregisterPluginMIMEType:@"application/pdf"];
+    if (!webKit.loaded) {
+        [webKit load];
+    }
 }
 
 

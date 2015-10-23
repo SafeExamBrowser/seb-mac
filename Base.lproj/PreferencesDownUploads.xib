@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsDownUploadsViewController">
@@ -162,7 +162,7 @@
                 </textField>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="AAd-LS-TUP">
                     <rect key="frame" x="38" y="49" width="594" height="18"/>
-                    <string key="toolTip">The Adobe Acrobat Reader browser plugin should only be used on secured managed Mac computers, at it allowing to access the file system</string>
+                    <string key="toolTip">The Adobe Acrobat Reader browser plugin should only be used on secured managed Mac computers, at it allows to access the file system and to cloud services</string>
                     <buttonCell key="cell" type="check" title="Allow using Acrobat Reader PDF plugin (insecure)" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="zhK-R4-XtF">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>

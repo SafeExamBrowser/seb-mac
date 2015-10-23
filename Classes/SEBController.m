@@ -1123,7 +1123,7 @@ bool insideMatrix(){
 #ifdef DEBUG
             DDLogInfo(@"launched app localizedName: %@, executableURL: %@", [launchedApp localizedName], [launchedApp executableURL]);
 #endif
-            if ([[launchedApp localizedName] isEqualToString:@"iCab"]) {
+            if ([[launchedApp localizedName] isEqualToString:@""]) {
                 [launchedApp forceTerminate];
             }
         }
@@ -1697,12 +1697,15 @@ bool insideMatrix(){
     
     // Adjust screen shot blocking
     [self.systemManager adjustSC];
-    
+
     // Close all browser windows (documents)
     [[NSDocumentController sharedDocumentController] closeAllDocumentsWithDelegate:self
                                                                didCloseAllSelector:@selector(documentController:didCloseAll:contextInfo:)
                                                                        contextInfo: nil];
     self.browserController.currentMainHost = nil;
+
+    // Close all browser windows and unload WebKit bundle (because of plug-in MIME type registrations)
+    [self.browserController restartWebKit];
 
     // Re-Initialize file logger if logging enabled
     [self initializeLogger];
@@ -1794,13 +1797,6 @@ bool insideMatrix(){
     }
 }
 
-
-/*- (void)documentController:(NSDocumentController *)docController  didCloseAll: (BOOL)didCloseAll contextInfo:(void *)contextInfo {
-#ifdef DEBUG
-    DDLogDebug(@"All documents closed: %@", [NSNumber numberWithBool:didCloseAll]);
-#endif
-    return;
-}*/
 
 - (void) requestedShowAbout:(NSNotification *)notification
 {
