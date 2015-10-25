@@ -1363,6 +1363,7 @@ bool insideMatrix(){
                                                                         action:@selector(restartButtonPressed)];
             [rightDockItems addObject:dockItemShutDown];
         }
+        
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableSebBrowser"] &&
             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
             SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil
@@ -1374,6 +1375,12 @@ bool insideMatrix(){
             [rightDockItems addObject:dockItemShutDown];
         }
         
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTime"]) {
+            SEBDockItemTime *dockItemTime = sebDockItemTime;
+            [dockItemTime startDisplayingTime];
+            
+            [rightDockItems addObject:dockItemTime];
+        }
         
         // Set right dock items
         

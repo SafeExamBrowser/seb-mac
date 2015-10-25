@@ -137,10 +137,10 @@
 
 @property (strong) SEBDockWindow *dockWindow;
 
-@property (strong) NSArray *leftDockItems;
-@property (strong) NSArray *centerDockItems;
-@property (strong) NSArray *rightDockItems;
-@property (strong) NSView *rightMostLeftItemView;
+@property (weak) NSArray *leftDockItems;
+@property (weak) NSArray *centerDockItems;
+@property (weak) NSArray *rightDockItems;
+@property (weak) NSView *rightMostLeftItemView;
 
 - (void) setLeftItems:(NSArray *)newLeftDockItems;
 - (void) setCenterItems:(NSArray *)newCenterDockItems;

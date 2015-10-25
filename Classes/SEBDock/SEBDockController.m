@@ -269,7 +269,10 @@
                 if ([dockItem respondsToSelector:@selector(action)]) {
                     [newDockItemButton setTarget:dockItem.target];
                     [newDockItemButton setAction:dockItem.action];
-                    [newDockItemButton setHighlighted:true];
+//                    [newDockItemButton setHighlighted:true];
+                    [newDockItemButton setButtonType:NSMomentaryLightButton];
+//                    NSButtonCell *newDockItemButtonCell = newDockItemButton.cell;
+//                    newDockItemButtonCell.highlightsBy = NSCellLightsByContents;
                 }
                 [newDockItemButton setToolTip:dockItem.toolTip];
                 dockItemView = newDockItemButton;

@@ -53,6 +53,7 @@
 
 #import "SEBDockController.h"
 #import "SEBDockItem.h"
+#import "SEBDockItemTime.h"
 
 #import "SEBEncryptedUserDefaultsController.h"
 #import "SEBSystemManager.h"
@@ -85,6 +86,8 @@
 
     IBOutlet NSWindow *enterPasswordDialogWindow;
     IBOutlet NSTextField *enterPasswordDialog;
+    
+    IBOutlet SEBDockItemTime *sebDockItemTime;
     	
 	IOPMAssertionID assertionID1;
 	IOPMAssertionID assertionID2;

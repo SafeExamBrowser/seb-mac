@@ -46,11 +46,17 @@
         CGFloat iconSize = self.frame.size.width;
         [itemIcon setSize: NSMakeSize(iconSize, iconSize)];
         self.image = itemIcon;
+        NSImage *altImage = self.alternateImage;
+        self.alternateImage = [NSImage imageNamed:@"SEBRestartIcon"];
+        altImage = self.alternateImage;
         
-        [self setButtonType:NSMomentaryPushInButton];
+//        [self setButtonType:NSMomentaryPushInButton];
+        [self setButtonType:NSMomentaryLightButton];
         [self setImagePosition:NSImageOnly];
         [self setBordered:NO];
-        
+        NSButtonCell *newDockItemButtonCell = self.cell;
+        newDockItemButtonCell.highlightsBy = NSCellLightsByContents;
+
         // Create text label for dock item, if there was a title set for the item
         if (itemTitle) {
             NSRect frameRect = NSMakeRect(0,0,155,21); // This will change based on the size you need
