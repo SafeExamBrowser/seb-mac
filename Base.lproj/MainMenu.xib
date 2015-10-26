@@ -496,7 +496,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="109"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="715">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
@@ -579,7 +579,7 @@ Gw
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="340" y="419" width="550" height="300"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
             <view key="contentView" id="860" customClass="AboutView">
                 <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -704,7 +704,7 @@ Parts of this project have been carried out as part of the program 'AAA/SWITCH â
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="109"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="vWC-gd-xPh">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
@@ -933,7 +933,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" HUD="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="274" width="500" height="45"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
             <view key="contentView" id="94S-Ha-RmY">
                 <rect key="frame" x="0.0" y="0.0" width="500" height="45"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -957,17 +957,17 @@ Gw
             <point key="canvasLocation" x="355" y="1286.5"/>
         </window>
         <customView horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" id="Ctb-pO-hkq" userLabel="Time Dock Item View">
-            <rect key="frame" x="0.0" y="0.0" width="53" height="32"/>
+            <rect key="frame" x="0.0" y="0.0" width="50" height="32"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="nSQ-YT-olP" userLabel="Time View">
-                    <rect key="frame" x="0.0" y="0.0" width="53" height="32"/>
+                    <rect key="frame" x="0.0" y="0.0" width="50" height="32"/>
                     <subviews>
                         <textField verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="cfx-jb-hJX" userLabel="timeTextField">
-                            <rect key="frame" x="2" y="6" width="49" height="24"/>
+                            <rect key="frame" x="2" y="6" width="46" height="23"/>
                             <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" alignment="center" placeholderString="09:41" id="ITD-IF-Cv9">
                                 <dateFormatter key="formatter" formatterBehavior="custom10_4" dateFormat="HH:mm" id="kfS-SN-RBm"/>
-                                <font key="font" size="16" name="HelveticaNeue-Bold"/>
+                                <font key="font" size="15" name="HelveticaNeue-Bold"/>
                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
@@ -975,7 +975,7 @@ Gw
                     </subviews>
                     <constraints>
                         <constraint firstItem="cfx-jb-hJX" firstAttribute="centerX" secondItem="nSQ-YT-olP" secondAttribute="centerX" id="6rV-aQ-60w"/>
-                        <constraint firstItem="cfx-jb-hJX" firstAttribute="centerY" secondItem="nSQ-YT-olP" secondAttribute="centerY" constant="-2" id="B3k-ab-gKD"/>
+                        <constraint firstItem="cfx-jb-hJX" firstAttribute="centerY" secondItem="nSQ-YT-olP" secondAttribute="centerY" constant="-1" id="B3k-ab-gKD"/>
                         <constraint firstItem="cfx-jb-hJX" firstAttribute="leading" secondItem="nSQ-YT-olP" secondAttribute="leading" constant="4" id="HcL-Vw-hVG"/>
                         <constraint firstAttribute="trailing" secondItem="cfx-jb-hJX" secondAttribute="trailing" constant="4" id="KPF-OW-1xO"/>
                         <constraint firstAttribute="height" constant="32" id="NZZ-0Y-uLy"/>
@@ -988,7 +988,7 @@ Gw
                 <constraint firstAttribute="bottom" secondItem="nSQ-YT-olP" secondAttribute="bottom" id="TUx-6D-CCq"/>
                 <constraint firstItem="nSQ-YT-olP" firstAttribute="leading" secondItem="Ctb-pO-hkq" secondAttribute="leading" id="Xqp-IQ-6dJ"/>
             </constraints>
-            <point key="canvasLocation" x="70.5" y="56"/>
+            <point key="canvasLocation" x="70" y="56"/>
         </customView>
     </objects>
     <resources>

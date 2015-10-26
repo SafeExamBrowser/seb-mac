@@ -1711,9 +1711,6 @@ bool insideMatrix(){
                                                                        contextInfo: nil];
     self.browserController.currentMainHost = nil;
 
-    // Close all browser windows and unload WebKit bundle (because of plug-in MIME type registrations)
-    [self.browserController restartWebKit];
-
     // Re-Initialize file logger if logging enabled
     [self initializeLogger];
     
