@@ -109,8 +109,9 @@
             
             // Create the label popover
             NSPopover *popover = [[NSPopover alloc] init];
+            DDLogDebug(@"Dock Item Label View frame size: %f, %f at origin: %f, %f", dockItemLabelView.frame.size.width, dockItemLabelView.frame.size.height, dockItemLabelView.frame.origin.x, dockItemLabelView.frame.origin.y);
             [popover setContentSize:dockItemLabelView.frame.size];
-            
+            DDLogDebug(@"Dock Item Label Popover content size: %f, %f", popover.contentSize.width, popover.contentSize.height);
             // Add the label view controller as content view controller to the popover
             [popover setContentViewController:controller];
             if (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_9) {
