@@ -164,6 +164,8 @@
     {
         [self.labelPopover close];
         [self.dockMenu showRelativeToRect:[self bounds] ofView:self];
+        DDLogDebug(@"Dock menu show relative to rect: %f, %f at origin: %f, %f", self.bounds.size.width, self.bounds.size.height, self.bounds.origin.x, self.bounds.origin.y);
+
     }
 }
 
@@ -180,6 +182,8 @@
 - (void)mouseEntered:(NSEvent *)theEvent
 {
     [self.labelPopover showRelativeToRect:[self bounds] ofView:self preferredEdge:NSMaxYEdge];
+    DDLogDebug(@"Dock item label popover show relative to rect: %f, %f at origin: %f, %f", self.bounds.size.width, self.bounds.size.height, self.bounds.origin.x, self.bounds.origin.y);
+
 }
 
 
