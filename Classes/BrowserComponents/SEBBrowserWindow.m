@@ -998,7 +998,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
         {
             DDLogError(@"Error in %s: %@", __FUNCTION__, error.description);
 
-            //Is it a plug-in handled load error?
+            //Is it a "plug-in handled load error"?
             
             
             //Close the About Window first, because it would hide the error alert

@@ -46,10 +46,10 @@
         CGFloat iconSize = self.frame.size.width;
         [itemIcon setSize: NSMakeSize(iconSize, iconSize)];
         self.image = itemIcon;
-        NSImage *altImage = self.alternateImage;
-        self.alternateImage = [NSImage imageNamed:@"SEBRestartIcon"];
-        altImage = self.alternateImage;
-        
+//        NSImage *altImage = self.alternateImage;
+//        self.alternateImage = [NSImage imageNamed:@"SEBRestartIcon"];
+//        altImage = self.alternateImage;
+//        
 //        [self setButtonType:NSMomentaryPushInButton];
         [self setButtonType:NSMomentaryLightButton];
         [self setImagePosition:NSImageOnly];
@@ -151,7 +151,7 @@
 {
     if (mouseDown) {
         mouseDown = NO;
-        [self rightMouseDown:nil];
+        [self rightMouseDown:[NSEvent new]];
     }
     
 }
