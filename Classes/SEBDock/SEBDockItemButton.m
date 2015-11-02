@@ -109,8 +109,9 @@
             
             // Create the label popover
             NSPopover *popover = [[NSPopover alloc] init];
+            DDLogDebug(@"Dock Item Label View frame size: %f, %f at origin: %f, %f", dockItemLabelView.frame.size.width, dockItemLabelView.frame.size.height, dockItemLabelView.frame.origin.x, dockItemLabelView.frame.origin.y);
             [popover setContentSize:dockItemLabelView.frame.size];
-            
+            DDLogDebug(@"Dock Item Label Popover content size: %f, %f", popover.contentSize.width, popover.contentSize.height);
             // Add the label view controller as content view controller to the popover
             [popover setContentViewController:controller];
             if (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_9) {
@@ -163,6 +164,8 @@
     {
         [self.labelPopover close];
         [self.dockMenu showRelativeToRect:[self bounds] ofView:self];
+        DDLogDebug(@"Dock menu show relative to rect: %f, %f at origin: %f, %f", self.bounds.size.width, self.bounds.size.height, self.bounds.origin.x, self.bounds.origin.y);
+
     }
 }
 
@@ -179,6 +182,8 @@
 - (void)mouseEntered:(NSEvent *)theEvent
 {
     [self.labelPopover showRelativeToRect:[self bounds] ofView:self preferredEdge:NSMaxYEdge];
+    DDLogDebug(@"Dock item label popover show relative to rect: %f, %f at origin: %f, %f", self.bounds.size.width, self.bounds.size.height, self.bounds.origin.x, self.bounds.origin.y);
+
 }
 
 

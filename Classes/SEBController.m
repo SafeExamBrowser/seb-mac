@@ -1869,7 +1869,7 @@ bool insideMatrix(){
         
         [coveringView addSubview:sebLockedViewController.view];
 
-        NSLog(@"Frame of superview: %f, %f", sebLockedViewController.view.superview.frame.size.width, sebLockedViewController.view.superview.frame.size.height);
+        DDLogVerbose(@"Frame of superview: %f, %f", sebLockedViewController.view.superview.frame.size.width, sebLockedViewController.view.superview.frame.size.height);
         NSMutableArray *constraints = [NSMutableArray new];
         [constraints addObject:[NSLayoutConstraint constraintWithItem:sebLockedViewController.view
                                                             attribute:NSLayoutAttributeCenterX
