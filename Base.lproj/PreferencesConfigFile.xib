@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsConfigFileViewController">
@@ -134,7 +134,7 @@
                         <action selector="editDuplicate:" target="-2" id="1361"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="68">
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="68">
                     <rect key="frame" x="18" y="276" width="615" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Choose identity to be used for encrypting SEB settings file ..." id="75">
                         <font key="font" metaFont="system"/>
@@ -230,7 +230,7 @@
                         <outlet property="nextKeyView" destination="110" id="tyb-Yc-dTE"/>
                     </connections>
                 </secureTextField>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="173">
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="173">
                     <rect key="frame" x="18" y="232" width="614" height="14"/>
                     <string key="toolTip">If used on unmanaged (student) computers, using a password is recomended, on managed computers (no administrator access by users/students) a cryptographic identity might be more convenient.</string>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Use either a cryptographic identity or a password or both." id="174">

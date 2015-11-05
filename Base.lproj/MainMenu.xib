@@ -545,7 +545,7 @@ Gw
                             <action selector="cancelEnterPassword:" target="543" id="726"/>
                         </connections>
                     </button>
-                    <textField horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="962" customClass="SEBTextField">
+                    <textField horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="962" customClass="SEBTextField">
                         <rect key="frame" x="17" y="77" width="378" height="18"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="18" id="ptb-D9-jla"/>
@@ -584,7 +584,7 @@ Gw
                 <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="870">
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="870">
                         <rect key="frame" x="325" y="12" width="205" height="170"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="170" id="LTe-P4-WGh"/>
@@ -793,7 +793,7 @@ Gw
             </view>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="SRG-SJ-3eg"/>
-        <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Re1-C5-57e" userLabel="SEB Locked View">
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="Re1-C5-57e" userLabel="SEB Locked View">
             <rect key="frame" x="0.0" y="0.0" width="500" height="500"/>
             <subviews>
                 <secureTextField canDrawConcurrently="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E6M-vB-bca">
@@ -813,8 +813,8 @@ Gw
                         <action selector="passwordEntered:" target="agr-W5-n2K" id="77E-Dv-cCw"/>
                     </connections>
                 </secureTextField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i1K-9z-xtU">
-                    <rect key="frame" x="173" y="455" width="153" height="25"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="i1K-9z-xtU">
+                    <rect key="frame" x="173" y="463" width="153" height="25"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="SEB Is Locked!" id="h8S-7a-w0u">
                         <font key="font" size="20" name="HelveticaNeue-Bold"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -837,8 +837,8 @@ Gw
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N8L-96-Ced">
-                    <rect key="frame" x="18" y="399" width="464" height="48"/>
+                <textField horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N8L-96-Ced">
+                    <rect key="frame" x="18" y="399" width="464" height="56"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" allowsEditingTextAttributes="YES" id="LsF-1w-rA0">
                         <font key="font" size="13" name=".HelveticaNeueDeskInterface-Bold"/>
                         <string key="title">SEB is locked because it was attempted to switch the user. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.</string>
@@ -909,7 +909,7 @@ Gw
                 <constraint firstAttribute="trailing" secondItem="N8L-96-Ced" secondAttribute="trailing" constant="20" id="Meg-I5-PQs"/>
                 <constraint firstItem="cZ9-xX-IzI" firstAttribute="top" secondItem="E6M-vB-bca" secondAttribute="bottom" constant="8" id="NL5-e8-BtN"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="saq-WU-u0D" secondAttribute="trailing" constant="20" id="OpY-Jm-E0S"/>
-                <constraint firstItem="i1K-9z-xtU" firstAttribute="top" secondItem="Re1-C5-57e" secondAttribute="top" constant="20" id="Oz4-js-tTF"/>
+                <constraint firstItem="i1K-9z-xtU" firstAttribute="top" secondItem="Re1-C5-57e" secondAttribute="top" constant="12" id="Oz4-js-tTF"/>
                 <constraint firstItem="h7g-WL-v0B" firstAttribute="leading" secondItem="Re1-C5-57e" secondAttribute="leading" constant="20" id="YkC-oj-Y9x"/>
                 <constraint firstAttribute="bottom" secondItem="cZ9-xX-IzI" secondAttribute="bottom" constant="15" id="a4h-xT-rog"/>
                 <constraint firstItem="cZ9-xX-IzI" firstAttribute="centerX" secondItem="Re1-C5-57e" secondAttribute="centerX" id="bTV-Bl-QOr"/>
@@ -929,7 +929,7 @@ Gw
                 <outlet property="view" destination="Re1-C5-57e" id="bGA-Gx-ekw"/>
             </connections>
         </viewController>
-        <window title="Information" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="kwi-CI-5lx" customClass="NSPanel">
+        <window title="SEB Lockdown Information" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="kwi-CI-5lx" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" HUD="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="274" width="500" height="45"/>
