@@ -94,7 +94,8 @@
 - (void) showRelativeToRect:(NSRect)positioningRect
                     ofView:(NSView *)positioningView
 {
-    [self.dockMenuPopover showRelativeToRect:positioningRect ofView:positioningView preferredEdge:NSMaxYEdge];
+//    [self.dockMenuPopover showRelativeToRect:positioningRect ofView:positioningView preferredEdge:NSMaxYEdge];
+    [self.dockMenuPopover showRelativeToRect:NSZeroRect ofView:positioningView preferredEdge:NSMaxYEdge];
     [self.dockMenuDropDownButton runPopUp:nil];
 }
 
