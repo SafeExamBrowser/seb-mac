@@ -2,7 +2,7 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
     <file original="Base.lproj/MainMenu.xib" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.0" build-num="7A220"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
         </header>
         <body>
             <trans-unit id="0h8-R9-UfE.title">
@@ -14,6 +14,11 @@
                 <source>Bring All to Front</source>
                 <target>Alle nach vorne bringen</target>
                 <note>Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5";</note>
+            </trans-unit>
+            <trans-unit id="6w8-6M-a1v.title">
+                <source>Label</source>
+                <note>Class = "NSTextFieldCell"; title = "Label"; ObjectID = "6w8-6M-a1v";</note>
+                <target>Label</target>
             </trans-unit>
             <trans-unit id="8GV-gd-2lK.title">
                 <source>Edit Duplicate</source>
@@ -167,7 +172,7 @@
             </trans-unit>
             <trans-unit id="204.title">
                 <source>Show Spelling and Grammar</source>
-                <target>Rechtschreibung und Grammatik einblenden</target>
+                <target></target>
                 <note>Class = "NSMenuItem"; title = "Show Spelling and Grammar"; ObjectID = "204";</note>
             </trans-unit>
             <trans-unit id="205.title">
@@ -247,7 +252,7 @@
             </trans-unit>
             <trans-unit id="239.title">
                 <source>Zoom</source>
-                <target>Zoomen</target>
+                <target>Zoom</target>
                 <note>Class = "NSMenuItem"; title = "Zoom"; ObjectID = "239";</note>
             </trans-unit>
             <trans-unit id="295.title">
@@ -358,10 +363,12 @@
             <trans-unit id="720.title">
                 <source>Cancel</source>
                 <note>Class = "NSButtonCell"; title = "Cancel"; ObjectID = "720";</note>
+                <target>Abbrechen</target>
             </trans-unit>
             <trans-unit id="721.title">
                 <source>OK</source>
                 <note>Class = "NSButtonCell"; title = "OK"; ObjectID = "721";</note>
+                <target>OK</target>
             </trans-unit>
             <trans-unit id="871.title">
                 <source>© 2010-2015 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen
@@ -405,15 +412,21 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="963.title">
                 <source>Enter password:</source>
                 <note>Class = "NSTextFieldCell"; title = "Enter password:"; ObjectID = "963";</note>
+                <target>Passwort eingeben:</target>
             </trans-unit>
             <trans-unit id="Fnc-XR-wb9.title">
                 <source>Enter restart/quit password to unlock SEB:</source>
                 <note>Class = "NSTextFieldCell"; title = "Enter restart/quit password to unlock SEB:"; ObjectID = "Fnc-XR-wb9";</note>
+                <target></target>
             </trans-unit>
             <trans-unit id="HGQ-o5-kHC.title">
                 <source>Open…</source>
                 <target>Öffnen …</target>
                 <note>Class = "NSMenuItem"; title = "Open…"; ObjectID = "HGQ-o5-kHC";</note>
+            </trans-unit>
+            <trans-unit id="ITD-IF-Cv9.placeholderString">
+                <source>09:41</source>
+                <note>Class = "NSTextFieldCell"; placeholderString = "09:41"; ObjectID = "ITD-IF-Cv9";</note>
             </trans-unit>
             <trans-unit id="KqQ-9i-HSM.title">
                 <source>Open…</source>
@@ -433,6 +446,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="LsF-1w-rA0.title">
                 <source>SEB is locked because it was attempted to switch the user. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.</source>
                 <note>Class = "NSTextFieldCell"; title = "SEB is locked because it was attempted to switch the user. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows."; ObjectID = "LsF-1w-rA0";</note>
+                <target>SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. SEB kann nur mittels des Neustarten-/Beenden-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
             </trans-unit>
             <trans-unit id="MYP-4t-dpx.title">
                 <source>Revert to Last Saved</source>
@@ -442,6 +456,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="Qlt-2p-OmY.title">
                 <source>Cancel</source>
                 <note>Class = "NSButtonCell"; title = "Cancel"; ObjectID = "Qlt-2p-OmY";</note>
+                <target>Abbrechen</target>
             </trans-unit>
             <trans-unit id="QrI-qU-IU3.title">
                 <source>Save As…</source>
@@ -451,6 +466,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="S4Y-jw-8zY.title">
                 <source>Zoom Page In</source>
                 <note>Class = "NSMenuItem"; title = "Zoom Page In"; ObjectID = "S4Y-jw-8zY";</note>
+                <target>Seiteninhalt vergrössern</target>
             </trans-unit>
             <trans-unit id="Thx-Ic-L6f.title">
                 <source>Apply and Restart</source>
@@ -480,6 +496,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="aOo-kP-rSF.title">
                 <source>Please enter correct password!</source>
                 <note>Class = "NSTextFieldCell"; title = "Please enter correct password!"; ObjectID = "aOo-kP-rSF";</note>
+                <target>Bitte korrektes Passwort eingeben!</target>
             </trans-unit>
             <trans-unit id="anq-S4-gmN.title">
                 <source>Enter password:</source>
@@ -512,6 +529,14 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
                 <target>Zurücksetzen auf Voreinstellungen</target>
                 <note>Class = "NSMenuItem"; title = "Revert to Defaults"; ObjectID = "icu-d0-oaR";</note>
             </trans-unit>
+            <trans-unit id="kfS-SN-RBm.ibShadowedDateFormat">
+                <source>HH:mm</source>
+                <note>Class = "NSDateFormatter"; ibShadowedDateFormat = "HH:mm"; ObjectID = "kfS-SN-RBm";</note>
+            </trans-unit>
+            <trans-unit id="kwi-CI-5lx.title">
+                <source>SEB Lockdown Information</source>
+                <note>Class = "NSWindow"; title = "SEB Lockdown Information"; ObjectID = "kwi-CI-5lx";</note>
+            </trans-unit>
             <trans-unit id="lIX-w9-SMd.title">
                 <source>Revert to Client Settings</source>
                 <target>Zurücksetzen auf Client-Einstellungen</target>
@@ -520,6 +545,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="npk-yl-ONe.title">
                 <source>Zoom Page Out</source>
                 <note>Class = "NSMenuItem"; title = "Zoom Page Out"; ObjectID = "npk-yl-ONe";</note>
+                <target>Seiteninhalt verkleinern</target>
             </trans-unit>
             <trans-unit id="pMV-oP-mZU.title">
                 <source>Revert to Last Saved</source>
@@ -545,7 +571,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
     </file>
     <file original="Base.lproj/PreferencesAppearance.xib" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.0" build-num="7A220"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
         </header>
         <body>
             <trans-unit id="2KI-tS-neq.ibShadowedToolTip">
@@ -564,9 +590,9 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
                 <note>Class = "NSButtonCell"; title = "Show reload button"; ObjectID = "3wD-Cd-yYF";</note>
             </trans-unit>
             <trans-unit id="6CP-QX-2NV.title">
-                <source>Show time (Win)</source>
+                <source>Show time</source>
                 <target>Uhrzeit anzeigen (Win)</target>
-                <note>Class = "NSButtonCell"; title = "Show time (Win)"; ObjectID = "6CP-QX-2NV";</note>
+                <note>Class = "NSButtonCell"; title = "Show time"; ObjectID = "6CP-QX-2NV";</note>
             </trans-unit>
             <trans-unit id="8IN-wN-3ta.ibShadowedToolTip">
                 <source>SEB can be quit with a swipe down from the upper display edge</source>
@@ -769,7 +795,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             </trans-unit>
             <trans-unit id="baa-Wm-1db.ibShadowedToolTip">
                 <source>Pages can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar</source>
-                <target>Webseiten können mit Cmd +/- oder den Befehlen im Menü Darstellung und der Browserfenster-Werkzeugleiste skaliert werden</target>
+                <target>Webseiten können mit Cmd +/- oder den Befehlen im Menü Darstellung und der Browserfenster-Werkzeugleiste vergrössert/verkleinert werden</target>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Pages can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar"; ObjectID = "baa-Wm-1db";</note>
             </trans-unit>
             <trans-unit id="cvI-1t-MPD.ibShadowedToolTip">
@@ -826,7 +852,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
     </file>
     <file original="Base.lproj/PreferencesApplications.xib" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.0" build-num="7A220"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
         </header>
         <body>
             <trans-unit id="3ET-Le-SL5.ibShadowedToolTip">
@@ -1227,12 +1253,12 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
     </file>
     <file original="Base.lproj/PreferencesBrowser.xib" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.0" build-num="7A220"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
         </header>
         <body>
             <trans-unit id="0dZ-Z1-Pzs.title">
                 <source>Desktop mode default user agent</source>
-                <target>Useragent für Desktop-Modus</target>
+                <target>User Agent für Desktop-Modus</target>
                 <note>Class = "NSTextFieldCell"; title = "Desktop mode default user agent"; ObjectID = "0dZ-Z1-Pzs";</note>
             </trans-unit>
             <trans-unit id="7nL-Z2-JAg.title">
@@ -1436,7 +1462,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             </trans-unit>
             <trans-unit id="EZ4-9b-Idz.title">
                 <source>Default user agent Mac</source>
-                <target>Standard Mac-Useragent</target>
+                <target>Standard Mac User Agent</target>
                 <note>Class = "NSTextFieldCell"; title = "Default user agent Mac"; ObjectID = "EZ4-9b-Idz";</note>
             </trans-unit>
             <trans-unit id="FfE-2h-C1L.title">
@@ -1458,7 +1484,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             </trans-unit>
             <trans-unit id="XDW-SF-gll.title">
                 <source>iPad user agent</source>
-                <target>iPad-Useragent</target>
+                <target>iPad User Agent</target>
                 <note>Class = "NSTextFieldCell"; title = "iPad user agent"; ObjectID = "XDW-SF-gll";</note>
             </trans-unit>
             <trans-unit id="XSw-aj-V6a.ibShadowedToolTip">
@@ -1477,6 +1503,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="Z3B-Za-z4X.ibShadowedToolTip">
                 <source>Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)</source>
                 <note>Class = "NSTextField"; ibShadowedToolTip = "Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)"; ObjectID = "Z3B-Za-z4X";</note>
+                <target></target>
             </trans-unit>
             <trans-unit id="aZZ-Qg-4Cz.title">
                 <source>Radio</source>
@@ -1493,7 +1520,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             </trans-unit>
             <trans-unit id="ckm-lX-Woj.title">
                 <source>User agent</source>
-                <target>Useragent</target>
+                <target>User Agent</target>
                 <note>Class = "NSBox"; title = "User agent"; ObjectID = "ckm-lX-Woj";</note>
             </trans-unit>
             <trans-unit id="dP1-5V-zqF.ibShadowedToolTip">
@@ -1502,7 +1529,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             </trans-unit>
             <trans-unit id="dqB-SD-Yjy.title">
                 <source>Default touch mode user agent</source>
-                <target>Standard-Useragent Touch-Modus</target>
+                <target>Standard User Agent für Touch-Modus</target>
                 <note>Class = "NSTextFieldCell"; title = "Default touch mode user agent"; ObjectID = "dqB-SD-Yjy";</note>
             </trans-unit>
             <trans-unit id="fzm-2I-vcw.title">
@@ -1538,7 +1565,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
     </file>
     <file original="Base.lproj/PreferencesConfigFile.xib" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.0" build-num="7A220"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
         </header>
         <body>
             <trans-unit id="3.ibShadowedToolTip">
@@ -1730,7 +1757,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
     </file>
     <file original="Base.lproj/PreferencesDownUploads.xib" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.0" build-num="7A220"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
         </header>
         <body>
             <trans-unit id="13.ibShadowedToolTip">
@@ -1808,11 +1835,19 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
                 <target>SEB Konfigurationsdateien herunterladen und öffnen</target>
                 <note>Class = "NSButtonCell"; title = "Download and open SEB config files"; ObjectID = "266";</note>
             </trans-unit>
+            <trans-unit id="AAd-LS-TUP.ibShadowedToolTip">
+                <source>The Adobe Acrobat Reader browser plugin should only be used on secured managed Mac computers, at it allows to access the file system and to cloud services</source>
+                <note>Class = "NSButton"; ibShadowedToolTip = "The Adobe Acrobat Reader browser plugin should only be used on secured managed Mac computers, at it allows to access the file system and to cloud services"; ObjectID = "AAd-LS-TUP";</note>
+            </trans-unit>
+            <trans-unit id="zhK-R4-XtF.title">
+                <source>Allow using Acrobat Reader PDF plugin (insecure)</source>
+                <note>Class = "NSButtonCell"; title = "Allow using Acrobat Reader PDF plugin (insecure)"; ObjectID = "zhK-R4-XtF";</note>
+            </trans-unit>
         </body>
     </file>
     <file original="Base.lproj/PreferencesExam.xib" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.0" build-num="7A220"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
         </header>
         <body>
             <trans-unit id="2Rr-y4-nE8.ibShadowedToolTip">
@@ -1822,6 +1857,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="5SR-dU-gy3.title">
                 <source>Protect restart exam button with the quit/restart password</source>
                 <note>Class = "NSButtonCell"; title = "Protect restart exam button with the quit/restart password"; ObjectID = "5SR-dU-gy3";</note>
+                <target>Schützt "Prüfung neu starten" mittels des Neustart-/Beenden-Passworts</target>
             </trans-unit>
             <trans-unit id="20.ibShadowedToolTip">
                 <source>SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB</source>
@@ -1922,7 +1958,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
     </file>
     <file original="Base.lproj/PreferencesGeneral.xib" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.0" build-num="7A220"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
         </header>
         <body>
             <trans-unit id="78.ibShadowedToolTip">
@@ -2059,7 +2095,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
     </file>
     <file original="Base.lproj/PreferencesNetwork.xib" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.0" build-num="7A220"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
         </header>
         <body>
             <trans-unit id="1QG-Ub-GkE.ibShadowedToolTip">
@@ -2481,7 +2517,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
     </file>
     <file original="Base.lproj/PreferencesResources.xib" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.0" build-num="7A220"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
         </header>
         <body>
             <trans-unit id="2301.title">
@@ -2578,7 +2614,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
     </file>
     <file original="Base.lproj/PreferencesSecurity.xib" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.0" build-num="7A220"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
         </header>
         <body>
             <trans-unit id="0Ey-3L-Lb6.title">
@@ -2739,6 +2775,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="M5z-0E-3yB.title">
                 <source>Logging</source>
                 <note>Class = "NSBox"; title = "Logging"; ObjectID = "M5z-0E-3yB";</note>
+                <target>Loggen</target>
             </trans-unit>
             <trans-unit id="Ouk-wE-FFP.title">
                 <source>Enable Shut down</source>
@@ -2838,6 +2875,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="kBz-Xz-wNK.ibShadowedToolTip">
                 <source>The kiosk mode setting reflects how the computer is locked down into SEB.</source>
                 <note>Class = "NSMatrix"; ibShadowedToolTip = "The kiosk mode setting reflects how the computer is locked down into SEB."; ObjectID = "kBz-Xz-wNK";</note>
+                <target>Der Kiosk-Modus bestimmt, wie SEB den Computer abgesichert</target>
             </trans-unit>
             <trans-unit id="n1l-UI-Mxa.title">
                 <source>Enable F3</source>
@@ -2876,7 +2914,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             </trans-unit>
             <trans-unit id="rm8-cp-dzk.title">
                 <source>Enable Switch User</source>
-                <target>Benutzer wechseln erlauben</target>
+                <target>Benutzerwechsel erlauben</target>
                 <note>Class = "NSButtonCell"; title = "Enable Switch User"; ObjectID = "rm8-cp-dzk";</note>
             </trans-unit>
             <trans-unit id="ufj-NR-s2G.title">
@@ -2908,7 +2946,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
     </file>
     <file original="Base.lproj/SEBBrowserWindow.xib" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.0" build-num="7A220"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
         </header>
         <body>
             <trans-unit id="3.title">
@@ -2999,6 +3037,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="ZLD-BY-T5K.label">
                 <source>Zoom</source>
                 <note>Class = "NSToolbarItem"; label = "Zoom"; ObjectID = "ZLD-BY-T5K";</note>
+                <target>Zoom</target>
             </trans-unit>
             <trans-unit id="aE8-n6-keh.title">
                 <source>Directory</source>
@@ -3079,7 +3118,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
     </file>
     <file original="SafeExamBrowser-Info.plist" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.0" build-num="7A220"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
         </header>
         <body>
             <trans-unit id="CFBundleDisplayName">
@@ -3099,9 +3138,14 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
     </file>
     <file original="en.lproj/Localizable.strings" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.0" build-num="7A220"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
         </header>
         <body>
+            <trans-unit id="  SEB session was inactive for %ld:%.2ld (minutes:seconds)\n">
+                <source>  SEB session was inactive for %1$ld:%2$.2ld (minutes:seconds)
+</source>
+                <note>No comment provided by engineer.</note>
+            </trans-unit>
             <trans-unit id=" 1">
                 <source> 1</source>
                 <note>No comment provided by engineer.</note>
@@ -3110,11 +3154,6 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
                 <source> copy</source>
                 <target>Kopie</target>
                 <note>word indicating the duplicate of a file, same as in Finder ' copy'</note>
-            </trans-unit>
-            <trans-unit id="%@ SessionDidBecomeActive: Switched back after user switch / login window!\n">
-                <source>%@ SessionDidBecomeActive: Switched back after user switch / login window!
-</source>
-                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="%@ was downloaded.">
                 <source>%@ was downloaded.</source>
@@ -3126,10 +3165,6 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             </trans-unit>
             <trans-unit id="Add Rule">
                 <source>Add Rule</source>
-            </trans-unit>
-            <trans-unit id="Allow Switching to Third Party Applications Security Warning">
-                <source>Allow Switching to Third Party Applications Security Warning</source>
-                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Appearance">
                 <source>Appearance</source>
@@ -3240,6 +3275,11 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="Continue">
                 <source>Continue</source>
                 <target>Weiter</target>
+                <note>No comment provided by engineer.</note>
+            </trans-unit>
+            <trans-unit id="Correct password entered, closing lockdown windows\n">
+                <source>Correct password entered, closing lockdown windows
+</source>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Current settings have unsaved changes. If you don't save those first, you will loose them.">
@@ -3515,10 +3555,13 @@ Reset local settings and continue?</source>
 Lokale Einstellungen zurücksetzen und weiterfahren?</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
+            <trans-unit id="Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.">
+                <source>Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.</source>
+                <note>No comment provided by engineer.</note>
+            </trans-unit>
             <trans-unit id="Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.">
                 <source>Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.</source>
                 <target>Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt oder beschädigt. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um SEB wieder korrekt zu konfigurieren.</target>
-                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Local settings of this SEB client have been reconfigured. Do you want to continue working with SEB now or quit?">
                 <source>Local settings of this SEB client have been reconfigured. Do you want to continue working with SEB now or quit?</source>
@@ -3704,7 +3747,11 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
             </trans-unit>
             <trans-unit id="SEB is locked because a user switch was attempted. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.">
                 <source>SEB is locked because a user switch was attempted. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.</source>
-                <target>SEB ist gesperrt, weil versucht wurde, den Benutzer zu wechseln. Es ist nur mit dem Neustart-/Beenden-Passwort (welches üblicherweise die Prüfungsaufsicht kennt) möglich, SEB zu entsperren.</target>
+                <target>SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. SEB kann nur mittels des Neustarten-/Beenden-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
+                <note>No comment provided by engineer.</note>
+            </trans-unit>
+            <trans-unit id="SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)">
+                <source>SEB was locked (exam interrupted) for %1$ld:%2$.2ld (minutes:seconds)</source>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.">
@@ -3756,6 +3803,10 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
                 <target>Sicherheit</target>
                 <note>Title of 'Security' preference pane</note>
             </trans-unit>
+            <trans-unit id="Security Warning">
+                <source>Security Warning</source>
+                <note>No comment provided by engineer.</note>
+            </trans-unit>
             <trans-unit id="Select">
                 <source>Select</source>
                 <target>Auswählen</target>
@@ -3788,7 +3839,7 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
             </trans-unit>
             <trans-unit id="Standard user agent">
                 <source>Standard user agent</source>
-                <target>Standard Useragent</target>
+                <target>Standard User Agent</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Start">
@@ -3805,6 +3856,7 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
                 <source>Switched back after user switch / login window
 </source>
                 <note>No comment provided by engineer.</note>
+                <target>Wechsel zurück nach Benutzerwechsel / Anmeldefenster</target>
             </trans-unit>
             <trans-unit id="The identity needed to decrypt settings has not been found in the keychain!">
                 <source>The identity needed to decrypt settings has not been found in the keychain!</source>
@@ -3839,6 +3891,7 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
             <trans-unit id="This setting allows to switch to any application on the exam client computer. Use this option only when running SEB in a special user account managed by parental controls, with only SEB and the desired applications allowed.">
                 <source>This setting allows to switch to any application on the exam client computer. Use this option only when running SEB in a special user account managed by parental controls, with only SEB and the desired applications allowed.</source>
                 <note>No comment provided by engineer.</note>
+                <target>Diese Einstellung erlaubt es, auf jede beliebige Applikation auf dem Prüfungsrechner zu wechseln. Sie sollte nur benutzt werden, wenn SEB in einem Benutzeraccount verwendet wird, welches mittels der OS X Kindersicherung verwaltet wird. Dabei sollten nur SEB und die gewünschten Applikationen zugelassen werden.</target>
             </trans-unit>
             <trans-unit id="Touch Optimized Mode Warning">
                 <source>Touch Optimized Mode Warning</source>
@@ -3848,6 +3901,7 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
             <trans-unit id="Touch optimization will not work when kiosk mode is set to 'Create new desktop', please change kiosk mode to 'Disable Explorer Shell' in the Security pane.">
                 <source>Touch optimization will not work when kiosk mode is set to 'Create new desktop', please change kiosk mode to 'Disable Explorer Shell' in the Security pane.</source>
                 <note>No comment provided by engineer.</note>
+                <target>Touch-Optimierung funktioniert nicht, wenn der Kiosk-Modus 'Neuen Desktop erstellen' eingestellt ist, bitte Kiosk-Modus in den Sicherheits-Einstellungen auf 'Windows Explorer deaktivieren' ändern.</target>
             </trans-unit>
             <trans-unit id="URL Blocked!">
                 <source>URL Blocked!</source>
@@ -3878,6 +3932,7 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
                 <source>User switch / switch to login window detected
 </source>
                 <note>No comment provided by engineer.</note>
+                <target>Benutzerwechsel / Wechsel auf Anmeldefenster detektiert</target>
             </trans-unit>
             <trans-unit id="Verbose">
                 <source>Verbose</source>
@@ -3911,12 +3966,12 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
             </trans-unit>
             <trans-unit id="Win: User agent for desktop mode">
                 <source>Win: User agent for desktop mode</source>
-                <target>Win: Useragent für Desktop-Modus</target>
+                <target>Win: User Agent für Desktop-Modus</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Win: User agent for touch/tablet mode">
                 <source>Win: User agent for touch/tablet mode</source>
-                <target>Win: Useragent für Touch-/Tablet-Modus</target>
+                <target>Win: User Agent für Touch-/Tablet-Modus</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Wrong Admin Password">
@@ -3942,6 +3997,11 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
             <trans-unit id="Wrong Quit Password">
                 <source>Wrong Quit Password</source>
                 <target>Falsches Beenden-Passwort</target>
+                <note>No comment provided by engineer.</note>
+            </trans-unit>
+            <trans-unit id="Wrong password entered!\n">
+                <source>Wrong password entered!
+</source>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Wrong password! Try again to enter the correct SEB administrator password from these settings:">
