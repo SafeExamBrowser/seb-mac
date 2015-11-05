@@ -138,6 +138,10 @@
     SEBBrowserWindow *newWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
     newWindow.browserController = self;
     
+    // Prevent that the browser window displays the button to make it fullscreen in OS X 10.11
+    // and that it would allow to be used in split screen mode
+    newWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
+    
     // Enable or disable spell checking
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL allowSpellCheck = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
@@ -263,6 +267,10 @@
          postNotificationName:@"mainScreenChanged" object:self];
     }
 
+    // Prevent that the browser window displays the button to make it fullscreen in OS X 10.11
+    // and that it would allow to be used in split screen mode
+    self.mainBrowserWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
+
     // Set the flag indicating if the main browser window should be displayed full screen
     self.mainBrowserWindow.isFullScreen = mainBrowserWindowShouldBeFullScreen;
     
@@ -339,7 +347,7 @@
     // If the main browser window is displayed fullscreen and switching to apps is allowed,
     // we make the window stationary, so that it isn't scaled down from Exposé
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"] && self.mainBrowserWindow.isFullScreen) {
-        self.mainBrowserWindow.collectionBehavior = NSWindowCollectionBehaviorStationary;
+        self.mainBrowserWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
     }
 
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];

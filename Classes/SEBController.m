@@ -1207,7 +1207,7 @@ bool insideMatrix(){
         if (allowApps) {
             [capWindow newSetLevel:NSNormalWindowLevel];
             if (allowAppsUserDefaultsSetting) {
-                capWindow.collectionBehavior = NSWindowCollectionBehaviorStationary;
+                capWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
             }
         } else {
             [capWindow newSetLevel:NSMainMenuWindowLevel+2];

@@ -56,7 +56,7 @@
         NSRect initialContentRect = NSMakeRect(0, 0, 1024, dockHeight);
         self.dockWindow = [[SEBDockWindow alloc] initWithContentRect:initialContentRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
         self.dockWindow.releasedWhenClosed = YES;
-        self.dockWindow.collectionBehavior = NSWindowCollectionBehaviorStationary;
+        self.dockWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
             [self.dockWindow setSharingType:NSWindowSharingNone];
         }
