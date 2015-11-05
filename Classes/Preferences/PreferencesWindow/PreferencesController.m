@@ -779,25 +779,18 @@
 // Action saving current preferences to a .seb file choosing the filename
 - (IBAction) saveSEBPrefs:(id)sender
 {
-    [self savePrefsAs:NO];
+    [self savePrefsAs:NO fileURLUpdate:YES];
 }
 
 
 // Action saving current preferences to a .seb file choosing the filename
 - (IBAction) saveSEBPrefsAs:(id)sender
 {
-    [self savePrefsAs:YES];
+    [self savePrefsAs:YES fileURLUpdate:YES];
 }
 
 
-// Method which encrypts and saves current preferences to an encrypted .seb file
-- (void) savePrefsAs:(BOOL)saveAs
-{
-    [self savePrefsAs:saveAs fileURLUpdate:YES];
-}
-
-
-// Method which encrypts and saves current preferences to an encrypted .seb file
+// Method which saves current preferences to a .seb file
 // with parameter indicating if the saved settings file URL should be updated
 - (BOOL) savePrefsAs:(BOOL)saveAs fileURLUpdate:(BOOL)fileURLUpdate
 {
