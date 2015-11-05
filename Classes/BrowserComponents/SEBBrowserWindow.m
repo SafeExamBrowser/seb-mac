@@ -48,27 +48,9 @@
 @synthesize webView;
 
 
-// This window has its usual -constrainFrameRect:toScreen: behavior temporarily suppressed.
-// This enables our window's custom Full Screen Exit animations to avoid being constrained by the
-// top edge of the screen and the menu bar.
-//
-- (NSRect)constrainFrameRect:(NSRect)frameRect toScreen:(NSScreen *)screen
-{
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"] == NO)
-    {
-        return frameRect;
-    }
-    else
-    {
-        return [super constrainFrameRect:frameRect toScreen:screen];
-    }
-}
-
-
 -(BOOL)canBecomeKeyWindow {
     return YES;
 }
-
 
 -(BOOL)canBecomeMainWindow {
     return YES;
@@ -718,6 +700,14 @@
                         defaultFrame:(NSRect)newFrame {
     // Check if SEB Dock is displayed and reduce visibleFrame accordingly
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    // Get frame of the visible screen (considering if menu bar is enabled)
+    NSRect screenFrame = self.screen.visibleFrame;
+    newFrame.size.height = screenFrame.size.height;
+//    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"])
+//    {
+//    }
+    
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
         CGFloat dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
         newFrame.origin.y += dockHeight;
