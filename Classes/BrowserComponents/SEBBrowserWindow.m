@@ -902,6 +902,17 @@ initiatedByFrame:(WebFrame *)frame {
 }
 
 
+- (void)webView:(WebView *)sender frame:(WebFrame *)frame exceededDatabaseQuotaForSecurityOrigin:(id)origin database:(NSString *)databaseIdentifier
+{
+    static const unsigned long long defaultQuota = 5 * 1024 * 1024;
+    if ([origin respondsToSelector: @selector(setQuota:)]) {
+        [origin performSelector:@selector(setQuota:) withObject:[NSNumber numberWithLongLong: defaultQuota]];
+    } else {
+        DDLogError(@"Could not increase quota to %llu bytes for database %@", defaultQuota, databaseIdentifier);
+    }
+}
+
+
 #pragma mark WebFrameLoadDelegates
 
 // Get the URL of the page being loaded
