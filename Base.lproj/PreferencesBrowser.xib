@@ -382,7 +382,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="915" height="112"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <matrix horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b7C-9j-OYg">
+                                                <matrix horizontalHuggingPriority="249" verticalHuggingPriority="750" misplaced="YES" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b7C-9j-OYg">
                                                     <rect key="frame" x="0.0" y="72" width="71" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="i0t-CT-Vxp"/>
@@ -438,9 +438,6 @@
                                                 </textField>
                                                 <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dP1-5V-zqF">
                                                     <rect key="frame" x="79" y="93" width="509" height="19"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="509" id="Cwd-hh-LeB"/>
-                                                    </constraints>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="Default user agent Mac" id="EZ4-9b-Idz">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -679,7 +676,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="12" id="638"/>
                     </constraints>
-                    <buttonCell key="cell" type="check" title="Use SEB without browser window" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="415">
+                    <buttonCell key="cell" type="check" title="Use SEB without browser window (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="415">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>

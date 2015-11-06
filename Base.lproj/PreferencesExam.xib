@@ -35,7 +35,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField toolTip="If a Quit Link is entered, it works regardless of other quit settings in the General pane" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Rr-y4-nE8">
+                            <textField toolTip="Full URL (starting with http:// or https://) of the page to open when the Restart exam button is pressed" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Rr-y4-nE8">
                                 <rect key="frame" x="13" y="124" width="588" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="588" id="rck-hM-PcS"/>
@@ -60,18 +60,18 @@
                                     <outlet property="delegate" destination="-2" id="cBd-P3-GHs"/>
                                 </connections>
                             </textField>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="obm-ub-zDL">
-                                <rect key="frame" x="11" y="43" width="415" height="14"/>
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="obm-ub-zDL">
+                                <rect key="frame" x="11" y="29" width="592" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="EbE-qf-e51"/>
                                 </constraints>
-                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Title/tool tip text of the restart button (leave empty for localized standard text)" id="pdT-tX-Sdp">
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Dialog title/tool tip text of the restart button (leave empty for localized standard text)" id="pdT-tX-Sdp">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField toolTip="If a Quit Link is entered, it works regardless of other quit settings in the General pane" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qei-df-hVI">
+                            <textField toolTip="This text is displayed as the title of the password entering/confirming dialog window and tooltip for the restart exam button" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qei-df-hVI">
                                 <rect key="frame" x="13" y="65" width="588" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="588" id="ZZP-Uf-LnH"/>
@@ -91,9 +91,8 @@
                                     <outlet property="delegate" destination="-2" id="hlp-Xq-oZ2"/>
                                 </connections>
                             </textField>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="oJT-BY-ezv">
+                            <button toolTip="Require to enter the quit/restart password when the restart exam button is pressed" translatesAutoresizingMaskIntoConstraints="NO" id="oJT-BY-ezv">
                                 <rect key="frame" x="11" y="12" width="380" height="18"/>
-                                <string key="toolTip">The Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system</string>
                                 <buttonCell key="cell" type="check" title="Protect restart exam button with the quit/restart password" bezelStyle="regularSquare" imagePosition="left" inset="2" id="5SR-dU-gy3">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -103,9 +102,8 @@
                                     <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_restartExamPasswordProtected" id="SdW-dA-oJt"/>
                                 </connections>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="ujx-Tz-w75">
+                            <button toolTip="The restart exam button reloads the exam's Start URL" translatesAutoresizingMaskIntoConstraints="NO" id="ujx-Tz-w75">
                                 <rect key="frame" x="11" y="152" width="230" height="18"/>
-                                <string key="toolTip">The Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system</string>
                                 <buttonCell key="cell" type="check" title="Use Start URL (see General pane)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Rln-rP-DrR">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>

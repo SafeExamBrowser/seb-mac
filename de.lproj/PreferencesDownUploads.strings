@@ -1,0 +1,45 @@
+
+/* Class = "NSButton"; ibShadowedToolTip = "Normalerweise zu verwenden, wenn das Umschalten auf Drittapplikationen erlaubt ist oder wenn die HTML5 Download-Funktion für lokale Backups benutzt wird"; ObjectID = "13"; */
+"13.ibShadowedToolTip" = "Normalerweise zu verwenden, wenn das Umschalten auf Drittapplikationen erlaubt ist oder wenn die HTML5 Download-Funktion für lokale Backups benutzt wird";
+
+/* Class = "NSButtonCell"; title = "Download und Upload erlauben"; ObjectID = "14"; */
+"14.title" = "Download und Upload erlauben";
+
+/* Class = "NSTextFieldCell"; title = "Downloads sichern in:"; ObjectID = "23"; */
+"23.title" = "Downloads sichern in:";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Download-Verzeichnis auswählen"; ObjectID = "32"; */
+"32.ibShadowedToolTip" = "Download-Verzeichnis auswählen";
+
+/* Class = "NSMenuItem"; title = "Verzeichnis"; ObjectID = "35"; */
+"35.title" = "Verzeichnis";
+
+/* Class = "NSMenuItem"; title = "Auswählen …"; ObjectID = "36"; */
+"36.title" = "Auswählen …";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Geladene Dateien werden mit der zugehörigen Applikation geöffnet, diese muss im System für den entsprechenden Dateityp korrekt eingestellt sein"; ObjectID = "38"; */
+"38.ibShadowedToolTip" = "Geladene Dateien werden mit der zugehörigen Applikation geöffnet, diese muss im System für den entsprechenden Dateityp korrekt eingestellt sein";
+
+/* Class = "NSButtonCell"; title = "Dateien nach Download öffnen"; ObjectID = "39"; */
+"39.title" = "Dateien nach Download öffnen";
+
+/* Class = "NSButton"; ibShadowedToolTip = "PDF-Dateien werden nicht von SEB angezeigt, sondern heruntergeladen und geöffnet (wenn 'Dateien nach dem Laden öffnen' aktiviert ist) und zwar mit der im Finder eingestellten Applikation (üblicherweise Vorschau oder Adobe Acrobat)"; ObjectID = "76"; */
+"76.ibShadowedToolTip" = "PDF-Dateien werden nicht von SEB angezeigt, sondern heruntergeladen und geöffnet (wenn 'Dateien nach dem Laden öffnen' aktiviert ist) und zwar mit der im Finder eingestellten Applikation (üblicherweise Vorschau oder Adobe Acrobat)";
+
+/* Class = "NSButtonCell"; title = "PDF-Dateien herunterladen und öffnen anstatt direkt anzeigen"; ObjectID = "77"; */
+"77.title" = "PDF-Dateien herunterladen und öffnen anstatt direkt anzeigen";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "SEB kann Benutzer die Upload-Datei manuell auswählen lassen oder automatisch dieselbe Datei auswählen, die zuvor heruntergeladen wurde. Wenn die Datei nicht gefunden wurde, wird ein Dateidialog oder eine Fehlermeldung angezeigt. Falls zuvor mehrere Dateien heruntergeladen wurden, zeigt SEB diese nacheinander an, beginnend mit der zuletzt geladenen"; ObjectID = "93"; */
+"93.ibShadowedToolTip" = "SEB kann Benutzer die Upload-Datei manuell auswählen lassen oder automatisch dieselbe Datei auswählen, die zuvor heruntergeladen wurde. Wenn die Datei nicht gefunden wurde, wird ein Dateidialog oder eine Fehlermeldung angezeigt. Falls zuvor mehrere Dateien heruntergeladen wurden, zeigt SEB diese nacheinander an, beginnend mit der zuletzt geladenen";
+
+/* Class = "NSTextFieldCell"; title = "Datei für Upload auswählen …"; ObjectID = "100"; */
+"100.title" = "Datei für Upload auswählen …";
+
+/* Class = "NSButton"; ibShadowedToolTip = ".seb Konfigurationsdateien herunterladen und öffnen, egal ob der Download und das Öffnen von anderen Dateitypen erlaubt ist"; ObjectID = "265"; */
+"265.ibShadowedToolTip" = ".seb Konfigurationsdateien herunterladen und öffnen, egal ob der Download und das Öffnen von anderen Dateitypen erlaubt ist";
+
+/* Class = "NSButtonCell"; title = "SEB Konfigurationsdateien herunterladen und öffnen"; ObjectID = "266"; */
+"266.title" = "SEB Konfigurationsdateien herunterladen und öffnen";
+
+/* Class = "NSTextFieldCell"; title = "Download-Verzeichnis Windows:"; ObjectID = "24Q-1c-lTs"; */
+"24Q-1c-lTs.title" = "Download-Verzeichnis Windows:";

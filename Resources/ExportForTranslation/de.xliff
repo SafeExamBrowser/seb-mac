@@ -252,7 +252,7 @@
             </trans-unit>
             <trans-unit id="239.title">
                 <source>Zoom</source>
-                <target>Zoom</target>
+                <target>Zoomen</target>
                 <note>Class = "NSMenuItem"; title = "Zoom"; ObjectID = "239";</note>
             </trans-unit>
             <trans-unit id="295.title">
@@ -596,7 +596,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             </trans-unit>
             <trans-unit id="6CP-QX-2NV.title">
                 <source>Show time</source>
-                <target>Uhrzeit anzeigen (Win)</target>
+                <target>Uhrzeit anzeigen</target>
                 <note>Class = "NSButtonCell"; title = "Show time"; ObjectID = "6CP-QX-2NV";</note>
             </trans-unit>
             <trans-unit id="8IN-wN-3ta.ibShadowedToolTip">
@@ -671,7 +671,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             </trans-unit>
             <trans-unit id="599.ibShadowedToolTip">
                 <source>Position browser window on the left, right or centered</source>
-                <target>Browserfenster link, rechts oder zentriert positionieren</target>
+                <target>Browserfenster links, rechts oder zentriert positionieren</target>
                 <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Position browser window on the left, right or centered"; ObjectID = "599";</note>
             </trans-unit>
             <trans-unit id="605.title">
@@ -816,7 +816,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             </trans-unit>
             <trans-unit id="eGR-0O-pYN.title">
                 <source>Zoom mode Win (Ctrl-Mousewheel)</source>
-                <target>Zoom-Modus (Ctrl-Maustaste)</target>
+                <target>Zoom-Modus Win (Ctrl-Maustaste)</target>
                 <note>Class = "NSBox"; title = "Zoom mode Win (Ctrl-Mousewheel)"; ObjectID = "eGR-0O-pYN";</note>
             </trans-unit>
             <trans-unit id="iYV-Zg-Pat.title">
@@ -1594,7 +1594,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             </trans-unit>
             <trans-unit id="69.ibShadowedToolTip">
                 <source>Identities (X.509 certificates with RSA public key and associated private key) in your default keychain which can be used for encrypting and decrypting. Export the chosen identity (in Keychain Access utility) and install it on your SEB clients.</source>
-                <target>Kryptografische Identitäten (X.509 Zertifikate mit öffentlichem RSA-Schlüssel und dazugehörigem privaten Schlüssel) im Schlüsselbund, die für Verschlüsselung und Entschlüsselung benutzt werden können. </target>
+                <target>Kryptografische Identitäten (X.509 Zertifikate mit öffentlichem RSA-Schlüssel und dazugehörigem privaten Schlüssel) im Schlüsselbund, die für Verschlüsselung und Entschlüsselung benutzt werden können</target>
                 <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Identities (X.509 certificates with RSA public key and associated private key) in your default keychain which can be used for encrypting and decrypting. Export the chosen identity (in Keychain Access utility) and install it on your SEB clients."; ObjectID = "69";</note>
             </trans-unit>
             <trans-unit id="75.title">
@@ -1841,7 +1841,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             </trans-unit>
             <trans-unit id="265.ibShadowedToolTip">
                 <source>Download and open .seb config files regardless if downloading and opening other file types is allowed</source>
-                <target>.seb Konfigurationsdateien herunterladen und öffnen, egal ob der Download und das Öffnen von anderen Dateitypen erlaubt ist</target>
+                <target>.seb Konfigurationsdateien herunterladen und öffnen, unabhängig davon ob der Download und das Öffnen von anderen Dateitypen erlaubt ist</target>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Download and open .seb config files regardless if downloading and opening other file types is allowed"; ObjectID = "265";</note>
             </trans-unit>
             <trans-unit id="266.title">
@@ -1874,7 +1874,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="5SR-dU-gy3.title">
                 <source>Protect restart exam button with the quit/restart password</source>
                 <note>Class = "NSButtonCell"; title = "Protect restart exam button with the quit/restart password"; ObjectID = "5SR-dU-gy3";</note>
-                <target>Schützt "Prüfung neu starten" mittels des Neustart-/Beenden-Passworts</target>
+                <target>Schützt Neustart-Taste mittels des Neustart-/Beenden-Passworts</target>
             </trans-unit>
             <trans-unit id="20.ibShadowedToolTip">
                 <source>SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB</source>
@@ -1938,7 +1938,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             </trans-unit>
             <trans-unit id="bGJ-Qs-OiP.title">
                 <source>Enter restart link or select "Use Start URL" to display the restart exam button in the SEB task bar.</source>
-                <target>Neustart-Link eingeben oder 'Start-URL benutzen' auswählen, um den Prüfungs-Neustart-Knopf im SEB-Dock anzuzeigen.</target>
+                <target>Neustart-Link eingeben oder 'Start-URL benutzen' auswählen, um die Neustart-Taste im SEB-Dock anzuzeigen.</target>
                 <note>Class = "NSTextFieldCell"; title = "Enter restart link or select \"Use Start URL\" to display the restart exam button in the SEB task bar."; ObjectID = "bGJ-Qs-OiP";</note>
             </trans-unit>
             <trans-unit id="bTx-tu-6Av.placeholderString">
@@ -1948,7 +1948,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             </trans-unit>
             <trans-unit id="czI-08-Q8k.title">
                 <source>Restart exam button</source>
-                <target>Taste Prüfung neu starten</target>
+                <target>Neustart-Taste</target>
                 <note>Class = "NSBox"; title = "Restart exam button"; ObjectID = "czI-08-Q8k";</note>
             </trans-unit>
             <trans-unit id="oJT-BY-ezv.ibShadowedToolTip">
@@ -1958,7 +1958,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             </trans-unit>
             <trans-unit id="pdT-tX-Sdp.title">
                 <source>Title/tool tip text of the restart button (leave empty for localized standard text)</source>
-                <target>Titel/Tooltip des Neustart-Knopfes (frei lassen für lokalisierten Standardtext).</target>
+                <target>Titel/Tooltip der Neustart-Taste (leer lassen für lokalisierten Standardtext).</target>
                 <note>Class = "NSTextFieldCell"; title = "Title/tool tip text of the restart button (leave empty for localized standard text)"; ObjectID = "pdT-tX-Sdp";</note>
             </trans-unit>
             <trans-unit id="sY9-Fu-u2Z.placeholderString">
@@ -2090,7 +2090,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             </trans-unit>
             <trans-unit id="255.ibShadowedToolTip">
                 <source>Full URL (starting with http:// or https://) of the page to open when SEB is started.</source>
-                <target>Komplette URL (beginnend mit http:// oder https://) der Seite, die beim Starten von SEB geöffnet werden soll.</target>
+                <target>Komplette URL (beginnend mit http:// oder https://) der Seite, die beim Starten von SEB geöffnet werden soll</target>
                 <note>Class = "NSTextField"; ibShadowedToolTip = "Full URL (starting with http:// or https://) of the page to open when SEB is started."; ObjectID = "255";</note>
             </trans-unit>
             <trans-unit id="256.placeholderString">
@@ -2801,7 +2801,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             </trans-unit>
             <trans-unit id="PH3-Cb-12g.ibShadowedToolTip">
                 <source>Controls OS X screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows</source>
-                <target>OS X Bildschirmfoto (cmd-3 und cmd-4) erlauben, entspricht </target>
+                <target>OS X Bildschirmfoto (cmd-3 und cmd-4) erlauben, entspricht Print Screen Taste (Windows Hooked Keys Einstellungen)</target>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Controls OS X screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows"; ObjectID = "PH3-Cb-12g";</note>
             </trans-unit>
             <trans-unit id="PWk-fT-HdC.title">
@@ -2946,7 +2946,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             </trans-unit>
             <trans-unit id="wUs-SE-6xn.ibShadowedToolTip">
                 <source>Controls Print Screen, corresponds with Enable screen capture in OS X</source>
-                <target>Print Screen erlauben, entspricht OS X Bildschirmfoto (cmd-3 und cmd-4) </target>
+                <target>Print Screen erlauben, entspricht OS X 'Bildschirmfoto erlauben' (cmd-3 und cmd-4) </target>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Controls Print Screen, corresponds with Enable screen capture in OS X"; ObjectID = "wUs-SE-6xn";</note>
             </trans-unit>
             <trans-unit id="yCu-0c-Hf1.title">
@@ -4130,12 +4130,12 @@ Sie können eine unverschlüsselte Datei speichern, aber dies ist nicht für die
             </trans-unit>
             <trans-unit id="open in new window">
                 <source>open in new window</source>
-                <target>öffnen in neuem Fenster</target>
+                <target>werden in neuem Fenster geöffnet</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="open in same window">
                 <source>open in same window</source>
-                <target>öffnen im selben Fenster</target>
+                <target>werden im selben Fenster geöffnet</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="or">

@@ -31,16 +31,16 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView horizontalHuggingPriority="1000" misplaced="YES" id="1" userLabel="Network Preferences">
+        <customView horizontalHuggingPriority="1000" id="1" userLabel="Network Preferences">
             <rect key="frame" x="0.0" y="0.0" width="650" height="700"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <tabView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="239">
+                <tabView translatesAutoresizingMaskIntoConstraints="NO" id="239">
                     <rect key="frame" x="13" y="0.0" width="624" height="686"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="Filter" identifier="1" id="240">
-                            <view key="view" id="243">
+                            <view key="view" misplaced="YES" id="243">
                                 <rect key="frame" x="10" y="33" width="604" height="640"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -93,7 +93,7 @@
                                             <rect key="frame" x="1" y="17" width="238" height="117"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="" headerView="TDX-aF-oMF" id="1EV-b8-djc">
+                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="" headerView="TDX-aF-oMF" id="1EV-b8-djc">
                                                     <rect key="frame" x="0.0" y="0.0" width="569" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
@@ -364,7 +364,7 @@
                                                         </binding>
                                                     </connections>
                                                 </popUpButton>
-                                                <textField toolTip="Application title which is displayed in the application chooser and SEB dock/task bar" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9hw-i2-YWH">
+                                                <textField toolTip="Full filter expression" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9hw-i2-YWH">
                                                     <rect key="frame" x="13" y="185" width="549" height="22"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1FE-W1-TbR">
                                                         <font key="font" metaFont="system"/>
@@ -1765,7 +1765,7 @@
                                             <binding destination="1105" name="selectedIndex" keyPath="selectionIndex" id="1155"/>
                                         </connections>
                                     </tabView>
-                                    <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1037">
+                                    <matrix toolTip="Either system proxy settings of the exam client computer or those provided in these SEB settings are used" verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1037">
                                         <rect key="frame" x="17" y="592" width="570" height="38"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="38" id="5eD-vS-YvM"/>
@@ -1779,11 +1779,11 @@
                                         </buttonCell>
                                         <cells>
                                             <column>
-                                                <buttonCell type="radio" title="Use system proxy settings" imagePosition="left" alignment="left" state="on" toolTip="System proxy settings of the exam client computer are used" tag="1" inset="2" id="1039">
+                                                <buttonCell type="radio" title="Use system proxy settings" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="1039">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
-                                                <buttonCell type="radio" title="Use SEB proxy settings (Win)" imagePosition="left" alignment="left" toolTip="Proxy settings provided in these SEB settings are used" inset="2" id="1040">
+                                                <buttonCell type="radio" title="Use SEB proxy settings (Win)" imagePosition="left" alignment="left" inset="2" id="1040">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>

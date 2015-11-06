@@ -530,7 +530,7 @@
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
-                <button toolTip="Allow looking up text elements on a web site using the 3-finger tap" translatesAutoresizingMaskIntoConstraints="NO" id="mbj-mD-F32">
+                <button toolTip="Allow looking up text elements on a web site using the 3-finger tap on a trackpad" translatesAutoresizingMaskIntoConstraints="NO" id="mbj-mD-F32">
                     <rect key="frame" x="333" y="18" width="170" height="18"/>
                     <buttonCell key="cell" type="check" title="Allow dictionary look up" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="iYV-Zg-Pat">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>

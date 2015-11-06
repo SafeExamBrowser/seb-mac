@@ -211,7 +211,7 @@
                         </binding>
                     </connections>
                 </textField>
-                <secureTextField toolTip="Password to decrypt the settings file, prompted when SEB reads the settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="114">
+                <secureTextField toolTip="Password to decrypt the settings file, prompted when SEB reads these settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="114">
                     <rect key="frame" x="380" y="202" width="250" height="22"/>
                     <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="115">
                         <font key="font" metaFont="system"/>
@@ -249,6 +249,7 @@
                 </textField>
                 <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="249">
                     <rect key="frame" x="20" y="335" width="460" height="40"/>
+                    <string key="toolTip">A saved settings file will either start the exam using these settings (temporarily) or change the local settings of a SEB client (permanently)</string>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="wDy-S0-SXL"/>
                     </constraints>
@@ -271,7 +272,6 @@
                             <buttonCell type="radio" title="configuring clients" imagePosition="left" alignment="left" inset="2" id="252">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
-                                <string key="toolTip">A SEB settings file saved with this option can be used to change the local settings of a SEB client. Encrypt it with an empty or the same password which is set as administrator password on the SEB client. Other passwords will be prompted.</string>
                             </buttonCell>
                         </column>
                     </cells>
