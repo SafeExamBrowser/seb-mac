@@ -172,7 +172,7 @@
             </trans-unit>
             <trans-unit id="204.title">
                 <source>Show Spelling and Grammar</source>
-                <target></target>
+                <target>Rechtschreibung und Grammatik anzeigen</target>
                 <note>Class = "NSMenuItem"; title = "Show Spelling and Grammar"; ObjectID = "204";</note>
             </trans-unit>
             <trans-unit id="205.title">
@@ -417,7 +417,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="Fnc-XR-wb9.title">
                 <source>Enter restart/quit password to unlock SEB:</source>
                 <note>Class = "NSTextFieldCell"; title = "Enter restart/quit password to unlock SEB:"; ObjectID = "Fnc-XR-wb9";</note>
-                <target></target>
+                <target>Neustarten-/Beenden-Passwort eingeben, um SEB zu Entsperren</target>
             </trans-unit>
             <trans-unit id="HGQ-o5-kHC.title">
                 <source>Open…</source>
@@ -501,6 +501,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="anq-S4-gmN.title">
                 <source>Enter password:</source>
                 <note>Class = "NSTextFieldCell"; title = "Enter password:"; ObjectID = "anq-S4-gmN";</note>
+                <target>Passwort eingeben:</target>
             </trans-unit>
             <trans-unit id="eiW-K5-gGu.title">
                 <source>Save</source>
@@ -510,6 +511,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="fhi-DK-hWE.title">
                 <source>Actual Size</source>
                 <note>Class = "NSMenuItem"; title = "Actual Size"; ObjectID = "fhi-DK-hWE";</note>
+                <target>Originalgrösse</target>
             </trans-unit>
             <trans-unit id="gQN-UT-3wR.title">
                 <source>Save As…</source>
@@ -519,10 +521,12 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="h8S-7a-w0u.title">
                 <source>SEB Is Locked!</source>
                 <note>Class = "NSTextFieldCell"; title = "SEB Is Locked!"; ObjectID = "h8S-7a-w0u";</note>
+                <target>SEB ist gesperrt!</target>
             </trans-unit>
             <trans-unit id="iQ5-CR-q1d.title">
                 <source>OK</source>
                 <note>Class = "NSButtonCell"; title = "OK"; ObjectID = "iQ5-CR-q1d";</note>
+                <target>OK</target>
             </trans-unit>
             <trans-unit id="icu-d0-oaR.title">
                 <source>Revert to Defaults</source>
@@ -536,6 +540,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="kwi-CI-5lx.title">
                 <source>SEB Lockdown Information</source>
                 <note>Class = "NSWindow"; title = "SEB Lockdown Information"; ObjectID = "kwi-CI-5lx";</note>
+                <target>SEB-Lockdown-Information</target>
             </trans-unit>
             <trans-unit id="lIX-w9-SMd.title">
                 <source>Revert to Client Settings</source>
@@ -727,6 +732,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="743.ibShadowedToolTip">
                 <source>Use a browser window which can be scaled and moved around, show main  window full screen or use the tablet mode (Win)</source>
                 <note>Class = "NSMatrix"; ibShadowedToolTip = "Use a browser window which can be scaled and moved around, show main  window full screen or use the tablet mode (Win)"; ObjectID = "743";</note>
+                <target>Browserwindow (kann bewegt und skaliert werden), Hauptfenster </target>
             </trans-unit>
             <trans-unit id="745.title">
                 <source>Use browser window</source>
@@ -1123,6 +1129,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="1854.ibShadowedToolTip">
                 <source>Show details about the application/process code signature</source>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Show details about the application/process code signature"; ObjectID = "1854";</note>
+                <target>Details zur Codesignatur anzeigen</target>
             </trans-unit>
             <trans-unit id="1855.ibShadowedToolTip">
                 <source>Kill process in a not-nice way, which may cause data loss if the application had unsaved data</source>
@@ -1459,6 +1466,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="Du9-dQ-GIJ.ibShadowedToolTip">
                 <source>Disabling browsing to previously visited pages (by cmd + Cursor left) may increase security, because browsing back might allow to leave an exam</source>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Disabling browsing to previously visited pages (by cmd + Cursor left) may increase security, because browsing back might allow to leave an exam"; ObjectID = "Du9-dQ-GIJ";</note>
+                <target>Ausschalten der Funktion, auf bereits besuchte Seiten zurückzukehren (per Befehlstaste - Cursor links) verhindert, eine Prüfung zu verlassen, indem man auf eine Startseite ausserhalb des Prüfungs-Servers zurückkehrt</target>
             </trans-unit>
             <trans-unit id="EZ4-9b-Idz.title">
                 <source>Default user agent Mac</source>
@@ -1468,6 +1476,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="FfE-2h-C1L.title">
                 <source>Custom user agent string (SEB appends its version number automatically). Default string depends on installed SEB for Windows version and therefore can differ on exam clients.</source>
                 <note>Class = "NSTextFieldCell"; title = "Custom user agent string (SEB appends its version number automatically). Default string depends on installed SEB for Windows version and therefore can differ on exam clients."; ObjectID = "FfE-2h-C1L";</note>
+                <target>Benutzerdefinierte User Agent Zeichenkette (SEB hängt seine Versionsnummer automatisch an). Die Standardzeichenkette hängt von der der installierten SEB für Windows Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein.</target>
             </trans-unit>
             <trans-unit id="Lq8-Fi-SDM.title">
                 <source>Default:</source>
@@ -1477,10 +1486,12 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="UsO-tg-591.ibShadowedToolTip">
                 <source>USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work</source>
                 <note>Class = "NSPopUpButton"; ibShadowedToolTip = "USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work"; ObjectID = "UsO-tg-591";</note>
+                <target>VORSICHT: Wenn '' angewählt ist, können einige JavaScript-/HTML5-Funktionen (wie etwa File API) nicht verwendet werden</target>
             </trans-unit>
             <trans-unit id="X0g-7e-XAl.title">
                 <source>Custom user agent string (SEB appends its version number automatically). Default string depends on installed Safari/WebKit version and therefore can differ on exam clients.</source>
                 <note>Class = "NSTextFieldCell"; title = "Custom user agent string (SEB appends its version number automatically). Default string depends on installed Safari/WebKit version and therefore can differ on exam clients."; ObjectID = "X0g-7e-XAl";</note>
+                <target>Benutzerdefinierte User Agent Zeichenkette (SEB hängt seine Versionsnummer automatisch an). Die Standardzeichenkette hängt von der der installierten Safari-/WebKit-Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein.</target>
             </trans-unit>
             <trans-unit id="XDW-SF-gll.title">
                 <source>iPad user agent</source>
@@ -1490,6 +1501,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="XSw-aj-V6a.ibShadowedToolTip">
                 <source>Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)</source>
                 <note>Class = "NSTextField"; ibShadowedToolTip = "Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)"; ObjectID = "XSw-aj-V6a";</note>
+                <target>Standardzeichenkette auf diesem Mac (hängt von der der installierten Safari-/WebKit-Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)</target>
             </trans-unit>
             <trans-unit id="YE5-tr-HaY.title">
                 <source>Custom</source>
@@ -1503,7 +1515,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="Z3B-Za-z4X.ibShadowedToolTip">
                 <source>Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)</source>
                 <note>Class = "NSTextField"; ibShadowedToolTip = "Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)"; ObjectID = "Z3B-Za-z4X";</note>
-                <target></target>
+                <target>Standardzeichenkette auf diesem Mac (hängt von der der installierten Safari-/WebKit-Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)</target>
             </trans-unit>
             <trans-unit id="aZZ-Qg-4Cz.title">
                 <source>Radio</source>
@@ -1526,6 +1538,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="dP1-5V-zqF.ibShadowedToolTip">
                 <source>Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)</source>
                 <note>Class = "NSTextField"; ibShadowedToolTip = "Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)"; ObjectID = "dP1-5V-zqF";</note>
+                <target>Standardzeichenkette auf diesem Mac (hängt von der der installierten Safari-/WebKit-Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)</target>
             </trans-unit>
             <trans-unit id="dqB-SD-Yjy.title">
                 <source>Default touch mode user agent</source>
@@ -1555,6 +1568,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="twb-Ov-Zlx.ibShadowedToolTip">
                 <source>Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)</source>
                 <note>Class = "NSTextField"; ibShadowedToolTip = "Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)"; ObjectID = "twb-Ov-Zlx";</note>
+                <target>Standardzeichenkette auf diesem Mac (hängt von der der installierten Safari-/WebKit-Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)</target>
             </trans-unit>
             <trans-unit id="wFa-eR-NzK.ibShadowedToolTip">
                 <source>If your web application uses local storage, you have to be sure data is saved encrypted and removed when no longer needed as SEB doesn't remove local storage</source>
@@ -1838,10 +1852,12 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="AAd-LS-TUP.ibShadowedToolTip">
                 <source>The Adobe Acrobat Reader browser plugin should only be used on secured managed Mac computers, at it allows to access the file system and to cloud services</source>
                 <note>Class = "NSButton"; ibShadowedToolTip = "The Adobe Acrobat Reader browser plugin should only be used on secured managed Mac computers, at it allows to access the file system and to cloud services"; ObjectID = "AAd-LS-TUP";</note>
+                <target>Das Adobe Acrobat Reader Browser Plug-In sollte nur auf abgesicherten verwalteten Computern verwendet werden, weil es begrenzten Zugriff auf das Dateisystem und unbegrenzten auf Cloud-Dienste erlaubt</target>
             </trans-unit>
             <trans-unit id="zhK-R4-XtF.title">
                 <source>Allow using Acrobat Reader PDF plugin (insecure)</source>
                 <note>Class = "NSButtonCell"; title = "Allow using Acrobat Reader PDF plugin (insecure)"; ObjectID = "zhK-R4-XtF";</note>
+                <target>Acrobat Reader PDF Plug-In erlauben (unsicher)</target>
             </trans-unit>
         </body>
     </file>
@@ -1853,6 +1869,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="2Rr-y4-nE8.ibShadowedToolTip">
                 <source>If a Quit Link is entered, it works regardless of other quit settings in the General pane</source>
                 <note>Class = "NSTextField"; ibShadowedToolTip = "If a Quit Link is entered, it works regardless of other quit settings in the General pane"; ObjectID = "2Rr-y4-nE8";</note>
+                <target>Wenn ein Beenden-Link angegeben ist, funktioniert dieser unabhängig von anderen Beenden-Einstellungen auf der Seite Allgemein</target>
             </trans-unit>
             <trans-unit id="5SR-dU-gy3.title">
                 <source>Protect restart exam button with the quit/restart password</source>
@@ -3145,6 +3162,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
                 <source>  SEB session was inactive for %1$ld:%2$.2ld (minutes:seconds)
 </source>
                 <note>No comment provided by engineer.</note>
+                <target>Die SEB-Session war inaktiv für %ld:%.2ld (Minuten:Sekunden)</target>
             </trans-unit>
             <trans-unit id=" 1">
                 <source> 1</source>
@@ -3162,9 +3180,11 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             </trans-unit>
             <trans-unit id="Add Action to Rule">
                 <source>Add Action to Rule</source>
+                <target>Aktion zur Regel hinzufügen</target>
             </trans-unit>
             <trans-unit id="Add Rule">
                 <source>Add Rule</source>
+                <target>Regel hinzufügen</target>
             </trans-unit>
             <trans-unit id="Appearance">
                 <source>Appearance</source>
@@ -3281,6 +3301,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
                 <source>Correct password entered, closing lockdown windows
 </source>
                 <note>No comment provided by engineer.</note>
+                <target>Korrektes Passwort eingegeben, Lockdown-Fenster werden geschlossen</target>
             </trans-unit>
             <trans-unit id="Current settings have unsaved changes. If you don't save those first, you will loose them.">
                 <source>Current settings have unsaved changes. If you don't save those first, you will loose them.</source>
@@ -3439,9 +3460,11 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
             </trans-unit>
             <trans-unit id="Holding Keys Not Allowed!">
                 <source>Holding Keys Not Allowed!</source>
+                <target>Tasten drücken nicht erlaubt!</target>
             </trans-unit>
             <trans-unit id="Holding keys pressed on the keyboard while starting SEB is not allowed. Restart SEB without holding any keys.">
                 <source>Holding keys pressed on the keyboard while starting SEB is not allowed. Restart SEB without holding any keys.</source>
+                <target>Drücken von Tasten während des Aufstartens von SEB ist nicht erlaubt. Starten Sie SEB neu, ohne irgendwelche Tasten gedrückt zu halten.</target>
             </trans-unit>
             <trans-unit id="Holding the Command key down while restarting SEB is not allowed, release it to continue.">
                 <source>Holding the Command key down while restarting SEB is not allowed, release it to continue.</source>
@@ -3558,6 +3581,7 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
             <trans-unit id="Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.">
                 <source>Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.</source>
                 <note>No comment provided by engineer.</note>
+                <target>Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt oder beschädigt. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um SEB wieder korrekt zu konfigurieren.</target>
             </trans-unit>
             <trans-unit id="Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.">
                 <source>Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.</source>
@@ -3753,6 +3777,7 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
             <trans-unit id="SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)">
                 <source>SEB was locked (exam interrupted) for %1$ld:%2$.2ld (minutes:seconds)</source>
                 <note>No comment provided by engineer.</note>
+                <target>SEB war gesperrt (Prüfung unterbrochen) für %ld:%.2ld (Minuten:Sekunden)</target>
             </trans-unit>
             <trans-unit id="SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.">
                 <source>SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.</source>
@@ -3806,6 +3831,7 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
             <trans-unit id="Security Warning">
                 <source>Security Warning</source>
                 <note>No comment provided by engineer.</note>
+                <target>Sicherheitswarnung</target>
             </trans-unit>
             <trans-unit id="Select">
                 <source>Select</source>
@@ -4003,6 +4029,7 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
                 <source>Wrong password entered!
 </source>
                 <note>No comment provided by engineer.</note>
+                <target>Falsches Passwort eingegeben!</target>
             </trans-unit>
             <trans-unit id="Wrong password! Try again to enter the correct SEB administrator password from these settings:">
                 <source>Wrong password! Try again to enter the correct SEB administrator password from these settings:</source>
