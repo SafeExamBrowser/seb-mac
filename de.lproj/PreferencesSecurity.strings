@@ -91,6 +91,9 @@
 /* Class = "NSButtonCell"; title = "Enable Log off"; ObjectID = "LTi-lL-sOs"; */
 "LTi-lL-sOs.title" = "Abmelden erlauben";
 
+/* Class = "NSBox"; title = "Logging"; ObjectID = "M5z-0E-3yB"; */
+"M5z-0E-3yB.title" = "Loggen";
+
 /* Class = "NSButtonCell"; title = "Enable Shut down"; ObjectID = "Ouk-wE-FFP"; */
 "Ouk-wE-FFP.title" = "Herunterfahren erlauben";
 
@@ -148,6 +151,9 @@
 /* Class = "NSTabViewItem"; label = "Registry"; ObjectID = "ifL-Zz-OJp"; */
 "ifL-Zz-OJp.label" = "Registry";
 
+/* Class = "NSMatrix"; ibShadowedToolTip = "The kiosk mode setting reflects how the computer is locked down into SEB."; ObjectID = "kBz-Xz-wNK"; */
+"kBz-Xz-wNK.ibShadowedToolTip" = "Der Kiosk-Modus bestimmt, wie SEB den Computer abgesichert";
+
 /* Class = "NSButtonCell"; title = "Enable F3"; ObjectID = "n1l-UI-Mxa"; */
 "n1l-UI-Mxa.title" = "F3 erlauben";
 
@@ -170,7 +176,7 @@
 "rd9-dL-Qhi.title" = "F2 erlauben";
 
 /* Class = "NSButtonCell"; title = "Enable Switch User"; ObjectID = "rm8-cp-dzk"; */
-"rm8-cp-dzk.title" = "Benutzer wechseln erlauben";
+"rm8-cp-dzk.title" = "Benutzerwechsel erlauben";
 
 /* Class = "NSButtonCell"; title = "Enable Alt-Tab"; ObjectID = "ufj-NR-s2G"; */
 "ufj-NR-s2G.title" = "Alt-Tab erlauben";

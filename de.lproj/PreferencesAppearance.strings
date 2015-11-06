@@ -7,7 +7,7 @@
 /* Class = "NSButtonCell"; title = "Show reload button"; ObjectID = "3wD-Cd-yYF"; */
 "3wD-Cd-yYF.title" = "Taste 'Neu Laden' anzeigen";
 
-/* Class = "NSButtonCell"; title = "Show time (Win)"; ObjectID = "6CP-QX-2NV"; */
+/* Class = "NSButtonCell"; title = "Show time"; ObjectID = "6CP-QX-2NV"; */
 "6CP-QX-2NV.title" = "Uhrzeit anzeigen (Win)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "SEB can be quit with a swipe down from the upper display edge"; ObjectID = "8IN-wN-3ta"; */
@@ -88,6 +88,9 @@
 /* Class = "NSTextFieldCell"; title = "Width"; ObjectID = "724"; */
 "724.title" = "Breite";
 
+/* Class = "NSMatrix"; ibShadowedToolTip = "Use a browser window which can be scaled and moved around, show main  window full screen or use the tablet mode (Win)"; ObjectID = "743"; */
+"743.ibShadowedToolTip" = "Browser-Fenster (kann bewegt und skaliert werden), Hauptfenster im Vollbild oder Touch-/Tablet-Modus (Win) verwenden";
+
 /* Class = "NSButtonCell"; title = "Use browser window"; ObjectID = "745"; */
 "745.title" = "Browserfenster verwenden";
 
@@ -128,7 +131,7 @@
 "YEg-Qr-xf0.title" = "Seiten-Zoom zulassen";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Pages can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar"; ObjectID = "baa-Wm-1db"; */
-"baa-Wm-1db.ibShadowedToolTip" = "Webseiten können mit Cmd +/- oder den Befehlen im Menü Darstellung und der Browserfenster-Werkzeugleiste skaliert werden";
+"baa-Wm-1db.ibShadowedToolTip" = "Webseiten können mit Cmd +/- oder den Befehlen im Menü Darstellung und der Browserfenster-Werkzeugleiste vergrössert/verkleinert werden";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Shows current keyboard layout and allows to change it"; ObjectID = "cvI-1t-MPD"; */
 "cvI-1t-MPD.ibShadowedToolTip" = "Zeigt aktuelle Tastaturbelegung an und erlaubt, diese umzuschalten";

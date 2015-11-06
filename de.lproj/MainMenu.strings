@@ -4,6 +4,9 @@
 /* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5"; */
 "5.title" = "Alle nach vorne bringen";
 
+/* Class = "NSTextFieldCell"; title = "Label"; ObjectID = "6w8-6M-a1v"; */
+"6w8-6M-a1v.title" = "Label";
+
 /* Class = "NSMenuItem"; title = "Edit Duplicate"; ObjectID = "8GV-gd-2lK"; */
 "8GV-gd-2lK.title" = "Duplikat bearbeiten";
 
@@ -143,7 +146,7 @@
 "221.title" = "In Auswahl suchen";
 
 /* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "239"; */
-"239.title" = "Zoomen";
+"239.title" = "Zoom";
 
 /* Class = "NSMenuItem"; title = "View"; ObjectID = "295"; */
 "295.title" = "Darstellung";
@@ -208,6 +211,12 @@
 /* Class = "NSMenuItem"; title = "SEB Help"; ObjectID = "492"; */
 "492.title" = "SEB Hilfe";
 
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "720"; */
+"720.title" = "Abbrechen";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "721"; */
+"721.title" = "OK";
+
 /* Class = "NSTextFieldCell"; title = "© 2010-2015 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen\n\nParts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network, and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board."; ObjectID = "871"; */
 "871.title" = "© 2010-2015 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browsers von Stefan Schneider, Universität von Giessen
 
@@ -231,6 +240,12 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
 /* Class = "NSMenuItem"; title = "Stop"; ObjectID = "913"; */
 "913.title" = "Stopp";
 
+/* Class = "NSTextFieldCell"; title = "Enter password:"; ObjectID = "963"; */
+"963.title" = "Passwort eingeben:";
+
+/* Class = "NSTextFieldCell"; title = "Enter restart/quit password to unlock SEB:"; ObjectID = "Fnc-XR-wb9"; */
+"Fnc-XR-wb9.title" = "Neustarten-/Beenden-Passwort eingeben, um SEB zu Entsperren";
+
 /* Class = "NSMenuItem"; title = "Open…"; ObjectID = "HGQ-o5-kHC"; */
 "HGQ-o5-kHC.title" = "Öffnen …";
 
@@ -243,11 +258,20 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
 /* Class = "NSMenu"; title = "Settings"; ObjectID = "LkZ-vD-zaJ"; */
 "LkZ-vD-zaJ.title" = "Einstellungen";
 
+/* Class = "NSTextFieldCell"; title = "SEB is locked because it was attempted to switch the user. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows."; ObjectID = "LsF-1w-rA0"; */
+"LsF-1w-rA0.title" = "SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. SEB kann nur mittels des Neustarten-/Beenden-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
+
 /* Class = "NSMenuItem"; title = "Revert to Last Saved"; ObjectID = "MYP-4t-dpx"; */
 "MYP-4t-dpx.title" = "Zurücksetzen auf Datei";
 
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "Qlt-2p-OmY"; */
+"Qlt-2p-OmY.title" = "Abbrechen";
+
 /* Class = "NSMenuItem"; title = "Save As…"; ObjectID = "QrI-qU-IU3"; */
 "QrI-qU-IU3.title" = "Sichern als …";
+
+/* Class = "NSMenuItem"; title = "Zoom Page In"; ObjectID = "S4Y-jw-8zY"; */
+"S4Y-jw-8zY.title" = "Seiteninhalt vergrössern";
 
 /* Class = "NSMenuItem"; title = "Apply and Restart"; ObjectID = "Thx-Ic-L6f"; */
 "Thx-Ic-L6f.title" = "Anwenden und Neustart";
@@ -264,17 +288,38 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
 /* Class = "NSMenuItem"; title = "Revert to Defaults"; ObjectID = "aG5-0k-cAL"; */
 "aG5-0k-cAL.title" = "Zurücksetzen auf Voreinstellungen";
 
+/* Class = "NSTextFieldCell"; title = "Please enter correct password!"; ObjectID = "aOo-kP-rSF"; */
+"aOo-kP-rSF.title" = "Bitte korrektes Passwort eingeben!";
+
+/* Class = "NSTextFieldCell"; title = "Enter password:"; ObjectID = "anq-S4-gmN"; */
+"anq-S4-gmN.title" = "Passwort eingeben:";
+
 /* Class = "NSMenuItem"; title = "Save"; ObjectID = "eiW-K5-gGu"; */
 "eiW-K5-gGu.title" = "Sichern";
+
+/* Class = "NSMenuItem"; title = "Actual Size"; ObjectID = "fhi-DK-hWE"; */
+"fhi-DK-hWE.title" = "Originalgrösse";
 
 /* Class = "NSMenuItem"; title = "Save As…"; ObjectID = "gQN-UT-3wR"; */
 "gQN-UT-3wR.title" = "Sichern als …";
 
+/* Class = "NSTextFieldCell"; title = "SEB Is Locked!"; ObjectID = "h8S-7a-w0u"; */
+"h8S-7a-w0u.title" = "SEB ist gesperrt!";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "iQ5-CR-q1d"; */
+"iQ5-CR-q1d.title" = "OK";
+
 /* Class = "NSMenuItem"; title = "Revert to Defaults"; ObjectID = "icu-d0-oaR"; */
 "icu-d0-oaR.title" = "Zurücksetzen auf Voreinstellungen";
 
+/* Class = "NSWindow"; title = "SEB Lockdown Information"; ObjectID = "kwi-CI-5lx"; */
+"kwi-CI-5lx.title" = "SEB-Lockdown-Information";
+
 /* Class = "NSMenuItem"; title = "Revert to Client Settings"; ObjectID = "lIX-w9-SMd"; */
 "lIX-w9-SMd.title" = "Zurücksetzen auf Client-Einstellungen";
+
+/* Class = "NSMenuItem"; title = "Zoom Page Out"; ObjectID = "npk-yl-ONe"; */
+"npk-yl-ONe.title" = "Seiteninhalt verkleinern";
 
 /* Class = "NSMenuItem"; title = "Revert to Last Saved"; ObjectID = "pMV-oP-mZU"; */
 "pMV-oP-mZU.title" = "Zurücksetzen auf Datei";

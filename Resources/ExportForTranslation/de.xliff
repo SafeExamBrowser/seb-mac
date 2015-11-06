@@ -172,7 +172,7 @@
             </trans-unit>
             <trans-unit id="204.title">
                 <source>Show Spelling and Grammar</source>
-                <target>Rechtschreibung und Grammatik anzeigen</target>
+                <target>Rechtschreibung und Grammatik einblenden</target>
                 <note>Class = "NSMenuItem"; title = "Show Spelling and Grammar"; ObjectID = "204";</note>
             </trans-unit>
             <trans-unit id="205.title">
@@ -732,7 +732,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <trans-unit id="743.ibShadowedToolTip">
                 <source>Use a browser window which can be scaled and moved around, show main  window full screen or use the tablet mode (Win)</source>
                 <note>Class = "NSMatrix"; ibShadowedToolTip = "Use a browser window which can be scaled and moved around, show main  window full screen or use the tablet mode (Win)"; ObjectID = "743";</note>
-                <target>Browserwindow (kann bewegt und skaliert werden), Hauptfenster </target>
+                <target>Browser-Fenster (kann bewegt und skaliert werden), Hauptfenster im Vollbild oder Touch-/Tablet-Modus (Win) verwenden</target>
             </trans-unit>
             <trans-unit id="745.title">
                 <source>Use browser window</source>

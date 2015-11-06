@@ -157,6 +157,9 @@
 /* Class = "NSButtonCell"; title = "Choose Process..."; ObjectID = "1853"; */
 "1853.title" = "Prozess auswählen …";
 
+/* Class = "NSButton"; ibShadowedToolTip = "Show details about the application/process code signature"; ObjectID = "1854"; */
+"1854.ibShadowedToolTip" = "Details zur Codesignatur anzeigen";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Kill process in a not-nice way, which may cause data loss if the application had unsaved data"; ObjectID = "1855"; */
 "1855.ibShadowedToolTip" = "Prozesse sofort beenden, was einen Verlust von nicht gesicherten Daten zur Folge haben könnte";
 
