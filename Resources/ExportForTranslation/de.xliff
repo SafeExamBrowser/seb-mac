@@ -830,9 +830,9 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
                 <note>Class = "NSButtonCell"; title = "Use page zoom"; ObjectID = "iqK-dQ-5mz";</note>
             </trans-unit>
             <trans-unit id="mbj-mD-F32.ibShadowedToolTip">
-                <source>Allow looking up text elements on a web site using the 3-finger tap</source>
-                <target>Mit drei Fingern tippen zum Nachschlagen von Begriffen zulassen</target>
-                <note>Class = "NSButton"; ibShadowedToolTip = "Allow looking up text elements on a web site using the 3-finger tap"; ObjectID = "mbj-mD-F32";</note>
+                <source>Allow looking up text elements on a web site using the 3-finger tap on a trackpad</source>
+                <target>Mit drei Fingern auf dem Trackpad tippen zum Nachschlagen von Begriffen zulassen</target>
+                <note>Class = "NSButton"; ibShadowedToolTip = "Allow looking up text elements on a web site using the 3-finger tap on a trackpad"; ObjectID = "mbj-mD-F32";</note>
             </trans-unit>
             <trans-unit id="qpg-Rd-u54.title">
                 <source>Touch optimized (Win)</source>
@@ -862,9 +862,9 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
         </header>
         <body>
             <trans-unit id="3ET-Le-SL5.ibShadowedToolTip">
-                <source>Start the process automatically together with SEB</source>
-                <target>Prozess automatisch zusammen mit SEB starten</target>
-                <note>Class = "NSButton"; ibShadowedToolTip = "Start the process automatically together with SEB"; ObjectID = "3ET-Le-SL5";</note>
+                <source>Show icon of permitted application in dock/task bar (not possible when 'run in background' is enabled)</source>
+                <target>Icon der erlaubten Applikation im Dock/Taskbar anzeigen (nicht möglich, wenn 'Als Hintergrund-Prozess zulassen' aktiviert ist)</target>
+                <note>Class = "NSButton"; ibShadowedToolTip = "Show icon of permitted application in dock/task bar (not possible when 'run in background' is enabled)"; ObjectID = "3ET-Le-SL5";</note>
             </trans-unit>
             <trans-unit id="5.ibShadowedToolTip">
                 <source>Decreases security of the kiosk mode by allowing the process switcher (Cmd+Tab). The blacked out background of SEB also doesn't cover some alerts and modal windows in this mode.</source>
@@ -897,9 +897,9 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
                 <note>Class = "NSTabViewItem"; label = "Prohibited Processes"; ObjectID = "241";</note>
             </trans-unit>
             <trans-unit id="299.ibShadowedToolTip">
-                <source>SEB monitors which processes/applications are running during an exam. Those which are not permitted are hiddden, those which are prohibited will be closed/killed.</source>
+                <source>SEB monitors which processes/applications are running during an exam. Those which are not permitted are hiddden, those which are prohibited will be closed.</source>
                 <target>SEB überwacht, welche Prozesse/Applikationen während einer Prüfung laufen. Die nicht explizit erlaubten werden ausgeblendet, die verbotenen werden beendet</target>
-                <note>Class = "NSButton"; ibShadowedToolTip = "SEB monitors which processes/applications are running during an exam. Those which are not permitted are hiddden, those which are prohibited will be closed/killed."; ObjectID = "299";</note>
+                <note>Class = "NSButton"; ibShadowedToolTip = "SEB monitors which processes/applications are running during an exam. Those which are not permitted are hiddden, those which are prohibited will be closed."; ObjectID = "299";</note>
             </trans-unit>
             <trans-unit id="301.title">
                 <source>Monitor processes (Win)</source>
@@ -967,9 +967,9 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
                 <note>Class = "NSTextField"; ibShadowedToolTip = "Application title which is displayed in the application chooser and SEB dock/task bar"; ObjectID = "645";</note>
             </trans-unit>
             <trans-unit id="654.ibShadowedToolTip">
-                <source>Optional, should explain what kind of process this is, because this might not be obvious only from the executable's name.</source>
+                <source>Optional, should explain what kind of process this is, because this might not be obvious only from the executable's name</source>
                 <target>Optionale Beschreibung des Prozesses, weil dies nicht aus dem Prozess-Namen ersichtlich sein muss</target>
-                <note>Class = "NSTextField"; ibShadowedToolTip = "Optional, should explain what kind of process this is, because this might not be obvious only from the executable's name."; ObjectID = "654";</note>
+                <note>Class = "NSTextField"; ibShadowedToolTip = "Optional, should explain what kind of process this is, because this might not be obvious only from the executable's name"; ObjectID = "654";</note>
             </trans-unit>
             <trans-unit id="657.title">
                 <source>Description</source>
@@ -987,9 +987,9 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
                 <note>Class = "NSTextFieldCell"; title = "Executable"; ObjectID = "677";</note>
             </trans-unit>
             <trans-unit id="687.ibShadowedToolTip">
-                <source>Filesystem path (formatted system specific) to the process executable’s directory (excluding the file name). If the path is not given or relative, then SEB searches system provided paths for applications.</source>
-                <target>Dateisystem-Pfad (systemspezifisch formattiert) zum Verzeichnis des Prozess-Executables (ohne Dateiname). Wenn der Pfad nicht angegeben oder relativ ist, sucht SEB die Systempfade für Applikationen ab.</target>
-                <note>Class = "NSTextField"; ibShadowedToolTip = "Filesystem path (formatted system specific) to the process executable’s directory (excluding the file name). If the path is not given or relative, then SEB searches system provided paths for applications."; ObjectID = "687";</note>
+                <source>Filesystem path (formatted system specific) to the process executable’s directory (excluding the file name). If the path is not given or relative, then SEB searches system provided paths for applications</source>
+                <target>Dateisystem-Pfad (systemspezifisch formattiert) zum Verzeichnis des Prozess-Executables (ohne Dateiname). Wenn der Pfad nicht angegeben oder relativ ist, sucht SEB die Systempfade für Applikationen ab</target>
+                <note>Class = "NSTextField"; ibShadowedToolTip = "Filesystem path (formatted system specific) to the process executable’s directory (excluding the file name). If the path is not given or relative, then SEB searches system provided paths for applications"; ObjectID = "687";</note>
             </trans-unit>
             <trans-unit id="690.title">
                 <source>Path</source>
@@ -1017,9 +1017,9 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
                 <note>Class = "NSButton"; ibShadowedToolTip = "Remove an argument"; ObjectID = "866";</note>
             </trans-unit>
             <trans-unit id="887.ibShadowedToolTip">
-                <source>Identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title</source>
+                <source>Bundle identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title for tricky Win applications (Java, Acrobat etc.)</source>
                 <target>Identifikator des Prozesses in der umgekehrten DNS-Notation (OS X) oder ein Teil-String des Titels des Hauptfensters (Win)</target>
-                <note>Class = "NSTextField"; ibShadowedToolTip = "Identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title"; ObjectID = "887";</note>
+                <note>Class = "NSTextField"; ibShadowedToolTip = "Bundle identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title for tricky Win applications (Java, Acrobat etc.)"; ObjectID = "887";</note>
             </trans-unit>
             <trans-unit id="897.title">
                 <source>Identifier</source>
@@ -1037,19 +1037,19 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
                 <note>Class = "NSButtonCell"; title = "Autostart"; ObjectID = "950";</note>
             </trans-unit>
             <trans-unit id="956.ibShadowedToolTip">
-                <source>Only allow to run the application in background (users cannot switch to it, windows will be hidden)</source>
+                <source>Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the task bar</source>
                 <target>Die Applikation darf nur im Hintergrund laufen (kann nicht im Dock oder Programmumschalter angewählt werden, Fenster werden ausgeblendet)</target>
-                <note>Class = "NSButton"; ibShadowedToolTip = "Only allow to run the application in background (users cannot switch to it, windows will be hidden)"; ObjectID = "956";</note>
+                <note>Class = "NSButton"; ibShadowedToolTip = "Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the task bar"; ObjectID = "956";</note>
             </trans-unit>
             <trans-unit id="957.title">
                 <source>Allow running in background</source>
-                <target>Hintergrund-Prozess</target>
+                <target>Als Hintergrund-Prozess zulassen</target>
                 <note>Class = "NSButtonCell"; title = "Allow running in background"; ObjectID = "957";</note>
             </trans-unit>
             <trans-unit id="982.ibShadowedToolTip">
-                <source>Allow locating third party applications with a file dialog if it cannot be found at the paths specified. Only applications matching other criteria specified (like executable, identifier, signature) are accepted.</source>
-                <target>Drittapplikationen dürfen vom Benutzer mittels Dateidialog lokalisiert werden, falls sie nicht am angegebenen Pfad gefunden werden. Nur Applikationen können ausgewählt werden, die den anderen spezifizierten Kriterien entsprechen (Executable, Identifier, Signatur)</target>
-                <note>Class = "NSButton"; ibShadowedToolTip = "Allow locating third party applications with a file dialog if it cannot be found at the paths specified. Only applications matching other criteria specified (like executable, identifier, signature) are accepted."; ObjectID = "982";</note>
+                <source>Allow locating third party applications with a file dialog if it cannot be found at the paths specified. Only applications matching other criteria specified (like executable, bundle identifier, signature) are accepted</source>
+                <target>Drittapplikationen dürfen vom Benutzer mittels Dateidialog ausgewählt werden, falls sie nicht am angegebenen Pfad gefunden werden. Nur Applikationen können ausgewählt werden, die den anderen spezifizierten Kriterien entsprechen (Executable, Bundle Identifier, Signatur)</target>
+                <note>Class = "NSButton"; ibShadowedToolTip = "Allow locating third party applications with a file dialog if it cannot be found at the paths specified. Only applications matching other criteria specified (like executable, bundle identifier, signature) are accepted"; ObjectID = "982";</note>
             </trans-unit>
             <trans-unit id="983.title">
                 <source>Allow user to select location of application</source>
@@ -1072,9 +1072,9 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
                 <note>Class = "NSTextFieldCell"; title = "OS"; ObjectID = "1304";</note>
             </trans-unit>
             <trans-unit id="1314.ibShadowedToolTip">
-                <source>Indicates on which operating system the permitted process runs. OS X is currently not supported.</source>
+                <source>Indicates on which operating system the permitted process runs. OS X is currently not supported</source>
                 <target>Betriebssystem, auf welchem der erlaubte Prozess läuft</target>
-                <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Indicates on which operating system the permitted process runs. OS X is currently not supported."; ObjectID = "1314";</note>
+                <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Indicates on which operating system the permitted process runs. OS X is currently not supported"; ObjectID = "1314";</note>
             </trans-unit>
             <trans-unit id="1600.ibShadowedToolTip">
                 <source>For choosing a running process which will be added to the list of permitted processes</source>
@@ -1132,9 +1132,9 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
                 <target>Details zur Codesignatur anzeigen</target>
             </trans-unit>
             <trans-unit id="1855.ibShadowedToolTip">
-                <source>Kill process in a not-nice way, which may cause data loss if the application had unsaved data</source>
+                <source>Force terminate process, which may cause data loss if the application had unsaved data</source>
                 <target>Prozesse sofort beenden, was einen Verlust von nicht gesicherten Daten zur Folge haben könnte</target>
-                <note>Class = "NSButton"; ibShadowedToolTip = "Kill process in a not-nice way, which may cause data loss if the application had unsaved data"; ObjectID = "1855";</note>
+                <note>Class = "NSButton"; ibShadowedToolTip = "Force terminate process, which may cause data loss if the application had unsaved data"; ObjectID = "1855";</note>
             </trans-unit>
             <trans-unit id="1856.ibShadowedToolTip">
                 <source>The prohibited process has to run under the currently logged in user. Use it instead of indicating the user.</source>
@@ -1242,9 +1242,9 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
                 <note>Class = "NSTextFieldCell"; title = "Window Handling Process"; ObjectID = "2204";</note>
             </trans-unit>
             <trans-unit id="2244.ibShadowedToolTip">
-                <source>Terminate process in a not-nice way, which may cause data loss if the application had unsaved data</source>
+                <source>Force terminate process, which may cause data loss if the application had unsaved data</source>
                 <target>Prozesse sofort beenden, was einen Verlust von nicht gesicherten Daten zur Folge haben könnte</target>
-                <note>Class = "NSButton"; ibShadowedToolTip = "Terminate process in a not-nice way, which may cause data loss if the application had unsaved data"; ObjectID = "2244";</note>
+                <note>Class = "NSButton"; ibShadowedToolTip = "Force terminate process, which may cause data loss if the application had unsaved data"; ObjectID = "2244";</note>
             </trans-unit>
             <trans-unit id="2246.title">
                 <source>Force quit (risk of data loss)</source>
@@ -1369,9 +1369,9 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
                 <note>Class = "NSButton"; ibShadowedToolTip = "When the SEB browser is disabled, no browser window is openend. Use this option with specific third party applications allowed."; ObjectID = "413";</note>
             </trans-unit>
             <trans-unit id="415.title">
-                <source>Use SEB without browser window</source>
+                <source>Use SEB without browser window (Win)</source>
                 <target>SEB ohne Browserfenster benutzen</target>
-                <note>Class = "NSButtonCell"; title = "Use SEB without browser window"; ObjectID = "415";</note>
+                <note>Class = "NSButtonCell"; title = "Use SEB without browser window (Win)"; ObjectID = "415";</note>
             </trans-unit>
             <trans-unit id="449.title">
                 <source>to start another application in kiosk mode (for example a virtual desktop infrastructure client)</source>
@@ -1608,9 +1608,9 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
                 <note>Class = "NSSecureTextField"; ibShadowedToolTip = "Retype the settings password"; ObjectID = "110";</note>
             </trans-unit>
             <trans-unit id="114.ibShadowedToolTip">
-                <source>Password to decrypt the settings file, prompted when SEB reads the settings</source>
+                <source>Password to decrypt the settings file, prompted when SEB reads these settings</source>
                 <target>Passwort zur Entschlüsselung der Konfigurationsdatei, wird abgefragt, wenn SEB die Konfiguration einliest</target>
-                <note>Class = "NSSecureTextField"; ibShadowedToolTip = "Password to decrypt the settings file, prompted when SEB reads the settings"; ObjectID = "114";</note>
+                <note>Class = "NSSecureTextField"; ibShadowedToolTip = "Password to decrypt the settings file, prompted when SEB reads these settings"; ObjectID = "114";</note>
             </trans-unit>
             <trans-unit id="116.title">
                 <source>Please enter correct confirm password</source>
@@ -1867,9 +1867,9 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
         </header>
         <body>
             <trans-unit id="2Rr-y4-nE8.ibShadowedToolTip">
-                <source>If a Quit Link is entered, it works regardless of other quit settings in the General pane</source>
-                <note>Class = "NSTextField"; ibShadowedToolTip = "If a Quit Link is entered, it works regardless of other quit settings in the General pane"; ObjectID = "2Rr-y4-nE8";</note>
-                <target>Wenn ein Beenden-Link angegeben ist, funktioniert dieser unabhängig von anderen Beenden-Einstellungen auf der Seite Allgemein</target>
+                <source>Full URL (starting with http:// or https://) of the page to open when the Restart exam button is pressed</source>
+                <note>Class = "NSTextField"; ibShadowedToolTip = "Full URL (starting with http:// or https://) of the page to open when the Restart exam button is pressed"; ObjectID = "2Rr-y4-nE8";</note>
+                <target>Komplette URL (beginnend mit http:// oder https://) der Seite, die durch die Neustart-Taste geöffnet werden soll</target>
             </trans-unit>
             <trans-unit id="5SR-dU-gy3.title">
                 <source>Protect restart exam button with the quit/restart password</source>
@@ -1927,9 +1927,9 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
                 <note>Class = "NSButtonCell"; title = "Send Browser Exam Key in HTTP header"; ObjectID = "971";</note>
             </trans-unit>
             <trans-unit id="Qei-df-hVI.ibShadowedToolTip">
-                <source>If a Quit Link is entered, it works regardless of other quit settings in the General pane</source>
-                <target>Wenn ein Beenden-Link angegeben ist, funktioniert dieser unabhängig von anderen Beenden-Einstellungen auf der Seite Allgemein</target>
-                <note>Class = "NSTextField"; ibShadowedToolTip = "If a Quit Link is entered, it works regardless of other quit settings in the General pane"; ObjectID = "Qei-df-hVI";</note>
+                <source>This text is displayed as the title of the password entering/confirming dialog window and tooltip for the restart exam button</source>
+                <target>Dieser Text wird als Titel des Passwort-/Bestätigungs-Dialogs und als Tooltip für die Neustart-Taste angezeigt</target>
+                <note>Class = "NSTextField"; ibShadowedToolTip = "This text is displayed as the title of the password entering/confirming dialog window and tooltip for the restart exam button"; ObjectID = "Qei-df-hVI";</note>
             </trans-unit>
             <trans-unit id="Rln-rP-DrR.title">
                 <source>Use Start URL (see General pane)</source>
@@ -1952,14 +1952,14 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
                 <note>Class = "NSBox"; title = "Restart exam button"; ObjectID = "czI-08-Q8k";</note>
             </trans-unit>
             <trans-unit id="oJT-BY-ezv.ibShadowedToolTip">
-                <source>The Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system</source>
-                <target>Der Browser Exam Key wird an den verbundenen Webserver gesendet, um den SEB-Client und seine Einstellungen gegenüber einem kompatiblen Prüfungssystem zu authentifizieren</target>
-                <note>Class = "NSButton"; ibShadowedToolTip = "The Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system"; ObjectID = "oJT-BY-ezv";</note>
+                <source>Require to enter the quit/restart password when the restart exam button is pressed</source>
+                <target>Eingabe des Beenden-/Neustart-Passworts verlangen, wenn die Neustart-Taste gedrückt wird</target>
+                <note>Class = "NSButton"; ibShadowedToolTip = "Require to enter the quit/restart password when the restart exam button is pressed"; ObjectID = "oJT-BY-ezv";</note>
             </trans-unit>
             <trans-unit id="pdT-tX-Sdp.title">
-                <source>Title/tool tip text of the restart button (leave empty for localized standard text)</source>
-                <target>Titel/Tooltip der Neustart-Taste (leer lassen für lokalisierten Standardtext).</target>
-                <note>Class = "NSTextFieldCell"; title = "Title/tool tip text of the restart button (leave empty for localized standard text)"; ObjectID = "pdT-tX-Sdp";</note>
+                <source>Dialog title/tool tip text of the restart button (leave empty for localized standard text)</source>
+                <target>Dialogtitel/Tooltip für Neustart-Taste (leer lassen für lokalisierten Standardtext).</target>
+                <note>Class = "NSTextFieldCell"; title = "Dialog title/tool tip text of the restart button (leave empty for localized standard text)"; ObjectID = "pdT-tX-Sdp";</note>
             </trans-unit>
             <trans-unit id="sY9-Fu-u2Z.placeholderString">
                 <source>Restart Exam</source>
@@ -1967,9 +1967,9 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
                 <note>Class = "NSTextFieldCell"; placeholderString = "Restart Exam"; ObjectID = "sY9-Fu-u2Z";</note>
             </trans-unit>
             <trans-unit id="ujx-Tz-w75.ibShadowedToolTip">
-                <source>The Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system</source>
-                <target>Der Browser Exam Key wird an den verbundenen Webserver gesendet, um den SEB-Client und seine Einstellungen gegenüber einem kompatiblen Prüfungssystem zu authentifizieren</target>
-                <note>Class = "NSButton"; ibShadowedToolTip = "The Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system"; ObjectID = "ujx-Tz-w75";</note>
+                <source>The restart exam button reloads the exam's Start URL</source>
+                <target>Die Neustart-Taste öffnet erneut die Start-URL der Prüfung</target>
+                <note>Class = "NSButton"; ibShadowedToolTip = "The restart exam button reloads the exam's Start URL"; ObjectID = "ujx-Tz-w75";</note>
             </trans-unit>
         </body>
     </file>
@@ -2141,9 +2141,9 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
                 <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Action when the filter rule expression matches (allow or block resource)"; ObjectID = "9du-EF-v3O";</note>
             </trans-unit>
             <trans-unit id="9hw-i2-YWH.ibShadowedToolTip">
-                <source>Application title which is displayed in the application chooser and SEB dock/task bar</source>
-                <target>Applikationstitel, angezeigt im Programmumschalter und im SEB-Dock</target>
-                <note>Class = "NSTextField"; ibShadowedToolTip = "Application title which is displayed in the application chooser and SEB dock/task bar"; ObjectID = "9hw-i2-YWH";</note>
+                <source>Full filter expression</source>
+                <target>Kompletter Filter-Ausdruck</target>
+                <note>Class = "NSTextField"; ibShadowedToolTip = "Full filter expression"; ObjectID = "9hw-i2-YWH";</note>
             </trans-unit>
             <trans-unit id="27i-17-3S4.title">
                 <source>:</source>
