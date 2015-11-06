@@ -642,18 +642,21 @@ Parts of this project have been carried out as part of the program 'AAA/SWITCH �
                 <menuItem id="9WS-P0-r7q">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
-                <menuItem title="Open…" keyEquivalent="o" id="HGQ-o5-kHC">
+                <menuItem title="Open…" id="HGQ-o5-kHC">
+                    <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="openSEBPrefs:" target="892" id="1ec-0Q-Kbb"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Save" keyEquivalent="s" id="eiW-K5-gGu">
+                <menuItem title="Save" id="eiW-K5-gGu">
+                    <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="saveSEBPrefs:" target="892" id="q4x-CI-6gx"/>
                         <binding destination="892" name="enabled" keyPath="self.usingPrivateDefaults" id="ZHQ-mh-TPs"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Save As…" keyEquivalent="S" id="gQN-UT-3wR">
+                <menuItem title="Save As…" id="gQN-UT-3wR">
+                    <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="saveSEBPrefsAs:" target="892" id="cv4-Tp-6nh"/>
                     </connections>

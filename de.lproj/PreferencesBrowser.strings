@@ -5,7 +5,7 @@
 "7nL-Z2-JAg.title" = "Browser-Sicherheit";
 
 /* Class = "NSTextFieldCell"; title = "Default strings depend on installed SEB for Windows version and therefore can differ on exam clients."; ObjectID = "9wd-E4-JwC"; */
-"9wd-E4-JwC.title" = "Standard-Strings hängen von der installierten SEB-Version ab und können deswegen auf Prüfungs-Clients abweichen. ";
+"9wd-E4-JwC.title" = "Standard-Strings hängen von der installierten SEB-Version ab. ";
 
 /* Class = "NSButtonCell"; title = "Show reload warning"; ObjectID = "16K-h7-SCc"; */
 "16K-h7-SCc.title" = "Reload-Warnung anzeigen";
@@ -61,8 +61,8 @@
 /* Class = "NSButton"; ibShadowedToolTip = "When the SEB browser is disabled, no browser window is openend. Use this option with specific third party applications allowed."; ObjectID = "413"; */
 "413.ibShadowedToolTip" = "Das SEB-Dock zeigt und schaltet um auf offene Browserfenster, zugelassene Ressourcen und Drittapplikationen und kann zusätzliche Funktionen beinhalten";
 
-/* Class = "NSButtonCell"; title = "Use SEB without browser window"; ObjectID = "415"; */
-"415.title" = "SEB ohne Browserfenster benutzen";
+/* Class = "NSButtonCell"; title = "Use SEB without browser window (Win)"; ObjectID = "415"; */
+"415.title" = "SEB ohne Browserfenster benutzen (Win)";
 
 /* Class = "NSTextFieldCell"; title = "to start another application in kiosk mode (for example a virtual desktop infrastructure client)"; ObjectID = "449"; */
 "449.title" = "um eine Drittapplikation im Kiosk-Modus zu starten (z.B. einen Client für virtuelle Desktop-Infrastruktur)";
@@ -118,8 +118,8 @@
 /* Class = "NSButtonCell"; title = "Remove profile (Win)"; ObjectID = "663"; */
 "663.title" = "Profil löschen (Win)";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Disabling browsing to previously visited pages (by cmd + Cursor left) may increase security, because browsing back might allow to leave an exam"; ObjectID = "Du9-dQ-GIJ"; */
-"Du9-dQ-GIJ.ibShadowedToolTip" = "Ausschalten der Funktion, auf bereits besuchte Seiten zurückzukehren (per Befehlstaste - Cursor links) verhindert, eine Prüfung zu verlassen, indem man auf eine Startseite ausserhalb des Prüfungs-Servers zurückkehrt";
+/* Class = "NSButton"; ibShadowedToolTip = "User has to confirm reloading a web page by cmd-R or the reload button"; ObjectID = "Du9-dQ-GIJ"; */
+"Du9-dQ-GIJ.ibShadowedToolTip" = "Das erneute Laden einer Webseite per cmd-R (Befehlstaste-R) oder Neuladen-Taste muss bestätigt werden";
 
 /* Class = "NSTextFieldCell"; title = "Default user agent Mac"; ObjectID = "EZ4-9b-Idz"; */
 "EZ4-9b-Idz.title" = "Standard Mac User Agent";

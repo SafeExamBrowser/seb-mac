@@ -41,7 +41,7 @@
         // Add log information about closing lockdown alert
         DDLogError(@"Lockdown alert: Correct password entered, closing lockdown windows");
         self.sebController.didResumeExamTime = [NSDate date];
-        [self appendErrorString:NSLocalizedString(@"Correct password entered, closing lockdown windows\n", nil) withTime:self.sebController.didResumeExamTime];
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Correct password entered, closing lockdown windows", nil)] withTime:self.sebController.didResumeExamTime];
         // Calculate time difference between session resigning active and closing lockdown alert
         NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         NSDateComponents *components = [calendar components:NSMinuteCalendarUnit | NSSecondCalendarUnit
@@ -60,7 +60,7 @@
         return;
     }
     DDLogError(@"Lockdown alert: Wrong quit/restart password entered, asking to try again");
-    [self appendErrorString:NSLocalizedString(@"Wrong password entered!\n", nil) withTime:[NSDate date]];
+    [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Wrong password entered!", nil)] withTime:[NSDate date]];
     [lockedAlertPasswordField setStringValue:@""];
     passwordWrongLabel.hidden = false;
 }

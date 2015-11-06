@@ -13,8 +13,8 @@
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Action when the filter rule expression matches (allow or block resource)"; ObjectID = "9du-EF-v3O"; */
 "9du-EF-v3O.ibShadowedToolTip" = "Aktion bei übereinstimmendem Filterausdruck (Ressource zulassen oder blockieren)";
 
-/* Class = "NSTextField"; ibShadowedToolTip = "Application title which is displayed in the application chooser and SEB dock/task bar"; ObjectID = "9hw-i2-YWH"; */
-"9hw-i2-YWH.ibShadowedToolTip" = "Applikationstitel, angezeigt im Programmumschalter und im SEB-Dock";
+/* Class = "NSTextField"; ibShadowedToolTip = "Full filter expression"; ObjectID = "9hw-i2-YWH"; */
+"9hw-i2-YWH.ibShadowedToolTip" = "Kompletter Filter-Ausdruck";
 
 /* Class = "NSTextFieldCell"; title = ":"; ObjectID = "27i-17-3S4"; */
 "27i-17-3S4.title" = ":";
@@ -61,14 +61,11 @@
 /* Class = "NSTextFieldCell"; title = "Proxy Configuration File"; ObjectID = "855"; */
 "855.title" = "Proxy-Konfigurationsdatei";
 
-/* Class = "NSButtonCell"; ibShadowedToolTip = "System proxy settings of the exam client computer are used"; ObjectID = "1039"; */
-"1039.ibShadowedToolTip" = "Proxy-Einstellungen des Prüfungsclients werden benutzt";
+/* Class = "NSMatrix"; ibShadowedToolTip = "Either system proxy settings of the exam client computer or those provided in these SEB settings are used"; ObjectID = "1037"; */
+"1037.ibShadowedToolTip" = "Entweder werden die Systemeinstellungen des Prüfungsrechners für Proxies verwendet oder diejenigen in diesen Einstellungen";
 
 /* Class = "NSButtonCell"; title = "Use system proxy settings"; ObjectID = "1039"; */
 "1039.title" = "Proxy-Systemeinstellungen benutzen";
-
-/* Class = "NSButtonCell"; ibShadowedToolTip = "Proxy settings provided in these SEB settings are used"; ObjectID = "1040"; */
-"1040.ibShadowedToolTip" = "Proxy-Einstellungen aus dieser SEB-Konfiguration werden benutzt";
 
 /* Class = "NSButtonCell"; title = "Use SEB proxy settings (Win)"; ObjectID = "1040"; */
 "1040.title" = "SEB Proxy-Einstellungen benutzen (Win)";

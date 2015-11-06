@@ -1,6 +1,5 @@
 /* No comment provided by engineer. */
-"  SEB session was inactive for %ld:%.2ld (minutes:seconds)
-" = "Die SEB-Session war inaktiv für %ld:%.2ld (Minuten:Sekunden)";
+"  SEB session was inactive for %ld:%.2ld (minutes:seconds)" = "Die SEB-Session war inaktiv für %ld:%.2ld (Minuten:Sekunden)";
 
 /* word indicating the duplicate of a file, same as in Finder ' copy' */
 " copy" = "Kopie";
@@ -81,8 +80,7 @@
 "Continue" = "Weiter";
 
 /* No comment provided by engineer. */
-"Correct password entered, closing lockdown windows
-" = "Korrektes Passwort eingegeben, Lockdown-Fenster werden geschlossen";
+"Correct password entered, closing lockdown windows" = "Korrektes Passwort eingegeben, Lockdown-Fenster werden geschlossen";
 
 /* No comment provided by engineer. */
 "Current settings have unsaved changes. If you don't save those first, you will loose them." = "Aktuelle Einstellungen haben ungesicherte Änderungen. Wenn Sie nicht zuerst sichern, verlieren Sie diese.";
@@ -331,7 +329,7 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 "Reconfigure SEB Settings" = "Einstelllungen neu konfigurieren";
 
 /* No comment provided by engineer. */
-"Reload" = "Neu Laden";
+"Reload" = "Neu laden";
 
 /* No comment provided by engineer. */
 "Reload Current Page" = "Aktuelle Seite neu laden";
@@ -439,8 +437,7 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 "Streaming Proxy (RTSP)" = "Streaming-Proxy (RTSP)";
 
 /* No comment provided by engineer. */
-"Switched back after user switch / login window
-" = "Wechsel zurück nach Benutzerwechsel / Anmeldefenster";
+"Switched back after user switch / login window" = "Wechsel zurück nach Benutzerwechsel / Anmeldefenster";
 
 /* No comment provided by engineer. */
 "The identity needed to decrypt settings has not been found in the keychain!" = "Identität zur Entschlüsselung dieser SEB-Konfigurationsdatei wurde im Schlüsselbund nicht gefunden!";
@@ -485,8 +482,7 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 "User Interface" = "Benutzeroberfläche";
 
 /* No comment provided by engineer. */
-"User switch / switch to login window detected
-" = "Benutzerwechsel / Wechsel auf Anmeldefenster detektiert";
+"User switch / switch to login window detected" = "Benutzerwechsel / Anmeldefenster detektiert";
 
 /* No comment provided by engineer. */
 "Verbose" = "Alles";
@@ -528,8 +524,7 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 "Wrong Quit Password" = "Falsches Beenden-Passwort";
 
 /* No comment provided by engineer. */
-"Wrong password entered!
-" = "Falsches Passwort eingegeben!";
+"Wrong password entered!" = "Falsches Passwort eingegeben!";
 
 /* No comment provided by engineer. */
 "Wrong password! Try again to enter the correct SEB administrator password from these settings:" = "Falsches Passwort! Bitte erneut versuchen, das korrrekte SEB Administrator-Passwort aus diesen Einstellungen einzugeben:";
@@ -590,10 +585,10 @@ Sie können eine unverschlüsselte Datei speichern, aber dies ist nicht für die
 "manually with file requester" = "manuell mit Dateidialog";
 
 /* No comment provided by engineer. */
-"open in new window" = "öffnen in neuem Fenster";
+"open in new window" = "werden in neuem Fenster geöffnet";
 
 /* No comment provided by engineer. */
-"open in same window" = "öffnen im selben Fenster";
+"open in same window" = "werden im selben Fenster geöffnet";
 
 /* No comment provided by engineer. */
 "quit" = "Beenden";

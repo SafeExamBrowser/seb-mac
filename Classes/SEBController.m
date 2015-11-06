@@ -1890,7 +1890,7 @@ bool insideMatrix(){
         [sebLockedViewController.view.superview addConstraints:constraints];
         
         // Add log string for resign active
-        [sebLockedViewController appendErrorString:NSLocalizedString(@"User switch / switch to login window detected\n", nil) withTime:self.didResignActiveTime];
+        [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"User switch / switch to login window detected", nil)] withTime:self.didResignActiveTime];
         
     }
     else
@@ -1901,7 +1901,7 @@ bool insideMatrix(){
         
         // Add log string for becoming active
         self.didBecomeActiveTime = [NSDate date];
-        [sebLockedViewController appendErrorString:NSLocalizedString(@"Switched back after user switch / login window\n", nil) withTime:self.didBecomeActiveTime];
+        [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Switched back after user switch / login window", nil)] withTime:self.didBecomeActiveTime];
         
         // Calculate time difference between session resigning active and becoming active again
         NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
@@ -1909,7 +1909,7 @@ bool insideMatrix(){
                                                    fromDate:self.didResignActiveTime
                                                      toDate:self.didBecomeActiveTime
                                                     options:false];
-        [sebLockedViewController appendErrorString:[NSString stringWithFormat:NSLocalizedString(@"  SEB session was inactive for %ld:%.2ld (minutes:seconds)\n", nil), components.minute, components.second] withTime:nil];
+        [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"  SEB session was inactive for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:nil];
     }
 }
 

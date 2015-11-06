@@ -146,7 +146,7 @@
 "221.title" = "In Auswahl suchen";
 
 /* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "239"; */
-"239.title" = "Zoom";
+"239.title" = "Zoomen";
 
 /* Class = "NSMenuItem"; title = "View"; ObjectID = "295"; */
 "295.title" = "Darstellung";

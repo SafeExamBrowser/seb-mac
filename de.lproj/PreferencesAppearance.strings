@@ -5,10 +5,10 @@
 "3KI-5c-L1K.title" = "Dock-Höhe";
 
 /* Class = "NSButtonCell"; title = "Show reload button"; ObjectID = "3wD-Cd-yYF"; */
-"3wD-Cd-yYF.title" = "Taste 'Neu Laden' anzeigen";
+"3wD-Cd-yYF.title" = "Neuladen-Taste anzeigen";
 
 /* Class = "NSButtonCell"; title = "Show time"; ObjectID = "6CP-QX-2NV"; */
-"6CP-QX-2NV.title" = "Uhrzeit anzeigen (Win)";
+"6CP-QX-2NV.title" = "Uhrzeit anzeigen";
 
 /* Class = "NSButton"; ibShadowedToolTip = "SEB can be quit with a swipe down from the upper display edge"; ObjectID = "8IN-wN-3ta"; */
 "8IN-wN-3ta.ibShadowedToolTip" = "SEB kann mit einem Wischen von der oberen Bildschirmkante herunter beendet werden";
@@ -53,7 +53,7 @@
 "596.ibShadowedToolTip" = "Fensterhöhe in Punkten oder Prozent der Bildschirmhöhe";
 
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Position browser window on the left, right or centered"; ObjectID = "599"; */
-"599.ibShadowedToolTip" = "Browserfenster link, rechts oder zentriert positionieren";
+"599.ibShadowedToolTip" = "Browserfenster links, rechts oder zentriert positionieren";
 
 /* Class = "NSTextFieldCell"; title = "Horizontal positioning"; ObjectID = "605"; */
 "605.title" = "Horizontale Positionierung";
@@ -140,7 +140,7 @@
 "d5d-zh-qxU.title" = "Mac-spezifisch";
 
 /* Class = "NSBox"; title = "Zoom mode Win (Ctrl-Mousewheel)"; ObjectID = "eGR-0O-pYN"; */
-"eGR-0O-pYN.title" = "Zoom-Modus (Ctrl-Maustaste)";
+"eGR-0O-pYN.title" = "Zoom-Modus Win (Ctrl-Maustaste)";
 
 /* Class = "NSButtonCell"; title = "Allow dictionary look up"; ObjectID = "iYV-Zg-Pat"; */
 "iYV-Zg-Pat.title" = "Begriffe Nachschlagen erlauben";
@@ -148,8 +148,8 @@
 /* Class = "NSButtonCell"; title = "Use page zoom"; ObjectID = "iqK-dQ-5mz"; */
 "iqK-dQ-5mz.title" = "Seiten-Zoom verwenden";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Allow looking up text elements on a web site using the 3-finger tap"; ObjectID = "mbj-mD-F32"; */
-"mbj-mD-F32.ibShadowedToolTip" = "Mit drei Fingern tippen zum Nachschlagen von Begriffen zulassen";
+/* Class = "NSButton"; ibShadowedToolTip = "Allow looking up text elements on a web site using the 3-finger tap on a trackpad"; ObjectID = "mbj-mD-F32"; */
+"mbj-mD-F32.ibShadowedToolTip" = "Mit drei Fingern auf dem Trackpad tippen zum Nachschlagen von Begriffen zulassen";
 
 /* Class = "NSButtonCell"; title = "Touch optimized (Win)"; ObjectID = "qpg-Rd-u54"; */
 "qpg-Rd-u54.title" = "Touch-optimiert (Win)";

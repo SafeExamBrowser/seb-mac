@@ -97,8 +97,11 @@
 /* Class = "NSButtonCell"; title = "Enable Shut down"; ObjectID = "Ouk-wE-FFP"; */
 "Ouk-wE-FFP.title" = "Herunterfahren erlauben";
 
+/* Class = "NSButton"; ibShadowedToolTip = "Corresponds to 'Allow browsing back/forward' in Browser pane. Disabling browsing to previously visited pages may increase security, because browsing back might allow to leave an exam"; ObjectID = "P88-5S-xeR"; */
+"P88-5S-xeR.ibShadowedToolTip" = "Entspricht 'Vorwärts-/Rückwärts-Surfen erlauben' im Browser-Tab. Ausschalten der Funktion, auf bereits besuchte Seiten zurückzukehren verhindert, eine Prüfung zu verlassen, indem man auf eine Startseite ausserhalb des Prüfungs-Servers zurückkehrt";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Controls OS X screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows"; ObjectID = "PH3-Cb-12g"; */
-"PH3-Cb-12g.ibShadowedToolTip" = "OS X Bildschirmfoto (cmd-3 und cmd-4) erlauben, entspricht ";
+"PH3-Cb-12g.ibShadowedToolTip" = "OS X Bildschirmfoto (cmd-3 und cmd-4) erlauben, entspricht Print Screen Taste (Windows Hooked Keys Einstellungen)";
 
 /* Class = "NSButtonCell"; title = "Enable Right Mouse"; ObjectID = "PWk-fT-HdC"; */
 "PWk-fT-HdC.title" = "Rechte Maustaste erlauben";
@@ -185,7 +188,7 @@
 "uiU-JQ-4Yc.title" = "Task-Manager starten erlauben";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Controls Print Screen, corresponds with Enable screen capture in OS X"; ObjectID = "wUs-SE-6xn"; */
-"wUs-SE-6xn.ibShadowedToolTip" = "Print Screen erlauben, entspricht OS X Bildschirmfoto (cmd-3 und cmd-4) ";
+"wUs-SE-6xn.ibShadowedToolTip" = "Print Screen erlauben, entspricht OS X 'Bildschirmfoto erlauben' (cmd-3 und cmd-4) ";
 
 /* Class = "NSButtonCell"; title = "Enable F4"; ObjectID = "yCu-0c-Hf1"; */
 "yCu-0c-Hf1.title" = "F4 erlauben";
