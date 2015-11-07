@@ -40,8 +40,8 @@
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="Filter" identifier="1" id="240">
-                            <view key="view" misplaced="YES" id="243">
-                                <rect key="frame" x="10" y="33" width="604" height="640"/>
+                            <view key="view" id="243">
+                                <rect key="frame" x="10" y="33" width="605" height="640"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button toolTip="When URL filtering is active and no matching block or allow expression is found), then the processed URL is discarded" translatesAutoresizingMaskIntoConstraints="NO" id="454">

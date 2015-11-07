@@ -631,7 +631,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             </trans-unit>
             <trans-unit id="77.title">
                 <source>Show SEB dock</source>
-                <target>SEB-Dock/Taskbar anzeigen</target>
+                <target>SEB-Dock/Taskleiste anzeigen</target>
                 <note>Class = "NSButtonCell"; title = "Show SEB dock"; ObjectID = "77";</note>
             </trans-unit>
             <trans-unit id="371.ibShadowedToolTip">
@@ -863,7 +863,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
         <body>
             <trans-unit id="3ET-Le-SL5.ibShadowedToolTip">
                 <source>Show icon of permitted application in dock/task bar (not possible when 'run in background' is enabled)</source>
-                <target>Icon der erlaubten Applikation im Dock/Taskbar anzeigen (nicht möglich, wenn 'Als Hintergrund-Prozess zulassen' aktiviert ist)</target>
+                <target>Icon der erlaubten Applikation im Dock/Taskleiste anzeigen (nicht möglich, wenn 'Als Hintergrund-Prozess zulassen' aktiviert ist)</target>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Show icon of permitted application in dock/task bar (not possible when 'run in background' is enabled)"; ObjectID = "3ET-Le-SL5";</note>
             </trans-unit>
             <trans-unit id="5.ibShadowedToolTip">
@@ -1038,7 +1038,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             </trans-unit>
             <trans-unit id="956.ibShadowedToolTip">
                 <source>Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the task bar</source>
-                <target>Die Applikation darf nur im Hintergrund laufen (kann nicht im Dock oder Programmumschalter angewählt werden, Fenster werden ausgeblendet)</target>
+                <target>Die Applikation darf bereits laufen, wenn SEB gestartet wird. Ein entsprechender Prozess kann kein Icon im Dock/Taskleiste anzeigen</target>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the task bar"; ObjectID = "956";</note>
             </trans-unit>
             <trans-unit id="957.title">
@@ -1053,7 +1053,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             </trans-unit>
             <trans-unit id="983.title">
                 <source>Allow user to select location of application</source>
-                <target>Benutzer erlauben, die Applikation zu lokalisieren</target>
+                <target>Benutzer erlauben, die Applikation auszuwählen</target>
                 <note>Class = "NSButtonCell"; title = "Allow user to select location of application"; ObjectID = "983";</note>
             </trans-unit>
             <trans-unit id="1183.ibShadowedToolTip">

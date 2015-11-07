@@ -29,7 +29,7 @@
 "76.ibShadowedToolTip" = "Das SEB-Dock zeigt und schaltet um auf offene Browserfenster, zugelassene Ressourcen und Drittapplikationen und kann zusätzliche Funktionen beinhalten";
 
 /* Class = "NSButtonCell"; title = "Show SEB dock"; ObjectID = "77"; */
-"77.title" = "SEB-Dock/Taskbar anzeigen";
+"77.title" = "SEB-Dock/Taskleiste anzeigen";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Displays a toolbar on top of the browser window which can also be hidden by the user"; ObjectID = "371"; */
 "371.ibShadowedToolTip" = "Symbolleiste anzeigen";

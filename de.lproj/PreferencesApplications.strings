@@ -1,5 +1,5 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Show icon of permitted application in dock/task bar (not possible when 'run in background' is enabled)"; ObjectID = "3ET-Le-SL5"; */
-"3ET-Le-SL5.ibShadowedToolTip" = "Icon der erlaubten Applikation im Dock/Taskbar anzeigen (nicht möglich, wenn 'Als Hintergrund-Prozess zulassen' aktiviert ist)";
+"3ET-Le-SL5.ibShadowedToolTip" = "Icon der erlaubten Applikation im Dock/Taskleiste anzeigen (nicht möglich, wenn 'Als Hintergrund-Prozess zulassen' aktiviert ist)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Decreases security of the kiosk mode by allowing the process switcher (Cmd+Tab). The blacked out background of SEB also doesn't cover some alerts and modal windows in this mode."; ObjectID = "5"; */
 "5.ibShadowedToolTip" = "Setzt die Sicherheit des Kiosk-Modus herab durch Zulassen des Programmumschalters cmd-Tab (Befehlstaste-Tabulator). SEB muss in einem gesicherten Benutzerkonto betrieben werden!";
@@ -104,7 +104,7 @@
 "950.title" = "Autostart";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the task bar"; ObjectID = "956"; */
-"956.ibShadowedToolTip" = "Die Applikation darf nur im Hintergrund laufen (kann nicht im Dock oder Programmumschalter angewählt werden, Fenster werden ausgeblendet)";
+"956.ibShadowedToolTip" = "Die Applikation darf bereits laufen, wenn SEB gestartet wird. Ein entsprechender Prozess kann kein Icon im Dock/Taskleiste anzeigen";
 
 /* Class = "NSButtonCell"; title = "Allow running in background"; ObjectID = "957"; */
 "957.title" = "Als Hintergrund-Prozess zulassen";
@@ -113,7 +113,7 @@
 "982.ibShadowedToolTip" = "Drittapplikationen dürfen vom Benutzer mittels Dateidialog ausgewählt werden, falls sie nicht am angegebenen Pfad gefunden werden. Nur Applikationen können ausgewählt werden, die den anderen spezifizierten Kriterien entsprechen (Executable, Bundle Identifier, Signatur)";
 
 /* Class = "NSButtonCell"; title = "Allow user to select location of application"; ObjectID = "983"; */
-"983.title" = "Benutzer erlauben, die Applikation zu lokalisieren";
+"983.title" = "Benutzer erlauben, die Applikation auszuwählen";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Show details about the application/process code signature"; ObjectID = "1183"; */
 "1183.ibShadowedToolTip" = "Details zur Code-Signatur der Applikation/Prozess anzeigen";
