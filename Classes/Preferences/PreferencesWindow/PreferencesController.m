@@ -95,6 +95,12 @@
 
 - (void)initPreferencesWindow
 {
+    // Check if running on OS X 10.7
+    if (floor(NSAppKitVersionNumber) == NSAppKitVersionNumber10_7) {
+        // Don't init
+        return;
+    }
+    
     // Save current settings
     self.refreshingPreferences = NO;
     [[MBPreferencesController sharedController] setSettingsMenu:settingsMenu];
