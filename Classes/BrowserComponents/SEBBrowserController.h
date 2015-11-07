@@ -47,7 +47,7 @@
 
 @property (strong) SEBWebView *webView;
 @property (strong) SEBBrowserWindow *mainBrowserWindow;
-@property (weak) SEBBrowserWindow *activeBrowserWindow;
+@property (strong) SEBBrowserWindow *activeBrowserWindow;
 @property (strong) SEBDockController *dockController;
 @property (strong) SEBDockItemButton *sebDockItemButton;
 @property (strong) NSString *currentMainHost;

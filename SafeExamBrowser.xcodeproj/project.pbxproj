@@ -298,6 +298,8 @@
 		693D5A1614C59B4300E37C68 /* SEBBrowserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SEBBrowserWindowController.m; path = Classes/BrowserComponents/SEBBrowserWindowController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		693EB53C15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaultsController+SEBEncryptedUserDefaultsController.h"; sourceTree = "<group>"; };
 		693EB53D15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaultsController+SEBEncryptedUserDefaultsController.m"; sourceTree = "<group>"; };
+		693F09911BEE18C000DFCD8B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		693F09941BEE18DB00DFCD8B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SEBBrowserWindow.xib; sourceTree = "<group>"; };
 		693F135115767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+SEBEncryptedUserDefaults.h"; sourceTree = "<group>"; };
 		693F135215767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSUserDefaults+SEBEncryptedUserDefaults.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		6940A75F1853B2AD00D9D00D /* NSData+NSDataZIPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+NSDataZIPExtension.h"; sourceTree = "<group>"; };
@@ -1234,6 +1236,7 @@
 			children = (
 				69F0A32A1AD3FFDA008A3553 /* Base */,
 				697DF7F21BEDE37800F5B313 /* de */,
+				693F09911BEE18C000DFCD8B /* en */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -1243,6 +1246,7 @@
 			children = (
 				69F0A32B1AD3FFDA008A3553 /* Base */,
 				697DF7F31BEDE5EA00F5B313 /* de */,
+				693F09941BEE18DB00DFCD8B /* en */,
 			);
 			name = SEBBrowserWindow.xib;
 			sourceTree = "<group>";
