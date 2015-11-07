@@ -164,13 +164,24 @@
         <window title="Ressource nicht erlaubt" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" id="5ay-Fd-lF5" userLabel="URLNotAllowedAlert">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
-            <rect key="contentRect" x="340" y="419" width="571" height="313"/>
+            <rect key="contentRect" x="340" y="419" width="571" height="328"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
-            <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="52A-2p-iMa">
-                <rect key="frame" x="0.0" y="0.0" width="571" height="313"/>
+                <rect key="frame" x="0.0" y="0.0" width="571" height="328"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <textField horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KaS-Nf-iUK" customClass="SEBTextField">
+                        <rect key="frame" x="18" y="282" width="535" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="32" id="gL6-7e-C0G"/>
+                        </constraints>
+                        <animations/>
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Es ist nicht erlaubt, diesen Link zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:" id="B3X-Rp-SlN">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ig8-v8-XUJ">
                         <rect key="frame" x="455" y="5" width="102" height="32"/>
                         <string key="toolTip">Diese unbekannte URL/Ressource verwerfen, sodass sie nicht mehr angezeigt wird auf dieser Webseite. Neu laden der Seite zeigt verworfene URLs wieder an</string>
@@ -255,15 +266,6 @@ DQ
                             <action selector="changedFilterPattern:" target="3" id="Gp0-4P-oUd"/>
                         </connections>
                     </matrix>
-                    <textField horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KaS-Nf-iUK" customClass="SEBTextField">
-                        <rect key="frame" x="18" y="282" width="535" height="17"/>
-                        <animations/>
-                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Es ist nicht erlaubt, diesen Link zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:" id="B3X-Rp-SlN">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
                     <button toolTip="Alle unbekannten URLs/Ressourcen des aktullen HTTP-Requests verwerfen. Neu laden einer Seite zeigt verworfene URLs wieder an" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KId-E2-Y59">
                         <rect key="frame" x="14" y="5" width="127" height="32"/>
                         <animations/>
@@ -442,7 +444,7 @@ Gw
                 </constraints>
                 <animations/>
             </view>
-            <point key="canvasLocation" x="219" y="798.5"/>
+            <point key="canvasLocation" x="218.5" y="798"/>
         </window>
     </objects>
     <resources>
