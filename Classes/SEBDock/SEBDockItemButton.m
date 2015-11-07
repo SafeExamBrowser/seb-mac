@@ -62,11 +62,11 @@
             NSRect frameRect = NSMakeRect(0,0,155,21); // This will change based on the size you need
             self.label = [[NSTextField alloc] initWithFrame:frameRect];
             if (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_8) {
-                // We use white text color only when we have NSPopoverAppearanceHUD, so for OS X <= 10.9
+                // We use white text color only when we have NSPopoverAppearanceHUD, so for OS X <= 10.8
                 [self.label setTextColor:[NSColor whiteColor]];
                 [self.label setFont:[NSFont systemFontOfSize:14]];
             } else if (floor(NSAppKitVersionNumber) == NSAppKitVersionNumber10_9) {
-                // We use white text color only when we have NSPopoverAppearanceHUD, so for OS X <= 10.9
+                // We use white text color only when we have NSPopoverAppearanceHUD, so for OS X == 10.9
                 [self.label setTextColor:[NSColor whiteColor]];
                 [self.label setFont:[NSFont boldSystemFontOfSize:14]];
             } else {
