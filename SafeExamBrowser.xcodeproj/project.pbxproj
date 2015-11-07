@@ -345,6 +345,7 @@
 		696EB10016CAAFF600707B0F /* ApplicationsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ApplicationsIcon.png; path = Resources/Icons/ApplicationsIcon.png; sourceTree = "<group>"; };
 		696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ApplicationsIcon@2x.png"; path = "Resources/Icons/ApplicationsIcon@2x.png"; sourceTree = "<group>"; };
 		696F28E715751ED600780DA8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		697DF7F21BEDE37800F5B313 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBWindowSizeValueTransformer.h; sourceTree = "<group>"; };
 		6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBWindowSizeValueTransformer.m; sourceTree = "<group>"; };
 		6991A78F14471F5A00F9149D /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SynthesizeSingleton.h; path = Classes/Global/SynthesizeSingleton.h; sourceTree = "<group>"; };
@@ -445,7 +446,6 @@
 		69F45D3D1A2123C3009CF3AA /* SEBURLFilterExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBURLFilterExpression.m; sourceTree = "<group>"; };
 		69F60FAC19AB7A7E00A5F650 /* MenuTriangleDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MenuTriangleDown.png; path = Resources/Icons/MenuTriangleDown.png; sourceTree = "<group>"; };
 		69F60FAD19AB7A7E00A5F650 /* MenuTriangleDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MenuTriangleDown@2x.png"; path = "Resources/Icons/MenuTriangleDown@2x.png"; sourceTree = "<group>"; };
-		69F6497E1BCD2FE300576FD4 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		69F684CA143653880091CDA7 /* SEBBrowserWindowDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBBrowserWindowDocument.h; path = Classes/BrowserComponents/SEBBrowserWindowDocument.h; sourceTree = "<group>"; };
 		69F684CB143653880091CDA7 /* SEBBrowserWindowDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBBrowserWindowDocument.m; path = Classes/BrowserComponents/SEBBrowserWindowDocument.m; sourceTree = "<group>"; };
 		69F7B62514F411FB00FD0761 /* Safe Exam Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Safe Exam Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1233,7 +1233,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				69F0A32A1AD3FFDA008A3553 /* Base */,
-				69F6497E1BCD2FE300576FD4 /* de */,
+				697DF7F21BEDE37800F5B313 /* de */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
