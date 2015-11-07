@@ -1566,7 +1566,16 @@ bool insideMatrix(){
 
 - (IBAction) openPreferences:(id)sender {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"] && floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_8) {
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"]) {
+        if (floor(NSAppKitVersionNumber) == NSAppKitVersionNumber10_7) {
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:NSLocalizedString(@"Preferences Window Not Available on OS X 10.7", nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"On OS X 10.7 SEB can only be used as an exam client. Run SEB on OS X 10.8 or higher to create a .seb configuration file to configure this SEB client as well.", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [newAlert setAlertStyle:NSCriticalAlertStyle];
+            [newAlert runModal];
+            return;
+        }
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         if (![self.preferencesController preferencesAreOpen]) {
             // Load admin password from the system's user defaults database
