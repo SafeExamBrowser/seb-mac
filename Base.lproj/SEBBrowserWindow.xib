@@ -212,8 +212,8 @@ DQ
                             <action selector="URLFilterAlertBlock:" target="3" id="w10-Ug-lBe"/>
                         </connections>
                     </button>
-                    <matrix verticalHuggingPriority="750" misplaced="YES" allowsEmptySelection="NO" autosizesCells="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JTI-Ar-k0D">
-                        <rect key="frame" x="31" y="160" width="84" height="99"/>
+                    <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JTI-Ar-k0D">
+                        <rect key="frame" x="31" y="175" width="84" height="99"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="99" id="97k-RU-XCX"/>
                         </constraints>
@@ -253,8 +253,8 @@ DQ
                             <action selector="changedFilterPattern:" target="3" id="Gp0-4P-oUd"/>
                         </connections>
                     </matrix>
-                    <textField horizontalCompressionResistancePriority="250" misplaced="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KaS-Nf-iUK" customClass="SEBTextField">
-                        <rect key="frame" x="18" y="267" width="534" height="32"/>
+                    <textField horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KaS-Nf-iUK" customClass="SEBTextField">
+                        <rect key="frame" x="18" y="282" width="534" height="17"/>
                         <animations/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="It's not allowed to open this link! You can create a new filter rule based on the following patterns:" id="B3X-Rp-SlN">
                             <font key="font" metaFont="system"/>
@@ -276,8 +276,8 @@ Gw
                             <action selector="URLFilterAlertIgnoreAll:" target="3" id="UpQ-ZL-pzb"/>
                         </connections>
                     </button>
-                    <button toolTip="Click to copy the host part of the current URL into the custom filter expression text field" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sfT-nQ-Hte">
-                        <rect key="frame" x="123" y="219" width="83" height="19"/>
+                    <button toolTip="Click to copy the host part of the current URL into the custom filter expression text field" translatesAutoresizingMaskIntoConstraints="NO" id="sfT-nQ-Hte">
+                        <rect key="frame" x="123" y="234" width="83" height="19"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="4fm-eH-cuM"/>
                         </constraints>
@@ -290,8 +290,8 @@ Gw
                             <action selector="clickedHostPattern:" target="3" id="kTg-wn-Oqs"/>
                         </connections>
                     </button>
-                    <button toolTip="Click to copy the registred domain part of the current URL into the custom filter expression text field" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jnc-il-FuZ">
-                        <rect key="frame" x="123" y="239" width="54" height="19"/>
+                    <button toolTip="Click to copy the registred domain part of the current URL into the custom filter expression text field" translatesAutoresizingMaskIntoConstraints="NO" id="jnc-il-FuZ">
+                        <rect key="frame" x="123" y="254" width="54" height="19"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="6bD-qk-pYa"/>
                         </constraints>
@@ -304,8 +304,8 @@ Gw
                             <action selector="clickedDomainPattern:" target="3" id="cAs-Mb-b0i"/>
                         </connections>
                     </button>
-                    <button toolTip="Click to copy the host/path part of the current URL into the custom filter expression text field" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mvP-Sq-mee">
-                        <rect key="frame" x="123" y="199" width="110" height="19"/>
+                    <button toolTip="Click to copy the host/path part of the current URL into the custom filter expression text field" translatesAutoresizingMaskIntoConstraints="NO" id="mvP-Sq-mee">
+                        <rect key="frame" x="123" y="214" width="110" height="19"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="cpa-WY-9B7"/>
                         </constraints>
@@ -318,8 +318,8 @@ Gw
                             <action selector="clickedHostPathPattern:" target="3" id="k7E-8G-yNV"/>
                         </connections>
                     </button>
-                    <button toolTip="Click to restore the full current URL into the custom filter expression text field" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sIN-ro-zV3">
-                        <rect key="frame" x="123" y="159" width="233" height="19"/>
+                    <button toolTip="Click to restore the full current URL into the custom filter expression text field" translatesAutoresizingMaskIntoConstraints="NO" id="sIN-ro-zV3">
+                        <rect key="frame" x="123" y="174" width="233" height="19"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="Nd2-90-D0f"/>
                         </constraints>
@@ -332,8 +332,8 @@ Gw
                             <action selector="clickedFullURLPattern:" target="3" id="Bfo-nM-3Rx"/>
                         </connections>
                     </button>
-                    <button toolTip="Click to copy the host/directory part of the current URL into the custom filter expression text field" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KUW-Xw-ucJ">
-                        <rect key="frame" x="123" y="179" width="142" height="19"/>
+                    <button toolTip="Click to copy the host/directory part of the current URL into the custom filter expression text field" translatesAutoresizingMaskIntoConstraints="NO" id="KUW-Xw-ucJ">
+                        <rect key="frame" x="123" y="194" width="142" height="19"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="C1B-Ur-e6Z"/>
                         </constraints>
@@ -359,22 +359,22 @@ Gw
                             <action selector="URLFilterAlertIgnore:" target="3" id="5dq-hG-ux0"/>
                         </connections>
                     </button>
-                    <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kPG-Y4-EWv">
-                        <rect key="frame" x="20" y="44" width="530" height="106"/>
+                    <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kPG-Y4-EWv">
+                        <rect key="frame" x="20" y="44" width="530" height="121"/>
                         <string key="toolTip">Shows initially the full URL, can be edited to create a custom URL filter expression. You can use the wildcard character * too. Click the links above to copy the according pattern into this field</string>
                         <clipView key="contentView" id="c8z-5s-Dgt">
-                            <rect key="frame" x="1" y="1" width="528" height="104"/>
+                            <rect key="frame" x="1" y="1" width="528" height="119"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView importsGraphics="NO" richText="NO" findStyle="panel" allowsUndo="YES" usesRuler="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="ES5-oW-j8Q">
-                                    <rect key="frame" x="0.0" y="0.0" width="528" height="104"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="528" height="119"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="528" height="104"/>
+                                    <size key="minSize" width="528" height="119"/>
                                     <size key="maxSize" width="530" height="10000000"/>
                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="528" height="104"/>
+                                    <size key="minSize" width="528" height="119"/>
                                     <size key="maxSize" width="530" height="10000000"/>
                                     <connections>
                                         <outlet property="delegate" destination="3" id="1Rf-sl-Y1O"/>
