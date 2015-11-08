@@ -658,8 +658,8 @@
                                     <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableLogging" id="350"/>
                                 </connections>
                             </popUpButton>
-                            <textField verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="3me-3D-EEp">
-                                <rect key="frame" x="191" y="68" width="99" height="17"/>
+                            <textField verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="95" translatesAutoresizingMaskIntoConstraints="NO" id="3me-3D-EEp">
+                                <rect key="frame" x="191" y="68" width="99" height="16"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Save log file to:" id="nui-Ct-A6q">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>

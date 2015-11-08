@@ -545,7 +545,7 @@ Gw
                             <action selector="cancelEnterPassword:" target="543" id="726"/>
                         </connections>
                     </button>
-                    <textField horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="962" customClass="SEBTextField">
+                    <textField horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="374" translatesAutoresizingMaskIntoConstraints="NO" id="962" customClass="SEBTextField">
                         <rect key="frame" x="17" y="77" width="378" height="18"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="18" id="ptb-D9-jla"/>
@@ -584,7 +584,7 @@ Gw
                 <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="870">
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="201" translatesAutoresizingMaskIntoConstraints="NO" id="870">
                         <rect key="frame" x="325" y="12" width="205" height="170"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="170" id="LTe-P4-WGh"/>

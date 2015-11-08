@@ -170,10 +170,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="571" height="328"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KaS-Nf-iUK" customClass="SEBTextField">
+                    <textField horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="531" translatesAutoresizingMaskIntoConstraints="NO" id="KaS-Nf-iUK" customClass="SEBTextField">
                         <rect key="frame" x="18" y="282" width="535" height="32"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="32" id="gL6-7e-C0G"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="32" id="gL6-7e-C0G"/>
                         </constraints>
                         <animations/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Es ist nicht erlaubt, diesen Link zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:" id="B3X-Rp-SlN">
@@ -225,7 +225,7 @@ DQ
                             <action selector="URLFilterAlertBlock:" target="3" id="w10-Ug-lBe"/>
                         </connections>
                     </button>
-                    <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JTI-Ar-k0D">
+                    <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTI-Ar-k0D">
                         <rect key="frame" x="31" y="175" width="92" height="99"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="99" id="97k-RU-XCX"/>

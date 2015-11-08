@@ -60,8 +60,8 @@
                                     <outlet property="delegate" destination="-2" id="cBd-P3-GHs"/>
                                 </connections>
                             </textField>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="obm-ub-zDL">
-                                <rect key="frame" x="11" y="29" width="592" height="28"/>
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="588" translatesAutoresizingMaskIntoConstraints="NO" id="obm-ub-zDL">
+                                <rect key="frame" x="11" y="43" width="449" height="14"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="EbE-qf-e51"/>
                                 </constraints>

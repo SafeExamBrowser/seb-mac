@@ -211,7 +211,7 @@ DQ
                             <action selector="URLFilterAlertBlock:" target="3" id="w10-Ug-lBe"/>
                         </connections>
                     </button>
-                    <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JTI-Ar-k0D">
+                    <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTI-Ar-k0D">
                         <rect key="frame" x="31" y="175" width="84" height="99"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="99" id="97k-RU-XCX"/>
@@ -252,7 +252,7 @@ DQ
                             <action selector="changedFilterPattern:" target="3" id="Gp0-4P-oUd"/>
                         </connections>
                     </matrix>
-                    <textField horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KaS-Nf-iUK" customClass="SEBTextField">
+                    <textField horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="530" translatesAutoresizingMaskIntoConstraints="NO" id="KaS-Nf-iUK" customClass="SEBTextField">
                         <rect key="frame" x="18" y="282" width="534" height="32"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="32" id="bXp-QN-Zds"/>
