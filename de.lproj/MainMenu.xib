@@ -778,15 +778,15 @@ Gw
                         <rect key="frame" x="1" y="1" width="458" height="280"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView editable="NO" selectable="NO" drawsBackground="NO" importsGraphics="NO" verticallyResizable="NO" findStyle="bar" allowsNonContiguousLayout="YES" id="FId-0c-znr">
-                                <rect key="frame" x="0.0" y="0.0" width="458" height="280"/>
+                            <textView editable="NO" drawsBackground="NO" importsGraphics="NO" findStyle="bar" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="FId-0c-znr">
+                                <rect key="frame" x="0.0" y="0.0" width="458" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <size key="minSize" width="458" height="280"/>
-                                <size key="maxSize" width="460" height="1000"/>
+                                <size key="minSize" width="458" height="0.0"/>
+                                <size key="maxSize" width="460" height="2000"/>
                                 <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <size key="minSize" width="458" height="280"/>
-                                <size key="maxSize" width="460" height="1000"/>
+                                <size key="minSize" width="458" height="0.0"/>
+                                <size key="maxSize" width="460" height="2000"/>
                                 <connections>
                                     <binding destination="agr-W5-n2K" name="attributedString" keyPath="self.resignActiveLogString" id="xr6-Qg-1hN">
                                         <dictionary key="options">
@@ -858,6 +858,7 @@ Gw
         <viewController id="agr-W5-n2K" userLabel="SEB Locked View Controller" customClass="SEBLockedViewController">
             <connections>
                 <outlet property="lockedAlertPasswordField" destination="E6M-vB-bca" id="0bI-FS-sC0"/>
+                <outlet property="logScrollView" destination="h7g-WL-v0B" id="py4-EN-Zox"/>
                 <outlet property="passwordWrongLabel" destination="cZ9-xX-IzI" id="2Xz-pn-weo"/>
                 <outlet property="view" destination="Re1-C5-57e" id="bGA-Gx-ekw"/>
             </connections>

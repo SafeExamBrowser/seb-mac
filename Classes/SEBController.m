@@ -1033,6 +1033,16 @@ bool insideMatrix(){
 - (void) adjustScreenLocking: (id)sender {
     // This should only be done when the preferences window isn't open
     if (![self.preferencesController preferencesAreOpen]) {
+        BOOL reopenLockdownWindows = false;
+
+        DDLogDebug(@"Adjusting screen locking");
+
+        // Check if lockdown windows are open and adjust those too
+        if (self.lockdownWindows.count > 0) {
+            [self closeLockdownWindows];
+            reopenLockdownWindows = true;
+        }
+        
         // Close the covering windows
         // (which most likely are no longer there where they should be)
         [self closeCapWindows];
@@ -1045,6 +1055,11 @@ bool insideMatrix(){
         
         // We adjust the size of the main browser window
         [self.browserController adjustMainBrowserWindow];
+        
+        // Reopen the lockdown windows
+        if (reopenLockdownWindows) {
+            [self openLockdownWindows];
+        }
     }
 }
 
@@ -1061,8 +1076,43 @@ bool insideMatrix(){
 }
 
 
+- (void) openLockdownWindows
+{
+    self.lockdownWindows = [self fillScreensWithCoveringWindows:coveringWindowLockdownAlert windowLevel:NSScreenSaverWindowLevel excludeMenuBar:false];
+    NSWindow *coveringWindow = self.lockdownWindows[0];
+    NSView *coveringView = coveringWindow.contentView;
+    [coveringView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+    [coveringView setTranslatesAutoresizingMaskIntoConstraints:true];
+    
+    sebLockedViewController.sebController = self;
+    
+    [coveringView addSubview:sebLockedViewController.view];
+    
+    DDLogVerbose(@"Frame of superview: %f, %f", sebLockedViewController.view.superview.frame.size.width, sebLockedViewController.view.superview.frame.size.height);
+    NSMutableArray *constraints = [NSMutableArray new];
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:sebLockedViewController.view
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:sebLockedViewController.view.superview
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1.0
+                                                         constant:0.0]];
+    
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:sebLockedViewController.view
+                                                        attribute:NSLayoutAttributeCenterY
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:sebLockedViewController.view.superview
+                                                        attribute:NSLayoutAttributeCenterY
+                                                       multiplier:1.0
+                                                         constant:0.0]];
+    
+    [sebLockedViewController.view.superview addConstraints:constraints];
+}
+
+
 - (void) closeLockdownWindows
 {
+    [sebLockedViewController.view removeFromSuperview];
     [self closeCoveringWindows:self.lockdownWindows];
 }
 
@@ -1868,35 +1918,7 @@ bool insideMatrix(){
         }
         self.didResignActiveTime = [NSDate date];
         DDLogError(@"SessionDidResignActive: User switch / switch to login window detected!");
-        self.lockdownWindows = [self fillScreensWithCoveringWindows:coveringWindowLockdownAlert windowLevel:NSScreenSaverWindowLevel excludeMenuBar:false];
-        NSWindow *coveringWindow = self.lockdownWindows[0];
-        NSView *coveringView = coveringWindow.contentView;
-        [coveringView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
-        [coveringView setTranslatesAutoresizingMaskIntoConstraints:true];
-        
-        sebLockedViewController.sebController = self;
-        
-        [coveringView addSubview:sebLockedViewController.view];
-
-        DDLogVerbose(@"Frame of superview: %f, %f", sebLockedViewController.view.superview.frame.size.width, sebLockedViewController.view.superview.frame.size.height);
-        NSMutableArray *constraints = [NSMutableArray new];
-        [constraints addObject:[NSLayoutConstraint constraintWithItem:sebLockedViewController.view
-                                                            attribute:NSLayoutAttributeCenterX
-                                                            relatedBy:NSLayoutRelationEqual
-                                                               toItem:sebLockedViewController.view.superview
-                                                            attribute:NSLayoutAttributeCenterX
-                                                           multiplier:1.0
-                                                             constant:0.0]];
-        
-        [constraints addObject:[NSLayoutConstraint constraintWithItem:sebLockedViewController.view
-                                                            attribute:NSLayoutAttributeCenterY
-                                                            relatedBy:NSLayoutRelationEqual
-                                                               toItem:sebLockedViewController.view.superview
-                                                            attribute:NSLayoutAttributeCenterY
-                                                           multiplier:1.0
-                                                             constant:0.0]];
-        
-        [sebLockedViewController.view.superview addConstraints:constraints];
+        [self openLockdownWindows];
         
         // Add log string for resign active
         [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"User switch / switch to login window detected", nil)] withTime:self.didResignActiveTime];

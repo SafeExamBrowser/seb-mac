@@ -12,6 +12,8 @@
     
     __weak IBOutlet NSSecureTextField *lockedAlertPasswordField;
     __weak IBOutlet NSTextField *passwordWrongLabel;
+    __weak IBOutlet NSScrollView *logScrollView;
+
 }
 @end
 
@@ -54,7 +56,6 @@
         DDLogError(@"Lockdown alert: %@", lockedTimeInfo);
         [self appendErrorString:[NSString stringWithFormat:@"  %@\n", lockedTimeInfo] withTime:nil];
 
-        [self.view removeFromSuperview];
         [self.sebController closeLockdownWindows];
         [self.sebController openInfoHUD:lockedTimeInfo];
         return;
@@ -80,7 +81,24 @@
     [logString appendAttributedString:attributedErrorString];
     
     [self setResignActiveLogString:[logString copy]];
+    
+    [self scrollToBottom];
 }
 
+
+- (void)scrollToBottom
+{
+    NSPoint newScrollOrigin;
+    
+    if ([[logScrollView documentView] isFlipped]) {
+        newScrollOrigin = NSMakePoint(0.0,NSMaxY([[logScrollView documentView] frame])
+                                      -NSHeight([[logScrollView contentView] bounds]));
+    } else {
+        newScrollOrigin = NSMakePoint(0.0,0.0);
+    }
+    DDLogDebug(@"Log scroll view frame: %@, y coordinate to scroll to: %f", CGRectCreateDictionaryRepresentation([[logScrollView documentView] frame]), newScrollOrigin.y);
+
+    [[logScrollView documentView] scrollPoint:newScrollOrigin];
+}
 
 @end
