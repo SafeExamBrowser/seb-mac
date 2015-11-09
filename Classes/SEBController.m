@@ -1033,14 +1033,14 @@ bool insideMatrix(){
 - (void) adjustScreenLocking: (id)sender {
     // This should only be done when the preferences window isn't open
     if (![self.preferencesController preferencesAreOpen]) {
-        BOOL reopenLockdownWindows = false;
 
         DDLogDebug(@"Adjusting screen locking");
 
         // Check if lockdown windows are open and adjust those too
         if (self.lockdownWindows.count > 0) {
+            DDLogDebug(@"Adjusting lockdown windows");
             [self closeLockdownWindows];
-            reopenLockdownWindows = true;
+            [self openLockdownWindows];
         }
         
         // Close the covering windows
@@ -1055,11 +1055,6 @@ bool insideMatrix(){
         
         // We adjust the size of the main browser window
         [self.browserController adjustMainBrowserWindow];
-        
-        // Reopen the lockdown windows
-        if (reopenLockdownWindows) {
-            [self openLockdownWindows];
-        }
     }
 }
 
