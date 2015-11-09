@@ -800,9 +800,13 @@
                     [resultListener chooseFilename:lastDownloadPath];
                     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
                     [self makeKeyAndOrderFront:self];
-                    NSRunAlertPanel(NSLocalizedString(@"File Automatically Chosen", nil),
-                                    NSLocalizedString(@"SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.", nil),
-                                    NSLocalizedString(@"OK", nil), nil, nil);
+                    
+                    NSAlert *newAlert = [[NSAlert alloc] init];
+                    [newAlert setMessageText:NSLocalizedString(@"File Automatically Chosen", nil)];
+                    [newAlert setInformativeText:NSLocalizedString(@"SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.", nil)];
+                    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                    [newAlert setAlertStyle:NSInformationalAlertStyle];
+                    [newAlert runModal];
                     return;
                 }
             }
@@ -811,9 +815,12 @@
                 // if the policy is "Only allow to upload the same file downloaded before"
                 [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
                 [self makeKeyAndOrderFront:self];
-                NSRunAlertPanel(NSLocalizedString(@"File to Upload Not Found!", nil),
-                                NSLocalizedString(@"SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.", nil),
-                                NSLocalizedString(@"OK", nil), nil, nil);
+                NSAlert *newAlert = [[NSAlert alloc] init];
+                [newAlert setMessageText:NSLocalizedString(@"File to Upload Not Found!", nil)];
+                [newAlert setInformativeText:NSLocalizedString(@"SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.", nil)];
+                [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                [newAlert setAlertStyle:NSCriticalAlertStyle];
+                [newAlert runModal];
                 return;
             }
         }
@@ -1007,14 +1014,18 @@ willPerformClientRedirectToURL:(NSURL *)URL
             
             NSString *titleString = NSLocalizedString(@"Error Loading Page",nil);
             NSString *messageString = [error localizedDescription];
-            NSPanel *alertPanel = NSGetAlertPanel(titleString, messageString, NSLocalizedString(@"Retry", nil), NSLocalizedString(@"Cancel", nil), nil, nil);
-            [alertPanel setLevel:NSMainMenuWindowLevel+5];
-            
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
             [self makeKeyAndOrderFront:self];
-            int answer = NSRunAlertPanel(titleString, messageString, NSLocalizedString(@"Retry", nil), NSLocalizedString(@"Cancel", nil), nil, nil);
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:titleString];
+            [newAlert setInformativeText:messageString];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+            [newAlert setAlertStyle:NSCriticalAlertStyle];
+            int answer = [newAlert runModal];
+
             switch(answer) {
-                case NSAlertDefaultReturn:
+                case NSAlertFirstButtonReturn:
                     //Retry: try reloading
                     //self.browserController.currentMainHost = nil;
                     DDLogInfo(@"Trying to reload after %s: Request: %@ URL: %@", __FUNCTION__, [[frame provisionalDataSource] request], [[frame provisionalDataSource] request].URL);
@@ -1053,9 +1064,15 @@ willPerformClientRedirectToURL:(NSURL *)URL
             
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
             [self makeKeyAndOrderFront:self];
-            int answer = NSRunAlertPanel(titleString, messageString, NSLocalizedString(@"Retry", nil), NSLocalizedString(@"Cancel", nil), nil, nil);
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:titleString];
+            [newAlert setInformativeText:messageString];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+            [newAlert setAlertStyle:NSCriticalAlertStyle];
+            int answer = [newAlert runModal];
             switch(answer) {
-                case NSAlertDefaultReturn:
+                case NSAlertFirstButtonReturn:
                     //Retry: try reloading
                     //self.browserController.currentMainHost = setCurrentMainHost:nil;
                     DDLogInfo(@"Trying to reload after %s: Request: %@ URL: %@", __FUNCTION__, [[frame dataSource] request], [[frame dataSource] request].URL);

@@ -348,9 +348,12 @@
         } while (error && i>0);
         if (error || !sebDataDecrypted) {
             //wrong password entered in 5th try: stop reading .seb file
-            NSRunAlertPanel(NSLocalizedString(@"Cannot Decrypt Settings", nil),
-                            NSLocalizedString(@"You either entered the wrong password or these settings were saved with an incompatible SEB version.", nil),
-                            NSLocalizedString(@"OK", nil), nil, nil);
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:NSLocalizedString(@"Cannot Decrypt Settings", nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"You either entered the wrong password or these settings were saved with an incompatible SEB version.", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [newAlert setAlertStyle:NSCriticalAlertStyle];
+            [newAlert runModal];
             DDLogError(@"%s: Cannot Decrypt Settings: You either entered the wrong password or these settings were saved with an incompatible SEB version.", __FUNCTION__);
 
             return nil;
@@ -473,9 +476,12 @@
             } while ((!decryptedSebData || error) && i>0);
             if (error || !decryptedSebData) {
                 //wrong password entered in 5th try: stop reading .seb file
-                NSRunAlertPanel(NSLocalizedString(@"Cannot Decrypt SEB Settings", nil),
-                                NSLocalizedString(@"You either entered the wrong password or these settings were saved with an incompatible SEB version.", nil),
-                                NSLocalizedString(@"OK", nil), nil, nil);
+                NSAlert *newAlert = [[NSAlert alloc] init];
+                [newAlert setMessageText:NSLocalizedString(@"Cannot Decrypt Settings", nil)];
+                [newAlert setInformativeText:NSLocalizedString(@"You either entered the wrong password or these settings were saved with an incompatible SEB version.", nil)];
+                [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                [newAlert setAlertStyle:NSCriticalAlertStyle];
+                [newAlert runModal];
                 DDLogError(@"%s: Cannot Decrypt SEB Settings: You either entered the wrong password or these settings were saved with an incompatible SEB version.", __FUNCTION__);
 
                 return nil;
@@ -550,9 +556,12 @@
                 
                 if (!passwordsMatch) {
                     //wrong password entered in 5th try: stop reading .seb file
-                    NSRunAlertPanel(NSLocalizedString(@"Cannot Reconfigure SEB Settings", nil),
-                                    NSLocalizedString(@"You didn't enter the correct current SEB administrator password.", nil),
-                                    NSLocalizedString(@"OK", nil), nil, nil);
+                    NSAlert *newAlert = [[NSAlert alloc] init];
+                    [newAlert setMessageText:NSLocalizedString(@"Cannot Reconfigure SEB Settings", nil)];
+                    [newAlert setInformativeText:NSLocalizedString(@"You didn't enter the correct current SEB administrator password.", nil)];
+                    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                    [newAlert setAlertStyle:NSCriticalAlertStyle];
+                    [newAlert runModal];
                     DDLogError(@"%s: Cannot Reconfigure SEB Settings: You didn't enter the correct current SEB administrator password.", __FUNCTION__);
                     
                     return nil;
@@ -685,9 +694,12 @@
     
     if (!passwordsMatch) {
         //wrong password entered in 5th try: stop reading .seb file
-        NSRunAlertPanel(NSLocalizedString(@"Loading Settings", nil),
-                        NSLocalizedString(@"If you don't enter the right administrator password from these settings you cannot open them.", nil),
-                        NSLocalizedString(@"OK", nil), nil, nil);
+        NSAlert *newAlert = [[NSAlert alloc] init];
+        [newAlert setMessageText:NSLocalizedString(@"Loading Settings", nil)];
+        [newAlert setInformativeText:NSLocalizedString(@"If you don't enter the right administrator password from these settings you cannot open them.", nil)];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [newAlert setAlertStyle:NSCriticalAlertStyle];
+        [newAlert runModal];
         DDLogError(@"%s: Loading Settings: If you don't enter the right administrator password from these settings you cannot open them.", __FUNCTION__);
         
         return NO;
@@ -717,9 +729,12 @@
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     SecKeyRef privateKeyRef = [keychainManager getPrivateKeyFromPublicKeyHash:publicKeyHash];
     if (!privateKeyRef) {
-        NSRunAlertPanel(NSLocalizedString(@"Error Decrypting Settings", nil),
-                        NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil),
-                        NSLocalizedString(@"OK", nil), nil, nil);
+        NSAlert *newAlert = [[NSAlert alloc] init];
+        [newAlert setMessageText:NSLocalizedString(@"Error Decrypting Settings", nil)];
+        [newAlert setInformativeText:NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil)];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [newAlert setAlertStyle:NSCriticalAlertStyle];
+        [newAlert runModal];
         DDLogError(@"%s: Error Decrypting Settings: The identity needed to decrypt settings has not been found in the keychain!", __FUNCTION__);
 
         return nil;
@@ -843,18 +858,24 @@
         // in all other cases:
         // Check if no password entered and no identity selected
         if (settingsPassword.length == 0 && !identityRef) {
-            int answer = NSRunAlertPanel(NSLocalizedString(@"No Encryption Credentials Chosen",nil), NSLocalizedString(@"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted settings file, but this is not recommended for use in exams.",nil),
-                                         NSLocalizedString(@"OK",nil), NSLocalizedString(@"Save unencrypted",nil), nil);
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:NSLocalizedString(@"No Encryption Credentials Chosen", nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted settings file, but this is not recommended for use in exams.", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Save unencrypted", nil)];
+            [newAlert setAlertStyle:NSWarningAlertStyle];
+            int answer = [newAlert runModal];
+
             switch(answer)
             {
-                case NSAlertDefaultReturn:
+                case NSAlertFirstButtonReturn:
                     // Post a notification to switch to the Config File prefs pane
                     [[NSNotificationCenter defaultCenter]
                      postNotificationName:@"switchToConfigFilePane" object:self];
                     // don't save the config data
                     return nil;
                     
-                case NSAlertAlternateReturn:
+                case NSAlertSecondButtonReturn:
                     // save .seb config data unencrypted
                     return encryptedSebData;
                     

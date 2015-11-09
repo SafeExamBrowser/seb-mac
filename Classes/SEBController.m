@@ -136,9 +136,12 @@ bool insideMatrix();
         
         // Check if SEB is in exam mode = private UserDefauls are switched on
         if (NSUserDefaults.userDefaultsPrivate) {
-            NSRunAlertPanel(NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil),
-                            NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil),
-                            NSLocalizedString(@"OK", nil), nil, nil);
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [newAlert setAlertStyle:NSCriticalAlertStyle];
+            [newAlert runModal];
             return YES;
         }
         
@@ -491,9 +494,12 @@ bool insideMatrix();
                 // Bit 31 is set: VMware Hypervisor running (?)
                 // or gestaltX86AdditionalFeatures values of VirtualBox detected
                 DDLogError(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine! gestaltX86AdditionalFeatures = %X", myAttrs);
-                NSRunAlertPanel(NSLocalizedString(@"Virtual Machine Detected!", nil),
-                                NSLocalizedString(@"You are not allowed to run SEB inside a virtual machine!", nil),
-                                NSLocalizedString(@"Quit", nil), nil, nil);
+                NSAlert *newAlert = [[NSAlert alloc] init];
+                [newAlert setMessageText:NSLocalizedString(@"Virtual Machine Detected!", nil)];
+                [newAlert setInformativeText:NSLocalizedString(@"You are not allowed to run SEB inside a virtual machine!", nil)];
+                [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+                [newAlert setAlertStyle:NSCriticalAlertStyle];
+                [newAlert runModal];
                 quittingMyself = TRUE; //SEB is terminating itself
                 [NSApp terminate: nil]; //quit SEB
                 
@@ -525,27 +531,6 @@ bool insideMatrix();
     // Open the main browser window
     [self.browserController openMainBrowserWindow];
     
-	// Due to the infamous Flash plugin we completely disable plugins in the 32-bit build
-#ifdef __i386__        // 32-bit Intel build
-	[[self.webView preferences] setPlugInsEnabled:NO];
-#endif
-	
-//    if ([[MyGlobals sharedMyGlobals] preferencesReset] == YES) {
-//#ifdef DEBUG
-//        DDLogError(@"Presenting alert for 'Local SEB settings have been reset' after a delay of 2s");
-//#endif
-//        [self performSelector:@selector(presentPreferencesCorruptedError) withObject: nil afterDelay: 2];
-//    }
-    
-/*	if (firstStart) {
-		NSString *titleString = NSLocalizedString(@"Important Notice for First Time Users", nil);
-		NSString *messageString = NSLocalizedString(@"FirstTimeUserNotice", nil);
-		NSRunAlertPanel(titleString, messageString, NSLocalizedString(@"OK", nil), nil, nil);
-#ifdef DEBUG
-        DDLogDebug(@"%@\n%@",titleString, messageString);
-#endif
-	}*/
-    
 // Handling of Hotkeys for Preferences-Window
 	
 	// Register Carbon event handlers for the required hotkeys
@@ -571,9 +556,6 @@ bool insideMatrix();
 
     // Show the About SEB Window
     [aboutWindow showAboutWindowForSeconds:2];
-
-//    [self performSelector:@selector(performAfterStartActions:) withObject: nil afterDelay: 2];
-
 }
 
 
@@ -1489,11 +1471,16 @@ bool insideMatrix(){
     }
     
     // if no quit password is required, then confirm quitting
-    int answer = NSRunAlertPanel(restartExamText, NSLocalizedString(@"Are you sure?",nil),
-                                 NSLocalizedString(@"Cancel",nil), NSLocalizedString(@"OK",nil), nil);
+    NSAlert *newAlert = [[NSAlert alloc] init];
+    [newAlert setMessageText:restartExamText];
+    [newAlert setInformativeText:NSLocalizedString(@"Are you sure?", nil)];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [newAlert setAlertStyle:NSWarningAlertStyle];
+    int answer = [newAlert runModal];
     switch(answer)
     {
-        case NSAlertDefaultReturn:
+        case NSAlertFirstButtonReturn:
             return; //Cancel: don't restart exam
         default:
         {
@@ -1588,11 +1575,16 @@ bool insideMatrix(){
             }
         } else {
         // if no quit password is required, then confirm quitting
-            int answer = NSRunAlertPanel(NSLocalizedString(@"Quit Safe Exam Browser",nil), NSLocalizedString(@"Are you sure you want to quit SEB?",nil),
-                                         NSLocalizedString(@"Cancel",nil), NSLocalizedString(@"Quit",nil), nil);
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:NSLocalizedString(@"Quit Safe Exam Browser",nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"Are you sure you want to quit SEB?", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+            [newAlert setAlertStyle:NSWarningAlertStyle];
+            int answer = [newAlert runModal];
             switch(answer)
             {
-                case NSAlertDefaultReturn:
+                case NSAlertFirstButtonReturn:
                     return; //Cancel: don't quit
                 default:
                 {
@@ -1716,12 +1708,16 @@ bool insideMatrix(){
 - (void)requestedQuitWPwd:(NSNotification *)notification
 {
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-    
-    int answer = NSRunAlertPanel(NSLocalizedString(@"Quit Safe Exam Browser",nil), NSLocalizedString(@"Are you sure you want to quit SEB?",nil),
-                                 NSLocalizedString(@"Cancel",nil), NSLocalizedString(@"Quit",nil), nil);
+    NSAlert *newAlert = [[NSAlert alloc] init];
+    [newAlert setMessageText:NSLocalizedString(@"Quit Safe Exam Browser",nil)];
+    [newAlert setInformativeText:NSLocalizedString(@"Are you sure you want to quit SEB?", nil)];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+    [newAlert setAlertStyle:NSWarningAlertStyle];
+    int answer = [newAlert runModal];
     switch(answer)
     {
-        case NSAlertDefaultReturn:
+        case NSAlertFirstButtonReturn:
             return; //Cancel: don't quit
         default:
         {

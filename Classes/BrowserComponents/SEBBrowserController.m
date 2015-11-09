@@ -410,9 +410,12 @@
         // Check if SEB is in exam mode = private UserDefauls are switched on
         if (NSUserDefaults.userDefaultsPrivate) {
             // If yes, we don't download the .seb file
-            NSRunAlertPanel(NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil),
-                            NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil),
-                            NSLocalizedString(@"OK", nil), nil, nil);
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [newAlert setAlertStyle:NSCriticalAlertStyle];
+            [newAlert runModal];
         } else {
             // SEB isn't in exam mode: reconfiguring it is allowed
             NSError *error = nil;

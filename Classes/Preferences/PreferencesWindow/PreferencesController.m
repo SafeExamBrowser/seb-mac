@@ -454,10 +454,12 @@
 // Show alert that the password with passed name string isn't confirmed
 - (void) alertForUnconfirmedPassword:(NSString *)passwordName
 {
-    NSRunAlertPanel(NSLocalizedString(@"Unconfirmed Password", nil),
-                    @"%@",
-                    NSLocalizedString(@"OK", nil), nil, nil,
-                    [NSString stringWithFormat:NSLocalizedString(@"Please confirm the %@ password first.", nil), passwordName]);
+    NSAlert *newAlert = [[NSAlert alloc] init];
+    [newAlert setMessageText:NSLocalizedString(@"Unconfirmed Password", nil)];
+    [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Please confirm the %@ password first.", nil), passwordName]];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [newAlert setAlertStyle:NSInformationalAlertStyle];
+    [newAlert runModal];
 }
 
 
@@ -849,9 +851,13 @@
             NSError *error;
             if (![encryptedSebData writeToURL:currentConfigFileURL options:NSDataWritingAtomic error:&error]) {
                 // If the prefs file couldn't be saved
-                NSRunAlertPanel(NSLocalizedString(@"Saving Settings Failed", nil),
-                                @"%@", [error localizedDescription],
-                                NSLocalizedString(@"OK", nil), nil, nil);
+                NSAlert *newAlert = [[NSAlert alloc] init];
+                [newAlert setMessageText:NSLocalizedString(@"Saving Settings Failed", nil)];
+                [newAlert setInformativeText:[error localizedDescription]];
+                [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                [newAlert setAlertStyle:NSCriticalAlertStyle];
+                [newAlert runModal];
+
                 [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
                 [preferences setSecureObject:oldBrowserExamKeySalt forKey:@"org_safeexambrowser_SEB_examKeySalt"];
                 return NO;
@@ -884,9 +890,13 @@
                 if (![encryptedSebData writeToURL:prefsFileURL options:NSDataWritingAtomic error:&error]) {
                     //if (![filteredPrefsDict writeToURL:prefsFileURL atomically:YES]) {
                     // If the prefs file couldn't be written
-                    NSRunAlertPanel(NSLocalizedString(@"Saving Settings Failed", nil),
-                                    @"%@", [error localizedDescription],
-                                    NSLocalizedString(@"OK", nil), nil, nil);
+                    NSAlert *newAlert = [[NSAlert alloc] init];
+                    [newAlert setMessageText:NSLocalizedString(@"Saving Settings Failed", nil)];
+                    [newAlert setInformativeText:[error localizedDescription]];
+                    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                    [newAlert setAlertStyle:NSCriticalAlertStyle];
+                    [newAlert runModal];
+
                     [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
                     [preferences setSecureObject:oldBrowserExamKeySalt forKey:@"org_safeexambrowser_SEB_examKeySalt"];
                     
