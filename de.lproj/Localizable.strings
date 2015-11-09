@@ -287,6 +287,9 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 "OS X" = "OS X";
 
 /* No comment provided by engineer. */
+"On OS X 10.7 SEB can only be used as an exam client. Run SEB on OS X 10.8 or higher to create a .seb configuration file to configure this SEB client as well." = "Unter OS X 10.7 kann SEB nur als Prüfungs-Client verwendet werden. Benutzen Sie SEB unter OS X 10.8 oder neuer um eine .seb Konfigurationsdatei zu erstellen, mittels derer auch dieser Prüfungs-Client konfiguriert werden kann.";
+
+/* No comment provided by engineer. */
 "Opening New Settings Failed!" = "Öffnen neuer Einstellungen fehlgeschlagen!";
 
 /* No comment provided by engineer. */
@@ -312,6 +315,9 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 
 /* No comment provided by engineer. */
 "Please enter correct confirm password" = "Bitte gleiches Passwort erneut eingeben";
+
+/* No comment provided by engineer. */
+"Preferences Window Not Available on OS X 10.7" = "Einstellungen-Fenster nicht verfügbar unter OS X 10.7";
 
 /* No comment provided by engineer. */
 "Quit" = "Beenden";
