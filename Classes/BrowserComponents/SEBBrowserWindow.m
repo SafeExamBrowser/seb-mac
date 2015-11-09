@@ -1207,8 +1207,26 @@ didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 }
 
 
-// Opening Links in New Windows //
+// Helper method to extract a filename from an anchor element with a "download" attribute
+- (NSString *) getFilenameFromHTMLAnchorElement:(DOMHTMLAnchorElement *)parentNode
+{
+    NSString *filename;
+    NSString *parentOuterHTML = parentNode.outerHTML;
+    NSRange rangeOfDownloadAttribute = [parentOuterHTML rangeOfString:@" download='"];
+    if (rangeOfDownloadAttribute.location != NSNotFound) {
+        filename = [parentOuterHTML substringFromIndex:rangeOfDownloadAttribute.location + rangeOfDownloadAttribute.length];
+        filename = [filename substringToIndex:[filename rangeOfString:@"'"].location];
+    } else {
+        rangeOfDownloadAttribute = [parentOuterHTML rangeOfString:@" download=\""];
+        if (rangeOfDownloadAttribute.location != NSNotFound) {
+            filename = [parentOuterHTML substringFromIndex:rangeOfDownloadAttribute.location + rangeOfDownloadAttribute.length];
+            filename = [filename substringToIndex:[filename rangeOfString:@"\""].location];
+        }
+    }
+    return filename;
+}
 
+// Opening Links in New Windows //
 // Handling of requests from JavaScript and web plugins to open a link in a new window
 - (void)webView:(SEBWebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation 
         request:(NSURLRequest *)request 
@@ -1222,26 +1240,23 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
     
     if (request) {
         // Get the DOMNode from the information about the action that triggered the navigation request
+        self.downloadFilename = nil;
         NSDictionary *webElementDict = [actionInformation valueForKey:@"WebActionElementKey"];
         DOMNode *webElementDOMNode = [webElementDict valueForKey:@"WebElementDOMNode"];
         DOMHTMLAnchorElement *parentNode = (DOMHTMLAnchorElement *)webElementDOMNode.parentNode;
         if ([parentNode.nodeName isEqualToString:@"A"]) {
-            NSString *filename;
-            NSString *parentOuterHTML = parentNode.outerHTML;
-            NSRange rangeOfDownloadAttribute = [parentOuterHTML rangeOfString:@" download='"];
-            if (rangeOfDownloadAttribute.location != NSNotFound) {
-                filename = [parentOuterHTML substringFromIndex:rangeOfDownloadAttribute.location + rangeOfDownloadAttribute.length];
-                filename = [filename substringToIndex:[filename rangeOfString:@"'"].location];
-            } else {
-                rangeOfDownloadAttribute = [parentOuterHTML rangeOfString:@" download=\""];
-                if (rangeOfDownloadAttribute.location != NSNotFound) {
-                    filename = [parentOuterHTML substringFromIndex:rangeOfDownloadAttribute.location + rangeOfDownloadAttribute.length];
-                    filename = [filename substringToIndex:[filename rangeOfString:@"\""].location];
+            self.downloadFilename = [self getFilenameFromHTMLAnchorElement:parentNode];
+        } else {
+            // Check if one of the children is a anchor
+            DOMHTMLCollection *childrenNodes = parentNode.children;
+            int i;
+            for (i = 0; i < childrenNodes.length; i++) {
+                DOMHTMLAnchorElement *childNode = (DOMHTMLAnchorElement *)[childrenNodes item:i];
+                if ([childNode.nodeName isEqualToString:@"A"]) {
+                    self.downloadFilename = [self getFilenameFromHTMLAnchorElement:childNode];
+                    break;
                 }
             }
-            self.downloadFilename = filename;
-        } else {
-            self.downloadFilename = nil;
         }
         
         // Check if quit URL has been clicked (regardless of current URL Filter)
