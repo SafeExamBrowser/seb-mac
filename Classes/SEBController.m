@@ -958,7 +958,7 @@ bool insideMatrix(){
         // If showing menu bar
         // On OS X >= 10.10 we exclude the menu bar on all screens from the covering windows
         // On OS X <= 10.9 we exclude the menu bar only on the screen which actually displays the menu bar
-        if (excludeMenuBar && (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_10 || iterScreen == 0)) {
+        if (excludeMenuBar && (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_10 || iterScreen == screens[0])) {
             // Reduce size of covering background windows to not cover the menu bar
             rect.size.height -= 22;
         }
