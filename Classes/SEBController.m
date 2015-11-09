@@ -928,7 +928,7 @@ bool insideMatrix(){
         windowLevel = NSNormalWindowLevel;
     }
 
-    BOOL excludeMenuBar = !allowSwitchToThirdPartyApps && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
+    BOOL excludeMenuBar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
     
     NSArray *backgroundCoveringWindows = [self fillScreensWithCoveringWindows:coveringWindowBackground windowLevel:windowLevel excludeMenuBar:excludeMenuBar];
     if (!self.capWindows) {
@@ -955,8 +955,10 @@ bool insideMatrix(){
         rect.origin.x = 0;
         rect.origin.y = 0;
 
-        // If switching to third party apps isn't allowed and showing menu bar
-        if (excludeMenuBar) {
+        // If showing menu bar
+        // On OS X >= 10.10 we exclude the menu bar on all screens from the covering windows
+        // On OS X <= 10.9 we exclude the menu bar only on the screen which actually displays the menu bar
+        if (excludeMenuBar && (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_10 || iterScreen == 0)) {
             // Reduce size of covering background windows to not cover the menu bar
             rect.size.height -= 22;
         }
