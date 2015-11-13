@@ -66,7 +66,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         scLocation = [preferences secureStringForKey:@"currentDestination"];
         if (scLocation.length == 0) {
             // in case it wasn't saved properly, we reset to the OS X default sc location
-            scLocation = @"~/Desktop";
+            scLocation = [@"~/Desktop" stringByExpandingTildeInPath];
             DDLogWarn(@"The persistantly saved original screencapture location wasn't found, it has been reset to the OS X default location %@", scLocation);
         }
     } else {
@@ -143,6 +143,16 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
     if (scLocation.length > 0) {
 
         /// Unblock screenshots
+        
+        // Check if the saved path really exists
+        BOOL isDir;
+        NSFileManager *fileManager= [NSFileManager defaultManager];
+        if(![fileManager fileExistsAtPath:scLocation isDirectory:&isDir]) {
+            // No, the directory for storing screenshots doesn't exist
+            // probably something went wrong sometimes ago (SEB crashed in a bad moment)
+            // so restore the screen capture path to the OS X standard (user's desktop)
+            scLocation = [@"~/Desktop" stringByExpandingTildeInPath];
+        }
         
         // Restore original SC path
         if ([self executeSCAppleScript:scLocation]) {

@@ -1,0 +1,51 @@
+/* Class = "NSButton"; ibShadowedToolTip = "Usually to be used with permitted third party applications for which you want to provide files to be downloaded."; ObjectID = "13"; */
+"13.ibShadowedToolTip" = "Normalerweise zu verwenden, wenn das Umschalten auf Drittapplikationen erlaubt ist oder wenn die HTML5 Download-Funktion für lokale Backups benutzt wird";
+
+/* Class = "NSButtonCell"; title = "Allow downloading and uploading files"; ObjectID = "14"; */
+"14.title" = "Download und Upload erlauben";
+
+/* Class = "NSTextFieldCell"; title = "Save downloaded files to:"; ObjectID = "23"; */
+"23.title" = "Downloads sichern in:";
+
+/* Class = "NSTextFieldCell"; title = "Download directory Windows:"; ObjectID = "24Q-1c-lTs"; */
+"24Q-1c-lTs.title" = "Download-Verzeichnis Windows:";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Choose download directory"; ObjectID = "32"; */
+"32.ibShadowedToolTip" = "Download-Verzeichnis auswählen";
+
+/* Class = "NSMenuItem"; title = "Directory"; ObjectID = "35"; */
+"35.title" = "Verzeichnis";
+
+/* Class = "NSMenuItem"; title = "Other…"; ObjectID = "36"; */
+"36.title" = "Auswählen …";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Downloaded files will be opened with the according application, which has to be set correctly in the system for each used file type"; ObjectID = "38"; */
+"38.ibShadowedToolTip" = "Geladene Dateien werden mit der zugehörigen Applikation geöffnet, diese muss im System für den entsprechenden Dateityp korrekt eingestellt sein";
+
+/* Class = "NSButtonCell"; title = "Open files after downloading"; ObjectID = "39"; */
+"39.title" = "Dateien nach Download öffnen";
+
+/* Class = "NSButton"; ibShadowedToolTip = "PDF files will not be displayed by SEB but downloaded and openend (if 'Open files after downloading' is active!) by the application set in Finder (usually Preview or Adobe Acrobat)."; ObjectID = "76"; */
+"76.ibShadowedToolTip" = "PDF-Dateien werden nicht von SEB angezeigt, sondern heruntergeladen und geöffnet (wenn 'Dateien nach dem Laden öffnen' aktiviert ist) und zwar mit der im Finder eingestellten Applikation (üblicherweise Vorschau oder Adobe Acrobat)";
+
+/* Class = "NSButtonCell"; title = "Download and open PDF files instead of displaying them inline"; ObjectID = "77"; */
+"77.title" = "PDF-Dateien herunterladen und öffnen anstatt direkt anzeigen";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "SEB can let users choose the file to upload or automatically use the same file which was downloaded before. If not found, a file requester or an error is presented depending on this setting."; ObjectID = "93"; */
+"93.ibShadowedToolTip" = "SEB kann Benutzer die Upload-Datei manuell auswählen lassen oder automatisch dieselbe Datei auswählen, die zuvor heruntergeladen wurde. Wenn die Datei nicht gefunden wurde, wird ein Dateidialog oder eine Fehlermeldung angezeigt. Falls zuvor mehrere Dateien heruntergeladen wurden, zeigt SEB diese nacheinander an, beginnend mit der zuletzt geladenen";
+
+/* Class = "NSTextFieldCell"; title = "Choose file to upload …"; ObjectID = "100"; */
+"100.title" = "Datei für Upload auswählen …";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Download and open .seb config files regardless if downloading and opening other file types is allowed"; ObjectID = "265"; */
+"265.ibShadowedToolTip" = ".seb Konfigurationsdateien herunterladen und öffnen, unabhängig davon ob der Download und das Öffnen von anderen Dateitypen erlaubt ist";
+
+/* Class = "NSButtonCell"; title = "Download and open SEB config files"; ObjectID = "266"; */
+"266.title" = "SEB Konfigurationsdateien herunterladen und öffnen";
+
+/* Class = "NSButton"; ibShadowedToolTip = "The Adobe Acrobat Reader browser plugin should only be used on secured managed Mac computers, at it allows to access the file system and to cloud services"; ObjectID = "AAd-LS-TUP"; */
+"AAd-LS-TUP.ibShadowedToolTip" = "Das Adobe Acrobat Reader Browser Plug-In sollte nur auf abgesicherten verwalteten Computern verwendet werden, weil es begrenzten Zugriff auf das Dateisystem und unbegrenzten auf Cloud-Dienste erlaubt";
+
+/* Class = "NSButtonCell"; title = "Allow using Acrobat Reader PDF plugin (insecure)"; ObjectID = "zhK-R4-XtF"; */
+"zhK-R4-XtF.title" = "Acrobat Reader PDF Plug-In erlauben (unsicher)";
+

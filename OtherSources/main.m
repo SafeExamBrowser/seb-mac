@@ -35,13 +35,24 @@
 
 #import <Cocoa/Cocoa.h>
 #import "NSWindow+SEBWindow.h"
+#import "WebKit+WebKitExtensions.h"
 
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
 
+//        NSBundle *webKit = [NSBundle bundleWithIdentifier:@"com.apple.WebKit"];
+//        if (webKit.loaded) {
+//            [webKit unload];
+//        }
+//        if (!webKit.loaded) {
+//            [webKit load];
+//        }
+
     // Swizzle NSWindow setLevel: Method
     [NSWindow setupChangingWindowLevels];
+    [WebView setupOverridePlugins];
+
     //[NSUserDefaults setupPrivateUserDefaults];
 
     return NSApplicationMain(argc,  (const char **) argv);

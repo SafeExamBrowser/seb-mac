@@ -43,7 +43,7 @@
 #import "CapView.h"
 #import "CapWindow.h"
 #import "CapWindowController.h"
-#import "SEBLockedView.h"
+#import "SEBLockedViewController.h"
 
 #import "AboutWindow.h"
 #import "SEBBrowserController.h"
@@ -53,6 +53,7 @@
 
 #import "SEBDockController.h"
 #import "SEBDockItem.h"
+#import "SEBDockItemTime.h"
 
 #import "SEBEncryptedUserDefaultsController.h"
 #import "SEBSystemManager.h"
@@ -63,7 +64,7 @@
 @class SEBSystemManager;
 @class SEBDockController;
 @class SEBBrowserController;
-@class SEBLockedView;
+@class SEBLockedViewController;
 
 
 @interface SEBController : NSObject <NSApplicationDelegate> {
@@ -79,10 +80,14 @@
     IBOutlet NSMenuItem *configMenu;
     IBOutlet NSMenu *settingsMenu;
     IBOutlet NSView *passwordView;
-    IBOutlet SEBLockedView *sebLockedView;
+    IBOutlet SEBLockedViewController *sebLockedViewController;
+    IBOutlet NSPanel *informationHUD;
+    IBOutlet NSTextField *informationHUDLabel;
 
     IBOutlet NSWindow *enterPasswordDialogWindow;
     IBOutlet NSTextField *enterPasswordDialog;
+    
+    IBOutlet SEBDockItemTime *sebDockItemTime;
     	
 	IOPMAssertionID assertionID1;
 	IOPMAssertionID assertionID2;
@@ -119,6 +124,7 @@
 - (BOOL) applicationShouldOpenUntitledFile:(NSApplication *)sender;
 
 - (void) closeLockdownWindows;
+- (void) openInfoHUD:(NSString *)lockedTimeInfo;
 
 @property(readwrite) BOOL f3Pressed;
 @property(readwrite) BOOL quittingMyself;
@@ -132,5 +138,6 @@
 @property(strong) SEBBrowserController *browserController;
 @property(strong) NSDate *didResignActiveTime;
 @property(strong) NSDate *didBecomeActiveTime;
+@property(strong) NSDate *didResumeExamTime;
 
 @end

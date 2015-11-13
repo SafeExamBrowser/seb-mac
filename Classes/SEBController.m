@@ -136,9 +136,12 @@ bool insideMatrix();
         
         // Check if SEB is in exam mode = private UserDefauls are switched on
         if (NSUserDefaults.userDefaultsPrivate) {
-            NSRunAlertPanel(NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil),
-                            NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil),
-                            NSLocalizedString(@"OK", nil), nil, nil);
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [newAlert setAlertStyle:NSCriticalAlertStyle];
+            [newAlert runModal];
             return YES;
         }
         
@@ -491,9 +494,12 @@ bool insideMatrix();
                 // Bit 31 is set: VMware Hypervisor running (?)
                 // or gestaltX86AdditionalFeatures values of VirtualBox detected
                 DDLogError(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine! gestaltX86AdditionalFeatures = %X", myAttrs);
-                NSRunAlertPanel(NSLocalizedString(@"Virtual Machine Detected!", nil),
-                                NSLocalizedString(@"You are not allowed to run SEB inside a virtual machine!", nil),
-                                NSLocalizedString(@"Quit", nil), nil, nil);
+                NSAlert *newAlert = [[NSAlert alloc] init];
+                [newAlert setMessageText:NSLocalizedString(@"Virtual Machine Detected!", nil)];
+                [newAlert setInformativeText:NSLocalizedString(@"You are not allowed to run SEB inside a virtual machine!", nil)];
+                [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+                [newAlert setAlertStyle:NSCriticalAlertStyle];
+                [newAlert runModal];
                 quittingMyself = TRUE; //SEB is terminating itself
                 [NSApp terminate: nil]; //quit SEB
                 
@@ -525,27 +531,6 @@ bool insideMatrix();
     // Open the main browser window
     [self.browserController openMainBrowserWindow];
     
-	// Due to the infamous Flash plugin we completely disable plugins in the 32-bit build
-#ifdef __i386__        // 32-bit Intel build
-	[[self.webView preferences] setPlugInsEnabled:NO];
-#endif
-	
-//    if ([[MyGlobals sharedMyGlobals] preferencesReset] == YES) {
-//#ifdef DEBUG
-//        DDLogError(@"Presenting alert for 'Local SEB settings have been reset' after a delay of 2s");
-//#endif
-//        [self performSelector:@selector(presentPreferencesCorruptedError) withObject: nil afterDelay: 2];
-//    }
-    
-/*	if (firstStart) {
-		NSString *titleString = NSLocalizedString(@"Important Notice for First Time Users", nil);
-		NSString *messageString = NSLocalizedString(@"FirstTimeUserNotice", nil);
-		NSRunAlertPanel(titleString, messageString, NSLocalizedString(@"OK", nil), nil, nil);
-#ifdef DEBUG
-        DDLogDebug(@"%@\n%@",titleString, messageString);
-#endif
-	}*/
-    
 // Handling of Hotkeys for Preferences-Window
 	
 	// Register Carbon event handlers for the required hotkeys
@@ -571,9 +556,6 @@ bool insideMatrix();
 
     // Show the About SEB Window
     [aboutWindow showAboutWindowForSeconds:2];
-
-//    [self performSelector:@selector(performAfterStartActions:) withObject: nil afterDelay: 2];
-
 }
 
 
@@ -763,7 +745,7 @@ bool insideMatrix();
 - (void)presentPreferencesCorruptedError
 {
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-    NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Local SEB Settings Have Been Reset", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:NSLocalizedString(@"Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.", nil)];
+    NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Local SEB Settings Have Been Reset", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:NSLocalizedString(@"Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.", nil)];
     [newAlert setAlertStyle:NSCriticalAlertStyle];
     [newAlert runModal];
     newAlert = nil;
@@ -946,7 +928,7 @@ bool insideMatrix(){
         windowLevel = NSNormalWindowLevel;
     }
 
-    BOOL excludeMenuBar = !allowSwitchToThirdPartyApps && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
+    BOOL excludeMenuBar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
     
     NSArray *backgroundCoveringWindows = [self fillScreensWithCoveringWindows:coveringWindowBackground windowLevel:windowLevel excludeMenuBar:excludeMenuBar];
     if (!self.capWindows) {
@@ -973,8 +955,10 @@ bool insideMatrix(){
         rect.origin.x = 0;
         rect.origin.y = 0;
 
-        // If switching to third party apps isn't allowed and showing menu bar
-        if (excludeMenuBar) {
+        // If showing menu bar
+        // On OS X >= 10.10 we exclude the menu bar on all screens from the covering windows
+        // On OS X <= 10.9 we exclude the menu bar only on the screen which actually displays the menu bar
+        if (excludeMenuBar && (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_10 || iterScreen == screens[0])) {
             // Reduce size of covering background windows to not cover the menu bar
             rect.size.height -= 22;
         }
@@ -1033,6 +1017,16 @@ bool insideMatrix(){
 - (void) adjustScreenLocking: (id)sender {
     // This should only be done when the preferences window isn't open
     if (![self.preferencesController preferencesAreOpen]) {
+
+        DDLogDebug(@"Adjusting screen locking");
+
+        // Check if lockdown windows are open and adjust those too
+        if (self.lockdownWindows.count > 0) {
+            DDLogDebug(@"Adjusting lockdown windows");
+            [self closeLockdownWindows];
+            [self openLockdownWindows];
+        }
+        
         // Close the covering windows
         // (which most likely are no longer there where they should be)
         [self closeCapWindows];
@@ -1061,8 +1055,43 @@ bool insideMatrix(){
 }
 
 
+- (void) openLockdownWindows
+{
+    self.lockdownWindows = [self fillScreensWithCoveringWindows:coveringWindowLockdownAlert windowLevel:NSScreenSaverWindowLevel excludeMenuBar:false];
+    NSWindow *coveringWindow = self.lockdownWindows[0];
+    NSView *coveringView = coveringWindow.contentView;
+    [coveringView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+    [coveringView setTranslatesAutoresizingMaskIntoConstraints:true];
+    
+    sebLockedViewController.sebController = self;
+    
+    [coveringView addSubview:sebLockedViewController.view];
+    
+    DDLogVerbose(@"Frame of superview: %f, %f", sebLockedViewController.view.superview.frame.size.width, sebLockedViewController.view.superview.frame.size.height);
+    NSMutableArray *constraints = [NSMutableArray new];
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:sebLockedViewController.view
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:sebLockedViewController.view.superview
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1.0
+                                                         constant:0.0]];
+    
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:sebLockedViewController.view
+                                                        attribute:NSLayoutAttributeCenterY
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:sebLockedViewController.view.superview
+                                                        attribute:NSLayoutAttributeCenterY
+                                                       multiplier:1.0
+                                                         constant:0.0]];
+    
+    [sebLockedViewController.view.superview addConstraints:constraints];
+}
+
+
 - (void) closeLockdownWindows
 {
+    [sebLockedViewController.view removeFromSuperview];
     [self closeCoveringWindows:self.lockdownWindows];
 }
 
@@ -1123,7 +1152,7 @@ bool insideMatrix(){
 #ifdef DEBUG
             DDLogInfo(@"launched app localizedName: %@, executableURL: %@", [launchedApp localizedName], [launchedApp executableURL]);
 #endif
-            if ([[launchedApp localizedName] isEqualToString:@"iCab"]) {
+            if ([[launchedApp localizedName] isEqualToString:@""]) {
                 [launchedApp forceTerminate];
             }
         }
@@ -1207,7 +1236,7 @@ bool insideMatrix(){
         if (allowApps) {
             [capWindow newSetLevel:NSNormalWindowLevel];
             if (allowAppsUserDefaultsSetting) {
-                capWindow.collectionBehavior = NSWindowCollectionBehaviorStationary;
+                capWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
             }
         } else {
             [capWindow newSetLevel:NSMainMenuWindowLevel+2];
@@ -1363,6 +1392,7 @@ bool insideMatrix(){
                                                                         action:@selector(restartButtonPressed)];
             [rightDockItems addObject:dockItemShutDown];
         }
+        
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableSebBrowser"] &&
             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
             SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil
@@ -1374,6 +1404,12 @@ bool insideMatrix(){
             [rightDockItems addObject:dockItemShutDown];
         }
         
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTime"]) {
+            SEBDockItemTime *dockItemTime = sebDockItemTime;
+            [dockItemTime startDisplayingTime];
+            
+            [rightDockItems addObject:dockItemTime];
+        }
         
         // Set right dock items
         
@@ -1437,11 +1473,16 @@ bool insideMatrix(){
     }
     
     // if no quit password is required, then confirm quitting
-    int answer = NSRunAlertPanel(restartExamText, NSLocalizedString(@"Are you sure?",nil),
-                                 NSLocalizedString(@"Cancel",nil), NSLocalizedString(@"OK",nil), nil);
+    NSAlert *newAlert = [[NSAlert alloc] init];
+    [newAlert setMessageText:restartExamText];
+    [newAlert setInformativeText:NSLocalizedString(@"Are you sure?", nil)];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [newAlert setAlertStyle:NSWarningAlertStyle];
+    int answer = [newAlert runModal];
     switch(answer)
     {
-        case NSAlertDefaultReturn:
+        case NSAlertFirstButtonReturn:
             return; //Cancel: don't restart exam
         default:
         {
@@ -1536,11 +1577,16 @@ bool insideMatrix(){
             }
         } else {
         // if no quit password is required, then confirm quitting
-            int answer = NSRunAlertPanel(NSLocalizedString(@"Quit Safe Exam Browser",nil), NSLocalizedString(@"Are you sure you want to quit SEB?",nil),
-                                         NSLocalizedString(@"Cancel",nil), NSLocalizedString(@"Quit",nil), nil);
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:NSLocalizedString(@"Quit Safe Exam Browser",nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"Are you sure you want to quit SEB?", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+            [newAlert setAlertStyle:NSWarningAlertStyle];
+            int answer = [newAlert runModal];
             switch(answer)
             {
-                case NSAlertDefaultReturn:
+                case NSAlertFirstButtonReturn:
                     return; //Cancel: don't quit
                 default:
                 {
@@ -1560,6 +1606,15 @@ bool insideMatrix(){
 - (IBAction) openPreferences:(id)sender {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"]) {
+        if (floor(NSAppKitVersionNumber) == NSAppKitVersionNumber10_7) {
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:NSLocalizedString(@"Preferences Window Not Available on OS X 10.7", nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"On OS X 10.7 SEB can only be used as an exam client. Run SEB on OS X 10.8 or higher to create a .seb configuration file to configure this SEB client as well.", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [newAlert setAlertStyle:NSCriticalAlertStyle];
+            [newAlert runModal];
+            return;
+        }
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         if (![self.preferencesController preferencesAreOpen]) {
             // Load admin password from the system's user defaults database
@@ -1655,12 +1710,16 @@ bool insideMatrix(){
 - (void)requestedQuitWPwd:(NSNotification *)notification
 {
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-    
-    int answer = NSRunAlertPanel(NSLocalizedString(@"Quit Safe Exam Browser",nil), NSLocalizedString(@"Are you sure you want to quit SEB?",nil),
-                                 NSLocalizedString(@"Cancel",nil), NSLocalizedString(@"Quit",nil), nil);
+    NSAlert *newAlert = [[NSAlert alloc] init];
+    [newAlert setMessageText:NSLocalizedString(@"Quit Safe Exam Browser",nil)];
+    [newAlert setInformativeText:NSLocalizedString(@"Are you sure you want to quit SEB?", nil)];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+    [newAlert setAlertStyle:NSWarningAlertStyle];
+    int answer = [newAlert runModal];
     switch(answer)
     {
-        case NSAlertDefaultReturn:
+        case NSAlertFirstButtonReturn:
             return; //Cancel: don't quit
         default:
         {
@@ -1689,12 +1748,15 @@ bool insideMatrix(){
     // Clear Pasteboard
     [self clearPasteboardSavingCurrentString];
     
+    // Clear browser back/forward list (page cache)
+    [self.browserController clearBackForwardList];
+    
     // Check if launched SEB is placed ("installed") in an Applications folder
     [self installedInApplicationsFolder];
     
     // Adjust screen shot blocking
     [self.systemManager adjustSC];
-    
+
     // Close all browser windows (documents)
     [[NSDocumentController sharedDocumentController] closeAllDocumentsWithDelegate:self
                                                                didCloseAllSelector:@selector(documentController:didCloseAll:contextInfo:)
@@ -1792,13 +1854,6 @@ bool insideMatrix(){
 }
 
 
-/*- (void)documentController:(NSDocumentController *)docController  didCloseAll: (BOOL)didCloseAll contextInfo:(void *)contextInfo {
-#ifdef DEBUG
-    DDLogDebug(@"All documents closed: %@", [NSNumber numberWithBool:didCloseAll]);
-#endif
-    return;
-}*/
-
 - (void) requestedShowAbout:(NSNotification *)notification
 {
     [self showAbout:self];
@@ -1850,49 +1905,54 @@ bool insideMatrix(){
          NSWorkspaceSessionDidResignActiveNotification])
     {
         // Perform deactivation tasks here.
+        
+        if (!sebLockedViewController.resignActiveLogString) {
+            sebLockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
+        }
         self.didResignActiveTime = [NSDate date];
-        DDLogError(@"SessionDidResignActive: User switch / switched to login window detected!");
-        self.lockdownWindows = [self fillScreensWithCoveringWindows:coveringWindowLockdownAlert windowLevel:NSScreenSaverWindowLevel excludeMenuBar:false];
-        NSWindow *coveringWindow = self.lockdownWindows[0];
-        NSView *coveringView = coveringWindow.contentView;
-        [coveringView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
-        [coveringView setTranslatesAutoresizingMaskIntoConstraints:true];
+        DDLogError(@"SessionDidResignActive: User switch / switch to login window detected!");
+        [self openLockdownWindows];
         
-        sebLockedView.sebController = self;
+        // Add log string for resign active
+        [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"User switch / switch to login window detected", nil)] withTime:self.didResignActiveTime];
         
-        [coveringView addSubview:sebLockedView];
-
-        NSLog(@"Frame of superview: %f, %f", sebLockedView.superview.frame.size.width, sebLockedView.superview.frame.size.height);
-        NSMutableArray *constraints = [NSMutableArray new];
-        [constraints addObject:[NSLayoutConstraint constraintWithItem:sebLockedView
-                                                            attribute:NSLayoutAttributeCenterX
-                                                            relatedBy:NSLayoutRelationEqual
-                                                               toItem:sebLockedView.superview
-                                                            attribute:NSLayoutAttributeCenterX
-                                                           multiplier:1.0
-                                                             constant:0.0]];
-        
-        [constraints addObject:[NSLayoutConstraint constraintWithItem:sebLockedView
-                                                            attribute:NSLayoutAttributeCenterY
-                                                            relatedBy:NSLayoutRelationEqual
-                                                               toItem:sebLockedView.superview
-                                                            attribute:NSLayoutAttributeCenterY
-                                                           multiplier:1.0
-                                                             constant:0.0]];
-        
-        [sebLockedView.superview addConstraints:constraints];
-
     }
     else
     {
         // Perform activation tasks here.
         
         DDLogError(@"SessionDidBecomeActive: Switched back after user switch / login window!");
-        // Check if restarting is protected with the quit/restart password (and one is set)
-//        NSWindow *coveringWindow = self.coveringWindows[0];
-//        NSString *screensLockedText = NSLocalizedString(@"SEB is locked because a user switch was attempted. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.", nil);
         
+        // Add log string for becoming active
+        self.didBecomeActiveTime = [NSDate date];
+        [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Switched back after user switch / login window", nil)] withTime:self.didBecomeActiveTime];
+        
+        // Calculate time difference between session resigning active and becoming active again
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *components = [calendar components:NSMinuteCalendarUnit | NSSecondCalendarUnit
+                                                   fromDate:self.didResignActiveTime
+                                                     toDate:self.didBecomeActiveTime
+                                                    options:false];
+        [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"  SEB session was inactive for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:nil];
     }
+}
+
+
+- (void) openInfoHUD:(NSString *)lockedTimeInfo
+{
+    [informationHUDLabel setStringValue:lockedTimeInfo];
+    //[informationHUD center];
+    NSArray *screens = [NSScreen screens];	// get all available screens
+    NSScreen *mainScreen = screens[0];
+    
+    NSPoint topLeftPoint;
+    topLeftPoint.x = mainScreen.frame.origin.x + mainScreen.frame.size.width - informationHUD.frame.size.width - 22;
+    topLeftPoint.y = mainScreen.frame.origin.y + mainScreen.frame.size.height - 44;
+    [informationHUD setFrameTopLeftPoint:topLeftPoint];
+    
+    [informationHUD setLevel:NSModalPanelWindowLevel];
+    [informationHUD makeKeyAndOrderFront:nil];
+
 }
 
 

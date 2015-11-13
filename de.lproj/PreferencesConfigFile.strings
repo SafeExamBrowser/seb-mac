@@ -5,7 +5,7 @@
 "4.title" = "Speichern";
 
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Identities (X.509 certificates with RSA public key and associated private key) in your default keychain which can be used for encrypting and decrypting. Export the chosen identity (in Keychain Access utility) and install it on your SEB clients."; ObjectID = "69"; */
-"69.ibShadowedToolTip" = "Kryptografische Identitäten (X.509 Zertifikate mit öffentlichem RSA-Schlüssel und dazugehörigem privaten Schlüssel) im Schlüsselbund, die für Verschlüsselung und Entschlüsselung benutzt werden können. ";
+"69.ibShadowedToolTip" = "Kryptografische Identitäten (X.509 Zertifikate mit öffentlichem RSA-Schlüssel und dazugehörigem privaten Schlüssel) im Schlüsselbund, die für Verschlüsselung und Entschlüsselung benutzt werden können";
 
 /* Class = "NSTextFieldCell"; title = "Choose identity to be used for encrypting SEB settings file ..."; ObjectID = "75"; */
 "75.title" = "Identität zur Verschlüsselung der SEB Konfigurationsdatei auswählen …";
@@ -13,7 +13,7 @@
 /* Class = "NSSecureTextField"; ibShadowedToolTip = "Retype the settings password"; ObjectID = "110"; */
 "110.ibShadowedToolTip" = "Passwort für Konfigurationsdatei erneut eingeben";
 
-/* Class = "NSSecureTextField"; ibShadowedToolTip = "Password to decrypt the settings file, prompted when SEB reads the settings"; ObjectID = "114"; */
+/* Class = "NSSecureTextField"; ibShadowedToolTip = "Password to decrypt the settings file, prompted when SEB reads these settings"; ObjectID = "114"; */
 "114.ibShadowedToolTip" = "Passwort zur Entschlüsselung der Konfigurationsdatei, wird abgefragt, wenn SEB die Konfiguration einliest";
 
 /* Class = "NSTextFieldCell"; title = "Please enter correct confirm password"; ObjectID = "116"; */
@@ -34,14 +34,14 @@
 /* Class = "NSTextFieldCell"; title = "Use SEB settings file for ..."; ObjectID = "239"; */
 "239.title" = "SEB-Konfigurationsdatei verwenden zum …";
 
+/* Class = "NSMatrix"; ibShadowedToolTip = "A saved settings file will either start the exam using these settings (temporarily) or change the local settings of a SEB client (permanently)"; ObjectID = "249"; */
+"249.ibShadowedToolTip" = "Eine abgespeicherte Konfigurationsdatei startet entweder die Prüfung mit ihren Einstellungen (SEB temporär konfiguriert) oder ändert die lokalen Einstellungen eines SEB-Clients (permanent)";
+
 /* Class = "NSButtonCell"; ibShadowedToolTip = "A settings file saved with this option will start the exam with its settings, but won't change the local SEB settings"; ObjectID = "251"; */
 "251.ibShadowedToolTip" = "Eine mit dieser Option gespeicherte Konfigurationsdatei startet eine Prüfung, aber ändert nicht die lokalen Einstellungen des SEB-Clients";
 
 /* Class = "NSButtonCell"; title = "starting an exam"; ObjectID = "251"; */
 "251.title" = "Starten einer Prüfung";
-
-/* Class = "NSButtonCell"; ibShadowedToolTip = "A SEB settings file saved with this option can be used to change the local settings of a SEB client. Encrypt it with an empty or the same password which is set as administrator password on the SEB client. Other passwords will be prompted."; ObjectID = "252"; */
-"252.ibShadowedToolTip" = "Eine mit dieser Option gespeicherte Konfigurationsdatei kann benutzt werden, um die lokalen Einstellungen eines SEB-Clients zu ändern. Sie kann mit einem leeren oder demselben Passwort verschlüsselt werden, das als Administrator-Passwort auf dem Client verwendet wird. Andere Passwörter müssen vom Benutzer eingegeben werden.";
 
 /* Class = "NSButtonCell"; title = "configuring clients"; ObjectID = "252"; */
 "252.title" = "Konfigurieren von Clients";

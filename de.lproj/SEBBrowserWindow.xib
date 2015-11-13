@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6724" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6724"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="6724"/>
+        <deployment version="1070" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="9059"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SEBBrowserWindowController">
             <connections>
+                <outlet property="backForwardButtons" destination="173" id="lIt-Jq-0zg"/>
                 <outlet property="webView" destination="5" id="7"/>
                 <outlet property="window" destination="3" id="10"/>
             </connections>
@@ -25,6 +26,7 @@
                 <subviews>
                     <webView translatesAutoresizingMaskIntoConstraints="NO" id="5" userLabel="Web View" customClass="SEBWebView">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <animations/>
                         <webPreferences key="preferences" identifier="webView" defaultFontSize="16" defaultFixedFontSize="13" minimumFontSize="0"/>
                     </webView>
                 </subviews>
@@ -34,6 +36,7 @@
                     <constraint firstAttribute="trailing" secondItem="5" secondAttribute="trailing" id="scD-M3-sGF"/>
                     <constraint firstItem="5" firstAttribute="top" secondItem="4" secondAttribute="top" id="ujy-11-0oB"/>
                 </constraints>
+                <animations/>
             </view>
             <toolbar key="toolbar" implicitIdentifier="BDAFF22A-CD78-4B87-BE08-89EB5FD8D41E" autosavesConfiguration="NO" allowsUserCustomization="NO" prefersToBeShown="NO" displayMode="iconOnly" sizeMode="regular" id="166">
                 <allowedToolbarItems>
@@ -42,28 +45,62 @@
                         <size key="minSize" width="51" height="25"/>
                         <size key="maxSize" width="104" height="32"/>
                         <segmentedControl key="view" verticalHuggingPriority="750" id="173">
-                            <rect key="frame" x="19" y="14" width="51" height="25"/>
+                            <rect key="frame" x="0.0" y="14" width="51" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <animations/>
                             <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="174">
                                 <font key="font" metaFont="system"/>
                                 <segments>
-                                    <segment image="NSGoLeftTemplate" imageScaling="none" width="24"/>
-                                    <segment image="NSGoRightTemplate" imageScaling="none" width="24" tag="1"/>
+                                    <segment image="NSGoLeftTemplate" imageScaling="none" width="24" enabled="NO"/>
+                                    <segment image="NSGoRightTemplate" imageScaling="none" width="24" enabled="NO" tag="1"/>
                                 </segments>
                             </segmentedCell>
                             <connections>
                                 <action selector="backForward:" target="-2" id="188"/>
-                                <binding destination="184" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowBrowsingBackForward" id="202"/>
+                                <binding destination="184" name="hidden" keyPath="values.org_safeexambrowser_SEB_allowBrowsingBackForward" id="rhc-i0-g9V">
+                                    <dictionary key="options">
+                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                    </dictionary>
+                                </binding>
                             </connections>
                         </segmentedControl>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="AB23B6BC-BAD9-48C6-889A-B71807EFB63D" label="Zoom" paletteLabel="" id="179">
+                    <toolbarItem implicitItemIdentifier="3082AAA6-C29B-4778-98BC-31306EF71511" label="Zoom" paletteLabel="" id="ZLD-BY-T5K" userLabel="ZoomPage">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="51" height="25"/>
+                        <size key="maxSize" width="51" height="32"/>
+                        <segmentedControl key="view" verticalHuggingPriority="750" id="4DV-qc-FmI">
+                            <rect key="frame" x="0.0" y="14" width="51" height="28"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <animations/>
+                            <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="qkO-f0-59m">
+                                <font key="font" metaFont="system"/>
+                                <segments>
+                                    <segment image="ZoomPageOut" imageScaling="none" width="24"/>
+                                    <segment image="ZoomPageIn" imageScaling="none" width="24" tag="1"/>
+                                </segments>
+                                <connections>
+                                    <action selector="zoomPage:" target="-2" id="wj3-sW-hfi"/>
+                                </connections>
+                            </segmentedCell>
+                            <connections>
+                                <binding destination="184" name="hidden" keyPath="values.org_safeexambrowser_SEB_enableZoomPage" previousBinding="bci-Ec-sPB" id="EG8-Uk-F9x">
+                                    <dictionary key="options">
+                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                    </dictionary>
+                                </binding>
+                                <binding destination="184" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomPage" id="bci-Ec-sPB"/>
+                            </connections>
+                        </segmentedControl>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="AB23B6BC-BAD9-48C6-889A-B71807EFB63D" label="Zoom" paletteLabel="" id="179" userLabel="ZoomText">
                         <nil key="toolTip"/>
                         <size key="minSize" width="51" height="25"/>
                         <size key="maxSize" width="51" height="32"/>
                         <segmentedControl key="view" verticalHuggingPriority="750" id="180">
-                            <rect key="frame" x="19" y="14" width="51" height="25"/>
+                            <rect key="frame" x="0.0" y="14" width="51" height="25"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <animations/>
                             <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="181">
                                 <font key="font" metaFont="system"/>
                                 <segments>
@@ -73,7 +110,12 @@
                             </segmentedCell>
                             <connections>
                                 <action selector="zoomText:" target="-2" id="189"/>
-                                <binding destination="184" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="UeZ-OY-6ng"/>
+                                <binding destination="184" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="00Q-6e-zmc"/>
+                                <binding destination="184" name="hidden" keyPath="values.org_safeexambrowser_SEB_enableZoomText" previousBinding="00Q-6e-zmc" id="aIX-zS-ebR">
+                                    <dictionary key="options">
+                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                    </dictionary>
+                                </binding>
                             </connections>
                         </segmentedControl>
                     </toolbarItem>
@@ -83,8 +125,9 @@
                         <size key="minSize" width="25" height="25"/>
                         <size key="maxSize" width="25" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="190">
-                            <rect key="frame" x="9" y="14" width="25" height="25"/>
+                            <rect key="frame" x="0.0" y="14" width="25" height="25"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <animations/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRefreshTemplate" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="191">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -98,6 +141,7 @@
                 <defaultToolbarItems>
                     <toolbarItem reference="175"/>
                     <toolbarItem reference="176"/>
+                    <toolbarItem reference="ZLD-BY-T5K"/>
                     <toolbarItem reference="179"/>
                     <toolbarItem reference="192"/>
                 </defaultToolbarItems>
@@ -120,19 +164,31 @@
         <window title="Ressource nicht erlaubt" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" id="5ay-Fd-lF5" userLabel="URLNotAllowedAlert">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
-            <rect key="contentRect" x="340" y="419" width="570" height="313"/>
+            <rect key="contentRect" x="340" y="419" width="571" height="328"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
-            <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="52A-2p-iMa">
-                <rect key="frame" x="0.0" y="0.0" width="570" height="313"/>
+                <rect key="frame" x="0.0" y="0.0" width="571" height="328"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <textField horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="531" translatesAutoresizingMaskIntoConstraints="NO" id="KaS-Nf-iUK" customClass="SEBTextField">
+                        <rect key="frame" x="18" y="282" width="535" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="32" id="gL6-7e-C0G"/>
+                        </constraints>
+                        <animations/>
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Es ist nicht erlaubt, diesen Link zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:" id="B3X-Rp-SlN">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ig8-v8-XUJ">
-                        <rect key="frame" x="454" y="5" width="102" height="32"/>
+                        <rect key="frame" x="455" y="5" width="102" height="32"/>
                         <string key="toolTip">Diese unbekannte URL/Ressource verwerfen, sodass sie nicht mehr angezeigt wird auf dieser Webseite. Neu laden der Seite zeigt verworfene URLs wieder an</string>
                         <constraints>
                             <constraint firstAttribute="width" constant="90" id="Vye-IJ-fDc"/>
                         </constraints>
+                        <animations/>
                         <buttonCell key="cell" type="push" title="Verwerfen" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="baa-dD-Wnp">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -145,7 +201,8 @@ DQ
                         </connections>
                     </button>
                     <button toolTip="Filterregel für die aktuelle URL/Resource basierend auf dem ausgewählten Schema hinzufügen" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z9W-wM-LUg">
-                        <rect key="frame" x="352" y="5" width="102" height="32"/>
+                        <rect key="frame" x="353" y="5" width="102" height="32"/>
+                        <animations/>
                         <buttonCell key="cell" type="push" title="Erlauben" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vVz-K2-Hbd">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -156,8 +213,9 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cja-1x-YEa">
-                        <rect key="frame" x="148" y="5" width="102" height="32"/>
+                        <rect key="frame" x="149" y="5" width="102" height="32"/>
                         <string key="toolTip">Eine 'blockieren' Filterregel für die aktuelle URL/Ressource hinzufügen, basierend auf dem angewählten Schema. Sollte nur selten notwendig sein, weil alle nicht explizit erlaubten URLs vom Filter sowieso blockiert werden</string>
+                        <animations/>
                         <buttonCell key="cell" type="push" title="Blockieren" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="AcO-IT-BuS">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -167,11 +225,12 @@ DQ
                             <action selector="URLFilterAlertBlock:" target="3" id="w10-Ug-lBe"/>
                         </connections>
                     </button>
-                    <matrix verticalHuggingPriority="750" misplaced="YES" allowsEmptySelection="NO" autosizesCells="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JTI-Ar-k0D">
-                        <rect key="frame" x="31" y="158" width="94" height="99"/>
+                    <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTI-Ar-k0D">
+                        <rect key="frame" x="31" y="175" width="92" height="99"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="99" id="97k-RU-XCX"/>
                         </constraints>
+                        <animations/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         <size key="cellSize" width="92" height="18"/>
                         <size key="intercellSpacing" width="4" height="2"/>
@@ -207,19 +266,9 @@ DQ
                             <action selector="changedFilterPattern:" target="3" id="Gp0-4P-oUd"/>
                         </connections>
                     </matrix>
-                    <textField horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KaS-Nf-iUK" customClass="SEBTextField">
-                        <rect key="frame" x="18" y="265" width="534" height="34"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="530" id="0Ip-Ji-fUJ"/>
-                        </constraints>
-                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Es ist nicht erlaubt, diesen Link zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:" id="B3X-Rp-SlN">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
                     <button toolTip="Alle unbekannten URLs/Ressourcen des aktullen HTTP-Requests verwerfen. Neu laden einer Seite zeigt verworfene URLs wieder an" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KId-E2-Y59">
-                        <rect key="frame" x="14" y="5" width="126" height="32"/>
+                        <rect key="frame" x="14" y="5" width="127" height="32"/>
+                        <animations/>
                         <buttonCell key="cell" type="push" title="Alle verwerfen" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FW8-h0-H13">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -231,11 +280,12 @@ Gw
                             <action selector="URLFilterAlertIgnoreAll:" target="3" id="UpQ-ZL-pzb"/>
                         </connections>
                     </button>
-                    <button toolTip="Anklicken, um den Host-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sfT-nQ-Hte">
-                        <rect key="frame" x="133" y="217" width="82" height="19"/>
+                    <button toolTip="Anklicken, um den Host-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren" translatesAutoresizingMaskIntoConstraints="NO" id="sfT-nQ-Hte">
+                        <rect key="frame" x="131" y="234" width="83" height="19"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="4fm-eH-cuM"/>
                         </constraints>
+                        <animations/>
                         <buttonCell key="cell" type="recessed" title="www.host.com" bezelStyle="recessed" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="H5P-Ew-Qp9">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -244,12 +294,13 @@ Gw
                             <action selector="clickedHostPattern:" target="3" id="kTg-wn-Oqs"/>
                         </connections>
                     </button>
-                    <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jnc-il-FuZ">
-                        <rect key="frame" x="133" y="237" width="53" height="19"/>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="jnc-il-FuZ">
+                        <rect key="frame" x="131" y="254" width="54" height="19"/>
                         <string key="toolTip">Anklicken, um den registrierten Domain-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren</string>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="6bD-qk-pYa"/>
                         </constraints>
+                        <animations/>
                         <buttonCell key="cell" type="recessed" title="host.com" bezelStyle="recessed" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="gwZ-Bv-sYP">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -258,11 +309,12 @@ Gw
                             <action selector="clickedDomainPattern:" target="3" id="cAs-Mb-b0i"/>
                         </connections>
                     </button>
-                    <button toolTip="Anklicken, um den Host/Pfad-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mvP-Sq-mee">
-                        <rect key="frame" x="133" y="197" width="112" height="19"/>
+                    <button toolTip="Anklicken, um den Host/Pfad-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren" translatesAutoresizingMaskIntoConstraints="NO" id="mvP-Sq-mee">
+                        <rect key="frame" x="131" y="214" width="110" height="19"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="cpa-WY-9B7"/>
                         </constraints>
+                        <animations/>
                         <buttonCell key="cell" type="recessed" title="www.host.com/path" bezelStyle="recessed" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="Poj-9Z-f7h">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -271,11 +323,12 @@ Gw
                             <action selector="clickedHostPathPattern:" target="3" id="k7E-8G-yNV"/>
                         </connections>
                     </button>
-                    <button toolTip="Anklicken, um den Host/Verzeichnis-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sIN-ro-zV3">
-                        <rect key="frame" x="133" y="157" width="392" height="19"/>
+                    <button toolTip="Anklicken, um den Host/Verzeichnis-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren" translatesAutoresizingMaskIntoConstraints="NO" id="sIN-ro-zV3">
+                        <rect key="frame" x="131" y="174" width="390" height="19"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="Nd2-90-D0f"/>
                         </constraints>
+                        <animations/>
                         <buttonCell key="cell" type="recessed" title="Anklicken, um die vollständige URL als Filterausdruck wiederherzustellen" bezelStyle="recessed" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="lbT-D3-1dX">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -284,11 +337,12 @@ Gw
                             <action selector="clickedFullURLPattern:" target="3" id="Bfo-nM-3Rx"/>
                         </connections>
                     </button>
-                    <button toolTip="Anklicken, um den Host/Verzeichnis-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KUW-Xw-ucJ">
-                        <rect key="frame" x="133" y="177" width="147" height="19"/>
+                    <button toolTip="Anklicken, um den Host/Verzeichnis-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren" translatesAutoresizingMaskIntoConstraints="NO" id="KUW-Xw-ucJ">
+                        <rect key="frame" x="131" y="194" width="142" height="19"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="C1B-Ur-e6Z"/>
                         </constraints>
+                        <animations/>
                         <buttonCell key="cell" type="recessed" title="www.host.com/directory/*" bezelStyle="recessed" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="fhn-de-60C">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -298,8 +352,9 @@ Gw
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8py-w9-weT">
-                        <rect key="frame" x="250" y="5" width="102" height="32"/>
+                        <rect key="frame" x="251" y="5" width="102" height="32"/>
                         <string key="toolTip">Filterregel für die aktuelle URL zur Ignorieren-Liste hinzufügen, basierend auf dem ausgewählten Schema. Für ignorierte URLs wird dauerhaft keine Warnung im Filterregeln-Lernen-Modus angezeigt</string>
+                        <animations/>
                         <buttonCell key="cell" type="push" title="Ignorieren" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9Wp-xb-WzU">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -310,35 +365,40 @@ Gw
                         </connections>
                     </button>
                     <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kPG-Y4-EWv">
-                        <rect key="frame" x="20" y="44" width="530" height="104"/>
+                        <rect key="frame" x="20" y="44" width="531" height="121"/>
                         <string key="toolTip">Zeigt zu Beginn die vollständige URL, kann editiert werden, um einen benutzerdefinierten URL-Filterausdruck zu erstellen. Das Wildcard-Zeichen * kann verwendet werden. Obenstehende Links können angeklickt werden, um die den Schemen entsprechenden URL-Teile in dieses Feld zu kopieren</string>
                         <clipView key="contentView" id="c8z-5s-Dgt">
-                            <rect key="frame" x="1" y="1" width="223" height="133"/>
+                            <rect key="frame" x="1" y="1" width="529" height="119"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView importsGraphics="NO" richText="NO" findStyle="panel" allowsUndo="YES" usesRuler="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="ES5-oW-j8Q">
-                                    <rect key="frame" x="0.0" y="0.0" width="223" height="133"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="529" height="119"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="528" height="102"/>
-                                    <size key="maxSize" width="536" height="10000000"/>
+                                    <size key="minSize" width="529" height="119"/>
+                                    <size key="maxSize" width="531" height="10000000"/>
                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="528" height="102"/>
-                                    <size key="maxSize" width="536" height="10000000"/>
+                                    <size key="minSize" width="529" height="119"/>
+                                    <size key="maxSize" width="531" height="10000000"/>
                                     <connections>
                                         <outlet property="delegate" destination="3" id="1Rf-sl-Y1O"/>
                                     </connections>
                                 </textView>
                             </subviews>
+                            <animations/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </clipView>
+                        <animations/>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="08z-y6-MsP">
                             <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                             <autoresizingMask key="autoresizingMask"/>
+                            <animations/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="AP8-GI-wNR">
                             <rect key="frame" x="224" y="1" width="15" height="133"/>
                             <autoresizingMask key="autoresizingMask"/>
+                            <animations/>
                         </scroller>
                     </scrollView>
                 </subviews>
@@ -382,14 +442,17 @@ Gw
                     <constraint firstItem="ig8-v8-XUJ" firstAttribute="leading" secondItem="z9W-wM-LUg" secondAttribute="trailing" constant="12" symbolic="YES" id="wMi-JZ-IWX"/>
                     <constraint firstItem="KaS-Nf-iUK" firstAttribute="top" secondItem="52A-2p-iMa" secondAttribute="top" constant="14" id="zdC-Ap-N4c"/>
                 </constraints>
+                <animations/>
             </view>
-            <point key="canvasLocation" x="225" y="798.5"/>
+            <point key="canvasLocation" x="218.5" y="798"/>
         </window>
     </objects>
     <resources>
         <image name="NSGoLeftTemplate" width="9" height="12"/>
         <image name="NSGoRightTemplate" width="9" height="12"/>
         <image name="NSRefreshTemplate" width="11" height="15"/>
+        <image name="ZoomPageIn" width="20" height="20"/>
+        <image name="ZoomPageOut" width="20" height="20"/>
         <image name="ZoomTextIn" width="20" height="20"/>
         <image name="ZoomTextOut" width="20" height="20"/>
     </resources>

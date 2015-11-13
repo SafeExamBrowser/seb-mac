@@ -1,11 +1,11 @@
 /* Class = "NSTextFieldCell"; title = "Desktop mode default user agent"; ObjectID = "0dZ-Z1-Pzs"; */
-"0dZ-Z1-Pzs.title" = "Useragent für Desktop-Modus";
+"0dZ-Z1-Pzs.title" = "User Agent für Desktop-Modus";
 
 /* Class = "NSBox"; title = "Browser Security"; ObjectID = "7nL-Z2-JAg"; */
 "7nL-Z2-JAg.title" = "Browser-Sicherheit";
 
 /* Class = "NSTextFieldCell"; title = "Default strings depend on installed SEB for Windows version and therefore can differ on exam clients."; ObjectID = "9wd-E4-JwC"; */
-"9wd-E4-JwC.title" = "Standard-Strings hängen von der installierten SEB-Version ab und können deswegen auf Prüfungs-Clients abweichen. ";
+"9wd-E4-JwC.title" = "Standard-Strings hängen von der installierten SEB-Version ab. ";
 
 /* Class = "NSButtonCell"; title = "Show reload warning"; ObjectID = "16K-h7-SCc"; */
 "16K-h7-SCc.title" = "Reload-Warnung anzeigen";
@@ -61,8 +61,8 @@
 /* Class = "NSButton"; ibShadowedToolTip = "When the SEB browser is disabled, no browser window is openend. Use this option with specific third party applications allowed."; ObjectID = "413"; */
 "413.ibShadowedToolTip" = "Das SEB-Dock zeigt und schaltet um auf offene Browserfenster, zugelassene Ressourcen und Drittapplikationen und kann zusätzliche Funktionen beinhalten";
 
-/* Class = "NSButtonCell"; title = "Use SEB without browser window"; ObjectID = "415"; */
-"415.title" = "SEB ohne Browserfenster benutzen";
+/* Class = "NSButtonCell"; title = "Use SEB without browser window (Win)"; ObjectID = "415"; */
+"415.title" = "SEB ohne Browserfenster benutzen (Win)";
 
 /* Class = "NSTextFieldCell"; title = "to start another application in kiosk mode (for example a virtual desktop infrastructure client)"; ObjectID = "449"; */
 "449.title" = "um eine Drittapplikation im Kiosk-Modus zu starten (z.B. einen Client für virtuelle Desktop-Infrastruktur)";
@@ -118,26 +118,47 @@
 /* Class = "NSButtonCell"; title = "Remove profile (Win)"; ObjectID = "663"; */
 "663.title" = "Profil löschen (Win)";
 
+/* Class = "NSButton"; ibShadowedToolTip = "User has to confirm reloading a web page by cmd-R or the reload button"; ObjectID = "Du9-dQ-GIJ"; */
+"Du9-dQ-GIJ.ibShadowedToolTip" = "Das erneute Laden einer Webseite per cmd-R (Befehlstaste-R) oder Neuladen-Taste muss bestätigt werden";
+
 /* Class = "NSTextFieldCell"; title = "Default user agent Mac"; ObjectID = "EZ4-9b-Idz"; */
-"EZ4-9b-Idz.title" = "Standard Mac-Useragent";
+"EZ4-9b-Idz.title" = "Standard Mac User Agent";
+
+/* Class = "NSTextFieldCell"; title = "Custom user agent string (SEB appends its version number automatically). Default string depends on installed SEB for Windows version and therefore can differ on exam clients."; ObjectID = "FfE-2h-C1L"; */
+"FfE-2h-C1L.title" = "Benutzerdefinierte User Agent Zeichenkette (SEB hängt seine Versionsnummer automatisch an). Die Standardzeichenkette hängt von der der installierten SEB für Windows Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein.";
 
 /* Class = "NSButtonCell"; title = "Default:"; ObjectID = "Lq8-Fi-SDM"; */
 "Lq8-Fi-SDM.title" = "Standard:";
 
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work"; ObjectID = "UsO-tg-591"; */
+"UsO-tg-591.ibShadowedToolTip" = "VORSICHT: Wenn '' angewählt ist, können einige JavaScript-/HTML5-Funktionen (wie etwa File API) nicht verwendet werden";
+
+/* Class = "NSTextFieldCell"; title = "Custom user agent string (SEB appends its version number automatically). Default string depends on installed Safari/WebKit version and therefore can differ on exam clients."; ObjectID = "X0g-7e-XAl"; */
+"X0g-7e-XAl.title" = "Benutzerdefinierte User Agent Zeichenkette (SEB hängt seine Versionsnummer automatisch an). Die Standardzeichenkette hängt von der der installierten Safari-/WebKit-Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein.";
+
 /* Class = "NSTextFieldCell"; title = "iPad user agent"; ObjectID = "XDW-SF-gll"; */
-"XDW-SF-gll.title" = "iPad-Useragent";
+"XDW-SF-gll.title" = "iPad User Agent";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)"; ObjectID = "XSw-aj-V6a"; */
+"XSw-aj-V6a.ibShadowedToolTip" = "Standardzeichenkette auf diesem Mac (hängt von der der installierten Safari-/WebKit-Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)";
 
 /* Class = "NSButtonCell"; title = "Custom"; ObjectID = "YE5-tr-HaY"; */
 "YE5-tr-HaY.title" = "Benutzerdefiniert";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)"; ObjectID = "Z3B-Za-z4X"; */
+"Z3B-Za-z4X.ibShadowedToolTip" = "Standardzeichenkette auf diesem Mac (hängt von der der installierten Safari-/WebKit-Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)";
 
 /* Class = "NSButtonCell"; title = "Touch default:"; ObjectID = "al8-58-HPQ"; */
 "al8-58-HPQ.title" = "Touch-Standard:";
 
 /* Class = "NSBox"; title = "User agent"; ObjectID = "ckm-lX-Woj"; */
-"ckm-lX-Woj.title" = "Useragent";
+"ckm-lX-Woj.title" = "User Agent";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)"; ObjectID = "dP1-5V-zqF"; */
+"dP1-5V-zqF.ibShadowedToolTip" = "Standardzeichenkette auf diesem Mac (hängt von der der installierten Safari-/WebKit-Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)";
 
 /* Class = "NSTextFieldCell"; title = "Default touch mode user agent"; ObjectID = "dqB-SD-Yjy"; */
-"dqB-SD-Yjy.title" = "Standard-Useragent Touch-Modus";
+"dqB-SD-Yjy.title" = "Standard User Agent für Touch-Modus";
 
 /* Class = "NSButtonCell"; title = "Desktop default:"; ObjectID = "fzm-2I-vcw"; */
 "fzm-2I-vcw.title" = "Desktop Standard:";
@@ -150,6 +171,9 @@
 
 /* Class = "NSButtonCell"; title = "Custom"; ObjectID = "qVa-6O-Lcc"; */
 "qVa-6O-Lcc.title" = "Benutzerdefiniert";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)"; ObjectID = "twb-Ov-Zlx"; */
+"twb-Ov-Zlx.ibShadowedToolTip" = "Standardzeichenkette auf diesem Mac (hängt von der der installierten Safari-/WebKit-Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "If your web application uses local storage, you have to be sure data is saved encrypted and removed when no longer needed as SEB doesn't remove local storage"; ObjectID = "wFa-eR-NzK"; */
 "wFa-eR-NzK.ibShadowedToolTip" = "Wenn eine Web-Applikation benutzt wird, sollte sichergestellt sein, dass kritische Daten verschlüsselt gespeichert und entfernt werden, wenn sie nicht mehr benötigt werden, weil SEB Local Storage nicht löscht";

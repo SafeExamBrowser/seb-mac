@@ -143,6 +143,8 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_allowDownUploads",
                                  @NO,
                                  @"org_safeexambrowser_SEB_allowFlashFullscreen",
+                                 @NO,
+                                 @"org_safeexambrowser_SEB_allowPDFPlugIn",
                                  @YES,
                                  @"org_safeexambrowser_SEB_allowPreferencesWindow",
                                  @YES,
@@ -719,9 +721,13 @@ static NSNumber *_logLevel;
             //if (defaultValue && !([value class] == [defaultValue class])) {
             // Class of newly loaded value is different than the one from the default value
             // If yes, then cancel reading .seb file
-            NSRunAlertPanel(NSLocalizedString(@"Reading New Settings Failed!", nil),
-                            NSLocalizedString(@"These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted.", nil),
-                            NSLocalizedString(@"OK", nil), nil, nil);
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:NSLocalizedString(@"Reading New Settings Failed!",nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted.", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [newAlert setAlertStyle:NSCriticalAlertStyle];
+            [newAlert runModal];
+
             DDLogError(@"%s Value for key %@ is NULL or doesn't have the correct class!", __FUNCTION__, key);
             return NO; //we abort reading the new settings here
         }

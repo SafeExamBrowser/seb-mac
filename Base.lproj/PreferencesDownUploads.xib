@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsDownUploadsViewController">
             <connections>
+                <outlet property="allowPDFPlugInButton" destination="AAd-LS-TUP" id="K3E-1Z-9i4"/>
                 <outlet property="chooseDownloadDirectory" destination="33" id="62"/>
                 <outlet property="chooseFileToUploadPolicyControl" destination="93" id="gjm-C7-4c6"/>
                 <outlet property="downloadDirectory" destination="35" id="58"/>
@@ -33,7 +34,7 @@
                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="169"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="22">
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22">
                     <rect key="frame" x="161" y="236" width="163" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Save downloaded files to:" id="23">
                         <font key="font" metaFont="system"/>
@@ -86,6 +87,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
+                        <action selector="downloadPDFFiles:" target="-2" id="2OE-0h-Fqc"/>
                         <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="187"/>
                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_downloadPDFFiles" id="181"/>
                     </connections>
@@ -158,6 +160,22 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="AAd-LS-TUP">
+                    <rect key="frame" x="38" y="49" width="594" height="18"/>
+                    <string key="toolTip">The Adobe Acrobat Reader browser plugin should only be used on secured managed Mac computers, at it allows to access the file system and to cloud services</string>
+                    <buttonCell key="cell" type="check" title="Allow using Acrobat Reader PDF plugin (insecure)" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="zhK-R4-XtF">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowPDFPlugIn" id="Ibh-RV-wAI"/>
+                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_downloadPDFFiles" id="Ctg-bw-SHO">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="13" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="213"/>
@@ -181,12 +199,16 @@
                 <constraint firstAttribute="trailing" secondItem="265" secondAttribute="trailing" constant="20" symbolic="YES" id="272"/>
                 <constraint firstItem="265" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="273"/>
                 <constraint firstAttribute="bottom" secondItem="265" secondAttribute="bottom" constant="20" symbolic="YES" id="283"/>
-                <constraint firstItem="265" firstAttribute="top" secondItem="76" secondAttribute="bottom" constant="37" id="284"/>
                 <constraint firstItem="22" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="9FT-jl-8js"/>
+                <constraint firstItem="AAd-LS-TUP" firstAttribute="top" secondItem="76" secondAttribute="bottom" constant="6" id="E5D-Xc-mwg"/>
                 <constraint firstItem="99" firstAttribute="top" secondItem="fKA-Ye-zQz" secondAttribute="bottom" constant="24" id="F7R-pv-oeW"/>
                 <constraint firstAttribute="trailing" secondItem="fKA-Ye-zQz" secondAttribute="trailing" constant="20" id="I6n-LF-zJi"/>
+                <constraint firstAttribute="trailing" secondItem="AAd-LS-TUP" secondAttribute="trailing" constant="20" id="Ltr-MA-dTG"/>
+                <constraint firstItem="AAd-LS-TUP" firstAttribute="leading" secondItem="76" secondAttribute="leading" id="MS9-JH-fNO"/>
                 <constraint firstItem="fKA-Ye-zQz" firstAttribute="top" secondItem="38" secondAttribute="bottom" constant="12" id="RsW-ww-hfo"/>
+                <constraint firstItem="265" firstAttribute="top" secondItem="AAd-LS-TUP" secondAttribute="bottom" constant="17" id="ha8-64-0Kf"/>
                 <constraint firstItem="eP3-ce-aHz" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="nwj-Yg-Ihf"/>
+                <constraint firstAttribute="trailing" secondItem="76" secondAttribute="trailing" constant="20" id="otR-nw-6oR"/>
                 <constraint firstItem="eP3-ce-aHz" firstAttribute="baseline" secondItem="fKA-Ye-zQz" secondAttribute="baseline" id="tHE-9l-JK8"/>
                 <constraint firstItem="fKA-Ye-zQz" firstAttribute="leading" secondItem="eP3-ce-aHz" secondAttribute="trailing" constant="8" id="xhb-KQ-OGx"/>
             </constraints>

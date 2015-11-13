@@ -48,27 +48,9 @@
 @synthesize webView;
 
 
-// This window has its usual -constrainFrameRect:toScreen: behavior temporarily suppressed.
-// This enables our window's custom Full Screen Exit animations to avoid being constrained by the
-// top edge of the screen and the menu bar.
-//
-- (NSRect)constrainFrameRect:(NSRect)frameRect toScreen:(NSScreen *)screen
-{
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"] == NO)
-    {
-        return frameRect;
-    }
-    else
-    {
-        return [super constrainFrameRect:frameRect toScreen:screen];
-    }
-}
-
-
 -(BOOL)canBecomeKeyWindow {
     return YES;
 }
-
 
 -(BOOL)canBecomeMainWindow {
     return YES;
@@ -83,12 +65,6 @@
         [self adjustPositionOfViewInTitleBar:progressIndicatorHolder atRightOffsetToTitle:10 verticalOffset:0];
     }
 }
-
-
-//- (NSWindowCollectionBehavior)collectionBehavior {
-
-//    return NSWindowCollectionBehaviorFullScreenAuxiliary | NSWindowCollectionBehaviorCanJoinAllSpaces;
-//}
 
 
 // Closing of SEB Browser Window //
@@ -176,15 +152,12 @@
        withKeyPath:@"values.org_safeexambrowser_SEB_allowBrowsingBackForward"
            options:nil];
     
-/*#ifdef DEBUG
     // Display all MIME types the WebView can display as HTML
     NSArray* MIMETypes = [WebView MIMETypesShownAsHTML];
     int i, count = [MIMETypes count];
     for (i=0; i<count; i++) {
-        DDLogInfo(@"MIME type shown as HTML: %@", [MIMETypes objectAtIndex:i]);
+        DDLogDebug(@"MIME type shown as HTML: %@", [MIMETypes objectAtIndex:i]);
     }
-#endif*/
-
 }
 
 
@@ -707,6 +680,15 @@
     [alert.window orderOut:self];
 }
 
+
+// Enable back/forward buttons according to availablility for this webview
+- (void)backForwardButtonsSetEnabled {
+    NSSegmentedControl *backForwardButtons = [(SEBBrowserWindowController *)self.windowController backForwardButtons];
+    [backForwardButtons setEnabled:self.webView.canGoBack forSegment:0];
+    [backForwardButtons setEnabled:self.webView.canGoForward forSegment:1];
+}
+
+
 #pragma mark Overriding NSWindow Methods
 
 // This method is called by NSWindow’s zoom: method while determining the frame a window may be zoomed to
@@ -715,6 +697,14 @@
                         defaultFrame:(NSRect)newFrame {
     // Check if SEB Dock is displayed and reduce visibleFrame accordingly
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    // Get frame of the visible screen (considering if menu bar is enabled)
+    NSRect screenFrame = self.screen.visibleFrame;
+    newFrame.size.height = screenFrame.size.height;
+//    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"])
+//    {
+//    }
+    
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
         CGFloat dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
         newFrame.origin.y += dockHeight;
@@ -807,9 +797,13 @@
                     [resultListener chooseFilename:lastDownloadPath];
                     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
                     [self makeKeyAndOrderFront:self];
-                    NSRunAlertPanel(NSLocalizedString(@"File Automatically Chosen", nil),
-                                    NSLocalizedString(@"SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.", nil),
-                                    NSLocalizedString(@"OK", nil), nil, nil);
+                    
+                    NSAlert *newAlert = [[NSAlert alloc] init];
+                    [newAlert setMessageText:NSLocalizedString(@"File Automatically Chosen", nil)];
+                    [newAlert setInformativeText:NSLocalizedString(@"SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.", nil)];
+                    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                    [newAlert setAlertStyle:NSInformationalAlertStyle];
+                    [newAlert runModal];
                     return;
                 }
             }
@@ -818,9 +812,12 @@
                 // if the policy is "Only allow to upload the same file downloaded before"
                 [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
                 [self makeKeyAndOrderFront:self];
-                NSRunAlertPanel(NSLocalizedString(@"File to Upload Not Found!", nil),
-                                NSLocalizedString(@"SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.", nil),
-                                NSLocalizedString(@"OK", nil), nil, nil);
+                NSAlert *newAlert = [[NSAlert alloc] init];
+                [newAlert setMessageText:NSLocalizedString(@"File to Upload Not Found!", nil)];
+                [newAlert setInformativeText:NSLocalizedString(@"SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.", nil)];
+                [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                [newAlert setAlertStyle:NSCriticalAlertStyle];
+                [newAlert runModal];
                 return;
             }
         }
@@ -899,6 +896,17 @@ initiatedByFrame:(WebFrame *)frame {
 }
 
 
+- (void)webView:(WebView *)sender frame:(WebFrame *)frame exceededDatabaseQuotaForSecurityOrigin:(id)origin database:(NSString *)databaseIdentifier
+{
+    static const unsigned long long defaultQuota = 5 * 1024 * 1024;
+    if ([origin respondsToSelector: @selector(setQuota:)]) {
+        [origin performSelector:@selector(setQuota:) withObject:[NSNumber numberWithLongLong: defaultQuota]];
+    } else {
+        DDLogError(@"Could not increase quota to %llu bytes for database %@", defaultQuota, databaseIdentifier);
+    }
+}
+
+
 #pragma mark WebFrameLoadDelegates
 
 // Get the URL of the page being loaded
@@ -906,6 +914,7 @@ initiatedByFrame:(WebFrame *)frame {
 - (void)webView:(SEBWebView *)sender didStartProvisionalLoadForFrame:(WebFrame *)frame {
     DDLogInfo(@"didStartProvisionalLoadForFrame request URL: %@", [[[[frame provisionalDataSource] request] URL] absoluteString]);
     [self startProgressIndicatorAnimation];
+    
     // Only report feedback for the main frame.
     if (frame == [sender mainFrame]){
         self.browserController.currentMainHost = [[[[frame provisionalDataSource] request] URL] host];
@@ -917,6 +926,9 @@ initiatedByFrame:(WebFrame *)frame {
 
 // Invoked when a page load completes
 - (void)webView:(SEBWebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
+
+    [self backForwardButtonsSetEnabled];
+    
     [self stopProgressIndicatorAnimation];
 }
 
@@ -978,6 +990,11 @@ willPerformClientRedirectToURL:(NSURL *)URL
 - (void)webView:(SEBWebView *)sender didFailProvisionalLoadWithError:(NSError *)error
        forFrame:(WebFrame *)frame {
     
+    // Enable back/forward buttons according to availablility for this webview
+    NSSegmentedControl *backForwardButtons = [(SEBBrowserWindowController *)self.windowController backForwardButtons];
+    [backForwardButtons setEnabled:self.webView.canGoBack forSegment:0];
+    [backForwardButtons setEnabled:self.webView.canGoForward forSegment:1];
+    
     [self stopProgressIndicatorAnimation];
     
     if ([error code] != -999) {
@@ -986,19 +1003,26 @@ willPerformClientRedirectToURL:(NSURL *)URL
         {
             DDLogError(@"Error in %s: %@", __FUNCTION__, error.description);
 
+            //Is it a "plug-in handled load error"?
+            
+            
             //Close the About Window first, because it would hide the error alert
             [[NSNotificationCenter defaultCenter] postNotificationName:@"requestCloseAboutWindowNotification" object:self];
             
             NSString *titleString = NSLocalizedString(@"Error Loading Page",nil);
             NSString *messageString = [error localizedDescription];
-            NSPanel *alertPanel = NSGetAlertPanel(titleString, messageString, NSLocalizedString(@"Retry", nil), NSLocalizedString(@"Cancel", nil), nil, nil);
-            [alertPanel setLevel:NSMainMenuWindowLevel+5];
-            
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
             [self makeKeyAndOrderFront:self];
-            int answer = NSRunAlertPanel(titleString, messageString, NSLocalizedString(@"Retry", nil), NSLocalizedString(@"Cancel", nil), nil, nil);
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:titleString];
+            [newAlert setInformativeText:messageString];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+            [newAlert setAlertStyle:NSCriticalAlertStyle];
+            int answer = [newAlert runModal];
+
             switch(answer) {
-                case NSAlertDefaultReturn:
+                case NSAlertFirstButtonReturn:
                     //Retry: try reloading
                     //self.browserController.currentMainHost = nil;
                     DDLogInfo(@"Trying to reload after %s: Request: %@ URL: %@", __FUNCTION__, [[frame provisionalDataSource] request], [[frame provisionalDataSource] request].URL);
@@ -1016,14 +1040,19 @@ willPerformClientRedirectToURL:(NSURL *)URL
 // Invoked when an error occurs loading a committed data source
 - (void)webView:(SEBWebView *)sender didFailLoadWithError:(NSError *)error forFrame:(WebFrame *)frame {
     
+    // Enable back/forward buttons according to availablility for this webview
+    NSSegmentedControl *backForwardButtons = [(SEBBrowserWindowController *)self.windowController backForwardButtons];
+    [backForwardButtons setEnabled:self.webView.canGoBack forSegment:0];
+    [backForwardButtons setEnabled:self.webView.canGoForward forSegment:1];
+    
     [self stopProgressIndicatorAnimation];
     
-    if ([error code] != -999) {
+    DDLogError(@"Error in %s: %lx %@", __FUNCTION__, (long)error.code, error.description);
+    
+    if (error.code != -999) {
         
-        if ([error code] !=  WebKitErrorFrameLoadInterruptedByPolicyChange) //this error can be ignored
+        if (error.code !=  WebKitErrorFrameLoadInterruptedByPolicyChange && error.code != 204) //these errors can be ignored (204 = Plug-in handled load)
         {
-            DDLogError(@"Error in %s: %@", __FUNCTION__, error.description);
-
             //Close the About Window first, because it would hide the error alert
             [[NSNotificationCenter defaultCenter] postNotificationName:@"requestCloseAboutWindowNotification" object:self];
             
@@ -1032,9 +1061,15 @@ willPerformClientRedirectToURL:(NSURL *)URL
             
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
             [self makeKeyAndOrderFront:self];
-            int answer = NSRunAlertPanel(titleString, messageString, NSLocalizedString(@"Retry", nil), NSLocalizedString(@"Cancel", nil), nil, nil);
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:titleString];
+            [newAlert setInformativeText:messageString];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+            [newAlert setAlertStyle:NSCriticalAlertStyle];
+            int answer = [newAlert runModal];
             switch(answer) {
-                case NSAlertDefaultReturn:
+                case NSAlertFirstButtonReturn:
                     //Retry: try reloading
                     //self.browserController.currentMainHost = setCurrentMainHost:nil;
                     DDLogInfo(@"Trying to reload after %s: Request: %@ URL: %@", __FUNCTION__, [[frame dataSource] request], [[frame dataSource] request].URL);
@@ -1172,8 +1207,26 @@ didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 }
 
 
-// Opening Links in New Windows //
+// Helper method to extract a filename from an anchor element with a "download" attribute
+- (NSString *) getFilenameFromHTMLAnchorElement:(DOMHTMLAnchorElement *)parentNode
+{
+    NSString *filename;
+    NSString *parentOuterHTML = parentNode.outerHTML;
+    NSRange rangeOfDownloadAttribute = [parentOuterHTML rangeOfString:@" download='"];
+    if (rangeOfDownloadAttribute.location != NSNotFound) {
+        filename = [parentOuterHTML substringFromIndex:rangeOfDownloadAttribute.location + rangeOfDownloadAttribute.length];
+        filename = [filename substringToIndex:[filename rangeOfString:@"'"].location];
+    } else {
+        rangeOfDownloadAttribute = [parentOuterHTML rangeOfString:@" download=\""];
+        if (rangeOfDownloadAttribute.location != NSNotFound) {
+            filename = [parentOuterHTML substringFromIndex:rangeOfDownloadAttribute.location + rangeOfDownloadAttribute.length];
+            filename = [filename substringToIndex:[filename rangeOfString:@"\""].location];
+        }
+    }
+    return filename;
+}
 
+// Opening Links in New Windows //
 // Handling of requests from JavaScript and web plugins to open a link in a new window
 - (void)webView:(SEBWebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation 
         request:(NSURLRequest *)request 
@@ -1187,26 +1240,23 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
     
     if (request) {
         // Get the DOMNode from the information about the action that triggered the navigation request
+        self.downloadFilename = nil;
         NSDictionary *webElementDict = [actionInformation valueForKey:@"WebActionElementKey"];
         DOMNode *webElementDOMNode = [webElementDict valueForKey:@"WebElementDOMNode"];
         DOMHTMLAnchorElement *parentNode = (DOMHTMLAnchorElement *)webElementDOMNode.parentNode;
         if ([parentNode.nodeName isEqualToString:@"A"]) {
-            NSString *filename;
-            NSString *parentOuterHTML = parentNode.outerHTML;
-            NSRange rangeOfDownloadAttribute = [parentOuterHTML rangeOfString:@" download='"];
-            if (rangeOfDownloadAttribute.location != NSNotFound) {
-                filename = [parentOuterHTML substringFromIndex:rangeOfDownloadAttribute.location + rangeOfDownloadAttribute.length];
-                filename = [filename substringToIndex:[filename rangeOfString:@"'"].location];
-            } else {
-                rangeOfDownloadAttribute = [parentOuterHTML rangeOfString:@" download=\""];
-                if (rangeOfDownloadAttribute.location != NSNotFound) {
-                    filename = [parentOuterHTML substringFromIndex:rangeOfDownloadAttribute.location + rangeOfDownloadAttribute.length];
-                    filename = [filename substringToIndex:[filename rangeOfString:@"\""].location];
+            self.downloadFilename = [self getFilenameFromHTMLAnchorElement:parentNode];
+        } else {
+            // Check if one of the children is a anchor
+            DOMHTMLCollection *childrenNodes = parentNode.children;
+            int i;
+            for (i = 0; i < childrenNodes.length; i++) {
+                DOMHTMLAnchorElement *childNode = (DOMHTMLAnchorElement *)[childrenNodes item:i];
+                if ([childNode.nodeName isEqualToString:@"A"]) {
+                    self.downloadFilename = [self getFilenameFromHTMLAnchorElement:childNode];
+                    break;
                 }
             }
-            self.downloadFilename = filename;
-        } else {
-            self.downloadFilename = nil;
         }
         
         // Check if quit URL has been clicked (regardless of current URL Filter)
@@ -1377,6 +1427,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         DDLogInfo(@"Link to resource %@ had the 'download' attribute, force download it.", request.URL.absoluteString);
         [listener download];
         [self startDownloadingURL:request.URL];
+        return;
     }
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -1387,40 +1438,40 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         return;
     }
     // Check if it is a data: scheme to support the W3C saveAs() FileSaver interface
-//    if ([request.URL.scheme isEqualToString:@"data"]) {
-//        CFStringRef mimeType = (__bridge CFStringRef)type;
-//        CFStringRef uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, mimeType, NULL);
-//        CFStringRef extension = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassFilenameExtension);
-//        self.downloadFileExtension = (__bridge NSString *)(extension);
-//        if (uti) CFRelease(uti);
-//        if (extension) CFRelease(extension);
-//        DDLogInfo(@"data: content MIME type to download is %@, the file extension will be %@", type, extension);
-//        [listener download];
-//        [self startDownloadingURL:request.URL];
-//        
-//        // Close the temporary Window or WebView which has been opend by the data: download link
-//        SEBWebView *creatingWebView = [self.webView creatingWebView];
-//        if (creatingWebView) {
-//            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
-//                // we have to close the new browser window which already has been openend by WebKit
-//                // Get the document for my web view
-//                DDLogDebug(@"Originating browser window %@", sender);
-//                // Close document and therefore also window
-//                //Workaround: Flash crashes after closing window and then clicking some other link
-//                [[self.webView preferences] setPlugInsEnabled:NO];
-//                DDLogDebug(@"Now closing new document browser window for: %@", self.webView);
-//                [self.browserController closeWebView:self.webView];
-//            }
-//            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
-//                if (self.webView) {
-//                    [sender close]; //close the temporary webview
-//                }
-//            }
-//        }
-//    } else {
-//        self.downloadFileExtension = nil;
-//    }
-//
+    if ([request.URL.scheme isEqualToString:@"data"]) {
+        CFStringRef mimeType = (__bridge CFStringRef)type;
+        CFStringRef uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, mimeType, NULL);
+        CFStringRef extension = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassFilenameExtension);
+        self.downloadFileExtension = (__bridge NSString *)(extension);
+        if (uti) CFRelease(uti);
+        if (extension) CFRelease(extension);
+        DDLogInfo(@"data: content MIME type to download is %@, the file extension will be %@", type, extension);
+        [listener download];
+        [self startDownloadingURL:request.URL];
+        
+        // Close the temporary Window or WebView which has been opend by the data: download link
+        SEBWebView *creatingWebView = [self.webView creatingWebView];
+        if (creatingWebView) {
+            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
+                // we have to close the new browser window which already has been openend by WebKit
+                // Get the document for my web view
+                DDLogDebug(@"Originating browser window %@", sender);
+                // Close document and therefore also window
+                //Workaround: Flash crashes after closing window and then clicking some other link
+                [[self.webView preferences] setPlugInsEnabled:NO];
+                DDLogDebug(@"Now closing new document browser window for: %@", self.webView);
+                [self.browserController closeWebView:self.webView];
+            }
+            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
+                if (self.webView) {
+                    [sender close]; //close the temporary webview
+                }
+            }
+        }
+    } else {
+        self.downloadFileExtension = nil;
+    }
+
     // Check for PDF file and according to settings either download or display it inline in the SEB browser
     if (![type isEqualToString:@"application/pdf"] || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"]) {
         // MIME type isn't PDF or downloading of PDFs isn't allowed

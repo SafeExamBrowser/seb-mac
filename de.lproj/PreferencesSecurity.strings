@@ -40,8 +40,8 @@
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Policy that applies when an exam client doesn't have the SEB Service installed or running"; ObjectID = "93"; */
 "93.ibShadowedToolTip" = "Richtline, die angewendet wird, wenn der SEB-Hintergrundservice auf einem Prüfungs-Client nicht installiert ist";
 
-/* Class = "NSTextFieldCell"; title = "SEB Service policy"; ObjectID = "100"; */
-"100.title" = "SEB-Service Richtlinie";
+/* Class = "NSTextFieldCell"; title = "SEB Service policy (Win)"; ObjectID = "100"; */
+"100.title" = "SEB-Service Richtlinie (Win)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Usually Fast User Switching shouldn't be allowed on BYOD exam clients"; ObjectID = "292"; */
 "292.ibShadowedToolTip" = "Üblicherweise sollte der schnelle Benutzerwechsel auf studentischen Prüfungsrechnern ausgeschaltet werden";
@@ -91,11 +91,17 @@
 /* Class = "NSButtonCell"; title = "Enable Log off"; ObjectID = "LTi-lL-sOs"; */
 "LTi-lL-sOs.title" = "Abmelden erlauben";
 
+/* Class = "NSBox"; title = "Logging"; ObjectID = "M5z-0E-3yB"; */
+"M5z-0E-3yB.title" = "Loggen";
+
 /* Class = "NSButtonCell"; title = "Enable Shut down"; ObjectID = "Ouk-wE-FFP"; */
 "Ouk-wE-FFP.title" = "Herunterfahren erlauben";
 
+/* Class = "NSButton"; ibShadowedToolTip = "Corresponds to 'Allow browsing back/forward' in Browser pane. Disabling browsing to previously visited pages may increase security, because browsing back might allow to leave an exam"; ObjectID = "P88-5S-xeR"; */
+"P88-5S-xeR.ibShadowedToolTip" = "Entspricht 'Vorwärts-/Rückwärts-Surfen erlauben' im Browser-Tab. Ausschalten der Funktion, auf bereits besuchte Seiten zurückzukehren verhindert, eine Prüfung zu verlassen, indem man auf eine Startseite ausserhalb des Prüfungs-Servers zurückkehrt";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Controls OS X screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows"; ObjectID = "PH3-Cb-12g"; */
-"PH3-Cb-12g.ibShadowedToolTip" = "OS X Bildschirmfoto (cmd-3 und cmd-4) erlauben, entspricht ";
+"PH3-Cb-12g.ibShadowedToolTip" = "OS X Bildschirmfoto (cmd-3 und cmd-4) erlauben, entspricht Print Screen Taste (Windows Hooked Keys Einstellungen)";
 
 /* Class = "NSButtonCell"; title = "Enable Right Mouse"; ObjectID = "PWk-fT-HdC"; */
 "PWk-fT-HdC.title" = "Rechte Maustaste erlauben";
@@ -148,6 +154,9 @@
 /* Class = "NSTabViewItem"; label = "Registry"; ObjectID = "ifL-Zz-OJp"; */
 "ifL-Zz-OJp.label" = "Registry";
 
+/* Class = "NSMatrix"; ibShadowedToolTip = "The kiosk mode setting reflects how the computer is locked down into SEB."; ObjectID = "kBz-Xz-wNK"; */
+"kBz-Xz-wNK.ibShadowedToolTip" = "Der Kiosk-Modus bestimmt, wie SEB den Computer abgesichert";
+
 /* Class = "NSButtonCell"; title = "Enable F3"; ObjectID = "n1l-UI-Mxa"; */
 "n1l-UI-Mxa.title" = "F3 erlauben";
 
@@ -170,7 +179,7 @@
 "rd9-dL-Qhi.title" = "F2 erlauben";
 
 /* Class = "NSButtonCell"; title = "Enable Switch User"; ObjectID = "rm8-cp-dzk"; */
-"rm8-cp-dzk.title" = "Benutzer wechseln erlauben";
+"rm8-cp-dzk.title" = "Benutzerwechsel erlauben";
 
 /* Class = "NSButtonCell"; title = "Enable Alt-Tab"; ObjectID = "ufj-NR-s2G"; */
 "ufj-NR-s2G.title" = "Alt-Tab erlauben";
@@ -179,7 +188,7 @@
 "uiU-JQ-4Yc.title" = "Task-Manager starten erlauben";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Controls Print Screen, corresponds with Enable screen capture in OS X"; ObjectID = "wUs-SE-6xn"; */
-"wUs-SE-6xn.ibShadowedToolTip" = "Print Screen erlauben, entspricht OS X Bildschirmfoto (cmd-3 und cmd-4) ";
+"wUs-SE-6xn.ibShadowedToolTip" = "Print Screen erlauben, entspricht OS X 'Bildschirmfoto erlauben' (cmd-3 und cmd-4) ";
 
 /* Class = "NSButtonCell"; title = "Enable F4"; ObjectID = "yCu-0c-Hf1"; */
 "yCu-0c-Hf1.title" = "F4 erlauben";

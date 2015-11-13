@@ -66,11 +66,6 @@
     SEBBrowserWindow *browserWindow = (SEBBrowserWindow *)self.window;
     [browserWindow setCalculatedFrame];
     self.browserController.activeBrowserWindow = (SEBBrowserWindow *)self.window;
-
-    //[browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
-//    [browserWindow setCollectionBehavior:NSWindowCollectionBehaviorStationary | NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary];
-//    [browserWindow setLevel:NSDockWindowLevel];
-//    [browserWindow setLevel:kCGMainMenuWindowLevel-1];
 }
 
 

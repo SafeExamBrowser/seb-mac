@@ -33,11 +33,20 @@
 //
 
 #import <WebKit/WebKit.h>
+#include "WebViewInternal.h"
+
+@class WebBasePluginPackage;
 
 @interface SEBWebView : WebView
 
 @property (weak, nonatomic) SEBWebView *creatingWebView;
 @property (strong, nonatomic) NSMutableArray *notAllowedURLs;
 @property (readwrite) BOOL dismissAll;
+
+- (NSArray *)plugins;
+
++ (BOOL)_canShowMIMEType:(NSString *)MIMEType allowingPlugins:(BOOL)allowPlugins;
+
+- (WebBasePluginPackage *)_pluginForMIMEType:(NSString *)MIMEType;
 
 @end

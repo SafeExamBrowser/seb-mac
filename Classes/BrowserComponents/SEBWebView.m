@@ -33,27 +33,30 @@
 //
 
 #import "SEBWebView.h"
+#import "WebPluginDatabase.h"
+
 
 @implementation SEBWebView
 
-- (void)drawRect:(NSRect)dirtyRect {
-    [super drawRect:dirtyRect];
-    
-    // Drawing code here.
+
+- (NSArray *)plugins
+{
+    NSArray *plugins = [[WebPluginDatabase sharedDatabase] plugins];
+    return plugins;
 }
 
 
 - (void) reload:(id)sender
 {
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_showReloadWarning"]) {
-        
+
+        // Display warning and ask if to reload page
         NSAlert *newAlert = [[NSAlert alloc] init];
         [newAlert setMessageText:NSLocalizedString(@"Reload Current Page", nil)];
         [newAlert setInformativeText:NSLocalizedString(@"Do you really want to reload the current web page?", nil)];
         [newAlert addButtonWithTitle:NSLocalizedString(@"Reload", nil)];
         [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
         [newAlert setAlertStyle:NSWarningAlertStyle];
-
 
         void (^conditionalReload)(NSModalResponse) = ^void (NSModalResponse answer) {
             switch(answer) {
@@ -66,9 +69,11 @@
                     // Reload page
                     DDLogInfo(@"Reloading current webpage");
                     [super reload:sender];
+
                     break;
                     
                 default:
+                    // Return without reloading page
                     return;
             }
         };
@@ -80,6 +85,11 @@
             [newAlert beginSheetModalForWindow:self.window completionHandler:(void (^)(NSModalResponse answer))conditionalReload];
         }
         
+    } else {
+        
+        // Reload page without displaying warning
+        DDLogInfo(@"Reloading current webpage");
+        [super reload:sender];
     }
 }
 
@@ -95,6 +105,36 @@
         DDLogInfo(@"Dictionary look-up was blocked! %s", __FUNCTION__);
     }
 }
+
+
++ (BOOL)_canShowMIMEType:(NSString *)MIMEType allowingPlugins:(BOOL)allowPlugins
+{
+    if (!allowPlugins && [MIMEType isEqualToString:@"application/pdf"])
+    {
+        return YES;
+    }
+    else
+    {
+        BOOL canShowType = [WebView _canShowMIMEType:MIMEType allowingPlugins:allowPlugins];
+        return canShowType;
+    }
+}
+
+
+- (WebBasePluginPackage *)_pluginForMIMEType:(NSString *)MIMEType
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([MIMEType isEqualToString:@"application/pdf"] && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPDFPlugIn"])
+    {
+        return nil;
+    }
+    else
+    {
+        WebBasePluginPackage *plugInPackage = [super _pluginForMIMEType:MIMEType];
+        return plugInPackage;
+    }
+}
+
 
 
 @end

@@ -5,7 +5,7 @@
 "3KI-5c-L1K.title" = "Dock-Höhe";
 
 /* Class = "NSButtonCell"; title = "Show reload button"; ObjectID = "3wD-Cd-yYF"; */
-"3wD-Cd-yYF.title" = "Taste 'Neu Laden' anzeigen";
+"3wD-Cd-yYF.title" = "Neuladen-Taste anzeigen";
 
 /* Class = "NSButtonCell"; title = "Show time"; ObjectID = "6CP-QX-2NV"; */
 "6CP-QX-2NV.title" = "Uhrzeit anzeigen";
@@ -29,7 +29,7 @@
 "76.ibShadowedToolTip" = "Das SEB-Dock zeigt und schaltet um auf offene Browserfenster, zugelassene Ressourcen und Drittapplikationen und kann zusätzliche Funktionen beinhalten";
 
 /* Class = "NSButtonCell"; title = "Show SEB dock"; ObjectID = "77"; */
-"77.title" = "SEB-Dock/Taskbar anzeigen";
+"77.title" = "SEB-Dock/Taskleiste anzeigen";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Displays a toolbar on top of the browser window which can also be hidden by the user"; ObjectID = "371"; */
 "371.ibShadowedToolTip" = "Symbolleiste anzeigen";
@@ -53,7 +53,7 @@
 "596.ibShadowedToolTip" = "Fensterhöhe in Punkten oder Prozent der Bildschirmhöhe";
 
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Position browser window on the left, right or centered"; ObjectID = "599"; */
-"599.ibShadowedToolTip" = "Browserfenster link, rechts oder zentriert positionieren";
+"599.ibShadowedToolTip" = "Browserfenster links, rechts oder zentriert positionieren";
 
 /* Class = "NSTextFieldCell"; title = "Horizontal positioning"; ObjectID = "605"; */
 "605.title" = "Horizontale Positionierung";
@@ -88,6 +88,9 @@
 /* Class = "NSTextFieldCell"; title = "Width"; ObjectID = "724"; */
 "724.title" = "Breite";
 
+/* Class = "NSMatrix"; ibShadowedToolTip = "Use a browser window which can be scaled and moved around, show main  window full screen or use the tablet mode (Win)"; ObjectID = "743"; */
+"743.ibShadowedToolTip" = "Browser-Fenster (kann bewegt und skaliert werden), Hauptfenster im Vollbild oder Touch-/Tablet-Modus (Win) verwenden";
+
 /* Class = "NSButtonCell"; title = "Use browser window"; ObjectID = "745"; */
 "745.title" = "Browserfenster verwenden";
 
@@ -103,8 +106,8 @@
 /* Class = "NSButtonCell"; title = "Use text zoom"; ObjectID = "Hgy-sG-HYK"; */
 "Hgy-sG-HYK.title" = "Text-Zoom verwenden";
 
-/* Class = "NSButtonCell"; title = "Show keyboard layout"; ObjectID = "NVt-Gb-hG5"; */
-"NVt-Gb-hG5.title" = "Auswahl Tastaturbelegung anzeigen";
+/* Class = "NSButtonCell"; title = "Show keyboard layout (Win)"; ObjectID = "NVt-Gb-hG5"; */
+"NVt-Gb-hG5.title" = "Auswahl Tastaturbelegung anzeigen (Win)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Allows to reconnect to WiFi networks which have previously been connected to"; ObjectID = "NYh-TA-SfI"; */
 "NYh-TA-SfI.ibShadowedToolTip" = "Erlaubt es, die Verbindung mit WLAN-Netzwerken wiederherzustellen";
@@ -112,7 +115,7 @@
 /* Class = "NSBox"; title = "SEB dock/task bar"; ObjectID = "Q3v-Xi-ylG"; */
 "Q3v-Xi-ylG.title" = "SEB Dock/Taskleiste";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Text in browser windows can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar"; ObjectID = "S0v-zb-D4L"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Text in browser windows can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar"; ObjectID = "S0v-zb-D4L"; */
 "S0v-zb-D4L.ibShadowedToolTip" = "Text in Browserfenstern kann mit Ctrl-Cmd +/- oder den Befehlen im Menü Darstellung und der Browserfenster-Werkzeugleiste vergrössert/verkleinert werden";
 
 /* Class = "NSBox"; title = "Enable zoom (Mac/Win)"; ObjectID = "VBE-Ah-xWx"; */
@@ -127,8 +130,8 @@
 /* Class = "NSButtonCell"; title = "Enable page zoom"; ObjectID = "YEg-Qr-xf0"; */
 "YEg-Qr-xf0.title" = "Seiten-Zoom zulassen";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Pages can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar"; ObjectID = "baa-Wm-1db"; */
-"baa-Wm-1db.ibShadowedToolTip" = "Webseiten können mit Cmd +/- oder den Befehlen im Menü Darstellung und der Browserfenster-Werkzeugleiste skaliert werden";
+/* Class = "NSButton"; ibShadowedToolTip = "Pages can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar"; ObjectID = "baa-Wm-1db"; */
+"baa-Wm-1db.ibShadowedToolTip" = "Webseiten können mit Cmd +/- oder den Befehlen im Menü Darstellung und der Browserfenster-Werkzeugleiste vergrössert/verkleinert werden";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Shows current keyboard layout and allows to change it"; ObjectID = "cvI-1t-MPD"; */
 "cvI-1t-MPD.ibShadowedToolTip" = "Zeigt aktuelle Tastaturbelegung an und erlaubt, diese umzuschalten";
@@ -137,7 +140,7 @@
 "d5d-zh-qxU.title" = "Mac-spezifisch";
 
 /* Class = "NSBox"; title = "Zoom mode Win (Ctrl-Mousewheel)"; ObjectID = "eGR-0O-pYN"; */
-"eGR-0O-pYN.title" = "Zoom-Modus (Ctrl-Maustaste)";
+"eGR-0O-pYN.title" = "Zoom-Modus Win (Ctrl-Maustaste)";
 
 /* Class = "NSButtonCell"; title = "Allow dictionary look up"; ObjectID = "iYV-Zg-Pat"; */
 "iYV-Zg-Pat.title" = "Begriffe Nachschlagen erlauben";
@@ -145,8 +148,8 @@
 /* Class = "NSButtonCell"; title = "Use page zoom"; ObjectID = "iqK-dQ-5mz"; */
 "iqK-dQ-5mz.title" = "Seiten-Zoom verwenden";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Allow looking up text elements on a web site using the 3-finger tap"; ObjectID = "mbj-mD-F32"; */
-"mbj-mD-F32.ibShadowedToolTip" = "Mit drei Fingern tippen zum Nachschlagen von Begriffen zulassen";
+/* Class = "NSButton"; ibShadowedToolTip = "Allow looking up text elements on a web site using the 3-finger tap on a trackpad"; ObjectID = "mbj-mD-F32"; */
+"mbj-mD-F32.ibShadowedToolTip" = "Mit drei Fingern auf dem Trackpad tippen zum Nachschlagen von Begriffen zulassen";
 
 /* Class = "NSButtonCell"; title = "Touch optimized (Win)"; ObjectID = "qpg-Rd-u54"; */
 "qpg-Rd-u54.title" = "Touch-optimiert (Win)";

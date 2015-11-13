@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsExamViewController">
@@ -35,7 +35,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField toolTip="If a Quit Link is entered, it works regardless of other quit settings in the General pane" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Rr-y4-nE8">
+                            <textField toolTip="Full URL (starting with http:// or https://) of the page to open when the Restart exam button is pressed" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Rr-y4-nE8">
                                 <rect key="frame" x="13" y="124" width="588" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="588" id="rck-hM-PcS"/>
@@ -60,15 +60,18 @@
                                     <outlet property="delegate" destination="-2" id="cBd-P3-GHs"/>
                                 </connections>
                             </textField>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="obm-ub-zDL">
-                                <rect key="frame" x="11" y="43" width="415" height="14"/>
-                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Title/tool tip text of the restart button (leave empty for localized standard text)" id="pdT-tX-Sdp">
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="588" translatesAutoresizingMaskIntoConstraints="NO" id="obm-ub-zDL">
+                                <rect key="frame" x="11" y="43" width="449" height="14"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="14" id="EbE-qf-e51"/>
+                                </constraints>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Dialog title/tool tip text of the restart button (leave empty for localized standard text)" id="pdT-tX-Sdp">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField toolTip="If a Quit Link is entered, it works regardless of other quit settings in the General pane" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qei-df-hVI">
+                            <textField toolTip="This text is displayed as the title of the password entering/confirming dialog window and tooltip for the restart exam button" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qei-df-hVI">
                                 <rect key="frame" x="13" y="65" width="588" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="588" id="ZZP-Uf-LnH"/>
@@ -88,9 +91,8 @@
                                     <outlet property="delegate" destination="-2" id="hlp-Xq-oZ2"/>
                                 </connections>
                             </textField>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="oJT-BY-ezv">
+                            <button toolTip="Require to enter the quit/restart password when the restart exam button is pressed" translatesAutoresizingMaskIntoConstraints="NO" id="oJT-BY-ezv">
                                 <rect key="frame" x="11" y="12" width="380" height="18"/>
-                                <string key="toolTip">The Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system</string>
                                 <buttonCell key="cell" type="check" title="Protect restart exam button with the quit/restart password" bezelStyle="regularSquare" imagePosition="left" inset="2" id="5SR-dU-gy3">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -100,9 +102,8 @@
                                     <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_restartExamPasswordProtected" id="SdW-dA-oJt"/>
                                 </connections>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="ujx-Tz-w75">
+                            <button toolTip="The restart exam button reloads the exam's Start URL" translatesAutoresizingMaskIntoConstraints="NO" id="ujx-Tz-w75">
                                 <rect key="frame" x="11" y="152" width="230" height="18"/>
-                                <string key="toolTip">The Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system</string>
                                 <buttonCell key="cell" type="check" title="Use Start URL (see General pane)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Rln-rP-DrR">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -151,6 +152,7 @@
                                 <rect key="frame" x="13" y="99" width="588" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="588" id="gG8-II-QoC"/>
+                                    <constraint firstAttribute="height" constant="22" id="jdJ-nL-pyU"/>
                                 </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="15">
                                     <font key="font" metaFont="system"/>
@@ -161,6 +163,9 @@
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="20">
                                 <rect key="frame" x="31" y="40" width="321" height="18"/>
                                 <string key="toolTip">SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB</string>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="12" id="aQ7-cr-7uB"/>
+                                </constraints>
                                 <buttonCell key="cell" type="check" title="Copy Browser Exam Key to clipboard when quitting SEB" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="21">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
@@ -169,7 +174,7 @@
                                     <binding destination="211" name="value" keyPath="values.org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting" id="1019"/>
                                 </connections>
                             </button>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="32">
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="32">
                                 <rect key="frame" x="11" y="63" width="592" height="28"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="33">
                                     <font key="font" metaFont="smallSystem"/>
@@ -181,6 +186,9 @@
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="970">
                                 <rect key="frame" x="11" y="12" width="274" height="18"/>
                                 <string key="toolTip">The Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system</string>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="14" id="693-Gg-esx"/>
+                                </constraints>
                                 <buttonCell key="cell" type="check" title="Send Browser Exam Key in HTTP header" bezelStyle="regularSquare" imagePosition="left" inset="2" id="971">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -217,7 +225,7 @@
                         <rect key="frame" x="1" y="1" width="614" height="84"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="440">
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="440">
                                 <rect key="frame" x="11" y="14" width="592" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="29" id="uK5-Cd-Hzm"/>
@@ -268,6 +276,7 @@
                 <constraint firstItem="26k-Q1-RaL" firstAttribute="top" secondItem="57Q-JV-oaf" secondAttribute="bottom" constant="20" id="FVu-9s-KJ5"/>
                 <constraint firstItem="26k-Q1-RaL" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="N3J-CS-yEh"/>
                 <constraint firstAttribute="trailing" secondItem="czI-08-Q8k" secondAttribute="trailing" constant="20" id="ruI-x9-QmF"/>
+                <constraint firstItem="26k-Q1-RaL" firstAttribute="top" secondItem="1" secondAttribute="top" constant="187" id="wXx-6a-anZ"/>
                 <constraint firstAttribute="trailing" secondItem="57Q-JV-oaf" secondAttribute="trailing" constant="20" id="xRI-qy-fkv"/>
                 <constraint firstItem="57Q-JV-oaf" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" id="xsc-X4-PkJ"/>
                 <constraint firstItem="czI-08-Q8k" firstAttribute="top" secondItem="26k-Q1-RaL" secondAttribute="bottom" constant="20" id="yeN-9B-htr"/>

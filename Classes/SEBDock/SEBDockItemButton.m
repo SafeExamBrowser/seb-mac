@@ -46,21 +46,27 @@
         CGFloat iconSize = self.frame.size.width;
         [itemIcon setSize: NSMakeSize(iconSize, iconSize)];
         self.image = itemIcon;
-        
-        [self setButtonType:NSMomentaryPushInButton];
+//        NSImage *altImage = self.alternateImage;
+//        self.alternateImage = [NSImage imageNamed:@"SEBRestartIcon"];
+//        altImage = self.alternateImage;
+//        
+//        [self setButtonType:NSMomentaryPushInButton];
+        [self setButtonType:NSMomentaryLightButton];
         [self setImagePosition:NSImageOnly];
         [self setBordered:NO];
-        
+        NSButtonCell *newDockItemButtonCell = self.cell;
+        newDockItemButtonCell.highlightsBy = NSCellLightsByContents;
+
         // Create text label for dock item, if there was a title set for the item
         if (itemTitle) {
             NSRect frameRect = NSMakeRect(0,0,155,21); // This will change based on the size you need
             self.label = [[NSTextField alloc] initWithFrame:frameRect];
             if (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_8) {
-                // We use white text color only when we have NSPopoverAppearanceHUD, so for OS X <= 10.9
+                // We use white text color only when we have NSPopoverAppearanceHUD, so for OS X <= 10.8
                 [self.label setTextColor:[NSColor whiteColor]];
                 [self.label setFont:[NSFont systemFontOfSize:14]];
             } else if (floor(NSAppKitVersionNumber) == NSAppKitVersionNumber10_9) {
-                // We use white text color only when we have NSPopoverAppearanceHUD, so for OS X <= 10.9
+                // We use white text color only when we have NSPopoverAppearanceHUD, so for OS X == 10.9
                 [self.label setTextColor:[NSColor whiteColor]];
                 [self.label setFont:[NSFont boldSystemFontOfSize:14]];
             } else {
@@ -103,8 +109,9 @@
             
             // Create the label popover
             NSPopover *popover = [[NSPopover alloc] init];
+            DDLogDebug(@"Dock Item Label View frame size: %f, %f at origin: %f, %f", dockItemLabelView.frame.size.width, dockItemLabelView.frame.size.height, dockItemLabelView.frame.origin.x, dockItemLabelView.frame.origin.y);
             [popover setContentSize:dockItemLabelView.frame.size];
-            
+            DDLogDebug(@"Dock Item Label Popover content size: %f, %f", popover.contentSize.width, popover.contentSize.height);
             // Add the label view controller as content view controller to the popover
             [popover setContentViewController:controller];
             if (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_9) {
@@ -145,7 +152,7 @@
 {
     if (mouseDown) {
         mouseDown = NO;
-        [self rightMouseDown:nil];
+        [self rightMouseDown:[NSEvent new]];
     }
     
 }
@@ -157,6 +164,8 @@
     {
         [self.labelPopover close];
         [self.dockMenu showRelativeToRect:[self bounds] ofView:self];
+        DDLogDebug(@"Dock menu show relative to rect: %f, %f at origin: %f, %f", self.bounds.size.width, self.bounds.size.height, self.bounds.origin.x, self.bounds.origin.y);
+
     }
 }
 
@@ -173,6 +182,8 @@
 - (void)mouseEntered:(NSEvent *)theEvent
 {
     [self.labelPopover showRelativeToRect:[self bounds] ofView:self preferredEdge:NSMaxYEdge];
+    DDLogDebug(@"Dock item label popover show relative to rect: %f, %f at origin: %f, %f", self.bounds.size.width, self.bounds.size.height, self.bounds.origin.x, self.bounds.origin.y);
+
 }
 
 

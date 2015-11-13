@@ -34,6 +34,8 @@
 
 #import <WebKit/WebKit.h>
 
+//@class WebBasePluginPackage;
+
 
 @interface WebPreferences (WebPreferencesKVCSupport)
 
@@ -45,5 +47,15 @@
 @interface WebView (WebViewKVCSupport)
 
 - (BOOL)maintainsBackForwardList;
+
+@end
+
+
+@interface WebView (WebViewOverrideSetPlugin)
+
++ (void)setupOverridePlugins;
+
++ (void)_newRegisterPluginMIMEType:(NSString *)MIMEType;
+
 
 @end

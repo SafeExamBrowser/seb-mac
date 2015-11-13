@@ -75,6 +75,14 @@
 }
 
 
+// Action to set the enabled property of dependent buttons
+// This is necessary because bindings don't work with private user defaults
+- (IBAction) downloadPDFFiles:(NSButton *)sender
+{
+    allowPDFPlugInButton.enabled = !sender.state;
+}
+
+
 //  
 - (void) setDownloadDirectory {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];

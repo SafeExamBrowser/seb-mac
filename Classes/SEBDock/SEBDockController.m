@@ -56,7 +56,7 @@
         NSRect initialContentRect = NSMakeRect(0, 0, 1024, dockHeight);
         self.dockWindow = [[SEBDockWindow alloc] initWithContentRect:initialContentRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
         self.dockWindow.releasedWhenClosed = YES;
-        self.dockWindow.collectionBehavior = NSWindowCollectionBehaviorStationary;
+        self.dockWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
             [self.dockWindow setSharingType:NSWindowSharingNone];
         }
@@ -74,7 +74,7 @@
         iconSize = dockHeight - 2 * verticalPadding;
         
         self.window = self.dockWindow;
-        [self.window setLevel:NSMainMenuWindowLevel+7];
+        [self.window setLevel:NSMainMenuWindowLevel+6];
         [self.window setAcceptsMouseMovedEvents:YES];
 
     }
@@ -269,6 +269,10 @@
                 if ([dockItem respondsToSelector:@selector(action)]) {
                     [newDockItemButton setTarget:dockItem.target];
                     [newDockItemButton setAction:dockItem.action];
+//                    [newDockItemButton setHighlighted:true];
+                    [newDockItemButton setButtonType:NSMomentaryLightButton];
+//                    NSButtonCell *newDockItemButtonCell = newDockItemButton.cell;
+//                    newDockItemButtonCell.highlightsBy = NSCellLightsByContents;
                 }
                 [newDockItemButton setToolTip:dockItem.toolTip];
                 dockItemView = newDockItemButton;

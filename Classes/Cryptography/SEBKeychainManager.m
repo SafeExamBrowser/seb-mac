@@ -597,7 +597,9 @@
     keyParams.accessRef = access;
     // These two values are for import
     keyParams.keyUsage = NULL;
-    keyParams.keyAttributes = NULL;
+
+    keyParams.keyAttributes = (__bridge CFArrayRef) @[ @(CSSM_KEYATTR_SENSITIVE) ];;
+//    keyParams.keyAttributes = (__bridge CFArrayRef)([NSArray arrayWithObject:(__bridge id)kSecAttrIsPermanent]);
 
     SecExternalItemType itemType = kSecItemTypeAggregate;
     SecExternalFormat externalFormat = kSecFormatPKCS12;
@@ -614,7 +616,36 @@
                           &keyParams,
                           keychain, // Import into a keychain
                           NULL);
-    
+
+//    BOOL                            success;
+//    OSStatus                        err;
+//    NSArray *                       result;
+//    SecExternalFormat               format;
+//    SecKeyImportExportParameters    params;
+//    CFArrayRef                      importedItems;
+//    
+//    result = nil;
+//    importedItems = NULL;
+//    
+//    format = kSecFormatPKCS12;
+//    memset(&params, 0, sizeof(params));
+//    params.passphrase = (__bridge CFTypeRef _Nonnull)(password);
+//    params.accessRef = access;
+//
+//    params.keyAttributes = CSSM_KEYATTR_PERMANENT | CSSM_KEYATTR_SENSITIVE;
+//    
+//    oserr = SecKeychainItemImport(
+//                                (CFDataRef) identityData,     // importedData
+//                                NULL,                       // fileNameOrExtension
+//                                &format,                    // inputFormat
+//                                NULL,                       // itemType
+//                                0,                          // flags
+//                                &params,                    // keyParams
+//                                keychain,             // importKeychain
+//                                &importedItems              // outItems
+//                                );
+//    success = (err == noErr);
+
     if (access) CFRelease(access);
     if (keychain) CFRelease(keychain);
 

@@ -33,6 +33,7 @@
 //
 
 #import "WebKit+WebKitExtensions.h"
+#import "MethodSwizzling.h"
 
 
 @implementation WebPreferences (WebPreferencesKVCSupport)
@@ -55,5 +56,34 @@
         return NO;
     }
 }
+
+@end
+
+
+@implementation WebView (WebViewOverrideSetPlugin)
+
++ (void)setupOverridePlugins
+{
+    [self swizzleClassMethod:@selector(_registerPluginMIMEType:)
+             withMethod:@selector(_newRegisterPluginMIMEType:)];
+}
+
+
+// Override the WebView method _registerPluginMIMEType:(NSString *)MIMEType
+// to prevent the Acrobat Reader plug-in to be registered for the MIME type
+// "application/pdf", which overrides the internal WebKit PDF viewer
++ (void)_newRegisterPluginMIMEType:(NSString *)MIMEType
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([MIMEType isEqualToString:@"application/pdf"] && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPDFPlugIn"])
+    {
+        return;
+    }
+    else
+    {
+        [WebView _newRegisterPluginMIMEType:MIMEType];
+    }
+}
+
 
 @end

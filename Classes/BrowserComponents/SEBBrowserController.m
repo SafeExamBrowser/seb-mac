@@ -41,6 +41,7 @@
 
 #include "WebStorageManagerPrivate.h"
 #include "WebPreferencesPrivate.h"
+#import "WebPluginDatabase.h"
 
 @implementation SEBBrowserController
 
@@ -51,11 +52,10 @@
     if (self) {
         
         self.openBrowserWindowsWebViews = [NSMutableArray new];
-        
+
         // Initialize SEB dock item menu for open browser windows/WebViews
         SEBDockItemMenu *dockMenu = [[SEBDockItemMenu alloc] initWithTitle:@""];
         self.openBrowserWindowsWebViewsMenu = dockMenu;
-        
     }
     return self;
 }
@@ -63,7 +63,7 @@
 
 // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
 - (void) setCustomWebPreferencesForWebView:(SEBWebView *)webView
-{
+{    
     // Set browser user agent according to settings
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
@@ -137,6 +137,10 @@
     // Set the reference to the browser controller in the browser window instance
     SEBBrowserWindow *newWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
     newWindow.browserController = self;
+    
+    // Prevent that the browser window displays the button to make it fullscreen in OS X 10.11
+    // and that it would allow to be used in split screen mode
+    newWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
     
     // Enable or disable spell checking
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -263,6 +267,10 @@
          postNotificationName:@"mainScreenChanged" object:self];
     }
 
+    // Prevent that the browser window displays the button to make it fullscreen in OS X 10.11
+    // and that it would allow to be used in split screen mode
+    self.mainBrowserWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
+
     // Set the flag indicating if the main browser window should be displayed full screen
     self.mainBrowserWindow.isFullScreen = mainBrowserWindowShouldBeFullScreen;
     
@@ -291,7 +299,6 @@
     
     [self addBrowserWindow:self.mainBrowserWindow withWebView:self.webView withTitle:NSLocalizedString(@"Main Browser Window", nil)];
     
-    //[self.browserWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
     [self.mainBrowserWindow makeMainWindow];
     [self.mainBrowserWindow makeKeyAndOrderFront:self];
     self.activeBrowserWindow = self.mainBrowserWindow;
@@ -299,6 +306,15 @@
     DDLogInfo(@"Open MainBrowserWindow with start URL: %@", urlText);
     
     [self openURLString:urlText withSEBUserAgentInWebView:self.webView];
+}
+
+
+- (void) clearBackForwardList
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    [self.mainBrowserWindow.webView setMaintainsBackForwardList:NO];
+    [self.mainBrowserWindow.webView setMaintainsBackForwardList:[preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"]];
 }
 
 
@@ -331,7 +347,7 @@
     // If the main browser window is displayed fullscreen and switching to apps is allowed,
     // we make the window stationary, so that it isn't scaled down from Exposé
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"] && self.mainBrowserWindow.isFullScreen) {
-        self.mainBrowserWindow.collectionBehavior = NSWindowCollectionBehaviorStationary;
+        self.mainBrowserWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
     }
 
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
@@ -394,9 +410,12 @@
         // Check if SEB is in exam mode = private UserDefauls are switched on
         if (NSUserDefaults.userDefaultsPrivate) {
             // If yes, we don't download the .seb file
-            NSRunAlertPanel(NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil),
-                            NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil),
-                            NSLocalizedString(@"OK", nil), nil, nil);
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [newAlert setAlertStyle:NSCriticalAlertStyle];
+            [newAlert runModal];
         } else {
             // SEB isn't in exam mode: reconfiguring it is allowed
             NSError *error = nil;
@@ -557,6 +576,8 @@
 - (void) restartDockButtonPressed
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    [self clearBackForwardList];
     
     // Close all browser windows (documents)
     [self closeAllAdditionalBrowserWindows];

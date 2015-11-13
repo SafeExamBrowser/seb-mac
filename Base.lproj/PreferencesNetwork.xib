@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsNetworkViewController">
@@ -65,7 +65,7 @@
                                             <constraint firstAttribute="width" constant="22" id="LXq-Xr-0eI"/>
                                             <constraint firstAttribute="height" constant="21" id="abk-IT-zqh"/>
                                         </constraints>
-                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="532">
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" scrollable="YES" lineBreakMode="clipping" borderStyle="border" inset="2" id="532">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -93,7 +93,7 @@
                                             <rect key="frame" x="1" y="17" width="238" height="117"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="" headerView="TDX-aF-oMF" id="1EV-b8-djc">
+                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="" headerView="TDX-aF-oMF" id="1EV-b8-djc">
                                                     <rect key="frame" x="0.0" y="0.0" width="569" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
@@ -364,7 +364,7 @@
                                                         </binding>
                                                     </connections>
                                                 </popUpButton>
-                                                <textField toolTip="Application title which is displayed in the application chooser and SEB dock/task bar" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9hw-i2-YWH">
+                                                <textField toolTip="Full filter expression" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9hw-i2-YWH">
                                                     <rect key="frame" x="13" y="185" width="549" height="22"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1FE-W1-TbR">
                                                         <font key="font" metaFont="system"/>
@@ -791,7 +791,7 @@
                                 <rect key="frame" x="10" y="33" width="604" height="640"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="1778">
+                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1778">
                                         <rect key="frame" x="18" y="620" width="571" height="17"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Choose TLS/SSL certificate to embed into settings ..." id="1783">
                                             <font key="font" metaFont="system"/>
@@ -799,7 +799,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <popUpButton toolTip="SSL/TLS certificates from the default keychain. This allows to distribute self-signed certificates to exam clients" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1779">
+                                    <popUpButton toolTip="TLS/SSL certificates from the default keychain. This allows to distribute self-signed certificates to exam clients (Win only)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1779">
                                         <rect key="frame" x="14" y="595" width="576" height="22"/>
                                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="1782" id="1780">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -814,7 +814,7 @@
                                             <action selector="certificateSelected:" target="-2" id="1904"/>
                                         </connections>
                                     </popUpButton>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="1813">
+                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1813">
                                         <rect key="frame" x="18" y="573" width="571" height="17"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Choose identity to embed into settings ..." id="1818">
                                             <font key="font" metaFont="system"/>
@@ -1041,7 +1041,7 @@
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="854">
-                                                            <rect key="frame" x="-2" y="143" width="152" height="17"/>
+                                                            <rect key="frame" x="1" y="143" width="152" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Proxy Configuration File" id="855">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1049,7 +1049,7 @@
                                                             </textFieldCell>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1156">
-                                                            <rect key="frame" x="-3" y="118" width="35" height="17"/>
+                                                            <rect key="frame" x="1" y="115" width="35" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="URL:" id="1157">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1057,9 +1057,9 @@
                                                             </textFieldCell>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1160">
-                                                            <rect key="frame" x="38" y="116" width="274" height="22"/>
+                                                            <rect key="frame" x="42" y="113" width="270" height="22"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="274" id="1167"/>
+                                                                <constraint firstAttribute="width" constant="270" id="1167"/>
                                                             </constraints>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1161">
                                                                 <font key="font" metaFont="system"/>
@@ -1071,16 +1071,16 @@
                                                             </connections>
                                                         </textField>
                                                         <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1168">
-                                                            <rect key="frame" x="191" y="80" width="127" height="32"/>
+                                                            <rect key="frame" x="191" y="77" width="127" height="32"/>
                                                             <buttonCell key="cell" type="push" title="Choose File…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1169">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
                                                         </button>
-                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="1176">
-                                                            <rect key="frame" x="-3" y="0.0" width="302" height="79"/>
+                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1176">
+                                                            <rect key="frame" x="1" y="0.0" width="313" height="76"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="79" id="1193"/>
+                                                                <constraint firstAttribute="height" constant="76" id="1193"/>
                                                             </constraints>
                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="If your network administrator provided you with the address of an automatic proxy configuration (.pac) file, enter it above." id="1178">
                                                                 <font key="font" metaFont="smallSystem"/>
@@ -1091,8 +1091,8 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="854" firstAttribute="top" secondItem="823" secondAttribute="top" id="856"/>
-                                                        <constraint firstItem="854" firstAttribute="leading" secondItem="823" secondAttribute="leading" id="857"/>
-                                                        <constraint firstItem="1156" firstAttribute="top" secondItem="854" secondAttribute="bottom" constant="8" symbolic="YES" id="1159"/>
+                                                        <constraint firstItem="854" firstAttribute="leading" secondItem="823" secondAttribute="leading" constant="3" id="857"/>
+                                                        <constraint firstItem="1156" firstAttribute="top" secondItem="854" secondAttribute="bottom" constant="11" id="1159"/>
                                                         <constraint firstItem="1160" firstAttribute="baseline" secondItem="1156" secondAttribute="baseline" id="1162"/>
                                                         <constraint firstItem="1160" firstAttribute="leading" secondItem="1156" secondAttribute="trailing" constant="8" symbolic="YES" id="1165"/>
                                                         <constraint firstItem="1160" firstAttribute="trailing" secondItem="823" secondAttribute="trailing" id="1166"/>
@@ -1100,7 +1100,8 @@
                                                         <constraint firstItem="1168" firstAttribute="trailing" secondItem="823" secondAttribute="trailing" id="1171"/>
                                                         <constraint firstItem="1176" firstAttribute="leading" secondItem="1156" secondAttribute="leading" id="1182"/>
                                                         <constraint firstItem="1176" firstAttribute="bottom" secondItem="823" secondAttribute="bottom" id="1192"/>
-                                                        <constraint firstAttribute="trailing" secondItem="1176" secondAttribute="trailing" constant="15" id="1962"/>
+                                                        <constraint firstItem="1176" firstAttribute="trailing" secondItem="1160" secondAttribute="trailing" id="1yz-SL-yi2"/>
+                                                        <constraint firstItem="1156" firstAttribute="leading" secondItem="854" secondAttribute="leading" id="GCe-Gl-S8x"/>
                                                     </constraints>
                                                 </view>
                                             </tabViewItem>
@@ -1764,7 +1765,7 @@
                                             <binding destination="1105" name="selectedIndex" keyPath="selectionIndex" id="1155"/>
                                         </connections>
                                     </tabView>
-                                    <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1037">
+                                    <matrix toolTip="Either system proxy settings of the exam client computer or those provided in these SEB settings are used" verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1037">
                                         <rect key="frame" x="17" y="592" width="570" height="38"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="38" id="5eD-vS-YvM"/>
@@ -1778,11 +1779,11 @@
                                         </buttonCell>
                                         <cells>
                                             <column>
-                                                <buttonCell type="radio" title="Use system proxy settings" imagePosition="left" alignment="left" state="on" toolTip="System proxy settings of the exam client computer are used" tag="1" inset="2" id="1039">
+                                                <buttonCell type="radio" title="Use system proxy settings" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="1039">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
-                                                <buttonCell type="radio" title="Use SEB proxy settings" imagePosition="left" alignment="left" toolTip="Proxy settings provided in these SEB settings are used" inset="2" id="1040">
+                                                <buttonCell type="radio" title="Use SEB proxy settings (Win)" imagePosition="left" alignment="left" inset="2" id="1040">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
