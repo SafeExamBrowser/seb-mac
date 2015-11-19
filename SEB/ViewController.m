@@ -8,6 +8,10 @@
 
 #import <WebKit/WebKit.h>
 #import "Constants.h"
+#import "RNCryptor.h"
+#import "MethodSwizzling.h"
+#import <objc/runtime.h>
+#import "SEBWKWebView.h"
 
 //#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
@@ -16,7 +20,7 @@
 @interface ViewController () <WKNavigationDelegate>
 
 @property (weak) IBOutlet UIView *containerView;
-@property (strong) WKWebView *webView;
+@property (strong) SEBWKWebView *webView;
 @property (copy) NSURLRequest *request;
 
 @end
@@ -39,8 +43,10 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.webView = [[WKWebView alloc] initWithFrame:self.containerView.bounds configuration:[[self class] defaultWebViewConfiguration]];
+    
+//    [ViewController setupModifyRequest];
+    
+    self.webView = [[SEBWKWebView alloc] initWithFrame:self.containerView.bounds configuration:[[self class] defaultWebViewConfiguration]];
     self.webView.navigationDelegate = self;
 
     [self.containerView addSubview:self.webView];
@@ -64,5 +70,6 @@ static NSMutableSet *browserWindowControllers;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end
