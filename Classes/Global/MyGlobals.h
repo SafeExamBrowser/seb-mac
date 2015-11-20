@@ -33,8 +33,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Constants.h"
 
-@interface MyGlobals : NSObjectController
+@interface MyGlobals : NSObject
 
 extern int ddLogLevel;
 

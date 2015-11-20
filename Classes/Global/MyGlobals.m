@@ -33,6 +33,7 @@
 //
 
 #import "SynthesizeSingleton.h"
+#import "MyGlobals.h"
 
 //static int ddLogLevel = LOG_LEVEL_VERBOSE;
 int ddLogLevel =

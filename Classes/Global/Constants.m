@@ -8,7 +8,7 @@
 
 #import "Constants.h"
 
-@implementation Constants
+@implementation Constants : NSObject 
 
 - (NSArray *)ddLogLevels {
     return [NSArray arrayWithObjects:[NSNumber numberWithInt:SEBLogLevelError], [NSNumber numberWithInt:SEBLogLevelWarning], [NSNumber numberWithInt:SEBLogLevelInfo], [NSNumber numberWithInt:SEBLogLevelDebug], [NSNumber numberWithInt:SEBLogLevelVerbose], nil];
