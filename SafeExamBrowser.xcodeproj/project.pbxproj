@@ -71,6 +71,8 @@
 		69428CF6172F2E2500C87C58 /* ZoomTextIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CF1172F2E2500C87C58 /* ZoomTextIn@2x.png */; };
 		69428CF8172F2E2500C87C58 /* ZoomTextOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CF2172F2E2500C87C58 /* ZoomTextOut.png */; };
 		69428CFA172F2E2500C87C58 /* ZoomTextOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CF3172F2E2500C87C58 /* ZoomTextOut@2x.png */; };
+		6943165F1BFEBB6500F784EE /* SynthesizeSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 6991A78F14471F5A00F9149D /* SynthesizeSingleton.h */; };
+		694316601BFEBB6500F784EE /* Constants.h in Headers */ = {isa = PBXBuildFile; fileRef = 692F53D614AD03F300011C84 /* Constants.h */; };
 		6943D0771655054600AB6B1D /* PrefsExamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6943D0751655054600AB6B1D /* PrefsExamViewController.m */; };
 		6947D8981BB073EA00899A8A /* ZoomPageIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6947D8941BB073EA00899A8A /* ZoomPageIn.png */; };
 		6947D8991BB073EA00899A8A /* ZoomPageIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6947D8951BB073EA00899A8A /* ZoomPageIn@2x.png */; };
@@ -123,6 +125,8 @@
 		69CE9C5E17326AB90011609B /* SEBConfigFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE9C5C17326AB90011609B /* SEBConfigFileManager.m */; };
 		69CE9C6317378B9A0011609B /* SEBTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CE9C6117378B9A0011609B /* SEBTextField.h */; };
 		69CE9C6417378B9A0011609B /* SEBTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE9C6217378B9A0011609B /* SEBTextField.m */; };
+		69D1EBE61BFEAD73001838DC /* SEBDockItemTime.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D1EBE41BFEAD73001838DC /* SEBDockItemTime.h */; };
+		69D1EBE71BFEAD73001838DC /* SEBDockItemTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D1EBE51BFEAD73001838DC /* SEBDockItemTime.m */; };
 		69D817E518017DDB00EB7885 /* SEBURLFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D817E318017DDB00EB7885 /* SEBURLFilter.h */; };
 		69D817E618017DDB00EB7885 /* SEBURLFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D817E418017DDB00EB7885 /* SEBURLFilter.m */; };
 		69DD929E1A463435004072E5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69DD92A01A463435004072E5 /* InfoPlist.strings */; };
@@ -190,6 +194,7 @@
 		69FF14AC1A1BB10300912933 /* SEBFilterArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69FF14AA1A1BB10300912933 /* SEBFilterArrayController.h */; };
 		69FF14AD1A1BB10300912933 /* SEBFilterArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF14AB1A1BB10300912933 /* SEBFilterArrayController.m */; };
 		6ABC42B53ADB5B353AF5C197 /* libPods-Safe Exam Browser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 055B3E7C4136AA2551E6DC98 /* libPods-Safe Exam Browser.a */; };
+		7EA5B5F038084C6CA9DE6E21 /* libPods-SEB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DBB82DD05522B732E472702 /* libPods-SEB.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -230,6 +235,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		3DBB82DD05522B732E472702 /* libPods-SEB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SEB.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		584A4309D0160820F4FB95F0 /* Pods-SEB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEB/Pods-SEB.release.xcconfig"; sourceTree = "<group>"; };
 		69009BDE19EA7F590083274C /* SEBBrowserOpenWindowWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBBrowserOpenWindowWebView.h; path = Classes/BrowserComponents/SEBBrowserOpenWindowWebView.h; sourceTree = "<group>"; };
 		69009BDF19EA7F590083274C /* SEBBrowserOpenWindowWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBBrowserOpenWindowWebView.m; path = Classes/BrowserComponents/SEBBrowserOpenWindowWebView.m; sourceTree = "<group>"; };
 		6901331919B371CB0050574D /* PreferencesWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesWindow.h; path = Classes/Preferences/PreferencesWindow/PreferencesWindow.h; sourceTree = "<group>"; };
@@ -389,6 +396,9 @@
 		69CE9C5C17326AB90011609B /* SEBConfigFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SEBConfigFileManager.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69CE9C6117378B9A0011609B /* SEBTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBTextField.h; sourceTree = "<group>"; };
 		69CE9C6217378B9A0011609B /* SEBTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBTextField.m; sourceTree = "<group>"; };
+		69D1EBE41BFEAD73001838DC /* SEBDockItemTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockItemTime.h; path = Classes/SEBDock/SEBDockItemTime.h; sourceTree = "<group>"; };
+		69D1EBE51BFEAD73001838DC /* SEBDockItemTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockItemTime.m; path = Classes/SEBDock/SEBDockItemTime.m; sourceTree = "<group>"; };
+		69D1EBE91BFEB118001838DC /* SEB_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEB_Prefix.pch; path = OtherSources/SEB_Prefix.pch; sourceTree = "<group>"; };
 		69D5881F1189EB8F005AE3F1 /* SEBController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = SEBController.h; path = Classes/SEBController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		69D588201189EB8F005AE3F1 /* SEBController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SEBController.m; path = Classes/SEBController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69D5983214C81FEA005FE98C /* NSWindow+SEBWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSWindow+SEBWindow.h"; sourceTree = "<group>"; };
@@ -456,6 +466,7 @@
 		69F910FF16CA5C720041EA38 /* PrefsNetworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsNetworkViewController.m; sourceTree = "<group>"; };
 		69FF14AA1A1BB10300912933 /* SEBFilterArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBFilterArrayController.h; sourceTree = "<group>"; };
 		69FF14AB1A1BB10300912933 /* SEBFilterArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBFilterArrayController.m; sourceTree = "<group>"; };
+		A795A42CEC6ABC181C253937 /* Pods-SEB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEB/Pods-SEB.debug.xcconfig"; sourceTree = "<group>"; };
 		F2A412BA92CE9CE4323318B1 /* Pods-Safe Exam Browser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safe Exam Browser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -465,6 +476,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69BB07441BA11CD40065E1F2 /* WebKit.framework in Frameworks */,
+				7EA5B5F038084C6CA9DE6E21 /* libPods-SEB.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,6 +617,7 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 				693A94D711B68D8A0083C66D /* Carbon.framework */,
 				055B3E7C4136AA2551E6DC98 /* libPods-Safe Exam Browser.a */,
+				3DBB82DD05522B732E472702 /* libPods-SEB.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -622,6 +635,8 @@
 				690BBEB519D30DF800F7C9C6 /* SEBDockView.m */,
 				690B5B6019DBEAA400704F36 /* SEBDockItem.h */,
 				690B5B6119DBEAA400704F36 /* SEBDockItem.m */,
+				69D1EBE41BFEAD73001838DC /* SEBDockItemTime.h */,
+				69D1EBE51BFEAD73001838DC /* SEBDockItemTime.m */,
 				695BE5F219EC3FED00CA2BB4 /* SEBDockItemMenu.h */,
 				695BE5F319EC3FED00CA2BB4 /* SEBDockItemMenu.m */,
 			);
@@ -725,6 +740,7 @@
 		6940B9681BA0F2FB008C8CFC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				69D1EBE91BFEB118001838DC /* SEB_Prefix.pch */,
 				6940B9691BA0F2FB008C8CFC /* main.m */,
 			);
 			name = "Supporting Files";
@@ -1009,6 +1025,8 @@
 			children = (
 				F2A412BA92CE9CE4323318B1 /* Pods-Safe Exam Browser.debug.xcconfig */,
 				1425FD5D05E0C1AE98F2AF36 /* Pods-Safe Exam Browser.release.xcconfig */,
+				A795A42CEC6ABC181C253937 /* Pods-SEB.debug.xcconfig */,
+				584A4309D0160820F4FB95F0 /* Pods-SEB.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1016,6 +1034,15 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		6943165D1BFEBB4900F784EE /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6943165F1BFEBB6500F784EE /* SynthesizeSingleton.h in Headers */,
+				694316601BFEBB6500F784EE /* Constants.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69A0BF6F1660239400A866C4 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1024,6 +1051,7 @@
 				6906F3C61A3FA60C0011CF93 /* NSString+KKDomain.h in Headers */,
 				6913E5C41A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.h in Headers */,
 				6992499216C3B18B00DF6B53 /* PrefsConfigFileViewController.h in Headers */,
+				69D1EBE61BFEAD73001838DC /* SEBDockItemTime.h in Headers */,
 				69F45D3E1A2123C3009CF3AA /* SEBURLFilterExpression.h in Headers */,
 				6992499C16C5B62000DF6B53 /* PrefsApplicationsViewController.h in Headers */,
 				69F9110016CA5C720041EA38 /* PrefsNetworkViewController.h in Headers */,
@@ -1078,9 +1106,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6940B9991BA0F2FB008C8CFC /* Build configuration list for PBXNativeTarget "SEB" */;
 			buildPhases = (
+				2186A26278DD53227F878759 /* Check Pods Manifest.lock */,
 				6940B9621BA0F2FB008C8CFC /* Sources */,
 				6940B9631BA0F2FB008C8CFC /* Frameworks */,
 				6940B9641BA0F2FB008C8CFC /* Resources */,
+				E06BCF86C40EE95FAEC137DD /* Embed Pods Frameworks */,
+				BB18A26060CA5B1A357BF2FC /* Copy Pods Resources */,
+				6943165D1BFEBB4900F784EE /* Headers */,
 			);
 			buildRules = (
 			);
@@ -1279,6 +1311,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2186A26278DD53227F878759 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		69A79DA117176584005B06CD /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1323,6 +1370,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		BB18A26060CA5B1A357BF2FC /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SEB/Pods-SEB-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		D9B0EA47AE96FE498E870E50 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1336,6 +1398,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E06BCF86C40EE95FAEC137DD /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SEB/Pods-SEB-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1378,6 +1455,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69DFAF3719C468E700CBE69F /* RNCryptorEngine.m in Sources */,
+				69D1EBE71BFEAD73001838DC /* SEBDockItemTime.m in Sources */,
 				69F7B60914F411FB00FD0761 /* PrefsGeneralViewController.m in Sources */,
 				6913E5C51A4AD5EC002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m in Sources */,
 				69F7B60A14F411FB00FD0761 /* main.m in Sources */,
@@ -1607,6 +1685,7 @@
 /* Begin XCBuildConfiguration section */
 		6940B9931BA0F2FB008C8CFC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A795A42CEC6ABC181C253937 /* Pods-SEB.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1630,6 +1709,7 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = SEB/OtherSources/SEB_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1655,6 +1735,7 @@
 		};
 		6940B9941BA0F2FB008C8CFC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 584A4309D0160820F4FB95F0 /* Pods-SEB.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1677,6 +1758,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = SEB/OtherSources/SEB_Prefix.pch;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1895,7 +1977,7 @@
 					"\"$(SDKROOT)/usr/lib/system\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CODE_SIGN_FLAGS = "";
 				PRODUCT_NAME = "Safe Exam Browser";
 				PROVISIONING_PROFILE = "";
@@ -1956,7 +2038,7 @@
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = /Installer;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "Safe Exam Browser";
 				PROVISIONING_PROFILE = "33344a09-4f23-4443-b744-72e1e9e25cb7";
 				SDKROOT = macosx;

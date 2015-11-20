@@ -4,7 +4,17 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>CocoaLumberjack.xcscheme</key>
+		<key>Pods-SEB-CocoaLumberjack.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-SEB.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Safe Exam Browser-CocoaLumberjack.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -17,12 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>12E2BC28C62976C425F4B71C2723F0B1</key>
+		<key>3C5FD1F64A83AD5157D5AFB1DC15527F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>50498A456F1830D44A6C024E15FAB65D</key>
+		<key>6290D20FF67E67844A7D05FAD48CF935</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8F116EB5D779DEA5031F1C0B719D6D19</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AE7BEE87E1AA59E78F75580AE11FB65A</key>
 		<dict>
 			<key>primary</key>
 			<true/>

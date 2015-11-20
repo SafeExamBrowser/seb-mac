@@ -6,7 +6,14 @@
 target 'Safe Exam Browser' do
 
 platform :osx, '10.7'
-pod 'CocoaLumberjack'
+pod 'CocoaLumberjack', '~> 2.2.0'
+
+end
+
+target 'SEB' do
+
+platform :ios, '7.0'
+pod 'CocoaLumberjack', '~> 2.2.0'
 
 end
 
