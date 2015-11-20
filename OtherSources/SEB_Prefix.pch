@@ -37,8 +37,7 @@
 
     #import "Constants.h"
     #import "MyGlobals.h"
-    #import "CocoaLumberjack.h"
+    #import <CocoaLumberjack/CocoaLumberjack.h>
     #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 #endif
-

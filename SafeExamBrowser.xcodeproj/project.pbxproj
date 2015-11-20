@@ -18,30 +18,6 @@
 		6906F3C61A3FA60C0011CF93 /* NSString+KKDomain.h in Headers */ = {isa = PBXBuildFile; fileRef = 6906F3C41A3FA60C0011CF93 /* NSString+KKDomain.h */; };
 		6906F3C71A3FA60C0011CF93 /* NSString+KKDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = 6906F3C51A3FA60C0011CF93 /* NSString+KKDomain.m */; };
 		6906F3CD1A3FA7300011CF93 /* etld.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6906F3CC1A3FA7300011CF93 /* etld.plist */; };
-		6909E33A1A019F7A0086A741 /* CLIColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3211A019F7A0086A741 /* CLIColor.h */; };
-		6909E33B1A019F7A0086A741 /* CLIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3221A019F7A0086A741 /* CLIColor.m */; };
-		6909E33C1A019F7A0086A741 /* CocoaLumberjack.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3231A019F7A0086A741 /* CocoaLumberjack.h */; };
-		6909E33D1A019F7A0086A741 /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3241A019F7A0086A741 /* DDAbstractDatabaseLogger.h */; };
-		6909E33E1A019F7A0086A741 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3251A019F7A0086A741 /* DDAbstractDatabaseLogger.m */; };
-		6909E33F1A019F7A0086A741 /* DDASLLogCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3261A019F7A0086A741 /* DDASLLogCapture.h */; };
-		6909E3401A019F7A0086A741 /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3271A019F7A0086A741 /* DDASLLogCapture.m */; };
-		6909E3411A019F7A0086A741 /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3281A019F7A0086A741 /* DDASLLogger.h */; };
-		6909E3421A019F7A0086A741 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3291A019F7A0086A741 /* DDASLLogger.m */; };
-		6909E3431A019F7A0086A741 /* DDAssertMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E32A1A019F7A0086A741 /* DDAssertMacros.h */; };
-		6909E3441A019F7A0086A741 /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E32B1A019F7A0086A741 /* DDFileLogger.h */; };
-		6909E3451A019F7A0086A741 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E32C1A019F7A0086A741 /* DDFileLogger.m */; };
-		6909E3461A019F7A0086A741 /* DDLog+LOGV.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E32D1A019F7A0086A741 /* DDLog+LOGV.h */; };
-		6909E3471A019F7A0086A741 /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E32E1A019F7A0086A741 /* DDLog.h */; };
-		6909E3481A019F7A0086A741 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E32F1A019F7A0086A741 /* DDLog.m */; };
-		6909E3491A019F7A0086A741 /* DDLogMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3301A019F7A0086A741 /* DDLogMacros.h */; };
-		6909E34A1A019F7A0086A741 /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3311A019F7A0086A741 /* DDTTYLogger.h */; };
-		6909E34B1A019F7A0086A741 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3321A019F7A0086A741 /* DDTTYLogger.m */; };
-		6909E34C1A019F7A0086A741 /* DDContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3341A019F7A0086A741 /* DDContextFilterLogFormatter.h */; };
-		6909E34D1A019F7A0086A741 /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3351A019F7A0086A741 /* DDContextFilterLogFormatter.m */; };
-		6909E34E1A019F7A0086A741 /* DDDispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3361A019F7A0086A741 /* DDDispatchQueueLogFormatter.h */; };
-		6909E34F1A019F7A0086A741 /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3371A019F7A0086A741 /* DDDispatchQueueLogFormatter.m */; };
-		6909E3501A019F7A0086A741 /* DDMultiFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3381A019F7A0086A741 /* DDMultiFormatter.h */; };
-		6909E3511A019F7A0086A741 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3391A019F7A0086A741 /* DDMultiFormatter.m */; };
 		690B5B6219DBEAA400704F36 /* SEBDockItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 690B5B6019DBEAA400704F36 /* SEBDockItem.h */; };
 		690B5B6319DBEAA400704F36 /* SEBDockItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 690B5B6119DBEAA400704F36 /* SEBDockItem.m */; };
 		690BBEAC19D2C6A000F7C9C6 /* SEBDockController.h in Headers */ = {isa = PBXBuildFile; fileRef = 690BBEAA19D2C6A000F7C9C6 /* SEBDockController.h */; };
@@ -200,6 +176,7 @@
 		69F9110116CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F910FF16CA5C720041EA38 /* PrefsNetworkViewController.m */; };
 		69FF14AC1A1BB10300912933 /* SEBFilterArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69FF14AA1A1BB10300912933 /* SEBFilterArrayController.h */; };
 		69FF14AD1A1BB10300912933 /* SEBFilterArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF14AB1A1BB10300912933 /* SEBFilterArrayController.m */; };
+		6ABC42B53ADB5B353AF5C197 /* libPods-Safe Exam Browser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 055B3E7C4136AA2551E6DC98 /* libPods-Safe Exam Browser.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -215,8 +192,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		055B3E7C4136AA2551E6DC98 /* libPods-Safe Exam Browser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Safe Exam Browser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		1425FD5D05E0C1AE98F2AF36 /* Pods-Safe Exam Browser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safe Exam Browser.release.xcconfig"; path = "Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser.release.xcconfig"; sourceTree = "<group>"; };
 		256AC3F00F4B6AF500CF3369 /* SEB_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEB_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -233,30 +212,6 @@
 		6906F3C41A3FA60C0011CF93 /* NSString+KKDomain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+KKDomain.h"; sourceTree = "<group>"; };
 		6906F3C51A3FA60C0011CF93 /* NSString+KKDomain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KKDomain.m"; sourceTree = "<group>"; };
 		6906F3CC1A3FA7300011CF93 /* etld.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = etld.plist; path = Resources/etld.plist; sourceTree = "<group>"; };
-		6909E3211A019F7A0086A741 /* CLIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLIColor.h; sourceTree = "<group>"; };
-		6909E3221A019F7A0086A741 /* CLIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLIColor.m; sourceTree = "<group>"; };
-		6909E3231A019F7A0086A741 /* CocoaLumberjack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaLumberjack.h; sourceTree = "<group>"; };
-		6909E3241A019F7A0086A741 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
-		6909E3251A019F7A0086A741 /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
-		6909E3261A019F7A0086A741 /* DDASLLogCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogCapture.h; sourceTree = "<group>"; };
-		6909E3271A019F7A0086A741 /* DDASLLogCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogCapture.m; sourceTree = "<group>"; };
-		6909E3281A019F7A0086A741 /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
-		6909E3291A019F7A0086A741 /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogger.m; sourceTree = "<group>"; };
-		6909E32A1A019F7A0086A741 /* DDAssertMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAssertMacros.h; sourceTree = "<group>"; };
-		6909E32B1A019F7A0086A741 /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFileLogger.h; sourceTree = "<group>"; };
-		6909E32C1A019F7A0086A741 /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileLogger.m; sourceTree = "<group>"; };
-		6909E32D1A019F7A0086A741 /* DDLog+LOGV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDLog+LOGV.h"; sourceTree = "<group>"; };
-		6909E32E1A019F7A0086A741 /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLog.h; sourceTree = "<group>"; };
-		6909E32F1A019F7A0086A741 /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLog.m; sourceTree = "<group>"; };
-		6909E3301A019F7A0086A741 /* DDLogMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLogMacros.h; sourceTree = "<group>"; };
-		6909E3311A019F7A0086A741 /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTTYLogger.h; sourceTree = "<group>"; };
-		6909E3321A019F7A0086A741 /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTTYLogger.m; sourceTree = "<group>"; };
-		6909E3341A019F7A0086A741 /* DDContextFilterLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDContextFilterLogFormatter.h; sourceTree = "<group>"; };
-		6909E3351A019F7A0086A741 /* DDContextFilterLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDContextFilterLogFormatter.m; sourceTree = "<group>"; };
-		6909E3361A019F7A0086A741 /* DDDispatchQueueLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDispatchQueueLogFormatter.h; sourceTree = "<group>"; };
-		6909E3371A019F7A0086A741 /* DDDispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDispatchQueueLogFormatter.m; sourceTree = "<group>"; };
-		6909E3381A019F7A0086A741 /* DDMultiFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMultiFormatter.h; sourceTree = "<group>"; };
-		6909E3391A019F7A0086A741 /* DDMultiFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMultiFormatter.m; sourceTree = "<group>"; };
 		690B0A0E1A45ED4800CD5FEF /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesGeneral.xib; sourceTree = "<group>"; };
 		690B5B6019DBEAA400704F36 /* SEBDockItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockItem.h; path = Classes/SEBDock/SEBDockItem.h; sourceTree = "<group>"; };
 		690B5B6119DBEAA400704F36 /* SEBDockItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockItem.m; path = Classes/SEBDock/SEBDockItem.m; sourceTree = "<group>"; };
@@ -453,6 +408,7 @@
 		69F910FF16CA5C720041EA38 /* PrefsNetworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsNetworkViewController.m; sourceTree = "<group>"; };
 		69FF14AA1A1BB10300912933 /* SEBFilterArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBFilterArrayController.h; sourceTree = "<group>"; };
 		69FF14AB1A1BB10300912933 /* SEBFilterArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBFilterArrayController.m; sourceTree = "<group>"; };
+		F2A412BA92CE9CE4323318B1 /* Pods-Safe Exam Browser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safe Exam Browser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -467,6 +423,7 @@
 				69F7B61F14F411FB00FD0761 /* Carbon.framework in Frameworks */,
 				69F7B62014F411FB00FD0761 /* IOKit.framework in Frameworks */,
 				696F28E815751ED600780DA8 /* Security.framework in Frameworks */,
+				6ABC42B53ADB5B353AF5C197 /* libPods-Safe Exam Browser.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,9 +485,9 @@
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
-				6909E31F1A019F7A0086A741 /* CocoaLumberjack */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				F4BD8331547AFB3DFC2F9D73 /* Pods */,
 			);
 			name = SEB;
 			sourceTree = "<group>";
@@ -570,55 +527,9 @@
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 				693A94D711B68D8A0083C66D /* Carbon.framework */,
+				055B3E7C4136AA2551E6DC98 /* libPods-Safe Exam Browser.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		6909E31F1A019F7A0086A741 /* CocoaLumberjack */ = {
-			isa = PBXGroup;
-			children = (
-				6909E3201A019F7A0086A741 /* CLI */,
-				6909E3231A019F7A0086A741 /* CocoaLumberjack.h */,
-				6909E3241A019F7A0086A741 /* DDAbstractDatabaseLogger.h */,
-				6909E3251A019F7A0086A741 /* DDAbstractDatabaseLogger.m */,
-				6909E3261A019F7A0086A741 /* DDASLLogCapture.h */,
-				6909E3271A019F7A0086A741 /* DDASLLogCapture.m */,
-				6909E3281A019F7A0086A741 /* DDASLLogger.h */,
-				6909E3291A019F7A0086A741 /* DDASLLogger.m */,
-				6909E32A1A019F7A0086A741 /* DDAssertMacros.h */,
-				6909E32B1A019F7A0086A741 /* DDFileLogger.h */,
-				6909E32C1A019F7A0086A741 /* DDFileLogger.m */,
-				6909E32D1A019F7A0086A741 /* DDLog+LOGV.h */,
-				6909E32E1A019F7A0086A741 /* DDLog.h */,
-				6909E32F1A019F7A0086A741 /* DDLog.m */,
-				6909E3301A019F7A0086A741 /* DDLogMacros.h */,
-				6909E3311A019F7A0086A741 /* DDTTYLogger.h */,
-				6909E3321A019F7A0086A741 /* DDTTYLogger.m */,
-				6909E3331A019F7A0086A741 /* Extensions */,
-			);
-			path = CocoaLumberjack;
-			sourceTree = "<group>";
-		};
-		6909E3201A019F7A0086A741 /* CLI */ = {
-			isa = PBXGroup;
-			children = (
-				6909E3211A019F7A0086A741 /* CLIColor.h */,
-				6909E3221A019F7A0086A741 /* CLIColor.m */,
-			);
-			path = CLI;
-			sourceTree = "<group>";
-		};
-		6909E3331A019F7A0086A741 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				6909E3341A019F7A0086A741 /* DDContextFilterLogFormatter.h */,
-				6909E3351A019F7A0086A741 /* DDContextFilterLogFormatter.m */,
-				6909E3361A019F7A0086A741 /* DDDispatchQueueLogFormatter.h */,
-				6909E3371A019F7A0086A741 /* DDDispatchQueueLogFormatter.m */,
-				6909E3381A019F7A0086A741 /* DDMultiFormatter.h */,
-				6909E3391A019F7A0086A741 /* DDMultiFormatter.m */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		690BBEA919D2C44800F7C9C6 /* SEB Dock */ = {
@@ -940,6 +851,15 @@
 			path = Classes/BugfixingSubclasses;
 			sourceTree = "<group>";
 		};
+		F4BD8331547AFB3DFC2F9D73 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F2A412BA92CE9CE4323318B1 /* Pods-Safe Exam Browser.debug.xcconfig */,
+				1425FD5D05E0C1AE98F2AF36 /* Pods-Safe Exam Browser.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -947,7 +867,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6909E3471A019F7A0086A741 /* DDLog.h in Headers */,
 				694B08A316B14ABF00E4997C /* SEBCryptor.h in Headers */,
 				6906F3C61A3FA60C0011CF93 /* NSString+KKDomain.h in Headers */,
 				6913E5C41A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.h in Headers */,
@@ -959,38 +878,28 @@
 				699282E319D0430A00270E86 /* CapWindowController.h in Headers */,
 				690B5B6219DBEAA400704F36 /* SEBDockItem.h in Headers */,
 				69DFAF3619C468E700CBE69F /* RNCryptorEngine.h in Headers */,
-				6909E3461A019F7A0086A741 /* DDLog+LOGV.h in Headers */,
 				695283DD16CDB54C0055AF6F /* PrefsSecurityViewController.h in Headers */,
 				69F32DC316D23374003C9502 /* PrefsAppearanceViewController.h in Headers */,
-				6909E33A1A019F7A0086A741 /* CLIColor.h in Headers */,
-				6909E34C1A019F7A0086A741 /* DDContextFilterLogFormatter.h in Headers */,
-				6909E33D1A019F7A0086A741 /* DDAbstractDatabaseLogger.h in Headers */,
 				69FF14AC1A1BB10300912933 /* SEBFilterArrayController.h in Headers */,
 				69DFAF3019C468E700CBE69F /* RNDecryptor.h in Headers */,
 				69DE764717FC2A9300EE5958 /* PrefsResourcesViewController.h in Headers */,
-				6909E33C1A019F7A0086A741 /* CocoaLumberjack.h in Headers */,
 				6986652E16DAE184009C0226 /* SEBWindowSizeValueTransformer.h in Headers */,
 				699731C418C8D6ED0069FE35 /* CapWindow.h in Headers */,
 				6921294216F91C6600AFC3B0 /* BoolValueTransformer.h in Headers */,
 				69009BE019EA7F590083274C /* SEBBrowserOpenWindowWebView.h in Headers */,
 				690C6EE619E29E3600EDE103 /* SEBBrowserController.h in Headers */,
-				6909E3431A019F7A0086A741 /* DDAssertMacros.h in Headers */,
 				69DFAF3319C468E700CBE69F /* RNEncryptor.h in Headers */,
 				69EC2A3D1BD63B4800790AF7 /* WebViewInternal.h in Headers */,
 				69DFAF3A19C468E700CBE69F /* RNCryptor OS X-Prefix.pch in Headers */,
 				6906F3C21A3FA5EE0011CF93 /* NSURL+KKDomain.h in Headers */,
 				69D817E518017DDB00EB7885 /* SEBURLFilter.h in Headers */,
 				69263A9E1A2E0765006F1E31 /* SEBWebView.h in Headers */,
-				6909E3441A019F7A0086A741 /* DDFileLogger.h in Headers */,
 				690BBEB119D2C6E500F7C9C6 /* SEBDockItemButton.h in Headers */,
 				6921294716F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h in Headers */,
 				6901331B19B371CB0050574D /* PreferencesWindow.h in Headers */,
-				6909E3491A019F7A0086A741 /* DDLogMacros.h in Headers */,
 				6940A7611853B2AD00D9D00D /* NSData+NSDataZIPExtension.h in Headers */,
 				69F0A3391AD40237008A3553 /* SEBURLProtocol.h in Headers */,
 				69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */,
-				6909E3501A019F7A0086A741 /* DDMultiFormatter.h in Headers */,
-				6909E33F1A019F7A0086A741 /* DDASLLogCapture.h in Headers */,
 				69623A2E1A26184900ED451C /* WebPreferencesPrivate.h in Headers */,
 				69623A2C1A26180E00ED451C /* WebStorageManagerPrivate.h in Headers */,
 				693647FA17122A0300EE41BC /* DropDownButton.h in Headers */,
@@ -998,17 +907,14 @@
 				690BBEB619D30DF800F7C9C6 /* SEBDockView.h in Headers */,
 				69DFAF3919C468E700CBE69F /* RNCryptor+Private.h in Headers */,
 				6917744A1A2776FB0039CC39 /* SEBURLFilterRegexExpression.h in Headers */,
-				6909E34E1A019F7A0086A741 /* DDDispatchQueueLogFormatter.h in Headers */,
 				69CE9C5D17326AB90011609B /* SEBConfigFileManager.h in Headers */,
 				69CE9C6317378B9A0011609B /* SEBTextField.h in Headers */,
 				69EC2A3F1BD6C4FF00790AF7 /* WebPluginDatabase.h in Headers */,
-				6909E3411A019F7A0086A741 /* DDASLLogger.h in Headers */,
 				69CE1C171741309C0072207D /* SEBFilterTreeController.h in Headers */,
 				690BBEAC19D2C6A000F7C9C6 /* SEBDockController.h in Headers */,
 				69627F901A1A46D000E9F2A8 /* NSURL+SEBURL.h in Headers */,
 				69EDAC1E1BBB476F00A3E6C4 /* SEBLockedViewController.h in Headers */,
 				695BE5F419EC3FED00CA2BB4 /* SEBDockItemMenu.h in Headers */,
-				6909E34A1A019F7A0086A741 /* DDTTYLogger.h in Headers */,
 				6915F2E919C8F77600DAEA37 /* SEBDockWindow.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1020,12 +926,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69F7B62214F411FB00FD0761 /* Build configuration list for PBXNativeTarget "Safe Exam Browser" */;
 			buildPhases = (
+				D9B0EA47AE96FE498E870E50 /* Check Pods Manifest.lock */,
 				69A79DA117176584005B06CD /* Run Script */,
 				69F7B5FB14F411FB00FD0761 /* Resources */,
 				69F7B60814F411FB00FD0761 /* Sources */,
 				69F7B61C14F411FB00FD0761 /* Frameworks */,
 				69F7B62114F411FB00FD0761 /* CopyFiles */,
 				69A0BF6F1660239400A866C4 /* Headers */,
+				7D38F894DBD2AF74F80C1DCC /* Embed Pods Frameworks */,
+				B30EE3327039E4A745453B23 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1140,6 +1049,51 @@
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/bash\nbN=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbN=$((0x$bN))\nbN=$(($bN + 1))\nbN=$(printf \"%u\" $bN)\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $bN\" \"$INFOPLIST_FILE\"";
 		};
+		7D38F894DBD2AF74F80C1DCC /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B30EE3327039E4A745453B23 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D9B0EA47AE96FE498E870E50 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1159,14 +1113,12 @@
 				69F7B61014F411FB00FD0761 /* MBPreferencesController.m in Sources */,
 				69F7B61114F411FB00FD0761 /* PreferencesController.m in Sources */,
 				69F7B61214F411FB00FD0761 /* PrefsDownUploadsViewController.m in Sources */,
-				6909E3421A019F7A0086A741 /* DDASLLogger.m in Sources */,
 				69CBEB571834C55D00FB0460 /* SEBSystemManager.m in Sources */,
 				699282E419D0430A00270E86 /* CapWindowController.m in Sources */,
 				69F7B61314F411FB00FD0761 /* SEBBrowserWindowDocument.m in Sources */,
 				69F7B61514F411FB00FD0761 /* MyGlobals.m in Sources */,
 				6917744B1A2776FB0039CC39 /* SEBURLFilterRegexExpression.m in Sources */,
 				690BBEB719D30DF800F7C9C6 /* SEBDockView.m in Sources */,
-				6909E34B1A019F7A0086A741 /* DDTTYLogger.m in Sources */,
 				69F7B61614F411FB00FD0761 /* PrefsBrowserViewController.m in Sources */,
 				69F7B61714F411FB00FD0761 /* SEBEncryptedUserDefaultsController.m in Sources */,
 				690C6EE719E29E3600EDE103 /* SEBBrowserController.m in Sources */,
@@ -1175,7 +1127,6 @@
 				69627F911A1A46D000E9F2A8 /* NSURL+SEBURL.m in Sources */,
 				69F7B61914F411FB00FD0761 /* SEBBrowserWindowController.m in Sources */,
 				69F7B61A14F411FB00FD0761 /* NSWindow+SEBWindow.m in Sources */,
-				6909E3511A019F7A0086A741 /* DDMultiFormatter.m in Sources */,
 				69F7B61B14F411FB00FD0761 /* MethodSwizzling.m in Sources */,
 				690BBEB219D2C6E500F7C9C6 /* SEBDockItemButton.m in Sources */,
 				69009BE119EA7F590083274C /* SEBBrowserOpenWindowWebView.m in Sources */,
@@ -1188,20 +1139,16 @@
 				69F0A33A1AD40237008A3553 /* SEBURLProtocol.m in Sources */,
 				6943D0771655054600AB6B1D /* PrefsExamViewController.m in Sources */,
 				69F293AE164A324B00875C00 /* SEBKeychainManager.m in Sources */,
-				6909E34F1A019F7A0086A741 /* DDDispatchQueueLogFormatter.m in Sources */,
 				694B08A416B14ABF00E4997C /* SEBCryptor.m in Sources */,
 				690B5B6319DBEAA400704F36 /* SEBDockItem.m in Sources */,
 				69FF14AD1A1BB10300912933 /* SEBFilterArrayController.m in Sources */,
 				6992499316C3B18B00DF6B53 /* PrefsConfigFileViewController.m in Sources */,
-				6909E33B1A019F7A0086A741 /* CLIColor.m in Sources */,
 				6992499D16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */,
 				69DFAF2E19C468E700CBE69F /* RNCryptor.m in Sources */,
 				69DFAF3419C468E700CBE69F /* RNEncryptor.m in Sources */,
 				69263A9F1A2E0765006F1E31 /* SEBWebView.m in Sources */,
 				69F9110116CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */,
-				6909E3481A019F7A0086A741 /* DDLog.m in Sources */,
 				695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */,
-				6909E34D1A019F7A0086A741 /* DDContextFilterLogFormatter.m in Sources */,
 				69F32DC416D23374003C9502 /* PrefsAppearanceViewController.m in Sources */,
 				6986652F16DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */,
 				69DFAF3119C468E700CBE69F /* RNDecryptor.m in Sources */,
@@ -1210,12 +1157,9 @@
 				6921294816F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */,
 				6941A6631BDB8DED0050BF1E /* SEBDockItemTime.m in Sources */,
 				69D817E618017DDB00EB7885 /* SEBURLFilter.m in Sources */,
-				6909E33E1A019F7A0086A741 /* DDAbstractDatabaseLogger.m in Sources */,
-				6909E3451A019F7A0086A741 /* DDFileLogger.m in Sources */,
 				695BE5F519EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */,
 				693647FB17122A0300EE41BC /* DropDownButton.m in Sources */,
 				69CE9C5E17326AB90011609B /* SEBConfigFileManager.m in Sources */,
-				6909E3401A019F7A0086A741 /* DDASLLogCapture.m in Sources */,
 				690BBEAD19D2C6A000F7C9C6 /* SEBDockController.m in Sources */,
 				69CE9C6417378B9A0011609B /* SEBTextField.m in Sources */,
 				69CE1C181741309C0072207D /* SEBFilterTreeController.m in Sources */,
@@ -1359,6 +1303,7 @@
 /* Begin XCBuildConfiguration section */
 		69F7B62314F411FB00FD0761 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F2A412BA92CE9CE4323318B1 /* Pods-Safe Exam Browser.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1397,6 +1342,7 @@
 		};
 		69F7B62414F411FB00FD0761 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1425FD5D05E0C1AE98F2AF36 /* Pods-Safe Exam Browser.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
