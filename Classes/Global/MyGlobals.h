@@ -37,8 +37,6 @@
 
 @interface MyGlobals : NSObject
 
-extern int ddLogLevel;
-
 + (MyGlobals*)sharedMyGlobals;
 
 + (int)ddLogLevel;

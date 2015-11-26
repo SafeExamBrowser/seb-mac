@@ -55,7 +55,7 @@
 		6940A7671853B62000D9D00D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6940A7661853B62000D9D00D /* libz.dylib */; };
 		6940B96A1BA0F2FB008C8CFC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940B9691BA0F2FB008C8CFC /* main.m */; };
 		6940B96D1BA0F2FB008C8CFC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940B96C1BA0F2FB008C8CFC /* AppDelegate.m */; };
-		6940B9701BA0F2FB008C8CFC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940B96F1BA0F2FB008C8CFC /* ViewController.m */; };
+		6940B9701BA0F2FB008C8CFC /* SEBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940B96F1BA0F2FB008C8CFC /* SEBViewController.m */; };
 		6940B9731BA0F2FB008C8CFC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6940B9711BA0F2FB008C8CFC /* Main.storyboard */; };
 		6940B9761BA0F2FB008C8CFC /* SEB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6940B9741BA0F2FB008C8CFC /* SEB.xcdatamodeld */; };
 		6940B9781BA0F2FB008C8CFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6940B9771BA0F2FB008C8CFC /* Assets.xcassets */; };
@@ -306,8 +306,8 @@
 		6940B9691BA0F2FB008C8CFC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6940B96B1BA0F2FB008C8CFC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6940B96C1BA0F2FB008C8CFC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		6940B96E1BA0F2FB008C8CFC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		6940B96F1BA0F2FB008C8CFC /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		6940B96E1BA0F2FB008C8CFC /* SEBViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEBViewController.h; sourceTree = "<group>"; };
+		6940B96F1BA0F2FB008C8CFC /* SEBViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEBViewController.m; sourceTree = "<group>"; };
 		6940B9721BA0F2FB008C8CFC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6940B9751BA0F2FB008C8CFC /* SEB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SEB.xcdatamodel; sourceTree = "<group>"; };
 		6940B9771BA0F2FB008C8CFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -726,8 +726,8 @@
 				6940B99C1BA0FBD6008C8CFC /* Resources */,
 				6940B96B1BA0F2FB008C8CFC /* AppDelegate.h */,
 				6940B96C1BA0F2FB008C8CFC /* AppDelegate.m */,
-				6940B96E1BA0F2FB008C8CFC /* ViewController.h */,
-				6940B96F1BA0F2FB008C8CFC /* ViewController.m */,
+				6940B96E1BA0F2FB008C8CFC /* SEBViewController.h */,
+				6940B96F1BA0F2FB008C8CFC /* SEBViewController.m */,
 				6940B9711BA0F2FB008C8CFC /* Main.storyboard */,
 				6940B9771BA0F2FB008C8CFC /* Assets.xcassets */,
 				6940B9791BA0F2FB008C8CFC /* LaunchScreen.storyboard */,
@@ -1427,7 +1427,7 @@
 			files = (
 				694316651BFF943C00F784EE /* MyGlobals.m in Sources */,
 				691CC4131BA134070020D3EC /* RNEncryptor.m in Sources */,
-				6940B9701BA0F2FB008C8CFC /* ViewController.m in Sources */,
+				6940B9701BA0F2FB008C8CFC /* SEBViewController.m in Sources */,
 				6940B96D1BA0F2FB008C8CFC /* AppDelegate.m in Sources */,
 				6940B9761BA0F2FB008C8CFC /* SEB.xcdatamodeld in Sources */,
 				6940B96A1BA0F2FB008C8CFC /* main.m in Sources */,

@@ -32,6 +32,8 @@
 //  Contributor(s): ______________________________________.
 //
 
+#import "DDLog.h"
+
 #ifndef SafeExamBrowser_Constants_h
 #define SafeExamBrowser_Constants_h
 

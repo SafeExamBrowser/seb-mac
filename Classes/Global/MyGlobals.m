@@ -36,12 +36,6 @@
 #import "MyGlobals.h"
 
 //static int ddLogLevel = LOG_LEVEL_VERBOSE;
-int ddLogLevel =
-#ifdef DEBUG
-DDLogLevelVerbose;
-#else
-DDLogLevelWarning;
-#endif
 
 @implementation MyGlobals
 
