@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import "SEBViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) IBOutlet SEBViewController *sebViewController;
+
 @property (strong, nonatomic) UIView *blurringView;
 @property (strong, nonatomic) UIView *coveringView;
 

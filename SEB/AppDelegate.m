@@ -10,6 +10,9 @@
 //#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 @interface AppDelegate ()
+{
+    BOOL examStarted;
+}
 
 @end
 
@@ -24,43 +27,15 @@
     
 //    // Initialize file logger if it's enabled in settings
 //    [self initializeLogger];
-
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(guidedAccessChanged) name:UIAccessibilityGuidedAccessStatusDidChangeNotification object:nil];
+    
     return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-    // Blur the preview view
-    if (!self.coveringView) {
-        UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-        UIVisualEffectView *bluredView = [[UIVisualEffectView alloc] initWithEffect:blur];
-        
-        //    [bluredView setTintColor:[UIColor redColor]];
-        
-        UIView *parentView = self.window.subviews[0];
-        bluredView.frame = parentView.frame;
-        
-        // add the effect view to the image view
-        self.blurringView = bluredView;
-        [parentView addSubview:bluredView];
-        
-        UIView *redView = [[UIView alloc] initWithFrame:parentView.frame];
-        redView.backgroundColor = [UIColor redColor];
-        redView.alpha = 0.25;
-        
-        self.coveringView = redView;
-        [parentView addSubview:redView];
-        
-        //    UIVibrancyEffect *vibrancyEffect = [UIVibrancyEffect effectForBlurEffect:blur];
-        //    // 2
-        //    UIVisualEffectView *vibrancyView = [[UIVisualEffectView alloc] initWithEffect:vibrancyEffect];
-        //    [vibrancyView setTranslatesAutoresizingMaskIntoConstraints:false];
-        //    // 3
-        //    [vibrancyView.contentView addSubview:parentView];
-        //    // 4
-        //    [bluredView.contentView addSubview:vibrancyView];
-    }
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -81,6 +56,54 @@
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
 }
+
+
+- (void) guidedAccessChanged
+{
+    if (examStarted) {
+        if (UIAccessibilityIsGuidedAccessEnabled() == false) {
+            // Blur the preview view
+            if (!self.coveringView) {
+                UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+                UIVisualEffectView *bluredView = [[UIVisualEffectView alloc] initWithEffect:blur];
+                
+                //    [bluredView setTintColor:[UIColor redColor]];
+                
+                UIView *parentView = self.window.subviews[0];
+                bluredView.frame = parentView.frame;
+                
+                // add the effect view to the image view
+                self.blurringView = bluredView;
+                [parentView addSubview:bluredView];
+                
+                UIView *redView = [[UIView alloc] initWithFrame:parentView.frame];
+                redView.backgroundColor = [UIColor redColor];
+                redView.alpha = 0.25;
+                
+                self.coveringView = redView;
+                [parentView addSubview:redView];
+                
+                //    UIVibrancyEffect *vibrancyEffect = [UIVibrancyEffect effectForBlurEffect:blur];
+                //    // 2
+                //    UIVisualEffectView *vibrancyView = [[UIVisualEffectView alloc] initWithEffect:vibrancyEffect];
+                //    [vibrancyView setTranslatesAutoresizingMaskIntoConstraints:false];
+                //    // 3
+                //    [vibrancyView.contentView addSubview:parentView];
+                //    // 4
+                //    [bluredView.contentView addSubview:vibrancyView];
+            }
+        }
+    } else {
+        if (UIAccessibilityIsGuidedAccessEnabled() == true) {
+            self.sebViewController = (SEBViewController*)self.window.rootViewController;
+
+            [self.sebViewController dissmissGuidedAccessAlert];
+            examStarted = true;
+            [self.sebViewController startExam];
+        }
+    }
+}
+
 
 #pragma mark - Core Data stack
 

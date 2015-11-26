@@ -15,9 +15,9 @@
 
 //#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
-#import "ViewController.h"
+#import "SEBViewController.h"
 
-@interface ViewController () <WKNavigationDelegate>
+@interface SEBViewController () <WKNavigationDelegate>
 
 @property (weak) IBOutlet UIView *containerView;
 @property (strong) SEBWKWebView *webView;
@@ -27,7 +27,7 @@
 
 static NSMutableSet *browserWindowControllers;
 
-@implementation ViewController
+@implementation SEBViewController
 
 + (WKWebViewConfiguration *)defaultWebViewConfiguration
 {
@@ -52,19 +52,39 @@ static NSMutableSet *browserWindowControllers;
     [self.containerView addSubview:self.webView];
 
     //self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    
-//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+}
 
+
+- (void)viewDidAppear:(BOOL)animated {
+    
+    self.alertController = [UIAlertController  alertControllerWithTitle:@"Start Guided Access" message:@"Activate Guided Access in Settings/General/Accessibility and after returning to SEB, tripple click home button to start exam"  preferredStyle:UIAlertControllerStyleAlert];
+    //    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    //        [alertController dismissViewControllerAnimated:YES completion:nil];
+    //    }]];
+    [self presentViewController:self.alertController animated:YES completion:nil];    
+}
+
+
+- (void)dissmissGuidedAccessAlert
+{
+    [self.alertController dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+
+- (void)startExam {
+    //    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
     // Load start URL from the system's user defaults
     NSString *urlText = @"http://safeexambrowser.org/exams"; //[preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-//    NSString *urlText = @"https://view.ethz.ch/portal/webclient/index.html#/login";
+    //    NSString *urlText = @"https://view.ethz.ch/portal/webclient/index.html#/login";
     
     self.request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlText]];
-
+    
     [self.webView loadRequest:self.request];
     self.request = nil;
-
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
