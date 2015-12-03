@@ -62,6 +62,13 @@
 {
     if (examStarted) {
         if (UIAccessibilityIsGuidedAccessEnabled() == false) {
+            // Dismiss the Guided Access warning alert if it still was visible
+            self.sebViewController = (SEBViewController*)self.window.rootViewController;
+            if (self.sebViewController.alertController) {
+                [self.sebViewController dissmissGuidedAccessAlert];
+            }
+
+            
             // Blur the preview view
             if (!self.coveringView) {
                 UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
@@ -98,6 +105,7 @@
             self.sebViewController = (SEBViewController*)self.window.rootViewController;
 
             [self.sebViewController dissmissGuidedAccessAlert];
+            
             examStarted = true;
             [self.sebViewController startExam];
         }

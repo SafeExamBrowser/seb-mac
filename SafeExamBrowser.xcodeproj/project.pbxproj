@@ -83,6 +83,8 @@
 		694B08A416B14ABF00E4997C /* SEBCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 694B08A216B14ABF00E4997C /* SEBCryptor.m */; };
 		695283DD16CDB54C0055AF6F /* PrefsSecurityViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */; };
 		695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */; };
+		69544E521C0CEB8800D60C3E /* SEBOSXConfigFileController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69544E501C0CEB8800D60C3E /* SEBOSXConfigFileController.h */; };
+		69544E531C0CEB8800D60C3E /* SEBOSXConfigFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69544E511C0CEB8800D60C3E /* SEBOSXConfigFileController.m */; };
 		695BE5F419EC3FED00CA2BB4 /* SEBDockItemMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 695BE5F219EC3FED00CA2BB4 /* SEBDockItemMenu.h */; };
 		695BE5F519EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 695BE5F319EC3FED00CA2BB4 /* SEBDockItemMenu.m */; };
 		695C5CAD16CB210E008FC401 /* ExamIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAB16CB210E008FC401 /* ExamIcon.png */; };
@@ -341,6 +343,8 @@
 		694B08A216B14ABF00E4997C /* SEBCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBCryptor.m; sourceTree = "<group>"; };
 		695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsSecurityViewController.h; sourceTree = "<group>"; };
 		695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsSecurityViewController.m; sourceTree = "<group>"; };
+		69544E501C0CEB8800D60C3E /* SEBOSXConfigFileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBOSXConfigFileController.h; sourceTree = "<group>"; };
+		69544E511C0CEB8800D60C3E /* SEBOSXConfigFileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBOSXConfigFileController.m; sourceTree = "<group>"; };
 		695AE31319FE634300F8C6A5 /* de.xliff */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = de.xliff; sourceTree = "<group>"; };
 		695AE31419FE634300F8C6A5 /* fr.xliff */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fr.xliff; sourceTree = "<group>"; };
 		695BE5F219EC3FED00CA2BB4 /* SEBDockItemMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockItemMenu.h; path = Classes/SEBDock/SEBDockItemMenu.h; sourceTree = "<group>"; };
@@ -901,6 +905,8 @@
 			children = (
 				69CE9C5B17326AB90011609B /* SEBConfigFileManager.h */,
 				69CE9C5C17326AB90011609B /* SEBConfigFileManager.m */,
+				69544E501C0CEB8800D60C3E /* SEBOSXConfigFileController.h */,
+				69544E511C0CEB8800D60C3E /* SEBOSXConfigFileController.m */,
 			);
 			name = "Config Files";
 			path = Classes/ConfigFiles;
@@ -1078,6 +1084,7 @@
 				69D817E518017DDB00EB7885 /* SEBURLFilter.h in Headers */,
 				69263A9E1A2E0765006F1E31 /* SEBWebView.h in Headers */,
 				690BBEB119D2C6E500F7C9C6 /* SEBDockItemButton.h in Headers */,
+				69544E521C0CEB8800D60C3E /* SEBOSXConfigFileController.h in Headers */,
 				6921294716F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h in Headers */,
 				6901331B19B371CB0050574D /* PreferencesWindow.h in Headers */,
 				6940A7611853B2AD00D9D00D /* NSData+NSDataZIPExtension.h in Headers */,
@@ -1486,6 +1493,7 @@
 				69F7B61914F411FB00FD0761 /* SEBBrowserWindowController.m in Sources */,
 				69F7B61A14F411FB00FD0761 /* NSWindow+SEBWindow.m in Sources */,
 				69F7B61B14F411FB00FD0761 /* MethodSwizzling.m in Sources */,
+				69544E531C0CEB8800D60C3E /* SEBOSXConfigFileController.m in Sources */,
 				690BBEB219D2C6E500F7C9C6 /* SEBDockItemButton.m in Sources */,
 				69009BE119EA7F590083274C /* SEBBrowserOpenWindowWebView.m in Sources */,
 				69F45D3F1A2123C3009CF3AA /* SEBURLFilterExpression.m in Sources */,

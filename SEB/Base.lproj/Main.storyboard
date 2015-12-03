@@ -18,7 +18,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="containerView" destination="8bC-Xf-vdC" id="RMv-b1-CkI"/>
                     </connections>
