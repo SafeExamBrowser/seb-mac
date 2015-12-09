@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--SEB View Controller-->
@@ -26,5 +27,104 @@
             </objects>
             <point key="canvasLocation" x="380" y="721"/>
         </scene>
+        <!--iOS Locked View Controller-->
+        <scene sceneID="Ccw-Jq-ZEY">
+            <objects>
+                <viewController storyboardIdentifier="SEBLockedView" id="f3L-ht-oaH" userLabel="iOS Locked View Controller" customClass="SEBiOSLockedViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="d5g-Kj-l96"/>
+                        <viewControllerLayoutGuide type="bottom" id="0OZ-rE-pp2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="k2i-14-hes">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SEB Is Locked!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2p-As-V6t">
+                                <rect key="frame" x="228" y="28" width="145" height="24"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="72x-TK-QER">
+                                <rect key="frame" x="20" y="58" width="560" height="54"/>
+                                <string key="text">SEB is locked because Guided Access was switched off during the exam. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0nm-pU-BZ0">
+                                <rect key="frame" x="172" y="148" width="257" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <connections>
+                                    <action selector="passwordEntered:" destination="f3L-ht-oaH" eventType="editingDidEnd" id="LwM-GJ-dKg"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter restart/quit password to unlock SEB:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jBa-LL-dKG">
+                                <rect key="frame" x="172" y="124" width="257" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter correct password!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6fi-rT-cNJ">
+                                <rect key="frame" x="199" y="184" width="203" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="203" id="YW0-x6-yYr"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="arM-6u-TmT">
+                                <rect key="frame" x="437" y="149" width="28" height="28"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" image="continueCircle.png"/>
+                                <connections>
+                                    <action selector="passwordEntered:" destination="f3L-ht-oaH" eventType="touchUpInside" id="0xi-NQ-h54"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="M4E-Gh-2wA">
+                                <rect key="frame" x="20" y="208" width="560" height="372"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="0nm-pU-BZ0" firstAttribute="top" secondItem="jBa-LL-dKG" secondAttribute="bottom" constant="8" symbolic="YES" id="1yZ-WJ-FcJ"/>
+                            <constraint firstItem="72x-TK-QER" firstAttribute="leading" secondItem="M4E-Gh-2wA" secondAttribute="leading" id="4Cf-TB-bgy"/>
+                            <constraint firstItem="jBa-LL-dKG" firstAttribute="top" secondItem="72x-TK-QER" secondAttribute="bottom" constant="12" id="AsG-2Q-myd"/>
+                            <constraint firstItem="6fi-rT-cNJ" firstAttribute="top" secondItem="0nm-pU-BZ0" secondAttribute="bottom" constant="6" id="Gvw-TV-o8x"/>
+                            <constraint firstItem="72x-TK-QER" firstAttribute="trailing" secondItem="k2i-14-hes" secondAttribute="trailingMargin" id="KDY-3t-mkg"/>
+                            <constraint firstItem="6fi-rT-cNJ" firstAttribute="centerX" secondItem="0nm-pU-BZ0" secondAttribute="centerX" id="Pbq-nh-5xF"/>
+                            <constraint firstAttribute="bottom" secondItem="M4E-Gh-2wA" secondAttribute="bottom" constant="20" symbolic="YES" id="Tta-fx-jYS"/>
+                            <constraint firstItem="D2p-As-V6t" firstAttribute="top" secondItem="d5g-Kj-l96" secondAttribute="bottom" constant="8" symbolic="YES" id="XgE-rC-Fgh"/>
+                            <constraint firstItem="72x-TK-QER" firstAttribute="top" secondItem="D2p-As-V6t" secondAttribute="bottom" constant="6" id="Zc3-LV-P7q"/>
+                            <constraint firstItem="0nm-pU-BZ0" firstAttribute="centerY" secondItem="arM-6u-TmT" secondAttribute="centerY" id="Zxq-zx-N1g"/>
+                            <constraint firstItem="M4E-Gh-2wA" firstAttribute="trailing" secondItem="72x-TK-QER" secondAttribute="trailing" id="cZC-Wr-uvr"/>
+                            <constraint firstItem="M4E-Gh-2wA" firstAttribute="top" secondItem="6fi-rT-cNJ" secondAttribute="bottom" constant="8" symbolic="YES" id="ejv-kB-2QL"/>
+                            <constraint firstItem="72x-TK-QER" firstAttribute="centerX" secondItem="jBa-LL-dKG" secondAttribute="centerX" id="feJ-SU-dtW"/>
+                            <constraint firstItem="arM-6u-TmT" firstAttribute="leading" secondItem="0nm-pU-BZ0" secondAttribute="trailing" constant="8" symbolic="YES" id="foQ-as-Dz1"/>
+                            <constraint firstItem="72x-TK-QER" firstAttribute="centerX" secondItem="D2p-As-V6t" secondAttribute="centerX" id="hUD-mI-33d"/>
+                            <constraint firstItem="jBa-LL-dKG" firstAttribute="trailing" secondItem="0nm-pU-BZ0" secondAttribute="trailing" id="las-00-nCd"/>
+                            <constraint firstItem="jBa-LL-dKG" firstAttribute="leading" secondItem="0nm-pU-BZ0" secondAttribute="leading" id="wq0-CD-vZe"/>
+                            <constraint firstItem="M4E-Gh-2wA" firstAttribute="leading" secondItem="k2i-14-hes" secondAttribute="leadingMargin" id="xVi-47-At1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="lockedAlertPasswordField" destination="0nm-pU-BZ0" id="hwu-Uq-htk"/>
+                        <outlet property="logTextView" destination="M4E-Gh-2wA" id="2Tg-kh-dag"/>
+                        <outlet property="passwordWrongLabel" destination="6fi-rT-cNJ" id="DW5-oQ-j2m"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IMz-Ms-NNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1049" y="721"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="continueCircle.png" width="28" height="28"/>
+    </resources>
 </document>

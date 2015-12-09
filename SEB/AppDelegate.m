@@ -11,7 +11,6 @@
 
 @interface AppDelegate ()
 {
-    BOOL examStarted;
 }
 
 @end
@@ -22,6 +21,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    // Preloads keyboard so there's no lag on initial keyboard appearance.
+    UITextField *lagFreeField = [[UITextField alloc] init];
+    [self.window addSubview:lagFreeField];
+    [lagFreeField becomeFirstResponder];
+    [lagFreeField resignFirstResponder];
+    [lagFreeField removeFromSuperview];
+
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 //    [preferences setSEBDefaults];
     
@@ -58,56 +64,59 @@
 }
 
 
+// Called when the Guided Access status changes
 - (void) guidedAccessChanged
 {
-    if (examStarted) {
+    // Is the exam already running?
+    if (self.examRunning) {
+        
+        // Exam running: Check if Guided Access was switched off
         if (UIAccessibilityIsGuidedAccessEnabled() == false) {
+            
             // Dismiss the Guided Access warning alert if it still was visible
             self.sebViewController = (SEBViewController*)self.window.rootViewController;
             if (self.sebViewController.alertController) {
                 [self.sebViewController dissmissGuidedAccessAlert];
             }
 
-            
-            // Blur the preview view
+            // If there wasn't a lockdown covering view openend yet, initialize it
             if (!self.coveringView) {
-                UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-                UIVisualEffectView *bluredView = [[UIVisualEffectView alloc] initWithEffect:blur];
-                
-                //    [bluredView setTintColor:[UIColor redColor]];
                 
                 UIView *parentView = self.window.subviews[0];
-                bluredView.frame = parentView.frame;
                 
-                // add the effect view to the image view
-                self.blurringView = bluredView;
-                [parentView addSubview:bluredView];
+                if (!self.lockedViewController) {
+                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                    self.lockedViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBLockedView"];
+                    self.lockedViewController.controllerDelegate = self;
+                }
                 
-                UIView *redView = [[UIView alloc] initWithFrame:parentView.frame];
-                redView.backgroundColor = [UIColor redColor];
-                redView.alpha = 0.25;
+                if (!self.lockedViewController.resignActiveLogString) {
+                    self.lockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
+                }
+                // Save current time for information about when Guided Access was switched off
+                self.didResignActiveTime = [NSDate date];
+                DDLogError(@"Guided Accesss switched off!");
+
+                // Open the lockdown view
+                [self.lockedViewController willMoveToParentViewController:self.sebViewController];
+                [parentView addSubview:self.lockedViewController.view];
+                [self.sebViewController addChildViewController:self.lockedViewController];
+                [self.lockedViewController didMoveToParentViewController:self.sebViewController];
                 
-                self.coveringView = redView;
-                [parentView addSubview:redView];
-                
-                //    UIVibrancyEffect *vibrancyEffect = [UIVibrancyEffect effectForBlurEffect:blur];
-                //    // 2
-                //    UIVisualEffectView *vibrancyView = [[UIVisualEffectView alloc] initWithEffect:vibrancyEffect];
-                //    [vibrancyView setTranslatesAutoresizingMaskIntoConstraints:false];
-                //    // 3
-                //    [vibrancyView.contentView addSubview:parentView];
-                //    // 4
-                //    [bluredView.contentView addSubview:vibrancyView];
+                // Add log string for resign active
+                [self.lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Guided Access was switched off!", nil)] withTime:self.didResignActiveTime];
             }
         }
     } else {
+        // Exam is not yet running, was Guided Access switched on?
         if (UIAccessibilityIsGuidedAccessEnabled() == true) {
+            
+            // Yes, close the notification alert about how to switch Guided Access on
             self.sebViewController = (SEBViewController*)self.window.rootViewController;
 
             [self.sebViewController dissmissGuidedAccessAlert];
             
-            examStarted = true;
-            [self.sebViewController startExam];
+            self.examRunning = true;
         }
     }
 }

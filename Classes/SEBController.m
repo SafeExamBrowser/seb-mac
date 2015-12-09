@@ -1063,7 +1063,7 @@ bool insideMatrix(){
     [coveringView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
     [coveringView setTranslatesAutoresizingMaskIntoConstraints:true];
     
-    sebLockedViewController.sebController = self;
+    sebLockedViewController.controllerDelegate = self;
     
     [coveringView addSubview:sebLockedViewController.view];
     

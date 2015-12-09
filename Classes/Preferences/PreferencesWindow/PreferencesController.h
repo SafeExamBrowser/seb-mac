@@ -36,7 +36,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "SEBConfigFileManager.h"
-
+#import "SEBController.h"
 #import "PrefsGeneralViewController.h"
 #import "PrefsConfigFileViewController.h"
 #import "PrefsAppearanceViewController.h"

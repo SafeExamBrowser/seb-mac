@@ -107,10 +107,10 @@
  * @class       SEBDockController
  *
  * @brief       SEBDockController implements a custom control which is designed to be a
- *              mixture of the OS X Dock and a Windows toolbar, intended to provide an easy
+ *              mixture of the OS X Dock and a Windows task bar, intended to provide an easy
  *              way of switching between allowed third party applications and resources or
  *              opening them if they are not yet running/open. All items placed in the 
- *              SEB Dock have to be rectangular and scalable, with a minimum size of
+ *              SEB Dock have to be scalable (preferably rectangular), with a minimum size of
  *              32 points (32 or 64 pixels @2x resolution). The SEB Dock bar has a min. 
  *              height of 40 points and is pinned to the botton of a screen.
  *              The SEB Dock is divided into three sections left, center and right. 
@@ -120,9 +120,9 @@
  *              The center section can contain a scroll view so if a large number of 
  *              center items don't fit into the space available for the center section,
  *              users can scroll the center section horizontally to show all items.
- *              Items in the right section are intended to be controlls providing functions
+ *              Items in the right section are intended to be controls providing functions
  *              and information which should be accessible application wide (like a quit
- *              button, battery and time information/clock, WLAN control etc.).
+ *              button, battery and current time/clock, WLAN control etc.).
  *
  * @details     SEBDockController handles the creation and display of the SEB Dock hovering
  *              window as well as switching between different items using the dock bar.

@@ -66,6 +66,14 @@ static NSMutableSet *browserWindowControllers;
 {
     [self.alertController dismissViewControllerAnimated:YES completion:nil];
     
+    self.alertController = [UIAlertController  alertControllerWithTitle:@"Guided Access Warning" message:@"Don't switch Guided Access off (home button tripple click or Touch ID) before submitting your exam, otherwise SEB will lock access to the exam! SEB will notify you when you're allowed to switch Guided Access off."  preferredStyle:UIAlertControllerStyleAlert];
+    [self.alertController addAction:[UIAlertAction actionWithTitle:@"I Understand" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self.alertController dismissViewControllerAnimated:YES completion:nil];
+        self.alertController = nil;
+        
+        [self startExam];
+    }]];
+    [self presentViewController:self.alertController animated:YES completion:nil];
 }
 
 
@@ -81,12 +89,6 @@ static NSMutableSet *browserWindowControllers;
     [self.webView loadRequest:self.request];
     self.request = nil;
     
-    self.alertController = [UIAlertController  alertControllerWithTitle:@"Guided Access Warning" message:@"Don't switch Guided Access off (home button tripple click or Touch ID) before submitting your exam! SEB will notify you, when you're allowed to switch Guided Access off. If you try to switch it off during the exam, SEB will lock access to the exam."  preferredStyle:UIAlertControllerStyleAlert];
-    [self.alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self.alertController dismissViewControllerAnimated:YES completion:nil];
-        self.alertController = nil;
-    }]];
-    [self presentViewController:self.alertController animated:YES completion:nil];
 }
 
 
