@@ -11,7 +11,7 @@
 @implementation SEBLockedViewController
 
 
-- (void)passwordEntered:(id)sender {
+- (void) passwordEntered:(id)sender {
     // Check if restarting is protected with the quit/restart password (and one is set)
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *hashedQuitPassword = @"155290511d5c4bfb1369217d6846c8eef1ed6a564579516eaf36cf5598ac92de"; //[preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
@@ -27,37 +27,12 @@
         [self.UIDelegate setLockedAlertPassword:@""];
         [self.UIDelegate setPasswordWrongLabelHidden:true];
 
-        // Add log string for becoming active
-        self.controllerDelegate.didBecomeActiveTime = [NSDate date];
-        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Guided  Access switched on again", nil)]
-                       withTime:self.controllerDelegate.didBecomeActiveTime];
+        // Add log string for Correct password entered
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Correct password entered", nil)]
+                       withTime:[NSDate date]];
 
-        // Add log information about closing lockdown alert
-        DDLogError(@"Lockdown alert: Correct password entered, closing lockdown windows");
-        self.controllerDelegate.didResumeExamTime = [NSDate date];
-        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Correct password entered, closing lockdown windows", nil)] withTime:self.controllerDelegate.didResumeExamTime];
-        // Calculate time difference between session resigning active and closing lockdown alert
-        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-        NSDateComponents *components = [calendar components:NSCalendarUnitMinute | NSCalendarUnitSecond
-                                                   fromDate:self.controllerDelegate.didResignActiveTime
-                                                     toDate:self.controllerDelegate.didResumeExamTime
-                                                    options:false];
-        
-        DDLogError(@"Lockdown alert: Correct password entered, closing lockdown windows");
-        NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second];
-        DDLogError(@"Lockdown alert: %@", lockedTimeInfo);
-        [self appendErrorString:[NSString stringWithFormat:@"  %@\n", lockedTimeInfo]
-                       withTime:nil];
-        
-        if ([self.UIDelegate respondsToSelector:@selector(closeLockdownWindows)]) {
-            [self.UIDelegate closeLockdownWindows];
-        }
-        if ([self.controllerDelegate respondsToSelector:@selector(closeLockdownWindows)]) {
-            [self.controllerDelegate closeLockdownWindows];
-        }
-        if ([self.controllerDelegate respondsToSelector:@selector(openInfoHUD:)]) {
-            [self.controllerDelegate openInfoHUD:lockedTimeInfo];
-        }
+        self.controllerDelegate.unlockPasswordEntered = true;
+        [self.controllerDelegate correctPasswordEntered];
         return;
     }
     DDLogError(@"Lockdown alert: Wrong quit/restart password entered, asking to try again");
@@ -68,7 +43,39 @@
 }
 
 
-- (void)appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime {
+- (void) shouldCloseLockdownWindows {
+    // Add log information about closing lockdown alert
+    DDLogError(@"Lockdown alert: Correct password entered, closing lockdown windows");
+    self.controllerDelegate.didResumeExamTime = [NSDate date];
+    [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Closing lockdown windows", nil)] withTime:self.controllerDelegate.didResumeExamTime];
+    // Calculate time difference between session resigning active and closing lockdown alert
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *components = [calendar components:NSCalendarUnitMinute | NSCalendarUnitSecond
+                                               fromDate:self.controllerDelegate.didResignActiveTime
+                                                 toDate:self.controllerDelegate.didResumeExamTime
+                                                options:false];
+    
+    DDLogError(@"Lockdown alert: Closing lockdown windows");
+    NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second];
+    DDLogError(@"Lockdown alert: %@", lockedTimeInfo);
+    [self appendErrorString:[NSString stringWithFormat:@"  %@\n", lockedTimeInfo]
+                   withTime:nil];
+    
+    if ([self.UIDelegate respondsToSelector:@selector(closeLockdownWindows)]) {
+        [self.UIDelegate closeLockdownWindows];
+    }
+    if ([self.controllerDelegate respondsToSelector:@selector(closeLockdownWindows)]) {
+        [self.controllerDelegate closeLockdownWindows];
+    }
+    if ([self.controllerDelegate respondsToSelector:@selector(openInfoHUD:)]) {
+        [self.controllerDelegate openInfoHUD:lockedTimeInfo];
+    }
+    if ([self.controllerDelegate respondsToSelector:@selector(sebLocked)]) {
+        self.controllerDelegate.sebLocked = false;
+    }
+}
+
+- (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime {
     NSMutableAttributedString *logString = [self.UIDelegate.resignActiveLogString mutableCopy];
     if (errorTime) {
         NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];

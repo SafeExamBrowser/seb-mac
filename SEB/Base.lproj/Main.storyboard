@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -47,6 +47,9 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="72x-TK-QER">
                                 <rect key="frame" x="20" y="58" width="560" height="54"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="560" id="aXb-WD-Xzt"/>
+                                </constraints>
                                 <string key="text">SEB is locked because Guided Access was switched off during the exam. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -86,6 +89,9 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="M4E-Gh-2wA">
                                 <rect key="frame" x="20" y="208" width="560" height="372"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="560" id="tMb-l5-M9t"/>
+                                </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -97,12 +103,16 @@
                             <constraint firstItem="72x-TK-QER" firstAttribute="leading" secondItem="M4E-Gh-2wA" secondAttribute="leading" id="4Cf-TB-bgy"/>
                             <constraint firstItem="jBa-LL-dKG" firstAttribute="top" secondItem="72x-TK-QER" secondAttribute="bottom" constant="12" id="AsG-2Q-myd"/>
                             <constraint firstItem="6fi-rT-cNJ" firstAttribute="top" secondItem="0nm-pU-BZ0" secondAttribute="bottom" constant="6" id="Gvw-TV-o8x"/>
-                            <constraint firstItem="72x-TK-QER" firstAttribute="trailing" secondItem="k2i-14-hes" secondAttribute="trailingMargin" id="KDY-3t-mkg"/>
+                            <constraint firstItem="72x-TK-QER" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="k2i-14-hes" secondAttribute="trailingMargin" id="KDY-3t-mkg"/>
+                            <constraint firstItem="M4E-Gh-2wA" firstAttribute="centerX" secondItem="k2i-14-hes" secondAttribute="centerX" id="N7s-UB-KBh"/>
                             <constraint firstItem="6fi-rT-cNJ" firstAttribute="centerX" secondItem="0nm-pU-BZ0" secondAttribute="centerX" id="Pbq-nh-5xF"/>
+                            <constraint firstItem="M4E-Gh-2wA" firstAttribute="trailing" secondItem="72x-TK-QER" secondAttribute="trailing" id="Q6i-fS-Ybh"/>
+                            <constraint firstItem="M4E-Gh-2wA" firstAttribute="trailing" secondItem="k2i-14-hes" secondAttribute="trailingMargin" id="TmR-fM-hvc"/>
                             <constraint firstAttribute="bottom" secondItem="M4E-Gh-2wA" secondAttribute="bottom" constant="20" symbolic="YES" id="Tta-fx-jYS"/>
                             <constraint firstItem="D2p-As-V6t" firstAttribute="top" secondItem="d5g-Kj-l96" secondAttribute="bottom" constant="8" symbolic="YES" id="XgE-rC-Fgh"/>
                             <constraint firstItem="72x-TK-QER" firstAttribute="top" secondItem="D2p-As-V6t" secondAttribute="bottom" constant="6" id="Zc3-LV-P7q"/>
                             <constraint firstItem="0nm-pU-BZ0" firstAttribute="centerY" secondItem="arM-6u-TmT" secondAttribute="centerY" id="Zxq-zx-N1g"/>
+                            <constraint firstItem="M4E-Gh-2wA" firstAttribute="leading" secondItem="72x-TK-QER" secondAttribute="leading" id="cRt-Pe-cIu"/>
                             <constraint firstItem="M4E-Gh-2wA" firstAttribute="trailing" secondItem="72x-TK-QER" secondAttribute="trailing" id="cZC-Wr-uvr"/>
                             <constraint firstItem="M4E-Gh-2wA" firstAttribute="top" secondItem="6fi-rT-cNJ" secondAttribute="bottom" constant="8" symbolic="YES" id="ejv-kB-2QL"/>
                             <constraint firstItem="72x-TK-QER" firstAttribute="centerX" secondItem="jBa-LL-dKG" secondAttribute="centerX" id="feJ-SU-dtW"/>
@@ -111,7 +121,16 @@
                             <constraint firstItem="jBa-LL-dKG" firstAttribute="trailing" secondItem="0nm-pU-BZ0" secondAttribute="trailing" id="las-00-nCd"/>
                             <constraint firstItem="jBa-LL-dKG" firstAttribute="leading" secondItem="0nm-pU-BZ0" secondAttribute="leading" id="wq0-CD-vZe"/>
                             <constraint firstItem="M4E-Gh-2wA" firstAttribute="leading" secondItem="k2i-14-hes" secondAttribute="leadingMargin" id="xVi-47-At1"/>
+                            <constraint firstItem="72x-TK-QER" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="k2i-14-hes" secondAttribute="leadingMargin" id="zI1-ak-deL"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="4Cf-TB-bgy"/>
+                                <exclude reference="KDY-3t-mkg"/>
+                                <exclude reference="zI1-ak-deL"/>
+                                <exclude reference="cZC-Wr-uvr"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="lockedAlertPasswordField" destination="0nm-pU-BZ0" id="hwu-Uq-htk"/>

@@ -51,6 +51,13 @@
 }
 
 
+- (void) shouldCloseLockdownWindows {
+    [self.lockedViewController shouldCloseLockdownWindows];
+}
+
+
+#pragma mark Delegates
+
 - (void) closeLockdownWindows {
     
     [self.view removeFromSuperview];

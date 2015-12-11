@@ -20,4 +20,6 @@
 
 - (void)scrollToBottom;
 
+- (void) shouldCloseLockdownWindows;
+
 @end

@@ -98,7 +98,7 @@
  * @brief       Hide or show the label indicating that the password was entered wrong.
  * @details
  */
-//- (void) closeLockdownWindows;
+- (void) correctPasswordEntered;
 
 @optional
 
@@ -109,16 +109,29 @@
 @property(readwrite) BOOL examRunning;
 
 /**
- * @brief       Hide or show label indicating wrong password was entered.
+ * @brief       Indicates if the exam is running.
  * @details
  */
-- (void) closeLockdownWindows;
+@property(readwrite) BOOL sebLocked;
+
+/**
+ * @brief       Indicates that the correct quit/restart password was entered and
+ *              lockdown windows can be closed now.
+ * @details
+ */
+@property(readwrite) BOOL unlockPasswordEntered;
 
 /**
  * @brief       Hide or show label indicating wrong password was entered.
  * @details
  */
 - (void) openInfoHUD:(NSString *)lockedTimeInfo;
+
+/**
+ * @brief       Hide or show label indicating wrong password was entered.
+ * @details
+ */
+- (void) closeLockdownWindows;
 
 @end
 
@@ -132,7 +145,8 @@
 
 @property (strong) NSDictionary *boldFontAttributes;
 
-- (void)passwordEntered:(id)sender;
-- (void)appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
+- (void) passwordEntered:(id)sender;
+- (void) shouldCloseLockdownWindows;
+- (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
 
 @end

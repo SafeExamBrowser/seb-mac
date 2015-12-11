@@ -34,8 +34,6 @@
 //    // Initialize file logger if it's enabled in settings
 //    [self initializeLogger];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(guidedAccessChanged) name:UIAccessibilityGuidedAccessStatusDidChangeNotification object:nil];
-    
     return YES;
 }
 
@@ -61,64 +59,6 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
-}
-
-
-// Called when the Guided Access status changes
-- (void) guidedAccessChanged
-{
-    // Is the exam already running?
-    if (self.examRunning) {
-        
-        // Exam running: Check if Guided Access was switched off
-        if (UIAccessibilityIsGuidedAccessEnabled() == false) {
-            
-            // Dismiss the Guided Access warning alert if it still was visible
-            self.sebViewController = (SEBViewController*)self.window.rootViewController;
-            if (self.sebViewController.alertController) {
-                [self.sebViewController dissmissGuidedAccessAlert];
-            }
-
-            // If there wasn't a lockdown covering view openend yet, initialize it
-            if (!self.coveringView) {
-                
-                UIView *parentView = self.window.subviews[0];
-                
-                if (!self.lockedViewController) {
-                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                    self.lockedViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBLockedView"];
-                    self.lockedViewController.controllerDelegate = self;
-                }
-                
-                if (!self.lockedViewController.resignActiveLogString) {
-                    self.lockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
-                }
-                // Save current time for information about when Guided Access was switched off
-                self.didResignActiveTime = [NSDate date];
-                DDLogError(@"Guided Accesss switched off!");
-
-                // Open the lockdown view
-                [self.lockedViewController willMoveToParentViewController:self.sebViewController];
-                [parentView addSubview:self.lockedViewController.view];
-                [self.sebViewController addChildViewController:self.lockedViewController];
-                [self.lockedViewController didMoveToParentViewController:self.sebViewController];
-                
-                // Add log string for resign active
-                [self.lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Guided Access was switched off!", nil)] withTime:self.didResignActiveTime];
-            }
-        }
-    } else {
-        // Exam is not yet running, was Guided Access switched on?
-        if (UIAccessibilityIsGuidedAccessEnabled() == true) {
-            
-            // Yes, close the notification alert about how to switch Guided Access on
-            self.sebViewController = (SEBViewController*)self.window.rootViewController;
-
-            [self.sebViewController dissmissGuidedAccessAlert];
-            
-            self.examRunning = true;
-        }
-    }
 }
 
 
