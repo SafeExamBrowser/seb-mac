@@ -44,17 +44,6 @@
 
 @implementation SEBConfigFileManager
 
-
--(id) init
-{
-    self = [super init];
-    if (self) {
-        self.sebController = (SEBController *)[NSApp delegate];
-    }
-    return self;
-}
-
-
 // Getter methods for write-only properties
 
 - (NSString *)currentConfigPassword {
@@ -72,43 +61,6 @@
 
 #pragma mark Methods for Decrypting, Parsing and Storing SEB Settings to UserDefaults
 
-// Load a SebClientSettings.seb file saved in the preferences directory
-// and if it existed and was loaded, use it to re-configure SEB
-- (BOOL) reconfigureClientWithSebClientSettings
-{
-    NSError *error;
-    NSURL *preferencesDirectory = [[NSFileManager defaultManager] URLForDirectory:NSLibraryDirectory
-                                                                         inDomain:NSUserDomainMask
-                                                                appropriateForURL:nil
-                                                                           create:NO
-                                                                            error:&error];
-    if (preferencesDirectory) {
-        NSURL *sebClientSettingsFileURL = [preferencesDirectory URLByAppendingPathComponent:@"Preferences/SebClientSettings.seb"];
-        NSData *sebData = [NSData dataWithContentsOfURL:sebClientSettingsFileURL];
-        if (sebData) {
-            DDLogInfo(@"Reconfiguring SEB with SebClientSettings.seb from Preferences directory");
-            SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-            
-            // Decrypt and store the .seb config file
-            if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO forceConfiguringClient:YES]) {
-                // if successfull continue with new settings
-                DDLogInfo(@"Reconfiguring SEB with SebClientSettings.seb was successful");
-                // Delete the SebClientSettings.seb file from the Preferences directory
-                error = nil;
-                [[NSFileManager defaultManager] removeItemAtURL:sebClientSettingsFileURL error:&error];
-                DDLogInfo(@"Attempted to remove SebClientSettings.seb from Preferences directory, result: %@", error.description);
-                // Restart SEB with new settings
-                [[NSNotificationCenter defaultCenter]
-                 postNotificationName:@"requestRestartNotification" object:self];
-
-                return YES;
-            }
-        }
-    }
-    return NO;
-}
-
-
 -(BOOL) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing
 {
     return [self storeDecryptedSEBSettings:sebData forEditing:forEditing forceConfiguringClient:NO];
@@ -119,6 +71,8 @@
 -(BOOL) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing forceConfiguringClient:(BOOL)forceConfiguringClient
 {
     NSDictionary *sebPreferencesDict;
+    SEBConfigFileCredentials *sebFileCredentials = [SEBConfigFileCredentials new];
+
     NSString *sebFilePassword = nil;
     BOOL passwordIsHash = false;
     SecKeyRef sebFileKeyRef = nil;
@@ -126,17 +80,15 @@
     // In editing mode we can get a saved existing config file password
     // (used when reverting to last saved/openend settings)
     if (forEditing) {
-        sebFilePassword = _currentConfigPassword;
-        passwordIsHash = _currentConfigPasswordIsHash;
-        sebFileKeyRef = _currentConfigKeyRef;
+        sebFileCredentials.password = _currentConfigPassword;
+        sebFileCredentials.passwordIsHash = _currentConfigPasswordIsHash;
+        sebFileCredentials.keyRef = _currentConfigKeyRef;
     }
-    PreferencesController *prefsController = self.sebController.preferencesController;
 
     sebPreferencesDict = [self decryptSEBSettings:sebData forEditing:forEditing sebFilePassword:&sebFilePassword passwordIsHashPtr:&passwordIsHash sebFileKeyRef:&sebFileKeyRef];
     if (!sebPreferencesDict) return NO; //Decryption didn't work, we abort
     
     // Reset SEB, close third party applications
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
     if (!forceConfiguringClient && (forEditing || [[sebPreferencesDict valueForKey:@"sebConfigPurpose"] intValue] == sebConfigPurposeStartingExam)) {
 
@@ -144,8 +96,10 @@
         /// If these SEB settings are ment to start an exam or we're in editing mode
         ///
         
-        // Release preferences window so bindings get synchronized properly with the new loaded values
-        [self.sebController.preferencesController releasePreferencesWindow];
+        // Inform delegate that preferences will be reconfigured
+        if ([self.delegate respondsToSelector:@selector(willReconfigureTemporary)]) {
+            [self.delegate willReconfigureTemporary];
+        }
         
         // Switch to private UserDefaults (saved non-persistantly in memory instead in ~/Library/Preferences)
         NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults]; //this mutable dictionary has to be referenced here, otherwise preferences values will not be saved!
@@ -154,7 +108,7 @@
         // Write values from .seb config file to the local preferences (shared UserDefaults)
         [self storeIntoUserDefaults:sebPreferencesDict];
         
-        DDLogVerbose(@"%s, Private preferences set: %@", __FUNCTION__, privatePreferences);
+        DDLogVerbose(@"%s, Temporary preferences set: %@", __FUNCTION__, privatePreferences);
 
         if (forEditing == NO) {
             // if not editing reset credentials
@@ -163,16 +117,12 @@
             _currentConfigKeyRef = nil;
         }
 
-        // If editing mode or opening the preferences window is allowed
-        if (forEditing || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"]) {
-            // we store the .seb file password/hash and/or certificate/identity
-            [prefsController setCurrentConfigPassword:sebFilePassword];
-            [prefsController setCurrentConfigPasswordIsHash:passwordIsHash];
-            [prefsController setCurrentConfigKeyRef:sebFileKeyRef];
-        }
-        
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-        [prefsController initPreferencesWindow];
+
+        // Inform delegate that the config file manager did reconfigure
+        if ([self.delegate respondsToSelector:@selector(didReconfigureTemporaryForEditing:)]) {
+            [self.delegate didReconfigureTemporaryForEditing:(BOOL)forEditing];
+        }
         
         return YES; //reading preferences was successful
 
@@ -182,8 +132,10 @@
         /// If these SEB settings are ment to configure a client
         ///
 
-        // Release preferences window so bindings get synchronized properly with the new loaded values
-        [self.sebController.preferencesController releasePreferencesWindow];
+        // Inform delegate that preferences will be reconfigured
+        if ([self.delegate respondsToSelector:@selector(willReconfigure)]) {
+            [self.delegate willReconfigure];
+        }
         
         //switch to system's UserDefaults
         [NSUserDefaults setUserDefaultsPrivate:NO];

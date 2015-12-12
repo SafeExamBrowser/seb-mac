@@ -34,10 +34,77 @@
 
 
 #import <Foundation/Foundation.h>
-#import "SEBController.h"
+#import "SEBConfigFileCredentials.h"
 
-@class SEBController;
+//#import "SEBController.h"
 
+
+/**
+ * @protocol    SEBConfigUIDelegate
+ *
+ * @brief       SEB config file controllers confirming to the SEBConfigUIDelegate
+ *              protocol are displaying alerts and password dialogs for 
+ *              SEBConfigFileManager.
+ */
+@protocol SEBConfigUIDelegate <NSObject>
+/**
+ * @name		Item Attributes
+ */
+@required
+/**
+ * @brief       The title of the dock item.
+ * @details     This value will be used for the dock item's label which is displayed
+ *              when the mouse pointer is moved over the dock item. If no label
+ *              should be displayed, then this property has to be set to nil.
+ */
+- (NSString *) title;
+
+
+@optional
+
+/**
+ * @brief       Target for the action to be performed when a mouse click on the
+ *              dock item is performed.
+ */
+- (void) willReconfigureTemporary;
+
+/**
+ * @brief       Action to be performed when a mouse click on the dock item is
+ *              performed.
+ */
+- (void) didReconfigureTemporaryForEditing:(BOOL)forEditing;
+
+/**
+ * @brief       Rectangular view to be displayed instead of an icon (when icon is nil).
+ */
+- (NSView *) view;
+
+@end
+
+/**
+ * @class       SEBConfigFileManager
+ *
+ * @brief       SEBDockController implements a custom control which is designed to be a
+ *              mixture of the OS X Dock and a Windows task bar, intended to provide an easy
+ *              way of switching between allowed third party applications and resources or
+ *              opening them if they are not yet running/open. All items placed in the
+ *              SEB Dock have to be scalable (preferably rectangular), with a minimum size of
+ *              32 points (32 or 64 pixels @2x resolution). The SEB Dock bar has a min.
+ *              height of 40 points and is pinned to the botton of a screen.
+ *              The SEB Dock is divided into three sections left, center and right.
+ *              The item(s) in the left section are pinned to the left edge of the dock
+ *              (and screen), the right section items to the right edge of the dock and
+ *              the center items start at (are pinned to) the right edge of the left section.
+ *              The center section can contain a scroll view so if a large number of
+ *              center items don't fit into the space available for the center section,
+ *              users can scroll the center section horizontally to show all items.
+ *              Items in the right section are intended to be controls providing functions
+ *              and information which should be accessible application wide (like a quit
+ *              button, battery and current time/clock, WLAN control etc.).
+ *
+ * @details     SEBConfigFileManager handles the
+ *              
+ */
 @interface SEBConfigFileManager : NSObject {
 //@private
 //    NSString *_currentConfigPassword;
@@ -45,7 +112,7 @@
     //SecKeyRef _currentConfigKeyRef;
 }
 
-@property (nonatomic, strong) SEBController *sebController;
+@property (weak) id delegate;
 @property BOOL currentConfigPasswordIsHash;
 
 // Write-only properties
@@ -58,6 +125,9 @@
 // Load a SebClientSettings.seb file saved in the preferences directory
 // and if it existed and was loaded, use it to re-configure SEB
 - (BOOL) reconfigureClientWithSebClientSettings;
+
+// Decrypt, parse and use new SEB settings
+-(BOOL) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing forceConfiguringClient:(BOOL)forceConfiguringClient;
 
 // Decrypt, parse and store SEB settings to UserDefaults
 -(BOOL) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing;

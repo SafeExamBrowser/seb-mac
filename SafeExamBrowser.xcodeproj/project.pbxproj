@@ -123,6 +123,10 @@
 		699731C518C8D6ED0069FE35 /* CapWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 699731C318C8D6ED0069FE35 /* CapWindow.m */; };
 		699C540415EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */ = {isa = PBXBuildFile; fileRef = 699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */; };
 		699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */; };
+		69A3FCD41C1B5680009BEA13 /* SEBConfigFileCredentials.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A3FCD21C1B5680009BEA13 /* SEBConfigFileCredentials.h */; };
+		69A3FCD51C1B5680009BEA13 /* SEBConfigFileCredentials.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A3FCD21C1B5680009BEA13 /* SEBConfigFileCredentials.h */; };
+		69A3FCD61C1B5680009BEA13 /* SEBConfigFileCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A3FCD31C1B5680009BEA13 /* SEBConfigFileCredentials.m */; };
+		69A3FCD71C1B5680009BEA13 /* SEBConfigFileCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A3FCD31C1B5680009BEA13 /* SEBConfigFileCredentials.m */; };
 		69A443FF1B14AAAC00577693 /* SEBReloadIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69A443FD1B14AAAC00577693 /* SEBReloadIcon.iconset */; };
 		69A444001B14AAAC00577693 /* SEBRestartIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69A443FE1B14AAAC00577693 /* SEBRestartIcon.iconset */; };
 		69B2EB871A435E2000B5AE67 /* AboutSEB.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2EB851A435E2000B5AE67 /* AboutSEB.png */; };
@@ -393,6 +397,8 @@
 		699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBUIUserDefaultsController.h; path = Classes/Preferences/SEBUIUserDefaultsController.h; sourceTree = "<group>"; };
 		699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBUIUserDefaultsController.m; path = Classes/Preferences/SEBUIUserDefaultsController.m; sourceTree = "<group>"; };
 		69A3022919FE7B8F00B9A0F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		69A3FCD21C1B5680009BEA13 /* SEBConfigFileCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBConfigFileCredentials.h; sourceTree = "<group>"; };
+		69A3FCD31C1B5680009BEA13 /* SEBConfigFileCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBConfigFileCredentials.m; sourceTree = "<group>"; };
 		69A443FD1B14AAAC00577693 /* SEBReloadIcon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBReloadIcon.iconset; path = Resources/Icons/SEBReloadIcon.iconset; sourceTree = "<group>"; };
 		69A443FE1B14AAAC00577693 /* SEBRestartIcon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBRestartIcon.iconset; path = Resources/Icons/SEBRestartIcon.iconset; sourceTree = "<group>"; };
 		69A68DA11A46143E00ACA34E /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PreferencesResources.xib; sourceTree = "<group>"; };
@@ -933,6 +939,8 @@
 			children = (
 				69CE9C5B17326AB90011609B /* SEBConfigFileManager.h */,
 				69CE9C5C17326AB90011609B /* SEBConfigFileManager.m */,
+				69A3FCD21C1B5680009BEA13 /* SEBConfigFileCredentials.h */,
+				69A3FCD31C1B5680009BEA13 /* SEBConfigFileCredentials.m */,
 				69544E501C0CEB8800D60C3E /* SEBOSXConfigFileController.h */,
 				69544E511C0CEB8800D60C3E /* SEBOSXConfigFileController.m */,
 			);
@@ -1076,6 +1084,7 @@
 			files = (
 				69331F0B1C10AF1D0038BD31 /* SEBLockedViewController.h in Headers */,
 				69331F061C10AD750038BD31 /* SEBiOSLockedViewController.h in Headers */,
+				69A3FCD51C1B5680009BEA13 /* SEBConfigFileCredentials.h in Headers */,
 				6943165F1BFEBB6500F784EE /* SynthesizeSingleton.h in Headers */,
 				69B416101BFFA0430049ED2A /* SEB_Prefix.pch in Headers */,
 				694316601BFEBB6500F784EE /* Constants.h in Headers */,
@@ -1120,6 +1129,7 @@
 				6901331B19B371CB0050574D /* PreferencesWindow.h in Headers */,
 				6940A7611853B2AD00D9D00D /* NSData+NSDataZIPExtension.h in Headers */,
 				69F0A3391AD40237008A3553 /* SEBURLProtocol.h in Headers */,
+				69A3FCD41C1B5680009BEA13 /* SEBConfigFileCredentials.h in Headers */,
 				69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */,
 				69623A2E1A26184900ED451C /* WebPreferencesPrivate.h in Headers */,
 				69623A2C1A26180E00ED451C /* WebStorageManagerPrivate.h in Headers */,
@@ -1472,6 +1482,7 @@
 				6940B96D1BA0F2FB008C8CFC /* AppDelegate.m in Sources */,
 				6940B9761BA0F2FB008C8CFC /* SEB.xcdatamodeld in Sources */,
 				6940B96A1BA0F2FB008C8CFC /* main.m in Sources */,
+				69A3FCD71C1B5680009BEA13 /* SEBConfigFileCredentials.m in Sources */,
 				69331F0D1C10AF1D0038BD31 /* SEBLockedViewController.m in Sources */,
 				691CC4141BA134070020D3EC /* RNCryptorEngine.m in Sources */,
 				691CC4121BA134070020D3EC /* RNDecryptor.m in Sources */,
@@ -1557,6 +1568,7 @@
 				6921294316F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */,
 				6921294816F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */,
 				69D817E618017DDB00EB7885 /* SEBURLFilter.m in Sources */,
+				69A3FCD61C1B5680009BEA13 /* SEBConfigFileCredentials.m in Sources */,
 				695BE5F519EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */,
 				693647FB17122A0300EE41BC /* DropDownButton.m in Sources */,
 				69331F0C1C10AF1D0038BD31 /* SEBLockedViewController.m in Sources */,
