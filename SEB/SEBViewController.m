@@ -51,7 +51,8 @@ static NSMutableSet *browserWindowControllers;
 
     [self.containerView addSubview:self.webView];
 
-    //self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.webView setTranslatesAutoresizingMaskIntoConstraints:true];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(guidedAccessChanged) name:UIAccessibilityGuidedAccessStatusDidChangeNotification object:nil];
     
@@ -60,6 +61,12 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)viewDidAppear:(BOOL)animated {
     [self showStartGuidedAccess];
+}
+
+
+- (BOOL) prefersStatusBarHidden
+{
+    return YES;
 }
 
 

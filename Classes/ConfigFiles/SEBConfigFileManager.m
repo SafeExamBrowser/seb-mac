@@ -73,9 +73,9 @@
     NSDictionary *sebPreferencesDict;
     SEBConfigFileCredentials *sebFileCredentials = [SEBConfigFileCredentials new];
 
-    NSString *sebFilePassword = nil;
-    BOOL passwordIsHash = false;
-    SecKeyRef sebFileKeyRef = nil;
+//    NSString *sebFilePassword = nil;
+//    BOOL passwordIsHash = false;
+//    SecKeyRef sebFileKeyRef = nil;
 
     // In editing mode we can get a saved existing config file password
     // (used when reverting to last saved/openend settings)
@@ -85,7 +85,7 @@
         sebFileCredentials.keyRef = _currentConfigKeyRef;
     }
 
-    sebPreferencesDict = [self decryptSEBSettings:sebData forEditing:forEditing sebFilePassword:&sebFilePassword passwordIsHashPtr:&passwordIsHash sebFileKeyRef:&sebFileKeyRef];
+    sebPreferencesDict = [self decryptSEBSettings:sebData forEditing:forEditing sebFileCredentialsPtr:&sebFileCredentials];
     if (!sebPreferencesDict) return NO; //Decryption didn't work, we abort
     
     // Reset SEB, close third party applications
@@ -222,8 +222,13 @@
 // The decrypting password the user entered and/or
 // certificate reference found in the .seb file is returned
 
--(NSDictionary *) decryptSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing sebFilePassword:(NSString **)sebFilePasswordPtr passwordIsHashPtr:(BOOL*)passwordIsHashPtr sebFileKeyRef:(SecKeyRef *)sebFileKeyRefPtr
+//-(NSDictionary *) decryptSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing sebFilePassword:(NSString **)sebFilePasswordPtr passwordIsHashPtr:(BOOL*)passwordIsHashPtr sebFileKeyRef:(SecKeyRef *)sebFileKeyRefPtr
+-(NSDictionary *) decryptSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing sebFileCredentialsPtr:(SEBConfigFileCredentials **)sebFileCredentialsPtr
 {
+    NSString *sebFilePassword = (*sebFileCredentialsPtr).password;
+    BOOL passwordIsHash = (*sebFileCredentialsPtr).passwordIsHash;
+    SecKeyRef sebFileKeyRef = (*sebFileCredentialsPtr).keyRef;
+    
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
     // Ungzip the .seb (according to specification >= v14) source data
@@ -253,7 +258,7 @@
     if ([prefixString isEqualToString:@"pkhs"]) {
 
         // Decrypt with cryptographic identity/private key
-        sebData = [self decryptDataWithPublicKeyHashPrefix:sebData forEditing:forEditing sebFileKeyRef:sebFileKeyRefPtr error:&error];
+        sebData = [self decryptDataWithPublicKeyHashPrefix:sebData forEditing:forEditing sebFileKeyRef:&sebFileKeyRef error:&error];
         if (!sebData || error) {
             return nil;
         }
@@ -282,8 +287,8 @@
             i--;
             // Prompt for password
             // if we don't have it already
-            if (forEditing && *sebFilePasswordPtr) {
-                password = *sebFilePasswordPtr;
+            if (forEditing && sebFilePassword) {
+                password = sebFilePassword;
             } else {
                 if ([self.sebController showEnterPasswordDialog:enterPasswordString modalForWindow:nil windowTitle:NSLocalizedString(@"Loading Settings",nil)] == SEBEnterPasswordCancel) {
                     return nil;
