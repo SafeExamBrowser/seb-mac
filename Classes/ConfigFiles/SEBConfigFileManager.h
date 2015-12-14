@@ -52,32 +52,63 @@
  */
 @required
 /**
- * @brief       The title of the dock item.
- * @details     This value will be used for the dock item's label which is displayed
- *              when the mouse pointer is moved over the dock item. If no label
- *              should be displayed, then this property has to be set to nil.
+ * @brief       Delegate method to display an enter password dialog with the
+ *              passed message text
  */
-- (NSString *) title;
+- (NSString *) promptPasswordWithMessageText:(NSString *)messageText;
 
+/**
+ * @brief       Delegate method to display an alert when wrong password was entered
+ */
+- (void) showAlertWrongPassword;
+
+/**
+ * @brief       Delegate method to display an alert when settings are corrupted or
+ *              in an incompatible format
+ */
+- (void) showAlertCorruptedSettings;
+
+/**
+ * @brief       Delegate method to display an alert with free title and text
+ */
+- (void) showAlertWithTitle:(NSString *)title andText:(NSString *)informativeText;
+
+/**
+ * @brief       Delegate method to display an alert asking if settings should 
+ *              be saved unencrypted
+ */
+- (BOOL) saveSettingsUnencrypted;
+
+/**
+ * @brief       Delegate method to display a NSError
+ */
+- (void) presentError:(NSError *)error;
 
 @optional
 
 /**
- * @brief       Target for the action to be performed when a mouse click on the
- *              dock item is performed.
+ * @brief       Delegate method called before SEB is getting reconfigured temporarily
+ *              for starting an exam.
  */
 - (void) willReconfigureTemporary;
 
 /**
- * @brief       Action to be performed when a mouse click on the dock item is
- *              performed.
+ * @brief       Delegate method called after SEB was reconfigured temporarily for
+ *              starting an exam.
  */
-- (void) didReconfigureTemporaryForEditing:(BOOL)forEditing;
+- (void) didReconfigureTemporaryForEditing:(BOOL)forEditing sebFileCredentials:(SEBConfigFileCredentials *)sebFileCrentials;
 
 /**
- * @brief       Rectangular view to be displayed instead of an icon (when icon is nil).
+ * @brief       Delegate method called before SEB is getting reconfigured temporarily
+ *              for starting an exam.
  */
-- (NSView *) view;
+- (void) willReconfigurePermanently;
+
+/**
+ * @brief       Delegate method called after SEB was reconfigured temporarily for
+ *              starting an exam.
+ */
+- (void) didReconfigurePermanentlyForceConfiguringClient:(BOOL)forceConfiguringClient sebFileCredentials:(SEBConfigFileCredentials *)sebFileCrentials;
 
 @end
 
@@ -122,10 +153,6 @@
 - (NSString *)currentConfigPassword UNAVAILABLE_ATTRIBUTE;
 - (SecKeyRef)currentConfigKeyRef UNAVAILABLE_ATTRIBUTE;
 
-// Load a SebClientSettings.seb file saved in the preferences directory
-// and if it existed and was loaded, use it to re-configure SEB
-- (BOOL) reconfigureClientWithSebClientSettings;
-
 // Decrypt, parse and use new SEB settings
 -(BOOL) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing forceConfiguringClient:(BOOL)forceConfiguringClient;
 
@@ -151,8 +178,5 @@
 - (NSString *) getPrefixStringFromData:(NSData **)data;
 
 - (NSData *) getPrefixDataFromData:(NSData **)data withLength:(NSUInteger)prefixLength;
-
-- (void) showAlertCorruptedSettings;
-- (void) showAlertCorruptedSettingsWithTitle:(NSString *)title andText:(NSString *)informativeText;
 
 @end
