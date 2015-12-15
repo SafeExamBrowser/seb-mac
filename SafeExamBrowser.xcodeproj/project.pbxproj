@@ -52,6 +52,9 @@
 		6930D2261C205F470087F79E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 693F135215767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m */; };
 		6930D2271C205F4B0087F79E /* NSUserDefaults+SEBEncryptedUserDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = 693F135115767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.h */; };
 		6930D2281C205F4C0087F79E /* NSUserDefaults+SEBEncryptedUserDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = 693F135115767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.h */; };
+		6930D2291C2069100087F79E /* SEBKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F293AD164A324B00875C00 /* SEBKeychainManager.m */; };
+		6930D22C1C2086010087F79E /* SEBOSXKeychainManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 6930D22A1C2086010087F79E /* SEBOSXKeychainManager.h */; };
+		6930D22D1C2086010087F79E /* SEBOSXKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6930D22B1C2086010087F79E /* SEBOSXKeychainManager.m */; };
 		69331F011C10AC1B0038BD31 /* continueCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = 69331EFF1C10AC1B0038BD31 /* continueCircle.png */; };
 		69331F021C10AC1B0038BD31 /* continueCircle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69331F001C10AC1B0038BD31 /* continueCircle@2x.png */; };
 		69331F061C10AD750038BD31 /* SEBiOSLockedViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69331F041C10AD750038BD31 /* SEBiOSLockedViewController.h */; };
@@ -308,6 +311,8 @@
 		692891B012ACEBDC00EEE7C9 /* SEBBrowserWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBBrowserWindow.h; path = Classes/BrowserComponents/SEBBrowserWindow.h; sourceTree = "<group>"; };
 		692891B112ACEBDC00EEE7C9 /* SEBBrowserWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SEBBrowserWindow.m; path = Classes/BrowserComponents/SEBBrowserWindow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		692F53D614AD03F300011C84 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = Classes/Global/Constants.h; sourceTree = "<group>"; };
+		6930D22A1C2086010087F79E /* SEBOSXKeychainManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBOSXKeychainManager.h; sourceTree = "<group>"; };
+		6930D22B1C2086010087F79E /* SEBOSXKeychainManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBOSXKeychainManager.m; sourceTree = "<group>"; };
 		6932C9671191B7FE00688EBB /* SEBicon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = SEBicon.icns; path = Resources/Icons/SEBicon.icns; sourceTree = "<group>"; };
 		69331EFF1C10AC1B0038BD31 /* continueCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = continueCircle.png; path = Resources/Icons/continueCircle.png; sourceTree = "<group>"; };
 		69331F001C10AC1B0038BD31 /* continueCircle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "continueCircle@2x.png"; path = "Resources/Icons/continueCircle@2x.png"; sourceTree = "<group>"; };
@@ -1007,6 +1012,8 @@
 				69DFAF2C19C468E700CBE69F /* RNCryptor OS X-Prefix.pch */,
 				69F293AC164A324B00875C00 /* SEBKeychainManager.h */,
 				69F293AD164A324B00875C00 /* SEBKeychainManager.m */,
+				6930D22A1C2086010087F79E /* SEBOSXKeychainManager.h */,
+				6930D22B1C2086010087F79E /* SEBOSXKeychainManager.m */,
 				694B08A116B14ABF00E4997C /* SEBCryptor.h */,
 				694B08A216B14ABF00E4997C /* SEBCryptor.m */,
 			);
@@ -1144,6 +1151,7 @@
 				69A3FCD41C1B5680009BEA13 /* SEBConfigFileCredentials.h in Headers */,
 				69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */,
 				69623A2E1A26184900ED451C /* WebPreferencesPrivate.h in Headers */,
+				6930D22C1C2086010087F79E /* SEBOSXKeychainManager.h in Headers */,
 				69623A2C1A26180E00ED451C /* WebStorageManagerPrivate.h in Headers */,
 				693647FA17122A0300EE41BC /* DropDownButton.h in Headers */,
 				69DFAF2D19C468E700CBE69F /* RNCryptor.h in Headers */,
@@ -1496,6 +1504,7 @@
 				6930D2211C2011200087F79E /* SEBCryptor.m in Sources */,
 				6930D2261C205F470087F79E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
 				6940B96D1BA0F2FB008C8CFC /* AppDelegate.m in Sources */,
+				6930D2291C2069100087F79E /* SEBKeychainManager.m in Sources */,
 				6940B9761BA0F2FB008C8CFC /* SEB.xcdatamodeld in Sources */,
 				6940B96A1BA0F2FB008C8CFC /* main.m in Sources */,
 				69A3FCD71C1B5680009BEA13 /* SEBConfigFileCredentials.m in Sources */,
@@ -1560,6 +1569,7 @@
 				69009BE119EA7F590083274C /* SEBBrowserOpenWindowWebView.m in Sources */,
 				69F45D3F1A2123C3009CF3AA /* SEBURLFilterExpression.m in Sources */,
 				6915F2EA19C8F77600DAEA37 /* SEBDockWindow.m in Sources */,
+				6930D22D1C2086010087F79E /* SEBOSXKeychainManager.m in Sources */,
 				6940A7621853B2AD00D9D00D /* NSData+NSDataZIPExtension.m in Sources */,
 				693F135315767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
 				693EB53E15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */,
