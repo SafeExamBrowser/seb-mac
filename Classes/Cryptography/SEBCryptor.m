@@ -34,7 +34,6 @@
 
 
 #import "SEBCryptor.h"
-#import "SEBEncryptedUserDefaultsController.h"
 #import "RNCryptor.h"
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
@@ -135,7 +134,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSMutableData *HMACData = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
     CCHmac(kCCHmacAlgSHA256, keyData.bytes, keyData.length, _currentKey.bytes, _currentKey.length, HMACData.mutableBytes);
 
-    NSString *password = [HMACData base64Encoding];
+    NSString *password = [HMACData base64EncodedStringWithOptions:0];
     
     NSData *encryptedData = [RNEncryptor encryptData:data
                                         withSettings:kSEBCryptorAES256Settings
@@ -159,7 +158,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSMutableData *HMACData = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
     CCHmac(kCCHmacAlgSHA256, keyData.bytes, keyData.length, _currentKey.bytes, _currentKey.length, HMACData.mutableBytes);
     
-    NSString *password = [HMACData base64Encoding];
+    NSString *password = [HMACData base64EncodedStringWithOptions:0];
     NSData *decryptedData = [RNDecryptor decryptData:encryptedData withSettings:kSEBCryptorAES256Settings
                                             password:password
                                                error:error];
@@ -357,7 +356,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 - (NSData*) generateSHAHash:(NSString*)inputString {
     unsigned char hashedChars[32];
     CC_SHA256([inputString UTF8String],
-              [inputString lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+              (CC_LONG)[inputString lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
               hashedChars);
     NSData *hashedData = [NSData dataWithBytes:hashedChars length:32];
     return hashedData;
@@ -367,7 +366,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 - (NSData*) generateSHAHashForData:(NSData *)inputData {
     unsigned char hashedChars[32];
     CC_SHA256(inputData.bytes,
-              inputData.length,
+              (CC_LONG)inputData.length,
               hashedChars);
     NSData *hashedData = [NSData dataWithBytes:hashedChars length:32];
     return hashedData;

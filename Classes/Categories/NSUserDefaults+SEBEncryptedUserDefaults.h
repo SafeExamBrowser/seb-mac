@@ -118,6 +118,5 @@
 - (void)resetSEBUserDefaults;
 // Helper Method to get SEB's NSRegistrationDomain and application domain UserDefaults
 - (NSDictionary *)getSEBUserDefaultsDomains;
-- (BOOL)checkClassOfSettings:(NSDictionary *)sebPreferencesDict;
 
 @end

@@ -159,7 +159,7 @@
         if (embeddedCertificates) {
             //NSMutableArray *embeddedCertificates = [NSMutableArray arrayWithArray:certificates];
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-            for (int i = embeddedCertificates.count - 1; i >= 0; i--)
+            for (NSInteger i = embeddedCertificates.count - 1; i >= 0; i--)
             {
                 // Get the Embedded Certificate
                 NSDictionary *embeddedCertificate = embeddedCertificates[i];
@@ -213,8 +213,6 @@
 
 -(NSDictionary *) decryptSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing sebFilePassword:(NSString **)sebFilePasswordPtr passwordIsHashPtr:(BOOL*)passwordIsHashPtr sebFileKeyRef:(SecKeyRef *)sebFileKeyRefPtr
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-
     // Ungzip the .seb (according to specification >= v14) source data
     NSData *unzippedSebData = [sebData gzipInflate];
     // if unzipped data is not nil, then unzipping worked, we use unzipped data
@@ -353,7 +351,7 @@
     
     // Check if a some value is from a wrong class (another than the value from default settings)
     // and quit reading .seb file if a wrong value was found
-    if (![preferences checkClassOfSettings:sebPreferencesDict]) {
+    if (![self checkClassOfSettings:sebPreferencesDict]) {
         return nil;
     }
     // Reading preferences was successful!
@@ -495,7 +493,7 @@
     
     // Check if a some value is from a wrong class (another than the value from default settings)
     // and quit reading .seb file if a wrong value was found
-    if (![preferences checkClassOfSettings:sebPreferencesDict]) {
+    if (![self checkClassOfSettings:sebPreferencesDict]) {
         return nil;
     }
     
@@ -504,6 +502,42 @@
     
     // Reading preferences was successful!
     return sebPreferencesDict;
+}
+
+
+
+// Check if a some value is from a wrong class (another than the value from default settings)
+- (BOOL)checkClassOfSettings:(NSDictionary *)sebPreferencesDict
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    // get default settings
+    NSDictionary *defaultSettings = [preferences sebDefaultSettings];
+    
+    // Check if a some value is from a wrong class other than the value from default settings)
+    for (NSString *key in sebPreferencesDict) {
+        NSString *keyWithPrefix = [preferences prefixKey:key];
+        id value = [sebPreferencesDict objectForKey:key];
+#ifdef DEBUG
+        NSLog(@"%s Value for key %@ is %@", __FUNCTION__, key, value);
+#else
+        DDLogVerbose(@"%s Value for key %@ is %@", __FUNCTION__, key, value);
+#endif
+        id defaultValue = [defaultSettings objectForKey:keyWithPrefix];
+        Class valueClass = [value superclass];
+        Class defaultValueClass = [defaultValue superclass];
+        if (!value || (valueClass && defaultValueClass && !([defaultValue isKindOfClass:valueClass] || [value isKindOfClass:defaultValueClass]))) {
+            // Class of newly loaded value is different than the one from the default value
+            // If yes, then cancel reading .seb file
+            DDLogError(@"%s Value for key %@ is NULL or doesn't have the correct class!", __FUNCTION__, key);
+
+            [self.delegate showAlertWithTitle:NSLocalizedString(@"Reading New Settings Failed!",nil)
+                                      andText:NSLocalizedString(@"These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted.", nil)];
+            
+            return NO; //we abort reading the new settings here
+        }
+    }
+    return YES;
 }
 
 

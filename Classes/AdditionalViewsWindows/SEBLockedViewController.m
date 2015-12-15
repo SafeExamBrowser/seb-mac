@@ -14,11 +14,10 @@
 - (void) passwordEntered:(id)sender {
     // Check if restarting is protected with the quit/restart password (and one is set)
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedQuitPassword = @"155290511d5c4bfb1369217d6846c8eef1ed6a564579516eaf36cf5598ac92de"; //[preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-    //NSString *screensLockedText = NSLocalizedString(@"SEB is locked because a user switch was attempted. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.", nil);
+    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     
     NSString *password = [self.UIDelegate lockedAlertPassword];
-    //    DDLogDebug(@"Lockdown alert user entered password: %@, compare it with hashed quit password %@", password, hashedQuitPassword);
+    DDLogDebug(@"Lockdown alert user entered password: %@, compare it with hashed quit password %@", password, hashedQuitPassword);
     
 //    if (!self.keychainManager) {
 //        self.keychainManager = [[SEBKeychainManager alloc] init];
@@ -97,7 +96,7 @@
 - (NSString *) generateSHAHashString:(NSString*)inputString {
     unsigned char hashedChars[32];
     CC_SHA256([inputString UTF8String],
-              [inputString lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+              (CC_LONG)[inputString lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
               hashedChars);
     NSMutableString* hashedString = [[NSMutableString alloc] init];
     for (int i = 0 ; i < 32 ; ++i) {

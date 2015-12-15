@@ -44,8 +44,6 @@
 //
 
 
-#import "NSUserDefaultsController+SEBEncryptedUserDefaultsController.h"
-#import "SEBEncryptedUserDefaultsController.h"
 #import "MethodSwizzling.h"
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
@@ -696,45 +694,6 @@ static NSNumber *_logLevel;
 }
 
 
-// Check if a some value is from a wrong class (another than the value from default settings)
-- (BOOL)checkClassOfSettings:(NSDictionary *)sebPreferencesDict
-{
-    // get default settings
-    NSDictionary *defaultSettings = [self sebDefaultSettings];
-    
-    // Check if a some value is from a wrong class other than the value from default settings)
-    for (NSString *key in sebPreferencesDict) {
-        NSString *keyWithPrefix = [self prefixKey:key];
-        id value = [sebPreferencesDict objectForKey:key];
-#ifdef DEBUG
-        NSLog(@"%s Value for key %@ is %@", __FUNCTION__, key, value);
-#else
-        DDLogVerbose(@"%s Value for key %@ is %@", __FUNCTION__, key, value);
-#endif
-        id defaultValue = [defaultSettings objectForKey:keyWithPrefix];
-        Class valueClass = [value superclass];
-        Class defaultValueClass = [defaultValue superclass];
-        if (!value || (valueClass && defaultValueClass && !([defaultValue isKindOfClass:valueClass] || [value isKindOfClass:defaultValueClass]))) {
-            //if (valueClass && defaultValueClass && valueClass != defaultValueClass) {
-            //if (!(object_getClass([value class]) == object_getClass([defaultValue class]))) {
-            //if (defaultValue && !([value class] == [defaultValue class])) {
-            // Class of newly loaded value is different than the one from the default value
-            // If yes, then cancel reading .seb file
-            NSAlert *newAlert = [[NSAlert alloc] init];
-            [newAlert setMessageText:NSLocalizedString(@"Reading New Settings Failed!",nil)];
-            [newAlert setInformativeText:NSLocalizedString(@"These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted.", nil)];
-            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-            [newAlert setAlertStyle:NSCriticalAlertStyle];
-            [newAlert runModal];
-
-            DDLogError(@"%s Value for key %@ is NULL or doesn't have the correct class!", __FUNCTION__, key);
-            return NO; //we abort reading the new settings here
-        }
-    }
-    return YES;
-}
-
-
 #pragma mark -
 #pragma mark Read accessors
 
@@ -859,7 +818,7 @@ static NSNumber *_logLevel;
 
 - (void)setSecureInteger:(NSInteger)value forKey:(NSString *)key
 {
-	[self setSecureObject:[NSNumber numberWithInt:value] forKey:key];
+	[self setSecureObject:[NSNumber numberWithInteger:value] forKey:key];
 }
 
 
@@ -928,7 +887,7 @@ static NSNumber *_logLevel;
     }
     if ([key isEqualToString:@"org_safeexambrowser_SEB_enableLogging"]) {
         if ([value boolValue] == NO) {
-            [[MyGlobals sharedMyGlobals] setDDLogLevel:nil];
+            [[MyGlobals sharedMyGlobals] setDDLogLevel:DDLogLevelOff];
         } else {
             [[MyGlobals sharedMyGlobals] setDDLogLevel:_logLevel.intValue];
         }
@@ -969,7 +928,7 @@ static NSNumber *_logLevel;
         }
         if ([key isEqualToString:@"org_safeexambrowser_SEB_enableLogging"]) {
             if ([value boolValue] == NO) {
-                [[MyGlobals sharedMyGlobals] setDDLogLevel:nil];
+                [[MyGlobals sharedMyGlobals] setDDLogLevel:DDLogLevelOff];
             } else {
                 [[MyGlobals sharedMyGlobals] setDDLogLevel:_logLevel.intValue];
             }

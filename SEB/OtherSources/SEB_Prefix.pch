@@ -41,7 +41,7 @@
 
 #import "Constants.h"
 #import "MyGlobals.h"
-//#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
+#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 static DDLogLevel ddLogLevel = DDLogLevelDebug;
 
