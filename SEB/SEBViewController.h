@@ -36,6 +36,7 @@
 #import "AppDelegate.h"
 #import "SEBLockedViewController.h"
 #import "SEBiOSLockedViewController.h"
+#import "SEBiOSKeychainManager.h"
 
 @interface SEBViewController : UIViewController <SEBLockedViewControllerDelegate>
 

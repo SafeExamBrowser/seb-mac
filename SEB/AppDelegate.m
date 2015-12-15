@@ -87,6 +87,25 @@
 }
 
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    DDLogInfo(@"Calling Application Bundle ID: %@", sourceApplication);
+    DDLogInfo(@"URL scheme:%@", [url scheme]);
+    DDLogInfo(@"URL query: %@", [url query]);
+    
+    if (url) {
+        if ([url.pathExtension isEqualToString:@"seb"]) {
+            // If we have a valid URL with the path for a .seb file, we download and open it (conditionally)
+            DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", url);
+//            [self.browserController downloadAndOpenSebConfigFromURL:url];
+        }
+    }
+
+    return YES;
+}
+
+
 #pragma mark - Core Data stack
 
 @synthesize managedObjectContext = _managedObjectContext;
