@@ -45,9 +45,9 @@
     NSString *password = [self.UIDelegate lockedAlertPassword];
     DDLogDebug(@"Lockdown alert user entered password: %@, compare it with hashed quit password %@", password, hashedQuitPassword);
     
-//    if (!self.keychainManager) {
-//        self.keychainManager = [[SEBKeychainManager alloc] init];
-//    }
+    if (!self.keychainManager) {
+        self.keychainManager = [[SEBKeychainManager alloc] init];
+    }
     if (hashedQuitPassword.length == 0 || [hashedQuitPassword caseInsensitiveCompare:[self generateSHAHashString:password]] == NSOrderedSame) {
         [self.UIDelegate setLockedAlertPassword:@""];
         [self.UIDelegate setPasswordWrongLabelHidden:true];

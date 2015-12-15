@@ -33,7 +33,6 @@
 //
 
 #import "AppDelegate.h"
-//#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 @interface AppDelegate ()
 {
@@ -55,9 +54,9 @@
     [lagFreeField removeFromSuperview];
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-//    [preferences setSEBDefaults];
+    [preferences setSEBDefaults];
     
-//    // Initialize file logger if it's enabled in settings
+    // Initialize file logger if it's enabled in settings
 //    [self initializeLogger];
     
     return YES;

@@ -230,7 +230,9 @@ static NSMutableSet *browserWindowControllers;
     self.examRunning = true;
 
     // Load start URL from the system's user defaults
-    NSString *urlText = @"http://safeexambrowser.org/exams"; //[preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+//    NSString *urlText = @"http://safeexambrowser.org/exams"; //[preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
     //    NSString *urlText = @"https://view.ethz.ch/portal/webclient/index.html#/login";
     
     self.request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlText]];

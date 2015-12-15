@@ -167,7 +167,7 @@
 @property (nonatomic, strong) id< SEBLockedViewUIDelegate > UIDelegate;
 @property (nonatomic, strong) id< SEBLockedViewControllerDelegate > controllerDelegate;
 
-//@property (strong) SEBKeychainManager *keychainManager;
+@property (strong) SEBKeychainManager *keychainManager;
 
 @property (strong) NSDictionary *boldFontAttributes;
 

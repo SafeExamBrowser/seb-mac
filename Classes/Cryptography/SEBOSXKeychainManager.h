@@ -1,8 +1,8 @@
 //
-//  SEBKeychainManager.h
+//  SEBOSXKeychainManager.h
 //  SafeExamBrowser
 //
-//  Created by Daniel R. Schneider on 07.11.12.
+//  Created by Daniel R. Schneider on 15/12/15.
 //  Copyright (c) 2010-2015 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
@@ -32,48 +32,13 @@
 //  Contributor(s): ______________________________________.
 //
 
-
+#import "SEBKeychainManager.h"
 #include <Security/Security.h>
 #import <CommonCrypto/CommonDigest.h>
 //#import <Security/SecRandom.h> //for SecRandom
 
 
-/**
- * @protocol    SEBKeychainManagerDelegate
- *
- * @brief       OS-specific SEBKeychainManager delegates confirming to the SEBKeychainManagerDelegate
- *              protocol are connecting SEBKeychainManager to the keychain.
- */
-@protocol SEBKeychainManagerDelegate <NSObject>
-/**
- * @name		Item Attributes
- */
-@required
-- (NSArray*)getIdentitiesAndNames:(NSArray **)names;
-- (NSArray*)getCertificatesAndNames:(NSArray **)names;
-- (NSData*)getPublicKeyHashFromCertificate:(SecCertificateRef)certificate;
-- (SecKeyRef)getPrivateKeyFromPublicKeyHash:(NSData*)publicKeyHash;
-- (SecIdentityRef)getIdentityRefFromPublicKeyHash:(NSData*)publicKeyHash;
-- (SecKeyRef)copyPrivateKeyRefFromIdentityRef:(SecIdentityRef)identityRef;
-- (SecKeyRef*)copyPublicKeyFromCertificate:(SecCertificateRef)certificate;
-- (SecIdentityRef)createIdentityWithCertificate:(SecCertificateRef)certificate;
-
-- (SecCertificateRef)copyCertificateFromIdentity:(SecIdentityRef)identityRef;
-- (NSData*)getDataForCertificate:(SecCertificateRef)certificate;
-- (BOOL)importCertificateFromData:(NSData*)certificateData;
-- (NSData*)getDataForIdentity:(SecIdentityRef)identity;
-- (BOOL)importIdentityFromData:(NSData*)identityData;
-
-- (NSData*)encryptData:(NSData*)plainData withPublicKeyFromCertificate:(SecCertificateRef)certificate;
-- (NSData*)decryptData:(NSData*)cipherData withPrivateKey:(SecKeyRef)privateKey;
-- (NSString*)generateSHAHashString:(NSString*)inputString;
-
-@end
-
-
-@interface SEBKeychainManager : NSObject
-
-@property (strong) id<SEBKeychainManagerDelegate> delegate;
+@interface SEBOSXKeychainManager : NSObject <SEBKeychainManagerDelegate>
 
 - (NSArray*)getIdentitiesAndNames:(NSArray **)names;
 - (NSArray*)getCertificatesAndNames:(NSArray **)names;
