@@ -34,7 +34,7 @@
 
 #import "SEBBrowserWindow.h"
 #import "SEBWebView.h"
-#import "SEBConfigFileManager.h"
+#import "SEBOSXConfigFileController.h"
 #import "SEBBrowserWindowDocument.h"
 #import "NSWindow+SEBWindow.h"
 #import "WebKit+WebKitExtensions.h"

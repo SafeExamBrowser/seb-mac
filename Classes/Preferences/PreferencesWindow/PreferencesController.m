@@ -77,7 +77,7 @@
 {
     restartSEB = NO;
     
-    self.configFileManager = [[SEBConfigFileManager alloc] init];
+    self.configFileManager = [[SEBOSXConfigFileController alloc] init];
 
     // Add an observer for the notification to display the preferences window again
     [[NSNotificationCenter defaultCenter] addObserver:self

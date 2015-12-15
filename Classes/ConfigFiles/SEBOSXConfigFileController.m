@@ -188,7 +188,7 @@
 }
 
 
-- (void) presentError:(NSError *)error {
+- (void) presentErrorAlert:(NSError *)error {
     [NSApp presentError:error];
 }
 

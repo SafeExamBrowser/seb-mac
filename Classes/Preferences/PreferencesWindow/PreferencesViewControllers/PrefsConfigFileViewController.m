@@ -36,7 +36,7 @@
 #import "PrefsConfigFileViewController.h"
 #import "SEBUIUserDefaultsController.h"
 #import "SEBEncryptedUserDefaultsController.h"
-#import "SEBConfigFileManager.h"
+#import "SEBOSXConfigFileController.h"
 #import "RNEncryptor.h"
 #import "SEBCryptor.h"
 #import "MyGlobals.h"
@@ -265,7 +265,7 @@
 // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
 - (NSData *) encryptSEBSettingsWithSelectedCredentials
 {
-    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+    SEBOSXConfigFileController *configFileManager = [[SEBOSXConfigFileController alloc] init];
 
     // Get selected config purpose
     sebConfigPurposes configPurpose = [self getSelectedConfigPurpose];

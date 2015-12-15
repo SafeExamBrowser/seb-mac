@@ -82,7 +82,7 @@
 /**
  * @brief       Delegate method to display a NSError
  */
-- (void) presentError:(NSError *)error;
+- (void) presentErrorAlert:(NSError *)error;
 
 @optional
 
@@ -152,6 +152,12 @@
 // To make the getter unavailable
 - (NSString *)currentConfigPassword UNAVAILABLE_ATTRIBUTE;
 - (SecKeyRef)currentConfigKeyRef UNAVAILABLE_ATTRIBUTE;
+
+
+// Load a SebClientSettings.seb file saved in the preferences directory
+// and if it existed and was loaded, use it to re-configure SEB
+- (BOOL) reconfigureClientWithSebClientSettings;
+
 
 // Decrypt, parse and use new SEB settings
 -(BOOL) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing forceConfiguringClient:(BOOL)forceConfiguringClient;

@@ -50,7 +50,6 @@
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
 #import "SEBCryptor.h"
-#import "SEBConfigFileManager.h"
 
 @interface NSUserDefaults (SEBEncryptedUserDefaultsPrivate)
 

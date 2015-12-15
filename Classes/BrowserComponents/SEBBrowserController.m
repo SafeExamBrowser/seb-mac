@@ -37,7 +37,7 @@
 #import "SEBBrowserOpenWindowWebView.h"
 #import "NSWindow+SEBWindow.h"
 #import "WebKit+WebKitExtensions.h"
-#import "SEBConfigFileManager.h"
+#import "SEBOSXConfigFileController.h"
 
 #include "WebStorageManagerPrivate.h"
 #include "WebPreferencesPrivate.h"
@@ -450,7 +450,7 @@
                     [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
                 }
             }
-            SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+            SEBOSXConfigFileController *configFileManager = [[SEBOSXConfigFileController alloc] init];
             
             // Get current config path
             NSURL *currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];

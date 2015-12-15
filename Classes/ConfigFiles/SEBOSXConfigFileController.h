@@ -14,6 +14,10 @@
 @interface SEBOSXConfigFileController : SEBConfigFileManager <SEBConfigUIDelegate>
 
 @property (nonatomic, strong) SEBController *sebController;
-@property (strong) SEBLockedViewController *lockedViewController;
+
+
+// Load a SebClientSettings.seb file saved in the preferences directory
+// and if it existed and was loaded, use it to re-configure SEB
+- (BOOL) reconfigureClientWithSebClientSettings;
 
 @end

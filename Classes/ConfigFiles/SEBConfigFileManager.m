@@ -61,6 +61,14 @@
 
 #pragma mark Methods for Decrypting, Parsing and Storing SEB Settings to UserDefaults
 
+
+// Load a SebClientSettings.seb file saved in the preferences directory
+// and if it existed and was loaded, use it to re-configure SEB
+- (BOOL) reconfigureClientWithSebClientSettings
+{
+    return [self.delegate reconfigureClientWithSebClientSettings];
+}
+
 -(BOOL) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing
 {
     return [self storeDecryptedSEBSettings:sebData forEditing:forEditing forceConfiguringClient:NO];
@@ -73,19 +81,19 @@
     NSDictionary *sebPreferencesDict;
     SEBConfigFileCredentials *sebFileCredentials = [SEBConfigFileCredentials new];
 
-//    NSString *sebFilePassword = nil;
-//    BOOL passwordIsHash = false;
-//    SecKeyRef sebFileKeyRef = nil;
+    NSString *sebFilePassword = nil;
+    BOOL passwordIsHash = false;
+    SecKeyRef sebFileKeyRef = nil;
 
     // In editing mode we can get a saved existing config file password
     // (used when reverting to last saved/openend settings)
     if (forEditing) {
-        sebFileCredentials.password = _currentConfigPassword;
-        sebFileCredentials.passwordIsHash = _currentConfigPasswordIsHash;
-        sebFileCredentials.keyRef = _currentConfigKeyRef;
+        sebFilePassword = _currentConfigPassword;
+        passwordIsHash = _currentConfigPasswordIsHash;
+        sebFileKeyRef = _currentConfigKeyRef;
     }
 
-    sebPreferencesDict = [self decryptSEBSettings:sebData forEditing:forEditing sebFileCredentialsPtr:&sebFileCredentials];
+    sebPreferencesDict = [self decryptSEBSettings:sebData forEditing:forEditing sebFilePassword:&sebFilePassword passwordIsHashPtr:&passwordIsHash sebFileKeyRef:&sebFileKeyRef];
     if (!sebPreferencesDict) return NO; //Decryption didn't work, we abort
     
     // Reset SEB, close third party applications
@@ -118,6 +126,10 @@
         }
 
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+
+        sebFileCredentials.password = sebFilePassword;
+        sebFileCredentials.passwordIsHash = passwordIsHash;
+        sebFileCredentials.keyRef = sebFileKeyRef;
 
         // Inform delegate that preferences were reconfigured
         if ([self.delegate respondsToSelector:@selector(didReconfigureTemporaryForEditing:sebFileCredentials:)]) {
@@ -180,6 +192,10 @@
 
         DDLogInfo(@"Should display dialog SEB Re-Configured");
 
+        sebFileCredentials.password = sebFilePassword;
+        sebFileCredentials.passwordIsHash = passwordIsHash;
+        sebFileCredentials.keyRef = sebFileKeyRef;
+
         // Inform delegate that preferences were reconfigured
         if ([self.delegate respondsToSelector:@selector(didReconfigurePermanentlyForceConfiguringClient:sebFileCredentials:)]) {
             [self.delegate didReconfigurePermanentlyForceConfiguringClient:forceConfiguringClient
@@ -195,13 +211,8 @@
 // The decrypting password the user entered and/or
 // certificate reference found in the .seb file is returned
 
-//-(NSDictionary *) decryptSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing sebFilePassword:(NSString **)sebFilePasswordPtr passwordIsHashPtr:(BOOL*)passwordIsHashPtr sebFileKeyRef:(SecKeyRef *)sebFileKeyRefPtr
--(NSDictionary *) decryptSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing sebFileCredentialsPtr:(SEBConfigFileCredentials **)sebFileCredentialsPtr
+-(NSDictionary *) decryptSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing sebFilePassword:(NSString **)sebFilePasswordPtr passwordIsHashPtr:(BOOL*)passwordIsHashPtr sebFileKeyRef:(SecKeyRef *)sebFileKeyRefPtr
 {
-    NSString *sebFilePassword = (*sebFileCredentialsPtr).password;
-//    BOOL passwordIsHash = (*sebFileCredentialsPtr).passwordIsHash;
-    SecKeyRef sebFileKeyRef = (*sebFileCredentialsPtr).keyRef;
-    
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
     // Ungzip the .seb (according to specification >= v14) source data
@@ -231,7 +242,7 @@
     if ([prefixString isEqualToString:@"pkhs"]) {
 
         // Decrypt with cryptographic identity/private key
-        sebData = [self decryptDataWithPublicKeyHashPrefix:sebData forEditing:forEditing sebFileKeyRef:&sebFileKeyRef error:&error];
+        sebData = [self decryptDataWithPublicKeyHashPrefix:sebData forEditing:forEditing sebFileKeyRef:sebFileKeyRefPtr error:&error];
         if (!sebData || error) {
             return nil;
         }
@@ -261,8 +272,8 @@
             i--;
             // Prompt for password
             // if we don't have it already
-            if (forEditing && sebFilePassword) {
-                password = sebFilePassword;
+            if (forEditing && *sebFilePasswordPtr) {
+                password = *sebFilePasswordPtr;
             } else {
                 password = [self.delegate promptPasswordWithMessageText:enterPasswordString];
             }
@@ -284,7 +295,7 @@
         } else {
             sebData = sebDataDecrypted;
             // If these settings are being decrypted for editing, we return the decryption password
-            sebFilePassword = password;
+            *sebFilePasswordPtr = password;
         }
     } else {
         
@@ -295,7 +306,7 @@
             // Decrypt with password and configure local client settings
             // and quit afterwards, returning if reading the .seb file was successfull
 
-            return [self decryptDataWithPasswordForConfiguringClient:sebData forEditing:forEditing sebFileCredentialsPtr:sebFileCredentialsPtr];
+            return [self decryptDataWithPasswordForConfiguringClient:sebData forEditing:forEditing sebFilePassword:sebFilePasswordPtr passwordIsHashPtr:passwordIsHashPtr];
             
         } else {
 
@@ -355,12 +366,9 @@
 // or asks for the password used for encrypting this SEB file
 // for configuring the client
 
--(NSDictionary *) decryptDataWithPasswordForConfiguringClient:(NSData *)sebData forEditing:(BOOL)forEditing sebFileCredentialsPtr:(SEBConfigFileCredentials **)sebFileCredentialsPtr //sebFilePassword:(NSString **)sebFilePasswordPtr passwordIsHashPtr:(BOOL*)passwordIsHashPtr
+-(NSDictionary *) decryptDataWithPasswordForConfiguringClient:(NSData *)sebData forEditing:(BOOL)forEditing sebFilePassword:(NSString **)sebFilePasswordPtr passwordIsHashPtr:(BOOL*)passwordIsHashPtr
 {
-    NSString *sebFilePassword = (*sebFileCredentialsPtr).password;
-    BOOL passwordIsHash = (*sebFileCredentialsPtr).passwordIsHash;
-
-    passwordIsHash = false;
+    *passwordIsHashPtr = false;
     NSString *password;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
@@ -406,14 +414,14 @@
                 return nil;
             } else {
                 // Decrypting with entered password worked: We save it for returning it later
-                sebFilePassword = password;
+                *sebFilePasswordPtr = password;
             }
         }
     } else {
         //decrypting with hashedAdminPassword worked: we save it for returning as decryption password
-        sebFilePassword = hashedAdminPassword;
+        *sebFilePasswordPtr = hashedAdminPassword;
         // identify this password as hash
-        passwordIsHash = true;
+        *passwordIsHashPtr = true;
     }
     /// Decryption worked
     
@@ -424,7 +432,7 @@
     sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:decryptedSebData error:&error];
     if (error) {
         // Error when deserializing the decrypted configuration data
-        [self.delegate presentError:error];
+        [self.delegate presentErrorAlert:error];
         return nil; //we abort reading the new settings here
     }
     // Get the admin password set in these settings
@@ -448,7 +456,7 @@
             // allow reconfiguring only if the user enters the right one
             // We don't check this for the case the current admin password was used to encrypt the new settings
             // In this case there can be a new admin pw defined in the new settings and users don't need to enter the old one
-            if (passwordIsHash == false && hashedAdminPassword.length > 0) {
+            if (*passwordIsHashPtr == false && hashedAdminPassword.length > 0) {
                 // Allow up to 5 attempts for entering current admin password
                 int i = 5;
                 NSString *password = nil;
@@ -510,7 +518,7 @@
     NSDictionary *sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:sebData error:&error];
     if (error) {
         DDLogError(@"%s: Serialization of the XML plist went wrong! Error: %@", __FUNCTION__, error.description);
-        [self.delegate presentError:error];
+        [self.delegate presentErrorAlert:error];
 
         return nil; //we abort reading the new settings here
     }

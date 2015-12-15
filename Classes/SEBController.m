@@ -58,7 +58,7 @@
 #import "SEBKeychainManager.h"
 #import "SEBCryptor.h"
 #import "NSWindow+SEBWindow.h"
-#import "SEBConfigFileManager.h"
+#import "SEBOSXConfigFileController.h"
 
 #import "SEBDockItemMenu.h"
 
@@ -147,7 +147,7 @@ bool insideMatrix();
         
         NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL];
         
-        SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+        SEBOSXConfigFileController *configFileManager = [[SEBOSXConfigFileController alloc] init];
         
         // Get current config path
         NSURL *currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
@@ -600,7 +600,7 @@ bool insideMatrix();
     [self forceQuitWindowCheck];
 
     // Check if there is a SebClientSettings.seb file saved in the preferences directory
-    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+    SEBOSXConfigFileController *configFileManager = [[SEBOSXConfigFileController alloc] init];
     if (![configFileManager reconfigureClientWithSebClientSettings] && [MyGlobals sharedMyGlobals].reconfiguredWhileStarting) {
         // Show alert that SEB was reconfigured
         NSAlert *newAlert = [[NSAlert alloc] init];
