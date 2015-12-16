@@ -232,6 +232,7 @@
         DDLogError(@"SecItemUpdate failed with error: %@", outError);
     }
 	return (status == errSecSuccess);
+//    return true;
 }
 
 

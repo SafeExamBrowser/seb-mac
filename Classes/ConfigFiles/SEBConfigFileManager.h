@@ -115,23 +115,9 @@
 /**
  * @class       SEBConfigFileManager
  *
- * @brief       SEBDockController implements a custom control which is designed to be a
- *              mixture of the OS X Dock and a Windows task bar, intended to provide an easy
- *              way of switching between allowed third party applications and resources or
- *              opening them if they are not yet running/open. All items placed in the
- *              SEB Dock have to be scalable (preferably rectangular), with a minimum size of
- *              32 points (32 or 64 pixels @2x resolution). The SEB Dock bar has a min.
- *              height of 40 points and is pinned to the botton of a screen.
- *              The SEB Dock is divided into three sections left, center and right.
- *              The item(s) in the left section are pinned to the left edge of the dock
- *              (and screen), the right section items to the right edge of the dock and
- *              the center items start at (are pinned to) the right edge of the left section.
- *              The center section can contain a scroll view so if a large number of
- *              center items don't fit into the space available for the center section,
- *              users can scroll the center section horizontally to show all items.
- *              Items in the right section are intended to be controls providing functions
- *              and information which should be accessible application wide (like a quit
- *              button, battery and current time/clock, WLAN control etc.).
+ * @brief       SEBConfigFileManager implements a methods to deal with settings contained in
+ *              .seb config files, which usually will be encrypted with a password or a$
+ *              cryptographic identity (certificate and private key)
  *
  * @details     SEBConfigFileManager handles the
  *              

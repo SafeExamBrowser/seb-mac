@@ -46,6 +46,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    self.sebViewController = (SEBViewController *)self.window.rootViewController;
+
     // Preloads keyboard so there's no lag on initial keyboard appearance.
     UITextField *lagFreeField = [[UITextField alloc] init];
     [self.window addSubview:lagFreeField];
@@ -98,7 +100,7 @@
         if ([url.pathExtension isEqualToString:@"seb"]) {
             // If we have a valid URL with the path for a .seb file, we download and open it (conditionally)
             DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", url);
-//            [self.browserController downloadAndOpenSebConfigFromURL:url];
+            [self.sebViewController downloadAndOpenSebConfigFromURL:url];
         }
     }
 

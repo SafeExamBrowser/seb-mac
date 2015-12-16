@@ -36,7 +36,7 @@
 #import "AppDelegate.h"
 #import "SEBLockedViewController.h"
 #import "SEBiOSLockedViewController.h"
-#import "SEBiOSKeychainManager.h"
+#import "SEBiOSConfigFileController.h"
 
 @interface SEBViewController : UIViewController <SEBLockedViewControllerDelegate>
 
@@ -58,6 +58,8 @@
 - (void) showStartGuidedAccess;
 - (void) showGuidedAccessWarning;
 - (void) startExam;
+
+- (void) downloadAndOpenSebConfigFromURL:(NSURL *)url;
 
 @end
 
