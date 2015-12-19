@@ -6,9 +6,18 @@
 //
 //
 
+
+#import <Availability.h>
+
 #import "SEBiOSConfigFileController.h"
+#import "UIAlertViewBlock.h"
+#include "DAFRunLoop.h"
 
 @implementation SEBiOSConfigFileController
+{
+    BOOL alertViewHasBeenDismissed;
+
+}
 
 -(id) init
 {
@@ -91,41 +100,33 @@
 }
 
 
-- (NSString *) promptPasswordWithMessageText:(NSString *)messageText
+// Ask the user to enter a password using the message text and then call the callback selector with the password as parameter
+- (void) promptPasswordWithMessageText:(NSString *)messageText callback:(id)callback selector:(SEL)selector;
 {
-//    alertButtonIndex = -1;
-//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Loading Settings",nil)
-//                                                        message:messageText
-//                                                       delegate:self
-//                                              cancelButtonTitle:@"Cancel"
-//                                              otherButtonTitles:@"Ok", nil];
-//    alertView.alertViewStyle = UIAlertViewStyleSecureTextInput;
-//    UITextField *passwordTextField = [alertView textFieldAtIndex:0];
-//    [alertView show];
-//    
-//    NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
-//    NSDate *date;
-//    while (alertButtonIndex < 0) {
-//        date = [[NSDate alloc] init];
-//        [runLoop runUntilDate:date];
-//    }
-//
-//    if (alertButtonIndex == 0) {
-//        return nil;
-//    }
-//
-//    NSString *password = passwordTextField.text;
-//    
-//    if (!password) {
-//        password = @"";
-//    }
-//    return password;
-    return @"seb";
-}
-
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    alertButtonIndex = buttonIndex;
+    self.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Loading Settings",nil)
+                                                                message:messageText
+                                                         preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
+     {
+         textField.placeholder = NSLocalizedString(@"Password", nil);
+         textField.secureTextEntry = YES;
+     }];
+    
+    [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                 NSString *password = self.alertController.textFields.firstObject;
+                                                                 if (!password) {
+                                                                     password = @"";
+                                                                 }
+                                                                 [callback performSelector:selector:password];
+                                                             }]];
+    
+    [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                             style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                             }]];
+    
+    [self.sebViewController presentViewController:self.alertController animated:YES completion:nil];
 }
 
 
@@ -141,6 +142,7 @@
     [self showAlertWithTitle:title andText:informativeText];
 }
 
+
 - (void) showAlertWithTitle:(NSString *)title andText:(NSString *)informativeText {
     self.alertController = [UIAlertController  alertControllerWithTitle:title
                                                                 message:informativeText
@@ -151,6 +153,45 @@
                                                              }]];
     
     [self.sebViewController presentViewController:self.alertController animated:YES completion:nil];
+}
+
+
+- (NSInteger) showAlertWithTitle:(NSString *)title text:(NSString *)informativeText cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSString *)otherButtonTitles, ... NS_AVAILABLE(10_6, 4_0)
+{
+    __block NSInteger pressedButtonIndex;
+    __block dispatch_semaphore_t generateNotificationsSemaphore;
+        UIAlertViewBlock *alertViewBlock = [[UIAlertViewBlock alloc] initWithTitle:title message:informativeText block:^(NSInteger buttonIndex)
+                               {
+                                   pressedButtonIndex = buttonIndex;
+                                   if (buttonIndex == alertViewBlock.cancelButtonIndex) {
+                                       NSLog(@"Cancel pressed");
+                                   }
+                                   else {
+                                       NSLog(@"Button with index %ld pressed", (long)buttonIndex);
+                                   }
+                                   
+                                   dispatch_semaphore_signal(generateNotificationsSemaphore);
+                               }
+                                                    cancelButtonTitle:cancelButtonTitle otherButtonTitles:otherButtonTitles, nil];
+        
+        [alertViewBlock show];
+        
+        while (dispatch_semaphore_wait(generateNotificationsSemaphore, DISPATCH_TIME_NOW )) {
+            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:20]];
+        }
+    
+    return pressedButtonIndex;
+    
+    
+//    self.alertController = [UIAlertController  alertControllerWithTitle:title
+//                                                                message:informativeText
+//                                                         preferredStyle:UIAlertControllerStyleAlert];
+//    [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+//                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//                                                                 [self.alertController dismissViewControllerAnimated:YES completion:nil];
+//                                                             }]];
+//    
+//    [self.sebViewController presentViewController:self.alertController animated:YES completion:nil];
 }
 
 

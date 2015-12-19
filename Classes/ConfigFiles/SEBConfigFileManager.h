@@ -55,7 +55,7 @@
  * @brief       Delegate method to display an enter password dialog with the
  *              passed message text
  */
-- (NSString *) promptPasswordWithMessageText:(NSString *)messageText;
+- (void) promptPasswordWithMessageText:(NSString *)messageText  callback:(id)callback selector:(SEL)aSelector;
 
 /**
  * @brief       Delegate method to display an alert when wrong password was entered
@@ -123,7 +123,10 @@
  *              
  */
 @interface SEBConfigFileManager : NSObject {
-//@private
+@private
+    NSData *encryptedSEBData;
+    NSInteger attempts;
+    
 //    NSString *_currentConfigPassword;
 //    BOOL _currentConfigPasswordIsHash;
     //SecKeyRef _currentConfigKeyRef;
@@ -142,14 +145,21 @@
 
 // Load a SebClientSettings.seb file saved in the preferences directory
 // and if it existed and was loaded, use it to re-configure SEB
-- (BOOL) reconfigureClientWithSebClientSettings;
+- (void) reconfigureClientWithSebClientSettings;
 
 
 // Decrypt, parse and use new SEB settings
--(BOOL) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing forceConfiguringClient:(BOOL)forceConfiguringClient;
+-(void) storeNewSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing forceConfiguringClient:(BOOL)forceConfiguringClient;
 
 // Decrypt, parse and store SEB settings to UserDefaults
--(BOOL) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing;
+-(void) storeNewSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing;
+
+// Parse and use new SEB settings
+-(void) storeDecryptedSEBSettings:(NSDictionary *)sebPreferencesDict
+                  withCredentials:(SEBConfigFileCredentials *)sebFileCredentials
+                       forEditing:(BOOL)forEditing
+           forceConfiguringClient:(BOOL)forceConfiguringClient;
+
 
 -(void) storeIntoUserDefaults:(NSDictionary *)sebPreferencesDict;
 
@@ -159,16 +169,5 @@
                                withIdentity:(SecIdentityRef) identityRef
                                  forPurpose:(sebConfigPurposes)configPurpose;
 
-// Encrypt preferences using a certificate
-- (NSData*) encryptData:(NSData*)data usingIdentity:(SecIdentityRef) identityRef;
-
-// Encrypt preferences using a password
-- (NSData*) encryptData:(NSData*)data usingPassword:(NSString *)password passwordIsHash:(BOOL)passwordIsHash forPurpose:(sebConfigPurposes)configPurpose;
-
-// Basic helper methods
-
-- (NSString *) getPrefixStringFromData:(NSData **)data;
-
-- (NSData *) getPrefixDataFromData:(NSData **)data withLength:(NSUInteger)prefixLength;
 
 @end

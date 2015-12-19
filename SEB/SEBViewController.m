@@ -80,7 +80,9 @@ static NSMutableSet *browserWindowControllers;
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.webView setTranslatesAutoresizingMaskIntoConstraints:true];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(guidedAccessChanged) name:UIAccessibilityGuidedAccessStatusDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(guidedAccessChanged)
+                                                 name:UIAccessibilityGuidedAccessStatusDidChangeNotification object:nil];
     
 }
 
@@ -297,7 +299,7 @@ static NSMutableSet *browserWindowControllers;
             // Store the URL of the .seb file as current config file path
             [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
             
-            if ([configFileManager storeDecryptedSEBSettings:sebFileData forEditing:NO]) {
+            if ([configFileManager storeNewSEBSettings:sebFileData forEditing:NO]) {
                 
                 // Post a notification that it was requested to restart SEB with changed settings
                 [[NSNotificationCenter defaultCenter]

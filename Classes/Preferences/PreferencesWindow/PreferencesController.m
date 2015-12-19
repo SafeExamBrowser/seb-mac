@@ -406,7 +406,7 @@
             return;
         }
         // Decrypt and store the .seb config file
-        if ([self.configFileManager storeDecryptedSEBSettings:sebData forEditing:YES]) {
+        if ([self.configFileManager storeNewSEBSettings:sebData forEditing:YES]) {
             // if successfull save the path to the file for possible editing in the preferences window
             [[MyGlobals sharedMyGlobals] setCurrentConfigURL:sebFileURL];
             
@@ -1162,7 +1162,7 @@
             self.configFileManager.currentConfigKeyRef = _currentConfigKeyRef;
             
             // Decrypt and store the .seb config file
-            if ([self.configFileManager storeDecryptedSEBSettings:sebData forEditing:YES]) {
+            if ([self.configFileManager storeNewSEBSettings:sebData forEditing:YES]) {
                 
                 [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
                 [self reopenPreferencesWindow];

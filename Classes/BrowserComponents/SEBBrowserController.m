@@ -457,7 +457,7 @@
             // Store the URL of the .seb file as current config file path
             [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
             
-            if ([configFileManager storeDecryptedSEBSettings:sebFileData forEditing:NO]) {
+            if ([configFileManager storeNewSEBSettings:sebFileData forEditing:NO]) {
                 
                 // Post a notification that it was requested to restart SEB with changed settings
                 [[NSNotificationCenter defaultCenter]

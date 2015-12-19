@@ -9,15 +9,19 @@
 #import <Foundation/Foundation.h>
 #import "SEBConfigFileManager.h"
 #import "SEBViewController.h"
+#import <UIKit/UIKit.h>
 
 @class SEBViewController;
 
-@interface SEBiOSConfigFileController : SEBConfigFileManager <SEBConfigUIDelegate> {
+@interface SEBiOSConfigFileController : SEBConfigFileManager <SEBConfigUIDelegate, UIAlertViewDelegate> {
     NSInteger alertButtonIndex;
 }
 
 @property (strong, nonatomic) SEBViewController *sebViewController;
 
 @property (strong, nonatomic) UIAlertController *alertController;
+
+// UIAlertViewDelegate
+- (void)alertView:(UIAlertView*)pAlertView didDismissWithButtonIndex:(NSInteger)iButtonIndex;
 
 @end

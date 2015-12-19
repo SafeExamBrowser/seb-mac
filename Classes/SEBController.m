@@ -155,7 +155,7 @@ bool insideMatrix();
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:sebFileURL];
         
         // Decrypt and store the .seb config file
-        if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO]) {
+        if ([configFileManager storeNewSEBSettings:sebData forEditing:NO]) {
             // if successfull restart with new settings
             [self requestedRestart:nil];
         } else {
@@ -628,6 +628,8 @@ bool insideMatrix();
     // Set flag that SEB is initialized: Now showing alerts is allowed
     [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
 }
+
+
 
 
 // Check if SEB is placed ("installed") in an Applications folder

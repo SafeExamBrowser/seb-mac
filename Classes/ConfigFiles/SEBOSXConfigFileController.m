@@ -67,7 +67,7 @@
             //            SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
             
             // Decrypt and store the .seb config file
-            if ([self storeDecryptedSEBSettings:sebData forEditing:NO forceConfiguringClient:YES]) {
+            if ([self storeNewSEBSettings:sebData forEditing:NO forceConfiguringClient:YES]) {
                 // if successfull continue with new settings
                 DDLogInfo(@"Reconfiguring SEB with SebClientSettings.seb was successful");
                 // Delete the SebClientSettings.seb file from the Preferences directory

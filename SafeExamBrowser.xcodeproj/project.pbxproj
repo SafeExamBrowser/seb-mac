@@ -96,6 +96,7 @@
 		6947D8991BB073EA00899A8A /* ZoomPageIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6947D8951BB073EA00899A8A /* ZoomPageIn@2x.png */; };
 		6947D89A1BB073EA00899A8A /* ZoomPageOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 6947D8961BB073EA00899A8A /* ZoomPageOut.png */; };
 		6947D89B1BB073EA00899A8A /* ZoomPageOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6947D8971BB073EA00899A8A /* ZoomPageOut@2x.png */; };
+		694803931C236E7800593711 /* SEBiOSConfigFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 694803921C236E7800593711 /* SEBiOSConfigFileController.m */; };
 		694B08A316B14ABF00E4997C /* SEBCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 694B08A116B14ABF00E4997C /* SEBCryptor.h */; };
 		694B08A416B14ABF00E4997C /* SEBCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 694B08A216B14ABF00E4997C /* SEBCryptor.m */; };
 		695283DD16CDB54C0055AF6F /* PrefsSecurityViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */; };
@@ -135,7 +136,6 @@
 		699C540415EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */ = {isa = PBXBuildFile; fileRef = 699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */; };
 		699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */; };
 		69A2233C1C20C10B00766354 /* SEBiOSConfigFileController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A2233A1C20C10B00766354 /* SEBiOSConfigFileController.h */; };
-		69A2233D1C20C10B00766354 /* SEBiOSConfigFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A2233B1C20C10B00766354 /* SEBiOSConfigFileController.m */; };
 		69A2233E1C20E0BA00766354 /* NSData+NSDataZIPExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 6940A75F1853B2AD00D9D00D /* NSData+NSDataZIPExtension.h */; };
 		69A2233F1C20E0BD00766354 /* NSData+NSDataZIPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940A7601853B2AD00D9D00D /* NSData+NSDataZIPExtension.m */; };
 		69A223421C20E45A00766354 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A223401C20E38600766354 /* libz.tbd */; };
@@ -377,6 +377,10 @@
 		6947D8951BB073EA00899A8A /* ZoomPageIn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ZoomPageIn@2x.png"; path = "Resources/Icons/ZoomPageIn@2x.png"; sourceTree = "<group>"; };
 		6947D8961BB073EA00899A8A /* ZoomPageOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ZoomPageOut.png; path = Resources/Icons/ZoomPageOut.png; sourceTree = "<group>"; };
 		6947D8971BB073EA00899A8A /* ZoomPageOut@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ZoomPageOut@2x.png"; path = "Resources/Icons/ZoomPageOut@2x.png"; sourceTree = "<group>"; };
+		694803921C236E7800593711 /* SEBiOSConfigFileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBiOSConfigFileController.m; path = Classes/ConfigFiles/SEBiOSConfigFileController.m; sourceTree = "<group>"; };
+		694803941C2373AD00593711 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		694803961C2373CC00593711 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		694803981C2373E900593711 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		694B08A116B14ABF00E4997C /* SEBCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBCryptor.h; sourceTree = "<group>"; };
 		694B08A216B14ABF00E4997C /* SEBCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBCryptor.m; sourceTree = "<group>"; };
 		695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsSecurityViewController.h; sourceTree = "<group>"; };
@@ -417,7 +421,6 @@
 		699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBUIUserDefaultsController.h; path = Classes/Preferences/SEBUIUserDefaultsController.h; sourceTree = "<group>"; };
 		699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBUIUserDefaultsController.m; path = Classes/Preferences/SEBUIUserDefaultsController.m; sourceTree = "<group>"; };
 		69A2233A1C20C10B00766354 /* SEBiOSConfigFileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBiOSConfigFileController.h; path = Classes/ConfigFiles/SEBiOSConfigFileController.h; sourceTree = "<group>"; };
-		69A2233B1C20C10B00766354 /* SEBiOSConfigFileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBiOSConfigFileController.m; path = Classes/ConfigFiles/SEBiOSConfigFileController.m; sourceTree = "<group>"; };
 		69A223401C20E38600766354 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
 		69A3022919FE7B8F00B9A0F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		69A3FCD21C1B5680009BEA13 /* SEBConfigFileCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBConfigFileCredentials.h; sourceTree = "<group>"; };
@@ -660,6 +663,9 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				694803981C2373E900593711 /* CoreGraphics.framework */,
+				694803961C2373CC00593711 /* UIKit.framework */,
+				694803941C2373AD00593711 /* Foundation.framework */,
 				69A223401C20E38600766354 /* libz.tbd */,
 				69BB07431BA11CD40065E1F2 /* WebKit.framework */,
 				6905C5AA1961B4E5000008EC /* SystemConfiguration.framework */,
@@ -1041,7 +1047,7 @@
 			isa = PBXGroup;
 			children = (
 				69A2233A1C20C10B00766354 /* SEBiOSConfigFileController.h */,
-				69A2233B1C20C10B00766354 /* SEBiOSConfigFileController.m */,
+				694803921C236E7800593711 /* SEBiOSConfigFileController.m */,
 			);
 			name = "Config Files";
 			sourceTree = "<group>";
@@ -1537,6 +1543,7 @@
 				694316651BFF943C00F784EE /* MyGlobals.m in Sources */,
 				691CC4131BA134070020D3EC /* RNEncryptor.m in Sources */,
 				6940B9701BA0F2FB008C8CFC /* SEBViewController.m in Sources */,
+				694803931C236E7800593711 /* SEBiOSConfigFileController.m in Sources */,
 				69331F071C10AD750038BD31 /* SEBiOSLockedViewController.m in Sources */,
 				6930D2211C2011200087F79E /* SEBCryptor.m in Sources */,
 				69E4EDFE1C208F2300F5E5EB /* SEBiOSKeychainManager.m in Sources */,
@@ -1544,7 +1551,6 @@
 				6930D2261C205F470087F79E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
 				6940B96D1BA0F2FB008C8CFC /* AppDelegate.m in Sources */,
 				6930D2291C2069100087F79E /* SEBKeychainManager.m in Sources */,
-				69A2233D1C20C10B00766354 /* SEBiOSConfigFileController.m in Sources */,
 				6940B9761BA0F2FB008C8CFC /* SEB.xcdatamodeld in Sources */,
 				6940B96A1BA0F2FB008C8CFC /* main.m in Sources */,
 				69A3FCD71C1B5680009BEA13 /* SEBConfigFileCredentials.m in Sources */,
