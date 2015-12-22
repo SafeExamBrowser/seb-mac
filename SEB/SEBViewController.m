@@ -44,6 +44,9 @@
 #import "SEBViewController.h"
 
 @interface SEBViewController () <WKNavigationDelegate>
+{
+    NSURL *currentConfigPath;
+}
 
 @property (weak) IBOutlet UIView *containerView;
 @property (strong) SEBWKWebView *webView;
@@ -295,21 +298,26 @@ static NSMutableSet *browserWindowControllers;
             SEBiOSConfigFileController *configFileManager = [[SEBiOSConfigFileController alloc] init];
             
             // Get current config path
-            NSURL *currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
+            currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
             // Store the URL of the .seb file as current config file path
             [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
             
-            if ([configFileManager storeNewSEBSettings:sebFileData forEditing:NO]) {
-                
-                // Post a notification that it was requested to restart SEB with changed settings
-                [[NSNotificationCenter defaultCenter]
-                 postNotificationName:@"requestRestartNotification" object:self];
-                
-            } else {
-                // if decrypting new settings wasn't successfull, we have to restore the path to the old settings
-                [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
-            }
+            [configFileManager storeNewSEBSettings:sebFileData forEditing:false callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
         }
+    }
+}
+
+
+- (void) storeNewSEBSettingsSuccessful:(BOOL)success
+{
+    if (success) {
+        // Post a notification that it was requested to restart SEB with changed settings
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"requestRestartNotification" object:self];
+        
+    } else {
+        // if decrypting new settings wasn't successfull, we have to restore the path to the old settings
+        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
     }
 }
 

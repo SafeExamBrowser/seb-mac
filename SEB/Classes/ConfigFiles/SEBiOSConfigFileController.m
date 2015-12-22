@@ -10,8 +10,6 @@
 #import <Availability.h>
 
 #import "SEBiOSConfigFileController.h"
-#import "UIAlertViewBlock.h"
-#include "DAFRunLoop.h"
 
 @implementation SEBiOSConfigFileController
 {
@@ -107,7 +105,7 @@
                                                                 message:messageText
                                                          preferredStyle:UIAlertControllerStyleAlert];
     
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
+    [self.alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
      {
          textField.placeholder = NSLocalizedString(@"Password", nil);
          textField.secureTextEntry = YES;
@@ -115,11 +113,14 @@
     
     [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                 NSString *password = self.alertController.textFields.firstObject;
+                                                                 NSString *password = self.alertController.textFields.firstObject.text;
                                                                  if (!password) {
                                                                      password = @"";
                                                                  }
-                                                                 [callback performSelector:selector:password];
+                                                                 IMP imp = [callback methodForSelector:selector];
+                                                                 void (*func)(id, SEL, NSString*) = (void *)imp;
+                                                                 func(callback, selector, password);
+//                                                                 [callback performSelector:selector withObject:password];
                                                              }]];
     
     [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
@@ -158,30 +159,28 @@
 
 - (NSInteger) showAlertWithTitle:(NSString *)title text:(NSString *)informativeText cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSString *)otherButtonTitles, ... NS_AVAILABLE(10_6, 4_0)
 {
-    __block NSInteger pressedButtonIndex;
-    __block dispatch_semaphore_t generateNotificationsSemaphore;
-        UIAlertViewBlock *alertViewBlock = [[UIAlertViewBlock alloc] initWithTitle:title message:informativeText block:^(NSInteger buttonIndex)
-                               {
-                                   pressedButtonIndex = buttonIndex;
-                                   if (buttonIndex == alertViewBlock.cancelButtonIndex) {
-                                       NSLog(@"Cancel pressed");
-                                   }
-                                   else {
-                                       NSLog(@"Button with index %ld pressed", (long)buttonIndex);
-                                   }
-                                   
-                                   dispatch_semaphore_signal(generateNotificationsSemaphore);
-                               }
-                                                    cancelButtonTitle:cancelButtonTitle otherButtonTitles:otherButtonTitles, nil];
-        
-        [alertViewBlock show];
-        
-        while (dispatch_semaphore_wait(generateNotificationsSemaphore, DISPATCH_TIME_NOW )) {
-            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:20]];
-        }
+//    __block NSInteger pressedButtonIndex;
+//    __block dispatch_semaphore_t generateNotificationsSemaphore;
+//        UIAlertViewBlock *alertViewBlock = [[UIAlertViewBlock alloc] initWithTitle:title message:informativeText block:^(NSInteger buttonIndex)
+//                               {
+//                                   pressedButtonIndex = buttonIndex;
+//                                   if (buttonIndex == alertViewBlock.cancelButtonIndex) {
+//                                       NSLog(@"Cancel pressed");
+//                                   }
+//                                   else {
+//                                       NSLog(@"Button with index %ld pressed", (long)buttonIndex);
+//                                   }
+//                                   
+//                                   dispatch_semaphore_signal(generateNotificationsSemaphore);
+//                               }
+//                                                    cancelButtonTitle:cancelButtonTitle otherButtonTitles:otherButtonTitles, nil];
+//        
+//        [alertViewBlock show];
+//        
+//    
+//    return pressedButtonIndex;
     
-    return pressedButtonIndex;
-    
+    return 0;
     
 //    self.alertController = [UIAlertController  alertControllerWithTitle:title
 //                                                                message:informativeText

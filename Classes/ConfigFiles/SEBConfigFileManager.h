@@ -55,7 +55,9 @@
  * @brief       Delegate method to display an enter password dialog with the
  *              passed message text
  */
-- (void) promptPasswordWithMessageText:(NSString *)messageText  callback:(id)callback selector:(SEL)aSelector;
+- (void) promptPasswordWithMessageText:(NSString *)messageText
+                              callback:(id)callback
+                              selector:(SEL)aSelector;
 
 /**
  * @brief       Delegate method to display an alert when wrong password was entered
@@ -71,7 +73,8 @@
 /**
  * @brief       Delegate method to display an alert with free title and text
  */
-- (void) showAlertWithTitle:(NSString *)title andText:(NSString *)informativeText;
+- (void) showAlertWithTitle:(NSString *)title
+                    andText:(NSString *)informativeText;
 
 /**
  * @brief       Delegate method to display an alert asking if settings should 
@@ -96,7 +99,8 @@
  * @brief       Delegate method called after SEB was reconfigured temporarily for
  *              starting an exam.
  */
-- (void) didReconfigureTemporaryForEditing:(BOOL)forEditing sebFileCredentials:(SEBConfigFileCredentials *)sebFileCrentials;
+- (void) didReconfigureTemporaryForEditing:(BOOL)forEditing
+                        sebFileCredentials:(SEBConfigFileCredentials *)sebFileCrentials;
 
 /**
  * @brief       Delegate method called before SEB is getting reconfigured temporarily
@@ -108,7 +112,8 @@
  * @brief       Delegate method called after SEB was reconfigured temporarily for
  *              starting an exam.
  */
-- (void) didReconfigurePermanentlyForceConfiguringClient:(BOOL)forceConfiguringClient sebFileCredentials:(SEBConfigFileCredentials *)sebFileCrentials;
+- (void) didReconfigurePermanentlyForceConfiguringClient:(BOOL)forceConfiguringClient
+                                      sebFileCredentials:(SEBConfigFileCredentials *)sebFileCrentials;
 
 @end
 
@@ -126,6 +131,11 @@
 @private
     NSData *encryptedSEBData;
     NSInteger attempts;
+    BOOL storeSettingsForEditing;
+    BOOL storeSettingsForceConfiguringClient;
+    id storeSettingsCallback;
+    SEL storeSettingsSelector;
+    SEBConfigFileCredentials *sebFileCredentials;
     
 //    NSString *_currentConfigPassword;
 //    BOOL _currentConfigPasswordIsHash;
@@ -148,20 +158,27 @@
 - (void) reconfigureClientWithSebClientSettings;
 
 
-// Decrypt, parse and use new SEB settings
--(void) storeNewSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing forceConfiguringClient:(BOOL)forceConfiguringClient;
+// Decrypt, parse and store new SEB settings
+// Method with selector in the callback object is called after storing settings
+// was successful or aborted
+-(void) storeNewSEBSettings:(NSData *)sebData
+                 forEditing:(BOOL)forEditing
+                   callback:(id)callback
+                   selector:(SEL)selector;
 
-// Decrypt, parse and store SEB settings to UserDefaults
--(void) storeNewSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing;
-
-// Parse and use new SEB settings
--(void) storeDecryptedSEBSettings:(NSDictionary *)sebPreferencesDict
-                  withCredentials:(SEBConfigFileCredentials *)sebFileCredentials
-                       forEditing:(BOOL)forEditing
-           forceConfiguringClient:(BOOL)forceConfiguringClient;
+// Decrypt, parse and store new SEB settings
+// When forceConfiguringClient don't show any notification to the user
+// Method with selector in the callback object is called after storing settings
+// was successful or aborted
+-(void) storeNewSEBSettings:(NSData *)sebData
+                 forEditing:(BOOL)forEditing
+     forceConfiguringClient:(BOOL)forceConfiguringClient
+                   callback:(id)callback
+                   selector:(SEL)selector;
 
 
 -(void) storeIntoUserDefaults:(NSDictionary *)sebPreferencesDict;
+
 
 // Read SEB settings from UserDefaults and encrypt them using provided security credentials
 - (NSData *) encryptSEBSettingsWithPassword:(NSString *)settingsPassword
