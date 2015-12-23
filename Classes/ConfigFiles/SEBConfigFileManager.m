@@ -410,61 +410,69 @@
         if (!sebFileHashedAdminPassword) {
             sebFileHashedAdminPassword = @"";
         }
-        // Has the SEB config file the same admin password inside as the current one?
-        if ([hashedAdminPassword caseInsensitiveCompare:sebFileHashedAdminPassword] != NSOrderedSame) {
-            //No: The admin password inside the .seb file wasn't the same as the current one
-            if (storeSettingsForEditing) {
-                // If the file is openend for editing (and not to reconfigure SEB)
-                // we have to ask the user for the admin password inside the file
-                if (![self askForPasswordAndCompareToHashedPassword:sebFileHashedAdminPassword]) {
-                    // If the user didn't enter the right password we abort
-                    return;
-                }
-            } else {
-                // The file was actually opened for reconfiguring the SEB client:
-                // we have to ask for the current admin password and
-                // allow reconfiguring only if the user enters the right one
-                // We don't check this for the case the current admin password was used to encrypt the new settings
-                // In this case there can be a new admin pw defined in the new settings and users don't need to enter the old one
-                if (*passwordIsHashPtr == false && hashedAdminPassword.length > 0) {
-                    
-                    // ******************************************************************************************************************
-                    
-                    // Allow up to 5 attempts for entering current admin password
-                    int i = 5;
-                    NSString *password = nil;
-                    NSString *hashedPassword;
-                    NSString *enterPasswordString = NSLocalizedString(@"You can only reconfigure SEB by entering the current SEB administrator password:",nil);
-                    BOOL passwordsMatch;
-                    do {
-                        i--;
-                        // Prompt for password. If cancel was pressed, abort
-                        password = [self.delegate promptPasswordWithMessageText:NSLocalizedString(@"Reconfigure SEB Settings", nil)];
-                        if (!password) {
-                            return;
-                        }
-                        if (password.length == 0) {
-                            hashedPassword = @"";
-                        } else {
-                            hashedPassword = [keychainManager generateSHAHashString:password];
-                        }
-                        passwordsMatch = [hashedPassword caseInsensitiveCompare:hashedAdminPassword] == NSOrderedSame;
-                        // in case we get an error we allow the user to try it again
-                        enterPasswordString = NSLocalizedString(@"Wrong Password! Try again to enter the correct current SEB administrator password:",nil);
-                    } while ((!password || !passwordsMatch) && i > 0);
-                    
-                    if (!passwordsMatch) {
-                        //wrong password entered in 5th try: stop reading .seb file
-                        DDLogError(@"%s: Cannot Reconfigure SEB Settings: You didn't enter the correct current SEB administrator password.", __FUNCTION__);
-                        
-                        NSString *title = NSLocalizedString(@"Cannot Reconfigure SEB Settings", nil);
-                        NSString *informativeText = NSLocalizedString(@"You didn't enter the correct current SEB administrator password.", nil);
-                        [self.delegate showAlertWithTitle:title andText:informativeText];
-                        return;
-                    }
-                }
-            }
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        // Get admin password hash from current client settings
+        NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+        if (!hashedAdminPassword) {
+            hashedAdminPassword = @"";
         }
+        hashedAdminPassword = [hashedAdminPassword uppercaseString];
+
+        // Has the SEB config file the same admin password inside as the current one?
+//        if ([hashedAdminPassword caseInsensitiveCompare:sebFileHashedAdminPassword] != NSOrderedSame) {
+//            //No: The admin password inside the .seb file wasn't the same as the current one
+//            if (storeSettingsForEditing) {
+//                // If the file is openend for editing (and not to reconfigure SEB)
+//                // we have to ask the user for the admin password inside the file
+//                if (![self askForPasswordAndCompareToHashedPassword:sebFileHashedAdminPassword]) {
+//                    // If the user didn't enter the right password we abort
+//                    return;
+//                }
+//            } else {
+//                // The file was actually opened for reconfiguring the SEB client:
+//                // we have to ask for the current admin password and
+//                // allow reconfiguring only if the user enters the right one
+//                // We don't check this for the case the current admin password was used to encrypt the new settings
+//                // In this case there can be a new admin pw defined in the new settings and users don't need to enter the old one
+//                if (*passwordIsHashPtr == false && hashedAdminPassword.length > 0) {
+//                    
+//                    // ******************************************************************************************************************
+//                    
+//                    // Allow up to 5 attempts for entering current admin password
+//                    int i = 5;
+//                    NSString *password = nil;
+//                    NSString *hashedPassword;
+//                    NSString *enterPasswordString = NSLocalizedString(@"You can only reconfigure SEB by entering the current SEB administrator password:",nil);
+//                    BOOL passwordsMatch;
+//                    do {
+//                        i--;
+//                        // Prompt for password. If cancel was pressed, abort
+//                        password = [self.delegate promptPasswordWithMessageText:NSLocalizedString(@"Reconfigure SEB Settings", nil)];
+//                        if (!password) {
+//                            return;
+//                        }
+//                        if (password.length == 0) {
+//                            hashedPassword = @"";
+//                        } else {
+//                            hashedPassword = [keychainManager generateSHAHashString:password];
+//                        }
+//                        passwordsMatch = [hashedPassword caseInsensitiveCompare:hashedAdminPassword] == NSOrderedSame;
+//                        // in case we get an error we allow the user to try it again
+//                        enterPasswordString = NSLocalizedString(@"Wrong Password! Try again to enter the correct current SEB administrator password:",nil);
+//                    } while ((!password || !passwordsMatch) && i > 0);
+//                    
+//                    if (!passwordsMatch) {
+//                        //wrong password entered in 5th try: stop reading .seb file
+//                        DDLogError(@"%s: Cannot Reconfigure SEB Settings: You didn't enter the correct current SEB administrator password.", __FUNCTION__);
+//                        
+//                        NSString *title = NSLocalizedString(@"Cannot Reconfigure SEB Settings", nil);
+//                        NSString *informativeText = NSLocalizedString(@"You didn't enter the correct current SEB administrator password.", nil);
+//                        [self.delegate showAlertWithTitle:title andText:informativeText];
+//                        return;
+//                    }
+//                }
+//            }
+//        }
         // Check if a some value is from a wrong class (another than the value from default settings)
         // and quit reading .seb file if a wrong value was found
         if (![self checkClassOfSettings:sebPreferencesDict]) {
@@ -714,38 +722,43 @@
     NSString *hashedPassword;
     NSString *enterPasswordString = NSLocalizedString(@"Enter the SEB administrator password used in these settings:",nil);
     bool passwordsMatch;
-    do {
-        i--;
-        // Prompt for password
-        password = [self.delegate promptPasswordWithMessageText:NSLocalizedString(@"Loading settings",nil) callback:<#(id)#> selector:<#(SEL)#>];
-        if (!password) {
-            // If cancel was pressed, abort
-            return false;
-        }
-        if (password.length == 0) {
-            hashedPassword = @"";
-        } else {
-            hashedPassword = [keychainManager generateSHAHashString:password];
-        }
-        passwordsMatch = ([hashedPassword caseInsensitiveCompare:sebFileHashedAdminPassword] == NSOrderedSame);
-        // in case we get an error we allow the user to try it again
-        enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the correct SEB administrator password from these settings:", nil);
-    } while ((password == nil || !passwordsMatch) && i > 0);
-    
-    if (!passwordsMatch) {
-        //wrong password entered in 5th try: stop reading .seb file
-        NSString *title = NSLocalizedString(@"Loading Settings", nil);
-        NSString *informativeText = NSLocalizedString(@"If you don't enter the right administrator password from these settings you cannot open them.", nil);
-        [self.delegate showAlertWithTitle:title andText:informativeText];
-
-        DDLogError(@"%s: Loading Settings: If you don't enter the right administrator password from these settings you cannot open them.", __FUNCTION__);
-        
-        return NO;
-    }
+//    do {
+//        i--;
+//        // Prompt for password
+//        password = [self.delegate promptPasswordWithMessageText:NSLocalizedString(@"Loading settings",nil) callback:<#(id)#> selector:<#(SEL)#>];
+//        if (!password) {
+//            // If cancel was pressed, abort
+//            return false;
+//        }
+//        if (password.length == 0) {
+//            hashedPassword = @"";
+//        } else {
+//            hashedPassword = [keychainManager generateSHAHashString:password];
+//        }
+//        passwordsMatch = ([hashedPassword caseInsensitiveCompare:sebFileHashedAdminPassword] == NSOrderedSame);
+//        // in case we get an error we allow the user to try it again
+//        enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the correct SEB administrator password from these settings:", nil);
+//    } while ((password == nil || !passwordsMatch) && i > 0);
+//    
+//    if (!passwordsMatch) {
+//        //wrong password entered in 5th try: stop reading .seb file
+//        NSString *title = NSLocalizedString(@"Loading Settings", nil);
+//        NSString *informativeText = NSLocalizedString(@"If you don't enter the right administrator password from these settings you cannot open them.", nil);
+//        [self.delegate showAlertWithTitle:title andText:informativeText];
+//
+//        DDLogError(@"%s: Loading Settings: If you don't enter the right administrator password from these settings you cannot open them.", __FUNCTION__);
+//        
+//        return NO;
+//    }
     // Right password entered
     return YES;
 }
 
+
+- (void) comparePasswordToHashedPassword:(NSString *)password
+{
+    
+}
 
 // Save imported settings into user defaults (either in private memory or local shared UserDefaults)
 -(void) storeIntoUserDefaults:(NSDictionary *)sebPreferencesDict
