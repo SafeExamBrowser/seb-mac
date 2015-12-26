@@ -111,8 +111,10 @@ static NSMutableSet *browserWindowControllers;
         if (UIAccessibilityIsGuidedAccessEnabled() == false) {
             
             // Dismiss the Guided Access warning alert if it still was visible
-            if (self.guidedAccessWarningAC) {
-                [self.guidedAccessWarningAC dismissViewControllerAnimated:YES completion:nil];
+            if (self.guidedAccessWarningDisplayed) {
+                [self.alertController dismissViewControllerAnimated:YES completion:nil];
+                self.alertController = nil;
+                self.guidedAccessWarningDisplayed = false;
             }
             
             // If there wasn't a lockdown covering view openend yet, initialize it
@@ -152,6 +154,7 @@ static NSMutableSet *browserWindowControllers;
             if (self.unlockPasswordEntered) {
                 self.unlockPasswordEntered = false;
                 [self.alertController dismissViewControllerAnimated:YES completion:nil];
+                self.alertController = nil;
                 [self.lockedViewController shouldCloseLockdownWindows];
             }
         }
@@ -166,10 +169,11 @@ static NSMutableSet *browserWindowControllers;
             
         }
         // Guided Access off
-        else if (self.guidedAccessWarningAC) {
+        else if (self.guidedAccessWarningDisplayed) {
             // Guided Access warning was already displayed: dismiss it
-            [self.guidedAccessWarningAC dismissViewControllerAnimated:YES completion:nil];
-            self.guidedAccessWarningAC = nil;
+            [self.alertController dismissViewControllerAnimated:YES completion:nil];
+            self.alertController = nil;
+            self.guidedAccessWarningDisplayed = false;
             
             [self showRestartGuidedAccess];
         }
@@ -204,17 +208,19 @@ static NSMutableSet *browserWindowControllers;
         // Proceed to exam
         [self.alertController dismissViewControllerAnimated:YES completion:nil];
         
-        self.guidedAccessWarningAC = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Guided Access Warning", nil)
+        self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Guided Access Warning", nil)
                                                                           message:NSLocalizedString(@"Don't switch Guided Access off (home button tripple click or Touch ID) before submitting your exam, otherwise SEB will lock access to the exam! SEB will notify you when you're allowed to switch Guided Access off.", nil)
                                                                    preferredStyle:UIAlertControllerStyleAlert];
-        [self.guidedAccessWarningAC addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"I Understand", nil)
+        [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"I Understand", nil)
                                                                        style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [self.guidedAccessWarningAC dismissViewControllerAnimated:YES completion:nil];
-            self.guidedAccessWarningAC = nil;
-            
-            [self startExam];
+                                                                           [self.alertController dismissViewControllerAnimated:YES completion:nil];
+                                                                           self.alertController = nil;
+                                                                           self.guidedAccessWarningDisplayed = false;
+                                                                           
+                                                                           [self startExam];
         }]];
-        [self presentViewController:self.guidedAccessWarningAC animated:YES completion:nil];
+        [self presentViewController:self.alertController animated:YES completion:nil];
+        self.guidedAccessWarningDisplayed = true;
     }
 }
 
@@ -255,12 +261,23 @@ static NSMutableSet *browserWindowControllers;
         // Check if SEB is in exam mode = private UserDefauls are switched on
         if (NSUserDefaults.userDefaultsPrivate) {
             // If yes, we don't download the .seb file
-//            NSAlert *newAlert = [[NSAlert alloc] init];
-//            [newAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
-//            [newAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
-//            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-//            [newAlert setAlertStyle:NSCriticalAlertStyle];
-//            [newAlert runModal];
+            if (self.alertController) {
+                [self.alertController dismissViewControllerAnimated:YES completion:nil];
+                self.inactiveAlertController = self.alertController;
+            }
+            self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)
+                                                                              message:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and use a quit link or the quit button in SEB before starting another exam.", nil)
+                                                                       preferredStyle:UIAlertControllerStyleAlert];
+            [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                               [self.alertController dismissViewControllerAnimated:YES completion:nil];
+                                                                               self.alertController = self.inactiveAlertController;
+                                                                               if (self.alertController) {
+                                                                                   [self presentViewController:self.alertController animated:YES completion:nil];
+                                                                               }
+                                                                           }]];
+            [self presentViewController:self.alertController animated:YES completion:nil];
+
         } else {
             // SEB isn't in exam mode: reconfiguring it is allowed
             NSError *error = nil;

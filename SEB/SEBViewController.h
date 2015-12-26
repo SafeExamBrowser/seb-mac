@@ -43,7 +43,8 @@
 @property (strong, nonatomic) SEBiOSLockedViewController< SEBLockedViewUIDelegate > *lockedViewController;
 
 @property (strong, nonatomic) UIAlertController *alertController;
-@property (strong, nonatomic) UIAlertController *guidedAccessWarningAC;
+@property (strong, nonatomic) UIAlertController *inactiveAlertController;
+@property(readwrite) BOOL guidedAccessWarningDisplayed;
 
 @property (strong, nonatomic) UIView *coveringView;
 

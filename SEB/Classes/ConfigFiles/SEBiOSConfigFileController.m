@@ -69,6 +69,9 @@
 //                                                                               [self startExam];
                                                                            }]];
             
+            if (self.sebViewController.alertController) {
+                [self.sebViewController.alertController dismissViewControllerAnimated:YES completion:nil];
+            }
             [self.sebViewController presentViewController:self.alertController animated:YES completion:nil];
 
         } else {
@@ -120,13 +123,21 @@
                                                                  IMP imp = [callback methodForSelector:selector];
                                                                  void (*func)(id, SEL, NSString*) = (void *)imp;
                                                                  func(callback, selector, password);
+                                                                 [self.alertController dismissViewControllerAnimated:YES completion:nil];
+                                                                 [self.sebViewController presentViewController:self.sebViewController.alertController animated:YES completion:nil];
+
 //                                                                 [callback performSelector:selector withObject:password];
                                                              }]];
     
     [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                              style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                                 [self.alertController dismissViewControllerAnimated:YES completion:nil];
+                                                                 [self.sebViewController presentViewController:self.sebViewController.alertController animated:YES completion:nil];
                                                              }]];
     
+    if (self.sebViewController.alertController) {
+        [self.sebViewController.alertController dismissViewControllerAnimated:YES completion:nil];
+    }
     [self.sebViewController presentViewController:self.alertController animated:YES completion:nil];
 }
 
@@ -151,8 +162,12 @@
     [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                  [self.alertController dismissViewControllerAnimated:YES completion:nil];
+                                                                 [self.sebViewController presentViewController:self.sebViewController.alertController animated:YES completion:nil];
                                                              }]];
     
+    if (self.sebViewController.alertController) {
+        [self.sebViewController.alertController dismissViewControllerAnimated:YES completion:nil];
+    }
     [self.sebViewController presentViewController:self.alertController animated:YES completion:nil];
 }
 
@@ -203,6 +218,8 @@
     [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                  [self.alertController dismissViewControllerAnimated:YES completion:nil];
+                                                                 [self.sebViewController presentViewController:self.sebViewController.alertController animated:YES completion:nil];
+
                                                                  // Post a notification to switch to the Config File prefs pane
                                                                  [[NSNotificationCenter defaultCenter]
                                                                   postNotificationName:@"switchToConfigFilePane" object:self];
@@ -213,10 +230,15 @@
     [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Save unencrypted", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                  [self.alertController dismissViewControllerAnimated:YES completion:nil];
+                                                                 [self.sebViewController presentViewController:self.sebViewController.alertController animated:YES completion:nil];
+
                                                                  // save .seb config data unencrypted
                                                                  saveSettingsUnencrypted = true;
                                                              }]];
     
+    if (self.sebViewController.alertController) {
+        [self.sebViewController.alertController dismissViewControllerAnimated:YES completion:nil];
+    }
     [self.sebViewController presentViewController:self.alertController animated:YES completion:nil];
 
     NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
