@@ -320,8 +320,9 @@
         // If there was no hashed admin password saved, we set it to an empty string
         // as this is the standard password used to encrypt settings for configuring client
         hashedAdminPassword = @"";
+    } else {
+        hashedAdminPassword = [hashedAdminPassword uppercaseString];
     }
-    hashedAdminPassword = [hashedAdminPassword uppercaseString];
     NSError *error = nil;
     NSData *sebDataDecrypted = [RNDecryptor decryptData:encryptedSEBData withPassword:hashedAdminPassword error:&error];
     if (error || !sebDataDecrypted) {
@@ -422,8 +423,9 @@
     NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
     if (!hashedAdminPassword) {
         hashedAdminPassword = @"";
+    } else {
+        hashedAdminPassword = [hashedAdminPassword uppercaseString];
     }
-    hashedAdminPassword = [hashedAdminPassword uppercaseString];
     
     // Has the SEB config file the same admin password inside as the current one?
     // If yes, then we can directly use those setting to configure the client
@@ -477,8 +479,9 @@
     NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
     if (!hashedAdminPassword) {
         hashedAdminPassword = @"";
+    } else {
+        hashedAdminPassword = [hashedAdminPassword uppercaseString];
     }
-    hashedAdminPassword = [hashedAdminPassword uppercaseString];
 
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     NSString *hashedPassword;
@@ -487,8 +490,8 @@
         hashedPassword = @"";
     } else {
         hashedPassword = [keychainManager generateSHAHashString:password];
+        hashedPassword = [hashedPassword uppercaseString];
     }
-    hashedPassword = [hashedPassword uppercaseString];
     
     attempts--;
     
