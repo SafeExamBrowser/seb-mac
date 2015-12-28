@@ -22,6 +22,5 @@
 @property (strong, nonatomic) UIAlertController *alertController;
 
 // UIAlertViewDelegate
-- (void)alertView:(UIAlertView*)pAlertView didDismissWithButtonIndex:(NSInteger)iButtonIndex;
 
 @end

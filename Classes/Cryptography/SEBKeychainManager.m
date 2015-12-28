@@ -221,7 +221,7 @@
                            keyID, (__bridge id)kSecAttrGeneric,
                            keyID, (__bridge id)kSecAttrAccount,
                            (__bridge id)kCFBooleanTrue, (__bridge id)kSecAttrIsInvisible,
-                           (__bridge id)kSecMatchLimitOne, (__bridge id)kSecMatchLimit,
+//                           (__bridge id)kSecMatchLimitOne, (__bridge id)kSecMatchLimit,
                            nil];
     NSDictionary *attributesToUpdate = [NSDictionary dictionaryWithObjectsAndKeys:
                                         keyData, (__bridge id)kSecValueData,
