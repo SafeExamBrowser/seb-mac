@@ -120,7 +120,7 @@
  * @brief       Delegate method to display an enter password dialog with the
  *              passed message text modally
  */
-- (void) promptPasswordWithMessageTextModal:(NSString *)messageText;
+- (NSString *) promptPasswordWithMessageTextModal:(NSString *)messageText;
 
 
 @end
@@ -138,6 +138,7 @@
 @interface SEBConfigFileManager : NSObject {
 @private
     NSData *encryptedSEBData;
+    NSDictionary *parsedSEBPreferencesDict;
     NSInteger attempts;
     BOOL storeSettingsForEditing;
     BOOL storeSettingsForceConfiguringClient;

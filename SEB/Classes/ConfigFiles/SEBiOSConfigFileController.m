@@ -125,12 +125,14 @@
                                                                  func(callback, selector, password);
                                                                  [self.alertController dismissViewControllerAnimated:YES completion:nil];
                                                                  [self.sebViewController presentViewController:self.sebViewController.alertController animated:YES completion:nil];
-
-//                                                                 [callback performSelector:selector withObject:password];
                                                              }]];
     
     [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                              style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                                 // Return nil to callback method to indicate that cancel was pressed
+                                                                 IMP imp = [callback methodForSelector:selector];
+                                                                 void (*func)(id, SEL, NSString*) = (void *)imp;
+                                                                 func(callback, selector, nil);
                                                                  [self.alertController dismissViewControllerAnimated:YES completion:nil];
                                                                  [self.sebViewController presentViewController:self.sebViewController.alertController animated:YES completion:nil];
                                                              }]];
@@ -241,12 +243,6 @@
     }
     [self.sebViewController presentViewController:self.alertController animated:YES completion:nil];
 
-    NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
-    NSDate *date;
-    while ([self.alertController isBeingPresented]) {
-        date = [[NSDate alloc] init];
-        [runLoop runUntilDate:date];
-    }
     return saveSettingsUnencrypted;
 }
 
