@@ -53,7 +53,8 @@
 @required
 /**
  * @brief       Delegate method to display an enter password dialog with the
- *              passed message text
+ *              passed message text asynchronously, calling the callback 
+ *              method with the entered password when one was entered
  */
 - (void) promptPasswordWithMessageText:(NSString *)messageText
                               callback:(id)callback
@@ -114,6 +115,13 @@
  */
 - (void) didReconfigurePermanentlyForceConfiguringClient:(BOOL)forceConfiguringClient
                                       sebFileCredentials:(SEBConfigFileCredentials *)sebFileCrentials;
+
+/**
+ * @brief       Delegate method to display an enter password dialog with the
+ *              passed message text modally
+ */
+- (void) promptPasswordWithMessageTextModal:(NSString *)messageText;
+
 
 @end
 
