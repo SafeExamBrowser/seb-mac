@@ -499,7 +499,7 @@
         // wrong password entered, are there still attempts left?
         if (attempts > 0) {
             // Let the user try it again
-            NSString *enterPasswordString = NSLocalizedString(@"Wrong Password! Try again to enter the correct current SEB administrator password:",nil);
+            NSString *enterPasswordString = NSLocalizedString(@"Wrong Password! Try again to enter the current SEB administrator password:",nil);
             // Ask the user to enter the settings password and proceed to the callback method after this happend
             [self.delegate promptPasswordWithMessageText:enterPasswordString
                                                 callback:self
@@ -585,7 +585,9 @@
                                           sebFileCredentials:sebFileCredentials];
         }
         
-        return; //reading preferences was successful
+        // Inform callback that storing new settings was successful
+        [self storeNewSEBSettingsSuccessful:true];
+        return;
         
     } else {
         
@@ -646,7 +648,9 @@
                                                         sebFileCredentials:sebFileCredentials];
         }
         
-        return; //reading preferences was successful
+        // Inform callback that storing new settings was successful
+        [self storeNewSEBSettingsSuccessful:true];
+        return;
     }
 }
 
