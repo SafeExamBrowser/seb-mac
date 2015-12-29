@@ -64,13 +64,13 @@
                                                                  preferredStyle:UIAlertControllerStyleAlert];
             [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Continue", nil)
                                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                               [self.alertController dismissViewControllerAnimated:YES completion:nil];
+                                                                               [self.alertController dismissViewControllerAnimated:NO completion:nil];
                                                                                
 //                                                                               [self startExam];
                                                                            }]];
             
             if (self.sebViewController.alertController) {
-                [self.sebViewController.alertController dismissViewControllerAnimated:YES completion:nil];
+                [self.sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
             }
             [self.sebViewController presentViewController:self.alertController animated:YES completion:nil];
 
@@ -79,12 +79,6 @@
             [MyGlobals sharedMyGlobals].reconfiguredWhileStarting = YES;
         }
         
-        NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
-        NSDate *date;
-        while ([self.alertController isBeingPresented]) {
-            date = [[NSDate alloc] init];
-            [runLoop runUntilDate:date];
-        }
     }
     
 //    PreferencesController *prefsController = self.sebController.preferencesController;
@@ -123,8 +117,6 @@
                                                                  IMP imp = [callback methodForSelector:selector];
                                                                  void (*func)(id, SEL, NSString*) = (void *)imp;
                                                                  func(callback, selector, password);
-                                                                 [self.alertController dismissViewControllerAnimated:YES completion:nil];
-                                                                 [self.sebViewController presentViewController:self.sebViewController.alertController animated:YES completion:nil];
                                                              }]];
     
     [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
@@ -133,12 +125,10 @@
                                                                  IMP imp = [callback methodForSelector:selector];
                                                                  void (*func)(id, SEL, NSString*) = (void *)imp;
                                                                  func(callback, selector, nil);
-                                                                 [self.alertController dismissViewControllerAnimated:YES completion:nil];
-                                                                 [self.sebViewController presentViewController:self.sebViewController.alertController animated:YES completion:nil];
                                                              }]];
     
     if (self.sebViewController.alertController) {
-        [self.sebViewController.alertController dismissViewControllerAnimated:YES completion:nil];
+        [self.sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
     }
     [self.sebViewController presentViewController:self.alertController animated:YES completion:nil];
 }
@@ -163,12 +153,11 @@
                                                          preferredStyle:UIAlertControllerStyleAlert];
     [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                 [self.alertController dismissViewControllerAnimated:YES completion:nil];
-                                                                 [self.sebViewController presentViewController:self.sebViewController.alertController animated:YES completion:nil];
+                                                                 [self.alertController dismissViewControllerAnimated:NO completion:nil];
                                                              }]];
     
     if (self.sebViewController.alertController) {
-        [self.sebViewController.alertController dismissViewControllerAnimated:YES completion:nil];
+        [self.sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
     }
     [self.sebViewController presentViewController:self.alertController animated:YES completion:nil];
 }
@@ -204,7 +193,7 @@
 //                                                         preferredStyle:UIAlertControllerStyleAlert];
 //    [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
 //                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-//                                                                 [self.alertController dismissViewControllerAnimated:YES completion:nil];
+//                                                                 [self.alertController dismissViewControllerAnimated:NO completion:nil];
 //                                                             }]];
 //    
 //    [self.sebViewController presentViewController:self.alertController animated:YES completion:nil];
@@ -219,8 +208,7 @@
                                                          preferredStyle:UIAlertControllerStyleAlert];
     [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                 [self.alertController dismissViewControllerAnimated:YES completion:nil];
-                                                                 [self.sebViewController presentViewController:self.sebViewController.alertController animated:YES completion:nil];
+                                                                 [self.alertController dismissViewControllerAnimated:NO completion:nil];
 
                                                                  // Post a notification to switch to the Config File prefs pane
                                                                  [[NSNotificationCenter defaultCenter]
@@ -231,15 +219,14 @@
     
     [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Save unencrypted", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                 [self.alertController dismissViewControllerAnimated:YES completion:nil];
-                                                                 [self.sebViewController presentViewController:self.sebViewController.alertController animated:YES completion:nil];
+                                                                 [self.alertController dismissViewControllerAnimated:NO completion:nil];
 
                                                                  // save .seb config data unencrypted
                                                                  saveSettingsUnencrypted = true;
                                                              }]];
     
     if (self.sebViewController.alertController) {
-        [self.sebViewController.alertController dismissViewControllerAnimated:YES completion:nil];
+        [self.sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
     }
     [self.sebViewController presentViewController:self.alertController animated:YES completion:nil];
 
