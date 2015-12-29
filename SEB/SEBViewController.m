@@ -262,7 +262,6 @@ static NSMutableSet *browserWindowControllers;
         if (NSUserDefaults.userDefaultsPrivate) {
             // If yes, we don't download the .seb file
             if (self.alertController) {
-                self.inactiveAlertController = [self.alertController copy];
                 [self.alertController dismissViewControllerAnimated:NO completion:nil];
             }
             self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)
@@ -271,10 +270,7 @@ static NSMutableSet *browserWindowControllers;
             [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                                [self.alertController dismissViewControllerAnimated:NO completion:nil];
-                                                                               self.alertController = self.inactiveAlertController;
-                                                                               if (self.alertController) {
-                                                                                   [self presentViewController:self.alertController animated:YES completion:nil];
-                                                                               }
+                                                                               [self showStartGuidedAccess];
                                                                            }]];
             [self presentViewController:self.alertController animated:YES completion:nil];
 
