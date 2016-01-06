@@ -34,6 +34,10 @@
 
 #import "AppDelegate.h"
 
+#import "SEBMasterViewController.h"
+#import "MMDrawerController.h"
+#import "MMDrawerVisualState.h"
+
 @interface AppDelegate ()
 {
 }
@@ -45,8 +49,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
-    self.sebViewController = (SEBViewController *)self.window.rootViewController;
+    MMDrawerController * drawerController = (MMDrawerController *)self.window.rootViewController;
+    [drawerController setMaximumRightDrawerWidth:200.0];
+    [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeBezelPanningCenterView];
+    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModePanningCenterView];
+    [drawerController setCenterHiddenInteractionMode:MMDrawerOpenCenterInteractionModeFull];
+    [drawerController setShouldStretchDrawer:NO];
+    [drawerController setShowsShadow:YES];
+
+//    self.sebViewController = (SEBViewController *)self.window.rootViewController;
 
     // Preloads keyboard so there's no lag on initial keyboard appearance.
     UITextField *lagFreeField = [[UITextField alloc] init];

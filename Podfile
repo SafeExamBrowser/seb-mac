@@ -12,8 +12,10 @@ end
 
 target 'SEB' do
 
-platform :ios, '7.0'
+platform :ios, '8.0'
 pod 'CocoaLumberjack', '~> 2.2.0'
+pod 'MMDrawerController'
+pod 'MMDrawerController-Storyboard', :podspec => 'https://raw.github.com/TomSwift/MMDrawerController-Storyboard/1.0.0/MMDrawerController-Storyboard.podspec'
 
 end
 

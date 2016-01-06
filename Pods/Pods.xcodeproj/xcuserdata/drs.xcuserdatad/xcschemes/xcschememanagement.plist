@@ -4,6 +4,16 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>MMDrawerController-Storyboard.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MMDrawerController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-SEB-CocoaLumberjack.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,7 +37,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>1419799977FA3DE9F008BBD347CB7AB3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>3C5FD1F64A83AD5157D5AFB1DC15527F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>550F7EEAEEA17E3F92C873912E23B01C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5A6967AB7478729359BA6B9287017C73</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -37,12 +62,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8F116EB5D779DEA5031F1C0B719D6D19</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>AE7BEE87E1AA59E78F75580AE11FB65A</key>
+		<key>EDBB885828989490008E73CCCA3E9671</key>
 		<dict>
 			<key>primary</key>
 			<true/>

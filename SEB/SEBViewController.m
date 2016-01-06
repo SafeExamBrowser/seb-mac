@@ -74,14 +74,19 @@ static NSMutableSet *browserWindowControllers;
     [super viewDidLoad];
     
 //    [ViewController setupModifyRequest];
+
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    appDelegate.sebViewController = self;
     
-    self.webView = [[SEBWKWebView alloc] initWithFrame:self.containerView.bounds configuration:[[self class] defaultWebViewConfiguration]];
-    self.webView.navigationDelegate = self;
+    self.webViewController = self.childViewControllers[0];
 
-    [self.containerView addSubview:self.webView];
-
-    self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.webView setTranslatesAutoresizingMaskIntoConstraints:true];
+//    self.webView = [[SEBWKWebView alloc] initWithFrame:self.containerView.bounds configuration:[[self class] defaultWebViewConfiguration]];
+//    self.webView.navigationDelegate = self;
+//
+//    [self.containerView addSubview:self.webView];
+//
+//    self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//    [self.webView setTranslatesAutoresizingMaskIntoConstraints:true];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(guidedAccessChanged)
@@ -98,6 +103,24 @@ static NSMutableSet *browserWindowControllers;
 - (BOOL) prefersStatusBarHidden
 {
     return YES;
+}
+
+
+#pragma mark - Button Handlers
+-(void)leftDrawerButtonPress:(id)sender{
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+}
+
+- (IBAction)goBack:(id)sender {
+    [self.webViewController goBack];
+}
+
+- (IBAction)goForward:(id)sender {
+    [self.webViewController goForward];
+}
+
+- (IBAction)reload:(id)sender {
+    [self.webViewController reload];
 }
 
 
@@ -135,8 +158,11 @@ static NSMutableSet *browserWindowControllers;
                 
                 // Open the lockdown view
                 [self.lockedViewController willMoveToParentViewController:self];
-                [self.view addSubview:self.lockedViewController.view];
-                [self addChildViewController:self.lockedViewController];
+                
+                UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+                
+                [rootViewController.view addSubview:self.lockedViewController.view];
+                [rootViewController addChildViewController:self.lockedViewController];
                 [self.lockedViewController didMoveToParentViewController:self];
                 
                 self.sebLocked = true;
@@ -243,14 +269,8 @@ static NSMutableSet *browserWindowControllers;
     // Load start URL from the system's user defaults
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-//    NSString *urlText = @"http://safeexambrowser.org/exams"; //[preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-    //    NSString *urlText = @"https://view.ethz.ch/portal/webclient/index.html#/login";
     
-    self.request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlText]];
-    
-    [self.webView loadRequest:self.request];
-    self.request = nil;
-    
+    [self.webViewController openNewTabWithURL:[NSURL URLWithString:urlText]];
 }
 
 

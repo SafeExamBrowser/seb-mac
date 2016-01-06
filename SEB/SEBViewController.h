@@ -34,11 +34,20 @@
 
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
+
+#import "UIViewController+MMDrawerController.h"
+
 #import "SEBLockedViewController.h"
 #import "SEBiOSLockedViewController.h"
 #import "SEBiOSConfigFileController.h"
 
+#import "SEBWebViewController.h"
+
+@class SEBWebViewController;
+
 @interface SEBViewController : UIViewController <SEBLockedViewControllerDelegate>
+
+@property (nonatomic, strong) SEBWebViewController *webViewController;
 
 @property (strong, nonatomic) SEBiOSLockedViewController< SEBLockedViewUIDelegate > *lockedViewController;
 

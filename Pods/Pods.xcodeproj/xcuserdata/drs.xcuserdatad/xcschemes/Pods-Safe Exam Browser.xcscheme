@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '216BA592EC0D606E35DDBF51'
+               BlueprintIdentifier = '0C04F4A6AA7BB3E1BAFFADDB'
                BlueprintName = 'Pods-Safe Exam Browser'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libPods-Safe Exam Browser.a'>
