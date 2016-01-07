@@ -796,10 +796,10 @@
 				696DAD301C3C2D0500397E18 /* SEBWebPageViewController.m */,
 				696DAD311C3C2D0500397E18 /* SEBWebViewController.h */,
 				696DAD321C3C2D0500397E18 /* SEBWebViewController.m */,
-				690E25A41BFC7DCC00B41217 /* SEBWKWebView.h */,
-				690E25A51BFC7DCC00B41217 /* SEBWKWebView.m */,
 				696DAD331C3C2D0500397E18 /* UIWebView+SEBWebView.h */,
 				696DAD341C3C2D0500397E18 /* UIWebView+SEBWebView.m */,
+				690E25A41BFC7DCC00B41217 /* SEBWKWebView.h */,
+				690E25A51BFC7DCC00B41217 /* SEBWKWebView.m */,
 			);
 			name = "Browser Components";
 			sourceTree = "<group>";
