@@ -1,0 +1,25 @@
+{
+  "name": "MMDrawerController-Storyboard",
+  "version": "0.0.1",
+  "summary": "Storyboard category extension for MMDrawerController",
+  "description": "Storyboard category extension for MMDrawerController\n\nDrop in category extension allows you to define MMDrawerController left/right/center view controllers on a storyboard",
+  "homepage": "https://github.com/TomSwift/MMDrawerController-Storyboard",
+  "license": "MIT",
+  "authors": {
+    "Nick Hodapp": "nicholashodapp@gmail.com"
+  },
+  "platforms": {
+    "ios": "6.0"
+  },
+  "source": {
+    "git": "https://github.com/TomSwift/MMDrawerController-Storyboard.git",
+    "commit": "3accdc959e9a625da055db42f6e7b72c441d828c"
+  },
+  "source_files": "MMDrawerController+Storyboard.{h,m}",
+  "requires_arc": true,
+  "dependencies": {
+    "MMDrawerController": [
+
+    ]
+  }
+}
