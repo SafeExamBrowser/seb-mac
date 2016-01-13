@@ -171,7 +171,7 @@
 - (void)switchToTab:(id)sender {
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSUInteger tabIndex = appDelegate.selectedCourseIndexPathRow;
-    Webpages *webpage = self.webViewController.persistantWebpages[tabIndex];
+    Webpages *webpage = self.browserTabViewController.persistantWebpages[tabIndex];
     self.url = webpage.url;
 
 }
@@ -180,9 +180,9 @@
 - (void)reloadButtonPressed
 {
     if (self.loading) {
-        [self.webViewController stopLoading];
+        [self.browserTabViewController stopLoading];
     } else {
-        [self.webViewController reload];
+        [self.browserTabViewController reload];
     }
 }
 
@@ -211,13 +211,13 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    [self.rootViewController searchStarted];
+//    [self.rootViewController searchStarted];
 }
 
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    [self.rootViewController searchStopped];
+//    [self.rootViewController searchStopped];
 }
 
 
@@ -236,7 +236,7 @@
     
     [self.searchBar resignFirstResponder];
 
-    [self.rootViewController searchGoSearchString:searchString];
+//    [self.rootViewController searchGoSearchString:searchString];
 
     return YES;
 }

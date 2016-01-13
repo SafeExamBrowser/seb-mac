@@ -45,6 +45,8 @@
 @interface SEBViewController () <WKNavigationDelegate>
 {
     NSURL *currentConfigPath;
+    UIBarButtonItem *leftButton;
+
 }
 
 @property (weak) IBOutlet UIView *containerView;
@@ -77,7 +79,7 @@ static NSMutableSet *browserWindowControllers;
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     appDelegate.sebViewController = self;
     
-    self.webViewController = self.childViewControllers[0];
+    self.browserTabViewController = self.childViewControllers[0];
 
 //    self.webView = [[SEBWKWebView alloc] initWithFrame:self.containerView.bounds configuration:[[self class] defaultWebViewConfiguration]];
 //    self.webView.navigationDelegate = self;
@@ -111,15 +113,52 @@ static NSMutableSet *browserWindowControllers;
 }
 
 - (IBAction)goBack:(id)sender {
-    [self.webViewController goBack];
+    [self.browserTabViewController goBack];
 }
 
 - (IBAction)goForward:(id)sender {
-    [self.webViewController goForward];
+    [self.browserTabViewController goForward];
 }
 
 - (IBAction)reload:(id)sender {
-    [self.webViewController reload];
+    [self.browserTabViewController reload];
+}
+
+
+- (void)searchStarted
+{
+    [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+    
+    [self.navigationItem setLeftBarButtonItem:nil animated:YES];
+    
+    UIBarButtonItem *cancelSearchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(searchButtonCancel:)];
+    
+    UIBarButtonItem *padding = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    [padding setWidth:13];
+    
+    [self.navigationItem setRightBarButtonItems:
+     [NSArray arrayWithObjects:cancelSearchButton, padding, nil] animated:YES];
+}
+
+
+- (void)searchButtonCancel:(id)sender
+{
+    [_searchBarViewController cancelButtonPressed];
+}
+
+
+- (void)searchStopped
+{
+    [self.navigationItem setLeftBarButtonItem:leftButton animated:YES];
+    
+//    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addPageButton:)]] animated:YES];
+}
+
+
+- (void)searchGoSearchString:(NSString *)searchString
+{
+    [self searchStopped];
+    [_browserTabViewController loadWebPageOrSearchResultWithString:searchString];
 }
 
 
@@ -269,7 +308,7 @@ static NSMutableSet *browserWindowControllers;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
     
-    [self.webViewController openNewTabWithURL:[NSURL URLWithString:urlText]];
+    [self.browserTabViewController openNewTabWithURL:[NSURL URLWithString:urlText]];
 }
 
 

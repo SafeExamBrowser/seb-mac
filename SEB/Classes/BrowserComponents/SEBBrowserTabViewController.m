@@ -33,14 +33,14 @@
 
 #import "AppDelegate.h"
 
-#import "SEBWebPageViewController.h"
+#import "SEBBrowserTabViewController.h"
 #import "UIWebView+SEBWebView.h"
 #import "Constants.h"
 #import "Webpages.h"
 #import "OpenWebpages.h"
 
 
-@implementation SEBWebPageViewController
+@implementation SEBBrowserTabViewController
 
 @synthesize managedObjectContext = __managedObjectContext;
 
@@ -100,16 +100,12 @@
     // Create an instance of the SEBWebView defined in the Storyboard
     //    self.visibleWebView = [self createNewWebView];
     //    self.visibleWebView = self.SEBWebView;
-    self.visibleWebView.delegate = self;	// setup the delegate as the web view is shown
     //    [self.visibleWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://safeexambrowser.org"]]];
-    [self.view addSubview:self.visibleWebView];
     
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [self.visibleWebView stopLoading];	// in case the web view is still loading its content
-    self.visibleWebView.delegate = nil;	// disconnect the delegate as the webview is hidden
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [self.searchBarController setLoading:NO];
 }
@@ -118,153 +114,33 @@
 #pragma mark Controller interface
 
 - (void)goBack {
-    [self.visibleWebView goBack];
+    [_visibleWebViewController goBack];
 }
 
 - (void)goForward {
-    [self.visibleWebView goForward];
+    [_visibleWebViewController goForward];
 }
 
 - (void)reload {
-    [self.visibleWebView reload];
+    [_visibleWebViewController reload];
 }
 
 - (void)stopLoading {
-    [self.visibleWebView stopLoading];
+    [_visibleWebViewController stopLoading];
 }
 
-
-#pragma mark -
-#pragma mark UIWebViewDelegate
-
-- (void)webViewDidStartLoad:(UIWebView *)webView
+- (void)setLoading:(BOOL)loading
 {
-    // starting the load, show the activity indicator in the status bar
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    [self.searchBarController setLoading:YES];
+//    if (self.searchBar.text.length > 0) {
+//        if (loading) {
+//            [self.searchBarRightButton setImage:stopLoadingButtonImage forState:UIControlStateNormal];//your button image.
+//        } else {
+//            [self.searchBarRightButton setImage:reloadButtonImage forState:UIControlStateNormal];//your button image.
+//        }
+//    } else {
+//        [self.searchBarRightButton setImage:nil forState:UIControlStateNormal];
+//    }
 }
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    // Adjust scroll position so top of webpage is below the navigation bar
-//    CGFloat navBarHeight = self.navigationController.navigationBar.frame.size.height;
-//    CGFloat toolBarHeight = self.navigationController.toolbar.frame.size.height;
-//    [webView.scrollView setContentInset:UIEdgeInsetsMake(navBarHeight, 0, toolBarHeight, 0)];
-//    [webView.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(navBarHeight, 0, toolBarHeight, 0)];
-//    [webView.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
-    
-    // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"ModifyLinkTargets" ofType:@"js"];
-    jsCode = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    
-    [webView stringByEvaluatingJavaScriptFromString:jsCode];
-    
-    [webView stringByEvaluatingJavaScriptFromString:@"SEB_ModifyLinkTargets()"];
-    [webView stringByEvaluatingJavaScriptFromString:@"SEB_ModifyWindowOpen()"];
-    //[webView stringByEvaluatingJavaScriptFromString:@"SEB_increaseMaxZoomFactor()"];
-    
-    //[self highlightAllOccurencesOfString:@"SEB" inWebView:webView];
-    //[self speakWebView:webView];
-    
-    NSString *webPageTitle = [webView title];
-    if ([webPageTitle isEqualToString:@""]) {
-        
-    } else {
-        MainWebView.title = webPageTitle;
-    }
-    
-    // finished loading, hide the activity indicator in the status bar
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    [self.searchBarController setLoading:NO];
-}
-
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
-{
-    // load error, hide the activity indicator in the status bar
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    [self.searchBarController setLoading:NO];
-    
-    // report the error inside the webview
-    NSString* errorString = [NSString stringWithFormat:
-                             @"<html><center><font size=+5 color='red'>An error occurred:<br>%@</font></center></html>",
-                             error.localizedDescription];
-    [webView loadHTMLString:errorString baseURL:nil];
-}
-
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
-    NSURL *url = [request URL];
-    if ([[url scheme] isEqualToString:@"newtab"]) {
-        NSString *urlString = [[url resourceSpecifier] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        url = [NSURL URLWithString:urlString relativeToURL:[webView url]];
-        [self openNewTabWithURL:url];
-        return NO;
-    }
-    if ([[url scheme] isEqualToString:@"about"]) {
-        return NO;
-    }
-    if(navigationType == UIWebViewNavigationTypeLinkClicked) {
-        NSString *fileExtension = [url pathExtension];
-        
-        if ([fileExtension isEqualToString:@"png"] || [fileExtension isEqualToString:@"jpg"] || [fileExtension isEqualToString:@"tif"] || [fileExtension isEqualToString:@"xls"]) {
-            // Get the filename of the loaded ressource form the UIWebView's request URL
-            NSString *filename = [url lastPathComponent];
-            NSLog(@"Filename: %@", filename);
-            // Get the path to the App's Documents directory
-            NSString *docPath = [self documentsDirectoryPath];
-            // Combine the filename and the path to the documents dir into the full path
-            NSString *pathToDownloadTo = [NSString stringWithFormat:@"%@/%@", docPath, filename];
-            
-            
-            // Load the file from the remote server
-            NSData *tmp = [NSData dataWithContentsOfURL:url];
-            // Save the loaded data if loaded successfully
-            if (tmp != nil) {
-                NSError *error = nil;
-                // Write the contents of our tmp object into a file
-                [tmp writeToFile:pathToDownloadTo options:NSDataWritingAtomic error:&error];
-                if (error != nil) {
-                    NSLog(@"Failed to save the file: %@", [error description]);
-                } else {
-                    // Display an UIAlertView that shows the users we saved the file :)
-                    UIAlertView *filenameAlert = [[UIAlertView alloc] initWithTitle:@"File saved" message:[NSString stringWithFormat:@"The file %@ has been saved.", filename] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [filenameAlert show];
-                    return NO;
-                }
-            } else {
-                // File could notbe loaded -> handle errors
-            }
-        } else {
-            // File type not supported
-        }
-        
-    }
-    return YES;
-}
-
-
-- (NSInteger)highlightAllOccurencesOfString:(NSString*)searchString inWebView:(UIWebView *)webView
-{
-    //    NSString *path = [[NSBundle mainBundle] pathForResource:@"SearchWebView" ofType:@"js"];
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"SearchWebView" ofType:@"js"];
-    NSString *jsCodeSearch = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    [webView stringByEvaluatingJavaScriptFromString:jsCodeSearch];
-    
-    NSString *startSearch = [NSString stringWithFormat:@"MyApp_HighlightAllOccurencesOfString('%@')", searchString];
-    [webView stringByEvaluatingJavaScriptFromString:startSearch];
-    
-    NSString *result = [webView stringByEvaluatingJavaScriptFromString:@"MyApp_SearchResultCount"];
-    return [result integerValue];
-}
-
-
-
-- (void)removeAllHighlightsInWebView:(UIWebView *)webView
-{
-    [webView stringByEvaluatingJavaScriptFromString:@"MyApp_RemoveAllHighlights()"];
-}
-
 
 // Open new tab and load URL
 - (void)openNewTabWithURL:(NSURL *)url
@@ -294,22 +170,24 @@
     
     // Open URL in a new webview
     // Create a new UIWebView
-    UIWebView *newWebView = [self createNewWebView];
+    SEBWebViewController *newWebViewController = [self createNewWebViewController];
     
     // Create new OpenWebpage object with reference to the CoreData information
     OpenWebpages *newOpenWebpage = [OpenWebpages new];
-    newOpenWebpage.webView = newWebView;
+    newOpenWebpage.webViewController = newWebViewController;
     newOpenWebpage.loadDate = timeStamp;
     // Add this to the Array of all open webpages
     [self.openWebpages addObject:newOpenWebpage];
     
     // Exchange the old against the new webview
-    [self.visibleWebView removeFromSuperview];
-    [self.view addSubview:newWebView];
-    self.visibleWebView = newWebView;
+    [_visibleWebViewController.view removeFromSuperview];
+    [_visibleWebViewController removeFromParentViewController];
+
+    [self.view addSubview:newWebViewController.sebWebView];
+    [self addChildViewController:newWebViewController];
+    _visibleWebViewController = newWebViewController;
     
-    //self.visibleWebView.delegate = self;	// setup the delegate as the web view is shown
-    [self.visibleWebView loadRequest:[NSURLRequest requestWithURL:url]];
+    [_visibleWebViewController loadURL:url];
     
     self.searchBarController.url = url.absoluteString;
     //[self.mm_drawerController closeDrawerAnimated:YES completion:nil];
@@ -321,21 +199,23 @@
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSUInteger tabIndex = appDelegate.selectedCourseIndexPathRow;
     OpenWebpages *webpageToSwitch = self.openWebpages[tabIndex];
-    UIWebView *webviewToSwitch = webpageToSwitch.webView;
+    SEBWebViewController *webViewControllerToSwitch = webpageToSwitch.webViewController;
     
     // Create the webView in case it doesn't exist
-    if (!webviewToSwitch) {
-        webviewToSwitch = [self createNewWebView];
+    if (!webViewControllerToSwitch) {
+        webViewControllerToSwitch = [self createNewWebViewController];
     }
     
-    [self.visibleWebView removeFromSuperview];
-    [self.view addSubview:webviewToSwitch];
-    self.visibleWebView = webviewToSwitch;
+    // Exchange the old against the new webview
+    [_visibleWebViewController.view removeFromSuperview];
+    [_visibleWebViewController removeFromParentViewController];
     
+    [self.view addSubview:webViewControllerToSwitch.sebWebView];
+    [self addChildViewController:webViewControllerToSwitch];
+    _visibleWebViewController = webViewControllerToSwitch;
+   
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
     
-    //self.visibleWebView.delegate = self;	// setup the delegate as the web view is shown
-    //[self.visibleWebView loadRequest:[NSURLRequest requestWithURL:url]];
     
 }
 
@@ -378,7 +258,7 @@
 
 - (void)loadWebPageOrSearchResultWithString:(NSString *)webSearchString
 {
-    [self.visibleWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:webSearchString]]];
+    [self.visibleWebViewController.sebWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:webSearchString]]];
     
 }
 
@@ -408,30 +288,42 @@
         for (Webpages *webpage in persistedOpenWebPages) {
             // Open URL in a new webview
             // Create a new UIWebView
-            UIWebView *newWebView = [self createNewWebView];
+            SEBWebViewController *newWebViewController = [self createNewWebViewController];
             
             // Create new OpenWebpage object with reference to the CoreData information
             OpenWebpages *newOpenWebpage = [OpenWebpages new];
-            newOpenWebpage.webView = newWebView;
+            newOpenWebpage.webViewController = newWebViewController;
             newOpenWebpage.loadDate = webpage.loadDate;
             // Add this to the Array of all open webpages
             [self.openWebpages addObject:newOpenWebpage];
             
-            //self.visibleWebView.delegate = self;	// setup the delegate as the web view is shown
-            [newWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:webpage.url]]];
+            [newWebViewController loadURL:[NSURL URLWithString:webpage.url]];
             
         }
         OpenWebpages *newOpenWebpage = (self.openWebpages.lastObject);
+        SEBWebViewController *visibleNewWebViewController = newOpenWebpage.webViewController;
         // Exchange the old against the new webview
-        [self.visibleWebView removeFromSuperview];
-        [self.view addSubview:newOpenWebpage.webView];
-        self.visibleWebView = newOpenWebpage.webView;
+        [_visibleWebViewController.view removeFromSuperview];
+        [_visibleWebViewController removeFromParentViewController];
+        
+        [self.view addSubview:visibleNewWebViewController.sebWebView];
+        [self addChildViewController:visibleNewWebViewController];
+        _visibleWebViewController = visibleNewWebViewController;
+
         Webpages *visibleWebPage = persistedOpenWebPages.lastObject;
         [self.searchBarController setUrl:visibleWebPage.url];
     } else {
         // There were no persisted pages
         //[self openNewTabWithURL:[NSURL URLWithString:@"http://www.safeexambrowser.org"]];
     }
+}
+
+
+// Create a UIViewController with a SEBWebView to hold new webpages
+- (SEBWebViewController *)createNewWebViewController {
+    SEBWebViewController *newSEBWebViewController = [SEBWebViewController new];
+    newSEBWebViewController.sebWebView = [self createNewWebView];
+    return newSEBWebViewController;
 }
 
 
@@ -446,7 +338,7 @@
     newWebView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     newWebView.scrollView.scrollEnabled = YES;
     [newWebView setTranslatesAutoresizingMaskIntoConstraints:YES];
-    newWebView.delegate = self;
+    //newWebView.delegate = self;
     return newWebView;
 }
 

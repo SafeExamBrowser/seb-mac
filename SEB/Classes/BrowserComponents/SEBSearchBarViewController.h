@@ -33,12 +33,10 @@
 
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
-#import "SEBRootVCViewController.h"
-#import "SEBWebViewController.h"
+#import "SEBBrowserTabViewController.h"
 #import "SEBTextField.h"
 
 @class SEBWebViewController;
-@class SEBRootVCViewController;
 
 @interface SEBSearchBarViewController : UIViewController <UITextFieldDelegate>
 {
@@ -49,8 +47,7 @@
 
 }
 
-@property (nonatomic, strong) SEBRootVCViewController *rootViewController;
-@property (nonatomic, strong) SEBWebViewController *webViewController;
+@property (nonatomic, strong) SEBBrowserTabViewController *browserTabViewController;
 
 @property (nonatomic, strong) SEBTextField *searchBar;
 @property (nonatomic, strong) UIButton *searchBarRightButton;

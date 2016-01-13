@@ -35,34 +35,25 @@
 #import <CoreData/CoreData.h>
 #import "UIViewController+MMDrawerController.h"
 
-#import "SEBSearchBarViewController.h"
+#import "SEBBrowserTabViewController.h"
 
-@class SEBSearchBarViewController;
+@class SEBBrowserTabViewController;
 
 
-@interface SEBWebViewController : UIViewController <UIWebViewDelegate, NSFetchedResultsControllerDelegate>
+@interface SEBWebViewController : UIViewController <UIWebViewDelegate>
 {
-    //IBOutlet UIWebView *SEBWebView;
     IBOutlet UIBarButtonItem *MainWebView;
-    
-    //UIWebView *SEBWebView;
     
     NSString *jsCode;
 }
 
-@property (nonatomic, strong) IBOutlet UIWebView *SEBWebView;
-@property (nonatomic, strong) UIWebView *visibleWebView;
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, strong) NSMutableArray *openWebpages;
-@property (nonatomic, strong) NSMutableArray *persistantWebpages;
+@property (nonatomic, strong) SEBBrowserTabViewController *browserTabViewController;
 
-@property (nonatomic, strong) SEBSearchBarViewController *searchBarController;
-
+@property (nonatomic, strong) UIWebView *sebWebView;
 
 - (NSInteger)highlightAllOccurencesOfString:(NSString*)searchString inWebView:(UIWebView *)webView;
 - (void)removeAllHighlightsInWebView:(UIWebView *)webView;
 
-- (void)openNewTabWithURL:(NSURL *)url;
 - (id) infoValueForKey:(NSString *)key;
 - (NSString *)documentsDirectoryPath;
 
@@ -71,11 +62,6 @@
 - (void)reload;
 - (void)stopLoading;
 
-- (void)loadWebPageOrSearchResultWithString:(NSString *)webSearchString;
-
-- (void)speakWebView;
-- (void)stopSpeakingWebView;
-
-- (void)switchToTab:(id)sender;
+- (void)loadURL:(NSURL *)url;
 
 @end

@@ -1,5 +1,5 @@
 //
-//  SEBRootVCViewController.h
+//  SEBWebpageManager.h
 //
 //  Created by Daniel R. Schneider on 06/01/16.
 //  Copyright (c) 2010-2016 Daniel R. Schneider, ETH Zurich,
@@ -32,27 +32,43 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 #import "UIViewController+MMDrawerController.h"
+
 #import "SEBWebViewController.h"
 #import "SEBSearchBarViewController.h"
 
 @class SEBWebViewController;
 @class SEBSearchBarViewController;
 
-@interface SEBRootVCViewController : UIViewController {
-    UIBarButtonItem *leftButton;
+
+@interface SEBBrowserTabViewController : UIViewController <UIWebViewDelegate, NSFetchedResultsControllerDelegate>
+{
+    IBOutlet UIBarButtonItem *MainWebView;
 }
 
-@property (nonatomic, strong) SEBWebViewController *webViewController;
+@property (nonatomic, strong) SEBWebViewController *visibleWebViewController;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSMutableArray *openWebpages;
+@property (nonatomic, strong) NSMutableArray *persistantWebpages;
+
 @property (nonatomic, strong) SEBSearchBarViewController *searchBarController;
 
-- (void)searchStarted;
-- (void)searchStopped;
-- (void)searchGoSearchString:(NSString *)searchString;
 
-- (IBAction)goBack:(id)sender;
-- (IBAction)goForward:(id)sender;
-- (IBAction)reload:(id)sender;
+- (void)openNewTabWithURL:(NSURL *)url;
+- (id) infoValueForKey:(NSString *)key;
+- (NSString *)documentsDirectoryPath;
 
+- (void)goBack;
+- (void)goForward;
+- (void)reload;
+- (void)stopLoading;
+
+- (void)setLoading:(BOOL)loading;
+
+- (void)loadWebPageOrSearchResultWithString:(NSString *)webSearchString;
+
+- (void)switchToTab:(id)sender;
 
 @end
+

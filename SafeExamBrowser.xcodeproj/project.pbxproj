@@ -133,21 +133,18 @@
 		696DAD361C3C2D0500397E18 /* SEBDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD241C3C2D0500397E18 /* SEBDetailViewController.m */; };
 		696DAD371C3C2D0500397E18 /* SEBMasterViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD251C3C2D0500397E18 /* SEBMasterViewController.h */; };
 		696DAD381C3C2D0500397E18 /* SEBMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD261C3C2D0500397E18 /* SEBMasterViewController.m */; };
-		696DAD391C3C2D0500397E18 /* SEBRootVCViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD271C3C2D0500397E18 /* SEBRootVCViewController.h */; };
-		696DAD3A1C3C2D0500397E18 /* SEBRootVCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD281C3C2D0500397E18 /* SEBRootVCViewController.m */; };
 		696DAD3B1C3C2D0500397E18 /* SEBSearchBarViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD291C3C2D0500397E18 /* SEBSearchBarViewController.h */; };
 		696DAD3C1C3C2D0500397E18 /* SEBSearchBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD2A1C3C2D0500397E18 /* SEBSearchBarViewController.m */; };
 		696DAD3D1C3C2D0500397E18 /* SEBTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD2B1C3C2D0500397E18 /* SEBTableViewController.h */; };
 		696DAD3E1C3C2D0500397E18 /* SEBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD2C1C3C2D0500397E18 /* SEBTableViewController.m */; };
 		696DAD3F1C3C2D0500397E18 /* SEBTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD2D1C3C2D0500397E18 /* SEBTextField.h */; };
 		696DAD401C3C2D0500397E18 /* SEBTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD2E1C3C2D0500397E18 /* SEBTextField.m */; };
-		696DAD411C3C2D0500397E18 /* SEBWebPageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD2F1C3C2D0500397E18 /* SEBWebPageViewController.h */; };
-		696DAD421C3C2D0500397E18 /* SEBWebPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD301C3C2D0500397E18 /* SEBWebPageViewController.m */; };
+		696DAD411C3C2D0500397E18 /* SEBBrowserTabViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD2F1C3C2D0500397E18 /* SEBBrowserTabViewController.h */; };
+		696DAD421C3C2D0500397E18 /* SEBBrowserTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD301C3C2D0500397E18 /* SEBBrowserTabViewController.m */; };
 		696DAD431C3C2D0500397E18 /* SEBWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD311C3C2D0500397E18 /* SEBWebViewController.h */; };
 		696DAD441C3C2D0500397E18 /* SEBWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD321C3C2D0500397E18 /* SEBWebViewController.m */; };
 		696DAD451C3C2D0500397E18 /* UIWebView+SEBWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD331C3C2D0500397E18 /* UIWebView+SEBWebView.h */; };
 		696DAD461C3C2D0500397E18 /* UIWebView+SEBWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD341C3C2D0500397E18 /* UIWebView+SEBWebView.m */; };
-		696DAD481C3C7AF700397E18 /* SEB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD471C3C7AF700397E18 /* SEB.xcdatamodeld */; };
 		696DAD4F1C3C7C9A00397E18 /* OpenWebpages.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD4B1C3C7C9A00397E18 /* OpenWebpages.h */; };
 		696DAD501C3C7C9A00397E18 /* OpenWebpages.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD4C1C3C7C9A00397E18 /* OpenWebpages.m */; };
 		696DAD511C3C7C9A00397E18 /* Webpages.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD4D1C3C7C9A00397E18 /* Webpages.h */; };
@@ -206,6 +203,7 @@
 		69DFAF3719C468E700CBE69F /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2A19C468E700CBE69F /* RNCryptorEngine.m */; };
 		69DFAF3919C468E700CBE69F /* RNCryptor+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2B19C468E700CBE69F /* RNCryptor+Private.h */; };
 		69DFAF3A19C468E700CBE69F /* RNCryptor OS X-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2C19C468E700CBE69F /* RNCryptor OS X-Prefix.pch */; };
+		69E0F3481C454F370038CCCD /* SEB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 69E0F3461C454F370038CCCD /* SEB.xcdatamodeld */; };
 		69E4EDFD1C208F2300F5E5EB /* SEBiOSKeychainManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E4EDFB1C208F2300F5E5EB /* SEBiOSKeychainManager.h */; };
 		69E4EDFE1C208F2300F5E5EB /* SEBiOSKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EDFC1C208F2300F5E5EB /* SEBiOSKeychainManager.m */; };
 		69EA170319FA77A0001E0C51 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69EA170119FA77A0001E0C51 /* Localizable.strings */; };
@@ -445,21 +443,18 @@
 		696DAD241C3C2D0500397E18 /* SEBDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDetailViewController.m; path = Classes/BrowserComponents/SEBDetailViewController.m; sourceTree = "<group>"; };
 		696DAD251C3C2D0500397E18 /* SEBMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBMasterViewController.h; path = Classes/BrowserComponents/SEBMasterViewController.h; sourceTree = "<group>"; };
 		696DAD261C3C2D0500397E18 /* SEBMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBMasterViewController.m; path = Classes/BrowserComponents/SEBMasterViewController.m; sourceTree = "<group>"; };
-		696DAD271C3C2D0500397E18 /* SEBRootVCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBRootVCViewController.h; path = Classes/BrowserComponents/SEBRootVCViewController.h; sourceTree = "<group>"; };
-		696DAD281C3C2D0500397E18 /* SEBRootVCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBRootVCViewController.m; path = Classes/BrowserComponents/SEBRootVCViewController.m; sourceTree = "<group>"; };
 		696DAD291C3C2D0500397E18 /* SEBSearchBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBSearchBarViewController.h; path = Classes/BrowserComponents/SEBSearchBarViewController.h; sourceTree = "<group>"; };
 		696DAD2A1C3C2D0500397E18 /* SEBSearchBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBSearchBarViewController.m; path = Classes/BrowserComponents/SEBSearchBarViewController.m; sourceTree = "<group>"; };
 		696DAD2B1C3C2D0500397E18 /* SEBTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBTableViewController.h; path = Classes/BrowserComponents/SEBTableViewController.h; sourceTree = "<group>"; };
 		696DAD2C1C3C2D0500397E18 /* SEBTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBTableViewController.m; path = Classes/BrowserComponents/SEBTableViewController.m; sourceTree = "<group>"; };
 		696DAD2D1C3C2D0500397E18 /* SEBTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBTextField.h; path = Classes/BrowserComponents/SEBTextField.h; sourceTree = "<group>"; };
 		696DAD2E1C3C2D0500397E18 /* SEBTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBTextField.m; path = Classes/BrowserComponents/SEBTextField.m; sourceTree = "<group>"; };
-		696DAD2F1C3C2D0500397E18 /* SEBWebPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBWebPageViewController.h; path = Classes/BrowserComponents/SEBWebPageViewController.h; sourceTree = "<group>"; };
-		696DAD301C3C2D0500397E18 /* SEBWebPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBWebPageViewController.m; path = Classes/BrowserComponents/SEBWebPageViewController.m; sourceTree = "<group>"; };
+		696DAD2F1C3C2D0500397E18 /* SEBBrowserTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBBrowserTabViewController.h; path = Classes/BrowserComponents/SEBBrowserTabViewController.h; sourceTree = "<group>"; };
+		696DAD301C3C2D0500397E18 /* SEBBrowserTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBBrowserTabViewController.m; path = Classes/BrowserComponents/SEBBrowserTabViewController.m; sourceTree = "<group>"; };
 		696DAD311C3C2D0500397E18 /* SEBWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBWebViewController.h; path = Classes/BrowserComponents/SEBWebViewController.h; sourceTree = "<group>"; };
 		696DAD321C3C2D0500397E18 /* SEBWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBWebViewController.m; path = Classes/BrowserComponents/SEBWebViewController.m; sourceTree = "<group>"; };
 		696DAD331C3C2D0500397E18 /* UIWebView+SEBWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIWebView+SEBWebView.h"; path = "Classes/BrowserComponents/UIWebView+SEBWebView.h"; sourceTree = "<group>"; };
 		696DAD341C3C2D0500397E18 /* UIWebView+SEBWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+SEBWebView.m"; path = "Classes/BrowserComponents/UIWebView+SEBWebView.m"; sourceTree = "<group>"; };
-		696DAD471C3C7AF700397E18 /* SEB.xcdatamodeld */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodeld; name = SEB.xcdatamodeld; path = CoreData/SEB.xcdatamodeld; sourceTree = "<group>"; };
 		696DAD4B1C3C7C9A00397E18 /* OpenWebpages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenWebpages.h; sourceTree = "<group>"; };
 		696DAD4C1C3C7C9A00397E18 /* OpenWebpages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenWebpages.m; sourceTree = "<group>"; };
 		696DAD4D1C3C7C9A00397E18 /* Webpages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Webpages.h; sourceTree = "<group>"; };
@@ -541,6 +536,7 @@
 		69DFAF2A19C468E700CBE69F /* RNCryptorEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCryptorEngine.m; sourceTree = "<group>"; };
 		69DFAF2B19C468E700CBE69F /* RNCryptor+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNCryptor+Private.h"; sourceTree = "<group>"; };
 		69DFAF2C19C468E700CBE69F /* RNCryptor OS X-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNCryptor OS X-Prefix.pch"; sourceTree = "<group>"; };
+		69E0F3471C454F370038CCCD /* SEB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SEB.xcdatamodel; sourceTree = "<group>"; };
 		69E13AEE127C812900CB81E1 /* AboutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutView.h; sourceTree = "<group>"; };
 		69E13AEF127C812900CB81E1 /* AboutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutView.m; sourceTree = "<group>"; };
 		69E4EDFB1C208F2300F5E5EB /* SEBiOSKeychainManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBiOSKeychainManager.h; path = Classes/Cryptography/SEBiOSKeychainManager.h; sourceTree = "<group>"; };
@@ -784,16 +780,14 @@
 				696DAD241C3C2D0500397E18 /* SEBDetailViewController.m */,
 				696DAD251C3C2D0500397E18 /* SEBMasterViewController.h */,
 				696DAD261C3C2D0500397E18 /* SEBMasterViewController.m */,
-				696DAD271C3C2D0500397E18 /* SEBRootVCViewController.h */,
-				696DAD281C3C2D0500397E18 /* SEBRootVCViewController.m */,
 				696DAD291C3C2D0500397E18 /* SEBSearchBarViewController.h */,
 				696DAD2A1C3C2D0500397E18 /* SEBSearchBarViewController.m */,
 				696DAD2B1C3C2D0500397E18 /* SEBTableViewController.h */,
 				696DAD2C1C3C2D0500397E18 /* SEBTableViewController.m */,
 				696DAD2D1C3C2D0500397E18 /* SEBTextField.h */,
 				696DAD2E1C3C2D0500397E18 /* SEBTextField.m */,
-				696DAD2F1C3C2D0500397E18 /* SEBWebPageViewController.h */,
-				696DAD301C3C2D0500397E18 /* SEBWebPageViewController.m */,
+				696DAD2F1C3C2D0500397E18 /* SEBBrowserTabViewController.h */,
+				696DAD301C3C2D0500397E18 /* SEBBrowserTabViewController.m */,
 				696DAD311C3C2D0500397E18 /* SEBWebViewController.h */,
 				696DAD321C3C2D0500397E18 /* SEBWebViewController.m */,
 				696DAD331C3C2D0500397E18 /* UIWebView+SEBWebView.h */,
@@ -1123,7 +1117,7 @@
 		696DAD491C3C7C8700397E18 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				696DAD471C3C7AF700397E18 /* SEB.xcdatamodeld */,
+				69E0F3461C454F370038CCCD /* SEB.xcdatamodeld */,
 				696DAD4A1C3C7C9A00397E18 /* Model */,
 			);
 			name = CoreData;
@@ -1279,9 +1273,8 @@
 				696DAD3B1C3C2D0500397E18 /* SEBSearchBarViewController.h in Headers */,
 				696DAD351C3C2D0500397E18 /* SEBDetailViewController.h in Headers */,
 				6930D2251C2011580087F79E /* SEBCryptor.h in Headers */,
-				696DAD391C3C2D0500397E18 /* SEBRootVCViewController.h in Headers */,
 				696DAD371C3C2D0500397E18 /* SEBMasterViewController.h in Headers */,
-				696DAD411C3C2D0500397E18 /* SEBWebPageViewController.h in Headers */,
+				696DAD411C3C2D0500397E18 /* SEBBrowserTabViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1684,15 +1677,14 @@
 			files = (
 				69640B291C1F0F75007ADE72 /* SEBConfigFileManager.m in Sources */,
 				694316651BFF943C00F784EE /* MyGlobals.m in Sources */,
+				69E0F3481C454F370038CCCD /* SEB.xcdatamodeld in Sources */,
 				696DAD461C3C2D0500397E18 /* UIWebView+SEBWebView.m in Sources */,
 				696DAD381C3C2D0500397E18 /* SEBMasterViewController.m in Sources */,
-				696DAD481C3C7AF700397E18 /* SEB.xcdatamodeld in Sources */,
 				691CC4131BA134070020D3EC /* RNEncryptor.m in Sources */,
-				696DAD3A1C3C2D0500397E18 /* SEBRootVCViewController.m in Sources */,
 				6940B9701BA0F2FB008C8CFC /* SEBViewController.m in Sources */,
 				694803931C236E7800593711 /* SEBiOSConfigFileController.m in Sources */,
 				696DAD501C3C7C9A00397E18 /* OpenWebpages.m in Sources */,
-				696DAD421C3C2D0500397E18 /* SEBWebPageViewController.m in Sources */,
+				696DAD421C3C2D0500397E18 /* SEBBrowserTabViewController.m in Sources */,
 				69331F071C10AD750038BD31 /* SEBiOSLockedViewController.m in Sources */,
 				696DAD441C3C2D0500397E18 /* SEBWebViewController.m in Sources */,
 				696DAD3C1C3C2D0500397E18 /* SEBSearchBarViewController.m in Sources */,
@@ -2405,6 +2397,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		69E0F3461C454F370038CCCD /* SEB.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				69E0F3471C454F370038CCCD /* SEB.xcdatamodel */,
+			);
+			currentVersion = 69E0F3471C454F370038CCCD /* SEB.xcdatamodel */;
+			name = SEB.xcdatamodeld;
+			path = CoreData/SEB.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
 }

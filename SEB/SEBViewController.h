@@ -40,13 +40,17 @@
 #import "SEBiOSLockedViewController.h"
 #import "SEBiOSConfigFileController.h"
 
-#import "SEBWebViewController.h"
+#import "SEBBrowserTabViewController.h"
+#import "SEBSearchBarViewController.h"
 
-@class SEBWebViewController;
+@class SEBBrowserTabViewController;
+@class SEBSearchBarViewController;
+
 
 @interface SEBViewController : UIViewController <SEBLockedViewControllerDelegate>
 
-@property (nonatomic, strong) SEBWebViewController *webViewController;
+@property (nonatomic, strong) SEBBrowserTabViewController *browserTabViewController;
+@property (nonatomic, strong) SEBSearchBarViewController *searchBarViewController;
 
 @property (strong, nonatomic) SEBiOSLockedViewController< SEBLockedViewUIDelegate > *lockedViewController;
 

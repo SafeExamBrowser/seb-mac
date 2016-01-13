@@ -9,9 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import "SEBWebViewController.h"
+
 @interface OpenWebpages : NSObject
 
-@property (nonatomic, retain) UIWebView *webView;
+@property (nonatomic, retain) SEBWebViewController *webViewController;
 @property (nonatomic, retain) NSNumber *loadDate;
 
 @end
