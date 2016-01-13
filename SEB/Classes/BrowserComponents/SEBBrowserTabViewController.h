@@ -34,10 +34,12 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import "UIViewController+MMDrawerController.h"
+#import "SEBViewController.h"
 
 #import "SEBWebViewController.h"
 #import "SEBSearchBarViewController.h"
 
+@class SEBViewController;
 @class SEBWebViewController;
 @class SEBSearchBarViewController;
 
@@ -47,15 +49,20 @@
     IBOutlet UIBarButtonItem *MainWebView;
 }
 
+@property (nonatomic, strong) SEBViewController *sebViewController;
 @property (nonatomic, strong) SEBWebViewController *visibleWebViewController;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSMutableArray *openWebpages;
-@property (nonatomic, strong) NSMutableArray *persistantWebpages;
+@property (nonatomic, strong) NSMutableArray *persistentWebpages;
+@property (readwrite) NSUInteger maxIndex;
 
 @property (nonatomic, strong) SEBSearchBarViewController *searchBarController;
 
 
 - (void)openNewTabWithURL:(NSURL *)url;
+- (void)openNewTabWithURL:(NSURL *)url index:(NSUInteger)index;
+- (void)loadPersistedOpenWebPages;
+
 - (id) infoValueForKey:(NSString *)key;
 - (NSString *)documentsDirectoryPath;
 

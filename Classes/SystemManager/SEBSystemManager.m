@@ -47,14 +47,14 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
-    /// Check if there is a redirected sc location persistantly stored
+    /// Check if there is a redirected sc location persistently stored
     /// What only happends when it couldn't be reset last time SEB has run
     
     scTempPath = [self getStoredNewSCLocation];
     if (scTempPath.length > 0) {
         
         /// There is a redirected location saved
-        DDLogWarn(@"There was a persistantly saved redirected screencapture location (%@). Looks like SEB didn't quit properly when running last time.", scTempPath);
+        DDLogWarn(@"There was a persistently saved redirected screencapture location (%@). Looks like SEB didn't quit properly when running last time.", scTempPath);
         
         // Delete the last directory
         if ([self removeTempDirectory:scTempPath]) {
@@ -67,11 +67,11 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         if (scLocation.length == 0) {
             // in case it wasn't saved properly, we reset to the OS X default sc location
             scLocation = [@"~/Desktop" stringByExpandingTildeInPath];
-            DDLogWarn(@"The persistantly saved original screencapture location wasn't found, it has been reset to the OS X default location %@", scLocation);
+            DDLogWarn(@"The persistently saved original screencapture location wasn't found, it has been reset to the OS X default location %@", scLocation);
         }
     } else {
         
-        /// No redirected location was persistantly saved
+        /// No redirected location was persistently saved
         
         // Get current screencapture location
         scLocation = [self getCurrentSCLocation];
@@ -83,7 +83,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         
         /// Block screenshots
         
-        // Store current (= original) location persistantly
+        // Store current (= original) location persistently
         [preferences setSecureString:scLocation forKey:@"currentDestination"];
         
         // Create a new random directory name
@@ -122,7 +122,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
             // If the sc location wasn't changed, we save an empty string to indicate this
             scTempPath = @"";
         }
-        // Store scTempPath persistantly
+        // Store scTempPath persistently
         [preferences setSecureString:scTempPath forKey:@"newDestination"];
         return location;
         

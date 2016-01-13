@@ -94,13 +94,9 @@
                                              selector:@selector(closeTab:)
                                                  name:@"requestWebpageClose" object:nil];
     
-    // Load all open web pages from the persistant store and re-create webview(s) for them
+//    // Load all open web pages from the persistent store and re-create webview(s) for them
 //    [self loadPersistedOpenWebPages];
-        
-    // Create an instance of the SEBWebView defined in the Storyboard
-    //    self.visibleWebView = [self createNewWebView];
-    //    self.visibleWebView = self.SEBWebView;
-    //    [self.visibleWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://safeexambrowser.org"]]];
+    
     
 }
 
@@ -142,19 +138,27 @@
 //    }
 }
 
+
 // Open new tab and load URL
 - (void)openNewTabWithURL:(NSURL *)url
 {
-    [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
-        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
-    }];
-    // Save new tab data persistantly
+    _maxIndex++;
+    NSUInteger index = _maxIndex;
+    [self openNewTabWithURL:url index:index];
+}
+
+
+// Open new tab and load URL, use passed index
+- (void)openNewTabWithURL:(NSURL *)url index:(NSUInteger)index
+{
+    // Save new tab data persistently
     NSManagedObjectContext *context = [self managedObjectContext];
     NSManagedObject *newWebpage = [NSEntityDescription
                                    insertNewObjectForEntityForName:@"Webpages"
                                    inManagedObjectContext:context];
     // Save webpage properties which are already known like URL
     [newWebpage setValue:[url absoluteString] forKey:@"url"];
+    [newWebpage setValue:[NSNumber numberWithUnsignedInteger:index] forKey:@"index"];
     // Save current date for load and view date
     NSNumber *timeStamp = [NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970] * 1000];
     [newWebpage setValue:timeStamp forKey:@"loadDate"];
@@ -166,7 +170,7 @@
         NSLog(@"Couldn't save: %@", [error localizedDescription]);
     }
     // Add this to the Array of all persistently saved webpages
-    [self.persistantWebpages addObject:newWebpage];
+    [self.persistentWebpages addObject:newWebpage];
     
     // Open URL in a new webview
     // Create a new UIWebView
@@ -189,15 +193,17 @@
     
     [_visibleWebViewController loadURL:url];
     
+    [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
+        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+    }];
+    
     self.searchBarController.url = url.absoluteString;
-    //[self.mm_drawerController closeDrawerAnimated:YES completion:nil];
 }
 
 
 // Open new tab and load URL
 - (void)switchToTab:(id)sender {
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSUInteger tabIndex = appDelegate.selectedCourseIndexPathRow;
+    NSUInteger tabIndex = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;
     OpenWebpages *webpageToSwitch = self.openWebpages[tabIndex];
     SEBWebViewController *webViewControllerToSwitch = webpageToSwitch.webViewController;
     
@@ -221,15 +227,19 @@
 
 // Close tab
 - (void)closeTab:(id)sender {
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSUInteger tabIndex = appDelegate.selectedCourseIndexPathRow;
+    NSUInteger tabIndex = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;
     
     // Delete the row from the data source
     NSManagedObjectContext *context = self.managedObjectContext;
     
     // Grab the label
     //    OpenWebpages *label = [self.labelArray objectAtIndex:indexPath.row];
-    Webpages *webpageToClose = self.persistantWebpages[tabIndex];
+    Webpages *webpageToClose = _persistentWebpages[tabIndex];
+    
+    // Check if the user is closing the main web view (with the exam)
+    if ([webpageToClose.index unsignedIntegerValue] == 0) {
+        [_sebViewController finishExamConditionally];
+    }
     
     [context deleteObject:[context objectWithID:[webpageToClose objectID]]];
     
@@ -241,8 +251,8 @@
         NSLog(@"The save wasn't successful: %@", [error userInfo]);
     }
     
-    [self.persistantWebpages removeObjectAtIndex:tabIndex];
-    [self.openWebpages removeObjectAtIndex:tabIndex];
+    [_persistentWebpages removeObjectAtIndex:tabIndex];
+    [_openWebpages removeObjectAtIndex:tabIndex];
     
     //    [self.visibleWebView removeFromSuperview];
     //    [self.view addSubview:webviewToSwitch];
@@ -263,7 +273,7 @@
 }
 
 
-// Load all open web pages from the persistant store and re-create webview(s) for them
+// Load all open web pages from the persistent store and re-create webview(s) for them
 - (void)loadPersistedOpenWebPages {
     NSManagedObjectContext *context = self.managedObjectContext;
     
@@ -280,7 +290,8 @@
     
     NSError *error = nil;
     NSArray *persistedOpenWebPages = [context executeFetchRequest:fetchRequest error:&error];
-    self.persistantWebpages = [NSMutableArray arrayWithArray:persistedOpenWebPages];
+    _persistentWebpages = [NSMutableArray arrayWithArray:persistedOpenWebPages];
+    _maxIndex = 0;
     
     // If no error occured and there have been some persisted pages
     if (persistedOpenWebPages && persistedOpenWebPages.count > 0) {
@@ -293,6 +304,12 @@
             // Create new OpenWebpage object with reference to the CoreData information
             OpenWebpages *newOpenWebpage = [OpenWebpages new];
             newOpenWebpage.webViewController = newWebViewController;
+            NSUInteger index = [webpage.index unsignedIntegerValue];
+            if (index != 0) {
+                _maxIndex++;
+                index = _maxIndex;
+            }
+            newOpenWebpage.index = index;
             newOpenWebpage.loadDate = webpage.loadDate;
             // Add this to the Array of all open webpages
             [self.openWebpages addObject:newOpenWebpage];
@@ -314,7 +331,11 @@
         [self.searchBarController setUrl:visibleWebPage.url];
     } else {
         // There were no persisted pages
-        //[self openNewTabWithURL:[NSURL URLWithString:@"http://www.safeexambrowser.org"]];
+        // Load start URL from the system's user defaults
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+        
+        [self openNewTabWithURL:[NSURL URLWithString:urlText] index:0];
     }
 }
 
@@ -322,7 +343,9 @@
 // Create a UIViewController with a SEBWebView to hold new webpages
 - (SEBWebViewController *)createNewWebViewController {
     SEBWebViewController *newSEBWebViewController = [SEBWebViewController new];
+    newSEBWebViewController.browserTabViewController = self;
     newSEBWebViewController.sebWebView = [self createNewWebView];
+    newSEBWebViewController.sebWebView.delegate = newSEBWebViewController;
     return newSEBWebViewController;
 }
 

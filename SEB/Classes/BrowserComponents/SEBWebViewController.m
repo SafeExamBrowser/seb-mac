@@ -176,6 +176,14 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    if (UIAccessibilityIsGuidedAccessEnabled()) {
+        if (navigationType == UIWebViewNavigationTypeLinkClicked ) {
+            navigationType = UIWebViewNavigationTypeOther;
+            [webView loadRequest:request];
+            return NO;
+        }
+    }
+
     NSURL *url = [request URL];
     if ([[url scheme] isEqualToString:@"newtab"]) {
         NSString *urlString = [[url resourceSpecifier] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

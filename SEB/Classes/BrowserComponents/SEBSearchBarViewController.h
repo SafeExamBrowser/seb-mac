@@ -36,7 +36,7 @@
 #import "SEBBrowserTabViewController.h"
 #import "SEBTextField.h"
 
-@class SEBWebViewController;
+@class SEBBrowserTabViewController;
 
 @interface SEBSearchBarViewController : UIViewController <UITextFieldDelegate>
 {

@@ -169,9 +169,8 @@
 
 // It was switched to new tab: Display new page URL in the search field
 - (void)switchToTab:(id)sender {
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSUInteger tabIndex = appDelegate.selectedCourseIndexPathRow;
-    Webpages *webpage = self.browserTabViewController.persistantWebpages[tabIndex];
+    NSUInteger tabIndex = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;
+    Webpages *webpage = self.browserTabViewController.persistentWebpages[tabIndex];
     self.url = webpage.url;
 
 }

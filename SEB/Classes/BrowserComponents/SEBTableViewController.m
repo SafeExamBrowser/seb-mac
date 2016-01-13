@@ -142,6 +142,9 @@
     
     NSString *webpageCellLabelText = (!webpage.title || [webpage.title isEqualToString:@""]) ? webpage.url : webpage.title;
     cellLabel.text = webpageCellLabelText;
+    UIButton *closeButton = (UIButton *)[cell viewWithTag:0];
+    closeButton.tag = indexPath.row;
+
 //    cellLabel.font = [UIFont fontWithName:@"AvenirNextCondensed-Regular" size:20];
 //    cellLabel.textColor = [UIColor whiteColor];
 
@@ -149,7 +152,6 @@
 //    closeButton.frame = CGRectMake(2, 10, 14, 14);
 //    [closeButton setImage:[UIImage imageNamed:@"Cancel"] forState:UIControlStateNormal];
 //    [closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-//    closeButton.tag = indexPath.row;
 //    closeButton.tintColor = [UIColor blackColor];
 //    closeButton.backgroundColor= [UIColor clearColor];
 //    [cell.contentView addSubview:closeButton];
@@ -159,8 +161,7 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger index = indexPath.row;
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    appDelegate.selectedCourseIndexPathRow = index;
+    [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow = index;
 
     // Post a notification that the web page should be reloaded
     [[NSNotificationCenter defaultCenter]
@@ -207,8 +208,7 @@
 -(IBAction)closeButtonPressed:(UIButton *)sender {
     NSInteger index = sender.tag;
     NSLog(@"Close button indexPath.row: %ld", (long)index);
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    appDelegate.selectedCourseIndexPathRow = index;
+    [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow = index;
     
 //    // Remove the row in the table view
 //    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationFade];

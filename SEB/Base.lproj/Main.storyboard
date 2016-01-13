@@ -170,9 +170,9 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8n2-VP-KRt">
-                                                    <rect key="frame" x="5" y="5" width="16" height="22"/>
+                                                    <rect key="frame" x="5" y="5" width="25" height="22"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="16" id="Kd0-Dw-jKp"/>
+                                                        <constraint firstAttribute="width" constant="25" id="Kd0-Dw-jKp"/>
                                                     </constraints>
                                                     <state key="normal" image="Cancel.png">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -182,7 +182,7 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Webpage" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aA9-gn-PKl">
-                                                    <rect key="frame" x="24" y="3" width="576" height="28"/>
+                                                    <rect key="frame" x="32" y="3" width="568" height="28"/>
                                                     <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="20"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -193,7 +193,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="aA9-gn-PKl" secondAttribute="trailing" id="aaB-c2-Ddo"/>
                                                 <constraint firstItem="8n2-VP-KRt" firstAttribute="leading" secondItem="ghO-1C-TKs" secondAttribute="leading" constant="5" id="eiO-Kz-PqR"/>
                                                 <constraint firstItem="8n2-VP-KRt" firstAttribute="centerY" secondItem="ghO-1C-TKs" secondAttribute="centerY" id="eoB-Wb-Gr1"/>
-                                                <constraint firstItem="aA9-gn-PKl" firstAttribute="leading" secondItem="8n2-VP-KRt" secondAttribute="trailing" constant="3" id="pXA-7T-Au5"/>
+                                                <constraint firstItem="aA9-gn-PKl" firstAttribute="leading" secondItem="8n2-VP-KRt" secondAttribute="trailing" constant="2" id="pXA-7T-Au5"/>
                                                 <constraint firstItem="aA9-gn-PKl" firstAttribute="top" secondItem="ghO-1C-TKs" secondAttribute="top" constant="3" id="pmE-In-VeJ"/>
                                             </constraints>
                                         </tableViewCellContentView>

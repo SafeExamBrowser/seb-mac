@@ -14,6 +14,7 @@
 @interface OpenWebpages : NSObject
 
 @property (nonatomic, retain) SEBWebViewController *webViewController;
+@property (readwrite) NSUInteger index;
 @property (nonatomic, retain) NSNumber *loadDate;
 
 @end

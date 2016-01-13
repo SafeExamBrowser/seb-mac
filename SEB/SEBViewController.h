@@ -71,6 +71,8 @@
 - (void) showStartGuidedAccess;
 - (void) showGuidedAccessWarning;
 - (void) startExam;
+- (void) finishExamConditionally;
+- (void) finishExamWithCallback:(id)callback selector:(SEL)selector;
 
 - (void) downloadAndOpenSebConfigFromURL:(NSURL *)url;
 

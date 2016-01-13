@@ -34,11 +34,6 @@
 #import <WebKit/WebKit.h>
 #import "Constants.h"
 #import "RNCryptor.h"
-#import "MethodSwizzling.h"
-#import <objc/runtime.h>
-#import "SEBWKWebView.h"
-
-//#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 
 #import "SEBViewController.h"
 
@@ -50,7 +45,6 @@
 }
 
 @property (weak) IBOutlet UIView *containerView;
-@property (strong) SEBWKWebView *webView;
 @property (copy) NSURLRequest *request;
 
 @end
@@ -74,25 +68,15 @@ static NSMutableSet *browserWindowControllers;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    [ViewController setupModifyRequest];
-
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     appDelegate.sebViewController = self;
     
-    self.browserTabViewController = self.childViewControllers[0];
-
-//    self.webView = [[SEBWKWebView alloc] initWithFrame:self.containerView.bounds configuration:[[self class] defaultWebViewConfiguration]];
-//    self.webView.navigationDelegate = self;
-//
-//    [self.containerView addSubview:self.webView];
-//
-//    self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-//    [self.webView setTranslatesAutoresizingMaskIntoConstraints:true];
+    _browserTabViewController = self.childViewControllers[0];
+    _browserTabViewController.sebViewController = self;
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(guidedAccessChanged)
                                                  name:UIAccessibilityGuidedAccessStatusDidChangeNotification object:nil];
-    
 }
 
 
@@ -301,15 +285,35 @@ static NSMutableSet *browserWindowControllers;
 
 
 - (void) startExam {
-    //    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     self.examRunning = true;
 
-    // Load start URL from the system's user defaults
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-    
-    [self.browserTabViewController openNewTabWithURL:[NSURL URLWithString:urlText]];
+    // Load all open web pages from the persistent store and re-create webview(s) for them
+    // or if no persisted web pages are available, load the start URL
+    [_browserTabViewController loadPersistedOpenWebPages];
+
+//    // Load start URL from the system's user defaults
+//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+//    NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+//    
+//    [self.browserTabViewController openNewTabWithURL:[NSURL URLWithString:urlText] index:0];
 }
+
+
+- (void) finishExamConditionally
+{
+    
+}
+
+- (void) finishExamWithCallback:(id)callback selector:(SEL)selector
+{
+    BOOL success = true;
+    IMP imp = [callback methodForSelector:selector];
+    void (*func)(id, SEL, BOOL) = (void *)imp;
+    func(callback, selector, success);
+}
+
+
+// Inform the callback method if decrypting, parsing and storing new settings was successful or not
 
 
 - (void) downloadAndOpenSebConfigFromURL:(NSURL *)url

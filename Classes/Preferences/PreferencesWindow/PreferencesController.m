@@ -953,7 +953,7 @@
                     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
                     NSDictionary *localClientPreferences = [preferences dictionaryRepresentationSEB];
                     
-                    // Switch to private UserDefaults (saved non-persistantly in memory instead in ~/Library/Preferences)
+                    // Switch to private UserDefaults (saved non-persistently in memory instead in ~/Library/Preferences)
                     NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults]; //the mutable dictionary has to be created here, otherwise the preferences values will not be saved!
                     [NSUserDefaults setUserDefaultsPrivate:YES];
                     
@@ -1254,7 +1254,7 @@
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         NSDictionary *localClientPreferences = [preferences dictionaryRepresentationSEB];
         
-        // Switch to private UserDefaults (saved non-persistantly in memory instead in ~/Library/Preferences)
+        // Switch to private UserDefaults (saved non-persistently in memory instead in ~/Library/Preferences)
         NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults]; //the mutable dictionary has to be created here, otherwise the preferences values will not be saved!
         [NSUserDefaults setUserDefaultsPrivate:YES];
         
