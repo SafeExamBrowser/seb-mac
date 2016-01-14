@@ -81,7 +81,7 @@ static NSMutableSet *browserWindowControllers;
 
 
 - (void)viewDidAppear:(BOOL)animated {
-    [self showStartGuidedAccess];
+    [self startAutonomousSingleAppMode];
 }
 
 
@@ -97,15 +97,15 @@ static NSMutableSet *browserWindowControllers;
 }
 
 - (IBAction)goBack:(id)sender {
-    [self.browserTabViewController goBack];
+    [_browserTabViewController goBack];
 }
 
 - (IBAction)goForward:(id)sender {
-    [self.browserTabViewController goForward];
+    [_browserTabViewController goForward];
 }
 
 - (IBAction)reload:(id)sender {
-    [self.browserTabViewController reload];
+    [_browserTabViewController reload];
 }
 
 
@@ -135,7 +135,7 @@ static NSMutableSet *browserWindowControllers;
 {
     [self.navigationItem setLeftBarButtonItem:leftButton animated:YES];
     
-//    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addPageButton:)]] animated:YES];
+//    [_navigationItem setRightBarButtonItems:[NSArray arrayWithObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addPageButton:)]] animated:YES];
 }
 
 
@@ -149,102 +149,138 @@ static NSMutableSet *browserWindowControllers;
 // Called when the Guided Access status changes
 - (void) guidedAccessChanged
 {
-    // Is the exam already running?
-    if (self.examRunning) {
-        
-        // Exam running: Check if Guided Access is switched off
-        if (UIAccessibilityIsGuidedAccessEnabled() == false) {
+    if (_ASAMActive == false) {
+        // Is the exam already running?
+        if (_examRunning) {
             
-            // Dismiss the Guided Access warning alert if it still was visible
-            if (self.guidedAccessWarningDisplayed) {
-                [self.alertController dismissViewControllerAnimated:NO completion:nil];
-                self.alertController = nil;
-                self.guidedAccessWarningDisplayed = false;
-            }
-            
-            // If there wasn't a lockdown covering view openend yet, initialize it
-            if (!self.sebLocked) {
+            // Exam running: Check if Guided Access is switched off
+            if (UIAccessibilityIsGuidedAccessEnabled() == false) {
                 
-                if (!self.lockedViewController) {
-                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                    self.lockedViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBLockedView"];
-                    self.lockedViewController.controllerDelegate = self;
+                // Dismiss the Guided Access warning alert if it still was visible
+                if (_guidedAccessWarningDisplayed) {
+                    [_alertController dismissViewControllerAnimated:NO completion:nil];
+                    _alertController = nil;
+                    _guidedAccessWarningDisplayed = false;
                 }
                 
-                if (!self.lockedViewController.resignActiveLogString) {
-                    self.lockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
+                // If there wasn't a lockdown covering view openend yet, initialize it
+                if (!_sebLocked) {
+                    
+                    if (!_lockedViewController) {
+                        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                        _lockedViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBLockedView"];
+                        _lockedViewController.controllerDelegate = self;
+                    }
+                    
+                    if (!_lockedViewController.resignActiveLogString) {
+                        _lockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
+                    }
+                    // Save current time for information about when Guided Access was switched off
+                    _didResignActiveTime = [NSDate date];
+                    DDLogError(@"Guided Accesss switched off!");
+                    
+                    // Open the lockdown view
+                    [_lockedViewController willMoveToParentViewController:self];
+                    
+                    UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+                    
+                    [rootViewController.view addSubview:_lockedViewController.view];
+                    [rootViewController addChildViewController:_lockedViewController];
+                    [_lockedViewController didMoveToParentViewController:self];
+                    
+                    _sebLocked = true;
+                    
+                    // Add log string for resign active
+                    [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Guided Access switched off!", nil)] withTime:_didResignActiveTime];
                 }
-                // Save current time for information about when Guided Access was switched off
-                self.didResignActiveTime = [NSDate date];
-                DDLogError(@"Guided Accesss switched off!");
+            } else {
+                // Guided Access is on again
+                // Add log string
+                _didBecomeActiveTime = [NSDate date];
+                [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Guided Access is switched on again.", nil)] withTime:_didBecomeActiveTime];
                 
-                // Open the lockdown view
-                [self.lockedViewController willMoveToParentViewController:self];
-                
-                UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-                
-                [rootViewController.view addSubview:self.lockedViewController.view];
-                [rootViewController addChildViewController:self.lockedViewController];
-                [self.lockedViewController didMoveToParentViewController:self];
-                
-                self.sebLocked = true;
-                
-                // Add log string for resign active
-                [self.lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Guided Access switched off!", nil)] withTime:self.didResignActiveTime];
+                // Close unlock windows only if the correct quit/restart password was entered already
+                if (_unlockPasswordEntered) {
+                    _unlockPasswordEntered = false;
+                    [_alertController dismissViewControllerAnimated:NO completion:nil];
+                    _alertController = nil;
+                    [_lockedViewController shouldCloseLockdownWindows];
+                }
             }
         } else {
-            // Guided Access is on again
-            // Add log string
-            self.didBecomeActiveTime = [NSDate date];
-            [self.lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Guided Access is switched on again.", nil)] withTime:self.didBecomeActiveTime];
+            // Exam is not yet running
             
-            // Close unlock windows only if the correct quit/restart password was entered already
-            if (self.unlockPasswordEntered) {
-                self.unlockPasswordEntered = false;
-                [self.alertController dismissViewControllerAnimated:NO completion:nil];
-                self.alertController = nil;
-                [self.lockedViewController shouldCloseLockdownWindows];
+            // If Guided Access switched on
+            if (UIAccessibilityIsGuidedAccessEnabled() == true) {
+                
+                // Proceed to exam
+                [self showGuidedAccessWarning];
+                
             }
-        }
-    } else {
-        // Exam is not yet running
-        
-        // If Guided Access switched on
-        if (UIAccessibilityIsGuidedAccessEnabled() == true) {
-            
-            // Proceed to exam
-            [self showGuidedAccessWarning];
-            
-        }
-        // Guided Access off
-        else if (self.guidedAccessWarningDisplayed) {
-            // Guided Access warning was already displayed: dismiss it
-            [self.alertController dismissViewControllerAnimated:NO completion:nil];
-            self.alertController = nil;
-            self.guidedAccessWarningDisplayed = false;
-            
-            [self showRestartGuidedAccess];
+            // Guided Access off
+            else if (_guidedAccessWarningDisplayed) {
+                // Guided Access warning was already displayed: dismiss it
+                [_alertController dismissViewControllerAnimated:NO completion:nil];
+                _alertController = nil;
+                _guidedAccessWarningDisplayed = false;
+                
+                [self showRestartGuidedAccess];
+            }
         }
     }
 }
 
 
+- (void) startAutonomousSingleAppMode
+{
+    NSLog(@"Requesting Guided Access");
+    UIAccessibilityRequestGuidedAccessSession(true, ^(BOOL didSucceed) {
+        if (didSucceed) {
+            NSLog(@"Entered Autonomous Single App Mode");
+            _ASAMActive = true;
+            [self startExam];
+        }
+        else {
+            NSLog(@"Failed to enter Autonomous Single App Mode");
+            _ASAMActive = false;
+            [self showStartGuidedAccess];
+        }
+    });
+}
+
+
+- (void) stopAutonomousSingleAppMode
+{
+    NSLog(@"Requesting to exit Autonomous Single App Mode");
+    UIAccessibilityRequestGuidedAccessSession(false, ^(BOOL didSucceed) {
+        if (didSucceed) {
+            NSLog(@"Exited Autonomous Single App Mode");
+//            _ASAMActive = false;
+        }
+        else {
+            NSLog(@"Failed to exit Autonomous Single App Mode");
+            
+        }
+    });
+}
+
+
 - (void) showStartGuidedAccess {
     if (UIAccessibilityIsGuidedAccessEnabled() == false) {
-        self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Start Guided Access", nil)
+        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Start Guided Access", nil)
                                                                     message:NSLocalizedString(@"Enable Guided Access in Settings -> General -> Accessibility and after returning to SEB, tripple click home button to proceed to exam.", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];
-        [self presentViewController:self.alertController animated:YES completion:nil];
+        [self presentViewController:_alertController animated:YES completion:nil];
     }
 }
 
 - (void) showRestartGuidedAccess {
     // If Guided Access isn't already on, show alert to switch it on again
     if (UIAccessibilityIsGuidedAccessEnabled() == false) {
-        self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Restart Guided Access", nil)
+        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Restart Guided Access", nil)
                                                                     message:NSLocalizedString(@"Activate Guided Access with tripple click home button to return to exam.", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];
-        [self presentViewController:self.alertController animated:YES completion:nil];
+        [self presentViewController:_alertController animated:YES completion:nil];
     }
 }
 
@@ -254,21 +290,21 @@ static NSMutableSet *browserWindowControllers;
     // If Guided Access switched on
     if (UIAccessibilityIsGuidedAccessEnabled() == true) {
         // Proceed to exam
-        [self.alertController dismissViewControllerAnimated:NO completion:nil];
+        [_alertController dismissViewControllerAnimated:NO completion:nil];
         
-        self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Guided Access Warning", nil)
+        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Guided Access Warning", nil)
                                                                           message:NSLocalizedString(@"Don't switch Guided Access off (home button tripple click or Touch ID) before submitting your exam, otherwise SEB will lock access to the exam! SEB will notify you when you're allowed to switch Guided Access off.", nil)
                                                                    preferredStyle:UIAlertControllerStyleAlert];
-        [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"I Understand", nil)
+        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"I Understand", nil)
                                                                        style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                           [self.alertController dismissViewControllerAnimated:NO completion:nil];
-                                                                           self.alertController = nil;
-                                                                           self.guidedAccessWarningDisplayed = false;
+                                                                           [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                           _alertController = nil;
+                                                                           _guidedAccessWarningDisplayed = false;
                                                                            
                                                                            [self startExam];
         }]];
-        [self presentViewController:self.alertController animated:YES completion:nil];
-        self.guidedAccessWarningDisplayed = true;
+        [self presentViewController:_alertController animated:YES completion:nil];
+        _guidedAccessWarningDisplayed = true;
     }
 }
 
@@ -279,13 +315,13 @@ static NSMutableSet *browserWindowControllers;
 
     // If Guided Access is already switched on, close lockdown window
     if (UIAccessibilityIsGuidedAccessEnabled() == true) {
-        [self.lockedViewController shouldCloseLockdownWindows];
+        [_lockedViewController shouldCloseLockdownWindows];
     }
 }
 
 
 - (void) startExam {
-    self.examRunning = true;
+    _examRunning = true;
 
     // Load all open web pages from the persistent store and re-create webview(s) for them
     // or if no persisted web pages are available, load the start URL
@@ -295,13 +331,22 @@ static NSMutableSet *browserWindowControllers;
 //    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 //    NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
 //    
-//    [self.browserTabViewController openNewTabWithURL:[NSURL URLWithString:urlText] index:0];
+//    [_browserTabViewController openNewTabWithURL:[NSURL URLWithString:urlText] index:0];
 }
 
 
 - (void) finishExamConditionally
 {
-    
+    _examRunning = false;
+    if (_ASAMActive) {
+        [self stopAutonomousSingleAppMode];
+    } else {
+        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Stop Guided Access", nil)
+                                                                    message:NSLocalizedString(@"You can now switch off Guided Access by home button tripple click or Touch ID.", nil)
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+        [self presentViewController:_alertController animated:YES completion:nil];
+        _guidedAccessWarningDisplayed = true;
+    }
 }
 
 - (void) finishExamWithCallback:(id)callback selector:(SEL)selector
@@ -323,18 +368,18 @@ static NSMutableSet *browserWindowControllers;
         // Check if SEB is in exam mode = private UserDefauls are switched on
         if (NSUserDefaults.userDefaultsPrivate) {
             // If yes, we don't download the .seb file
-            if (self.alertController) {
-                [self.alertController dismissViewControllerAnimated:NO completion:nil];
+            if (_alertController) {
+                [_alertController dismissViewControllerAnimated:NO completion:nil];
             }
-            self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)
                                                                               message:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and use a quit link or the quit button in SEB before starting another exam.", nil)
                                                                        preferredStyle:UIAlertControllerStyleAlert];
-            [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                               [self.alertController dismissViewControllerAnimated:NO completion:nil];
-                                                                               [self showStartGuidedAccess];
+                                                                               [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                               [self startAutonomousSingleAppMode];
                                                                            }]];
-            [self presentViewController:self.alertController animated:YES completion:nil];
+            [self presentViewController:_alertController animated:YES completion:nil];
 
         } else {
             // SEB isn't in exam mode: reconfiguring it is allowed
@@ -351,7 +396,7 @@ static NSMutableSet *browserWindowControllers;
                     sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
                     // Still couldn't download the .seb file: present an error and abort
                     if (error) {
-//                        [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
+//                        [_mainBrowserWindow presentError:error modalForWindow:_mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
                         return;
                     }
                 }
@@ -361,13 +406,13 @@ static NSMutableSet *browserWindowControllers;
                 sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
                 // Couldn't download the .seb file: present an error and abort
                 if (error) {
-//                    [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
+//                    [_mainBrowserWindow presentError:error modalForWindow:_mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
                     return;
                 }
             } else {
                 sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
                 if (error) {
-//                    [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
+//                    [_mainBrowserWindow presentError:error modalForWindow:_mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
                 }
             }
             SEBiOSConfigFileController *configFileManager = [[SEBiOSConfigFileController alloc] init];
@@ -385,7 +430,7 @@ static NSMutableSet *browserWindowControllers;
 
 - (void) storeNewSEBSettingsSuccessful:(BOOL)success
 {
-    [self showStartGuidedAccess];
+    [self startAutonomousSingleAppMode];
     
     if (success) {
         // Post a notification that it was requested to restart SEB with changed settings

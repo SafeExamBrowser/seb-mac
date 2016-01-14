@@ -60,6 +60,7 @@
 
 @property (strong, nonatomic) UIView *coveringView;
 
+@property(readwrite) BOOL ASAMActive;
 @property(readwrite) BOOL examRunning;
 @property(readwrite) BOOL sebLocked;
 @property(readwrite) BOOL unlockPasswordEntered;
@@ -73,6 +74,8 @@
 - (void) startExam;
 - (void) finishExamConditionally;
 - (void) finishExamWithCallback:(id)callback selector:(SEL)selector;
+
+- (void) stopAutonomousSingleAppMode;
 
 - (void) downloadAndOpenSebConfigFromURL:(NSURL *)url;
 
