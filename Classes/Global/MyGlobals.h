@@ -60,6 +60,7 @@
 @property(copy, readwrite) NSString *defaultUserAgent;
 @property(copy, readwrite) NSString *currentUserAgent;
 
+@property (readwrite) NSInteger currentWebpageIndexPathRow;
 @property (readwrite) NSInteger selectedWebpageIndexPathRow;
 
 - (id)infoValueForKey:(NSString*)key;

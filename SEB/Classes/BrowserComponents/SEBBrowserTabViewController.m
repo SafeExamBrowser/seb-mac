@@ -268,8 +268,18 @@
         [_visibleWebViewController.view removeFromSuperview];
         [_visibleWebViewController removeFromParentViewController];
     } else {
-        [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow--;
-        [self switchToTab:nil];
+        // Was a tab closed which was before the currently displayed in the webpage side panel list
+        if ([MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow < [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow) {
+            // Yes: the index of the current webpage must be decreased by one
+            [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow--;
+            // Or was the currently displayed webpage closed?
+        } else if ([MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow == [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow) {
+            // Yes: the index of the current webpage must be decreased by one
+            [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow--;
+            [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow--;
+            // and we switch to the webpage one position before the closed one in the webpage side panel list
+            [self switchToTab:nil];
+        }
     }
 }
 

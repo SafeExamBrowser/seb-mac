@@ -60,6 +60,7 @@
 
 @property (strong, nonatomic) UIView *coveringView;
 
+@property(readwrite) BOOL finishedStartingUp;
 @property(readwrite) BOOL ASAMActive;
 @property(readwrite) BOOL examRunning;
 @property(readwrite) BOOL sebLocked;
@@ -73,7 +74,7 @@
 - (void) showGuidedAccessWarning;
 - (void) startExam;
 - (void) quitExamConditionally;
-- (void) finishExamWithCallback:(id)callback selector:(SEL)selector;
+- (void) quitExamWithCallback:(id)callback selector:(SEL)selector;
 
 - (void) stopAutonomousSingleAppMode;
 

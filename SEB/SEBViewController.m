@@ -149,7 +149,7 @@ static NSMutableSet *browserWindowControllers;
 // Called when the Guided Access status changes
 - (void) guidedAccessChanged
 {
-    if (_ASAMActive == false) {
+    if (_finishedStartingUp && _ASAMActive == false) {
         // Is the exam already running?
         if (_examRunning) {
             
@@ -233,6 +233,7 @@ static NSMutableSet *browserWindowControllers;
 
 - (void) startAutonomousSingleAppMode
 {
+    _finishedStartingUp = true;
     if (UIAccessibilityIsGuidedAccessEnabled() == false) {
         NSLog(@"Requesting Autonomous Single App Mode");
         _ASAMActive = true;

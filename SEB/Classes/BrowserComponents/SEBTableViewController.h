@@ -41,7 +41,7 @@
 
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, strong) NSArray *webpagesArray;
+@property (nonatomic, strong) NSMutableArray *webpagesArray;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 
 

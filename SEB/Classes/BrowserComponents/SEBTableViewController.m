@@ -146,22 +146,13 @@
     UIButton *closeButton = (UIButton *)[cell viewWithTag:1];
     [closeButton addTarget:cell action:@selector(fireAction:) forControlEvents:UIControlEventTouchUpInside];
 
-//    cellLabel.font = [UIFont fontWithName:@"AvenirNextCondensed-Regular" size:20];
-//    cellLabel.textColor = [UIColor whiteColor];
-
-//    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    closeButton.frame = CGRectMake(2, 10, 14, 14);
-//    [closeButton setImage:[UIImage imageNamed:@"Cancel"] forState:UIControlStateNormal];
-//    [closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-//    closeButton.tintColor = [UIColor blackColor];
-//    closeButton.backgroundColor= [UIColor clearColor];
-//    [cell.contentView addSubview:closeButton];
     return cell;
 }
 
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger index = indexPath.row;
+    [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow = index;
     [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow = index;
 
     // Post a notification that the web page should be reloaded
@@ -215,9 +206,11 @@
     NSLog(@"Close button indexPath.row: %ld", (long)index);
     [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow = index;
     
-    //    // Remove the row in the table view
-    //    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-    //
+    // If not closing the main web view: remove the webpage from the list
+    if (index != 0) {
+        [self.webpagesArray removeObjectAtIndex:index];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
     // Post a notification that the web page should be closed
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"requestWebpageClose" object:self];
@@ -306,7 +299,7 @@
     
     
     NSError *error = nil;
-    self.webpagesArray = [context executeFetchRequest:fetchRequest error:&error];
+    self.webpagesArray = [NSMutableArray arrayWithArray:[context executeFetchRequest:fetchRequest error:&error]];
     [self.tableView reloadData];
 }
 
