@@ -76,6 +76,7 @@
 - (void)loadWebPageOrSearchResultWithString:(NSString *)webSearchString;
 
 - (void)switchToTab:(id)sender;
+- (void)closeTab;
 
 @end
 

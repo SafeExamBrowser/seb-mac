@@ -72,7 +72,7 @@
 - (void) showStartGuidedAccess;
 - (void) showGuidedAccessWarning;
 - (void) startExam;
-- (void) finishExamConditionally;
+- (void) quitExamConditionally;
 - (void) finishExamWithCallback:(id)callback selector:(SEL)selector;
 
 - (void) stopAutonomousSingleAppMode;

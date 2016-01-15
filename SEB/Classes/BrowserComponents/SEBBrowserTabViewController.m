@@ -91,7 +91,7 @@
     
     // Add an observer for the request to close webpage
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(closeTab:)
+                                             selector:@selector(closeTabRequested:)
                                                  name:@"requestWebpageClose" object:nil];
     
 //    // Load all open web pages from the persistent store and re-create webview(s) for them
@@ -172,6 +172,8 @@
     // Add this to the Array of all persistently saved webpages
     [self.persistentWebpages addObject:newWebpage];
     
+    
+    
     // Open URL in a new webview
     // Create a new UIWebView
     SEBWebViewController *newWebViewController = [self createNewWebViewController];
@@ -187,8 +189,8 @@
     [_visibleWebViewController.view removeFromSuperview];
     [_visibleWebViewController removeFromParentViewController];
 
-    [self.view addSubview:newWebViewController.sebWebView];
     [self addChildViewController:newWebViewController];
+    [self.view addSubview:newWebViewController.sebWebView];
     _visibleWebViewController = newWebViewController;
     
     [_visibleWebViewController loadURL:url];
@@ -216,30 +218,37 @@
     [_visibleWebViewController.view removeFromSuperview];
     [_visibleWebViewController removeFromParentViewController];
     
-    [self.view addSubview:webViewControllerToSwitch.sebWebView];
     [self addChildViewController:webViewControllerToSwitch];
+    [self.view addSubview:webViewControllerToSwitch.sebWebView];
     _visibleWebViewController = webViewControllerToSwitch;
    
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
-    
-    
 }
 
+
+// Close tab requested
+- (void)closeTabRequested:(id)sender
+{
+    NSUInteger tabIndex = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;
+    
+    // Check if the user is closing the main web view (with the exam)
+    if (tabIndex == 0) {
+        [_sebViewController quitExamConditionally];
+    } else {
+        [self closeTab];
+    }
+}
+
+
 // Close tab
-- (void)closeTab:(id)sender {
+- (void)closeTab
+{
     NSUInteger tabIndex = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;
     
     // Delete the row from the data source
     NSManagedObjectContext *context = self.managedObjectContext;
     
-    // Grab the label
-    //    OpenWebpages *label = [self.labelArray objectAtIndex:indexPath.row];
     Webpages *webpageToClose = _persistentWebpages[tabIndex];
-    
-    // Check if the user is closing the main web view (with the exam)
-    if ([webpageToClose.index unsignedIntegerValue] == 0) {
-        [_sebViewController finishExamConditionally];
-    }
     
     [context deleteObject:[context objectWithID:[webpageToClose objectID]]];
     
@@ -254,15 +263,14 @@
     [_persistentWebpages removeObjectAtIndex:tabIndex];
     [_openWebpages removeObjectAtIndex:tabIndex];
     
-    //    [self.visibleWebView removeFromSuperview];
-    //    [self.view addSubview:webviewToSwitch];
-    //    self.visibleWebView = webviewToSwitch;
-    
-    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
-    
-    //self.visibleWebView.delegate = self;	// setup the delegate as the web view is shown
-    //[self.visibleWebView loadRequest:[NSURLRequest requestWithURL:url]];
-    
+    // Check if the user is closing the main web view (with the exam)
+    if (tabIndex == 0) {
+        [_visibleWebViewController.view removeFromSuperview];
+        [_visibleWebViewController removeFromParentViewController];
+    } else {
+        [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow--;
+        [self switchToTab:nil];
+    }
 }
 
 
@@ -318,14 +326,14 @@
             
         }
         OpenWebpages *newOpenWebpage = (self.openWebpages.lastObject);
-        SEBWebViewController *visibleNewWebViewController = newOpenWebpage.webViewController;
+        SEBWebViewController *newVisibleWebViewController = newOpenWebpage.webViewController;
         // Exchange the old against the new webview
         [_visibleWebViewController.view removeFromSuperview];
         [_visibleWebViewController removeFromParentViewController];
         
-        [self.view addSubview:visibleNewWebViewController.sebWebView];
-        [self addChildViewController:visibleNewWebViewController];
-        _visibleWebViewController = visibleNewWebViewController;
+        [self addChildViewController:newVisibleWebViewController];
+        [self.view addSubview:newVisibleWebViewController.sebWebView];
+        _visibleWebViewController = newVisibleWebViewController;
 
         Webpages *visibleWebPage = persistedOpenWebPages.lastObject;
         [self.searchBarController setUrl:visibleWebPage.url];

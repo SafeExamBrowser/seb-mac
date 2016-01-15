@@ -124,26 +124,27 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"WebpageCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    SEBActionUITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     if (cell == nil)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[SEBActionUITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    
+   
     // Configure the cell...
+    cell.delegate = self;
     
     // Get webpage
     Webpages *webpage = [self.webpagesArray objectAtIndex:indexPath.row];
     
     // Set the title or URL if title not (yet) available
     UILabel *cellLabel;
-    cellLabel = (UILabel *)[cell viewWithTag:1];
+    cellLabel = (UILabel *)[cell viewWithTag:2];
     
     NSString *webpageCellLabelText = (!webpage.title || [webpage.title isEqualToString:@""]) ? webpage.url : webpage.title;
     cellLabel.text = webpageCellLabelText;
-    UIButton *closeButton = (UIButton *)[cell viewWithTag:0];
-    closeButton.tag = indexPath.row;
+    UIButton *closeButton = (UIButton *)[cell viewWithTag:1];
+    [closeButton addTarget:cell action:@selector(fireAction:) forControlEvents:UIControlEventTouchUpInside];
 
 //    cellLabel.font = [UIFont fontWithName:@"AvenirNextCondensed-Regular" size:20];
 //    cellLabel.textColor = [UIColor whiteColor];
@@ -205,20 +206,22 @@
 }
 
 
--(IBAction)closeButtonPressed:(UIButton *)sender {
-    NSInteger index = sender.tag;
+-(void)tableViewCell:(UITableViewCell *)cell didFireActionForSender:(id)sender
+{
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    if (!indexPath) return;
+    
+    NSInteger index = indexPath.row;
     NSLog(@"Close button indexPath.row: %ld", (long)index);
     [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow = index;
     
-//    // Remove the row in the table view
-//    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-//
+    //    // Remove the row in the table view
+    //    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+    //
     // Post a notification that the web page should be closed
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"requestWebpageClose" object:self];
-
 }
-
 
 
 /*

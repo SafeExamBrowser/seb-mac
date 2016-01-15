@@ -233,19 +233,37 @@ static NSMutableSet *browserWindowControllers;
 
 - (void) startAutonomousSingleAppMode
 {
-    NSLog(@"Requesting Guided Access");
-    UIAccessibilityRequestGuidedAccessSession(true, ^(BOOL didSucceed) {
-        if (didSucceed) {
-            NSLog(@"Entered Autonomous Single App Mode");
-            _ASAMActive = true;
-            [self startExam];
-        }
-        else {
-            NSLog(@"Failed to enter Autonomous Single App Mode");
-            _ASAMActive = false;
-            [self showStartGuidedAccess];
-        }
-    });
+    if (UIAccessibilityIsGuidedAccessEnabled() == false) {
+        NSLog(@"Requesting Autonomous Single App Mode");
+        _ASAMActive = true;
+        UIAccessibilityRequestGuidedAccessSession(true, ^(BOOL didSucceed) {
+            if (didSucceed) {
+                NSLog(@"Entered Autonomous Single App Mode");
+                [self startExam];
+            }
+            else {
+                NSLog(@"Failed to enter Autonomous Single App Mode");
+                _ASAMActive = false;
+                [self showStartGuidedAccess];
+            }
+        });
+    } else {
+        // Guided Access or ASAM is already active (maybe because of a crash)
+        // Try to switch ASAM off to find out if it was active
+        _ASAMActive = true;
+        UIAccessibilityRequestGuidedAccessSession(false, ^(BOOL didSucceed) {
+            if (didSucceed) {
+                NSLog(@"Exited Autonomous Single App Mode");
+                _ASAMActive = false;
+//                // Restart ASAM properly again
+//                [self startAutonomousSingleAppMode];
+            }
+            else {
+                NSLog(@"Failed to exit Autonomous Single App Mode, Guided Access must be active");
+                _ASAMActive = false;
+            }
+        });
+    }
 }
 
 
@@ -335,7 +353,7 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (void) finishExamConditionally
+- (void) quitExamConditionally
 {
     _examRunning = false;
     if (_ASAMActive) {
@@ -349,7 +367,7 @@ static NSMutableSet *browserWindowControllers;
     }
 }
 
-- (void) finishExamWithCallback:(id)callback selector:(SEL)selector
+- (void) quitExamWithCallback:(id)callback selector:(SEL)selector
 {
     BOOL success = true;
     IMP imp = [callback methodForSelector:selector];

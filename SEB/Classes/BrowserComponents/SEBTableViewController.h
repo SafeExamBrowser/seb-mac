@@ -32,15 +32,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SEBActionUITableViewCell.h"
 #import "UIViewController+MMDrawerController.h"
 
-@interface SEBTableViewController : UIViewController  <UITableViewDelegate, UITableViewDataSource>
+@class SEBActionUITableViewCell;
+
+@interface SEBTableViewController : UIViewController  <UITableViewDelegate, UITableViewDataSource, SEBActionUITableViewCellDelegate>
 
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSArray *webpagesArray;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 
--(IBAction)closeButtonPressed:(UIButton *)sender;
 
 @end
