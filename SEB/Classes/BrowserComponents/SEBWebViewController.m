@@ -182,6 +182,7 @@
     if (UIAccessibilityIsGuidedAccessEnabled()) {
         if (navigationType == UIWebViewNavigationTypeLinkClicked ) {
             navigationType = UIWebViewNavigationTypeOther;
+            DDLogInfo(@"%s: navigationType changed to UIWebViewNavigationTypeOther", __FUNCTION__);
             [webView loadRequest:request];
             return NO;
         }
