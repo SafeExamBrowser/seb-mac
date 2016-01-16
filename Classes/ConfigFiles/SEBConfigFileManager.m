@@ -785,7 +785,7 @@
     int i = 5;
     NSString *password = nil;
     NSString *hashedPassword;
-    NSString *enterPasswordString = NSLocalizedString(@"Enter the SEB administrator password used in these settings:",nil);
+//    NSString *enterPasswordString = NSLocalizedString(@"Enter the SEB administrator password used in these settings:",nil);
     bool passwordsMatch;
     do {
         i--;
@@ -802,7 +802,7 @@
         }
         passwordsMatch = ([hashedPassword caseInsensitiveCompare:sebFileHashedAdminPassword] == NSOrderedSame);
         // in case we get an error we allow the user to try it again
-        enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the correct SEB administrator password from these settings:", nil);
+//        enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the correct SEB administrator password from these settings:", nil);
     } while ((password == nil || !passwordsMatch) && i > 0);
     
     if (!passwordsMatch) {

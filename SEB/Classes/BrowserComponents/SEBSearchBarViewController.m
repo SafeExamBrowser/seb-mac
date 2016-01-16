@@ -134,7 +134,7 @@
     {
         // Create blank search bar "Search" (magnifier glass) icon
         UIGraphicsBeginImageContextWithOptions(CGSizeMake(16, 16), NO, 0.0);
-        UIImage *blank = UIGraphicsGetImageFromCurrentImageContext();
+//        UIImage *blank = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         
 //        [self.searchBar setImage:blank forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
@@ -231,7 +231,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    NSString *searchString = self.searchBar.text;
+//    NSString *searchString = self.searchBar.text;
     
     [self.searchBar resignFirstResponder];
 

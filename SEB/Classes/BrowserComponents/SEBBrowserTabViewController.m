@@ -78,6 +78,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
     // TO DO: Ok, later we will get the context from the creator of this VC
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     [self setManagedObjectContext:[appDelegate managedObjectContext]];
@@ -102,6 +104,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [self.searchBarController setLoading:NO];
 }
@@ -355,6 +359,26 @@
         
         [self openNewTabWithURL:[NSURL URLWithString:urlText] index:0];
     }
+}
+
+
+// Remove all open web pages from the persistent store
+- (void)removePersistedOpenWebPages
+{
+    NSManagedObjectContext *context = self.managedObjectContext;
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Webpages"];
+    [fetchRequest setIncludesPropertyValues:NO]; //only fetch the managedObjectID
+    
+    NSError *error;
+    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    for (NSManagedObject *object in fetchedObjects)
+    {
+        [context deleteObject:object];
+    }
+    
+    error = nil;
+    [context save:&error];
 }
 
 

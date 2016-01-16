@@ -66,7 +66,6 @@
 
 - (NSData*)encryptData:(NSData*)plainData withPublicKeyFromCertificate:(SecCertificateRef)certificate;
 - (NSData*)decryptData:(NSData*)cipherData withPrivateKey:(SecKeyRef)privateKey;
-- (NSString*)generateSHAHashString:(NSString*)inputString;
 
 @end
 

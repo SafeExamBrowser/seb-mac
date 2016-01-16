@@ -23,8 +23,6 @@
     if (self) {
         
         [super setDelegate:self];
-
-        self.sebViewController = (SEBViewController *)[[[UIApplication sharedApplication] keyWindow] rootViewController];
 }
     return self;
 }

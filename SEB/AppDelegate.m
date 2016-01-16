@@ -57,7 +57,7 @@
     [drawerController setShouldStretchDrawer:NO];
     [drawerController setShowsShadow:YES];
 
-//    self.sebViewController = (SEBViewController *)self.window.rootViewController;
+    self.sebViewController = (SEBViewController *)self.window.rootViewController;
 
     // Preloads keyboard so there's no lag on initial keyboard appearance.
     UITextField *lagFreeField = [[UITextField alloc] init];

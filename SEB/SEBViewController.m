@@ -65,7 +65,8 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -80,7 +81,10 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
     [self startAutonomousSingleAppMode];
 }
 
@@ -356,6 +360,7 @@ static NSMutableSet *browserWindowControllers;
 
 - (void) quitExamConditionally
 {
+    [_browserTabViewController removePersistedOpenWebPages];
     _examRunning = false;
     if (_ASAMActive) {
         [self stopAutonomousSingleAppMode];
@@ -401,7 +406,7 @@ static NSMutableSet *browserWindowControllers;
             [self presentViewController:_alertController animated:YES completion:nil];
 
         } else {
-            // SEB isn't in exam mode: reconfiguring it is allowed
+            // SEB isn't in exam mode: reconfiguring is allowed
             NSError *error = nil;
             NSData *sebFileData;
             // Download the .seb file directly into memory (not onto disc like other files)
@@ -435,6 +440,7 @@ static NSMutableSet *browserWindowControllers;
                 }
             }
             SEBiOSConfigFileController *configFileManager = [[SEBiOSConfigFileController alloc] init];
+            configFileManager.sebViewController = self;
             
             // Get current config path
             currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];

@@ -72,6 +72,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
 
     // Create an instance of the SEBWebView defined in the Storyboard
 //    self.visibleWebView = [self createNewWebView];
@@ -84,6 +85,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+    
     [self.sebWebView stopLoading];	// in case the web view is still loading its content
     self.sebWebView.delegate = nil;	// disconnect the delegate as the webview is hidden
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;

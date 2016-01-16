@@ -500,7 +500,7 @@
     //        return NO;
     //    }
     //    return YES;
-    return nil;
+    return false;
 }
 
 
@@ -638,7 +638,7 @@
     //        return NO;
     //    }
     //    return YES;
-    return nil;
+    return false;
 }
 
 
