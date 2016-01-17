@@ -41,7 +41,6 @@
 @interface AppDelegate ()
 {
 }
-
 @end
 
 @implementation AppDelegate
@@ -57,7 +56,7 @@
     [drawerController setShouldStretchDrawer:NO];
     [drawerController setShowsShadow:YES];
 
-    self.sebViewController = (SEBViewController *)self.window.rootViewController;
+//    self.sebViewController = (SEBViewController *)self.window.rootViewController;
 
     // Preloads keyboard so there's no lag on initial keyboard appearance.
     UITextField *lagFreeField = [[UITextField alloc] init];
@@ -111,7 +110,13 @@
         if ([url.pathExtension isEqualToString:@"seb"]) {
             // If we have a valid URL with the path for a .seb file, we download and open it (conditionally)
             DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", url);
-            [self.sebViewController downloadAndOpenSebConfigFromURL:url];
+            if (self.sebViewController) {
+                // Is the main SEB view controller already instantiated?
+                [self.sebViewController downloadAndOpenSebConfigFromURL:url];
+            } else {
+                // Postpone loading .seb file until app did finish launching
+                _sebFileURL = url;
+            }
         }
     }
 

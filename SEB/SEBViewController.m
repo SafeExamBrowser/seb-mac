@@ -65,6 +65,7 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -78,6 +79,12 @@ static NSMutableSet *browserWindowControllers;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(guidedAccessChanged)
                                                  name:UIAccessibilityGuidedAccessStatusDidChangeNotification object:nil];
+    
+    // Was SEB opened by loading a .seb file/using a seb:// link?
+    if (appDelegate.sebFileURL) {
+        // Yes: Load the .seb file now that the necessary SEB main view controller was loaded
+        [self downloadAndOpenSebConfigFromURL:appDelegate.sebFileURL];
+    }
 }
 
 
@@ -360,6 +367,72 @@ static NSMutableSet *browserWindowControllers;
 
 - (void) quitExamConditionally
 {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"] == YES) {
+//        // if quitting SEB is allowed
+//        
+//        if (![hashedQuitPassword isEqualToString:@""]) {
+//            // if quit password is set, then restrict quitting
+//            if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit password:",nil)  modalForWindow:self.browserController.mainBrowserWindow windowTitle:@""] == SEBEnterPasswordCancel) return;
+//            NSString *password = [self.enterPassword stringValue];
+//            
+//            SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+//            if ([hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
+//                // if the correct quit password was entered
+//                quittingMyself = TRUE; //SEB is terminating itself
+//                [NSApp terminate: nil]; //quit SEB
+//            } else {
+//                // Wrong quit password was entered
+//                NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Wrong Quit Password", nil)
+//                                                    defaultButton:NSLocalizedString(@"OK", nil)
+//                                                  alternateButton:nil
+//                                                      otherButton:nil
+//                                        informativeTextWithFormat:NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit SEB.", nil)];
+//                [newAlert setAlertStyle:NSWarningAlertStyle];
+//                [newAlert runModal];
+//            }
+//        } else {
+//            // if no quit password is required, then confirm quitting
+//            UIAlertController *confirmQuittungAlertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Quit Exam", nil)
+//                                                                    message:NSLocalizedString(@"Are you sure you want to quit the exam", nil)
+//                                                             preferredStyle:UIAlertControllerStyleAlert];
+//            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"I Understand", nil)
+//                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//                                                                     [_alertController dismissViewControllerAnimated:NO completion:nil];
+//                                                                     _alertController = nil;
+//                                                                     _guidedAccessWarningDisplayed = false;
+//                                                                     
+//                                                                     [self startExam];
+//                                                                 }]];
+//            [self presentViewController:_alertController animated:YES completion:nil];
+//
+//            NSAlert *newAlert = [[NSAlert alloc] init];
+//            [newAlert setMessageText:NSLocalizedString(@"Quit Safe Exam Browser",nil)];
+//            [newAlert setInformativeText:NSLocalizedString(@"Are you sure you want to quit SEB?", nil)];
+//            [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+//            [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+//            [newAlert setAlertStyle:NSWarningAlertStyle];
+//            int answer = [newAlert runModal];
+//            switch(answer)
+//            {
+//                case NSAlertFirstButtonReturn:
+//                    return; //Cancel: don't quit
+//                default:
+//                {
+//                    if ([self.preferencesController preferencesAreOpen]) {
+//                        [self.preferencesController quitSEB:self];
+//                    } else {
+//                        quittingMyself = TRUE; //SEB is terminating itself
+//                        [NSApp terminate: nil]; //quit SEB
+//                    }
+//                }
+//            }
+//        }
+    }
+
+    
+    
     [_browserTabViewController removePersistedOpenWebPages];
     _examRunning = false;
     if (_ASAMActive) {
