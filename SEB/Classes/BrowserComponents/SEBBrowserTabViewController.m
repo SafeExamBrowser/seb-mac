@@ -370,6 +370,9 @@
 // Close all tabs with open web pages and remove persisted open webpages
 - (void)closeAllTabs
 {
+//    [_visibleWebViewController.view performSelectorOnMainThread:@selector(removeFromSuperview) withObject:nil waitUntilDone:NO];
+
+//    [_visibleWebViewController willMoveToParentViewController:nil];
     [_visibleWebViewController.view removeFromSuperview];
     [_visibleWebViewController removeFromParentViewController];
     _visibleWebViewController = nil;

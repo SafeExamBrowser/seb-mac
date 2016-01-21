@@ -50,7 +50,7 @@
 }
 
 @property (nonatomic, strong) SEBViewController *sebViewController;
-@property (nonatomic, strong) SEBWebViewController *visibleWebViewController;
+@property (nonatomic, weak) SEBWebViewController *visibleWebViewController;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSMutableArray *openWebpages;
 @property (nonatomic, strong) NSMutableArray *persistentWebpages;

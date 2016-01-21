@@ -1,4 +1,4 @@
-//
+    //
 //  SEBViewController.m
 //
 //  Created by Daniel R. Schneider on 10/09/15.
@@ -208,7 +208,7 @@ static NSMutableSet *browserWindowControllers;
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
                 _alertController = nil;
                 _guidedAccessWarningDisplayed = false;
-                
+                _guidedAccessActive = false;
                 [self showRestartGuidedAccess];
             }
         }
@@ -263,7 +263,6 @@ static NSMutableSet *browserWindowControllers;
         }
         else {
             NSLog(@"Failed to exit Autonomous Single App Mode");
-            
         }
     });
 }
@@ -305,6 +304,9 @@ static NSMutableSet *browserWindowControllers;
                                                              preferredStyle:UIAlertControllerStyleAlert];
             [self presentViewController:_alertController animated:YES completion:nil];
         }
+    } else {
+        // If no quit password is defined, then we can restart the exam / reload the start page directly
+        [self startExam];
     }
 }
 
@@ -382,8 +384,8 @@ static NSMutableSet *browserWindowControllers;
                                                              preferredStyle:UIAlertControllerStyleAlert];
             [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Quit", nil)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                         [_alertController dismissViewControllerAnimated:NO completion:nil];
                                                                          [self quitExam];
-//                                                                         [_alertController dismissViewControllerAnimated:NO completion:nil];
                                                                      }]];
 
             [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
@@ -455,9 +457,10 @@ static NSMutableSet *browserWindowControllers;
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Stop Guided Access", nil)
                                                                     message:NSLocalizedString(@"You can now switch off Guided Access by home button tripple click or Touch ID.", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];
-        [self presentViewController:_alertController animated:YES completion:nil];
         _guidedAccessWarningDisplayed = true;
+        [self presentViewController:_alertController animated:YES completion:nil];
     } else {
+        // When Guided Access is off, then we can restart SEB with the start URL in local client settings
         [self startExam];
     }
 }
