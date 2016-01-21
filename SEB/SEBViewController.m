@@ -454,6 +454,17 @@ static NSMutableSet *browserWindowControllers;
     
     if (_ASAMActive) {
         [self stopAutonomousSingleAppMode];
+        _ASAMActive = false;
+        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Restart Exam", nil)
+                                                                message:NSLocalizedString(@"Return to start page and lock device into SEB.", nil)
+                                                         preferredStyle:UIAlertControllerStyleAlert];
+        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                 [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                 [self startAutonomousSingleAppMode];
+                                                             }]];
+        _guidedAccessWarningDisplayed = true;
+        [self presentViewController:_alertController animated:YES completion:nil];
     } else if (_guidedAccessActive) {
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Stop Guided Access", nil)
                                                                     message:NSLocalizedString(@"You can now switch off Guided Access by home button tripple click or Touch ID.", nil)
