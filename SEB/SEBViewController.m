@@ -302,6 +302,7 @@ static NSMutableSet *browserWindowControllers;
             _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Restart Guided Access", nil)
                                                                     message:NSLocalizedString(@"Activate Guided Access with tripple click home button to return to exam.", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];
+            _guidedAccessActive = true;
             [self presentViewController:_alertController animated:YES completion:nil];
         }
     } else {
@@ -329,8 +330,8 @@ static NSMutableSet *browserWindowControllers;
                                                                            
                                                                            [self startExam];
         }]];
-        [self presentViewController:_alertController animated:YES completion:nil];
         _guidedAccessWarningDisplayed = true;
+        [self presentViewController:_alertController animated:YES completion:nil];
     }
 }
 
