@@ -45,7 +45,7 @@
 
 @class SEBBrowserTabViewController;
 @class SEBSearchBarViewController;
-
+@class SEBiOSConfigFileController;
 
 @interface SEBViewController : UIViewController <SEBLockedViewControllerDelegate>
 
@@ -53,6 +53,7 @@
 @property (nonatomic, strong) SEBSearchBarViewController *searchBarViewController;
 
 @property (strong, nonatomic) SEBiOSLockedViewController< SEBLockedViewUIDelegate > *lockedViewController;
+@property (strong, nonatomic) SEBiOSConfigFileController *configFileController;
 
 @property (strong, nonatomic) UIAlertController *alertController;
 @property (strong, nonatomic) UIAlertController *inactiveAlertController;
@@ -61,6 +62,7 @@
 @property (strong, nonatomic) UIView *coveringView;
 
 @property(readwrite) BOOL finishedStartingUp;
+@property(readwrite) BOOL guidedAccessActive;
 @property(readwrite) BOOL ASAMActive;
 @property(readwrite) BOOL examRunning;
 @property(readwrite) BOOL sebLocked;

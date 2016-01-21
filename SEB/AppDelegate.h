@@ -45,6 +45,7 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) SEBViewController *sebViewController;
 @property (strong, nonatomic, readonly) NSURL *sebFileURL;
+@property(readwrite) BOOL SAMActive;
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;

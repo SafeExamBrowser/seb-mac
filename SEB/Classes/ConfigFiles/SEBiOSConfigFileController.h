@@ -21,6 +21,6 @@
 
 @property (strong, nonatomic) UIAlertController *alertController;
 
-// UIAlertViewDelegate
+- (void) promptPasswordWithMessageText:(NSString *)messageText title:(NSString *)titleString callback:(id)callback selector:(SEL)selector;
 
 @end

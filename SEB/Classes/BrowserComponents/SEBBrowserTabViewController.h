@@ -62,6 +62,9 @@
 - (void)openNewTabWithURL:(NSURL *)url;
 - (void)openNewTabWithURL:(NSURL *)url index:(NSUInteger)index;
 - (void)loadPersistedOpenWebPages;
+
+- (void)closeAllTabs;
+
 - (void)removePersistedOpenWebPages;
 
 - (id) infoValueForKey:(NSString *)key;

@@ -47,6 +47,11 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Check if Single App Mode is active
+    // or Autonomous Single App Mode stayed active because
+    // SEB crashed before and was automatically restarted
+    _SAMActive = UIAccessibilityIsGuidedAccessEnabled();
+    
     // Override point for customization after application launch.
     MMDrawerController * drawerController = (MMDrawerController *)self.window.rootViewController;
     [drawerController setMaximumRightDrawerWidth:200.0];
@@ -55,8 +60,6 @@
     [drawerController setCenterHiddenInteractionMode:MMDrawerOpenCenterInteractionModeFull];
     [drawerController setShouldStretchDrawer:NO];
     [drawerController setShowsShadow:YES];
-
-//    self.sebViewController = (SEBViewController *)self.window.rootViewController;
 
     // Preloads keyboard so there's no lag on initial keyboard appearance.
     UITextField *lagFreeField = [[UITextField alloc] init];

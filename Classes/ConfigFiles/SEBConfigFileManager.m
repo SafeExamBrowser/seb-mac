@@ -275,7 +275,7 @@
         // wrong password entered, are there still attempts left?
         if (attempts > 0) {
             // Let the user try it again
-            NSString *enterPasswordString = NSLocalizedString(@"Wrong Password! Try again to enter the correct password:",nil);
+            NSString *enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the correct password:",nil);
             // Ask the user to enter the settings password and proceed to the callback method after this happend
             [self.delegate promptPasswordWithMessageText:enterPasswordString callback:self selector:@selector(passwordSettingsStartingExam:)];
             return;
@@ -375,7 +375,7 @@
         // wrong password entered, are there still attempts left?
         if (attempts > 0) {
             // Let the user try it again
-            NSString *enterPasswordString = NSLocalizedString(@"Wrong Password! Try again to enter the correct password used to encrypt these settings:",nil);
+            NSString *enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the correct password used to encrypt these settings:",nil);
             // Ask the user to enter the settings password and proceed to the callback method after this happend
             [self.delegate promptPasswordWithMessageText:enterPasswordString callback:self selector:@selector(passwordSettingsConfiguringClient:)];
             return;
@@ -499,7 +499,7 @@
         // wrong password entered, are there still attempts left?
         if (attempts > 0) {
             // Let the user try it again
-            NSString *enterPasswordString = NSLocalizedString(@"Wrong Password! Try again to enter the current SEB administrator password:",nil);
+            NSString *enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the current SEB administrator password:",nil);
             // Ask the user to enter the settings password and proceed to the callback method after this happend
             [self.delegate promptPasswordWithMessageText:enterPasswordString
                                                 callback:self

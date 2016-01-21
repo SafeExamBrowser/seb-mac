@@ -41,7 +41,9 @@
 {
     NSURL *currentConfigPath;
     UIBarButtonItem *leftButton;
-
+    
+    @private
+    NSInteger attempts;
 }
 
 @property (weak) IBOutlet UIView *containerView;
@@ -120,52 +122,17 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (void)searchStarted
-{
-    [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
-    
-    [self.navigationItem setLeftBarButtonItem:nil animated:YES];
-    
-    UIBarButtonItem *cancelSearchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(searchButtonCancel:)];
-    
-    UIBarButtonItem *padding = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    [padding setWidth:13];
-    
-    [self.navigationItem setRightBarButtonItems:
-     [NSArray arrayWithObjects:cancelSearchButton, padding, nil] animated:YES];
-}
-
-
-- (void)searchButtonCancel:(id)sender
-{
-    [_searchBarViewController cancelButtonPressed];
-}
-
-
-- (void)searchStopped
-{
-    [self.navigationItem setLeftBarButtonItem:leftButton animated:YES];
-    
-//    [_navigationItem setRightBarButtonItems:[NSArray arrayWithObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addPageButton:)]] animated:YES];
-}
-
-
-- (void)searchGoSearchString:(NSString *)searchString
-{
-    [self searchStopped];
-    [_browserTabViewController loadWebPageOrSearchResultWithString:searchString];
-}
-
-
 // Called when the Guided Access status changes
 - (void) guidedAccessChanged
 {
-    if (_finishedStartingUp && _ASAMActive == false) {
+    if (_finishedStartingUp && _guidedAccessActive && _ASAMActive == false) {
         // Is the exam already running?
         if (_examRunning) {
             
             // Exam running: Check if Guided Access is switched off
             if (UIAccessibilityIsGuidedAccessEnabled() == false) {
+                
+                /// Guided Access is off
                 
                 // Dismiss the Guided Access warning alert if it still was visible
                 if (_guidedAccessWarningDisplayed) {
@@ -205,21 +172,28 @@ static NSMutableSet *browserWindowControllers;
                     [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Guided Access switched off!", nil)] withTime:_didResignActiveTime];
                 }
             } else {
-                // Guided Access is on again
+                
+                /// Guided Access is on again
+                
                 // Add log string
                 _didBecomeActiveTime = [NSDate date];
+                
+                [_alertController dismissViewControllerAnimated:NO completion:nil];
+                _alertController = nil;
+
                 [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Guided Access is switched on again.", nil)] withTime:_didBecomeActiveTime];
                 
                 // Close unlock windows only if the correct quit/restart password was entered already
                 if (_unlockPasswordEntered) {
                     _unlockPasswordEntered = false;
-                    [_alertController dismissViewControllerAnimated:NO completion:nil];
-                    _alertController = nil;
+//                    [_alertController dismissViewControllerAnimated:NO completion:nil];
+//                    _alertController = nil;
                     [_lockedViewController shouldCloseLockdownWindows];
                 }
             }
         } else {
-            // Exam is not yet running
+            
+            /// Exam is not yet running
             
             // If Guided Access switched on
             if (UIAccessibilityIsGuidedAccessEnabled() == true) {
@@ -295,22 +269,42 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (void) showStartGuidedAccess {
-    if (UIAccessibilityIsGuidedAccessEnabled() == false) {
-        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Start Guided Access", nil)
+- (void) showStartGuidedAccess
+{
+    // First check if a quit password is set
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+    if (hashedQuitPassword.length == 0) {
+        // No quit password set in current settings: Don't ask user to switch on Guided Access
+        // and open an exam portal page or a mock exam (which don't need to be secured)
+        _guidedAccessActive = false;
+        [self startExam];
+    } else {
+        // A quit password is set: Ask user to switch on Guided Access
+        _guidedAccessActive = true;
+        if (UIAccessibilityIsGuidedAccessEnabled() == false) {
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Start Guided Access", nil)
                                                                     message:NSLocalizedString(@"Enable Guided Access in Settings -> General -> Accessibility and after returning to SEB, tripple click home button to proceed to exam.", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];
-        [self presentViewController:_alertController animated:YES completion:nil];
+            [self presentViewController:_alertController animated:YES completion:nil];
+        }
     }
 }
 
+
 - (void) showRestartGuidedAccess {
-    // If Guided Access isn't already on, show alert to switch it on again
-    if (UIAccessibilityIsGuidedAccessEnabled() == false) {
-        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Restart Guided Access", nil)
+    // First check if a quit password is set
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+    if (hashedQuitPassword.length > 0) {
+        // A quit password is set in current settings: Ask user to restart Guided Access
+        // If Guided Access isn't already on, show alert to switch it on again
+        if (UIAccessibilityIsGuidedAccessEnabled() == false) {
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Restart Guided Access", nil)
                                                                     message:NSLocalizedString(@"Activate Guided Access with tripple click home button to return to exam.", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];
-        [self presentViewController:_alertController animated:YES completion:nil];
+            [self presentViewController:_alertController animated:YES completion:nil];
+        }
     }
 }
 
@@ -356,12 +350,6 @@ static NSMutableSet *browserWindowControllers;
     // Load all open web pages from the persistent store and re-create webview(s) for them
     // or if no persisted web pages are available, load the start URL
     [_browserTabViewController loadPersistedOpenWebPages];
-
-//    // Load start URL from the system's user defaults
-//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-//    NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-//    
-//    [_browserTabViewController openNewTabWithURL:[NSURL URLWithString:urlText] index:0];
 }
 
 
@@ -370,82 +358,112 @@ static NSMutableSet *browserWindowControllers;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"] == YES) {
-//        // if quitting SEB is allowed
-//        
-//        if (![hashedQuitPassword isEqualToString:@""]) {
-//            // if quit password is set, then restrict quitting
-//            if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit password:",nil)  modalForWindow:self.browserController.mainBrowserWindow windowTitle:@""] == SEBEnterPasswordCancel) return;
-//            NSString *password = [self.enterPassword stringValue];
-//            
-//            SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-//            if ([hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
-//                // if the correct quit password was entered
-//                quittingMyself = TRUE; //SEB is terminating itself
-//                [NSApp terminate: nil]; //quit SEB
-//            } else {
-//                // Wrong quit password was entered
-//                NSAlert *newAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Wrong Quit Password", nil)
-//                                                    defaultButton:NSLocalizedString(@"OK", nil)
-//                                                  alternateButton:nil
-//                                                      otherButton:nil
-//                                        informativeTextWithFormat:NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit SEB.", nil)];
-//                [newAlert setAlertStyle:NSWarningAlertStyle];
-//                [newAlert runModal];
-//            }
-//        } else {
-//            // if no quit password is required, then confirm quitting
-//            UIAlertController *confirmQuittungAlertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Quit Exam", nil)
-//                                                                    message:NSLocalizedString(@"Are you sure you want to quit the exam", nil)
-//                                                             preferredStyle:UIAlertControllerStyleAlert];
-//            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"I Understand", nil)
-//                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-//                                                                     [_alertController dismissViewControllerAnimated:NO completion:nil];
-//                                                                     _alertController = nil;
-//                                                                     _guidedAccessWarningDisplayed = false;
-//                                                                     
-//                                                                     [self startExam];
-//                                                                 }]];
-//            [self presentViewController:_alertController animated:YES completion:nil];
-//
-//            NSAlert *newAlert = [[NSAlert alloc] init];
-//            [newAlert setMessageText:NSLocalizedString(@"Quit Safe Exam Browser",nil)];
-//            [newAlert setInformativeText:NSLocalizedString(@"Are you sure you want to quit SEB?", nil)];
-//            [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-//            [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
-//            [newAlert setAlertStyle:NSWarningAlertStyle];
-//            int answer = [newAlert runModal];
-//            switch(answer)
-//            {
-//                case NSAlertFirstButtonReturn:
-//                    return; //Cancel: don't quit
-//                default:
-//                {
-//                    if ([self.preferencesController preferencesAreOpen]) {
-//                        [self.preferencesController quitSEB:self];
-//                    } else {
-//                        quittingMyself = TRUE; //SEB is terminating itself
-//                        [NSApp terminate: nil]; //quit SEB
-//                    }
-//                }
-//            }
-//        }
-    }
+        // if quitting SEB is allowed
+        if (![hashedQuitPassword isEqualToString:@""]) {
+            // if quit password is set, then restrict quitting
+            // Allow up to 5 attempts for entering decoding password
+            attempts = 5;
+            NSString *enterPasswordString = NSLocalizedString(@"Enter quit password:", nil);
+            
+            // Ask the user to enter the quit password and proceed to the callback method after this happend
+            if (!_configFileController) {
+                _configFileController = [[SEBiOSConfigFileController alloc] init];
+                _configFileController.sebViewController = self;
+            }
+            
+            [_configFileController promptPasswordWithMessageText:enterPasswordString
+                                                       title:NSLocalizedString(@"Quit Exam",nil)
+                                                    callback:self
+                                                    selector:@selector(quitPasswordEntered:)];
+        } else {
+            // if no quit password is required, then confirm quitting
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Quit Exam", nil)
+                                                                    message:NSLocalizedString(@"Are you sure you want to quit the exam?", nil)
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Quit", nil)
+                                                                     style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                         [self quitExam];
+//                                                                         [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                     }]];
 
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//                                                                     [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                 }]];
+            
+            [self presentViewController:_alertController animated:YES completion:nil];
+        }
+    }
+}
+
+
+- (void) quitPasswordEntered:(NSString *)password
+{
+    // Check if the cancel button was pressed
+    if (!password) {
+        return;
+    }
     
+    // Get quit password hash from current client settings
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+    hashedQuitPassword = [hashedQuitPassword uppercaseString];
     
-    [_browserTabViewController removePersistedOpenWebPages];
-    _examRunning = false;
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    NSString *hashedPassword = [keychainManager generateSHAHashString:password];
+    hashedPassword = [hashedPassword uppercaseString];
+    
+    attempts--;
+    
+    if ([hashedPassword caseInsensitiveCompare:hashedQuitPassword] != NSOrderedSame) {
+        // wrong password entered, are there still attempts left?
+        if (attempts > 0) {
+            // Let the user try it again
+            NSString *enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the quit password:",nil);
+            // Ask the user to enter the settings password and proceed to the callback method after this happend
+            [_configFileController promptPasswordWithMessageText:enterPasswordString
+                                                           title:NSLocalizedString(@"Quit Exam",nil)
+                                                        callback:self
+                                                        selector:@selector(quitPasswordEntered:)];
+            return;
+            
+        } else {
+            // Wrong password entered in the last allowed attempts: Stop quitting the exam
+            DDLogError(@"%s: Couldn't quit the exam: The correct quit password wasn't entered.", __FUNCTION__);
+            
+            NSString *title = NSLocalizedString(@"Cannot Quit Exam", nil);
+            NSString *informativeText = NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit the exam.", nil);
+            [_configFileController showAlertWithTitle:title andText:informativeText];
+            return;
+        }
+        
+    } else {
+        // The correct quit password was entered
+        [self quitExam];
+    }
+}
+
+
+- (void) quitExam
+{
+    // Close browser tabs and reset SEB settings to the local client settings if necessary
+    [self resetSEB];
+    
     if (_ASAMActive) {
         [self stopAutonomousSingleAppMode];
-    } else {
+    } else if (_guidedAccessActive) {
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Stop Guided Access", nil)
                                                                     message:NSLocalizedString(@"You can now switch off Guided Access by home button tripple click or Touch ID.", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];
         [self presentViewController:_alertController animated:YES completion:nil];
         _guidedAccessWarningDisplayed = true;
+    } else {
+        [self startExam];
     }
 }
 
+
+// Inform the callback method if decrypting, parsing and storing new settings was successful or not
 - (void) quitExamWithCallback:(id)callback selector:(SEL)selector
 {
     BOOL success = true;
@@ -455,7 +473,14 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-// Inform the callback method if decrypting, parsing and storing new settings was successful or not
+- (void) resetSEB
+{
+    [_browserTabViewController closeAllTabs];
+    _examRunning = false;
+    
+    // Switch to system's (persisted) UserDefaults
+    [NSUserDefaults setUserDefaultsPrivate:NO];
+}
 
 
 - (void) downloadAndOpenSebConfigFromURL:(NSURL *)url
@@ -474,7 +499,6 @@ static NSMutableSet *browserWindowControllers;
             [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                                [_alertController dismissViewControllerAnimated:NO completion:nil];
-                                                                               [self startAutonomousSingleAppMode];
                                                                            }]];
             [self presentViewController:_alertController animated:YES completion:nil];
 
@@ -512,15 +536,15 @@ static NSMutableSet *browserWindowControllers;
 //                    [_mainBrowserWindow presentError:error modalForWindow:_mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
                 }
             }
-            SEBiOSConfigFileController *configFileManager = [[SEBiOSConfigFileController alloc] init];
-            configFileManager.sebViewController = self;
+            _configFileController = [[SEBiOSConfigFileController alloc] init];
+            _configFileController.sebViewController = self;
             
             // Get current config path
             currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
             // Store the URL of the .seb file as current config file path
             [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
             
-            [configFileManager storeNewSEBSettings:sebFileData forEditing:false callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
+            [_configFileController storeNewSEBSettings:sebFileData forEditing:false callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
         }
     }
 }
@@ -528,17 +552,58 @@ static NSMutableSet *browserWindowControllers;
 
 - (void) storeNewSEBSettingsSuccessful:(BOOL)success
 {
-    [self startAutonomousSingleAppMode];
-    
     if (success) {
-        // Post a notification that it was requested to restart SEB with changed settings
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"requestRestartNotification" object:self];
+        [_browserTabViewController closeAllTabs];
+        _examRunning = false;
+
+        [self startAutonomousSingleAppMode];
+
+        
+//        // Post a notification that it was requested to restart SEB with changed settings
+//        [[NSNotificationCenter defaultCenter]
+//         postNotificationName:@"requestRestartNotification" object:self];
         
     } else {
         // if decrypting new settings wasn't successfull, we have to restore the path to the old settings
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
     }
+}
+
+
+- (void)searchStarted
+{
+    [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+    
+    [self.navigationItem setLeftBarButtonItem:nil animated:YES];
+    
+    UIBarButtonItem *cancelSearchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(searchButtonCancel:)];
+    
+    UIBarButtonItem *padding = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    [padding setWidth:13];
+    
+    [self.navigationItem setRightBarButtonItems:
+     [NSArray arrayWithObjects:cancelSearchButton, padding, nil] animated:YES];
+}
+
+
+- (void)searchButtonCancel:(id)sender
+{
+    [_searchBarViewController cancelButtonPressed];
+}
+
+
+- (void)searchStopped
+{
+    [self.navigationItem setLeftBarButtonItem:leftButton animated:YES];
+    
+    //    [_navigationItem setRightBarButtonItems:[NSArray arrayWithObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addPageButton:)]] animated:YES];
+}
+
+
+- (void)searchGoSearchString:(NSString *)searchString
+{
+    [self searchStopped];
+    [_browserTabViewController loadWebPageOrSearchResultWithString:searchString];
 }
 
 

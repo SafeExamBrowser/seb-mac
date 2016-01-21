@@ -177,12 +177,12 @@
 }
 
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType) __unused navigationType
 {
     if (UIAccessibilityIsGuidedAccessEnabled()) {
         if (navigationType == UIWebViewNavigationTypeLinkClicked ) {
             navigationType = UIWebViewNavigationTypeOther;
-            DDLogInfo(@"%s: navigationType changed to UIWebViewNavigationTypeOther", __FUNCTION__);
+            DDLogVerbose(@"%s: navigationType changed to UIWebViewNavigationTypeOther", __FUNCTION__);
             [webView loadRequest:request];
             return NO;
         }

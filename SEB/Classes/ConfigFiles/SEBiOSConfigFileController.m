@@ -93,10 +93,17 @@
 }
 
 
-// Ask the user to enter a password using the message text and then call the callback selector with the password as parameter
+// Ask the user to enter a password for loading settings using the message text and then call the callback selector with the password as parameter
 - (void) promptPasswordWithMessageText:(NSString *)messageText callback:(id)callback selector:(SEL)selector;
 {
-    self.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Loading Settings",nil)
+    [self promptPasswordWithMessageText:messageText title:NSLocalizedString(@"Loading Settings",nil) callback:callback selector:selector];
+}
+
+
+// Ask the user to enter a password using the message text and then call the callback selector with the password as parameter
+- (void) promptPasswordWithMessageText:(NSString *)messageText title:(NSString *)titleString callback:(id)callback selector:(SEL)selector;
+{
+    self.alertController = [UIAlertController alertControllerWithTitle:titleString
                                                                 message:messageText
                                                          preferredStyle:UIAlertControllerStyleAlert];
     

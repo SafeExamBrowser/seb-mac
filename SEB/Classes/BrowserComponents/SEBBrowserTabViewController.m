@@ -271,6 +271,7 @@
     if (tabIndex == 0) {
         [_visibleWebViewController.view removeFromSuperview];
         [_visibleWebViewController removeFromParentViewController];
+        _visibleWebViewController = nil;
     } else {
         // Was a tab closed which was before the currently displayed in the webpage side panel list
         if ([MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow < [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow) {
@@ -297,6 +298,10 @@
 
 // Load all open web pages from the persistent store and re-create webview(s) for them
 - (void)loadPersistedOpenWebPages {
+    
+    // Currently we don't use eventually persisted webpages
+    [self removePersistedOpenWebPages];
+    
     NSManagedObjectContext *context = self.managedObjectContext;
     
     // Construct a fetch request
@@ -359,6 +364,24 @@
         
         [self openNewTabWithURL:[NSURL URLWithString:urlText] index:0];
     }
+}
+
+
+// Close all tabs with open web pages and remove persisted open webpages
+- (void)closeAllTabs
+{
+    [_visibleWebViewController.view removeFromSuperview];
+    [_visibleWebViewController removeFromParentViewController];
+    _visibleWebViewController = nil;
+
+    for (OpenWebpages *webpage in _openWebpages) {
+        SEBWebViewController *webViewController = webpage.webViewController;
+        // Close the webview
+        webViewController.view = nil;
+    }
+    [_openWebpages removeAllObjects];
+    
+    [self removePersistedOpenWebPages];
 }
 
 
