@@ -26,8 +26,8 @@
 		690BBEB219D2C6E500F7C9C6 /* SEBDockItemButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 690BBEB019D2C6E500F7C9C6 /* SEBDockItemButton.m */; };
 		690BBEB619D30DF800F7C9C6 /* SEBDockView.h in Headers */ = {isa = PBXBuildFile; fileRef = 690BBEB419D30DF800F7C9C6 /* SEBDockView.h */; };
 		690BBEB719D30DF800F7C9C6 /* SEBDockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 690BBEB519D30DF800F7C9C6 /* SEBDockView.m */; };
-		690C6EE619E29E3600EDE103 /* SEBBrowserController.h in Headers */ = {isa = PBXBuildFile; fileRef = 690C6EE419E29E3600EDE103 /* SEBBrowserController.h */; };
-		690C6EE719E29E3600EDE103 /* SEBBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690C6EE519E29E3600EDE103 /* SEBBrowserController.m */; };
+		690C6EE619E29E3600EDE103 /* SEBOSXBrowserController.h in Headers */ = {isa = PBXBuildFile; fileRef = 690C6EE419E29E3600EDE103 /* SEBOSXBrowserController.h */; };
+		690C6EE719E29E3600EDE103 /* SEBOSXBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690C6EE519E29E3600EDE103 /* SEBOSXBrowserController.m */; };
 		690E25A61BFC7DCC00B41217 /* SEBWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 690E25A51BFC7DCC00B41217 /* SEBWKWebView.m */; };
 		6913E5C41A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6913E5C21A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.h */; };
 		6913E5C51A4AD5EC002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6913E5C31A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m */; };
@@ -324,8 +324,8 @@
 		690BBEB019D2C6E500F7C9C6 /* SEBDockItemButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockItemButton.m; path = Classes/SEBDock/SEBDockItemButton.m; sourceTree = "<group>"; };
 		690BBEB419D30DF800F7C9C6 /* SEBDockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockView.h; path = Classes/SEBDock/SEBDockView.h; sourceTree = "<group>"; };
 		690BBEB519D30DF800F7C9C6 /* SEBDockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockView.m; path = Classes/SEBDock/SEBDockView.m; sourceTree = "<group>"; };
-		690C6EE419E29E3600EDE103 /* SEBBrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBBrowserController.h; path = Classes/BrowserComponents/SEBBrowserController.h; sourceTree = "<group>"; };
-		690C6EE519E29E3600EDE103 /* SEBBrowserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBBrowserController.m; path = Classes/BrowserComponents/SEBBrowserController.m; sourceTree = "<group>"; };
+		690C6EE419E29E3600EDE103 /* SEBOSXBrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBOSXBrowserController.h; path = Classes/BrowserComponents/SEBOSXBrowserController.h; sourceTree = "<group>"; };
+		690C6EE519E29E3600EDE103 /* SEBOSXBrowserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBOSXBrowserController.m; path = Classes/BrowserComponents/SEBOSXBrowserController.m; sourceTree = "<group>"; };
 		690D23461451EF2300CCCFF9 /* PrefsBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsBrowserViewController.h; sourceTree = "<group>"; };
 		690D23471451EF2400CCCFF9 /* PrefsBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsBrowserViewController.m; sourceTree = "<group>"; };
 		690D234A1452000800CCCFF9 /* BrowserIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BrowserIcon.png; path = Resources/Icons/BrowserIcon.png; sourceTree = "<group>"; };
@@ -946,8 +946,8 @@
 		69428C93172E5E7300C87C58 /* Browser Components */ = {
 			isa = PBXGroup;
 			children = (
-				690C6EE419E29E3600EDE103 /* SEBBrowserController.h */,
-				690C6EE519E29E3600EDE103 /* SEBBrowserController.m */,
+				690C6EE419E29E3600EDE103 /* SEBOSXBrowserController.h */,
+				690C6EE519E29E3600EDE103 /* SEBOSXBrowserController.m */,
 				69F684CA143653880091CDA7 /* SEBBrowserWindowDocument.h */,
 				69F684CB143653880091CDA7 /* SEBBrowserWindowDocument.m */,
 				693D5A1514C59B4300E37C68 /* SEBBrowserWindowController.h */,
@@ -1311,7 +1311,7 @@
 				699731C418C8D6ED0069FE35 /* CapWindow.h in Headers */,
 				6921294216F91C6600AFC3B0 /* BoolValueTransformer.h in Headers */,
 				69009BE019EA7F590083274C /* SEBBrowserOpenWindowWebView.h in Headers */,
-				690C6EE619E29E3600EDE103 /* SEBBrowserController.h in Headers */,
+				690C6EE619E29E3600EDE103 /* SEBOSXBrowserController.h in Headers */,
 				69DFAF3319C468E700CBE69F /* RNEncryptor.h in Headers */,
 				69EC2A3D1BD63B4800790AF7 /* WebViewInternal.h in Headers */,
 				69DFAF3A19C468E700CBE69F /* RNCryptor OS X-Prefix.pch in Headers */,
@@ -1757,7 +1757,7 @@
 				690BBEB719D30DF800F7C9C6 /* SEBDockView.m in Sources */,
 				69F7B61614F411FB00FD0761 /* PrefsBrowserViewController.m in Sources */,
 				69F7B61714F411FB00FD0761 /* SEBEncryptedUserDefaultsController.m in Sources */,
-				690C6EE719E29E3600EDE103 /* SEBBrowserController.m in Sources */,
+				690C6EE719E29E3600EDE103 /* SEBOSXBrowserController.m in Sources */,
 				699731C518C8D6ED0069FE35 /* CapWindow.m in Sources */,
 				69F7B61814F411FB00FD0761 /* WebKit+WebKitExtensions.m in Sources */,
 				69627F911A1A46D000E9F2A8 /* NSURL+SEBURL.m in Sources */,

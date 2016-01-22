@@ -32,7 +32,7 @@
 //  Contributor(s): ______________________________________.
 //
 
-#import "SEBBrowserController.h"
+#import "SEBOSXBrowserController.h"
 #import "SEBBrowserWindowDocument.h"
 #import "SEBBrowserOpenWindowWebView.h"
 #import "NSWindow+SEBWindow.h"
@@ -43,7 +43,7 @@
 #include "WebPreferencesPrivate.h"
 #import "WebPluginDatabase.h"
 
-@implementation SEBBrowserController
+@implementation SEBOSXBrowserController
 
 
 - (instancetype)init

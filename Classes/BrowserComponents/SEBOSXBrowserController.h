@@ -43,7 +43,7 @@
 @class SEBBrowserWindow;
 @class SEBWebView;
 
-@interface SEBBrowserController : NSObject
+@interface SEBOSXBrowserController : NSObject
 
 @property (strong) SEBWebView *webView;
 @property (strong) SEBBrowserWindow *mainBrowserWindow;

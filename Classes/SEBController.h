@@ -47,7 +47,7 @@
 #import "SEBOSXLockedViewController.h"
 
 #import "AboutWindow.h"
-#import "SEBBrowserController.h"
+#import "SEBOSXBrowserController.h"
 
 #import "SEBBrowserWindow.h"
 #import "SEBWebView.h"
@@ -64,7 +64,7 @@
 @class PreferencesController;
 @class SEBSystemManager;
 @class SEBDockController;
-@class SEBBrowserController;
+@class SEBOSXBrowserController;
 @class SEBOSXLockedViewController;
 
 
@@ -136,7 +136,7 @@
 @property(strong) IBOutlet id preferencesController;
 @property(strong) IBOutlet SEBSystemManager *systemManager;
 @property(strong) SEBDockController *dockController;
-@property(strong) SEBBrowserController *browserController;
+@property(strong) SEBOSXBrowserController *browserController;
 @property(strong) NSDate *didResignActiveTime;
 @property(strong) NSDate *didBecomeActiveTime;
 @property(strong) NSDate *didResumeExamTime;

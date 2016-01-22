@@ -40,10 +40,10 @@
 #import "SEBBrowserWindowController.h"
 #import "SEBWebView.h"
 #import "SEBEncryptedUserDefaultsController.h"
-#import "SEBBrowserController.h"
+#import "SEBOSXBrowserController.h"
 #import "SEBTextField.h"
 
-@class SEBBrowserController;
+@class SEBOSXBrowserController;
 
 @interface SEBBrowserWindow : NSWindow <NSWindowDelegate, NSURLDownloadDelegate, NSTextViewDelegate, WebUIDelegate, WebPolicyDelegate, WebFrameLoadDelegate, WebResourceLoadDelegate>
 
@@ -55,7 +55,7 @@
     
 }
 
-@property (weak) SEBBrowserController *browserController;
+@property (weak) SEBOSXBrowserController *browserController;
 @property (weak) IBOutlet SEBWebView *webView;
 @property (strong) IBOutlet NSWindow *URLFilterAlert;
 @property (weak) IBOutlet SEBTextField *URLFilterAlertText;
