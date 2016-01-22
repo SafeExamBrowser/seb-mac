@@ -283,7 +283,7 @@ static NSMutableSet *browserWindowControllers;
         _guidedAccessActive = true;
         if (UIAccessibilityIsGuidedAccessEnabled() == false) {
             _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Start Guided Access", nil)
-                                                                    message:NSLocalizedString(@"Enable Guided Access in Settings -> General -> Accessibility and after returning to SEB, tripple click home button to proceed to exam.", nil)
+                                                                    message:NSLocalizedString(@"Enable Guided Access in Settings -> General -> Accessibility and after returning to SEB, triple click home button to proceed to exam.", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];
             [self presentViewController:_alertController animated:YES completion:nil];
         }
@@ -300,7 +300,7 @@ static NSMutableSet *browserWindowControllers;
         // If Guided Access isn't already on, show alert to switch it on again
         if (UIAccessibilityIsGuidedAccessEnabled() == false) {
             _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Restart Guided Access", nil)
-                                                                    message:NSLocalizedString(@"Activate Guided Access with tripple click home button to return to exam.", nil)
+                                                                    message:NSLocalizedString(@"Activate Guided Access with triple click home button to return to exam.", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];
             _guidedAccessActive = true;
             [self presentViewController:_alertController animated:YES completion:nil];
@@ -320,7 +320,7 @@ static NSMutableSet *browserWindowControllers;
         [_alertController dismissViewControllerAnimated:NO completion:nil];
         
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Guided Access Warning", nil)
-                                                                          message:NSLocalizedString(@"Don't switch Guided Access off (home button tripple click or Touch ID) before submitting your exam, otherwise SEB will lock access to the exam! SEB will notify you when you're allowed to switch Guided Access off.", nil)
+                                                                          message:NSLocalizedString(@"Don't switch Guided Access off (home button triple click or Touch ID) before submitting your exam, otherwise SEB will lock access to the exam! SEB will notify you when you're allowed to switch Guided Access off.", nil)
                                                                    preferredStyle:UIAlertControllerStyleAlert];
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"I Understand", nil)
                                                                        style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -467,7 +467,7 @@ static NSMutableSet *browserWindowControllers;
         [self presentViewController:_alertController animated:YES completion:nil];
     } else if (_guidedAccessActive) {
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Stop Guided Access", nil)
-                                                                    message:NSLocalizedString(@"You can now switch off Guided Access by home button tripple click or Touch ID.", nil)
+                                                                    message:NSLocalizedString(@"You can now switch off Guided Access by home button triple click or Touch ID.", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];
         _guidedAccessWarningDisplayed = true;
         [self presentViewController:_alertController animated:YES completion:nil];
