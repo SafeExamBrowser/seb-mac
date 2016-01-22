@@ -374,7 +374,7 @@ bool insideMatrix();
 	
     // Add an observer for the request to conditionally quit SEB with asking quit password
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(requestedQuitWPwd:)
+                                             selector:@selector(requestedQuitWOPwd:)
                                                  name:@"requestQuitWPwdNotification" object:nil];
 	
     // Add an observer for the request to reload start URL
@@ -1709,7 +1709,7 @@ bool insideMatrix(){
 }
 
 
-- (void)requestedQuitWPwd:(NSNotification *)notification
+- (void)requestedQuitWOPwd:(NSNotification *)notification
 {
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     NSAlert *newAlert = [[NSAlert alloc] init];
