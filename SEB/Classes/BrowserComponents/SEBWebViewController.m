@@ -198,6 +198,14 @@
     if ([[url scheme] isEqualToString:@"about"]) {
         return NO;
     }
+    
+    // Check if this is a seb:// link
+    if ([url.scheme isEqualToString:@"seb"]) {
+        // If the scheme is seb:// we (conditionally) download and open the linked .seb file
+        [_browserTabViewController downloadAndOpenSEBConfigFromURL:url];
+        return NO;
+    }
+
     if(navigationType == UIWebViewNavigationTypeLinkClicked) {
         NSString *fileExtension = [url pathExtension];
         

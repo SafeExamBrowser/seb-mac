@@ -403,7 +403,7 @@
 }
 
 
-- (void) downloadAndOpenSebConfigFromURL:(NSURL *)url
+- (void) downloadAndOpenSEBConfigFromURL:(NSURL *)url
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {

@@ -115,7 +115,7 @@
             DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", url);
             if (self.sebViewController) {
                 // Is the main SEB view controller already instantiated?
-                [self.sebViewController downloadAndOpenSebConfigFromURL:url];
+                [self.sebViewController downloadAndOpenSEBConfigFromURL:url];
             } else {
                 // Postpone loading .seb file until app did finish launching
                 _sebFileURL = url;

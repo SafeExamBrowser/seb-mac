@@ -80,7 +80,7 @@
 
 - (void) stopAutonomousSingleAppMode;
 
-- (void) downloadAndOpenSebConfigFromURL:(NSURL *)url;
+- (void) downloadAndOpenSEBConfigFromURL:(NSURL *)url;
 
 @end
 

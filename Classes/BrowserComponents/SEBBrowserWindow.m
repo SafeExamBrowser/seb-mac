@@ -1314,7 +1314,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         // Check if this is a seb:// link
         if ([request.URL.scheme isEqualToString:@"seb"]) {
             // If the scheme is seb:// we (conditionally) download and open the linked .seb file
-            [self.browserController downloadAndOpenSebConfigFromURL:request.URL];
+            [self.browserController downloadAndOpenSEBConfigFromURL:request.URL];
             [listener ignore];
             return;
         }
@@ -1433,7 +1433,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (([type isEqualToString:@"application/seb"]) || ([request.URL.pathExtension isEqualToString:@"seb"])) {
         // If MIME-Type or extension of the file indicates a .seb file, we (conditionally) download and open it
-        [self.browserController downloadAndOpenSebConfigFromURL:request.URL];
+        [self.browserController downloadAndOpenSEBConfigFromURL:request.URL];
         [listener ignore];
         return;
     }

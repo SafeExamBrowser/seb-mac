@@ -85,7 +85,7 @@ static NSMutableSet *browserWindowControllers;
     // Was SEB opened by loading a .seb file/using a seb:// link?
     if (appDelegate.sebFileURL) {
         // Yes: Load the .seb file now that the necessary SEB main view controller was loaded
-        [self downloadAndOpenSebConfigFromURL:appDelegate.sebFileURL];
+        [self downloadAndOpenSEBConfigFromURL:appDelegate.sebFileURL];
     }
 }
 
@@ -498,7 +498,7 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (void) downloadAndOpenSebConfigFromURL:(NSURL *)url
+- (void) downloadAndOpenSEBConfigFromURL:(NSURL *)url
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {

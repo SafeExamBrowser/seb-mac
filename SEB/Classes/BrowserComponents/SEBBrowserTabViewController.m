@@ -451,5 +451,11 @@
 }
 
 
+- (void) downloadAndOpenSEBConfigFromURL:(NSURL *)url
+{
+    [_sebViewController downloadAndOpenSEBConfigFromURL:url];
+}
+
+
 @end
 

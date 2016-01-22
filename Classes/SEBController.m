@@ -176,7 +176,7 @@ bool insideMatrix();
         if ([url.pathExtension isEqualToString:@"seb"]) {
             // If we have a valid URL with the path for a .seb file, we download and open it (conditionally)
             DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", urlString);
-            [self.browserController downloadAndOpenSebConfigFromURL:url];
+            [self.browserController downloadAndOpenSEBConfigFromURL:url];
         }
     }
 }

@@ -59,28 +59,30 @@
 @property (nonatomic, strong) SEBSearchBarViewController *searchBarController;
 
 
-- (void)openNewTabWithURL:(NSURL *)url;
-- (void)openNewTabWithURL:(NSURL *)url index:(NSUInteger)index;
-- (void)loadPersistedOpenWebPages;
+- (void) openNewTabWithURL:(NSURL *)url;
+- (void) openNewTabWithURL:(NSURL *)url index:(NSUInteger)index;
+- (void) loadPersistedOpenWebPages;
 
-- (void)closeAllTabs;
+- (void) closeAllTabs;
 
-- (void)removePersistedOpenWebPages;
+- (void) removePersistedOpenWebPages;
 
 - (id) infoValueForKey:(NSString *)key;
-- (NSString *)documentsDirectoryPath;
+- (NSString *) documentsDirectoryPath;
 
-- (void)goBack;
-- (void)goForward;
-- (void)reload;
-- (void)stopLoading;
+- (void) goBack;
+- (void) goForward;
+- (void) reload;
+- (void) stopLoading;
 
-- (void)setLoading:(BOOL)loading;
+- (void) setLoading:(BOOL)loading;
 
-- (void)loadWebPageOrSearchResultWithString:(NSString *)webSearchString;
+- (void) loadWebPageOrSearchResultWithString:(NSString *)webSearchString;
 
-- (void)switchToTab:(id)sender;
-- (void)closeTab;
+- (void) switchToTab:(id)sender;
+- (void) closeTab;
+
+- (void) downloadAndOpenSEBConfigFromURL:(NSURL *)url;
 
 @end
 
