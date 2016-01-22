@@ -199,8 +199,8 @@
         return NO;
     }
     
-    // Check if this is a seb:// link
-    if ([url.scheme isEqualToString:@"seb"]) {
+    // Check if this is a seb:// or sebs:// link
+    if ([url.scheme isEqualToString:@"seb"] || [url.scheme isEqualToString:@"sebs"]) {
         // If the scheme is seb:// we (conditionally) download and open the linked .seb file
         [_browserTabViewController downloadAndOpenSEBConfigFromURL:url];
         return NO;
