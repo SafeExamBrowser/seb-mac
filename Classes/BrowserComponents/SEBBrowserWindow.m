@@ -1311,8 +1311,9 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
             }
         }
         
-        // Check if this is a seb:// link
-        if ([request.URL.scheme isEqualToString:@"seb"]) {
+        // Check if this is a seb:// or sebs:// link
+        NSString *scheme = request.URL.scheme;
+        if ([scheme isEqualToString:@"seb"] || [scheme isEqualToString:@"sebs"]) {
             // If the scheme is seb:// we (conditionally) download and open the linked .seb file
             [self.browserController downloadAndOpenSEBConfigFromURL:request.URL];
             [listener ignore];
