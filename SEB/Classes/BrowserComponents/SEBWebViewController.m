@@ -206,6 +206,15 @@
         return NO;
     }
 
+    // Check if quit URL has been clicked (regardless of current URL Filter)
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([[url absoluteString] isEqualToString:[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"]]) {
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"requestQuitWPwdNotification" object:self];
+        return NO;
+    }
+
+    // Downloading image files for the freehand drawing functionality
     if(navigationType == UIWebViewNavigationTypeLinkClicked) {
         NSString *fileExtension = [url pathExtension];
         

@@ -81,7 +81,12 @@ static NSMutableSet *browserWindowControllers;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(guidedAccessChanged)
                                                  name:UIAccessibilityGuidedAccessStatusDidChangeNotification object:nil];
-    
+
+    // Add an observer for the request to conditionally quit SEB with asking quit password
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(requestedQuitWOPwd:)
+                                                 name:@"requestQuitWPwdNotification" object:nil];
+
     // Was SEB opened by loading a .seb file/using a seb:// link?
     if (appDelegate.sebFileURL) {
         // Yes: Load the .seb file now that the necessary SEB main view controller was loaded
@@ -379,24 +384,37 @@ static NSMutableSet *browserWindowControllers;
                                                     callback:self
                                                     selector:@selector(quitPasswordEntered:)];
         } else {
-            // if no quit password is required, then confirm quitting
-            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Quit Exam", nil)
-                                                                    message:NSLocalizedString(@"Are you sure you want to quit the exam?", nil)
-                                                             preferredStyle:UIAlertControllerStyleAlert];
-            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Quit", nil)
-                                                                     style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                         [_alertController dismissViewControllerAnimated:NO completion:nil];
-                                                                         [self quitExam];
-                                                                     }]];
-
-            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
-                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-//                                                                     [_alertController dismissViewControllerAnimated:NO completion:nil];
-                                                                 }]];
-            
-            [self presentViewController:_alertController animated:YES completion:nil];
+            // if no quit password is required, then just confirm quitting
+            [self quitExamIgnoringQuitPW];
         }
     }
+}
+
+
+// If no quit password is required, then confirm quitting
+- (void) quitExamIgnoringQuitPW
+{
+    _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Quit Exam", nil)
+                                                            message:NSLocalizedString(@"Are you sure you want to quit the exam?", nil)
+                                                     preferredStyle:UIAlertControllerStyleAlert];
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Quit", nil)
+                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                             [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                             [self quitExam];
+                                                         }]];
+    
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                             //                                                                     [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                         }]];
+    
+    [self presentViewController:_alertController animated:YES completion:nil];
+}
+
+
+- (void)requestedQuitWOPwd:(NSNotification *)notification
+{
+    [self quitExamIgnoringQuitPW];
 }
 
 
