@@ -39,12 +39,15 @@
 #import "SEBDockController.h"
 #import "SEBDockItemButton.h"
 #import "SEBDockItemMenu.h"
+#import "SEBBrowserController.h"
 
+@class SEBBrowserController;
 @class SEBBrowserWindow;
 @class SEBWebView;
 
 @interface SEBOSXBrowserController : NSObject
 
+@property (strong) SEBBrowserController *browserController;
 @property (strong) SEBWebView *webView;
 @property (strong) SEBBrowserWindow *mainBrowserWindow;
 @property (strong) SEBBrowserWindow *activeBrowserWindow;

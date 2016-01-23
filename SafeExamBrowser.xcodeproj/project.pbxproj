@@ -179,6 +179,10 @@
 		69B416101BFFA0430049ED2A /* SEB_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 69B4160F1BFFA0430049ED2A /* SEB_Prefix.pch */; };
 		69B5393E1C490CB200A967B0 /* SEBActionUITableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B5393C1C490CB200A967B0 /* SEBActionUITableViewCell.h */; };
 		69B5393F1C490CB200A967B0 /* SEBActionUITableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B5393D1C490CB200A967B0 /* SEBActionUITableViewCell.m */; };
+		69B539421C52974100A967B0 /* SEBBrowserController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B539401C52974100A967B0 /* SEBBrowserController.h */; };
+		69B539431C52974200A967B0 /* SEBBrowserController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B539401C52974100A967B0 /* SEBBrowserController.h */; };
+		69B539441C52974200A967B0 /* SEBBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B539411C52974100A967B0 /* SEBBrowserController.m */; };
+		69B539451C52974200A967B0 /* SEBBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B539411C52974100A967B0 /* SEBBrowserController.m */; };
 		69BB07441BA11CD40065E1F2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69BB07431BA11CD40065E1F2 /* WebKit.framework */; };
 		69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CBEB541834C55C00FB0460 /* SEBSystemManager.h */; };
 		69CBEB571834C55D00FB0460 /* SEBSystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBEB551834C55C00FB0460 /* SEBSystemManager.m */; };
@@ -500,6 +504,8 @@
 		69B4160F1BFFA0430049ED2A /* SEB_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEB_Prefix.pch; path = OtherSources/SEB_Prefix.pch; sourceTree = "<group>"; };
 		69B5393C1C490CB200A967B0 /* SEBActionUITableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBActionUITableViewCell.h; path = Classes/AdditionalViews/SEBActionUITableViewCell.h; sourceTree = "<group>"; };
 		69B5393D1C490CB200A967B0 /* SEBActionUITableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBActionUITableViewCell.m; path = Classes/AdditionalViews/SEBActionUITableViewCell.m; sourceTree = "<group>"; };
+		69B539401C52974100A967B0 /* SEBBrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBBrowserController.h; path = Classes/BrowserComponents/SEBBrowserController.h; sourceTree = "<group>"; };
+		69B539411C52974100A967B0 /* SEBBrowserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBBrowserController.m; path = Classes/BrowserComponents/SEBBrowserController.m; sourceTree = "<group>"; };
 		69BB07431BA11CD40065E1F2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		69C52802136AFDBD00F9F000 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PreferencesController.m; path = Classes/Preferences/PreferencesWindow/PreferencesController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69C52805136AFE9500F9F000 /* PrefsDownUploadsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsDownUploadsViewController.m; sourceTree = "<group>"; };
@@ -948,6 +954,8 @@
 			children = (
 				690C6EE419E29E3600EDE103 /* SEBOSXBrowserController.h */,
 				690C6EE519E29E3600EDE103 /* SEBOSXBrowserController.m */,
+				69B539401C52974100A967B0 /* SEBBrowserController.h */,
+				69B539411C52974100A967B0 /* SEBBrowserController.m */,
 				69F684CA143653880091CDA7 /* SEBBrowserWindowDocument.h */,
 				69F684CB143653880091CDA7 /* SEBBrowserWindowDocument.m */,
 				693D5A1514C59B4300E37C68 /* SEBBrowserWindowController.h */,
@@ -1265,6 +1273,7 @@
 				696DAD3D1C3C2D0500397E18 /* SEBTableViewController.h in Headers */,
 				69E4EDFD1C208F2300F5E5EB /* SEBiOSKeychainManager.h in Headers */,
 				69A3FCD51C1B5680009BEA13 /* SEBConfigFileCredentials.h in Headers */,
+				69B539431C52974200A967B0 /* SEBBrowserController.h in Headers */,
 				6943165F1BFEBB6500F784EE /* SynthesizeSingleton.h in Headers */,
 				696DAD511C3C7C9A00397E18 /* Webpages.h in Headers */,
 				69A2233E1C20E0BA00766354 /* NSData+NSDataZIPExtension.h in Headers */,
@@ -1319,6 +1328,7 @@
 				69D817E518017DDB00EB7885 /* SEBURLFilter.h in Headers */,
 				69263A9E1A2E0765006F1E31 /* SEBWebView.h in Headers */,
 				690BBEB119D2C6E500F7C9C6 /* SEBDockItemButton.h in Headers */,
+				69B539421C52974100A967B0 /* SEBBrowserController.h in Headers */,
 				69544E521C0CEB8800D60C3E /* SEBOSXConfigFileController.h in Headers */,
 				6921294716F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h in Headers */,
 				6901331B19B371CB0050574D /* PreferencesWindow.h in Headers */,
@@ -1701,6 +1711,7 @@
 				69E4EDFE1C208F2300F5E5EB /* SEBiOSKeychainManager.m in Sources */,
 				69A2233F1C20E0BD00766354 /* NSData+NSDataZIPExtension.m in Sources */,
 				6930D2261C205F470087F79E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
+				69B539451C52974200A967B0 /* SEBBrowserController.m in Sources */,
 				6940B96D1BA0F2FB008C8CFC /* AppDelegate.m in Sources */,
 				6930D2291C2069100087F79E /* SEBKeychainManager.m in Sources */,
 				6940B96A1BA0F2FB008C8CFC /* main.m in Sources */,
@@ -1768,6 +1779,7 @@
 				690BBEB219D2C6E500F7C9C6 /* SEBDockItemButton.m in Sources */,
 				69009BE119EA7F590083274C /* SEBBrowserOpenWindowWebView.m in Sources */,
 				69F45D3F1A2123C3009CF3AA /* SEBURLFilterExpression.m in Sources */,
+				69B539441C52974200A967B0 /* SEBBrowserController.m in Sources */,
 				6915F2EA19C8F77600DAEA37 /* SEBDockWindow.m in Sources */,
 				6930D22D1C2086010087F79E /* SEBOSXKeychainManager.m in Sources */,
 				6940A7621853B2AD00D9D00D /* NSData+NSDataZIPExtension.m in Sources */,
