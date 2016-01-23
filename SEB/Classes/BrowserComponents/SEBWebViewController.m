@@ -180,7 +180,7 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType) __unused navigationType
 {
     if (UIAccessibilityIsGuidedAccessEnabled()) {
-        if (navigationType == UIWebViewNavigationTypeLinkClicked ) {
+        if (navigationType == UIWebViewNavigationTypeLinkClicked || navigationType == UIWebViewNavigationTypeFormSubmitted) {
             navigationType = UIWebViewNavigationTypeOther;
             DDLogVerbose(@"%s: navigationType changed to UIWebViewNavigationTypeOther", __FUNCTION__);
             [webView loadRequest:request];

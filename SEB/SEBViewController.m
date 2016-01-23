@@ -87,6 +87,9 @@ static NSMutableSet *browserWindowControllers;
                                              selector:@selector(requestedQuitWOPwd:)
                                                  name:@"requestQuitWPwdNotification" object:nil];
 
+    // Initialize UI and default UI/browser settings
+    [self initSEB];
+    
     // Was SEB opened by loading a .seb file/using a seb:// link?
     if (appDelegate.sebFileURL) {
         // Yes: Load the .seb file now that the necessary SEB main view controller was loaded
@@ -506,6 +509,26 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+- (void) initSEB
+{
+    // Create browser user agent according to settings
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
+    NSString *overrideUserAgent;
+    
+    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserUserAgentMac"] == browserUserAgentModeMacDefault) {
+        overrideUserAgent = [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"];
+    } else {
+        overrideUserAgent = [preferences secureStringForKey:@"org_safeexambrowser_SEB_browserUserAgentMacCustom"];
+    }
+    // Add "SEB <version number>" to the browser's user agent, so the LMS SEB plugins recognize us
+    overrideUserAgent = [overrideUserAgent stringByAppendingString:[NSString stringWithFormat:@" %@/%@", SEBUserAgentDefaultSuffix, versionString]];
+    
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:overrideUserAgent, @"UserAgent", nil];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+}
+
+
 - (void) resetSEB
 {
     [_browserTabViewController closeAllTabs];
@@ -513,6 +536,8 @@ static NSMutableSet *browserWindowControllers;
     
     // Switch to system's (persisted) UserDefaults
     [NSUserDefaults setUserDefaultsPrivate:NO];
+    
+    [self initSEB];
 }
 
 

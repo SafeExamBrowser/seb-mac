@@ -37,6 +37,7 @@
 #import "SEBMasterViewController.h"
 #import "MMDrawerController.h"
 #import "MMDrawerVisualState.h"
+#import "SEBBrowserController.h"
 
 @interface AppDelegate ()
 {
@@ -70,6 +71,11 @@
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences setSEBDefaults];
+    
+    // Get default WebKit browser User Agent and create
+    // default SEB User Agent
+    NSString *defaultUserAgent = [[UIWebView new] stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+    [[SEBBrowserController new] createSEBUserAgentFromDefaultAgent:defaultUserAgent];
     
     // Initialize file logger if it's enabled in settings
 //    [self initializeLogger];
