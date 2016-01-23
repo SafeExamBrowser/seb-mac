@@ -49,6 +49,7 @@
         //viewFrame.size.height -= kNavbarHeight;
         [[self view] setFrame:viewFrame];
     } else {
+        [_sebWebView removeFromSuperview];
         [[self view] removeFromSuperview];
     }
 }

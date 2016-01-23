@@ -190,7 +190,6 @@
     [self.openWebpages addObject:newOpenWebpage];
     
     // Exchange the old against the new webview
-    [_visibleWebViewController.view removeFromSuperview];
     [_visibleWebViewController removeFromParentViewController];
 
     [self addChildViewController:newWebViewController];
@@ -219,7 +218,6 @@
     }
     
     // Exchange the old against the new webview
-    [_visibleWebViewController.view removeFromSuperview];
     [_visibleWebViewController removeFromParentViewController];
     
     [self addChildViewController:webViewControllerToSwitch];
@@ -269,7 +267,6 @@
     
     // Check if the user is closing the main web view (with the exam)
     if (tabIndex == 0) {
-        [_visibleWebViewController.view removeFromSuperview];
         [_visibleWebViewController removeFromParentViewController];
         _visibleWebViewController = nil;
     } else {
@@ -347,7 +344,6 @@
         OpenWebpages *newOpenWebpage = (self.openWebpages.lastObject);
         SEBWebViewController *newVisibleWebViewController = newOpenWebpage.webViewController;
         // Exchange the old against the new webview
-        [_visibleWebViewController.view removeFromSuperview];
         [_visibleWebViewController removeFromParentViewController];
         
         [self addChildViewController:newVisibleWebViewController];
@@ -370,12 +366,9 @@
 // Close all tabs with open web pages and remove persisted open webpages
 - (void)closeAllTabs
 {
-//    [_visibleWebViewController.view performSelectorOnMainThread:@selector(removeFromSuperview) withObject:nil waitUntilDone:NO];
+    [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
 
-//    [_visibleWebViewController willMoveToParentViewController:nil];
-    [_visibleWebViewController.view removeFromSuperview];
     [_visibleWebViewController removeFromParentViewController];
-    _visibleWebViewController = nil;
 
     for (OpenWebpages *webpage in _openWebpages) {
         SEBWebViewController *webViewController = webpage.webViewController;
