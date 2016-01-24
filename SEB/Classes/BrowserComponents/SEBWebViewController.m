@@ -216,7 +216,7 @@
     }
 
     // Downloading image files for the freehand drawing functionality
-    if(navigationType == UIWebViewNavigationTypeLinkClicked) {
+    if(navigationType == UIWebViewNavigationTypeOther) {
         NSString *fileExtension = [url pathExtension];
         
         if ([fileExtension isEqualToString:@"png"] || [fileExtension isEqualToString:@"jpg"] || [fileExtension isEqualToString:@"tif"] || [fileExtension isEqualToString:@"xls"]) {

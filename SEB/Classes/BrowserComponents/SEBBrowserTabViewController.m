@@ -189,6 +189,9 @@
     // Add this to the Array of all open webpages
     [self.openWebpages addObject:newOpenWebpage];
     
+    // Set the index of the current web page
+    [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow = _openWebpages.count-1;
+    
     // Exchange the old against the new webview
     [_visibleWebViewController removeFromParentViewController];
 
@@ -223,7 +226,8 @@
     [self addChildViewController:webViewControllerToSwitch];
     [self.view addSubview:webViewControllerToSwitch.sebWebView];
     _visibleWebViewController = webViewControllerToSwitch;
-   
+
+    [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;;
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
@@ -270,12 +274,14 @@
         [_visibleWebViewController removeFromParentViewController];
         _visibleWebViewController = nil;
     } else {
+        NSInteger selectedWebpageIndexPathRow = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;
+        NSInteger currentWebpageIndexPathRow = [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow;
         // Was a tab closed which was before the currently displayed in the webpage side panel list
-        if ([MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow < [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow) {
+        if (selectedWebpageIndexPathRow < currentWebpageIndexPathRow) {
             // Yes: the index of the current webpage must be decreased by one
             [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow--;
             // Or was the currently displayed webpage closed?
-        } else if ([MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow == [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow) {
+        } else if (selectedWebpageIndexPathRow == currentWebpageIndexPathRow) {
             // Yes: the index of the current webpage must be decreased by one
             [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow--;
             [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow--;
