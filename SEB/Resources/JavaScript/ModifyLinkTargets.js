@@ -34,3 +34,30 @@ function SEB_increaseMaxZoomFactor() {
     var head = document.getElementsByTagName('head')[0];
     head.appendChild(element);
 }
+
+function SEB_replaceImage(base64Data) {
+    var picture = document.getElementsByClassName('img-responsive')[0];
+    picture.src = "data:image/png;base64,"+base64Data;
+}
+
+
+function SEB_simulateDrop(base64Data) {
+    //var fileInput = document.getElementsByClassName('img-responsive')[0];
+    
+    var picture = document.getElementsByClassName('img-responsive')[0];
+    picture.src = "data:image/png;base64,"+base64Data;
+
+    var pictureBlob = new Blob([picture], {type: 'image/png'});
+    file = new File([pictureBlob], "filename.png")
+
+    filemanager-container.drop({
+                  dataTransfer: { files: [ file ] }
+                         });
+}
+
+
+function createFile(create) {
+    var create = ["iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="];
+    var blob = new Blob([create], {"type" : "image/png"});
+    return ( blob.size > 0 ? blob : "file creation error" )
+};

@@ -370,7 +370,7 @@ static NSMutableSet *browserWindowControllers;
     NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"] == YES) {
         // if quitting SEB is allowed
-        if (![hashedQuitPassword isEqualToString:@""]) {
+        if (hashedQuitPassword.length > 0) {
             // if quit password is set, then restrict quitting
             // Allow up to 5 attempts for entering decoding password
             attempts = 5;

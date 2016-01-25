@@ -216,7 +216,7 @@
     }
 
     // Downloading image files for the freehand drawing functionality
-    if(navigationType == UIWebViewNavigationTypeOther) {
+    if(navigationType == UIWebViewNavigationTypeLinkClicked || navigationType == UIWebViewNavigationTypeOther) {
         NSString *fileExtension = [url pathExtension];
         
         if ([fileExtension isEqualToString:@"png"] || [fileExtension isEqualToString:@"jpg"] || [fileExtension isEqualToString:@"tif"] || [fileExtension isEqualToString:@"xls"]) {
@@ -234,13 +234,24 @@
             // Save the loaded data if loaded successfully
             if (tmp != nil) {
                 NSError *error = nil;
+                UIImage *sourceImage = [UIImage imageWithData: [NSData dataWithContentsOfURL:url]];
+//                UIImage* flippedImage = [UIImage imageWithCGImage:sourceImage.CGImage
+//                                                            scale:sourceImage.scale
+//                                                      orientation:UIImageOrientationUpMirrored];
+                UIImage *processedImage = [self invertImage:sourceImage];
+                NSData *dataForPNGFile = UIImagePNGRepresentation(processedImage);
+
                 // Write the contents of our tmp object into a file
-                [tmp writeToFile:pathToDownloadTo options:NSDataWritingAtomic error:&error];
+                [dataForPNGFile writeToFile:pathToDownloadTo options:NSDataWritingAtomic error:&error];
                 if (error != nil) {
                     NSLog(@"Failed to save the file: %@", [error description]);
                 } else {
+                    NSString *base64PNGData = [dataForPNGFile base64EncodedStringWithOptions:0];
+                    NSString *simulateDropFunction = [NSString stringWithFormat:@"SEB_replaceImage('%@')", base64PNGData];
+                    NSString *result =[_sebWebView stringByEvaluatingJavaScriptFromString:simulateDropFunction];
+//                    NSString *result = [_sebWebView stringByEvaluatingJavaScriptFromString:@"SEB_replaceImage()"];
                     // Display an UIAlertView that shows the users we saved the file :)
-                    UIAlertView *filenameAlert = [[UIAlertView alloc] initWithTitle:@"File saved" message:[NSString stringWithFormat:@"The file %@ has been saved.", filename] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    UIAlertView *filenameAlert = [[UIAlertView alloc] initWithTitle:@"File saved" message:[NSString stringWithFormat:@"The file %@ has been saved. Result: %@", filename, result] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                     [filenameAlert show];
                     return NO;
                 }
@@ -255,6 +266,28 @@
     return YES;
 }
 
+
+- (UIImage *)invertImage:(UIImage *)originalImage
+{
+    UIGraphicsBeginImageContext(originalImage.size);
+    CGContextSetBlendMode(UIGraphicsGetCurrentContext(), kCGBlendModeCopy);
+    CGRect imageRect = CGRectMake(0, 0, originalImage.size.width, originalImage.size.height);
+    [originalImage drawInRect:imageRect];
+    
+    
+    CGContextSetBlendMode(UIGraphicsGetCurrentContext(), kCGBlendModeDifference);
+    // translate/flip the graphics context (for transforming from CG* coords to UI* coords
+    CGContextTranslateCTM(UIGraphicsGetCurrentContext(), 0, originalImage.size.height);
+    CGContextScaleCTM(UIGraphicsGetCurrentContext(), 1.0, -1.0);
+    //mask the image
+    CGContextClipToMask(UIGraphicsGetCurrentContext(), imageRect,  originalImage.CGImage);
+    CGContextSetFillColorWithColor(UIGraphicsGetCurrentContext(),[UIColor whiteColor].CGColor);
+    CGContextFillRect(UIGraphicsGetCurrentContext(), CGRectMake(0, 0, originalImage.size.width, originalImage.size.height));
+    UIImage *returnImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return returnImage;
+}
 
 - (NSInteger)highlightAllOccurencesOfString:(NSString*)searchString inWebView:(UIWebView *)webView
 {
