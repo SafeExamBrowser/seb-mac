@@ -84,12 +84,7 @@
 {
     [super viewWillAppear:animated];
 
-    // Create an instance of the SEBWebView defined in the Storyboard
-//    self.visibleWebView = [self createNewWebView];
-//    self.visibleWebView = self.SEBWebView;
     _sebWebView.delegate = self;	// setup the delegate as the web view is shown
-//    [self.visibleWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://safeexambrowser.org"]]];
-//    [self.view addSubview:self.visibleWebView];
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     allowSpellCheck = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
