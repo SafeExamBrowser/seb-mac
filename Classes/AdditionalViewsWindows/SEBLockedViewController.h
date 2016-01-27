@@ -82,7 +82,14 @@
 @optional
 
 /**
- * @brief       Hide or show label indicating wrong password was entered.
+ * @brief       Open lockdown windows to block access to the exam
+.
+ * @details
+ */
+//- (void) openLockdownWindows;
+
+/**
+ * @brief       Close lockdown windows and allow to access the exam again.
  * @details
  */
 - (void) closeLockdownWindows;
@@ -154,7 +161,14 @@
 - (void) openInfoHUD:(NSString *)lockedTimeInfo;
 
 /**
- * @brief       Hide or show label indicating wrong password was entered.
+ * @brief       Open lockdown windows to block access to the exam.
+ .
+ * @details
+ */
+//- (void) openLockdownWindows;
+
+/**
+ * @brief       Close lockdown windows and allow to access the exam again.
  * @details
  */
 - (void) closeLockdownWindows;

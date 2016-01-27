@@ -149,35 +149,16 @@ static NSMutableSet *browserWindowControllers;
                     _guidedAccessWarningDisplayed = false;
                 }
                 
+                /// Lock the exam down
+                NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+                NSMutableArray *lockedExams = [NSMutableArray arrayWithArray:[preferences secureArrayForKey:@"additionalResources"]];
+                NSString *startURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+                [lockedExams addObject:startURL];
+                [preferences setSecureObject:lockedExams forKey:@"additionalResources"];
+                
                 // If there wasn't a lockdown covering view openend yet, initialize it
                 if (!_sebLocked) {
-                    
-                    if (!_lockedViewController) {
-                        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                        _lockedViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBLockedView"];
-                        _lockedViewController.controllerDelegate = self;
-                    }
-                    
-                    if (!_lockedViewController.resignActiveLogString) {
-                        _lockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
-                    }
-                    // Save current time for information about when Guided Access was switched off
-                    _didResignActiveTime = [NSDate date];
-                    DDLogError(@"Guided Accesss switched off!");
-                    
-                    // Open the lockdown view
-                    [_lockedViewController willMoveToParentViewController:self];
-                    
-                    UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-                    
-                    [rootViewController.view addSubview:_lockedViewController.view];
-                    [rootViewController addChildViewController:_lockedViewController];
-                    [_lockedViewController didMoveToParentViewController:self];
-                    
-                    _sebLocked = true;
-                    
-                    // Add log string for resign active
-                    [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Guided Access switched off!", nil)] withTime:_didResignActiveTime];
+                    [self openLockdownWindows];
                 }
             } else {
                 
@@ -506,6 +487,37 @@ static NSMutableSet *browserWindowControllers;
     IMP imp = [callback methodForSelector:selector];
     void (*func)(id, SEL, BOOL) = (void *)imp;
     func(callback, selector, success);
+}
+
+
+- (void) openLockdownWindows
+{
+    if (!_lockedViewController) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        _lockedViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBLockedView"];
+        _lockedViewController.controllerDelegate = self;
+    }
+    
+    if (!_lockedViewController.resignActiveLogString) {
+        _lockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
+    }
+    // Save current time for information about when Guided Access was switched off
+    _didResignActiveTime = [NSDate date];
+    DDLogError(@"Guided Accesss switched off!");
+    
+    // Open the lockdown view
+    [_lockedViewController willMoveToParentViewController:self];
+    
+    UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    
+    [rootViewController.view addSubview:_lockedViewController.view];
+    [rootViewController addChildViewController:_lockedViewController];
+    [_lockedViewController didMoveToParentViewController:self];
+    
+    _sebLocked = true;
+    
+    // Add log string for resign active
+    [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Guided Access switched off!", nil)] withTime:_didResignActiveTime];
 }
 
 
