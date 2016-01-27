@@ -127,7 +127,7 @@
 		696DAD1B1C3C2AB900397E18 /* Previous@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD131C3C2AB900397E18 /* Previous@2x.png */; };
 		696DAD1C1C3C2AB900397E18 /* Reload.png in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD141C3C2AB900397E18 /* Reload.png */; };
 		696DAD1D1C3C2AB900397E18 /* Reload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD151C3C2AB900397E18 /* Reload@2x.png */; };
-		696DAD211C3C2B1400397E18 /* ModifyLinkTargets.js in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD1F1C3C2B1400397E18 /* ModifyLinkTargets.js */; };
+		696DAD211C3C2B1400397E18 /* ModifyPages.js in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD1F1C3C2B1400397E18 /* ModifyPages.js */; };
 		696DAD221C3C2B1400397E18 /* SearchWebView.js in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD201C3C2B1400397E18 /* SearchWebView.js */; };
 		696DAD351C3C2D0500397E18 /* SEBDetailViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD231C3C2D0500397E18 /* SEBDetailViewController.h */; };
 		696DAD361C3C2D0500397E18 /* SEBDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD241C3C2D0500397E18 /* SEBDetailViewController.m */; };
@@ -443,7 +443,7 @@
 		696DAD131C3C2AB900397E18 /* Previous@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Previous@2x.png"; path = "Resources/Icons/Previous@2x.png"; sourceTree = "<group>"; };
 		696DAD141C3C2AB900397E18 /* Reload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Reload.png; path = Resources/Icons/Reload.png; sourceTree = "<group>"; };
 		696DAD151C3C2AB900397E18 /* Reload@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Reload@2x.png"; path = "Resources/Icons/Reload@2x.png"; sourceTree = "<group>"; };
-		696DAD1F1C3C2B1400397E18 /* ModifyLinkTargets.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ModifyLinkTargets.js; sourceTree = "<group>"; };
+		696DAD1F1C3C2B1400397E18 /* ModifyPages.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ModifyPages.js; sourceTree = "<group>"; };
 		696DAD201C3C2B1400397E18 /* SearchWebView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SearchWebView.js; sourceTree = "<group>"; };
 		696DAD231C3C2D0500397E18 /* SEBDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDetailViewController.h; path = Classes/BrowserComponents/SEBDetailViewController.h; sourceTree = "<group>"; };
 		696DAD241C3C2D0500397E18 /* SEBDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDetailViewController.m; path = Classes/BrowserComponents/SEBDetailViewController.m; sourceTree = "<group>"; };
@@ -1121,7 +1121,7 @@
 		696DAD1E1C3C2B1400397E18 /* JavaScript */ = {
 			isa = PBXGroup;
 			children = (
-				696DAD1F1C3C2B1400397E18 /* ModifyLinkTargets.js */,
+				696DAD1F1C3C2B1400397E18 /* ModifyPages.js */,
 				696DAD201C3C2B1400397E18 /* SearchWebView.js */,
 			);
 			name = JavaScript;
@@ -1493,7 +1493,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69331F021C10AC1B0038BD31 /* continueCircle@2x.png in Resources */,
-				696DAD211C3C2B1400397E18 /* ModifyLinkTargets.js in Resources */,
+				696DAD211C3C2B1400397E18 /* ModifyPages.js in Resources */,
 				696DAD161C3C2AB900397E18 /* Cancel.png in Resources */,
 				696DAD1A1C3C2AB900397E18 /* Previous.png in Resources */,
 				696DAD181C3C2AB900397E18 /* Next.png in Resources */,

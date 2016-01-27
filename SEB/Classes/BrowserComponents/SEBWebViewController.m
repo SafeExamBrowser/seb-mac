@@ -36,6 +36,15 @@
 #import "Constants.h"
 
 
+@interface SEBWebViewController () {
+
+@private
+    BOOL allowSpellCheck;
+}
+
+@end
+
+
 @implementation SEBWebViewController
 
 
@@ -81,7 +90,9 @@
     _sebWebView.delegate = self;	// setup the delegate as the web view is shown
 //    [self.visibleWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://safeexambrowser.org"]]];
 //    [self.view addSubview:self.visibleWebView];
-
+    
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    allowSpellCheck = [preferences secureStringForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -140,13 +151,16 @@
 //    [webView.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
     
     // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"ModifyLinkTargets" ofType:@"js"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"ModifyPages" ofType:@"js"];
     jsCode = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 
     [_sebWebView stringByEvaluatingJavaScriptFromString:jsCode];
     
     [_sebWebView stringByEvaluatingJavaScriptFromString:@"SEB_ModifyLinkTargets()"];
     [_sebWebView stringByEvaluatingJavaScriptFromString:@"SEB_ModifyWindowOpen()"];
+    
+    [_sebWebView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"SEB_AllowSpellCheck(%@)", allowSpellCheck ? @"true" : @"false"]];
+    
     //[webView stringByEvaluatingJavaScriptFromString:@"SEB_increaseMaxZoomFactor()"];
     
     //[self highlightAllOccurencesOfString:@"SEB" inWebView:webView];

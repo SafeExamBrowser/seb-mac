@@ -13,6 +13,7 @@ function SEB_ModifyLinkTargets() {
     }
 }
 
+
 function SEB_ModifyWindowOpen() {
     window.open =
     function(url,target,param) {
@@ -27,6 +28,7 @@ function SEB_ModifyWindowOpen() {
     }
 }
 
+
 function SEB_increaseMaxZoomFactor() {
     var element = document.createElement('meta');
     element.name = "viewport";
@@ -35,9 +37,41 @@ function SEB_increaseMaxZoomFactor() {
     head.appendChild(element);
 }
 
+
 function SEB_replaceImage(base64Data) {
     var picture = document.getElementsByClassName('img-responsive')[0];
     picture.src = "data:image/png;base64,"+base64Data;
+}
+
+
+function SEB_AllowSpellCheck(enable) {
+    var txtFields = document.getElementsByTagName('input');
+    if (txtFields) {
+        var i;
+        for (i = 0; i < txtFields.length; i++) {
+            var txtField = txtFields[i];
+            var attributeValue = enable ? 'on' : 'off';
+            if (txtField) {
+                txtField.setAttribute('autocomplete',attributeValue);
+                txtField.setAttribute('autocorrect',attributeValue);
+                txtField.setAttribute('autocapitalize',attributeValue);
+                txtField.setAttribute('spellcheck',enable);
+            }
+        }
+    }
+    txtFields = document.getElementsByTagName('textarea');
+    if (txtFields) {
+        var i;
+        for (i = 0; i < txtFields.length; i++) {
+            var txtField = txtFields[i];
+            if (txtField) {
+                txtField.setAttribute('autocomplete',attributeValue);
+                txtField.setAttribute('autocorrect',attributeValue);
+                txtField.setAttribute('autocapitalize',attributeValue);
+                txtField.setAttribute('spellcheck',enable);
+            }
+        }
+    }
 }
 
 
