@@ -92,7 +92,7 @@
 //    [self.view addSubview:self.visibleWebView];
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    allowSpellCheck = [preferences secureStringForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
+    allowSpellCheck = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
