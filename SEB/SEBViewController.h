@@ -80,6 +80,8 @@
 
 - (void) stopAutonomousSingleAppMode;
 
+- (void) openLockdownWindows;
+
 - (void) downloadAndOpenSEBConfigFromURL:(NSURL *)url;
 
 @end

@@ -98,6 +98,12 @@
     if ([self.controllerDelegate respondsToSelector:@selector(sebLocked)]) {
         self.controllerDelegate.sebLocked = false;
     }
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *lockedExams = [NSMutableArray arrayWithArray:[preferences secureArrayForKey:@"additionalResources"]];
+    NSString *startURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+    [lockedExams removeObject:startURL];
+    [preferences setSecureObject:lockedExams forKey:@"additionalResources"];
+
 }
 
 - (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime {
