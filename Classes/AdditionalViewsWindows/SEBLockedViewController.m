@@ -34,37 +34,49 @@
 
 #import "SEBLockedViewController.h"
 
+@interface SEBLockedViewController()
+{
+    BOOL closingLockdownWindowsInProgress;
+}
+
+@end
+
+
 @implementation SEBLockedViewController
 
 
 - (void) passwordEntered:(id)sender {
     // Check if restarting is protected with the quit/restart password (and one is set)
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-    
-    NSString *password = [self.UIDelegate lockedAlertPassword];
-    DDLogDebug(@"Lockdown alert user entered password: %@, compare it with hashed quit password %@", password, hashedQuitPassword);
-    
-    if (!self.keychainManager) {
-        self.keychainManager = [[SEBKeychainManager alloc] init];
-    }
-    if (hashedQuitPassword.length == 0 || [hashedQuitPassword caseInsensitiveCompare:[self generateSHAHashString:password]] == NSOrderedSame) {
-        [self.UIDelegate setLockedAlertPassword:@""];
-        [self.UIDelegate setPasswordWrongLabelHidden:true];
-
-        // Add log string for Correct password entered
-        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Correct password entered", nil)]
+    if (!closingLockdownWindowsInProgress) {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+        
+        NSString *password = [self.UIDelegate lockedAlertPassword];
+        DDLogDebug(@"Lockdown alert user entered password: %@, compare it with hashed quit password %@", password, hashedQuitPassword);
+        
+        if (!self.keychainManager) {
+            self.keychainManager = [[SEBKeychainManager alloc] init];
+        }
+        if (hashedQuitPassword.length == 0 || [hashedQuitPassword caseInsensitiveCompare:[self generateSHAHashString:password]] == NSOrderedSame) {
+            // Correct password entered
+            closingLockdownWindowsInProgress = true;
+            [self.UIDelegate setLockedAlertPassword:@""];
+            [self.UIDelegate setPasswordWrongLabelHidden:true];
+            
+            // Add log string for Correct password entered
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Correct password entered", nil)]
+                           withTime:[NSDate date]];
+            
+            self.controllerDelegate.unlockPasswordEntered = true;
+            [self.controllerDelegate correctPasswordEntered];
+            return;
+        }
+        DDLogError(@"Lockdown alert: Wrong quit/restart password entered, asking to try again");
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Wrong password entered!", nil)]
                        withTime:[NSDate date]];
-
-        self.controllerDelegate.unlockPasswordEntered = true;
-        [self.controllerDelegate correctPasswordEntered];
-        return;
+        [self.UIDelegate setLockedAlertPassword:@""];
+        [self.UIDelegate setPasswordWrongLabelHidden:false];
     }
-    DDLogError(@"Lockdown alert: Wrong quit/restart password entered, asking to try again");
-    [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Wrong password entered!", nil)]
-                   withTime:[NSDate date]];
-    [self.UIDelegate setLockedAlertPassword:@""];
-    [self.UIDelegate setPasswordWrongLabelHidden:false];
 }
 
 
@@ -103,8 +115,9 @@
     NSString *startURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
     [lockedExams removeObject:startURL];
     [preferences setSecureObject:lockedExams forKey:@"additionalResources"];
-
+    closingLockdownWindowsInProgress = false;
 }
+
 
 - (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime {
     NSMutableAttributedString *logString = [self.UIDelegate.resignActiveLogString mutableCopy];
