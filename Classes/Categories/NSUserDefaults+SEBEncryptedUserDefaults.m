@@ -340,6 +340,8 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy",
                                  @NO,
                                  @"org_safeexambrowser_SEB_openDownloads",
+                                 [NSNumber numberWithLong:oskBehaviorAutoShow],
+                                 @"org_safeexambrowser_SEB_oskBehavior",
                                  @[
                                    @{
                                        @"active" : @YES,
