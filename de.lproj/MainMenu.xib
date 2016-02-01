@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10102" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10102"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication"/>
@@ -510,7 +510,7 @@
                         </constraints>
                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" id="871">
                             <font key="font" metaFont="miniSystem"/>
-                            <string key="title">© 2010-2015 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browsers von Stefan Schneider, Universität von Giessen
+                            <string key="title">© 2010-2016 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browsers von Stefan Schneider, Universität von Giessen
 
 Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat. </string>
                             <color key="textColor" red="0.1467391304" green="0.1467391304" blue="0.1467391304" alpha="1" colorSpace="calibratedRGB"/>
@@ -716,10 +716,10 @@ Gw
             <point key="canvasLocation" x="201" y="264.5"/>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="SRG-SJ-3eg"/>
-        <customView verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="Re1-C5-57e" userLabel="SEB Locked View">
+        <customView verticalHuggingPriority="249" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Re1-C5-57e" userLabel="SEB Locked View">
             <rect key="frame" x="0.0" y="0.0" width="500" height="508"/>
             <subviews>
-                <secureTextField canDrawConcurrently="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E6M-vB-bca">
+                <secureTextField canDrawConcurrently="YES" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E6M-vB-bca">
                     <rect key="frame" x="65" y="39" width="370" height="22"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="370" id="QBc-XF-qdA"/>
@@ -736,7 +736,7 @@ Gw
                         <action selector="passwordEntered:" target="agr-W5-n2K" id="77E-Dv-cCw"/>
                     </connections>
                 </secureTextField>
-                <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="165" translatesAutoresizingMaskIntoConstraints="NO" id="i1K-9z-xtU" customClass="SEBTextField">
+                <textField verticalHuggingPriority="750" misplaced="YES" preferredMaxLayoutWidth="165" translatesAutoresizingMaskIntoConstraints="NO" id="i1K-9z-xtU" customClass="SEBTextField">
                     <rect key="frame" x="165" y="472" width="169" height="24"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="SEB ist gesperrt!" id="h8S-7a-w0u">
                         <font key="font" size="20" name="HelveticaNeue-Bold"/>
@@ -744,7 +744,7 @@ Gw
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="406" translatesAutoresizingMaskIntoConstraints="NO" id="rDJ-35-BLL" customClass="SEBTextField">
+                <textField verticalHuggingPriority="750" misplaced="YES" preferredMaxLayoutWidth="406" translatesAutoresizingMaskIntoConstraints="NO" id="rDJ-35-BLL" customClass="SEBTextField">
                     <rect key="frame" x="45" y="69" width="410" height="16"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Neustarten-/Beenden-Passwort eingeben, um SEB zu Entsperren" id="Fnc-XR-wb9">
                         <font key="font" metaFont="system"/>
@@ -752,7 +752,7 @@ Gw
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField hidden="YES" verticalHuggingPriority="750" preferredMaxLayoutWidth="226" translatesAutoresizingMaskIntoConstraints="NO" id="cZ9-xX-IzI">
+                <textField hidden="YES" verticalHuggingPriority="750" misplaced="YES" preferredMaxLayoutWidth="226" translatesAutoresizingMaskIntoConstraints="NO" id="cZ9-xX-IzI">
                     <rect key="frame" x="135" y="15" width="230" height="16"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Bitte korrektes Passwort eingeben!" id="aOo-kP-rSF">
                         <font key="font" size="13" name=".HelveticaNeueDeskInterface-Bold"/>
@@ -760,7 +760,7 @@ Gw
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="N8L-96-Ced" customClass="SEBTextField">
+                <textField horizontalCompressionResistancePriority="250" misplaced="YES" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="N8L-96-Ced" customClass="SEBTextField">
                     <rect key="frame" x="18" y="397" width="464" height="67"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="61" id="dAk-vN-xZy"/>
@@ -772,7 +772,7 @@ Gw
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7g-WL-v0B">
+                <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7g-WL-v0B">
                     <rect key="frame" x="20" y="100" width="460" height="282"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="UQl-yY-TGx">
                         <rect key="frame" x="1" y="1" width="458" height="280"/>
@@ -782,10 +782,10 @@ Gw
                                 <rect key="frame" x="0.0" y="0.0" width="458" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <size key="minSize" width="458" height="0.0"/>
+                                <size key="minSize" width="458" height="280"/>
                                 <size key="maxSize" width="460" height="2000"/>
                                 <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <size key="minSize" width="458" height="0.0"/>
+                                <size key="minSize" width="458" height="280"/>
                                 <size key="maxSize" width="460" height="2000"/>
                                 <connections>
                                     <binding destination="agr-W5-n2K" name="attributedString" keyPath="self.resignActiveLogString" id="xr6-Qg-1hN">
@@ -811,7 +811,7 @@ Gw
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="saq-WU-u0D">
+                <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="saq-WU-u0D">
                     <rect key="frame" x="443" y="40" width="20" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="7My-ZY-uZS"/>
