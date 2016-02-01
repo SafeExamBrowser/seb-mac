@@ -143,6 +143,14 @@ typedef NSUInteger operatingSystems;
 
 
 enum {
+    oskBehaviorAlwaysShow                       = 0,
+    oskBehaviorNeverShow                        = 1,
+    oskBehaviorAutoShow                         = 2
+};
+typedef NSUInteger oskBehaviors;
+
+
+enum {
     useSystemProxySettings                      = 0,
     useSEBProxySettings                         = 1,
 };

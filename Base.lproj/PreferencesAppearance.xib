@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10102" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9060"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10102"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsAppearanceViewController">
@@ -26,11 +26,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1" userLabel="Appearance Preferences">
-            <rect key="frame" x="0.0" y="0.0" width="650" height="588"/>
+            <rect key="frame" x="0.0" y="0.0" width="650" height="604"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <box autoresizesSubviews="NO" title="Main browser window size and position" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="540">
-                    <rect key="frame" x="17" y="372" width="616" height="88"/>
+                    <rect key="frame" x="17" y="371" width="616" height="88"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="614" height="72"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -93,7 +93,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="598">
-                                <rect key="frame" x="349" y="43" width="139" height="17"/>
+                                <rect key="frame" x="351" y="42" width="137" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Horizontal positioning" id="605">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -101,7 +101,7 @@
                                 </textFieldCell>
                             </textField>
                             <popUpButton toolTip="Position browser window on the left, right or centered" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="599">
-                                <rect key="frame" x="492" y="36" width="107" height="26"/>
+                                <rect key="frame" x="492" y="35" width="107" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="102" id="708"/>
                                 </constraints>
@@ -127,7 +127,7 @@
                                 </connections>
                             </popUpButton>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="723">
-                                <rect key="frame" x="108" y="43" width="40" height="17"/>
+                                <rect key="frame" x="108" y="42" width="40" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Width" id="724">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -158,18 +158,28 @@
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
                 <box autoresizesSubviews="NO" title="Browser view mode" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Xr6-D9-xmk">
-                    <rect key="frame" x="17" y="471" width="616" height="102"/>
+                    <rect key="frame" x="17" y="470" width="301" height="119"/>
                     <view key="contentView">
-                        <rect key="frame" x="1" y="1" width="614" height="86"/>
+                        <rect key="frame" x="1" y="1" width="299" height="103"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button toolTip="SEB can be quit with a swipe down from the upper display edge" translatesAutoresizingMaskIntoConstraints="NO" id="8IN-wN-3ta">
+                                <rect key="frame" x="29" y="14" width="144" height="18"/>
+                                <buttonCell key="cell" type="check" title="Enable touch exit (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="09Z-lD-USh">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableTouchExit" id="ImE-zI-lQy"/>
+                                </connections>
+                            </button>
                             <matrix toolTip="Use a browser window which can be scaled and moved around, show main  window full screen or use the tablet mode (Win)" verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="743">
-                                <rect key="frame" x="18" y="17" width="279" height="58"/>
+                                <rect key="frame" x="18" y="35" width="223" height="58"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="58" id="IYm-P2-CKq"/>
+                                    <constraint firstAttribute="height" constant="58" id="IYm-P2-CKq"/>
                                 </constraints>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                <size key="cellSize" width="279" height="18"/>
+                                <size key="cellSize" width="223" height="18"/>
                                 <size key="intercellSpacing" width="4" height="2"/>
                                 <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" inset="2" id="744">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -200,40 +210,27 @@
                                     </binding>
                                 </connections>
                             </matrix>
-                            <button toolTip="SEB can be quit with a swipe down from the upper display edge" translatesAutoresizingMaskIntoConstraints="NO" id="8IN-wN-3ta">
-                                <rect key="frame" x="315" y="17" width="288" height="18"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="284" id="btg-Sa-Pjg"/>
-                                </constraints>
-                                <buttonCell key="cell" type="check" title="Enable touch exit (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="09Z-lD-USh">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableTouchExit" id="ImE-zI-lQy"/>
-                                </connections>
-                            </button>
                         </subviews>
                     </view>
                     <constraints>
-                        <constraint firstItem="8IN-wN-3ta" firstAttribute="bottom" secondItem="743" secondAttribute="bottom" constant="-2" id="C97-kR-03V"/>
-                        <constraint firstItem="743" firstAttribute="top" secondItem="Xr6-D9-xmk" secondAttribute="top" constant="26" id="Qy3-l4-US6"/>
+                        <constraint firstItem="8IN-wN-3ta" firstAttribute="top" secondItem="743" secondAttribute="bottom" constant="6" id="Bp7-d4-mwI"/>
+                        <constraint firstItem="743" firstAttribute="top" secondItem="Xr6-D9-xmk" secondAttribute="top" constant="25" id="Qy3-l4-US6"/>
+                        <constraint firstItem="8IN-wN-3ta" firstAttribute="leading" secondItem="Xr6-D9-xmk" secondAttribute="leading" constant="30" id="eBV-O5-AvW"/>
                         <constraint firstItem="743" firstAttribute="leading" secondItem="Xr6-D9-xmk" secondAttribute="leading" constant="16" id="hQO-oE-T6v"/>
-                        <constraint firstItem="8IN-wN-3ta" firstAttribute="leading" secondItem="743" secondAttribute="trailing" constant="20" id="heb-hh-Dw5"/>
-                        <constraint firstAttribute="trailing" secondItem="8IN-wN-3ta" secondAttribute="trailing" constant="11" id="jUg-mr-rOb"/>
-                        <constraint firstAttribute="bottom" secondItem="743" secondAttribute="bottom" constant="14" id="p5G-Xh-fw9"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="8IN-wN-3ta" secondAttribute="trailing" constant="11" id="jUg-mr-rOb"/>
+                        <constraint firstAttribute="bottom" secondItem="8IN-wN-3ta" secondAttribute="bottom" constant="14" id="nNZ-cj-t0L"/>
                     </constraints>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
                 <box autoresizesSubviews="NO" title="SEB dock/task bar" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Q3v-Xi-ylG">
-                    <rect key="frame" x="17" y="134" width="616" height="138"/>
+                    <rect key="frame" x="17" y="134" width="616" height="137"/>
                     <view key="contentView">
-                        <rect key="frame" x="1" y="1" width="614" height="122"/>
+                        <rect key="frame" x="1" y="1" width="614" height="121"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField toolTip="SEB dock height in points (pixel height*2 on Retina displays)" horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DiJ-eI-WGU">
-                                <rect key="frame" x="561" y="94" width="40" height="22"/>
+                                <rect key="frame" x="561" y="93" width="40" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="kWi-jS-1Ll"/>
                                 </constraints>
@@ -257,7 +254,7 @@
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RFK-qQ-lel">
-                                <rect key="frame" x="475" y="96" width="78" height="18"/>
+                                <rect key="frame" x="476" y="96" width="77" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" id="MQ9-I9-ll4"/>
                                 </constraints>
@@ -268,7 +265,7 @@
                                 </textFieldCell>
                             </textField>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="76">
-                                <rect key="frame" x="11" y="95" width="122" height="18"/>
+                                <rect key="frame" x="11" y="95" width="117" height="17"/>
                                 <string key="toolTip">The SEB dock shows and switches between open browser windows, allowed resources and applications and displays additional controls</string>
                                 <buttonCell key="cell" type="check" title="Show SEB dock" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="77">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -284,7 +281,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Reloads current web page. Shows warning if enabled in Browser settings pane" translatesAutoresizingMaskIntoConstraints="NO" id="E2T-SZ-Z6U">
-                                <rect key="frame" x="30" y="55" width="143" height="18"/>
+                                <rect key="frame" x="30" y="55" width="140" height="18"/>
                                 <buttonCell key="cell" type="check" title="Show reload button" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="3wD-Cd-yYF">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -294,7 +291,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Show current time" translatesAutoresizingMaskIntoConstraints="NO" id="VqV-Zw-hin">
-                                <rect key="frame" x="30" y="35" width="88" height="18"/>
+                                <rect key="frame" x="30" y="35" width="86" height="18"/>
                                 <buttonCell key="cell" type="check" title="Show time" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="6CP-QX-2NV">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -304,7 +301,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Shows current keyboard layout and allows to change it" translatesAutoresizingMaskIntoConstraints="NO" id="cvI-1t-MPD">
-                                <rect key="frame" x="30" y="15" width="194" height="18"/>
+                                <rect key="frame" x="30" y="15" width="191" height="18"/>
                                 <buttonCell key="cell" type="check" title="Show keyboard layout (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="NVt-Gb-hG5">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -314,7 +311,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Allows to reconnect to WiFi networks which have previously been connected to" translatesAutoresizingMaskIntoConstraints="NO" id="NYh-TA-SfI">
-                                <rect key="frame" x="30" y="75" width="174" height="18"/>
+                                <rect key="frame" x="30" y="75" width="173" height="18"/>
                                 <buttonCell key="cell" type="check" title="Show Wi-Fi control (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="vAt-Tk-BEf">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -348,7 +345,7 @@
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
                 <button toolTip="Allow using check spelling/grammar and 'correct spelling automatically'" translatesAutoresizingMaskIntoConstraints="NO" id="2KI-tS-neq">
-                    <rect key="frame" x="18" y="18" width="148" height="18"/>
+                    <rect key="frame" x="18" y="18" width="145" height="18"/>
                     <buttonCell key="cell" type="check" title="Allow spell checking" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="9oR-jn-THC">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -364,7 +361,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button toolTip="Pages can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="baa-Wm-1db">
-                                <rect key="frame" x="11" y="35" width="137" height="18"/>
+                                <rect key="frame" x="11" y="35" width="134" height="18"/>
                                 <buttonCell key="cell" type="check" title="Enable page zoom" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="YEg-Qr-xf0">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -379,7 +376,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Text in browser windows can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="S0v-zb-D4L">
-                                <rect key="frame" x="11" y="15" width="129" height="18"/>
+                                <rect key="frame" x="11" y="15" width="127" height="18"/>
                                 <buttonCell key="cell" type="check" title="Enable text zoom" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="zfV-ml-478">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -463,13 +460,13 @@
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
                 <box autoresizesSubviews="NO" title="Mac specific" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="d5d-zh-qxU">
-                    <rect key="frame" x="17" y="283" width="616" height="78"/>
+                    <rect key="frame" x="17" y="282" width="616" height="78"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="614" height="62"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button toolTip="Displays a toolbar on top of the browser window which can also be hidden by the user" translatesAutoresizingMaskIntoConstraints="NO" id="371">
-                                <rect key="frame" x="11" y="35" width="217" height="18"/>
+                                <rect key="frame" x="11" y="35" width="211" height="18"/>
                                 <buttonCell key="cell" type="check" title="Enable browser window toolbar" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="372">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -480,7 +477,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Hide browser window toolbar by default. It can be unhiden using  the View menu or Alt-Command-T." translatesAutoresizingMaskIntoConstraints="NO" id="383">
-                                <rect key="frame" x="30" y="15" width="163" height="18"/>
+                                <rect key="frame" x="30" y="15" width="160" height="18"/>
                                 <buttonCell key="cell" type="check" title="Hide toolbar as default" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="384">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -532,7 +529,7 @@
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
                 <button toolTip="Allow looking up text elements on a web site using the 3-finger tap on a trackpad" translatesAutoresizingMaskIntoConstraints="NO" id="mbj-mD-F32">
-                    <rect key="frame" x="333" y="18" width="170" height="18"/>
+                    <rect key="frame" x="333" y="18" width="167" height="18"/>
                     <buttonCell key="cell" type="check" title="Allow dictionary look up" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="iYV-Zg-Pat">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -541,6 +538,66 @@
                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowDictionaryLookup" id="SdL-Ts-JPM"/>
                     </connections>
                 </button>
+                <box autoresizesSubviews="NO" title="Automatic on-screen keyboard behavior (Win)" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="gKH-Yr-UT7">
+                    <rect key="frame" x="332" y="470" width="301" height="119"/>
+                    <view key="contentView">
+                        <rect key="frame" x="1" y="1" width="299" height="103"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <matrix toolTip="Sets how the on-screen keyboard is displayed when selecting a text field in the touch optimized mode on tablets (Win)" verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w24-FI-jsH">
+                                <rect key="frame" x="18" y="35" width="263" height="58"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="58" id="9LC-Ah-Zqg"/>
+                                </constraints>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                <size key="cellSize" width="263" height="18"/>
+                                <size key="intercellSpacing" width="4" height="2"/>
+                                <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" inset="2" id="XP7-99-gJu">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <cells>
+                                    <column>
+                                        <buttonCell type="radio" title="Always show" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="mvM-mc-Uty">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                            <connections>
+                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomPage" id="AcW-v5-NlJ"/>
+                                            </connections>
+                                        </buttonCell>
+                                        <buttonCell type="radio" title="Never show" imagePosition="left" alignment="left" inset="2" id="hAx-4j-pP9">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                            <connections>
+                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableZoomText" id="6MJ-1g-MKe"/>
+                                            </connections>
+                                        </buttonCell>
+                                        <buttonCell type="radio" title="Detect physical keyboard" imagePosition="left" alignment="left" inset="2" id="olD-Iu-XnX">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </column>
+                                </cells>
+                                <connections>
+                                    <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_oskBehavior" id="hmU-q5-1Vq">
+                                        <dictionary key="options">
+                                            <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </matrix>
+                        </subviews>
+                    </view>
+                    <constraints>
+                        <constraint firstItem="w24-FI-jsH" firstAttribute="top" secondItem="gKH-Yr-UT7" secondAttribute="top" constant="25" id="4jn-c5-VZW"/>
+                        <constraint firstItem="w24-FI-jsH" firstAttribute="leading" secondItem="gKH-Yr-UT7" secondAttribute="leading" constant="16" id="A0V-Kx-gU0"/>
+                        <constraint firstAttribute="trailing" secondItem="w24-FI-jsH" secondAttribute="trailing" constant="16" id="LTO-8q-5Kg"/>
+                        <constraint firstAttribute="bottom" secondItem="w24-FI-jsH" secondAttribute="bottom" constant="32" id="gkF-8w-eB0"/>
+                        <constraint firstAttribute="width" constant="295" id="zyK-mF-1KF"/>
+                    </constraints>
+                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </box>
             </subviews>
             <constraints>
                 <constraint firstItem="540" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="542"/>
@@ -548,8 +605,10 @@
                 <constraint firstItem="d5d-zh-qxU" firstAttribute="top" secondItem="540" secondAttribute="bottom" constant="15" id="0KW-G3-PRd"/>
                 <constraint firstItem="eGR-0O-pYN" firstAttribute="top" secondItem="Q3v-Xi-ylG" secondAttribute="bottom" constant="15" id="4Vb-7h-293"/>
                 <constraint firstItem="mbj-mD-F32" firstAttribute="top" secondItem="eGR-0O-pYN" secondAttribute="bottom" constant="15" id="BAI-Wp-i4d"/>
+                <constraint firstAttribute="trailing" secondItem="gKH-Yr-UT7" secondAttribute="trailing" constant="20" id="Bp3-WF-lD4"/>
                 <constraint firstItem="mbj-mD-F32" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2KI-tS-neq" secondAttribute="trailing" constant="20" id="FPg-XV-mG9"/>
                 <constraint firstItem="VBE-Ah-xWx" firstAttribute="top" secondItem="Q3v-Xi-ylG" secondAttribute="bottom" constant="15" id="IaV-rQ-53E"/>
+                <constraint firstItem="gKH-Yr-UT7" firstAttribute="top" secondItem="1" secondAttribute="top" constant="15" id="NLv-JJ-gUa"/>
                 <constraint firstItem="2KI-tS-neq" firstAttribute="top" secondItem="VBE-Ah-xWx" secondAttribute="bottom" constant="15" id="PTJ-aD-CtY"/>
                 <constraint firstItem="2KI-tS-neq" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="Pcz-AM-66S"/>
                 <constraint firstItem="eGR-0O-pYN" firstAttribute="leading" secondItem="VBE-Ah-xWx" secondAttribute="trailing" constant="20" id="RzO-bC-W8E"/>
@@ -557,11 +616,12 @@
                 <constraint firstItem="Q3v-Xi-ylG" firstAttribute="top" secondItem="d5d-zh-qxU" secondAttribute="bottom" constant="15" id="VjS-RC-eDS"/>
                 <constraint firstAttribute="bottom" secondItem="2KI-tS-neq" secondAttribute="bottom" constant="20" id="YYA-un-4cf"/>
                 <constraint firstItem="Xr6-D9-xmk" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="ZcR-R0-gxS"/>
-                <constraint firstAttribute="trailing" secondItem="Xr6-D9-xmk" secondAttribute="trailing" constant="20" id="bgb-3q-V4U"/>
                 <constraint firstItem="mbj-mD-F32" firstAttribute="leading" secondItem="eGR-0O-pYN" secondAttribute="leading" id="bxO-67-def"/>
+                <constraint firstItem="540" firstAttribute="top" secondItem="gKH-Yr-UT7" secondAttribute="bottom" constant="15" id="cRz-op-U2w"/>
                 <constraint firstAttribute="bottom" secondItem="mbj-mD-F32" secondAttribute="bottom" constant="20" id="dao-gv-zqe"/>
                 <constraint firstItem="d5d-zh-qxU" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="gec-YD-0h1"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mbj-mD-F32" secondAttribute="trailing" constant="20" id="keL-yz-9yL"/>
+                <constraint firstItem="gKH-Yr-UT7" firstAttribute="leading" secondItem="Xr6-D9-xmk" secondAttribute="trailing" constant="20" id="knl-4x-chd"/>
                 <constraint firstItem="540" firstAttribute="top" secondItem="Xr6-D9-xmk" secondAttribute="bottom" constant="15" id="mj8-B2-jAa"/>
                 <constraint firstItem="Q3v-Xi-ylG" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="nA1-7S-hPq"/>
                 <constraint firstAttribute="trailing" secondItem="eGR-0O-pYN" secondAttribute="trailing" constant="20" id="oQS-bh-HcE"/>
@@ -569,7 +629,7 @@
                 <constraint firstItem="Xr6-D9-xmk" firstAttribute="top" secondItem="1" secondAttribute="top" constant="15" id="yVI-7K-0yQ"/>
                 <constraint firstAttribute="trailing" secondItem="Q3v-Xi-ylG" secondAttribute="trailing" constant="20" id="zPg-iu-rdN"/>
             </constraints>
-            <point key="canvasLocation" x="368" y="602"/>
+            <point key="canvasLocation" x="368" y="593"/>
         </customView>
         <objectController automaticallyPreparesContent="YES" id="49">
             <declaredKeys>
