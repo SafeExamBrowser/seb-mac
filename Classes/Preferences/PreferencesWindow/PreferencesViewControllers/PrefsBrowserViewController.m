@@ -91,4 +91,11 @@
     newBrowserWindowByScriptBlockForeignButton.enabled = [sender indexOfSelectedItem] != getGenerallyBlocked;
 }
 
+// Action to change the displayed browser user agent environment tab
+// This is necessary because bindings don't work with private user defaults
+- (IBAction) browserUserAgentEnvironmentChanged:(NSPopUpButton *)sender
+{
+    [userAgentEnvironmentTabView selectTabViewItemAtIndex:sender.indexOfSelectedItem];
+}
+
 @end
