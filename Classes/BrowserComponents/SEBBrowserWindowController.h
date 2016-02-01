@@ -34,10 +34,10 @@
 
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebView.h>
-#import "SEBBrowserController.h"
+#import "SEBOSXBrowserController.h"
 #import "SEBWebView.h"
 
-@class SEBBrowserController;
+@class SEBOSXBrowserController;
 @class SEBWebView;
 
 @interface SEBBrowserWindowController : NSWindowController <NSWindowDelegate>
@@ -49,7 +49,7 @@
 @property (assign) NSRect frameForNonFullScreenMode;
 @property (weak) IBOutlet SEBWebView *webView;
 @property (weak) IBOutlet NSSegmentedControl *backForwardButtons;
-@property(weak) SEBBrowserController *browserController;
+@property(weak) SEBOSXBrowserController *browserController;
 
 - (IBAction) backForward: (id)sender;
 - (IBAction) zoomText: (id)sender;

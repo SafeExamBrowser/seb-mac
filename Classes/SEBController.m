@@ -520,7 +520,7 @@ bool insideMatrix();
     [self clearPasteboardSavingCurrentString];
 
     // Set up SEB Browser
-    self.browserController = [[SEBBrowserController alloc] init];
+    self.browserController = [[SEBOSXBrowserController alloc] init];
 
     self.browserController.reinforceKioskModeRequested = YES;
     
@@ -1784,7 +1784,7 @@ bool insideMatrix(){
     [self forceQuitWindowCheck];
     
     // Set up SEB Browser
-    self.browserController = [[SEBBrowserController alloc] init];
+    self.browserController = [[SEBOSXBrowserController alloc] init];
     
     // Reopen SEB Dock
     [self openSEBDock];
