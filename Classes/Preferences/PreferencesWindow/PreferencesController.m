@@ -1047,6 +1047,12 @@
     NSDictionary *emptySettings = [NSDictionary dictionary];
     [self.configFileManager storeIntoUserDefaults:emptySettings];
     
+    // If using private defaults
+    if (NSUserDefaults.userDefaultsPrivate) {
+        // If reverting other than local client settings to default, use "starting exam" as config purpose
+        [[NSUserDefaults standardUserDefaults] setSecureInteger:[NSNumber numberWithInt:sebConfigPurposeStartingExam] forKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];
+    }
+    
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
     
     // If using private defaults
