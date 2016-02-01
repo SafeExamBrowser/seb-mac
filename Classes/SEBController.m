@@ -51,6 +51,7 @@
 #include <IOKit/IOMessage.h>
 
 #import "PrefsBrowserViewController.h"
+#import "SEBBrowserController.h"
 #import "SEBURLFilter.h"
 #import "SEBURLProtocol.h"
 
@@ -220,6 +221,12 @@ bool insideMatrix();
 
         // Initialize file logger if it's enabled in settings
         [self initializeLogger];
+        
+        // Get default WebKit browser User Agent and create
+        // default SEB User Agent
+        NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+        NSString *defaultUserAgent = [[WebView new] userAgentForURL:[NSURL URLWithString:urlText]];
+        [[SEBBrowserController new] createSEBUserAgentFromDefaultAgent:defaultUserAgent];
         
         // Update URL filter flags and rules
         [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];

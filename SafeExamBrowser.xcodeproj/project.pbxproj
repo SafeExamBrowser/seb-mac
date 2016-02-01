@@ -122,6 +122,8 @@
 		699731C518C8D6ED0069FE35 /* CapWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 699731C318C8D6ED0069FE35 /* CapWindow.m */; };
 		699C540415EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */ = {isa = PBXBuildFile; fileRef = 699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */; };
 		699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */; };
+		699D8DFE1C5F998D00A051F2 /* SEBBrowserController.h in Headers */ = {isa = PBXBuildFile; fileRef = 699D8DFC1C5F998D00A051F2 /* SEBBrowserController.h */; };
+		699D8DFF1C5F998D00A051F2 /* SEBBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699D8DFD1C5F998D00A051F2 /* SEBBrowserController.m */; };
 		69A443FF1B14AAAC00577693 /* SEBReloadIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69A443FD1B14AAAC00577693 /* SEBReloadIcon.iconset */; };
 		69A444001B14AAAC00577693 /* SEBRestartIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69A443FE1B14AAAC00577693 /* SEBRestartIcon.iconset */; };
 		69B2EB871A435E2000B5AE67 /* AboutSEB.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2EB851A435E2000B5AE67 /* AboutSEB.png */; };
@@ -363,6 +365,8 @@
 		699731C318C8D6ED0069FE35 /* CapWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CapWindow.m; sourceTree = "<group>"; };
 		699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBUIUserDefaultsController.h; path = Classes/Preferences/SEBUIUserDefaultsController.h; sourceTree = "<group>"; };
 		699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBUIUserDefaultsController.m; path = Classes/Preferences/SEBUIUserDefaultsController.m; sourceTree = "<group>"; };
+		699D8DFC1C5F998D00A051F2 /* SEBBrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBBrowserController.h; path = Classes/BrowserComponents/SEBBrowserController.h; sourceTree = "<group>"; };
+		699D8DFD1C5F998D00A051F2 /* SEBBrowserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBBrowserController.m; path = Classes/BrowserComponents/SEBBrowserController.m; sourceTree = "<group>"; };
 		69A3022919FE7B8F00B9A0F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		69A443FD1B14AAAC00577693 /* SEBReloadIcon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBReloadIcon.iconset; path = Resources/Icons/SEBReloadIcon.iconset; sourceTree = "<group>"; };
 		69A443FE1B14AAAC00577693 /* SEBRestartIcon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBRestartIcon.iconset; path = Resources/Icons/SEBRestartIcon.iconset; sourceTree = "<group>"; };
@@ -702,6 +706,8 @@
 		69428C93172E5E7300C87C58 /* Browser Components */ = {
 			isa = PBXGroup;
 			children = (
+				699D8DFC1C5F998D00A051F2 /* SEBBrowserController.h */,
+				699D8DFD1C5F998D00A051F2 /* SEBBrowserController.m */,
 				690C6EE419E29E3600EDE103 /* SEBOSXBrowserController.h */,
 				690C6EE519E29E3600EDE103 /* SEBOSXBrowserController.m */,
 				69F684CA143653880091CDA7 /* SEBBrowserWindowDocument.h */,
@@ -961,6 +967,7 @@
 				69DFAF3619C468E700CBE69F /* RNCryptorEngine.h in Headers */,
 				6909E3461A019F7A0086A741 /* DDLog+LOGV.h in Headers */,
 				695283DD16CDB54C0055AF6F /* PrefsSecurityViewController.h in Headers */,
+				699D8DFE1C5F998D00A051F2 /* SEBBrowserController.h in Headers */,
 				69F32DC316D23374003C9502 /* PrefsAppearanceViewController.h in Headers */,
 				6909E33A1A019F7A0086A741 /* CLIColor.h in Headers */,
 				6909E34C1A019F7A0086A741 /* DDContextFilterLogFormatter.h in Headers */,
@@ -1220,6 +1227,7 @@
 				69CE9C6417378B9A0011609B /* SEBTextField.m in Sources */,
 				69CE1C181741309C0072207D /* SEBFilterTreeController.m in Sources */,
 				69EDAC1F1BBB476F00A3E6C4 /* SEBLockedViewController.m in Sources */,
+				699D8DFF1C5F998D00A051F2 /* SEBBrowserController.m in Sources */,
 				69DE764817FC2A9300EE5958 /* PrefsResourcesViewController.m in Sources */,
 				6901331C19B371CB0050574D /* PreferencesWindow.m in Sources */,
 				6906F3C71A3FA60C0011CF93 /* NSString+KKDomain.m in Sources */,

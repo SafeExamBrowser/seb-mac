@@ -240,21 +240,6 @@
     // Load start URL from the system's user defaults
     NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
     
-    /// Save the default user agent of the installed WebKit version
-    NSString *customUserAgent = [self.webView userAgentForURL:[NSURL URLWithString:urlText]];
-    // Get WebKit version number string to use it as Safari version
-    NSRange webKitSubstring = [customUserAgent rangeOfString:@"AppleWebKit/"];
-    NSString *webKitVersion;
-    if (webKitSubstring.location != NSNotFound && (webKitSubstring.location + webKitSubstring.length) < customUserAgent.length) {
-        webKitVersion = [customUserAgent substringFromIndex:webKitSubstring.location + webKitSubstring.length];
-        webKitVersion = [[webKitVersion stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]  componentsSeparatedByString:@" "][0];
-    } else {
-        webKitVersion = SEBUserAgentDefaultSafariVersion;
-    }
-    
-    customUserAgent = [customUserAgent stringByAppendingString:[NSString stringWithFormat:@"%@%@", SEBUserAgentDefaultSuffix, webKitVersion]];
-    [[MyGlobals sharedMyGlobals] setValue:customUserAgent forKey:@"defaultUserAgent"];
-
     // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
     [self setCustomWebPreferencesForWebView:self.webView];
     

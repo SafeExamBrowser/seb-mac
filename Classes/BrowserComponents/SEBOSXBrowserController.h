@@ -39,7 +39,9 @@
 #import "SEBDockController.h"
 #import "SEBDockItemButton.h"
 #import "SEBDockItemMenu.h"
+#import "SEBBrowserController.h"
 
+@class SEBBrowserController;
 @class SEBBrowserWindow;
 @class SEBWebView;
 
