@@ -314,7 +314,7 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_logDirectoryOSX",
                                  @"",
                                  @"org_safeexambrowser_SEB_logDirectoryWin",
-                                 [NSNumber numberWithLong:SEBLogLevelWarning],
+                                 [NSNumber numberWithLong:SEBLogLevelDebug],
                                  @"org_safeexambrowser_SEB_logLevel",
                                  @"100%",
                                  @"org_safeexambrowser_SEB_mainBrowserWindowHeight",
