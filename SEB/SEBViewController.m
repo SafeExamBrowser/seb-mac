@@ -259,6 +259,9 @@ static NSMutableSet *browserWindowControllers;
 
 - (void) showStartGuidedAccess
 {
+    // Set flag that SEB is initialized: Now showing alerts is allowed
+    [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
+
     // First check if a quit password is set
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
@@ -271,6 +274,7 @@ static NSMutableSet *browserWindowControllers;
         // A quit password is set: Ask user to switch on Guided Access
         _guidedAccessActive = true;
         if (UIAccessibilityIsGuidedAccessEnabled() == false) {
+            _startGuidedAccessDisplayed = true;
             _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Start Guided Access", nil)
                                                                     message:NSLocalizedString(@"Enable Guided Access in Settings -> General -> Accessibility and after returning to SEB, triple click home button to proceed to exam.", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];

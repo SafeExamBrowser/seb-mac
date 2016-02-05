@@ -57,13 +57,15 @@
 
 @property (strong, nonatomic) UIAlertController *alertController;
 @property (strong, nonatomic) UIAlertController *inactiveAlertController;
-@property(readwrite) BOOL guidedAccessWarningDisplayed;
 
 @property (strong, nonatomic) UIView *coveringView;
 
-@property(readwrite) BOOL finishedStartingUp;
-@property(readwrite) BOOL guidedAccessActive;
 @property(readwrite) BOOL ASAMActive;
+@property(readwrite) BOOL guidedAccessActive;
+
+@property(readwrite) BOOL finishedStartingUp;
+@property(readwrite) BOOL startGuidedAccessDisplayed;
+@property(readwrite) BOOL guidedAccessWarningDisplayed;
 @property(readwrite) BOOL examRunning;
 @property(readwrite) BOOL sebLocked;
 @property(readwrite) BOOL unlockPasswordEntered;

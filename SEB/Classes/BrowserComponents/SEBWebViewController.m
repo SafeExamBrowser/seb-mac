@@ -48,18 +48,34 @@
 @implementation SEBWebViewController
 
 
+- (void)loadView
+{
+    // Create a webview to fit underneath the navigation view (=fill the whole screen).
+    CGRect webFrame = [[UIScreen mainScreen] applicationFrame];
+    if (!_sebWebView) {
+        _sebWebView = [[UIWebView alloc] initWithFrame:webFrame];
+    }
+    _sebWebView.backgroundColor = [UIColor lightGrayColor];
+    _sebWebView.scalesPageToFit = YES;
+    _sebWebView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+    _sebWebView.scrollView.scrollEnabled = YES;
+    [_sebWebView setTranslatesAutoresizingMaskIntoConstraints:YES];
+    _sebWebView.delegate = self;
+    self.view = _sebWebView;
+}
+
+
 - (void)didMoveToParentViewController:(UIViewController *)parent
 {
     if (parent) {
         // Add the view to the parent view and position it if you want
-        [[parent view] addSubview:[self view]];
+        [[parent view] addSubview:self.view];
         CGRect viewFrame = parent.view.bounds;
         //viewFrame.origin.y += kNavbarHeight;
         //viewFrame.size.height -= kNavbarHeight;
-        [[self view] setFrame:viewFrame];
+        [self.view setFrame:viewFrame];
     } else {
-        [_sebWebView removeFromSuperview];
-        [[self view] removeFromSuperview];
+        [self.view removeFromSuperview];
     }
 }
 
@@ -257,11 +273,13 @@
                 } else {
                     NSString *base64PNGData = [dataForPNGFile base64EncodedStringWithOptions:0];
                     NSString *simulateDropFunction = [NSString stringWithFormat:@"SEB_replaceImage('%@')", base64PNGData];
-                    NSString *result =[_sebWebView stringByEvaluatingJavaScriptFromString:simulateDropFunction];
+//                    NSString *result =[_sebWebView stringByEvaluatingJavaScriptFromString:simulateDropFunction];
 //                    NSString *result = [_sebWebView stringByEvaluatingJavaScriptFromString:@"SEB_replaceImage()"];
                     // Display an UIAlertView that shows the users we saved the file :)
-                    UIAlertView *filenameAlert = [[UIAlertView alloc] initWithTitle:@"File saved" message:[NSString stringWithFormat:@"The file %@ has been saved. Result: %@", filename, result] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [filenameAlert show];
+                    NSURL *drawingURL = [NSURL URLWithString:[NSString stringWithFormat:@"drawing://%@", pathToDownloadTo]];
+                    [_browserTabViewController openNewTabWithURL:drawingURL image:processedImage];
+//                    UIAlertView *filenameAlert = [[UIAlertView alloc] initWithTitle:@"File saved" message:[NSString stringWithFormat:@"The file %@ has been saved. Result: %@", filename, result] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//                    [filenameAlert show];
                     return NO;
                 }
             } else {
