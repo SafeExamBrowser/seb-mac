@@ -61,6 +61,7 @@
 
 - (void) openNewTabWithURL:(NSURL *)url;
 - (void) openNewTabWithURL:(NSURL *)url index:(NSUInteger)index;
+- (void)openNewTabWithURL:(NSURL *)url image:(UIImage *)templateImage;
 - (void) loadPersistedOpenWebPages;
 
 - (void) closeAllTabs;

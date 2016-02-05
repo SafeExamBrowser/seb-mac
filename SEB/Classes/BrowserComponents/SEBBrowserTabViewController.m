@@ -39,6 +39,7 @@
 #import "Webpages.h"
 #import "OpenWebpages.h"
 
+@import VectorPencilKit;
 
 @implementation SEBBrowserTabViewController
 
@@ -152,9 +153,26 @@
 }
 
 
+// Open new tab and load URL or image (in the case of a freehand drawing)
+- (void)openNewTabWithURL:(NSURL *)url image:(UIImage *)templateImage
+{
+    _maxIndex++;
+    NSUInteger index = _maxIndex;
+    [self openNewTabWithURL:url index:index image:templateImage];
+}
+
+
 // Open new tab and load URL, use passed index
 - (void)openNewTabWithURL:(NSURL *)url index:(NSUInteger)index
 {
+    [self openNewTabWithURL:url index:index image:nil];
+}
+
+
+// Open new tab and load URL or template image (in the case of a freehand drawing)
+- (void)openNewTabWithURL:(NSURL *)url index:(NSUInteger)index image:(UIImage *)templateImage
+{
+
     // Save new tab data persistently
     NSManagedObjectContext *context = [self managedObjectContext];
     NSManagedObject *newWebpage = [NSEntityDescription
@@ -175,16 +193,23 @@
     }
     // Add this to the Array of all persistently saved webpages
     [self.persistentWebpages addObject:newWebpage];
-    
-    
-    
-    // Open URL in a new webview
-    // Create a new UIWebView
-    SEBWebViewController *newWebViewController = [self createNewWebViewController];
-    
+   
     // Create new OpenWebpage object with reference to the CoreData information
     OpenWebpages *newOpenWebpage = [OpenWebpages new];
-    newOpenWebpage.webViewController = newWebViewController;
+    
+    id newViewController;
+
+    if ([url.scheme isEqualToString:@"drawing"]) {
+        // Open image in a new freehand drawing view
+        newViewController = [VEPViewController new];
+    } else {
+        // Open URL in a new webview
+        // Create a new UIWebView
+        newViewController = [self createNewWebViewController];
+    }
+    
+    
+    newOpenWebpage.webViewController = newViewController;
     newOpenWebpage.loadDate = timeStamp;
     // Add this to the Array of all open webpages
     [self.openWebpages addObject:newOpenWebpage];
@@ -195,9 +220,10 @@
     // Exchange the old against the new webview
     [_visibleWebViewController removeFromParentViewController];
 
-    [self addChildViewController:newWebViewController];
-    [self.view addSubview:newWebViewController.sebWebView];
-    _visibleWebViewController = newWebViewController;
+    [self addChildViewController:newViewController];
+    [newViewController didMoveToParentViewController:self];
+    
+    _visibleWebViewController = newViewController;
     
     [_visibleWebViewController loadURL:url];
     
@@ -224,7 +250,8 @@
     [_visibleWebViewController removeFromParentViewController];
     
     [self addChildViewController:webViewControllerToSwitch];
-    [self.view addSubview:webViewControllerToSwitch.sebWebView];
+    [webViewControllerToSwitch didMoveToParentViewController:self];
+
     _visibleWebViewController = webViewControllerToSwitch;
 
     [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;;
@@ -255,6 +282,10 @@
     NSManagedObjectContext *context = self.managedObjectContext;
     
     Webpages *webpageToClose = _persistentWebpages[tabIndex];
+    
+    NSString *pageToCloseURL = webpageToClose.url;
+    if ([pageToCloseURL hasPrefix:@"drawing"]) {
+    }
     
     [context deleteObject:[context objectWithID:[webpageToClose objectID]]];
     
@@ -356,11 +387,13 @@
         }
         OpenWebpages *newOpenWebpage = (self.openWebpages.lastObject);
         SEBWebViewController *newVisibleWebViewController = newOpenWebpage.webViewController;
+
         // Exchange the old against the new webview
         [_visibleWebViewController removeFromParentViewController];
         
         [self addChildViewController:newVisibleWebViewController];
-        [self.view addSubview:newVisibleWebViewController.sebWebView];
+        [newVisibleWebViewController didMoveToParentViewController:self];
+
         _visibleWebViewController = newVisibleWebViewController;
 
         Webpages *visibleWebPage = persistedOpenWebPages.lastObject;
@@ -418,25 +451,7 @@
 - (SEBWebViewController *)createNewWebViewController {
     SEBWebViewController *newSEBWebViewController = [SEBWebViewController new];
     newSEBWebViewController.browserTabViewController = self;
-    newSEBWebViewController.sebWebView = [self createNewWebView];
-    newSEBWebViewController.sebWebView.delegate = newSEBWebViewController;
     return newSEBWebViewController;
-}
-
-
-// Create a UIWebView to hold new webpages
-- (UIWebView *)createNewWebView {
-    // Create a webview to fit underneath the navigation view (=fill the whole screen).
-    CGRect webFrame = [[UIScreen mainScreen] applicationFrame];
-    UIWebView *newWebView = [[UIWebView alloc] initWithFrame:webFrame];
-    
-    newWebView.backgroundColor = [UIColor lightGrayColor];
-    newWebView.scalesPageToFit = YES;
-    newWebView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-    newWebView.scrollView.scrollEnabled = YES;
-    [newWebView setTranslatesAutoresizingMaskIntoConstraints:YES];
-    //newWebView.delegate = self;
-    return newWebView;
 }
 
 
