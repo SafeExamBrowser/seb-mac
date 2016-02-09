@@ -1364,6 +1364,7 @@ bool insideMatrix(){
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableSebBrowser"]) {
             SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:@"Safe Exam Browser"
                                                                      icon:[NSApp applicationIconImage]
+                                                          highlightedIcon:nil
                                                                   toolTip:nil
                                                                      menu:self.browserController.openBrowserWindowsWebViewsMenu
                                                                    target:self
@@ -1377,6 +1378,7 @@ bool insideMatrix(){
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"]) {
             SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil
                                                                           icon:[NSImage imageNamed:@"SEBShutDownIcon"]
+                                                               highlightedIcon:[NSImage imageNamed:@"SEBShutDownIconHighlighted"]
                                                                        toolTip:NSLocalizedString(@"Quit SEB",nil)
                                                                           menu:nil
                                                                         target:self
@@ -1393,6 +1395,7 @@ bool insideMatrix(){
             }
             SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil
                                                                           icon:[NSImage imageNamed:@"SEBRestartIcon"]
+                                                               highlightedIcon:[NSImage imageNamed:@"SEBRestartIconHighlighted"]
                                                                        toolTip:restartButtonToolTip
                                                                           menu:nil
                                                                         target:self
@@ -1404,6 +1407,7 @@ bool insideMatrix(){
             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
             SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil
                                                                           icon:[NSImage imageNamed:@"SEBReloadIcon"]
+                                                               highlightedIcon:[NSImage imageNamed:@"SEBReloadIconHighlighted"]
                                                                        toolTip:NSLocalizedString(@"Reload Current Page",nil)
                                                                           menu:nil
                                                                         target:self

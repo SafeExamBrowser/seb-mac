@@ -37,12 +37,18 @@
 @implementation SEBDockItem
 
 
-- (id) initWithTitle:(NSString *)newTitle icon:(NSImage *)newIcon toolTip:(NSString *)newToolTip menu:(NSMenu *)newMenu target:(id)newTarget action:(SEL)newAction
+- (id) initWithTitle:(NSString *)newTitle
+                icon:(NSImage *)newIcon
+     highlightedIcon:(NSImage *)newHighlightedIcon
+             toolTip:(NSString *)newToolTip menu:(NSMenu *)newMenu
+              target:(id)newTarget
+              action:(SEL)newAction
 {
     self = [super init];
     if (self) {
         _title = newTitle;
         _icon = newIcon;
+        _highlightedIcon = newHighlightedIcon;
         _toolTip = newToolTip;
         _menu = newMenu;
         _target = newTarget;

@@ -138,6 +138,9 @@
 		69CE9C6417378B9A0011609B /* SEBTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE9C6217378B9A0011609B /* SEBTextField.m */; };
 		69D817E518017DDB00EB7885 /* SEBURLFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D817E318017DDB00EB7885 /* SEBURLFilter.h */; };
 		69D817E618017DDB00EB7885 /* SEBURLFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D817E418017DDB00EB7885 /* SEBURLFilter.m */; };
+		69DA91251C6A3685008D38E6 /* SEBShutDownIconHighlighted.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69DA91241C6A3685008D38E6 /* SEBShutDownIconHighlighted.iconset */; };
+		69DA91281C6A5CCF008D38E6 /* SEBReloadIconHighlighted.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69DA91261C6A5CCF008D38E6 /* SEBReloadIconHighlighted.iconset */; };
+		69DA91291C6A5CCF008D38E6 /* SEBRestartIconHighlighted.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69DA91271C6A5CCF008D38E6 /* SEBRestartIconHighlighted.iconset */; };
 		69DD929E1A463435004072E5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69DD92A01A463435004072E5 /* InfoPlist.strings */; };
 		69DE764717FC2A9300EE5958 /* PrefsResourcesViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69DE764517FC2A9300EE5958 /* PrefsResourcesViewController.h */; };
 		69DE764817FC2A9300EE5958 /* PrefsResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DE764617FC2A9300EE5958 /* PrefsResourcesViewController.m */; };
@@ -400,6 +403,9 @@
 		69D817E418017DDB00EB7885 /* SEBURLFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBURLFilter.m; sourceTree = "<group>"; };
 		69D9A1641AEE405C005680FF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesBrowser.strings; sourceTree = "<group>"; };
 		69D9A1651AEFAD06005680FF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesAppearance.strings; sourceTree = "<group>"; };
+		69DA91241C6A3685008D38E6 /* SEBShutDownIconHighlighted.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBShutDownIconHighlighted.iconset; path = Resources/Icons/SEBShutDownIconHighlighted.iconset; sourceTree = "<group>"; };
+		69DA91261C6A5CCF008D38E6 /* SEBReloadIconHighlighted.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBReloadIconHighlighted.iconset; path = Resources/Icons/SEBReloadIconHighlighted.iconset; sourceTree = "<group>"; };
+		69DA91271C6A5CCF008D38E6 /* SEBRestartIconHighlighted.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBRestartIconHighlighted.iconset; path = Resources/Icons/SEBRestartIconHighlighted.iconset; sourceTree = "<group>"; };
 		69DD2FCF1201C416009B1005 /* CapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapView.h; sourceTree = "<group>"; };
 		69DD2FD01201C416009B1005 /* CapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CapView.m; sourceTree = "<group>"; };
 		69DD929F1A463435004072E5 /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -757,6 +763,9 @@
 				69A443FD1B14AAAC00577693 /* SEBReloadIcon.iconset */,
 				69A443FE1B14AAAC00577693 /* SEBRestartIcon.iconset */,
 				6902C96F1B0CF95E00715855 /* SEBShutDownIcon.iconset */,
+				69DA91261C6A5CCF008D38E6 /* SEBReloadIconHighlighted.iconset */,
+				69DA91271C6A5CCF008D38E6 /* SEBRestartIconHighlighted.iconset */,
+				69DA91241C6A3685008D38E6 /* SEBShutDownIconHighlighted.iconset */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -1080,6 +1089,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69DA91281C6A5CCF008D38E6 /* SEBReloadIconHighlighted.iconset in Resources */,
 				69F7B5FC14F411FB00FD0761 /* LICENCE in Resources */,
 				69F7B5FD14F411FB00FD0761 /* PreferencesGeneral.xib in Resources */,
 				69F7B5FE14F411FB00FD0761 /* PreferencesDownUploads.xib in Resources */,
@@ -1121,12 +1131,14 @@
 				69428CE2172F284B00C87C58 /* SEBDocumentIcon.icns in Resources */,
 				69428CEC172F2B5700C87C58 /* sebConfigIcon.png in Resources */,
 				69428CEE172F2B5700C87C58 /* sebConfigIcon@2x.png in Resources */,
+				69DA91251C6A3685008D38E6 /* SEBShutDownIconHighlighted.iconset in Resources */,
 				69428CF4172F2E2500C87C58 /* ZoomTextIn.png in Resources */,
 				69428CF6172F2E2500C87C58 /* ZoomTextIn@2x.png in Resources */,
 				6947D89B1BB073EA00899A8A /* ZoomPageOut@2x.png in Resources */,
 				69EA170319FA77A0001E0C51 /* Localizable.strings in Resources */,
 				69428CF8172F2E2500C87C58 /* ZoomTextOut.png in Resources */,
 				69428CFA172F2E2500C87C58 /* ZoomTextOut@2x.png in Resources */,
+				69DA91291C6A5CCF008D38E6 /* SEBRestartIconHighlighted.iconset in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

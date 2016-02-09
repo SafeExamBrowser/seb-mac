@@ -64,9 +64,17 @@
  *              provide several resolutions, minimum is 32 and 64 (@2x) pixels.
  *              If the Dock item should not display an icon, then this property
  *              has to be set to nil and the optional property view has to contain
- *              a rectangular NSView to be displayed instead.
+ *              an NSView to be displayed instead.
  */
 - (NSImage *) icon;
+
+/**
+ * @brief       The icon to be displayed in the dock bar while its button is clicked.
+ *              As soon as the button is released, the default icon is displayed again.
+ *              If the Dock item should not be highlighted when its button is clicked,
+ *              then this property has to be set to nil.
+ */
+- (NSImage *) highlightedIcon;
 
 /**
  * @brief		A tool tip string which should only be used for items which don't 
