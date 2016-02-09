@@ -88,6 +88,7 @@
 - (void) menuDidClose:(NSMenu *)menu
 {
     [self.dockMenuPopover close];
+    [_dockItemButton unhighlight];
 }
 
 

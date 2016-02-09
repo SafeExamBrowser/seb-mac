@@ -105,7 +105,12 @@
         NSView *dockItemView;
         for (id<SEBDockItem> dockItem in self.leftDockItems) {
             if (dockItem.icon) {
-                SEBDockItemButton *newDockItemButton = [[SEBDockItemButton alloc] initWithFrame:NSMakeRect(0, 0, iconSize, iconSize) icon:dockItem.icon title:dockItem.title menu:dockItem.menu];
+                SEBDockItemButton *newDockItemButton =
+                [[SEBDockItemButton alloc] initWithFrame:NSMakeRect(0, 0, iconSize, iconSize)
+                                                    icon:dockItem.icon
+                                         highlightedIcon:dockItem.highlightedIcon
+                                                   title:dockItem.title
+                                                    menu:dockItem.menu];
                 // If the new dock item declares an action, then link this to the dock icon button
                 if ([dockItem respondsToSelector:@selector(action)]) {
                     [newDockItemButton setTarget:dockItem.target];
@@ -181,7 +186,12 @@
         for (id<SEBDockItem> dockItem in self.centerDockItems) {
             NSView *dockItemView;
             if (dockItem.icon) {
-                SEBDockItemButton *newDockItemButton = [[SEBDockItemButton alloc] initWithFrame:NSMakeRect(0, 0, iconSize, iconSize) icon:dockItem.icon title:dockItem.title menu:dockItem.menu];
+                SEBDockItemButton *newDockItemButton =
+                [[SEBDockItemButton alloc] initWithFrame:NSMakeRect(0, 0, iconSize, iconSize)
+                                                    icon:dockItem.icon
+                                         highlightedIcon:dockItem.highlightedIcon
+                                                   title:dockItem.title
+                                                    menu:dockItem.menu];
                 // If the new dock item declares an action, then link this to the dock icon button
                 if ([dockItem respondsToSelector:@selector(action)]) {
                     [newDockItemButton setTarget:dockItem.target];
@@ -264,7 +274,12 @@
         for (id<SEBDockItem> dockItem in self.rightDockItems) {
             NSView *dockItemView;
             if (dockItem.icon) {
-                SEBDockItemButton *newDockItemButton = [[SEBDockItemButton alloc] initWithFrame:NSMakeRect(0, 0, iconSize, iconSize) icon:dockItem.icon title:dockItem.title menu:dockItem.menu];
+                SEBDockItemButton *newDockItemButton =
+                [[SEBDockItemButton alloc] initWithFrame:NSMakeRect(0, 0, iconSize, iconSize)
+                                                    icon:dockItem.icon
+                                         highlightedIcon:dockItem.highlightedIcon
+                                                   title:dockItem.title
+                                                    menu:dockItem.menu];
                 // If the new dock item declares an action, then link this to the dock icon button
                 if ([dockItem respondsToSelector:@selector(action)]) {
                     [newDockItemButton setTarget:dockItem.target];

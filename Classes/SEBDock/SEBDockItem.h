@@ -41,6 +41,8 @@
 
 @property (strong, nonatomic) NSImage *icon;
 
+@property (strong, nonatomic) NSImage *highlightedIcon;
+
 @property (strong, nonatomic) NSString *toolTip;
 
 @property (strong, nonatomic) NSMenu *menu;
@@ -49,6 +51,11 @@
 @property (assign, nonatomic) SEL action;
 
 
-- (id) initWithTitle:(NSString *)newTitle icon:(NSImage *)newIcon toolTip:(NSString *)newToolTip menu:(NSMenu *)newMenu target:(id)newTarget action:(SEL)newAction;
+- (id) initWithTitle:(NSString *)newTitle
+                icon:(NSImage *)newIcon
+     highlightedIcon:(NSImage *)newHighlightedIcon
+             toolTip:(NSString *)newToolTip menu:(NSMenu *)newMenu
+              target:(id)newTarget
+              action:(SEL)newAction;
 
 @end

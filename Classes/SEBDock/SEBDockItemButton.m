@@ -37,21 +37,26 @@
 @implementation SEBDockItemButton
 
 
-- (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon title:(NSString *)itemTitle menu:(SEBDockItemMenu *)itemMenu
+- (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon highlightedIcon:(NSImage *)itemHighlightedIcon title:(NSString *)itemTitle menu:(SEBDockItemMenu *)itemMenu
  {
     self = [super initWithFrame:frameRect];
     if (self) {
         mouseDown = NO;
+        
         // Get image size
         CGFloat iconSize = self.frame.size.width;
+        
         [itemIcon setSize: NSMakeSize(iconSize, iconSize)];
-        self.image = itemIcon;
-//        NSImage *altImage = self.alternateImage;
-//        self.alternateImage = [NSImage imageNamed:@"SEBRestartIcon"];
-//        altImage = self.alternateImage;
-//        
-//        [self setButtonType:NSMomentaryPushInButton];
-        [self setButtonType:NSMomentaryLightButton];
+        _defaultImage = itemIcon;
+
+        [itemHighlightedIcon setSize:NSMakeSize(iconSize, iconSize)];
+        _highlightedImage = itemHighlightedIcon;
+
+        self.image = _defaultImage;
+        
+        [self setButtonType:NSMomentaryPushInButton];
+//        [self setButtonType:NSMomentaryLightButton];
+//        [self setButtonType:NSMomentaryChangeButton];
         [self setImagePosition:NSImageOnly];
         [self setBordered:NO];
         NSButtonCell *newDockItemButtonCell = self.cell;
@@ -124,6 +129,7 @@
         
         if (itemMenu) {
             self.dockMenu = itemMenu;
+            itemMenu.dockItemButton = self;
         }
     }
     return self;
@@ -133,6 +139,12 @@
 - (void)mouseDown:(NSEvent*)theEvent
 {
     mouseDown = YES;
+
+    self.highlighted = true;
+    if (_highlightedImage) {
+        self.image = _highlightedImage;
+    }
+    
     [self performSelector:@selector(longMouseDown) withObject: nil afterDelay: 0.5];
 }
 
@@ -144,6 +156,9 @@
         mouseDown = NO;
         [self performClick:self];
     }
+    self.image = _defaultImage;
+    self.highlighted = false;
+
     [super mouseUp:theEvent];
 }
 
@@ -158,8 +173,13 @@
 }
 
 
-- (void)rightMouseDown: (NSEvent*) theEvent
+- (void)rightMouseDown:(NSEvent*)theEvent
 {
+    self.highlighted = true;
+    if (_highlightedImage) {
+        self.image = _highlightedImage;
+    }
+
     if (self.dockMenu)
     {
         [self.labelPopover close];
@@ -167,6 +187,20 @@
         DDLogDebug(@"Dock menu show relative to rect: %f, %f at origin: %f, %f", self.bounds.size.width, self.bounds.size.height, self.bounds.origin.x, self.bounds.origin.y);
 
     }
+}
+
+
+// This method is called when the dock item menu is closed
+- (void)unhighlight
+{
+    self.image = _defaultImage;
+    self.highlighted = false;
+}
+
+- (void)rightMouseUp:(NSEvent *)theEvent
+{
+    self.image = _defaultImage;
+    self.highlighted = false;
 }
 
 
