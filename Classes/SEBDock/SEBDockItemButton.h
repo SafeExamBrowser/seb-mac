@@ -36,6 +36,8 @@
 #import "DropDownButton.h"
 #import "SEBDockItemMenu.h"
 
+@class SEBDockItemMenu;
+
 @interface SEBDockItemButton : NSButton
 {
     NSTrackingArea *trackingArea;
@@ -46,12 +48,15 @@
 
 //@property (strong) NSString *itemTitle;
 
+@property (strong) NSImage *defaultImage;
+@property (strong) NSImage *highlightedImage;
 @property (strong) NSTextField *label;
 @property (strong) NSPopover *labelPopover;
 @property (strong) SEBDockItemMenu *dockMenu;
 
-- (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon title:(NSString *)itemTitle menu:(SEBDockItemMenu *)itemMenu;
+- (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon highlightedIcon:(NSImage *)itemHighlightedIcon title:(NSString *)itemTitle menu:(SEBDockItemMenu *)itemMenu;
 
+- (void)unhighlight;
 - (void)mouseEntered:(NSEvent *)theEvent;
 - (void)mouseExited:(NSEvent *)theEvent;
 - (void)updateTrackingAreas;

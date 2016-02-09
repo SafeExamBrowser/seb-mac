@@ -34,12 +34,16 @@
 
 #import <Cocoa/Cocoa.h>
 #import "DropDownButton.h"
+#import "SEBDockItemButton.h"
+
+@class SEBDockItemButton;
 
 @interface SEBDockItemMenu : NSMenu <NSMenuDelegate>
 
 @property (strong) NSView *dockMenuView;
 @property (strong) NSPopover *dockMenuPopover;
 @property (strong) DropDownButton *dockMenuDropDownButton;
+@property (weak) SEBDockItemButton *dockItemButton;
 
 - (void)showRelativeToRect:(NSRect)positioningRect
                     ofView:(NSView *)positioningView;
