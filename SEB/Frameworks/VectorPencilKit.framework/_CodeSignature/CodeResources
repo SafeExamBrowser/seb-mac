@@ -4,6 +4,10 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>.DS_Store</key>
+		<data>
+		i0jDF9Er7E4Hsdfdc28XhWABwkQ=
+		</data>
 		<key>Headers/VectorPencilKit-Swift.h</key>
 		<data>
 		ZwQtm4ypyAy/G/Db8+bo3ELxyIc=
@@ -15,6 +19,10 @@
 		<key>Info.plist</key>
 		<data>
 		v20YhNzyGyq+TZ7Nu7cdMkp159w=
+		</data>
+		<key>Modules/.DS_Store</key>
+		<data>
+		yquCXj44D71bv45J6tUx0D2SqN0=
 		</data>
 		<key>Modules/VectorPencilKit.swiftmodule/arm.swiftdoc</key>
 		<data>
@@ -35,6 +43,10 @@
 		<key>Modules/module.modulemap</key>
 		<data>
 		Jc4kCJXE8KxbtGk7rCEgzqa1Jg0=
+		</data>
+		<key>embedded.mobileprovision</key>
+		<data>
+		MF6kDxr5MdDnAH8jh01oIiBJ2gk=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -66,6 +78,10 @@
 		<key>Modules/module.modulemap</key>
 		<data>
 		Jc4kCJXE8KxbtGk7rCEgzqa1Jg0=
+		</data>
+		<key>embedded.mobileprovision</key>
+		<data>
+		MF6kDxr5MdDnAH8jh01oIiBJ2gk=
 		</data>
 	</dict>
 	<key>rules</key>
