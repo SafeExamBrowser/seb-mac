@@ -202,12 +202,14 @@
     if ([url.scheme isEqualToString:@"drawing"]) {
         // Open image in a new freehand drawing view
         newViewController = [VEPViewController new];
+        if (templateImage) {
+            [newViewController setBackgroundImage:templateImage];
+        }
     } else {
         // Open URL in a new webview
         // Create a new UIWebView
         newViewController = [self createNewWebViewController];
     }
-    
     
     newOpenWebpage.webViewController = newViewController;
     newOpenWebpage.loadDate = timeStamp;

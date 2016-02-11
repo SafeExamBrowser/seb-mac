@@ -1,0 +1,10 @@
+framework module VectorPencilKit {
+  umbrella header "VectorPencilKit.h"
+
+  export *
+  module * { export * }
+}
+
+module VectorPencilKit.Swift {
+    header "VectorPencilKit-Swift.h"
+}
