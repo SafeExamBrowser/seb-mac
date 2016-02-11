@@ -128,6 +128,14 @@ typedef NSUInteger cryptoIdentities;
 
 
 enum {
+    mobileStatusBarAppearanceNone               = 0,
+    mobileStatusBarAppearanceLight              = 1,
+    mobileStatusBarAppearanceDark               = 2
+};
+typedef NSUInteger mobileStatusBarAppearances;
+
+
+enum {
     getGenerallyBlocked                         = 0,
     openInSameWindow                            = 1,
     openInNewWindow                             = 2
