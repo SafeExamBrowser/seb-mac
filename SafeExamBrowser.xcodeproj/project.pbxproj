@@ -102,8 +102,6 @@
 		695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */; };
 		69544E521C0CEB8800D60C3E /* SEBOSXConfigFileController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69544E501C0CEB8800D60C3E /* SEBOSXConfigFileController.h */; };
 		69544E531C0CEB8800D60C3E /* SEBOSXConfigFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69544E511C0CEB8800D60C3E /* SEBOSXConfigFileController.m */; };
-		69566EAC1C653E0F00BBC653 /* VectorPencilKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69566EAA1C653E0500BBC653 /* VectorPencilKit.framework */; };
-		69566EAD1C653E0F00BBC653 /* VectorPencilKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69566EAA1C653E0500BBC653 /* VectorPencilKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		695BE5F419EC3FED00CA2BB4 /* SEBDockItemMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 695BE5F219EC3FED00CA2BB4 /* SEBDockItemMenu.h */; };
 		695BE5F519EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 695BE5F319EC3FED00CA2BB4 /* SEBDockItemMenu.m */; };
 		695C5CAD16CB210E008FC401 /* ExamIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAB16CB210E008FC401 /* ExamIcon.png */; };
@@ -189,6 +187,8 @@
 		69BB07441BA11CD40065E1F2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69BB07431BA11CD40065E1F2 /* WebKit.framework */; };
 		69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CBEB541834C55C00FB0460 /* SEBSystemManager.h */; };
 		69CBEB571834C55D00FB0460 /* SEBSystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBEB551834C55C00FB0460 /* SEBSystemManager.m */; };
+		69CC9D9F1C6D4D6F00CD7372 /* VectorPencilKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69CC9D9E1C6D4D6F00CD7372 /* VectorPencilKit.framework */; };
+		69CC9DA01C6D4D6F00CD7372 /* VectorPencilKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69CC9D9E1C6D4D6F00CD7372 /* VectorPencilKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		69CE1C171741309C0072207D /* SEBFilterTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CE1C151741309C0072207D /* SEBFilterTreeController.h */; };
 		69CE1C181741309C0072207D /* SEBFilterTreeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE1C161741309C0072207D /* SEBFilterTreeController.m */; };
 		69CE9C5D17326AB90011609B /* SEBConfigFileManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CE9C5B17326AB90011609B /* SEBConfigFileManager.h */; };
@@ -291,13 +291,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		69566EA71C653AAF00BBC653 /* Embed Frameworks */ = {
+		69CC9D9D1C6D4C4600CD7372 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				69566EAD1C653E0F00BBC653 /* VectorPencilKit.framework in Embed Frameworks */,
+				69CC9DA01C6D4D6F00CD7372 /* VectorPencilKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -531,6 +531,7 @@
 		69CB8AFD136AFC6E00C08450 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesController.h; path = Classes/Preferences/PreferencesWindow/PreferencesController.h; sourceTree = "<group>"; };
 		69CBEB541834C55C00FB0460 /* SEBSystemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBSystemManager.h; sourceTree = "<group>"; };
 		69CBEB551834C55C00FB0460 /* SEBSystemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBSystemManager.m; sourceTree = "<group>"; };
+		69CC9D9E1C6D4D6F00CD7372 /* VectorPencilKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = VectorPencilKit.framework; path = "/Users/drs/developer/Builds/SafeExamBrowser-gcyjidykkgkznbatujqrlsxvsklv/Build/Products/Debug-iphoneos/VectorPencilKit.framework"; sourceTree = "<absolute>"; };
 		69CE1C151741309C0072207D /* SEBFilterTreeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBFilterTreeController.h; sourceTree = "<group>"; };
 		69CE1C161741309C0072207D /* SEBFilterTreeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBFilterTreeController.m; sourceTree = "<group>"; };
 		69CE9C5B17326AB90011609B /* SEBConfigFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBConfigFileManager.h; sourceTree = "<group>"; };
@@ -625,7 +626,7 @@
 				69A223421C20E45A00766354 /* libz.tbd in Frameworks */,
 				69BB07441BA11CD40065E1F2 /* WebKit.framework in Frameworks */,
 				7EA5B5F038084C6CA9DE6E21 /* libPods-SEB.a in Frameworks */,
-				69566EAC1C653E0F00BBC653 /* VectorPencilKit.framework in Frameworks */,
+				69CC9D9F1C6D4D6F00CD7372 /* VectorPencilKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -757,6 +758,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				69CC9D9E1C6D4D6F00CD7372 /* VectorPencilKit.framework */,
 				694803981C2373E900593711 /* CoreGraphics.framework */,
 				694803961C2373CC00593711 /* UIKit.framework */,
 				694803941C2373AD00593711 /* Foundation.framework */,
@@ -1408,7 +1410,7 @@
 				E06BCF86C40EE95FAEC137DD /* Embed Pods Frameworks */,
 				BB18A26060CA5B1A357BF2FC /* Copy Pods Resources */,
 				6943165D1BFEBB4900F784EE /* Headers */,
-				69566EA71C653AAF00BBC653 /* Embed Frameworks */,
+				69CC9D9D1C6D4C4600CD7372 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
