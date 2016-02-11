@@ -102,7 +102,6 @@
 		695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */; };
 		69544E521C0CEB8800D60C3E /* SEBOSXConfigFileController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69544E501C0CEB8800D60C3E /* SEBOSXConfigFileController.h */; };
 		69544E531C0CEB8800D60C3E /* SEBOSXConfigFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69544E511C0CEB8800D60C3E /* SEBOSXConfigFileController.m */; };
-		69566EAB1C653E0500BBC653 /* VectorPencilKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69566EAA1C653E0500BBC653 /* VectorPencilKit.framework */; };
 		69566EAC1C653E0F00BBC653 /* VectorPencilKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69566EAA1C653E0500BBC653 /* VectorPencilKit.framework */; };
 		69566EAD1C653E0F00BBC653 /* VectorPencilKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69566EAA1C653E0500BBC653 /* VectorPencilKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		695BE5F419EC3FED00CA2BB4 /* SEBDockItemMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 695BE5F219EC3FED00CA2BB4 /* SEBDockItemMenu.h */; };
@@ -620,7 +619,6 @@
 				69A223421C20E45A00766354 /* libz.tbd in Frameworks */,
 				69BB07441BA11CD40065E1F2 /* WebKit.framework in Frameworks */,
 				7EA5B5F038084C6CA9DE6E21 /* libPods-SEB.a in Frameworks */,
-				69566EAB1C653E0500BBC653 /* VectorPencilKit.framework in Frameworks */,
 				69566EAC1C653E0F00BBC653 /* VectorPencilKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
