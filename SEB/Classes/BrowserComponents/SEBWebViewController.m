@@ -260,10 +260,8 @@
             if (tmp != nil) {
                 NSError *error = nil;
                 UIImage *sourceImage = [UIImage imageWithData: [NSData dataWithContentsOfURL:url]];
-//                UIImage* flippedImage = [UIImage imageWithCGImage:sourceImage.CGImage
-//                                                            scale:sourceImage.scale
-//                                                      orientation:UIImageOrientationUpMirrored];
-                UIImage *processedImage = [self invertImage:sourceImage];
+                UIImage *processedImage = sourceImage;
+//                UIImage *processedImage = [self invertImage:sourceImage];
                 NSData *dataForPNGFile = UIImagePNGRepresentation(processedImage);
 
                 // Write the contents of our tmp object into a file
