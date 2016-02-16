@@ -450,7 +450,7 @@
     OSStatus success = SecItemExport (
                                       certificate,
                                       //                                      kSecFormatNetscapeCertSequence,
-                                      kSecFormatPKCS12,
+                                      kSecFormatX509Cert,
                                       0,
                                       &keyParams,
                                       &exportedData
