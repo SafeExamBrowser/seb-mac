@@ -82,6 +82,7 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
     return [NSArray arrayWithObjects:
             NSLocalizedString(@"SSL Certificate", nil),
             NSLocalizedString(@"Identity", nil),
+            NSLocalizedString(@"CA Certificate", nil),
             nil];
 }
 

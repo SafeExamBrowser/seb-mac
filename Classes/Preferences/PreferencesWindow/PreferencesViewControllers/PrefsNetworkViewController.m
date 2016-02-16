@@ -105,6 +105,11 @@
         //first put "None" item in popupbutton list
         [chooseCertificate addItemWithTitle:NSLocalizedString(@"None", nil)];
         [chooseCertificate addItemsWithTitles: self.certificatesNames];
+        
+        [chooseCA removeAllItems];
+        //first put "None" item in popupbutton list
+        [chooseCA addItemWithTitle:NSLocalizedString(@"None", nil)];
+        [chooseCA addItemsWithTitles: self.certificatesNames];
     }
     if (!self.identitiesNames)
     { //no identities available yet, get them from keychain
@@ -269,7 +274,23 @@
 // A certificate was selected in the drop down menu
 - (IBAction) certificateSelected:(id)sender
 {
-    //get certificate from selected identity
+    [self certificateSelected:sender type:certificateTypeSSLClientCertificate];
+    
+    [chooseCertificate selectItemAtIndex:0];
+    [chooseCertificate synchronizeTitleAndSelectedItem];
+}
+
+// A CA (certificate authority) certificate was selected in the drop down menu
+- (IBAction) CASelected:(id)sender
+{
+    [self certificateSelected:sender type:certificateTypeCA];
+    
+    [chooseCA selectItemAtIndex:0];
+    [chooseCA synchronizeTitleAndSelectedItem];
+}
+
+- (void) certificateSelected:(id)sender type:(certificateTypes)certificateType
+{
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     NSUInteger indexOfSelectedItem = [sender indexOfSelectedItem];
     if (indexOfSelectedItem) {
@@ -277,16 +298,15 @@
         NSData *certificateData = [keychainManager getDataForCertificate:certificate];
         
         NSDictionary *certificateToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
-                                            [NSNumber numberWithInt:certificateTypeSSLClientCertificate], @"type",
+                                            [NSNumber numberWithInt:certificateType], @"type",
                                             [sender titleOfSelectedItem], @"name",
-                                            certificateData, @"certificateData",
+                                            [certificateData base64EncodedStringWithOptions:0], @"certificateDataWin",
                                             nil];
         [certificatesArrayController addObject:certificateToEmbed];
         
-        [chooseCertificate selectItemAtIndex:0];
-        [chooseCertificate synchronizeTitleAndSelectedItem];
     }
 }
+
 
 // An identity was selected in the drop down menu
 - (IBAction)identitySelected:(id)sender

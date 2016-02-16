@@ -63,6 +63,7 @@
     // Certificates section
     IBOutlet NSPopUpButton *chooseCertificate;
     IBOutlet NSPopUpButton *chooseIdentity;
+    IBOutlet NSPopUpButton *chooseCA;
     IBOutlet NSArrayController *certificatesArrayController;
 
 }
@@ -90,6 +91,7 @@
 // Certificates section
 - (IBAction) identitySelected:(id)sender;
 - (IBAction) certificateSelected:(id)sender;
+- (IBAction) CASelected:(id)sender;
 
 
 @end

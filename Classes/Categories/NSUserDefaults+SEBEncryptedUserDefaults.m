@@ -362,6 +362,8 @@ static NSNumber *_logLevel;
                                        }
                                    ],
                                  @"org_safeexambrowser_SEB_permittedProcesses",
+                                 @NO,
+                                 @"org_safeexambrowser_SEB_pinEmbeddedCertificates",
                                  [NSArray array],
                                  @"org_safeexambrowser_SEB_prohibitedProcesses",
                                  [NSMutableDictionary dictionaryWithDictionary:@{
