@@ -6,39 +6,39 @@
 	<dict>
 		<key>Frameworks/libswiftContacts.dylib</key>
 		<data>
-		Mg2/dytaq5LzOd3jJxd33fuz6tk=
+		wQtOtTuh0CSSAoOmLdxO9B4/Z7w=
 		</data>
 		<key>Frameworks/libswiftCore.dylib</key>
 		<data>
-		Jgyk/+4hgf6+fmdX5E9TxTOK110=
+		qv3AhBB3Jkb9D1UGJUkE0/3S+aY=
 		</data>
 		<key>Frameworks/libswiftCoreGraphics.dylib</key>
 		<data>
-		jxSscKIBkzxFBASGKbMSncxdoTc=
+		h9hIKDC3HQTSAN3ar8VeAGj6le4=
 		</data>
 		<key>Frameworks/libswiftCoreImage.dylib</key>
 		<data>
-		u50L+NpIYdGP8kSI54WVEG6d35k=
+		VwtFCRLEk5ZBCIpTHYmUNuAQi6I=
 		</data>
 		<key>Frameworks/libswiftDarwin.dylib</key>
 		<data>
-		AwyDpLbmTAXIrOGzRg4Spq13gcQ=
+		iwhSmzFSP73TDKNJRf2stZr5VMc=
 		</data>
 		<key>Frameworks/libswiftDispatch.dylib</key>
 		<data>
-		nd6UEhDfRdRFCBejv7Qj0MItpfw=
+		bB2kWIMFI0Ta12UW7pbZkJtAMcI=
 		</data>
 		<key>Frameworks/libswiftFoundation.dylib</key>
 		<data>
-		voZqn3mUsbBD+U++SeQ1wgf75Hc=
+		X+/m6N2nMZgVjEopGNEwvhQE9vU=
 		</data>
 		<key>Frameworks/libswiftObjectiveC.dylib</key>
 		<data>
-		937wCHU9y+n2Qnu20YFclxcQELg=
+		Xyltln7XY3nW2A+UoXIkkuDkDYg=
 		</data>
 		<key>Frameworks/libswiftUIKit.dylib</key>
 		<data>
-		CsWW2FZPON0kj/LVHPKeHHxpmTY=
+		4Q895D9bLyhQpFOwrMdzdTTKhjE=
 		</data>
 		<key>Headers/VectorPencilKit-Swift.h</key>
 		<data>
@@ -58,7 +58,7 @@
 		</data>
 		<key>Modules/VectorPencilKit.swiftmodule/arm.swiftmodule</key>
 		<data>
-		P/r27dsfT47zbFMJ++FTtgZTVXk=
+		vODo35ju4f1YjC3plSS1t6q5G6Y=
 		</data>
 		<key>Modules/VectorPencilKit.swiftmodule/arm64.swiftdoc</key>
 		<data>
@@ -66,54 +66,50 @@
 		</data>
 		<key>Modules/VectorPencilKit.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		IyUFYMqDXiBoqK/YsOwQ7gIlB/E=
+		Lqk93N7l2Cq4t7pF8sIYtzOuoQA=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
 		Jc4kCJXE8KxbtGk7rCEgzqa1Jg0=
-		</data>
-		<key>embedded.mobileprovision</key>
-		<data>
-		MF6kDxr5MdDnAH8jh01oIiBJ2gk=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
 		<key>Frameworks/libswiftContacts.dylib</key>
 		<data>
-		Mg2/dytaq5LzOd3jJxd33fuz6tk=
+		wQtOtTuh0CSSAoOmLdxO9B4/Z7w=
 		</data>
 		<key>Frameworks/libswiftCore.dylib</key>
 		<data>
-		Jgyk/+4hgf6+fmdX5E9TxTOK110=
+		qv3AhBB3Jkb9D1UGJUkE0/3S+aY=
 		</data>
 		<key>Frameworks/libswiftCoreGraphics.dylib</key>
 		<data>
-		jxSscKIBkzxFBASGKbMSncxdoTc=
+		h9hIKDC3HQTSAN3ar8VeAGj6le4=
 		</data>
 		<key>Frameworks/libswiftCoreImage.dylib</key>
 		<data>
-		u50L+NpIYdGP8kSI54WVEG6d35k=
+		VwtFCRLEk5ZBCIpTHYmUNuAQi6I=
 		</data>
 		<key>Frameworks/libswiftDarwin.dylib</key>
 		<data>
-		AwyDpLbmTAXIrOGzRg4Spq13gcQ=
+		iwhSmzFSP73TDKNJRf2stZr5VMc=
 		</data>
 		<key>Frameworks/libswiftDispatch.dylib</key>
 		<data>
-		nd6UEhDfRdRFCBejv7Qj0MItpfw=
+		bB2kWIMFI0Ta12UW7pbZkJtAMcI=
 		</data>
 		<key>Frameworks/libswiftFoundation.dylib</key>
 		<data>
-		voZqn3mUsbBD+U++SeQ1wgf75Hc=
+		X+/m6N2nMZgVjEopGNEwvhQE9vU=
 		</data>
 		<key>Frameworks/libswiftObjectiveC.dylib</key>
 		<data>
-		937wCHU9y+n2Qnu20YFclxcQELg=
+		Xyltln7XY3nW2A+UoXIkkuDkDYg=
 		</data>
 		<key>Frameworks/libswiftUIKit.dylib</key>
 		<data>
-		CsWW2FZPON0kj/LVHPKeHHxpmTY=
+		4Q895D9bLyhQpFOwrMdzdTTKhjE=
 		</data>
 		<key>Headers/VectorPencilKit-Swift.h</key>
 		<data>
@@ -129,7 +125,7 @@
 		</data>
 		<key>Modules/VectorPencilKit.swiftmodule/arm.swiftmodule</key>
 		<data>
-		P/r27dsfT47zbFMJ++FTtgZTVXk=
+		vODo35ju4f1YjC3plSS1t6q5G6Y=
 		</data>
 		<key>Modules/VectorPencilKit.swiftmodule/arm64.swiftdoc</key>
 		<data>
@@ -137,15 +133,11 @@
 		</data>
 		<key>Modules/VectorPencilKit.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		IyUFYMqDXiBoqK/YsOwQ7gIlB/E=
+		Lqk93N7l2Cq4t7pF8sIYtzOuoQA=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
 		Jc4kCJXE8KxbtGk7rCEgzqa1Jg0=
-		</data>
-		<key>embedded.mobileprovision</key>
-		<data>
-		MF6kDxr5MdDnAH8jh01oIiBJ2gk=
 		</data>
 	</dict>
 	<key>rules</key>
