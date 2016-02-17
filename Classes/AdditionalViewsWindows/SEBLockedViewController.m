@@ -111,10 +111,17 @@
         self.controllerDelegate.sebLocked = false;
     }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *lockedExams = [NSMutableArray arrayWithArray:[preferences secureArrayForKey:@"additionalResources"]];
     NSString *startURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+    BOOL usingPrivateUserDefaults = NSUserDefaults.userDefaultsPrivate;
+    if (usingPrivateUserDefaults) {
+        [NSUserDefaults setUserDefaultsPrivate:false];
+    }
+    NSMutableArray *lockedExams = [NSMutableArray arrayWithArray:[preferences secureArrayForKey:@"org_safeexambrowser_additionalResources"]];
     [lockedExams removeObject:startURL];
-    [preferences setSecureObject:lockedExams forKey:@"additionalResources"];
+    [preferences setSecureObject:lockedExams forKey:@"org_safeexambrowser_additionalResources"];
+    if (usingPrivateUserDefaults) {
+        [NSUserDefaults setUserDefaultsPrivate:true];
+    }
     closingLockdownWindowsInProgress = false;
 }
 

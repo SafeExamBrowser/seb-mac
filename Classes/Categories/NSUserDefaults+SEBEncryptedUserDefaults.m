@@ -521,10 +521,12 @@ static NSNumber *_logLevel;
     
     SEBCryptor *sharedSEBCryptor = [SEBCryptor sharedSEBCryptor];
     NSMutableDictionary *currentUserDefaults;
+    NSArray *additionalResources;
 
     // Check if there are valid SEB UserDefaults already
     if ([self haveSEBUserDefaults]) {
         // Read decrypted existing SEB UserDefaults
+        additionalResources = [self secureArrayForKey:@"org_safeexambrowser_additionalResources"];
         NSDictionary *sebUserDefaults = [self dictionaryRepresentationSEB];
         // Check if something went wrong reading settings
         if (sebUserDefaults == nil) {
@@ -565,6 +567,7 @@ static NSNumber *_logLevel;
 
     // If there were already SEB preferences, we save them back into UserDefaults
     [self storeSEBDictionary:currentUserDefaults];
+    [self setSecureObject:additionalResources forKey:@"org_safeexambrowser_additionalResources"];
 
     // Check if originatorVersion flag is set and otherwise set it to the current SEB version
     if ([[self secureStringForKey:@"org_safeexambrowser_originatorVersion"] isEqualToString:@""]) {

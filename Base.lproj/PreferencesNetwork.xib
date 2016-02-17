@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10109" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10109"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsNetworkViewController">
@@ -44,7 +44,7 @@
                                 <rect key="frame" x="10" y="33" width="605" height="640"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <button toolTip="When URL filtering is active and no matching block or allow expression is found), then the processed URL is discarded" translatesAutoresizingMaskIntoConstraints="NO" id="454">
+                                    <button toolTip="When URL filtering is active and no matching block or allow expression is found), then the processed URL is discarded" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="454">
                                         <rect key="frame" x="15" y="619" width="152" height="18"/>
                                         <buttonCell key="cell" type="check" title="Activate URL filtering" bezelStyle="regularSquare" imagePosition="left" inset="2" id="455">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -90,11 +90,11 @@
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="at3-bk-Nje">
                                         <rect key="frame" x="17" y="275" width="571" height="319"/>
                                         <clipView key="contentView" id="QXl-iW-Uh6">
-                                            <rect key="frame" x="1" y="17" width="238" height="117"/>
+                                            <rect key="frame" x="1" y="0.0" width="569" height="318"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="" headerView="TDX-aF-oMF" id="1EV-b8-djc">
-                                                    <rect key="frame" x="0.0" y="0.0" width="569" height="19"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="569" height="295"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -195,16 +195,16 @@
                                             <rect key="frame" x="1" y="119" width="223" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="PUF-hE-U4q">
+                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="PUF-hE-U4q">
                                             <rect key="frame" x="224" y="17" width="15" height="102"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <tableHeaderView key="headerView" id="TDX-aF-oMF">
-                                            <rect key="frame" x="0.0" y="0.0" width="569" height="17"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="569" height="23"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
-                                    <button toolTip="Not only web page URLs are filtered using the URL filter rules, but also all embedded resources" translatesAutoresizingMaskIntoConstraints="NO" id="648">
+                                    <button toolTip="Not only web page URLs are filtered using the URL filter rules, but also all embedded resources" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="648">
                                         <rect key="frame" x="292" y="619" width="203" height="18"/>
                                         <buttonCell key="cell" type="check" title="Filter also embedded content" bezelStyle="regularSquare" imagePosition="left" inset="2" id="649">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -226,7 +226,7 @@
                                             <rect key="frame" x="1" y="1" width="575" height="217"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <button toolTip="URL filter action item is active" translatesAutoresizingMaskIntoConstraints="NO" id="jId-HY-bdq">
+                                                <button toolTip="URL filter action item is active" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jId-HY-bdq">
                                                     <rect key="frame" x="11" y="157" width="61" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="yVm-BW-ed0"/>
@@ -244,7 +244,7 @@
                                                         </binding>
                                                     </connections>
                                                 </button>
-                                                <button toolTip="Selected action is a regular expression" translatesAutoresizingMaskIntoConstraints="NO" id="1QG-Ub-GkE">
+                                                <button toolTip="Selected action is a regular expression" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1QG-Ub-GkE">
                                                     <rect key="frame" x="92" y="157" width="61" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="xfM-bO-IsX"/>
@@ -263,7 +263,7 @@
                                                         </binding>
                                                     </connections>
                                                 </button>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QmW-O8-p1C">
+                                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QmW-O8-p1C">
                                                     <rect key="frame" x="422" y="160" width="44" height="17"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Action" id="cCY-tB-p0Y">
                                                         <font key="font" metaFont="system"/>
@@ -278,7 +278,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1gn-Vv-xlE">
+                                                <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1gn-Vv-xlE">
                                                     <rect key="frame" x="104" y="106" width="21" height="17"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="://" id="uKK-FD-wnl">
                                                         <font key="font" metaFont="system"/>
@@ -293,7 +293,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zft-nz-iLW">
+                                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zft-nz-iLW">
                                                     <rect key="frame" x="11" y="16" width="12" height="17"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="?" id="wOI-qb-1mB">
                                                         <font key="font" metaFont="system"/>
@@ -308,7 +308,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qXx-hw-dUi">
+                                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qXx-hw-dUi">
                                                     <rect key="frame" x="11" y="46" width="12" height="17"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="/" id="2io-Hc-2AG">
                                                         <font key="font" metaFont="system"/>
@@ -323,7 +323,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lCM-go-Urk">
+                                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lCM-go-Urk">
                                                     <rect key="frame" x="547" y="106" width="15" height="17"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="@" id="D1T-ZJ-mqa">
                                                         <font key="font" metaFont="system"/>
@@ -381,7 +381,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="63j-33-Jdu">
+                                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="63j-33-Jdu">
                                                     <rect key="frame" x="11" y="134" width="394" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="17" id="iuH-05-SfK"/>
@@ -424,7 +424,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jju-Ve-Ujz">
+                                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jju-Ve-Ujz">
                                                     <rect key="frame" x="127" y="104" width="206" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="206" id="AA5-mw-a0e"/>
@@ -448,7 +448,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="oXf-ig-TZU">
+                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oXf-ig-TZU">
                                                     <rect key="frame" x="340" y="104" width="206" height="23"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="206" id="BzU-wF-LRn"/>
@@ -520,7 +520,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1PT-7a-wz2">
+                                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1PT-7a-wz2">
                                                     <rect key="frame" x="27" y="14" width="372" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="372" id="0sj-Df-Mty"/>
@@ -568,7 +568,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xPj-V3-hmo">
+                                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xPj-V3-hmo">
                                                     <rect key="frame" x="333" y="106" width="8" height="17"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title=":" id="tJm-ce-zDQ">
                                                         <font key="font" metaFont="system"/>
@@ -583,7 +583,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="b1s-1U-Ybg">
+                                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b1s-1U-Ybg">
                                                     <rect key="frame" x="493" y="76" width="10" height="17"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title=":" id="27i-17-3S4">
                                                         <font key="font" metaFont="system"/>
@@ -598,7 +598,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZAH-3m-Yk0">
+                                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZAH-3m-Yk0">
                                                     <rect key="frame" x="400" y="16" width="12" height="17"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="#" id="bcq-qY-qJM">
                                                         <font key="font" metaFont="system"/>
@@ -709,7 +709,7 @@
                                     <matrix toolTip="Chooses message/symbol which is displayed in the browser window toolbar when a URL isn't allowed" verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wtP-tT-RxN">
                                         <rect key="frame" x="33" y="599" width="555" height="18"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        <size key="cellSize" width="144" height="18"/>
+                                        <size key="cellSize" width="140" height="18"/>
                                         <size key="intercellSpacing" width="4" height="2"/>
                                         <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" controlSize="small" inset="2" id="MCw-h1-309">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -734,7 +734,7 @@
                                             <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_URLFilterMessage" id="pfM-NM-XPk"/>
                                         </connections>
                                     </matrix>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Etc-6i-KPi">
+                                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Etc-6i-KPi">
                                         <rect key="frame" x="439" y="235" width="155" height="32"/>
                                         <string key="toolTip">Clear the list containing ignore filter expressions. This list has only an effect on the 'Teach allowed/blocked URLs' mode; loading ignored URLs/resources won't display a dialog anymore. They are blocked anyways, because all not allowed URLs are blocked by the URL filter</string>
                                         <buttonCell key="cell" type="push" title="Clear Ignore List…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="iyL-Fn-jZ6">
@@ -745,7 +745,7 @@
                                             <action selector="clearIgnoreList:" target="-2" id="aOH-1T-JDq"/>
                                         </connections>
                                     </button>
-                                    <button toolTip="Helps to create filter rules for URLs or embedded content elements that should be allowed or blocked" translatesAutoresizingMaskIntoConstraints="NO" id="PJT-Mq-ijG">
+                                    <button toolTip="Helps to create filter rules for URLs or embedded content elements that should be allowed or blocked" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PJT-Mq-ijG">
                                         <rect key="frame" x="198" y="244" width="232" height="18"/>
                                         <buttonCell key="cell" type="check" title="Teach SEB allowed/blocked URLs" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="DSd-mL-qnG">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -841,11 +841,11 @@
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1831">
                                         <rect key="frame" x="17" y="39" width="570" height="498"/>
                                         <clipView key="contentView" id="bNG-6J-vDW">
-                                            <rect key="frame" x="1" y="17" width="568" height="272"/>
+                                            <rect key="frame" x="1" y="0.0" width="568" height="497"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="" rowHeight="14" headerView="1834" id="1832">
-                                                    <rect key="frame" x="0.0" y="0.0" width="568" height="16"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="568" height="474"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -903,12 +903,12 @@
                                             <rect key="frame" x="1" y="274" width="568" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="1835">
+                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="1835">
                                             <rect key="frame" x="224" y="17" width="15" height="102"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <tableHeaderView key="headerView" id="1834">
-                                            <rect key="frame" x="0.0" y="0.0" width="568" height="17"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="568" height="23"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
@@ -954,7 +954,7 @@
                                 <rect key="frame" x="10" y="33" width="604" height="640"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="768">
+                                    <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="768">
                                         <rect key="frame" x="15" y="555" width="191" height="17"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Select a protocol to configure:" id="769">
                                             <font key="font" metaFont="system"/>
@@ -1040,7 +1040,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="312" height="160"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="854">
+                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="854">
                                                             <rect key="frame" x="1" y="143" width="152" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Proxy Configuration File" id="855">
                                                                 <font key="font" metaFont="system"/>
@@ -1056,7 +1056,7 @@
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1160">
+                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1160">
                                                             <rect key="frame" x="42" y="113" width="270" height="22"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="270" id="1167"/>
@@ -1070,7 +1070,7 @@
                                                                 <binding destination="1721" name="value" keyPath="selection.AutoConfigurationURL" id="1960"/>
                                                             </connections>
                                                         </textField>
-                                                        <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1168">
+                                                        <button hidden="YES" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1168">
                                                             <rect key="frame" x="191" y="77" width="127" height="32"/>
                                                             <buttonCell key="cell" type="push" title="Choose File…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1169">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1110,7 +1110,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="312" height="160"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1214">
+                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1214">
                                                             <rect key="frame" x="1" y="143" width="114" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Web Proxy Server" id="1215">
                                                                 <font key="font" metaFont="system"/>
@@ -1150,7 +1150,7 @@
                                                                 <binding destination="1721" name="value" keyPath="selection.HTTPPort" id="1948"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1232">
+                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1232">
                                                             <rect key="frame" x="241" y="115" width="8" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title=":" id="1233">
                                                                 <font key="font" metaFont="system"/>
@@ -1158,7 +1158,7 @@
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="1240">
+                                                        <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1240">
                                                             <rect key="frame" x="-2" y="87" width="216" height="18"/>
                                                             <buttonCell key="cell" type="check" title="Proxy server requires password" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1241">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1182,7 +1182,7 @@
                                                                 <binding destination="1721" name="value" keyPath="selection.HTTPUser" id="1949"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1258">
+                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1258">
                                                             <rect key="frame" x="31" y="58" width="71" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Username:" id="1259">
                                                                 <font key="font" metaFont="system"/>
@@ -1190,7 +1190,7 @@
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1284">
+                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1284">
                                                             <rect key="frame" x="33" y="26" width="69" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Password:" id="1285">
                                                                 <font key="font" metaFont="system"/>
@@ -1241,7 +1241,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="312" height="160"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1516">
+                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1516">
                                                             <rect key="frame" x="1" y="143" width="161" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Secure Web Proxy Server" id="1536">
                                                                 <font key="font" metaFont="system"/>
@@ -1281,7 +1281,7 @@
                                                                 <binding destination="1721" name="value" keyPath="selection.HTTPSPort" id="1921"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1519">
+                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1519">
                                                             <rect key="frame" x="241" y="115" width="8" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title=":" id="1531">
                                                                 <font key="font" metaFont="system"/>
@@ -1289,7 +1289,7 @@
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="1520">
+                                                        <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1520">
                                                             <rect key="frame" x="-2" y="87" width="216" height="18"/>
                                                             <buttonCell key="cell" type="check" title="Proxy server requires password" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1530">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1313,7 +1313,7 @@
                                                                 <binding destination="1721" name="value" keyPath="selection.HTTPSUser" id="1935"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1522">
+                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1522">
                                                             <rect key="frame" x="31" y="58" width="71" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Username:" id="1527">
                                                                 <font key="font" metaFont="system"/>
@@ -1321,7 +1321,7 @@
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1523">
+                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1523">
                                                             <rect key="frame" x="33" y="26" width="69" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Password:" id="1526">
                                                                 <font key="font" metaFont="system"/>
@@ -1372,7 +1372,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="312" height="160"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1557">
+                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1557">
                                                             <rect key="frame" x="1" y="143" width="112" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="FTP Proxy Server" id="1577">
                                                                 <font key="font" metaFont="system"/>
@@ -1412,7 +1412,7 @@
                                                                 <binding destination="1721" name="value" keyPath="selection.FTPPort" id="1939"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1560">
+                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1560">
                                                             <rect key="frame" x="241" y="115" width="8" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title=":" id="1572">
                                                                 <font key="font" metaFont="system"/>
@@ -1420,7 +1420,7 @@
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="1561">
+                                                        <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1561">
                                                             <rect key="frame" x="-2" y="87" width="216" height="18"/>
                                                             <buttonCell key="cell" type="check" title="Proxy server requires password" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1571">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1444,7 +1444,7 @@
                                                                 <binding destination="1721" name="value" keyPath="selection.FTPUser" id="1943"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1563">
+                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1563">
                                                             <rect key="frame" x="31" y="58" width="71" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Username:" id="1568">
                                                                 <font key="font" metaFont="system"/>
@@ -1452,7 +1452,7 @@
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1564">
+                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1564">
                                                             <rect key="frame" x="33" y="26" width="69" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Password:" id="1567">
                                                                 <font key="font" metaFont="system"/>
@@ -1503,7 +1503,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="312" height="160"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1598">
+                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1598">
                                                             <rect key="frame" x="1" y="143" width="134" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="SOCKS Proxy Server" id="1618">
                                                                 <font key="font" metaFont="system"/>
@@ -1543,7 +1543,7 @@
                                                                 <binding destination="1721" name="value" keyPath="selection.SOCKSPort" id="1955"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1601">
+                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1601">
                                                             <rect key="frame" x="241" y="115" width="8" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title=":" id="1613">
                                                                 <font key="font" metaFont="system"/>
@@ -1551,7 +1551,7 @@
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="1602">
+                                                        <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1602">
                                                             <rect key="frame" x="-2" y="87" width="216" height="18"/>
                                                             <buttonCell key="cell" type="check" title="Proxy server requires password" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1612">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1575,7 +1575,7 @@
                                                                 <binding destination="1721" name="value" keyPath="selection.SOCKSUser" id="1956"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1604">
+                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1604">
                                                             <rect key="frame" x="31" y="58" width="71" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Username:" id="1609">
                                                                 <font key="font" metaFont="system"/>
@@ -1583,7 +1583,7 @@
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1605">
+                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1605">
                                                             <rect key="frame" x="33" y="26" width="69" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Password:" id="1608">
                                                                 <font key="font" metaFont="system"/>
@@ -1634,7 +1634,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="312" height="160"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1639">
+                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1639">
                                                             <rect key="frame" x="1" y="143" width="150" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Streaming Proxy Server" id="1659">
                                                                 <font key="font" metaFont="system"/>
@@ -1674,7 +1674,7 @@
                                                                 <binding destination="1721" name="value" keyPath="selection.RTSPPort" id="1736"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1642">
+                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1642">
                                                             <rect key="frame" x="241" y="115" width="8" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title=":" id="1654">
                                                                 <font key="font" metaFont="system"/>
@@ -1682,7 +1682,7 @@
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="1643">
+                                                        <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1643">
                                                             <rect key="frame" x="-2" y="87" width="216" height="18"/>
                                                             <buttonCell key="cell" type="check" title="Proxy server requires password" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1653">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1706,7 +1706,7 @@
                                                                 <binding destination="1721" name="value" keyPath="selection.RTSPUser" id="1959"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1645">
+                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1645">
                                                             <rect key="frame" x="31" y="58" width="71" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Username:" id="1650">
                                                                 <font key="font" metaFont="system"/>
@@ -1714,7 +1714,7 @@
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1646">
+                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1646">
                                                             <rect key="frame" x="33" y="26" width="69" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Password:" id="1649">
                                                                 <font key="font" metaFont="system"/>
@@ -1793,7 +1793,7 @@
                                             <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_proxySettingsPolicy" id="1683"/>
                                         </connections>
                                     </matrix>
-                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="1058">
+                                    <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1058">
                                         <rect key="frame" x="15" y="388" width="187" height="18"/>
                                         <buttonCell key="cell" type="check" title="Exclude simple hostnames" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="1059">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1803,7 +1803,7 @@
                                             <binding destination="1721" name="value" keyPath="selection.ExcludeSimpleHostnames" id="1908"/>
                                         </connections>
                                     </button>
-                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1063">
+                                    <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1063">
                                         <rect key="frame" x="15" y="353" width="309" height="17"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Bypass proxy settings for these hosts &amp; domains:" id="1064">
                                             <font key="font" metaFont="system"/>
@@ -1825,7 +1825,7 @@
                                             <action selector="saveProxyExceptionsList:" target="-2" id="N8j-vQ-emh"/>
                                         </connections>
                                     </textField>
-                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="1088">
+                                    <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1088">
                                         <rect key="frame" x="15" y="219" width="210" height="18"/>
                                         <buttonCell key="cell" type="check" title="Use Passive FTP Mode (PASV)" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="1089">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
