@@ -151,10 +151,23 @@ static NSMutableSet *browserWindowControllers;
                 
                 /// Lock the exam down
                 NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-                NSMutableArray *lockedExams = [NSMutableArray arrayWithArray:[preferences secureArrayForKey:@"additionalResources"]];
                 NSString *startURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-                [lockedExams addObject:startURL];
-                [preferences setSecureObject:lockedExams forKey:@"additionalResources"];
+                BOOL usingPrivateUserDefaults = NSUserDefaults.userDefaultsPrivate;
+                if (usingPrivateUserDefaults) {
+                    [NSUserDefaults setUserDefaultsPrivate:false];
+                }
+                NSMutableArray *lockedExams = [NSMutableArray arrayWithArray:[preferences secureArrayForKey:@"org_safeexambrowser_additionalResources"]];
+                NSDictionary *interruptedLockedExam = @[
+                                                        @{
+                                                            @"startURL" : startURL,
+                                                            @"logString" : @"",
+                                                            }
+                                                        ];
+                [lockedExams addObject:interruptedLockedExam];
+                [preferences setSecureObject:lockedExams forKey:@"org_safeexambrowser_additionalResources"];
+                if (usingPrivateUserDefaults) {
+                    [NSUserDefaults setUserDefaultsPrivate:true];
+                }
                 
                 // If there wasn't a lockdown covering view openend yet, initialize it
                 if (!_sebLocked) {
