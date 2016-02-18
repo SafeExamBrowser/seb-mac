@@ -45,15 +45,31 @@
 
 @implementation SEBiOSLockedViewController
 
+
+- (void)didMoveToParentViewController:(UIViewController *)parent
+{
+    if (parent) {
+        // Add the view to the parent view and position it if you want
+        [[parent view] addSubview:self.view];
+        CGRect viewFrame = parent.view.bounds;
+        //viewFrame.origin.y += kNavbarHeight;
+        //viewFrame.size.height -= kNavbarHeight;
+        [self.view setFrame:viewFrame];
+    } else {
+        [self.view removeFromSuperview];
+    }
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.lockedViewController = [[SEBLockedViewController alloc] init];
-    self.lockedViewController.UIDelegate = self;
-    self.lockedViewController.controllerDelegate = self.controllerDelegate;
+    _lockedViewController = [[SEBLockedViewController alloc] init];
+    _lockedViewController.UIDelegate = self;
+    _lockedViewController.controllerDelegate = self.controllerDelegate;
     
-    self.lockedViewController.boldFontAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:[UIFont systemFontSize]]};
+    _lockedViewController.boldFontAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:[UIFont systemFontSize]]};
     
     [lockedAlertPasswordField addTarget:lockedAlertPasswordField
                   action:@selector(resignFirstResponder)
@@ -62,7 +78,7 @@
 
 
 - (void)appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime {
-    [self.lockedViewController appendErrorString:errorString withTime:errorTime];
+    [_lockedViewController appendErrorString:errorString withTime:errorTime];
 }
 
 
@@ -73,12 +89,20 @@
 
 
 - (IBAction)passwordEntered:(id)sender {
-    [self.lockedViewController passwordEntered:sender];
+    [_lockedViewController passwordEntered:sender];
 }
 
 
+- (BOOL) shouldOpenLockdownWindows {
+    return [_lockedViewController shouldOpenLockdownWindows];
+}
+
+- (void) didOpenLockdownWindows {
+    [_lockedViewController didOpenLockdownWindows];
+}
+
 - (void) shouldCloseLockdownWindows {
-    [self.lockedViewController shouldCloseLockdownWindows];
+    [_lockedViewController closeLockdownWindows];
 }
 
 

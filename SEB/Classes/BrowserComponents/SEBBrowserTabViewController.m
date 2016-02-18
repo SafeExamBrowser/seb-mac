@@ -338,19 +338,8 @@
     // Currently we don't use eventually persisted webpages
     [self removePersistedOpenWebPages];
     
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *startURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-    BOOL usingPrivateUserDefaults = NSUserDefaults.userDefaultsPrivate;
-    if (usingPrivateUserDefaults) {
-        [NSUserDefaults setUserDefaultsPrivate:false];
-    }
-    NSMutableArray *lockedExams = [NSMutableArray arrayWithArray:[preferences secureArrayForKey:@"org_safeexambrowser_additionalResources"]];
-    if ([lockedExams containsObject:startURL]) {
-        [_sebViewController openLockdownWindows];
-    }
-    if (usingPrivateUserDefaults) {
-        [NSUserDefaults setUserDefaultsPrivate:true];
-    }
+    [_sebViewController conditionallyOpenLockdownWindows];
+    
     NSManagedObjectContext *context = self.managedObjectContext;
     
     // Construct a fetch request

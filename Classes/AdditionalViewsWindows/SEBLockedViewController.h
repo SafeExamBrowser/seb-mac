@@ -185,8 +185,10 @@
 
 @property (strong) NSDictionary *boldFontAttributes;
 
+- (void) didOpenLockdownWindows;
 - (void) passwordEntered:(id)sender;
-- (void) shouldCloseLockdownWindows;
+- (BOOL) shouldOpenLockdownWindows;
+- (void) closeLockdownWindows;
 - (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
 
 @end
