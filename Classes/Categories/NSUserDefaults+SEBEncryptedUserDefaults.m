@@ -319,6 +319,8 @@ static NSNumber *_logLevel;
                                  @"100%",
                                  @"org_safeexambrowser_SEB_mainBrowserWindowWidth",
                                  @NO,
+                                 @"org_safeexambrowser_SEB_mobileEnableASAM",
+                                 @NO,
                                  @"org_safeexambrowser_SEB_mobileManagedOnly",
                                  [NSNumber numberWithLong:mobileStatusBarAppearanceNone],
                                  @"org_safeexambrowser_SEB_mobileStatusBarAppearance",
