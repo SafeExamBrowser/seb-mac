@@ -178,7 +178,7 @@
     NSMutableAttributedString *logString = [self.UIDelegate.resignActiveLogString mutableCopy];
     if (errorTime) {
         NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
-        [timeFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss "];
+        [timeFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss  "];
         NSString *theTime = [timeFormat stringFromDate:errorTime];
         NSAttributedString *attributedTimeString = [[NSAttributedString alloc] initWithString:theTime];
         [logString appendAttributedString:attributedTimeString];

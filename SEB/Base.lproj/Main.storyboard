@@ -19,15 +19,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SEB Is Locked!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2p-As-V6t">
-                                <rect key="frame" x="228" y="28" width="145" height="24"/>
+                                <rect key="frame" x="228" y="35" width="145" height="24"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="72x-TK-QER">
-                                <rect key="frame" x="20" y="58" width="560" height="54"/>
+                                <rect key="frame" x="20" y="65" width="560" height="54"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="560" id="aXb-WD-Xzt"/>
+                                    <constraint firstAttribute="width" priority="750" constant="560" id="aXb-WD-Xzt"/>
                                 </constraints>
                                 <string key="text">SEB is locked because Guided Access was switched off during the exam. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -35,7 +35,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0nm-pU-BZ0">
-                                <rect key="frame" x="172" y="148" width="257" height="30"/>
+                                <rect key="frame" x="172" y="155" width="257" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 <connections>
@@ -43,13 +43,13 @@
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter restart/quit password to unlock SEB:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jBa-LL-dKG">
-                                <rect key="frame" x="172" y="124" width="257" height="16"/>
+                                <rect key="frame" x="172" y="131" width="257" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter correct password!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6fi-rT-cNJ">
-                                <rect key="frame" x="199" y="184" width="203" height="16"/>
+                                <rect key="frame" x="199" y="191" width="203" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="203" id="YW0-x6-yYr"/>
                                 </constraints>
@@ -58,15 +58,15 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="arM-6u-TmT">
-                                <rect key="frame" x="437" y="149" width="28" height="28"/>
+                                <rect key="frame" x="437" y="156" width="28" height="28"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" image="continueCircle.png"/>
                                 <connections>
                                     <action selector="passwordEntered:" destination="f3L-ht-oaH" eventType="touchUpInside" id="0xi-NQ-h54"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="M4E-Gh-2wA">
-                                <rect key="frame" x="20" y="208" width="560" height="372"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="M4E-Gh-2wA">
+                                <rect key="frame" x="20" y="215" width="560" height="365"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="560" id="tMb-l5-M9t"/>
@@ -78,28 +78,33 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="72x-TK-QER" firstAttribute="centerX" secondItem="k2i-14-hes" secondAttribute="centerX" id="0I0-j6-BxS"/>
                             <constraint firstItem="0nm-pU-BZ0" firstAttribute="top" secondItem="jBa-LL-dKG" secondAttribute="bottom" constant="8" symbolic="YES" id="1yZ-WJ-FcJ"/>
                             <constraint firstItem="72x-TK-QER" firstAttribute="leading" secondItem="M4E-Gh-2wA" secondAttribute="leading" id="4Cf-TB-bgy"/>
                             <constraint firstItem="jBa-LL-dKG" firstAttribute="top" secondItem="72x-TK-QER" secondAttribute="bottom" constant="12" id="AsG-2Q-myd"/>
+                            <constraint firstItem="M4E-Gh-2wA" firstAttribute="leading" secondItem="k2i-14-hes" secondAttribute="leading" priority="750" constant="20" id="CaS-ah-Gbj"/>
                             <constraint firstItem="6fi-rT-cNJ" firstAttribute="top" secondItem="0nm-pU-BZ0" secondAttribute="bottom" constant="6" id="Gvw-TV-o8x"/>
+                            <constraint firstItem="72x-TK-QER" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="k2i-14-hes" secondAttribute="leading" constant="20" id="H45-eT-XnK"/>
                             <constraint firstItem="72x-TK-QER" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="k2i-14-hes" secondAttribute="trailingMargin" id="KDY-3t-mkg"/>
                             <constraint firstItem="M4E-Gh-2wA" firstAttribute="centerX" secondItem="k2i-14-hes" secondAttribute="centerX" id="N7s-UB-KBh"/>
+                            <constraint firstItem="0OZ-rE-pp2" firstAttribute="top" secondItem="M4E-Gh-2wA" secondAttribute="bottom" constant="20" id="OTb-o7-XUX"/>
+                            <constraint firstItem="D2p-As-V6t" firstAttribute="top" secondItem="d5g-Kj-l96" secondAttribute="bottom" constant="15" id="Ozp-at-yyJ"/>
                             <constraint firstItem="6fi-rT-cNJ" firstAttribute="centerX" secondItem="0nm-pU-BZ0" secondAttribute="centerX" id="Pbq-nh-5xF"/>
-                            <constraint firstItem="M4E-Gh-2wA" firstAttribute="trailing" secondItem="72x-TK-QER" secondAttribute="trailing" id="Q6i-fS-Ybh"/>
-                            <constraint firstItem="M4E-Gh-2wA" firstAttribute="trailing" secondItem="k2i-14-hes" secondAttribute="trailingMargin" id="TmR-fM-hvc"/>
+                            <constraint firstItem="M4E-Gh-2wA" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="k2i-14-hes" secondAttribute="trailingMargin" id="TmR-fM-hvc"/>
                             <constraint firstAttribute="bottom" secondItem="M4E-Gh-2wA" secondAttribute="bottom" constant="20" symbolic="YES" id="Tta-fx-jYS"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="72x-TK-QER" secondAttribute="trailing" constant="20" id="Uy8-hf-Dob"/>
                             <constraint firstItem="D2p-As-V6t" firstAttribute="top" secondItem="d5g-Kj-l96" secondAttribute="bottom" constant="8" symbolic="YES" id="XgE-rC-Fgh"/>
                             <constraint firstItem="72x-TK-QER" firstAttribute="top" secondItem="D2p-As-V6t" secondAttribute="bottom" constant="6" id="Zc3-LV-P7q"/>
                             <constraint firstItem="0nm-pU-BZ0" firstAttribute="centerY" secondItem="arM-6u-TmT" secondAttribute="centerY" id="Zxq-zx-N1g"/>
-                            <constraint firstItem="M4E-Gh-2wA" firstAttribute="leading" secondItem="72x-TK-QER" secondAttribute="leading" id="cRt-Pe-cIu"/>
                             <constraint firstItem="M4E-Gh-2wA" firstAttribute="trailing" secondItem="72x-TK-QER" secondAttribute="trailing" id="cZC-Wr-uvr"/>
+                            <constraint firstAttribute="trailing" secondItem="M4E-Gh-2wA" secondAttribute="trailing" priority="750" constant="20" id="cZy-9e-Dxc"/>
                             <constraint firstItem="M4E-Gh-2wA" firstAttribute="top" secondItem="6fi-rT-cNJ" secondAttribute="bottom" constant="8" symbolic="YES" id="ejv-kB-2QL"/>
                             <constraint firstItem="72x-TK-QER" firstAttribute="centerX" secondItem="jBa-LL-dKG" secondAttribute="centerX" id="feJ-SU-dtW"/>
                             <constraint firstItem="arM-6u-TmT" firstAttribute="leading" secondItem="0nm-pU-BZ0" secondAttribute="trailing" constant="8" symbolic="YES" id="foQ-as-Dz1"/>
                             <constraint firstItem="72x-TK-QER" firstAttribute="centerX" secondItem="D2p-As-V6t" secondAttribute="centerX" id="hUD-mI-33d"/>
                             <constraint firstItem="jBa-LL-dKG" firstAttribute="trailing" secondItem="0nm-pU-BZ0" secondAttribute="trailing" id="las-00-nCd"/>
                             <constraint firstItem="jBa-LL-dKG" firstAttribute="leading" secondItem="0nm-pU-BZ0" secondAttribute="leading" id="wq0-CD-vZe"/>
-                            <constraint firstItem="M4E-Gh-2wA" firstAttribute="leading" secondItem="k2i-14-hes" secondAttribute="leadingMargin" id="xVi-47-At1"/>
+                            <constraint firstItem="M4E-Gh-2wA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="k2i-14-hes" secondAttribute="leadingMargin" id="xVi-47-At1"/>
                             <constraint firstItem="72x-TK-QER" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="k2i-14-hes" secondAttribute="leadingMargin" id="zI1-ak-deL"/>
                         </constraints>
                         <variation key="default">
@@ -107,7 +112,11 @@
                                 <exclude reference="4Cf-TB-bgy"/>
                                 <exclude reference="KDY-3t-mkg"/>
                                 <exclude reference="zI1-ak-deL"/>
+                                <exclude reference="TmR-fM-hvc"/>
+                                <exclude reference="Tta-fx-jYS"/>
                                 <exclude reference="cZC-Wr-uvr"/>
+                                <exclude reference="xVi-47-At1"/>
+                                <exclude reference="XgE-rC-Fgh"/>
                             </mask>
                         </variation>
                     </view>

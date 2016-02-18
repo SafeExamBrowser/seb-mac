@@ -77,6 +77,18 @@
 }
 
 
+- (void)viewDidLayoutSubviews
+{
+    logTextView.textContainerInset = UIEdgeInsetsMake(5.0, 5.0, 5.0, 5.0);
+}
+
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [self scrollToBottom];
+}
+
+
 - (void)appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime {
     [_lockedViewController appendErrorString:errorString withTime:errorTime];
 }
@@ -131,7 +143,12 @@
 
 
 - (void)setResignActiveLogString:(NSAttributedString *)resignActiveLogString {
+    [logTextView setScrollEnabled:NO];
     logTextView.attributedText = resignActiveLogString;
+    [logTextView sizeToFit];
+    [logTextView setScrollEnabled:YES];
+//    [logTextView resignFirstResponder];
+//    [logTextView becomeFirstResponder];
 }
 
 - (NSAttributedString *)resignActiveLogString {
