@@ -65,11 +65,11 @@
                                     <action selector="passwordEntered:" destination="f3L-ht-oaH" eventType="touchUpInside" id="0xi-NQ-h54"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="M4E-Gh-2wA">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="M4E-Gh-2wA">
                                 <rect key="frame" x="20" y="215" width="560" height="365"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="560" id="tMb-l5-M9t"/>
+                                    <constraint firstAttribute="width" priority="750" constant="560" id="tMb-l5-M9t"/>
                                 </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -82,7 +82,7 @@
                             <constraint firstItem="0nm-pU-BZ0" firstAttribute="top" secondItem="jBa-LL-dKG" secondAttribute="bottom" constant="8" symbolic="YES" id="1yZ-WJ-FcJ"/>
                             <constraint firstItem="72x-TK-QER" firstAttribute="leading" secondItem="M4E-Gh-2wA" secondAttribute="leading" id="4Cf-TB-bgy"/>
                             <constraint firstItem="jBa-LL-dKG" firstAttribute="top" secondItem="72x-TK-QER" secondAttribute="bottom" constant="12" id="AsG-2Q-myd"/>
-                            <constraint firstItem="M4E-Gh-2wA" firstAttribute="leading" secondItem="k2i-14-hes" secondAttribute="leading" priority="750" constant="20" id="CaS-ah-Gbj"/>
+                            <constraint firstItem="M4E-Gh-2wA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="k2i-14-hes" secondAttribute="leading" constant="20" id="CaS-ah-Gbj"/>
                             <constraint firstItem="6fi-rT-cNJ" firstAttribute="top" secondItem="0nm-pU-BZ0" secondAttribute="bottom" constant="6" id="Gvw-TV-o8x"/>
                             <constraint firstItem="72x-TK-QER" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="k2i-14-hes" secondAttribute="leading" constant="20" id="H45-eT-XnK"/>
                             <constraint firstItem="72x-TK-QER" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="k2i-14-hes" secondAttribute="trailingMargin" id="KDY-3t-mkg"/>
@@ -97,7 +97,7 @@
                             <constraint firstItem="72x-TK-QER" firstAttribute="top" secondItem="D2p-As-V6t" secondAttribute="bottom" constant="6" id="Zc3-LV-P7q"/>
                             <constraint firstItem="0nm-pU-BZ0" firstAttribute="centerY" secondItem="arM-6u-TmT" secondAttribute="centerY" id="Zxq-zx-N1g"/>
                             <constraint firstItem="M4E-Gh-2wA" firstAttribute="trailing" secondItem="72x-TK-QER" secondAttribute="trailing" id="cZC-Wr-uvr"/>
-                            <constraint firstAttribute="trailing" secondItem="M4E-Gh-2wA" secondAttribute="trailing" priority="750" constant="20" id="cZy-9e-Dxc"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="M4E-Gh-2wA" secondAttribute="trailing" constant="20" id="cZy-9e-Dxc"/>
                             <constraint firstItem="M4E-Gh-2wA" firstAttribute="top" secondItem="6fi-rT-cNJ" secondAttribute="bottom" constant="8" symbolic="YES" id="ejv-kB-2QL"/>
                             <constraint firstItem="72x-TK-QER" firstAttribute="centerX" secondItem="jBa-LL-dKG" secondAttribute="centerX" id="feJ-SU-dtW"/>
                             <constraint firstItem="arM-6u-TmT" firstAttribute="leading" secondItem="0nm-pU-BZ0" secondAttribute="trailing" constant="8" symbolic="YES" id="foQ-as-Dz1"/>
