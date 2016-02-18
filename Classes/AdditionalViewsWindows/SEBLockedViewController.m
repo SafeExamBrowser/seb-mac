@@ -45,6 +45,45 @@
 @implementation SEBLockedViewController
 
 
+- (BOOL) shouldOpenLockdownWindows
+{
+    BOOL shouldOpenLockdownWindows = false;
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *startURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+    NSMutableArray *lockedExams = [NSMutableArray arrayWithArray:[preferences persistedSecureObjectForKey:@"org_safeexambrowser_additionalResources"]];
+    if ([[lockedExams valueForKey:@"startURL"] containsObject:startURL]) {
+        shouldOpenLockdownWindows = true;
+    }
+    return shouldOpenLockdownWindows;
+}
+
+
+- (void) didOpenLockdownWindows {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *startURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+    NSMutableArray *lockedExams = [NSMutableArray arrayWithArray:[preferences persistedSecureObjectForKey:@"org_safeexambrowser_additionalResources"]];
+    NSAttributedString *logString = self.UIDelegate.resignActiveLogString;
+    NSUInteger indexOfLockedExamDictionary = [self getIndexOfLockedExam:lockedExams withStartURL:startURL];
+    if (indexOfLockedExamDictionary != NSNotFound) {
+        // Append the new log string to the persisted one
+        NSDictionary *persistedLockedExam = lockedExams[indexOfLockedExamDictionary];
+        NSMutableAttributedString *persistedLogString = [[NSKeyedUnarchiver unarchiveObjectWithData:[persistedLockedExam objectForKey:@"logString"]] mutableCopy];
+        [persistedLogString appendAttributedString:logString];
+        logString = [persistedLogString copy];
+        self.UIDelegate.resignActiveLogString = logString;
+        // Remove the old entry for the persisted locked exam
+        [lockedExams removeObjectAtIndex:indexOfLockedExamDictionary];
+    }
+    NSData *logStringArchived = [NSKeyedArchiver archivedDataWithRootObject:logString];
+    NSDictionary *interruptedLockedExam = @{
+                                            @"startURL" : startURL,
+                                            @"logString" : logStringArchived,
+                                            };
+    [lockedExams addObject:interruptedLockedExam];
+    [preferences setPersistedSecureObject:lockedExams forKey:@"org_safeexambrowser_additionalResources"];
+}
+
+
 - (void) passwordEntered:(id)sender {
     // Check if restarting is protected with the quit/restart password (and one is set)
     if (!closingLockdownWindowsInProgress) {
@@ -80,7 +119,7 @@
 }
 
 
-- (void) shouldCloseLockdownWindows {
+- (void) closeLockdownWindows {
     // Add log information about closing lockdown alert
     DDLogError(@"Lockdown alert: Correct password entered, closing lockdown windows");
     self.controllerDelegate.didResumeExamTime = [NSDate date];
@@ -112,17 +151,26 @@
     }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *startURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-    BOOL usingPrivateUserDefaults = NSUserDefaults.userDefaultsPrivate;
-    if (usingPrivateUserDefaults) {
-        [NSUserDefaults setUserDefaultsPrivate:false];
-    }
-    NSMutableArray *lockedExams = [NSMutableArray arrayWithArray:[preferences secureArrayForKey:@"org_safeexambrowser_additionalResources"]];
-    [lockedExams removeObject:startURL];
-    [preferences setSecureObject:lockedExams forKey:@"org_safeexambrowser_additionalResources"];
-    if (usingPrivateUserDefaults) {
-        [NSUserDefaults setUserDefaultsPrivate:true];
+    NSMutableArray *lockedExams = [NSMutableArray arrayWithArray:[preferences persistedSecureObjectForKey:@"org_safeexambrowser_additionalResources"]];
+    NSUInteger indexOfLockedExamDictionary = [self getIndexOfLockedExam:lockedExams withStartURL:startURL];
+    if (indexOfLockedExamDictionary != NSNotFound) {
+        [lockedExams removeObjectAtIndex:indexOfLockedExamDictionary];
+        [preferences setPersistedSecureObject:lockedExams forKey:@"org_safeexambrowser_additionalResources"];
     }
     closingLockdownWindowsInProgress = false;
+}
+
+
+- (NSUInteger) getIndexOfLockedExam:(NSArray *)lockedExams withStartURL:(NSString *)startURL
+{
+    NSUInteger indexOfLockedExamDictionary = [lockedExams indexOfObjectPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([[obj valueForKey:@"startURL"] isEqualToString:startURL]) {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
+    return indexOfLockedExamDictionary;
 }
 
 
@@ -139,6 +187,25 @@
     
     [attributedErrorString setAttributes:self.boldFontAttributes range:NSMakeRange(0, attributedErrorString.length)];
     [logString appendAttributedString:attributedErrorString];
+    
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *startURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+    NSMutableArray *lockedExams = [NSMutableArray arrayWithArray:[preferences persistedSecureObjectForKey:@"org_safeexambrowser_additionalResources"]];
+    NSUInteger indexOfLockedExamDictionary = [self getIndexOfLockedExam:lockedExams withStartURL:startURL];
+    if (indexOfLockedExamDictionary != NSNotFound) {
+        // Persist the new log string
+        NSData *logStringArchived = [NSKeyedArchiver archivedDataWithRootObject:logString];
+        // Add the new (modified) entry
+        NSDictionary *interruptedLockedExam = @{
+                                                @"startURL" : startURL,
+                                                @"logString" : logStringArchived,
+                                                };
+        [lockedExams addObject:interruptedLockedExam];
+        // Remove the old entry for the persisted locked exam
+        [lockedExams removeObjectAtIndex:indexOfLockedExamDictionary];
+        [preferences setPersistedSecureObject:lockedExams forKey:@"org_safeexambrowser_additionalResources"];
+    }
+
     
     [self.UIDelegate setResignActiveLogString:[logString copy]];
 

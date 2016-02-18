@@ -150,29 +150,13 @@ static NSMutableSet *browserWindowControllers;
                 }
                 
                 /// Lock the exam down
-                NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-                NSString *startURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-                BOOL usingPrivateUserDefaults = NSUserDefaults.userDefaultsPrivate;
-                if (usingPrivateUserDefaults) {
-                    [NSUserDefaults setUserDefaultsPrivate:false];
-                }
-                NSMutableArray *lockedExams = [NSMutableArray arrayWithArray:[preferences secureArrayForKey:@"org_safeexambrowser_additionalResources"]];
-                NSDictionary *interruptedLockedExam = @[
-                                                        @{
-                                                            @"startURL" : startURL,
-                                                            @"logString" : @"",
-                                                            }
-                                                        ];
-                [lockedExams addObject:interruptedLockedExam];
-                [preferences setSecureObject:lockedExams forKey:@"org_safeexambrowser_additionalResources"];
-                if (usingPrivateUserDefaults) {
-                    [NSUserDefaults setUserDefaultsPrivate:true];
-                }
                 
                 // If there wasn't a lockdown covering view openend yet, initialize it
                 if (!_sebLocked) {
                     [self openLockdownWindows];
                 }
+                [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Guided Access switched off!", nil)] withTime:_didResignActiveTime];
+
             } else {
                 
                 /// Guided Access is on again
@@ -485,6 +469,9 @@ static NSMutableSet *browserWindowControllers;
         _guidedAccessWarningDisplayed = true;
         [self presentViewController:_alertController animated:YES completion:nil];
     } else if (_guidedAccessActive) {
+        if (_lockedViewController) {
+            _lockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
+        }
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Stop Guided Access", nil)
                                                                     message:NSLocalizedString(@"You can now switch off Guided Access by home button triple click or Touch ID.", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];
@@ -523,18 +510,28 @@ static NSMutableSet *browserWindowControllers;
     DDLogError(@"Guided Accesss switched off!");
     
     // Open the lockdown view
-    [_lockedViewController willMoveToParentViewController:self];
+//    [_lockedViewController willMoveToParentViewController:self];
     
     UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
     
-    [rootViewController.view addSubview:_lockedViewController.view];
+//    [rootViewController.view addSubview:_lockedViewController.view];
     [rootViewController addChildViewController:_lockedViewController];
-    [_lockedViewController didMoveToParentViewController:self];
+    [_lockedViewController didMoveToParentViewController:rootViewController];
     
     _sebLocked = true;
     
-    // Add log string for resign active
-    [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Guided Access switched off!", nil)] withTime:_didResignActiveTime];
+    [_lockedViewController didOpenLockdownWindows];
+}
+
+
+- (void) conditionallyOpenLockdownWindows
+{
+    if ([[SEBLockedViewController new] shouldOpenLockdownWindows]) {
+        [self openLockdownWindows];
+        
+        // Add log string for entering a locked exam
+        [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", nil)] withTime:[NSDate date]];
+    }
 }
 
 
