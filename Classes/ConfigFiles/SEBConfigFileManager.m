@@ -141,7 +141,7 @@
     if (!forceConfiguringClient && (forEditing || [[sebPreferencesDict valueForKey:@"sebConfigPurpose"] intValue] == sebConfigPurposeStartingExam)) {
 
         ///
-        /// If these SEB settings are ment to start an exam or we're in editing mode
+        /// If these SEB settings are meant to start an exam or we're in editing mode
         ///
         
         // Release preferences window so bindings get synchronized properly with the new loaded values
@@ -177,22 +177,20 @@
         return YES; //reading preferences was successful
 
     } else {
-
+        
         ///
-        /// If these SEB settings are ment to configure a client
+        /// If these SEB settings are meant to configure a client
         ///
-
+        
         // Release preferences window so bindings get synchronized properly with the new loaded values
         [self.sebController.preferencesController releasePreferencesWindow];
         
         //switch to system's UserDefaults
         [NSUserDefaults setUserDefaultsPrivate:NO];
         
-        // Check if we have embedded identities and import them into the Windows Certifcate Store
-        //NSArray *certificates = [sebPreferencesDict valueForKey:@"embeddedCertificates"];
+        // Check if we have embedded identities and import them into the Keychain
         NSMutableArray *embeddedCertificates = [sebPreferencesDict valueForKey:@"embeddedCertificates"];
         if (embeddedCertificates) {
-            //NSMutableArray *embeddedCertificates = [NSMutableArray arrayWithArray:certificates];
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
             for (int i = embeddedCertificates.count - 1; i >= 0; i--)
             {

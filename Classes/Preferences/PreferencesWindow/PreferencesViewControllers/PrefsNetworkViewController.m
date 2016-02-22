@@ -41,6 +41,7 @@
 #import "NSURL+SEBURL.h"
 #import "SEBURLFilter.h"
 #import "SEBURLFilterExpression.h"
+#include "x509_crt.h"
 
 @implementation PrefsNetworkViewController
 
@@ -280,15 +281,6 @@
     [chooseCertificate synchronizeTitleAndSelectedItem];
 }
 
-// A CA (certificate authority) certificate was selected in the drop down menu
-- (IBAction) CASelected:(id)sender
-{
-    [self certificateSelected:sender type:certificateTypeCA];
-    
-    [chooseCA selectItemAtIndex:0];
-    [chooseCA synchronizeTitleAndSelectedItem];
-}
-
 - (void) certificateSelected:(id)sender type:(certificateTypes)certificateType
 {
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
@@ -308,6 +300,61 @@
 }
 
 
+//- (IBAction) CASelected:(id)sender
+//{
+//    [self certificateSelected:sender type:certificateTypeCA];
+//    
+//    [chooseCA selectItemAtIndex:0];
+//    [chooseCA synchronizeTitleAndSelectedItem];
+//}
+
+
+// A CA (certificate authority) certificate was selected in the drop down menu
+- (IBAction) CASelected:(id)sender
+{
+    NSUInteger indexOfSelectedItem = [sender indexOfSelectedItem];
+    if (indexOfSelectedItem) {
+        SecCertificateRef certificate = (__bridge SecCertificateRef)([self.certificates objectAtIndex:indexOfSelectedItem-1]);
+        
+        // Assume SSL type
+        NSNumber *certType = [NSNumber numberWithInt:certificateTypeSSLClientCertificate];
+        
+        NSData *certData = CFBridgingRelease(SecCertificateCopyData(certificate));
+        
+        if (certData)
+        {
+            mbedtls_x509_crt cert;
+            mbedtls_x509_crt_init(&cert);
+            
+            if (mbedtls_x509_crt_parse_der(&cert, [certData bytes], [certData length]) == 0)
+            {
+                if (cert.ext_types & MBEDTLS_X509_EXT_BASIC_CONSTRAINTS)
+                {
+                    if (cert.ca_istrue)
+                    {
+                        certType = [NSNumber numberWithInteger:certificateTypeCA];
+                    }
+                }
+                
+                NSDictionary *certificateToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                    certType, @"type",
+                                                    [sender titleOfSelectedItem], @"name",
+                                                    [NSData data], @"certificateData",          // Empty data
+                                                    [certData base64EncodedStringWithOptions:0], @"certificateDataWin",
+                                                    nil];
+                [certificatesArrayController addObject:certificateToEmbed];
+                
+            }
+            
+            mbedtls_x509_crt_free(&cert);
+        }
+
+        [chooseCA selectItemAtIndex:0];
+        [chooseCA synchronizeTitleAndSelectedItem];
+    }
+}
+
+
 // An identity was selected in the drop down menu
 - (IBAction)identitySelected:(id)sender
 {
@@ -323,6 +370,7 @@
                                          [NSNumber numberWithInt:certificateTypeIdentity], @"type",
                                          [sender titleOfSelectedItem], @"name",
                                          certificateData, @"certificateData",
+                                         @"", @"certificateDataWin",
                                          nil];
         [certificatesArrayController addObject:identityToEmbed];
         
@@ -330,7 +378,6 @@
         [chooseIdentity synchronizeTitleAndSelectedItem];
     }
 }
-
 
 
 /// Proxies Section

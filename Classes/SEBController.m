@@ -58,6 +58,7 @@
 #import "RNDecryptor.h"
 #import "SEBKeychainManager.h"
 #import "SEBCryptor.h"
+#import "SEBCertServices.h"
 #import "NSWindow+SEBWindow.h"
 #import "SEBConfigFileManager.h"
 
@@ -190,7 +191,7 @@ bool insideMatrix();
     if (self) {
         
         // Register custom SEB NSURL protocol class
-//        [NSURLProtocol registerClass:[SEBURLProtocol class]];
+        [NSURLProtocol registerClass:[SEBURLProtocol class]];
         
         // Initialize console loggers
 #ifdef DEBUG
@@ -1793,6 +1794,10 @@ bool insideMatrix(){
     
     // Check if the Force Quit window is open
     [self forceQuitWindowCheck];
+    
+    // Flush cached embedded certificates
+    SEBCertServices *sc = [SEBCertServices sharedInstance];
+    [sc flushCachedCertificates];
     
     // Set up SEB Browser
     self.browserController = [[SEBOSXBrowserController alloc] init];
