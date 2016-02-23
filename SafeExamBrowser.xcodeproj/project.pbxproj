@@ -830,9 +830,9 @@
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				6909E31F1A019F7A0086A741 /* CocoaLumberjack */,
-				69C227791C767B0900F78634 /* osx-mbedtls */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				69C227791C767B0900F78634 /* osx-mbedtls */,
 			);
 			name = SEB;
 			sourceTree = "<group>";

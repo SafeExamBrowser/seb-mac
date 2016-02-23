@@ -14,6 +14,8 @@
 static const NSString *kHTTPHeaderBrowserExamKey = @"X-SafeExamBrowser-RequestHash";
 static const NSString *kSEBRequestWasProcessed = @"SEBRequestWasProcessed";
 
+void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block, unsigned int *len);
+
 @interface SEBURLProtocol ()
 @property (nonatomic, strong) NSURLConnection *connection;
 @end
