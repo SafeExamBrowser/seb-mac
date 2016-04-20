@@ -811,11 +811,18 @@ bool insideMatrix();
         [DDLog addLogger:_myLogger];
         
         NSString *localHostname = (NSString *)CFBridgingRelease(SCDynamicStoreCopyLocalHostName(NULL));
+        NSString *computerName = (NSString *)CFBridgingRelease(SCDynamicStoreCopyComputerName(NULL, NULL));
         NSString *userName = NSUserName();
         NSString *fullUserName = NSFullUserName();
 
+        // To Do: Find out domain of the current host address
+        // This has to be processed asynchronously with GCD
+//        NSHost *host;
+//        host = [NSHost currentHost];
+
         DDLogInfo(@"---------- INITIALIZING SEB - STARTING SESSION -------------");
         DDLogInfo(@"Local hostname: %@", localHostname);
+        DDLogInfo(@"Computer name: %@", computerName);
         DDLogInfo(@"User name: %@", userName);
         DDLogInfo(@"Full user name: %@", fullUserName);
     }

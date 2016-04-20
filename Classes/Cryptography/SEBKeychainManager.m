@@ -329,7 +329,7 @@
                         {
                             [certificatesNames addObject:[NSString stringWithFormat:@"%@", commonName]];
                             remove = NO;
-                            break;
+                            continue;
                         }
                     }
                 }
