@@ -264,7 +264,6 @@
 		69C2288F1C767B0900F78634 /* x509write_crt.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C228031C767B0900F78634 /* x509write_crt.c */; };
 		69C228901C767B0900F78634 /* x509write_csr.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C228041C767B0900F78634 /* x509write_csr.c */; };
 		69C228911C767B0900F78634 /* xtea.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C228051C767B0900F78634 /* xtea.c */; };
-		69C228921C767B0900F78634 /* README.TXT in Resources */ = {isa = PBXBuildFile; fileRef = 69C228091C767B0900F78634 /* README.TXT */; };
 		69C228961C767BA500F78634 /* libmbedtls.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C228951C767B0A00F78634 /* libmbedtls.a */; };
 		69C228991C7B64DF00F78634 /* SEBCertServices.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C228971C7B64DF00F78634 /* SEBCertServices.h */; };
 		69C2289A1C7B64DF00F78634 /* SEBCertServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C228981C7B64DF00F78634 /* SEBCertServices.m */; };
@@ -1654,7 +1653,6 @@
 				69DA91281C6A5CCF008D38E6 /* SEBReloadIconHighlighted.iconset in Resources */,
 				69F7B5FC14F411FB00FD0761 /* LICENCE in Resources */,
 				69F7B5FD14F411FB00FD0761 /* PreferencesGeneral.xib in Resources */,
-				69C228921C767B0900F78634 /* README.TXT in Resources */,
 				69F7B5FE14F411FB00FD0761 /* PreferencesDownUploads.xib in Resources */,
 				69F7B5FF14F411FB00FD0761 /* MainMenu.xib in Resources */,
 				6902C9701B0CF95E00715855 /* SEBShutDownIcon.iconset in Resources */,
