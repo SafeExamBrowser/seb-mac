@@ -24,15 +24,18 @@
             <rect key="frame" x="0.0" y="0.0" width="650" height="650"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="84">
-                    <rect key="frame" x="18" y="613" width="367" height="17"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Links requesting to be opened in a new browser window ..." id="91">
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="84">
+                    <rect key="frame" x="18" y="613" width="358" height="17"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="17" id="biv-Ti-nzG"/>
+                    </constraints>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Links requesting to be opened in a new browser window ..." usesSingleLineMode="YES" id="91">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="85">
+                <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="85">
                     <rect key="frame" x="18" y="581" width="305" height="26"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="300" id="557"/>
@@ -56,15 +59,15 @@
                         <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy" previousBinding="238" id="239"/>
                     </connections>
                 </popUpButton>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="93">
-                    <rect key="frame" x="18" y="434" width="191" height="17"/>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="93">
+                    <rect key="frame" x="18" y="434" width="187" height="17"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Links in JavaScript/plug-ins ..." usesSingleLineMode="YES" id="100">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <popUpButton toolTip="USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="94">
+                <popUpButton toolTip="USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="94">
                     <rect key="frame" x="18" y="402" width="305" height="26"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="300" id="74c-aj-gJk"/>
@@ -88,8 +91,8 @@
                         <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy" previousBinding="250" id="251"/>
                     </connections>
                 </popUpButton>
-                <button toolTip="Hyperlinks which direct to a different host than the one of the current main page will be ignored" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="101">
-                    <rect key="frame" x="18" y="558" width="274" height="18"/>
+                <button toolTip="Hyperlinks which direct to a different host than the one of the current main page will be ignored" translatesAutoresizingMaskIntoConstraints="NO" id="101">
+                    <rect key="frame" x="18" y="558" width="272" height="18"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="410"/>
                     </constraints>
@@ -108,7 +111,7 @@
                         <rect key="frame" x="1" y="1" width="614" height="72"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <comboBox toolTip="Window width in pixel or percentage of total screen width" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="585">
+                            <comboBox toolTip="Window width in pixel or percentage of total screen width" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="585">
                                 <rect key="frame" x="154" y="38" width="90" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="87" id="646"/>
@@ -128,15 +131,15 @@
                                     <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowByLinkWidth" id="642"/>
                                 </connections>
                             </comboBox>
-                            <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="586">
-                                <rect key="frame" x="108" y="43" width="40" height="17"/>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="586">
+                                <rect key="frame" x="108" y="42" width="40" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Width" id="587">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <comboBox toolTip="Window height in pixel or percentage of total screen height" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="570">
+                            <comboBox toolTip="Window height in pixel or percentage of total screen height" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="570">
                                 <rect key="frame" x="154" y="10" width="90" height="26"/>
                                 <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="4" id="591">
                                     <font key="font" metaFont="system"/>
@@ -161,16 +164,16 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="568">
-                                <rect key="frame" x="349" y="43" width="139" height="17"/>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="568">
+                                <rect key="frame" x="351" y="42" width="137" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Horizontal positioning" id="598">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <popUpButton toolTip="Position new browser windows on the left, right or centered" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="569">
-                                <rect key="frame" x="492" y="36" width="107" height="26"/>
+                            <popUpButton toolTip="Position new browser windows on the left, right or centered" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="569">
+                                <rect key="frame" x="492" y="35" width="107" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="102" id="593"/>
                                 </constraints>
@@ -217,8 +220,8 @@
                         <rect key="frame" x="1" y="1" width="614" height="114"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button toolTip="Enables web plugins like Flash. For security reasons it's recommended to disable this option if plugin content is not used." misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="107">
-                                <rect key="frame" x="11" y="87" width="118" height="18"/>
+                            <button toolTip="Enables web plugins like Flash. For security reasons it's recommended to disable this option if plugin content is not used." translatesAutoresizingMaskIntoConstraints="NO" id="107">
+                                <rect key="frame" x="11" y="87" width="117" height="18"/>
                                 <buttonCell key="cell" type="check" title="Enable plug-ins" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="108">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -227,8 +230,8 @@
                                     <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enablePlugIns" id="652"/>
                                 </connections>
                             </button>
-                            <button toolTip="Enables Java applets" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="168">
-                                <rect key="frame" x="11" y="67" width="97" height="18"/>
+                            <button toolTip="Enables Java applets" translatesAutoresizingMaskIntoConstraints="NO" id="168">
+                                <rect key="frame" x="11" y="67" width="94" height="18"/>
                                 <buttonCell key="cell" type="check" title="Enable Java" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="169">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -263,8 +266,8 @@
                                     <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_blockPopUpWindows" id="208"/>
                                 </connections>
                             </button>
-                            <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="180">
-                                <rect key="frame" x="11" y="41" width="201" height="18"/>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="180">
+                                <rect key="frame" x="11" y="41" width="197" height="18"/>
                                 <string key="toolTip">Disabling browsing to previously visited pages (by cmd + Cursor left) may increase security, because browsing back might allow to leave an exam</string>
                                 <buttonCell key="cell" type="check" title="Allow browsing back/forward" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="181">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -349,7 +352,7 @@
                         <rect key="frame" x="1" y="1" width="614" height="166"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <popUpButton toolTip="USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UsO-tg-591">
+                            <popUpButton toolTip="USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="UsO-tg-591">
                                 <rect key="frame" x="11" y="131" width="593" height="26"/>
                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="50h-rm-tb3">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -430,11 +433,8 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q4N-Ge-wgZ">
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q4N-Ge-wgZ">
                                                     <rect key="frame" x="-2" y="14" width="592" height="28"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="QRC-jQ-S0W"/>
-                                                    </constraints>
                                                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" id="X0g-7e-XAl">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <string key="title">Custom user agent string (SEB appends its version number automatically). Default string depends on installed Safari/WebKit version and therefore can differ on exam clients.</string>
@@ -562,17 +562,17 @@
                                         </view>
                                     </tabViewItem>
                                     <tabViewItem identifier="" id="WWd-bW-7cg" userLabel="Tab View Item - Win Touch">
-                                        <view key="view" misplaced="YES" id="YKQ-wn-UQR">
-                                            <rect key="frame" x="0.0" y="0.0" width="588" height="112"/>
+                                        <view key="view" id="YKQ-wn-UQR">
+                                            <rect key="frame" x="0.0" y="0.0" width="588" height="105"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <matrix horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" misplaced="YES" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i2L-Fg-eTj">
-                                                    <rect key="frame" x="0.0" y="51" width="109" height="61"/>
+                                                <matrix horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i2L-Fg-eTj">
+                                                    <rect key="frame" x="0.0" y="44" width="109" height="61"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="61" id="ftz-gm-N7b"/>
                                                     </constraints>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="cellSize" width="109" height="19"/>
+                                                    <size key="cellSize" width="109" height="18"/>
                                                     <size key="intercellSpacing" width="4" height="2"/>
                                                     <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="YMc-Kb-9O0">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -598,8 +598,8 @@
                                                         <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserUserAgentWinTouchMode" id="YNV-gT-xXs"/>
                                                     </connections>
                                                 </matrix>
-                                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="34u-Jt-GbJ">
-                                                    <rect key="frame" x="0.0" y="25" width="588" height="22"/>
+                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="34u-Jt-GbJ">
+                                                    <rect key="frame" x="0.0" y="18" width="588" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="rYC-K7-FYo"/>
                                                     </constraints>
@@ -618,8 +618,8 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XSw-aj-V6a">
-                                                    <rect key="frame" x="117" y="93" width="471" height="19"/>
+                                                <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="XSw-aj-V6a">
+                                                    <rect key="frame" x="117" y="86" width="471" height="19"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" priority="750" constant="471" id="RQF-QD-cdE"/>
                                                     </constraints>
@@ -629,16 +629,16 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="twb-Ov-Zlx" userLabel="User Agent Win Touch Pad">
-                                                    <rect key="frame" x="117" y="72" width="471" height="19"/>
+                                                <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="twb-Ov-Zlx" userLabel="User Agent Win Touch Pad">
+                                                    <rect key="frame" x="117" y="65" width="471" height="19"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="iPad user agent" id="XDW-SF-gll">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7tl-BN-q8i">
-                                                    <rect key="frame" x="-2" y="0.0" width="592" height="21"/>
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7tl-BN-q8i">
+                                                    <rect key="frame" x="-2" y="0.0" width="592" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Default strings depend on installed SEB for Windows version and therefore can differ on exam clients." id="9wd-E4-JwC">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -732,7 +732,7 @@
                 <constraint firstItem="93" firstAttribute="top" secondItem="567" secondAttribute="bottom" constant="15" id="636"/>
                 <constraint firstItem="567" firstAttribute="top" secondItem="101" secondAttribute="bottom" constant="10" id="637"/>
                 <constraint firstItem="447" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="21" id="655"/>
-                <constraint firstAttribute="bottom" secondItem="447" secondAttribute="bottom" constant="20" id="687"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="447" secondAttribute="bottom" constant="20" id="687"/>
                 <constraint firstItem="413" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="7li-U0-v6o"/>
                 <constraint firstItem="413" firstAttribute="top" secondItem="ckm-lX-Woj" secondAttribute="bottom" constant="20" id="CHj-AO-sj0"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="93" secondAttribute="trailing" constant="20" id="GKK-Sk-LbH"/>
