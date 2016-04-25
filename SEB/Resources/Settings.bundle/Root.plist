@@ -20,7 +20,7 @@
 			<key>Title</key>
 			<string>Allow</string>
 			<key>Key</key>
-			<string>enabled_preference</string>
+			<string>allowChangingConfig</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>

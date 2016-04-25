@@ -18,7 +18,7 @@
 			<key>Title</key>
 			<string>Start URL</string>
 			<key>Key</key>
-			<string>name_preference</string>
+			<string>org_safeexambrowser_SEB_startURL</string>
 			<key>DefaultValue</key>
 			<string></string>
 			<key>IsSecure</key>

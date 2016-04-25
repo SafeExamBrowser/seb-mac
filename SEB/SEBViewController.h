@@ -35,6 +35,7 @@
 #import "AppDelegate.h"
 
 #import "UIViewController+MMDrawerController.h"
+#import "IASKAppSettingsViewController.h"
 
 #import "SEBLockedViewController.h"
 #import "SEBiOSLockedViewController.h"
@@ -42,6 +43,7 @@
 
 #import "SEBBrowserTabViewController.h"
 #import "SEBSearchBarViewController.h"
+
 
 @class SEBBrowserTabViewController;
 @class SEBSearchBarViewController;
@@ -54,6 +56,8 @@
 
 @property (strong, nonatomic) SEBiOSLockedViewController< SEBLockedViewUIDelegate > *lockedViewController;
 @property (strong, nonatomic) SEBiOSConfigFileController *configFileController;
+
+@property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
 
 @property (strong, nonatomic) UIAlertController *alertController;
 @property (strong, nonatomic) UIAlertController *inactiveAlertController;

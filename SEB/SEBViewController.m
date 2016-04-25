@@ -37,7 +37,7 @@
 
 #import "SEBViewController.h"
 
-@interface SEBViewController () <WKNavigationDelegate>
+@interface SEBViewController () <WKNavigationDelegate, IASKSettingsDelegate>
 {
     NSURL *currentConfigPath;
     UIBarButtonItem *leftButton;
@@ -55,6 +55,18 @@ static NSMutableSet *browserWindowControllers;
 
 @implementation SEBViewController
 
+@synthesize appSettingsViewController;
+
+
+- (IASKAppSettingsViewController*)appSettingsViewController {
+    if (!appSettingsViewController) {
+        appSettingsViewController = [[IASKAppSettingsViewController alloc] init];
+        appSettingsViewController.delegate = self;
+    }
+    return appSettingsViewController;
+}
+
+
 + (WKWebViewConfiguration *)defaultWebViewConfiguration
 {
     static WKWebViewConfiguration *configuration;
@@ -66,6 +78,23 @@ static NSMutableSet *browserWindowControllers;
     return configuration;
 }
 
+
+- (void)showSettingsModal:(id)sender {
+    UINavigationController *aNavController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
+    //[viewController setShowCreditsFooter:NO];   // Uncomment to not display InAppSettingsKit credits for creators.
+    // But we encourage you not to uncomment. Thank you!
+    self.appSettingsViewController.showDoneButton = YES;
+    [self presentViewController:aNavController animated:YES completion:nil];
+}
+
+
+- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
+{
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"allowChangingConfig"];
+
+    [sender dismissViewControllerAnimated:YES completion:nil];
+    [self startAutonomousSingleAppMode];
+}
 
 
 - (void)viewDidLoad
@@ -102,7 +131,11 @@ static NSMutableSet *browserWindowControllers;
 {
     [super viewDidAppear:animated];
     
-    [self startAutonomousSingleAppMode];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"allowChangingConfig"]) {
+        [self showSettingsModal:self];
+    } else {
+        [self startAutonomousSingleAppMode];
+    }
 }
 
 
