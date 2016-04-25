@@ -4,6 +4,16 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>InAppSettingsKit-InAppSettingsKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>InAppSettingsKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MMDrawerController-Storyboard.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,12 +47,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1419799977FA3DE9F008BBD347CB7AB3</key>
+		<key>3571FD811A7981F6A5B233DECA96688A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>3C5FD1F64A83AD5157D5AFB1DC15527F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>410F85A2795BDB1B039EF73BAE826342</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4929183907F468A6C9A3A9AD80D6E34B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -62,7 +82,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EDBB885828989490008E73CCCA3E9671</key>
+		<key>F36C8A6C3BEB7DB64D64AD18A2CAC465</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -22,6 +22,24 @@ with or without modification, are permitted provided that the following conditio
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+## InAppSettingsKit
+
+Copyright (c) 2009-2014:
+Luc Vandal, Edovia Inc., http://www.edovia.com
+Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
+All rights reserved.
+
+It is appreciated but not required that you give credit to Luc Vandal and Ortwin Gentz, 
+as the original authors of this code. You can give credit in a blog post, a tweet or on 
+a info page of your app. Also, the original authors appreciate letting them know if you
+use this code.
+
+The above copyright notice and this permission notice shall be included in all copies
+or substantial portions of the Software.
+
+This code is licensed under the BSD license that is available at: <http://www.opensource.org/licenses/bsd-license.php>
+
+
 ## MMDrawerController
 
 Copyright (c) 2013 Mutual Mobile (http://mutualmobile.com/)

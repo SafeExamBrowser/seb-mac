@@ -154,6 +154,8 @@
 		696EB10216CAAFF600707B0F /* ApplicationsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 696EB10016CAAFF600707B0F /* ApplicationsIcon.png */; };
 		696EB10516CAAFF600707B0F /* ApplicationsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */; };
 		696F28E815751ED600780DA8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696F28E715751ED600780DA8 /* Security.framework */; };
+		69782A4E1CCE068C00C2AA9A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69782A4D1CCE068C00C2AA9A /* Settings.bundle */; };
+		69782A501CCE26AD00C2AA9A /* InAppSettings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69782A4F1CCE26AD00C2AA9A /* InAppSettings.bundle */; };
 		6986652E16DAE184009C0226 /* SEBWindowSizeValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */; };
 		6986652F16DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */; };
 		6992499216C3B18B00DF6B53 /* PrefsConfigFileViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992499016C3B18B00DF6B53 /* PrefsConfigFileViewController.h */; };
@@ -486,6 +488,8 @@
 		696EB10016CAAFF600707B0F /* ApplicationsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ApplicationsIcon.png; path = Resources/Icons/ApplicationsIcon.png; sourceTree = "<group>"; };
 		696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ApplicationsIcon@2x.png"; path = "Resources/Icons/ApplicationsIcon@2x.png"; sourceTree = "<group>"; };
 		696F28E715751ED600780DA8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		69782A4D1CCE068C00C2AA9A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Resources/Settings.bundle; sourceTree = "<group>"; };
+		69782A4F1CCE26AD00C2AA9A /* InAppSettings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = InAppSettings.bundle; path = Resources/InAppSettings.bundle; sourceTree = "<group>"; };
 		697DF7F21BEDE37800F5B313 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		697DF7F31BEDE5EA00F5B313 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/SEBBrowserWindow.xib; sourceTree = "<group>"; };
 		6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBWindowSizeValueTransformer.h; sourceTree = "<group>"; };
@@ -953,6 +957,8 @@
 			children = (
 				696DAD1E1C3C2B1400397E18 /* JavaScript */,
 				6940B99D1BA0FBDF008C8CFC /* Icons */,
+				69782A4D1CCE068C00C2AA9A /* Settings.bundle */,
+				69782A4F1CCE26AD00C2AA9A /* InAppSettings.bundle */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1537,7 +1543,9 @@
 				696DAD181C3C2AB900397E18 /* Next.png in Resources */,
 				69331F011C10AC1B0038BD31 /* continueCircle.png in Resources */,
 				6940B97B1BA0F2FB008C8CFC /* LaunchScreen.storyboard in Resources */,
+				69782A501CCE26AD00C2AA9A /* InAppSettings.bundle in Resources */,
 				6940B9781BA0F2FB008C8CFC /* Assets.xcassets in Resources */,
+				69782A4E1CCE068C00C2AA9A /* Settings.bundle in Resources */,
 				6940B9731BA0F2FB008C8CFC /* Main.storyboard in Resources */,
 				696DAD1C1C3C2AB900397E18 /* Reload.png in Resources */,
 				696DAD1B1C3C2AB900397E18 /* Previous@2x.png in Resources */,
@@ -2073,7 +2081,7 @@
 					"$(PROJECT_DIR)/SEB/Frameworks",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SEB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
