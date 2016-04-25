@@ -7,6 +7,7 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.2.0):
     - CocoaLumberjack/Default
+  - InAppSettingsKit (2.7.1)
   - MMDrawerController (0.6.0):
     - MMDrawerController/Core (= 0.6.0)
     - MMDrawerController/MMDrawerBarButtonItem (= 0.6.0)
@@ -24,6 +25,7 @@ PODS:
 
 DEPENDENCIES:
   - CocoaLumberjack (~> 2.2.0)
+  - InAppSettingsKit
   - MMDrawerController
   - MMDrawerController-Storyboard (from `https://raw.github.com/TomSwift/MMDrawerController-Storyboard/1.0.0/MMDrawerController-Storyboard.podspec`)
 
@@ -33,6 +35,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
+  InAppSettingsKit: 2b9fcdb82cdff2f99c51cae544e9f4df0df7afbf
   MMDrawerController: e3a54a5570388463ad3b36975251575b50c4e1a0
   MMDrawerController-Storyboard: 89a38d3c39816bc97de73d3b5bcbba04d5345acd
 
