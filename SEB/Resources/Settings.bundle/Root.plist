@@ -8,7 +8,7 @@
 	<array>
 		<dict>
 			<key>FooterText</key>
-			<string>After setting this switch to &apos;Allow&apos;, you can edit the configuration of SEB when you start the app.</string>
+			<string>After switching to &apos;Allow&apos;, you can edit settings of SEB when you start the app.</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
