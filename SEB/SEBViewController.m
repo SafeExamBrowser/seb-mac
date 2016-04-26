@@ -82,7 +82,18 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (void)showSettingsModal:(id)sender {
+- (void)showSettingsModal:(id)sender
+{
+    // Get hashed passwords and put empty or placeholder strings into the password fields in InAppSettings
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *hashedPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+    NSString *placeholder = [self placeholderStringForHashedPassword:hashedPassword];
+    [preferences setSecureString:placeholder forKey:@"adminPassword"];
+
+    hashedPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+    placeholder = [self placeholderStringForHashedPassword:hashedPassword];
+    [preferences setSecureString:placeholder forKey:@"quitPassword"];
+    
     UINavigationController *aNavController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
     //[viewController setShowCreditsFooter:NO];   // Uncomment to not display InAppSettingsKit credits for creators.
     // But we encourage you not to uncomment. Thank you!
@@ -98,16 +109,42 @@ static NSMutableSet *browserWindowControllers;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences setBool:NO forKey:@"allowChangingConfig"];
     
-    NSString *quitPassword = [preferences secureObjectForKey:@"quitPassword"];
+    // Get entered passwords and save their hashes to SEB settings
+    NSString *password = [preferences secureObjectForKey:@"adminPassword"];
+    NSString *hashedPassword = [self sebHashedPassword:password];
+    [preferences setSecureString:hashedPassword forKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+    [preferences setSecureString:@"" forKey:@"adminPassword"];
     
-    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    NSString *hashedPassword = [keychainManager generateSHAHashString:quitPassword];
-    hashedPassword = [hashedPassword uppercaseString];
+    password = [preferences secureObjectForKey:@"quitPassword"];
+    hashedPassword = [self sebHashedPassword:password];
     [preferences setSecureString:hashedPassword forKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-
     [preferences setSecureString:@"" forKey:@"quitPassword"];
     
     [self startAutonomousSingleAppMode];
+}
+
+- (NSString *)sebHashedPassword:(NSString *)password
+{
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    NSString *hashedPassword;
+    if (password.length > 0) {
+        hashedPassword = [keychainManager generateSHAHashString:password];
+        hashedPassword = [hashedPassword uppercaseString];
+    } else {
+        hashedPassword = @"";
+    }
+    return hashedPassword;
+}
+
+- (NSString *)placeholderStringForHashedPassword:(NSString *)hashedPassword
+{
+    NSString *placeholder;
+    if (hashedPassword.length > 0) {
+        placeholder = @"0000000000000000";
+    } else {
+        placeholder = @"";
+    }
+    return placeholder;
 }
 
 
