@@ -35,6 +35,7 @@
 #import "Constants.h"
 #import "RNCryptor.h"
 #import "SEBIASKSecureSettingsStore.h"
+#import "IASKSettingsReader.h"
 
 #import "SEBViewController.h"
 
@@ -45,6 +46,8 @@
     
     @private
     NSInteger attempts;
+    BOOL adminPasswordPlaceholder;
+    BOOL quitPasswordPlaceholder;
 }
 
 @property (weak) IBOutlet UIView *containerView;
@@ -70,6 +73,16 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+- (SEBiOSConfigFileController*)configFileController
+{
+    if (!_configFileController) {
+        _configFileController = [[SEBiOSConfigFileController alloc] init];
+        _configFileController.sebViewController = self;
+    }
+    return _configFileController;
+}
+
+
 + (WKWebViewConfiguration *)defaultWebViewConfiguration
 {
     static WKWebViewConfiguration *configuration;
@@ -82,23 +95,132 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (void)showSettingsModal:(id)sender
+- (void)conditionallyShowSettingsModal
+{
+    // If there is a hashed admin password the user has to enter it before editing settings
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+    
+    if (hashedAdminPassword.length == 0) {
+        // There is no admin password: Just open settings
+        [self showSettingsModal];
+    } else {
+        // Allow up to 5 attempts for entering decoding password
+        attempts = 5;
+        NSString *enterPasswordString = NSLocalizedString(@"You can only edit settings after entering the SEB administrator password:", nil);
+        
+        // Ask the user to enter the settings password and proceed to the callback method after this happend
+        [self.configFileController promptPasswordWithMessageText:enterPasswordString
+                                                           title:NSLocalizedString(@"Edit Settings",nil)
+                                                        callback:self
+                                                        selector:@selector(adminPasswordSettingsConfiguringClient:)];
+        return;
+    }
+}
+
+- (void) adminPasswordSettingsConfiguringClient:(NSString *)password
+{
+    // Check if the cancel button was pressed
+    if (!password) {
+        // Continue SEB without displaying settings
+        [self startAutonomousSingleAppMode];
+        return;
+    }
+    
+    // Get admin password hash from current client settings
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+    if (!hashedAdminPassword) {
+        hashedAdminPassword = @"";
+    } else {
+        hashedAdminPassword = [hashedAdminPassword uppercaseString];
+    }
+    
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    NSString *hashedPassword;
+    if (password.length == 0) {
+        // An empty password has to be an empty hashed password string
+        hashedPassword = @"";
+    } else {
+        hashedPassword = [keychainManager generateSHAHashString:password];
+        hashedPassword = [hashedPassword uppercaseString];
+    }
+    
+    attempts--;
+    
+    if ([hashedPassword caseInsensitiveCompare:hashedAdminPassword] != NSOrderedSame) {
+        // wrong password entered, are there still attempts left?
+        if (attempts > 0) {
+            // Let the user try it again
+            NSString *enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the current SEB administrator password:",nil);
+            // Ask the user to enter the settings password and proceed to the callback method after this happend
+            [self.configFileController promptPasswordWithMessageText:enterPasswordString
+                                                               title:NSLocalizedString(@"Edit Settings",nil)
+                                                            callback:self
+                                                            selector:@selector(adminPasswordSettingsConfiguringClient:)];
+            return;
+            
+        } else {
+            // Wrong password entered in the last allowed attempts: Stop reading .seb file
+            DDLogError(@"%s: Cannot Edit SEB Settings: You didn't enter the correct current SEB administrator password.", __FUNCTION__);
+            
+            NSString *title = NSLocalizedString(@"Cannot Edit SEB Settings", nil);
+            NSString *informativeText = NSLocalizedString(@"You didn't enter the correct SEB administrator password.", nil);
+            [self.configFileController showAlertWithTitle:title andText:informativeText];
+            
+            // Continue SEB without displaying settings
+            [self startAutonomousSingleAppMode];
+        }
+        
+    } else {
+        // The correct admin password was entered: continue processing the parsed SEB settings it
+        [self showSettingsModal];
+        return;
+    }
+}
+
+
+- (void)showSettingsModal
 {
     // Get hashed passwords and put empty or placeholder strings into the password fields in InAppSettings
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *hashedPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
     NSString *placeholder = [self placeholderStringForHashedPassword:hashedPassword];
     [preferences setSecureString:placeholder forKey:@"adminPassword"];
+    adminPasswordPlaceholder = true;
 
     hashedPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     placeholder = [self placeholderStringForHashedPassword:hashedPassword];
     [preferences setSecureString:placeholder forKey:@"quitPassword"];
+    quitPasswordPlaceholder = true;
     
     UINavigationController *aNavController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
     //[viewController setShowCreditsFooter:NO];   // Uncomment to not display InAppSettingsKit credits for creators.
     // But we encourage you not to uncomment. Thank you!
     self.appSettingsViewController.showDoneButton = YES;
+    
+    // Register notification for changed keys
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(inAppSettingsChanged:)
+                                                 name:kIASKAppSettingChanged
+                                               object:nil];
+    
+    
     [self presentViewController:aNavController animated:YES completion:nil];
+}
+
+
+- (void)inAppSettingsChanged:(NSNotification *)notification
+{
+    NSArray *changedKeys = [notification.userInfo allKeys];
+    
+    if ([changedKeys containsObject:@"adminPassword"]) {
+        adminPasswordPlaceholder = false;
+    }
+    
+    if ([changedKeys containsObject:@"quitPassword"]) {
+        quitPasswordPlaceholder = false;
+    }
 }
 
 
@@ -107,18 +229,23 @@ static NSMutableSet *browserWindowControllers;
     [sender dismissViewControllerAnimated:YES completion:nil];
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    [preferences setBool:NO forKey:@"allowChangingConfig"];
+    [preferences setBool:NO forKey:@"allowEditingConfig"];
     
     // Get entered passwords and save their hashes to SEB settings
+    // as long as the passwords were really entered and don't contain the hash placeholders
     NSString *password = [preferences secureObjectForKey:@"adminPassword"];
     NSString *hashedPassword = [self sebHashedPassword:password];
-    [preferences setSecureString:hashedPassword forKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-    [preferences setSecureString:@"" forKey:@"adminPassword"];
+    if (!adminPasswordPlaceholder) {
+        [preferences setSecureString:hashedPassword forKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+        [preferences setSecureString:@"" forKey:@"adminPassword"];
+    }
     
-    password = [preferences secureObjectForKey:@"quitPassword"];
-    hashedPassword = [self sebHashedPassword:password];
-    [preferences setSecureString:hashedPassword forKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-    [preferences setSecureString:@"" forKey:@"quitPassword"];
+    if (!quitPasswordPlaceholder) {
+        password = [preferences secureObjectForKey:@"quitPassword"];
+        hashedPassword = [self sebHashedPassword:password];
+        [preferences setSecureString:hashedPassword forKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+        [preferences setSecureString:@"" forKey:@"quitPassword"];
+    }
     
     [self startAutonomousSingleAppMode];
 }
@@ -182,8 +309,8 @@ static NSMutableSet *browserWindowControllers;
 {
     [super viewDidAppear:animated];
     
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"allowChangingConfig"]) {
-        [self showSettingsModal:self];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"allowEditingConfig"]) {
+        [self conditionallyShowSettingsModal];
     } else {
         [self startAutonomousSingleAppMode];
     }
