@@ -98,6 +98,8 @@
 		694803931C236E7800593711 /* SEBiOSConfigFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 694803921C236E7800593711 /* SEBiOSConfigFileController.m */; };
 		694B08A316B14ABF00E4997C /* SEBCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 694B08A116B14ABF00E4997C /* SEBCryptor.h */; };
 		694B08A416B14ABF00E4997C /* SEBCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 694B08A216B14ABF00E4997C /* SEBCryptor.m */; };
+		694FB9D21CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 694FB9D01CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.h */; };
+		694FB9D31CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 694FB9D11CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.m */; };
 		695283DD16CDB54C0055AF6F /* PrefsSecurityViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */; };
 		695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */; };
 		69544E521C0CEB8800D60C3E /* SEBOSXConfigFileController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69544E501C0CEB8800D60C3E /* SEBOSXConfigFileController.h */; };
@@ -438,6 +440,8 @@
 		694803981C2373E900593711 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		694B08A116B14ABF00E4997C /* SEBCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBCryptor.h; sourceTree = "<group>"; };
 		694B08A216B14ABF00E4997C /* SEBCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBCryptor.m; sourceTree = "<group>"; };
+		694FB9D01CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBIASKSecureSettingsStore.h; path = Classes/Preferences/SEBIASKSecureSettingsStore.h; sourceTree = "<group>"; };
+		694FB9D11CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBIASKSecureSettingsStore.m; path = Classes/Preferences/SEBIASKSecureSettingsStore.m; sourceTree = "<group>"; };
 		695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsSecurityViewController.h; sourceTree = "<group>"; };
 		695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsSecurityViewController.m; sourceTree = "<group>"; };
 		69544E501C0CEB8800D60C3E /* SEBOSXConfigFileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBOSXConfigFileController.h; sourceTree = "<group>"; };
@@ -803,6 +807,7 @@
 		690E25A71BFC7E4000B41217 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				694FB9CF1CCF0BEB00E80CD9 /* Preferences */,
 				69A223391C20C0BE00766354 /* Config Files */,
 				69E4EDFA1C208ED800F5E5EB /* Cryptography */,
 				69331F031C10AD190038BD31 /* Additional Views */,
@@ -1117,6 +1122,15 @@
 			path = Classes/ConfigFiles;
 			sourceTree = "<group>";
 		};
+		694FB9CF1CCF0BEB00E80CD9 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				694FB9D01CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.h */,
+				694FB9D11CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.m */,
+			);
+			name = Preferences;
+			sourceTree = "<group>";
+		};
 		695AE31219FE634300F8C6A5 /* ExportForTranslation */ = {
 			isa = PBXGroup;
 			children = (
@@ -1329,6 +1343,7 @@
 				69B416101BFFA0430049ED2A /* SEB_Prefix.pch in Headers */,
 				694316601BFEBB6500F784EE /* Constants.h in Headers */,
 				696DAD4F1C3C7C9A00397E18 /* OpenWebpages.h in Headers */,
+				694FB9D21CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.h in Headers */,
 				69640B2A1C1F0F7D007ADE72 /* SEBConfigFileManager.h in Headers */,
 				696DAD3B1C3C2D0500397E18 /* SEBSearchBarViewController.h in Headers */,
 				696DAD351C3C2D0500397E18 /* SEBDetailViewController.h in Headers */,
@@ -1764,6 +1779,7 @@
 				6930D2261C205F470087F79E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
 				69B539451C52974200A967B0 /* SEBBrowserController.m in Sources */,
 				6940B96D1BA0F2FB008C8CFC /* AppDelegate.m in Sources */,
+				694FB9D31CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.m in Sources */,
 				6930D2291C2069100087F79E /* SEBKeychainManager.m in Sources */,
 				6940B96A1BA0F2FB008C8CFC /* main.m in Sources */,
 				69A3FCD71C1B5680009BEA13 /* SEBConfigFileCredentials.m in Sources */,

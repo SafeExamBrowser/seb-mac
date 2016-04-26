@@ -34,6 +34,7 @@
 #import <WebKit/WebKit.h>
 #import "Constants.h"
 #import "RNCryptor.h"
+#import "SEBIASKSecureSettingsStore.h"
 
 #import "SEBViewController.h"
 
@@ -62,6 +63,8 @@ static NSMutableSet *browserWindowControllers;
     if (!appSettingsViewController) {
         appSettingsViewController = [[IASKAppSettingsViewController alloc] init];
         appSettingsViewController.delegate = self;
+        SEBIASKSecureSettingsStore *sebSecureStore = [[SEBIASKSecureSettingsStore alloc] init];
+        appSettingsViewController.settingsStore = sebSecureStore;
     }
     return appSettingsViewController;
 }
