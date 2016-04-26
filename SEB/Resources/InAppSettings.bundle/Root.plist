@@ -32,29 +32,23 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
+			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>Enabled</string>
+			<string>Administrator password</string>
 			<key>Key</key>
-			<string>enabled_preference</string>
-			<key>DefaultValue</key>
+			<string>adminPassword</string>
+			<key>IsSecure</key>
 			<true/>
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSSliderSpecifier</string>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Quit/restart password</string>
 			<key>Key</key>
-			<string>slider_preference</string>
-			<key>DefaultValue</key>
-			<real>0.5</real>
-			<key>MinimumValue</key>
-			<integer>0</integer>
-			<key>MaximumValue</key>
-			<integer>1</integer>
-			<key>MinimumValueImage</key>
-			<string></string>
-			<key>MaximumValueImage</key>
-			<string></string>
+			<string>quitPassword</string>
+			<key>IsSecure</key>
+			<true/>
 		</dict>
 	</array>
 </dict>
