@@ -90,9 +90,20 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
 {
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"allowChangingConfig"];
-
     [sender dismissViewControllerAnimated:YES completion:nil];
+
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setBool:NO forKey:@"allowChangingConfig"];
+    
+    NSString *quitPassword = [preferences secureObjectForKey:@"quitPassword"];
+    
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    NSString *hashedPassword = [keychainManager generateSHAHashString:quitPassword];
+    hashedPassword = [hashedPassword uppercaseString];
+    [preferences setSecureString:hashedPassword forKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+
+    [preferences setSecureString:@"" forKey:@"quitPassword"];
+    
     [self startAutonomousSingleAppMode];
 }
 
