@@ -38,6 +38,7 @@
 #import "SEBBrowserWindowDocument.h"
 #import "NSWindow+SEBWindow.h"
 #import "WebKit+WebKitExtensions.h"
+#include "WebPreferencesPrivate.h"
 #import "SEBURLFilter.h"
 #import "NSURL+KKDomain.h"
 
@@ -144,6 +145,8 @@
     WebCacheModel defaultWebCacheModel = [webPrefs cacheModel];
     DDLogDebug(@"Default WebPreferences cacheModel: %lu", defaultWebCacheModel);
     [webPrefs setCacheModel:WebCacheModelPrimaryWebBrowser];
+    
+    [webPrefs setWebAudioEnabled:YES];
     
     [self.webView setPreferences:webPrefs];
     
