@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Autonomous Single App Mode (ASAM)</string>
+			<key>FooterText</key>
+			<string>Requires device to be supervised and having SEB set as allowed app to enter ASAM.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Use ASAM if available</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_mobileEnableASAM</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Managed (Supervised) Mode Only</string>
+			<key>FooterText</key>
+			<string>If on, manual Guided Access won&apos;t be used even if ASAM or Single App Mode isn&apos;t available (SEB will refuse to run in this case).</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Managed Only</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_mobileManagedOnly</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+	</array>
+</dict>
+</plist>

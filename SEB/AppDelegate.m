@@ -121,6 +121,15 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+
+    // Update UserDefaults as settings might have been changed in the settings app
+    [self populateRegistrationDomain];
+    if (self.sebViewController) {
+        // If the main SEB view controller was already instantiated
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"allowEditingConfig"]) {
+            [_sebViewController conditionallyShowSettingsModal];
+        }
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

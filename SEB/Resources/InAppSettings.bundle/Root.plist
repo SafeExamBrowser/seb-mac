@@ -34,7 +34,7 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>Administrator password</string>
+			<string>Administrator Password</string>
 			<key>Key</key>
 			<string>adminPassword</string>
 			<key>IsSecure</key>
@@ -44,11 +44,49 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>Quit/restart password</string>
+			<string>Quit/Restart Password</string>
 			<key>Key</key>
 			<string>quitPassword</string>
 			<key>IsSecure</key>
 			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Config File</string>
+			<key>File</key>
+			<string>ConfigFile</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>User Interface</string>
+			<key>File</key>
+			<string>UserInterface</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Exams</string>
+			<key>File</key>
+			<string>Exams</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Security</string>
+			<key>File</key>
+			<string>Security</string>
 		</dict>
 	</array>
 </dict>
