@@ -7,20 +7,28 @@
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
-			<key>FooterText</key>
-			<string>You can edit settings after opening SEB.</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Edit SEB Client Settings</string>
+			<string>Encrypt Settings</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Settings Password</string>
+			<key>Key</key>
+			<string>settingsPassword</string>
+			<key>IsSecure</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Edit Settings</string>
+			<string>Show Settings In App</string>
 			<key>Key</key>
-			<string>allowEditingConfig</string>
+			<string>org_safeexambrowser_SEB_showSettingsInApp</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>

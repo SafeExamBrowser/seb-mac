@@ -318,7 +318,7 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_mainBrowserWindowPositioning",
                                  @"100%",
                                  @"org_safeexambrowser_SEB_mainBrowserWindowWidth",
-                                 @NO,
+                                 @YES,
                                  @"org_safeexambrowser_SEB_mobileEnableASAM",
                                  @NO,
                                  @"org_safeexambrowser_SEB_mobileManagedOnly",

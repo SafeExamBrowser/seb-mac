@@ -78,6 +78,8 @@
 @property(readwrite, strong) NSDate *didBecomeActiveTime;
 @property(readwrite, strong) NSDate *didResumeExamTime;
 
+- (void)conditionallyShowSettingsModal;
+
 - (void) showStartGuidedAccess;
 - (void) showGuidedAccessWarning;
 - (void) startExam;

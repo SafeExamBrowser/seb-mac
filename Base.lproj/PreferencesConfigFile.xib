@@ -279,9 +279,9 @@
                         <binding destination="211" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_sebConfigPurpose" id="1087"/>
                     </connections>
                 </matrix>
-                <button toolTip="Usually disable preferences window on exam clients besides for debugging purposes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="259">
+                <button toolTip="On exam clients the Preferences window should usually be  disabled (besides for debugging purposes)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="259">
                     <rect key="frame" x="20" y="311" width="612" height="18"/>
-                    <buttonCell key="cell" type="check" title="Allow to open preferences window on client" bezelStyle="regularSquare" imagePosition="left" inset="2" id="260">
+                    <buttonCell key="cell" type="check" title="Show Preferences in app" bezelStyle="regularSquare" imagePosition="left" inset="2" id="260">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
