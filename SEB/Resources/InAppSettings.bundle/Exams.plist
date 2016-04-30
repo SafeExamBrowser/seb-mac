@@ -12,7 +12,7 @@
 			<key>Title</key>
 			<string>Quit Link</string>
 			<key>FooterText</key>
-			<string>Place this Quit Link to the &apos;feedback&apos; page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password.</string>
+			<string>Place this Quit Link onto the &apos;feedback&apos; page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password.</string>
 		</dict>
 		<dict>
 			<key>Type</key>

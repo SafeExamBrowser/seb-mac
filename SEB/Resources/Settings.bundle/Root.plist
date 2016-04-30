@@ -8,7 +8,7 @@
 	<array>
 		<dict>
 			<key>FooterText</key>
-			<string>You can edit settings after opening SEB.</string>
+			<string>You can edit settings after opening or switching to SEB.</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
@@ -18,7 +18,7 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Edit Settings</string>
+			<string>Allow Editing</string>
 			<key>Key</key>
 			<string>allowEditingConfig</string>
 			<key>DefaultValue</key>
