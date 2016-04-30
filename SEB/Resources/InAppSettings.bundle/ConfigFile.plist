@@ -10,7 +10,9 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Encrypt Settings</string>
+			<string>Encryption</string>
+			<key>FooterText</key>
+			<string>Encryption is only relevant when settings are shared as a config file. Use either a cryptographic identity or a password or both.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -21,6 +23,12 @@
 			<string>settingsPassword</string>
 			<key>IsSecure</key>
 			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string></string>
 		</dict>
 		<dict>
 			<key>Type</key>
