@@ -325,7 +325,7 @@
 }
 
 
-- (void)setTitle:(NSString *)title forSEBWebView:(UIWebView *)webView
+- (void)setTitle:(NSString *)title forWebViewController:(SEBWebViewController *)webViewController
 {
     
 }
