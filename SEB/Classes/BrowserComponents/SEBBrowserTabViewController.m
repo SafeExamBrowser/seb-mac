@@ -325,6 +325,12 @@
 }
 
 
+- (void)setTitle:(NSString *)title forSEBWebView:(UIWebView *)webView
+{
+    
+}
+
+
 - (void)loadWebPageOrSearchResultWithString:(NSString *)webSearchString
 {
     [self.visibleWebViewController.sebWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:webSearchString]]];
