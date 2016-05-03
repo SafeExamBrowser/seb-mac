@@ -77,6 +77,7 @@
 - (void) stopLoading;
 
 - (void) setLoading:(BOOL)loading;
+- (void)setTitle:(NSString *)title forWebViewController:(SEBWebViewController *)webViewController;
 
 - (void) loadWebPageOrSearchResultWithString:(NSString *)webSearchString;
 
