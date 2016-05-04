@@ -195,7 +195,7 @@
 }
 
 
-- (NSArray*)getCertificatesAndNames:(NSArray **)names {
+- (NSArray*)getTLSCertificatesAndCAs:(NSArray **)CACertificates {
     SecKeychainRef keychain;
     OSStatus status;
     status = SecKeychainCopyDefault(&keychain);
@@ -221,18 +221,17 @@
         return nil;
     }
     
-    NSMutableArray *certificates = [NSMutableArray arrayWithArray:(__bridge_transfer NSArray*)(items)];
-    NSMutableArray *certificatesNames = [NSMutableArray arrayWithCapacity:[certificates count]];
+    NSMutableArray *certificateRefs = [NSMutableArray arrayWithArray:(__bridge_transfer NSArray*)(items)];
+    NSMutableArray *certificates = [NSMutableArray arrayWithCapacity:[certificateRefs count]];
     
     // dmcd - make a copy of this array for post-processing (for finding CA certs)
-    NSMutableArray *listCertificates = [NSMutableArray arrayWithArray:certificates];
+    NSMutableArray *listCertificates = [NSMutableArray arrayWithArray:certificateRefs];
     
     CFStringRef commonName = NULL;
     CFArrayRef emailAddressesRef = NULL;
-    NSString *certificateName;
-    int i, count = [certificates count];
+    int i, count = [certificateRefs count];
     for (i=0; i<count; i++) {
-        SecCertificateRef certificateRef = (__bridge SecCertificateRef)[certificates objectAtIndex:i];
+        SecCertificateRef certificateRef = (__bridge SecCertificateRef)[certificateRefs objectAtIndex:i];
         if ((status = SecCertificateCopyCommonName(certificateRef, &commonName)) == noErr) {
             if ((status = SecCertificateCopyEmailAddresses(certificateRef, &emailAddressesRef)) == noErr) {
                 CFErrorRef error = NULL;
@@ -243,7 +242,7 @@
                     NSArray *extendedKeyUsages = [value objectForKey:(__bridge id)(kSecPropertyKeyValue)];
                     if ([extendedKeyUsages containsObject:[NSData dataWithBytes:keyUsageServerAuthentication length:8]]) {
                         
-                        certificateName = [NSString stringWithFormat:@"%@",
+                        NSString *certificateName = [NSString stringWithFormat:@"%@",
                                            (__bridge NSString *)commonName ?
                                            //There is a commonName: just take that as a name
                                            [NSString stringWithFormat:@"%@ ",(__bridge NSString *)commonName] :
@@ -251,7 +250,7 @@
                                            CFArrayGetCount(emailAddressesRef) ?
                                            (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) :
                                            @""];
-                        if ([certificateName isEqualToString:@""] || [certificatesNames containsObject:certificateName]) {
+                        if ([certificateName isEqualToString:@""] || [certificates containsObject:certificateName]) {
                             //get public key hash from selected identity's certificate
                             NSData* publicKeyHash = [self getPublicKeyHashFromCertificate:certificateRef];
                             if (!publicKeyHash) {
@@ -265,10 +264,14 @@
                             for (int i = 0 ; i < 20 ; ++i) {
                                 [hashedString appendFormat: @"%02x", hashedChars[i]];
                             }
-                            [certificatesNames addObject:[NSString stringWithFormat:@"%@ %@",certificateName, hashedString]];
+                            certificateName = [NSString stringWithFormat:@"%@ %@",certificateName, hashedString];
                         } else {
-                            [certificatesNames addObject:[NSString stringWithFormat:@"%@", certificateName]];
+                            certificateName = [NSString stringWithFormat:@"%@", certificateName];
                         }
+                        [certificates addObject:@{
+                                                  @"ref" : (__bridge_transfer id)certificateRef,
+                                                  @"name" : certificateName,
+                                                  }];
                         DDLogDebug(@"Common name: %@ %@", (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , CFArrayGetCount(emailAddressesRef) ? (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) : @"");
                         
                         if (commonName) CFRelease(commonName);
@@ -292,67 +295,69 @@
             DDLogError(@"Error in %s: SecCertificateCopyCommonName returned %@. This certificate will be skipped.", __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
         }
         // Currently iterated certificate cannot be used: remove it from the list
-        [certificates removeObjectAtIndex:i];
+        [certificateRefs removeObjectAtIndex:i];
         i--;
         count--;
     }
     
-    // dmcd - post-processing to add CA certs
-    for (NSInteger i = 0; i < [listCertificates count]; i++)
-    {
-        mbedtls_x509_crt cert;
-        mbedtls_x509_crt_init(&cert);
-        
-        BOOL remove = YES;
-        
-        // Get DER data
-        SecCertificateRef certificateRef = (__bridge SecCertificateRef)[listCertificates objectAtIndex:i];
-        NSData *data = CFBridgingRelease(SecCertificateCopyData(certificateRef));
-        
-        if (data)
-        {
-            if (mbedtls_x509_crt_parse_der(&cert, [data bytes], [data length]) == 0)
-            {
-#if DEBUG
-                char infoBuf[2048];
-                *infoBuf = '\0';
-                mbedtls_x509_crt_info(infoBuf, sizeof(infoBuf) - 1, "   ", &cert);
-                DDLogDebug(@"\n%s\n", infoBuf);
-#endif
-                if (cert.ext_types & MBEDTLS_X509_EXT_BASIC_CONSTRAINTS)
-                {
-                    if (cert.ca_istrue)
-                    {
-                        CFStringRef commonName = NULL;
-                        
-                        if (SecCertificateCopyCommonName(certificateRef, &commonName) == noErr)
-                        {
-                            [certificatesNames addObject:[NSString stringWithFormat:@"%@", commonName]];
-                            remove = NO;
-                            continue;
-                        }
-                    }
-                }
-            }
-        }
-        
-        if (remove)
-        {
-            [listCertificates removeObjectAtIndex:i--];
-        }
-        
-        mbedtls_x509_crt_free(&cert);
-    }
+//    // dmcd - post-processing to add CA certs
+//    for (NSInteger i = 0; i < [listCertificates count]; i++)
+//    {
+//        mbedtls_x509_crt cert;
+//        mbedtls_x509_crt_init(&cert);
+//        
+//        BOOL remove = YES;
+//        
+//        // Get DER data
+//        SecCertificateRef certificateRef = (__bridge SecCertificateRef)[listCertificates objectAtIndex:i];
+//        NSData *data = CFBridgingRelease(SecCertificateCopyData(certificateRef));
+//        
+//        if (data)
+//        {
+//            if (mbedtls_x509_crt_parse_der(&cert, [data bytes], [data length]) == 0)
+//            {
+//#if DEBUG
+//                char infoBuf[2048];
+//                *infoBuf = '\0';
+//                mbedtls_x509_crt_info(infoBuf, sizeof(infoBuf) - 1, "   ", &cert);
+//                DDLogDebug(@"\n%s\n", infoBuf);
+//#endif
+//                if (cert.ext_types & MBEDTLS_X509_EXT_BASIC_CONSTRAINTS)
+//                {
+//                    if (cert.ca_istrue)
+//                    {
+//                        CFStringRef commonName = NULL;
+//                        
+//                        if (SecCertificateCopyCommonName(certificateRef, &commonName) == noErr)
+//                        {
+//                            [certificates addObject:[NSString stringWithFormat:@"%@", commonName]];
+//                            remove = NO;
+//                            continue;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        
+//        if (remove)
+//        {
+//            [listCertificates removeObjectAtIndex:i--];
+//        }
+//        
+//        mbedtls_x509_crt_free(&cert);
+//    }
+//    
+//    [certificateRefs addObjectsFromArray:listCertificates];
+    NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortByName];
+    NSArray *sortedCertificates = [[NSArray arrayWithArray:certificates] sortedArrayUsingDescriptors:sortDescriptors];
     
-    [certificates addObjectsFromArray:listCertificates];
-    
-    NSArray *foundCertificates = [NSArray arrayWithArray:certificates];
     // return array of certificate names
-    if (names) {
-        *names = [NSArray arrayWithArray:certificatesNames];
+    if (CACertificates) {
+        *CACertificates = [NSArray arrayWithArray:certificates];
     }
     
-    return foundCertificates; // items contains all applicable SecIdentityRefs in keychain
+    return sortedCertificates; // items contains all applicable SecIdentityRefs in keychain
 }
 
 

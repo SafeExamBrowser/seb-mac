@@ -99,7 +99,7 @@
     { //no certificates available yet, get them from keychain
         SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
         NSArray *names;
-        NSArray *certificatesInKeychain = [keychainManager getCertificatesAndNames:&names];
+        NSArray *certificatesInKeychain = [keychainManager getTLSCertificatesAndCAs:&names];
         self.certificates = certificatesInKeychain;
         self.certificatesNames = [names copy];
         [chooseCertificate removeAllItems];
