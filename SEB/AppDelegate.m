@@ -41,11 +41,13 @@
 
 @interface AppDelegate ()
 {
+    NSMutableArray *_persistentWebpages;
 }
 @end
 
 @implementation AppDelegate
 
+@synthesize persistentWebpages;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Check if Single App Mode is active
@@ -252,6 +254,21 @@
     }
 }
 
+
+// This mutable array holds a copy of the persistent webpages in the CoreData context for caching
+- (NSMutableArray *) persistentWebpages
+{
+    if (_persistentWebpages == nil) {
+        _persistentWebpages = [NSMutableArray new];
+    }
+    return _persistentWebpages;
+}
+
+
+- (void) setPersistentWebpages:(NSMutableArray *)newPersistentWebpages
+{
+    _persistentWebpages = newPersistentWebpages;
+}
 
 #pragma mark - Core Data stack
 

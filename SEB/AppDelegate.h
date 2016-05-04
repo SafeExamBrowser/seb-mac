@@ -47,6 +47,8 @@
 @property (strong, nonatomic, readonly) NSURL *sebFileURL;
 @property(readwrite) BOOL SAMActive;
 
+@property (nonatomic, strong) NSMutableArray *persistentWebpages;
+
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
