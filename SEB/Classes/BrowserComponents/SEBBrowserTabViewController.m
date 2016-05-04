@@ -447,6 +447,8 @@
     
     error = nil;
     [context save:&error];
+    
+    [_persistentWebpages removeAllObjects];
 }
 
 
