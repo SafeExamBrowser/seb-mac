@@ -84,6 +84,7 @@
     // TO DO: Ok, later we will get the context from the creator of this VC
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     [self setManagedObjectContext:[appDelegate managedObjectContext]];
+    _persistentWebpages = appDelegate.persistentWebpages;
     
     self.openWebpages = [NSMutableArray new];
     
@@ -325,7 +326,7 @@
 }
 
 
-- (void)setTitle:(NSString *)title forSEBWebView:(UIWebView *)webView
+- (void)setTitle:(NSString *)title forWebViewController:(SEBWebViewController *)webViewController
 {
     
 }
@@ -361,7 +362,6 @@
     
     NSError *error = nil;
     NSArray *persistedOpenWebPages = [context executeFetchRequest:fetchRequest error:&error];
-    _persistentWebpages = [NSMutableArray arrayWithArray:persistedOpenWebPages];
     _maxIndex = 0;
     
     // If no error occured and there have been some persisted pages

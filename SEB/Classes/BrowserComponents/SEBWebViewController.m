@@ -181,7 +181,7 @@
     if ([webPageTitle isEqualToString:@""]) {
         
     } else {
-        MainWebView.title = webPageTitle;
+        [_browserTabViewController setTitle:webPageTitle forWebViewController:self];
     }
     
     // finished loading, hide the activity indicator in the status bar

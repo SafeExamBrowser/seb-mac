@@ -42,7 +42,6 @@
 @implementation SEBTableViewController
 
 @synthesize managedObjectContext = __managedObjectContext;
-@synthesize webpagesArray;
 
 //- (id)initWithStyle:(UITableViewStyle)style
 //{
@@ -57,6 +56,10 @@
 {
     [super viewDidLoad];
     
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    [self setManagedObjectContext:[appDelegate managedObjectContext]];
+    _webpagesArray = appDelegate.persistentWebpages;
+
      // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -81,8 +84,6 @@
     //[self.mm_drawerController setShowsStatusBarBackgroundView:YES];
     
     // TO DO: Ok, later we will get the context from the creater of this VC
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    [self setManagedObjectContext:[appDelegate managedObjectContext]];
 
     /* Here we call the method to load the table data */
     [self loadTableData];
@@ -112,7 +113,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [webpagesArray count];
+    return [_webpagesArray count];
 }
 
 
@@ -283,23 +284,23 @@
 // This method executes a fetch request and reloads the table view.
 - (void) loadTableData {
     
-    NSManagedObjectContext *context = self.managedObjectContext;
-    
-    // Construct a fetch request
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Webpages"
-                                              inManagedObjectContext:context];
-    
-    [fetchRequest setEntity:entity];
-    
-    // Add an NSSortDescriptor to sort the webpages according to their loadDate timestamp
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"loadDate" ascending:YES];
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
-    [fetchRequest setSortDescriptors:sortDescriptors];
-    
-    
-    NSError *error = nil;
-    self.webpagesArray = [NSMutableArray arrayWithArray:[context executeFetchRequest:fetchRequest error:&error]];
+//    NSManagedObjectContext *context = self.managedObjectContext;
+//    
+//    // Construct a fetch request
+//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+//    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Webpages"
+//                                              inManagedObjectContext:context];
+//    
+//    [fetchRequest setEntity:entity];
+//    
+//    // Add an NSSortDescriptor to sort the webpages according to their loadDate timestamp
+//    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"loadDate" ascending:YES];
+//    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+//    [fetchRequest setSortDescriptors:sortDescriptors];
+//    
+//    
+//    NSError *error = nil;
+//    self.webpagesArray = [NSMutableArray arrayWithArray:[context executeFetchRequest:fetchRequest error:&error]];
     [self.tableView reloadData];
 }
 
