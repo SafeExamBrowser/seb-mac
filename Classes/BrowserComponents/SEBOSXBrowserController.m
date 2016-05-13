@@ -408,51 +408,61 @@
             // Download the .seb file directly into memory (not onto disc like other files)
             if ([url.scheme isEqualToString:@"seb"]) {
                 // If it's a seb:// URL, we try to download it by http
-                NSURL *httpURL = [[NSURL alloc] initWithScheme:@"http" host:url.host path:url.path];
-                sebFileData = [NSData dataWithContentsOfURL:httpURL options:NSDataReadingUncached error:&error];
-                if (error) {
-                    // If that didn't work, we try to download it by https
-                    NSURL *httpsURL = [[NSURL alloc] initWithScheme:@"https" host:url.host path:url.path];
-                    sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
-                    // Still couldn't download the .seb file: present an error and abort
-                    if (error) {
-                        [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
-                        return;
-                    }
-                }
+                downloadURL = [[NSURL alloc] initWithScheme:@"http" host:url.host path:url.path];
+                [self downloadSEBConfigFromURL:downloadURL];
             } else if ([url.scheme isEqualToString:@"sebs"]) {
                 // If it's a sebs:// URL, we try to download it by https
-                NSURL *httpsURL = [[NSURL alloc] initWithScheme:@"https" host:url.host path:url.path];
-                sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
-                // Couldn't download the .seb file: present an error and abort
-                if (error) {
-                    [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
-                    return;
-                }
+                downloadURL = [[NSURL alloc] initWithScheme:@"https" host:url.host path:url.path];
+                [self downloadSEBConfigFromURL:downloadURL];
             } else {
-                sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
-                if (error) {
-                    [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
-                }
-            }
-            SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-            
-            // Get current config path
-            NSURL *currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
-            // Store the URL of the .seb file as current config file path
-            [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
-            
-            if ([configFileManager storeDecryptedSEBSettings:sebFileData forEditing:NO]) {
-                
-                // Post a notification that it was requested to restart SEB with changed settings
-                [[NSNotificationCenter defaultCenter]
-                 postNotificationName:@"requestRestartNotification" object:self];
-                
-            } else {
-                // if decrypting new settings wasn't successfull, we have to restore the path to the old settings
-                [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
+                [self downloadSEBConfigFromURL:url];
             }
         }
+    }
+}
+
+
+- (void) downloadSEBConfigFromURL:(NSURL *)url
+{
+    NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]
+                                          dataTaskWithURL:url completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
+                                          {
+                                              if (error) {
+                                                  if ([url.scheme isEqualToString:@"http"]) {
+                                                      NSURL *downloadURL = [[NSURL alloc] initWithScheme:@"https" host:url.host path:url.path];
+                                                      [self downloadSEBConfigFromURL:downloadURL];
+                                                  } else {
+                                                      [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
+                                                  }
+                                              } else {
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                      [self openDownloadedSEBConfigData:sebFileData fromURL:url];
+                                                  });
+                                              }
+                                          }];
+    
+    [downloadTask resume];
+}
+
+
+- (void) openDownloadedSEBConfigData:(NSData *)sebFileData fromURL:(NSURL *)url
+{
+    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+    
+    // Get current config path
+    NSURL *currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
+    // Store the URL of the .seb file as current config file path
+    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
+    
+    if ([configFileManager storeDecryptedSEBSettings:sebFileData forEditing:NO]) {
+        
+        // Post a notification that it was requested to restart SEB with changed settings
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"requestRestartNotification" object:self];
+        
+    } else {
+        // if decrypting new settings wasn't successfull, we have to restore the path to the old settings
+        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
     }
 }
 
