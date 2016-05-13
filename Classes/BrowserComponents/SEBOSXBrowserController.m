@@ -402,7 +402,7 @@
             [newAlert setAlertStyle:NSCriticalAlertStyle];
             [newAlert runModal];
         } else {
-            // SEB isn't in exam mode: reconfiguring it is allowed
+            // SEB isn't in exam mode: reconfiguring is allowed
             NSError *error = nil;
             NSData *sebFileData;
             // Download the .seb file directly into memory (not onto disc like other files)

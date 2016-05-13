@@ -92,6 +92,9 @@
 	IOPMAssertionID assertionID1;
 	IOPMAssertionID assertionID2;
     
+    NSRunningApplication *sebInstance;
+    NSRunningApplication *launchedApplication;
+    
     @private
     BOOL _cmdKeyDown;
     DDFileLogger *_myLogger;

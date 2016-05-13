@@ -296,45 +296,46 @@ bool insideMatrix();
 												 name:NSApplicationDidResignActiveNotification 
                                                object:NSApp];
 	
-#ifndef DEBUG
+//#ifndef DEBUG
     // Add an observer for the notification that another application was unhidden by the finder
 	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
 	[[workspace notificationCenter] addObserver:self
                                        selector:@selector(regainActiveStatus:)
                                            name:NSWorkspaceDidActivateApplicationNotification
-                                         object:workspace];
+                                         object:nil];
 	
     // Add an observer for the notification that another application was unhidden by the finder
 	[[workspace notificationCenter] addObserver:self
                                        selector:@selector(regainActiveStatus:)
                                            name:NSWorkspaceDidUnhideApplicationNotification
-                                         object:workspace];
+                                         object:nil];
 	
     // Add an observer for the notification that another application was unhidden by the finder
-	[[workspace notificationCenter] addObserver:self
-                                       selector:@selector(regainActiveStatus:)
-                                           name:NSWorkspaceWillLaunchApplicationNotification
-                                         object:workspace];
-	
-    // Add an observer for the notification that another application was unhidden by the finder
-	[[workspace notificationCenter] addObserver:self
-                                       selector:@selector(regainActiveStatus:)
-                                           name:NSWorkspaceDidLaunchApplicationNotification
-                                         object:workspace];
-	
-//    // Add an observer for the notification that another application was unhidden by the finder
 //	[[workspace notificationCenter] addObserver:self
-//                                       selector:@selector(requestedReinforceKioskMode:)
-//                                           name:NSWorkspaceActiveSpaceDidChangeNotification
-//                                         object:workspace];
+//                                       selector:@selector(regainActiveStatus:)
+//                                           name:NSWorkspaceWillLaunchApplicationNotification
+//                                         object:nil];
+//	
+    // Add an observer for the notification that another application was launched
+	[[workspace notificationCenter] addObserver:self
+                                       selector:@selector(appLaunch:)
+                                           name:NSWorkspaceDidLaunchApplicationNotification
+                                         object:nil];
 	
-#endif
+    // Add an observer for the notification that another application was unhidden by the finder
+	[[workspace notificationCenter] addObserver:self
+                                       selector:@selector(spaceSwitch:)
+                                           name:NSWorkspaceActiveSpaceDidChangeNotification
+                                         object:nil];
+	
+//#endif
     // Add an observer for the notification that SEB became active
     // With third party apps and Flash fullscreen it can happen that SEB looses its 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SEBgotActive:)
 												 name:NSApplicationDidBecomeActiveNotification 
                                                object:NSApp];
-	
+
+    
     // Hide all other applications
     [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
                                                     withObject:NULL waitUntilDone:NO];
@@ -363,10 +364,17 @@ bool insideMatrix();
 			forKeyPath:@"currentSystemPresentationOptions"
 			   options:NSKeyValueObservingOptionNew
 			   context:NULL];
-
+    
+    sebInstance = [NSRunningApplication currentApplication];
+    
+    [sebInstance addObserver:self
+                  forKeyPath:@"isActive"
+                     options:NSKeyValueObservingOptionNew
+                     context:NULL];
     
     // Add a observer for changes of the screen configuration
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(adjustScreenLocking:)
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(adjustScreenLocking:)
                                                  name:NSApplicationDidChangeScreenParametersNotification
                                                object:NSApp];
     
@@ -1159,19 +1167,26 @@ bool insideMatrix(){
 
 - (void) regainActiveStatus: (id)sender {
 	// hide all other applications if not in debug build setting
-    /*/ Check if the
-    if ([[sender name] isEqualToString:@"NSWorkspaceDidLaunchApplicationNotification"]) {
+    // Check if the app is listed in prohibited processes
+#ifdef DEBUG
+    DDLogInfo(@"Notification:  %@", [sender name]);
+#endif
+
+//    if ([[sender name] isEqualToString:@"NSWorkspaceDidLaunchApplicationNotification"]) {
         NSDictionary *userInfo = [sender userInfo];
         if (userInfo) {
             NSRunningApplication *launchedApp = [userInfo objectForKey:NSWorkspaceApplicationKey];
 #ifdef DEBUG
-            DDLogInfo(@"launched app localizedName: %@, executableURL: %@", [launchedApp localizedName], [launchedApp executableURL]);
+            DDLogInfo(@"Activated app localizedName: %@, executableURL: %@", [launchedApp localizedName], [launchedApp executableURL]);
 #endif
-            if ([[launchedApp localizedName] isEqualToString:@""]) {
-                [launchedApp forceTerminate];
+            if ([launchedApp isEqual:launchedApplication]) {
+                launchedApplication = nil;
             }
+//            if ([[launchedApp localizedName] isEqualToString:@""]) {
+//                [launchedApp forceTerminate];
+//            }
         }
-    }*/
+//    }
     // Load preferences from the system's user defaults database
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 	BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
@@ -1202,6 +1217,55 @@ bool insideMatrix(){
             }
         }
 */
+    }
+}
+
+
+- (void) appLaunch: (id)sender
+{
+#ifdef DEBUG
+    DDLogInfo(@"Notification:  %@", [sender name]);
+#endif
+    
+    if ([[sender name] isEqualToString:@"NSWorkspaceDidLaunchApplicationNotification"]) {
+        NSDictionary *userInfo = [sender userInfo];
+        if (userInfo) {
+            launchedApplication = [userInfo objectForKey:NSWorkspaceApplicationKey];
+#ifdef DEBUG
+            DDLogInfo(@"launched app localizedName: %@, executableURL: %@", [launchedApplication localizedName], [launchedApplication executableURL]);
+#endif
+//            [launchedApp forceTerminate];
+//            [launchedApplication activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+//            [self requestedReinforceKioskMode:nil];
+
+            if ([[launchedApplication localizedName] isEqualToString:@""]) {
+            }
+        }
+    }
+}
+
+
+- (void) spaceSwitch: (id)sender
+{
+#ifdef DEBUG
+    DDLogInfo(@"Notification:  %@", [sender name]);
+#endif
+    
+    NSDictionary *userInfo = [sender userInfo];
+    NSRunningApplication *workspaceSwitchingApp = nil;
+    if (userInfo) {
+        workspaceSwitchingApp = [userInfo objectForKey:NSWorkspaceApplicationKey];
+#ifdef DEBUG
+        DDLogInfo(@"App which switched Space localized name: %@, executable URL: %@", [workspaceSwitchingApp localizedName], [workspaceSwitchingApp executableURL]);
+#endif
+//        if ([[launchedApp localizedName] isEqualToString:@""]) {
+//            [launchedApp forceTerminate];
+//        }
+    }
+    if (launchedApplication) {
+        // Reinforce kiosk mode after a delay, so eventually visible fullscreen apps get hidden again
+        [self reinforceKioskMode];
+        //    [self performSelector:@selector(requestedReinforceKioskMode:) withObject: nil afterDelay: 1];
     }
 }
 
@@ -1842,6 +1906,11 @@ bool insideMatrix(){
 
 - (void)requestedReinforceKioskMode:(NSNotification *)notification
 {
+    [self reinforceKioskMode];
+}
+
+- (void)reinforceKioskMode
+{
     if (![self.preferencesController preferencesAreOpen]) {
         DDLogDebug(@"Reinforcing the kiosk mode was requested");
         // Switch the strict kiosk mode temporary off
@@ -1849,13 +1918,22 @@ bool insideMatrix(){
         [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
         [self switchKioskModeAppsAllowed:YES overrideShowMenuBar:NO];
         
+       // If another application on a full screen workspace was started, then we have to activate it,
+        // because only then it will get hidden by SEB again with the code below
+        if (launchedApplication) {
+            BOOL success = [launchedApplication activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+            DDLogDebug(@"Success of activating app %@ on separate workspace: %d", [launchedApplication localizedName], success);
+//            launchedApplication = nil;
+            return;
+        }
+        
         // Close the black background covering windows
         [self closeCapWindows];
         
         // Reopen the covering Windows and reset the windows elevation levels
         DDLogDebug(@"requestedReinforceKioskMode: Reopening cap windows.");
+        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         if (self.browserController.mainBrowserWindow.isVisible) {
-            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
             [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
         }
         
@@ -2079,11 +2157,15 @@ bool insideMatrix(){
 
 
 // Called when currentPresentationOptions change
+// Called when "isActive" propery of [NSRunningApplication currentApplication] changes
+
 - (void) observeValueForKeyPath:(NSString *)keyPath
 					  ofObject:id
                         change:(NSDictionary *)change
                        context:(void *)context
 {
+    DDLogInfo(@"Value for key path %@ changed: %@", keyPath, change);
+
     // If the startKioskMode method changed presentation options, then we don't do nothing here
     if ([keyPath isEqual:@"currentSystemPresentationOptions"]) {
         if ([[MyGlobals sharedMyGlobals] startKioskChangedPresentationOptions]) {
@@ -2117,7 +2199,7 @@ bool insideMatrix(){
         //[self startKioskMode];
         //We don't reset the browser window size and position anymore
         //[(BrowserWindow*)self.browserController.browserWindow setCalculatedFrame];
-        if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen]) {
+        if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen] && !launchedApplication) {
             // If third party Apps are not allowed, we switch back to SEB
             DDLogInfo(@"Switched back to SEB after currentSystemPresentationOptions changed!");
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
@@ -2129,7 +2211,13 @@ bool insideMatrix(){
             [self regainActiveStatus:nil];
             //[self.browserController.browserWindow setFrame:[[self.browserController.browserWindow screen] frame] display:YES];
         }
+    } else {
+        if ([keyPath isEqual:@"isActive"]) {
+            DDLogWarn(@"isActive property of SEB changed!");
+//            [self appLaunch:nil];
+        }
     }
 }
- 
+
+
 @end
