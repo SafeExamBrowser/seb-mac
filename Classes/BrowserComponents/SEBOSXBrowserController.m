@@ -402,9 +402,8 @@
             [newAlert setAlertStyle:NSCriticalAlertStyle];
             [newAlert runModal];
         } else {
-            // SEB isn't in exam mode: reconfiguring is allowed
-            NSError *error = nil;
-            NSData *sebFileData;
+            // SEB isn't in exam mode: reconfiguring it is allowed
+            NSURL *downloadURL;
             // Download the .seb file directly into memory (not onto disc like other files)
             if ([url.scheme isEqualToString:@"seb"]) {
                 // If it's a seb:// URL, we try to download it by http
