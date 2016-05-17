@@ -300,7 +300,7 @@
         NSLog(@"The save wasn't successful: %@", [error userInfo]);
     }
     
-    [_persistentWebpages removeObjectAtIndex:tabIndex];
+//    [_persistentWebpages removeObjectAtIndex:tabIndex];
     [_openWebpages removeObjectAtIndex:tabIndex];
     
     // Check if the user is closing the main web view (with the exam)
@@ -328,7 +328,13 @@
 
 - (void)setTitle:(NSString *)title forWebViewController:(SEBWebViewController *)webViewController
 {
-    
+    NSUInteger index = [_openWebpages indexOfObjectPassingTest:
+     ^(OpenWebpages *openPage, NSUInteger idx, BOOL *stop) {
+         return [openPage.webViewController isEqual:webViewController];
+     }];
+    if (index != NSNotFound) {
+        [(Webpages *)_persistentWebpages[index] setValue:title forKey:@"title"];
+    }
 }
 
 
