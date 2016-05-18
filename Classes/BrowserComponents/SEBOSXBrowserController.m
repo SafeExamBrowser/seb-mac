@@ -174,7 +174,7 @@
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL elevateWindowLevels = [preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
     // Order new browser window to the front of our level
-    [self setLevelForBrowserWindow:browserWindowDocument.mainWindowController.window elevateLevels:elevateWindowLevels];
+    [self setLevelForBrowserWindow:browserWindowDocument.mainWindowController.window elevateLevels:elevateWindowLevels levelOffset:0];
     self.activeBrowserWindow = newWindow;
     [browserWindowDocument.mainWindowController showWindow:self];
     [newWindow makeKeyAndOrderFront:self];
@@ -195,6 +195,10 @@
     DDLogInfo(@"Now closing new document browser window with WebView: %@", webViewToClose);
 
     [myDocument close];
+    
+    if (webViewToClose == _temporaryWebView) {
+        _temporaryWebView = nil;
+    }
 }
 
 
@@ -326,7 +330,7 @@
     SEBBrowserWindowDocument *openWindowDocument;
     for (openWindowDocument in openWindowDocuments) {
         NSWindow *browserWindow = openWindowDocument.mainWindowController.window;
-        [self setLevelForBrowserWindow:browserWindow elevateLevels:!allowApps];
+        [self setLevelForBrowserWindow:browserWindow elevateLevels:!allowApps levelOffset:0];
     }
     // If the main browser window is displayed fullscreen and switching to apps is allowed,
     // we make the window stationary, so that it isn't scaled down from Exposé
@@ -339,15 +343,15 @@
 }
 
 
-- (void) setLevelForBrowserWindow:(NSWindow *)browserWindow elevateLevels:(BOOL)elevateLevels
+- (void) setLevelForBrowserWindow:(NSWindow *)browserWindow elevateLevels:(BOOL)elevateLevels levelOffset:(int)levelOffset
 {
     if (elevateLevels) {
         if (self.mainBrowserWindow.isFullScreen && browserWindow != self.mainBrowserWindow) {
             // If the main browser window is displayed fullscreen, then all auxillary windows
             // get a higher level, to float on top
-            [browserWindow newSetLevel:NSMainMenuWindowLevel+4];
+            [browserWindow newSetLevel:NSMainMenuWindowLevel+4+levelOffset];
         } else {
-            [browserWindow newSetLevel:NSMainMenuWindowLevel+3];
+            [browserWindow newSetLevel:NSMainMenuWindowLevel+3+levelOffset];
         }
     } else {
         
@@ -355,9 +359,9 @@
         if (self.mainBrowserWindow.isFullScreen && browserWindow != self.mainBrowserWindow) {
             // If the main browser window is displayed fullscreen, then all auxillary windows
             // get a higher level, to float on top
-            [browserWindow newSetLevel:NSNormalWindowLevel+1];
+            [browserWindow newSetLevel:NSNormalWindowLevel+1+levelOffset];
         } else {
-            [browserWindow newSetLevel:NSNormalWindowLevel];
+            [browserWindow newSetLevel:NSNormalWindowLevel+levelOffset];
         }
         //[browserWindow orderFront:self];
     }
@@ -374,7 +378,7 @@
     }
     [(SEBBrowserWindow *)additionalBrowserWindow setCalculatedFrame];
     BOOL elevateWindowLevels = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
-    [self setLevelForBrowserWindow:additionalBrowserWindow elevateLevels:elevateWindowLevels];
+    [self setLevelForBrowserWindow:additionalBrowserWindow elevateLevels:elevateWindowLevels levelOffset:0];
 
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     
@@ -432,26 +436,33 @@
 - (void) openTempWindowForDownloadingConfigFromURL:(NSURL *)url
 {
     // Create a new WebView
+    NSString *tempWindowTitle = NSLocalizedString(@"Opening SEB Link", @"Title of a temporary browser window for opening a SEB link");
     _temporaryBrowserWindowDocument = [self openBrowserWindowDocument];
-    
+    SEBBrowserWindow *newWindow = (SEBBrowserWindow *)_temporaryBrowserWindowDocument.mainWindowController.window;
     _temporaryWebView = _temporaryBrowserWindowDocument.mainWindowController.webView;
     _temporaryWebView.creatingWebView = nil;
+    [newWindow setCalculatedFrame];
+    [newWindow setTitle:tempWindowTitle];
     
     // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
     [self setCustomWebPreferencesForWebView:_temporaryWebView];
     
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
-        [_temporaryBrowserWindowDocument.mainWindowController.window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+        [newWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
     }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL elevateWindowLevels = [preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
     // Order new browser window to the front of our level
-    [self setLevelForBrowserWindow:_temporaryBrowserWindowDocument.mainWindowController.window elevateLevels:elevateWindowLevels];
+    [self setLevelForBrowserWindow:newWindow elevateLevels:elevateWindowLevels levelOffset:1];
     
-    [self addBrowserWindow:(SEBBrowserWindow *)_temporaryBrowserWindowDocument.mainWindowController.window
+    [self addBrowserWindow:(SEBBrowserWindow *)newWindow
                withWebView:_temporaryWebView
-                 withTitle:NSLocalizedString(@"Open SEB Link", @"Title of a temporary browser window for opening a SEB link")];
+                 withTitle:tempWindowTitle];
     
+    self.activeBrowserWindow = newWindow;
+    [_temporaryBrowserWindowDocument.mainWindowController showWindow:self];
+    [newWindow makeKeyAndOrderFront:self];
+
     // Try to download the SEB config file by opening it in the invisible WebView
     [self tryToDownloadConfigByOpeningURL:url];
 }
@@ -489,9 +500,8 @@
     // Close the temporary browser window if it was opened
     if (_temporaryWebView) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            DDLogDebug(@"Closing temporary browser window in %s: %@", __FUNCTION__);
+            DDLogDebug(@"Closing temporary browser window in: %s", __FUNCTION__);
             [self closeWebView:_temporaryWebView];
-            _temporaryWebView = nil;
         });
     }
 }
@@ -533,7 +543,6 @@
 {
     // Close the temporary browser window
     [self closeWebView:_temporaryWebView];
-    _temporaryWebView = nil;
     
     [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
 }
@@ -544,7 +553,6 @@
 {
     // Close the temporary browser window
     [self closeWebView:_temporaryWebView];
-    _temporaryWebView = nil;
     
     SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
     

@@ -192,6 +192,11 @@
             windowHeight = [preferences secureStringForKey:@"org_safeexambrowser_SEB_mainBrowserWindowHeight"];
             windowPositioning = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mainBrowserWindowPositioning"];
         }
+    } else if (self.webView == self.browserController.temporaryWebView) {
+        // This is a temporary browser window used for downloads with authentication
+        windowWidth = @"1050";
+        windowHeight = @"100%";
+        windowPositioning = browserWindowPositioningCenter;
     } else {
         // This is another browser window
         windowWidth = [preferences secureStringForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkWidth"];
