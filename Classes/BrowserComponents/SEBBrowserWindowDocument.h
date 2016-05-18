@@ -36,6 +36,8 @@
 #import <WebKit/WebView.h>
 #import "SEBBrowserWindowController.h"
 
+@class SEBBrowserWindowController;
+
 @interface SEBBrowserWindowDocument : NSDocument {
 @private
     SEBBrowserWindowController *__strong browserWindowController;

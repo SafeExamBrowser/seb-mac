@@ -109,7 +109,7 @@
 	// The Frame Load Delegate is needed to monitor frame loads
 	[self.webView setFrameLoadDelegate:self];
     
-	// The Frame Load Delegate is needed to monitor frame loads
+	// The Resource Load Delegate is needed to monitor the progress of loading individual resources
 	[self.webView setResourceLoadDelegate:self];
     
     // Set group name to group related frames (so not to open several new windows)
@@ -1033,6 +1033,8 @@ willPerformClientRedirectToURL:(NSURL *)URL
                     [[sender mainFrame] loadRequest:[[frame provisionalDataSource] request]];
                     return;
                 default:
+                    // Close a temporary browser window which might have been opened for loading a config file from a SEB URL
+                    [_browserController openingConfigURLFailed];
                     return;
             }
         }
@@ -1080,6 +1082,8 @@ willPerformClientRedirectToURL:(NSURL *)URL
                     [[sender mainFrame] loadRequest:[[frame dataSource] request]];
                     return;
                 default:
+                    // Close a temporary browser window which might have been opened for loading a config file from a SEB URL
+                    [_browserController openingConfigURLFailed];
                     return;
             }
         }
@@ -1318,7 +1322,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         NSString *scheme = request.URL.scheme;
         if ([scheme isEqualToString:@"seb"] || [scheme isEqualToString:@"sebs"]) {
             // If the scheme is seb(s):// we (conditionally) download and open the linked .seb file
-            [self.browserController downloadAndOpenSebConfigFromURL:request.URL];
+            [self.browserController openConfigFromSEBURL:request.URL];
             [listener ignore];
             return;
         }
@@ -1435,12 +1439,12 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     }
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (([type isEqualToString:@"application/seb"]) || ([request.URL.pathExtension isEqualToString:@"seb"])) {
-        // If MIME-Type or extension of the file indicates a .seb file, we (conditionally) download and open it
-        [self.browserController downloadAndOpenSebConfigFromURL:request.URL];
-        [listener ignore];
-        return;
-    }
+//    if (([type isEqualToString:@"application/seb"]) || ([request.URL.pathExtension isEqualToString:@"seb"])) {
+//        // If MIME-Type or extension of the file indicates a .seb file, we (conditionally) download and open it
+//        [self.browserController downloadAndOpenSebConfigFromURL:request.URL];
+//        [listener ignore];
+//        return;
+//    }
     // Check if it is a data: scheme to support the W3C saveAs() FileSaver interface
     if ([request.URL.scheme isEqualToString:@"data"]) {
         CFStringRef mimeType = (__bridge CFStringRef)type;
@@ -1501,42 +1505,53 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 
 - (void)startDownloadingURL:(NSURL *)url
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] == YES) {
-        // If downloading is allowed
-        // Create the request.
-        NSURLRequest *theRequest = [NSURLRequest requestWithURL:url
+    // Cache the download URL
+    downloadURL = url;
+    // Create the request
+    NSURLRequest *theRequest = [NSURLRequest requestWithURL:url
                                                 cachePolicy:NSURLRequestUseProtocolCachePolicy
                                             timeoutInterval:60.0];
-        // Create the download with the request and start loading the data.
-        NSURLDownload  *theDownload = [[NSURLDownload alloc] initWithRequest:theRequest delegate:self];
-        if (!theDownload) {
-            DDLogError(@"Starting the download failed!"); //Inform the user that the download failed.
-        }
+    // Create the download with the request and start loading the data.
+    NSURLDownload  *theDownload = [[NSURLDownload alloc] initWithRequest:theRequest delegate:self];
+    if (!theDownload) {
+        DDLogError(@"Starting the download failed!"); //Inform the user that the download failed.
     }
 }
 
 
 - (void)download:(NSURLDownload *)download decideDestinationWithSuggestedFilename:(NSString *)filename
 {
+    if ([filename.pathExtension isEqualToString:@"seb"]) {
+        // If MIME-Type or extension of the file indicates a .seb file, we (conditionally) download and open it
+        [self.browserController downloadSEBConfigFileFromURL:downloadURL];
+        [download cancel];
+        return;
+    }
+
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
-    if (!downloadPath) {
-        //if there's no path saved in preferences, set standard path
-        downloadPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Downloads"];
-        [preferences setSecureObject:downloadPath forKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] == YES) {
+        // If downloading is allowed
+        downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
+        if (!downloadPath) {
+            //if there's no path saved in preferences, set standard path
+            downloadPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Downloads"];
+            [preferences setSecureObject:downloadPath forKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
+        }
+        downloadPath = [downloadPath stringByExpandingTildeInPath];
+        if (self.downloadFilename) {
+            // If we got the filename from a <a download="... tag, we use that
+            // as WebKit doesn't recognize the filename and suggests "Unknown"
+            filename = self.downloadFilename;
+        } else if (self.downloadFileExtension) {
+            // If we didn't get the file name, at least set the file extension properly
+            filename = [NSString stringWithFormat:@"%@.%@", filename, self.downloadFileExtension];
+        }
+        NSString *destinationFilename = [downloadPath stringByAppendingPathComponent:filename];
+        [download setDestination:destinationFilename allowOverwrite:NO];
+    } else {
+        // If downloading isn't allowed, then we cancel the initiated download here
+        [download cancel];
     }
-    downloadPath = [downloadPath stringByExpandingTildeInPath];
-    if (self.downloadFilename) {
-        // If we got the filename from a <a download="... tag, we use that
-        // as WebKit doesn't recognize the filename and suggests "Unknown"
-        filename = self.downloadFilename;
-    } else if (self.downloadFileExtension) {
-        // If we didn't get the file name, at least set the file extension properly
-        filename = [NSString stringWithFormat:@"%@.%@", filename, self.downloadFileExtension];
-    }
-    NSString *destinationFilename = [downloadPath stringByAppendingPathComponent:filename];
-    [download setDestination:destinationFilename allowOverwrite:NO];
 }
 
 

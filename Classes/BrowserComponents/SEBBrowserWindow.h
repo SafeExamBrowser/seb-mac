@@ -52,6 +52,7 @@
     NSString *currentURL;
     NSString *downloadPath;
     NSView *progressIndicatorHolder;
+    NSURL *downloadURL;
     
 }
 

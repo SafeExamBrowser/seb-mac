@@ -33,7 +33,6 @@
 //
 
 #import "SEBOSXBrowserController.h"
-#import "SEBBrowserWindowDocument.h"
 #import "SEBBrowserOpenWindowWebView.h"
 #import "NSWindow+SEBWindow.h"
 #import "WebKit+WebKitExtensions.h"
@@ -193,7 +192,7 @@
     id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:webViewToClose.window];
 
     // Close document and therefore also window
-    DDLogInfo(@"Now closing new document browser window. %@", webViewToClose);
+    DDLogInfo(@"Now closing new document browser window with WebView: %@", webViewToClose);
 
     [myDocument close];
 }
@@ -388,7 +387,14 @@
 }
 
 
-- (void) downloadAndOpenSebConfigFromURL:(NSURL *)url
+
+//// Downloading of SEB Config Files
+
+/// Initiating Opening the Config File Link
+
+// Conditionally open a config from an URL passed to SEB as parameter
+// usually with a link using the seb(s):// protocols
+- (void) openConfigFromSEBURL:(NSURL *)url
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
@@ -403,35 +409,113 @@
             [newAlert runModal];
         } else {
             // SEB isn't in exam mode: reconfiguring it is allowed
-            NSURL *downloadURL;
+            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+
             // Download the .seb file directly into memory (not onto disc like other files)
             if ([url.scheme isEqualToString:@"seb"]) {
                 // If it's a seb:// URL, we try to download it by http
-                downloadURL = [[NSURL alloc] initWithScheme:@"http" host:url.host path:url.path];
-                [self downloadSEBConfigFromURL:downloadURL];
+                urlComponents.scheme = @"http";
+                url = urlComponents.URL;
             } else if ([url.scheme isEqualToString:@"sebs"]) {
                 // If it's a sebs:// URL, we try to download it by https
-                downloadURL = [[NSURL alloc] initWithScheme:@"https" host:url.host path:url.path];
-                [self downloadSEBConfigFromURL:downloadURL];
-            } else {
-                [self downloadSEBConfigFromURL:url];
+                urlComponents.scheme = @"https";
+                url = urlComponents.URL;
             }
+            [self openTempWindowForDownloadingConfigFromURL:url];
         }
     }
 }
 
 
-- (void) downloadSEBConfigFromURL:(NSURL *)url
+// Open a new, temporary browser window for downloading the linked config file
+// This allows the user to authenticate if the link target is stored on a secured server
+- (void) openTempWindowForDownloadingConfigFromURL:(NSURL *)url
+{
+    // Create a new WebView
+    _temporaryBrowserWindowDocument = [self openBrowserWindowDocument];
+    
+    _temporaryWebView = _temporaryBrowserWindowDocument.mainWindowController.webView;
+    _temporaryWebView.creatingWebView = nil;
+    
+    // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
+    [self setCustomWebPreferencesForWebView:_temporaryWebView];
+    
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+        [_temporaryBrowserWindowDocument.mainWindowController.window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+    }
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL elevateWindowLevels = [preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
+    // Order new browser window to the front of our level
+    [self setLevelForBrowserWindow:_temporaryBrowserWindowDocument.mainWindowController.window elevateLevels:elevateWindowLevels];
+    
+    [self addBrowserWindow:(SEBBrowserWindow *)_temporaryBrowserWindowDocument.mainWindowController.window
+               withWebView:_temporaryWebView
+                 withTitle:NSLocalizedString(@"Open SEB Link", @"Title of a temporary browser window for opening a SEB link")];
+    
+    // Try to download the SEB config file by opening it in the invisible WebView
+    [self tryToDownloadConfigByOpeningURL:url];
+}
+
+
+// Invoked when an authentication challenge has been received for a resource
+- (void)webView:(SEBWebView *)sender resource:(id)identifier didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+ fromDataSource:(WebDataSource *)dataSource
+{
+    SEBBrowserWindow *newWindow = (SEBBrowserWindow *)_temporaryBrowserWindowDocument.mainWindowController.window;
+    
+    // Set the Resource Load Delegate to the opened browser window
+    [_temporaryWebView setResourceLoadDelegate:newWindow];
+    
+    self.activeBrowserWindow = newWindow;
+    [_temporaryBrowserWindowDocument.mainWindowController showWindow:self];
+    [newWindow makeKeyAndOrderFront:self];
+}
+
+
+// Try to download the config by opening the URL in the temporary browser window
+- (void) tryToDownloadConfigByOpeningURL:(NSURL *)url
+{
+    // Set the Resource Load Delegate to catch authentication challenges
+    [_temporaryWebView setResourceLoadDelegate:self];
+
+    DDLogInfo(@"Loading SEB config from URL %@ in temporary browser window.", [url absoluteString]);
+    [[_temporaryWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:url]];
+
+}
+
+
+// Called by the browser webview delegate if loading the config URL failed
+- (void) openingConfigURLFailed {
+    // Close the temporary browser window if it was opened
+    if (_temporaryWebView) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            DDLogDebug(@"Closing temporary browser window in %s: %@", __FUNCTION__);
+            [self closeWebView:_temporaryWebView];
+            _temporaryWebView = nil;
+        });
+    }
+}
+
+
+/// Performing the Download
+
+// This method is called by the browser webview delegate if the file to download has a .seb extension
+- (void) downloadSEBConfigFileFromURL:(NSURL *)url
 {
     NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]
                                           dataTaskWithURL:url completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
                                           {
                                               if (error) {
                                                   if ([url.scheme isEqualToString:@"http"]) {
-                                                      NSURL *downloadURL = [[NSURL alloc] initWithScheme:@"https" host:url.host path:url.path];
-                                                      [self downloadSEBConfigFromURL:downloadURL];
+                                                      NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+                                                          // If it was a seb:// URL, and http failed, we try to download it by https
+                                                          urlComponents.scheme = @"https";
+                                                          NSURL *downloadURL = urlComponents.URL;
+                                                      [self tryToDownloadConfigByOpeningURL:downloadURL];
                                                   } else {
-                                                      [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
+                                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                                          [self downloadingSEBConfigFailed:error];
+                                                      });
                                                   }
                                               } else {
                                                   dispatch_async(dispatch_get_main_queue(), ^{
@@ -444,8 +528,24 @@
 }
 
 
+// Called when downloading the config file failed
+- (void) downloadingSEBConfigFailed:(NSError *)error
+{
+    // Close the temporary browser window
+    [self closeWebView:_temporaryWebView];
+    _temporaryWebView = nil;
+    
+    [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
+}
+
+
+// Called when SEB successfully downloaded the config file
 - (void) openDownloadedSEBConfigData:(NSData *)sebFileData fromURL:(NSURL *)url
 {
+    // Close the temporary browser window
+    [self closeWebView:_temporaryWebView];
+    _temporaryWebView = nil;
+    
     SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
     
     // Get current config path

@@ -40,14 +40,18 @@
 #import "SEBDockItemButton.h"
 #import "SEBDockItemMenu.h"
 #import "SEBBrowserController.h"
+#import "SEBBrowserWindowDocument.h"
 
 @class SEBBrowserController;
+@class SEBBrowserWindowDocument;
 @class SEBBrowserWindow;
 @class SEBWebView;
 
-@interface SEBOSXBrowserController : NSObject
+@interface SEBOSXBrowserController : NSObject <WebResourceLoadDelegate>
 
 @property (strong) SEBWebView *webView;
+@property (strong) SEBBrowserWindowDocument *temporaryBrowserWindowDocument;
+@property (strong) SEBWebView *temporaryWebView;
 @property (strong) SEBBrowserWindow *mainBrowserWindow;
 @property (strong) SEBBrowserWindow *activeBrowserWindow;
 @property (strong) SEBDockController *dockController;
@@ -67,7 +71,11 @@
 
 - (void) openURLString:(NSString *)urlText withSEBUserAgentInWebView:(SEBWebView *)webView;
 - (void) openResourceWithURL:(NSString *)URL andTitle:(NSString *)title;
-- (void) downloadAndOpenSebConfigFromURL:(NSURL *)url;
+
+- (void) openConfigFromSEBURL:(NSURL *)url;
+- (void) openingConfigURLFailed;
+
+- (void) downloadSEBConfigFileFromURL:(NSURL *)url;
 
 - (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView;
 - (void) setStateForWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView;

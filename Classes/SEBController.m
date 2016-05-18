@@ -175,11 +175,10 @@ bool insideMatrix();
     NSString *urlString = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
     NSURL *url = [NSURL URLWithString:urlString];
     if (url) {
-        if ([url.pathExtension isEqualToString:@"seb"]) {
-            // If we have a valid URL with the path for a .seb file, we download and open it (conditionally)
-            DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", urlString);
-            [self.browserController downloadAndOpenSebConfigFromURL:url];
-        }
+        // If we have any URL, we try to download and open (conditionally) a .seb file
+        // hopefully linked by this URL (also supporting redirections and authentification)
+        DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", urlString);
+        [self.browserController openConfigFromSEBURL:url];
     }
 }
 
@@ -191,7 +190,7 @@ bool insideMatrix();
     if (self) {
         
         // Register custom SEB NSURL protocol class
-        [NSURLProtocol registerClass:[SEBURLProtocol class]];
+//        [NSURLProtocol registerClass:[SEBURLProtocol class]];
         
         // Initialize console loggers
 #ifdef DEBUG
