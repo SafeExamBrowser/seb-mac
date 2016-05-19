@@ -1528,7 +1528,15 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 {
     if ([filename.pathExtension isEqualToString:@"seb"]) {
         // If MIME-Type or extension of the file indicates a .seb file, we (conditionally) download and open it
-        [self.browserController downloadSEBConfigFileFromURL:downloadURL];
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        // Check again if opening SEB config files is allowed in settings and if no other settings are currently being opened
+        // Because this method is also called when a .seb file is downloaded (besides opening a seb(s):// URL)
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
+            // Download the .seb config file directly to memory
+            [self.browserController downloadSEBConfigFileFromURL:downloadURL];
+            // and cancel the download to disc below
+        }
+        // We cancel the download in any case, because .seb config files should be opened directly and not downloaded to disc
         [download cancel];
         return;
     }

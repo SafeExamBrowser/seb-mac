@@ -185,19 +185,21 @@
 
 - (void) closeWebView:(SEBWebView *) webViewToClose
 {
-    // Remove the entry for the WebView in a browser window from the array and dock item menu of open browser windows/WebViews
-    [self removeBrowserWindow:(SEBBrowserWindow *)webViewToClose.window withWebView:webViewToClose];
-    
-    // Get the document for the web view
-    id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:webViewToClose.window];
-
-    // Close document and therefore also window
-    DDLogInfo(@"Now closing new document browser window with WebView: %@", webViewToClose);
-
-    [myDocument close];
-    
-    if (webViewToClose == _temporaryWebView) {
-        _temporaryWebView = nil;
+    if (webViewToClose) {
+        // Remove the entry for the WebView in a browser window from the array and dock item menu of open browser windows/WebViews
+        [self removeBrowserWindow:(SEBBrowserWindow *)webViewToClose.window withWebView:webViewToClose];
+        
+        // Get the document for the web view
+        id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:webViewToClose.window];
+        
+        // Close document and therefore also window
+        DDLogInfo(@"Now closing new document browser window with WebView: %@", webViewToClose);
+        
+        [myDocument close];
+        
+        if (webViewToClose == _temporaryWebView) {
+            _temporaryWebView = nil;
+        }
     }
 }
 
@@ -401,7 +403,8 @@
 - (void) openConfigFromSEBURL:(NSURL *)url
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
+    // Check first if opening SEB config files is allowed in settings and if no other settings are currently being opened
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] && !_temporaryWebView) {
         // Check if SEB is in exam mode = private UserDefauls are switched on
         if (NSUserDefaults.userDefaultsPrivate) {
             // If yes, we don't download the .seb file
@@ -451,9 +454,9 @@
         [newWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
     }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL elevateWindowLevels = [preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
+    BOOL elevateWindowLevels = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
     // Order new browser window to the front of our level
-    [self setLevelForBrowserWindow:newWindow elevateLevels:elevateWindowLevels levelOffset:1];
+    [self setLevelForBrowserWindow:newWindow elevateLevels:elevateWindowLevels levelOffset:2];
     
     [self addBrowserWindow:(SEBBrowserWindow *)newWindow
                withWebView:_temporaryWebView
@@ -468,27 +471,9 @@
 }
 
 
-// Invoked when an authentication challenge has been received for a resource
-- (void)webView:(SEBWebView *)sender resource:(id)identifier didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
- fromDataSource:(WebDataSource *)dataSource
-{
-    SEBBrowserWindow *newWindow = (SEBBrowserWindow *)_temporaryBrowserWindowDocument.mainWindowController.window;
-    
-    // Set the Resource Load Delegate to the opened browser window
-    [_temporaryWebView setResourceLoadDelegate:newWindow];
-    
-    self.activeBrowserWindow = newWindow;
-    [_temporaryBrowserWindowDocument.mainWindowController showWindow:self];
-    [newWindow makeKeyAndOrderFront:self];
-}
-
-
 // Try to download the config by opening the URL in the temporary browser window
 - (void) tryToDownloadConfigByOpeningURL:(NSURL *)url
 {
-    // Set the Resource Load Delegate to catch authentication challenges
-    [_temporaryWebView setResourceLoadDelegate:self];
-
     DDLogInfo(@"Loading SEB config from URL %@ in temporary browser window.", [url absoluteString]);
     [[_temporaryWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:url]];
 
