@@ -174,7 +174,7 @@
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL elevateWindowLevels = [preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
     // Order new browser window to the front of our level
-    [self setLevelForBrowserWindow:browserWindowDocument.mainWindowController.window elevateLevels:elevateWindowLevels levelOffset:0];
+    [self setLevelForBrowserWindow:browserWindowDocument.mainWindowController.window elevateLevels:elevateWindowLevels];
     self.activeBrowserWindow = newWindow;
     [browserWindowDocument.mainWindowController showWindow:self];
     [newWindow makeKeyAndOrderFront:self];
@@ -332,7 +332,7 @@
     SEBBrowserWindowDocument *openWindowDocument;
     for (openWindowDocument in openWindowDocuments) {
         NSWindow *browserWindow = openWindowDocument.mainWindowController.window;
-        [self setLevelForBrowserWindow:browserWindow elevateLevels:!allowApps levelOffset:0];
+        [self setLevelForBrowserWindow:browserWindow elevateLevels:!allowApps];
     }
     // If the main browser window is displayed fullscreen and switching to apps is allowed,
     // we make the window stationary, so that it isn't scaled down from Exposé
@@ -345,8 +345,9 @@
 }
 
 
-- (void) setLevelForBrowserWindow:(NSWindow *)browserWindow elevateLevels:(BOOL)elevateLevels levelOffset:(int)levelOffset
+- (void) setLevelForBrowserWindow:(NSWindow *)browserWindow elevateLevels:(BOOL)elevateLevels
 {
+    int levelOffset = (int)((SEBBrowserWindow *)browserWindow).isPanel;
     if (elevateLevels) {
         if (self.mainBrowserWindow.isFullScreen && browserWindow != self.mainBrowserWindow) {
             // If the main browser window is displayed fullscreen, then all auxillary windows
@@ -380,7 +381,7 @@
     }
     [(SEBBrowserWindow *)additionalBrowserWindow setCalculatedFrame];
     BOOL elevateWindowLevels = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
-    [self setLevelForBrowserWindow:additionalBrowserWindow elevateLevels:elevateWindowLevels levelOffset:0];
+    [self setLevelForBrowserWindow:additionalBrowserWindow elevateLevels:elevateWindowLevels];
 
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     
@@ -444,6 +445,7 @@
     SEBBrowserWindow *newWindow = (SEBBrowserWindow *)_temporaryBrowserWindowDocument.mainWindowController.window;
     _temporaryWebView = _temporaryBrowserWindowDocument.mainWindowController.webView;
     _temporaryWebView.creatingWebView = nil;
+    newWindow.isPanel = true;
     [newWindow setCalculatedFrame];
     [newWindow setTitle:tempWindowTitle];
     
@@ -456,7 +458,7 @@
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL elevateWindowLevels = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
     // Order new browser window to the front of our level
-    [self setLevelForBrowserWindow:newWindow elevateLevels:elevateWindowLevels levelOffset:2];
+    [self setLevelForBrowserWindow:newWindow elevateLevels:elevateWindowLevels];
     
     [self addBrowserWindow:(SEBBrowserWindow *)newWindow
                withWebView:_temporaryWebView

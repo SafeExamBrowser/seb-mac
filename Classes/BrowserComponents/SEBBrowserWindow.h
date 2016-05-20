@@ -65,6 +65,7 @@
 @property (weak) IBOutlet NSMatrix *filterPatternMatrix;
 @property (strong) IBOutlet NSTextView *filterExpressionField;
 @property BOOL isFullScreen;
+@property BOOL isPanel;
 @property (weak) IBOutlet NSButton *domainPatternButton;
 @property (weak) IBOutlet NSButton *hostPatternButton;
 @property (weak) IBOutlet NSButton *hostPathPatternButton;
