@@ -10,37 +10,27 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Main Browser Window</string>
+			<string>SEB Dock</string>
 		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Browser Toolbar</string>
-			<key>Key</key>
-			<string>org_safeexambrowser_SEB_enableBrowserWindowToolbar</string>
-			<key>DefaultValue</key>
-			<false/>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-			<key>Title</key>
-			<string>SEB Dock</string>
-			<key>File</key>
-			<string>Dock</string>
+			<string>Show SEB Dock</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_showTaskBar</string>
+			<key>DefaultValue</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Allow Auto-Correction</string>
+			<string>Show Reload Button</string>
 			<key>Key</key>
-			<string>org_safeexambrowser_SEB_allowSpellCheck</string>
+			<string>org_safeexambrowser_SEB_showReloadButton</string>
 			<key>DefaultValue</key>
-			<false/>
+			<true/>
 		</dict>
 	</array>
 </dict>

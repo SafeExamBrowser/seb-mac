@@ -35,7 +35,7 @@
 #import "SEBiOSDockController.h"
 //#import "SEBDockWindow.h"
 //#import "SEBDockView.h"
-#import "SEBiOSDockItemButton.h"
+//#import "SEBiOSDockItemButton.h"
 
 @interface SEBiOSDockController ()
 
@@ -43,51 +43,44 @@
 
 @implementation SEBiOSDockController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        DDLogDebug(@"[SEBDockController init]");
-        // Get dock height
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        CGFloat dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
-        // Enforce minimum SEB Dock height
-        if (dockHeight < 40) dockHeight = 40;
-
-        CGRect initialContentRect = CGRectMake(0, 0, 1024, dockHeight);
-        self.dockWindow = [[SEBDockWindow alloc] initWithContentRect:initialContentRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
-        self.dockWindow.releasedWhenClosed = YES;
-        self.dockWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
-        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
-            [self.dockWindow setSharingType:NSWindowSharingNone];
-        }
-        self.dockWindow.height = dockHeight;
-        
-        UIView *superview = [self.dockWindow contentView];
-        SEBDockView *dockView = [[SEBDockView alloc] initWithFrame:initialContentRect];
-        [dockView setAutoresizingMask:UIViewWidthSizable | UIViewHeightSizable];
-        [dockView setTranslatesAutoresizingMaskIntoConstraints:YES];
-        [superview addSubview:dockView];
-        
-        // Calculate icon sizes and padding according to dock height
-        verticalPadding = dockHeight / 10;
-        horizontalPadding = (verticalPadding < 10) ? 10 : verticalPadding;
-        iconSize = dockHeight - 2 * verticalPadding;
-        
-        self.window = self.dockWindow;
-        [self.window setLevel:NSMainMenuWindowLevel+6];
-        [self.window setAcceptsMouseMovedEvents:YES];
-
-    }
-    return self;
-}
-
-
-- (void)windowDidLoad {
-    [super windowDidLoad];
-    
-    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
-}
+//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+//{
+//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+//    if (self) {
+//        DDLogDebug(@"[SEBDockController init]");
+//        // Get dock height
+//        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+//        CGFloat dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
+//        // Enforce minimum SEB Dock height
+//        if (dockHeight < 40) dockHeight = 40;
+//
+//        CGRect initialContentRect = CGRectMake(0, 0, 1024, dockHeight);
+//        self.dockWindow = [[SEBDockWindow alloc] initWithContentRect:initialContentRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
+//        self.dockWindow.releasedWhenClosed = YES;
+//        self.dockWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
+//        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+//            [self.dockWindow setSharingType:NSWindowSharingNone];
+//        }
+//        self.dockWindow.height = dockHeight;
+//        
+//        UIView *superview = [self.dockWindow contentView];
+//        SEBDockView *dockView = [[SEBDockView alloc] initWithFrame:initialContentRect];
+//        [dockView setAutoresizingMask:UIViewWidthSizable | UIViewHeightSizable];
+//        [dockView setTranslatesAutoresizingMaskIntoConstraints:YES];
+//        [superview addSubview:dockView];
+//        
+//        // Calculate icon sizes and padding according to dock height
+//        verticalPadding = dockHeight / 10;
+//        horizontalPadding = (verticalPadding < 10) ? 10 : verticalPadding;
+//        iconSize = dockHeight - 2 * verticalPadding;
+//        
+//        self.window = self.dockWindow;
+//        [self.window setLevel:NSMainMenuWindowLevel+6];
+//        [self.window setAcceptsMouseMovedEvents:YES];
+//
+//    }
+//    return self;
+//}
 
 
 // Add dock items passed in array pinned to the left edge of the dock (from left to right)
@@ -99,7 +92,6 @@
     }
     
     if (newLeftDockItems) {
-        UIView *superview = [self.dockWindow contentView];
         _leftDockItems = newLeftDockItems;
         UIView *previousDockItemView;
         
@@ -344,8 +336,8 @@
 - (void) showDock
 {
     DDLogDebug(@"[SEBDockController showDock]");
-    [self.dockWindow setCalculatedFrame:self.window.screen];
-    [self showWindow:self];
+//    [self.dockWindow setCalculatedFrame:self.window.screen];
+//    [self showWindow:self];
 }
 
 
@@ -353,14 +345,14 @@
 {
     DDLogDebug(@"[SEBDockController hideDock]");
 //    [self.window orderOut:self];
-    [self.window close];
+//    [self.window close];
 }
 
 
 - (void) adjustDock
 {
     DDLogDebug(@"[SEBDockController adjustDock]");
-    [self.dockWindow setCalculatedFrame:self.window.screen];
+//    [self.dockWindow setCalculatedFrame:self.window.screen];
 }
 
 
