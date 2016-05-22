@@ -42,16 +42,19 @@
 #import "SEBiOSConfigFileController.h"
 
 #import "SEBBrowserTabViewController.h"
+//#import "SEBiOSDockController.h"
 #import "SEBSearchBarViewController.h"
 
 
 @class SEBBrowserTabViewController;
+//@class SEBiOSDockController;
 @class SEBSearchBarViewController;
 @class SEBiOSConfigFileController;
 
 @interface SEBViewController : UIViewController <SEBLockedViewControllerDelegate>
 
 @property (nonatomic, strong) SEBBrowserTabViewController *browserTabViewController;
+//@property (nonatomic, strong) SEBiOSDockController *dockController;
 @property (nonatomic, strong) SEBSearchBarViewController *searchBarViewController;
 
 @property (strong, nonatomic) SEBiOSLockedViewController< SEBLockedViewUIDelegate > *lockedViewController;
@@ -63,6 +66,7 @@
 @property (strong, nonatomic) UIAlertController *inactiveAlertController;
 
 @property (strong, nonatomic) UIView *coveringView;
+@property (strong, nonatomic) NSArray *dockItems;
 
 @property(readwrite) BOOL ASAMActive;
 @property(readwrite) BOOL guidedAccessActive;

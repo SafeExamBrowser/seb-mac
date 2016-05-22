@@ -65,6 +65,21 @@
 }
 
 
+// Adjust scroll position so top of webpage is below the navigation bar (if enabled)
+// and bottom is above the tool bar (if SEB dock is enabled)
+- (void)adjustScrollPosition
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    ;
+
+    CGFloat navBarHeight = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] ? self.navigationController.navigationBar.frame.size.height : 0;
+    CGFloat toolBarHeight = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"] ? self.navigationController.toolbar.frame.size.height : 0;
+    [_sebWebView.scrollView setContentInset:UIEdgeInsetsMake(navBarHeight, 0, toolBarHeight, 0)];
+    [_sebWebView.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(navBarHeight, 0, toolBarHeight, 0)];
+    [_sebWebView.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
+}
+
+
 - (void)didMoveToParentViewController:(UIViewController *)parent
 {
     if (parent) {
@@ -74,6 +89,7 @@
         //viewFrame.origin.y += kNavbarHeight;
         //viewFrame.size.height -= kNavbarHeight;
         [self.view setFrame:viewFrame];
+        [self adjustScrollPosition];
     } else {
         [self.view removeFromSuperview];
     }
@@ -88,13 +104,11 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    // Adjust scroll position so top of webpage is below the navigation bar
-//    CGFloat navBarHeight = self.navigationController.navigationBar.frame.size.height;
-//    CGFloat toolBarHeight = self.navigationController.toolbar.frame.size.height;
-//    [self.visibleWebView.scrollView setContentInset:UIEdgeInsetsMake(navBarHeight, 0, toolBarHeight, 0)];
-//    [self.visibleWebView.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(navBarHeight, 0, toolBarHeight, 0)];
-//    [self.visibleWebView.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
+    // Adjust scroll position so top of webpage is below the navigation bar (if enabled)
+    // and bottom is above the tool bar (if SEB dock is enabled)
+    [self adjustScrollPosition];
 }
+
 
 - (void)viewWillAppear:(BOOL)animated
 {

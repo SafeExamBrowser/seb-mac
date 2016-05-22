@@ -246,7 +246,7 @@ static NSMutableSet *browserWindowControllers;
         [preferences setSecureString:hashedPassword forKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
         [preferences setSecureString:@"" forKey:@"quitPassword"];
     }
-    
+    [self initSEB];
     [self startAutonomousSingleAppMode];
 }
 
@@ -768,6 +768,57 @@ static NSMutableSet *browserWindowControllers;
     
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:overrideUserAgent, @"UserAgent", nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+    
+    // UI
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
+        [self.navigationController setToolbarHidden:NO];
+        UIImage *appIcon = [UIImage imageNamed:@"SEBDockIcon"]; //[appIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+//        UIImage *appIcon = [UIImage imageNamed:@"SEBicon"]; //[appIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+
+        NSMutableArray *currentDockItems = [NSMutableArray new];
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+        item.width = -12;
+        [currentDockItems addObject:item];
+
+        item = [[UIBarButtonItem alloc] initWithImage:[appIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(leftDrawerButtonPress:)];
+        [currentDockItems addObject:item];
+
+        item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+        [currentDockItems addObject:item];
+        
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
+            appIcon = [UIImage imageNamed:@"SEBReloadIcon"];
+            item = [[UIBarButtonItem alloc] initWithImage:[appIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(reload:)];
+            [currentDockItems addObject:item];
+            
+            item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+            item.width = 0;
+            [currentDockItems addObject:item];
+        }
+
+        appIcon = [UIImage imageNamed:@"SEBShutDownIcon"];
+        item = [[UIBarButtonItem alloc] initWithImage:[appIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(quitExamConditionally)];
+        [currentDockItems addObject:item];
+
+        item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+        item.width = -12;
+        [currentDockItems addObject:item];
+
+//        item.image = [[UIImage imageNamed:@"AppIcon40x40"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//        item.selectedImage = [[UIImage imageNamed:onIcons[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+
+        
+        _dockItems = currentDockItems;
+        [self setToolbarItems:_dockItems];
+    } else {
+        [self.navigationController setToolbarHidden:YES];
+    }
+    
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"]) {
+        [self.navigationController setNavigationBarHidden:NO];
+    } else {
+        [self.navigationController setNavigationBarHidden:YES];
+    }
 }
 
 
@@ -855,6 +906,7 @@ static NSMutableSet *browserWindowControllers;
     if (success) {
         [_browserTabViewController closeAllTabs];
         _examRunning = false;
+        [self initSEB];
 
         [self startAutonomousSingleAppMode];
 
