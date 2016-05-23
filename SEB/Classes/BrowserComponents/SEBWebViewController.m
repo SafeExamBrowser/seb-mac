@@ -96,6 +96,20 @@
 }
 
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    _sebWebView.frame = self.view.bounds;
+}
+
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    // Allow the animation to complete
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [_sebWebView.scrollView setZoomScale:0 animated:YES];
+    });
+}
+
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	return YES;
