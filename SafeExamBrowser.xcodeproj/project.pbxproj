@@ -34,10 +34,8 @@
 		691018D11CF1EA8300AB8803 /* SEBDockIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018CE1CF1EA8300AB8803 /* SEBDockIcon.png */; };
 		691018D21CF1EA8300AB8803 /* SEBDockIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018CF1CF1EA8300AB8803 /* SEBDockIcon@2x.png */; };
 		691018D31CF1EA8300AB8803 /* SEBDockIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018D01CF1EA8300AB8803 /* SEBDockIcon@3x.png */; };
-		691018D71CF26A9C00AB8803 /* SEBReloadIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018D41CF26A9C00AB8803 /* SEBReloadIcon@3x.png */; };
 		691018D81CF26A9C00AB8803 /* SEBReloadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018D51CF26A9C00AB8803 /* SEBReloadIcon@2x.png */; };
 		691018D91CF26A9C00AB8803 /* SEBReloadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018D61CF26A9C00AB8803 /* SEBReloadIcon.png */; };
-		691018DB1CF26AAB00AB8803 /* SEBShutDownIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018DA1CF26AAB00AB8803 /* SEBShutDownIcon@3x.png */; };
 		6913E5C41A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6913E5C21A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.h */; };
 		6913E5C51A4AD5EC002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6913E5C31A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m */; };
 		6915F2E919C8F77600DAEA37 /* SEBDockWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 6915F2E719C8F77600DAEA37 /* SEBDockWindow.h */; };
@@ -76,6 +74,11 @@
 		693647FB17122A0300EE41BC /* DropDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 693647F917122A0300EE41BC /* DropDownButton.m */; };
 		693EB53E15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693EB53D15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m */; };
 		693F135315767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 693F135215767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m */; };
+		694055A81CF32B030036C480 /* SEBRestartIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 694055A51CF32B030036C480 /* SEBRestartIcon.png */; };
+		694055A91CF32B030036C480 /* SEBRestartIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 694055A61CF32B030036C480 /* SEBRestartIcon@2x.png */; };
+		694055AA1CF32B030036C480 /* SEBRestartIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 694055A71CF32B030036C480 /* SEBRestartIcon@3x.png */; };
+		694055AC1CF32B1D0036C480 /* SEBReloadIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 694055AB1CF32B1D0036C480 /* SEBReloadIcon@3x.png */; };
+		694055AE1CF32B310036C480 /* SEBShutDownIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 694055AD1CF32B310036C480 /* SEBShutDownIcon@3x.png */; };
 		6940A7611853B2AD00D9D00D /* NSData+NSDataZIPExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 6940A75F1853B2AD00D9D00D /* NSData+NSDataZIPExtension.h */; };
 		6940A7621853B2AD00D9D00D /* NSData+NSDataZIPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940A7601853B2AD00D9D00D /* NSData+NSDataZIPExtension.m */; };
 		6940A7671853B62000D9D00D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6940A7661853B62000D9D00D /* libz.dylib */; };
@@ -376,10 +379,8 @@
 		691018CE1CF1EA8300AB8803 /* SEBDockIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBDockIcon.png; path = Resources/Icons/Dock/SEBDockIcon.png; sourceTree = "<group>"; };
 		691018CF1CF1EA8300AB8803 /* SEBDockIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBDockIcon@2x.png"; path = "Resources/Icons/Dock/SEBDockIcon@2x.png"; sourceTree = "<group>"; };
 		691018D01CF1EA8300AB8803 /* SEBDockIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBDockIcon@3x.png"; path = "Resources/Icons/Dock/SEBDockIcon@3x.png"; sourceTree = "<group>"; };
-		691018D41CF26A9C00AB8803 /* SEBReloadIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBReloadIcon@3x.png"; path = "Resources/Icons/Dock/SEBReloadIcon@3x.png"; sourceTree = "<group>"; };
 		691018D51CF26A9C00AB8803 /* SEBReloadIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBReloadIcon@2x.png"; path = "Resources/Icons/Dock/SEBReloadIcon@2x.png"; sourceTree = "<group>"; };
 		691018D61CF26A9C00AB8803 /* SEBReloadIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBReloadIcon.png; path = Resources/Icons/Dock/SEBReloadIcon.png; sourceTree = "<group>"; };
-		691018DA1CF26AAB00AB8803 /* SEBShutDownIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBShutDownIcon@3x.png"; path = "Resources/Icons/Dock/SEBShutDownIcon@3x.png"; sourceTree = "<group>"; };
 		6913E5C21A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTextFieldNilToEmptyStringTransformer.h; sourceTree = "<group>"; };
 		6913E5C31A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTextFieldNilToEmptyStringTransformer.m; sourceTree = "<group>"; };
 		6915F2E719C8F77600DAEA37 /* SEBDockWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockWindow.h; path = Classes/SEBDock/SEBDockWindow.h; sourceTree = "<group>"; };
@@ -417,6 +418,11 @@
 		693F09941BEE18DB00DFCD8B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SEBBrowserWindow.xib; sourceTree = "<group>"; };
 		693F135115767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+SEBEncryptedUserDefaults.h"; sourceTree = "<group>"; };
 		693F135215767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSUserDefaults+SEBEncryptedUserDefaults.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		694055A51CF32B030036C480 /* SEBRestartIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBRestartIcon.png; path = Resources/Icons/Dock/SEBRestartIcon.png; sourceTree = "<group>"; };
+		694055A61CF32B030036C480 /* SEBRestartIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBRestartIcon@2x.png"; path = "Resources/Icons/Dock/SEBRestartIcon@2x.png"; sourceTree = "<group>"; };
+		694055A71CF32B030036C480 /* SEBRestartIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBRestartIcon@3x.png"; path = "Resources/Icons/Dock/SEBRestartIcon@3x.png"; sourceTree = "<group>"; };
+		694055AB1CF32B1D0036C480 /* SEBReloadIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBReloadIcon@3x.png"; path = "Resources/Icons/Dock/SEBReloadIcon@3x.png"; sourceTree = "<group>"; };
+		694055AD1CF32B310036C480 /* SEBShutDownIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBShutDownIcon@3x.png"; path = "Resources/Icons/Dock/SEBShutDownIcon@3x.png"; sourceTree = "<group>"; };
 		6940A75F1853B2AD00D9D00D /* NSData+NSDataZIPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+NSDataZIPExtension.h"; sourceTree = "<group>"; };
 		6940A7601853B2AD00D9D00D /* NSData+NSDataZIPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+NSDataZIPExtension.m"; sourceTree = "<group>"; };
 		6940A7641853B4BC00D9D00D /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = usr/lib/libssl.dylib; sourceTree = SDKROOT; };
@@ -876,12 +882,15 @@
 				691018CE1CF1EA8300AB8803 /* SEBDockIcon.png */,
 				691018CF1CF1EA8300AB8803 /* SEBDockIcon@2x.png */,
 				691018D01CF1EA8300AB8803 /* SEBDockIcon@3x.png */,
-				691018D41CF26A9C00AB8803 /* SEBReloadIcon@3x.png */,
-				691018D51CF26A9C00AB8803 /* SEBReloadIcon@2x.png */,
 				691018D61CF26A9C00AB8803 /* SEBReloadIcon.png */,
+				691018D51CF26A9C00AB8803 /* SEBReloadIcon@2x.png */,
+				694055AB1CF32B1D0036C480 /* SEBReloadIcon@3x.png */,
+				694055A51CF32B030036C480 /* SEBRestartIcon.png */,
+				694055A61CF32B030036C480 /* SEBRestartIcon@2x.png */,
+				694055A71CF32B030036C480 /* SEBRestartIcon@3x.png */,
 				691018C41CF1B33900AB8803 /* SEBShutDownIcon.png */,
 				691018C31CF1B33900AB8803 /* SEBShutDownIcon@2x.png */,
-				691018DA1CF26AAB00AB8803 /* SEBShutDownIcon@3x.png */,
+				694055AD1CF32B310036C480 /* SEBShutDownIcon@3x.png */,
 			);
 			name = Dock;
 			sourceTree = "<group>";
@@ -1614,8 +1623,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				69331F021C10AC1B0038BD31 /* continueCircle@2x.png in Resources */,
+				694055A81CF32B030036C480 /* SEBRestartIcon.png in Resources */,
 				696DAD211C3C2B1400397E18 /* ModifyPages.js in Resources */,
 				696DAD161C3C2AB900397E18 /* Cancel.png in Resources */,
+				694055AC1CF32B1D0036C480 /* SEBReloadIcon@3x.png in Resources */,
 				696DAD1A1C3C2AB900397E18 /* Previous.png in Resources */,
 				691018D31CF1EA8300AB8803 /* SEBDockIcon@3x.png in Resources */,
 				696DAD181C3C2AB900397E18 /* Next.png in Resources */,
@@ -1623,21 +1634,22 @@
 				691018C61CF1B33900AB8803 /* SEBShutDownIcon.png in Resources */,
 				6940B97B1BA0F2FB008C8CFC /* LaunchScreen.storyboard in Resources */,
 				69782A501CCE26AD00C2AA9A /* InAppSettings.bundle in Resources */,
+				694055AA1CF32B030036C480 /* SEBRestartIcon@3x.png in Resources */,
 				691018D21CF1EA8300AB8803 /* SEBDockIcon@2x.png in Resources */,
 				691018D91CF26A9C00AB8803 /* SEBReloadIcon.png in Resources */,
+				694055AE1CF32B310036C480 /* SEBShutDownIcon@3x.png in Resources */,
 				691018D81CF26A9C00AB8803 /* SEBReloadIcon@2x.png in Resources */,
 				691018C51CF1B33900AB8803 /* SEBShutDownIcon@2x.png in Resources */,
 				6940B9781BA0F2FB008C8CFC /* Assets.xcassets in Resources */,
 				69782A4E1CCE068C00C2AA9A /* Settings.bundle in Resources */,
 				6940B9731BA0F2FB008C8CFC /* Main.storyboard in Resources */,
+				694055A91CF32B030036C480 /* SEBRestartIcon@2x.png in Resources */,
 				696DAD1C1C3C2AB900397E18 /* Reload.png in Resources */,
 				696DAD1B1C3C2AB900397E18 /* Previous@2x.png in Resources */,
 				696DAD191C3C2AB900397E18 /* Next@2x.png in Resources */,
 				696DAD1D1C3C2AB900397E18 /* Reload@2x.png in Resources */,
-				691018DB1CF26AAB00AB8803 /* SEBShutDownIcon@3x.png in Resources */,
 				696DAD171C3C2AB900397E18 /* Cancel@2x.png in Resources */,
 				691018D11CF1EA8300AB8803 /* SEBDockIcon.png in Resources */,
-				691018D71CF26A9C00AB8803 /* SEBReloadIcon@3x.png in Resources */,
 				696DAD221C3C2B1400397E18 /* SearchWebView.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

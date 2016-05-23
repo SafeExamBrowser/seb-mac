@@ -29,8 +29,6 @@
 			<string>SEB Dock</string>
 			<key>File</key>
 			<string>Dock</string>
-			<key>Key</key>
-			<string>org_safeexambrowser_SEB_showTaskBar</string>
 		</dict>
 		<dict>
 			<key>Type</key>
