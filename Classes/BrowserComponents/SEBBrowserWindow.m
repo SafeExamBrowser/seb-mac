@@ -155,12 +155,31 @@
        withKeyPath:@"values.org_safeexambrowser_SEB_allowBrowsingBackForward"
            options:nil];
     
-    if ([self.webView respondsToSelector:@selector(setPressureConfiguration:)]) {
-        NSPressureConfiguration* pressureConfiguration =
-        [[NSClassFromString(@"NSPressureConfiguration") alloc]
-         initWithPressureBehavior:NSPressureBehaviorPrimaryClick];
-        [self.webView setPressureConfiguration:pressureConfiguration];
+    NSPressureConfiguration* pressureConfiguration;
+
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictionaryLookup"]) {
+        pressureConfiguration = [[NSClassFromString(@"NSPressureConfiguration") alloc]
+                                 initWithPressureBehavior:NSPressureBehaviorPrimaryDefault];
+    } else {
+        pressureConfiguration = [[NSClassFromString(@"NSPressureConfiguration") alloc]
+                                 initWithPressureBehavior:NSPressureBehaviorPrimaryClick];
     }
+    NSArray *browserWindowSubViews = self.contentView.subviews;
+    for (NSView *subView in browserWindowSubViews) {
+        subView.pressureConfiguration = pressureConfiguration;
+    }
+    
+//    if ([self.contentView respondsToSelector:@selector(setPressureConfiguration:)]) {
+//        NSPressureConfiguration* pressureConfiguration;
+//        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictionaryLookup"]) {
+//            pressureConfiguration = [[NSClassFromString(@"NSPressureConfiguration") alloc]
+//                                     initWithPressureBehavior:NSPressureBehaviorPrimaryDefault];
+//        } else {
+//            pressureConfiguration = [[NSClassFromString(@"NSPressureConfiguration") alloc]
+//                                     initWithPressureBehavior:NSPressureBehaviorPrimaryClick];
+//        }
+//        [self.contentView setPressureConfiguration:pressureConfiguration];
+//    }
     
     // Display all MIME types the WebView can display as HTML
     NSArray* MIMETypes = [WebView MIMETypesShownAsHTML];
