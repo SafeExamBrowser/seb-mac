@@ -155,6 +155,13 @@
        withKeyPath:@"values.org_safeexambrowser_SEB_allowBrowsingBackForward"
            options:nil];
     
+    if ([self.webView respondsToSelector:@selector(setPressureConfiguration:)]) {
+        NSPressureConfiguration* pressureConfiguration =
+        [[NSClassFromString(@"NSPressureConfiguration") alloc]
+         initWithPressureBehavior:NSPressureBehaviorPrimaryClick];
+        [self.webView setPressureConfiguration:pressureConfiguration];
+    }
+    
     // Display all MIME types the WebView can display as HTML
     NSArray* MIMETypes = [WebView MIMETypesShownAsHTML];
     int i, count = [MIMETypes count];

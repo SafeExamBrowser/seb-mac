@@ -442,7 +442,7 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_showReloadButton",
                                  @NO,
                                  @"org_safeexambrowser_SEB_showReloadWarning",
-                                 @NO,
+                                 @YES,
                                  @"org_safeexambrowser_SEB_showTaskBar",
                                  @YES,
                                  @"org_safeexambrowser_SEB_showTime",
