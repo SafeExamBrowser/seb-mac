@@ -222,7 +222,7 @@
     }
     
     NSMutableArray *certificateRefs = [NSMutableArray arrayWithArray:(__bridge_transfer NSArray*)(items)];
-    NSMutableArray *certificates = [NSMutableArray arrayWithCapacity:[certificateRefs count]];
+    NSMutableArray *certificates = [NSMutableArray arrayWithCapacity:1];
     
     // dmcd - make a copy of this array for post-processing (for finding CA certs)
     NSMutableArray *listCertificates = [NSMutableArray arrayWithArray:certificateRefs];
