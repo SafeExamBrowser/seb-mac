@@ -14,7 +14,8 @@
 
 @implementation SEBWebViewController
 
-- (void)viewWillAppear {
+- (void)viewDidLoad {
+    [super viewDidLoad];
     // Do view setup here.
     
     NSPressureConfiguration* pressureConfiguration;
@@ -29,12 +30,10 @@
     NSPressureConfiguration *oldPressureConfiguration = self.view.pressureConfiguration;
     NSPressureBehavior oldPressureBehavior = oldPressureConfiguration.pressureBehavior;
     DDLogDebug(@"Subview %@ had pressureConfiguration %@ and pressureBehavior %ld", self.view, oldPressureConfiguration, (long)oldPressureBehavior);
-    [self.view setPressureConfiguration:pressureConfiguration];
+    self.view.pressureConfiguration = pressureConfiguration;
     NSPressureConfiguration *newPressureConfiguration = self.view.pressureConfiguration;
     NSPressureBehavior newPressureBehavior = newPressureConfiguration.pressureBehavior;
     DDLogDebug(@"Now subview %@ has new pressureConfiguration %@ and pressureBehavior %ld", self.view, newPressureConfiguration, (long)newPressureBehavior);
-
-    [super viewWillAppear];
 }
 
 

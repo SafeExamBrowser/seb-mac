@@ -308,8 +308,6 @@
 		69F32DC416D23374003C9502 /* PrefsAppearanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F32DC216D23374003C9502 /* PrefsAppearanceViewController.m */; };
 		69F45D3E1A2123C3009CF3AA /* SEBURLFilterExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F45D3C1A2123C3009CF3AA /* SEBURLFilterExpression.h */; };
 		69F45D3F1A2123C3009CF3AA /* SEBURLFilterExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F45D3D1A2123C3009CF3AA /* SEBURLFilterExpression.m */; };
-		69F5BD9C1CF8139A006FBF81 /* NSView+SEBView.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F5BD9A1CF8139A006FBF81 /* NSView+SEBView.h */; };
-		69F5BD9D1CF8139A006FBF81 /* NSView+SEBView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F5BD9B1CF8139A006FBF81 /* NSView+SEBView.m */; };
 		69F5BDA11CFB4098006FBF81 /* SEBWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F5BD9F1CFB4098006FBF81 /* SEBWebViewController.h */; };
 		69F5BDA21CFB4098006FBF81 /* SEBWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F5BDA01CFB4098006FBF81 /* SEBWebViewController.m */; };
 		69F60FAE19AB7A7E00A5F650 /* MenuTriangleDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F60FAC19AB7A7E00A5F650 /* MenuTriangleDown.png */; };
@@ -747,8 +745,6 @@
 		69F32DC216D23374003C9502 /* PrefsAppearanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsAppearanceViewController.m; sourceTree = "<group>"; };
 		69F45D3C1A2123C3009CF3AA /* SEBURLFilterExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBURLFilterExpression.h; sourceTree = "<group>"; };
 		69F45D3D1A2123C3009CF3AA /* SEBURLFilterExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBURLFilterExpression.m; sourceTree = "<group>"; };
-		69F5BD9A1CF8139A006FBF81 /* NSView+SEBView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+SEBView.h"; sourceTree = "<group>"; };
-		69F5BD9B1CF8139A006FBF81 /* NSView+SEBView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+SEBView.m"; sourceTree = "<group>"; };
 		69F5BD9F1CFB4098006FBF81 /* SEBWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBWebViewController.h; path = Classes/BrowserComponents/SEBWebViewController.h; sourceTree = "<group>"; };
 		69F5BDA01CFB4098006FBF81 /* SEBWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBWebViewController.m; path = Classes/BrowserComponents/SEBWebViewController.m; sourceTree = "<group>"; };
 		69F60FAC19AB7A7E00A5F650 /* MenuTriangleDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MenuTriangleDown.png; path = Resources/Icons/MenuTriangleDown.png; sourceTree = "<group>"; };
@@ -1171,8 +1167,6 @@
 				6906F3C51A3FA60C0011CF93 /* NSString+KKDomain.m */,
 				6906F3C01A3FA5EE0011CF93 /* NSURL+KKDomain.h */,
 				6906F3C11A3FA5EE0011CF93 /* NSURL+KKDomain.m */,
-				69F5BD9A1CF8139A006FBF81 /* NSView+SEBView.h */,
-				69F5BD9B1CF8139A006FBF81 /* NSView+SEBView.m */,
 			);
 			name = Categories;
 			path = Classes/Categories;
@@ -1470,7 +1464,6 @@
 				69C228381C767B0900F78634 /* platform.h in Headers */,
 				69C228201C767B0900F78634 /* ecdsa.h in Headers */,
 				69C228211C767B0900F78634 /* ecjpake.h in Headers */,
-				69F5BD9C1CF8139A006FBF81 /* NSView+SEBView.h in Headers */,
 				6992499C16C5B62000DF6B53 /* PrefsApplicationsViewController.h in Headers */,
 				69C228141C767B0900F78634 /* ccm.h in Headers */,
 				69C228281C767B0900F78634 /* hmac_drbg.h in Headers */,
@@ -1815,7 +1808,6 @@
 				69F293AE164A324B00875C00 /* SEBKeychainManager.m in Sources */,
 				69C228861C767B0900F78634 /* threading.c in Sources */,
 				6909E34F1A019F7A0086A741 /* DDDispatchQueueLogFormatter.m in Sources */,
-				69F5BD9D1CF8139A006FBF81 /* NSView+SEBView.m in Sources */,
 				69C228551C767B0900F78634 /* ccm.c in Sources */,
 				69C228731C767B0900F78634 /* pk_wrap.c in Sources */,
 				69C228651C767B0900F78634 /* gcm.c in Sources */,
