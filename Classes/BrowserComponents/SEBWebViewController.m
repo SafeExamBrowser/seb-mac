@@ -14,10 +14,10 @@
 
 @implementation SEBWebViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)viewDidAppear {
+    [super viewDidAppear];
     // Do view setup here.
-    
+   
     NSPressureConfiguration* pressureConfiguration;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictionaryLookup"]) {
@@ -27,13 +27,12 @@
         pressureConfiguration = [[NSPressureConfiguration alloc]
                                  initWithPressureBehavior:NSPressureBehaviorPrimaryClick];
     }
-    NSPressureConfiguration *oldPressureConfiguration = self.view.pressureConfiguration;
-    NSPressureBehavior oldPressureBehavior = oldPressureConfiguration.pressureBehavior;
-    DDLogDebug(@"Subview %@ had pressureConfiguration %@ and pressureBehavior %ld", self.view, oldPressureConfiguration, (long)oldPressureBehavior);
-    self.view.pressureConfiguration = pressureConfiguration;
-    NSPressureConfiguration *newPressureConfiguration = self.view.pressureConfiguration;
-    NSPressureBehavior newPressureBehavior = newPressureConfiguration.pressureBehavior;
-    DDLogDebug(@"Now subview %@ has new pressureConfiguration %@ and pressureBehavior %ld", self.view, newPressureConfiguration, (long)newPressureBehavior);
+
+    for (NSView *subview in [self.view subviews]) {
+        if ([subview respondsToSelector:@selector(setPressureConfiguration:)]) {
+            subview.pressureConfiguration = pressureConfiguration;
+        }
+    }
 }
 
 
