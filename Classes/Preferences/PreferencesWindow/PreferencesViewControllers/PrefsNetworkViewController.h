@@ -72,6 +72,8 @@
 
 @property (strong, nonatomic) NSMutableArray *certificatesNames;
 @property (strong, nonatomic) NSArray *certificates;
+@property (strong, nonatomic) NSMutableArray *caCertificatesNames;
+@property (strong, nonatomic) NSArray *caCertificates;
 @property (strong, nonatomic) NSMutableArray *identitiesNames;
 @property (strong, nonatomic) NSArray *identities;
 

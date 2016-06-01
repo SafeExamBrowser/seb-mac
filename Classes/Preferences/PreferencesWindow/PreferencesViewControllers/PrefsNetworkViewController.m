@@ -98,19 +98,21 @@
     if (!self.certificatesNames)
     { //no certificates available yet, get them from keychain
         SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-        NSArray *names;
-        NSArray *certificatesInKeychain = [keychainManager getTLSCertificatesAndCAs:&names];
+        NSArray *caCertificates;
+        NSArray *certificatesInKeychain = [keychainManager getTLSCertificatesAndCAs:&caCertificates];
         self.certificates = certificatesInKeychain;
-        self.certificatesNames = [names copy];
+        self.certificatesNames = [certificatesInKeychain valueForKeyPath:@"name"];
         [chooseCertificate removeAllItems];
         //first put "None" item in popupbutton list
         [chooseCertificate addItemWithTitle:NSLocalizedString(@"None", nil)];
         [chooseCertificate addItemsWithTitles: self.certificatesNames];
         
+        self.caCertificates = caCertificates;
+        self.caCertificatesNames = [caCertificates valueForKeyPath:@"name"];
         [chooseCA removeAllItems];
         //first put "None" item in popupbutton list
         [chooseCA addItemWithTitle:NSLocalizedString(@"None", nil)];
-        [chooseCA addItemsWithTitles: self.certificatesNames];
+        [chooseCA addItemsWithTitles: self.caCertificatesNames];
     }
     if (!self.identitiesNames)
     { //no identities available yet, get them from keychain
@@ -286,7 +288,7 @@
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     NSUInteger indexOfSelectedItem = [sender indexOfSelectedItem];
     if (indexOfSelectedItem) {
-        SecCertificateRef certificate = (__bridge SecCertificateRef)([self.certificates objectAtIndex:indexOfSelectedItem-1]);
+        SecCertificateRef certificate = (__bridge SecCertificateRef)[[self.certificates objectAtIndex:indexOfSelectedItem-1] objectForKey:@"ref"];
         NSData *certificateData = [keychainManager getDataForCertificate:certificate];
         
         NSDictionary *certificateToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -314,7 +316,7 @@
 {
     NSUInteger indexOfSelectedItem = [sender indexOfSelectedItem];
     if (indexOfSelectedItem) {
-        SecCertificateRef certificate = (__bridge SecCertificateRef)([self.certificates objectAtIndex:indexOfSelectedItem-1]);
+        SecCertificateRef certificate = (__bridge SecCertificateRef)[[self.caCertificates objectAtIndex:indexOfSelectedItem-1] objectForKey:@"ref"];
         
         // Assume SSL type
         NSNumber *certType = [NSNumber numberWithInt:certificateTypeSSLClientCertificate];
