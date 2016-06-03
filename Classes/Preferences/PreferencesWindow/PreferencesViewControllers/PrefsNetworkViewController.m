@@ -98,8 +98,8 @@
     if (!self.certificatesNames)
     { //no certificates available yet, get them from keychain
         SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-        NSArray *caCertificates;
-        NSArray *certificatesInKeychain = [keychainManager getTLSCertificatesAndCAs:&caCertificates];
+
+        NSArray *certificatesInKeychain = [keychainManager getCertificatesOfType:certificateTypeSSL];
         self.certificates = certificatesInKeychain;
         self.certificatesNames = [certificatesInKeychain valueForKeyPath:@"name"];
         [chooseCertificate removeAllItems];
@@ -107,6 +107,7 @@
         [chooseCertificate addItemWithTitle:NSLocalizedString(@"None", nil)];
         [chooseCertificate addItemsWithTitles: self.certificatesNames];
         
+        NSArray *caCertificates = [keychainManager getCertificatesOfType:certificateTypeCA];
         self.caCertificates = caCertificates;
         self.caCertificatesNames = [caCertificates valueForKeyPath:@"name"];
         [chooseCA removeAllItems];
@@ -277,7 +278,7 @@
 // A certificate was selected in the drop down menu
 - (IBAction) certificateSelected:(id)sender
 {
-    [self certificateSelected:sender type:certificateTypeSSLClientCertificate];
+    [self certificateSelected:sender type:certificateTypeSSL];
     
     [chooseCertificate selectItemAtIndex:0];
     [chooseCertificate synchronizeTitleAndSelectedItem];
@@ -319,7 +320,7 @@
         SecCertificateRef certificate = (__bridge SecCertificateRef)[[self.caCertificates objectAtIndex:indexOfSelectedItem-1] objectForKey:@"ref"];
         
         // Assume SSL type
-        NSNumber *certType = [NSNumber numberWithInt:certificateTypeSSLClientCertificate];
+        NSNumber *certType = [NSNumber numberWithInt:certificateTypeSSL];
         
         NSData *certData = CFBridgingRelease(SecCertificateCopyData(certificate));
         

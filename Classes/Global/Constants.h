@@ -88,9 +88,10 @@ typedef NSUInteger coveringWindowKind;
 
 
 enum {
-    certificateTypeSSLClientCertificate         = 0,
+    certificateTypeSSL                          = 0,
     certificateTypeIdentity                     = 1,
-    certificateTypeCA                           = 2
+    certificateTypeCA                           = 2,
+    certificateTypeSSLDebug                     = 3
 };
 typedef NSUInteger certificateTypes;
 

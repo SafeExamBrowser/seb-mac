@@ -115,7 +115,7 @@ static SEBCertServices *gSharedInstance = nil;
                 
                 if (type)
                 {
-                    if ([type integerValue] == certificateTypeSSLClientCertificate)
+                    if ([type integerValue] == certificateTypeSSL)
                     {
                         NSString *dataString = [dict objectForKey:@"certificateDataWin"];
                         
