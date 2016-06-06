@@ -234,7 +234,7 @@
         return nil;
     }
     
-    NSArray *certificateRefs = [NSMutableArray arrayWithArray:(__bridge_transfer NSArray*)(items)];
+    NSArray *certificateRefs = (__bridge_transfer NSArray*)(items);
     NSMutableArray *certificates = [NSMutableArray arrayWithCapacity:1];
     
     CFStringRef commonName = NULL;
@@ -245,6 +245,36 @@
         if ((status = SecCertificateCopyCommonName(certificateRef, &commonName)) == noErr) {
             if ((status = SecCertificateCopyEmailAddresses(certificateRef, &emailAddressesRef)) == noErr) {
                 CFErrorRef error = NULL;
+                
+                // Create a unique certificate name
+                NSString *certificateName = [NSString stringWithFormat:@"%@",
+                                             (__bridge NSString *)commonName ?
+                                             //There is a commonName: just take that as a name
+                                             [NSString stringWithFormat:@"%@ ",(__bridge NSString *)commonName] :
+                                             //there is no common name: take the e-mail address (if it exists)
+                                             CFArrayGetCount(emailAddressesRef) ?
+                                             (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) :
+                                             @""];
+                if ([certificateName isEqualToString:@""] || [certificates containsObject:@{@"name" : certificateName}]) {
+                    //get public key hash from selected identity's certificate
+                    NSData* publicKeyHash = [self getPublicKeyHashFromCertificate:certificateRef];
+                    if (!publicKeyHash) {
+                        DDLogError(@"Error in %s: Could not get public key hash form certificate. Generated a random hash.", __FUNCTION__);
+                        // If the hash couldn't be determinded (what actually shouldn't happen): Create random data instead
+                        publicKeyHash = [RNCryptor randomDataOfLength:20];
+                    }
+                    unsigned char hashedChars[20];
+                    [publicKeyHash getBytes:hashedChars length:20];
+                    NSMutableString* hashedString = [NSMutableString new];
+                    for (int i = 0 ; i < 20 ; ++i) {
+                        [hashedString appendFormat: @"%02x", hashedChars[i]];
+                    }
+                    certificateName = [NSString stringWithFormat:@"%@ %@",certificateName, hashedString];
+                } else {
+                    certificateName = [NSString stringWithFormat:@"%@", certificateName];
+                }
+
+                
                 
                 switch (certificateType) {
                     case certificateTypeSSL:
@@ -259,44 +289,15 @@
                             NSArray *extendedKeyUsages = [value objectForKey:(__bridge id)(kSecPropertyKeyValue)];
                             if ([extendedKeyUsages containsObject:[NSData dataWithBytes:keyUsageServerAuthentication length:8]]) {
                                 
-                                NSString *certificateName = [NSString stringWithFormat:@"%@",
-                                                             (__bridge NSString *)commonName ?
-                                                             //There is a commonName: just take that as a name
-                                                             [NSString stringWithFormat:@"%@ ",(__bridge NSString *)commonName] :
-                                                             //there is no common name: take the e-mail address (if it exists)
-                                                             CFArrayGetCount(emailAddressesRef) ?
-                                                             (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) :
-                                                             @""];
-                                if ([certificateName isEqualToString:@""] || [certificates containsObject:certificateName]) {
-                                    //get public key hash from selected identity's certificate
-                                    NSData* publicKeyHash = [self getPublicKeyHashFromCertificate:certificateRef];
-                                    if (!publicKeyHash) {
-                                        DDLogError(@"Error in %s: Could not get public key hash form certificate. Generated a random hash.", __FUNCTION__);
-                                        // If the hash couldn't be determinded (what actually shouldn't happen): Create random data instead
-                                        publicKeyHash = [RNCryptor randomDataOfLength:20];
-                                    }
-                                    unsigned char hashedChars[20];
-                                    [publicKeyHash getBytes:hashedChars length:20];
-                                    NSMutableString* hashedString = [NSMutableString new];
-                                    for (int i = 0 ; i < 20 ; ++i) {
-                                        [hashedString appendFormat: @"%02x", hashedChars[i]];
-                                    }
-                                    certificateName = [NSString stringWithFormat:@"%@ %@",certificateName, hashedString];
-                                } else {
-                                    certificateName = [NSString stringWithFormat:@"%@", certificateName];
-                                }
                                 [certificates addObject:@{
-                                                          @"ref" : (__bridge_transfer id)certificateRef,
+                                                          @"ref" : (__bridge id)certificateRef,
                                                           @"name" : certificateName,
                                                           }];
                                 DDLogDebug(@"Common name: %@ %@",
                                            (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" ,
                                            CFArrayGetCount(emailAddressesRef) ? (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) : @"");
                                 
-                                if (commonName) CFRelease(commonName);
-                                if (emailAddressesRef) CFRelease(emailAddressesRef);
-                                
-                                continue;
+                                break;
                             }
                         } else {
                             NSString *errorDescription = @"";
@@ -332,11 +333,13 @@
                                 {
                                     if (cert.ca_istrue)
                                     {
+
                                         [certificates addObject:@{
-                                                                  @"ref" : (__bridge_transfer id)certificateRef,
-                                                                  @"name" : [NSString stringWithFormat:@"%@", commonName],
+                                                                  @"ref" : (__bridge id)certificateRef,
+                                                                  @"name" : certificateName,
                                                                   }];
-                                        continue;
+                                        
+                                        break;
                                     }
                                 }
                             }
@@ -347,6 +350,15 @@
                     }
                         
                     case certificateTypeSSLDebug:
+                    {
+                        // Add all certificates, without testing them for properties
+                        // which sometimes just are not set on some slacker certs
+                        [certificates addObject:@{
+                                                  @"ref" : (__bridge id)certificateRef,
+                                                  @"name" : certificateName,
+                                                  }];
+                        break;
+                    }
                         
                     default:
                         break;
@@ -362,11 +374,9 @@
             DDLogError(@"Error in %s: SecCertificateCopyCommonName returned %@. This certificate will be skipped.",
                        __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
         }
-        i--;
-        count--;
     }
     
-    NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
     NSArray *sortDescriptors = [NSArray arrayWithObject:sortByName];
     NSArray *sortedCertificates = [[NSArray arrayWithArray:certificates] sortedArrayUsingDescriptors:sortDescriptors];
         

@@ -2015,7 +2015,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="163" y="199" width="610" height="543"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
             <view key="contentView" id="Oww-cu-u71">
                 <rect key="frame" x="0.0" y="0.0" width="610" height="543"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -2046,20 +2046,24 @@
                                             </textFieldCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <connections>
-                                                <binding destination="1875" name="value" keyPath="arrangedObjects.name" id="Ask-oP-ofT"/>
+                                                <binding destination="KTY-Gn-rdN" name="value" keyPath="arrangedObjects.name" id="aJf-9w-qNE"/>
                                             </connections>
                                         </tableColumn>
                                     </tableColumns>
+                                    <connections>
+                                        <outlet property="dataSource" destination="-2" id="Nlc-yb-Qtc"/>
+                                        <outlet property="delegate" destination="-2" id="t9B-X7-ak1"/>
+                                    </connections>
                                 </tableView>
                             </subviews>
                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </clipView>
-                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="aI1-tn-9bT">
-                            <rect key="frame" x="1" y="274" width="568" height="15"/>
+                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.5" horizontal="YES" id="aI1-tn-9bT">
+                            <rect key="frame" x="1" y="407" width="568" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="gnj-7U-SIa">
-                            <rect key="frame" x="224" y="17" width="15" height="102"/>
+                            <rect key="frame" x="-14" y="15" width="15" height="0.0"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <tableHeaderView key="headerView" id="l7P-hn-H1h">
@@ -2122,6 +2126,15 @@ Gw
             </view>
             <point key="canvasLocation" x="363" y="1166.5"/>
         </window>
+        <arrayController id="KTY-Gn-rdN" userLabel="All Certificates Array Controller">
+            <connections>
+                <binding destination="-2" name="contentArray" keyPath="certificates" id="JDj-la-sXt">
+                    <dictionary key="options">
+                        <bool key="NSHandlesContentAsCompoundValue" value="YES"/>
+                    </dictionary>
+                </binding>
+            </connections>
+        </arrayController>
     </objects>
     <resources>
         <image name="NSAddTemplate" width="11" height="11"/>

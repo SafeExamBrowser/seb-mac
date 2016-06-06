@@ -47,8 +47,8 @@
 
 @synthesize groupRowTableColumn;
 
-@synthesize certificatesNames;
-@synthesize certificates;
+@synthesize SSLCertificatesNames;
+@synthesize SSLCertificates;
 @synthesize identitiesNames;
 @synthesize identities;
 
@@ -95,29 +95,34 @@
     //Load settings password from user defaults
     //[self loadPrefs];
     //[chooseIdentity synchronizeTitleAndSelectedItem];
-    if (!self.certificatesNames)
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    if (!self.SSLCertificatesNames)
     { //no certificates available yet, get them from keychain
-        SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
 
-        NSArray *certificatesInKeychain = [keychainManager getCertificatesOfType:certificateTypeSSL];
-        self.certificates = certificatesInKeychain;
-        self.certificatesNames = [certificatesInKeychain valueForKeyPath:@"name"];
+        NSArray *SSLCertificatesInKeychain = [keychainManager getCertificatesOfType:certificateTypeSSL];
+        self.SSLCertificates = [SSLCertificatesInKeychain valueForKeyPath:@"ref"];
+        self.SSLCertificatesNames = [SSLCertificatesInKeychain valueForKeyPath:@"name"];
         [chooseCertificate removeAllItems];
         //first put "None" item in popupbutton list
         [chooseCertificate addItemWithTitle:NSLocalizedString(@"None", nil)];
-        [chooseCertificate addItemsWithTitles: self.certificatesNames];
-        
-        NSArray *caCertificates = [keychainManager getCertificatesOfType:certificateTypeCA];
-        self.caCertificates = caCertificates;
-        self.caCertificatesNames = [caCertificates valueForKeyPath:@"name"];
+        [chooseCertificate addItemsWithTitles: self.SSLCertificatesNames];
+    }
+    if (!self.caCertificatesNames)
+    {
+        NSArray *caCertificatesInKeychain = [keychainManager getCertificatesOfType:certificateTypeCA];
+        self.caCertificates = [caCertificatesInKeychain valueForKeyPath:@"ref"];
+        self.caCertificatesNames = [caCertificatesInKeychain valueForKeyPath:@"name"];
         [chooseCA removeAllItems];
         //first put "None" item in popupbutton list
         [chooseCA addItemWithTitle:NSLocalizedString(@"None", nil)];
         [chooseCA addItemsWithTitles: self.caCertificatesNames];
     }
+    if (!self.certificates)
+    {
+        self.certificates = [keychainManager getCertificatesOfType:certificateTypeSSLDebug];
+    }
     if (!self.identitiesNames)
     { //no identities available yet, get them from keychain
-        SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
         NSArray *names;
         NSArray *identitiesInKeychain = [keychainManager getIdentitiesAndNames:&names];
         self.identities = identitiesInKeychain;
@@ -289,7 +294,7 @@
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     NSUInteger indexOfSelectedItem = [sender indexOfSelectedItem];
     if (indexOfSelectedItem) {
-        SecCertificateRef certificate = (__bridge SecCertificateRef)[[self.certificates objectAtIndex:indexOfSelectedItem-1] objectForKey:@"ref"];
+        SecCertificateRef certificate = (__bridge SecCertificateRef)([self.SSLCertificates objectAtIndex:indexOfSelectedItem-1]);
         NSData *certificateData = [keychainManager getDataForCertificate:certificate];
         
         NSDictionary *certificateToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -303,24 +308,15 @@
 }
 
 
-//- (IBAction) CASelected:(id)sender
-//{
-//    [self certificateSelected:sender type:certificateTypeCA];
-//    
-//    [chooseCA selectItemAtIndex:0];
-//    [chooseCA synchronizeTitleAndSelectedItem];
-//}
-
-
 // A CA (certificate authority) certificate was selected in the drop down menu
 - (IBAction) CASelected:(id)sender
 {
     NSUInteger indexOfSelectedItem = [sender indexOfSelectedItem];
     if (indexOfSelectedItem) {
-        SecCertificateRef certificate = (__bridge SecCertificateRef)[[self.caCertificates objectAtIndex:indexOfSelectedItem-1] objectForKey:@"ref"];
+        SecCertificateRef certificate = (__bridge SecCertificateRef)([self.caCertificates objectAtIndex:indexOfSelectedItem-1]);
         
         // Assume SSL type
-        NSNumber *certType = [NSNumber numberWithInt:certificateTypeSSL];
+        NSNumber *certType = [NSNumber numberWithInt:certificateTypeCA];
         
         NSData *certData = CFBridgingRelease(SecCertificateCopyData(certificate));
         
