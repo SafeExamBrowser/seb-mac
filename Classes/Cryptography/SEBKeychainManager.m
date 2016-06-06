@@ -250,12 +250,20 @@
                 NSString *certificateName = [NSString stringWithFormat:@"%@",
                                              (__bridge NSString *)commonName ?
                                              //There is a commonName: just take that as a name
-                                             [NSString stringWithFormat:@"%@ ",(__bridge NSString *)commonName] :
+                                             [NSString stringWithFormat:@"%@",(__bridge NSString *)commonName] :
                                              //there is no common name: take the e-mail address (if it exists)
                                              CFArrayGetCount(emailAddressesRef) ?
                                              (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) :
                                              @""];
-                if ([certificateName isEqualToString:@""] || [certificates containsObject:@{@"name" : certificateName}]) {
+                if ([certificateName containsString:@"vmagus.ethz.ch"]) {
+                    DDLogDebug(@"vmagus.ethz.ch !!!");
+                }
+                
+                // Check for duplicates
+                NSPredicate * predicate = [NSPredicate predicateWithFormat:@" name ==[cd] %@", certificateName];
+                NSArray * matches = [certificates filteredArrayUsingPredicate:predicate];
+
+                if ([certificateName isEqualToString:@""] || matches.count > 0) {
                     //get public key hash from selected identity's certificate
                     NSData* publicKeyHash = [self getPublicKeyHashFromCertificate:certificateRef];
                     if (!publicKeyHash) {
@@ -274,28 +282,53 @@
                     certificateName = [NSString stringWithFormat:@"%@", certificateName];
                 }
 
+                // Get signature, valid from, valid to and extended key usage
                 
+                NSDictionary *certSpecifiers = (NSDictionary *)CFBridgingRelease(SecCertificateCopyValues
+                                                                         (certificateRef,
+                                                                          (__bridge CFArrayRef)[NSArray arrayWithObjects:(__bridge id)(kSecOIDX509V1Signature),
+                                                                                                (__bridge id)(kSecOIDX509V1ValidityNotAfter),
+                                                                                                (__bridge id)(kSecOIDX509V1ValidityNotBefore),
+                                                                                                (__bridge id)(kSecOIDExtendedKeyUsage),
+                                                                                                nil],
+                                                                          &error));
+
+                // Check validity (from - to) of certfificate
+                NSDate *validFrom;
+                NSDate *validTo;
+                BOOL *isExpired = true;
+                if ([certSpecifiers count]) {
+                    NSDictionary *validFromDict = [certSpecifiers objectForKey:(__bridge id)(kSecOIDX509V1ValidityNotBefore)];
+                    if (validFromDict.count) {
+                        validFrom = [NSDate dateWithTimeIntervalSinceReferenceDate:(double)[[validFromDict objectForKey:@"value"] doubleValue]];
+                    }
+                    NSDictionary *validToDict = [certSpecifiers objectForKey:(__bridge id)(kSecOIDX509V1ValidityNotAfter)];
+                    if (validToDict.count) {
+                        validTo = [NSDate dateWithTimeIntervalSinceReferenceDate:(double)[[validToDict objectForKey:@"value"] doubleValue]];
+                    }
+                    
+                    NSDate *now = [NSDate date];
+                    if ([validFrom compare:now] == NSOrderedAscending) {
+                        if ([validTo compare:now] == NSOrderedDescending) {
+                            isExpired = false;
+                        }
+                    }
+                }
                 
                 switch (certificateType) {
                     case certificateTypeSSL:
                     {
-                        NSDictionary *values = (NSDictionary *)CFBridgingRelease(SecCertificateCopyValues
-                                                                                 (certificateRef,
-                                                                                  (__bridge CFArrayRef)[NSArray arrayWithObject:(__bridge id)(kSecOIDExtendedKeyUsage)],
-                                                                                  &error));
                         // Keep only certificates which have an extended key usage server authentification
-                        if ([values count]) {
-                            NSDictionary *value = [values objectForKey:(__bridge id)(kSecOIDExtendedKeyUsage)];
+                        if ([certSpecifiers count]) {
+                            NSDictionary *value = [certSpecifiers objectForKey:(__bridge id)(kSecOIDExtendedKeyUsage)];
                             NSArray *extendedKeyUsages = [value objectForKey:(__bridge id)(kSecPropertyKeyValue)];
                             if ([extendedKeyUsages containsObject:[NSData dataWithBytes:keyUsageServerAuthentication length:8]]) {
                                 
                                 [certificates addObject:@{
                                                           @"ref" : (__bridge id)certificateRef,
-                                                          @"name" : certificateName,
+                                                          @"name" : certificateName
                                                           }];
-                                DDLogDebug(@"Common name: %@ %@",
-                                           (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" ,
-                                           CFArrayGetCount(emailAddressesRef) ? (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) : @"");
+                                DDLogDebug(@"Adding SSL certificate with common name: %@", certificateName);
                                 
                                 break;
                             }
@@ -305,7 +338,7 @@
                                 errorDescription = [NSString stringWithFormat:@"SecCertificateCopyValues error: %@. ", CFBridgingRelease(CFErrorCopyDescription(error))];
                             }
                             DDLogDebug(@"Common name: %@. No extended key usage server authentification has been found. %@ This certificate will be skipped.",
-                                       (__bridge NSString *)commonName ? (__bridge NSString *)commonName : @"" , errorDescription);
+                                       certificateName , errorDescription);
                         }
                         break;
                     }
@@ -336,8 +369,9 @@
 
                                         [certificates addObject:@{
                                                                   @"ref" : (__bridge id)certificateRef,
-                                                                  @"name" : certificateName,
+                                                                  @"name" : certificateName
                                                                   }];
+                                        DDLogDebug(@"\nAdding CA certificate:\n%s\n", infoBuf);
                                         
                                         break;
                                     }
@@ -356,7 +390,12 @@
                         [certificates addObject:@{
                                                   @"ref" : (__bridge id)certificateRef,
                                                   @"name" : certificateName,
+                                                  @"valid_from" : validFrom,
+                                                  @"valid_to" : validTo,
+                                                  @"isExpired" : [NSNumber numberWithBool:isExpired]
                                                   }];
+                        DDLogDebug(@"Adding debug certificate with common name: %@", certificateName);
+
                         break;
                     }
                         
