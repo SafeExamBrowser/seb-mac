@@ -35,6 +35,7 @@
 
 #import "SEBKeychainManager.h"
 #import "RNCryptor.h"
+#import "SEBCryptor.h"
 #include "x509_crt.h"
 
 @implementation SEBKeychainManager
@@ -246,53 +247,16 @@
             if ((status = SecCertificateCopyEmailAddresses(certificateRef, &emailAddressesRef)) == noErr) {
                 CFErrorRef error = NULL;
                 
-                // Create a unique certificate name
-                NSString *certificateName = [NSString stringWithFormat:@"%@",
-                                             (__bridge NSString *)commonName ?
-                                             //There is a commonName: just take that as a name
-                                             [NSString stringWithFormat:@"%@",(__bridge NSString *)commonName] :
-                                             //there is no common name: take the e-mail address (if it exists)
-                                             CFArrayGetCount(emailAddressesRef) ?
-                                             (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) :
-                                             @""];
-                if ([certificateName containsString:@"vmagus.ethz.ch"]) {
-                    DDLogDebug(@"vmagus.ethz.ch !!!");
-                }
-                
-                // Check for duplicates
-                NSPredicate * predicate = [NSPredicate predicateWithFormat:@" name ==[cd] %@", certificateName];
-                NSArray * matches = [certificates filteredArrayUsingPredicate:predicate];
-
-                if ([certificateName isEqualToString:@""] || matches.count > 0) {
-                    //get public key hash from selected identity's certificate
-                    NSData* publicKeyHash = [self getPublicKeyHashFromCertificate:certificateRef];
-                    if (!publicKeyHash) {
-                        DDLogError(@"Error in %s: Could not get public key hash form certificate. Generated a random hash.", __FUNCTION__);
-                        // If the hash couldn't be determinded (what actually shouldn't happen): Create random data instead
-                        publicKeyHash = [RNCryptor randomDataOfLength:20];
-                    }
-                    unsigned char hashedChars[20];
-                    [publicKeyHash getBytes:hashedChars length:20];
-                    NSMutableString* hashedString = [NSMutableString new];
-                    for (int i = 0 ; i < 20 ; ++i) {
-                        [hashedString appendFormat: @"%02x", hashedChars[i]];
-                    }
-                    certificateName = [NSString stringWithFormat:@"%@ %@",certificateName, hashedString];
-                } else {
-                    certificateName = [NSString stringWithFormat:@"%@", certificateName];
-                }
-
                 // Get signature, valid from, valid to and extended key usage
-                
                 NSDictionary *certSpecifiers = (NSDictionary *)CFBridgingRelease(SecCertificateCopyValues
-                                                                         (certificateRef,
-                                                                          (__bridge CFArrayRef)[NSArray arrayWithObjects:(__bridge id)(kSecOIDX509V1Signature),
-                                                                                                (__bridge id)(kSecOIDX509V1ValidityNotAfter),
-                                                                                                (__bridge id)(kSecOIDX509V1ValidityNotBefore),
-                                                                                                (__bridge id)(kSecOIDExtendedKeyUsage),
-                                                                                                nil],
-                                                                          &error));
-
+                                                                                 (certificateRef,
+                                                                                  (__bridge CFArrayRef)[NSArray arrayWithObjects:(__bridge id)(kSecOIDX509V1Signature),
+                                                                                                        (__bridge id)(kSecOIDX509V1ValidityNotAfter),
+                                                                                                        (__bridge id)(kSecOIDX509V1ValidityNotBefore),
+                                                                                                        (__bridge id)(kSecOIDExtendedKeyUsage),
+                                                                                                        nil],
+                                                                                  &error));
+                
                 // Check validity (from - to) of certfificate
                 NSDate *validFrom;
                 NSDate *validTo;
@@ -315,6 +279,37 @@
                     }
                 }
                 
+                // Create a unique certificate name
+                NSString *certificateName = [NSString stringWithFormat:@"%@",
+                                             (__bridge NSString *)commonName ?
+                                             //There is a commonName: just take that as a name
+                                             [NSString stringWithFormat:@"%@",(__bridge NSString *)commonName] :
+                                             //there is no common name: take the e-mail address (if it exists)
+                                             CFArrayGetCount(emailAddressesRef) ?
+                                             (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) :
+                                             @""];
+
+                // Check for duplicates
+                NSPredicate * predicate = [NSPredicate predicateWithFormat:@" name ==[cd] %@", certificateName];
+                NSArray * matches = [certificates filteredArrayUsingPredicate:predicate];
+
+                if ([certificateName isEqualToString:@""] || matches.count > 0) {
+                    // Get certificate signature hash (fingerprint)
+                    NSData *signatureData;
+                    NSDictionary *signatureDict = [certSpecifiers objectForKey:(__bridge id)(kSecOIDX509V1Signature)];
+                    if (signatureDict.count) {
+                        signatureData = (NSData *)[signatureDict objectForKey:@"value"];
+                    }
+                    if (!signatureData) {
+                        // If the hash couldn't be determinded (what actually shouldn't happen): Create random data instead
+                        signatureData = [RNCryptor randomDataOfLength:128];
+                    }
+                    NSString *signatureHash = [self generateSHAHashStringFromData:signatureData];
+                    certificateName = [NSString stringWithFormat:@"%@ %@",certificateName, signatureHash];
+                } else {
+                    certificateName = [NSString stringWithFormat:@"%@", certificateName];
+                }
+
                 switch (certificateType) {
                     case certificateTypeSSL:
                     {
@@ -322,7 +317,7 @@
                         if ([certSpecifiers count]) {
                             NSDictionary *value = [certSpecifiers objectForKey:(__bridge id)(kSecOIDExtendedKeyUsage)];
                             NSArray *extendedKeyUsages = [value objectForKey:(__bridge id)(kSecPropertyKeyValue)];
-                            if ([extendedKeyUsages containsObject:[NSData dataWithBytes:keyUsageServerAuthentication length:8]]) {
+                            if (!isExpired && [extendedKeyUsages containsObject:[NSData dataWithBytes:keyUsageServerAuthentication length:8]]) {
                                 
                                 [certificates addObject:@{
                                                           @"ref" : (__bridge id)certificateRef,
@@ -911,6 +906,19 @@
     unsigned char hashedChars[32];
     CC_SHA256([inputString UTF8String],
               [inputString lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+              hashedChars);
+    NSMutableString* hashedString = [[NSMutableString alloc] init];
+    for (int i = 0 ; i < 32 ; ++i) {
+        [hashedString appendFormat: @"%02x", hashedChars[i]];
+    }
+    return hashedString;
+}
+
+
+- (NSString *) generateSHAHashStringFromData:(NSData *)inputData {
+    unsigned char hashedChars[32];
+    CC_SHA256(inputData.bytes,
+              inputData.length,
               hashedChars);
     NSMutableString* hashedString = [[NSMutableString alloc] init];
     for (int i = 0 ; i < 32 ; ++i) {

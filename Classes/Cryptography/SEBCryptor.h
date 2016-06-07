@@ -62,5 +62,6 @@
 - (NSData *)generateExamKeySalt;
 
 - (NSData*) generateSHAHash:(NSString*)inputString;
+- (NSData*) generateSHAHashForData:(NSData *)inputData;
 
 @end
