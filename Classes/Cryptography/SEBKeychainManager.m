@@ -304,7 +304,7 @@
                         // If the hash couldn't be determinded (what actually shouldn't happen): Create random data instead
                         signatureData = [RNCryptor randomDataOfLength:128];
                     }
-                    NSString *signatureHash = [self generateSHAHashStringFromData:signatureData];
+                    NSString *signatureHash = [self generateSHA1HashStringFromData:signatureData];
                     certificateName = [NSString stringWithFormat:@"%@ %@",certificateName, signatureHash];
                 } else {
                     certificateName = [NSString stringWithFormat:@"%@", certificateName];
@@ -313,68 +313,71 @@
                 switch (certificateType) {
                     case certificateTypeSSL:
                     {
-                        // Keep only certificates which have an extended key usage server authentification
-                        if ([certSpecifiers count]) {
-                            NSDictionary *value = [certSpecifiers objectForKey:(__bridge id)(kSecOIDExtendedKeyUsage)];
-                            NSArray *extendedKeyUsages = [value objectForKey:(__bridge id)(kSecPropertyKeyValue)];
-                            if (!isExpired && [extendedKeyUsages containsObject:[NSData dataWithBytes:keyUsageServerAuthentication length:8]]) {
-                                
-                                [certificates addObject:@{
-                                                          @"ref" : (__bridge id)certificateRef,
-                                                          @"name" : certificateName
-                                                          }];
-                                DDLogDebug(@"Adding SSL certificate with common name: %@", certificateName);
-                                
-                                break;
+                        if (!isExpired) {
+                            // Keep only certificates which have an extended key usage server authentification
+                            if ([certSpecifiers count]) {
+                                NSDictionary *value = [certSpecifiers objectForKey:(__bridge id)(kSecOIDExtendedKeyUsage)];
+                                NSArray *extendedKeyUsages = [value objectForKey:(__bridge id)(kSecPropertyKeyValue)];
+                                if ([extendedKeyUsages containsObject:[NSData dataWithBytes:keyUsageServerAuthentication length:8]]) {
+                                    
+                                    [certificates addObject:@{
+                                                              @"ref" : (__bridge id)certificateRef,
+                                                              @"name" : certificateName
+                                                              }];
+                                    DDLogDebug(@"Adding SSL certificate with common name: %@", certificateName);
+                                    
+                                    break;
+                                }
+                            } else {
+                                NSString *errorDescription = @"";
+                                if (error != NULL) {
+                                    errorDescription = [NSString stringWithFormat:@"SecCertificateCopyValues error: %@. ", CFBridgingRelease(CFErrorCopyDescription(error))];
+                                }
+                                DDLogDebug(@"Common name: %@. No extended key usage server authentification has been found. %@ This certificate will be skipped.",
+                                           certificateName , errorDescription);
                             }
-                        } else {
-                            NSString *errorDescription = @"";
-                            if (error != NULL) {
-                                errorDescription = [NSString stringWithFormat:@"SecCertificateCopyValues error: %@. ", CFBridgingRelease(CFErrorCopyDescription(error))];
-                            }
-                            DDLogDebug(@"Common name: %@. No extended key usage server authentification has been found. %@ This certificate will be skipped.",
-                                       certificateName , errorDescription);
                         }
                         break;
                     }
                         
                     case certificateTypeCA:
                     {
-                        // dmcd - post-processing to add CA certs
-                        mbedtls_x509_crt cert;
-                        mbedtls_x509_crt_init(&cert);
-                        
-                        // Get DER data
-                        NSData *data = CFBridgingRelease(SecCertificateCopyData(certificateRef));
-                        
-                        if (data)
-                        {
-                            if (mbedtls_x509_crt_parse_der(&cert, [data bytes], [data length]) == 0)
+                        if (!isExpired) {
+                            // dmcd - post-processing to add CA certs
+                            mbedtls_x509_crt cert;
+                            mbedtls_x509_crt_init(&cert);
+                            
+                            // Get DER data
+                            NSData *data = CFBridgingRelease(SecCertificateCopyData(certificateRef));
+                            
+                            if (data)
                             {
-#if DEBUG
-                                char infoBuf[2048];
-                                *infoBuf = '\0';
-                                mbedtls_x509_crt_info(infoBuf, sizeof(infoBuf) - 1, "   ", &cert);
-                                DDLogDebug(@"\n%s\n", infoBuf);
-#endif
-                                if (cert.ext_types & MBEDTLS_X509_EXT_BASIC_CONSTRAINTS)
+                                if (mbedtls_x509_crt_parse_der(&cert, [data bytes], [data length]) == 0)
                                 {
-                                    if (cert.ca_istrue)
+#if DEBUG
+                                    char infoBuf[2048];
+                                    *infoBuf = '\0';
+                                    mbedtls_x509_crt_info(infoBuf, sizeof(infoBuf) - 1, "   ", &cert);
+                                    DDLogDebug(@"\n%s\n", infoBuf);
+#endif
+                                    if (cert.ext_types & MBEDTLS_X509_EXT_BASIC_CONSTRAINTS)
                                     {
-
-                                        [certificates addObject:@{
-                                                                  @"ref" : (__bridge id)certificateRef,
-                                                                  @"name" : certificateName
-                                                                  }];
-                                        DDLogDebug(@"\nAdding CA certificate:\n%s\n", infoBuf);
-                                        
-                                        break;
+                                        if (cert.ca_istrue)
+                                        {
+                                            
+                                            [certificates addObject:@{
+                                                                      @"ref" : (__bridge id)certificateRef,
+                                                                      @"name" : certificateName
+                                                                      }];
+                                            DDLogDebug(@"\nAdding CA certificate:\n%s\n", infoBuf);
+                                            
+                                            break;
+                                        }
                                     }
                                 }
                             }
+                            mbedtls_x509_crt_free(&cert);
                         }
-                        
-                        mbedtls_x509_crt_free(&cert);
                         break;
                     }
                         
@@ -915,13 +918,13 @@
 }
 
 
-- (NSString *) generateSHAHashStringFromData:(NSData *)inputData {
-    unsigned char hashedChars[32];
-    CC_SHA256(inputData.bytes,
+- (NSString *) generateSHA1HashStringFromData:(NSData *)inputData {
+    unsigned char hashedChars[CC_SHA1_DIGEST_LENGTH];
+    CC_SHA1(inputData.bytes,
               inputData.length,
               hashedChars);
     NSMutableString* hashedString = [[NSMutableString alloc] init];
-    for (int i = 0 ; i < 32 ; ++i) {
+    for (int i = 0 ; i < CC_SHA1_DIGEST_LENGTH ; ++i) {
         [hashedString appendFormat: @"%02x", hashedChars[i]];
     }
     return hashedString;
