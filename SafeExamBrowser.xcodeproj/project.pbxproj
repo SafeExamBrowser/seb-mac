@@ -1618,7 +1618,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0730;
 				TargetAttributes = {
 					69F7B5FA14F411FB00FD0761 = {
 						DevelopmentTeam = 6F38DNSC7X;
@@ -2041,7 +2041,6 @@
 					"\"$(SRCROOT)/..\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = OtherSources/SEB_Prefix.pch;
@@ -2078,7 +2077,6 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/..\"",
 				);
-				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = OtherSources/SEB_Prefix.pch;
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";

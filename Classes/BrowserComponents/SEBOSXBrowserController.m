@@ -128,26 +128,28 @@
 // Open a new web browser window document
 - (SEBBrowserWindowDocument *) openBrowserWindowDocument
 {
-    SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
+    NSError *error;
+    SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:&error];
     
-    // Set the reference to the browser controller in the browser window controller instance
-    browserWindowDocument.mainWindowController.browserController = self;
-    
-    // Set the reference to the browser controller in the browser window instance
-    SEBBrowserWindow *newWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
-    newWindow.browserController = self;
-    
-    // Prevent that the browser window displays the button to make it fullscreen in OS X 10.11
-    // and that it would allow to be used in split screen mode
-    newWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
-    
-    // Enable or disable spell checking
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL allowSpellCheck = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
-    
-//    NSTextView *textView = (NSTextView *)[newWindow firstResponder];
-    [newWindow.webView setContinuousSpellCheckingEnabled:allowSpellCheck];
-    
+    if (!error) {
+        // Set the reference to the browser controller in the browser window controller instance
+        browserWindowDocument.mainWindowController.browserController = self;
+        
+        // Set the reference to the browser controller in the browser window instance
+        SEBBrowserWindow *newWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
+        newWindow.browserController = self;
+        
+        // Prevent that the browser window displays the button to make it fullscreen in OS X 10.11
+        // and that it would allow to be used in split screen mode
+        newWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
+        
+        // Enable or disable spell checking
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        BOOL allowSpellCheck = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
+        
+        //    NSTextView *textView = (NSTextView *)[newWindow firstResponder];
+        [newWindow.webView setContinuousSpellCheckingEnabled:allowSpellCheck];
+    }
     return browserWindowDocument;
 }
 
@@ -374,23 +376,26 @@
 // Open an allowed additional resource in a new browser window
 - (void)openResourceWithURL:(NSString *)URL andTitle:(NSString *)title
 {
-    SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType:@"DocumentType" display:YES];
-    NSWindow *additionalBrowserWindow = browserWindowDocument.mainWindowController.window;
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
-        [additionalBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+    NSError *error;
+    SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:&error];
+    if (!error) {
+        NSWindow *additionalBrowserWindow = browserWindowDocument.mainWindowController.window;
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+            [additionalBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
+        }
+        [(SEBBrowserWindow *)additionalBrowserWindow setCalculatedFrame];
+        BOOL elevateWindowLevels = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
+        [self setLevelForBrowserWindow:additionalBrowserWindow elevateLevels:elevateWindowLevels];
+        
+        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+        
+        //[additionalBrowserWindow makeKeyAndOrderFront:self];
+        
+        DDLogInfo(@"Open additional browser window with URL: %@", URL);
+        
+        // Load start URL into browser window
+        [[browserWindowDocument.mainWindowController.webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:URL]]];
     }
-    [(SEBBrowserWindow *)additionalBrowserWindow setCalculatedFrame];
-    BOOL elevateWindowLevels = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
-    [self setLevelForBrowserWindow:additionalBrowserWindow elevateLevels:elevateWindowLevels];
-
-    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-    
-    //[additionalBrowserWindow makeKeyAndOrderFront:self];
-    
-    DDLogInfo(@"Open additional browser window with URL: %@", URL);
-    
-    // Load start URL into browser window
-    [[browserWindowDocument.mainWindowController.webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:URL]]];
 }
 
 

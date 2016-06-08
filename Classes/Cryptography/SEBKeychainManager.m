@@ -1017,7 +1017,13 @@
         DDLogError(@"SecItemCopyMatching failed with error: %@", outError);
         return nil;
     }
-    return (__bridge_transfer NSData *)keyData;
+    NSData *keyNSData = (__bridge_transfer NSData *)keyData;
+    // Check if we really got data back, as this method sometimes returns success but no proper data(!)
+    if (!keyNSData || ![[keyNSData superclass] isKindOfClass:[NSData superclass]]) {
+        DDLogError(@"Key with ID could not be retrieved");
+        return nil;
+    }
+    return keyNSData;
 }
 
 @end

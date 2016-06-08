@@ -17,8 +17,8 @@
             <rect key="frame" x="0.0" y="0.0" width="650" height="539"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2282">
-                    <rect key="frame" x="18" y="505" width="364" height="14"/>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2282">
+                    <rect key="frame" x="18" y="505" width="360" height="14"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="External or embedded resources which can be used during an exam" id="2301">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -28,11 +28,11 @@
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2434">
                     <rect key="frame" x="20" y="213" width="610" height="284"/>
                     <clipView key="contentView" id="77c-4M-PEO">
-                        <rect key="frame" x="1.5" y="-0.5" width="608" height="268"/>
+                        <rect key="frame" x="1" y="0.0" width="608" height="283"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="2521" id="2519">
-                                <rect key="frame" x="0.0" y="0.0" width="610" height="260"/>
+                                <rect key="frame" x="0.0" y="0.0" width="608" height="260"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -105,11 +105,11 @@
                         </subviews>
                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
-                    <scroller key="horizontalScroller" verticalHuggingPriority="750" doubleValue="0.25" horizontal="YES" id="2520">
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.25" horizontal="YES" id="2520">
                         <rect key="frame" x="1" y="268" width="608" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.033333333333333333" horizontal="NO" id="2522">
+                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="2522">
                         <rect key="frame" x="224" y="17" width="15" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
@@ -124,8 +124,8 @@
                         <rect key="frame" x="1" y="1" width="614" height="144"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button toolTip="This resource item is active" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2493">
-                                <rect key="frame" x="16" y="111" width="61" height="22"/>
+                            <button toolTip="This resource item is active" translatesAutoresizingMaskIntoConstraints="NO" id="2493">
+                                <rect key="frame" x="16" y="111" width="60" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" id="2503"/>
                                 </constraints>
@@ -142,8 +142,8 @@
                                     </binding>
                                 </connections>
                             </button>
-                            <button toolTip="Open this resource when SEB starts" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2632">
-                                <rect key="frame" x="300" y="111" width="162" height="22"/>
+                            <button toolTip="Open this resource when SEB starts" translatesAutoresizingMaskIntoConstraints="NO" id="2632">
+                                <rect key="frame" x="300" y="111" width="158" height="22"/>
                                 <buttonCell key="cell" type="check" title="Open when SEB starts" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="2634">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -157,8 +157,8 @@
                                     </binding>
                                 </connections>
                             </button>
-                            <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2489">
-                                <rect key="frame" x="16" y="85" width="32" height="17"/>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2489">
+                                <rect key="frame" x="16" y="86" width="32" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Title" id="2508">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -190,8 +190,8 @@
                                     </binding>
                                 </connections>
                             </textField>
-                            <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2611">
-                                <rect key="frame" x="16" y="55" width="32" height="17"/>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2611">
+                                <rect key="frame" x="16" y="56" width="32" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="URL" id="2614">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -259,8 +259,8 @@
                         <action selector="add:" target="1726" id="2554"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2438">
-                    <rect key="frame" x="67" y="177" width="125" height="32"/>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2438">
+                    <rect key="frame" x="67" y="177" width="123" height="32"/>
                     <string key="toolTip">Displays a file requester for choosing the process executable file (or application) which will be added to the list of prohibited processes.</string>
                     <buttonCell key="cell" type="push" title="Choose File..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2442">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
