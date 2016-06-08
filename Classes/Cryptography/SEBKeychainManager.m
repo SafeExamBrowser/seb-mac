@@ -250,8 +250,7 @@
                 // Get signature, valid from, valid to and extended key usage
                 NSDictionary *certSpecifiers = (NSDictionary *)CFBridgingRelease(SecCertificateCopyValues
                                                                                  (certificateRef,
-                                                                                  (__bridge CFArrayRef)[NSArray arrayWithObjects:(__bridge id)(kSecOIDX509V1Signature),
-                                                                                                        (__bridge id)(kSecOIDX509V1ValidityNotAfter),
+                                                                                  (__bridge CFArrayRef)[NSArray arrayWithObjects:(__bridge id)(kSecOIDX509V1ValidityNotAfter),
                                                                                                         (__bridge id)(kSecOIDX509V1ValidityNotBefore),
                                                                                                         (__bridge id)(kSecOIDExtendedKeyUsage),
                                                                                                         nil],
@@ -295,16 +294,12 @@
 
                 if ([certificateName isEqualToString:@""] || matches.count > 0) {
                     // Get certificate signature hash (fingerprint)
-                    NSData *signatureData;
-                    NSDictionary *signatureDict = [certSpecifiers objectForKey:(__bridge id)(kSecOIDX509V1Signature)];
-                    if (signatureDict.count) {
-                        signatureData = (NSData *)[signatureDict objectForKey:@"value"];
-                    }
+                    NSData *signatureData = CFBridgingRelease(SecCertificateCopyData(certificateRef));
                     if (!signatureData) {
                         // If the hash couldn't be determinded (what actually shouldn't happen): Create random data instead
                         signatureData = [RNCryptor randomDataOfLength:128];
                     }
-                    NSString *signatureHash = [self generateSHA1HashStringFromData:signatureData];
+                    NSString *signatureHash = [[self generateSHA1HashStringFromData:signatureData] uppercaseString];
                     certificateName = [NSString stringWithFormat:@"%@ %@",certificateName, signatureHash];
                 } else {
                     certificateName = [NSString stringWithFormat:@"%@", certificateName];
