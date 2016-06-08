@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10116"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsExamViewController">
@@ -27,8 +27,8 @@
                         <rect key="frame" x="1" y="1" width="614" height="179"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QQD-LY-egj">
-                                <rect key="frame" x="11" y="102" width="519" height="14"/>
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="QQD-LY-egj">
+                                <rect key="frame" x="11" y="102" width="513" height="14"/>
                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Enter restart link or select &quot;Use Start URL&quot; to display the restart exam button in the SEB task bar." usesSingleLineMode="YES" id="bGJ-Qs-OiP">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -91,8 +91,8 @@
                                     <outlet property="delegate" destination="-2" id="hlp-Xq-oZ2"/>
                                 </connections>
                             </textField>
-                            <button toolTip="Require to enter the quit/restart password when the restart exam button is pressed" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oJT-BY-ezv">
-                                <rect key="frame" x="11" y="12" width="380" height="18"/>
+                            <button toolTip="Require to enter the quit/restart password when the restart exam button is pressed" translatesAutoresizingMaskIntoConstraints="NO" id="oJT-BY-ezv">
+                                <rect key="frame" x="11" y="12" width="375" height="18"/>
                                 <buttonCell key="cell" type="check" title="Protect restart exam button with the quit/restart password" bezelStyle="regularSquare" imagePosition="left" inset="2" id="5SR-dU-gy3">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -102,8 +102,8 @@
                                     <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_restartExamPasswordProtected" id="SdW-dA-oJt"/>
                                 </connections>
                             </button>
-                            <button toolTip="The restart exam button reloads the exam's Start URL" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ujx-Tz-w75">
-                                <rect key="frame" x="11" y="152" width="230" height="18"/>
+                            <button toolTip="The restart exam button reloads the exam's Start URL" translatesAutoresizingMaskIntoConstraints="NO" id="ujx-Tz-w75">
+                                <rect key="frame" x="11" y="152" width="227" height="18"/>
                                 <buttonCell key="cell" type="check" title="Use Start URL (see General pane)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Rln-rP-DrR">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -160,8 +160,8 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="20">
-                                <rect key="frame" x="31" y="40" width="321" height="18"/>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="20">
+                                <rect key="frame" x="31" y="40" width="314" height="18"/>
                                 <string key="toolTip">SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB</string>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="12" id="aQ7-cr-7uB"/>
@@ -183,8 +183,8 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="970">
-                                <rect key="frame" x="11" y="12" width="274" height="18"/>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="970">
+                                <rect key="frame" x="11" y="12" width="266" height="18"/>
                                 <string key="toolTip">The Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system</string>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="693-Gg-esx"/>
