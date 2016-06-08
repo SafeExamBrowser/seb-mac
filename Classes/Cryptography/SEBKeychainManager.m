@@ -208,41 +208,43 @@
 
 
 - (NSArray*)getCertificatesOfType:(certificateTypes)certificateType {
-    SecKeychainRef keychain;
     OSStatus status;
-    status = SecKeychainCopyDefault(&keychain);
-    if (status != noErr) {
-        DDLogError(@"Error in %s: SecKeychainCopyDefault returned %@. Cannot access keychain, no certificates can be read.",
-                   __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
+    if (!_allCertificates) {
+        SecKeychainRef keychain;
+        status = SecKeychainCopyDefault(&keychain);
+        if (status != noErr) {
+            DDLogError(@"Error in %s: SecKeychainCopyDefault returned %@. Cannot access keychain, no certificates can be read.",
+                       __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
+            if (keychain) CFRelease(keychain);
+            return nil;
+        }
+        
+        NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
+                               (__bridge id)kSecClassCertificate, (__bridge id)kSecClass,
+                               [NSArray arrayWithObject:(__bridge id)keychain], (__bridge id)kSecMatchSearchList,
+                               (__bridge id)kCFBooleanTrue, (__bridge id)kSecReturnRef,
+                               (__bridge id)kSecMatchLimitAll, (__bridge id)kSecMatchLimit,
+                               nil];
+        CFTypeRef items = NULL;
+        
+        status = SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&items);
         if (keychain) CFRelease(keychain);
-        return nil;
+        if (status != errSecSuccess) {
+            DDLogError(@"Error in %s: SecItemCopyMatching(kSecClassIdentity) returned %@. Can't search keychain, no certificates can be read.",
+                       __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
+            if (items) CFRelease(items);
+            return nil;
+        }
+        
+        _allCertificates = (__bridge_transfer NSArray*)(items);
     }
-    
-    NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
-                           (__bridge id)kSecClassCertificate, (__bridge id)kSecClass,
-                           [NSArray arrayWithObject:(__bridge id)keychain], (__bridge id)kSecMatchSearchList,
-                           (__bridge id)kCFBooleanTrue, (__bridge id)kSecReturnRef,
-                           (__bridge id)kSecMatchLimitAll, (__bridge id)kSecMatchLimit,
-                           nil];
-    CFTypeRef items = NULL;
-    
-    status = SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&items);
-    if (keychain) CFRelease(keychain);
-    if (status != errSecSuccess) {
-        DDLogError(@"Error in %s: SecItemCopyMatching(kSecClassIdentity) returned %@. Can't search keychain, no certificates can be read.",
-                   __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
-        if (items) CFRelease(items);
-        return nil;
-    }
-    
-    NSArray *certificateRefs = (__bridge_transfer NSArray*)(items);
     NSMutableArray *certificates = [NSMutableArray arrayWithCapacity:1];
     
     CFStringRef commonName = NULL;
     CFArrayRef emailAddressesRef = NULL;
-    int i, count = [certificateRefs count];
+    int i, count = [_allCertificates count];
     for (i=0; i<count; i++) {
-        SecCertificateRef certificateRef = (__bridge SecCertificateRef)[certificateRefs objectAtIndex:i];
+        SecCertificateRef certificateRef = (__bridge SecCertificateRef)[_allCertificates objectAtIndex:i];
         if ((status = SecCertificateCopyCommonName(certificateRef, &commonName)) == noErr) {
             if ((status = SecCertificateCopyEmailAddresses(certificateRef, &emailAddressesRef)) == noErr) {
                 CFErrorRef error = NULL;

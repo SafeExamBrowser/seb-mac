@@ -2061,12 +2061,18 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </tableHeaderCell>
                                             <textFieldCell key="dataCell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="JDn-xc-JVJ">
+                                                <dateFormatter key="formatter" dateStyle="medium" timeStyle="short" id="r1z-sH-6Df"/>
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <connections>
+                                                <binding destination="KTY-Gn-rdN" name="textColor" keyPath="arrangedObjects.isExpired" id="TYU-b2-2g5">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">NSColorValueTransformer</string>
+                                                    </dictionary>
+                                                </binding>
                                                 <binding destination="KTY-Gn-rdN" name="value" keyPath="arrangedObjects.valid_to" id="axr-i6-uOf">
                                                     <dictionary key="options">
                                                         <bool key="NSConditionallySetsEditable" value="NO"/>

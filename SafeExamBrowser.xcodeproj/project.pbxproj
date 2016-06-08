@@ -128,6 +128,8 @@
 		69A444001B14AAAC00577693 /* SEBRestartIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69A443FE1B14AAAC00577693 /* SEBRestartIcon.iconset */; };
 		69B2EB871A435E2000B5AE67 /* AboutSEB.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2EB851A435E2000B5AE67 /* AboutSEB.png */; };
 		69B2EB881A435E2000B5AE67 /* AboutSEB@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2EB861A435E2000B5AE67 /* AboutSEB@2x.png */; };
+		69C1FFA01D0820E20087A5A1 /* NSColorValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C1FF9E1D0820E20087A5A1 /* NSColorValueTransformer.h */; };
+		69C1FFA11D0820E30087A5A1 /* NSColorValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C1FF9F1D0820E20087A5A1 /* NSColorValueTransformer.m */; };
 		69C2280A1C767B0900F78634 /* aes.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C2277D1C767B0900F78634 /* aes.h */; };
 		69C2280B1C767B0900F78634 /* aesni.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C2277E1C767B0900F78634 /* aesni.h */; };
 		69C2280C1C767B0900F78634 /* arc4.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C2277F1C767B0900F78634 /* arc4.h */; };
@@ -533,6 +535,8 @@
 		69A9A234136AF6E000840AE1 /* PrefsDownUploadsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsDownUploadsViewController.h; sourceTree = "<group>"; };
 		69B2EB851A435E2000B5AE67 /* AboutSEB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AboutSEB.png; path = Resources/Images/AboutSEB.png; sourceTree = "<group>"; };
 		69B2EB861A435E2000B5AE67 /* AboutSEB@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AboutSEB@2x.png"; path = "Resources/Images/AboutSEB@2x.png"; sourceTree = "<group>"; };
+		69C1FF9E1D0820E20087A5A1 /* NSColorValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSColorValueTransformer.h; sourceTree = "<group>"; };
+		69C1FF9F1D0820E20087A5A1 /* NSColorValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSColorValueTransformer.m; sourceTree = "<group>"; };
 		69C2277D1C767B0900F78634 /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
 		69C2277E1C767B0900F78634 /* aesni.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aesni.h; sourceTree = "<group>"; };
 		69C2277F1C767B0900F78634 /* arc4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = arc4.h; sourceTree = "<group>"; };
@@ -984,6 +988,8 @@
 				6921294616F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m */,
 				6913E5C21A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.h */,
 				6913E5C31A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m */,
+				69C1FF9E1D0820E20087A5A1 /* NSColorValueTransformer.h */,
+				69C1FF9F1D0820E20087A5A1 /* NSColorValueTransformer.m */,
 			);
 			name = "Value Transformers";
 			path = Classes/Preferences/PreferencesWindow/ValueTransformers;
@@ -1562,6 +1568,7 @@
 				69EC2A3F1BD6C4FF00790AF7 /* WebPluginDatabase.h in Headers */,
 				6909E3411A019F7A0086A741 /* DDASLLogger.h in Headers */,
 				69C2283C1C767B0900F78634 /* sha256.h in Headers */,
+				69C1FFA01D0820E20087A5A1 /* NSColorValueTransformer.h in Headers */,
 				69C228461C767B0900F78634 /* version.h in Headers */,
 				69C2282A1C767B0900F78634 /* md2.h in Headers */,
 				69C2282F1C767B0900F78634 /* net.h in Headers */,
@@ -1874,6 +1881,7 @@
 				69C228601C767B0900F78634 /* ecp.c in Sources */,
 				69C228871C767B0900F78634 /* timing.c in Sources */,
 				699D8DFF1C5F998D00A051F2 /* SEBBrowserController.m in Sources */,
+				69C1FFA11D0820E30087A5A1 /* NSColorValueTransformer.m in Sources */,
 				69C2286A1C767B0900F78634 /* md4.c in Sources */,
 				69C2285B1C767B0900F78634 /* des.c in Sources */,
 				69C228521C767B0900F78634 /* bignum.c in Sources */,
