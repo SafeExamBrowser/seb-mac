@@ -65,7 +65,10 @@
     IBOutlet NSPopUpButton *chooseIdentity;
     IBOutlet NSPopUpButton *chooseCA;
     IBOutlet NSArrayController *certificatesArrayController;
-
+    
+    IBOutlet NSWindow *advancedCertificatesSheet;
+    __weak IBOutlet NSTableView *advancedCertificatesList;
+    __weak IBOutlet NSPopUpButton *embeddSSLCertificateType;
 }
 
 @property(strong) NSTableColumn *groupRowTableColumn;
@@ -98,6 +101,11 @@
 - (IBAction) identitySelected:(id)sender;
 - (IBAction) certificateSelected:(id)sender;
 - (IBAction) CASelected:(id)sender;
+
+// Advanced Certificates sheet
+- (IBAction) showAdvancedCertificateSheet:(id)sender;
+- (IBAction) cancelAdvancedCertificateSheet:(id)sender;
+- (IBAction) embeddAdvancedCertificate:(id)sender;
 
 
 @end

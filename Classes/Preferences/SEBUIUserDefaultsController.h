@@ -48,6 +48,10 @@
 
 - (NSArray *) org_safeexambrowser_SEB_chooseFileToUploadPolicies;
 
+- (NSArray *) org_safeexambrowser_SEB_certificateTypes;
+
+- (NSArray *) org_safeexambrowser_SEB_SSLCertificateTypes;
+
 - (NSArray *) org_safeexambrowser_SEB_cryptoIdentities;
 
 - (NSArray *) org_safeexambrowser_SEB_browserWindowPositionings;

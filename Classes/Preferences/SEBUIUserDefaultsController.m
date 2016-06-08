@@ -83,6 +83,16 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
             NSLocalizedString(@"SSL Certificate", nil),
             NSLocalizedString(@"Identity", nil),
             NSLocalizedString(@"CA Certificate", nil),
+            NSLocalizedString(@"Debug Certificate", nil),
+            nil];
+}
+
+
+- (NSArray *) org_safeexambrowser_SEB_SSLCertificateTypes {
+    return [NSArray arrayWithObjects:
+            NSLocalizedString(@"SSL Certificate", nil),
+            NSLocalizedString(@"CA Certificate", nil),
+            NSLocalizedString(@"Debug Certificate", nil),
             nil];
 }
 

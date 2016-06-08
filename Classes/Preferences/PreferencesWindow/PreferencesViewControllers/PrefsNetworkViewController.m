@@ -293,7 +293,7 @@
 {
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     NSUInteger indexOfSelectedItem = [sender indexOfSelectedItem];
-    if (indexOfSelectedItem) {
+    if (indexOfSelectedItem != -1) {
         SecCertificateRef certificate = (__bridge SecCertificateRef)([self.SSLCertificates objectAtIndex:indexOfSelectedItem-1]);
         NSData *certificateData = [keychainManager getDataForCertificate:certificate];
         
@@ -312,7 +312,7 @@
 - (IBAction) CASelected:(id)sender
 {
     NSUInteger indexOfSelectedItem = [sender indexOfSelectedItem];
-    if (indexOfSelectedItem) {
+    if (indexOfSelectedItem != -1) {
         SecCertificateRef certificate = (__bridge SecCertificateRef)([self.caCertificates objectAtIndex:indexOfSelectedItem-1]);
         
         // Assume SSL type
@@ -357,7 +357,7 @@
 // An identity was selected in the drop down menu
 - (IBAction)identitySelected:(id)sender
 {
-    //get certificate from selected identity
+    // Get certificate from selected identity
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     NSUInteger indexOfSelectedItem = [sender indexOfSelectedItem];
     if (indexOfSelectedItem) {
@@ -376,6 +376,52 @@
         [chooseIdentity selectItemAtIndex:0];
         [chooseIdentity synchronizeTitleAndSelectedItem];
     }
+}
+
+
+- (IBAction) showAdvancedCertificateSheet:(id)sender
+{
+    [NSApp beginSheet: advancedCertificatesSheet
+       modalForWindow: [MBPreferencesController sharedController].window
+        modalDelegate: nil
+       didEndSelector: nil
+          contextInfo: nil];
+    [NSApp runModalForWindow: advancedCertificatesSheet];
+    // Dialog is up here.
+    [NSApp endSheet: advancedCertificatesSheet];
+    [advancedCertificatesSheet orderOut: self];
+}
+
+
+- (IBAction) cancelAdvancedCertificateSheet:(id)sender
+{
+    [NSApp stopModal];
+}
+
+
+- (IBAction) embeddAdvancedCertificate:(id)sender
+{
+    certificateTypes embeddCertificateType = embeddSSLCertificateType.indexOfSelectedItem;
+    if (embeddCertificateType >= certificateTypeIdentity) {
+        // Correct certificate type, as here identities are not offered
+        embeddCertificateType++;
+    }
+    NSInteger selectedCertificateRow = advancedCertificatesList.selectedRow;
+    if (selectedCertificateRow != -1) {
+        NSDictionary *selectedCertificate = self.certificates[advancedCertificatesList.selectedRow];
+        SecCertificateRef certificateRef = (__bridge SecCertificateRef)[selectedCertificate objectForKey:@"ref"];
+        SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+        NSData *certificateData = [keychainManager getDataForCertificate:certificateRef];
+        if (certificateData) {
+            NSDictionary *certificateToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                [NSNumber numberWithInt:embeddCertificateType], @"type",
+                                                [selectedCertificate objectForKey:@"name"], @"name",
+                                                [certificateData base64EncodedStringWithOptions:0], @"certificateDataWin",
+                                                nil];
+            [certificatesArrayController addObject:certificateToEmbed];
+        }
+    }
+    [NSApp stopModal];
 }
 
 
@@ -410,7 +456,6 @@
         NSMutableDictionary *proxies = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_proxies"];
         id proxyEnabled = [proxies valueForKey:key];
         return proxyEnabled;
-
     }
     return 0;
     
