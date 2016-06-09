@@ -956,7 +956,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
        forFrame:(WebFrame *)frame
 {
     DDLogInfo(@"willPerformClientRedirectToURL: %@", URL);
-}
+}   
 
 
 // Update the URL of the current page in case of a server redirect

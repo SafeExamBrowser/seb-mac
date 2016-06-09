@@ -12,7 +12,7 @@
 #include "x509_crt.h"
 
 static const NSString *kHTTPHeaderBrowserExamKey = @"X-SafeExamBrowser-RequestHash";
-static const NSString *kSEBRequestWasProcessed = @"SEBRequestWasProcessed";
+static const NSString *kSEBRequestWasProcessed = @"X-SEBRequestWasProcessed";
 
 void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block, unsigned int *len);
 
@@ -24,7 +24,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 
 - (void)dealloc
 {
-    self.connection = nil;
+    _connection = nil;
 }
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request
@@ -45,12 +45,48 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
     return request;
 }
 
+
+- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response {
+    if (response) {
+       
+        NSDictionary *headerFields = [request allHTTPHeaderFields];
+        DDLogInfo(@"All HTTP header fields in original request: %@", headerFields);
+
+        NSMutableURLRequest *redirect = [request mutableCopy];
+        
+        [NSURLProtocol removePropertyForKey:(NSString *)kSEBRequestWasProcessed inRequest:redirect];
+//        [RequestHelper addWebViewHeadersToRequest:redirect];
+        
+        headerFields = [redirect allHTTPHeaderFields];
+        DDLogInfo(@"All HTTP header fields in redirect request: %@", headerFields);
+        
+        request = [redirect copy];
+        
+//        [self.client URLProtocol:self wasRedirectedToRequest:redirect redirectResponse:response];
+//        
+//        return redirect;
+    }
+    
+    [self.client URLProtocol:self wasRedirectedToRequest:request redirectResponse:response];
+
+    return request;
+}
+
+
 - (void)startLoading
 {
     NSMutableURLRequest *request = [self.request mutableCopy];
 
     [NSURLProtocol setProperty:@YES forKey:(NSString *)kSEBRequestWasProcessed inRequest:request];
-    self.connection = [NSURLConnection connectionWithRequest:request delegate:self];
+    
+//    NSCachedURLResponse *cachedResponse = [[NSURLCache sharedURLCache] cachedResponseForRequest:self.request];
+//    if (cachedResponse) {
+//        [self connection:nil didReceiveResponse:[cachedResponse response]];
+//        [self connection:nil didReceiveData:[cachedResponse data]];
+//        [self connectionDidFinishLoading:nil];
+//    } else {
+        _connection = [NSURLConnection connectionWithRequest:request delegate:self];
+//    }
 }
 
 - (void)stopLoading

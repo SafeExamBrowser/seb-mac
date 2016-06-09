@@ -190,7 +190,7 @@ bool insideMatrix();
     if (self) {
         
         // Register custom SEB NSURL protocol class
-//        [NSURLProtocol registerClass:[SEBURLProtocol class]];
+        [NSURLProtocol registerClass:[SEBURLProtocol class]];
         
         // Initialize console loggers
 #ifdef DEBUG
