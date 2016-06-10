@@ -47,29 +47,27 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 
 
 - (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response {
+
     if (response) {
-       
-        NSDictionary *headerFields = [request allHTTPHeaderFields];
-        DDLogInfo(@"All HTTP header fields in original request: %@", headerFields);
+        // Not sure if this "if" block is necessary, it seems not to be called anyways
+        DDLogDebug(@"%s: redirect response: %@", __FUNCTION__, response);
 
         NSMutableURLRequest *redirect = [request mutableCopy];
-        
-        [NSURLProtocol removePropertyForKey:(NSString *)kSEBRequestWasProcessed inRequest:redirect];
-//        [RequestHelper addWebViewHeadersToRequest:redirect];
-        
-        headerFields = [redirect allHTTPHeaderFields];
-        DDLogInfo(@"All HTTP header fields in redirect request: %@", headerFields);
-        
-        request = [redirect copy];
-        
-//        [self.client URLProtocol:self wasRedirectedToRequest:redirect redirectResponse:response];
-//        
-//        return redirect;
-    }
-    
-    [self.client URLProtocol:self wasRedirectedToRequest:request redirectResponse:response];
 
-    return request;
+        [NSURLProtocol removePropertyForKey:(NSString *)kSEBRequestWasProcessed inRequest:redirect];
+        DDLogWarn(@"%s: Modified redirected request kSEBRequestWasProcessed: %@", __FUNCTION__, [NSURLProtocol propertyForKey:(NSString *)kSEBRequestWasProcessed inRequest:redirect]);
+        
+        [self.client URLProtocol:self wasRedirectedToRequest:redirect redirectResponse:response];
+        return redirect;
+    }
+    DDLogDebug(@"%s: Current request URL: %@, kSEBRequestWasProcessed: %@", __FUNCTION__, self.request.URL, [NSURLProtocol propertyForKey:(NSString *)kSEBRequestWasProcessed inRequest:self.request]);
+    DDLogDebug(@"%s: Redirected request URL: %@, kSEBRequestWasProcessed: %@", __FUNCTION__, request.URL, [NSURLProtocol propertyForKey:(NSString *)kSEBRequestWasProcessed inRequest:request]);
+    
+    // This is necessary for the redirect being forwarded to the URL loading system
+    [self.client URLProtocol:self wasRedirectedToRequest:request redirectResponse:response];
+    
+    // Here we have to return nil, otherwise it creates problems for example in Moodle when navigating between questions
+    return nil;
 }
 
 
@@ -301,6 +299,17 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
         [self.client URLProtocol:self didCancelAuthenticationChallenge:challenge];
     }
 }
+
+- (void)connection:(NSURLConnection *)connection
+didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+    [[self client] URLProtocol:self didReceiveAuthenticationChallenge:challenge];
+}
+
+- (void)connection:(NSURLConnection *)connection
+didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+    [[self client] URLProtocol:self didCancelAuthenticationChallenge:challenge];
+}
+
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
