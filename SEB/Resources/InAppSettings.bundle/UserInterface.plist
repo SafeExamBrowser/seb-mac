@@ -13,6 +13,30 @@
 			<string>Main Browser Window</string>
 		</dict>
 		<dict>
+			<key>DefaultValue</key>
+			<string>0</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_mobileStatusBarAppearance</string>
+			<key>Title</key>
+			<string>Status Bar Appearance</string>
+			<key>Titles</key>
+			<array>
+				<string>None</string>
+				<string>Light Color</string>
+				<string>Dark Color</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+				<string>0</string>
+				<string>1</string>
+				<string>2</string>
+			</array>
+			<key>DisplaySortedByTitle</key>
+			<true/>
+		</dict>
+		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>

@@ -287,9 +287,10 @@
             // Save the loaded data if loaded successfully
             if (tmp != nil) {
                 NSError *error = nil;
-                UIImage *sourceImage = [UIImage imageWithData: [NSData dataWithContentsOfURL:url]];
+                UIImage *sourceImage = [UIImage imageWithData: tmp];
+                // ToDo: Process image if necessary
                 UIImage *processedImage = sourceImage;
-//                UIImage *processedImage = [self invertImage:sourceImage];
+                
                 NSData *dataForPNGFile = UIImagePNGRepresentation(processedImage);
 
                 // Write the contents of our tmp object into a file
@@ -302,7 +303,13 @@
 //                    NSString *result =[_sebWebView stringByEvaluatingJavaScriptFromString:simulateDropFunction];
 //                    NSString *result = [_sebWebView stringByEvaluatingJavaScriptFromString:@"SEB_replaceImage()"];
                     // Display an UIAlertView that shows the users we saved the file :)
-                    NSURL *drawingURL = [NSURL URLWithString:[NSString stringWithFormat:@"drawing://%@", pathToDownloadTo]];
+                    NSURL *drawingURL = [NSURL fileURLWithPath:pathToDownloadTo];
+                    // Replace file:// scheme with drawing://
+                    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:drawingURL resolvingAgainstBaseURL:NO];
+                    // Download the .seb file directly into memory (not onto disc like other files)
+                    urlComponents.scheme = @"drawing";
+                    drawingURL = urlComponents.URL;
+//                    NSURL *drawingURL = [NSURL URLWithString:[NSString stringWithFormat:@"drawing://%@", pathToDownloadTo]];
                     [_browserTabViewController openNewTabWithURL:drawingURL image:processedImage];
 //                    UIAlertView *filenameAlert = [[UIAlertView alloc] initWithTitle:@"File saved" message:[NSString stringWithFormat:@"The file %@ has been saved. Result: %@", filename, result] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 //                    [filenameAlert show];

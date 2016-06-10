@@ -79,6 +79,8 @@
     NSString *defaultUserAgent = [[UIWebView new] stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
     [[SEBBrowserController new] createSEBUserAgentFromDefaultAgent:defaultUserAgent];
     
+    [_window makeKeyAndVisible];
+    
     // Initialize file logger if it's enabled in settings
 //    [self initializeLogger];
     
