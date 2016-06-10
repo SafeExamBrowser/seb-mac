@@ -319,7 +319,16 @@ static NSMutableSet *browserWindowControllers;
 
 - (BOOL) prefersStatusBarHidden
 {
-    return YES;
+    return ([[NSUserDefaults standardUserDefaults] integerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] == mobileStatusBarAppearanceNone);
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] == mobileStatusBarAppearanceLight) {
+        return UIStatusBarStyleLightContent;
+    } else {
+        return UIStatusBarStyleDefault;
+    }
 }
 
 
