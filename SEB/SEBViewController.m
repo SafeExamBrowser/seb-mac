@@ -319,16 +319,18 @@ static NSMutableSet *browserWindowControllers;
 
 - (BOOL) prefersStatusBarHidden
 {
-    return ([[NSUserDefaults standardUserDefaults] integerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] == mobileStatusBarAppearanceNone);
+    return ([[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] == mobileStatusBarAppearanceNone);
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] == mobileStatusBarAppearanceLight) {
-        return UIStatusBarStyleLightContent;
-    } else {
-        return UIStatusBarStyleDefault;
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] == false) {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] == mobileStatusBarAppearanceLight) {
+            return UIStatusBarStyleLightContent;
+        }
     }
+    return UIStatusBarStyleDefault;
 }
 
 
@@ -779,6 +781,9 @@ static NSMutableSet *browserWindowControllers;
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
     
     // UI
+    
+    [self setNeedsStatusBarAppearanceUpdate];
+    
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
         [self.navigationController setToolbarHidden:NO];
         UIImage *appIcon = [UIImage imageNamed:@"SEBDockIcon"]; //[appIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
@@ -825,6 +830,7 @@ static NSMutableSet *browserWindowControllers;
     
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"]) {
         [self.navigationController setNavigationBarHidden:NO];
+//        self.navigationController.navigationBar.backgroundColor = [UIColor blackColor];
     } else {
         [self.navigationController setNavigationBarHidden:YES];
     }

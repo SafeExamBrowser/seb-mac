@@ -228,9 +228,7 @@
     
     _visibleWebViewController = newViewController;
     
-    if ([_visibleWebViewController isKindOfClass:[UIWebView class]]) {
-        [_visibleWebViewController loadURL:url];
-    }
+    [_visibleWebViewController loadURL:url];
     
     [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
         [self.mm_drawerController closeDrawerAnimated:YES completion:nil];

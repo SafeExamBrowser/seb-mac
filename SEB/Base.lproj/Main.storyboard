@@ -274,7 +274,7 @@
         <!--Navigation Controller-->
         <scene sceneID="T5o-Yb-if0">
             <objects>
-                <navigationController storyboardIdentifier="vcmain" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="sAK-QH-Sgm" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="vcmain" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="sAK-QH-Sgm" customClass="SEBNavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
