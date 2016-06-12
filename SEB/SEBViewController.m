@@ -51,6 +51,7 @@
 }
 
 @property (weak) IBOutlet UIView *containerView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerTopContraint;
 @property (copy) NSURLRequest *request;
 
 @end
@@ -782,8 +783,40 @@ static NSMutableSet *browserWindowControllers;
     
     // UI
     
+    // Draw background view for status bar if it is enabled
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] == false &&
+        [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] != mobileStatusBarAppearanceNone) {
+        // Only draw background for status bar when it is enabled and there is no navigation bar displayed
+
+        if (!_statusBarView) {
+            _statusBarView = [UIView new];
+            [_statusBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
+            _statusBarView.backgroundColor = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] == mobileStatusBarAppearanceLight ? [UIColor blackColor] : [UIColor whiteColor];
+            [self.view addSubview:_statusBarView];
+        }
+
+        NSDictionary *viewsDictionary = @{@"statusBarView" : _statusBarView,
+                                          @"containerView" : _containerView};
+        
+        _containerTopContraint.active = false;
+        NSArray *constraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[statusBarView]-0-|"
+                                                                        options: 0
+                                                                        metrics: nil
+                                                                          views: viewsDictionary];
+        NSArray *constraints_V = [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-0-[statusBarView(==20)]-0-[containerView]"
+                                                                        options: 0
+                                                                        metrics: nil
+                                                                          views: viewsDictionary];
+        [self.view addConstraints:constraints_H];
+        [self.view addConstraints:constraints_V];
+    } else if (_statusBarView) {
+        [_statusBarView removeFromSuperview];
+        _containerTopContraint.active = true;
+    }
+
+
     [self setNeedsStatusBarAppearanceUpdate];
-    
+
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
         [self.navigationController setToolbarHidden:NO];
         UIImage *appIcon = [UIImage imageNamed:@"SEBDockIcon"]; //[appIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]

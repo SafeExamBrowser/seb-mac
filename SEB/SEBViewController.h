@@ -66,6 +66,7 @@
 @property (strong, nonatomic) UIAlertController *inactiveAlertController;
 
 @property (strong, nonatomic) UIView *coveringView;
+@property (strong, nonatomic) UIView *statusBarView;
 @property (strong, nonatomic) NSArray *dockItems;
 
 @property(readwrite) BOOL ASAMActive;
