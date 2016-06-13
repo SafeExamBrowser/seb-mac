@@ -53,21 +53,13 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
         DDLogDebug(@"%s: redirect response: %@", __FUNCTION__, response);
 
         NSMutableURLRequest *redirect = [request mutableCopy];
-
         [NSURLProtocol removePropertyForKey:(NSString *)kSEBRequestWasProcessed inRequest:redirect];
-        DDLogWarn(@"%s: Modified redirected request kSEBRequestWasProcessed: %@", __FUNCTION__, [NSURLProtocol propertyForKey:(NSString *)kSEBRequestWasProcessed inRequest:redirect]);
         
         [self.client URLProtocol:self wasRedirectedToRequest:redirect redirectResponse:response];
+        
         return redirect;
     }
-    DDLogDebug(@"%s: Current request URL: %@, kSEBRequestWasProcessed: %@", __FUNCTION__, self.request.URL, [NSURLProtocol propertyForKey:(NSString *)kSEBRequestWasProcessed inRequest:self.request]);
-    DDLogDebug(@"%s: Redirected request URL: %@, kSEBRequestWasProcessed: %@", __FUNCTION__, request.URL, [NSURLProtocol propertyForKey:(NSString *)kSEBRequestWasProcessed inRequest:request]);
-    
-    // This is necessary for the redirect being forwarded to the URL loading system
-    [self.client URLProtocol:self wasRedirectedToRequest:request redirectResponse:response];
-    
-    // Here we have to return nil, otherwise it creates problems for example in Moodle when navigating between questions
-    return nil;
+    return request;
 }
 
 
@@ -288,6 +280,8 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
     
     if (authorized)
     {
+        DDLogWarn(@"%s: didReceiveAuthenticationChallenge", __FUNCTION__);
+
         NSURLCredential *credential = [NSURLCredential credentialForTrust:serverTrust];
         [challenge.sender useCredential:credential forAuthenticationChallenge:challenge];
         [self.client URLProtocol:self didReceiveAuthenticationChallenge:challenge];
@@ -295,21 +289,12 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
     
     else
     {
+        DDLogWarn(@"%s: didCancelAuthenticationChallenge", __FUNCTION__);
+
         [challenge.sender cancelAuthenticationChallenge:challenge];
         [self.client URLProtocol:self didCancelAuthenticationChallenge:challenge];
     }
 }
-
-- (void)connection:(NSURLConnection *)connection
-didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
-    [[self client] URLProtocol:self didReceiveAuthenticationChallenge:challenge];
-}
-
-- (void)connection:(NSURLConnection *)connection
-didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
-    [[self client] URLProtocol:self didCancelAuthenticationChallenge:challenge];
-}
-
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {

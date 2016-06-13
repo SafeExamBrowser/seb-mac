@@ -88,6 +88,14 @@
 		6947D8991BB073EA00899A8A /* ZoomPageIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6947D8951BB073EA00899A8A /* ZoomPageIn@2x.png */; };
 		6947D89A1BB073EA00899A8A /* ZoomPageOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 6947D8961BB073EA00899A8A /* ZoomPageOut.png */; };
 		6947D89B1BB073EA00899A8A /* ZoomPageOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6947D8971BB073EA00899A8A /* ZoomPageOut@2x.png */; };
+		6949A4871D0EF5890040ABF1 /* CacheStoragePolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 6949A47F1D0EF5890040ABF1 /* CacheStoragePolicy.h */; };
+		6949A4881D0EF5890040ABF1 /* CacheStoragePolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6949A4801D0EF5890040ABF1 /* CacheStoragePolicy.m */; };
+		6949A4891D0EF5890040ABF1 /* CanonicalRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 6949A4811D0EF5890040ABF1 /* CanonicalRequest.h */; };
+		6949A48A1D0EF5890040ABF1 /* CanonicalRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6949A4821D0EF5890040ABF1 /* CanonicalRequest.m */; };
+		6949A48B1D0EF5890040ABF1 /* CustomHTTPProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 6949A4831D0EF5890040ABF1 /* CustomHTTPProtocol.h */; };
+		6949A48C1D0EF5890040ABF1 /* CustomHTTPProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 6949A4841D0EF5890040ABF1 /* CustomHTTPProtocol.m */; };
+		6949A48D1D0EF5890040ABF1 /* QNSURLSessionDemux.h in Headers */ = {isa = PBXBuildFile; fileRef = 6949A4851D0EF5890040ABF1 /* QNSURLSessionDemux.h */; };
+		6949A48E1D0EF5890040ABF1 /* QNSURLSessionDemux.m in Sources */ = {isa = PBXBuildFile; fileRef = 6949A4861D0EF5890040ABF1 /* QNSURLSessionDemux.m */; };
 		694B08A316B14ABF00E4997C /* SEBCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 694B08A116B14ABF00E4997C /* SEBCryptor.h */; };
 		694B08A416B14ABF00E4997C /* SEBCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 694B08A216B14ABF00E4997C /* SEBCryptor.m */; };
 		695283DD16CDB54C0055AF6F /* PrefsSecurityViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */; };
@@ -484,6 +492,14 @@
 		6947D8951BB073EA00899A8A /* ZoomPageIn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ZoomPageIn@2x.png"; path = "Resources/Icons/ZoomPageIn@2x.png"; sourceTree = "<group>"; };
 		6947D8961BB073EA00899A8A /* ZoomPageOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ZoomPageOut.png; path = Resources/Icons/ZoomPageOut.png; sourceTree = "<group>"; };
 		6947D8971BB073EA00899A8A /* ZoomPageOut@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ZoomPageOut@2x.png"; path = "Resources/Icons/ZoomPageOut@2x.png"; sourceTree = "<group>"; };
+		6949A47F1D0EF5890040ABF1 /* CacheStoragePolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheStoragePolicy.h; sourceTree = "<group>"; };
+		6949A4801D0EF5890040ABF1 /* CacheStoragePolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheStoragePolicy.m; sourceTree = "<group>"; };
+		6949A4811D0EF5890040ABF1 /* CanonicalRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CanonicalRequest.h; sourceTree = "<group>"; };
+		6949A4821D0EF5890040ABF1 /* CanonicalRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CanonicalRequest.m; sourceTree = "<group>"; };
+		6949A4831D0EF5890040ABF1 /* CustomHTTPProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomHTTPProtocol.h; sourceTree = "<group>"; };
+		6949A4841D0EF5890040ABF1 /* CustomHTTPProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomHTTPProtocol.m; sourceTree = "<group>"; };
+		6949A4851D0EF5890040ABF1 /* QNSURLSessionDemux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNSURLSessionDemux.h; sourceTree = "<group>"; };
+		6949A4861D0EF5890040ABF1 /* QNSURLSessionDemux.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNSURLSessionDemux.m; sourceTree = "<group>"; };
 		694B08A116B14ABF00E4997C /* SEBCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBCryptor.h; sourceTree = "<group>"; };
 		694B08A216B14ABF00E4997C /* SEBCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBCryptor.m; sourceTree = "<group>"; };
 		695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsSecurityViewController.h; sourceTree = "<group>"; };
@@ -1031,6 +1047,7 @@
 				69F0A3381AD40237008A3553 /* SEBURLProtocol.m */,
 				69F5BD9F1CFB4098006FBF81 /* SEBWebViewController.h */,
 				69F5BDA01CFB4098006FBF81 /* SEBWebViewController.m */,
+				6949A47E1D0EF5890040ABF1 /* SEBURLProtocol */,
 			);
 			name = "Browser Components";
 			sourceTree = "<group>";
@@ -1140,6 +1157,22 @@
 			);
 			name = "Config Files";
 			path = Classes/ConfigFiles;
+			sourceTree = "<group>";
+		};
+		6949A47E1D0EF5890040ABF1 /* SEBURLProtocol */ = {
+			isa = PBXGroup;
+			children = (
+				6949A47F1D0EF5890040ABF1 /* CacheStoragePolicy.h */,
+				6949A4801D0EF5890040ABF1 /* CacheStoragePolicy.m */,
+				6949A4811D0EF5890040ABF1 /* CanonicalRequest.h */,
+				6949A4821D0EF5890040ABF1 /* CanonicalRequest.m */,
+				6949A4831D0EF5890040ABF1 /* CustomHTTPProtocol.h */,
+				6949A4841D0EF5890040ABF1 /* CustomHTTPProtocol.m */,
+				6949A4851D0EF5890040ABF1 /* QNSURLSessionDemux.h */,
+				6949A4861D0EF5890040ABF1 /* QNSURLSessionDemux.m */,
+			);
+			name = SEBURLProtocol;
+			path = Classes/BrowserComponents/SEBURLProtocol;
 			sourceTree = "<group>";
 		};
 		695AE31219FE634300F8C6A5 /* ExportForTranslation */ = {
@@ -1549,6 +1582,7 @@
 				69623A2E1A26184900ED451C /* WebPreferencesPrivate.h in Headers */,
 				69623A2C1A26180E00ED451C /* WebStorageManagerPrivate.h in Headers */,
 				693647FA17122A0300EE41BC /* DropDownButton.h in Headers */,
+				6949A4891D0EF5890040ABF1 /* CanonicalRequest.h in Headers */,
 				69DFAF2D19C468E700CBE69F /* RNCryptor.h in Headers */,
 				69C228491C767B0900F78634 /* x509_crt.h in Headers */,
 				69C228231C767B0900F78634 /* entropy.h in Headers */,
@@ -1579,12 +1613,15 @@
 				69C2282D1C767B0900F78634 /* md_internal.h in Headers */,
 				69C2280C1C767B0900F78634 /* arc4.h in Headers */,
 				69627F901A1A46D000E9F2A8 /* NSURL+SEBURL.h in Headers */,
+				6949A4871D0EF5890040ABF1 /* CacheStoragePolicy.h in Headers */,
 				69EDAC1E1BBB476F00A3E6C4 /* SEBLockedViewController.h in Headers */,
 				69C2283B1C767B0900F78634 /* sha1.h in Headers */,
 				695BE5F419EC3FED00CA2BB4 /* SEBDockItemMenu.h in Headers */,
 				69C228241C767B0900F78634 /* entropy_poll.h in Headers */,
+				6949A48D1D0EF5890040ABF1 /* QNSURLSessionDemux.h in Headers */,
 				6909E34A1A019F7A0086A741 /* DDTTYLogger.h in Headers */,
 				6915F2E919C8F77600DAEA37 /* SEBDockWindow.h in Headers */,
+				6949A48B1D0EF5890040ABF1 /* CustomHTTPProtocol.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1791,6 +1828,7 @@
 				69C228841C767B0900F78634 /* ssl_ticket.c in Sources */,
 				69F7B61914F411FB00FD0761 /* SEBBrowserWindowController.m in Sources */,
 				69C2288B1C767B0900F78634 /* x509_create.c in Sources */,
+				6949A48C1D0EF5890040ABF1 /* CustomHTTPProtocol.m in Sources */,
 				69C228661C767B0900F78634 /* havege.c in Sources */,
 				69C2284C1C767B0900F78634 /* aes.c in Sources */,
 				69F7B61A14F411FB00FD0761 /* NSWindow+SEBWindow.m in Sources */,
@@ -1815,6 +1853,7 @@
 				69F293AE164A324B00875C00 /* SEBKeychainManager.m in Sources */,
 				69C228861C767B0900F78634 /* threading.c in Sources */,
 				6909E34F1A019F7A0086A741 /* DDDispatchQueueLogFormatter.m in Sources */,
+				6949A48E1D0EF5890040ABF1 /* QNSURLSessionDemux.m in Sources */,
 				69C228551C767B0900F78634 /* ccm.c in Sources */,
 				69C228731C767B0900F78634 /* pk_wrap.c in Sources */,
 				69C228651C767B0900F78634 /* gcm.c in Sources */,
@@ -1875,6 +1914,7 @@
 				69CE1C181741309C0072207D /* SEBFilterTreeController.m in Sources */,
 				69C2285C1C767B0900F78634 /* dhm.c in Sources */,
 				69C228631C767B0900F78634 /* entropy_poll.c in Sources */,
+				6949A48A1D0EF5890040ABF1 /* CanonicalRequest.m in Sources */,
 				69C2288A1C767B0900F78634 /* x509.c in Sources */,
 				69EDAC1F1BBB476F00A3E6C4 /* SEBLockedViewController.m in Sources */,
 				69C228721C767B0900F78634 /* pk.c in Sources */,
@@ -1882,6 +1922,7 @@
 				69C228871C767B0900F78634 /* timing.c in Sources */,
 				699D8DFF1C5F998D00A051F2 /* SEBBrowserController.m in Sources */,
 				69C1FFA11D0820E30087A5A1 /* NSColorValueTransformer.m in Sources */,
+				6949A4881D0EF5890040ABF1 /* CacheStoragePolicy.m in Sources */,
 				69C2286A1C767B0900F78634 /* md4.c in Sources */,
 				69C2285B1C767B0900F78634 /* des.c in Sources */,
 				69C228521C767B0900F78634 /* bignum.c in Sources */,
