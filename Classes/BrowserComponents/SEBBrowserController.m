@@ -114,56 +114,9 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
  */
 - (void)customHTTPProtocol:(CustomHTTPProtocol *)protocol didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 {
-//    OSStatus            err;
-//    NSURLCredential *   credential;
-//    SecTrustRef         trust;
-//    SecTrustResultType  trustResult;
-//    
-//    // Given our implementation of -customHTTPProtocol:canAuthenticateAgainstProtectionSpace:, this method
-//    // is only called to handle server trust authentication challenges.  It evaluates the trust based on
-//    // both the global set of trusted anchors and the list of trusted anchors returned by the CredentialsManager.
-//    
-//    assert(protocol != nil);
-//    assert(challenge != nil);
-//    assert([[[challenge protectionSpace] authenticationMethod] isEqual:NSURLAuthenticationMethodServerTrust]);
-//    assert([NSThread isMainThread]);
-//    
-//    credential = nil;
-//    
-//    // Extract the SecTrust object from the challenge, apply our trusted anchors to that
-//    // object, and then evaluate the trust.  If it's OK, create a credential and use
-//    // that to resolve the authentication challenge.  If anything goes wrong, resolve
-//    // the challenge with nil, which continues without a credential, which causes the
-//    // connection to fail.
-//    
-//    trust = [[challenge protectionSpace] serverTrust];
-//    if (trust == NULL) {
-//        assert(NO);
-//    } else {
-//        err = SecTrustSetAnchorCertificates(trust, (__bridge CFArrayRef) self.credentialsManager.trustedAnchors);
-//        if (err != noErr) {
-//            assert(NO);
-//        } else {
-//            err = SecTrustSetAnchorCertificatesOnly(trust, false);
-//            if (err != noErr) {
-//                assert(NO);
-//            } else {
-//                err = SecTrustEvaluate(trust, &trustResult);
-//                if (err != noErr) {
-//                    assert(NO);
-//                } else {
-//                    if ( (trustResult == kSecTrustResultProceed) || (trustResult == kSecTrustResultUnspecified) ) {
-//                        credential = [NSURLCredential credentialForTrust:trust];
-//                        assert(credential != nil);
-//                    }
-//                }
-//            }
-//        }
-//    }
-//    
-//    [protocol resolveAuthenticationChallenge:challenge withCredential:credential];
     BOOL authorized = NO;
     SecTrustRef serverTrust = challenge.protectionSpace.serverTrust;
+    NSURLCredential *credential;
     
     if (serverTrust)
     {
@@ -309,9 +262,9 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
     {
         DDLogWarn(@"%s: didReceiveAuthenticationChallenge", __FUNCTION__);
         
-        NSURLCredential *credential = [NSURLCredential credentialForTrust:serverTrust];
-        [challenge.sender useCredential:credential forAuthenticationChallenge:challenge];
-        [self.client URLProtocol:self didReceiveAuthenticationChallenge:challenge];
+        credential = [NSURLCredential credentialForTrust:serverTrust];
+//        [challenge.sender useCredential:credential forAuthenticationChallenge:challenge];
+//        [self.client URLProtocol:self didReceiveAuthenticationChallenge:challenge];
     }
     
     else
@@ -319,8 +272,10 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
         DDLogWarn(@"%s: didCancelAuthenticationChallenge", __FUNCTION__);
         
         [challenge.sender cancelAuthenticationChallenge:challenge];
-        [self.client URLProtocol:self didCancelAuthenticationChallenge:challenge];
+//        [self.client URLProtocol:self didCancelAuthenticationChallenge:challenge];
     }
+    
+    [protocol resolveAuthenticationChallenge:challenge withCredential:credential];
 }
 
 // We don't need to implement -customHTTPProtocol:didCancelAuthenticationChallenge: because we always resolve
