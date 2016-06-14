@@ -37,6 +37,9 @@
 
 @interface SEBTableViewController ()
 
+@property (weak, nonatomic) IBOutlet UIView *StatusBarBackgroundView;
+@property (weak, nonatomic) IBOutlet UILabel *SEBTitleLabel;
+
 @end
 
 @implementation SEBTableViewController
@@ -80,7 +83,28 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+    NSUInteger statusBarAppearance = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"];
+
+    switch (statusBarAppearance) {
+        case mobileStatusBarAppearanceNone:
+            _StatusBarBackgroundView.backgroundColor = [UIColor darkGrayColor];
+            _SEBTitleLabel.textColor = [UIColor whiteColor];
+            break;
+            
+        case mobileStatusBarAppearanceLight:
+            _StatusBarBackgroundView.backgroundColor = [UIColor blackColor];
+            _SEBTitleLabel.textColor = [UIColor whiteColor];
+            break;
+            
+        case mobileStatusBarAppearanceDark:
+            _StatusBarBackgroundView.backgroundColor = [UIColor whiteColor];
+            _SEBTitleLabel.textColor = [UIColor blackColor];
+            break;
+            
+        default:
+            break;
+    }
+//    _StatusBarBackgroundView.backgroundColor = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] == mobileStatusBarAppearanceLight ? [UIColor blackColor] : [UIColor whiteColor];
     //[self.mm_drawerController setShowsStatusBarBackgroundView:YES];
     
     // TO DO: Ok, later we will get the context from the creater of this VC
