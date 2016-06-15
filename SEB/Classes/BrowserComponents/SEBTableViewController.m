@@ -63,6 +63,10 @@
     [self setManagedObjectContext:[appDelegate managedObjectContext]];
     _webpagesArray = appDelegate.persistentWebpages;
 
+//    NSString *appName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleName"];
+    NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
+    _SEBTitleLabel.text = [NSString stringWithFormat:@"Safe Exam Browser %@",
+                           versionString];
      // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
