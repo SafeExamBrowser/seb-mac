@@ -15,13 +15,15 @@
                 <outlet property="certificatesArrayController" destination="1875" id="1890"/>
                 <outlet property="chooseCA" destination="1814" id="dUt-us-FjD"/>
                 <outlet property="chooseCertificate" destination="1779" id="1905"/>
+                <outlet property="chooseEmbeddCertificateType" destination="An4-xf-7ZG" id="Pyv-oz-6eJ"/>
                 <outlet property="chooseIdentity" destination="UIS-5m-9TC" id="8zi-bS-k9r"/>
-                <outlet property="embeddSSLCertificateType" destination="An4-xf-7ZG" id="ccG-yN-NYa"/>
                 <outlet property="filterArrayController" destination="Hmk-IV-hfb" id="LSh-JT-gIV"/>
                 <outlet property="filterTableView" destination="1EV-b8-djc" id="eti-oq-l4o"/>
                 <outlet property="fragment" destination="3fo-3Z-d4k" id="rPa-BJ-IeU"/>
                 <outlet property="host" destination="VoK-Ej-Zql" id="NJ7-1R-OjY"/>
                 <outlet property="networkTabView" destination="239" id="HEf-ZD-yId"/>
+                <outlet property="overrideCommonName" destination="poG-uc-dNo" id="vep-74-83G"/>
+                <outlet property="overrideCommonNameLabel" destination="nDb-Fc-OTn" id="Vas-P0-xfK"/>
                 <outlet property="password" destination="oXf-ig-TZU" id="KPB-8U-bX3"/>
                 <outlet property="path" destination="IT5-aW-zsl" id="RDz-nA-Tim"/>
                 <outlet property="port" destination="kr2-YI-gaU" id="AbR-Pf-c9E"/>
@@ -888,7 +890,7 @@
                                                                 </binding>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn editable="NO" width="417" minWidth="40" maxWidth="1000" id="1837">
+                                                        <tableColumn width="437" minWidth="40" maxWidth="1000" id="1837">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -901,7 +903,7 @@
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <connections>
-                                                                <binding destination="1875" name="value" keyPath="arrangedObjects.name" id="1903"/>
+                                                                <binding destination="1875" name="value" keyPath="arrangedObjects.name" id="yO7-uK-U7G"/>
                                                             </connections>
                                                         </tableColumn>
                                                     </tableColumns>
@@ -2020,14 +2022,14 @@
         <window title="Certificates: Advanced" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="5GY-eF-5u2" userLabel="Advanced Certificates">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="163" y="199" width="610" height="543"/>
+            <rect key="contentRect" x="163" y="199" width="610" height="573"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" id="Oww-cu-u71">
-                <rect key="frame" x="0.0" y="0.0" width="610" height="543"/>
+                <rect key="frame" x="0.0" y="0.0" width="610" height="573"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Li-5Z-iho">
-                        <rect key="frame" x="20" y="75" width="570" height="423"/>
+                        <rect key="frame" x="20" y="105" width="570" height="423"/>
                         <clipView key="contentView" id="ilD-CP-EQ7">
                             <rect key="frame" x="1" y="0.0" width="568" height="422"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2088,6 +2090,7 @@
                                         </tableColumn>
                                     </tableColumns>
                                     <connections>
+                                        <action selector="advancedCertificateSelected:" target="-2" id="1y2-v0-2uX"/>
                                         <outlet property="dataSource" destination="-2" id="Nlc-yb-Qtc"/>
                                         <outlet property="delegate" destination="-2" id="t9B-X7-ak1"/>
                                     </connections>
@@ -2109,7 +2112,7 @@
                         </tableHeaderView>
                     </scrollView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qiQ-yv-KyL">
-                        <rect key="frame" x="18" y="506" width="189" height="17"/>
+                        <rect key="frame" x="18" y="536" width="189" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Choose certificate to embedd:" id="VV0-Zp-Taw">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -2140,7 +2143,7 @@ Gw
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NW2-fd-qaY">
-                        <rect key="frame" x="18" y="50" width="72" height="17"/>
+                        <rect key="frame" x="18" y="80" width="72" height="17"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Embedd as" id="eXh-u4-x04">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -2148,7 +2151,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <popUpButton toolTip="TLS/SSL certificates from the default keychain. This allows to distribute self-signed certificates to exam clients" horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="An4-xf-7ZG">
-                        <rect key="frame" x="99" y="46" width="494" height="22"/>
+                        <rect key="frame" x="99" y="76" width="494" height="22"/>
                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="vRH-jI-3R1" id="hMi-Ei-zh1">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -2159,31 +2162,66 @@ Gw
                             </menu>
                         </popUpButtonCell>
                         <connections>
-                            <action selector="certificateSelected:" target="-2" id="Qmm-TR-kV1"/>
+                            <action selector="embeddCertificateTypeChanged:" target="-2" id="GZ8-DI-35Q"/>
                             <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_SSLCertificateTypes" id="lS5-3c-ZZm"/>
                         </connections>
                     </popUpButton>
+                    <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="poG-uc-dNo">
+                        <rect key="frame" x="177" y="49" width="413" height="22"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="AxE-Qn-sDl">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <connections>
+                            <binding destination="-2" name="hidden" keyPath="self.addingDebugCertificate" id="eC2-0M-Tjs">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                </dictionary>
+                            </binding>
+                        </connections>
+                    </textField>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nDb-Fc-OTn">
+                        <rect key="frame" x="18" y="52" width="153" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Override common name:" usesSingleLineMode="YES" id="Apy-z9-F3c">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <connections>
+                            <binding destination="-2" name="hidden" keyPath="self.addingDebugCertificate" id="p3Z-eS-BDP">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                </dictionary>
+                            </binding>
+                        </connections>
+                    </textField>
                 </subviews>
                 <constraints>
                     <constraint firstItem="7Li-5Z-iho" firstAttribute="top" secondItem="qiQ-yv-KyL" secondAttribute="bottom" constant="8" id="7NX-8G-TMb"/>
                     <constraint firstItem="An4-xf-7ZG" firstAttribute="baseline" secondItem="NW2-fd-qaY" secondAttribute="baseline" id="Djf-xV-BtQ"/>
                     <constraint firstItem="7Li-5Z-iho" firstAttribute="leading" secondItem="Oww-cu-u71" secondAttribute="leading" constant="20" id="FQN-Nx-dWr"/>
+                    <constraint firstAttribute="trailing" secondItem="poG-uc-dNo" secondAttribute="trailing" constant="20" id="QxZ-oL-0aB"/>
                     <constraint firstAttribute="bottom" secondItem="Ac7-hJ-JcF" secondAttribute="bottom" constant="20" id="SOe-LB-IYp"/>
+                    <constraint firstItem="poG-uc-dNo" firstAttribute="top" secondItem="An4-xf-7ZG" secondAttribute="bottom" constant="8" id="TvL-cd-Bh9"/>
+                    <constraint firstItem="nDb-Fc-OTn" firstAttribute="leading" secondItem="Oww-cu-u71" secondAttribute="leading" constant="20" id="UeJ-Qy-OuB"/>
                     <constraint firstItem="Ac7-hJ-JcF" firstAttribute="baseline" secondItem="8mC-CJ-dvp" secondAttribute="baseline" id="WDQ-m1-Mwv"/>
                     <constraint firstItem="Ac7-hJ-JcF" firstAttribute="leading" secondItem="8mC-CJ-dvp" secondAttribute="trailing" constant="12" id="WPt-g8-CCs"/>
                     <constraint firstItem="NW2-fd-qaY" firstAttribute="leading" secondItem="Oww-cu-u71" secondAttribute="leading" constant="20" id="ZkT-7D-jDO"/>
                     <constraint firstAttribute="trailing" secondItem="Ac7-hJ-JcF" secondAttribute="trailing" constant="20" id="bVo-Cz-OLL"/>
+                    <constraint firstItem="poG-uc-dNo" firstAttribute="leading" secondItem="nDb-Fc-OTn" secondAttribute="trailing" constant="8" id="c1M-wG-duY"/>
                     <constraint firstItem="qiQ-yv-KyL" firstAttribute="top" secondItem="Oww-cu-u71" secondAttribute="top" constant="20" id="dKe-pf-LXl"/>
                     <constraint firstAttribute="trailing" secondItem="7Li-5Z-iho" secondAttribute="trailing" constant="20" id="eoc-Av-4p0"/>
+                    <constraint firstItem="poG-uc-dNo" firstAttribute="baseline" secondItem="nDb-Fc-OTn" secondAttribute="baseline" id="fW8-U4-HAG"/>
                     <constraint firstItem="An4-xf-7ZG" firstAttribute="leading" secondItem="NW2-fd-qaY" secondAttribute="trailing" constant="14" id="l32-Fr-s0D"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="qiQ-yv-KyL" secondAttribute="trailing" constant="20" id="r5x-tX-0Ij"/>
-                    <constraint firstItem="Ac7-hJ-JcF" firstAttribute="top" secondItem="An4-xf-7ZG" secondAttribute="bottom" constant="8" id="stQ-r1-drZ"/>
+                    <constraint firstItem="Ac7-hJ-JcF" firstAttribute="top" secondItem="poG-uc-dNo" secondAttribute="bottom" constant="8" id="t8u-3N-Zlc"/>
                     <constraint firstItem="An4-xf-7ZG" firstAttribute="top" secondItem="7Li-5Z-iho" secondAttribute="bottom" constant="8" id="w7Y-FQ-8Wd"/>
                     <constraint firstItem="qiQ-yv-KyL" firstAttribute="leading" secondItem="Oww-cu-u71" secondAttribute="leading" constant="20" id="xnU-Gv-Ta2"/>
                     <constraint firstAttribute="trailing" secondItem="An4-xf-7ZG" secondAttribute="trailing" constant="20" id="zkh-Dy-Rhf"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="363" y="1166.5"/>
+            <point key="canvasLocation" x="363" y="1181.5"/>
         </window>
         <arrayController id="KTY-Gn-rdN" userLabel="All Certificates Array Controller">
             <connections>

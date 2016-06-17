@@ -68,7 +68,9 @@
     
     IBOutlet NSWindow *advancedCertificatesSheet;
     __weak IBOutlet NSTableView *advancedCertificatesList;
-    __weak IBOutlet NSPopUpButton *embeddSSLCertificateType;
+    __weak IBOutlet NSPopUpButton *chooseEmbeddCertificateType;
+    __weak IBOutlet NSTextField *overrideCommonName;
+    __weak IBOutlet NSTextField *overrideCommonNameLabel;
 }
 
 @property(strong) NSTableColumn *groupRowTableColumn;
@@ -83,6 +85,8 @@
 
 @property (strong, nonatomic) NSMutableArray *identitiesNames;
 @property (strong, nonatomic) NSArray *identities;
+
+@property (readonly) BOOL addingDebugCertificate;
 
 @property (strong) NSString *expressionPort;
 @property (readwrite) BOOL URLFilterLearningMode;
@@ -106,6 +110,9 @@
 - (IBAction) showAdvancedCertificateSheet:(id)sender;
 - (IBAction) cancelAdvancedCertificateSheet:(id)sender;
 - (IBAction) embeddAdvancedCertificate:(id)sender;
+- (BOOL) addingDebugCertificate;
+- (IBAction)embeddCertificateTypeChanged:(id)sender;
+- (IBAction)advancedCertificateSelected:(id)sender;
 
 
 @end

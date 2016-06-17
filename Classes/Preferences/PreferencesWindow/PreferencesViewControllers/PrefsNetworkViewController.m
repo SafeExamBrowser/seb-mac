@@ -300,6 +300,9 @@
         NSDictionary *certificateToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
                                             [NSNumber numberWithInt:certificateType], @"type",
                                             [sender titleOfSelectedItem], @"name",
+                                            [certificateData base64EncodedStringWithOptions:0], @"certificateDataBase64",
+                                            // We also save the certificate data into the deprecated subkey certificateDataWin
+                                            // (for downwards compatibility to < SEB 2.2)
                                             [certificateData base64EncodedStringWithOptions:0], @"certificateDataWin",
                                             nil];
         [certificatesArrayController addObject:certificateToEmbed];
@@ -318,14 +321,14 @@
         // Assume SSL type
         NSNumber *certType = [NSNumber numberWithInt:certificateTypeCA];
         
-        NSData *certData = CFBridgingRelease(SecCertificateCopyData(certificate));
+        NSData *certificateData = CFBridgingRelease(SecCertificateCopyData(certificate));
         
-        if (certData)
+        if (certificateData)
         {
             mbedtls_x509_crt cert;
             mbedtls_x509_crt_init(&cert);
             
-            if (mbedtls_x509_crt_parse_der(&cert, [certData bytes], [certData length]) == 0)
+            if (mbedtls_x509_crt_parse_der(&cert, [certificateData bytes], [certificateData length]) == 0)
             {
                 if (cert.ext_types & MBEDTLS_X509_EXT_BASIC_CONSTRAINTS)
                 {
@@ -338,8 +341,7 @@
                 NSDictionary *certificateToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
                                                     certType, @"type",
                                                     [sender titleOfSelectedItem], @"name",
-                                                    [NSData data], @"certificateData",          // Empty data
-                                                    [certData base64EncodedStringWithOptions:0], @"certificateDataWin",
+                                                    [certificateData base64EncodedStringWithOptions:0], @"certificateDataBase64",
                                                     nil];
                 [certificatesArrayController addObject:certificateToEmbed];
                 
@@ -369,7 +371,6 @@
                                          [NSNumber numberWithInt:certificateTypeIdentity], @"type",
                                          [sender titleOfSelectedItem], @"name",
                                          certificateData, @"certificateData",
-                                         @"", @"certificateDataWin",
                                          nil];
         [certificatesArrayController addObject:identityToEmbed];
         
@@ -393,6 +394,42 @@
 }
 
 
+- (BOOL) addingDebugCertificate
+{
+    certificateTypes embeddCertificateType = chooseEmbeddCertificateType.indexOfSelectedItem;
+    return (embeddCertificateType == certificateTypeSSLDebug-1);
+}
+
+- (IBAction) embeddCertificateTypeChanged:(id)sender {
+    BOOL showOverrideCommonName = self.addingDebugCertificate;
+    overrideCommonName.hidden = !showOverrideCommonName;
+    overrideCommonNameLabel.hidden = !showOverrideCommonName;
+    // If the the certificate type "Debug Certificate" was selected
+    if (showOverrideCommonName) {
+        NSInteger selectedCertificateRow = advancedCertificatesList.selectedRow;
+        if (selectedCertificateRow != -1) {
+            NSDictionary *selectedCertificate = self.certificates[selectedCertificateRow];
+            NSString *certificateName = [selectedCertificate objectForKey:@"name"];
+            // Set the override common name to the default name of the selected cert
+            overrideCommonName.stringValue = certificateName;
+        }
+    }
+}
+
+- (IBAction)advancedCertificateSelected:(id)sender {
+    if (chooseEmbeddCertificateType.indexOfSelectedItem == certificateTypeSSLDebug-1) {
+        // If the type of the certificate to embedd is "Debug Certificate"
+        NSInteger selectedCertificateRow = advancedCertificatesList.selectedRow;
+        if (selectedCertificateRow != -1) {
+            NSDictionary *selectedCertificate = self.certificates[selectedCertificateRow];
+            NSString *certificateName = [selectedCertificate objectForKey:@"name"];
+            // Set the override common name to the default name of the selected cert
+            overrideCommonName.stringValue = certificateName;
+        }
+    }
+}
+
+
 - (IBAction) cancelAdvancedCertificateSheet:(id)sender
 {
     [NSApp stopModal];
@@ -401,24 +438,44 @@
 
 - (IBAction) embeddAdvancedCertificate:(id)sender
 {
-    certificateTypes embeddCertificateType = embeddSSLCertificateType.indexOfSelectedItem;
+    certificateTypes embeddCertificateType = chooseEmbeddCertificateType.indexOfSelectedItem;
     if (embeddCertificateType >= certificateTypeIdentity) {
         // Correct certificate type, as here identities are not offered
         embeddCertificateType++;
     }
     NSInteger selectedCertificateRow = advancedCertificatesList.selectedRow;
     if (selectedCertificateRow != -1) {
-        NSDictionary *selectedCertificate = self.certificates[advancedCertificatesList.selectedRow];
+        NSDictionary *selectedCertificate = self.certificates[selectedCertificateRow];
         SecCertificateRef certificateRef = (__bridge SecCertificateRef)[selectedCertificate objectForKey:@"ref"];
+        NSString *certificateName = [selectedCertificate objectForKey:@"name"];
+        if (embeddCertificateType == certificateTypeSSLDebug) {
+            if (overrideCommonName.stringValue.length > 0) {
+                certificateName = overrideCommonName.stringValue;
+            }
+        }
         SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
         NSData *certificateData = [keychainManager getDataForCertificate:certificateRef];
         if (certificateData) {
-            NSDictionary *certificateToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                [NSNumber numberWithInt:embeddCertificateType], @"type",
-                                                [selectedCertificate objectForKey:@"name"], @"name",
-                                                [certificateData base64EncodedStringWithOptions:0], @"certificateDataWin",
-                                                nil];
-            [certificatesArrayController addObject:certificateToEmbed];
+            NSDictionary *certificateToEmbed;
+            if (embeddCertificateType == certificateTypeSSL) {
+                // For a SSL cert we also save its data into the deprecated subkey certificateDataWin
+                // (for downwards compatibility to < SEB 2.2)
+                // ToDo: Remove in SEB 2.3
+                certificateToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                    [NSNumber numberWithInt:embeddCertificateType], @"type",
+                                                    certificateName, @"name",
+                                                    [certificateData base64EncodedStringWithOptions:0], @"certificateDataBase64",
+                                                    [certificateData base64EncodedStringWithOptions:0], @"certificateDataWin",
+                                                    nil];
+            } else {
+                certificateToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                    [NSNumber numberWithInt:embeddCertificateType], @"type",
+                                                    certificateName, @"name",
+                                                    [certificateData base64EncodedStringWithOptions:0], @"certificateDataBase64",
+                                                    nil];
+            }
+
+            [certificatesArrayController addObject:[certificateToEmbed copy]];
         }
     }
     [NSApp stopModal];

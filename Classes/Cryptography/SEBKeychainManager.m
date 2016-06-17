@@ -280,33 +280,61 @@
                     }
                 }
                 
-                // Create a unique certificate name
+                // Get certificate name
                 NSString *certificateName = [NSString stringWithFormat:@"%@",
                                              (__bridge NSString *)commonName ?
-                                             //There is a commonName: just take that as a name
+                                             // There is a commonName: just take that as a name
                                              [NSString stringWithFormat:@"%@",(__bridge NSString *)commonName] :
-                                             //there is no common name: take the e-mail address (if it exists)
+                                             // There is no common name: take the e-mail address (if it exists)
                                              CFArrayGetCount(emailAddressesRef) ?
                                              (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) :
                                              @""];
 
-                // Check for duplicates
-                NSPredicate * predicate = [NSPredicate predicateWithFormat:@" name ==[cd] %@", certificateName];
-                NSArray * matches = [certificates filteredArrayUsingPredicate:predicate];
-
-                if ([certificateName isEqualToString:@""] || matches.count > 0) {
-                    // Get certificate signature hash (fingerprint)
-                    NSData *signatureData = CFBridgingRelease(SecCertificateCopyData(certificateRef));
-                    if (!signatureData) {
-                        // If the hash couldn't be determinded (what actually shouldn't happen): Create random data instead
-                        signatureData = [RNCryptor randomDataOfLength:128];
-                    }
-                    NSString *signatureHash = [[self generateSHA1HashStringFromData:signatureData] uppercaseString];
-                    certificateName = [NSString stringWithFormat:@"%@ %@",certificateName, signatureHash];
-                } else {
-                    certificateName = [NSString stringWithFormat:@"%@", certificateName];
+                // Get certificate signature hash (fingerprint)
+                NSData *signatureData = CFBridgingRelease(SecCertificateCopyData(certificateRef));
+                if (!signatureData) {
+                    // If the hash couldn't be determinded (what actually shouldn't happen): Create random data instead
+                    signatureData = [RNCryptor randomDataOfLength:128];
                 }
+                NSString *signatureHash = [[self generateSHA1HashStringFromData:signatureData] uppercaseString];
 
+                // If the certificate didn't had neither common name or e-mail: Use the fingerprint in brackets as name
+                if ([certificateName isEqualToString:@""]) {
+                    certificateName = [NSString stringWithFormat:@"(%@)", signatureHash];
+                }
+                
+                // SSL and CA certs need to have a unique certificate name
+                if (certificateType != certificateTypeSSLDebug) {
+                    // Check for duplicate name
+                    NSPredicate * predicate = [NSPredicate predicateWithFormat:@" name ==[cd] %@", certificateName];
+                    NSArray * matches = [certificates filteredArrayUsingPredicate:predicate];
+                    // If the name isn't unique, append the fingerprint in brackets
+                    if (matches.count > 0) {
+                        certificateName = [NSString stringWithFormat:@"%@ (%@)", certificateName, signatureHash];
+                    }
+                }
+                
+                // Get certificate info
+                NSString *certificateInfo = @"";
+                mbedtls_x509_crt cert;
+                mbedtls_x509_crt_init(&cert);
+                
+                // Get DER data
+                NSData *data = CFBridgingRelease(SecCertificateCopyData(certificateRef));
+                
+                if (data)
+                {
+                    if (mbedtls_x509_crt_parse_der(&cert, [data bytes], [data length]) == 0)
+                    {
+                        char infoBuf[2048];
+                        *infoBuf = '\0';
+                        mbedtls_x509_crt_info(infoBuf, sizeof(infoBuf) - 1, "   ", &cert);
+                        certificateInfo = [NSString stringWithFormat:@"%s", infoBuf];
+                        DDLogDebug(@"\n%s\n", infoBuf);
+                    }
+                }
+                
+                // Filter certificates according to the requested certificate type
                 switch (certificateType) {
                     case certificateTypeSSL:
                     {
@@ -337,43 +365,24 @@
                         break;
                     }
                         
+                        
                     case certificateTypeCA:
                     {
                         if (!isExpired) {
-                            // dmcd - post-processing to add CA certs
-                            mbedtls_x509_crt cert;
-                            mbedtls_x509_crt_init(&cert);
-                            
-                            // Get DER data
-                            NSData *data = CFBridgingRelease(SecCertificateCopyData(certificateRef));
-                            
-                            if (data)
+                            if (cert.ext_types & MBEDTLS_X509_EXT_BASIC_CONSTRAINTS)
                             {
-                                if (mbedtls_x509_crt_parse_der(&cert, [data bytes], [data length]) == 0)
+                                if (cert.ca_istrue)
                                 {
-#if DEBUG
-                                    char infoBuf[2048];
-                                    *infoBuf = '\0';
-                                    mbedtls_x509_crt_info(infoBuf, sizeof(infoBuf) - 1, "   ", &cert);
-                                    DDLogDebug(@"\n%s\n", infoBuf);
-#endif
-                                    if (cert.ext_types & MBEDTLS_X509_EXT_BASIC_CONSTRAINTS)
-                                    {
-                                        if (cert.ca_istrue)
-                                        {
-                                            
-                                            [certificates addObject:@{
-                                                                      @"ref" : (__bridge id)certificateRef,
-                                                                      @"name" : certificateName
-                                                                      }];
-                                            DDLogDebug(@"\nAdding CA certificate:\n%s\n", infoBuf);
-                                            
-                                            break;
-                                        }
-                                    }
+                                    
+                                    [certificates addObject:@{
+                                                              @"ref" : (__bridge id)certificateRef,
+                                                              @"name" : certificateName
+                                                              }];
+                                    DDLogDebug(@"\nAdding CA certificate:\n%@\n", certificateInfo);
+                                    
+                                    //                                            break;
                                 }
                             }
-                            mbedtls_x509_crt_free(&cert);
                         }
                         break;
                     }
@@ -387,16 +396,20 @@
                                                   @"name" : certificateName,
                                                   @"valid_from" : validFrom,
                                                   @"valid_to" : validTo,
-                                                  @"isExpired" : [NSNumber numberWithBool:isExpired]
+                                                  @"isExpired" : [NSNumber numberWithBool:isExpired],
+                                                  @"info" : certificateName
+//                                                  @"info" : certificateInfo
                                                   }];
                         DDLogDebug(@"Adding debug certificate with common name: %@", certificateName);
-
+                        
                         break;
                     }
                         
                     default:
                         break;
                 }
+                
+                mbedtls_x509_crt_free(&cert);
                 
                 if (emailAddressesRef) CFRelease(emailAddressesRef);
             } else {
