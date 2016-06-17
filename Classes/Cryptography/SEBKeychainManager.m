@@ -397,8 +397,7 @@
                                                   @"valid_from" : validFrom,
                                                   @"valid_to" : validTo,
                                                   @"isExpired" : [NSNumber numberWithBool:isExpired],
-                                                  @"info" : certificateName
-//                                                  @"info" : certificateInfo
+                                                  @"info" : certificateInfo
                                                   }];
                         DDLogDebug(@"Adding debug certificate with common name: %@", certificateName);
                         

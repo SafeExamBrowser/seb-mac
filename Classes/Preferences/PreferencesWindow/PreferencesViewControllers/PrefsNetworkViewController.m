@@ -408,8 +408,8 @@
     if (showOverrideCommonName) {
         NSInteger selectedCertificateRow = advancedCertificatesList.selectedRow;
         if (selectedCertificateRow != -1) {
-            NSDictionary *selectedCertificate = self.certificates[selectedCertificateRow];
-            NSString *certificateName = [selectedCertificate objectForKey:@"name"];
+            NSString *certificateName = [advancedCertificatesArrayController valueForKeyPath:@"selection.name"];
+
             // Set the override common name to the default name of the selected cert
             overrideCommonName.stringValue = certificateName;
         }
@@ -421,8 +421,7 @@
         // If the type of the certificate to embedd is "Debug Certificate"
         NSInteger selectedCertificateRow = advancedCertificatesList.selectedRow;
         if (selectedCertificateRow != -1) {
-            NSDictionary *selectedCertificate = self.certificates[selectedCertificateRow];
-            NSString *certificateName = [selectedCertificate objectForKey:@"name"];
+            NSString *certificateName = [advancedCertificatesArrayController valueForKeyPath:@"selection.name"];
             // Set the override common name to the default name of the selected cert
             overrideCommonName.stringValue = certificateName;
         }
@@ -445,7 +444,7 @@
     }
     NSInteger selectedCertificateRow = advancedCertificatesList.selectedRow;
     if (selectedCertificateRow != -1) {
-        NSDictionary *selectedCertificate = self.certificates[selectedCertificateRow];
+        NSDictionary *selectedCertificate = [advancedCertificatesArrayController selectedObjects][0];
         SecCertificateRef certificateRef = (__bridge SecCertificateRef)[selectedCertificate objectForKey:@"ref"];
         NSString *certificateName = [selectedCertificate objectForKey:@"name"];
         if (embeddCertificateType == certificateTypeSSLDebug) {

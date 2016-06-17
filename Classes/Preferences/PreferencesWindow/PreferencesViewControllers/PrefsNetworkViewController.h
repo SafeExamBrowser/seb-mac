@@ -67,6 +67,7 @@
     IBOutlet NSArrayController *certificatesArrayController;
     
     IBOutlet NSWindow *advancedCertificatesSheet;
+    IBOutlet NSArrayController *advancedCertificatesArrayController;
     __weak IBOutlet NSTableView *advancedCertificatesList;
     __weak IBOutlet NSPopUpButton *chooseEmbeddCertificateType;
     __weak IBOutlet NSTextField *overrideCommonName;

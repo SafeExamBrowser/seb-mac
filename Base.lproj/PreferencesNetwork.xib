@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="URLFilterEnableContentFilterButton" destination="648" id="25v-NI-dvx"/>
                 <outlet property="URLFilterMessageControl" destination="wtP-tT-RxN" id="187-9Q-m8P"/>
+                <outlet property="advancedCertificatesArrayController" destination="KTY-Gn-rdN" id="SYf-TZ-dhb"/>
                 <outlet property="advancedCertificatesList" destination="zFX-aq-BQc" id="fZo-Qv-Ser"/>
                 <outlet property="advancedCertificatesSheet" destination="5GY-eF-5u2" id="rXw-aH-Ghb"/>
                 <outlet property="certificatesArrayController" destination="1875" id="1890"/>
