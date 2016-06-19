@@ -39,6 +39,8 @@
 
 @interface SEBTableViewController : UIViewController  <UITableViewDelegate, UITableViewDataSource, SEBActionUITableViewCellDelegate>
 
+@property (readwrite) NSUInteger statusBarAppearance;
+@property (nonatomic, strong) NSArray *leftSliderCommands;
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSMutableArray *webpagesArray;

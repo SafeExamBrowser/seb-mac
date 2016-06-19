@@ -98,24 +98,27 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)conditionallyShowSettingsModal
 {
-    // If there is a hashed admin password the user has to enter it before editing settings
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-    
-    if (hashedAdminPassword.length == 0) {
-        // There is no admin password: Just open settings
-        [self showSettingsModal];
-    } else {
-        // Allow up to 5 attempts for entering decoding password
-        attempts = 5;
-        NSString *enterPasswordString = NSLocalizedString(@"You can only edit settings after entering the SEB administrator password:", nil);
+    // Check if settings are already displayed
+    if (!_settingsOpen) {
+        // If there is a hashed admin password the user has to enter it before editing settings
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
         
-        // Ask the user to enter the settings password and proceed to the callback method after this happend
-        [self.configFileController promptPasswordWithMessageText:enterPasswordString
-                                                           title:NSLocalizedString(@"Edit Settings",nil)
-                                                        callback:self
-                                                        selector:@selector(adminPasswordSettingsConfiguringClient:)];
-        return;
+        if (hashedAdminPassword.length == 0) {
+            // There is no admin password: Just open settings
+            [self showSettingsModal];
+        } else {
+            // Allow up to 5 attempts for entering decoding password
+            attempts = 5;
+            NSString *enterPasswordString = NSLocalizedString(@"You can only edit settings after entering the SEB administrator password:", nil);
+            
+            // Ask the user to enter the settings password and proceed to the callback method after this happend
+            [self.configFileController promptPasswordWithMessageText:enterPasswordString
+                                                               title:NSLocalizedString(@"Edit Settings",nil)
+                                                            callback:self
+                                                            selector:@selector(adminPasswordSettingsConfiguringClient:)];
+            return;
+        }
     }
 }
 
@@ -206,6 +209,7 @@ static NSMutableSet *browserWindowControllers;
                                                  name:kIASKAppSettingChanged
                                                object:nil];
     
+    _settingsOpen = true;
     
     [self presentViewController:aNavController animated:YES completion:nil];
 }
@@ -231,7 +235,7 @@ static NSMutableSet *browserWindowControllers;
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences setBool:NO forKey:@"allowEditingConfig"];
-    
+
     // Get entered passwords and save their hashes to SEB settings
     // as long as the passwords were really entered and don't contain the hash placeholders
     NSString *password = [preferences secureObjectForKey:@"adminPassword"];
@@ -247,6 +251,8 @@ static NSMutableSet *browserWindowControllers;
         [preferences setSecureString:hashedPassword forKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
         [preferences setSecureString:@"" forKey:@"quitPassword"];
     }
+    _settingsOpen = false;
+    
     [self initSEB];
     [self startAutonomousSingleAppMode];
 }
@@ -784,34 +790,40 @@ static NSMutableSet *browserWindowControllers;
     // UI
     
     // Draw background view for status bar if it is enabled
+    if (!_statusBarView) {
+        _statusBarView = [UIView new];
+        [_statusBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.view addSubview:_statusBarView];
+    }
+    
+    NSDictionary *viewsDictionary = @{@"statusBarView" : _statusBarView,
+                                      @"containerView" : _containerView};
+    
+    _containerTopContraint.active = false;
+    NSArray *constraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[statusBarView]-0-|"
+                                                                     options: 0
+                                                                     metrics: nil
+                                                                       views: viewsDictionary];
+    NSArray *constraints_V = [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-0-[statusBarView(==20)]-0-[containerView]"
+                                                                     options: 0
+                                                                     metrics: nil
+                                                                       views: viewsDictionary];
+    [self.view addConstraints:constraints_H];
+    [self.view addConstraints:constraints_V];
+    
+
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] == false &&
         [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] != mobileStatusBarAppearanceNone) {
         // Only draw background for status bar when it is enabled and there is no navigation bar displayed
 
-        if (!_statusBarView) {
-            _statusBarView = [UIView new];
-            [_statusBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
-            _statusBarView.backgroundColor = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] == mobileStatusBarAppearanceLight ? [UIColor blackColor] : [UIColor whiteColor];
-            [self.view addSubview:_statusBarView];
-        }
+        _statusBarView.backgroundColor = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] == mobileStatusBarAppearanceLight ? [UIColor blackColor] : [UIColor whiteColor];
+        _statusBarView.hidden = false;
 
-        NSDictionary *viewsDictionary = @{@"statusBarView" : _statusBarView,
-                                          @"containerView" : _containerView};
-        
-        _containerTopContraint.active = false;
-        NSArray *constraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[statusBarView]-0-|"
-                                                                        options: 0
-                                                                        metrics: nil
-                                                                          views: viewsDictionary];
-        NSArray *constraints_V = [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-0-[statusBarView(==20)]-0-[containerView]"
-                                                                        options: 0
-                                                                        metrics: nil
-                                                                          views: viewsDictionary];
-        [self.view addConstraints:constraints_H];
-        [self.view addConstraints:constraints_V];
     } else if (_statusBarView) {
-        [_statusBarView removeFromSuperview];
-        _containerTopContraint.active = true;
+        _statusBarView.hidden = true;
+
+//        [_statusBarView removeFromSuperview];
+//        _containerTopContraint.active = true;
     }
 
 
