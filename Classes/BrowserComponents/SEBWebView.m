@@ -46,7 +46,7 @@
 }
 
 
-- (void) reload:(id)sender
+- (void) reload(id)sender
 {
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_showReloadWarning"]) {
 
@@ -68,7 +68,7 @@
                     
                     // Reload page
                     DDLogInfo(@"Reloading current webpage");
-                    [super reload:sender];
+                    [super reloadsender];
 
                     break;
                     
@@ -89,7 +89,7 @@
         
         // Reload page without displaying warning
         DDLogInfo(@"Reloading current webpage");
-        [super reload:sender];
+        [super reloadsender];
     }
 }
 

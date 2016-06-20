@@ -588,7 +588,7 @@
 - (void) reloadDockButtonPressed
 {
     DDLogInfo(@"Reloading current browser window: %@", self.activeBrowserWindow);
-    [self.activeBrowserWindow.webView reload:self.activeBrowserWindow];
+    [self.activeBrowserWindow.webView reloadself.activeBrowserWindow];
 }
 
 

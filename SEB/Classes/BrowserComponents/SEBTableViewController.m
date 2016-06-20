@@ -34,11 +34,13 @@
 #import "SEBTableViewController.h"
 #import "Webpages.h"
 #import "AppDelegate.h"
+#import "SEBSliderItem.h"
 
 @interface SEBTableViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *StatusBarBackgroundView;
 @property (weak, nonatomic) IBOutlet UILabel *SEBTitleLabel;
+@property (nonatomic, strong) NSArray *commandItems;
 
 @end
 
@@ -60,6 +62,7 @@
     [super viewDidLoad];
     
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+
     [self setManagedObjectContext:[appDelegate managedObjectContext]];
     _webpagesArray = appDelegate.persistentWebpages;
 
@@ -87,8 +90,10 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    NSUInteger statusBarAppearance = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"];
-
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSUInteger statusBarAppearance = appDelegate.statusBarAppearance;
+    _commandItems = appDelegate.leftSliderCommands;
+    
     switch (statusBarAppearance) {
         case mobileStatusBarAppearanceNone:
             _StatusBarBackgroundView.backgroundColor = [UIColor darkGrayColor];
@@ -108,8 +113,6 @@
         default:
             break;
     }
-//    _StatusBarBackgroundView.backgroundColor = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] == mobileStatusBarAppearanceLight ? [UIColor blackColor] : [UIColor whiteColor];
-    //[self.mm_drawerController setShowsStatusBarBackgroundView:YES];
     
     // TO DO: Ok, later we will get the context from the creater of this VC
 
@@ -125,33 +128,57 @@
     return YES;
 }
 
-//- (UIStatusBarStyle)preferredStatusBarStyle {
-//    return UIStatusBarStyleBlackOpaque;
-//}
-
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 1;
+    return 1 + (_commandItems.count > 0);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [_webpagesArray count];
+    switch (section) {
+        case 0:
+            return [_webpagesArray count];
+            break;
+            
+        case 1:
+            return [_commandItems count];
+            break;
+            
+        default:
+            return 0;
+            break;
+    }
 }
 
 
-- (NSArray *) testModel{
-    return @[@"Home",@"Page 1"];
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    // Return the number of rows in the section.
+    switch (section) {
+        case 0:
+            return nil;
+            break;
+            
+        case 1:
+            return NSLocalizedString(@"Commands",nil);
+            break;
+            
+        default:
+            return 0;
+            break;
+    }
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSInteger section = indexPath.section;
+    NSInteger index = indexPath.row;
+
     static NSString *CellIdentifier = @"WebpageCell";
     SEBActionUITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
@@ -159,62 +186,103 @@
     {
         cell = [[SEBActionUITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-   
+    
     // Configure the cell...
     cell.delegate = self;
     
-    // Get webpage
-    Webpages *webpage = [self.webpagesArray objectAtIndex:indexPath.row];
-    
-    // Set the title or URL if title not (yet) available
-    UILabel *cellLabel;
-    cellLabel = (UILabel *)[cell viewWithTag:2];
-    
-    NSString *webpageCellLabelText = (!webpage.title || [webpage.title isEqualToString:@""]) ? webpage.url : webpage.title;
-    cellLabel.text = webpageCellLabelText;
-    UIButton *closeButton = (UIButton *)[cell viewWithTag:1];
-    [closeButton addTarget:cell action:@selector(fireAction:) forControlEvents:UIControlEventTouchUpInside];
+    switch (section) {
+        case 0:
+        {
+            // Get webpage
+            Webpages *webpage = [self.webpagesArray objectAtIndex:index];
+            
+            // Set the title or URL if title not (yet) available
+            UILabel *cellLabel;
+            cellLabel = (UILabel *)[cell viewWithTag:2];
+            
+            NSString *webpageCellLabelText = (!webpage.title || [webpage.title isEqualToString:@""]) ? webpage.url : webpage.title;
+            cellLabel.text = webpageCellLabelText;
+            UIButton *closeButton = (UIButton *)[cell viewWithTag:1];
+            [closeButton addTarget:cell action:@selector(fireAction:) forControlEvents:UIControlEventTouchUpInside];
+            
+            return cell;
+        }
+            break;
+            
+        case 1:
+        {
+            // Get command
+            SEBSliderItem *commandItem = [_commandItems objectAtIndex:index];
+            
+            // Set icon and title for cell
+            UILabel *cellLabel;
+            cellLabel = (UILabel *)[cell viewWithTag:2];
+            cellLabel.text = commandItem.title;
+            UIButton *closeButton = (UIButton *)[cell viewWithTag:1];
+            [closeButton setImage:commandItem.icon forState:UIControlStateNormal];
+            [closeButton addTarget:cell action:@selector(fireAction:) forControlEvents:UIControlEventTouchUpInside];
+            
+            return cell;
 
-    return cell;
+        }
+            
+        default:
+            return nil;
+            break;
+    }
 }
 
 
-- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger section = indexPath.section;
     NSInteger index = indexPath.row;
-    [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow = index;
-    [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow = index;
-
-    // Post a notification that the web page should be reloaded
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"requestWebpageReload" object:self];
-
-//    UIViewController *vc =  [self.storyboard instantiateViewControllerWithIdentifier:@"page1"];
-//    UIViewController *vcmain = [self.storyboard instantiateViewControllerWithIdentifier:@"vcmain"];
-//    
-//    switch (index) {
-//        case 0:{
-//            [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-//                self.mm_drawerController.centerViewController = vcmain;
-//                [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
-//                
-//            }];
-//            break;
-//        }
-//        case 1:{
-//            [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-//                self.mm_drawerController.centerViewController = vc;
-//                [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
-//                
-//            }];
-//            break;
-//        }
-//            
-//            
-//        default:
-//            break;
-//    }
     
-    
+    switch (section) {
+        case 0:
+        {
+            [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow = index;
+            [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow = index;
+            
+            // Post a notification that the web page should be reloaded
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"requestWebpageReload" object:self];
+            
+            //    UIViewController *vc =  [self.storyboard instantiateViewControllerWithIdentifier:@"page1"];
+            //    UIViewController *vcmain = [self.storyboard instantiateViewControllerWithIdentifier:@"vcmain"];
+            //
+            //    switch (index) {
+            //        case 0:{
+            //            [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+            //                self.mm_drawerController.centerViewController = vcmain;
+            //                [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
+            //
+            //            }];
+            //            break;
+            //        }
+            //        case 1:{
+            //            [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+            //                self.mm_drawerController.centerViewController = vc;
+            //                [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+            //                
+            //            }];
+            //            break;
+            //        }
+            //            
+            //            
+            //        default:
+            //            break;
+            //    }
+        }
+            break;
+            
+        case 1:
+            [self didFireActionForIndexPath:indexPath];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 
@@ -231,20 +299,52 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     if (!indexPath) return;
     
-    NSInteger index = indexPath.row;
-    NSLog(@"Close button indexPath.row: %ld", (long)index);
-    [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow = index;
-    
-    // If not closing the main web view: remove the webpage from the list
-    if (index != 0) {
-        [self.webpagesArray removeObjectAtIndex:index];
-        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }
-    // Post a notification that the web page should be closed
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"requestWebpageClose" object:self];
+    [self didFireActionForIndexPath:indexPath];
 }
 
+
+-(void)didFireActionForIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger section = indexPath.section;
+    NSInteger index = indexPath.row;
+    
+    switch (section) {
+        case 0:
+        {
+            // Section: Open webpages
+            NSLog(@"Close button indexPath.row: %ld", (long)index);
+            [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow = index;
+            
+            // If not closing the main web view: remove the webpage from the list
+            if (index != 0) {
+                [self.webpagesArray removeObjectAtIndex:index];
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            }
+            // Post a notification that the web page should be closed
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"requestWebpageClose" object:self];
+        }
+            break;
+            
+        case 1:
+        {
+            // Section: Commands
+            if (index < _commandItems.count) {
+                SEBSliderItem *item = _commandItems[index];
+                id callback = item.target;
+                SEL selector = item.action;
+                IMP imp = [callback methodForSelector:selector];
+                void (*func)(id, SEL) = (void *)imp;
+                // Execute action on target
+                func(callback, selector);
+            }
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
 
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

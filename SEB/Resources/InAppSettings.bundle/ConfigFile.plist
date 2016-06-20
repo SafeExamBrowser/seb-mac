@@ -38,7 +38,7 @@
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_showSettingsInApp</string>
 			<key>DefaultValue</key>
-			<true/>
+			<false/>
 		</dict>
 	</array>
 </dict>
