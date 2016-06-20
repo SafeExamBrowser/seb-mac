@@ -34,6 +34,7 @@
 #import <WebKit/WebKit.h>
 #import "Constants.h"
 #import "RNCryptor.h"
+#import "SEBSliderItem.h"
 #import "SEBIASKSecureSettingsStore.h"
 #import "IASKSettingsReader.h"
 
@@ -354,7 +355,7 @@ static NSMutableSet *browserWindowControllers;
     [_browserTabViewController goForward];
 }
 
-- (IBAction)reload:(id)sender {
+- (IBAction)reload {
     [_browserTabViewController reload];
 }
 
@@ -794,91 +795,161 @@ static NSMutableSet *browserWindowControllers;
         _statusBarView = [UIView new];
         [_statusBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
         [self.view addSubview:_statusBarView];
+
+        NSDictionary *viewsDictionary = @{@"statusBarView" : _statusBarView,
+                                          @"containerView" : _containerView};
+        
+        _containerTopContraint.active = false;
+        NSArray *constraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[statusBarView]-0-|"
+                                                                         options: 0
+                                                                         metrics: nil
+                                                                           views: viewsDictionary];
+        NSArray *constraints_V = [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-0-[statusBarView(==20)]-0-[containerView]"
+                                                                         options: 0
+                                                                         metrics: nil
+                                                                           views: viewsDictionary];
+        [self.view addConstraints:constraints_H];
+        [self.view addConstraints:constraints_V];
     }
-    
-    NSDictionary *viewsDictionary = @{@"statusBarView" : _statusBarView,
-                                      @"containerView" : _containerView};
-    
-    _containerTopContraint.active = false;
-    NSArray *constraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[statusBarView]-0-|"
-                                                                     options: 0
-                                                                     metrics: nil
-                                                                       views: viewsDictionary];
-    NSArray *constraints_V = [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-0-[statusBarView(==20)]-0-[containerView]"
-                                                                     options: 0
-                                                                     metrics: nil
-                                                                       views: viewsDictionary];
-    [self.view addConstraints:constraints_H];
-    [self.view addConstraints:constraints_V];
-    
+
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+
+    NSUInteger statusBarAppearance = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"];
+    appDelegate.statusBarAppearance = statusBarAppearance;
 
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] == false &&
-        [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] != mobileStatusBarAppearanceNone) {
+        statusBarAppearance != mobileStatusBarAppearanceNone) {
         // Only draw background for status bar when it is enabled and there is no navigation bar displayed
 
-        _statusBarView.backgroundColor = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] == mobileStatusBarAppearanceLight ? [UIColor blackColor] : [UIColor whiteColor];
+        _statusBarView.backgroundColor = (statusBarAppearance == mobileStatusBarAppearanceLight ? [UIColor blackColor] : [UIColor whiteColor]);
         _statusBarView.hidden = false;
 
-    } else if (_statusBarView) {
+    } else {
         _statusBarView.hidden = true;
-
-//        [_statusBarView removeFromSuperview];
-//        _containerTopContraint.active = true;
     }
-
 
     [self setNeedsStatusBarAppearanceUpdate];
 
+    //// Initialize SEB Dock and commands section in the slider view
+
+    NSMutableArray *newDockItems = [NSMutableArray new];
+    UIBarButtonItem *dockItem;
+    UIImage *dockIcon;
+    NSMutableArray *sliderCommands = [NSMutableArray new];
+    SEBSliderItem *sliderCommandItem;
+    
+    
+    /// Add left items
+    
+    // Add SEB app icon to the left side of the dock
+    dockIcon = [UIImage imageNamed:@"SEBDockIcon"]
+    ; //[appIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+    //        UIImage *appIcon = [UIImage imageNamed:@"SEBicon"]; //[appIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+
+    dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+    dockItem.width = -12;
+    [newDockItems addObject:dockItem];
+    
+    dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(leftDrawerButtonPress:)];
+    [newDockItems addObject:dockItem];
+    
+    // Add flexible space between left and right items
+    dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    [newDockItems addObject:dockItem];
+    
+    
+    /// Add right items
+
+    // Add Edit Settings command if enabled
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showSettingsInApp"]) {
+        dockIcon = [UIImage imageNamed:@"Settings"];
+        sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Edit Settings",nil)
+                                                            icon:dockIcon
+                                                          target:self
+                                                          action:@selector(conditionallyShowSettingsModal)];
+        [sliderCommands addObject:sliderCommandItem];
+    }
+    
+    // Add Restart Exam button if enabled
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamUseStartURL"] ||
+        [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamURL"].length > 0) {
+        dockIcon = [UIImage imageNamed:@"SEBRestartIcon"];
+        
+        NSString *restartButtonText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamText"];
+        if (restartButtonText.length == 0) {
+            restartButtonText = NSLocalizedString(@"Restart Exam",nil);
+        }
+        dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(reload)];
+        [newDockItems addObject:dockItem];
+        
+        dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+        dockItem.width = 0;
+        [newDockItems addObject:dockItem];
+        
+        // Add Restart Exam command to slider items
+        sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:restartButtonText
+                                                            icon:dockIcon
+                                                          target:self
+                                                          action:@selector(reload)];
+        [sliderCommands addObject:sliderCommandItem];
+   }
+    
+    // Add Reload button if enabled
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
+        dockIcon = [UIImage imageNamed:@"SEBReloadIcon"];
+        dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(reload)];
+        [newDockItems addObject:dockItem];
+        
+        dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+        dockItem.width = 0;
+        [newDockItems addObject:dockItem];
+        
+        // Add reload current page command to slider items
+        sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Reload Current Page",nil)
+                                                            icon:dockIcon
+                                                          target:self
+                                                          action:@selector(reload)];
+        [sliderCommands addObject:sliderCommandItem];
+    }
+    
+    // Add Quit button
+    dockIcon = [UIImage imageNamed:@"SEBShutDownIcon"];
+    dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(quitExamConditionally)];
+    [newDockItems addObject:dockItem];
+    
+    dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+    dockItem.width = -12;
+    [newDockItems addObject:dockItem];
+    
+    // Add quit command to slider items
+    sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Quit Exam",nil)
+                                                        icon:dockIcon
+                                                      target:self
+                                                      action:@selector(quitExamConditionally)];
+    [sliderCommands addObject:sliderCommandItem];
+
+    // Register slider commands
+    appDelegate.leftSliderCommands = [sliderCommands copy];
+    
+    // If dock is enabled, register items to the tool bar
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
         [self.navigationController setToolbarHidden:NO];
-        UIImage *appIcon = [UIImage imageNamed:@"SEBDockIcon"]; //[appIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-//        UIImage *appIcon = [UIImage imageNamed:@"SEBicon"]; //[appIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-
-        NSMutableArray *currentDockItems = [NSMutableArray new];
-        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
-        item.width = -12;
-        [currentDockItems addObject:item];
-
-        item = [[UIBarButtonItem alloc] initWithImage:[appIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(leftDrawerButtonPress:)];
-        [currentDockItems addObject:item];
-
-        item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-        [currentDockItems addObject:item];
-        
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
-            appIcon = [UIImage imageNamed:@"SEBReloadIcon"];
-            item = [[UIBarButtonItem alloc] initWithImage:[appIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(reload:)];
-            [currentDockItems addObject:item];
-            
-            item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
-            item.width = 0;
-            [currentDockItems addObject:item];
-        }
-
-        appIcon = [UIImage imageNamed:@"SEBShutDownIcon"];
-        item = [[UIBarButtonItem alloc] initWithImage:[appIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(quitExamConditionally)];
-        [currentDockItems addObject:item];
-
-        item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
-        item.width = -12;
-        [currentDockItems addObject:item];
-
-//        item.image = [[UIImage imageNamed:@"AppIcon40x40"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//        item.selectedImage = [[UIImage imageNamed:onIcons[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-
-        
-        _dockItems = currentDockItems;
+        _dockItems = newDockItems;
         [self setToolbarItems:_dockItems];
     } else {
         [self.navigationController setToolbarHidden:YES];
     }
     
+    // Show navigation bar if browser toolbar is enabled in settings and populate it with enabled controls
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"]) {
         [self.navigationController setNavigationBarHidden:NO];
-//        self.navigationController.navigationBar.backgroundColor = [UIColor blackColor];
+        //        self.navigationController.navigationBar.backgroundColor = [UIColor blackColor];
     } else {
         [self.navigationController setNavigationBarHidden:YES];
     }
+    
+    // Register slider view items
+    appDelegate.leftSliderCommands = [sliderCommands copy];
 }
 
 

@@ -1,5 +1,5 @@
 //
-//  SEBDockItem.h
+//  SEBDockItem.m
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 01/10/14.
@@ -32,31 +32,24 @@
 //  Contributor(s): ______________________________________.
 //
 
-#import <UIKit/UIKit.h>
-#import <Foundation/Foundation.h>
-#import "SEBiOSDockController.h"
+#import "SEBSliderItem.h"
 
-@interface SEBiOSDockItem : NSObject <SEBiOSDockItem>
-
-@property (strong, nonatomic) NSString *title;
-
-@property (strong, nonatomic) UIImage *icon;
-
-@property (strong, nonatomic) UIImage *highlightedIcon;
-
-@property (strong, nonatomic) NSString *toolTip;
-
-@property (strong, nonatomic) NSMenu *menu;
-
-@property (weak, nonatomic) id target;
-@property (assign, nonatomic) SEL action;
+@implementation SEBSliderItem
 
 
 - (id) initWithTitle:(NSString *)newTitle
                 icon:(UIImage *)newIcon
-     highlightedIcon:(UIImage *)newHighlightedIcon
-             toolTip:(NSString *)newToolTip menu:(NSMenu *)newMenu
               target:(id)newTarget
-              action:(SEL)newAction;
+              action:(SEL)newAction
+{
+    self = [super init];
+    if (self) {
+        _title = newTitle;
+        _icon = newIcon;
+        _target = newTarget;
+        _action = newAction;
+    }
+    return self;
+}
 
 @end

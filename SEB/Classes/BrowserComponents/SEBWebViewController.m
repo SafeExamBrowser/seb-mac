@@ -299,8 +299,8 @@
                 if (error != nil) {
                     NSLog(@"Failed to save the file: %@", [error description]);
                 } else {
-                    NSString *base64PNGData = [dataForPNGFile base64EncodedStringWithOptions:0];
-                    NSString *simulateDropFunction = [NSString stringWithFormat:@"SEB_replaceImage('%@')", base64PNGData];
+//                    NSString *base64PNGData = [dataForPNGFile base64EncodedStringWithOptions:0];
+//                    NSString *simulateDropFunction = [NSString stringWithFormat:@"SEB_replaceImage('%@')", base64PNGData];
 //                    NSString *result =[_sebWebView stringByEvaluatingJavaScriptFromString:simulateDropFunction];
 //                    NSString *result = [_sebWebView stringByEvaluatingJavaScriptFromString:@"SEB_replaceImage()"];
                     // Display an UIAlertView that shows the users we saved the file :)
