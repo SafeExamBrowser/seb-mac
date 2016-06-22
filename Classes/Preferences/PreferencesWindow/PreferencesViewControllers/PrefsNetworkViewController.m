@@ -293,11 +293,11 @@
 {
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     NSUInteger indexOfSelectedItem = [sender indexOfSelectedItem];
-    if (indexOfSelectedItem != -1) {
+    if (indexOfSelectedItem) {
         SecCertificateRef certificate = (__bridge SecCertificateRef)([self.SSLCertificates objectAtIndex:indexOfSelectedItem-1]);
         NSData *certificateData = [keychainManager getDataForCertificate:certificate];
         
-        NSDictionary *certificateToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
+        NSMutableDictionary *certificateToEmbed = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                             [NSNumber numberWithInt:certificateType], @"type",
                                             [sender titleOfSelectedItem], @"name",
                                             [certificateData base64EncodedStringWithOptions:0], @"certificateDataBase64",
@@ -315,7 +315,7 @@
 - (IBAction) CASelected:(id)sender
 {
     NSUInteger indexOfSelectedItem = [sender indexOfSelectedItem];
-    if (indexOfSelectedItem != -1) {
+    if (indexOfSelectedItem) {
         SecCertificateRef certificate = (__bridge SecCertificateRef)([self.caCertificates objectAtIndex:indexOfSelectedItem-1]);
         
         // Assume SSL type
@@ -338,10 +338,13 @@
                     }
                 }
                 
-                NSDictionary *certificateToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
+                NSMutableDictionary *certificateToEmbed = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                                     certType, @"type",
                                                     [sender titleOfSelectedItem], @"name",
                                                     [certificateData base64EncodedStringWithOptions:0], @"certificateDataBase64",
+                                                    // We also save the certificate data into the deprecated subkey certificateDataWin
+                                                    // (for downwards compatibility to < SEB 2.2)
+                                                    [certificateData base64EncodedStringWithOptions:0], @"certificateDataWin",
                                                     nil];
                 [certificatesArrayController addObject:certificateToEmbed];
                 
@@ -367,7 +370,7 @@
         //SecCertificateRef certificate = [keychainManager getCertificateFromIdentity:identityRef];
         NSData *certificateData = [keychainManager getDataForIdentity:identityRef];
         
-        NSDictionary *identityToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
+        NSMutableDictionary *identityToEmbed = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                          [NSNumber numberWithInt:certificateTypeIdentity], @"type",
                                          [sender titleOfSelectedItem], @"name",
                                          certificateData, @"certificateData",
@@ -455,26 +458,26 @@
         SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
         NSData *certificateData = [keychainManager getDataForCertificate:certificateRef];
         if (certificateData) {
-            NSDictionary *certificateToEmbed;
-            if (embeddCertificateType == certificateTypeSSL) {
-                // For a SSL cert we also save its data into the deprecated subkey certificateDataWin
+            NSMutableDictionary *certificateToEmbed;
+            if (embeddCertificateType != certificateTypeSSLDebug) {
+                // For a SSL or CA cert we also save its data into the deprecated subkey certificateDataWin
                 // (for downwards compatibility to < SEB 2.2)
                 // ToDo: Remove in SEB 2.3
-                certificateToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
+                certificateToEmbed = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                                     [NSNumber numberWithInt:embeddCertificateType], @"type",
                                                     certificateName, @"name",
                                                     [certificateData base64EncodedStringWithOptions:0], @"certificateDataBase64",
                                                     [certificateData base64EncodedStringWithOptions:0], @"certificateDataWin",
                                                     nil];
             } else {
-                certificateToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:
+                certificateToEmbed = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                                     [NSNumber numberWithInt:embeddCertificateType], @"type",
                                                     certificateName, @"name",
                                                     [certificateData base64EncodedStringWithOptions:0], @"certificateDataBase64",
                                                     nil];
             }
 
-            [certificatesArrayController addObject:[certificateToEmbed copy]];
+            [certificatesArrayController addObject:certificateToEmbed];
         }
     }
     [NSApp stopModal];

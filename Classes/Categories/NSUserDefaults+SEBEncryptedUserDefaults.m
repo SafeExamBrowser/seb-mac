@@ -199,14 +199,7 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_downloadDirectoryWin",
                                  @NO,
                                  @"org_safeexambrowser_SEB_downloadPDFFiles",
-                                 @[
-                                   @{
-                                       @"certificateData" : [NSData data],
-                                       @"certificateDataWin" : @"",
-                                       @"name" : @"",
-                                       @"type" : @0,
-                                       }
-                                   ],
+                                 [NSArray array],
                                  @"org_safeexambrowser_SEB_embeddedCertificates",
                                  @YES,
                                  @"org_safeexambrowser_SEB_enableAppSwitcherCheck",
