@@ -229,6 +229,44 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CommandCell" id="IIu-gY-Wy3" customClass="SEBActionUITableViewCell">
+                                        <rect key="frame" x="0.0" y="55" width="600" height="33"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" autoresizesSubviews="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IIu-gY-Wy3" id="GOz-5x-upb">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="33"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ig-TM-hUd">
+                                                    <rect key="frame" x="0.0" y="1" width="34" height="32"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="32" id="4gU-jZ-fWU"/>
+                                                        <constraint firstAttribute="width" constant="34" id="XjP-bI-Em7"/>
+                                                    </constraints>
+                                                    <state key="normal" image="Cancel.png">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                                <label clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="1000" text="Webpage" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xG9-QS-xAw">
+                                                    <rect key="frame" x="34" y="3" width="566" height="28"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="20"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstItem="0Ig-TM-hUd" firstAttribute="leading" secondItem="GOz-5x-upb" secondAttribute="leading" id="6ES-hd-ZcY"/>
+                                                <constraint firstItem="xG9-QS-xAw" firstAttribute="top" secondItem="GOz-5x-upb" secondAttribute="top" constant="3" id="8tZ-Uf-Nvw"/>
+                                                <constraint firstAttribute="bottom" secondItem="xG9-QS-xAw" secondAttribute="bottom" constant="2" id="GFv-00-gcO"/>
+                                                <constraint firstItem="xG9-QS-xAw" firstAttribute="leading" secondItem="0Ig-TM-hUd" secondAttribute="trailing" id="qob-Nl-cvi"/>
+                                                <constraint firstAttribute="trailing" secondItem="xG9-QS-xAw" secondAttribute="trailing" id="tuD-Tf-Df5"/>
+                                                <constraint firstItem="0Ig-TM-hUd" firstAttribute="centerY" secondItem="GOz-5x-upb" secondAttribute="centerY" id="uw3-G8-0Ci"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="qX6-yp-qcn" id="mpn-pc-0gZ"/>
