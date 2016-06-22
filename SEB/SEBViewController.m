@@ -357,6 +357,7 @@ static NSMutableSet *browserWindowControllers;
 
 - (IBAction)reload {
     [_browserTabViewController reload];
+    [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
 }
 
 
@@ -625,6 +626,7 @@ static NSMutableSet *browserWindowControllers;
     
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                             [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
                                                              //                                                                     [_alertController dismissViewControllerAnimated:NO completion:nil];
                                                          }]];
     
@@ -642,6 +644,7 @@ static NSMutableSet *browserWindowControllers;
 {
     // Check if the cancel button was pressed
     if (!password) {
+        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
         return;
     }
     
@@ -675,6 +678,7 @@ static NSMutableSet *browserWindowControllers;
             NSString *title = NSLocalizedString(@"Cannot Quit Exam", nil);
             NSString *informativeText = NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit the exam.", nil);
             [_configFileController showAlertWithTitle:title andText:informativeText];
+            [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
             return;
         }
         
@@ -687,6 +691,9 @@ static NSMutableSet *browserWindowControllers;
 
 - (void) quitExam
 {
+    // Close the left slider view if it was open
+    [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+
     // Close browser tabs and reset SEB settings to the local client settings if necessary
     [self resetSEB];
     

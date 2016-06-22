@@ -57,6 +57,7 @@
 // Toolbar height when printing is supported
 #define kToolbarHeight 49
 #define kNavbarHeight 44
+#define kStatusbarHeight 20
 
 #define kCustomButtonHeight     30.0
 
