@@ -179,20 +179,19 @@
     NSInteger section = indexPath.section;
     NSInteger index = indexPath.row;
 
-    static NSString *CellIdentifier = @"WebpageCell";
-    SEBActionUITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    if (cell == nil)
-    {
-        cell = [[SEBActionUITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-    
-    // Configure the cell...
-    cell.delegate = self;
-    
     switch (section) {
         case 0:
         {
+            static NSString *CellIdentifier = @"WebpageCell";
+            SEBActionUITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+            
+            if (cell == nil)
+            {
+                cell = [[SEBActionUITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            }
+            
+            cell.delegate = self;
+            
             // Get webpage
             Webpages *webpage = [self.webpagesArray objectAtIndex:index];
             
@@ -211,6 +210,16 @@
             
         case 1:
         {
+            static NSString *CellIdentifier = @"CommandCell";
+            SEBActionUITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+            
+            if (cell == nil)
+            {
+                cell = [[SEBActionUITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            }
+            
+            cell.delegate = self;
+            
             // Get command
             SEBSliderItem *commandItem = [_commandItems objectAtIndex:index];
             
