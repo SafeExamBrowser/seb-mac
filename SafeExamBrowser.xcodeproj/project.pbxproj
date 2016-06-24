@@ -134,6 +134,8 @@
 		6966F87C1D1C081300684182 /* SEBSliderShutDownIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F87A1D1C081300684182 /* SEBSliderShutDownIcon@2x.png */; };
 		6966F87F1D1D4E7100684182 /* SEBSliderReloadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F87D1D1D4E7100684182 /* SEBSliderReloadIcon.png */; };
 		6966F8801D1D4E7200684182 /* SEBSliderReloadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F87E1D1D4E7100684182 /* SEBSliderReloadIcon@2x.png */; };
+		6966F8831D1D96BE00684182 /* SEBSliderRestartIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F8811D1D96BE00684182 /* SEBSliderRestartIcon.png */; };
+		6966F8841D1D96BE00684182 /* SEBSliderRestartIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F8821D1D96BE00684182 /* SEBSliderRestartIcon@2x.png */; };
 		696A3AE419F6FBC500274214 /* PreferencesConfigFile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AE719F6FBC500274214 /* PreferencesConfigFile.xib */; };
 		696A3AE819F6FBCD00274214 /* PreferencesAppearance.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AEB19F6FBCD00274214 /* PreferencesAppearance.xib */; };
 		696A3AEC19F6FBEA00274214 /* PreferencesExam.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AEF19F6FBEA00274214 /* PreferencesExam.xib */; };
@@ -497,6 +499,8 @@
 		6966F87A1D1C081300684182 /* SEBSliderShutDownIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderShutDownIcon@2x.png"; path = "Resources/Icons/Slider/SEBSliderShutDownIcon@2x.png"; sourceTree = "<group>"; };
 		6966F87D1D1D4E7100684182 /* SEBSliderReloadIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBSliderReloadIcon.png; path = Resources/Icons/Slider/SEBSliderReloadIcon.png; sourceTree = "<group>"; };
 		6966F87E1D1D4E7100684182 /* SEBSliderReloadIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderReloadIcon@2x.png"; path = "Resources/Icons/Slider/SEBSliderReloadIcon@2x.png"; sourceTree = "<group>"; };
+		6966F8811D1D96BE00684182 /* SEBSliderRestartIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBSliderRestartIcon.png; path = Resources/Icons/Slider/SEBSliderRestartIcon.png; sourceTree = "<group>"; };
+		6966F8821D1D96BE00684182 /* SEBSliderRestartIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderRestartIcon@2x.png"; path = "Resources/Icons/Slider/SEBSliderRestartIcon@2x.png"; sourceTree = "<group>"; };
 		6969B1D1127C7AB60027FF8D /* AboutWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutWindow.h; sourceTree = "<group>"; };
 		6969B1D2127C7AB60027FF8D /* AboutWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AboutWindow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		696DAD0E1C3C2AB900397E18 /* Cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Cancel.png; path = Resources/Icons/Cancel.png; sourceTree = "<group>"; };
@@ -1237,6 +1241,8 @@
 		6966F8781D1C080100684182 /* Slider */ = {
 			isa = PBXGroup;
 			children = (
+				6966F8811D1D96BE00684182 /* SEBSliderRestartIcon.png */,
+				6966F8821D1D96BE00684182 /* SEBSliderRestartIcon@2x.png */,
 				6966F87D1D1D4E7100684182 /* SEBSliderReloadIcon.png */,
 				6966F87E1D1D4E7100684182 /* SEBSliderReloadIcon@2x.png */,
 				6966F8791D1C081300684182 /* SEBSliderShutDownIcon.png */,
@@ -1659,6 +1665,7 @@
 				694055AA1CF32B030036C480 /* SEBRestartIcon@3x.png in Resources */,
 				691018D21CF1EA8300AB8803 /* SEBDockIcon@2x.png in Resources */,
 				691018D91CF26A9C00AB8803 /* SEBReloadIcon.png in Resources */,
+				6966F8831D1D96BE00684182 /* SEBSliderRestartIcon.png in Resources */,
 				694055AE1CF32B310036C480 /* SEBShutDownIcon@3x.png in Resources */,
 				691018D81CF26A9C00AB8803 /* SEBReloadIcon@2x.png in Resources */,
 				691018C51CF1B33900AB8803 /* SEBShutDownIcon@2x.png in Resources */,
@@ -1675,6 +1682,7 @@
 				696DAD171C3C2AB900397E18 /* Cancel@2x.png in Resources */,
 				691018D11CF1EA8300AB8803 /* SEBDockIcon.png in Resources */,
 				696DAD221C3C2B1400397E18 /* SearchWebView.js in Resources */,
+				6966F8841D1D96BE00684182 /* SEBSliderRestartIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

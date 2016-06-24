@@ -894,7 +894,7 @@ static NSMutableSet *browserWindowControllers;
         [newDockItems addObject:dockItem];
         
         // Add Restart Exam command to slider items
-        sliderIcon = [UIImage imageNamed:@"SEBRestartIcon"];
+        sliderIcon = [UIImage imageNamed:@"SEBSliderRestartIcon"];
         sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:restartButtonText
                                                             icon:sliderIcon
                                                           target:self
