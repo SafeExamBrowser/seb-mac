@@ -857,7 +857,10 @@ static NSMutableSet *browserWindowControllers;
     dockItem.width = -12;
     [newDockItems addObject:dockItem];
     
-    dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(leftDrawerButtonPress:)];
+    dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                style:UIBarButtonItemStylePlain
+                                               target:self
+                                               action:@selector(leftDrawerButtonPress:)];
     [newDockItems addObject:dockItem];
     
     // Add flexible space between left and right items
@@ -869,9 +872,9 @@ static NSMutableSet *browserWindowControllers;
 
     // Add Edit Settings command if enabled
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showSettingsInApp"]) {
-        dockIcon = [UIImage imageNamed:@"Settings"];
+        sliderIcon = [UIImage imageNamed:@"SEBSliderSettingsIcon"];
         sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Edit Settings",nil)
-                                                            icon:dockIcon
+                                                            icon:sliderIcon
                                                           target:self
                                                           action:@selector(conditionallyShowSettingsModal)];
         [sliderCommands addObject:sliderCommandItem];

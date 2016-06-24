@@ -136,6 +136,8 @@
 		6966F8801D1D4E7200684182 /* SEBSliderReloadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F87E1D1D4E7100684182 /* SEBSliderReloadIcon@2x.png */; };
 		6966F8831D1D96BE00684182 /* SEBSliderRestartIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F8811D1D96BE00684182 /* SEBSliderRestartIcon.png */; };
 		6966F8841D1D96BE00684182 /* SEBSliderRestartIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F8821D1D96BE00684182 /* SEBSliderRestartIcon@2x.png */; };
+		6966F8871D1DE07100684182 /* SEBSliderSettingsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F8851D1DE07100684182 /* SEBSliderSettingsIcon.png */; };
+		6966F8881D1DE07100684182 /* SEBSliderSettingsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F8861D1DE07100684182 /* SEBSliderSettingsIcon@2x.png */; };
 		696A3AE419F6FBC500274214 /* PreferencesConfigFile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AE719F6FBC500274214 /* PreferencesConfigFile.xib */; };
 		696A3AE819F6FBCD00274214 /* PreferencesAppearance.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AEB19F6FBCD00274214 /* PreferencesAppearance.xib */; };
 		696A3AEC19F6FBEA00274214 /* PreferencesExam.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AEF19F6FBEA00274214 /* PreferencesExam.xib */; };
@@ -501,6 +503,8 @@
 		6966F87E1D1D4E7100684182 /* SEBSliderReloadIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderReloadIcon@2x.png"; path = "Resources/Icons/Slider/SEBSliderReloadIcon@2x.png"; sourceTree = "<group>"; };
 		6966F8811D1D96BE00684182 /* SEBSliderRestartIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBSliderRestartIcon.png; path = Resources/Icons/Slider/SEBSliderRestartIcon.png; sourceTree = "<group>"; };
 		6966F8821D1D96BE00684182 /* SEBSliderRestartIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderRestartIcon@2x.png"; path = "Resources/Icons/Slider/SEBSliderRestartIcon@2x.png"; sourceTree = "<group>"; };
+		6966F8851D1DE07100684182 /* SEBSliderSettingsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBSliderSettingsIcon.png; path = Resources/Icons/Slider/SEBSliderSettingsIcon.png; sourceTree = "<group>"; };
+		6966F8861D1DE07100684182 /* SEBSliderSettingsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderSettingsIcon@2x.png"; path = "Resources/Icons/Slider/SEBSliderSettingsIcon@2x.png"; sourceTree = "<group>"; };
 		6969B1D1127C7AB60027FF8D /* AboutWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutWindow.h; sourceTree = "<group>"; };
 		6969B1D2127C7AB60027FF8D /* AboutWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AboutWindow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		696DAD0E1C3C2AB900397E18 /* Cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Cancel.png; path = Resources/Icons/Cancel.png; sourceTree = "<group>"; };
@@ -1241,6 +1245,8 @@
 		6966F8781D1C080100684182 /* Slider */ = {
 			isa = PBXGroup;
 			children = (
+				6966F8851D1DE07100684182 /* SEBSliderSettingsIcon.png */,
+				6966F8861D1DE07100684182 /* SEBSliderSettingsIcon@2x.png */,
 				6966F8811D1D96BE00684182 /* SEBSliderRestartIcon.png */,
 				6966F8821D1D96BE00684182 /* SEBSliderRestartIcon@2x.png */,
 				6966F87D1D1D4E7100684182 /* SEBSliderReloadIcon.png */,
@@ -1658,6 +1664,7 @@
 				6966F87F1D1D4E7100684182 /* SEBSliderReloadIcon.png in Resources */,
 				696DAD181C3C2AB900397E18 /* Next.png in Resources */,
 				69331F011C10AC1B0038BD31 /* continueCircle.png in Resources */,
+				6966F8881D1DE07100684182 /* SEBSliderSettingsIcon@2x.png in Resources */,
 				691018C61CF1B33900AB8803 /* SEBShutDownIcon.png in Resources */,
 				6940B97B1BA0F2FB008C8CFC /* LaunchScreen.storyboard in Resources */,
 				69782A501CCE26AD00C2AA9A /* InAppSettings.bundle in Resources */,
@@ -1680,6 +1687,7 @@
 				6966F87C1D1C081300684182 /* SEBSliderShutDownIcon@2x.png in Resources */,
 				696DAD1D1C3C2AB900397E18 /* Reload@2x.png in Resources */,
 				696DAD171C3C2AB900397E18 /* Cancel@2x.png in Resources */,
+				6966F8871D1DE07100684182 /* SEBSliderSettingsIcon.png in Resources */,
 				691018D11CF1EA8300AB8803 /* SEBDockIcon.png in Resources */,
 				696DAD221C3C2B1400397E18 /* SearchWebView.js in Resources */,
 				6966F8841D1D96BE00684182 /* SEBSliderRestartIcon@2x.png in Resources */,
