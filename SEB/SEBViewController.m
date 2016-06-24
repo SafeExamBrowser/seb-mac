@@ -844,7 +844,7 @@ static NSMutableSet *browserWindowControllers;
     UIImage *dockIcon;
     NSMutableArray *sliderCommands = [NSMutableArray new];
     SEBSliderItem *sliderCommandItem;
-    
+    UIImage *sliderIcon;
     
     /// Add left items
     
@@ -894,8 +894,9 @@ static NSMutableSet *browserWindowControllers;
         [newDockItems addObject:dockItem];
         
         // Add Restart Exam command to slider items
+        sliderIcon = [UIImage imageNamed:@"SEBRestartIcon"];
         sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:restartButtonText
-                                                            icon:dockIcon
+                                                            icon:sliderIcon
                                                           target:self
                                                           action:@selector(reload)];
         [sliderCommands addObject:sliderCommandItem];
@@ -912,8 +913,9 @@ static NSMutableSet *browserWindowControllers;
         [newDockItems addObject:dockItem];
         
         // Add reload current page command to slider items
+        sliderIcon = [UIImage imageNamed:@"SEBSliderReloadIcon"];
         sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Reload Current Page",nil)
-                                                            icon:dockIcon
+                                                            icon:sliderIcon
                                                           target:self
                                                           action:@selector(reload)];
         [sliderCommands addObject:sliderCommandItem];
@@ -929,8 +931,9 @@ static NSMutableSet *browserWindowControllers;
     [newDockItems addObject:dockItem];
     
     // Add quit command to slider items
+    sliderIcon = [UIImage imageNamed:@"SEBSliderShutDownIcon"];
     sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Quit Exam",nil)
-                                                        icon:dockIcon
+                                                        icon:sliderIcon
                                                       target:self
                                                       action:@selector(quitExamConditionally)];
     [sliderCommands addObject:sliderCommandItem];
