@@ -601,7 +601,7 @@ static NSMutableSet *browserWindowControllers;
             }
             
             [_configFileController promptPasswordWithMessageText:enterPasswordString
-                                                       title:NSLocalizedString(@"Quit Exam",nil)
+                                                       title:NSLocalizedString(@"Quit Session",nil)
                                                     callback:self
                                                     selector:@selector(quitPasswordEntered:)];
         } else {
@@ -615,8 +615,8 @@ static NSMutableSet *browserWindowControllers;
 // If no quit password is required, then confirm quitting
 - (void) quitExamIgnoringQuitPW
 {
-    _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Quit Exam", nil)
-                                                            message:NSLocalizedString(@"Are you sure you want to quit the exam?", nil)
+    _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Quit Session", nil)
+                                                            message:NSLocalizedString(@"Are you sure you want to quit this session?", nil)
                                                      preferredStyle:UIAlertControllerStyleAlert];
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Quit", nil)
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -666,17 +666,17 @@ static NSMutableSet *browserWindowControllers;
             NSString *enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the quit password:",nil);
             // Ask the user to enter the settings password and proceed to the callback method after this happend
             [_configFileController promptPasswordWithMessageText:enterPasswordString
-                                                           title:NSLocalizedString(@"Quit Exam",nil)
+                                                           title:NSLocalizedString(@"Quit Session",nil)
                                                         callback:self
                                                         selector:@selector(quitPasswordEntered:)];
             return;
             
         } else {
             // Wrong password entered in the last allowed attempts: Stop quitting the exam
-            DDLogError(@"%s: Couldn't quit the exam: The correct quit password wasn't entered.", __FUNCTION__);
+            DDLogError(@"%s: Couldn't quit the session: The correct quit password wasn't entered.", __FUNCTION__);
             
-            NSString *title = NSLocalizedString(@"Cannot Quit Exam", nil);
-            NSString *informativeText = NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit the exam.", nil);
+            NSString *title = NSLocalizedString(@"Cannot Quit Session", nil);
+            NSString *informativeText = NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit the session.", nil);
             [_configFileController showAlertWithTitle:title andText:informativeText];
             [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
             return;
@@ -700,7 +700,7 @@ static NSMutableSet *browserWindowControllers;
     if (_ASAMActive) {
         [self stopAutonomousSingleAppMode];
         _ASAMActive = false;
-        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Restart Exam", nil)
+        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Restart Session", nil)
                                                                 message:NSLocalizedString(@"Return to start page and lock device into SEB.", nil)
                                                          preferredStyle:UIAlertControllerStyleAlert];
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
@@ -970,6 +970,12 @@ static NSMutableSet *browserWindowControllers;
 {
     [_browserTabViewController closeAllTabs];
     _examRunning = false;
+    
+    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+    // downloads to disk, and ensures that future requests occur on a new socket.
+    [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+        // Do something once it's done.
+    }];
     
     // Switch to system's (persisted) UserDefaults
     [NSUserDefaults setUserDefaultsPrivate:NO];
