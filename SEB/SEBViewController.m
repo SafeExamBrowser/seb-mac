@@ -935,7 +935,7 @@ static NSMutableSet *browserWindowControllers;
     
     // Add quit command to slider items
     sliderIcon = [UIImage imageNamed:@"SEBSliderShutDownIcon"];
-    sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Quit Exam",nil)
+    sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Quit Session",nil)
                                                         icon:sliderIcon
                                                       target:self
                                                       action:@selector(quitExamConditionally)];
@@ -995,7 +995,7 @@ static NSMutableSet *browserWindowControllers;
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
             }
             _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)
-                                                                              message:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and use a quit link or the quit button in SEB before starting another exam.", nil)
+                                                                              message:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session and use a quit link or the quit button in SEB before starting another exam.", nil)
                                                                        preferredStyle:UIAlertControllerStyleAlert];
             [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
