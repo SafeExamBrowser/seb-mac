@@ -342,6 +342,9 @@
                                                     certType, @"type",
                                                     [sender titleOfSelectedItem], @"name",
                                                     [certificateData base64EncodedStringWithOptions:0], @"certificateDataBase64",
+                                                    // We also save the certificate data into the deprecated subkey certificateDataWin
+                                                    // (for downwards compatibility to < SEB 2.2)
+                                                    [certificateData base64EncodedStringWithOptions:0], @"certificateDataWin",
                                                     nil];
                 [certificatesArrayController addObject:certificateToEmbed];
                 
@@ -456,8 +459,8 @@
         NSData *certificateData = [keychainManager getDataForCertificate:certificateRef];
         if (certificateData) {
             NSDictionary *certificateToEmbed;
-            if (embeddCertificateType == certificateTypeSSL) {
-                // For a SSL cert we also save its data into the deprecated subkey certificateDataWin
+            if (embeddCertificateType != certificateTypeSSLDebug) {
+                // For a SSL/TLS and CA cert we also save its data into the deprecated subkey certificateDataWin
                 // (for downwards compatibility to < SEB 2.2)
                 // ToDo: Remove in SEB 2.3
                 certificateToEmbed = [NSDictionary dictionaryWithObjectsAndKeys:

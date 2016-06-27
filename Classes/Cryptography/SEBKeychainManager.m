@@ -41,7 +41,7 @@
 @implementation SEBKeychainManager
 
 // We ignore "deprecated" warnings for CSSM methods, since Apple doesn't provide any replacement
-// for asymetric public key cryptography as for OS X 10.10
+// for asymetric public key cryptography as of OS X 10.10
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 

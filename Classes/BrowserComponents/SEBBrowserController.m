@@ -70,7 +70,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
  * CLIENT CONFIGURATION
  *
  * SEB internally maintains two arrays of SecCertificateRef certificate objects, tlsCerts and caCerts.
- * These are populated by parsing the SEB config file key 'embeddedCertificates/certificateDataWin'.
+ * These are populated by parsing the SEB config file key 'embeddedCertificates/certificateDataBase64' or 'certificateDataWin'.
  *
  * The handling of these certs depends on the setting of 'pinEmbeddedCertificates' in the SEB config file.
  *
@@ -81,26 +81,26 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
  * cert (usually self-signed) for which we have prior knowledge of the public key (this cert must also
  * be embedded for matching purposes)
  *
- * If 'pinEmbeddedCertificates' is FALSE and both tlsCerts and caCerts are empty, the standard OS trust
- * store behavior applies.
+ * If 'pinEmbeddedCertificates' is FALSE and tlsCerts, debugCerts and caCerts are empty, the standard
+ * OS trust store behavior applies.
  *
- * If 'pinEmbeddedCertificates' is FALSE and tlsCerts and/or caCerts contains certificates, these
+ * If 'pinEmbeddedCertificates' is FALSE and tlsCerts, debugCerts and/or caCerts contains certificates, these
  * certificates extend the system trust store (as if you had manually added them to the system trust store)
  *
  * If 'pinEmbeddedCertificates' is FALSE and only tlsCerts are present (i.e. no caCerts), the exact
  * behavior of SEB Windows 2.1+ is expected for backward compatibility (these are typically self-signed
  * SSL/TLS certificates being added to the trust store as they do not chain back to an OS trusted CA root)
  *
- * If 'pinEmbeddedCertificates' is TRUE and both tlsCerts and caCerts are empty, all HTTPS traffic will
+ * If 'pinEmbeddedCertificates' is TRUE and tlsCerts, debugCerts and caCerts are empty, all HTTPS traffic will
  * be rejected (these arrays could be empty if they were filtered out during loading, e.g. due to date
- * expirations)
+ * expirations, except debugCerts which are not checked for expiration)
  *
  * If 'pinEmbeddedCertificates' is TRUE and caCerts are available, only the embedded CA roots can act
  * as trust anchors. If any of the embedded root caCerts result in trust being established, HTTPS traffic
- * will be permitted otherwise pinned tlsCerts will be checked. If tlsCerts is empty, HTTPS traffic will be
- * rejected, else each embedded SSL/TLS certificate's public key will be compared against the server SSL/TLS
- * leaf certificate public key and HTTPS traffic will be allowed if a match is detected and other evaluation
- * checks are passed (domain match, expiration, etc.)
+ * will be permitted otherwise pinned tlsCerts/debugCerts will be checked. If tlsCerts and debugCerts is empty,
+ * HTTPS traffic will be rejected, else each embedded SSL/TLS certificate's public key will be compared against
+ * the server SSL/TLS leaf certificate public key and HTTPS traffic will be allowed if a match is detected and
+ * other evaluation checks are passed (domain match, expiration, etc.) in case of tlsCerts.
  *
  * For compatibility, the above behavior must be exactly duplicated by other client ports.
  *
@@ -133,6 +133,11 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             // Embedded SSL/TLS certs extend system trust store if
             // not pinned (these would typically be self-signed)
             [embeddedCertificates addObjectsFromArray:[sc tlsCerts]];
+            
+            // Also add embedded debug certs, which we also use to extend
+            // the system trust store (note: they might fail the first check
+            // because of expiration or common name/alternative names not
+            // matching domain
         }
         
         if (pinned || [embeddedCertificates count])
