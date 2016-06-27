@@ -458,7 +458,7 @@
         SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
         NSData *certificateData = [keychainManager getDataForCertificate:certificateRef];
         if (certificateData) {
-            NSDictionary *certificateToEmbed;
+            NSMutableDictionary *certificateToEmbed;
             if (embeddCertificateType != certificateTypeSSLDebug) {
                 // For a SSL/TLS and CA cert we also save its data into the deprecated subkey certificateDataWin
                 // (for downwards compatibility to < SEB 2.2)
