@@ -1223,16 +1223,18 @@ didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 - (NSString *) getFilenameFromHTMLAnchorElement:(DOMHTMLAnchorElement *)parentNode
 {
     NSString *filename;
-    NSString *parentOuterHTML = parentNode.outerHTML;
-    NSRange rangeOfDownloadAttribute = [parentOuterHTML rangeOfString:@" download='"];
-    if (rangeOfDownloadAttribute.location != NSNotFound) {
-        filename = [parentOuterHTML substringFromIndex:rangeOfDownloadAttribute.location + rangeOfDownloadAttribute.length];
-        filename = [filename substringToIndex:[filename rangeOfString:@"'"].location];
-    } else {
-        rangeOfDownloadAttribute = [parentOuterHTML rangeOfString:@" download=\""];
+    if ([parentNode respondsToSelector:@selector(outerHTML)]) {
+        NSString *parentOuterHTML = parentNode.outerHTML;
+        NSRange rangeOfDownloadAttribute = [parentOuterHTML rangeOfString:@" download='"];
         if (rangeOfDownloadAttribute.location != NSNotFound) {
             filename = [parentOuterHTML substringFromIndex:rangeOfDownloadAttribute.location + rangeOfDownloadAttribute.length];
-            filename = [filename substringToIndex:[filename rangeOfString:@"\""].location];
+            filename = [filename substringToIndex:[filename rangeOfString:@"'"].location];
+        } else {
+            rangeOfDownloadAttribute = [parentOuterHTML rangeOfString:@" download=\""];
+            if (rangeOfDownloadAttribute.location != NSNotFound) {
+                filename = [parentOuterHTML substringFromIndex:rangeOfDownloadAttribute.location + rangeOfDownloadAttribute.length];
+                filename = [filename substringToIndex:[filename rangeOfString:@"\""].location];
+            }
         }
     }
     return filename;
@@ -1254,19 +1256,35 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         // Get the DOMNode from the information about the action that triggered the navigation request
         self.downloadFilename = nil;
         NSDictionary *webElementDict = [actionInformation valueForKey:@"WebActionElementKey"];
-        DOMNode *webElementDOMNode = [webElementDict valueForKey:@"WebElementDOMNode"];
-        DOMHTMLAnchorElement *parentNode = (DOMHTMLAnchorElement *)webElementDOMNode.parentNode;
-        if ([parentNode.nodeName isEqualToString:@"A"]) {
-            self.downloadFilename = [self getFilenameFromHTMLAnchorElement:parentNode];
-        } else {
-            // Check if one of the children is a anchor
-            DOMHTMLCollection *childrenNodes = parentNode.children;
-            int i;
-            for (i = 0; i < childrenNodes.length; i++) {
-                DOMHTMLAnchorElement *childNode = (DOMHTMLAnchorElement *)[childrenNodes item:i];
-                if ([childNode.nodeName isEqualToString:@"A"]) {
-                    self.downloadFilename = [self getFilenameFromHTMLAnchorElement:childNode];
-                    break;
+        if (webElementDict) {
+            DOMNode *webElementDOMNode = [webElementDict valueForKey:@"WebElementDOMNode"];
+
+            // Do we have a parentNode?
+            if ([webElementDOMNode respondsToSelector:@selector(parentNode)]) {
+            
+                // Is the parent an anchor?
+                DOMHTMLAnchorElement *parentNode = (DOMHTMLAnchorElement *)webElementDOMNode.parentNode;
+                if ([parentNode respondsToSelector:@selector(nodeName)]) {
+                    if ([parentNode.nodeName isEqualToString:@"A"]) {
+                        self.downloadFilename = [self getFilenameFromHTMLAnchorElement:parentNode];
+                    }
+                }
+                
+                // Check if one of the children of the parent node is an anchor
+                if ([parentNode respondsToSelector:@selector(children)]) {
+                    // We had to check if we get children, bad formatted HTML and
+                    // older WebKit versions would throw an exception here
+                    DOMHTMLCollection *childrenNodes = parentNode.children;
+                    int i;
+                    for (i = 0; i < childrenNodes.length; i++) {
+                        DOMHTMLAnchorElement *childNode = (DOMHTMLAnchorElement *)[childrenNodes item:i];
+                        if ([childNode respondsToSelector:@selector(nodeName)]) {
+                            if ([childNode.nodeName isEqualToString:@"A"]) {
+                                self.downloadFilename = [self getFilenameFromHTMLAnchorElement:childNode];
+                                break;
+                            }
+                        }
+                    }
                 }
             }
         }
