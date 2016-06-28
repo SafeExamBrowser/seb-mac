@@ -915,9 +915,9 @@ static NSMutableSet *browserWindowControllers;
         dockItem.width = 0;
         [newDockItems addObject:dockItem];
         
-        // Add reload current page command to slider items
+        // Add reload page command to slider items
         sliderIcon = [UIImage imageNamed:@"SEBSliderReloadIcon"];
-        sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Reload Current Page",nil)
+        sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Reload Page",nil)
                                                             icon:sliderIcon
                                                           target:self
                                                           action:@selector(reload)];
