@@ -50,6 +50,7 @@
 		6921294316F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6921294116F91C6600AFC3B0 /* BoolValueTransformer.m */; };
 		6921294716F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6921294516F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h */; };
 		6921294816F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6921294616F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m */; };
+		692476F51D27343600931AD8 /* SEB.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 692476F41D27343600931AD8 /* SEB.entitlements */; };
 		69263A9E1A2E0765006F1E31 /* SEBWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 69263A9C1A2E0765006F1E31 /* SEBWebView.h */; };
 		69263A9F1A2E0765006F1E31 /* SEBWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69263A9D1A2E0765006F1E31 /* SEBWebView.m */; };
 		6929228A19FD9F1B00B57347 /* SEBBrowserWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6929228D19FD9F1B00B57347 /* SEBBrowserWindow.xib */; };
@@ -403,6 +404,7 @@
 		6921294116F91C6600AFC3B0 /* BoolValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoolValueTransformer.m; sourceTree = "<group>"; };
 		6921294516F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IsEmptyCollectionValueTransformer.h; sourceTree = "<group>"; };
 		6921294616F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IsEmptyCollectionValueTransformer.m; sourceTree = "<group>"; };
+		692476F41D27343600931AD8 /* SEB.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = SEB.entitlements; path = SEB/Resources/SEB.entitlements; sourceTree = "<group>"; };
 		69263A9C1A2E0765006F1E31 /* SEBWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBWebView.h; path = Classes/BrowserComponents/SEBWebView.h; sourceTree = "<group>"; };
 		69263A9D1A2E0765006F1E31 /* SEBWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBWebView.m; path = Classes/BrowserComponents/SEBWebView.m; sourceTree = "<group>"; };
 		692891B012ACEBDC00EEE7C9 /* SEBBrowserWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBBrowserWindow.h; path = Classes/BrowserComponents/SEBBrowserWindow.h; sourceTree = "<group>"; };
@@ -775,6 +777,7 @@
 		29B97314FDCFA39411CA2CEA /* SEB */ = {
 			isa = PBXGroup;
 			children = (
+				692476F41D27343600931AD8 /* SEB.entitlements */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				6940B98F1BA0F2FB008C8CFC /* SEBUITests */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -1677,6 +1680,7 @@
 				691018D81CF26A9C00AB8803 /* SEBReloadIcon@2x.png in Resources */,
 				691018C51CF1B33900AB8803 /* SEBShutDownIcon@2x.png in Resources */,
 				6940B9781BA0F2FB008C8CFC /* Assets.xcassets in Resources */,
+				692476F51D27343600931AD8 /* SEB.entitlements in Resources */,
 				69782A4E1CCE068C00C2AA9A /* Settings.bundle in Resources */,
 				6940B9731BA0F2FB008C8CFC /* Main.storyboard in Resources */,
 				694055A91CF32B030036C480 /* SEBRestartIcon@2x.png in Resources */,
@@ -2191,6 +2195,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = SEB/Resources/SEB.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -2251,6 +2256,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = SEB/Resources/SEB.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
