@@ -439,25 +439,32 @@ static NSMutableSet *browserWindowControllers;
     if (UIAccessibilityIsGuidedAccessEnabled() == false) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         // Is ASAM enabled in settings or is it already active?
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableASAM"] || _ASAMActive) {
-            NSLog(@"Requesting Autonomous Single App Mode");
-            _ASAMActive = true;
-            UIAccessibilityRequestGuidedAccessSession(true, ^(BOOL didSucceed) {
-                if (didSucceed) {
-                    NSLog(@"Entered Autonomous Single App Mode");
-                    [self startExam];
-                }
-                else {
-                    NSLog(@"Failed to enter Autonomous Single App Mode");
-                    _ASAMActive = false;
-                    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableASAM"]) {
-                        <#statements#>
-                    }
-                    [self showStartGuidedAccess];
-                }
-            });
+        if (_ASAMActive) {
+            NSLog(@"Autonomous Single App Mode already active");
+            [self startExam];
         } else {
-            [self showStartGuidedAccess];
+            if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableASAM"]) {
+                NSLog(@"Requesting Autonomous Single App Mode");
+                _ASAMActive = true;
+                UIAccessibilityRequestGuidedAccessSession(true, ^(BOOL didSucceed) {
+                    if (didSucceed) {
+                        NSLog(@"Entered Autonomous Single App Mode");
+                        [self startExam];
+                    }
+                    else {
+                        NSLog(@"Failed to enter Autonomous Single App Mode");
+                        _ASAMActive = false;
+                        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowGuidedAccess"]) {
+                            [self showStartGuidedAccess];
+                        } else {
+                            // Guided Access isn't allowed: SEB refuses to start the exam
+                            // ToDo
+                        }
+                    }
+                });
+            } else {
+                [self showStartGuidedAccess];
+            }
         }
     } else {
         // Guided Access or ASAM is already active (maybe because of a crash)
