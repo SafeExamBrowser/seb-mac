@@ -209,6 +209,8 @@ static NSNumber *_logLevel;
                                  @NO,
                                  @"org_safeexambrowser_SEB_enableBrowserWindowToolbar",
                                  @NO,
+                                 @"org_safeexambrowser_SEB_enableDrawingEditor",
+                                 @NO,
                                  @"org_safeexambrowser_SEB_enableJava",
                                  @YES,
                                  @"org_safeexambrowser_SEB_enableJavaScript",
