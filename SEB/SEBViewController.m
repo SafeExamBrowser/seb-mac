@@ -438,7 +438,8 @@ static NSMutableSet *browserWindowControllers;
     _finishedStartingUp = true;
     if (UIAccessibilityIsGuidedAccessEnabled() == false) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableASAM"]) {
+        // Is ASAM enabled in settings or is it already active?
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableASAM"] || _ASAMActive) {
             NSLog(@"Requesting Autonomous Single App Mode");
             _ASAMActive = true;
             UIAccessibilityRequestGuidedAccessSession(true, ^(BOOL didSucceed) {
@@ -449,6 +450,9 @@ static NSMutableSet *browserWindowControllers;
                 else {
                     NSLog(@"Failed to enter Autonomous Single App Mode");
                     _ASAMActive = false;
+                    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableASAM"]) {
+                        <#statements#>
+                    }
                     [self showStartGuidedAccess];
                 }
             });
@@ -457,6 +461,7 @@ static NSMutableSet *browserWindowControllers;
         }
     } else {
         // Guided Access or ASAM is already active (maybe because of a crash)
+        NSLog(@"Guided Access or ASAM is already active, maybe because of a crash.");
         // Try to switch ASAM off to find out if it was active
         _ASAMActive = true;
         UIAccessibilityRequestGuidedAccessSession(false, ^(BOOL didSucceed) {

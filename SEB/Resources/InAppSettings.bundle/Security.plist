@@ -28,17 +28,17 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Managed (Supervised) Mode Only</string>
+			<string>Allow Using Guided Access</string>
 			<key>FooterText</key>
-			<string>If on, manual Guided Access won&apos;t be used even if ASAM or Single App Mode isn&apos;t available (SEB will refuse to run in this case).</string>
+			<string>If disabled, manually activated Guided Access won&apos;t be used even if ASAM or Single App Mode isn&apos;t available (SEB will refuse to run in this case).</string>
 		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Managed Only</string>
+			<string>Allow Guided Access</string>
 			<key>Key</key>
-			<string>org_safeexambrowser_SEB_mobileManagedOnly</string>
+			<string>org_safeexambrowser_SEB_mobileAllowGuidedAccess</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
