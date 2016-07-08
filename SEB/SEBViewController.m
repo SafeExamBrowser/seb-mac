@@ -436,13 +436,15 @@ static NSMutableSet *browserWindowControllers;
 - (void) startAutonomousSingleAppMode
 {
     _finishedStartingUp = true;
+    // Is one of the Single App Modes already active
     if (UIAccessibilityIsGuidedAccessEnabled() == false) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        // Is ASAM enabled in settings or is it already active?
+        // Is ASAM already active?
         if (_ASAMActive) {
             NSLog(@"Autonomous Single App Mode already active");
             [self startExam];
         } else {
+            // Is ASAM enabled in settings?
             if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableASAM"]) {
                 NSLog(@"Requesting Autonomous Single App Mode");
                 _ASAMActive = true;
@@ -467,7 +469,7 @@ static NSMutableSet *browserWindowControllers;
             }
         }
     } else {
-        // Guided Access or ASAM is already active (maybe because of a crash)
+        // Guided Access, SAM or ASAM is already active (maybe because of a crash)
         NSLog(@"Guided Access or ASAM is already active, maybe because of a crash.");
         // Try to switch ASAM off to find out if it was active
         _ASAMActive = true;
@@ -493,7 +495,7 @@ static NSMutableSet *browserWindowControllers;
     UIAccessibilityRequestGuidedAccessSession(false, ^(BOOL didSucceed) {
         if (didSucceed) {
             NSLog(@"Exited Autonomous Single App Mode");
-//            _ASAMActive = false;
+            _ASAMActive = false;
         }
         else {
             NSLog(@"Failed to exit Autonomous Single App Mode");
@@ -711,7 +713,7 @@ static NSMutableSet *browserWindowControllers;
     
     if (_ASAMActive) {
         [self stopAutonomousSingleAppMode];
-        _ASAMActive = false;
+//        _ASAMActive = false;
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Restart Session", nil)
                                                                 message:NSLocalizedString(@"Return to start page and lock device into SEB.", nil)
                                                          preferredStyle:UIAlertControllerStyleAlert];
