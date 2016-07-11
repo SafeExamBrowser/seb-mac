@@ -435,17 +435,30 @@ static NSMutableSet *browserWindowControllers;
 
 - (void) startAutonomousSingleAppMode
 {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     _finishedStartingUp = true;
-    // Is one of the Single App Modes already active
-    if (UIAccessibilityIsGuidedAccessEnabled() == false) {
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    // First check if a quit password is set = run SEB in secure mode
+    _secureMode = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
+    
+    // Is ASAM enabled in current settings?
+    _enableASAM = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableASAM"];
+    
+    // Is ASAM active or any other of the Single App Modes not yet active?
+    if (_ASAMActive || UIAccessibilityIsGuidedAccessEnabled() == false) {
+
         // Is ASAM already active?
         if (_ASAMActive) {
             NSLog(@"Autonomous Single App Mode already active");
+            if (!_secureMode || !_enableASAM) {
+                [self stopAutonomousSingleAppMode];
+            }
             [self startExam];
+
         } else {
+            // ASAM not active
             // Is ASAM enabled in settings?
-            if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableASAM"]) {
+            if (_secureMode && _enableASAM) {
                 NSLog(@"Requesting Autonomous Single App Mode");
                 _ASAMActive = true;
                 UIAccessibilityRequestGuidedAccessSession(true, ^(BOOL didSucceed) {
@@ -510,9 +523,7 @@ static NSMutableSet *browserWindowControllers;
     [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
 
     // First check if a quit password is set
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-    if (hashedQuitPassword.length == 0) {
+    if (!_secureMode) {
         // No quit password set in current settings: Don't ask user to switch on Guided Access
         // and open an exam portal page or a mock exam (which don't need to be secured)
         _guidedAccessActive = false;
@@ -710,12 +721,17 @@ static NSMutableSet *browserWindowControllers;
 
     // Close browser tabs and reset SEB settings to the local client settings if necessary
     [self resetSEB];
+    // Update (because settings might have changed to local client settings)
+    // if a quit password is set = run SEB in secure mode
+    _secureMode = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
     
+
+    // If local client settings aren't running in secure mode
     if (_ASAMActive) {
         [self stopAutonomousSingleAppMode];
 //        _ASAMActive = false;
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Restart Session", nil)
-                                                                message:NSLocalizedString(@"Return to start page and lock device into SEB.", nil)
+                                                                message:_secureMode ? NSLocalizedString(@"Return to start page and lock device into SEB.", nil) : NSLocalizedString(@"Return to start page.", nil)
                                                          preferredStyle:UIAlertControllerStyleAlert];
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -970,7 +986,9 @@ static NSMutableSet *browserWindowControllers;
     // Show navigation bar if browser toolbar is enabled in settings and populate it with enabled controls
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"]) {
         [self.navigationController setNavigationBarHidden:NO];
-        //        self.navigationController.navigationBar.backgroundColor = [UIColor blackColor];
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"]) {
+            // ToDo: Add back/forward buttons to navigation bar
+        }
     } else {
         [self.navigationController setNavigationBarHidden:YES];
     }

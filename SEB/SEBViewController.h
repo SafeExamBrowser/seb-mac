@@ -69,6 +69,9 @@
 @property (strong, nonatomic) UIView *statusBarView;
 @property (strong, nonatomic) NSArray *dockItems;
 
+@property(readwrite) BOOL secureMode;
+@property(readwrite) BOOL enableASAM;
+
 @property(readwrite) BOOL ASAMActive;
 @property(readwrite) BOOL guidedAccessActive;
 
