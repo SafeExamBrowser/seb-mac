@@ -529,13 +529,28 @@ static NSMutableSet *browserWindowControllers;
         _guidedAccessActive = false;
         [self startExam];
     } else {
-        // A quit password is set: Ask user to switch on Guided Access
-        _guidedAccessActive = true;
-        if (UIAccessibilityIsGuidedAccessEnabled() == false) {
-            _startGuidedAccessDisplayed = true;
-            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Start Guided Access", nil)
-                                                                    message:NSLocalizedString(@"Enable Guided Access in Settings -> General -> Accessibility and after returning to SEB, triple click home button to proceed to exam.", nil)
+        // A quit password is set: Ask user to switch on Guided Access (as far as it is allowed in settings)
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowGuidedAccess"]) {
+            // Guided Access is allowed
+            _guidedAccessActive = true;
+            if (UIAccessibilityIsGuidedAccessEnabled() == false) {
+                _startGuidedAccessDisplayed = true;
+                _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Start Guided Access", nil)
+                                                                        message:NSLocalizedString(@"Enable Guided Access in Settings -> General -> Accessibility and after returning to SEB, triple click home button to proceed to exam.", nil)
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+                [self presentViewController:_alertController animated:YES completion:nil];
+            }
+        } else {
+            // Guided Access isn't allowed: SEB refuses to start the exam
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Kiosk Mode Available", nil)
+                                                                    message:NSLocalizedString(@"Neither (Autonomous) Single App Mode nor manual Guided Access are available on this device or activated in  settings. Ask your exam support for an eligible exam environment.", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
+                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                     [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                     [self startAutonomousSingleAppMode];
+                                                                 }]];
+
             [self presentViewController:_alertController animated:YES completion:nil];
         }
     }
