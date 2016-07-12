@@ -78,6 +78,7 @@
 @property(readwrite) BOOL finishedStartingUp;
 @property(readwrite) BOOL startGuidedAccessDisplayed;
 @property(readwrite) BOOL guidedAccessWarningDisplayed;
+@property(readwrite) BOOL restartSessionAlertDisplayed;
 @property(readwrite) BOOL examRunning;
 @property(readwrite) BOOL settingsOpen;
 @property(readwrite) BOOL sebLocked;

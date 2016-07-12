@@ -57,30 +57,34 @@
 
         if ([[MyGlobals sharedMyGlobals] finishedInitializing]) {
             
-            self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"SEB Re-Configured", nil)
+            if (_sebViewController.alertController) {
+                [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
+            }
+            _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"SEB Re-Configured", nil)
                                                                         message:NSLocalizedString(@"Local settings of this SEB client have been reconfigured.", nil)
                                                                  preferredStyle:UIAlertControllerStyleAlert];
-            [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Continue", nil)
+            [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Continue", nil)
                                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                               [self.alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                               [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
                                                                                
-//                                                                               [self startExam];
+                                                                               // Inform callback that storing new settings was successful
+                                                                               [super storeNewSEBSettingsSuccessful:true];
                                                                            }]];
             
-            if (self.sebViewController.alertController) {
-                [self.sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
-            }
-            [self.sebViewController presentViewController:self.alertController animated:YES completion:nil];
+            [_sebViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
 
         } else {
             // Set the flag to eventually display the dialog later
             [MyGlobals sharedMyGlobals].reconfiguredWhileStarting = YES;
+            
+            // Inform callback that storing new settings was successful
+            [super storeNewSEBSettingsSuccessful:true];
         }
         
     }
     
 //    PreferencesController *prefsController = self.sebController.preferencesController;
-//    
+//
 //    // If opening the preferences window is allowed
 //    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"]) {
 //        // we store the .seb file password/hash and/or certificate/identity
@@ -103,19 +107,22 @@
 // Ask the user to enter a password using the message text and then call the callback selector with the password as parameter
 - (void) promptPasswordWithMessageText:(NSString *)messageText title:(NSString *)titleString callback:(id)callback selector:(SEL)selector;
 {
-    self.alertController = [UIAlertController alertControllerWithTitle:titleString
+    if (_sebViewController.alertController) {
+        [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
+    }
+    _sebViewController.alertController = [UIAlertController alertControllerWithTitle:titleString
                                                                 message:messageText
                                                          preferredStyle:UIAlertControllerStyleAlert];
     
-    [self.alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
+    [_sebViewController.alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
      {
          textField.placeholder = NSLocalizedString(@"Password", nil);
          textField.secureTextEntry = YES;
      }];
     
-    [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                 NSString *password = self.alertController.textFields.firstObject.text;
+                                                                 NSString *password = _sebViewController.alertController.textFields.firstObject.text;
                                                                  if (!password) {
                                                                      password = @"";
                                                                  }
@@ -124,7 +131,7 @@
                                                                  func(callback, selector, password);
                                                              }]];
     
-    [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                              style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                                                                  // Return nil to callback method to indicate that cancel was pressed
                                                                  IMP imp = [callback methodForSelector:selector];
@@ -132,10 +139,7 @@
                                                                  func(callback, selector, nil);
                                                              }]];
     
-    if (self.sebViewController.alertController) {
-        [self.sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
-    }
-    [self.sebViewController presentViewController:self.alertController animated:YES completion:nil];
+    [_sebViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
 }
 
 
@@ -152,19 +156,20 @@
 }
 
 
-- (void) showAlertWithTitle:(NSString *)title andText:(NSString *)informativeText {
-    self.alertController = [UIAlertController  alertControllerWithTitle:title
+- (void) showAlertWithTitle:(NSString *)title andText:(NSString *)informativeText
+{
+    if (_sebViewController.alertController) {
+        [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
+    }
+    _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:title
                                                                 message:informativeText
                                                          preferredStyle:UIAlertControllerStyleAlert];
-    [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                 [self.alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                 [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
                                                              }]];
     
-    if (self.sebViewController.alertController) {
-        [self.sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
-    }
-    [self.sebViewController presentViewController:self.alertController animated:YES completion:nil];
+    [_sebViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
 }
 
 
@@ -208,12 +213,15 @@
 - (BOOL) saveSettingsUnencrypted {
     __block BOOL saveSettingsUnencrypted;
     
-    self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Encryption Credentials Chosen", nil)
+    if (_sebViewController.alertController) {
+        [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
+    }
+    _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Encryption Credentials Chosen", nil)
                                                                 message:NSLocalizedString(@"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted settings file, but this is not recommended for use in exams.", nil)
                                                          preferredStyle:UIAlertControllerStyleAlert];
-    [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                 [self.alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                 [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
 
                                                                  // Post a notification to switch to the Config File prefs pane
                                                                  [[NSNotificationCenter defaultCenter]
@@ -222,18 +230,15 @@
                                                                  saveSettingsUnencrypted = false;
                                                              }]];
     
-    [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Save unencrypted", nil)
+    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Save unencrypted", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                 [self.alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                 [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
 
                                                                  // save .seb config data unencrypted
                                                                  saveSettingsUnencrypted = true;
                                                              }]];
     
-    if (self.sebViewController.alertController) {
-        [self.sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
-    }
-    [self.sebViewController presentViewController:self.alertController animated:YES completion:nil];
+    [_sebViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
 
     return saveSettingsUnencrypted;
 }

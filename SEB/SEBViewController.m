@@ -726,7 +726,7 @@ static NSMutableSet *browserWindowControllers;
     _secureMode = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
     
 
-    // If local client settings aren't running in secure mode
+    // If ASAM is active, we stop it now and display the alert for restarting session
     if (_ASAMActive) {
         [self stopAutonomousSingleAppMode];
 //        _ASAMActive = false;
