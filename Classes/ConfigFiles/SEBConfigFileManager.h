@@ -188,6 +188,8 @@
 
 -(void) storeIntoUserDefaults:(NSDictionary *)sebPreferencesDict;
 
+// Inform the callback method if decrypting, parsing and storing new settings was successful or not
+- (void) storeNewSEBSettingsSuccessful:(BOOL)success;
 
 // Read SEB settings from UserDefaults and encrypt them using provided security credentials
 - (NSData *) encryptSEBSettingsWithPassword:(NSString *)settingsPassword
