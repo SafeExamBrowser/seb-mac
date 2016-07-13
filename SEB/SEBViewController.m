@@ -200,15 +200,22 @@ static NSMutableSet *browserWindowControllers;
     [preferences setSecureString:placeholder forKey:@"quitPassword"];
     quitPasswordPlaceholder = true;
     
+    // Dismiss an alert in case one is open
+    if (_alertController) {
+        [_alertController dismissViewControllerAnimated:NO completion:nil];
+    }
+
     UINavigationController *aNavController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
     //[viewController setShowCreditsFooter:NO];   // Uncomment to not display InAppSettingsKit credits for creators.
     // But we encourage you not to uncomment. Thank you!
     self.appSettingsViewController.showDoneButton = YES;
     
-    settingsShareButton = [[UIBarButtonItem alloc]
-                                    initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-                                    target:self
-                                    action:@selector(shareSettingsAction:)];
+    if (!settingsShareButton) {
+        settingsShareButton = [[UIBarButtonItem alloc]
+                               initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                               target:self
+                               action:@selector(shareSettingsAction:)];
+    }
     self.appSettingsViewController.navigationItem.leftBarButtonItem = settingsShareButton;
     
     // Register notification for changed keys
@@ -252,30 +259,31 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
 {
-    [sender dismissViewControllerAnimated:YES completion:nil];
+    [sender dismissViewControllerAnimated:YES completion:^{
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        [preferences setBool:NO forKey:@"allowEditingConfig"];
+        
+        // Get entered passwords and save their hashes to SEB settings
+        // as long as the passwords were really entered and don't contain the hash placeholders
+        NSString *password = [preferences secureObjectForKey:@"adminPassword"];
+        NSString *hashedPassword = [self sebHashedPassword:password];
+        if (!adminPasswordPlaceholder) {
+            [preferences setSecureString:hashedPassword forKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+            [preferences setSecureString:@"" forKey:@"adminPassword"];
+        }
+        
+        if (!quitPasswordPlaceholder) {
+            password = [preferences secureObjectForKey:@"quitPassword"];
+            hashedPassword = [self sebHashedPassword:password];
+            [preferences setSecureString:hashedPassword forKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+            [preferences setSecureString:@"" forKey:@"quitPassword"];
+        }
+        _settingsOpen = false;
+        
+        [self initSEB];
+        [self startAutonomousSingleAppMode];
+    }];
 
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    [preferences setBool:NO forKey:@"allowEditingConfig"];
-
-    // Get entered passwords and save their hashes to SEB settings
-    // as long as the passwords were really entered and don't contain the hash placeholders
-    NSString *password = [preferences secureObjectForKey:@"adminPassword"];
-    NSString *hashedPassword = [self sebHashedPassword:password];
-    if (!adminPasswordPlaceholder) {
-        [preferences setSecureString:hashedPassword forKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-        [preferences setSecureString:@"" forKey:@"adminPassword"];
-    }
-    
-    if (!quitPasswordPlaceholder) {
-        password = [preferences secureObjectForKey:@"quitPassword"];
-        hashedPassword = [self sebHashedPassword:password];
-        [preferences setSecureString:hashedPassword forKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-        [preferences setSecureString:@"" forKey:@"quitPassword"];
-    }
-    _settingsOpen = false;
-    
-    [self initSEB];
-    [self startAutonomousSingleAppMode];
 }
 
 
@@ -521,12 +529,8 @@ static NSMutableSet *browserWindowControllers;
                     else {
                         NSLog(@"Failed to enter Autonomous Single App Mode");
                         _ASAMActive = false;
-                        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowGuidedAccess"]) {
-                            [self showStartGuidedAccess];
-                        } else {
-                            // Guided Access isn't allowed: SEB refuses to start the exam
-                            // ToDo
-                        }
+                        // Conditionally ask user to start Guided Access
+                        [self showStartGuidedAccess];
                     }
                 });
             } else {
@@ -586,6 +590,7 @@ static NSMutableSet *browserWindowControllers;
             // Guided Access is allowed
             _guidedAccessActive = true;
             if (UIAccessibilityIsGuidedAccessEnabled() == false) {
+                [_alertController dismissViewControllerAnimated:NO completion:nil];
                 _startGuidedAccessDisplayed = true;
                 _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Start Guided Access", nil)
                                                                         message:NSLocalizedString(@"Enable Guided Access in Settings -> General -> Accessibility and after returning to SEB, triple click home button to proceed to exam.", nil)
@@ -594,6 +599,7 @@ static NSMutableSet *browserWindowControllers;
             }
         } else {
             // Guided Access isn't allowed: SEB refuses to start the exam
+            [_alertController dismissViewControllerAnimated:NO completion:nil];
             _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Kiosk Mode Available", nil)
                                                                     message:NSLocalizedString(@"Neither (Autonomous) Single App Mode nor manual Guided Access are available on this device or activated in  settings. Ask your exam support for an eligible exam environment.", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];
