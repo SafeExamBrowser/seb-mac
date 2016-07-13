@@ -8,6 +8,36 @@
 	<array>
 		<dict>
 			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>File Name</string>
+			<key>Key</key>
+			<string>configFileName</string>
+			<key>DefaultValue</key>
+			<string>SEBClientSettings</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSRadioGroupSpecifier</string>
+			<key>Title</key>
+			<string>Use Config File For …</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_sebConfigPurpose</string>
+			<key>DefaultValue</key>
+			<integer>1</integer>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>Starting Exam</string>
+				<string>Configuring Clients</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>Encryption</string>
