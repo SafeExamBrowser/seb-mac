@@ -211,36 +211,36 @@
 
 
 - (BOOL) saveSettingsUnencrypted {
-    __block BOOL saveSettingsUnencrypted;
-    
-    if (_sebViewController.alertController) {
-        [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
-    }
-    _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Encryption Credentials Chosen", nil)
-                                                                message:NSLocalizedString(@"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted settings file, but this is not recommended for use in exams.", nil)
-                                                         preferredStyle:UIAlertControllerStyleAlert];
-    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
-                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                 [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
+//    __block BOOL saveSettingsUnencrypted = true;
+//    
+//    if (_sebViewController.alertController) {
+//        [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
+//    }
+//    _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Encryption Credentials Chosen", nil)
+//                                                                message:NSLocalizedString(@"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted settings file, but this is not recommended for use in exams.", nil)
+//                                                         preferredStyle:UIAlertControllerStyleAlert];
+//    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+//                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//                                                                 [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
+//
+//                                                                 // Post a notification to switch to the Config File prefs pane
+//                                                                 [[NSNotificationCenter defaultCenter]
+//                                                                  postNotificationName:@"switchToConfigFilePane" object:self];
+//                                                                 // don't save the config data
+//                                                                 saveSettingsUnencrypted = false;
+//                                                             }]];
+//    
+//    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Save unencrypted", nil)
+//                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//                                                                 [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
+//
+//                                                                 // save .seb config data unencrypted
+//                                                                 saveSettingsUnencrypted = true;
+//                                                             }]];
+//    
+//    [_sebViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
 
-                                                                 // Post a notification to switch to the Config File prefs pane
-                                                                 [[NSNotificationCenter defaultCenter]
-                                                                  postNotificationName:@"switchToConfigFilePane" object:self];
-                                                                 // don't save the config data
-                                                                 saveSettingsUnencrypted = false;
-                                                             }]];
-    
-    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Save unencrypted", nil)
-                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                 [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
-
-                                                                 // save .seb config data unencrypted
-                                                                 saveSettingsUnencrypted = true;
-                                                             }]];
-    
-    [_sebViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
-
-    return saveSettingsUnencrypted;
+    return true;
 }
 
 
