@@ -39,8 +39,6 @@
 #import "Webpages.h"
 #import "OpenWebpages.h"
 
-@import VectorPencilKit;
-
 @implementation SEBBrowserTabViewController
 
 @synthesize managedObjectContext = __managedObjectContext;
@@ -200,17 +198,7 @@
     
     id newViewController;
 
-    if ([url.scheme isEqualToString:@"drawing"]) {
-        // Open image in a new freehand drawing view
-        newViewController = [VEPViewController new];
-        if (templateImage) {
-            [newViewController setBackgroundImage:templateImage];
-        }
-    } else {
-        // Open URL in a new webview
-        // Create a new UIWebView
-        newViewController = [self createNewWebViewController];
-    }
+    newViewController = [self createNewWebViewController];
     
     newOpenWebpage.webViewController = newViewController;
     newOpenWebpage.loadDate = timeStamp;
