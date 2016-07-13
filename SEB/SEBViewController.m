@@ -44,6 +44,7 @@
 {
     NSURL *currentConfigPath;
     UIBarButtonItem *leftButton;
+    UIBarButtonItem *settingsShareButton;
     
     @private
     NSInteger attempts;
@@ -204,6 +205,12 @@ static NSMutableSet *browserWindowControllers;
     // But we encourage you not to uncomment. Thank you!
     self.appSettingsViewController.showDoneButton = YES;
     
+    settingsShareButton = [[UIBarButtonItem alloc]
+                                    initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                    target:self
+                                    action:@selector(shareSettingsAction:)];
+    self.appSettingsViewController.navigationItem.leftBarButtonItem = settingsShareButton;
+    
     // Register notification for changed keys
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(inAppSettingsChanged:)
@@ -227,6 +234,19 @@ static NSMutableSet *browserWindowControllers;
     if ([changedKeys containsObject:@"quitPassword"]) {
         quitPasswordPlaceholder = false;
     }
+}
+
+
+- (void)shareSettingsAction:(id)sender
+{
+    NSLog(@"Share settings button pressed");
+    
+    NSData *encryptedSebData = [NSData data];
+    NSArray *activityItems = @[encryptedSebData];
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+    activityVC.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypePrint];
+    activityVC.popoverPresentationController.barButtonItem = settingsShareButton;
+    [self.appSettingsViewController presentViewController:activityVC animated:TRUE completion:nil];
 }
 
 
@@ -257,6 +277,38 @@ static NSMutableSet *browserWindowControllers;
     [self initSEB];
     [self startAutonomousSingleAppMode];
 }
+
+
+//- (NSData *) encryptSEBSettingsWithSelectedCredentials
+//{
+//    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+//    
+//    // Get selected config purpose
+//    sebConfigPurposes configPurpose = [self getSelectedConfigPurpose];
+//    
+//    // Get SecIdentityRef for selected identity
+//    SecIdentityRef identityRef;
+//    // Is there one saved from the currently open config file?
+//    if (_currentConfigFileKeyRef) {
+//        identityRef = (SecIdentityRef)_currentConfigFileKeyRef;
+//    } else {
+//        identityRef = [self getSelectedIdentity];
+//    }
+//    
+//    // Get password
+//    NSString *encryptingPassword;
+//    // Is there one saved from the currently open config file?
+//    if (_currentConfigFilePassword) {
+//        encryptingPassword = _currentConfigFilePassword;
+//    } else {
+//        encryptingPassword = settingsPassword;
+//    }
+//    
+//    // Encrypt current settings with current credentials
+//    NSData *encryptedSebData = [configFileManager encryptSEBSettingsWithPassword:encryptingPassword passwordIsHash:self.configPasswordIsHash withIdentity:identityRef forPurpose:configPurpose];
+//    return encryptedSebData;
+//}
+
 
 - (NSString *)sebHashedPassword:(NSString *)password
 {
