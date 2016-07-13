@@ -14,7 +14,7 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<string>0</string>
+			<integer>0</integer>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_mobileStatusBarAppearance</string>
 			<key>Title</key>
@@ -22,8 +22,8 @@
 			<key>Titles</key>
 			<array>
 				<string>None</string>
-				<string>Light Color</string>
-				<string>Dark Color</string>
+				<string>White on Black</string>
+				<string>Black on White</string>
 			</array>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
