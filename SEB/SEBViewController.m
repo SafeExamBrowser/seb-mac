@@ -247,13 +247,43 @@ static NSMutableSet *browserWindowControllers;
 - (void)shareSettingsAction:(id)sender
 {
     NSLog(@"Share settings button pressed");
+
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
-    NSData *encryptedSebData = [NSData data];
-    NSArray *activityItems = @[encryptedSebData];
-    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
-    activityVC.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypePrint];
-    activityVC.popoverPresentationController.barButtonItem = settingsShareButton;
-    [self.appSettingsViewController presentViewController:activityVC animated:TRUE completion:nil];
+    // Get selected config purpose
+    sebConfigPurposes configPurpose = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];
+    
+    // Get password
+    NSString *encryptingPassword;
+    // Is there one saved from the currently open config file?
+    encryptingPassword = [preferences secureObjectForKey:@"settingsPassword"];
+    
+    // Encrypt current settings with current credentials
+    NSData *encryptedSEBData = [self.configFileController encryptSEBSettingsWithPassword:encryptingPassword passwordIsHash:NO withIdentity:nil forPurpose:configPurpose];
+    if (encryptedSEBData) {
+
+        // Get config file name
+        NSString *configFileName = [preferences secureObjectForKey:@"configFileName"];
+        if (configFileName.length == 0) {
+            configFileName = @"SEBConfigFile";
+        }
+
+        NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        documentsPath = [documentsPath stringByAppendingPathComponent:configFileName];
+        NSString *configFilePath = [documentsPath stringByAppendingPathExtension:@"seb"];
+        NSURL *configFileRUL = [NSURL fileURLWithPath:configFilePath];
+        
+        [encryptedSEBData writeToURL:configFileRUL atomically:YES];
+
+        NSString *configFilePurpose = (configPurpose == sebConfigPurposeStartingExam ?
+                                       NSLocalizedString(@"for starting an exam", nil) :
+                                       NSLocalizedString(@"for configuring clients", nil));
+        NSArray *activityItems = @[ [NSString stringWithFormat:@"SEB Config File %@", configFilePurpose], configFileRUL ];
+        UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+        activityVC.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypePrint];
+        activityVC.popoverPresentationController.barButtonItem = settingsShareButton;
+        [self.appSettingsViewController presentViewController:activityVC animated:TRUE completion:nil];
+    }
 }
 
 
@@ -285,37 +315,6 @@ static NSMutableSet *browserWindowControllers;
     }];
 
 }
-
-
-//- (NSData *) encryptSEBSettingsWithSelectedCredentials
-//{
-//    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-//    
-//    // Get selected config purpose
-//    sebConfigPurposes configPurpose = [self getSelectedConfigPurpose];
-//    
-//    // Get SecIdentityRef for selected identity
-//    SecIdentityRef identityRef;
-//    // Is there one saved from the currently open config file?
-//    if (_currentConfigFileKeyRef) {
-//        identityRef = (SecIdentityRef)_currentConfigFileKeyRef;
-//    } else {
-//        identityRef = [self getSelectedIdentity];
-//    }
-//    
-//    // Get password
-//    NSString *encryptingPassword;
-//    // Is there one saved from the currently open config file?
-//    if (_currentConfigFilePassword) {
-//        encryptingPassword = _currentConfigFilePassword;
-//    } else {
-//        encryptingPassword = settingsPassword;
-//    }
-//    
-//    // Encrypt current settings with current credentials
-//    NSData *encryptedSebData = [configFileManager encryptSEBSettingsWithPassword:encryptingPassword passwordIsHash:self.configPasswordIsHash withIdentity:identityRef forPurpose:configPurpose];
-//    return encryptedSebData;
-//}
 
 
 - (NSString *)sebHashedPassword:(NSString *)password
@@ -693,12 +692,7 @@ static NSMutableSet *browserWindowControllers;
             NSString *enterPasswordString = NSLocalizedString(@"Enter quit password:", nil);
             
             // Ask the user to enter the quit password and proceed to the callback method after this happend
-            if (!_configFileController) {
-                _configFileController = [[SEBiOSConfigFileController alloc] init];
-                _configFileController.sebViewController = self;
-            }
-            
-            [_configFileController promptPasswordWithMessageText:enterPasswordString
+            [self.configFileController promptPasswordWithMessageText:enterPasswordString
                                                        title:NSLocalizedString(@"Quit Session",nil)
                                                     callback:self
                                                     selector:@selector(quitPasswordEntered:)];
@@ -763,7 +757,7 @@ static NSMutableSet *browserWindowControllers;
             // Let the user try it again
             NSString *enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the quit password:",nil);
             // Ask the user to enter the settings password and proceed to the callback method after this happend
-            [_configFileController promptPasswordWithMessageText:enterPasswordString
+            [self.configFileController promptPasswordWithMessageText:enterPasswordString
                                                            title:NSLocalizedString(@"Quit Session",nil)
                                                         callback:self
                                                         selector:@selector(quitPasswordEntered:)];
@@ -775,7 +769,7 @@ static NSMutableSet *browserWindowControllers;
             
             NSString *title = NSLocalizedString(@"Cannot Quit Session", nil);
             NSString *informativeText = NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit the session.", nil);
-            [_configFileController showAlertWithTitle:title andText:informativeText];
+            [self.configFileController showAlertWithTitle:title andText:informativeText];
             [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
             return;
         }
@@ -1142,15 +1136,12 @@ static NSMutableSet *browserWindowControllers;
 //                    [_mainBrowserWindow presentError:error modalForWindow:_mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
                 }
             }
-            _configFileController = [[SEBiOSConfigFileController alloc] init];
-            _configFileController.sebViewController = self;
-            
             // Get current config path
             currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
             // Store the URL of the .seb file as current config file path
             [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
             
-            [_configFileController storeNewSEBSettings:sebFileData forEditing:false callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
+            [self.configFileController storeNewSEBSettings:sebFileData forEditing:false callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
         }
     }
 }
