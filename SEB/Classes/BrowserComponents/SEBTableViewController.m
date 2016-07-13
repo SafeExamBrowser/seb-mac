@@ -64,7 +64,6 @@
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
 
     [self setManagedObjectContext:[appDelegate managedObjectContext]];
-    _webpagesArray = appDelegate.persistentWebpages;
 
 //    NSString *appName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleName"];
     NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
@@ -91,6 +90,8 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    _webpagesArray = [appDelegate.persistentWebpages mutableCopy];
+
     NSUInteger statusBarAppearance = appDelegate.statusBarAppearance;
     _commandItems = appDelegate.leftSliderCommands;
     
@@ -193,7 +194,7 @@
             cell.delegate = self;
             
             // Get webpage
-            Webpages *webpage = [self.webpagesArray objectAtIndex:index];
+            Webpages *webpage = [_webpagesArray objectAtIndex:index];
             
             // Set the title or URL if title not (yet) available
             UILabel *cellLabel;
