@@ -300,7 +300,7 @@
         NSLog(@"The save wasn't successful: %@", [error userInfo]);
     }
     
-//    [_persistentWebpages removeObjectAtIndex:tabIndex];
+    [_persistentWebpages removeObjectAtIndex:tabIndex];
     [_openWebpages removeObjectAtIndex:tabIndex];
     
     // Check if the user is closing the main web view (with the exam)
