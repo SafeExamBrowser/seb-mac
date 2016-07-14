@@ -805,7 +805,6 @@ static NSMutableSet *browserWindowControllers;
                                                                  [_alertController dismissViewControllerAnimated:NO completion:nil];
                                                                  [self startAutonomousSingleAppMode];
                                                              }]];
-        _guidedAccessWarningDisplayed = true;
         [self presentViewController:_alertController animated:YES completion:nil];
     } else if (_guidedAccessActive) {
         if (_lockedViewController) {
