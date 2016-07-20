@@ -233,6 +233,13 @@ static NSMutableSet *browserWindowControllers;
 - (void)inAppSettingsChanged:(NSNotification *)notification
 {
     NSArray *changedKeys = [notification.userInfo allKeys];
+
+    // Check if we received a new configuration from an MDM server
+    NSDictionary *serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
+    if (serverConfig && !NSUserDefaults.userDefaultsPrivate) {
+        // If we did receive a config and SEB isn't running in exam mode currently
+        [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig];
+    }
     
     if ([changedKeys containsObject:@"adminPassword"]) {
         adminPasswordPlaceholder = false;

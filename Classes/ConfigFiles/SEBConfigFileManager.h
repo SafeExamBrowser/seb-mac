@@ -166,6 +166,8 @@
 // and if it existed and was loaded, use it to re-configure SEB
 - (void) reconfigureClientWithSebClientSettings;
 
+// Reconfigure SEB with settings received from an MDM server
+-(void) reconfigueClientWithMDMSettingsDict:(NSDictionary *)sebPreferencesDict;
 
 // Decrypt, parse and store new SEB settings
 // Method with selector in the callback object is called after storing settings
