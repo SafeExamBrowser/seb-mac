@@ -353,25 +353,29 @@
     
     [_sebViewController conditionallyOpenLockdownWindows];
     
+    NSArray *persistedOpenWebPages;
+    
     NSManagedObjectContext *context = self.managedObjectContext;
     
-    // Construct a fetch request
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Webpages"
-                                              inManagedObjectContext:context];
-    [fetchRequest setEntity:entity];
-    
-    // Add an NSSortDescriptor to sort the labels alphabetically
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"loadDate" ascending:YES];
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
-    [fetchRequest setSortDescriptors:sortDescriptors];
-    
-    NSError *error = nil;
-    NSArray *persistedOpenWebPages = [context executeFetchRequest:fetchRequest error:&error];
-    _maxIndex = 0;
+    if (context) {
+        // Construct a fetch request
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Webpages"
+                                                  inManagedObjectContext:context];
+        [fetchRequest setEntity:entity];
+        
+        // Add an NSSortDescriptor to sort the labels alphabetically
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"loadDate" ascending:YES];
+        NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+        [fetchRequest setSortDescriptors:sortDescriptors];
+        
+        NSError *error = nil;
+        persistedOpenWebPages = [context executeFetchRequest:fetchRequest error:&error];
+    }
     
     // If no error occured and there have been some persisted pages
     if (persistedOpenWebPages && persistedOpenWebPages.count > 0) {
+        _maxIndex = 0;
         // Open all persisted pages
         for (Webpages *webpage in persistedOpenWebPages) {
             // Open URL in a new webview
