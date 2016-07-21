@@ -68,5 +68,47 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Safe Exam Browser Configuration</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.safeexambrowser.seb</string>
+			<key>UTTypeSize320IconFile</key>
+			<string>SEBDocumentIcon_320</string>
+			<key>UTTypeSize64IconFile</key>
+			<string>SEBDocumentIcon_64</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>seb</string>
+					<string>SEB</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/SEB/Resources/Icons/Document/SEBDocumentIcon_1024.png</string>
+				<string>/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/SEB/Resources/Icons/Document/SEBDocumentIcon_64.png</string>
+				<string>/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/SEB/Resources/Icons/Document/SEBDocumentIcon_22x29.png</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>SEB Config</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>org.safeexambrowser.seb</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>
