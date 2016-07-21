@@ -70,6 +70,17 @@
 }
 
 
+// Reconfigure SEB with settings received from an MDM server
+-(void) reconfigueClientWithMDMSettingsDict:(NSDictionary *)sebPreferencesDict
+{
+    storeSettingsForEditing = false;
+    storeSettingsForceConfiguringClient = true;
+    storeSettingsCallback = nil;
+    storeSettingsSelector = nil;
+    sebFileCredentials = [SEBConfigFileCredentials new];
+    [self checkParsedSettingForConfiguringAndStore:sebPreferencesDict];
+}
+
 // Decrypt, parse and store new SEB settings
 // Method with selector in the callback object is called after storing settings
 // was successful or aborted
