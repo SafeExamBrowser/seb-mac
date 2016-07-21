@@ -301,4 +301,10 @@ static NSString __unused *SEBWinUserAgentTouchiPad = @"Mozilla/5.0 (iPad; CPU OS
 
 static unsigned char __unused keyUsageServerAuthentication[8] = {0x2b, 0x06, 0x01, 0x05, 0x05, 0x07, 0x03, 0x01};
 
+// The Managed app configuration dictionary pushed down from an MDM server are stored in this key.
+static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
+
+// The dictionary that is sent back to the MDM server as feedback must be stored in this key.
+static NSString * const kFeedbackKey = @"com.apple.feedback.managed";
+
 #endif
