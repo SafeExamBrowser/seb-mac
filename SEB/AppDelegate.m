@@ -148,8 +148,10 @@
 }
 
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
 {
     DDLogInfo(@"Calling Application Bundle ID: %@", sourceApplication);
     DDLogInfo(@"URL scheme:%@", [url scheme]);

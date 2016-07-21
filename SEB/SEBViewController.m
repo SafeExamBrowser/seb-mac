@@ -238,7 +238,8 @@ static NSMutableSet *browserWindowControllers;
     NSDictionary *serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
     if (serverConfig && !NSUserDefaults.userDefaultsPrivate) {
         // If we did receive a config and SEB isn't running in exam mode currently
-        [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig];
+        NSLog(@"%s: Received new configuration from MDM server: %@", __FUNCTION__, serverConfig);
+        [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
     }
     
     if ([changedKeys containsObject:@"adminPassword"]) {
