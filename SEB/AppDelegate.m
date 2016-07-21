@@ -158,7 +158,8 @@
     DDLogInfo(@"URL query: %@", [url query]);
     
     if (url) {
-        if ([url.pathExtension isEqualToString:@"seb"]) {
+        // We check for extensions "seb" and "gz", as Safari un
+        if ([url.pathExtension isEqualToString:@"seb"] || [url.pathExtension isEqualToString:@"gz"]) {
             // If we have a valid URL with the path for a .seb file, we download and open it (conditionally)
             DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", url);
             if (self.sebViewController) {
