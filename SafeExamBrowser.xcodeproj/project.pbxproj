@@ -208,6 +208,10 @@
 		69A3FCD71C1B5680009BEA13 /* SEBConfigFileCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A3FCD31C1B5680009BEA13 /* SEBConfigFileCredentials.m */; };
 		69A443FF1B14AAAC00577693 /* SEBReloadIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69A443FD1B14AAAC00577693 /* SEBReloadIcon.iconset */; };
 		69A444001B14AAAC00577693 /* SEBRestartIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69A443FE1B14AAAC00577693 /* SEBRestartIcon.iconset */; };
+		69B226E31D4108BA0065B831 /* SEBDocumentIcon_22x29.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B226DF1D4108BA0065B831 /* SEBDocumentIcon_22x29.png */; };
+		69B226E41D4108BA0065B831 /* SEBDocumentIcon_22x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B226E01D4108BA0065B831 /* SEBDocumentIcon_22x29@2x.png */; };
+		69B226E51D4108BA0065B831 /* SEBDocumentIcon_320.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B226E11D4108BA0065B831 /* SEBDocumentIcon_320.png */; };
+		69B226E61D4108BA0065B831 /* SEBDocumentIcon_64.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B226E21D4108BA0065B831 /* SEBDocumentIcon_64.png */; };
 		69B2EB871A435E2000B5AE67 /* AboutSEB.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2EB851A435E2000B5AE67 /* AboutSEB.png */; };
 		69B2EB881A435E2000B5AE67 /* AboutSEB@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2EB861A435E2000B5AE67 /* AboutSEB@2x.png */; };
 		69B416101BFFA0430049ED2A /* SEB_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 69B4160F1BFFA0430049ED2A /* SEB_Prefix.pch */; };
@@ -577,6 +581,10 @@
 		69A9A232136AF6E000840AE1 /* PrefsGeneralViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsGeneralViewController.h; sourceTree = "<group>"; };
 		69A9A233136AF6E000840AE1 /* PrefsGeneralViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PrefsGeneralViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69A9A234136AF6E000840AE1 /* PrefsDownUploadsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsDownUploadsViewController.h; sourceTree = "<group>"; };
+		69B226DF1D4108BA0065B831 /* SEBDocumentIcon_22x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SEBDocumentIcon_22x29.png; sourceTree = "<group>"; };
+		69B226E01D4108BA0065B831 /* SEBDocumentIcon_22x29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SEBDocumentIcon_22x29@2x.png"; sourceTree = "<group>"; };
+		69B226E11D4108BA0065B831 /* SEBDocumentIcon_320.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SEBDocumentIcon_320.png; sourceTree = "<group>"; };
+		69B226E21D4108BA0065B831 /* SEBDocumentIcon_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SEBDocumentIcon_64.png; sourceTree = "<group>"; };
 		69B2EB851A435E2000B5AE67 /* AboutSEB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AboutSEB.png; path = Resources/Images/AboutSEB.png; sourceTree = "<group>"; };
 		69B2EB861A435E2000B5AE67 /* AboutSEB@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AboutSEB@2x.png"; path = "Resources/Images/AboutSEB@2x.png"; sourceTree = "<group>"; };
 		69B4160F1BFFA0430049ED2A /* SEB_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEB_Prefix.pch; path = OtherSources/SEB_Prefix.pch; sourceTree = "<group>"; };
@@ -1047,6 +1055,7 @@
 		6940B99D1BA0FBDF008C8CFC /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				69B226DE1D4108BA0065B831 /* Document */,
 				6966F8781D1C080100684182 /* Slider */,
 				691018C71CF1E9EE00AB8803 /* Dock */,
 				696DAD0E1C3C2AB900397E18 /* Cancel.png */,
@@ -1331,6 +1340,18 @@
 				694803921C236E7800593711 /* SEBiOSConfigFileController.m */,
 			);
 			name = "Config Files";
+			sourceTree = "<group>";
+		};
+		69B226DE1D4108BA0065B831 /* Document */ = {
+			isa = PBXGroup;
+			children = (
+				69B226DF1D4108BA0065B831 /* SEBDocumentIcon_22x29.png */,
+				69B226E01D4108BA0065B831 /* SEBDocumentIcon_22x29@2x.png */,
+				69B226E11D4108BA0065B831 /* SEBDocumentIcon_320.png */,
+				69B226E21D4108BA0065B831 /* SEBDocumentIcon_64.png */,
+			);
+			name = Document;
+			path = Resources/Icons/Document;
 			sourceTree = "<group>";
 		};
 		69CBEB531834C4D400FB0460 /* SystemManager */ = {
@@ -1656,6 +1677,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69B226E51D4108BA0065B831 /* SEBDocumentIcon_320.png in Resources */,
 				69331F021C10AC1B0038BD31 /* continueCircle@2x.png in Resources */,
 				694055A81CF32B030036C480 /* SEBRestartIcon.png in Resources */,
 				696DAD211C3C2B1400397E18 /* ModifyPages.js in Resources */,
@@ -1676,10 +1698,12 @@
 				691018D21CF1EA8300AB8803 /* SEBDockIcon@2x.png in Resources */,
 				691018D91CF26A9C00AB8803 /* SEBReloadIcon.png in Resources */,
 				6966F8831D1D96BE00684182 /* SEBSliderRestartIcon.png in Resources */,
+				69B226E31D4108BA0065B831 /* SEBDocumentIcon_22x29.png in Resources */,
 				694055AE1CF32B310036C480 /* SEBShutDownIcon@3x.png in Resources */,
 				691018D81CF26A9C00AB8803 /* SEBReloadIcon@2x.png in Resources */,
 				691018C51CF1B33900AB8803 /* SEBShutDownIcon@2x.png in Resources */,
 				6940B9781BA0F2FB008C8CFC /* Assets.xcassets in Resources */,
+				69B226E41D4108BA0065B831 /* SEBDocumentIcon_22x29@2x.png in Resources */,
 				692476F51D27343600931AD8 /* SEB.entitlements in Resources */,
 				69782A4E1CCE068C00C2AA9A /* Settings.bundle in Resources */,
 				6940B9731BA0F2FB008C8CFC /* Main.storyboard in Resources */,
@@ -1690,6 +1714,7 @@
 				696DAD191C3C2AB900397E18 /* Next@2x.png in Resources */,
 				6966F87C1D1C081300684182 /* SEBSliderShutDownIcon@2x.png in Resources */,
 				696DAD1D1C3C2AB900397E18 /* Reload@2x.png in Resources */,
+				69B226E61D4108BA0065B831 /* SEBDocumentIcon_64.png in Resources */,
 				696DAD171C3C2AB900397E18 /* Cancel@2x.png in Resources */,
 				6966F8871D1DE07100684182 /* SEBSliderSettingsIcon.png in Resources */,
 				691018D11CF1EA8300AB8803 /* SEBDockIcon.png in Resources */,
