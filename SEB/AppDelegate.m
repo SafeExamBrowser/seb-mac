@@ -54,7 +54,8 @@
     // or Autonomous Single App Mode stayed active because
     // SEB crashed before and was automatically restarted
     _SAMActive = UIAccessibilityIsGuidedAccessEnabled();
-    
+    NSLog(@"%s: Single App Mode is %@active", __FUNCTION__, _SAMActive ? @"" : @"not ");
+
     // Override point for customization after application launch.
     MMDrawerController * drawerController = (MMDrawerController *)self.window.rootViewController;
     [drawerController setMaximumRightDrawerWidth:200.0];
@@ -72,7 +73,11 @@
     [lagFreeField removeFromSuperview];
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    [preferences setSEBDefaults];
+    if ([preferences setSEBDefaults]) {
+        NSLog(@"UserDefaults for SEB were empty while starting.");
+        // If Standard User Defaults were empty, show preferences later
+        [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"allowEditingConfig"];
+    }
     
     // Get default WebKit browser User Agent and create
     // default SEB User Agent
