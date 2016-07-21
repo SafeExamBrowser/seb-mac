@@ -72,12 +72,16 @@
 
 // Reconfigure SEB with settings received from an MDM server
 -(void) reconfigueClientWithMDMSettingsDict:(NSDictionary *)sebPreferencesDict
+                                   callback:(id)callback
+                                   selector:(SEL)selector
+
 {
     storeSettingsForEditing = false;
     storeSettingsForceConfiguringClient = true;
-    storeSettingsCallback = nil;
-    storeSettingsSelector = nil;
+    storeSettingsCallback = callback;
+    storeSettingsSelector = selector;
     sebFileCredentials = [SEBConfigFileCredentials new];
+    NSLog(@"%s: Check received MDM settings %@", __FUNCTION__, sebPreferencesDict);
     [self checkParsedSettingForConfiguringAndStore:sebPreferencesDict];
 }
 
