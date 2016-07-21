@@ -9,26 +9,18 @@
 		<dict>
 			<key>CFBundleTypeIconFiles</key>
 			<array>
-				<string>/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/SEB/Resources/Icons/Document/SEBDocumentIcon_1024.png</string>
-				<string>/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/SEB/Resources/Icons/Document/SEBDocumentIcon_64.png</string>
-				<string>/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/SEB/Resources/Icons/Document/SEBDocumentIcon_22x29.png</string>
+				<string>Icon-22x29.png</string>
+				<string>Icon-22x29@2x.png</string>
+				<string>Icon-64x64.png</string>
+				<string>Icon-320x320.png</string>
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>SEB Config</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>org.safeexambrowser.seb</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeIconFiles</key>
-			<array/>
-			<key>CFBundleTypeName</key>
-			<string>Gzip Archive</string>
-			<key>LSHandlerRank</key>
-			<string>Alternate</string>
-			<key>LSItemContentTypes</key>
-			<array>
 				<string>org.gnu.gnu-zip-archive</string>
 			</array>
 		</dict>
@@ -140,6 +132,11 @@
 				<array>
 					<string>gz</string>
 					<string>gzip</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-gzip</string>
+					<string>application/gzip</string>
 				</array>
 			</dict>
 		</dict>
