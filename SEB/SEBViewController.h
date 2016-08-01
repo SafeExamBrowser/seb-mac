@@ -76,6 +76,7 @@
 @property(readwrite) BOOL guidedAccessActive;
 
 @property(readwrite) BOOL finishedStartingUp;
+@property(readwrite) BOOL isReconfiguring;
 @property(readwrite) BOOL startGuidedAccessDisplayed;
 @property(readwrite) BOOL guidedAccessWarningDisplayed;
 @property(readwrite) BOOL restartSessionAlertDisplayed;
@@ -102,6 +103,7 @@
 - (void) openLockdownWindows;
 
 - (void) downloadAndOpenSEBConfigFromURL:(NSURL *)url;
+- (void) storeNewSEBSettingsSuccessful:(BOOL)success;
 
 @end
 

@@ -370,33 +370,36 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (void)readDefaultsValues {
-    
-    // Check if we received a new configuration from an MDM server
-    NSDictionary *serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
-    if (serverConfig && !NSUserDefaults.userDefaultsPrivate) {
-        // If we did receive a config and SEB isn't running in exam mode currently
-        NSLog(@"%s: Received new configuration from MDM server: %@", __FUNCTION__, serverConfig);
-        
-        [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
-        
-//        // Confirm reconfiguring
-//        [_alertController dismissViewControllerAnimated:NO completion:nil];
-//        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Managed App Configuration", nil)
-//                                                                message:NSLocalizedString(@"Your MDM server requests to reconfigure SEB. Do you want to allow this?", nil)
-//                                                         preferredStyle:UIAlertControllerStyleAlert];
-//        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Allow", nil)
-//                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-//                                                                 [_alertController dismissViewControllerAnimated:NO completion:nil];
-//                                                                 [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
-//                                                             }]];
-//        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
-//                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-//                                                                 [_alertController dismissViewControllerAnimated:NO completion:nil];
-//                                                             }]];
-//        
-//        
-//        [self presentViewController:_alertController animated:YES completion:nil];
+- (void)readDefaultsValues
+{
+    if (!_isReconfiguring) {
+        // Check if we received a new configuration from an MDM server
+        NSDictionary *serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
+        if (serverConfig && !NSUserDefaults.userDefaultsPrivate) {
+            _isReconfiguring = true;
+            // If we did receive a config and SEB isn't running in exam mode currently
+            NSLog(@"%s: Received new configuration from MDM server: %@", __FUNCTION__, serverConfig);
+            
+            [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
+            
+            //        // Confirm reconfiguring
+            //        [_alertController dismissViewControllerAnimated:NO completion:nil];
+            //        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Managed App Configuration", nil)
+            //                                                                message:NSLocalizedString(@"Your MDM server requests to reconfigure SEB. Do you want to allow this?", nil)
+            //                                                         preferredStyle:UIAlertControllerStyleAlert];
+            //        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Allow", nil)
+            //                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            //                                                                 [_alertController dismissViewControllerAnimated:NO completion:nil];
+            //                                                                 [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
+            //                                                             }]];
+            //        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+            //                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            //                                                                 [_alertController dismissViewControllerAnimated:NO completion:nil];
+            //                                                             }]];
+            //        
+            //        
+            //        [self presentViewController:_alertController animated:YES completion:nil];
+        }
     }
 }
 
@@ -1190,11 +1193,14 @@ static NSMutableSet *browserWindowControllers;
 
 - (void) storeNewSEBSettingsSuccessful:(BOOL)success
 {
+    NSLog(@"%s: Storing new SEB settings was %@successful", __FUNCTION__, success ? @"" : @"not ");
     if (success) {
         [_browserTabViewController closeAllTabs];
         _examRunning = false;
         [self initSEB];
 
+        _isReconfiguring = false;
+        
         [self startAutonomousSingleAppMode];
 
         
@@ -1203,6 +1209,8 @@ static NSMutableSet *browserWindowControllers;
 //         postNotificationName:@"requestRestartNotification" object:self];
         
     } else {
+        _isReconfiguring = false;
+        
         // if decrypting new settings wasn't successfull, we have to restore the path to the old settings
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
     }
