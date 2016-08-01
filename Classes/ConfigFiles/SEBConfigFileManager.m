@@ -543,12 +543,14 @@
 // and quit reading .seb file if a wrong value was found
 - (void) checkParsedSettingForConfiguringAndStore:(NSDictionary *)sebPreferencesDict {
     if (![self checkClassOfSettings:sebPreferencesDict]) {
+        NSLog(@"%s: Checking received MDM settings failed!", __FUNCTION__);
         // Inform callback that storing new settings failed
         [self storeNewSEBSettingsSuccessful:false];
         return;
     }
     
     // Reading preferences was successful!
+    NSLog(@"%s: Checking received MDM settings was successful", __FUNCTION__);
     [self storeDecryptedSEBSettings:sebPreferencesDict];
 }
 
