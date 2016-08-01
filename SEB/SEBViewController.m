@@ -98,6 +98,59 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    appDelegate.sebViewController = self;
+    
+    _browserTabViewController = self.childViewControllers[0];
+    _browserTabViewController.sebViewController = self;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(guidedAccessChanged)
+                                                 name:UIAccessibilityGuidedAccessStatusDidChangeNotification object:nil];
+    
+    // Add an observer for the request to conditionally quit SEB with asking quit password
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(requestedQuitWOPwd:)
+                                                 name:@"requestQuitWPwdNotification" object:nil];
+    
+    // Add Notification Center observer to be alerted of any change to NSUserDefaults.
+    // Managed app configuration changes pushed down from an MDM server appear in NSUSerDefaults.
+    [[NSNotificationCenter defaultCenter] addObserverForName:NSUserDefaultsDidChangeNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *note) {
+                                                      [self readDefaultsValues];
+                                                  }];
+    // Initialize UI and default UI/browser settings
+    [self initSEB];
+    
+    // Was SEB opened by loading a .seb file/using a seb:// link?
+    if (appDelegate.sebFileURL) {
+        // Yes: Load the .seb file now that the necessary SEB main view controller was loaded
+        [self downloadAndOpenSEBConfigFromURL:appDelegate.sebFileURL];
+    }
+}
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // Check if we received new settings from an MDM server
+    //    [self readDefaultsValues];
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"allowEditingConfig"]) {
+        [self conditionallyShowSettingsModal];
+    } else {
+        [self startAutonomousSingleAppMode];
+    }
+}
+
+
 - (void)conditionallyShowSettingsModal
 {
     // Check if settings are already displayed
@@ -234,32 +287,6 @@ static NSMutableSet *browserWindowControllers;
 {
     NSArray *changedKeys = [notification.userInfo allKeys];
 
-    // Check if we received a new configuration from an MDM server
-    NSDictionary *serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
-    if (serverConfig && !NSUserDefaults.userDefaultsPrivate) {
-        // If we did receive a config and SEB isn't running in exam mode currently
-        NSLog(@"%s: Received new configuration from MDM server: %@", __FUNCTION__, serverConfig);
-        
-        // Confirm reconfiguring
-        [_alertController dismissViewControllerAnimated:NO completion:nil];
-        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Managed App Configuration", nil)
-                                                                message:NSLocalizedString(@"Your MDM server requests to reconfigure SEB. Do you want to allow this?", nil)
-                                                         preferredStyle:UIAlertControllerStyleAlert];
-        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Allow", nil)
-                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                 [_alertController dismissViewControllerAnimated:NO completion:nil];
-                                                                 [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
-                                                             }]];
-        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
-                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                 [_alertController dismissViewControllerAnimated:NO completion:nil];
-                                                             }]];
-
-        
-        [self presentViewController:_alertController animated:YES completion:nil];
-
-    }
-    
     if ([changedKeys containsObject:@"adminPassword"]) {
         adminPasswordPlaceholder = false;
     }
@@ -343,6 +370,37 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+- (void)readDefaultsValues {
+    
+    // Check if we received a new configuration from an MDM server
+    NSDictionary *serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
+    if (serverConfig && !NSUserDefaults.userDefaultsPrivate) {
+        // If we did receive a config and SEB isn't running in exam mode currently
+        NSLog(@"%s: Received new configuration from MDM server: %@", __FUNCTION__, serverConfig);
+        
+        [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
+        
+//        // Confirm reconfiguring
+//        [_alertController dismissViewControllerAnimated:NO completion:nil];
+//        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Managed App Configuration", nil)
+//                                                                message:NSLocalizedString(@"Your MDM server requests to reconfigure SEB. Do you want to allow this?", nil)
+//                                                         preferredStyle:UIAlertControllerStyleAlert];
+//        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Allow", nil)
+//                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//                                                                 [_alertController dismissViewControllerAnimated:NO completion:nil];
+//                                                                 [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
+//                                                             }]];
+//        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+//                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//                                                                 [_alertController dismissViewControllerAnimated:NO completion:nil];
+//                                                             }]];
+//        
+//        
+//        [self presentViewController:_alertController animated:YES completion:nil];
+    }
+}
+
+
 - (NSString *)sebHashedPassword:(NSString *)password
 {
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
@@ -365,48 +423,6 @@ static NSMutableSet *browserWindowControllers;
         placeholder = @"";
     }
     return placeholder;
-}
-
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    appDelegate.sebViewController = self;
-    
-    _browserTabViewController = self.childViewControllers[0];
-    _browserTabViewController.sebViewController = self;
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(guidedAccessChanged)
-                                                 name:UIAccessibilityGuidedAccessStatusDidChangeNotification object:nil];
-
-    // Add an observer for the request to conditionally quit SEB with asking quit password
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(requestedQuitWOPwd:)
-                                                 name:@"requestQuitWPwdNotification" object:nil];
-
-    // Initialize UI and default UI/browser settings
-    [self initSEB];
-    
-    // Was SEB opened by loading a .seb file/using a seb:// link?
-    if (appDelegate.sebFileURL) {
-        // Yes: Load the .seb file now that the necessary SEB main view controller was loaded
-        [self downloadAndOpenSEBConfigFromURL:appDelegate.sebFileURL];
-    }
-}
-
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"allowEditingConfig"]) {
-        [self conditionallyShowSettingsModal];
-    } else {
-        [self startAutonomousSingleAppMode];
-    }
 }
 
 

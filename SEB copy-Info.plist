@@ -68,6 +68,27 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>Icon-22x29.png</string>
+				<string>Icon-22x29@2x.png</string>
+				<string>Icon-64x64.png</string>
+				<string>Icon-320x320.png</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>SEB Config</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>org.safeexambrowser.seb</string>
+				<string>org.gnu.gnu-zip-archive</string>
+			</array>
+		</dict>
+	</array>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>
@@ -93,21 +114,31 @@
 			</dict>
 		</dict>
 	</array>
-	<key>CFBundleDocumentTypes</key>
+	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeIconFiles</key>
+			<key>UTTypeConformsTo</key>
 			<array>
-				<string>/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/SEB/Resources/Icons/Document/SEBDocumentIcon_1024.png</string>
-				<string>/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/SEB/Resources/Icons/Document/SEBDocumentIcon_64.png</string>
-				<string>/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/SEB/Resources/Icons/Document/SEBDocumentIcon_22x29.png</string>
+				<string>public.data</string>
+				<string>public.archive</string>
 			</array>
-			<key>CFBundleTypeName</key>
-			<string>SEB Config</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>org.safeexambrowser.seb</string>
-			</array>
+			<key>UTTypeDescription</key>
+			<string>Gzip Archive (SEB files are gzipped)</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.gnu.gnu-zip-archive</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>gz</string>
+					<string>gzip</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-gzip</string>
+					<string>application/gzip</string>
+				</array>
+			</dict>
 		</dict>
 	</array>
 </dict>
