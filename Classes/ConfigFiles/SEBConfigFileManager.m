@@ -257,9 +257,7 @@
         [self storeNewSEBSettingsSuccessful:false];
         return;
     }
-    // We need to set the right value for the key sebConfigPurpose to know later where to store the new settings
-    [sebPreferencesDict setValue:[NSNumber numberWithInt:sebConfigPurposeStartingExam] forKey:@"sebConfigPurpose"];
-    
+
     // Reading preferences was successful!
     [self storeDecryptedSEBSettings:sebPreferencesDict];
 }
@@ -549,9 +547,6 @@
         [self storeNewSEBSettingsSuccessful:false];
         return;
     }
-    
-    // We need to set the right value for the key sebConfigPurpose to know later where to store the new settings
-    [sebPreferencesDict setValue:[NSNumber numberWithInt:sebConfigPurposeConfiguringClient] forKey:@"sebConfigPurpose"];
     
     // Reading preferences was successful!
     [self storeDecryptedSEBSettings:sebPreferencesDict];
