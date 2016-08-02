@@ -29,11 +29,13 @@
 			<array>
 				<integer>0</integer>
 				<integer>1</integer>
+				<integer>2</integer>
 			</array>
 			<key>Titles</key>
 			<array>
 				<string>Starting Exam</string>
 				<string>Configuring Clients</string>
+				<string>MDM Managed Configuration</string>
 			</array>
 		</dict>
 		<dict>

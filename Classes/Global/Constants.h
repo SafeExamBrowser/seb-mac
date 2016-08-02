@@ -168,7 +168,8 @@ typedef NSUInteger proxySettingsPolicies;
 
 enum {
     sebConfigPurposeStartingExam                = 0,
-    sebConfigPurposeConfiguringClient           = 1
+    sebConfigPurposeConfiguringClient           = 1,
+    sebConfigPurposeManagedConfiguration        = 2
 };
 typedef NSUInteger sebConfigPurposes;
 
