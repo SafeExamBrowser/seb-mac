@@ -950,7 +950,13 @@
     
     NSString *encryptingPassword = nil;
     
-    // Check for special case: .seb configures client, empty password
+    // Check for special case: SEB settings for Managed Configuration
+    if (configPurpose == sebConfigPurposeManagedConfiguration) {
+        // Return SEB config data unencrypted
+        return encryptedSebData;
+    }
+    
+    // Check for special case: SEB settings for configuring client, empty password
     if (settingsPassword.length == 0 && configPurpose == sebConfigPurposeConfiguringClient) {
         encryptingPassword = @"";
     } else {

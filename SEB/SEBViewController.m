@@ -323,14 +323,16 @@ static NSMutableSet *browserWindowControllers;
 
         NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         documentsPath = [documentsPath stringByAppendingPathComponent:configFileName];
-        NSString *configFilePath = [documentsPath stringByAppendingPathExtension:@"seb"];
+        NSString *configFilePath = [documentsPath stringByAppendingPathExtension:configPurpose == sebConfigPurposeManagedConfiguration ? @"plist" : @"seb"];
         NSURL *configFileRUL = [NSURL fileURLWithPath:configFilePath];
         
         [encryptedSEBData writeToURL:configFileRUL atomically:YES];
 
         NSString *configFilePurpose = (configPurpose == sebConfigPurposeStartingExam ?
                                        NSLocalizedString(@"for starting an exam", nil) :
-                                       NSLocalizedString(@"for configuring clients", nil));
+                                       (configPurpose == sebConfigPurposeConfiguringClient ?
+                                       NSLocalizedString(@"for configuring clients", nil) :
+                                        NSLocalizedString(@"for Managed Configuration (MDM)", nil)));
         NSArray *activityItems = @[ [NSString stringWithFormat:@"SEB Config File %@", configFilePurpose], configFileRUL ];
         UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
         activityVC.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypePrint];
@@ -381,24 +383,6 @@ static NSMutableSet *browserWindowControllers;
             NSLog(@"%s: Received new configuration from MDM server: %@", __FUNCTION__, serverConfig);
             
             [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
-            
-            //        // Confirm reconfiguring
-            //        [_alertController dismissViewControllerAnimated:NO completion:nil];
-            //        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Managed App Configuration", nil)
-            //                                                                message:NSLocalizedString(@"Your MDM server requests to reconfigure SEB. Do you want to allow this?", nil)
-            //                                                         preferredStyle:UIAlertControllerStyleAlert];
-            //        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Allow", nil)
-            //                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            //                                                                 [_alertController dismissViewControllerAnimated:NO completion:nil];
-            //                                                                 [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
-            //                                                             }]];
-            //        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
-            //                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            //                                                                 [_alertController dismissViewControllerAnimated:NO completion:nil];
-            //                                                             }]];
-            //        
-            //        
-            //        [self presentViewController:_alertController animated:YES completion:nil];
         }
     }
 }
