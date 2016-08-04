@@ -1233,22 +1233,15 @@ bool insideMatrix(){
 - (void) appLaunch: (id)sender
 {
 #ifdef DEBUG
-    DDLogInfo(@"Notification:  %@", [sender name]);
+    DDLogInfo(@"%s: Notification:  %@", __FUNCTION__, [sender name]);
 #endif
     
     if ([[sender name] isEqualToString:@"NSWorkspaceDidLaunchApplicationNotification"]) {
         NSDictionary *userInfo = [sender userInfo];
         if (userInfo) {
+            // Save the information which app was started
             launchedApplication = [userInfo objectForKey:NSWorkspaceApplicationKey];
-#ifdef DEBUG
             DDLogInfo(@"launched app localizedName: %@, executableURL: %@", [launchedApplication localizedName], [launchedApplication executableURL]);
-#endif
-//            [launchedApp forceTerminate];
-//            [launchedApplication activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-//            [self requestedReinforceKioskMode:nil];
-
-            if ([[launchedApplication localizedName] isEqualToString:@""]) {
-            }
         }
     }
 }
@@ -1257,24 +1250,20 @@ bool insideMatrix(){
 - (void) spaceSwitch: (id)sender
 {
 #ifdef DEBUG
-    DDLogInfo(@"Notification:  %@", [sender name]);
+    DDLogInfo(@"%s: Notification:  %@", __FUNCTION__, [sender name]);
 #endif
     
     NSDictionary *userInfo = [sender userInfo];
-    NSRunningApplication *workspaceSwitchingApp = nil;
+    NSRunningApplication *workspaceSwitchingApp;
     if (userInfo) {
         workspaceSwitchingApp = [userInfo objectForKey:NSWorkspaceApplicationKey];
-#ifdef DEBUG
         DDLogInfo(@"App which switched Space localized name: %@, executable URL: %@", [workspaceSwitchingApp localizedName], [workspaceSwitchingApp executableURL]);
-#endif
-//        if ([[launchedApp localizedName] isEqualToString:@""]) {
-//            [launchedApp forceTerminate];
-//        }
     }
+    // If an app was started since SEB was running
     if (launchedApplication) {
-        // Reinforce kiosk mode after a delay, so eventually visible fullscreen apps get hidden again
-        [self reinforceKioskMode];
-        //    [self performSelector:@selector(requestedReinforceKioskMode:) withObject: nil afterDelay: 1];
+        // Yes: We assume it's the app which switched the space and force terminate it!
+        DDLogError(@"An app was started and switched the Space. SEB will force terminate it! (app localized name: %@, executable URL: %@)", [launchedApplication localizedName], [launchedApplication executableURL]);
+        [launchedApplication forceTerminate];
     }
 }
 
