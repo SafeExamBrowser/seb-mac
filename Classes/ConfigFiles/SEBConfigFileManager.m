@@ -637,6 +637,7 @@
                     }
                 }
                 // Remove the identity from settings, as it should be only stored in the Certificate Store and not in the locally stored settings file
+                NSLog(@"Removing object at index %ld", (long)i);
                 [embeddedCertificates removeObjectAtIndex:i];
             }
         }
