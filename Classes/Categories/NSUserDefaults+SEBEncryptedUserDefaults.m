@@ -431,7 +431,7 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_showInputLanguage",
                                  @YES,
                                  @"org_safeexambrowser_SEB_showMenuBar",
-                                 @NO,
+                                 @YES,
                                  @"org_safeexambrowser_SEB_showReloadButton",
                                  @NO,
                                  @"org_safeexambrowser_SEB_showReloadWarning",
