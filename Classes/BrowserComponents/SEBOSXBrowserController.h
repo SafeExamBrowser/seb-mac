@@ -1,5 +1,5 @@
 //
-//  SEBBrowserController.h
+//  SEBOSXBrowserController.h
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 06/10/14.
@@ -49,6 +49,7 @@
 
 @interface SEBOSXBrowserController : NSObject <WebResourceLoadDelegate>
 
+@property (strong) SEBBrowserController *browserController;
 @property (strong) SEBWebView *webView;
 @property (strong) SEBBrowserWindowDocument *temporaryBrowserWindowDocument;
 @property (strong) SEBWebView *temporaryWebView;
@@ -60,6 +61,11 @@
 @property (strong) NSMutableArray *openBrowserWindowsWebViews;
 @property (strong) SEBDockItemMenu *openBrowserWindowsWebViewsMenu;
 @property (readwrite) BOOL reinforceKioskModeRequested;
+
+- (void) resetBrowser;
+
+// Save the default user agent of the installed WebKit version
+- (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;
 
 - (SEBWebView *) openAndShowWebView;
 - (void) closeWebView:(SEBWebView *) webViewToClose;

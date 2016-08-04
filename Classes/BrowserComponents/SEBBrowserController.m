@@ -27,10 +27,8 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 {
     self = [super init];
     if (self) {
-        // Become delegate of and register custom SEB NSURL protocol class
-        [CustomHTTPProtocol setDelegate:self];
-        [CustomHTTPProtocol start];
-
+        // Activate the custom URL protocol if necessary (embedded certs or pinning available)
+        [self conditionallyInitCustomHTTPProtocol];
     }
     return self;
 }
@@ -51,6 +49,29 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
     
     defaultUserAgent = [defaultUserAgent stringByAppendingString:[NSString stringWithFormat:@" %@/%@", SEBUserAgentDefaultBrowserSuffix, webKitVersion]];
     [[MyGlobals sharedMyGlobals] setValue:defaultUserAgent forKey:@"defaultUserAgent"];
+}
+
+
+-(void) conditionallyInitCustomHTTPProtocol
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    SEBCertServices *sharedCertService = [SEBCertServices sharedInstance];
+
+    // Flush cached embedded certificates (as they might have changed with new settings)
+    [sharedCertService flushCachedCertificates];
+
+    // Check if the custom URL protocol needs to be activated
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_pinEmbeddedCertificates"]
+        || [sharedCertService caCerts].count > 0
+        || [sharedCertService tlsCerts].count > 0)
+    {
+        // Become delegate of and register custom SEB NSURL protocol class
+        [CustomHTTPProtocol setDelegate:self];
+        [CustomHTTPProtocol start];
+    } else {
+        // Deactivate the protocol
+        [CustomHTTPProtocol stop];
+    }
 }
 
 

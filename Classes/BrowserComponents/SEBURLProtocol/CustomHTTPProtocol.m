@@ -91,6 +91,13 @@ static id<CustomHTTPProtocolDelegate> sDelegate;
     [NSURLProtocol registerClass:self];
 }
 
+// Code by DRS/ETH LET
++ (void)stop
+{
+    [NSURLProtocol unregisterClass:self];
+}
+// /Code by DRS/ETH LET
+
 + (id<CustomHTTPProtocolDelegate>)delegate
 {
     id<CustomHTTPProtocolDelegate> result;

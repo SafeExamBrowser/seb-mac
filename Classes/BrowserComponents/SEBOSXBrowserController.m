@@ -1,5 +1,5 @@
 //
-//  SEBBrowserController.m
+//  SEBOSXBrowserController.m
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 06/10/14.
@@ -49,7 +49,7 @@
 {
     self = [super init];
     if (self) {
-        
+        _browserController = [SEBBrowserController new];
         self.openBrowserWindowsWebViews = [NSMutableArray new];
 
         // Initialize SEB dock item menu for open browser windows/WebViews
@@ -57,6 +57,29 @@
         self.openBrowserWindowsWebViewsMenu = dockMenu;
     }
     return self;
+}
+
+
+- (void) resetBrowser
+{
+    [self.openBrowserWindowsWebViews removeAllObjects];
+    // Initialize SEB dock item menu for open browser windows/WebViews
+    SEBDockItemMenu *dockMenu = [[SEBDockItemMenu alloc] initWithTitle:@""];
+    self.openBrowserWindowsWebViewsMenu = dockMenu;
+    
+    // Clear browser back/forward list (page cache)
+    [self clearBackForwardList];
+    
+    self.currentMainHost = nil;
+    
+    [_browserController conditionallyInitCustomHTTPProtocol];
+}
+
+
+// Save the default user agent of the installed WebKit version
+- (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent
+{
+    [_browserController createSEBUserAgentFromDefaultAgent:defaultUserAgent];
 }
 
 

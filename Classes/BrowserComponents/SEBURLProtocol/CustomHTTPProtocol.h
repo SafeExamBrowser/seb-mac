@@ -60,12 +60,20 @@
 
 @interface CustomHTTPProtocol : NSURLProtocol
 
-/*! Call this to start the module.  Prior to this the module is just dormant, and 
- *  all HTTP requests proceed as normal.  After this all HTTP and HTTPS requests 
+/*! Call this to start the module.  Prior to this the module is just dormant, and
+ *  all HTTP requests proceed as normal.  After this all HTTP and HTTPS requests
  *  go through this module.
  */
 
 + (void)start;
+
+// Code by DRS/ETH LET
+/*! Call this to stop all HTTP and HTTPS requests going through this module.
+ *  Afterwards, all HTTP requests proceed as normal again.
+ */
+
++ (void)stop;
+// /Code by DRS/ETH LET
 
 /*! Sets the delegate for the class.
  *  \details Note that there's one delegate for the entire class, not one per 

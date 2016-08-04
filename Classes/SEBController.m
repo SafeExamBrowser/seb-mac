@@ -87,6 +87,8 @@ bool insideMatrix();
 @synthesize capWindows;
 @synthesize lockdownWindows;
 
+@synthesize browserController;
+
 #pragma mark Application Delegate Methods
 
 + (void) initialize
@@ -111,6 +113,15 @@ bool insideMatrix();
     [NSValueTransformer setValueTransformer:textFieldNilToEmptyStringTransformer
                                     forName:@"NSTextFieldNilToEmptyStringTransformer"];
     
+}
+
+
+- (SEBOSXBrowserController *) browserController
+{
+    if (!browserController) {
+        browserController = [[SEBOSXBrowserController alloc] init];
+    }
+    return browserController;
 }
 
 
@@ -226,7 +237,7 @@ bool insideMatrix();
         // default SEB User Agent
         NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
         NSString *defaultUserAgent = [[WebView new] userAgentForURL:[NSURL URLWithString:urlText]];
-        [[SEBBrowserController new] createSEBUserAgentFromDefaultAgent:defaultUserAgent];
+        [self.browserController createSEBUserAgentFromDefaultAgent:defaultUserAgent];
         
         // Update URL filter flags and rules
         [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
@@ -534,8 +545,7 @@ bool insideMatrix();
 
     [self clearPasteboardSavingCurrentString];
 
-    // Set up SEB Browser
-    self.browserController = [[SEBOSXBrowserController alloc] init];
+    /// Set up SEB Browser
 
     self.browserController.reinforceKioskModeRequested = YES;
     
@@ -1830,9 +1840,6 @@ bool insideMatrix(){
     // Clear Pasteboard
     [self clearPasteboardSavingCurrentString];
     
-    // Clear browser back/forward list (page cache)
-    [self.browserController clearBackForwardList];
-    
     // Check if launched SEB is placed ("installed") in an Applications folder
     [self installedInApplicationsFolder];
     
@@ -1843,8 +1850,6 @@ bool insideMatrix(){
     [[NSDocumentController sharedDocumentController] closeAllDocumentsWithDelegate:self
                                                                didCloseAllSelector:@selector(documentController:didCloseAll:contextInfo:)
                                                                        contextInfo: nil];
-    self.browserController.currentMainHost = nil;
-
     // Re-Initialize file logger if logging enabled
     [self initializeLogger];
     
@@ -1865,12 +1870,8 @@ bool insideMatrix(){
     // Check if the Force Quit window is open
     [self forceQuitWindowCheck];
     
-    // Flush cached embedded certificates
-    SEBCertServices *sc = [SEBCertServices sharedInstance];
-    [sc flushCachedCertificates];
-    
-    // Set up SEB Browser
-    self.browserController = [[SEBOSXBrowserController alloc] init];
+    // Reset SEB Browser
+    [self.browserController resetBrowser];
     
     // Reopen SEB Dock
     [self openSEBDock];

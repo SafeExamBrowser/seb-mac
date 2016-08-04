@@ -138,7 +138,7 @@
 @property(strong) IBOutlet id preferencesController;
 @property(strong) IBOutlet SEBSystemManager *systemManager;
 @property(strong) SEBDockController *dockController;
-@property(strong) SEBOSXBrowserController *browserController;
+@property(nonatomic, retain) SEBOSXBrowserController *browserController;
 @property(strong) NSDate *didResignActiveTime;
 @property(strong) NSDate *didBecomeActiveTime;
 @property(strong) NSDate *didResumeExamTime;
