@@ -56,6 +56,7 @@
 		6913E5C51A4AD5EC002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6913E5C31A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m */; };
 		6915F2E919C8F77600DAEA37 /* SEBDockWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 6915F2E719C8F77600DAEA37 /* SEBDockWindow.h */; };
 		6915F2EA19C8F77600DAEA37 /* SEBDockWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6915F2E819C8F77600DAEA37 /* SEBDockWindow.m */; };
+		691728451D544EDA0029B099 /* libmbedtls.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = 691728431D544EC00029B099 /* libmbedtls.a */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		6917744A1A2776FB0039CC39 /* SEBURLFilterRegexExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 691774481A2776FB0039CC39 /* SEBURLFilterRegexExpression.h */; };
 		6917744B1A2776FB0039CC39 /* SEBURLFilterRegexExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 691774491A2776FB0039CC39 /* SEBURLFilterRegexExpression.m */; };
 		6921294216F91C6600AFC3B0 /* BoolValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6921294016F91C6600AFC3B0 /* BoolValueTransformer.h */; };
@@ -376,6 +377,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				691728451D544EDA0029B099 /* libmbedtls.a in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,6 +446,7 @@
 		6913E5C31A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTextFieldNilToEmptyStringTransformer.m; sourceTree = "<group>"; };
 		6915F2E719C8F77600DAEA37 /* SEBDockWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockWindow.h; path = Classes/SEBDock/SEBDockWindow.h; sourceTree = "<group>"; };
 		6915F2E819C8F77600DAEA37 /* SEBDockWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockWindow.m; path = Classes/SEBDock/SEBDockWindow.m; sourceTree = "<group>"; };
+		691728431D544EC00029B099 /* libmbedtls.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmbedtls.a; path = "../../Builds/SafeExamBrowser-gnsybtvbgsgipdgryzsxrlifwyvt/ArchiveIntermediates/Safe Exam Browser/BuildProductsPath/Release/libmbedtls.a"; sourceTree = "<group>"; };
 		691774481A2776FB0039CC39 /* SEBURLFilterRegexExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBURLFilterRegexExpression.h; sourceTree = "<group>"; };
 		691774491A2776FB0039CC39 /* SEBURLFilterRegexExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBURLFilterRegexExpression.m; sourceTree = "<group>"; };
 		691CD9AA1468947E00B43CDC /* SEBEncryptedUserDefaultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBEncryptedUserDefaultsController.h; path = Classes/Preferences/SEBEncryptedUserDefaultsController.h; sourceTree = "<group>"; };
@@ -892,6 +895,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				691728431D544EC00029B099 /* libmbedtls.a */,
 				6905C5AA1961B4E5000008EC /* SystemConfiguration.framework */,
 				6940A7661853B62000D9D00D /* libz.dylib */,
 				6940A7641853B4BC00D9D00D /* libssl.dylib */,
@@ -2077,7 +2081,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = "";
@@ -2115,7 +2119,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = "";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2137,7 +2141,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CODE_SIGN_FLAGS = "";
+				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_NAME = "Safe Exam Browser";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -2162,7 +2166,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "Safe Exam Browser";
-				PROVISIONING_PROFILE = "33344a09-4f23-4443-b744-72e1e9e25cb7";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				SYMROOT = ../build;
 				VALID_ARCHS = x86_64;
@@ -2182,7 +2186,7 @@
 				INSTALL_PATH = /Installer;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "Safe Exam Browser";
-				PROVISIONING_PROFILE = "33344a09-4f23-4443-b744-72e1e9e25cb7";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				SYMROOT = ../build;
 				VALID_ARCHS = x86_64;
