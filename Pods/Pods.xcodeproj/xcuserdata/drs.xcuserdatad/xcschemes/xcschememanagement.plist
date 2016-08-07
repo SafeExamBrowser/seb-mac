@@ -4,6 +4,16 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>CocoaLumberjack-OSX.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>CocoaLumberjack-iOS.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>InAppSettingsKit-InAppSettingsKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -18,27 +28,17 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-		</dict>
-		<key>MMDrawerController.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-SEB-CocoaLumberjack.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
 			<key>orderHint</key>
 			<integer>6</integer>
 		</dict>
-		<key>Pods-SEB.xcscheme</key>
+		<key>MMDrawerController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
-		<key>Pods-Safe Exam Browser-CocoaLumberjack.xcscheme</key>
+		<key>Pods-SEB.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -68,17 +68,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3C5FD1F64A83AD5157D5AFB1DC15527F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>410F85A2795BDB1B039EF73BAE826342</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4929183907F468A6C9A3A9AD80D6E34B</key>
+		<key>531BFE235D2AD86EB65E772FF2A2B9B3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -98,7 +88,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6290D20FF67E67844A7D05FAD48CF935</key>
+		<key>80C70CC17C3DE152F3EA41F795504532</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -29,12 +29,12 @@
 			<string>PSMultiValueSpecifier</string>
 			<key>Values</key>
 			<array>
-				<string>0</string>
-				<string>1</string>
-				<string>2</string>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
 			</array>
 			<key>DisplaySortedByTitle</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Type</key>
