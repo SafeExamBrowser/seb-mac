@@ -20,3 +20,14 @@ pod 'MMDrawerController-Storyboard', :podspec => 'https://raw.github.com/TomSwif
 
 end
 
+target 'SEB Enterprise' do
+    
+    platform :ios, '8.0'
+    pod 'CocoaLumberjack'
+    pod 'InAppSettingsKit'
+    pod 'MMDrawerController'
+    pod 'MMDrawerController-Storyboard', :podspec => 'https://raw.github.com/TomSwift/MMDrawerController-Storyboard/1.0.0/MMDrawerController-Storyboard.podspec'
+    
+
+end
+

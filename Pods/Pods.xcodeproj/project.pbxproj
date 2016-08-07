@@ -63,10 +63,12 @@
 		75ABBD752B8B1A27002BCF97FDC48B89 /* IASKSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CBD9538034BBC8AB7FA77D5EC0BC039 /* IASKSwitch.m */; };
 		79014498AFAE7E42C7537CCFDAE35B37 /* DDLegacyMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 732B3CBAF2989B039BC141F44040D18D /* DDLegacyMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7A827BC09CFFCC83D0313D2517549D4B /* DDMultiFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = D11CC6E849BB24BA0088CA140446483A /* DDMultiFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7E8D7EC80E68EF4E491D3D16F3F44BA6 /* Pods-SEB Enterprise-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CF827CE329E7AC9CBFC79D944561FF9D /* Pods-SEB Enterprise-dummy.m */; };
 		7F3CE46800FC76FF84BA145B74C7A2FE /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = E2B40FD889ABEC87A3849A91F5379F14 /* DDFileLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82CB4F2107398AB3CEC6ECB00C4A4F3C /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6AA977C42474D0B685514F87257D964F /* en.lproj */; };
 		8C3925E561220B543B478ABEEBE24B1E /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = B9BCABD48ABC32593E3387A02F06061D /* DDContextFilterLogFormatter.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		8D4771323B84432A91CAF62C1B6A8BBB /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B92F0F70B7FF49B758236B9C2D8A4D34 /* DDTTYLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		8D5A47920F294308E0153888BC98F6EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD16CA345F21B98D6625D8E99E0A3F9A /* Foundation.framework */; };
 		8D79CA232DAEE09AABB7AC4358D05735 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74CCE45EFED1CB859F9B84E8B0D4D215 /* MessageUI.framework */; };
 		8FC2B168CB0DBD862EF0550B50DFC79A /* DDASLLogCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F7925952ED08440B800739EA345DF7 /* DDASLLogCapture.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		905F1662DC5A4EEDEEF38C8D6452324E /* DDDispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 71275C64C34F0B16D09CA912EC7837ED /* DDDispatchQueueLogFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -86,14 +88,14 @@
 		AC9D77A39CD0E7977649E4D96D86880F /* IASKSettingsStoreFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C3605257DC40CC520DCD92CCA4FC2F6 /* IASKSettingsStoreFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B126F7B8C4D95A520B5AE365E52C78CA /* fr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 2FDE4FF964FB3A395CEF0E81E35169C4 /* fr.lproj */; };
 		B1DE7B4975C8252B2AB5D19CE346366B /* MMDrawerController+Storyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB47431791844E85355515189A01744 /* MMDrawerController+Storyboard.m */; };
-		B339DB68008C74179567431A31E1A0D9 /* Pods-Safe Exam Browser-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 36944EED2882A87236DBBECBB0C1DD91 /* Pods-Safe Exam Browser-dummy.m */; };
+		B339DB68008C74179567431A31E1A0D9 /* Pods-Safe Exam Browser-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 12ADC15B83F87C903A64E3DC366D9353 /* Pods-Safe Exam Browser-dummy.m */; };
 		B613AF23B6AFA99630965C8012A02D02 /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 3775E50D54F8080A08A4E04F3BF08958 /* Base.lproj */; };
 		B98529EC9F9A4B3BDD694E9933EA7925 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7DFD4DF5589FCA384D0A37A55C232E /* DDMultiFormatter.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		BDC57A33188643B8DC962F0E7E20FA38 /* IASKSpecifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 9897D5A704ED0F382670576867B4897C /* IASKSpecifier.m */; };
 		BFF440B0806FF40569F8C991DB5D14C9 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = E36226673048E81366DF8D9ABE91E087 /* DDFileLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		C0D985D8031F69635890A08352621F4A /* IASKTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 57E47DCA0155246CB1C83C4C7C867123 /* IASKTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C197B65F394999B4C3766207E393FE5D /* tr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 695C61A9AE8E2E1D0DAA889C64E2E681 /* tr.lproj */; };
-		C2277BF07E868C080D128136E7558B11 /* Pods-SEB-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC7B27368BEBEED320B7E51C4B1EA43 /* Pods-SEB-dummy.m */; };
+		C2277BF07E868C080D128136E7558B11 /* Pods-SEB-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E359F78EB74EA8B7621D4723F79F03CB /* Pods-SEB-dummy.m */; };
 		C332622484C806CFFA3BF0947A08239A /* IASKAppSettingsWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B8A9A751F33890906225C59436865A5 /* IASKAppSettingsWebViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C36ACB059CEA82A7D6652A71A151CBD5 /* IASKPSSliderSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F45077AF51E423B85AA024A92140DA1 /* IASKPSSliderSpecifierViewCell.m */; };
 		C5FD54D146F9B4A5AE315AB7C6210E19 /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = CEEA60D10E2E0A3751AA36EF5956BE8E /* de.lproj */; };
@@ -139,6 +141,20 @@
 			remoteGlobalIDString = 550F7EEAEEA17E3F92C873912E23B01C;
 			remoteInfo = MMDrawerController;
 		};
+		11CA21A02873C489ABE7D6EC2849AF6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 550F7EEAEEA17E3F92C873912E23B01C;
+			remoteInfo = MMDrawerController;
+		};
+		121942FF8D51346393F741701890DDE5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 08C152FA75249E7DBE1B29DF857091CB;
+			remoteInfo = "CocoaLumberjack-iOS";
+		};
 		1BFAC857EC5FD256F2935F9D249CB72B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
@@ -152,6 +168,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 550F7EEAEEA17E3F92C873912E23B01C;
 			remoteInfo = MMDrawerController;
+		};
+		39C9CA70B4D9166A640C45E9A3BDCD47 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5A6967AB7478729359BA6B9287017C73;
+			remoteInfo = "MMDrawerController-Storyboard";
 		};
 		584CCE32870BA1DDD3618492DCC7ADE4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -174,6 +197,13 @@
 			remoteGlobalIDString = 3571FD811A7981F6A5B233DECA96688A;
 			remoteInfo = "InAppSettingsKit-InAppSettingsKit";
 		};
+		851B02B6445D689F69F35F7EC6A163F3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F36C8A6C3BEB7DB64D64AD18A2CAC465;
+			remoteInfo = InAppSettingsKit;
+		};
 		885D05B7350E47750672503353226EEA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
@@ -189,40 +219,44 @@
 		05DAB59E27515198A07BA80F6A82D97B /* MMDrawerBarButtonItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MMDrawerBarButtonItem.h; path = MMDrawerController/MMDrawerBarButtonItem.h; sourceTree = "<group>"; };
 		065EFE3CB9A2FCEA49DF424BCCFECDDD /* IASKSpecifierValuesViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSpecifierValuesViewController.m; path = InAppSettingsKit/Controllers/IASKSpecifierValuesViewController.m; sourceTree = "<group>"; };
 		0A33CE3ACA57568BF01CF8960EA98EB8 /* IASKTextViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKTextViewCell.m; path = InAppSettingsKit/Views/IASKTextViewCell.m; sourceTree = "<group>"; };
+		0B7A9578D89FAEB96F10922B595E94B0 /* Pods-SEB Enterprise.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEB Enterprise.debug.xcconfig"; sourceTree = "<group>"; };
 		0F0BCCC4DEE4B83F508BF408C5EE82D1 /* MMDrawerController-Storyboard-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MMDrawerController-Storyboard-prefix.pch"; sourceTree = "<group>"; };
 		0FB670DE4170D394468BF2C806342382 /* IASKSettingsReader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSettingsReader.h; path = InAppSettingsKit/Models/IASKSettingsReader.h; sourceTree = "<group>"; };
 		10CC673CA068CFC4F0FEC540E3DD9CC3 /* ja.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = ja.lproj; path = InAppSettingsKit/Resources/ja.lproj; sourceTree = "<group>"; };
 		1201E5B66CBB157B8525D1A583E7648E /* IASKViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKViewController.h; path = InAppSettingsKit/Controllers/IASKViewController.h; sourceTree = "<group>"; };
+		12ADC15B83F87C903A64E3DC366D9353 /* Pods-Safe Exam Browser-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Safe Exam Browser-dummy.m"; sourceTree = "<group>"; };
+		131957ED14D2E940AD050A994E039BAF /* Pods-SEB Enterprise-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SEB Enterprise-acknowledgements.plist"; sourceTree = "<group>"; };
 		14EA5E41762F5BA68BE474B57EA704B6 /* DDDispatchQueueLogFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDDispatchQueueLogFormatter.m; path = Classes/Extensions/DDDispatchQueueLogFormatter.m; sourceTree = "<group>"; };
 		1600E734CC0DAC7F04C1526085D6F9B1 /* CocoaLumberjack-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "CocoaLumberjack-iOS-dummy.m"; path = "../CocoaLumberjack-iOS/CocoaLumberjack-iOS-dummy.m"; sourceTree = "<group>"; };
 		1986E0DAD52A7595081D42CAAA6B63DD /* th.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = th.lproj; path = InAppSettingsKit/Resources/th.lproj; sourceTree = "<group>"; };
+		19DBF7D07635D4466E4E0DF13EFD8368 /* libPods-SEB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SEB.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C3605257DC40CC520DCD92CCA4FC2F6 /* IASKSettingsStoreFile.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSettingsStoreFile.h; path = InAppSettingsKit/Models/IASKSettingsStoreFile.h; sourceTree = "<group>"; };
 		1E762501E5E2432C084D72E998C0564E /* IASKPSTextFieldSpecifierViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKPSTextFieldSpecifierViewCell.m; path = InAppSettingsKit/Views/IASKPSTextFieldSpecifierViewCell.m; sourceTree = "<group>"; };
-		2411886AF3589C565F200B84C62DC331 /* Pods-SEB-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SEB-resources.sh"; sourceTree = "<group>"; };
+		227F0C0D960CCA61144F47B48E87AF7C /* libPods-Safe Exam Browser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Safe Exam Browser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		241655EC098D9AEC76B77AF1D289DCB5 /* CocoaLumberjack-OSX.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "CocoaLumberjack-OSX.xcconfig"; sourceTree = "<group>"; };
 		24C08C711FF1C52ED55AFAB602C2F74D /* IASKTextView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKTextView.h; path = InAppSettingsKit/Views/IASKTextView.h; sourceTree = "<group>"; };
 		255784E3D658E320C94434014FAD3D7D /* IASKSpecifierValuesViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSpecifierValuesViewController.h; path = InAppSettingsKit/Controllers/IASKSpecifierValuesViewController.h; sourceTree = "<group>"; };
 		27079A793C2D050A97AFE2DF6A6EA80B /* DDLog+LOGV.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "DDLog+LOGV.h"; path = "Classes/DDLog+LOGV.h"; sourceTree = "<group>"; };
-		2AFB14F35136D1E9BACAB3BC6EF0FDD3 /* Pods-Safe Exam Browser-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Safe Exam Browser-frameworks.sh"; sourceTree = "<group>"; };
 		2B8A9A751F33890906225C59436865A5 /* IASKAppSettingsWebViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKAppSettingsWebViewController.h; path = InAppSettingsKit/Controllers/IASKAppSettingsWebViewController.h; sourceTree = "<group>"; };
-		2BC3992AD9F6397730BEA37AEC13C6D3 /* Pods-SEB-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SEB-acknowledgements.markdown"; sourceTree = "<group>"; };
 		2FB208EB631A40668E49F053FD14926E /* IASKAppSettingsWebViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKAppSettingsWebViewController.m; path = InAppSettingsKit/Controllers/IASKAppSettingsWebViewController.m; sourceTree = "<group>"; };
 		2FDE4FF964FB3A395CEF0E81E35169C4 /* fr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = fr.lproj; path = InAppSettingsKit/Resources/fr.lproj; sourceTree = "<group>"; };
-		30A05C9F0F5C9F8941FE98E77316567F /* libMMDrawerController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMMDrawerController.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		36944EED2882A87236DBBECBB0C1DD91 /* Pods-Safe Exam Browser-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Safe Exam Browser-dummy.m"; sourceTree = "<group>"; };
+		357BC0083B9AB0D1E651C9C3CB9417D9 /* Pods-SEB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEB.debug.xcconfig"; sourceTree = "<group>"; };
+		3600171E89864C1AAAC5B6D0BC939F3F /* libCocoaLumberjack-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libCocoaLumberjack-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3775E50D54F8080A08A4E04F3BF08958 /* Base.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = Base.lproj; path = InAppSettingsKit/Resources/Base.lproj; sourceTree = "<group>"; };
 		382C827BA506BACE1B7C222EC0DD9F32 /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDAbstractDatabaseLogger.m; path = Classes/DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
-		38C8136D1B11D2B94358D3AB2C7EA45A /* libPods-SEB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SEB.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B7DFD4DF5589FCA384D0A37A55C232E /* DDMultiFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDMultiFormatter.m; path = Classes/Extensions/DDMultiFormatter.m; sourceTree = "<group>"; };
 		3CC329B0FD21978105510D88869E35F0 /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKAppSettingsViewController.h; path = InAppSettingsKit/Controllers/IASKAppSettingsViewController.h; sourceTree = "<group>"; };
 		3D781CD17E6454E326D8485D0255329B /* MMDrawerController+Subclass.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MMDrawerController+Subclass.h"; path = "MMDrawerController/MMDrawerController+Subclass.h"; sourceTree = "<group>"; };
 		3DC58A58CA3DD3DFAE235F269C978A49 /* DDLog.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDLog.m; path = Classes/DDLog.m; sourceTree = "<group>"; };
 		3EA1D62E4F3E1841AAFC5BA06605BDDA /* IASKTextViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKTextViewCell.h; path = InAppSettingsKit/Views/IASKTextViewCell.h; sourceTree = "<group>"; };
 		3EA7473F32DA53275335028054CD2A55 /* nl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = nl.lproj; path = InAppSettingsKit/Resources/nl.lproj; sourceTree = "<group>"; };
+		3F99FCE45EA22262FCF767552282EC4F /* Pods-Safe Exam Browser-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Safe Exam Browser-resources.sh"; sourceTree = "<group>"; };
 		408CD8369D16041573310D702B79E617 /* IASKPSSliderSpecifierViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKPSSliderSpecifierViewCell.h; path = InAppSettingsKit/Views/IASKPSSliderSpecifierViewCell.h; sourceTree = "<group>"; };
 		42E032D7F0C999F2A87E0F16F2486B7D /* MMDrawerController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MMDrawerController.xcconfig; sourceTree = "<group>"; };
 		42F7925952ED08440B800739EA345DF7 /* DDASLLogCapture.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDASLLogCapture.h; path = Classes/DDASLLogCapture.h; sourceTree = "<group>"; };
+		469DE4BB12A5E83C19D43BBDD0085B0C /* Pods-SEB-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SEB-acknowledgements.plist"; sourceTree = "<group>"; };
 		479233DAC8A0C51AF21AF08A40220E49 /* IASKSpecifier.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSpecifier.h; path = InAppSettingsKit/Models/IASKSpecifier.h; sourceTree = "<group>"; };
+		488257F59DC305541BC433BF098337B2 /* Pods-SEB Enterprise-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SEB Enterprise-acknowledgements.markdown"; sourceTree = "<group>"; };
 		4B453BEEE786874A630EACFE2980341E /* IASKSlider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSlider.h; path = InAppSettingsKit/Views/IASKSlider.h; sourceTree = "<group>"; };
 		4B8D2FAC7C69CDE68C11E4F64128364F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		4C6850925B35DEA6EB2185C2D202D666 /* IASKSettingsStore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSettingsStore.m; path = InAppSettingsKit/Models/IASKSettingsStore.m; sourceTree = "<group>"; };
@@ -237,77 +271,81 @@
 		6357B7F222CC2ED00BA3D39272C41E2C /* IASKSettingsStoreFile.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSettingsStoreFile.m; path = InAppSettingsKit/Models/IASKSettingsStoreFile.m; sourceTree = "<group>"; };
 		651C340BCDECB1F212C007F623B00E09 /* InAppSettingsKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = InAppSettingsKit.xcconfig; sourceTree = "<group>"; };
 		66AE3111D587BE6763A9DF196DA76B6E /* it.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = it.lproj; path = InAppSettingsKit/Resources/it.lproj; sourceTree = "<group>"; };
+		67A33C41EAE1178C39EC468D992FF3AC /* Pods-SEB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEB.release.xcconfig"; sourceTree = "<group>"; };
 		695C61A9AE8E2E1D0DAA889C64E2E681 /* tr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = tr.lproj; path = InAppSettingsKit/Resources/tr.lproj; sourceTree = "<group>"; };
 		6AA977C42474D0B685514F87257D964F /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = en.lproj; path = InAppSettingsKit/Resources/en.lproj; sourceTree = "<group>"; };
-		6C550F348C635A72A9B16B54A8B0B582 /* Pods-SEB-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SEB-acknowledgements.plist"; sourceTree = "<group>"; };
-		6CC7B27368BEBEED320B7E51C4B1EA43 /* Pods-SEB-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SEB-dummy.m"; sourceTree = "<group>"; };
 		6EF77E34A862A3C954B8CDED4AED8CF6 /* InAppSettingsKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "InAppSettingsKit-prefix.pch"; sourceTree = "<group>"; };
-		6F23B6DCE07A5C57CAA8F1F7910EEA79 /* Pods-Safe Exam Browser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Safe Exam Browser.debug.xcconfig"; sourceTree = "<group>"; };
 		6F2ADEEA80991895DAED3A9ACA9A930F /* IASKSettingsReader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSettingsReader.m; path = InAppSettingsKit/Models/IASKSettingsReader.m; sourceTree = "<group>"; };
 		6FA07775BF374DEF427CE45DD3D594F3 /* DDContextFilterLogFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDContextFilterLogFormatter.h; path = Classes/Extensions/DDContextFilterLogFormatter.h; sourceTree = "<group>"; };
 		7060A3DF1D13BFE69C66791C494D8CFC /* MMDrawerBarButtonItem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MMDrawerBarButtonItem.m; path = MMDrawerController/MMDrawerBarButtonItem.m; sourceTree = "<group>"; };
 		71275C64C34F0B16D09CA912EC7837ED /* DDDispatchQueueLogFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDDispatchQueueLogFormatter.h; path = Classes/Extensions/DDDispatchQueueLogFormatter.h; sourceTree = "<group>"; };
 		7196A9C0F9B21A35C6DE2AA783117267 /* MMDrawerVisualState.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MMDrawerVisualState.h; path = MMDrawerController/MMDrawerVisualState.h; sourceTree = "<group>"; };
+		71C8625A9FDADFDABEC4238E0922FFEB /* Pods-Safe Exam Browser-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Safe Exam Browser-acknowledgements.plist"; sourceTree = "<group>"; };
 		732B3CBAF2989B039BC141F44040D18D /* DDLegacyMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLegacyMacros.h; path = Classes/DDLegacyMacros.h; sourceTree = "<group>"; };
 		74CCE45EFED1CB859F9B84E8B0D4D215 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
 		756944030752C5EF97832C848DC4D418 /* IASKMultipleValueSelection.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKMultipleValueSelection.m; path = InAppSettingsKit/Controllers/IASKMultipleValueSelection.m; sourceTree = "<group>"; };
 		778D28E787285031B019FC385780E7BD /* MMDrawerController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MMDrawerController-dummy.m"; sourceTree = "<group>"; };
 		7A3D21CDBBA1B0D0245264BE8AE6FA35 /* MMDrawerController+Storyboard.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MMDrawerController+Storyboard.h"; sourceTree = "<group>"; };
 		7C876262D4CE5F3041811293A4823E38 /* CocoaLumberjack-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "CocoaLumberjack-iOS-prefix.pch"; path = "../CocoaLumberjack-iOS/CocoaLumberjack-iOS-prefix.pch"; sourceTree = "<group>"; };
-		7C9F142B3B65A11E5889BDAB8EE0A86A /* libPods-Safe Exam Browser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Safe Exam Browser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E757E5B3F19D1CEFF9EE343ABF09091 /* pt-PT.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "pt-PT.lproj"; path = "InAppSettingsKit/Resources/pt-PT.lproj"; sourceTree = "<group>"; };
+		808F3742CBAFD1B200C4AF668E725760 /* libInAppSettingsKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libInAppSettingsKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		80B7B8F2611232EA1D2D36D0BB0794B0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		8574FED49A5F5677E49A347BE8660DF3 /* IASKTextField.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKTextField.m; path = InAppSettingsKit/Views/IASKTextField.m; sourceTree = "<group>"; };
 		8B621B0E90870EF7298C0DD01CD4C333 /* DDASLLogCapture.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDASLLogCapture.m; path = Classes/DDASLLogCapture.m; sourceTree = "<group>"; };
 		8CB47431791844E85355515189A01744 /* MMDrawerController+Storyboard.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MMDrawerController+Storyboard.m"; sourceTree = "<group>"; };
 		8F45077AF51E423B85AA024A92140DA1 /* IASKPSSliderSpecifierViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKPSSliderSpecifierViewCell.m; path = InAppSettingsKit/Views/IASKPSSliderSpecifierViewCell.m; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		95BF75342C1309E4671FD610E2A71880 /* Pods-Safe Exam Browser-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Safe Exam Browser-acknowledgements.plist"; sourceTree = "<group>"; };
 		967F6C515BF0076B07D082165CA0AC3C /* DDASLLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDASLLogger.h; path = Classes/DDASLLogger.h; sourceTree = "<group>"; };
 		9897D5A704ED0F382670576867B4897C /* IASKSpecifier.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSpecifier.m; path = InAppSettingsKit/Models/IASKSpecifier.m; sourceTree = "<group>"; };
 		9C956B9999E9A08B686A6101A82FFF3B /* sv.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = sv.lproj; path = InAppSettingsKit/Resources/sv.lproj; sourceTree = "<group>"; };
 		9D5B78568444FF855ED14DD4125D8A35 /* CocoaLumberjack-OSX-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CocoaLumberjack-OSX-prefix.pch"; sourceTree = "<group>"; };
+		A354D26CD355FA82F4DE8735B5B03FD8 /* libCocoaLumberjack-OSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libCocoaLumberjack-OSX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4A48526EA03D7E0AFCA6F48AED10D97 /* MMDrawerController-Storyboard-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MMDrawerController-Storyboard-dummy.m"; sourceTree = "<group>"; };
+		A60DD52446225A63F2B137B150056093 /* Pods-SEB-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SEB-acknowledgements.markdown"; sourceTree = "<group>"; };
 		A6B1A4A03CA3F43B834E1F476BC84715 /* MMDrawerVisualState.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MMDrawerVisualState.m; path = MMDrawerController/MMDrawerVisualState.m; sourceTree = "<group>"; };
 		A798D1E4EEF44B6D9EEC7E44B5E54D7C /* UIViewController+MMDrawerController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+MMDrawerController.m"; path = "MMDrawerController/UIViewController+MMDrawerController.m"; sourceTree = "<group>"; };
-		AA085065C278B171EF72E26DFE351050 /* Pods-SEB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEB.debug.xcconfig"; sourceTree = "<group>"; };
 		AA6D21DD96F826D1DA4FB996ABEDCA0A /* pt.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = pt.lproj; path = InAppSettingsKit/Resources/pt.lproj; sourceTree = "<group>"; };
 		AABC9396E480AFA40B381C0BD2DF591D /* IASKMultipleValueSelection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKMultipleValueSelection.h; path = InAppSettingsKit/Controllers/IASKMultipleValueSelection.h; sourceTree = "<group>"; };
 		AB716C83D08A34AAF73B5722FFD5DBBE /* IASKSettingsStoreUserDefaults.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSettingsStoreUserDefaults.h; path = InAppSettingsKit/Models/IASKSettingsStoreUserDefaults.h; sourceTree = "<group>"; };
+		AB9EF3B1E5F02345DC1B1E68421AB6FF /* Pods-Safe Exam Browser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Safe Exam Browser.release.xcconfig"; sourceTree = "<group>"; };
 		AFAF8C14F88DD8C84C89E1A323C7BF8B /* DDAssertMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDAssertMacros.h; path = Classes/DDAssertMacros.h; sourceTree = "<group>"; };
+		B1F3AC406EF9890C39C519D32883F686 /* libPods-SEB Enterprise.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SEB Enterprise.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2F2304C813ACAEFB068881B218F645D /* libMMDrawerController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMMDrawerController.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B92F0F70B7FF49B758236B9C2D8A4D34 /* DDTTYLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDTTYLogger.m; path = Classes/DDTTYLogger.m; sourceTree = "<group>"; };
 		B9BCABD48ABC32593E3387A02F06061D /* DDContextFilterLogFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDContextFilterLogFormatter.m; path = Classes/Extensions/DDContextFilterLogFormatter.m; sourceTree = "<group>"; };
 		BB4EBBA564B8F94B3BB98B7559C07760 /* MMDrawerController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MMDrawerController-prefix.pch"; sourceTree = "<group>"; };
 		BC736A897DE50ABFEA0688C2A145D7C3 /* CocoaLumberjack-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "CocoaLumberjack-iOS.xcconfig"; path = "../CocoaLumberjack-iOS/CocoaLumberjack-iOS.xcconfig"; sourceTree = "<group>"; };
 		BE657D20C33C54AC7F42AB6CF78E4905 /* IASKPSTextFieldSpecifierViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKPSTextFieldSpecifierViewCell.h; path = InAppSettingsKit/Views/IASKPSTextFieldSpecifierViewCell.h; sourceTree = "<group>"; };
-		C5D18FC6B44A2C6A70266345B0902FEC /* libInAppSettingsKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libInAppSettingsKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C18BF4A01A481F05D44196A0F1CD654C /* Pods-SEB-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SEB-frameworks.sh"; sourceTree = "<group>"; };
 		C66108E3E7C3B36F2238DFF83C684AEC /* MMDrawerController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MMDrawerController.m; path = MMDrawerController/MMDrawerController.m; sourceTree = "<group>"; };
 		C844E399BF0D7FD44FBEDC370CD37CE5 /* InAppSettingsKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "InAppSettingsKit-dummy.m"; sourceTree = "<group>"; };
-		C8FD01D6B2178732597F75DA64D540AC /* Pods-SEB-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SEB-frameworks.sh"; sourceTree = "<group>"; };
+		CD9549C351B5CB89A84C20A52278DE8B /* Pods-SEB Enterprise-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SEB Enterprise-frameworks.sh"; sourceTree = "<group>"; };
 		CE3A53A90A7517448229FB5083344F5E /* IASKSettingsStoreUserDefaults.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSettingsStoreUserDefaults.m; path = InAppSettingsKit/Models/IASKSettingsStoreUserDefaults.m; sourceTree = "<group>"; };
 		CEEA60D10E2E0A3751AA36EF5956BE8E /* de.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = de.lproj; path = InAppSettingsKit/Resources/de.lproj; sourceTree = "<group>"; };
+		CF827CE329E7AC9CBFC79D944561FF9D /* Pods-SEB Enterprise-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SEB Enterprise-dummy.m"; sourceTree = "<group>"; };
 		CFD5203F7D2193A0E8740B900005B5B8 /* ru.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = ru.lproj; path = InAppSettingsKit/Resources/ru.lproj; sourceTree = "<group>"; };
+		D0BA5E13013C7BC466DD88B662103504 /* Pods-Safe Exam Browser-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Safe Exam Browser-acknowledgements.markdown"; sourceTree = "<group>"; };
 		D11CC6E849BB24BA0088CA140446483A /* DDMultiFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDMultiFormatter.h; path = Classes/Extensions/DDMultiFormatter.h; sourceTree = "<group>"; };
-		D428104CA7295C5A42E3C1D385E78F5D /* Pods-Safe Exam Browser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Safe Exam Browser.release.xcconfig"; sourceTree = "<group>"; };
 		D451A057126F126AFBA1DC0D291B2BD6 /* CocoaLumberjack-OSX-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CocoaLumberjack-OSX-dummy.m"; sourceTree = "<group>"; };
 		D713980666CFA31AB96E8B5DCB7099C4 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDAbstractDatabaseLogger.h; path = Classes/DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
 		D7679774C0A1217D422D9873C468D592 /* DDASLLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDASLLogger.m; path = Classes/DDASLLogger.m; sourceTree = "<group>"; };
 		D7A878C84C4245297C48E2C96BBA2477 /* IASKSlider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSlider.m; path = InAppSettingsKit/Views/IASKSlider.m; sourceTree = "<group>"; };
-		D92424F51CCD394D47316718091E1CB3 /* Pods-SEB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEB.release.xcconfig"; sourceTree = "<group>"; };
 		D9E79F5E91C09C46CB35337A85BB5BAA /* IASKSettingsStore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSettingsStore.h; path = InAppSettingsKit/Models/IASKSettingsStore.h; sourceTree = "<group>"; };
+		DAAFEF619507C19608ACBE379488ADD8 /* libMMDrawerController-Storyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libMMDrawerController-Storyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAFC89AC9FF401E6A40AF205032D7087 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		E1DA11408939C49142DAD31AF28D0B4A /* libMMDrawerController-Storyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libMMDrawerController-Storyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E231242EB739795C8B3F7BFA718E0599 /* libCocoaLumberjack-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libCocoaLumberjack-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2B40FD889ABEC87A3849A91F5379F14 /* DDFileLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDFileLogger.h; path = Classes/DDFileLogger.h; sourceTree = "<group>"; };
-		E3615C6026BCBDBBE5C2DB3FE68DAFEE /* Pods-Safe Exam Browser-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Safe Exam Browser-resources.sh"; sourceTree = "<group>"; };
+		E306C65334116693F52BE198053ED8A6 /* Pods-SEB-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SEB-resources.sh"; sourceTree = "<group>"; };
+		E359F78EB74EA8B7621D4723F79F03CB /* Pods-SEB-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SEB-dummy.m"; sourceTree = "<group>"; };
 		E36226673048E81366DF8D9ABE91E087 /* DDFileLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDFileLogger.m; path = Classes/DDFileLogger.m; sourceTree = "<group>"; };
+		E6AAE90AA020F1556A7A80A9106170A5 /* InAppSettingsKit.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InAppSettingsKit.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		E70F7BC848546AE4A98C21D49CD7588F /* Pods-SEB Enterprise-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SEB Enterprise-resources.sh"; sourceTree = "<group>"; };
 		E746BF28402C98072437B9F2B6089B31 /* es.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = es.lproj; path = InAppSettingsKit/Resources/es.lproj; sourceTree = "<group>"; };
-		E7476B7A3FCD86561DBCA1219B717182 /* Pods-Safe Exam Browser-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Safe Exam Browser-acknowledgements.markdown"; sourceTree = "<group>"; };
 		E7E99DE9FC5635E444910F170911BEFB /* DDTTYLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDTTYLogger.h; path = Classes/DDTTYLogger.h; sourceTree = "<group>"; };
+		E833257783FEE267E02600B9CFB92023 /* Pods-Safe Exam Browser-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Safe Exam Browser-frameworks.sh"; sourceTree = "<group>"; };
 		E9875ED620D5B8DDE6AC8E1A168C5755 /* CocoaLumberjack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CocoaLumberjack.h; path = Classes/CocoaLumberjack.h; sourceTree = "<group>"; };
-		F553AC099A4FF3A1F551BBFAC9F53E28 /* libCocoaLumberjack-OSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libCocoaLumberjack-OSX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F06829D08581C2B9560E1D214F78FDFA /* Pods-Safe Exam Browser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Safe Exam Browser.debug.xcconfig"; sourceTree = "<group>"; };
+		F307016C5E29766D5D25AA2E1E8A0F5A /* Pods-SEB Enterprise.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEB Enterprise.release.xcconfig"; sourceTree = "<group>"; };
 		F9D670C6D53A3F0CECA321EA24F22B18 /* DDLog.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLog.h; path = Classes/DDLog.h; sourceTree = "<group>"; };
-		FA9182C24E66E99BC6195F8C58065768 /* InAppSettingsKit.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InAppSettingsKit.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC67F9C1DB354279519CF024611CA990 /* UIViewController+MMDrawerController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIViewController+MMDrawerController.h"; path = "MMDrawerController/UIViewController+MMDrawerController.h"; sourceTree = "<group>"; };
 		FD16CA345F21B98D6625D8E99E0A3F9A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -325,6 +363,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2553696E5CBF3FBB682324EEC6C5B7C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D5A47920F294308E0153888BC98F6EA /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,19 +485,19 @@
 			name = Default;
 			sourceTree = "<group>";
 		};
-		2CBCA568D403F3629C0BD05DA9B971BA /* Pods-SEB */ = {
+		32C1A74021C8F70E771F966B43672A88 /* Pods-SEB Enterprise */ = {
 			isa = PBXGroup;
 			children = (
-				2BC3992AD9F6397730BEA37AEC13C6D3 /* Pods-SEB-acknowledgements.markdown */,
-				6C550F348C635A72A9B16B54A8B0B582 /* Pods-SEB-acknowledgements.plist */,
-				6CC7B27368BEBEED320B7E51C4B1EA43 /* Pods-SEB-dummy.m */,
-				C8FD01D6B2178732597F75DA64D540AC /* Pods-SEB-frameworks.sh */,
-				2411886AF3589C565F200B84C62DC331 /* Pods-SEB-resources.sh */,
-				AA085065C278B171EF72E26DFE351050 /* Pods-SEB.debug.xcconfig */,
-				D92424F51CCD394D47316718091E1CB3 /* Pods-SEB.release.xcconfig */,
+				488257F59DC305541BC433BF098337B2 /* Pods-SEB Enterprise-acknowledgements.markdown */,
+				131957ED14D2E940AD050A994E039BAF /* Pods-SEB Enterprise-acknowledgements.plist */,
+				CF827CE329E7AC9CBFC79D944561FF9D /* Pods-SEB Enterprise-dummy.m */,
+				CD9549C351B5CB89A84C20A52278DE8B /* Pods-SEB Enterprise-frameworks.sh */,
+				E70F7BC848546AE4A98C21D49CD7588F /* Pods-SEB Enterprise-resources.sh */,
+				0B7A9578D89FAEB96F10922B595E94B0 /* Pods-SEB Enterprise.debug.xcconfig */,
+				F307016C5E29766D5D25AA2E1E8A0F5A /* Pods-SEB Enterprise.release.xcconfig */,
 			);
-			name = "Pods-SEB";
-			path = "Target Support Files/Pods-SEB";
+			name = "Pods-SEB Enterprise";
+			path = "Target Support Files/Pods-SEB Enterprise";
 			sourceTree = "<group>";
 		};
 		3762CEAA2D176B7C87D77E6B3843442F /* Pods */ = {
@@ -465,21 +511,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		3B062AD5A5D8250E3C8AEF87BD6CB0AF /* Pods-Safe Exam Browser */ = {
-			isa = PBXGroup;
-			children = (
-				E7476B7A3FCD86561DBCA1219B717182 /* Pods-Safe Exam Browser-acknowledgements.markdown */,
-				95BF75342C1309E4671FD610E2A71880 /* Pods-Safe Exam Browser-acknowledgements.plist */,
-				36944EED2882A87236DBBECBB0C1DD91 /* Pods-Safe Exam Browser-dummy.m */,
-				2AFB14F35136D1E9BACAB3BC6EF0FDD3 /* Pods-Safe Exam Browser-frameworks.sh */,
-				E3615C6026BCBDBBE5C2DB3FE68DAFEE /* Pods-Safe Exam Browser-resources.sh */,
-				6F23B6DCE07A5C57CAA8F1F7910EEA79 /* Pods-Safe Exam Browser.debug.xcconfig */,
-				D428104CA7295C5A42E3C1D385E78F5D /* Pods-Safe Exam Browser.release.xcconfig */,
-			);
-			name = "Pods-Safe Exam Browser";
-			path = "Target Support Files/Pods-Safe Exam Browser";
-			sourceTree = "<group>";
-		};
 		3D618FD72CC044FF1772EC0CBD80A4CA /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -489,6 +520,21 @@
 				A798D1E4EEF44B6D9EEC7E44B5E54D7C /* UIViewController+MMDrawerController.m */,
 			);
 			name = Core;
+			sourceTree = "<group>";
+		};
+		3FF452CDA11CEDD75BD71B1961E76A17 /* Pods-SEB */ = {
+			isa = PBXGroup;
+			children = (
+				A60DD52446225A63F2B137B150056093 /* Pods-SEB-acknowledgements.markdown */,
+				469DE4BB12A5E83C19D43BBDD0085B0C /* Pods-SEB-acknowledgements.plist */,
+				E359F78EB74EA8B7621D4723F79F03CB /* Pods-SEB-dummy.m */,
+				C18BF4A01A481F05D44196A0F1CD654C /* Pods-SEB-frameworks.sh */,
+				E306C65334116693F52BE198053ED8A6 /* Pods-SEB-resources.sh */,
+				357BC0083B9AB0D1E651C9C3CB9417D9 /* Pods-SEB.debug.xcconfig */,
+				67A33C41EAE1178C39EC468D992FF3AC /* Pods-SEB.release.xcconfig */,
+			);
+			name = "Pods-SEB";
+			path = "Target Support Files/Pods-SEB";
 			sourceTree = "<group>";
 		};
 		447CC0DF98AA067DD971986DDA547D5B /* Support Files */ = {
@@ -589,8 +635,8 @@
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				E2153BAE0672AAEB0E3E37081F9D46A8 /* Frameworks */,
 				3762CEAA2D176B7C87D77E6B3843442F /* Pods */,
-				A347FDD151011F270E80FE30F708695F /* Products */,
-				C516D16EF88B7C14D8B2F01707129D8A /* Targets Support Files */,
+				9ADF2511601FF431CCAB6C966B5BB461 /* Products */,
+				F8344D0B0B892CE35DFD0C13CEBBDE50 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -605,6 +651,22 @@
 			path = "../Target Support Files/MMDrawerController-Storyboard";
 			sourceTree = "<group>";
 		};
+		9ADF2511601FF431CCAB6C966B5BB461 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E6AAE90AA020F1556A7A80A9106170A5 /* InAppSettingsKit.bundle */,
+				3600171E89864C1AAAC5B6D0BC939F3F /* libCocoaLumberjack-iOS.a */,
+				A354D26CD355FA82F4DE8735B5B03FD8 /* libCocoaLumberjack-OSX.a */,
+				808F3742CBAFD1B200C4AF668E725760 /* libInAppSettingsKit.a */,
+				B2F2304C813ACAEFB068881B218F645D /* libMMDrawerController.a */,
+				DAAFEF619507C19608ACBE379488ADD8 /* libMMDrawerController-Storyboard.a */,
+				227F0C0D960CCA61144F47B48E87AF7C /* libPods-Safe Exam Browser.a */,
+				19DBF7D07635D4466E4E0DF13EFD8368 /* libPods-SEB.a */,
+				B1F3AC406EF9890C39C519D32883F686 /* libPods-SEB Enterprise.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		9DC10B5C7B71980D659C4919AED87F39 /* MMDrawerController-Storyboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -613,30 +675,6 @@
 				990E5514AB3E9875CB6EC24E0014CBB0 /* Support Files */,
 			);
 			path = "MMDrawerController-Storyboard";
-			sourceTree = "<group>";
-		};
-		A347FDD151011F270E80FE30F708695F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				FA9182C24E66E99BC6195F8C58065768 /* InAppSettingsKit.bundle */,
-				E231242EB739795C8B3F7BFA718E0599 /* libCocoaLumberjack-iOS.a */,
-				F553AC099A4FF3A1F551BBFAC9F53E28 /* libCocoaLumberjack-OSX.a */,
-				C5D18FC6B44A2C6A70266345B0902FEC /* libInAppSettingsKit.a */,
-				30A05C9F0F5C9F8941FE98E77316567F /* libMMDrawerController.a */,
-				E1DA11408939C49142DAD31AF28D0B4A /* libMMDrawerController-Storyboard.a */,
-				7C9F142B3B65A11E5889BDAB8EE0A86A /* libPods-Safe Exam Browser.a */,
-				38C8136D1B11D2B94358D3AB2C7EA45A /* libPods-SEB.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		C516D16EF88B7C14D8B2F01707129D8A /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				3B062AD5A5D8250E3C8AEF87BD6CB0AF /* Pods-Safe Exam Browser */,
-				2CBCA568D403F3629C0BD05DA9B971BA /* Pods-SEB */,
-			);
-			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
 		C8093DD9C5145ABDF69C74FC10B0BA88 /* OS X */ = {
@@ -687,6 +725,31 @@
 				447CC0DF98AA067DD971986DDA547D5B /* Support Files */,
 			);
 			path = CocoaLumberjack;
+			sourceTree = "<group>";
+		};
+		F8344D0B0B892CE35DFD0C13CEBBDE50 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				FA0DD0496D37032E09E1A470A97F1DC9 /* Pods-Safe Exam Browser */,
+				3FF452CDA11CEDD75BD71B1961E76A17 /* Pods-SEB */,
+				32C1A74021C8F70E771F966B43672A88 /* Pods-SEB Enterprise */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		FA0DD0496D37032E09E1A470A97F1DC9 /* Pods-Safe Exam Browser */ = {
+			isa = PBXGroup;
+			children = (
+				D0BA5E13013C7BC466DD88B662103504 /* Pods-Safe Exam Browser-acknowledgements.markdown */,
+				71C8625A9FDADFDABEC4238E0922FFEB /* Pods-Safe Exam Browser-acknowledgements.plist */,
+				12ADC15B83F87C903A64E3DC366D9353 /* Pods-Safe Exam Browser-dummy.m */,
+				E833257783FEE267E02600B9CFB92023 /* Pods-Safe Exam Browser-frameworks.sh */,
+				3F99FCE45EA22262FCF767552282EC4F /* Pods-Safe Exam Browser-resources.sh */,
+				F06829D08581C2B9560E1D214F78FDFA /* Pods-Safe Exam Browser.debug.xcconfig */,
+				AB9EF3B1E5F02345DC1B1E68421AB6FF /* Pods-Safe Exam Browser.release.xcconfig */,
+			);
+			name = "Pods-Safe Exam Browser";
+			path = "Target Support Files/Pods-Safe Exam Browser";
 			sourceTree = "<group>";
 		};
 		FFF05A2445E61A85DBBD7D67E8C71BE7 /* Core */ = {
@@ -818,7 +881,27 @@
 			);
 			name = "CocoaLumberjack-iOS";
 			productName = "CocoaLumberjack-iOS";
-			productReference = E231242EB739795C8B3F7BFA718E0599 /* libCocoaLumberjack-iOS.a */;
+			productReference = 3600171E89864C1AAAC5B6D0BC939F3F /* libCocoaLumberjack-iOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		2EF0AF9AB769DAF406B33E010A6C7602 /* Pods-SEB Enterprise */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F5C135C7649B100404F71A7661A9ED9B /* Build configuration list for PBXNativeTarget "Pods-SEB Enterprise" */;
+			buildPhases = (
+				00B71E467242CAAB3132BE9382C64BC4 /* Sources */,
+				2553696E5CBF3FBB682324EEC6C5B7C2 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ACD4681BED2023B859DE7398BA882651 /* PBXTargetDependency */,
+				7C40F0E7C041EDEEE4DD188BD66D0BF7 /* PBXTargetDependency */,
+				B9189191D297E0B8B98DCA8BCC03A168 /* PBXTargetDependency */,
+				2CEA5F1EFD9CA3A0B0CF0E49B727EAD8 /* PBXTargetDependency */,
+			);
+			name = "Pods-SEB Enterprise";
+			productName = "Pods-SEB Enterprise";
+			productReference = B1F3AC406EF9890C39C519D32883F686 /* libPods-SEB Enterprise.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		3571FD811A7981F6A5B233DECA96688A /* InAppSettingsKit-InAppSettingsKit */ = {
@@ -835,7 +918,7 @@
 			);
 			name = "InAppSettingsKit-InAppSettingsKit";
 			productName = "InAppSettingsKit-InAppSettingsKit";
-			productReference = FA9182C24E66E99BC6195F8C58065768 /* InAppSettingsKit.bundle */;
+			productReference = E6AAE90AA020F1556A7A80A9106170A5 /* InAppSettingsKit.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 		531BFE235D2AD86EB65E772FF2A2B9B3 /* Pods-SEB */ = {
@@ -855,7 +938,7 @@
 			);
 			name = "Pods-SEB";
 			productName = "Pods-SEB";
-			productReference = 38C8136D1B11D2B94358D3AB2C7EA45A /* libPods-SEB.a */;
+			productReference = 19DBF7D07635D4466E4E0DF13EFD8368 /* libPods-SEB.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		550F7EEAEEA17E3F92C873912E23B01C /* MMDrawerController */ = {
@@ -872,7 +955,7 @@
 			);
 			name = MMDrawerController;
 			productName = MMDrawerController;
-			productReference = 30A05C9F0F5C9F8941FE98E77316567F /* libMMDrawerController.a */;
+			productReference = B2F2304C813ACAEFB068881B218F645D /* libMMDrawerController.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		5A6967AB7478729359BA6B9287017C73 /* MMDrawerController-Storyboard */ = {
@@ -890,7 +973,7 @@
 			);
 			name = "MMDrawerController-Storyboard";
 			productName = "MMDrawerController-Storyboard";
-			productReference = E1DA11408939C49142DAD31AF28D0B4A /* libMMDrawerController-Storyboard.a */;
+			productReference = DAAFEF619507C19608ACBE379488ADD8 /* libMMDrawerController-Storyboard.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		80C70CC17C3DE152F3EA41F795504532 /* Pods-Safe Exam Browser */ = {
@@ -907,7 +990,7 @@
 			);
 			name = "Pods-Safe Exam Browser";
 			productName = "Pods-Safe Exam Browser";
-			productReference = 7C9F142B3B65A11E5889BDAB8EE0A86A /* libPods-Safe Exam Browser.a */;
+			productReference = 227F0C0D960CCA61144F47B48E87AF7C /* libPods-Safe Exam Browser.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		86ABB068F9C27EDE98CE210363233958 /* CocoaLumberjack-OSX */ = {
@@ -924,7 +1007,7 @@
 			);
 			name = "CocoaLumberjack-OSX";
 			productName = "CocoaLumberjack-OSX";
-			productReference = F553AC099A4FF3A1F551BBFAC9F53E28 /* libCocoaLumberjack-OSX.a */;
+			productReference = A354D26CD355FA82F4DE8735B5B03FD8 /* libCocoaLumberjack-OSX.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		F36C8A6C3BEB7DB64D64AD18A2CAC465 /* InAppSettingsKit */ = {
@@ -942,7 +1025,7 @@
 			);
 			name = InAppSettingsKit;
 			productName = InAppSettingsKit;
-			productReference = C5D18FC6B44A2C6A70266345B0902FEC /* libInAppSettingsKit.a */;
+			productReference = 808F3742CBAFD1B200C4AF668E725760 /* libInAppSettingsKit.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -962,7 +1045,7 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = A347FDD151011F270E80FE30F708695F /* Products */;
+			productRefGroup = 9ADF2511601FF431CCAB6C966B5BB461 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -974,6 +1057,7 @@
 				5A6967AB7478729359BA6B9287017C73 /* MMDrawerController-Storyboard */,
 				80C70CC17C3DE152F3EA41F795504532 /* Pods-Safe Exam Browser */,
 				531BFE235D2AD86EB65E772FF2A2B9B3 /* Pods-SEB */,
+				2EF0AF9AB769DAF406B33E010A6C7602 /* Pods-SEB Enterprise */,
 			);
 		};
 /* End PBXProject section */
@@ -1004,6 +1088,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		00B71E467242CAAB3132BE9382C64BC4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E8D7EC80E68EF4E491D3D16F3F44BA6 /* Pods-SEB Enterprise-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		347AEE26CA2737CE6D8CD1C899EE01F8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1133,11 +1225,35 @@
 			target = F36C8A6C3BEB7DB64D64AD18A2CAC465 /* InAppSettingsKit */;
 			targetProxy = 6981648770E7F8CF5B77B22118D96591 /* PBXContainerItemProxy */;
 		};
+		2CEA5F1EFD9CA3A0B0CF0E49B727EAD8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "MMDrawerController-Storyboard";
+			target = 5A6967AB7478729359BA6B9287017C73 /* MMDrawerController-Storyboard */;
+			targetProxy = 39C9CA70B4D9166A640C45E9A3BDCD47 /* PBXContainerItemProxy */;
+		};
+		7C40F0E7C041EDEEE4DD188BD66D0BF7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = InAppSettingsKit;
+			target = F36C8A6C3BEB7DB64D64AD18A2CAC465 /* InAppSettingsKit */;
+			targetProxy = 851B02B6445D689F69F35F7EC6A163F3 /* PBXContainerItemProxy */;
+		};
 		AACC4F453E01F53E9636CC01547E88DE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "InAppSettingsKit-InAppSettingsKit";
 			target = 3571FD811A7981F6A5B233DECA96688A /* InAppSettingsKit-InAppSettingsKit */;
 			targetProxy = 844E97062778AA5739AAAC093AD1B161 /* PBXContainerItemProxy */;
+		};
+		ACD4681BED2023B859DE7398BA882651 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "CocoaLumberjack-iOS";
+			target = 08C152FA75249E7DBE1B29DF857091CB /* CocoaLumberjack-iOS */;
+			targetProxy = 121942FF8D51346393F741701890DDE5 /* PBXContainerItemProxy */;
+		};
+		B9189191D297E0B8B98DCA8BCC03A168 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MMDrawerController;
+			target = 550F7EEAEEA17E3F92C873912E23B01C /* MMDrawerController */;
+			targetProxy = 11CA21A02873C489ABE7D6EC2849AF6D /* PBXContainerItemProxy */;
 		};
 		DC01222A8FC9A5E1C6A25481EA489D6F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1259,7 +1375,7 @@
 		};
 		28E927974C3AF403E138F6D5047BBB51 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AA085065C278B171EF72E26DFE351050 /* Pods-SEB.debug.xcconfig */;
+			baseConfigurationReference = 357BC0083B9AB0D1E651C9C3CB9417D9 /* Pods-SEB.debug.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1337,6 +1453,27 @@
 			};
 			name = Debug;
 		};
+		5C5D42B638D4F505063759D991849BDB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F307016C5E29766D5D25AA2E1E8A0F5A /* Pods-SEB Enterprise.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		65431C25FB6F0E232ECAA4B413FAF955 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 651C340BCDECB1F212C007F623B00E09 /* InAppSettingsKit.xcconfig */;
@@ -1360,7 +1497,7 @@
 		};
 		6E3B5C75F22FF98F41D66DA7EBC98312 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D92424F51CCD394D47316718091E1CB3 /* Pods-SEB.release.xcconfig */;
+			baseConfigurationReference = 67A33C41EAE1178C39EC468D992FF3AC /* Pods-SEB.release.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1442,6 +1579,27 @@
 			};
 			name = Debug;
 		};
+		C64A2A3F98FB652D311135AACA068875 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0B7A9578D89FAEB96F10922B595E94B0 /* Pods-SEB Enterprise.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
 		D765133897A0355FC4A405736DB65A7C /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 651C340BCDECB1F212C007F623B00E09 /* InAppSettingsKit.xcconfig */;
@@ -1461,7 +1619,7 @@
 		};
 		E2D6E1B5EF4105CCA729B266E8C484AD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6F23B6DCE07A5C57CAA8F1F7910EEA79 /* Pods-Safe Exam Browser.debug.xcconfig */;
+			baseConfigurationReference = F06829D08581C2B9560E1D214F78FDFA /* Pods-Safe Exam Browser.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1525,7 +1683,7 @@
 		};
 		F127EBDB0451E0539835838FC8D1636A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D428104CA7295C5A42E3C1D385E78F5D /* Pods-Safe Exam Browser.release.xcconfig */;
+			baseConfigurationReference = AB9EF3B1E5F02345DC1B1E68421AB6FF /* Pods-Safe Exam Browser.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1646,6 +1804,15 @@
 			buildConfigurations = (
 				28E927974C3AF403E138F6D5047BBB51 /* Debug */,
 				6E3B5C75F22FF98F41D66DA7EBC98312 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F5C135C7649B100404F71A7661A9ED9B /* Build configuration list for PBXNativeTarget "Pods-SEB Enterprise" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C64A2A3F98FB652D311135AACA068875 /* Debug */,
+				5C5D42B638D4F505063759D991849BDB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
