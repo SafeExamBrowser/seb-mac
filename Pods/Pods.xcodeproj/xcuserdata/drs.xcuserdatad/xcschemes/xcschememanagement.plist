@@ -34,6 +34,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-SEB Enterprise.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-SEB.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -48,6 +53,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>08C152FA75249E7DBE1B29DF857091CB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2EF0AF9AB769DAF406B33E010A6C7602</key>
 		<dict>
 			<key>primary</key>
 			<true/>
