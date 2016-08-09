@@ -106,7 +106,6 @@
 - (void) coverScreens;
 - (void) adjustScreenLocking:(id)sender;
 - (void) startTask;
-- (void) terminateScreencapture;
 - (void) regainActiveStatus:(id)sender;
 - (void) SEBgotActive:(id)sender;
 - (void) startKioskMode;

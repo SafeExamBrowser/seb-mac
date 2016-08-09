@@ -1170,10 +1170,6 @@ bool insideMatrix(){
 }
 
 
-- (void) terminateScreencapture {
-    DDLogInfo(@"screencapture terminated");
-}
-
 - (void) regainActiveStatus: (id)sender {
 	// hide all other applications if not in debug build setting
     // Check if the app is listed in prohibited processes

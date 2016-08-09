@@ -16,5 +16,6 @@
 
 - (NSArray *)caCerts;
 - (NSArray *)tlsCerts;
+- (NSArray *)debugCerts;
 
 @end

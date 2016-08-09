@@ -12,6 +12,8 @@ static SEBCertServices *gSharedInstance = nil;
 @interface SEBCertServices ()
 @property (nonatomic, strong) NSMutableArray *embeddedCACerts;
 @property (nonatomic, strong) NSMutableArray *embeddedTLSCerts;
+@property (nonatomic, strong) NSMutableArray *embeddedDebugCerts;
+@property (nonatomic, strong) NSMutableArray *embeddedDebugCertNames;
 @end
 
 @implementation SEBCertServices
@@ -45,11 +47,15 @@ static SEBCertServices *gSharedInstance = nil;
     return gSharedInstance;
 }
 
+
 - (void)flushCachedCertificates
 {
     self.embeddedCACerts = nil;
     self.embeddedTLSCerts = nil;
+    self.embeddedDebugCerts = nil;
+    self.embeddedDebugCertNames = nil;
 }
+
 
 - (NSArray *)caCerts
 {
@@ -71,7 +77,10 @@ static SEBCertServices *gSharedInstance = nil;
                 {
                     if ([type integerValue] == certificateTypeCA)
                     {
-                        NSString *dataString = [dict objectForKey:@"certificateDataWin"];
+                        NSString *dataString = [dict objectForKey:@"certificateDataBase64"];
+                        if (!dataString) {
+                            dataString = [dict objectForKey:@"certificateDataWin"];
+                        }
                         
                         if (dataString)
                         {
@@ -83,7 +92,8 @@ static SEBCertServices *gSharedInstance = nil;
                                 
                                 if (cert)
                                 {
-                                    [self.embeddedCACerts addObject:(__bridge id _Nonnull)(cert)];
+                                    [self.embeddedCACerts addObject:
+                                     (__bridge id _Nonnull)(cert)];
                                     CFRelease(cert);
                                 }
                             }
@@ -96,6 +106,7 @@ static SEBCertServices *gSharedInstance = nil;
     
     return [self.embeddedCACerts copy];
 }
+
 
 - (NSArray *)tlsCerts
 {
@@ -117,7 +128,10 @@ static SEBCertServices *gSharedInstance = nil;
                 {
                     if ([type integerValue] == certificateTypeSSL)
                     {
-                        NSString *dataString = [dict objectForKey:@"certificateDataWin"];
+                        NSString *dataString = [dict objectForKey:@"certificateDataBase64"];
+                        if (!dataString) {
+                            dataString = [dict objectForKey:@"certificateDataWin"];
+                        }
                         
                         if (dataString)
                         {
@@ -142,5 +156,55 @@ static SEBCertServices *gSharedInstance = nil;
     
     return [self.embeddedTLSCerts copy];
 }
+
+
+- (NSArray *)debugCerts
+{
+    if (!self.embeddedDebugCerts)
+    {
+        self.embeddedDebugCerts = [NSMutableArray array];
+        self.embeddedDebugCertNames = [NSMutableArray array];
+        
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        
+        NSArray *array = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_embeddedCertificates"];
+        
+        if (array)
+        {
+            for (NSDictionary *dict in array)
+            {
+                NSNumber *type = [dict objectForKey:@"type"];
+                
+                if (type)
+                {
+                    if ([type integerValue] == certificateTypeSSLDebug)
+                    {
+                        NSString *dataString = [dict objectForKey:@"certificateDataBase64"];
+                        
+                        if (dataString)
+                        {
+                            NSData *data = [[NSData alloc] initWithBase64EncodedString:dataString options:0];
+                            
+                            if (data)
+                            {
+                                SecCertificateRef cert = SecCertificateCreateWithData(NULL, (CFDataRef)data);
+                                
+                                if (cert)
+                                {
+                                    [self.embeddedDebugCerts addObject:(__bridge id _Nonnull)(cert)];
+                                    CFRelease(cert);
+                                    [self.embeddedDebugCertNames addObject:[dict objectForKey:@"name"]];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    return [self.embeddedTLSCerts copy];
+}
+
 
 @end
