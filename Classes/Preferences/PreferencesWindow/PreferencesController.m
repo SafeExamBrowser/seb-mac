@@ -1336,13 +1336,8 @@
     if ([self conditionallyClosePreferencesWindowAskToApply:NO]) {
         // Close preferences window manually (as windowShouldClose: won't be called)
         [self closePreferencesWindow];
-        if (restartSEB) {
-            [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"preferencesClosedRestartSEB" object:self];
-        } else {
-            [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"preferencesClosed" object:self];
-        }
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"preferencesClosedRestartSEB" object:self];
     }
 }
 
