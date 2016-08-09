@@ -7,14 +7,19 @@
 
 #import "SEBCertServices.h"
 
+
 static SEBCertServices *gSharedInstance = nil;
 
+
 @interface SEBCertServices ()
+
 @property (nonatomic, strong) NSMutableArray *embeddedCACerts;
 @property (nonatomic, strong) NSMutableArray *embeddedTLSCerts;
 @property (nonatomic, strong) NSMutableArray *embeddedDebugCerts;
 @property (nonatomic, strong) NSMutableArray *embeddedDebugCertNames;
+
 @end
+
 
 @implementation SEBCertServices
 
@@ -203,7 +208,13 @@ static SEBCertServices *gSharedInstance = nil;
         }
     }
     
-    return [self.embeddedTLSCerts copy];
+    return [self.embeddedDebugCerts copy];
+}
+
+
+- (NSArray *)debugCertNames
+{
+    return [self.embeddedDebugCertNames copy];
 }
 
 

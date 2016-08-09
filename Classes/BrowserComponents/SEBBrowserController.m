@@ -63,7 +63,8 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
     // Check if the custom URL protocol needs to be activated
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_pinEmbeddedCertificates"]
         || [sharedCertService caCerts].count > 0
-        || [sharedCertService tlsCerts].count > 0)
+        || [sharedCertService tlsCerts].count > 0
+        || [sharedCertService debugCerts].count > 0)
     {
         // Become delegate of and register custom SEB NSURL protocol class
         [CustomHTTPProtocol setDelegate:self];
@@ -159,6 +160,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             // the system trust store (note: they might fail the first check
             // because of expiration or common name/alternative names not
             // matching domain
+            [embeddedCertificates addObjectsFromArray:[sc debugCerts]];
         }
         
         if (pinned || [embeddedCertificates count])
@@ -167,7 +169,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
         }
         
         // If pinned, only embedded CA certs will be in trust store
-        // If !pinned, system trust store is extended by embedded CA and SSL/TLS certs
+        // If !pinned, system trust store is extended by embedded CA and SSL/TLS (including debug) certs
         SecTrustSetAnchorCertificates(serverTrust, (__bridge CFArrayRef)trustStore); // If trustStore == nil, use system default
         SecTrustSetAnchorCertificatesOnly(serverTrust, pinned);
         
@@ -177,10 +179,8 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
         if (status == errSecSuccess && (result == kSecTrustResultProceed || result == kSecTrustResultUnspecified))
         {
             authorized = YES;
-        }
-        
-        else if (pinned)
-        {
+            
+        } else {
             // Because the CA trust evaluation above failed, we know that the
             // server's SSL/TLS cert does not chain back to a CA root cert from
             // any embedded CA root certs (or if it did, it was deemed invalid
@@ -188,13 +188,23 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             // intermediate CA certs were not included in caCerts)
             //
             // We now need to explicitly handle the case of the user wanting to
-            // pin a (usually self-signed) SSL/TLS cert. For this, we must have
+            // pin a (usually self-signed) SSL/TLS cert or use a debug cert which
+            // can be expired or issued for another server domain (in the debug case
+            // we check if the server domain matches the debug cert's "name" field.
+            // For this check, we must have
             // an embedded SSL/TLS cert whose public key matches the server's
             // SSL/TLS cert (we compare against the public key because the
             // server's cert could be re-issued with the same PK but with other
             // differences)
-            embeddedCertificates = [NSMutableArray arrayWithArray:[sc tlsCerts]];
             
+            // Use embedded debug certs if some are available
+            embeddedCertificates = [NSMutableArray arrayWithArray:[sc debugCerts]];
+            NSInteger debugCertsCount = embeddedCertificates.count;
+            NSArray *debugCertNames = [sc debugCertNames];
+            
+            // Add regular TLS certs
+            [embeddedCertificates addObjectsFromArray:[sc tlsCerts]];
+
             if ([embeddedCertificates count])
             {
                 // Index 0 (leaf) is always present
@@ -232,6 +242,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
                             if (serverPkBuffer)
                             {
                                 memcpy(serverPkBuffer, pkBuffer, serverPkBufferSize);
+                                // Now we have the public key bytes in serverPkBuffer
                                 
                                 mbedtls_x509_crt tlsList;
                                 mbedtls_x509_crt_init(&tlsList);
@@ -263,6 +274,18 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
                                                     if (status == errSecSuccess && (result == kSecTrustResultProceed || result == kSecTrustResultUnspecified))
                                                     {
                                                         authorized = YES;
+                                                        // If the cert didn't pass this basic validation
+                                                    } else if (i < debugCertsCount) {
+                                                        // and it is a debug cert, check if server domain (host:port) matches the "name" subkey of this embedded debug cert
+                                                        NSString *host = challenge.protectionSpace.host;
+                                                        NSInteger port = challenge.protectionSpace.port;
+#if DEBUG
+                                                        NSLog(@"Server host: %@ and port: %ld", host, (long)port);
+#endif
+                                                        if ([host isEqualToString:debugCertNames[i]]) {
+                                                            // If the host name matches the one in the debug cert, we accept it
+                                                            authorized = YES;
+                                                        }
                                                     }
                                                     
                                                     break;
