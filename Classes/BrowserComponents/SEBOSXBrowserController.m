@@ -62,6 +62,12 @@
 
 - (void) resetBrowser
 {
+    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+    // downloads to disk, and ensures that future requests occur on a new socket.
+    [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+        // Do something once it's done.
+    }];
+
     [self.openBrowserWindowsWebViews removeAllObjects];
     // Initialize SEB dock item menu for open browser windows/WebViews
     SEBDockItemMenu *dockMenu = [[SEBDockItemMenu alloc] initWithTitle:@""];
