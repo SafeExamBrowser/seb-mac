@@ -247,6 +247,12 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
                                 mbedtls_x509_crt tlsList;
                                 mbedtls_x509_crt_init(&tlsList);
                                 
+                                NSString *serverHost = challenge.protectionSpace.host;
+                                NSInteger serverPort = challenge.protectionSpace.port;
+#if DEBUG
+                                NSLog(@"Server host: %@ and port: %ld", serverHost, (long)serverPort);
+#endif
+                                
                                 for (NSInteger i = 0; i < [embeddedCertificates count]; i++)
                                 {
                                     NSData *tlsData = CFBridgingRelease(SecCertificateCopyData((SecCertificateRef)[embeddedCertificates objectAtIndex:i]));
@@ -277,18 +283,36 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
                                                         // If the cert didn't pass this basic validation
                                                     } else if (i < debugCertsCount) {
                                                         // and it is a debug cert, check if server domain (host:port) matches the "name" subkey of this embedded debug cert
-                                                        NSString *host = challenge.protectionSpace.host;
-                                                        NSInteger port = challenge.protectionSpace.port;
+                                                        NSString *debugCertOverrideURLString = debugCertNames[i];
+                                                        
+                                                        // Check if filter expression contains a scheme
+                                                        if (debugCertOverrideURLString.length > 0) {
+                                                            // We can abort if there is no override domain for the cert
+                                                            NSRange scanResult = [debugCertOverrideURLString rangeOfString:@"://"];
+                                                            if (scanResult.location == NSNotFound) {
+                                                                // Filter expression doesn't contain a scheme, prefix it with a https:// scheme
+                                                                debugCertOverrideURLString = [NSString stringWithFormat:@"https://%@", debugCertOverrideURLString];
+                                                                // Convert override domain string to a NSURL
+                                                            }
+                                                            NSURL *debugCertOverrideURL = [NSURL URLWithString:debugCertOverrideURLString];
+                                                            if (debugCertOverrideURL) {
+                                                                // If certificate doesn't have any correct override domain in its name field, abort
+                                                                NSString *host = debugCertOverrideURL.host;
+                                                                NSNumber *port = debugCertOverrideURL.port;
 #if DEBUG
-                                                        NSLog(@"Server host: %@ and port: %ld", host, (long)port);
+                                                                NSLog(@"Cert host: %@ and port: %@", host, port);
 #endif
-                                                        if ([host isEqualToString:debugCertNames[i]]) {
-                                                            // If the host name matches the one in the debug cert, we accept it
-                                                            authorized = YES;
+                                                                if ([host isEqualToString:serverHost]) {
+                                                                    // If the server host name matches the one in the debug cert ...
+                                                                    if (!port || port.integerValue == serverPort) {
+                                                                        // ... and there either is not port indicated in the cert
+                                                                        // or it is same as the one of the server we're connecting to, we accept it
+                                                                        authorized = YES;
+                                                                    }
+                                                                }
+                                                            }
                                                         }
                                                     }
-                                                    
-                                                    break;
                                                 }
                                             }
                                         }
