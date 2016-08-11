@@ -629,7 +629,7 @@
     if (host.length == 0) {
         host = [self.URLFilterAlertURL.scheme stringByAppendingString:@":"];
     }
-    NSString *path = self.URLFilterAlertURL.path;
+    NSString *path = [self.URLFilterAlertURL.path stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
     if (!path) {
         path = @"";
     }

@@ -234,7 +234,7 @@
     host.stringValue = expressionURL.host ? expressionURL.host : @"";
 //    port.stringValue = expressionURL.port ? expressionURL.port.stringValue : @"";
     self.expressionPort = expressionURL.port ? expressionURL.port.stringValue : @"";
-    NSString *trimmedExpressionPath = [expressionURL.path stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" /"]];
+    NSString *trimmedExpressionPath = [expressionURL.path stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
     path.stringValue = trimmedExpressionPath ? trimmedExpressionPath : @"";
     query.stringValue = expressionURL.query ? expressionURL.query : @"";
     fragment.stringValue = expressionURL.fragment ? expressionURL.fragment : @"";

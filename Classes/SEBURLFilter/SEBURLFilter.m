@@ -342,7 +342,7 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     
     filterComponent = filterExpression.path;
     if (filterComponent &&
-        ![self regexFilterExpression:filterComponent hasMatchesInString:URLToFilter.path]) {
+        ![self regexFilterExpression:filterComponent hasMatchesInString:[URLToFilter.path stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]]]) {
             return NO;
         }
     

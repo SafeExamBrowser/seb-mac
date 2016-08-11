@@ -47,7 +47,7 @@
     filterExpression.password = [self regexForFilterString:URLFromString.password error:error];
     filterExpression.host = [self regexForHostFilterString:URLFromString.host error:error];
     filterExpression.port = URLFromString.port;
-    filterExpression.path = [self regexForFilterString:URLFromString.path error:error];
+    filterExpression.path = [self regexForFilterString:[URLFromString.path stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]] error:error];
     filterExpression.query = [self regexForFilterString:URLFromString.query error:error];
     filterExpression.fragment = [self regexForFilterString:URLFromString.fragment error:error];
     
