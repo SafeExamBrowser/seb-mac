@@ -61,6 +61,7 @@
 @property (strong) NSMutableArray *openBrowserWindowsWebViews;
 @property (strong) SEBDockItemMenu *openBrowserWindowsWebViewsMenu;
 @property (readwrite) BOOL reinforceKioskModeRequested;
+@property (readwrite) BOOL directConfigDownloadAttempted;
 
 - (void) resetBrowser;
 

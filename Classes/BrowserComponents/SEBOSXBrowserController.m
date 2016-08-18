@@ -450,9 +450,10 @@
             [newAlert setAlertStyle:NSCriticalAlertStyle];
             [newAlert runModal];
         } else {
-            // SEB isn't in exam mode: reconfiguring it is allowed
+            // SEB isn't in exam mode: reconfiguring is allowed
+            
             NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-
+            
             // Download the .seb file directly into memory (not onto disc like other files)
             if ([url.scheme isEqualToString:@"seb"]) {
                 // If it's a seb:// URL, we try to download it by http
@@ -463,7 +464,17 @@
                 urlComponents.scheme = @"https";
                 url = urlComponents.URL;
             }
-            [self openTempWindowForDownloadingConfigFromURL:url];
+
+            // Check if we should try to download the config file from the seb(s) URL directly
+            // This is the case when the URL has a .seb filename extension
+            // But we only try it when it didn't fail in a first attempt
+            if (_directConfigDownloadAttempted == false && [url.pathExtension isEqualToString:@"seb"]) {
+                _directConfigDownloadAttempted = true;
+                [self downloadSEBConfigFileFromURL:url];
+            } else {
+                _directConfigDownloadAttempted = false;
+                [self openTempWindowForDownloadingConfigFromURL:url];
+            }
         }
     }
 }
@@ -474,7 +485,7 @@
 - (void) openTempWindowForDownloadingConfigFromURL:(NSURL *)url
 {
     // Create a new WebView
-    NSString *tempWindowTitle = NSLocalizedString(@"Opening SEB Link", @"Title of a temporary browser window for opening a SEB link");
+    NSString *tempWindowTitle = NSLocalizedString(@"Opening SEB Config", @"Title of a temporary browser window for opening a SEB link");
     _temporaryBrowserWindowDocument = [self openBrowserWindowDocument];
     SEBBrowserWindow *newWindow = (SEBBrowserWindow *)_temporaryBrowserWindowDocument.mainWindowController.window;
     _temporaryWebView = _temporaryBrowserWindowDocument.mainWindowController.webView;
@@ -542,11 +553,19 @@
                                                           // If it was a seb:// URL, and http failed, we try to download it by https
                                                           urlComponents.scheme = @"https";
                                                           NSURL *downloadURL = urlComponents.URL;
-                                                      [self tryToDownloadConfigByOpeningURL:downloadURL];
+                                                      if (_directConfigDownloadAttempted) {
+                                                          [self downloadSEBConfigFileFromURL:downloadURL];
+                                                      } else {
+                                                          [self tryToDownloadConfigByOpeningURL:downloadURL];
+                                                      }
                                                   } else {
-                                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                                          [self downloadingSEBConfigFailed:error];
-                                                      });
+                                                      if (_directConfigDownloadAttempted) {
+                                                          [self tryToDownloadConfigByOpeningURL:url];
+                                                      } else {
+                                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                                              [self downloadingSEBConfigFailed:error];
+                                                          });
+                                                      }
                                                   }
                                               } else {
                                                   dispatch_async(dispatch_get_main_queue(), ^{
@@ -583,14 +602,23 @@
     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
     
     if ([configFileManager storeDecryptedSEBSettings:sebFileData forEditing:NO]) {
-        
+        // Reset the direct download flag for the case this was a successful direct download
+        _directConfigDownloadAttempted = false;
         // Post a notification that it was requested to restart SEB with changed settings
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"requestRestartNotification" object:self];
         
     } else {
-        // if decrypting new settings wasn't successfull, we have to restore the path to the old settings
-        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
+        // Decrypting new settings wasn't successfull:
+        // Was this an attempt to download the config directly?
+        if (_directConfigDownloadAttempted) {
+            // We try to download the config in a temporary WebView
+            [self openConfigFromSEBURL:url];
+        } else {
+            // The download failed definitely:
+            // We have to restore the path to the old settings
+            [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
+        }
     }
 }
 
