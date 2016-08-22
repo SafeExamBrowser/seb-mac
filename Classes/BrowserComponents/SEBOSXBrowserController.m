@@ -64,9 +64,9 @@
 {
     // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
     // downloads to disk, and ensures that future requests occur on a new socket.
-    [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-        // Do something once it's done.
-    }];
+//    [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+//        // Do something once it's done.
+//    }];
 
     [self.openBrowserWindowsWebViews removeAllObjects];
     // Initialize SEB dock item menu for open browser windows/WebViews
@@ -454,7 +454,7 @@
             
             NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
             
-            // Download the .seb file directly into memory (not onto disc like other files)
+            // Figure the download URL out, depending on if http or https should be used
             if ([url.scheme isEqualToString:@"seb"]) {
                 // If it's a seb:// URL, we try to download it by http
                 urlComponents.scheme = @"http";
@@ -560,7 +560,9 @@
                                                       }
                                                   } else {
                                                       if (_directConfigDownloadAttempted) {
-                                                          [self tryToDownloadConfigByOpeningURL:url];
+                                                          // If we tried a direct download first, now try to download it
+                                                          // by opening the URL in a temporary webview
+                                                          [self openTempWindowForDownloadingConfigFromURL:url];
                                                       } else {
                                                           dispatch_async(dispatch_get_main_queue(), ^{
                                                               [self downloadingSEBConfigFailed:error];
@@ -601,7 +603,8 @@
     // Store the URL of the .seb file as current config file path
     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
     
-    if ([configFileManager storeDecryptedSEBSettings:sebFileData forEditing:NO]) {
+    storeDecryptedSEBSettingsResult storingConfigResult = [configFileManager storeDecryptedSEBSettings:sebFileData forEditing:NO suppressFileFormatError:YES];
+    if (storingConfigResult == storeDecryptedSEBSettingsResultSuccess) {
         // Reset the direct download flag for the case this was a successful direct download
         _directConfigDownloadAttempted = false;
         // Post a notification that it was requested to restart SEB with changed settings
@@ -610,12 +613,16 @@
         
     } else {
         // Decrypting new settings wasn't successfull:
-        // Was this an attempt to download the config directly?
-        if (_directConfigDownloadAttempted) {
+        // Was this an attempt to download the config directly and the downloaded data was corrupted?
+        if (_directConfigDownloadAttempted && storingConfigResult == storeDecryptedSEBSettingsResultWrongFormat) {
             // We try to download the config in a temporary WebView
             [self openConfigFromSEBURL:url];
         } else {
-            // The download failed definitely:
+            // The download failed definitely or was canceled by the user:
+
+            // Reset the direct download flag for the case this was a successful direct download
+            _directConfigDownloadAttempted = false;
+
             // We have to restore the path to the old settings
             [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
         }

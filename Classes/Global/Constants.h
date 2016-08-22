@@ -198,6 +198,14 @@ typedef NSUInteger SEBKioskMode;
 
 
 enum {
+    storeDecryptedSEBSettingsResultSuccess      = 0,
+    storeDecryptedSEBSettingsResultCanceled     = 1,
+    storeDecryptedSEBSettingsResultWrongFormat  = 2
+};
+typedef NSUInteger storeDecryptedSEBSettingsResult;
+
+
+enum {
     URLFilterMessageText                        = 0,
     URLFilterMessageX                           = 1
 };

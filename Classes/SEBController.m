@@ -168,7 +168,7 @@ bool insideMatrix();
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:sebFileURL];
         
         // Decrypt and store the .seb config file
-        if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO]) {
+        if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO] == storeDecryptedSEBSettingsResultSuccess) {
             // if successfull restart with new settings
             [self requestedRestart:nil];
         } else {

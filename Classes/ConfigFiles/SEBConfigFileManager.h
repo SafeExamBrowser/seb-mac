@@ -47,6 +47,8 @@
 
 @property (nonatomic, strong) SEBController *sebController;
 @property BOOL currentConfigPasswordIsHash;
+@property BOOL storeDecryptedSEBSettingsResult;
+@property BOOL suppressFileFormatError;
 
 // Write-only properties
 @property (nonatomic) NSString *currentConfigPassword;
@@ -60,7 +62,8 @@
 - (BOOL) reconfigureClientWithSebClientSettings;
 
 // Decrypt, parse and store SEB settings to UserDefaults
--(BOOL) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing;
+-(storeDecryptedSEBSettingsResult) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing;
+-(storeDecryptedSEBSettingsResult) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing suppressFileFormatError:(BOOL)suppressFileFormatError;
 
 -(void) storeIntoUserDefaults:(NSDictionary *)sebPreferencesDict;
 

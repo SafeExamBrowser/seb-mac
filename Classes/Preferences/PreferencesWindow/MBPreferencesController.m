@@ -89,7 +89,7 @@ static MBPreferencesController *sharedPreferencesController = nil;
 {
 	@synchronized(self) {
 		if (sharedPreferencesController == nil) {
-			id __unused unusedSPC = [[self alloc] init]; // assignment not done here, supress "unused" warning
+			id __unused unusedSPC = [[self alloc] init]; // assignment not done here, suppress "unused" warning
 		}
 	}
 	return sharedPreferencesController;

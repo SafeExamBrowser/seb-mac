@@ -90,7 +90,7 @@
             SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
             
             // Decrypt and store the .seb config file
-            if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO forceConfiguringClient:YES]) {
+            if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO forceConfiguringClient:YES suppressFileFormatError:NO] == storeDecryptedSEBSettingsResultSuccess) {
                 // if successfull continue with new settings
                 DDLogInfo(@"Reconfiguring SEB with SebClientSettings.seb was successful");
                 // Delete the SebClientSettings.seb file from the Preferences directory
@@ -109,20 +109,28 @@
 }
 
 
--(BOOL) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing
+-(storeDecryptedSEBSettingsResult) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing
 {
-    return [self storeDecryptedSEBSettings:sebData forEditing:forEditing forceConfiguringClient:NO];
+    return [self storeDecryptedSEBSettings:sebData forEditing:forEditing forceConfiguringClient:NO suppressFileFormatError:NO];
+}
+
+
+-(storeDecryptedSEBSettingsResult) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing suppressFileFormatError:(BOOL)suppressFileFormatError
+{
+    return [self storeDecryptedSEBSettings:sebData forEditing:forEditing forceConfiguringClient:NO suppressFileFormatError:suppressFileFormatError];
 }
 
 
 // Decrypt, parse and use new SEB settings
--(BOOL) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing forceConfiguringClient:(BOOL)forceConfiguringClient
+-(storeDecryptedSEBSettingsResult) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing forceConfiguringClient:(BOOL)forceConfiguringClient suppressFileFormatError:(BOOL)suppressFileFormatError
 {
     NSDictionary *sebPreferencesDict;
     NSString *sebFilePassword = nil;
     BOOL passwordIsHash = false;
     SecKeyRef sebFileKeyRef = nil;
 
+    _suppressFileFormatError = suppressFileFormatError;
+    
     // In editing mode we can get a saved existing config file password
     // (used when reverting to last saved/openend settings)
     if (forEditing) {
@@ -133,7 +141,7 @@
     PreferencesController *prefsController = self.sebController.preferencesController;
 
     sebPreferencesDict = [self decryptSEBSettings:sebData forEditing:forEditing sebFilePassword:&sebFilePassword passwordIsHashPtr:&passwordIsHash sebFileKeyRef:&sebFileKeyRef];
-    if (!sebPreferencesDict) return NO; //Decryption didn't work, we abort
+    if (!sebPreferencesDict) return _storeDecryptedSEBSettingsResult; //Decryption didn't work, we abort
     
     // Reset SEB, close third party applications
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -174,7 +182,7 @@
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
         [prefsController initPreferencesWindow];
         
-        return YES; //reading preferences was successful
+        return storeDecryptedSEBSettingsResultSuccess; //reading preferences was successful
 
     } else {
         
@@ -259,7 +267,7 @@
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
         [prefsController initPreferencesWindow];
         
-        return YES; //reading preferences was successful
+        return storeDecryptedSEBSettingsResultSuccess; //reading preferences was successful
     }
 }
 
@@ -299,6 +307,9 @@
     if ([prefixString isEqualToString:@"pkhs"]) {
 
         // Decrypt with cryptographic identity/private key
+        
+        // As we got the prefix, data was most likely downloaded properly
+        _storeDecryptedSEBSettingsResult = storeDecryptedSEBSettingsResultCanceled;
         sebData = [self decryptDataWithPublicKeyHashPrefix:sebData forEditing:forEditing sebFileKeyRef:sebFileKeyRefPtr error:&error];
         if (!sebData || error) {
             return nil;
@@ -318,6 +329,9 @@
         
         // Decrypt with password
         // if user enters the right one
+
+        // As we got the prefix, data was most likely downloaded properly
+        _storeDecryptedSEBSettingsResult = storeDecryptedSEBSettingsResultCanceled;
 
         NSData *sebDataDecrypted = nil;
         NSString *password;
@@ -369,6 +383,9 @@
             // Decrypt with password and configure local client settings
             // and quit afterwards, returning if reading the .seb file was successfull
 
+            // As we got the prefix, data was most likely downloaded properly
+            _storeDecryptedSEBSettingsResult = storeDecryptedSEBSettingsResultCanceled;
+
             return [self decryptDataWithPasswordForConfiguringClient:sebData forEditing:forEditing sebFilePassword:sebFilePasswordPtr passwordIsHashPtr:passwordIsHashPtr];
             
         } else {
@@ -385,8 +402,13 @@
                 } else {
                     // No valid prefix and no unencrypted file with valid header
                     // cancel reading .seb file
-                    [self showAlertCorruptedSettingsWithTitle:NSLocalizedString(@"Opening New Settings Failed!", nil) andText:nil];
                     DDLogError(@"%s: No valid prefix and no unencrypted file with valid header", __FUNCTION__);
+                    if (!_suppressFileFormatError) {
+                        [self showAlertCorruptedSettingsWithTitle:NSLocalizedString(@"Opening New Settings Failed!", nil) andText:nil];
+                    }
+                    
+                    // Probably unvalid data was downloaded or user wasn't authenticated
+                    _storeDecryptedSEBSettingsResult = storeDecryptedSEBSettingsResultWrongFormat;
 
                     return nil;
                 }
@@ -394,6 +416,9 @@
         }
     }
     
+    // As we got a valid prefix, data was most likely downloaded properly
+    _storeDecryptedSEBSettingsResult = storeDecryptedSEBSettingsResultCanceled;
+
     if (![prefixString isEqualToString:@"<?xm"]) {
         // The file was encrypted:
         // Ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
