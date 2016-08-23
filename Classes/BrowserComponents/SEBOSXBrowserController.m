@@ -60,7 +60,7 @@
         // downloads to disk, and ensures that future requests occur on a new socket.
         [[NSURLSession sharedSession] resetWithCompletionHandler:^{
             // Do something once it's done.
-        }];        
+        }];
     }
     return self;
 }

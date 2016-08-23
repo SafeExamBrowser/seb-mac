@@ -1206,6 +1206,22 @@ willPerformClientRedirectToURL:(NSURL *)URL
  fromDataSource:(WebDataSource *)dataSource
 {
     DDLogInfo(@"webView: %@ resource: %@ didReceiveAuthenticationChallenge: %@ fromDataSource: %@", sender, identifier, challenge, dataSource);
+
+    if ([challenge previousFailureCount] == 0) {
+        // Display authentication dialog
+        
+        NSURLCredential *newCredential;
+        newCredential = [NSURLCredential credentialWithUser:@"username"
+                                                   password:@"password"
+                                                persistence:NSURLCredentialPersistenceNone];
+        [[challenge sender] useCredential:newCredential
+               forAuthenticationChallenge:challenge];
+    } else {
+        [[challenge sender] cancelAuthenticationChallenge:challenge];
+        // inform the user that the user name and password
+        // in the preferences are incorrect
+    }
+    
 }
 
 

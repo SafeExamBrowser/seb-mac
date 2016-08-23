@@ -863,6 +863,98 @@ Gw
             </constraints>
             <point key="canvasLocation" x="70" y="56"/>
         </customView>
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" animationBehavior="default" id="aPD-nQ-pl7" userLabel="Authentication Dialog">
+            <windowStyleMask key="styleMask" titled="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
+            <rect key="contentRect" x="340" y="419" width="412" height="109"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
+            <value key="minSize" type="size" width="412" height="108"/>
+            <view key="contentView" id="6KH-Lc-Pm5">
+                <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="Kab-W5-RGJ">
+                        <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
+                        <subviews>
+                            <textField horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="372" translatesAutoresizingMaskIntoConstraints="NO" id="ktt-zh-LMD" customClass="SEBTextField">
+                                <rect key="frame" x="18" y="77" width="376" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="18" id="BOm-T0-2g8"/>
+                                </constraints>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="To proceed, you must log in to" id="sxg-am-1ay">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Odg-nf-m29">
+                                <rect key="frame" x="301" y="5" width="96" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="84" id="rO5-zD-xzf"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pIH-zG-hNx">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="okEnterPassword:" target="543" id="zsP-ly-5sg"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KOI-2A-N5H">
+                                <rect key="frame" x="205" y="5" width="96" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="84" id="Kyj-wq-zt1"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nYI-e9-Ags">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="cancelEnterPassword:" target="543" id="pq7-Aj-Hzd"/>
+                                </connections>
+                            </button>
+                            <secureTextField verticalHuggingPriority="750" preferredMaxLayoutWidth="371" translatesAutoresizingMaskIntoConstraints="NO" id="LMV-sw-Cd0">
+                                <rect key="frame" x="20" y="43" width="371" height="22"/>
+                                <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" placeholderString="" drawsBackground="YES" usesSingleLineMode="YES" id="Pnv-XG-2ga">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <allowedInputSourceLocales>
+                                        <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                    </allowedInputSourceLocales>
+                                </secureTextFieldCell>
+                            </secureTextField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="LMV-sw-Cd0" firstAttribute="top" secondItem="ktt-zh-LMD" secondAttribute="bottom" constant="12" id="0wP-yI-HFI"/>
+                            <constraint firstAttribute="trailing" secondItem="LMV-sw-Cd0" secondAttribute="trailing" constant="21" id="2du-ps-hnD"/>
+                            <constraint firstItem="ktt-zh-LMD" firstAttribute="leading" secondItem="Kab-W5-RGJ" secondAttribute="leading" constant="20" symbolic="YES" id="5kI-bs-OkU"/>
+                            <constraint firstItem="Odg-nf-m29" firstAttribute="leading" secondItem="KOI-2A-N5H" secondAttribute="trailing" constant="12" symbolic="YES" id="Bgc-02-DZw"/>
+                            <constraint firstAttribute="height" priority="550" id="FaU-kQ-ywu"/>
+                            <constraint firstItem="ktt-zh-LMD" firstAttribute="leading" secondItem="LMV-sw-Cd0" secondAttribute="leading" id="GTq-A6-6rk"/>
+                            <constraint firstAttribute="trailing" secondItem="ktt-zh-LMD" secondAttribute="trailing" constant="20" symbolic="YES" id="VAj-PT-hI4"/>
+                            <constraint firstItem="ktt-zh-LMD" firstAttribute="top" secondItem="Kab-W5-RGJ" secondAttribute="top" constant="14" id="ZOd-lo-qwU"/>
+                            <constraint firstItem="Odg-nf-m29" firstAttribute="baseline" secondItem="KOI-2A-N5H" secondAttribute="baseline" id="fE5-3s-le2"/>
+                            <constraint firstAttribute="bottom" secondItem="KOI-2A-N5H" secondAttribute="bottom" constant="12" id="nXr-Ma-BNF"/>
+                            <constraint firstItem="KOI-2A-N5H" firstAttribute="top" secondItem="LMV-sw-Cd0" secondAttribute="bottom" constant="10" id="sOC-GZ-q56"/>
+                            <constraint firstItem="Odg-nf-m29" firstAttribute="trailing" secondItem="LMV-sw-Cd0" secondAttribute="trailing" id="tFF-CI-AET"/>
+                        </constraints>
+                    </customView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="Kab-W5-RGJ" secondAttribute="trailing" id="OvD-Cb-lDH"/>
+                    <constraint firstAttribute="bottom" secondItem="Kab-W5-RGJ" secondAttribute="bottom" id="PNp-Nt-JEo"/>
+                    <constraint firstItem="Kab-W5-RGJ" firstAttribute="top" secondItem="6KH-Lc-Pm5" secondAttribute="top" id="V1D-j0-01M"/>
+                    <constraint firstItem="Kab-W5-RGJ" firstAttribute="leading" secondItem="6KH-Lc-Pm5" secondAttribute="leading" id="dyV-MB-CDt"/>
+                </constraints>
+            </view>
+        </window>
     </objects>
     <resources>
         <image name="NSGoRightTemplate" width="9" height="12"/>
