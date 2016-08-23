@@ -764,6 +764,12 @@
 
 - (IBAction) openSEBPrefs:(id)sender
 {
+    // Check if passwords are confirmed and save them if yes
+    if (![self passwordsConfirmedAndSaved]) {
+        // If they were not confirmed, return
+        return;
+    }
+    
     // If private settings are active, check if those current settings have unsaved changes
     if (NSUserDefaults.userDefaultsPrivate && [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
         // There are unsaved changes
@@ -773,13 +779,6 @@
             case SEBUnsavedSettingsAnswerSave:
             {
                 // Save the current settings data first
-                
-                // Check if passwords are confirmed and save them if yes
-                if (![self passwordsConfirmedAndSaved]) {
-                    // If they were not confirmed, return
-                    return;
-                }
-
                 // this also updates the Browser Exam Key, we save it in case we need to cancel
                 if (![self savePrefsAs:NO fileURLUpdate:NO]) {
                     // Saving failed: Abort opening prefs
@@ -1014,6 +1013,12 @@
 // Action reverting preferences to default settings
 - (IBAction) revertToDefaultSettings:(id)sender
 {
+    // Check if passwords are confirmed and save them if yes
+    if (![self passwordsConfirmedAndSaved]) {
+        // If they were not confirmed, return
+        return;
+    }
+    
     // Check if current settings have unsaved changes
     if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
         // There are unsaved changes
@@ -1023,13 +1028,6 @@
             case SEBUnsavedSettingsAnswerSave:
             {
                 // Save the current settings data first
-                
-                // Check if passwords are confirmed and save them if yes
-                if (![self passwordsConfirmedAndSaved]) {
-                    // If they were not confirmed, return
-                    return;
-                }
-                
                 if (![self savePrefsAs:NO fileURLUpdate:NO]) {
                     // Saving failed: Abort restarting
                     return;
@@ -1101,6 +1099,12 @@
 // Action reverting preferences to local client settings
 - (IBAction) revertToLocalClientSettings:(id)sender
 {
+    // Check if passwords are confirmed and save them if yes
+    if (![self passwordsConfirmedAndSaved]) {
+        // If they were not confirmed, return
+        return;
+    }
+    
     // Check if current settings have unsaved changes
     if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
         // There are unsaved changes
@@ -1109,12 +1113,6 @@
         {
             case SEBUnsavedSettingsAnswerSave:
             {
-                // Check if passwords are confirmed and save them if yes
-                if (![self passwordsConfirmedAndSaved]) {
-                    // If they were not confirmed, return
-                    return;
-                }
-                
                 // Save the current settings data first (this also updates the Browser Exam Key)
                 if (![self savePrefsAs:NO fileURLUpdate:NO]) {
                     // Saving failed: Abort reverting to local client settings
@@ -1163,6 +1161,12 @@
 // Action reverting preferences to the last saved or opened file
 - (IBAction) revertToLastSaved:(id)sender
 {
+    // Check if passwords are confirmed and save them if yes
+    if (![self passwordsConfirmedAndSaved]) {
+        // If they were not confirmed, return
+        return;
+    }
+    
     // Check if current settings have unsaved changes
     if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
         // There are unsaved changes
@@ -1171,12 +1175,6 @@
         {
             case SEBUnsavedSettingsAnswerSave:
             {
-                // Check if passwords are confirmed and save them if yes
-                if (![self passwordsConfirmedAndSaved]) {
-                    // If they were not confirmed, return
-                    return;
-                }
-                
                 // Save the current settings data first (this also updates the Browser Exam Key)
                 if (![self savePrefsAs:NO fileURLUpdate:NO]) {
                     // Saving failed: Abort reverting
