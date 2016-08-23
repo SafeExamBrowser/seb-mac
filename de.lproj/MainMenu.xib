@@ -98,7 +98,8 @@
                                     <binding destination="892" name="enabled" keyPath="self.usingPrivateDefaults" id="CIB-RJ-wkg"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Anwenden und Neustart" keyEquivalent="r" id="sFU-ql-51U">
+                            <menuItem title="Anwenden und Neustart" keyEquivalent="" id="sFU-ql-51U">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="applyAndRestartSEB:" target="892" id="mda-uO-G5r"/>
                                 </connections>
