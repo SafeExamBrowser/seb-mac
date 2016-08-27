@@ -775,4 +775,10 @@
 }
 
 
+- (void) hideEnterUsernamePasswordDialog
+{
+    [_sebController hideEnterUsernamePasswordDialog];
+}
+
+
 @end

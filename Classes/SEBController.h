@@ -122,6 +122,7 @@
 - (IBAction) cancelEnterPassword: (id)sender;
 
 - (void) showEnterUsernamePasswordDialogForDomain:(NSString *)domain modalForWindow:(NSWindow *)window windowTitle:(NSString *)title modalDelegate:(id)modalDelegate didEndSelector:(SEL)didEndSelector;
+- (void) hideEnterUsernamePasswordDialog;
 
 - (IBAction) exitSEB:(id)sender;
 - (void) requestedQuitWPwd:(id)sender;

@@ -1211,7 +1211,13 @@ willPerformClientRedirectToURL:(NSURL *)URL
         // Display authentication dialog
         _pendingChallenge = challenge;
         
-        [_browserController showEnterUsernamePasswordDialogForDomain:challenge.protectionSpace.host modalForWindow:self windowTitle:NSLocalizedString(@"Authentication Required", nil) modalDelegate:self didEndSelector:@selector(enteredUsername:password:returnCode:)];
+        NSString *domain = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, challenge.protectionSpace.host];
+        
+        [_browserController showEnterUsernamePasswordDialogForDomain:domain
+                                                      modalForWindow:self
+                                                         windowTitle:NSLocalizedString(@"Authentication Required", nil)
+                                                       modalDelegate:self
+                                                      didEndSelector:@selector(enteredUsername:password:returnCode:)];
         
     } else {
         [[challenge sender] cancelAuthenticationChallenge:challenge];

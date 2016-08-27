@@ -94,6 +94,7 @@
 - (void) reloadDockButtonPressed;
 
 - (void) showEnterUsernamePasswordDialogForDomain:(NSString *)domain modalForWindow:(NSWindow *)window windowTitle:(NSString *)title modalDelegate:(id)modalDelegate didEndSelector:(SEL)didEndSelector;
+- (void) hideEnterUsernamePasswordDialog;
 
 
 @end

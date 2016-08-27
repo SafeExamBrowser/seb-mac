@@ -1660,6 +1660,12 @@ bool insideMatrix(){
 }
 
 
+- (void) hideEnterUsernamePasswordDialog
+{
+    [enterUsernamePasswordDialogWindow orderOut:self];
+}
+
+
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
 {
     DDLogDebug(@"sheetDidEnd with return code: %ld", (long)returnCode);
