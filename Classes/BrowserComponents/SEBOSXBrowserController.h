@@ -34,6 +34,7 @@
 
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
+#import "SEBController.h"
 #import "SEBBrowserWindow.h"
 #import "SEBWebView.h"
 #import "SEBDockController.h"
@@ -42,6 +43,7 @@
 #import "SEBBrowserController.h"
 #import "SEBBrowserWindowDocument.h"
 
+@class SEBController;
 @class SEBBrowserController;
 @class SEBBrowserWindowDocument;
 @class SEBBrowserWindow;
@@ -49,6 +51,7 @@
 
 @interface SEBOSXBrowserController : NSObject <WebResourceLoadDelegate>
 
+@property (strong) SEBController *sebController;
 @property (strong) SEBBrowserController *browserController;
 @property (strong) SEBWebView *webView;
 @property (strong) SEBBrowserWindowDocument *temporaryBrowserWindowDocument;
@@ -89,5 +92,8 @@
 
 - (void) restartDockButtonPressed;
 - (void) reloadDockButtonPressed;
+
+- (void) showEnterUsernamePasswordDialogForDomain:(NSString *)domain modalForWindow:(NSWindow *)window windowTitle:(NSString *)title modalDelegate:(id)modalDelegate didEndSelector:(SEL)didEndSelector;
+
 
 @end

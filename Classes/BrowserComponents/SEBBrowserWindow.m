@@ -1209,19 +1209,37 @@ willPerformClientRedirectToURL:(NSURL *)URL
 
     if ([challenge previousFailureCount] == 0) {
         // Display authentication dialog
+        _pendingChallenge = challenge;
         
-        NSURLCredential *newCredential;
-        newCredential = [NSURLCredential credentialWithUser:@"username"
-                                                   password:@"password"
-                                                persistence:NSURLCredentialPersistenceNone];
-        [[challenge sender] useCredential:newCredential
-               forAuthenticationChallenge:challenge];
+        [_browserController showEnterUsernamePasswordDialogForDomain:challenge.protectionSpace.host modalForWindow:self windowTitle:NSLocalizedString(@"Authentication Required", nil) modalDelegate:self didEndSelector:@selector(enteredUsername:password:returnCode:)];
+        
     } else {
         [[challenge sender] cancelAuthenticationChallenge:challenge];
         // inform the user that the user name and password
         // in the preferences are incorrect
     }
     
+}
+
+
+- (void)enteredUsername:(NSString *)username password:(NSString *)password returnCode:(NSInteger)returnCode
+{
+    DDLogDebug(@"Enter username password sheetDidEnd with return code: %ld", (long)returnCode);
+    
+    if (_pendingChallenge) {
+        if (returnCode == SEBEnterPasswordOK) {
+            NSURLCredential *newCredential;
+            newCredential = [NSURLCredential credentialWithUser:username
+                                                       password:password
+                                                    persistence:NSURLCredentialPersistenceNone];
+            [[_pendingChallenge sender] useCredential:newCredential
+                           forAuthenticationChallenge:_pendingChallenge];
+            _pendingChallenge = nil;
+        } else {
+            [[_pendingChallenge sender] cancelAuthenticationChallenge:_pendingChallenge];
+            _pendingChallenge = nil;
+        }
+    }
 }
 
 

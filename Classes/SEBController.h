@@ -87,6 +87,13 @@
     IBOutlet NSWindow *enterPasswordDialogWindow;
     IBOutlet NSTextField *enterPasswordDialog;
     
+    IBOutlet NSWindow *enterUsernamePasswordDialogWindow;
+    IBOutlet NSTextField *enterUsernamePasswordDomain;
+    __weak IBOutlet NSTextField *usernameTextField;
+    __weak IBOutlet NSSecureTextField *passwordSecureTextField;
+    id senderModalDelegate;
+    SEL senderDidEndSelector;
+    
     IBOutlet SEBDockItemTime *sebDockItemTime;
     	
 	IOPMAssertionID assertionID1;
@@ -113,6 +120,8 @@
 - (NSInteger) showEnterPasswordDialog:(NSString *)text modalForWindow:(NSWindow *)window windowTitle:(NSString *)title;
 - (IBAction) okEnterPassword: (id)sender;
 - (IBAction) cancelEnterPassword: (id)sender;
+
+- (void) showEnterUsernamePasswordDialogForDomain:(NSString *)domain modalForWindow:(NSWindow *)window windowTitle:(NSString *)title modalDelegate:(id)modalDelegate didEndSelector:(SEL)didEndSelector;
 
 - (IBAction) exitSEB:(id)sender;
 - (void) requestedQuitWPwd:(id)sender;

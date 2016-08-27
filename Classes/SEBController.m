@@ -120,6 +120,7 @@ bool insideMatrix();
 {
     if (!browserController) {
         browserController = [[SEBOSXBrowserController alloc] init];
+        browserController.sebController = self;
     }
     return browserController;
 }
@@ -1584,13 +1585,11 @@ bool insideMatrix(){
 
 
 - (NSInteger) showEnterPasswordDialog:(NSString *)text modalForWindow:(NSWindow *)window windowTitle:(NSString *)title {
-    // User has asked to see the dialog. Display it.
-//    [passwordView setTranslatesAutoresizingMaskIntoConstraints:NO];
-
+    
     [self.enterPassword setStringValue:@""]; //reset the enterPassword NSSecureTextField
     if (title) enterPasswordDialogWindow.title = title;
     [enterPasswordDialog setStringValue:text];
-        
+    
     // If the (main) browser window is full screen, we don't show the dialog as sheet
     if (window && (self.browserController.mainBrowserWindow.isFullScreen || [self.preferencesController preferencesAreOpen])) {
         window = nil;
@@ -1620,8 +1619,56 @@ bool insideMatrix(){
 }
 
 
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-    DDLogDebug(@"sheetDidEnd");
+- (void) showEnterUsernamePasswordDialogForDomain:(NSString *)domain
+                                   modalForWindow:(NSWindow *)window
+                                      windowTitle:(NSString *)title
+                                    modalDelegate:(id)modalDelegate
+                                   didEndSelector:(SEL)didEndSelector
+{
+    // Remember the delegate and selector of the sender
+    senderModalDelegate = modalDelegate;
+    senderDidEndSelector = didEndSelector;
+    
+    // Reset the user name and password fields
+    [usernameTextField setStringValue:@""];
+    [passwordSecureTextField setStringValue:@""];
+    if (title) enterUsernamePasswordDialogWindow.title = title;
+    [enterUsernamePasswordDomain setStringValue:domain];
+    
+    // If the (main) browser window is full screen, we don't show the dialog as sheet
+    if (window && (self.browserController.mainBrowserWindow.isFullScreen || [self.preferencesController preferencesAreOpen])) {
+        window = nil;
+    }
+    
+    [NSApp beginSheet: enterUsernamePasswordDialogWindow
+       modalForWindow: window
+        modalDelegate: self
+       didEndSelector: @selector(sheetDidEnd:returnCode:contextInfo:)
+          contextInfo: nil];
+}
+
+
+- (IBAction) okEnterUsernamePassword: (id)sender {
+    [NSApp endSheet:enterUsernamePasswordDialogWindow returnCode:SEBEnterPasswordOK];
+}
+
+
+- (IBAction) cancelEnterUsernamePassword: (id)sender {
+    [NSApp endSheet:enterUsernamePasswordDialogWindow returnCode:SEBEnterPasswordCancel];
+    [usernameTextField setStringValue:@""];
+    [passwordSecureTextField setStringValue:@""];
+}
+
+
+- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
+{
+    DDLogDebug(@"sheetDidEnd with return code: %ld", (long)returnCode);
+    
+    [sheet orderOut: self];
+
+    IMP imp = [senderModalDelegate methodForSelector:senderDidEndSelector];
+    void (*func)(id, SEL, NSString*, NSString*, NSInteger) = (void *)imp;
+    func(senderModalDelegate, senderDidEndSelector, usernameTextField.stringValue, passwordSecureTextField.stringValue, returnCode);
 }
 
 

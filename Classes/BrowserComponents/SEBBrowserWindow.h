@@ -73,6 +73,8 @@
 @property (weak) IBOutlet NSButton *directoryPatternButton;
 @property (strong) NSView *filterMessageHolder;
 
+@property (strong) NSURLAuthenticationChallenge *pendingChallenge;
+
 @property (copy) NSString *downloadFilename;
 @property (copy) NSString *downloadFileExtension;
 
