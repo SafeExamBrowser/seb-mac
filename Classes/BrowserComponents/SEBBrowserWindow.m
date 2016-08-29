@@ -1207,17 +1207,25 @@ willPerformClientRedirectToURL:(NSURL *)URL
 {
     DDLogInfo(@"webView: %@ resource: %@ didReceiveAuthenticationChallenge: %@ fromDataSource: %@", sender, identifier, challenge, dataSource);
 
+    // Allow to enter password 3 times
     if ([challenge previousFailureCount] < 3) {
         // Display authentication dialog
         _pendingChallenge = challenge;
         
-        NSString *domain = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, challenge.protectionSpace.host];
+        NSString *text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, challenge.protectionSpace.host];
+        if ([challenge previousFailureCount] == 0) {
+            text = [NSString stringWithFormat:@"%@\n%@", NSLocalizedString(@"To proceed, you must log in to", nil), text];
+            lastUsername = @"";
+        } else {
+            text = [NSString stringWithFormat:NSLocalizedString(@"The user name or password you entered for %@ was incorrect. Make sure you’re entering them correctly, and then try again.", nil), text];
+        }
         
-        [_browserController showEnterUsernamePasswordDialogForDomain:domain
-                                                      modalForWindow:self
-                                                         windowTitle:NSLocalizedString(@"Authentication Required", nil)
-                                                       modalDelegate:self
-                                                      didEndSelector:@selector(enteredUsername:password:returnCode:)];
+        [_browserController showEnterUsernamePasswordDialog:text
+                                             modalForWindow:self
+                                                windowTitle:NSLocalizedString(@"Authentication Required", nil)
+                                                   username:lastUsername
+                                              modalDelegate:self
+                                             didEndSelector:@selector(enteredUsername:password:returnCode:)];
         
     } else {
         [[challenge sender] cancelAuthenticationChallenge:challenge];
@@ -1234,6 +1242,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
     
     if (_pendingChallenge) {
         if (returnCode == SEBEnterPasswordOK) {
+            lastUsername = username;
             NSURLCredential *newCredential;
             newCredential = [NSURLCredential credentialWithUser:username
                                                        password:password
@@ -1245,6 +1254,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
             [[_pendingChallenge sender] cancelAuthenticationChallenge:_pendingChallenge];
             _pendingChallenge = nil;
         } else {
+            // Any other case as when the server aborted the authentication challenge
             _pendingChallenge = nil;
         }
     }

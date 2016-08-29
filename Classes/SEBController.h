@@ -88,7 +88,7 @@
     IBOutlet NSTextField *enterPasswordDialog;
     
     IBOutlet NSWindow *enterUsernamePasswordDialogWindow;
-    IBOutlet NSTextField *enterUsernamePasswordDomain;
+    IBOutlet NSTextField *enterUsernamePasswordText;
     __weak IBOutlet NSTextField *usernameTextField;
     __weak IBOutlet NSSecureTextField *passwordSecureTextField;
     id senderModalDelegate;
@@ -121,7 +121,12 @@
 - (IBAction) okEnterPassword: (id)sender;
 - (IBAction) cancelEnterPassword: (id)sender;
 
-- (void) showEnterUsernamePasswordDialogForDomain:(NSString *)domain modalForWindow:(NSWindow *)window windowTitle:(NSString *)title modalDelegate:(id)modalDelegate didEndSelector:(SEL)didEndSelector;
+- (void) showEnterUsernamePasswordDialog:(NSString *)text
+                          modalForWindow:(NSWindow *)window
+                             windowTitle:(NSString *)title
+                                username:(NSString *)username
+                           modalDelegate:(id)modalDelegate
+                          didEndSelector:(SEL)didEndSelector;
 - (void) hideEnterUsernamePasswordDialog;
 
 - (IBAction) exitSEB:(id)sender;

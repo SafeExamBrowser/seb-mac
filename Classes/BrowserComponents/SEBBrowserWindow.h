@@ -54,6 +54,7 @@
     NSString *downloadPath;
     NSView *progressIndicatorHolder;
     NSURL *downloadURL;
+    NSString *lastUsername;
     
 }
 

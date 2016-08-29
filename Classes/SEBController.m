@@ -1619,21 +1619,31 @@ bool insideMatrix(){
 }
 
 
-- (void) showEnterUsernamePasswordDialogForDomain:(NSString *)domain
-                                   modalForWindow:(NSWindow *)window
-                                      windowTitle:(NSString *)title
-                                    modalDelegate:(id)modalDelegate
-                                   didEndSelector:(SEL)didEndSelector
+- (void) showEnterUsernamePasswordDialog:(NSString *)text
+                          modalForWindow:(NSWindow *)window
+                             windowTitle:(NSString *)title
+                                username:(NSString *)username
+                           modalDelegate:(id)modalDelegate
+                          didEndSelector:(SEL)didEndSelector
 {
     // Remember the delegate and selector of the sender
     senderModalDelegate = modalDelegate;
     senderDidEndSelector = didEndSelector;
     
-    // Reset the user name and password fields
-    [usernameTextField setStringValue:@""];
+    // Preset (or clear) the username field
+    [usernameTextField setStringValue:username];
+    // Reset the password field
     [passwordSecureTextField setStringValue:@""];
+    
+    // If there isn't a preset username (from a previous, failed attempt), move cursor
+    // to the username field, otherwise to the password field
+    if (username.length == 0) {
+        [enterUsernamePasswordDialogWindow makeFirstResponder:usernameTextField];
+    } else {
+        [enterUsernamePasswordDialogWindow makeFirstResponder:passwordSecureTextField];
+    }
     if (title) enterUsernamePasswordDialogWindow.title = title;
-    [enterUsernamePasswordDomain setStringValue:domain];
+    [enterUsernamePasswordText setStringValue:text];
     
     // If the (main) browser window is full screen, we don't show the dialog as sheet
     if (window && (self.browserController.mainBrowserWindow.isFullScreen || [self.preferencesController preferencesAreOpen])) {
@@ -1655,14 +1665,16 @@ bool insideMatrix(){
 
 - (IBAction) cancelEnterUsernamePassword: (id)sender {
     [NSApp endSheet:enterUsernamePasswordDialogWindow returnCode:SEBEnterPasswordCancel];
+    // Reset the username field (password is always reset whenever the dialog is displayed)
     [usernameTextField setStringValue:@""];
-    [passwordSecureTextField setStringValue:@""];
 }
 
 
 - (void) hideEnterUsernamePasswordDialog
 {
-    [enterUsernamePasswordDialogWindow orderOut:self];
+    [NSApp endSheet:enterUsernamePasswordDialogWindow returnCode:SEBEnterPasswordAborted];
+    // Reset the user name field (password is always reset whenever the dialog is displayed)
+    [usernameTextField setStringValue:@""];
 }
 
 

@@ -149,7 +149,8 @@ typedef NSUInteger sebConfigPurposes;
 
 enum {
     SEBEnterPasswordCancel                      = 0,
-    SEBEnterPasswordOK                          = 1
+    SEBEnterPasswordOK                          = 1,
+    SEBEnterPasswordAborted                     = 2
 };
 typedef NSUInteger SEBEnterPasswordResponse;
 

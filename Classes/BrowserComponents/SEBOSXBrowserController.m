@@ -769,9 +769,18 @@
 }
 
 
-- (void) showEnterUsernamePasswordDialogForDomain:(NSString *)domain modalForWindow:(NSWindow *)window windowTitle:(NSString *)title modalDelegate:(id)modalDelegate didEndSelector:(SEL)didEndSelector;
+- (void) showEnterUsernamePasswordDialog:(NSString *)text
+                          modalForWindow:(NSWindow *)window
+                             windowTitle:(NSString *)title
+                                username:(NSString *)username
+                           modalDelegate:(id)modalDelegate
+                          didEndSelector:(SEL)didEndSelector
 {
-    [_sebController showEnterUsernamePasswordDialogForDomain:domain modalForWindow:window windowTitle:title modalDelegate:modalDelegate didEndSelector:didEndSelector];
+    [_sebController showEnterUsernamePasswordDialog:text
+                                     modalForWindow:window
+                                        windowTitle:title
+                                           username:username
+                                      modalDelegate:modalDelegate didEndSelector:didEndSelector];
 }
 
 
