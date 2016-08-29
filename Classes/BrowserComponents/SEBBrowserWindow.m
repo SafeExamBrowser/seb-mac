@@ -1207,7 +1207,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
 {
     DDLogInfo(@"webView: %@ resource: %@ didReceiveAuthenticationChallenge: %@ fromDataSource: %@", sender, identifier, challenge, dataSource);
 
-    if ([challenge previousFailureCount] == 0) {
+    if ([challenge previousFailureCount] < 3) {
         // Display authentication dialog
         _pendingChallenge = challenge;
         
@@ -1241,8 +1241,10 @@ willPerformClientRedirectToURL:(NSURL *)URL
             [[_pendingChallenge sender] useCredential:newCredential
                            forAuthenticationChallenge:_pendingChallenge];
             _pendingChallenge = nil;
-        } else {
+        } else if (returnCode == SEBEnterPasswordCancel) {
             [[_pendingChallenge sender] cancelAuthenticationChallenge:_pendingChallenge];
+            _pendingChallenge = nil;
+        } else {
             _pendingChallenge = nil;
         }
     }
@@ -1256,6 +1258,7 @@ didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
  fromDataSource:(WebDataSource *)dataSource
 {
     DDLogInfo(@"webView: %@ resource: %@ didCancelAuthenticationChallenge: %@ fromDataSource: %@", sender, identifier, challenge, dataSource);
+    [_browserController hideEnterUsernamePasswordDialog];
 }
 
 
