@@ -82,9 +82,13 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
 #pragma unused(protocol)
     assert(protectionSpace != nil);
     
-    // We accept any server trust authentication challenges.
+    // We accept any username/password and server trust authentication challenges.
+    NSString *authenticationMethod = [protectionSpace authenticationMethod];
     
-    return [[protectionSpace authenticationMethod] isEqual:NSURLAuthenticationMethodServerTrust];
+    return [authenticationMethod isEqual:NSURLAuthenticationMethodHTTPBasic] ||
+    [authenticationMethod isEqual:NSURLAuthenticationMethodHTTPDigest] ||
+    [authenticationMethod isEqual:NSURLAuthenticationMethodNTLM] ||
+    [authenticationMethod isEqual:NSURLAuthenticationMethodServerTrust];
 }
 
 
