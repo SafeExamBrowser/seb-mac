@@ -50,6 +50,8 @@
     self = [super init];
     if (self) {
         _browserController = [SEBBrowserController new];
+        _browserController.delegate = self;
+        
         self.openBrowserWindowsWebViews = [NSMutableArray new];
 
         // Initialize SEB dock item menu for open browser windows/WebViews
@@ -735,6 +737,45 @@
 }
 
 
+- (void) showEnterUsernamePasswordDialog:(NSString *)text
+                          modalForWindow:(NSWindow *)window
+                             windowTitle:(NSString *)title
+                                username:(NSString *)username
+                           modalDelegate:(id)modalDelegate
+                          didEndSelector:(SEL)didEndSelector
+{
+    [_sebController showEnterUsernamePasswordDialog:text
+                                     modalForWindow:window
+                                        windowTitle:title
+                                           username:username
+                                      modalDelegate:modalDelegate
+                                     didEndSelector:didEndSelector];
+}
+
+
+- (void) hideEnterUsernamePasswordDialog
+{
+    [_sebController hideEnterUsernamePasswordDialog];
+}
+
+
+#pragma mark SEBBrowserControllerDelegate Methods
+
+- (void) showEnterUsernamePasswordDialog:(NSString *)text
+                                   title:(NSString *)title
+                                username:(NSString *)username
+                           modalDelegate:(id)modalDelegate
+                          didEndSelector:(SEL)didEndSelector
+{
+    [_sebController showEnterUsernamePasswordDialog:text
+                                     modalForWindow:self.activeBrowserWindow
+                                        windowTitle:title
+                                           username:username
+                                      modalDelegate:modalDelegate
+                                     didEndSelector:didEndSelector];
+}
+
+
 #pragma mark SEB Dock Buttons Action Methods
 
 - (void) restartDockButtonPressed
@@ -766,27 +807,6 @@
 {
     DDLogInfo(@"Reloading current browser window: %@", self.activeBrowserWindow);
     [self.activeBrowserWindow.webView reload:self.activeBrowserWindow];
-}
-
-
-- (void) showEnterUsernamePasswordDialog:(NSString *)text
-                          modalForWindow:(NSWindow *)window
-                             windowTitle:(NSString *)title
-                                username:(NSString *)username
-                           modalDelegate:(id)modalDelegate
-                          didEndSelector:(SEL)didEndSelector
-{
-    [_sebController showEnterUsernamePasswordDialog:text
-                                     modalForWindow:window
-                                        windowTitle:title
-                                           username:username
-                                      modalDelegate:modalDelegate didEndSelector:didEndSelector];
-}
-
-
-- (void) hideEnterUsernamePasswordDialog
-{
-    [_sebController hideEnterUsernamePasswordDialog];
 }
 
 

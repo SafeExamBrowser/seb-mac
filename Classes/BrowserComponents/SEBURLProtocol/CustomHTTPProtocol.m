@@ -510,8 +510,6 @@ static NSString * kOurRecursiveRequestFlagProperty = @"com.apple.dts.CustomHTTPP
 
 - (void)cancelPendingChallenge
 {
-    assert([NSThread currentThread] == self.clientThread);
-
     // Just pass the work off to the main thread.  We do this so that all accesses 
     // to pendingChallenge are done from the main thread, which avoids the need for 
     // extra synchronisation.

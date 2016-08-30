@@ -49,7 +49,7 @@
 @class SEBBrowserWindow;
 @class SEBWebView;
 
-@interface SEBOSXBrowserController : NSObject <WebResourceLoadDelegate>
+@interface SEBOSXBrowserController : NSObject <WebResourceLoadDelegate, SEBBrowserControllerDelegate>
 
 @property (strong) SEBController *sebController;
 @property (strong) SEBBrowserController *browserController;
@@ -100,6 +100,15 @@
                            modalDelegate:(id)modalDelegate
                           didEndSelector:(SEL)didEndSelector;
 - (void) hideEnterUsernamePasswordDialog;
+
+
+/// SEBBrowserControllerDelegate Methods
+
+- (void) showEnterUsernamePasswordDialog:(NSString *)text
+                                   title:(NSString *)title
+                                username:(NSString *)username
+                           modalDelegate:(id)modalDelegate
+                          didEndSelector:(SEL)didEndSelector;
 
 
 @end

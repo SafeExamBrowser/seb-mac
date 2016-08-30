@@ -93,12 +93,13 @@
 
 @property (atomic, strong, readonly ) NSURLAuthenticationChallenge *    pendingChallenge;   ///< The current authentication challenge; it's only safe to access this from the main thread.
 
-/*! Call this method to resolve an authentication challeng.  This must be called on the main thread.
+/*! Call this method to resolve an authentication challenge.  This must be called on the main thread.
  *  \param challenge The challenge to resolve. This must match the pendingChallenge property.
  *  \param credential The credential to use, or nil to continue without a credential.
  */
 
 - (void)resolveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge withCredential:(NSURLCredential *)credential;
+
 
 @end
 
