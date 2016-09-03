@@ -1183,7 +1183,10 @@ willPerformClientRedirectToURL:(NSURL *)URL
 - (void)webView:(SEBWebView *)sender resource:(id)identifier didFailLoadingWithError:(NSError *)error
  fromDataSource:(WebDataSource *)dataSource
 {
-    DDLogError(@"webView: %@ resource: %@ didFailLoadingWithError: %@ fromDataSource: %@", sender, identifier, error.description, dataSource);
+    DDLogError(@"webView: %@ resource: %@ didFailLoadingWithError: %@ fromDataSource URL: %@", sender, identifier, error.description, dataSource.unreachableURL);
+
+    // Close a temporary browser window which might have been opened for loading a config file from a SEB URL
+//    [_browserController openingConfigURLFailed];
 }
 
 
@@ -1202,7 +1205,9 @@ willPerformClientRedirectToURL:(NSURL *)URL
 
 
 // Invoked when an authentication challenge has been received for a resource
-- (void)webView:(SEBWebView *)sender resource:(id)identifier didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+- (void)webView:(SEBWebView *)sender
+       resource:(id)identifier
+didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
  fromDataSource:(WebDataSource *)dataSource
 {
     DDLogInfo(@"webView: %@ resource: %@ didReceiveAuthenticationChallenge: %@ fromDataSource: %@", sender, identifier, challenge, dataSource);
@@ -1243,18 +1248,20 @@ willPerformClientRedirectToURL:(NSURL *)URL
     if (_pendingChallenge) {
         if (returnCode == SEBEnterPasswordOK) {
             lastUsername = username;
-            NSURLCredential *newCredential;
-            newCredential = [NSURLCredential credentialWithUser:username
-                                                       password:password
-                                                    persistence:NSURLCredentialPersistenceNone];
+            NSURLCredential *newCredential = [NSURLCredential credentialWithUser:username
+                                                                        password:password
+                                                                     persistence:NSURLCredentialPersistenceForSession];
             [[_pendingChallenge sender] useCredential:newCredential
                            forAuthenticationChallenge:_pendingChallenge];
+            _browserController.enteredCredential = newCredential;
             _pendingChallenge = nil;
         } else if (returnCode == SEBEnterPasswordCancel) {
             [[_pendingChallenge sender] cancelAuthenticationChallenge:_pendingChallenge];
+            _browserController.enteredCredential = nil;
             _pendingChallenge = nil;
         } else {
             // Any other case as when the server aborted the authentication challenge
+            _browserController.enteredCredential = nil;
             _pendingChallenge = nil;
         }
     }
@@ -1592,6 +1599,33 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     if (!theDownload) {
         DDLogError(@"Starting the download failed!"); //Inform the user that the download failed.
     }
+}
+
+
+- (BOOL)download:(NSURLDownload *)download canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
+{
+    // We accept any username/password authentication challenges.
+    NSString *authenticationMethod = protectionSpace.authenticationMethod;
+    
+    return [authenticationMethod isEqual:NSURLAuthenticationMethodHTTPBasic] ||
+    [authenticationMethod isEqual:NSURLAuthenticationMethodHTTPDigest] ||
+    [authenticationMethod isEqual:NSURLAuthenticationMethodNTLM];
+}
+
+
+- (void)download:(NSURLDownload *)download didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+{
+    if (_browserController.enteredCredential) {
+        [challenge.sender useCredential:_browserController.enteredCredential forAuthenticationChallenge:challenge];
+    } else {
+        [self webView:self.webView resource:nil didReceiveAuthenticationChallenge:challenge fromDataSource:nil];
+    }
+}
+
+
+- (void)download:(NSURLDownload *)download didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+{
+    [self webView:self.webView resource:nil didCancelAuthenticationChallenge:challenge fromDataSource:nil];
 }
 
 

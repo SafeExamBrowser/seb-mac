@@ -406,7 +406,7 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
             NSURLCredential *newCredential;
             newCredential = [NSURLCredential credentialWithUser:username
                                                        password:password
-                                                    persistence:NSURLCredentialPersistenceNone];
+                                                    persistence:NSURLCredentialPersistenceForSession];
             [_authenticatingProtocol resolveAuthenticationChallenge:_authenticatingProtocol.pendingChallenge withCredential:newCredential];
             _authenticatingProtocol = nil;
         } else if (returnCode == SEBEnterPasswordCancel) {

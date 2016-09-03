@@ -65,6 +65,7 @@
 @property (strong) SEBDockItemMenu *openBrowserWindowsWebViewsMenu;
 @property (readwrite) BOOL reinforceKioskModeRequested;
 @property (readwrite) BOOL directConfigDownloadAttempted;
+@property (strong) NSURLCredential *enteredCredential;
 
 - (void) resetBrowser;
 
