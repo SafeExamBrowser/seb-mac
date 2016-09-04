@@ -1007,7 +1007,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
     
     if ([error code] != -999) {
         
-        if ([error code] !=  WebKitErrorFrameLoadInterruptedByPolicyChange) //this error can be ignored
+        if ([error code] !=  WebKitErrorFrameLoadInterruptedByPolicyChange && !_browserController.directConfigDownloadAttempted) //this error can be ignored
         {
             DDLogError(@"Error in %s: %@", __FUNCTION__, error.description);
 
@@ -1061,7 +1061,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
     
     if (error.code != -999) {
         
-        if (error.code !=  WebKitErrorFrameLoadInterruptedByPolicyChange && error.code != 204) //these errors can be ignored (204 = Plug-in handled load)
+        if (error.code !=  WebKitErrorFrameLoadInterruptedByPolicyChange && error.code != 204 && !_browserController.directConfigDownloadAttempted) //these errors can be ignored (204 = Plug-in handled load)
         {
             //Close the About Window first, because it would hide the error alert
             [[NSNotificationCenter defaultCenter] postNotificationName:@"requestCloseAboutWindowNotification" object:self];
@@ -1617,6 +1617,9 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 {
     if (_browserController.enteredCredential) {
         [challenge.sender useCredential:_browserController.enteredCredential forAuthenticationChallenge:challenge];
+        // We reset the cached previously entered credentials, because subsequent
+        // downloads in this session won't need authentication anymore
+        _browserController.enteredCredential = nil;
     } else {
         [self webView:self.webView resource:nil didReceiveAuthenticationChallenge:challenge fromDataSource:nil];
     }

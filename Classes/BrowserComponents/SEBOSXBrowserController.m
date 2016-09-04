@@ -472,7 +472,8 @@
                 urlComponents.scheme = @"https";
                 url = urlComponents.URL;
             }
-
+            _originalURL = url;
+            
             // Check if we should try to download the config file from the seb(s) URL directly
             // This is the case when the URL has a .seb filename extension
             // But we only try it when it didn't fail in a first attempt
@@ -552,8 +553,14 @@
 // This method is called by the browser webview delegate if the file to download has a .seb extension
 - (void) downloadSEBConfigFileFromURL:(NSURL *)url
 {
-    NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]
-                                          dataTaskWithURL:url completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
+    // OS X 10.7 - 10.8
+    NSURLRequest *downloadRequest = [NSURLRequest requestWithURL:url];
+    [NSURLConnection sendAsynchronousRequest:downloadRequest
+                                       queue:NSOperationQueue.mainQueue
+                           completionHandler:^(NSURLResponse *response, NSData *sebFileData, NSError *error)
+    
+//    NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]
+//                                          dataTaskWithURL:url completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
                                           {
                                               if (error) {
                                                   if ([url.scheme isEqualToString:@"http"]) {
@@ -570,7 +577,7 @@
                                                       if (_directConfigDownloadAttempted) {
                                                           // If we tried a direct download first, now try to download it
                                                           // by opening the URL in a temporary webview
-                                                          [self openTempWindowForDownloadingConfigFromURL:url];
+                                                          [self openTempWindowForDownloadingConfigFromURL:_originalURL];
                                                       } else {
                                                           dispatch_async(dispatch_get_main_queue(), ^{
                                                               [self downloadingSEBConfigFailed:error];
@@ -584,17 +591,21 @@
                                               }
                                           }];
     
-    [downloadTask resume];
+//    [downloadTask resume];
 }
 
 
 // Called when downloading the config file failed
 - (void) downloadingSEBConfigFailed:(NSError *)error
 {
-    // Close the temporary browser window
-    [self closeWebView:_temporaryWebView];
-    
-    [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
+    // Only show the download error and close temp browser window if this wasn't a direct download attempt
+    if (!_directConfigDownloadAttempted) {
+        
+        // Close the temporary browser window
+        [self closeWebView:_temporaryWebView];
+        // Show the load error
+        [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
+    }
 }
 
 
@@ -620,7 +631,11 @@
          postNotificationName:@"requestRestartNotification" object:self];
         
     } else {
-        // Decrypting new settings wasn't successfull:
+        /// Decrypting new settings wasn't successfull:
+
+        // We have to restore the path to the old settings
+        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
+
         // Was this an attempt to download the config directly and the downloaded data was corrupted?
         if (_directConfigDownloadAttempted && storingConfigResult == storeDecryptedSEBSettingsResultWrongFormat) {
             // We try to download the config in a temporary WebView
@@ -630,9 +645,6 @@
 
             // Reset the direct download flag for the case this was a successful direct download
             _directConfigDownloadAttempted = false;
-
-            // We have to restore the path to the old settings
-            [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
         }
     }
 }
