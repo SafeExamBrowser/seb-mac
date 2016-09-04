@@ -69,10 +69,12 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
         || [sharedCertService tlsCerts].count > 0
         || [sharedCertService debugCerts].count > 0)
     {
+        _usingCustomURLProtocol = true;
         // Become delegate of and register custom SEB NSURL protocol class
         [CustomHTTPProtocol setDelegate:self];
         [CustomHTTPProtocol start];
     } else {
+        _usingCustomURLProtocol = false;
         // Deactivate the protocol
         [CustomHTTPProtocol stop];
     }

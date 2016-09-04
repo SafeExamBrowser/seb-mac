@@ -43,6 +43,8 @@
 
 @property (weak) id delegate;
 
+@property (readwrite) BOOL usingCustomURLProtocol;
+
 @property (strong) NSURLAuthenticationChallenge *pendingChallenge;
 
 - (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;

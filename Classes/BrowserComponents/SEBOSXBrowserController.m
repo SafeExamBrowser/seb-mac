@@ -563,7 +563,7 @@
 //                                          dataTaskWithURL:url completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
                                           {
                                               if (error) {
-                                                  if ([url.scheme isEqualToString:@"http"]) {
+                                                  if ([url.scheme isEqualToString:@"http"] && !_browserController.usingCustomURLProtocol) {
                                                       NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
                                                           // If it was a seb:// URL, and http failed, we try to download it by https
                                                           urlComponents.scheme = @"https";
