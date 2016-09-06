@@ -948,7 +948,9 @@
     
     //encrypt data using public key
     NSData *encryptedData = [keychainManager encryptData:data withPublicKeyFromCertificate:certificateRef];
-    CFRelease(certificateRef);
+    if (certificateRef) {
+        CFRelease(certificateRef);
+    }
     
     //Prefix indicating data has been encrypted with a public key identified by hash
     NSString *prefixString = @"pkhs";
