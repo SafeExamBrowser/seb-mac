@@ -927,10 +927,10 @@
         // Encrypt preferences using a cryptographic identity
         encryptedSebData = [self encryptData:encryptedSebData usingIdentity:identityRef];
     }
-    
-    // gzip the encrypted data
-    encryptedSebData = [encryptedSebData gzipDeflate];
-    
+    if (encryptedSebData) {
+        // gzip the encrypted data
+        encryptedSebData = [encryptedSebData gzipDeflate];
+    }
     return encryptedSebData;
 }
 
@@ -939,27 +939,30 @@
 -(NSData *) encryptData:(NSData *) data usingIdentity:(SecIdentityRef) identityRef
 {
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    NSMutableData *encryptedSebData;
     
     //get certificate from selected identity
     SecCertificateRef certificateRef = [keychainManager copyCertificateFromIdentity:identityRef];
-    
-    //get public key hash from selected identity's certificate
-    NSData* publicKeyHash = [keychainManager getPublicKeyHashFromCertificate:certificateRef];
-    
-    //encrypt data using public key
-    NSData *encryptedData = [keychainManager encryptData:data withPublicKeyFromCertificate:certificateRef];
     if (certificateRef) {
-        CFRelease(certificateRef);
+        //get public key hash from selected identity's certificate
+        NSData* publicKeyHash = [keychainManager getPublicKeyHashFromCertificate:certificateRef];
+        if (publicKeyHash) {
+            //encrypt data using public key
+            NSData *encryptedData = [keychainManager encryptData:data withPublicKeyFromCertificate:certificateRef];
+            if (certificateRef) {
+                CFRelease(certificateRef);
+            }
+            if (encryptedData) {
+                //Prefix indicating data has been encrypted with a public key identified by hash
+                NSString *prefixString = @"pkhs";
+                encryptedSebData = [NSMutableData dataWithData:[prefixString dataUsingEncoding:NSUTF8StringEncoding]];
+                //append public key hash
+                [encryptedSebData appendData:publicKeyHash];
+                //append encrypted data
+                [encryptedSebData appendData:encryptedData];
+            }
+        }
     }
-    
-    //Prefix indicating data has been encrypted with a public key identified by hash
-    NSString *prefixString = @"pkhs";
-    NSMutableData *encryptedSebData = [NSMutableData dataWithData:[prefixString dataUsingEncoding:NSUTF8StringEncoding]];
-    //append public key hash
-    [encryptedSebData appendData:publicKeyHash];
-    //append encrypted data
-    [encryptedSebData appendData:encryptedData];
-    
     return encryptedSebData;
 }
 
