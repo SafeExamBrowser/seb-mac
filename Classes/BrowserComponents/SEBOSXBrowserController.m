@@ -595,6 +595,15 @@
 }
 
 
+- (void)URLSession:(NSURLSession *)session
+didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
+ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition,
+                             NSURLCredential *credential))completionHandler
+{
+    
+}
+
+
 // Called when downloading the config file failed
 - (void) downloadingSEBConfigFailed:(NSError *)error
 {
@@ -768,6 +777,9 @@
 - (void) hideEnterUsernamePasswordDialog
 {
     [_sebController hideEnterUsernamePasswordDialog];
+    
+    // If a temporary webview for loading config is open, close it
+    [self openingConfigURLFailed];
 }
 
 

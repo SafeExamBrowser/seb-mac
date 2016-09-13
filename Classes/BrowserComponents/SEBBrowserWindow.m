@@ -1259,10 +1259,14 @@ didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
             [[_pendingChallenge sender] cancelAuthenticationChallenge:_pendingChallenge];
             _browserController.enteredCredential = nil;
             _pendingChallenge = nil;
+            // If a temporary webview for loading config is open, close it
+            [_browserController openingConfigURLFailed];
         } else {
             // Any other case as when the server aborted the authentication challenge
             _browserController.enteredCredential = nil;
             _pendingChallenge = nil;
+            // If a temporary webview for loading config is open, close it
+            [_browserController openingConfigURLFailed];
         }
     }
 }
