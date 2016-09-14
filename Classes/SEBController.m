@@ -292,6 +292,7 @@ bool insideMatrix();
     {
         BOOL isHidden = [iterApp isHidden];
         NSString *appBundleID = [iterApp valueForKey:@"bundleIdentifier"];
+        DDLogInfo(@"Running app: %@, bundle ID: %@", iterApp.localizedName, appBundleID);
         if ((appBundleID != nil) & !isHidden) {
             [visibleApps addObject:appBundleID]; //add ID of the visible app
         }
@@ -598,7 +599,18 @@ bool insideMatrix();
      selector:@selector(switchHandler:)
      name:NSWorkspaceSessionDidResignActiveNotification
      object:nil];
+
+    CGEventMask mask = CGEventMaskBit(kCGEventLeftMouseDown) | CGEventMaskBit(kCGEventLeftMouseUp);
     
+    CFMachPortRef leftMouseEventTap = CGEventTapCreate(kCGSessionEventTap, kCGHeadInsertEventTap, 0, mask, leftMouseTapCallback, NULL);
+    
+    if (leftMouseEventTap) {
+        CFRunLoopSourceRef runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, leftMouseEventTap, 0);
+        
+        CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, kCFRunLoopCommonModes);
+        CGEventTapEnable(leftMouseEventTap, true);
+    }
+
     [self performSelector:@selector(performAfterStartActions:) withObject: nil afterDelay: 2];
 }
 
@@ -941,6 +953,20 @@ bool insideMatrix(){
 }
 
 
+CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEventRef aEvent, void* aRefcon)
+{
+    CGPoint theLocation = CGEventGetLocation(aEvent);
+    if (theLocation.y <= kMenuBarHeight) {
+        [[MyGlobals sharedMyGlobals] setClickedMenuBar:true];
+        DDLogDebug(@"Clicked inside the menu bar");
+    } else {
+        [[MyGlobals sharedMyGlobals] setClickedMenuBar:false];
+    }
+    
+    return aEvent;
+}
+
+
 // Close the About Window
 - (void) closeAboutWindow {
     DDLogInfo(@"Attempting to close about window %@", aboutWindow);
@@ -1119,6 +1145,8 @@ bool insideMatrix(){
                                                          constant:0.0]];
     
     [sebLockedViewController.view.superview addConstraints:constraints];
+    
+    [coveringWindow makeKeyAndOrderFront:self];
 }
 
 
@@ -1185,9 +1213,9 @@ bool insideMatrix(){
 #ifdef DEBUG
             DDLogInfo(@"Activated app localizedName: %@, executableURL: %@", [launchedApp localizedName], [launchedApp executableURL]);
 #endif
-            if ([launchedApp isEqual:launchedApplication]) {
-                launchedApplication = nil;
-            }
+//            if ([launchedApp isEqual:launchedApplication]) {
+//                launchedApplication = nil;
+//            }
 //            if ([[launchedApp localizedName] isEqualToString:@""]) {
 //                [launchedApp forceTerminate];
 //            }
@@ -1261,6 +1289,7 @@ bool insideMatrix(){
         // Yes: We assume it's the app which switched the space and force terminate it!
         DDLogError(@"An app was started and switched the Space. SEB will force terminate it! (app localized name: %@, executable URL: %@)", [launchedApplication localizedName], [launchedApplication executableURL]);
         [launchedApplication forceTerminate];
+        launchedApplication = nil;
     }
 }
 
@@ -1968,15 +1997,6 @@ bool insideMatrix(){
         [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
         [self switchKioskModeAppsAllowed:YES overrideShowMenuBar:NO];
         
-       // If another application on a full screen workspace was started, then we have to activate it,
-        // because only then it will get hidden by SEB again with the code below
-        if (launchedApplication) {
-            BOOL success = [launchedApplication activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-            DDLogDebug(@"Success of activating app %@ on separate workspace: %d", [launchedApplication localizedName], success);
-//            launchedApplication = nil;
-            return;
-        }
-        
         // Close the black background covering windows
         [self closeCapWindows];
         
@@ -1994,7 +2014,7 @@ bool insideMatrix(){
         // Switch the proper kiosk mode on again
         [self setElevateWindowLevels];
         
-        //    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+//            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         
         BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
         [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
@@ -2101,7 +2121,9 @@ bool insideMatrix(){
     topLeftPoint.y = mainScreen.frame.origin.y + mainScreen.frame.size.height - 44;
     [informationHUD setFrameTopLeftPoint:topLeftPoint];
     
+    informationHUD.becomesKeyOnlyIfNeeded = YES;
     [informationHUD setLevel:NSModalPanelWindowLevel];
+    DDLogDebug(@"Opening info HUD: %@", informationHUD);
     [informationHUD makeKeyAndOrderFront:nil];
 
 }
@@ -2264,6 +2286,7 @@ bool insideMatrix(){
     } else {
         if ([keyPath isEqual:@"isActive"]) {
             DDLogWarn(@"isActive property of SEB changed!");
+            [self regainActiveStatus:nil];
 //            [self appLaunch:nil];
         }
     }

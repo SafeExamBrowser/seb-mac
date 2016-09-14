@@ -57,9 +57,4 @@
 }
 
 
-//- (BOOL)allowsVibrancy {
-//    return true;
-//}
-
-
 @end

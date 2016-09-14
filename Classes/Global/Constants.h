@@ -40,7 +40,7 @@
 
 #define sebConfigFilePrefixLength               4
 #define publicKeyHashLenght                     20
-
+#define kMenuBarHeight                          22.0
 
 enum {
     browserUserAgentModeMacDefault              = 0,

@@ -93,9 +93,34 @@
 
 - (void)windowDidBecomeKey:(NSNotification *)notification
 {
-//    [self.browserController setStateForWindow:(SEBBrowserWindow *)self.window withWebView:self.webView];
+    //    [self.browserController setStateForWindow:(SEBBrowserWindow *)self.window withWebView:self.webView];
     self.browserController.activeBrowserWindow = (SEBBrowserWindow *)self.window;
     DDLogDebug(@"BrowserWindow %@ did become key", self.window);
+}
+
+
+- (void)windowDidResignKey:(NSNotification *)notification
+{
+    DDLogDebug(@"BrowserWindow %@ did resign key", self.window);
+    
+    NSWindow *keyWindow = [[NSApplication sharedApplication] keyWindow];
+    DDLogDebug(@"Current key window: %@", keyWindow);
+    if (keyWindow.isModalPanel) {
+        DDLogWarn(@"Current key window is modal panel: %@", keyWindow);
+    }
+    
+    if (keyWindow.isFloatingPanel) {
+        DDLogWarn(@"Current key window is floating panel: %@", keyWindow);
+    }
+    
+    if (keyWindow.isSheet) {
+        DDLogWarn(@"Current key window is sheet: %@", keyWindow);
+    }
+    
+    if (self.window == keyWindow && ![[MyGlobals sharedMyGlobals] clickedMenuBar]) {
+        [[[NSWorkspace sharedWorkspace] notificationCenter]
+         postNotificationName:NSWorkspaceSessionDidResignActiveNotification object:self];
+    }
 }
 
 

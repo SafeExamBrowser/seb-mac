@@ -55,6 +55,7 @@
 @property(readwrite) BOOL transitioningToFullscreen;
 @property(readwrite) BOOL reconfiguredWhileStarting;
 @property(readwrite) BOOL shouldGoFullScreen;
+@property(readwrite) BOOL clickedMenuBar;
 @property(readwrite) NSUInteger logLevel;
 @property(copy, readwrite) NSString *defaultUserAgent;
 @property(copy, readwrite) NSString *currentUserAgent;
