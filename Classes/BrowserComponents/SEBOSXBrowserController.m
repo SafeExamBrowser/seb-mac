@@ -553,45 +553,59 @@
 // This method is called by the browser webview delegate if the file to download has a .seb extension
 - (void) downloadSEBConfigFileFromURL:(NSURL *)url
 {
+    
     // OS X 10.7 - 10.8
-    NSURLRequest *downloadRequest = [NSURLRequest requestWithURL:url];
-    [NSURLConnection sendAsynchronousRequest:downloadRequest
-                                       queue:NSOperationQueue.mainQueue
-                           completionHandler:^(NSURLResponse *response, NSData *sebFileData, NSError *error)
-    
-//    NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]
-//                                          dataTaskWithURL:url completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
-                                          {
-                                              if (error) {
-                                                  if ([url.scheme isEqualToString:@"http"] && !_browserController.usingCustomURLProtocol) {
-                                                      NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-                                                          // If it was a seb:// URL, and http failed, we try to download it by https
-                                                          urlComponents.scheme = @"https";
-                                                          NSURL *downloadURL = urlComponents.URL;
-                                                      if (_directConfigDownloadAttempted) {
-                                                          [self downloadSEBConfigFileFromURL:downloadURL];
-                                                      } else {
-                                                          [self tryToDownloadConfigByOpeningURL:downloadURL];
-                                                      }
-                                                  } else {
-                                                      if (_directConfigDownloadAttempted) {
-                                                          // If we tried a direct download first, now try to download it
-                                                          // by opening the URL in a temporary webview
-                                                          [self openTempWindowForDownloadingConfigFromURL:_originalURL];
-                                                      } else {
-                                                          dispatch_async(dispatch_get_main_queue(), ^{
-                                                              [self downloadingSEBConfigFailed:error];
-                                                          });
-                                                      }
-                                                  }
-                                              } else {
-                                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                                      [self openDownloadedSEBConfigData:sebFileData fromURL:url];
-                                                  });
-                                              }
-                                          }];
-    
-//    [downloadTask resume];
+    if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
+        NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]
+                                              dataTaskWithURL:url completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
+                                              {
+                                                  [self didDownloadData:sebFileData response:response error:error URL:url];
+                                              }];
+        
+        [downloadTask resume];
+
+    } else {
+        // OS X 10.7 - 10.8
+        NSURLRequest *downloadRequest = [NSURLRequest requestWithURL:url];
+        [NSURLConnection sendAsynchronousRequest:downloadRequest
+                                           queue:NSOperationQueue.mainQueue
+                               completionHandler:^(NSURLResponse *response, NSData *sebFileData, NSError *error)
+         {
+             [self didDownloadData:sebFileData response:response error:error URL:url];
+         }];
+    }
+}
+
+
+- (void) didDownloadData:(NSData *)sebFileData response:(NSURLResponse *)response error:(NSError *)error URL:(NSURL *)url
+{
+    if (error) {
+        if ([url.scheme isEqualToString:@"http"] && !_browserController.usingCustomURLProtocol) {
+            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+            // If it was a seb:// URL, and http failed, we try to download it by https
+            urlComponents.scheme = @"https";
+            NSURL *downloadURL = urlComponents.URL;
+            if (_directConfigDownloadAttempted) {
+                [self downloadSEBConfigFileFromURL:downloadURL];
+            } else {
+                [self tryToDownloadConfigByOpeningURL:downloadURL];
+            }
+        } else {
+            if (_directConfigDownloadAttempted) {
+                // If we tried a direct download first, now try to download it
+                // by opening the URL in a temporary webview
+                [self openTempWindowForDownloadingConfigFromURL:_originalURL];
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self downloadingSEBConfigFailed:error];
+                });
+            }
+        }
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self openDownloadedSEBConfigData:sebFileData fromURL:url];
+        });
+    }
 }
 
 
