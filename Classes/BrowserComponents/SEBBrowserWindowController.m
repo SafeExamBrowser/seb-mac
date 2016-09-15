@@ -116,8 +116,13 @@
     if (keyWindow.isSheet) {
         DDLogWarn(@"Current key window is sheet: %@", keyWindow);
     }
-    
-    if (self.window == keyWindow && ![[MyGlobals sharedMyGlobals] clickedMenuBar]) {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    if (self.window == keyWindow &&
+        ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"] &&
+        (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"] ||
+         ![[MyGlobals sharedMyGlobals] clickedMenuBar]))
+    {
         [[[NSWorkspace sharedWorkspace] notificationCenter]
          postNotificationName:NSWorkspaceSessionDidResignActiveNotification object:self];
     }
