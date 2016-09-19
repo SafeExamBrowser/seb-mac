@@ -554,13 +554,12 @@
 - (void) downloadSEBConfigFileFromURL:(NSURL *)url
 {
     
-    // OS X 10.7 - 10.8
+    // OS X 10.9 and newer
     if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
         if (!_URLSession) {
             NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
             _URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
         }
-//        [NSURLSession sharedSession] = self;
         NSURLSessionDataTask *downloadTask = [_URLSession dataTaskWithURL:url
                                                         completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
                                               {
@@ -636,41 +635,50 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 {
     DDLogInfo(@"URLSession: %@ task: %@ didReceiveChallenge: %@", session, task, challenge);
     
-    // If we have credentials from a previous login to the server we're on, try these first
-    // but not when the credentials are from a failed username/password attempt
-    if (_enteredCredential &&!_pendingChallengeCompletionHandler) {
-        completionHandler(NSURLSessionAuthChallengeUseCredential, _enteredCredential);
-        // We reset the cached previously entered credentials, because subsequent
-        // downloads in this session won't need authentication anymore
-        _enteredCredential = nil;
-    } else {
-        // Allow to enter password 3 times
-        if ([challenge previousFailureCount] < 3) {
-            // Display authentication dialog
-            _pendingChallengeCompletionHandler = completionHandler;
-            
-            NSString *text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, challenge.protectionSpace.host];
-            if ([challenge previousFailureCount] == 0) {
-                text = [NSString stringWithFormat:@"%@\n%@", NSLocalizedString(@"To proceed, you must log in to", nil), text];
-                lastUsername = @"";
-            } else {
-                text = [NSString stringWithFormat:NSLocalizedString(@"The user name or password you entered for %@ was incorrect. Make sure you’re entering them correctly, and then try again.", nil), text];
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self showEnterUsernamePasswordDialog:text
-                                       modalForWindow:_activeBrowserWindow
-                                          windowTitle:NSLocalizedString(@"Authentication Required", nil)
-                                             username:lastUsername
-                                        modalDelegate:self
-                                       didEndSelector:@selector(enteredUsername:password:returnCode:)];
-            });
-            
+    // We accept any username/password authentication challenges.
+    NSString *authenticationMethod = challenge.protectionSpace.authenticationMethod;
+    
+    if ([authenticationMethod isEqual:NSURLAuthenticationMethodHTTPBasic] ||
+        [authenticationMethod isEqual:NSURLAuthenticationMethodHTTPDigest] ||
+        [authenticationMethod isEqual:NSURLAuthenticationMethodNTLM]) {
+        // If we have credentials from a previous login to the server we're on, try these first
+        // but not when the credentials are from a failed username/password attempt
+        if (_enteredCredential &&!_pendingChallengeCompletionHandler) {
+            completionHandler(NSURLSessionAuthChallengeUseCredential, _enteredCredential);
+            // We reset the cached previously entered credentials, because subsequent
+            // downloads in this session won't need authentication anymore
+            _enteredCredential = nil;
         } else {
-            completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
-            // inform the user that the user name and password
-            // in the preferences are incorrect
+            // Allow to enter password 3 times
+            if ([challenge previousFailureCount] < 3) {
+                // Display authentication dialog
+                _pendingChallengeCompletionHandler = completionHandler;
+                
+                NSString *text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, challenge.protectionSpace.host];
+                if ([challenge previousFailureCount] == 0) {
+                    text = [NSString stringWithFormat:@"%@\n%@", NSLocalizedString(@"To proceed, you must log in to", nil), text];
+                    lastUsername = @"";
+                } else {
+                    text = [NSString stringWithFormat:NSLocalizedString(@"The user name or password you entered for %@ was incorrect. Make sure you’re entering them correctly, and then try again.", nil), text];
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self showEnterUsernamePasswordDialog:text
+                                           modalForWindow:_activeBrowserWindow
+                                              windowTitle:NSLocalizedString(@"Authentication Required", nil)
+                                                 username:lastUsername
+                                            modalDelegate:self
+                                           didEndSelector:@selector(enteredUsername:password:returnCode:)];
+                });
+                
+            } else {
+                completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+                // inform the user that the user name and password
+                // in the preferences are incorrect
+            }
         }
+    } else {
+        completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, NULL);
     }
 }
 
