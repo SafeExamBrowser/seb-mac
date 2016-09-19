@@ -585,6 +585,18 @@
 - (void) didDownloadData:(NSData *)sebFileData response:(NSURLResponse *)response error:(NSError *)error URL:(NSURL *)url
 {
     if (error) {
+        if (error.code == NSURLErrorCancelled) {
+            // Only  close temp browser window if this wasn't a direct download attempt
+            if (!_directConfigDownloadAttempted) {
+                // Close the temporary browser window
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self closeWebView:_temporaryWebView];
+                });
+            } else {
+                _directConfigDownloadAttempted = false;
+            }
+            return;
+        }
         if ([url.scheme isEqualToString:@"http"] && !_browserController.usingCustomURLProtocol) {
             NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
             // If it was a seb:// URL, and http failed, we try to download it by https
@@ -599,7 +611,10 @@
             if (_directConfigDownloadAttempted) {
                 // If we tried a direct download first, now try to download it
                 // by opening the URL in a temporary webview
-                [self openTempWindowForDownloadingConfigFromURL:_originalURL];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // which needs to be done on the main thread!
+                    [self openTempWindowForDownloadingConfigFromURL:_originalURL];
+                });
             } else {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self downloadingSEBConfigFailed:error];
@@ -621,30 +636,41 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 {
     DDLogInfo(@"URLSession: %@ task: %@ didReceiveChallenge: %@", session, task, challenge);
     
-    // Allow to enter password 3 times
-    if ([challenge previousFailureCount] < 3) {
-        // Display authentication dialog
-        _pendingChallengeCompletionHandler = completionHandler;
-        
-        NSString *text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, challenge.protectionSpace.host];
-        if ([challenge previousFailureCount] == 0) {
-            text = [NSString stringWithFormat:@"%@\n%@", NSLocalizedString(@"To proceed, you must log in to", nil), text];
-            lastUsername = @"";
-        } else {
-            text = [NSString stringWithFormat:NSLocalizedString(@"The user name or password you entered for %@ was incorrect. Make sure you’re entering them correctly, and then try again.", nil), text];
-        }
-        
-        [self showEnterUsernamePasswordDialog:text
-                                             modalForWindow:_activeBrowserWindow
-                                                windowTitle:NSLocalizedString(@"Authentication Required", nil)
-                                                   username:lastUsername
-                                              modalDelegate:self
-                                             didEndSelector:@selector(enteredUsername:password:returnCode:)];
-        
+    // If we have credentials from a previous login to the server we're on, try these first
+    // but not when the credentials are from a failed username/password attempt
+    if (_enteredCredential &&!_pendingChallengeCompletionHandler) {
+        completionHandler(NSURLSessionAuthChallengeUseCredential, _enteredCredential);
+        // We reset the cached previously entered credentials, because subsequent
+        // downloads in this session won't need authentication anymore
+        _enteredCredential = nil;
     } else {
-        completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
-        // inform the user that the user name and password
-        // in the preferences are incorrect
+        // Allow to enter password 3 times
+        if ([challenge previousFailureCount] < 3) {
+            // Display authentication dialog
+            _pendingChallengeCompletionHandler = completionHandler;
+            
+            NSString *text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, challenge.protectionSpace.host];
+            if ([challenge previousFailureCount] == 0) {
+                text = [NSString stringWithFormat:@"%@\n%@", NSLocalizedString(@"To proceed, you must log in to", nil), text];
+                lastUsername = @"";
+            } else {
+                text = [NSString stringWithFormat:NSLocalizedString(@"The user name or password you entered for %@ was incorrect. Make sure you’re entering them correctly, and then try again.", nil), text];
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self showEnterUsernamePasswordDialog:text
+                                       modalForWindow:_activeBrowserWindow
+                                          windowTitle:NSLocalizedString(@"Authentication Required", nil)
+                                             username:lastUsername
+                                        modalDelegate:self
+                                       didEndSelector:@selector(enteredUsername:password:returnCode:)];
+            });
+            
+        } else {
+            completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+            // inform the user that the user name and password
+            // in the preferences are incorrect
+        }
     }
 }
 
@@ -662,7 +688,6 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
             _pendingChallengeCompletionHandler(NSURLSessionAuthChallengeUseCredential, newCredential);
 
             _enteredCredential = newCredential;
-            _pendingChallengeCompletionHandler = nil;
         } else if (returnCode == SEBEnterPasswordCancel) {
             _pendingChallengeCompletionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
             _enteredCredential = nil;
@@ -704,6 +729,10 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
     
     storeDecryptedSEBSettingsResult storingConfigResult = [configFileManager storeDecryptedSEBSettings:sebFileData forEditing:NO suppressFileFormatError:YES];
+    
+    // Reset the pending challenge in case it was an authenticated load
+    _pendingChallengeCompletionHandler = nil;
+
     if (storingConfigResult == storeDecryptedSEBSettingsResultSuccess) {
         // Reset the direct download flag for the case this was a successful direct download
         _directConfigDownloadAttempted = false;
