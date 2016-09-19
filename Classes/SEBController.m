@@ -425,11 +425,6 @@ bool insideMatrix();
                                              selector:@selector(requestedReinforceKioskMode:)
                                                  name:@"requestReinforceKioskMode" object:nil];
     
-    // Add an observer for the request to reinforce the kiosk mode
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(requestedRegainActiveStatus:)
-                                                 name:@"regainActiveStatus" object:nil];
-	
     // Add an observer for the request to show about panel
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(requestedShowAbout:)
@@ -495,7 +490,7 @@ bool insideMatrix();
 	
 	IONotificationPortRef notifyPortRef; // notification port allocated by IORegisterForSystemPower
     io_object_t notifierObject; // notifier object, used to deregister later
-    void* refCon; // this parameter is passed to the callback
+    void* refCon = NULL; // this parameter is passed to the callback
 	
     // register to receive system sleep notifications
 
@@ -646,7 +641,7 @@ bool insideMatrix();
         [newAlert setInformativeText:NSLocalizedString(@"Local settings of this SEB client have been reconfigured. Do you want to start working with SEB now or quit?", nil)];
         [newAlert addButtonWithTitle:NSLocalizedString(@"Start", nil)];
         [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
-        int answer = [newAlert runModal];
+        NSInteger answer = [newAlert runModal];
         switch(answer)
         {
             case NSAlertFirstButtonReturn:
@@ -746,7 +741,7 @@ bool insideMatrix();
         [newAlert setAlertStyle:NSCriticalAlertStyle];
         [newAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
         [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
-        int answer = [newAlert runModal];
+        NSInteger answer = [newAlert runModal];
         switch(answer)
         {
             case NSAlertFirstButtonReturn:
@@ -1160,8 +1155,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 - (void) closeCoveringWindows:(NSMutableArray *)windows
 {
     // Close the covering windows
-	int windowIndex;
-	int windowCount = [windows count];
+	NSUInteger windowIndex;
+	NSUInteger windowCount = [windows count];
     for (windowIndex = 0; windowIndex < windowCount; windowIndex++ )
     {
 		[(NSWindow *)[windows objectAtIndex:windowIndex] close];
@@ -1586,7 +1581,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
     [newAlert setAlertStyle:NSWarningAlertStyle];
-    int answer = [newAlert runModal];
+    NSInteger answer = [newAlert runModal];
     switch(answer)
     {
         case NSAlertFirstButtonReturn:
@@ -1754,7 +1749,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
             [newAlert setAlertStyle:NSWarningAlertStyle];
-            int answer = [newAlert runModal];
+            NSInteger answer = [newAlert runModal];
             switch(answer)
             {
                 case NSAlertFirstButtonReturn:
@@ -1887,7 +1882,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
     [newAlert setAlertStyle:NSWarningAlertStyle];
-    int answer = [newAlert runModal];
+    NSInteger answer = [newAlert runModal];
     switch(answer)
     {
         case NSAlertFirstButtonReturn:
@@ -2276,10 +2271,6 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             DDLogInfo(@"Switched back to SEB after currentSystemPresentationOptions changed!");
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
 
-//            [[NSNotificationCenter defaultCenter] postNotificationName:@"requestRegainActiveStatus" object:self];
-
-//            [self.browserController.browserWindow makeKeyAndOrderFront:self];
-            //[self startKioskMode];
             [self regainActiveStatus:nil];
             //[self.browserController.browserWindow setFrame:[[self.browserController.browserWindow screen] frame] display:YES];
         }

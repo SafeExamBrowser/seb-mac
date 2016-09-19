@@ -157,7 +157,7 @@
         
     // Display all MIME types the WebView can display as HTML
     NSArray* MIMETypes = [WebView MIMETypesShownAsHTML];
-    int i, count = [MIMETypes count];
+    NSInteger i, count = [MIMETypes count];
     for (i=0; i<count; i++) {
         DDLogDebug(@"MIME type shown as HTML: %@", [MIMETypes objectAtIndex:i]);
     }
@@ -907,8 +907,12 @@ initiatedByFrame:(WebFrame *)frame {
 - (void)webView:(WebView *)sender frame:(WebFrame *)frame exceededDatabaseQuotaForSecurityOrigin:(id)origin database:(NSString *)databaseIdentifier
 {
     static const unsigned long long defaultQuota = 5 * 1024 * 1024;
-    if ([origin respondsToSelector: @selector(setQuota:)]) {
-        [origin performSelector:@selector(setQuota:) withObject:[NSNumber numberWithLongLong: defaultQuota]];
+    SEL selector = NSSelectorFromString(@"setQuota:");
+    if ([origin respondsToSelector:selector]) {
+        IMP imp = [origin methodForSelector:selector];
+        void (*func)(id, SEL, NSNumber *) = (void *)imp;
+        func(origin, selector, [NSNumber numberWithLongLong: defaultQuota]);
+
     } else {
         DDLogError(@"Could not increase quota to %llu bytes for database %@", defaultQuota, databaseIdentifier);
     }
@@ -1027,7 +1031,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
             [newAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
             [newAlert setAlertStyle:NSCriticalAlertStyle];
-            int answer = [newAlert runModal];
+            NSInteger answer = [newAlert runModal];
 
             switch(answer) {
                 case NSAlertFirstButtonReturn:
@@ -1077,7 +1081,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
             [newAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
             [newAlert setAlertStyle:NSCriticalAlertStyle];
-            int answer = [newAlert runModal];
+            NSInteger answer = [newAlert runModal];
             switch(answer) {
                 case NSAlertFirstButtonReturn:
                     //Retry: try reloading
@@ -1159,7 +1163,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
         const char *urlString = [browserExamKeyString UTF8String];
         
         CC_SHA256(urlString,
-                  strlen(urlString),
+                  (uint)strlen(urlString),
                   hashedChars);
 
         NSMutableString* hashedString = [[NSMutableString alloc] init];

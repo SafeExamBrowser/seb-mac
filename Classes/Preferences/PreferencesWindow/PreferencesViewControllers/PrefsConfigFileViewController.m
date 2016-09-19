@@ -236,7 +236,7 @@
 - (void) selectSettingsIdentity:(SecKeyRef)settingsPrivateKeyRef
 {
     [chooseIdentity selectItemAtIndex:0];
-    int i, count = [self.identities count];
+    NSUInteger i, count = [self.identities count];
     for (i=0; i<count; i++) {
         SecIdentityRef identityFromKeychain = (__bridge SecIdentityRef)self.identities[i];
         SecKeyRef privateKeyRef = [self.keychainManager copyPrivateKeyRefFromIdentityRef:identityFromKeychain];

@@ -48,7 +48,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.safeexambrowser.$(PRODUCT_NAME:rfc1034identifier)</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -87,7 +87,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>4829588334602036888</string>
+	<string>6378384004111487745</string>
 	<key>ClickToFlashOptOut</key>
 	<true/>
 	<key>LSApplicationCategoryType</key>

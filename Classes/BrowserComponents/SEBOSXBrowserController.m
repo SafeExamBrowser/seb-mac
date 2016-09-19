@@ -556,8 +556,13 @@
     
     // OS X 10.7 - 10.8
     if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
-        NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]
-                                              dataTaskWithURL:url completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
+        if (!_URLSession) {
+            NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+            _URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
+        }
+//        [NSURLSession sharedSession] = self;
+        NSURLSessionDataTask *downloadTask = [_URLSession dataTaskWithURL:url
+                                                        completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
                                               {
                                                   [self didDownloadData:sebFileData response:response error:error URL:url];
                                               }];
@@ -610,11 +615,64 @@
 
 
 - (void)URLSession:(NSURLSession *)session
+              task:(NSURLSessionTask *)task
 didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
- completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition,
-                             NSURLCredential *credential))completionHandler
+ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
 {
+    DDLogInfo(@"URLSession: %@ task: %@ didReceiveChallenge: %@", session, task, challenge);
     
+    // Allow to enter password 3 times
+    if ([challenge previousFailureCount] < 3) {
+        // Display authentication dialog
+        _pendingChallengeCompletionHandler = completionHandler;
+        
+        NSString *text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, challenge.protectionSpace.host];
+        if ([challenge previousFailureCount] == 0) {
+            text = [NSString stringWithFormat:@"%@\n%@", NSLocalizedString(@"To proceed, you must log in to", nil), text];
+            lastUsername = @"";
+        } else {
+            text = [NSString stringWithFormat:NSLocalizedString(@"The user name or password you entered for %@ was incorrect. Make sure you’re entering them correctly, and then try again.", nil), text];
+        }
+        
+        [self showEnterUsernamePasswordDialog:text
+                                             modalForWindow:_activeBrowserWindow
+                                                windowTitle:NSLocalizedString(@"Authentication Required", nil)
+                                                   username:lastUsername
+                                              modalDelegate:self
+                                             didEndSelector:@selector(enteredUsername:password:returnCode:)];
+        
+    } else {
+        completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+        // inform the user that the user name and password
+        // in the preferences are incorrect
+    }
+}
+
+
+- (void)enteredUsername:(NSString *)username password:(NSString *)password returnCode:(NSInteger)returnCode
+{
+    DDLogDebug(@"Enter username password sheetDidEnd with return code: %ld", (long)returnCode);
+    
+    if (_pendingChallengeCompletionHandler) {
+        if (returnCode == SEBEnterPasswordOK) {
+            lastUsername = username;
+            NSURLCredential *newCredential = [NSURLCredential credentialWithUser:username
+                                                                        password:password
+                                                                     persistence:NSURLCredentialPersistenceForSession];
+            _pendingChallengeCompletionHandler(NSURLSessionAuthChallengeUseCredential, newCredential);
+
+            _enteredCredential = newCredential;
+            _pendingChallengeCompletionHandler = nil;
+        } else if (returnCode == SEBEnterPasswordCancel) {
+            _pendingChallengeCompletionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+            _enteredCredential = nil;
+            _pendingChallengeCompletionHandler = nil;
+        } else {
+            // Any other case as when the server aborted the authentication challenge
+            _enteredCredential = nil;
+            _pendingChallengeCompletionHandler = nil;
+        }
+    }
 }
 
 
@@ -713,7 +771,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 
     [self.openBrowserWindowsWebViews addObject:newWindowWebView];
     
-    int numberOfItems = self.openBrowserWindowsWebViews.count;
+    NSInteger numberOfItems = self.openBrowserWindowsWebViews.count;
 
     if (numberOfItems == 1) {
         browserWindowImage = [NSImage imageNamed:@"ExamIcon"];

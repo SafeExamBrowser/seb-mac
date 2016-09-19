@@ -858,7 +858,7 @@ static NSNumber *_logLevel;
 
 - (void)setSecureInteger:(NSInteger)value forKey:(NSString *)key
 {
-	[self setSecureObject:[NSNumber numberWithInt:value] forKey:key];
+	[self setSecureObject:[NSNumber numberWithInteger:value] forKey:key];
 }
 
 
@@ -926,7 +926,7 @@ static NSNumber *_logLevel;
         [[MyGlobals sharedMyGlobals] setDDLogLevel:_logLevel.intValue];
     } else if ([key isEqualToString:@"org_safeexambrowser_SEB_enableLogging"]) {
         if ([value boolValue] == NO) {
-            [[MyGlobals sharedMyGlobals] setDDLogLevel:nil];
+            [[MyGlobals sharedMyGlobals] setDDLogLevel:DDLogLevelOff];
         } else {
             [[MyGlobals sharedMyGlobals] setDDLogLevel:_logLevel.intValue];
         }
@@ -967,7 +967,7 @@ static NSNumber *_logLevel;
         }
         if ([key isEqualToString:@"org_safeexambrowser_SEB_enableLogging"]) {
             if ([value boolValue] == NO) {
-                [[MyGlobals sharedMyGlobals] setDDLogLevel:nil];
+                [[MyGlobals sharedMyGlobals] setDDLogLevel:DDLogLevelOff];
             } else {
                 [[MyGlobals sharedMyGlobals] setDDLogLevel:_logLevel.intValue];
             }

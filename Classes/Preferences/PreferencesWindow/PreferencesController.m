@@ -386,7 +386,7 @@
 - (void) openSEBPrefsAtURL:(NSURL *)sebFileURL
 {
     NSError *error = nil;
-    NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL options:nil error:&error];
+    NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL options:NSDataReadingUncached error:&error];
     
     if (error || !sebData) {
         // Error when reading configuration data
@@ -547,7 +547,7 @@
     [newAlert addButtonWithTitle:NSLocalizedString(@"Don't Apply", nil)];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Apply", nil)];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-    int answer = [newAlert runModal];
+    NSInteger answer = [newAlert runModal];
     switch(answer)
     {
         case NSAlertFirstButtonReturn:
@@ -908,7 +908,7 @@
             [panel setDirectoryURL:directory];
             [panel setNameFieldStringValue:currentConfigFileURL.lastPathComponent];
             [panel setAllowedFileTypes:[NSArray arrayWithObject:@"seb"]];
-            int result = [panel runModal];
+            NSInteger result = [panel runModal];
             if (result == NSFileHandlingPanelOKButton) {
                 prefsFileURL = [panel URL];
                 NSError *error;
@@ -964,7 +964,7 @@
             [newAlert setInformativeText:NSLocalizedString(@"Do you want to continue editing the saved settings file?", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Edit File", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-            int answer = [newAlert runModal];
+            NSInteger answer = [newAlert runModal];
             switch(answer)
             {
                 case NSAlertFirstButtonReturn:

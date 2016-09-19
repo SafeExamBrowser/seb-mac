@@ -357,7 +357,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 - (NSData*) generateSHAHash:(NSString*)inputString {
     unsigned char hashedChars[32];
     CC_SHA256([inputString UTF8String],
-              [inputString lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+              (uint)[inputString lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
               hashedChars);
     NSData *hashedData = [NSData dataWithBytes:hashedChars length:32];
     return hashedData;
@@ -367,7 +367,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 - (NSData*) generateSHAHashForData:(NSData *)inputData {
     unsigned char hashedChars[32];
     CC_SHA256(inputData.bytes,
-              inputData.length,
+              (uint)inputData.length,
               hashedChars);
     NSData *hashedData = [NSData dataWithBytes:hashedChars length:32];
     return hashedData;

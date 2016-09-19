@@ -83,7 +83,7 @@
     SecKeyRef privateKeyRef;
     CFArrayRef emailAddressesRef;
     NSString *identityName;
-    int i, count = [identities count];
+    NSUInteger i, count = [identities count];
     for (i=0; i<count; i++) {
         SecIdentityRef identityRef = (__bridge SecIdentityRef)[identities objectAtIndex:i];
         if (SecIdentityCopyCertificate(identityRef, &certificateRef) == noErr) {
@@ -242,7 +242,7 @@
     
     CFStringRef commonName = NULL;
     CFArrayRef emailAddressesRef = NULL;
-    int i, count = [_allCertificates count];
+    NSUInteger i, count = [_allCertificates count];
     for (i=0; i<count; i++) {
         SecCertificateRef certificateRef = (__bridge SecCertificateRef)[_allCertificates objectAtIndex:i];
         if ((status = SecCertificateCopyCommonName(certificateRef, &commonName)) == noErr) {
@@ -261,7 +261,7 @@
                 // Check validity (from - to) of certfificate
                 NSDate *validFrom;
                 NSDate *validTo;
-                BOOL *isExpired = true;
+                BOOL isExpired = true;
                 if ([certSpecifiers count]) {
                     NSDictionary *validFromDict = [certSpecifiers objectForKey:(__bridge id)(kSecOIDX509V1ValidityNotBefore)];
                     if (validFromDict.count) {
@@ -917,7 +917,7 @@
 - (NSString *) generateSHAHashString:(NSString*)inputString {
     unsigned char hashedChars[32];
     CC_SHA256([inputString UTF8String],
-              [inputString lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+              (uint)[inputString lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
               hashedChars);
     NSMutableString* hashedString = [[NSMutableString alloc] init];
     for (int i = 0 ; i < 32 ; ++i) {
@@ -930,7 +930,7 @@
 - (NSString *) generateSHA1HashStringFromData:(NSData *)inputData {
     unsigned char hashedChars[CC_SHA1_DIGEST_LENGTH];
     CC_SHA1(inputData.bytes,
-              inputData.length,
+              (uint)inputData.length,
               hashedChars);
     NSMutableString* hashedString = [[NSMutableString alloc] init];
     for (int i = 0 ; i < CC_SHA1_DIGEST_LENGTH ; ++i) {

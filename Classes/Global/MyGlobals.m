@@ -43,7 +43,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 
 + (int)ddLogLevel
 {
-    ddLogLevel = [[self sharedMyGlobals] logLevel];
+    ddLogLevel = (int)[[self sharedMyGlobals] logLevel];
     return ddLogLevel;
 }
 

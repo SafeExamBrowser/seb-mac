@@ -298,7 +298,7 @@
         NSData *certificateData = [keychainManager getDataForCertificate:certificate];
         
         NSMutableDictionary *certificateToEmbed = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                            [NSNumber numberWithInt:certificateType], @"type",
+                                            [NSNumber numberWithInteger:certificateType], @"type",
                                             [sender titleOfSelectedItem], @"name",
                                             [certificateData base64EncodedStringWithOptions:0], @"certificateDataBase64",
                                             // We also save the certificate data into the deprecated subkey certificateDataWin
@@ -464,14 +464,14 @@
                 // (for downwards compatibility to < SEB 2.2)
                 // ToDo: Remove in SEB 2.3
                 certificateToEmbed = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                                    [NSNumber numberWithInt:embeddCertificateType], @"type",
+                                                    [NSNumber numberWithInteger:embeddCertificateType], @"type",
                                                     certificateName, @"name",
                                                     [certificateData base64EncodedStringWithOptions:0], @"certificateDataBase64",
                                                     [certificateData base64EncodedStringWithOptions:0], @"certificateDataWin",
                                                     nil];
             } else {
                 certificateToEmbed = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                                    [NSNumber numberWithInt:embeddCertificateType], @"type",
+                                                    [NSNumber numberWithInteger:embeddCertificateType], @"type",
                                                     certificateName, @"name",
                                                     [certificateData base64EncodedStringWithOptions:0], @"certificateDataBase64",
                                                     nil];

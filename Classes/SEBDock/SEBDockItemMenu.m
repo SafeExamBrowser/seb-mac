@@ -107,7 +107,7 @@
 {
     NSSize SEBDockMenuSize = [self size];
     DDLogDebug(@"SEBDockItemMenu size: %f, %f", SEBDockMenuSize.width, SEBDockMenuSize.height);
-    int numberOfItems = self.numberOfItems;
+    NSUInteger numberOfItems = self.numberOfItems;
     NSRect newMenuViewFrame = NSMakeRect(0, 0, SEBDockMenuSize.width, SEBDockMenuSize.height - (numberOfItems == 2 ? 3 : numberOfItems));
     NSRect currentMenuViewFrame = self.dockMenuView.frame;
     

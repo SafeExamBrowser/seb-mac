@@ -49,7 +49,10 @@
 @class SEBBrowserWindow;
 @class SEBWebView;
 
-@interface SEBOSXBrowserController : NSObject <WebResourceLoadDelegate, SEBBrowserControllerDelegate>
+@interface SEBOSXBrowserController : NSObject <WebResourceLoadDelegate, NSURLSessionTaskDelegate, SEBBrowserControllerDelegate>
+{
+    NSString *lastUsername;
+}
 
 @property (strong) SEBController *sebController;
 @property (strong) SEBBrowserController *browserController;
@@ -67,6 +70,8 @@
 @property (readwrite) BOOL directConfigDownloadAttempted;
 @property (strong) NSURL *originalURL;
 @property (strong) NSURLCredential *enteredCredential;
+@property (strong) id URLSession;
+@property (strong) void (^pendingChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential);
 
 - (void) resetBrowser;
 

@@ -64,7 +64,8 @@
 
 + (void)setupOverridePlugins
 {
-    [self swizzleClassMethod:@selector(_registerPluginMIMEType:)
+    SEL selector = NSSelectorFromString(@"_registerPluginMIMEType:");
+    [self swizzleClassMethod:selector
              withMethod:@selector(_newRegisterPluginMIMEType:)];
 }
 
