@@ -157,7 +157,7 @@
         
     // Display all MIME types the WebView can display as HTML
     NSArray* MIMETypes = [WebView MIMETypesShownAsHTML];
-    NSInteger i, count = [MIMETypes count];
+    NSUInteger i, count = [MIMETypes count];
     for (i=0; i<count; i++) {
         DDLogDebug(@"MIME type shown as HTML: %@", [MIMETypes objectAtIndex:i]);
     }
@@ -1154,7 +1154,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
         
         NSMutableString* browserExamKeyString = [[NSMutableString alloc] init];
         [browserExamKeyString setString:requestURLStrippedFragment];
-        for (int i = 0 ; i < 32 ; ++i) {
+        for (NSUInteger i = 0 ; i < 32 ; ++i) {
             [browserExamKeyString appendFormat: @"%02x", hashedChars[i]];
         }
         
@@ -1167,7 +1167,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
                   hashedChars);
 
         NSMutableString* hashedString = [[NSMutableString alloc] init];
-        for (int i = 0 ; i < 32 ; ++i) {
+        for (NSUInteger i = 0 ; i < 32 ; ++i) {
             [hashedString appendFormat: @"%02x", hashedChars[i]];
         }
         [modifiedRequest setValue:hashedString forHTTPHeaderField:@"X-SafeExamBrowser-RequestHash"];
@@ -1343,7 +1343,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
                     // We had to check if we get children, bad formatted HTML and
                     // older WebKit versions would throw an exception here
                     DOMHTMLCollection *childrenNodes = parentNode.children;
-                    int i;
+                    uint i;
                     for (i = 0; i < childrenNodes.length; i++) {
                         DOMHTMLAnchorElement *childNode = (DOMHTMLAnchorElement *)[childrenNodes item:i];
                         if ([childNode respondsToSelector:@selector(nodeName)]) {
