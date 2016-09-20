@@ -1082,7 +1082,7 @@
     // If using private defaults
     if (NSUserDefaults.userDefaultsPrivate) {
         // If reverting other than local client settings to default, use "starting exam" as config purpose
-        [[NSUserDefaults standardUserDefaults] setSecureInteger:[NSNumber numberWithInt:sebConfigPurposeStartingExam] forKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];
+        [[NSUserDefaults standardUserDefaults] setSecureInteger:sebConfigPurposeStartingExam forKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];
     }
     
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
