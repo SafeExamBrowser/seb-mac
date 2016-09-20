@@ -10,7 +10,6 @@
 #import "CustomHTTPProtocol.h"
 #import "SEBCertServices.h"
 #include "x509_crt.h"
-#import "SEBURLProtocol.h"
 
 static const NSString *kHTTPHeaderBrowserExamKey = @"X-SafeExamBrowser-RequestHash";
 static const NSString *kSEBRequestWasProcessed = @"X-SEBRequestWasProcessed";
@@ -70,29 +69,19 @@ void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block
         || [sharedCertService tlsCerts].count > 0
         || [sharedCertService debugCerts].count > 0)
     {
-        // OS X 10.9 and newer: Use the elaborate CustomHTTPProtocol class which uses NSURLSession
-        if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
-            _usingCustomURLProtocol = true;
-            // Become delegate of and register custom SEB NSURL protocol class
-            [CustomHTTPProtocol setDelegate:self];
-            [CustomHTTPProtocol start];
-        } else {
-            // OS X 10.7 and 10.8: Use a simple custom NSURLProtocol class which uses NSURLConnection
-            // Register custom SEB NSURL protocol class
-            [NSURLProtocol registerClass:[SEBURLProtocol class]];
+        // OS X 10.7 and 10.8: Custom URL protocol isn't supported
+        if (floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_9) {
+            DDLogError(@"When running on OS X 10.7 or 10.8, embedded TLS/SSL/CA certificates and certificate pinning are not supported!");
+            return;
         }
-    } else
-        // Deactivate custom URL protocol
-    {
-        // OS X 10.9 and newer
-        if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
-            _usingCustomURLProtocol = false;
-            // Deactivate the protocol
-            [CustomHTTPProtocol stop];
-        } else {
-            // OS X 10.7 and 10.8
-            [NSURLProtocol unregisterClass:[SEBURLProtocol class]];
-        }
+        _usingCustomURLProtocol = true;
+        // Become delegate of and register custom SEB NSURL protocol class
+        [CustomHTTPProtocol setDelegate:self];
+        [CustomHTTPProtocol start];
+    } else {
+        _usingCustomURLProtocol = false;
+        // Deactivate the protocol
+        [CustomHTTPProtocol stop];
     }
 }
 
