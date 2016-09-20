@@ -559,7 +559,8 @@
 - (void) downloadSEBConfigFileFromURL:(NSURL *)url
 {
     
-    // OS X 10.9 and newer
+    // OS X 10.9 and newer: Use modern NSURLSession for downloading .seb files which also allows handling
+    // basic/digest/NTLM authentication without having to open a temporary webview
     if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
         if (!_URLSession) {
             NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -633,6 +634,8 @@
 }
 
 
+// NSURLSession download basic/digest/NTLM authentication challenge delegate
+// Only called when downloading .seb files and only when running on OS X 10.9 or higher
 - (void)URLSession:(NSURLSession *)session
               task:(NSURLSessionTask *)task
 didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
@@ -688,6 +691,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 }
 
 
+// Managing entered credentials for .seb file download
 - (void)enteredUsername:(NSString *)username password:(NSString *)password returnCode:(NSInteger)returnCode
 {
     DDLogDebug(@"Enter username password sheetDidEnd with return code: %ld", (long)returnCode);
