@@ -103,6 +103,8 @@
 		6950F4741D89F9AB00CCB42A /* HUDPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6950F4721D89F9AB00CCB42A /* HUDPanel.m */; };
 		695283DD16CDB54C0055AF6F /* PrefsSecurityViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */; };
 		695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */; };
+		695572E51D91EC46003C048A /* NSPasteboard+SaveRestore.h in Headers */ = {isa = PBXBuildFile; fileRef = 695572E31D91EC45003C048A /* NSPasteboard+SaveRestore.h */; };
+		695572E61D91EC46003C048A /* NSPasteboard+SaveRestore.m in Sources */ = {isa = PBXBuildFile; fileRef = 695572E41D91EC45003C048A /* NSPasteboard+SaveRestore.m */; };
 		695BE5F419EC3FED00CA2BB4 /* SEBDockItemMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 695BE5F219EC3FED00CA2BB4 /* SEBDockItemMenu.h */; };
 		695BE5F519EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 695BE5F319EC3FED00CA2BB4 /* SEBDockItemMenu.m */; };
 		695C5CAD16CB210E008FC401 /* ExamIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAB16CB210E008FC401 /* ExamIcon.png */; };
@@ -512,6 +514,8 @@
 		6950F4721D89F9AB00CCB42A /* HUDPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUDPanel.m; sourceTree = "<group>"; };
 		695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsSecurityViewController.h; sourceTree = "<group>"; };
 		695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsSecurityViewController.m; sourceTree = "<group>"; };
+		695572E31D91EC45003C048A /* NSPasteboard+SaveRestore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPasteboard+SaveRestore.h"; sourceTree = "<group>"; };
+		695572E41D91EC45003C048A /* NSPasteboard+SaveRestore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPasteboard+SaveRestore.m"; sourceTree = "<group>"; };
 		695AE31319FE634300F8C6A5 /* de.xliff */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = de.xliff; sourceTree = "<group>"; };
 		695AE31419FE634300F8C6A5 /* fr.xliff */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fr.xliff; sourceTree = "<group>"; };
 		695BE5F219EC3FED00CA2BB4 /* SEBDockItemMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockItemMenu.h; path = Classes/SEBDock/SEBDockItemMenu.h; sourceTree = "<group>"; };
@@ -1219,6 +1223,8 @@
 				6906F3C51A3FA60C0011CF93 /* NSString+KKDomain.m */,
 				6906F3C01A3FA5EE0011CF93 /* NSURL+KKDomain.h */,
 				6906F3C11A3FA5EE0011CF93 /* NSURL+KKDomain.m */,
+				695572E31D91EC45003C048A /* NSPasteboard+SaveRestore.h */,
+				695572E41D91EC45003C048A /* NSPasteboard+SaveRestore.m */,
 			);
 			name = Categories;
 			path = Classes/Categories;
@@ -1591,6 +1597,7 @@
 				69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */,
 				69C228311C767B0900F78634 /* padlock.h in Headers */,
 				6909E3501A019F7A0086A741 /* DDMultiFormatter.h in Headers */,
+				695572E51D91EC46003C048A /* NSPasteboard+SaveRestore.h in Headers */,
 				6909E33F1A019F7A0086A741 /* DDASLLogCapture.h in Headers */,
 				69C228401C767B0900F78634 /* ssl_ciphersuites.h in Headers */,
 				69623A2E1A26184900ED451C /* WebPreferencesPrivate.h in Headers */,
@@ -1862,6 +1869,7 @@
 				69C2286F1C767B0900F78634 /* oid.c in Sources */,
 				6940A7621853B2AD00D9D00D /* NSData+NSDataZIPExtension.m in Sources */,
 				693F135315767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
+				695572E61D91EC46003C048A /* NSPasteboard+SaveRestore.m in Sources */,
 				693EB53E15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */,
 				69C228911C767B0900F78634 /* xtea.c in Sources */,
 				699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */,

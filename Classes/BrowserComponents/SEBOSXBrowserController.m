@@ -58,6 +58,9 @@
         SEBDockItemMenu *dockMenu = [[SEBDockItemMenu alloc] initWithTitle:@""];
         self.openBrowserWindowsWebViewsMenu = dockMenu;
 
+        // Create a private pasteboard
+        _privatePasteboardItems = [NSArray array];
+        
         // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
         // downloads to disk, and ensures that future requests occur on a new socket.
         // OS X 10.9 and newer
@@ -204,6 +207,7 @@
     SEBBrowserWindow *newWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
     SEBWebView *newWindowWebView = browserWindowDocument.mainWindowController.webView;
     newWindowWebView.creatingWebView = nil;
+    newWindowWebView.browserController = self;
 
     // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
     [self setCustomWebPreferencesForWebView:newWindowWebView];
@@ -285,7 +289,8 @@
     
     self.webView = browserWindowDocument.mainWindowController.webView;
     self.webView.creatingWebView = nil;
-    
+    self.webView.browserController = self;
+
     // Load start URL from the system's user defaults
     NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
     
@@ -504,6 +509,8 @@
     SEBBrowserWindow *newWindow = (SEBBrowserWindow *)_temporaryBrowserWindowDocument.mainWindowController.window;
     _temporaryWebView = _temporaryBrowserWindowDocument.mainWindowController.webView;
     _temporaryWebView.creatingWebView = nil;
+    _temporaryWebView.browserController = self;
+
     newWindow.isPanel = true;
     [newWindow setCalculatedFrame];
     [newWindow setTitle:tempWindowTitle];

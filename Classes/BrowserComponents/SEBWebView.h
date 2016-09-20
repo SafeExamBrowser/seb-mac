@@ -34,12 +34,15 @@
 
 #import <WebKit/WebKit.h>
 #include "WebViewInternal.h"
+#import "SEBOSXBrowserController.h"
 
 @class WebBasePluginPackage;
+@class SEBOSXBrowserController;
 
 @interface SEBWebView : WebView
 
 @property (weak, nonatomic) SEBWebView *creatingWebView;
+@property (strong, nonatomic) SEBOSXBrowserController *browserController;
 @property (strong, nonatomic) NSMutableArray *notAllowedURLs;
 @property (readwrite) BOOL dismissAll;
 

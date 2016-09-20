@@ -72,6 +72,7 @@
 @property (strong) NSURLCredential *enteredCredential;
 @property (strong) id URLSession;
 @property (strong) void (^pendingChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential);
+@property (strong) NSArray *privatePasteboardItems;
 
 - (void) resetBrowser;
 

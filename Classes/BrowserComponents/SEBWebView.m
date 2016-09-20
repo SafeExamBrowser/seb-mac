@@ -34,6 +34,7 @@
 
 #import "SEBWebView.h"
 #import "WebPluginDatabase.h"
+#import "NSPasteboard+SaveRestore.h"
 
 
 @implementation SEBWebView
@@ -143,11 +144,6 @@
     
     if ([theEvent modifierFlags] & NSCommandKeyMask){
         
-        if ([chars isEqualTo:@"a"]){
-            [self selectAll:nil];
-            status = YES;
-        }
-        
         if ([chars isEqualTo:@"c"]){
             [self copy:nil];
             status = YES;
@@ -171,11 +167,32 @@
 }
 
 
+- (void)copy:(id)sender
+{
+    [super copy:self];
+    NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
+    NSArray *archive = [generalPasteboard archiveObjects];
+    _browserController.privatePasteboardItems = archive;
+    [generalPasteboard clearContents];
+}
+
+
+- (void)cut:(id)sender
+{
+    [super cut:self];
+    NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
+    NSArray *archive = [generalPasteboard archiveObjects];
+    _browserController.privatePasteboardItems = archive;
+    [generalPasteboard clearContents];
+}
+
+
 - (void)paste:(id)sender
 {
     NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
     [generalPasteboard clearContents];
-    [generalPasteboard writeObjects:[NSArray arrayWithObject:@"Gotcha!"]];
+    NSArray *archive = _browserController.privatePasteboardItems;
+    [generalPasteboard restoreArchive:archive];
     [super paste:sender];
 }
 
