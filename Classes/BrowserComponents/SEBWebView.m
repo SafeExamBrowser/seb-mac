@@ -136,5 +136,47 @@
 }
 
 
+- (BOOL)performKeyEquivalent:(NSEvent *)theEvent {
+    
+    NSString * chars = [theEvent characters];
+    BOOL status = NO;
+    
+    if ([theEvent modifierFlags] & NSCommandKeyMask){
+        
+        if ([chars isEqualTo:@"a"]){
+            [self selectAll:nil];
+            status = YES;
+        }
+        
+        if ([chars isEqualTo:@"c"]){
+            [self copy:nil];
+            status = YES;
+        }
+        
+        if ([chars isEqualTo:@"v"]){
+            [self paste:nil];
+            status = YES;
+        }
+        
+        if ([chars isEqualTo:@"x"]){
+            [self cut:nil];
+            status = YES;
+        }
+    }
+    
+    if (status)
+        return YES;
+    
+    return [super performKeyEquivalent:theEvent];
+}
+
+
+- (void)paste:(id)sender
+{
+    NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
+    [generalPasteboard clearContents];
+    [generalPasteboard writeObjects:[NSArray arrayWithObject:@"Gotcha!"]];
+    [super paste:sender];
+}
 
 @end
