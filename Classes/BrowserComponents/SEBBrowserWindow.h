@@ -52,7 +52,6 @@
     SEBWebView *requestingWebView;
     NSString *currentURL;
     NSString *downloadPath;
-    NSView *progressIndicatorHolder;
     NSURL *downloadURL;
     NSString *lastUsername;
     
@@ -72,6 +71,7 @@
 @property (weak) IBOutlet NSButton *hostPatternButton;
 @property (weak) IBOutlet NSButton *hostPathPatternButton;
 @property (weak) IBOutlet NSButton *directoryPatternButton;
+@property (strong) NSView *progressIndicatorHolder;
 @property (strong) NSView *filterMessageHolder;
 
 @property (strong) NSURLAuthenticationChallenge *pendingChallenge;

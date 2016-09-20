@@ -63,7 +63,7 @@
 {
     [super setTitle:title];
     if (!self.isFullScreen) {
-        [self adjustPositionOfViewInTitleBar:progressIndicatorHolder atRightOffsetToTitle:10 verticalOffset:0];
+        [self adjustPositionOfViewInTitleBar:_progressIndicatorHolder atRightOffsetToTitle:10 verticalOffset:0];
     }
 }
 
@@ -291,8 +291,8 @@
 
 - (void) startProgressIndicatorAnimation {
     
-    if (!progressIndicatorHolder) {
-        progressIndicatorHolder = [[NSView alloc] init];
+    if (!_progressIndicatorHolder) {
+        _progressIndicatorHolder = [[NSView alloc] init];
         
         NSProgressIndicator *progressIndicator = [[NSProgressIndicator alloc] init];
         
@@ -302,14 +302,14 @@
         [progressIndicator sizeToFit];
         //[progressIndicator setUsesThreadedAnimation:YES];
         
-        [progressIndicatorHolder addSubview:progressIndicator];
-        [progressIndicatorHolder setFrame:progressIndicator.frame];
+        [_progressIndicatorHolder addSubview:progressIndicator];
+        [_progressIndicatorHolder setFrame:progressIndicator.frame];
         [progressIndicator startAnimation:self];
         
         if (self.isFullScreen) {
-            [self addViewToTitleBar:progressIndicatorHolder atRightOffset:20];
+            [self addViewToTitleBar:_progressIndicatorHolder atRightOffset:20];
         } else {
-            [self addViewToTitleBar:progressIndicatorHolder atRightOffsetToTitle:10 verticalOffset:0];
+            [self addViewToTitleBar:_progressIndicatorHolder atRightOffsetToTitle:10 verticalOffset:0];
         }
         
         [progressIndicator setFrame:NSMakeRect(
@@ -322,19 +322,19 @@
                                                
                                                )];
         
-        [progressIndicator setNextResponder:progressIndicatorHolder];
-        [progressIndicatorHolder setNextResponder:self];
+        [progressIndicator setNextResponder:_progressIndicatorHolder];
+        [_progressIndicatorHolder setNextResponder:self];
     } else {
         if (!self.isFullScreen) {
-            [self adjustPositionOfViewInTitleBar:progressIndicatorHolder atRightOffsetToTitle:10 verticalOffset:0];
+            [self adjustPositionOfViewInTitleBar:_progressIndicatorHolder atRightOffsetToTitle:10 verticalOffset:0];
         }
     }
 }
 
 - (void) stopProgressIndicatorAnimation {
     
-    [progressIndicatorHolder removeFromSuperview];
-    progressIndicatorHolder = nil;
+    [_progressIndicatorHolder removeFromSuperview];
+    _progressIndicatorHolder = nil;
 }
 
 
@@ -1199,12 +1199,6 @@ willPerformClientRedirectToURL:(NSURL *)URL
      dataSource:(WebDataSource *)dataSource
 {
     DDLogError(@"webView: %@ plugInFailedWithError: %@ dataSource: %@", sender, error.description, dataSource);
-    NSAlert *newAlert = [[NSAlert alloc] init];
-    [newAlert setMessageText:error.localizedDescription];
-    [newAlert setInformativeText:error.localizedFailureReason];
-    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-    [newAlert setAlertStyle:NSCriticalAlertStyle];
-    [newAlert runModal];
 }
 
 
@@ -1423,32 +1417,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         [listener ignore];
         return;
     }
-//    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptBlockForeign"]) {
-//        //            NSString *requestedHost = [[request mainDocumentURL] host];
-//        DDLogDebug(@"Current Host: %@", currentMainHost);
-//        DDLogDebug(@"Requested Host: %@", requestedHost);
-//        // If current host is not the same as the requested host
-//        if (currentMainHost && (!requestedHost || ![currentMainHost isEqualToString:requestedHost])) {
-//            [listener ignore];
-//            // If the new page is supposed to open in a new browser window
-//            if (requestedHost && self.webView && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
-//                // we have to close the new browser window which already has been openend by WebKit
-//                // Get the document for my web view
-//                DDLogDebug(@"Originating browser window %@", sender);
-//                // Close document and therefore also window
-//                //Workaround: Flash crashes after closing window and then clicking some other link
-//                [[self.webView preferences] setPlugInsEnabled:NO];
-//                DDLogDebug(@"Now closing new document browser window for: %@", self.webView);
-//                [self.browserController closeWebView:self.webView];
-//            }
-//            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
-//                if (self.webView) {
-//                    [sender close]; //close the temporary webview
-//                }
-//            }
-//            return;
-//        }
-//    }
+
     // Check if the new page is supposed to be opened in the same browser window
     if (currentMainHost && [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInSameWindow) {
         // Check if the request's sender is different than the current webview (means the sender is the temporary webview)
