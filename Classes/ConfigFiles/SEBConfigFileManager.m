@@ -200,7 +200,7 @@
         NSMutableArray *embeddedCertificates = [sebPreferencesDict valueForKey:@"embeddedCertificates"];
         if (embeddedCertificates) {
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-            for (int i = embeddedCertificates.count - 1; i >= 0; i--)
+            for (NSInteger i = embeddedCertificates.count - 1; i >= 0; i--)
             {
                 // Get the Embedded Certificate
                 NSDictionary *embeddedCertificate = embeddedCertificates[i];
@@ -238,7 +238,7 @@
                 [newAlert setInformativeText:NSLocalizedString(@"Local settings of this SEB client have been reconfigured. Do you want to continue working with SEB now or quit?", nil)];
                 [newAlert addButtonWithTitle:NSLocalizedString(@"Continue", nil)];
                 [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
-                int answer = [newAlert runModal];
+                NSInteger answer = [newAlert runModal];
                 switch(answer)
                 {
                     case NSAlertFirstButtonReturn:
@@ -883,7 +883,7 @@
             [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Save unencrypted", nil)];
             [newAlert setAlertStyle:NSWarningAlertStyle];
-            int answer = [newAlert runModal];
+            NSInteger answer = [newAlert runModal];
 
             switch(answer)
             {

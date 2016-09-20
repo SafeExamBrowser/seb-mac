@@ -1200,7 +1200,7 @@
     if (NSUserDefaults.userDefaultsPrivate) {
         DDLogInfo(@"Reverting private settings to last saved or opened .seb file");
         NSError *error = nil;
-        NSData *sebData = [NSData dataWithContentsOfURL:[[MyGlobals sharedMyGlobals] currentConfigURL] options:nil error:&error];
+        NSData *sebData = [NSData dataWithContentsOfURL:[[MyGlobals sharedMyGlobals] currentConfigURL] options:NSDataReadingUncached error:&error];
         
         if (error) {
             // Error when reading configuration data
