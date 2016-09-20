@@ -575,7 +575,7 @@
         [downloadTask resume];
 
     } else {
-        // OS X 10.7 - 10.8
+        // OS X 10.7 and 10.8: Use NSURLConnection
         NSURLRequest *downloadRequest = [NSURLRequest requestWithURL:url];
         [NSURLConnection sendAsynchronousRequest:downloadRequest
                                            queue:NSOperationQueue.mainQueue

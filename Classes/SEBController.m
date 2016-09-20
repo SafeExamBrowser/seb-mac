@@ -53,7 +53,6 @@
 #import "PrefsBrowserViewController.h"
 #import "SEBBrowserController.h"
 #import "SEBURLFilter.h"
-#import "SEBURLProtocol.h"
 
 #import "RNDecryptor.h"
 #import "SEBKeychainManager.h"
@@ -200,9 +199,6 @@ bool insideMatrix();
 - (id)init {
     self = [super init];
     if (self) {
-        
-        // Register custom SEB NSURL protocol class
-//        [NSURLProtocol registerClass:[SEBURLProtocol class]];
         
         // Initialize console loggers
 #ifdef DEBUG
