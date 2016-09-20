@@ -60,9 +60,14 @@
 
         // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
         // downloads to disk, and ensures that future requests occur on a new socket.
-        [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-            // Do something once it's done.
-        }];
+        // OS X 10.9 and newer
+        if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
+            [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+                DDLogInfo(@"Cookies, caches and credential stores were reset");
+            }];
+        } else {
+            DDLogError(@"Cannot reset cookies, caches and credential stores because of running on OS X 10.7 or 10.8.");
+        }
     }
     return self;
 }
