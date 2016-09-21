@@ -41,6 +41,7 @@
 #include "WebStorageManagerPrivate.h"
 #include "WebPreferencesPrivate.h"
 #import "WebPluginDatabase.h"
+#import "NSURL+SEBURL.h"
 
 @implementation SEBOSXBrowserController
 
@@ -470,17 +471,13 @@
         } else {
             // SEB isn't in exam mode: reconfiguring is allowed
             
-            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-            
             // Figure the download URL out, depending on if http or https should be used
             if ([url.scheme isEqualToString:@"seb"]) {
                 // If it's a seb:// URL, we try to download it by http
-                urlComponents.scheme = @"http";
-                url = urlComponents.URL;
+                url = [url URLByReplacingScheme:@"http"];
             } else if ([url.scheme isEqualToString:@"sebs"]) {
                 // If it's a sebs:// URL, we try to download it by https
-                urlComponents.scheme = @"https";
-                url = urlComponents.URL;
+                url = [url URLByReplacingScheme:@"https"];
             }
             _originalURL = url;
             
@@ -610,10 +607,8 @@
             return;
         }
         if ([url.scheme isEqualToString:@"http"] && !_browserController.usingCustomURLProtocol) {
-            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
             // If it was a seb:// URL, and http failed, we try to download it by https
-            urlComponents.scheme = @"https";
-            NSURL *downloadURL = urlComponents.URL;
+            NSURL *downloadURL = [url URLByReplacingScheme:@"https"];
             if (_directConfigDownloadAttempted) {
                 [self downloadSEBConfigFileFromURL:downloadURL];
             } else {

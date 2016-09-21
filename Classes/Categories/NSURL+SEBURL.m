@@ -81,5 +81,18 @@
     return [NSURL URLWithString:newURLString];
 }
 
+- (NSURL *) URLByReplacingScheme:(NSString *)scheme
+{
+    NSString *URLString = self.absoluteString;
+
+    NSRange scanResult = [URLString rangeOfString:@"://"];
+    if (scanResult.location != NSNotFound) {
+        // URL contains a scheme: replace it with the new one
+        scheme = [URLString substringToIndex:scanResult.location];
+        URLString = [NSString stringWithFormat:@"%@%@", scheme, [URLString substringFromIndex:scanResult.location]];
+    }
+
+    return [NSURL URLWithString:URLString];
+}
 
 @end
