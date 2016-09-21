@@ -288,6 +288,7 @@
                                              // There is no common name: take the e-mail address (if it exists)
                                              CFArrayGetCount(emailAddressesRef) ?
                                              (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0) :
+                                             // Otherwise take an empty string to preven a nil value
                                              @""];
 
                 // Get certificate signature hash (fingerprint)
@@ -564,7 +565,6 @@
     keyParams.version = SEC_KEY_IMPORT_EXPORT_PARAMS_VERSION;
     keyParams.flags = 0;
     keyParams.passphrase = (__bridge CFTypeRef)(password);
-//    keyParams.passphrase = NULL;
     keyParams.alertTitle = NULL;
     keyParams.alertPrompt = NULL;
     keyParams.accessRef = NULL;
@@ -602,8 +602,7 @@
     keyParams.version = SEC_KEY_IMPORT_EXPORT_PARAMS_VERSION;
     keyParams.flags = 0;
     keyParams.passphrase = (__bridge CFTypeRef)(password);
-//    keyParams.passphrase = NULL;
-    keyParams.alertTitle = NULL;
+    keyParams.alertTitle = (__bridge CFStringRef)@"";
     keyParams.alertPrompt = NULL;
     keyParams.accessRef = NULL;
     // These two values are for import

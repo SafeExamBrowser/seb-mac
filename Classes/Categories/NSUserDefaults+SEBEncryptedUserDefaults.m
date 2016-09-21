@@ -319,6 +319,8 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_mainBrowserWindowPositioning",
                                  @"100%",
                                  @"org_safeexambrowser_SEB_mainBrowserWindowWidth",
+                                 [NSNumber numberWithLong:SEBLogLevelDebug],
+                                 @"org_safeexambrowser_SEB_minMacOSVersion",
                                  @YES,
                                  @"org_safeexambrowser_SEB_monitorProcesses",
                                  @NO,

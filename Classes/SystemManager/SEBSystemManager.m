@@ -260,6 +260,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
     NSDictionary* errorDict;
     NSAppleEventDescriptor* returnDescriptor = NULL;
     returnDescriptor = [appleScript executeAndReturnError: &errorDict];
+    DDLogDebug(@"%s returnDescriptor: %@", __FUNCTION__, returnDescriptor);
     return errorDict == nil;
 }
 
@@ -370,7 +371,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port)
         if(SCDynamicStoreSetValue(proxyStore,kSCPropNetProxiesHTTPSProxy,proxyDictSet))
         {
             printf("store updated successfully...\n");
-        }else {
+        } else {
             printf("store NOT updated successfully...\n");
             printf("Error is %s\n",SCErrorString(SCError()));
         }

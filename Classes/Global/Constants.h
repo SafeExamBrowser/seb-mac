@@ -233,6 +233,17 @@ typedef NSUInteger SEBLogLevel;
 
 
 enum {
+    SEBMinOSX10_7                               = 0,
+    SEBMinOSX10_8                               = 1,
+    SEBMinOSX10_9                               = 2,
+    SEBMinOSX10_10                              = 3,
+    SEBMinOSX10_11                              = 4,
+    SEBMinMacOS10_12                            = 5
+};
+typedef NSUInteger SEBMinMacOSVersion;
+
+
+enum {
     SEBDockItemPositionLeftPinned               = 0,
     SEBDockItemPositionCenter                   = 1,
     SEBDockItemPositionRightPinned              = 2

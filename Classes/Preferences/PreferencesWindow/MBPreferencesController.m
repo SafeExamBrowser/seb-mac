@@ -48,7 +48,7 @@ NSString *MBPreferencesSelectionAutosaveKey = @"MBPreferencesSelection";
 
 - (id)init
 {
-	if (self == [super init]) {
+	if (self = [super init]) {
         [self openWindow];
 	}
 	return self;
@@ -187,7 +187,7 @@ static MBPreferencesController *sharedPreferencesController = nil;
 {
 	// We start off with no items. 
 	// Add them when we set the modules
-	return nil;
+	return [NSArray array];
 }
 
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag

@@ -410,9 +410,9 @@ extern NSMutableURLRequest * CanonicalRequestForRequest(NSURLRequest *request)
             // Note: The following logging is useful when debugging this code.  Change the 
             // if expression to YES to enable it.
             
-            if (NO) {
-                fprintf(stderr, "  [%zu] %.*s\n", stepIndex, (int) [urlData length], (const char *) [urlData bytes]);
-            }
+            //if (NO) {
+            //    fprintf(stderr, "  [%zu] %.*s\n", stepIndex, (int) [urlData length], (const char *) [urlData bytes]);
+            //}
             
             // If the step invalidated our URL (or we're on the last step, whereupon we'll need 
             // the URL outside of the loop), recreate the URL from the URL data.
