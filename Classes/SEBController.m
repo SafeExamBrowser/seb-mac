@@ -1910,6 +1910,9 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     // Clear Pasteboard
     [self clearPasteboardSavingCurrentString];
     
+    // Clear private pasteboard
+    self.browserController.privatePasteboardItems = [NSArray array];
+    
     // Check if launched SEB is placed ("installed") in an Applications folder
     [self installedInApplicationsFolder];
     

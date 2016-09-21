@@ -169,31 +169,37 @@
 
 - (void)copy:(id)sender
 {
-    [super copy:self];
-    NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
-    NSArray *archive = [generalPasteboard archiveObjects];
-    _browserController.privatePasteboardItems = archive;
-    [generalPasteboard clearContents];
+    [super copy:sender];
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrivateClipboard"]) {
+        NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
+        NSArray *archive = [generalPasteboard archiveObjects];
+        _browserController.privatePasteboardItems = archive;
+        [generalPasteboard clearContents];
+    }
 }
 
 
 - (void)cut:(id)sender
 {
-    [super cut:self];
-    NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
-    NSArray *archive = [generalPasteboard archiveObjects];
-    _browserController.privatePasteboardItems = archive;
-    [generalPasteboard clearContents];
+    [super cut:sender];
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrivateClipboard"]) {
+        NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
+        NSArray *archive = [generalPasteboard archiveObjects];
+        _browserController.privatePasteboardItems = archive;
+        [generalPasteboard clearContents];
+    }
 }
 
 
 - (void)paste:(id)sender
 {
-    NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
-    [generalPasteboard clearContents];
-    NSArray *archive = _browserController.privatePasteboardItems;
-    [generalPasteboard restoreArchive:archive];
-    [super paste:sender];
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrivateClipboard"]) {
+        NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
+        [generalPasteboard clearContents];
+        NSArray *archive = _browserController.privatePasteboardItems;
+        [generalPasteboard restoreArchive:archive];
+        [super paste:sender];
+    }
 }
 
 @end
