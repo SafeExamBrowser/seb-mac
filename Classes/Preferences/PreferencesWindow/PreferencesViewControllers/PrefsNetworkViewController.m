@@ -306,6 +306,7 @@
                                             [certificateData base64EncodedStringWithOptions:0], @"certificateDataWin",
                                             nil];
         [certificatesArrayController addObject:certificateToEmbed];
+        [self conditionallyShowOSCertWarning:nil];
         
     }
 }
@@ -347,6 +348,7 @@
                                                     [certificateData base64EncodedStringWithOptions:0], @"certificateDataWin",
                                                     nil];
                 [certificatesArrayController addObject:certificateToEmbed];
+                [self conditionallyShowOSCertWarning:nil];
                 
             }
             
@@ -478,9 +480,26 @@
             }
 
             [certificatesArrayController addObject:certificateToEmbed];
+            [self conditionallyShowOSCertWarning:nil];
         }
     }
     [NSApp stopModal];
+}
+
+
+- (IBAction)conditionallyShowOSCertWarning:(NSButton *)sender
+{
+    if (!_preferencesController.certOSWarningDisplayed) {
+        if (!sender || (sender && sender.state)) {
+            _preferencesController.certOSWarningDisplayed = true;
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:NSLocalizedString(@"macOS Support Warning", nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"SEB only supports embedding TLS/SSL and CA certificates and using certificate pinning if running on macOS 10.9 or later versions. If you want to make sure that embedded certificates and certificate pinning work on all exam clients, then you should enforce the minimum macOS version 10.9 in the Security pane.", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [newAlert setAlertStyle:NSCriticalAlertStyle];
+            [newAlert runModal];
+        }
+    }
 }
 
 

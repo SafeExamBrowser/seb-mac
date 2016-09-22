@@ -69,6 +69,7 @@
 
 @property BOOL currentConfigPasswordIsHash;
 @property BOOL refreshingPreferences;
+@property BOOL certOSWarningDisplayed;
 @property (strong, nonatomic) IBOutlet SEBController *sebController;
 @property (strong, nonatomic) SEBConfigFileManager *configFileManager;
 @property (strong, nonatomic) PrefsGeneralViewController *generalVC;

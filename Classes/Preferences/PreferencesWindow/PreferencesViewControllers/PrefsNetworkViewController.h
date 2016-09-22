@@ -37,6 +37,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MBPreferencesController.h"
+#import "PreferencesController.h"
 
 @interface PrefsNetworkViewController : NSViewController <MBPreferencesModule, NSTableViewDelegate> {
 
@@ -74,6 +75,8 @@
     __weak IBOutlet NSTextField *overrideCommonNameLabel;
 }
 
+@property (weak, nonatomic) PreferencesController *preferencesController;
+
 @property(strong) NSTableColumn *groupRowTableColumn;
 
 @property (strong, nonatomic) NSMutableArray *SSLCertificatesNames;
@@ -106,6 +109,7 @@
 - (IBAction) identitySelected:(id)sender;
 - (IBAction) certificateSelected:(id)sender;
 - (IBAction) CASelected:(id)sender;
+- (IBAction)conditionallyShowOSCertWarning:(NSButton *)sender;
 
 // Advanced Certificates sheet
 - (IBAction) showAdvancedCertificateSheet:(id)sender;
