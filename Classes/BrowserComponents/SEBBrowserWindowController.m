@@ -108,11 +108,9 @@
     if (keyWindow.isModalPanel) {
         DDLogWarn(@"Current key window is modal panel: %@", keyWindow);
     }
-    
     if (keyWindow.isFloatingPanel) {
         DDLogWarn(@"Current key window is floating panel: %@", keyWindow);
     }
-    
     if (keyWindow.isSheet) {
         DDLogWarn(@"Current key window is sheet: %@", keyWindow);
     }
@@ -123,8 +121,36 @@
         (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"] ||
          ![[MyGlobals sharedMyGlobals] clickedMenuBar]))
     {
-        [[[NSWorkspace sharedWorkspace] notificationCenter]
-         postNotificationName:NSWorkspaceSessionDidResignActiveNotification object:self];
+        //CGWindowListOption options = kCGWindowListOptionAll;
+        CGWindowListOption options = kCGWindowListOptionOnScreenOnly;
+        //CGWindowID windowID = (CGWindowID)[self.window windowNumber];
+        
+        NSArray *windowList = CFBridgingRelease(CGWindowListCopyWindowInfo(options, kCGNullWindowID));
+        //NSArray *windowList = CFBridgingRelease(CGWindowListCopyWindowInfo(options, windowID));
+        DDLogDebug(@"Window list: %@", windowList);
+        
+        BOOL notificationCenterOpened = false;
+        // Check if the Notification Center panel was opened now
+        for (NSDictionary *window in windowList) {
+            NSString *windowName = [window objectForKey:@"kCGWindowName" ];
+            if ([windowName isEqualToString:@"NotificationTableWindow"]) {
+                // windowDidResignKey was invoked because the Notification Center was opened
+                notificationCenterOpened = true;
+                NSString *windowOwner = [window objectForKey:@"kCGWindowOwnerName" ];
+                //                    pid_t windowOwnerPID = [window objectForKey:@"kCGWindowOwnerPID"].integervalue;
+                DDLogWarn(@"Notification Center panel was openend (owning process name: %@", windowOwner);
+                
+                NSRunningApplication *notificationCenter = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.notificationcenterui"][0];
+                [notificationCenter forceTerminate];
+                break;
+            }
+        }
+        // If Notification Center wasn't opened, then it must be another panel:
+        // show lock screen
+        if (!notificationCenterOpened) {
+            [[[NSWorkspace sharedWorkspace] notificationCenter]
+             postNotificationName:NSWorkspaceSessionDidResignActiveNotification object:self];
+        }
     }
 }
 
