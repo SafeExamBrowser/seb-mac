@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication"/>
@@ -441,7 +441,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="340" y="419" width="550" height="300"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" id="860" customClass="AboutView">
                 <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -570,7 +570,7 @@ Parts of this project have been carried out as part of the program 'AAA/SWITCH â
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="109"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="vWC-gd-xPh">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
@@ -721,15 +721,13 @@ Gw
                         <rect key="frame" x="1" y="1" width="458" height="280"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView editable="NO" drawsBackground="NO" importsGraphics="NO" findStyle="bar" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="FId-0c-znr">
+                            <textView editable="NO" drawsBackground="NO" importsGraphics="NO" findStyle="bar" allowsNonContiguousLayout="YES" id="FId-0c-znr">
                                 <rect key="frame" x="0.0" y="0.0" width="458" height="280"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <size key="minSize" width="458" height="280"/>
                                 <size key="maxSize" width="460" height="2000"/>
                                 <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <size key="minSize" width="458" height="280"/>
-                                <size key="maxSize" width="460" height="2000"/>
                                 <connections>
                                     <binding destination="agr-W5-n2K" name="attributedString" keyPath="self.resignActiveLogString" id="xr6-Qg-1hN">
                                         <dictionary key="options">
@@ -810,7 +808,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" nonactivatingPanel="YES" HUD="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="274" width="500" height="45"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" id="94S-Ha-RmY">
                 <rect key="frame" x="0.0" y="0.0" width="500" height="45"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -871,7 +869,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="158"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="6KH-Lc-Pm5">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="158"/>
@@ -990,6 +988,110 @@ Gw
             </view>
             <point key="canvasLocation" x="747" y="570"/>
         </window>
+        <customView id="NCY-Ts-Wn9" userLabel="SEB Warning View">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="500"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="149" translatesAutoresizingMaskIntoConstraints="NO" id="8UT-LK-qvz" customClass="SEBTextField">
+                    <rect key="frame" x="203" y="463" width="93" height="25"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Warning!" id="f7N-eB-F22">
+                        <font key="font" size="20" name="HelveticaNeue-Bold"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="JXZ-17-yJM" customClass="SEBTextField">
+                    <rect key="frame" x="18" y="399" width="464" height="56"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="56" id="a6z-Ti-hnP"/>
+                    </constraints>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" allowsEditingTextAttributes="YES" id="YeX-5O-huE">
+                        <font key="font" size="13" name=".HelveticaNeueDeskInterface-Bold"/>
+                        <string key="title">Some tool tried to circumvent the SEB kiosk mode. Make sure you don't use any key combinations or trackpad gestures which might trigger such tools or the Notification Center.</string>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <scrollView borderType="line" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="osr-Hv-b9S">
+                    <rect key="frame" x="20" y="92" width="460" height="292"/>
+                    <clipView key="contentView" copiesOnScroll="NO" id="poc-GF-ali">
+                        <rect key="frame" x="1" y="1" width="458" height="290"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView editable="NO" drawsBackground="NO" importsGraphics="NO" findStyle="bar" allowsNonContiguousLayout="YES" id="Yge-oE-zei">
+                                <rect key="frame" x="0.0" y="0.0" width="458" height="290"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <size key="minSize" width="458" height="290"/>
+                                <size key="maxSize" width="460" height="2000"/>
+                                <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <connections>
+                                    <binding destination="agr-W5-n2K" name="attributedString" keyPath="self.resignActiveLogString" id="IC6-de-0ot">
+                                        <dictionary key="options">
+                                            <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </clipView>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="460" id="Npn-Rx-xhI"/>
+                        <constraint firstAttribute="height" constant="292" id="zQR-RX-S6l"/>
+                    </constraints>
+                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="n5S-lv-4Wz">
+                        <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="tqE-21-7jv">
+                        <rect key="frame" x="444" y="1" width="15" height="280"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xZt-eP-PbW">
+                    <rect key="frame" x="207" y="13" width="87" height="32"/>
+                    <buttonCell key="cell" type="push" title="Dismiss" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="SDp-oG-6Ia">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                        <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        <connections>
+                            <action selector="passwordEntered:" target="agr-W5-n2K" id="tUk-Rr-8CP"/>
+                        </connections>
+                    </buttonCell>
+                </button>
+                <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="267" translatesAutoresizingMaskIntoConstraints="NO" id="DHa-tO-um5" customClass="SEBTextField">
+                    <rect key="frame" x="146" y="56" width="209" height="21"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="This event has been recorded." id="Dex-y3-8UD">
+                        <font key="font" size="14" name="HelveticaNeue-Bold"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="JXZ-17-yJM" firstAttribute="top" secondItem="8UT-LK-qvz" secondAttribute="bottom" constant="8" id="2S5-gf-ylm"/>
+                <constraint firstItem="8UT-LK-qvz" firstAttribute="top" secondItem="NCY-Ts-Wn9" secondAttribute="top" constant="12" id="4xy-aD-zik"/>
+                <constraint firstItem="xZt-eP-PbW" firstAttribute="top" secondItem="DHa-tO-um5" secondAttribute="bottom" constant="15" id="7ad-kQ-3vt"/>
+                <constraint firstItem="8UT-LK-qvz" firstAttribute="centerX" secondItem="NCY-Ts-Wn9" secondAttribute="centerX" id="7o2-EM-E4E"/>
+                <constraint firstItem="DHa-tO-um5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="NCY-Ts-Wn9" secondAttribute="leading" constant="20" id="D3D-aj-ZIp"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="8UT-LK-qvz" secondAttribute="trailing" constant="20" id="D9E-UR-rRn"/>
+                <constraint firstItem="DHa-tO-um5" firstAttribute="centerX" secondItem="NCY-Ts-Wn9" secondAttribute="centerX" id="GYY-y3-JKI"/>
+                <constraint firstItem="JXZ-17-yJM" firstAttribute="leading" secondItem="NCY-Ts-Wn9" secondAttribute="leading" constant="20" id="IWM-6T-tfv"/>
+                <constraint firstAttribute="trailing" secondItem="JXZ-17-yJM" secondAttribute="trailing" constant="20" id="XdA-dy-kn9"/>
+                <constraint firstItem="osr-Hv-b9S" firstAttribute="top" secondItem="JXZ-17-yJM" secondAttribute="bottom" constant="15" id="emD-MY-Uo0"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="DHa-tO-um5" secondAttribute="trailing" constant="20" id="gaN-9a-wpG"/>
+                <constraint firstItem="DHa-tO-um5" firstAttribute="top" secondItem="osr-Hv-b9S" secondAttribute="bottom" constant="15" id="h44-yj-gWZ"/>
+                <constraint firstItem="xZt-eP-PbW" firstAttribute="centerX" secondItem="NCY-Ts-Wn9" secondAttribute="centerX" id="nmY-Nd-ugm"/>
+                <constraint firstItem="osr-Hv-b9S" firstAttribute="leading" secondItem="NCY-Ts-Wn9" secondAttribute="leading" constant="20" id="op2-MQ-A8Q"/>
+                <constraint firstItem="8UT-LK-qvz" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="NCY-Ts-Wn9" secondAttribute="leading" constant="20" id="pMk-3u-mOq"/>
+                <constraint firstAttribute="trailing" secondItem="osr-Hv-b9S" secondAttribute="trailing" constant="20" id="qy4-mu-BLv"/>
+                <constraint firstAttribute="bottom" secondItem="xZt-eP-PbW" secondAttribute="bottom" constant="20" id="us8-gY-fWc"/>
+            </constraints>
+            <point key="canvasLocation" x="440" y="1486"/>
+        </customView>
     </objects>
     <resources>
         <image name="NSGoRightTemplate" width="9" height="12"/>

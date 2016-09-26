@@ -106,6 +106,7 @@
     BOOL _cmdKeyDown;
     DDFileLogger *_myLogger;
     BOOL _forceAppFolder;
+    SEBMinMacOSVersion _enforceMinMacOSVersion;
 }
 
 - (void) closeAboutWindow;

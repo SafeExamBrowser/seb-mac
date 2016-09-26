@@ -295,4 +295,6 @@ static NSString __unused *SEBWinUserAgentTouchiPad = @"Mozilla/5.0 (iPad; CPU OS
 
 static unsigned char __unused keyUsageServerAuthentication[8] = {0x2b, 0x06, 0x01, 0x05, 0x05, 0x07, 0x03, 0x01};
 
+static NSInteger SEBMinMacOSVersionSupported = SEBMinOSX10_7;
+
 #endif

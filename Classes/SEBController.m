@@ -70,6 +70,8 @@
 
 #include <SystemConfiguration/SystemConfiguration.h>
 
+#import "SEBUIUserDefaultsController.h"
+
 
 io_connect_t  root_port; // a reference to the Root Power Domain IOService
 
@@ -351,6 +353,9 @@ bool insideMatrix();
     // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
 	[self coverScreens];
 
+    // Check if running on minimal macOS version
+    [self checkMinMacOSVersion];
+    
     // Check if launched SEB is placed ("installed") in an Applications folder
     [self installedInApplicationsFolder];
     
@@ -656,6 +661,46 @@ bool insideMatrix();
     
     // Set flag that SEB is initialized: Now showing alerts is allowed
     [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
+}
+
+
+// Check if running on minimal allowed macOS version or a newer version
+- (void)checkMinMacOSVersion
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    SEBMinMacOSVersion minMacOSVersion = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_minMacOSVersion"];
+    _enforceMinMacOSVersion = SEBMinMacOSVersionSupported;
+    switch (minMacOSVersion) {
+        case SEBMinOSX10_8:
+            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_8 ? SEBMinOSX10_8 : _enforceMinMacOSVersion;
+            break;
+            
+        case SEBMinOSX10_9:
+            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_9 ? SEBMinOSX10_9 : _enforceMinMacOSVersion;
+            break;
+            
+        case SEBMinOSX10_10:
+            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_10 ? SEBMinOSX10_10 : _enforceMinMacOSVersion;
+            break;
+            
+        case SEBMinOSX10_11:
+            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_11 ? SEBMinOSX10_11 : _enforceMinMacOSVersion;
+            break;
+            
+        case SEBMinMacOS10_12:
+            _enforceMinMacOSVersion = floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_11 ? SEBMinMacOS10_12 : _enforceMinMacOSVersion;
+            break;
+            
+        default:
+            break;
+    }
+    if (_enforceMinMacOSVersion != SEBMinMacOSVersionSupported) {
+        DDLogError(@"Current settings require SEB to be running at least on %@, but it isn't! SEB will therefore quit!", [[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_minMacOSVersions][_enforceMinMacOSVersion]);
+        quittingMyself = TRUE; //SEB is terminating itself
+        [NSApp terminate: nil]; //quit SEB
+    } else {
+        DDLogInfo(@"SEB is running at least on the minimal macOS version %@ required by current settings (actually on version %f)", [[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_minMacOSVersions][_enforceMinMacOSVersion], floor(NSAppKitVersionNumber));
+    }
 }
 
 
@@ -1913,6 +1958,9 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     // Clear private pasteboard
     self.browserController.privatePasteboardItems = [NSArray array];
     
+    // Check if running on minimal macOS version
+    [self checkMinMacOSVersion];
+    
     // Check if launched SEB is placed ("installed") in an Applications folder
     [self installedInApplicationsFolder];
     
@@ -2138,7 +2186,14 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 // Called just before SEB will be terminated
 - (void) applicationWillTerminate:(NSNotification *)aNotification
 {
-    if (_forceAppFolder) {
+    if (_enforceMinMacOSVersion != SEBMinMacOSVersionSupported) {
+        NSAlert *newAlert = [[NSAlert alloc] init];
+        [newAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Not Running Minimal macOS Version!", nil)]];
+        [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Current SEB settings require at least %@, but your system is older. SEB will quit!", nil), [[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_minMacOSVersions][_enforceMinMacOSVersion]]];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [newAlert setAlertStyle:NSCriticalAlertStyle];
+        [newAlert runModal];
+    } else if (_forceAppFolder) {
         // Show alert that SEB is not placed in Applications folder
         NSString *applicationsDirectoryName = @"Applications";
         NSString *localizedApplicationDirectoryName = [[NSFileManager defaultManager] displayNameAtPath:NSSearchPathForDirectoriesInDomains(NSApplicationDirectory, NSLocalDomainMask, YES).lastObject];
