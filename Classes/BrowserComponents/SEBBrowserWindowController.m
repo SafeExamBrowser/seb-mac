@@ -117,9 +117,9 @@
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
     if (self.window == keyWindow &&
-        ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"] &&
+        ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"]) /*&&
         (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"] ||
-         ![[MyGlobals sharedMyGlobals] clickedMenuBar]))
+         ![[MyGlobals sharedMyGlobals] clickedMenuBar]))*/
     {
         //CGWindowListOption options = kCGWindowListOptionAll;
         CGWindowListOption options = kCGWindowListOptionOnScreenOnly;

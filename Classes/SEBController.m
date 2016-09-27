@@ -992,7 +992,7 @@ bool insideMatrix(){
 CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEventRef aEvent, void* aRefcon)
 {
     CGPoint theLocation = CGEventGetLocation(aEvent);
-    if (theLocation.y <= kMenuBarHeight) {
+    if (theLocation.y <= kMenuBarHeight && theLocation.x < ([NSScreen screens][0].visibleFrame.size.width - 46)) {
         [[MyGlobals sharedMyGlobals] setClickedMenuBar:true];
         DDLogDebug(@"Clicked inside the menu bar");
     } else {
