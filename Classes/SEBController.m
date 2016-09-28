@@ -1302,7 +1302,15 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         if (userInfo) {
             // Save the information which app was started
             launchedApplication = [userInfo objectForKey:NSWorkspaceApplicationKey];
-            DDLogInfo(@"launched app localizedName: %@, executableURL: %@", [launchedApplication localizedName], [launchedApplication executableURL]);
+            NSString *launchedAppBundleID = launchedApplication.bundleIdentifier;
+            DDLogInfo(@"launched app localizedName: %@, bundleID: %@ executableURL: %@", [launchedApplication localizedName], launchedAppBundleID, [launchedApplication executableURL]);
+            
+            // Check for activated screen sharing if settings demand it
+            NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+            if ([launchedAppBundleID isEqualToString:@"com.apple.ScreenSharing"] && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"]) {
+                [[[NSWorkspace sharedWorkspace] notificationCenter]
+                 postNotificationName:NSWorkspaceSessionDidResignActiveNotification object:self];
+            }
         }
     }
 }
