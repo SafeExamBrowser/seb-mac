@@ -45,6 +45,10 @@
             windowLevel = NSMainMenuWindowLevel+5;
             DDLogDebug(@"Window %@ level NSNormalWindowLevel changed to NSMainMenuWindowLevel+5", self);
         }
+        if (windowLevel == NSMainMenuWindowLevel) {
+            windowLevel = NSScreenSaverWindowLevel+1;
+            DDLogDebug(@"Window %@ level NSMainMenuWindowLevel changed to NSScreenSaverWindowLevel+1", self);
+        }
     }
     if (windowLevel == NSModalPanelWindowLevel) {
         windowLevel = NSMainMenuWindowLevel+6;
