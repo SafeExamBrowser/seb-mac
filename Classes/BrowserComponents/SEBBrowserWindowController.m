@@ -37,6 +37,10 @@
 #import <WebKit/WebKit.h>
 #import "SEBBrowserWindow.h"
 
+WindowRef FrontWindow();
+void DisposeWindow (
+                    WindowRef window
+                    );
 
 @implementation SEBBrowserWindowController
 
@@ -117,10 +121,14 @@
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
     if (self.window == keyWindow &&
-        ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"]) /*&&
+        ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"] &&
         (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"] ||
-         ![[MyGlobals sharedMyGlobals] clickedMenuBar]))*/
+         ![[MyGlobals sharedMyGlobals] clickedMenuBar]))
     {
+//        WindowRef frontmostWindow = FrontWindow();
+//        DDLogDebug(@"Frontmost window: %@", frontmostWindow);
+//        DisposeWindow(frontmostWindow);
+
         //CGWindowListOption options = kCGWindowListOptionAll;
         CGWindowListOption options = kCGWindowListOptionOnScreenOnly;
         //CGWindowID windowID = (CGWindowID)[self.window windowNumber];
