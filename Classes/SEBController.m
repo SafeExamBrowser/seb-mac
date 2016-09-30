@@ -281,11 +281,16 @@ bool insideMatrix();
         [NSRunningApplication terminateAutomaticallyTerminableApplications];
     }
 
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    // If AirPlay isn't allowed in settings, kill the AirPlay agent
+    // to stop a possibly running AirPlay connection
+    [self conditionallyTerminateAirPlay];
+    
     // Save the bundle ID of all currently running apps which are visible in a array
 	NSArray *runningApps = [[NSWorkspace sharedWorkspace] runningApplications];
     NSRunningApplication *iterApp;
     visibleApps = [NSMutableArray array]; //array for storing bundleIDs of visible apps
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
     for (iterApp in runningApps)
     {
@@ -675,6 +680,21 @@ bool insideMatrix();
     
     // Set flag that SEB is initialized: Now showing alerts is allowed
     [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
+}
+
+
+// If AirPlay isn't allowed in settings, kill the AirPlay agent
+// to stop a possibly running AirPlay connection
+- (void)conditionallyTerminateAirPlay
+{
+    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowAirPlay"]) {
+        NSArray *runningAirPlayAgents = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"AirPlayUIAgent"];
+        if (runningAirPlayAgents.count != 0) {
+            for (NSRunningApplication *airPlayAgent in runningAirPlayAgents) {
+                [airPlayAgent forceTerminate];
+            }
+        }
+    }
 }
 
 
@@ -1974,6 +1994,10 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 {
     DDLogInfo(@"---------- RESTARTING SEB SESSION -------------");
 
+    // If AirPlay isn't allowed in settings, kill the AirPlay agent
+    // to stop a possibly running AirPlay connection
+    [self conditionallyTerminateAirPlay];
+    
     // Clear Pasteboard
     [self clearPasteboardSavingCurrentString];
     

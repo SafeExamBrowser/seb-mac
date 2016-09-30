@@ -137,6 +137,8 @@ static NSNumber *_logLevel;
 //                                 [NSArray array],
 //                                 @"org_safeexambrowser_SEB_additionalResources",
                                  @NO,
+                                 @"org_safeexambrowser_SEB_allowAirPlay",
+                                 @NO,
                                  @"org_safeexambrowser_SEB_allowBrowsingBackForward",
                                  @NO,
                                  @"org_safeexambrowser_SEB_allowDictionaryLookup",

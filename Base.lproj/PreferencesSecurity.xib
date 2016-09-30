@@ -68,7 +68,7 @@
                     <rect key="frame" x="13" y="0.0" width="624" height="399"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
-                        <tabViewItem label="macOS Versions" identifier="" id="Dcg-5G-FDH">
+                        <tabViewItem label="macOS" identifier="" id="Dcg-5G-FDH">
                             <view key="view" id="ot5-GZ-LBL">
                                 <rect key="frame" x="10" y="33" width="604" height="353"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -110,13 +110,63 @@
                                             </binding>
                                         </connections>
                                     </popUpButton>
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="a9Y-jJ-E1h">
+                                        <rect key="frame" x="15" y="295" width="304" height="18"/>
+                                        <string key="toolTip">SEB checks for the command key being held down while SEB is starting up. This prevents using the application switcher to mess with SEB's kiosk mode</string>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="LHS-Q6-LFm"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="check" title="Disable app switcher when starting" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="JRL-fG-lI3">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableAppSwitcherCheck" id="iS6-fQ-xk6"/>
+                                        </connections>
+                                    </button>
+                                    <button toolTip="SEB enforces to be installed in an Applications folder (/Applications or ~/Applications)" translatesAutoresizingMaskIntoConstraints="NO" id="Gly-dr-m3X">
+                                        <rect key="frame" x="15" y="275" width="304" height="18"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="JCP-43-BNQ"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="check" title="Force installation in Applications folder" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0Ey-3L-Lb6">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_forceAppFolderInstall" id="pLR-2h-wnH"/>
+                                        </connections>
+                                    </button>
+                                    <button toolTip="If AirPlay isn't allowed, SEB attempts to stop a running AirPlay connection when starting/restarting" translatesAutoresizingMaskIntoConstraints="NO" id="oq3-9u-BrJ">
+                                        <rect key="frame" x="15" y="255" width="304" height="18"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="2ou-IV-Kmq"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="check" title="Allow using AirPlay" bezelStyle="regularSquare" imagePosition="left" inset="2" id="hwg-eH-cMm">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowAirPlay" id="nsg-yy-FkD"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="MYN-Xy-8h5" firstAttribute="baseline" secondItem="7SN-Be-oCc" secondAttribute="baseline" id="4pk-qg-TPC"/>
+                                    <constraint firstItem="Gly-dr-m3X" firstAttribute="leading" secondItem="a9Y-jJ-E1h" secondAttribute="leading" id="5RT-c7-Db4"/>
                                     <constraint firstAttribute="trailing" secondItem="MYN-Xy-8h5" secondAttribute="trailing" constant="16" id="DZO-2t-skf"/>
+                                    <constraint firstAttribute="trailing" secondItem="a9Y-jJ-E1h" secondAttribute="trailing" constant="287" id="EAw-fS-xfb"/>
                                     <constraint firstItem="MYN-Xy-8h5" firstAttribute="top" secondItem="ot5-GZ-LBL" secondAttribute="top" constant="13" id="Fci-3r-wOw"/>
+                                    <constraint firstItem="oq3-9u-BrJ" firstAttribute="leading" secondItem="Gly-dr-m3X" secondAttribute="leading" id="GUy-Hk-mEX"/>
+                                    <constraint firstItem="oq3-9u-BrJ" firstAttribute="top" secondItem="Gly-dr-m3X" secondAttribute="bottom" constant="6" id="ILp-wT-FEm"/>
+                                    <constraint firstItem="a9Y-jJ-E1h" firstAttribute="top" secondItem="MYN-Xy-8h5" secondAttribute="bottom" constant="8" id="Rft-9y-ZJx"/>
+                                    <constraint firstItem="Gly-dr-m3X" firstAttribute="top" secondItem="a9Y-jJ-E1h" secondAttribute="bottom" constant="6" id="SWr-cT-oNf"/>
+                                    <constraint firstItem="a9Y-jJ-E1h" firstAttribute="leading" secondItem="ot5-GZ-LBL" secondAttribute="leading" constant="17" id="ZKN-j7-oFL"/>
+                                    <constraint firstItem="Gly-dr-m3X" firstAttribute="top" secondItem="a9Y-jJ-E1h" secondAttribute="bottom" constant="6" symbolic="YES" id="d3j-hs-g8l"/>
                                     <constraint firstItem="7SN-Be-oCc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ot5-GZ-LBL" secondAttribute="leading" constant="16" id="dIo-2D-YgX"/>
                                     <constraint firstItem="MYN-Xy-8h5" firstAttribute="leading" secondItem="7SN-Be-oCc" secondAttribute="trailing" constant="8" id="n1g-Gv-5bg"/>
+                                    <constraint firstAttribute="trailing" secondItem="Gly-dr-m3X" secondAttribute="trailing" constant="287" id="rHH-EX-Zpt"/>
+                                    <constraint firstAttribute="trailing" secondItem="oq3-9u-BrJ" secondAttribute="trailing" constant="287" id="yW4-Gh-uy6"/>
                                 </constraints>
                             </view>
                         </tabViewItem>
@@ -622,33 +672,6 @@
                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowScreenSharing" id="lY1-JA-gPh"/>
                     </connections>
                 </button>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="a9Y-jJ-E1h">
-                    <rect key="frame" x="328" y="616" width="304" height="18"/>
-                    <string key="toolTip">SEB checks for the command key being held down while SEB is starting up. This prevents using the application switcher to mess with SEB's kiosk mode</string>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="300" id="LHS-Q6-LFm"/>
-                    </constraints>
-                    <buttonCell key="cell" type="check" title="Disable app switcher when starting" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="JRL-fG-lI3">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableAppSwitcherCheck" id="iS6-fQ-xk6"/>
-                    </connections>
-                </button>
-                <button toolTip="SEB enforces to be installed in an Applications folder (/Applications or ~/Applications)" translatesAutoresizingMaskIntoConstraints="NO" id="Gly-dr-m3X">
-                    <rect key="frame" x="328" y="596" width="304" height="18"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="300" id="JCP-43-BNQ"/>
-                    </constraints>
-                    <buttonCell key="cell" type="check" title="Force installation in Applications folder" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0Ey-3L-Lb6">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_forceAppFolderInstall" id="pLR-2h-wnH"/>
-                    </connections>
-                </button>
                 <box autoresizesSubviews="NO" borderType="line" title="Logging" translatesAutoresizingMaskIntoConstraints="NO" id="M5z-0E-3yB">
                     <rect key="frame" x="17" y="422" width="616" height="141"/>
                     <view key="contentView" id="zcb-WA-Wne">
@@ -805,10 +828,23 @@
                         <constraint firstItem="H9Q-8A-xab" firstAttribute="baseline" secondItem="6DQ-Jd-s1A" secondAttribute="baseline" id="yj2-SS-clN"/>
                     </constraints>
                 </box>
-                <button toolTip="Private clipboard should always be used besides when working with third party applications in a managed user account" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="292">
-                    <rect key="frame" x="328" y="576" width="304" height="18"/>
+                <button toolTip="Controls OS X screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows" translatesAutoresizingMaskIntoConstraints="NO" id="g34-gq-Owk">
+                    <rect key="frame" x="333" y="616" width="299" height="18"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="300" id="LMo-TR-V6q"/>
+                        <constraint firstAttribute="width" constant="295" id="zq2-5H-d0V"/>
+                    </constraints>
+                    <buttonCell key="cell" type="check" title="Enable screen capture" bezelStyle="regularSquare" imagePosition="left" inset="2" id="lyl-Qv-iTq">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enablePrintScreen" id="Jkg-6F-iaL"/>
+                    </connections>
+                </button>
+                <button toolTip="Private clipboard should always be used besides when working with third party applications in a managed user account" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="292">
+                    <rect key="frame" x="333" y="596" width="299" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="295" id="LMo-TR-V6q"/>
                     </constraints>
                     <buttonCell key="cell" type="check" title="Use private clipboard" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="293">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -822,51 +858,35 @@
                         </binding>
                     </connections>
                 </button>
-                <button toolTip="Controls OS X screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows" translatesAutoresizingMaskIntoConstraints="NO" id="g34-gq-Owk">
-                    <rect key="frame" x="18" y="576" width="158" height="18"/>
-                    <buttonCell key="cell" type="check" title="Enable screen capture" bezelStyle="regularSquare" imagePosition="left" inset="2" id="lyl-Qv-iTq">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enablePrintScreen" id="Jkg-6F-iaL"/>
-                    </connections>
-                </button>
             </subviews>
             <constraints>
-                <constraint firstItem="M5z-0E-3yB" firstAttribute="top" secondItem="g34-gq-Owk" secondAttribute="bottom" constant="15" id="3LO-3l-ak9"/>
+                <constraint firstAttribute="trailing" secondItem="g34-gq-Owk" secondAttribute="trailing" constant="20" id="1cB-Cj-a8U"/>
                 <constraint firstItem="76" firstAttribute="leading" secondItem="PH3-Cb-12g" secondAttribute="leading" id="48c-Cy-whl"/>
                 <constraint firstItem="93" firstAttribute="trailing" secondItem="99" secondAttribute="trailing" id="4rm-Md-YRc"/>
-                <constraint firstAttribute="trailing" secondItem="Gly-dr-m3X" secondAttribute="trailing" constant="20" symbolic="YES" id="6xI-yD-UMI"/>
                 <constraint firstItem="76" firstAttribute="leading" secondItem="93" secondAttribute="leading" id="76B-ST-fRW"/>
                 <constraint firstItem="M5z-0E-3yB" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="8Tc-ud-89i"/>
                 <constraint firstItem="99" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="B67-9c-2t5"/>
                 <constraint firstItem="PH3-Cb-12g" firstAttribute="top" secondItem="76" secondAttribute="bottom" constant="6" symbolic="YES" id="BiT-EG-tlD"/>
-                <constraint firstItem="a9Y-jJ-E1h" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="76" secondAttribute="trailing" constant="20" id="G2m-Uu-New"/>
-                <constraint firstItem="g34-gq-Owk" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="LVA-hY-UgH"/>
-                <constraint firstItem="M5z-0E-3yB" firstAttribute="top" secondItem="292" secondAttribute="bottom" constant="15" id="Mwl-Fo-gsC"/>
+                <constraint firstItem="292" firstAttribute="top" secondItem="g34-gq-Owk" secondAttribute="bottom" constant="6" symbolic="YES" id="EWr-V0-Mub"/>
+                <constraint firstItem="M5z-0E-3yB" firstAttribute="top" secondItem="PH3-Cb-12g" secondAttribute="bottom" constant="35" id="J4z-Ya-l8I"/>
                 <constraint firstItem="SZK-Aw-k1e" firstAttribute="leading" secondItem="pBJ-HX-kB3" secondAttribute="leading" constant="-8" id="N3J-Hn-YtI"/>
                 <constraint firstItem="76" firstAttribute="top" secondItem="93" secondAttribute="bottom" constant="15" id="Pfg-x9-9mr"/>
                 <constraint firstItem="pBJ-HX-kB3" firstAttribute="top" secondItem="M5z-0E-3yB" secondAttribute="bottom" constant="15" id="PwU-Tn-2TO"/>
                 <constraint firstAttribute="trailing" secondItem="292" secondAttribute="trailing" constant="20" id="SNH-IN-m2g"/>
                 <constraint firstItem="SZK-Aw-k1e" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="Sbg-bM-tcZ"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pBJ-HX-kB3" secondAttribute="trailing" constant="20" id="TAP-6o-GYN"/>
+                <constraint firstItem="g34-gq-Owk" firstAttribute="top" secondItem="93" secondAttribute="bottom" constant="15" id="TXS-Ar-EIs"/>
                 <constraint firstItem="93" firstAttribute="top" secondItem="99" secondAttribute="bottom" constant="3" id="UzH-yq-ugW"/>
                 <constraint firstItem="99" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" symbolic="YES" id="YBR-Jg-vBr"/>
                 <constraint firstAttribute="bottom" secondItem="SZK-Aw-k1e" secondAttribute="bottom" constant="10" id="ZeZ-jd-zYA"/>
-                <constraint firstAttribute="trailing" secondItem="a9Y-jJ-E1h" secondAttribute="trailing" constant="20" symbolic="YES" id="ahO-eo-ggd"/>
-                <constraint firstItem="292" firstAttribute="top" secondItem="Gly-dr-m3X" secondAttribute="bottom" constant="6" symbolic="YES" id="eXF-8v-J9q"/>
-                <constraint firstItem="292" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="g34-gq-Owk" secondAttribute="trailing" constant="20" id="f5v-hE-TKC"/>
-                <constraint firstItem="Gly-dr-m3X" firstAttribute="leading" secondItem="a9Y-jJ-E1h" secondAttribute="leading" id="geI-gd-vBd"/>
                 <constraint firstAttribute="trailing" secondItem="99" secondAttribute="trailing" constant="20" symbolic="YES" id="iU5-oJ-zbC"/>
                 <constraint firstItem="93" firstAttribute="leading" secondItem="99" secondAttribute="leading" id="jud-Va-gdy"/>
-                <constraint firstItem="Gly-dr-m3X" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="PH3-Cb-12g" secondAttribute="trailing" constant="20" id="kyF-dF-3pS"/>
-                <constraint firstItem="g34-gq-Owk" firstAttribute="top" secondItem="PH3-Cb-12g" secondAttribute="bottom" constant="6" id="lgc-Df-XPa"/>
-                <constraint firstItem="a9Y-jJ-E1h" firstAttribute="top" secondItem="93" secondAttribute="bottom" constant="15" id="oeY-vJ-RcJ"/>
                 <constraint firstItem="SZK-Aw-k1e" firstAttribute="top" secondItem="pBJ-HX-kB3" secondAttribute="bottom" constant="4" id="pBx-kl-Hfh"/>
                 <constraint firstAttribute="trailing" secondItem="SZK-Aw-k1e" secondAttribute="trailing" constant="20" id="pD8-oa-qZe"/>
+                <constraint firstItem="292" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="PH3-Cb-12g" secondAttribute="trailing" constant="20" id="rBN-ox-wIV"/>
+                <constraint firstItem="M5z-0E-3yB" firstAttribute="top" secondItem="292" secondAttribute="bottom" constant="35" id="rrb-uj-dFv"/>
                 <constraint firstAttribute="trailing" secondItem="M5z-0E-3yB" secondAttribute="trailing" constant="20" id="sN8-nQ-MD4"/>
-                <constraint firstItem="Gly-dr-m3X" firstAttribute="top" secondItem="a9Y-jJ-E1h" secondAttribute="bottom" constant="6" symbolic="YES" id="uvx-wl-8jf"/>
+                <constraint firstItem="g34-gq-Owk" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="76" secondAttribute="trailing" constant="20" id="xbg-8q-yHR"/>
             </constraints>
             <point key="canvasLocation" x="812" y="753"/>
         </customView>
