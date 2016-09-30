@@ -285,8 +285,9 @@ bool insideMatrix();
 	NSArray *runningApps = [[NSWorkspace sharedWorkspace] runningApplications];
     NSRunningApplication *iterApp;
     visibleApps = [NSMutableArray array]; //array for storing bundleIDs of visible apps
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
-    for (iterApp in runningApps) 
+    for (iterApp in runningApps)
     {
         BOOL isHidden = [iterApp isHidden];
         NSString *appBundleID = [iterApp valueForKey:@"bundleIdentifier"];
@@ -297,9 +298,22 @@ bool insideMatrix();
         if ([iterApp ownsMenuBar]) {
             DDLogDebug(@"App %@ owns menu bar", iterApp);
         }
+        // Check for activated screen sharing if settings demand it
+        if ([appBundleID isEqualToString:@"com.apple.ScreenSharing"] &&
+            ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"]) {
+            // Screen sharing is active
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:NSLocalizedString(@"Screen Sharing Detected!", nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.\n\nTo avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing.", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+            [newAlert setAlertStyle:NSCriticalAlertStyle];
+            [newAlert runModal];
+            quittingMyself = TRUE; //SEB is terminating itself
+            [NSApp terminate: nil]; //quit SEB
+        }
     }
 
-// Setup Notifications and Kiosk Mode    
+// Setup Notifications and Kiosk Mode
     
     // Add an observer for the notification that another application became active (SEB got inactive)
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(regainActiveStatus:) 
