@@ -56,7 +56,6 @@
 		6913E5C51A4AD5EC002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6913E5C31A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m */; };
 		6915F2E919C8F77600DAEA37 /* SEBDockWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 6915F2E719C8F77600DAEA37 /* SEBDockWindow.h */; };
 		6915F2EA19C8F77600DAEA37 /* SEBDockWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6915F2E819C8F77600DAEA37 /* SEBDockWindow.m */; };
-		691728451D544EDA0029B099 /* libmbedtls.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = 691728431D544EC00029B099 /* libmbedtls.a */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		6917744A1A2776FB0039CC39 /* SEBURLFilterRegexExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 691774481A2776FB0039CC39 /* SEBURLFilterRegexExpression.h */; };
 		6917744B1A2776FB0039CC39 /* SEBURLFilterRegexExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 691774491A2776FB0039CC39 /* SEBURLFilterRegexExpression.m */; };
 		6921294216F91C6600AFC3B0 /* BoolValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6921294016F91C6600AFC3B0 /* BoolValueTransformer.h */; };
@@ -365,6 +364,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		691B14F01D9EC8AC00C471B1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 69C228061C767B0900F78634 /* mbedtls.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 0E1B53781C62D05300CE0319;
+			remoteInfo = mbedtls;
+		};
 		69C228941C767B0A00F78634 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 69C228061C767B0900F78634 /* mbedtls.xcodeproj */;
@@ -381,7 +387,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				691728451D544EDA0029B099 /* libmbedtls.a in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,9 +455,9 @@
 		6913E5C31A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTextFieldNilToEmptyStringTransformer.m; sourceTree = "<group>"; };
 		6915F2E719C8F77600DAEA37 /* SEBDockWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockWindow.h; path = Classes/SEBDock/SEBDockWindow.h; sourceTree = "<group>"; };
 		6915F2E819C8F77600DAEA37 /* SEBDockWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockWindow.m; path = Classes/SEBDock/SEBDockWindow.m; sourceTree = "<group>"; };
-		691728431D544EC00029B099 /* libmbedtls.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmbedtls.a; path = "../../Builds/SafeExamBrowser-gnsybtvbgsgipdgryzsxrlifwyvt/ArchiveIntermediates/Safe Exam Browser/BuildProductsPath/Release/libmbedtls.a"; sourceTree = "<group>"; };
 		691774481A2776FB0039CC39 /* SEBURLFilterRegexExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBURLFilterRegexExpression.h; sourceTree = "<group>"; };
 		691774491A2776FB0039CC39 /* SEBURLFilterRegexExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBURLFilterRegexExpression.m; sourceTree = "<group>"; };
+		691B14F31D9ECC4100C471B1 /* libmbedtls.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmbedtls.a; path = "osx-mbedtls/build/Debug/libmbedtls.a"; sourceTree = "<group>"; };
 		691CD9AA1468947E00B43CDC /* SEBEncryptedUserDefaultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBEncryptedUserDefaultsController.h; path = Classes/Preferences/SEBEncryptedUserDefaultsController.h; sourceTree = "<group>"; };
 		691CD9AB1468947E00B43CDC /* SEBEncryptedUserDefaultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBEncryptedUserDefaultsController.m; path = Classes/Preferences/SEBEncryptedUserDefaultsController.m; sourceTree = "<group>"; };
 		6921294016F91C6600AFC3B0 /* BoolValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoolValueTransformer.h; sourceTree = "<group>"; };
@@ -903,7 +908,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				691728431D544EC00029B099 /* libmbedtls.a */,
+				691B14F31D9ECC4100C471B1 /* libmbedtls.a */,
 				6905C5AA1961B4E5000008EC /* SystemConfiguration.framework */,
 				6940A7661853B62000D9D00D /* libz.dylib */,
 				6940A7641853B4BC00D9D00D /* libssl.dylib */,
@@ -1663,6 +1668,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				691B14F11D9EC8AC00C471B1 /* PBXTargetDependency */,
 			);
 			name = "Safe Exam Browser";
 			productInstallPath = "$(HOME)/Applications";
@@ -1961,6 +1967,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		691B14F11D9EC8AC00C471B1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = mbedtls;
+			targetProxy = 691B14F01D9EC8AC00C471B1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1DDD58140DA1D0A300B32029 /* MainMenu.xib */ = {
