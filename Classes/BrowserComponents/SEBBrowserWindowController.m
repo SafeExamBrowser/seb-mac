@@ -100,6 +100,9 @@ void DisposeWindow (
     //    [self.browserController setStateForWindow:(SEBBrowserWindow *)self.window withWebView:self.webView];
     self.browserController.activeBrowserWindow = (SEBBrowserWindow *)self.window;
     DDLogDebug(@"BrowserWindow %@ did become key", self.window);
+    if (_browserController.panelWatchTimer) {
+        [_browserController.panelWatchTimer invalidate];
+    }
 }
 
 
@@ -120,44 +123,73 @@ void DisposeWindow (
     }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
-    if (self.window == keyWindow &&
-        ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"] &&
+    if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"])
+//    if (self.window == keyWindow &&
+//        ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"])
+    /*&&
         (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"] ||
-         ![[MyGlobals sharedMyGlobals] clickedMenuBar]))
+         ![[MyGlobals sharedMyGlobals] clickedMenuBar]))*/
     {
-//        WindowRef frontmostWindow = FrontWindow();
-//        DDLogDebug(@"Frontmost window: %@", frontmostWindow);
-//        DisposeWindow(frontmostWindow);
+        NSDate *dateNextMinute = [NSDate date];
+        
+        _browserController.panelWatchTimer = [[NSTimer alloc] initWithFireDate: dateNextMinute
+                                              interval: 0.25
+                                                target: self
+                                              selector:@selector(forceTerminatePanelApps)
+                                              userInfo:nil repeats:YES];
+        
+        NSRunLoop *currentRunLoop = [NSRunLoop currentRunLoop];
+        [currentRunLoop addTimer:_browserController.panelWatchTimer forMode: NSDefaultRunLoopMode];
 
-        //CGWindowListOption options = kCGWindowListOptionAll;
-        CGWindowListOption options = kCGWindowListOptionOnScreenOnly;
-        //CGWindowID windowID = (CGWindowID)[self.window windowNumber];
-        
-        NSArray *windowList = CFBridgingRelease(CGWindowListCopyWindowInfo(options, kCGNullWindowID));
-        //NSArray *windowList = CFBridgingRelease(CGWindowListCopyWindowInfo(options, windowID));
-        DDLogDebug(@"Window list: %@", windowList);
-        
-        BOOL notificationCenterOpened = false;
-        // Check if the Notification Center panel was opened now
-        for (NSDictionary *window in windowList) {
-            NSString *windowName = [window objectForKey:@"kCGWindowName" ];
-            if ([windowName isEqualToString:@"NotificationTableWindow"]) {
-                // windowDidResignKey was invoked because the Notification Center was opened
-                notificationCenterOpened = true;
-                NSString *windowOwner = [window objectForKey:@"kCGWindowOwnerName" ];
-                //                    pid_t windowOwnerPID = [window objectForKey:@"kCGWindowOwnerPID"].integervalue;
-                DDLogWarn(@"Notification Center panel was openend (owning process name: %@", windowOwner);
-                
-                NSRunningApplication *notificationCenter = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.notificationcenterui"][0];
-                [notificationCenter forceTerminate];
-                break;
-            }
-        }
         // If Notification Center wasn't opened, then it must be another panel:
         // show lock screen
-        if (!notificationCenterOpened) {
-            [[[NSWorkspace sharedWorkspace] notificationCenter]
-             postNotificationName:NSWorkspaceSessionDidResignActiveNotification object:self];
+//        if (!notificationCenterOpened) {
+//            [[[NSWorkspace sharedWorkspace] notificationCenter]
+//             postNotificationName:NSWorkspaceSessionDidResignActiveNotification object:self];
+//        }
+    }
+}
+
+
+- (void)forceTerminatePanelApps
+{
+    //        CGWindowListOption options = kCGWindowListOptionAll;
+    CGWindowListOption options = kCGWindowListOptionOnScreenOnly;
+    //CGWindowID windowID = (CGWindowID)[self.window windowNumber];
+    
+    NSArray *windowList = CFBridgingRelease(CGWindowListCopyWindowInfo(options, kCGNullWindowID));
+    //NSArray *windowList = CFBridgingRelease(CGWindowListCopyWindowInfo(options, windowID));
+#ifdef DEBUG
+    DDLogVerbose(@"Window list: %@", windowList);
+#endif
+    BOOL notificationCenterOpened = false;
+    // Check if the Notification Center panel was opened now
+    for (NSDictionary *window in windowList) {
+        NSString *windowName = [window objectForKey:@"kCGWindowName" ];
+        NSString *windowOwner = [window objectForKey:@"kCGWindowOwnerName" ];
+        if ([windowName isEqualToString:@"NotificationTableWindow"]) {
+            // windowDidResignKey was invoked because the Notification Center was opened
+            notificationCenterOpened = true;
+            //                    pid_t windowOwnerPID = [window objectForKey:@"kCGWindowOwnerPID"].integervalue;
+            DDLogWarn(@"Notification Center panel was openend (owning process name: %@", windowOwner);
+            
+            NSRunningApplication *notificationCenter = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.notificationcenterui"][0];
+            [notificationCenter forceTerminate];
+        }
+        NSString *windowLevelString = [window objectForKey:@"kCGWindowLayer" ];
+        NSInteger windowLevel = windowLevelString.integerValue;
+        NSRunningApplication *sebRunningApp = [NSRunningApplication currentApplication];
+        pid_t sebPID = [sebRunningApp processIdentifier];
+        if (windowLevel > 25) {
+            pid_t windowOwnerPID = [[window objectForKey:@"kCGWindowOwnerPID"] intValue];
+            if (windowOwnerPID != sebPID) {
+                NSRunningApplication *appWithPanel = [NSRunningApplication runningApplicationWithProcessIdentifier:windowOwnerPID];
+                NSString *appWithPanelBundleID = appWithPanel.bundleIdentifier;
+                DDLogWarn(@"Application %@ with bundle ID %@ has openend a panel with window level %@", windowOwner, appWithPanelBundleID, windowLevelString);
+                if (appWithPanelBundleID && ![appWithPanelBundleID hasPrefix:@"com.apple."]) {
+                    [appWithPanel forceTerminate];
+                }
+            }
         }
     }
 }
