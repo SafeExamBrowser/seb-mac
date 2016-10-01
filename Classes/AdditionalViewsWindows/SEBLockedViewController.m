@@ -10,6 +10,7 @@
 
 @interface SEBLockedViewController() {
     
+    __weak IBOutlet SEBTextField *alertMessage;
     __weak IBOutlet NSSecureTextField *lockedAlertPasswordField;
     __weak IBOutlet NSTextField *passwordWrongLabel;
     __weak IBOutlet NSScrollView *logScrollView;
@@ -21,6 +22,15 @@
 @implementation SEBLockedViewController
 
 
+- (void)setAlertMessage:(NSString *)newAlertMessage
+{
+    if (newAlertMessage.length > 0) {
+        alertMessage.stringValue = newAlertMessage;
+    } else {
+        alertMessage.stringValue = NSLocalizedString(@"SEB is locked because it was attempted to switch the user. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows.", @"Default lockdown window alert text");
+    }
+}
+
 
 - (IBAction)passwordEntered:(id)sender {
     DDLogDebug(@"Lockdown alert: Covering window has frame %@ and window level %ld", CGRectCreateDictionaryRepresentation(self.view.superview.frame), self.view.window.level);
@@ -28,8 +38,7 @@
     // Check if restarting is protected with the quit/restart password (and one is set)
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-    //NSString *screensLockedText = NSLocalizedString(@"SEB is locked because a user switch was attempted. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.", nil);
-
+ 
     NSString *password = lockedAlertPasswordField.stringValue;
 //    DDLogDebug(@"Lockdown alert user entered password: %@, compare it with hashed quit password %@", password, hashedQuitPassword);
     

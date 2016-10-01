@@ -474,6 +474,10 @@ bool insideMatrix();
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(preferencesClosedRestartSEB:)
                                                  name:@"preferencesClosedRestartSEB" object:nil];
+    // Add an observer for the notification that a screen sharing session become active
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(switchHandler:)
+                                                 name:@"detectedScreenSharing" object:nil];
     //[self startTask];
 
 // Prevent display sleep
@@ -1342,8 +1346,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             // Check for activated screen sharing if settings demand it
             NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
             if ([launchedAppBundleID isEqualToString:@"com.apple.ScreenSharing"] && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"]) {
-                [[[NSWorkspace sharedWorkspace] notificationCenter]
-                 postNotificationName:NSWorkspaceSessionDidResignActiveNotification object:self];
+                [[NSNotificationCenter defaultCenter]
+                 postNotificationName:@"detectedScreenSharing" object:self];
             }
         }
     }
@@ -2163,7 +2167,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     if ([[notification name] isEqualToString:
          NSWorkspaceSessionDidResignActiveNotification])
     {
-        // Perform deactivation tasks here.
+        // Set standard message string
+        [sebLockedViewController setAlertMessage:nil];
         
         if (!sebLockedViewController.resignActiveLogString) {
             sebLockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
@@ -2176,7 +2181,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"User switch / switch to login window detected", nil)] withTime:self.didResignActiveTime];
         
     }
-    else
+    else if ([[notification name] isEqualToString:
+              NSWorkspaceSessionDidBecomeActiveNotification])
     {
         // Perform activation tasks here.
         
@@ -2193,6 +2199,22 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
                                                      toDate:self.didBecomeActiveTime
                                                     options:false];
         [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"  SEB session was inactive for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:nil];
+    }
+    else if ([[notification name] isEqualToString:
+                @"detectedScreenSharing"])
+    {
+        // Set custom alert message string
+        [sebLockedViewController setAlertMessage:NSLocalizedString(@"Screen sharing detected. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows..\n\nTo avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing.", nil)];
+        
+        if (!sebLockedViewController.resignActiveLogString) {
+            sebLockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
+        }
+        self.didResignActiveTime = [NSDate date];
+        DDLogError(@"Screen sharing was activated!");
+        [self openLockdownWindows];
+        
+        // Add log string for resign active
+        [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing was activated", nil)] withTime:self.didResignActiveTime];
     }
 }
 

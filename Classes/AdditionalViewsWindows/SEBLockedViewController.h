@@ -18,6 +18,7 @@
 @property (strong) SEBKeychainManager *keychainManager;
 @property (readwrite, copy) NSAttributedString *resignActiveLogString;
 
+- (void)setAlertMessage:(NSString *)newAlertMessage;
 - (void)appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
 
 @end

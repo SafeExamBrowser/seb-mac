@@ -121,15 +121,15 @@ void DisposeWindow (
     if (keyWindow.isSheet) {
         DDLogWarn(@"Current key window is sheet: %@", keyWindow);
     }
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
-    if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"])
+//    if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"])
 //    if (self.window == keyWindow &&
 //        ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"])
     /*&&
         (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"] ||
          ![[MyGlobals sharedMyGlobals] clickedMenuBar]))*/
-    {
+//    {
         NSDate *dateNextMinute = [NSDate date];
         
         _browserController.panelWatchTimer = [[NSTimer alloc] initWithFireDate: dateNextMinute
@@ -147,7 +147,7 @@ void DisposeWindow (
 //            [[[NSWorkspace sharedWorkspace] notificationCenter]
 //             postNotificationName:NSWorkspaceSessionDidResignActiveNotification object:self];
 //        }
-    }
+//    }
 }
 
 
@@ -222,12 +222,6 @@ void DisposeWindow (
     }
 }
 
-
-/*- (id)webView
-{
-    return webView;
-}
-*/
 
 - (BOOL)shouldCloseDocument
 {
