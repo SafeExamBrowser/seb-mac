@@ -22,7 +22,7 @@
 @implementation SEBLockedViewController
 
 
-- (void)setAlertMessage:(NSString *)newAlertMessage
+- (void)setLockdownAlertMessage:(NSString *)newAlertMessage
 {
     if (newAlertMessage.length > 0) {
         alertMessage.stringValue = newAlertMessage;
