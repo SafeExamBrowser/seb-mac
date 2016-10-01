@@ -81,7 +81,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="MYN-Xy-8h5" userLabel="Log Level Popup Button">
+                                    <popUpButton toolTip="SEB refuses to run on an older system version" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="MYN-Xy-8h5" userLabel="Log Level Popup Button">
                                         <rect key="frame" x="286" y="316" width="305" height="26"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="300" id="4mX-pV-wBL"/>
@@ -111,11 +111,8 @@
                                         </connections>
                                     </popUpButton>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="a9Y-jJ-E1h">
-                                        <rect key="frame" x="15" y="295" width="304" height="18"/>
+                                        <rect key="frame" x="15" y="295" width="235" height="18"/>
                                         <string key="toolTip">SEB checks for the command key being held down while SEB is starting up. This prevents using the application switcher to mess with SEB's kiosk mode</string>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="300" id="LHS-Q6-LFm"/>
-                                        </constraints>
                                         <buttonCell key="cell" type="check" title="Disable app switcher when starting" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="JRL-fG-lI3">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -125,10 +122,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="SEB enforces to be installed in an Applications folder (/Applications or ~/Applications)" translatesAutoresizingMaskIntoConstraints="NO" id="Gly-dr-m3X">
-                                        <rect key="frame" x="15" y="275" width="304" height="18"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="300" id="JCP-43-BNQ"/>
-                                        </constraints>
+                                        <rect key="frame" x="15" y="275" width="257" height="18"/>
                                         <buttonCell key="cell" type="check" title="Force installation in Applications folder" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0Ey-3L-Lb6">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -138,10 +132,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="If AirPlay isn't allowed, SEB attempts to stop a running AirPlay connection when starting/restarting" translatesAutoresizingMaskIntoConstraints="NO" id="oq3-9u-BrJ">
-                                        <rect key="frame" x="15" y="255" width="304" height="18"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="300" id="2ou-IV-Kmq"/>
-                                        </constraints>
+                                        <rect key="frame" x="15" y="255" width="137" height="18"/>
                                         <buttonCell key="cell" type="check" title="Allow using AirPlay" bezelStyle="regularSquare" imagePosition="left" inset="2" id="hwg-eH-cMm">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -155,18 +146,17 @@
                                     <constraint firstItem="MYN-Xy-8h5" firstAttribute="baseline" secondItem="7SN-Be-oCc" secondAttribute="baseline" id="4pk-qg-TPC"/>
                                     <constraint firstItem="Gly-dr-m3X" firstAttribute="leading" secondItem="a9Y-jJ-E1h" secondAttribute="leading" id="5RT-c7-Db4"/>
                                     <constraint firstAttribute="trailing" secondItem="MYN-Xy-8h5" secondAttribute="trailing" constant="16" id="DZO-2t-skf"/>
-                                    <constraint firstAttribute="trailing" secondItem="a9Y-jJ-E1h" secondAttribute="trailing" constant="287" id="EAw-fS-xfb"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="a9Y-jJ-E1h" secondAttribute="trailing" constant="20" id="EAw-fS-xfb"/>
                                     <constraint firstItem="MYN-Xy-8h5" firstAttribute="top" secondItem="ot5-GZ-LBL" secondAttribute="top" constant="13" id="Fci-3r-wOw"/>
                                     <constraint firstItem="oq3-9u-BrJ" firstAttribute="leading" secondItem="Gly-dr-m3X" secondAttribute="leading" id="GUy-Hk-mEX"/>
-                                    <constraint firstItem="oq3-9u-BrJ" firstAttribute="top" secondItem="Gly-dr-m3X" secondAttribute="bottom" constant="6" id="ILp-wT-FEm"/>
+                                    <constraint firstItem="oq3-9u-BrJ" firstAttribute="top" secondItem="Gly-dr-m3X" secondAttribute="bottom" constant="6" symbolic="YES" id="ILp-wT-FEm"/>
                                     <constraint firstItem="a9Y-jJ-E1h" firstAttribute="top" secondItem="MYN-Xy-8h5" secondAttribute="bottom" constant="8" id="Rft-9y-ZJx"/>
-                                    <constraint firstItem="Gly-dr-m3X" firstAttribute="top" secondItem="a9Y-jJ-E1h" secondAttribute="bottom" constant="6" id="SWr-cT-oNf"/>
                                     <constraint firstItem="a9Y-jJ-E1h" firstAttribute="leading" secondItem="ot5-GZ-LBL" secondAttribute="leading" constant="17" id="ZKN-j7-oFL"/>
                                     <constraint firstItem="Gly-dr-m3X" firstAttribute="top" secondItem="a9Y-jJ-E1h" secondAttribute="bottom" constant="6" symbolic="YES" id="d3j-hs-g8l"/>
                                     <constraint firstItem="7SN-Be-oCc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ot5-GZ-LBL" secondAttribute="leading" constant="16" id="dIo-2D-YgX"/>
                                     <constraint firstItem="MYN-Xy-8h5" firstAttribute="leading" secondItem="7SN-Be-oCc" secondAttribute="trailing" constant="8" id="n1g-Gv-5bg"/>
-                                    <constraint firstAttribute="trailing" secondItem="Gly-dr-m3X" secondAttribute="trailing" constant="287" id="rHH-EX-Zpt"/>
-                                    <constraint firstAttribute="trailing" secondItem="oq3-9u-BrJ" secondAttribute="trailing" constant="287" id="yW4-Gh-uy6"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Gly-dr-m3X" secondAttribute="trailing" constant="20" id="rHH-EX-Zpt"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="oq3-9u-BrJ" secondAttribute="trailing" constant="20" id="yW4-Gh-uy6"/>
                                 </constraints>
                             </view>
                         </tabViewItem>
