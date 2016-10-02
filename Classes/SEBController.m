@@ -707,7 +707,7 @@ bool insideMatrix();
                     NSRunningApplication *appWithPanel = [NSRunningApplication runningApplicationWithProcessIdentifier:windowOwnerPID];
                     NSString *appWithPanelBundleID = appWithPanel.bundleIdentifier;
                     DDLogWarn(@"Application %@ with bundle ID %@ has openend a window with level %@", windowOwner, appWithPanelBundleID, windowLevelString);
-                    if (appWithPanelBundleID && [appWithPanelBundleID hasPrefix:@"com.apple."]) {
+                    if (!appWithPanelBundleID || (appWithPanelBundleID && [appWithPanelBundleID hasPrefix:@"com.apple."])) {
                         // Check if application with Bundle ID com.apple. is a legit Apple system executable
                         if ([self signedSystemExecutable:appWithPanel]) {
                             // Cache this executable PID
@@ -717,6 +717,7 @@ bool insideMatrix();
                             if (firstScan) {
                                 //[appWithPanel terminate];
                             } else {
+                                DDLogWarn(@"Application %@ is being force terminated!", windowOwner);
                                 [appWithPanel forceTerminate];
                             }
                         }
@@ -725,6 +726,7 @@ bool insideMatrix();
                         if (firstScan) {
                             //[appWithPanel terminate];
                         } else {
+                            DDLogWarn(@"Application %@ is being force terminated!", windowOwner);
                             [appWithPanel forceTerminate];
                         }
                     }
@@ -788,12 +790,12 @@ bool insideMatrix();
 }
 
 
-// Check if executable has an Apple code signature
+// Check if application is a legit Apple system executable
 - (NSRunningApplication *)signedSystemExecutable:(NSRunningApplication *)runningExecutable
 {
     SecStaticCodeRef ref = NULL;
     
-    NSURL * url = [NSURL URLWithString:[[NSBundle mainBundle] executablePath]];
+    NSURL * url = runningExecutable.executableURL;
     
     OSStatus status;
     
@@ -827,7 +829,7 @@ bool insideMatrix();
     CFRelease(ref);
     CFRelease(req);
     
-    DDLogDebug(@"Code signature was checked and it positively identifies Apple software.");
+    DDLogDebug(@"Code signature of %@ was checked and it positively identifies Apple software.", url);
     
     return runningExecutable;
 }
