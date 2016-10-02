@@ -630,7 +630,79 @@ bool insideMatrix();
         CGEventTapEnable(leftMouseEventTap, true);
     }
 
+    [self conditionallyStartWindowWatcher];
+    
     [self performSelector:@selector(performAfterStartActions:) withObject: nil afterDelay: 2];
+}
+
+
+// Start the windows watcher if it's not yet running
+- (void)conditionallyStartWindowWatcher
+{
+    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"]) {
+        if (!_windowWatchTimer) {
+            NSDate *dateNextMinute = [NSDate date];
+            
+            _windowWatchTimer = [[NSTimer alloc] initWithFireDate: dateNextMinute
+                                                         interval: 0.25
+                                                           target: self
+                                                         selector:@selector(forceTerminatePanelApps)
+                                                         userInfo:nil repeats:YES];
+            
+            NSRunLoop *currentRunLoop = [NSRunLoop currentRunLoop];
+            [currentRunLoop addTimer:_windowWatchTimer forMode: NSRunLoopCommonModes];
+        }
+    } else {
+        // We're (currently) not running the windows watcher when switching to third party apps is allowed
+        if (_windowWatchTimer) {
+            [_windowWatchTimer invalidate];
+            _windowWatchTimer = nil;
+        }
+    }
+}
+
+
+- (void)forceTerminatePanelApps
+{
+    //        CGWindowListOption options = kCGWindowListOptionAll;
+    CGWindowListOption options = kCGWindowListOptionOnScreenOnly;
+    //CGWindowID windowID = (CGWindowID)[self.window windowNumber];
+    
+    NSArray *windowList = CFBridgingRelease(CGWindowListCopyWindowInfo(options, kCGNullWindowID));
+    //NSArray *windowList = CFBridgingRelease(CGWindowListCopyWindowInfo(options, windowID));
+#ifdef DEBUG
+    DDLogVerbose(@"Window list: %@", windowList);
+#endif
+    BOOL notificationCenterOpened = false;
+    // Check if the Notification Center panel was opened now
+    for (NSDictionary *window in windowList) {
+        NSString *windowName = [window objectForKey:@"kCGWindowName" ];
+        NSString *windowOwner = [window objectForKey:@"kCGWindowOwnerName" ];
+        if ([windowName isEqualToString:@"NotificationTableWindow"]) {
+            // windowDidResignKey was invoked because the Notification Center was opened
+            notificationCenterOpened = true;
+            //                    pid_t windowOwnerPID = [window objectForKey:@"kCGWindowOwnerPID"].integervalue;
+            DDLogWarn(@"Notification Center panel was openend (owning process name: %@", windowOwner);
+            
+            NSRunningApplication *notificationCenter = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.notificationcenterui"][0];
+            [notificationCenter forceTerminate];
+        }
+        NSString *windowLevelString = [window objectForKey:@"kCGWindowLayer" ];
+        NSInteger windowLevel = windowLevelString.integerValue;
+        NSRunningApplication *sebRunningApp = [NSRunningApplication currentApplication];
+        pid_t sebPID = [sebRunningApp processIdentifier];
+        if (windowLevel > 25) {
+            pid_t windowOwnerPID = [[window objectForKey:@"kCGWindowOwnerPID"] intValue];
+            if (windowOwnerPID != sebPID) {
+                NSRunningApplication *appWithPanel = [NSRunningApplication runningApplicationWithProcessIdentifier:windowOwnerPID];
+                NSString *appWithPanelBundleID = appWithPanel.bundleIdentifier;
+                DDLogWarn(@"Application %@ with bundle ID %@ has openend a panel with window level %@", windowOwner, appWithPanelBundleID, windowLevelString);
+                if (appWithPanelBundleID && ![appWithPanelBundleID hasPrefix:@"com.apple."]) {
+                    [appWithPanel forceTerminate];
+                }
+            }
+        }
+    }
 }
 
 
@@ -684,6 +756,51 @@ bool insideMatrix();
     
     // Set flag that SEB is initialized: Now showing alerts is allowed
     [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
+}
+
+
+// Check if executable has an Apple code signature
+- (BOOL)signedApple
+{
+    SecStaticCodeRef ref = NULL;
+    
+    NSURL * url = [NSURL URLWithString:[[NSBundle mainBundle] executablePath]];
+    
+    OSStatus status;
+    
+    // obtain the cert info from the executable
+    status = SecStaticCodeCreateWithPath((__bridge CFURLRef)url, kSecCSDefaultFlags, &ref);
+    
+    if (ref == NULL) return false;
+    if (status != noErr) return false;
+    
+    SecRequirementRef req = NULL;
+    
+    // this is the public SHA1 fingerprint of the cert match string
+    NSString * reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
+                         @"certificate",
+                         @"leaf",
+                         @"H\"66875745923F01",
+                         @"F122B387B0F943",
+                         @"X7D981183151\""
+                         ];
+    
+    // create the requirement to check against
+    status = SecRequirementCreateWithString((__bridge CFStringRef)reqStr, kSecCSDefaultFlags, &req);
+    
+    if (status != noErr) return false;
+    if (req == NULL) return false;
+    
+    status = SecStaticCodeCheckValidity(ref, kSecCSCheckAllArchitectures, req);
+    
+    if (status != noErr) return false;
+    
+    CFRelease(ref);
+    CFRelease(req);
+    
+    DDLogDebug(@"Code signature was checked and it positively identifies Apple software.");
+    
+    return true;
 }
 
 
@@ -2002,6 +2119,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     // to stop a possibly running AirPlay connection
     [self conditionallyTerminateAirPlay];
     
+    [self conditionallyStartWindowWatcher];
+
     // Clear Pasteboard
     [self clearPasteboardSavingCurrentString];
     

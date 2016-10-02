@@ -100,9 +100,9 @@ void DisposeWindow (
     //    [self.browserController setStateForWindow:(SEBBrowserWindow *)self.window withWebView:self.webView];
     self.browserController.activeBrowserWindow = (SEBBrowserWindow *)self.window;
     DDLogDebug(@"BrowserWindow %@ did become key", self.window);
-    if (_browserController.panelWatchTimer) {
-        [_browserController.panelWatchTimer invalidate];
-    }
+//    if (_browserController.panelWatchTimer) {
+//        [_browserController.panelWatchTimer invalidate];
+//    }
 }
 
 
@@ -130,16 +130,17 @@ void DisposeWindow (
         (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"] ||
          ![[MyGlobals sharedMyGlobals] clickedMenuBar]))*/
 //    {
-        NSDate *dateNextMinute = [NSDate date];
-        
-        _browserController.panelWatchTimer = [[NSTimer alloc] initWithFireDate: dateNextMinute
-                                              interval: 0.25
-                                                target: self
-                                              selector:@selector(forceTerminatePanelApps)
-                                              userInfo:nil repeats:YES];
-        
-        NSRunLoop *currentRunLoop = [NSRunLoop currentRunLoop];
-        [currentRunLoop addTimer:_browserController.panelWatchTimer forMode: NSDefaultRunLoopMode];
+
+//        NSDate *dateNextMinute = [NSDate date];
+//        
+//        _browserController.panelWatchTimer = [[NSTimer alloc] initWithFireDate: dateNextMinute
+//                                              interval: 0.25
+//                                                target: self
+//                                              selector:@selector(forceTerminatePanelApps)
+//                                              userInfo:nil repeats:YES];
+//        
+//        NSRunLoop *currentRunLoop = [NSRunLoop currentRunLoop];
+//        [currentRunLoop addTimer:_browserController.panelWatchTimer forMode: NSDefaultRunLoopMode];
 
         // If Notification Center wasn't opened, then it must be another panel:
         // show lock screen

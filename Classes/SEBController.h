@@ -157,5 +157,6 @@
 @property(strong) NSDate *didResignActiveTime;
 @property(strong) NSDate *didBecomeActiveTime;
 @property(strong) NSDate *didResumeExamTime;
+@property(strong) NSTimer *windowWatchTimer;
 
 @end
