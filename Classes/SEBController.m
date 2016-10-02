@@ -478,7 +478,7 @@ bool insideMatrix();
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(switchHandler:)
                                                  name:@"detectedScreenSharing" object:nil];
-    //[self startTask];
+    [self forceTerminatePanelApps];
 
 // Prevent display sleep
 #ifndef DEBUG
@@ -664,24 +664,31 @@ bool insideMatrix();
 
 - (void)forceTerminatePanelApps
 {
-    //        CGWindowListOption options = kCGWindowListOptionAll;
-    CGWindowListOption options = kCGWindowListOptionOnScreenOnly;
-    //CGWindowID windowID = (CGWindowID)[self.window windowNumber];
+    CGWindowListOption options;
+    BOOL firstScan = false;
+    if (!_systemProcessPIDs) {
+        // When this method is called the first time, we scan all windows
+        firstScan = true;
+        _systemProcessPIDs = [NSMutableArray new];
+        options = kCGWindowListOptionAll;
+        // Get SEB's PID
+        NSRunningApplication *sebRunningApp = [NSRunningApplication currentApplication];
+        sebPID = [sebRunningApp processIdentifier];
+
+    } else {
+        // otherwise only those which are visible (on screen)
+        options = kCGWindowListOptionOnScreenOnly;
+    }
     
     NSArray *windowList = CFBridgingRelease(CGWindowListCopyWindowInfo(options, kCGNullWindowID));
-    //NSArray *windowList = CFBridgingRelease(CGWindowListCopyWindowInfo(options, windowID));
 #ifdef DEBUG
     DDLogVerbose(@"Window list: %@", windowList);
 #endif
-    BOOL notificationCenterOpened = false;
-    // Check if the Notification Center panel was opened now
     for (NSDictionary *window in windowList) {
         NSString *windowName = [window objectForKey:@"kCGWindowName" ];
         NSString *windowOwner = [window objectForKey:@"kCGWindowOwnerName" ];
-        if ([windowName isEqualToString:@"NotificationTableWindow"]) {
-            // windowDidResignKey was invoked because the Notification Center was opened
-            notificationCenterOpened = true;
-            //                    pid_t windowOwnerPID = [window objectForKey:@"kCGWindowOwnerPID"].integervalue;
+        if (_allowSwitchToApplications && [windowName isEqualToString:@"NotificationTableWindow"]) {
+            // If switching to applications is allowed and the Notification Center was opened
             DDLogWarn(@"Notification Center panel was openend (owning process name: %@", windowOwner);
             
             NSRunningApplication *notificationCenter = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.notificationcenterui"][0];
@@ -689,16 +696,38 @@ bool insideMatrix();
         }
         NSString *windowLevelString = [window objectForKey:@"kCGWindowLayer" ];
         NSInteger windowLevel = windowLevelString.integerValue;
-        NSRunningApplication *sebRunningApp = [NSRunningApplication currentApplication];
-        pid_t sebPID = [sebRunningApp processIdentifier];
-        if (windowLevel > 25) {
-            pid_t windowOwnerPID = [[window objectForKey:@"kCGWindowOwnerPID"] intValue];
+        if (windowLevel >= NSMainMenuWindowLevel+2) {
+            NSString *windowOwnerPIDString = [window objectForKey:@"kCGWindowOwnerPID"];
+            pid_t windowOwnerPID = windowOwnerPIDString.intValue;
+            // If this isn't a SEB window
             if (windowOwnerPID != sebPID) {
-                NSRunningApplication *appWithPanel = [NSRunningApplication runningApplicationWithProcessIdentifier:windowOwnerPID];
-                NSString *appWithPanelBundleID = appWithPanel.bundleIdentifier;
-                DDLogWarn(@"Application %@ with bundle ID %@ has openend a panel with window level %@", windowOwner, appWithPanelBundleID, windowLevelString);
-                if (appWithPanelBundleID && ![appWithPanelBundleID hasPrefix:@"com.apple."]) {
-                    [appWithPanel forceTerminate];
+                if (![_systemProcessPIDs containsObject:windowOwnerPIDString]) {
+                    // If this process isn't in the list of previously scanned and verified
+                    // running legit Apple executables
+                    NSRunningApplication *appWithPanel = [NSRunningApplication runningApplicationWithProcessIdentifier:windowOwnerPID];
+                    NSString *appWithPanelBundleID = appWithPanel.bundleIdentifier;
+                    DDLogWarn(@"Application %@ with bundle ID %@ has openend a window with level %@", windowOwner, appWithPanelBundleID, windowLevelString);
+                    if (appWithPanelBundleID && [appWithPanelBundleID hasPrefix:@"com.apple."]) {
+                        // Check if application with Bundle ID com.apple. is a legit Apple system executable
+                        if ([self signedSystemExecutable:appWithPanel]) {
+                            // Cache this executable PID
+                            [_systemProcessPIDs addObject:windowOwnerPIDString];
+                        } else {
+                            // The app which opened the window or panel is no system process
+                            if (firstScan) {
+                                //[appWithPanel terminate];
+                            } else {
+                                [appWithPanel forceTerminate];
+                            }
+                        }
+                    } else {
+                        // The app which opened the window or panel is no system process
+                        if (firstScan) {
+                            //[appWithPanel terminate];
+                        } else {
+                            [appWithPanel forceTerminate];
+                        }
+                    }
                 }
             }
         }
@@ -760,7 +789,7 @@ bool insideMatrix();
 
 
 // Check if executable has an Apple code signature
-- (BOOL)signedApple
+- (NSRunningApplication *)signedSystemExecutable:(NSRunningApplication *)runningExecutable
 {
     SecStaticCodeRef ref = NULL;
     
@@ -780,27 +809,27 @@ bool insideMatrix();
     NSString * reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
                          @"certificate",
                          @"leaf",
-                         @"H\"66875745923F01",
-                         @"F122B387B0F943",
-                         @"X7D981183151\""
+                         @"H\"013E2787748A74",
+                         @"103D62D2CDBF77",
+                         @"A1345517C482\""
                          ];
     
     // create the requirement to check against
     status = SecRequirementCreateWithString((__bridge CFStringRef)reqStr, kSecCSDefaultFlags, &req);
     
-    if (status != noErr) return false;
-    if (req == NULL) return false;
+    if (status != noErr) return nil;
+    if (req == NULL) return nil;
     
     status = SecStaticCodeCheckValidity(ref, kSecCSCheckAllArchitectures, req);
     
-    if (status != noErr) return false;
+    if (status != noErr) return nil;
     
     CFRelease(ref);
     CFRelease(req);
     
     DDLogDebug(@"Code signature was checked and it positively identifies Apple software.");
     
-    return true;
+    return runningExecutable;
 }
 
 
@@ -1504,8 +1533,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 - (void) setElevateWindowLevels
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
-    if (allowSwitchToThirdPartyApps) {
+    _allowSwitchToApplications = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
+    if (_allowSwitchToApplications) {
         [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
     } else {
         [preferences setSecureBool:YES forKey:@"org_safeexambrowser_elevateWindowLevels"];

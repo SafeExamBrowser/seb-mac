@@ -107,6 +107,7 @@
     DDFileLogger *_myLogger;
     BOOL _forceAppFolder;
     SEBMinMacOSVersion _enforceMinMacOSVersion;
+    pid_t sebPID;
 }
 
 - (void) closeAboutWindow;
@@ -144,6 +145,7 @@
 - (void) closeLockdownWindows;
 - (void) openInfoHUD:(NSString *)lockedTimeInfo;
 
+@property(readwrite) BOOL allowSwitchToApplications;
 @property(readwrite) BOOL f3Pressed;
 @property(readwrite) BOOL quittingMyself;
 @property(strong) SEBWebView *webView;
@@ -158,5 +160,6 @@
 @property(strong) NSDate *didBecomeActiveTime;
 @property(strong) NSDate *didResumeExamTime;
 @property(strong) NSTimer *windowWatchTimer;
+@property(strong) NSMutableArray *systemProcessPIDs;
 
 @end
