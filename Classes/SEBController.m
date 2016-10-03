@@ -707,11 +707,23 @@ bool insideMatrix();
                     NSRunningApplication *appWithPanel = [NSRunningApplication runningApplicationWithProcessIdentifier:windowOwnerPID];
                     NSString *appWithPanelBundleID = appWithPanel.bundleIdentifier;
                     DDLogWarn(@"Application %@ with bundle ID %@ has openend a window with level %@", windowOwner, appWithPanelBundleID, windowLevelString);
-                    if (!appWithPanelBundleID || (appWithPanelBundleID && [appWithPanelBundleID hasPrefix:@"com.apple."])) {
+                    if (appWithPanelBundleID && ![appWithPanelBundleID hasPrefix:@"com.apple."]) {
+                        // Application hasn't a com.apple. bundle ID prefix
+                        // The app which opened the window or panel is no system process
+                        if (firstScan) {
+                            //[appWithPanel terminate];
+                        } else {
+                            DDLogWarn(@"Application %@ is being force terminated!", windowOwner);
+                            [appWithPanel forceTerminate];
+                        }
+                    } else {
+                        // There is either no bundle ID or the prefix is com.apple.
                         // Check if application with Bundle ID com.apple. is a legit Apple system executable
                         if ([self signedSystemExecutable:appWithPanel]) {
                             // Cache this executable PID
                             [_systemProcessPIDs addObject:windowOwnerPIDString];
+                            // Return without terminating
+                            return;
                         } else {
                             // The app which opened the window or panel is no system process
                             if (firstScan) {
@@ -720,14 +732,6 @@ bool insideMatrix();
                                 DDLogWarn(@"Application %@ is being force terminated!", windowOwner);
                                 [appWithPanel forceTerminate];
                             }
-                        }
-                    } else {
-                        // The app which opened the window or panel is no system process
-                        if (firstScan) {
-                            //[appWithPanel terminate];
-                        } else {
-                            DDLogWarn(@"Application %@ is being force terminated!", windowOwner);
-                            [appWithPanel forceTerminate];
                         }
                     }
                 }
@@ -840,9 +844,10 @@ bool insideMatrix();
 - (void)conditionallyTerminateAirPlay
 {
     if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowAirPlay"]) {
-        NSArray *runningAirPlayAgents = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"AirPlayUIAgent"];
+        NSArray *runningAirPlayAgents = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.AirPlayUIAgent"];
         if (runningAirPlayAgents.count != 0) {
             for (NSRunningApplication *airPlayAgent in runningAirPlayAgents) {
+                DDLogWarn(@"Terminating AirPlay");
                 [airPlayAgent forceTerminate];
             }
         }
