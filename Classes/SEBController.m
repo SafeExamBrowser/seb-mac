@@ -846,17 +846,34 @@ bool insideMatrix();
 // to stop a possibly running AirPlay connection
 - (void)conditionallyTerminateAirPlay
 {
-    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowAirPlay"]) {
-        NSArray *runningAirPlayAgents = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.AirPlayUIAgent"];
-        if (runningAirPlayAgents.count != 0) {
-            for (NSRunningApplication *airPlayAgent in runningAirPlayAgents) {
-                DDLogWarn(@"Terminating AirPlayUIAgent %@", airPlayAgent);
-                kill([airPlayAgent processIdentifier], 9);
-            }
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowAirPlay"]) {
+        // If using AirPlay isn't allowed
+        // If menu bar is visible: Check if AirPlay Display mirroring options in menu bar are allowed
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"]) {
+            NSUserDefaults *appUserDefaults = [[NSUserDefaults alloc] init];
+            [appUserDefaults addSuiteNamed:@"com.apple.airplay"];
+            NSDictionary *prefsDict = [appUserDefaults dictionaryRepresentation];
+            airPlayMenuBarButton = [[prefsDict objectForKey:@"showInMenuBarIfPresent"] boolValue];
+        } else {
+            airPlayMenuBarButton = NO;
         }
+        [self killAirPlayUIAgent];
     }
 }
 
+
+- (void)killAirPlayUIAgent
+{
+    NSArray *runningAirPlayAgents = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.AirPlayUIAgent"];
+    if (runningAirPlayAgents.count != 0) {
+        for (NSRunningApplication *airPlayAgent in runningAirPlayAgents) {
+            DDLogWarn(@"Terminating AirPlayUIAgent %@", airPlayAgent);
+            kill([airPlayAgent processIdentifier], 9);
+        }
+    }
+}
 
 // Check if running on minimal allowed macOS version or a newer version
 - (void)checkMinMacOSVersion
@@ -1235,6 +1252,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     NSScreen *iterScreen;
     for (iterScreen in screens)
     {
+        NSDictionary *screenDeviceDescription = iterScreen.deviceDescription;
+        DDLogDebug(@"Device description for screen: %@", screenDeviceDescription);
         //NSRect frame = size of the current screen;
         NSRect frame = [iterScreen frame];
         NSUInteger styleMask = NSBorderlessWindowMask;
@@ -1305,8 +1324,17 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 
 - (void) adjustScreenLocking: (id)sender {
     // This should only be done when the preferences window isn't open
+    DDLogDebug(@"NSApplicationDidChangeScreenParametersNotification");
+    
     if (![self.preferencesController preferencesAreOpen]) {
 
+        // Terminate AirPlayUIAgent in case the AirPlay Display mirror button is active the
+        // menu bar (if this is shown)
+        if (airPlayMenuBarButton) {
+            DDLogDebug(@"Kill AirPlayUIAgent after NSApplicationDidChangeScreenParametersNotification");
+            [self killAirPlayUIAgent];
+        }
+        
         DDLogDebug(@"Adjusting screen locking");
 
         // Check if lockdown windows are open and adjust those too

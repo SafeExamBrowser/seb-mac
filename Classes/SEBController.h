@@ -108,6 +108,7 @@
     BOOL _forceAppFolder;
     SEBMinMacOSVersion _enforceMinMacOSVersion;
     pid_t sebPID;
+    BOOL airPlayMenuBarButton;
 }
 
 - (void) closeAboutWindow;
