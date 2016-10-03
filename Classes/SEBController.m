@@ -847,7 +847,7 @@ bool insideMatrix();
         NSArray *runningAirPlayAgents = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.AirPlayUIAgent"];
         if (runningAirPlayAgents.count != 0) {
             for (NSRunningApplication *airPlayAgent in runningAirPlayAgents) {
-                DDLogWarn(@"Terminating AirPlay");
+                DDLogWarn(@"Terminating AirPlayUIAgent %@", airPlayAgent);
                 [airPlayAgent forceTerminate];
             }
         }
