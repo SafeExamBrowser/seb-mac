@@ -109,6 +109,7 @@
     SEBMinMacOSVersion _enforceMinMacOSVersion;
     pid_t sebPID;
     BOOL airPlayMenuBarButton;
+    BOOL allowScreenSharing;
 }
 
 - (void) closeAboutWindow;

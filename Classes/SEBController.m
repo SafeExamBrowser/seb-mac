@@ -57,6 +57,8 @@
 #include <string.h>
 #include <errno.h>
 #include <libproc.h>
+#include <assert.h>
+#include <sys/sysctl.h>
 
 #import "PrefsBrowserViewController.h"
 #import "SEBBrowserController.h"
@@ -307,21 +309,24 @@ bool insideMatrix();
         if ([iterApp ownsMenuBar]) {
             DDLogDebug(@"App %@ owns menu bar", iterApp);
         }
-        // Check for activated screen sharing if settings demand it
-        if ([appBundleID isEqualToString:@"com.apple.screensharing.agent"] &&
-            ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"]) {
-            // Screen sharing is active
-            NSAlert *newAlert = [[NSAlert alloc] init];
-            [newAlert setMessageText:NSLocalizedString(@"Screen Sharing Detected!", nil)];
-            [newAlert setInformativeText:NSLocalizedString(@"You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.\n\nTo avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing.", nil)];
-            [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
-            [newAlert setAlertStyle:NSCriticalAlertStyle];
-            [newAlert runModal];
-            quittingMyself = TRUE; //SEB is terminating itself
-            [NSApp terminate: nil]; //quit SEB
-        }
     }
 
+    // Get all running processes, including daemons
+    NSArray *allRunningProcesses = [self getProcessArray];
+    // Check for activated screen sharing if settings demand it
+    if ([allRunningProcesses containsObject:@"ScreensharingAge"] &&
+         ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"]) {
+             // Screen sharing is active
+             NSAlert *newAlert = [[NSAlert alloc] init];
+             [newAlert setMessageText:NSLocalizedString(@"Screen Sharing Detected!", nil)];
+             [newAlert setInformativeText:NSLocalizedString(@"You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.\n\nTo avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing.", nil)];
+             [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+             [newAlert setAlertStyle:NSCriticalAlertStyle];
+             [newAlert runModal];
+             quittingMyself = TRUE; //SEB is terminating itself
+             [NSApp terminate: nil]; //quit SEB
+    }
+    
     // If AirPlay isn't allowed in settings, kill the AirPlay agent
     // to stop a possibly running AirPlay connection
     [self conditionallyTerminateAirPlay];
@@ -639,7 +644,7 @@ bool insideMatrix();
         CGEventTapEnable(leftMouseEventTap, true);
     }
 
-    [self conditionallyStartWindowWatcher];
+    [self startWindowWatcher];
     
     [self performSelector:@selector(performAfterStartActions:) withObject: nil afterDelay: 2];
 }
@@ -698,28 +703,165 @@ bool insideMatrix();
 }
 
 
-// Start the windows watcher if it's not yet running
-- (void)conditionallyStartWindowWatcher
+- (NSArray *) getProcessArray {
+    NSMutableArray *ProcList = [[NSMutableArray alloc] init];
+    
+    kinfo_proc *mylist;
+    size_t mycount = 0;
+    mylist = (kinfo_proc *)malloc(sizeof(kinfo_proc));
+    GetBSDProcessList(&mylist, &mycount);
+    //printf("There are %d processes.\n", (int)mycount);
+    int k;
+    for(k = 0; k < mycount; k++) {
+        kinfo_proc *proc = NULL;
+        proc = &mylist[k];
+        //NSString *processName = [NSString stringWithFormat: @"%s",proc-> kp_proc.p_comm];
+        NSString * processName = [NSString stringWithCString:proc-> kp_proc.p_comm encoding:NSUTF8StringEncoding];
+        [ProcList addObject:processName];
+        //  [ ProcList setObject: proc->kp_proc.p_pid forKey: processName];
+        printf("ID: %d - NAME: %s\n", proc->kp_proc.p_pid, proc-> kp_proc.p_comm);
+    }
+    free(mylist);
+    
+    return ProcList;
+}
+
+
+- (NSDictionary *) getProcessList {
+    NSMutableDictionary *ProcList = [[NSMutableDictionary alloc] init];
+    
+    kinfo_proc *mylist;
+    size_t mycount = 0;
+    mylist = (kinfo_proc *)malloc(sizeof(kinfo_proc));
+    GetBSDProcessList(&mylist, &mycount);
+    //printf("There are %d processes.\n", (int)mycount);
+    int k;
+    for(k = 0; k < mycount; k++) {
+        kinfo_proc *proc = NULL;
+        proc = &mylist[k];
+        NSString *processName = [NSString stringWithFormat: @"%s",proc-> kp_proc.p_comm];
+        [ ProcList setObject: processName forKey: processName ];
+        [ ProcList setObject: [NSNumber numberWithInt:proc->kp_proc.p_pid] forKey: processName];
+        printf("ID: %d - NAME: %s\n", proc->kp_proc.p_pid, proc-> kp_proc.p_comm);
+    }
+    free(mylist);
+    
+    return ProcList;
+}
+
+
+typedef struct kinfo_proc kinfo_proc;
+
+static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
+// Returns a list of all BSD processes on the system.  This routine
+// allocates the list and puts it in *procList and a count of the
+// number of entries in *procCount.  You are responsible for freeing
+// this list (use "free" from System framework).
+// On success, the function returns 0.
+// On error, the function returns a BSD errno value.
 {
-    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"]) {
-        if (!_windowWatchTimer) {
-            NSDate *dateNextMinute = [NSDate date];
-            
-            _windowWatchTimer = [[NSTimer alloc] initWithFireDate: dateNextMinute
-                                                         interval: 0.25
-                                                           target: self
-                                                         selector:@selector(forceTerminatePanelApps)
-                                                         userInfo:nil repeats:YES];
-            
-            NSRunLoop *currentRunLoop = [NSRunLoop currentRunLoop];
-            [currentRunLoop addTimer:_windowWatchTimer forMode: NSRunLoopCommonModes];
+    int                 err;
+    kinfo_proc *        result;
+    bool                done;
+    static const int    name[] = { CTL_KERN, KERN_PROC, KERN_PROC_ALL, 0 };
+    // Declaring name as const requires us to cast it when passing it to
+    // sysctl because the prototype doesn't include the const modifier.
+    size_t              length;
+    
+    *procCount = 0;
+    
+    // We start by calling sysctl with result == NULL and length == 0.
+    // That will succeed, and set length to the appropriate length.
+    // We then allocate a buffer of that size and call sysctl again
+    // with that buffer.  If that succeeds, we're done.  If that fails
+    // with ENOMEM, we have to throw away our buffer and loop.  Note
+    // that the loop causes use to call sysctl with NULL again; this
+    // is necessary because the ENOMEM failure case sets length to
+    // the amount of data returned, not the amount of data that
+    // could have been returned.
+    
+    result = NULL;
+    done = false;
+    do {
+        
+        // Call sysctl with a NULL buffer.
+        
+        length = 0;
+        err = sysctl( (int *) name, (sizeof(name) / sizeof(*name)) - 1,
+                     NULL, &length,
+                     NULL, 0);
+        if (err == -1) {
+            err = errno;
         }
-    } else {
-        // We're (currently) not running the windows watcher when switching to third party apps is allowed
-        if (_windowWatchTimer) {
-            [_windowWatchTimer invalidate];
-            _windowWatchTimer = nil;
+        
+        // Allocate an appropriately sized buffer based on the results
+        // from the previous call.
+        
+        if (err == 0) {
+            result = malloc(length);
+            if (result == NULL) {
+                err = ENOMEM;
+            }
         }
+        
+        // Call sysctl again with the new buffer.  If we get an ENOMEM
+        // error, toss away our buffer and start again.
+        
+        if (err == 0) {
+            err = sysctl( (int *) name, (sizeof(name) / sizeof(*name)) - 1,
+                         result, &length,
+                         NULL, 0);
+            if (err == -1) {
+                err = errno;
+            }
+            if (err == 0) {
+                done = true;
+            } else if (err == ENOMEM) {
+                free(result);
+                result = NULL;
+                err = 0;
+            }
+        }
+    } while (err == 0 && ! done);
+    
+    // Clean up and establish post conditions.
+    
+    if (err != 0 && result != NULL) {
+        free(result);
+        result = NULL;
+    }
+    *procList = result;
+    if (err == 0) {
+        *procCount = length / sizeof(kinfo_proc);
+    }
+    
+    return err;
+}
+
+
+// Start the windows watcher if it's not yet running
+- (void)startWindowWatcher
+{
+    if (!_windowWatchTimer) {
+        NSDate *dateNextMinute = [NSDate date];
+        
+        _windowWatchTimer = [[NSTimer alloc] initWithFireDate: dateNextMinute
+                                                     interval: 0.25
+                                                       target: self
+                                                     selector:@selector(forceTerminatePanelApps)
+                                                     userInfo:nil repeats:YES];
+        
+        NSRunLoop *currentRunLoop = [NSRunLoop currentRunLoop];
+        [currentRunLoop addTimer:_windowWatchTimer forMode: NSRunLoopCommonModes];
+    }
+}
+
+
+// Start the windows watcher if it's not yet running
+- (void)stopWindowWatcher {
+    if (_windowWatchTimer) {
+        [_windowWatchTimer invalidate];
+        _windowWatchTimer = nil;
     }
 }
 
@@ -736,6 +878,7 @@ bool insideMatrix();
         // Get SEB's PID
         NSRunningApplication *sebRunningApp = [NSRunningApplication currentApplication];
         sebPID = [sebRunningApp processIdentifier];
+        allowScreenSharing = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"];
 
     } else {
         // otherwise only those which are visible (on screen)
@@ -755,7 +898,7 @@ bool insideMatrix();
             
             NSRunningApplication *notificationCenter = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.notificationcenterui"][0];
             [notificationCenter forceTerminate];
-            return;
+            continue;
         }
         NSString *windowLevelString = [window objectForKey:@"kCGWindowLayer" ];
         NSInteger windowLevel = windowLevelString.integerValue;
@@ -798,6 +941,14 @@ bool insideMatrix();
                 }
             }
         }
+    }
+    // Check if screen sharing was activated
+    // Get all running processes, including daemons
+    NSArray *allRunningProcesses = [self getProcessArray];
+    // Check for activated screen sharing if settings demand it
+    if ([allRunningProcesses containsObject:@"ScreensharingAge"] && !allowScreenSharing) {
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"detectedScreenSharing" object:self];
     }
 }
 
@@ -866,6 +1017,9 @@ bool insideMatrix();
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
+    // Also set flag for screen sharing
+    allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"];
+                          
     if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowAirPlay"]) {
         // If using AirPlay isn't allowed
         // If menu bar is visible: Check if AirPlay Display mirroring options in menu bar are allowed
@@ -2204,8 +2358,6 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     // to stop a possibly running AirPlay connection
     [self conditionallyTerminateAirPlay];
     
-    [self conditionallyStartWindowWatcher];
-
     // Clear Pasteboard
     [self clearPasteboardSavingCurrentString];
     
@@ -2501,6 +2653,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     
     BOOL success = [self.systemManager restoreSC];
     DDLogDebug(@"Success of restoring SC: %hhd", success);
+    
+    [self stopWindowWatcher];
     
     runningAppsWhileTerminating = [[NSWorkspace sharedWorkspace] runningApplications];
     NSRunningApplication *iterApp;
