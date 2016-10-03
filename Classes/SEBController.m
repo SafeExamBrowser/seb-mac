@@ -52,6 +52,11 @@
 
 #include <signal.h>
 #include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
+#include <libproc.h>
 
 #import "PrefsBrowserViewController.h"
 #import "SEBBrowserController.h"
@@ -285,10 +290,6 @@ bool insideMatrix();
     }
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-
-    // If AirPlay isn't allowed in settings, kill the AirPlay agent
-    // to stop a possibly running AirPlay connection
-    [self conditionallyTerminateAirPlay];
     
     // Save the bundle ID of all currently running apps which are visible in a array
 	NSArray *runningApps = [[NSWorkspace sharedWorkspace] runningApplications];
@@ -307,7 +308,7 @@ bool insideMatrix();
             DDLogDebug(@"App %@ owns menu bar", iterApp);
         }
         // Check for activated screen sharing if settings demand it
-        if ([appBundleID isEqualToString:@"com.apple.ScreenSharing"] &&
+        if ([appBundleID isEqualToString:@"com.apple.screensharing.agent"] &&
             ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"]) {
             // Screen sharing is active
             NSAlert *newAlert = [[NSAlert alloc] init];
@@ -321,7 +322,12 @@ bool insideMatrix();
         }
     }
 
-// Setup Notifications and Kiosk Mode
+    // If AirPlay isn't allowed in settings, kill the AirPlay agent
+    // to stop a possibly running AirPlay connection
+    [self conditionallyTerminateAirPlay];
+
+    
+    // Setup Notifications and Kiosk Mode
     
     // Add an observer for the notification that another application became active (SEB got inactive)
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(regainActiveStatus:) 
@@ -639,6 +645,59 @@ bool insideMatrix();
 }
 
 
+// Perform actions which require that SEB has finished setting up and has opened its windows
+- (void) performAfterStartActions:(NSNotification *)notification
+{
+    DDLogInfo(@"Performing after start actions");
+    
+    // Check for command key being held down
+    [self appSwitcherCheck];
+    
+    // Reinforce the kiosk mode
+    [self requestedReinforceKioskMode:nil];
+    
+    //    [[NSNotificationCenter defaultCenter]
+    //     postNotificationName:@"requestReinforceKioskMode" object:self];
+    
+    if ([[MyGlobals sharedMyGlobals] preferencesReset] == YES) {
+        DDLogError(@"Triggering present alert for 'Local SEB settings have been reset'");
+        [self presentPreferencesCorruptedError];
+    }
+    
+    // Check if the Force Quit window is open
+    [self forceQuitWindowCheck];
+    
+    // Check if there is a SebClientSettings.seb file saved in the preferences directory
+    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+    if (![configFileManager reconfigureClientWithSebClientSettings] && [MyGlobals sharedMyGlobals].reconfiguredWhileStarting) {
+        // Show alert that SEB was reconfigured
+        NSAlert *newAlert = [[NSAlert alloc] init];
+        [newAlert setMessageText:NSLocalizedString(@"SEB Re-Configured", nil)];
+        [newAlert setInformativeText:NSLocalizedString(@"Local settings of this SEB client have been reconfigured. Do you want to start working with SEB now or quit?", nil)];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"Start", nil)];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+        NSInteger answer = [newAlert runModal];
+        switch(answer)
+        {
+            case NSAlertFirstButtonReturn:
+                
+                break; //Continue running SEB
+                
+            case NSAlertSecondButtonReturn:
+            {
+                //                [[NSNotificationCenter defaultCenter]
+                //                 postNotificationName:@"requestQuitNotification" object:self];
+                [self performSelector:@selector(requestedQuit:) withObject: nil afterDelay: 3];
+            }
+                
+        }
+    }
+    
+    // Set flag that SEB is initialized: Now showing alerts is allowed
+    [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
+}
+
+
 // Start the windows watcher if it's not yet running
 - (void)conditionallyStartWindowWatcher
 {
@@ -696,6 +755,7 @@ bool insideMatrix();
             
             NSRunningApplication *notificationCenter = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.notificationcenterui"][0];
             [notificationCenter forceTerminate];
+            return;
         }
         NSString *windowLevelString = [window objectForKey:@"kCGWindowLayer" ];
         NSInteger windowLevel = windowLevelString.integerValue;
@@ -716,17 +776,15 @@ bool insideMatrix();
                         if (firstScan) {
                             //[appWithPanel terminate];
                         } else {
-                            DDLogWarn(@"Application %@ is being force terminated!", windowOwner);
+                            DDLogWarn(@"Application %@ is being force terminated because its bundle ID doesn't have the prefix com.apple.", windowOwner);
                             [appWithPanel forceTerminate];
                         }
                     } else {
                         // There is either no bundle ID or the prefix is com.apple.
                         // Check if application with Bundle ID com.apple. is a legit Apple system executable
-                        if ([self signedSystemExecutable:appWithPanel]) {
+                        if ([self signedSystemExecutable:windowOwnerPID]) {
                             // Cache this executable PID
                             [_systemProcessPIDs addObject:windowOwnerPIDString];
-                            // Return without terminating
-                            return;
                         } else {
                             // The app which opened the window or panel is no system process
                             if (firstScan) {
@@ -744,70 +802,30 @@ bool insideMatrix();
 }
 
 
-// Perform actions which require that SEB has finished setting up and has opened its windows
-- (void) performAfterStartActions:(NSNotification *)notification
-{
-    DDLogInfo(@"Performing after start actions");
-    
-    // Check for command key being held down
-    [self appSwitcherCheck];
-    
-    // Reinforce the kiosk mode
-    [self requestedReinforceKioskMode:nil];
-    
-//    [[NSNotificationCenter defaultCenter]
-//     postNotificationName:@"requestReinforceKioskMode" object:self];
-    
-    if ([[MyGlobals sharedMyGlobals] preferencesReset] == YES) {
-        DDLogError(@"Triggering present alert for 'Local SEB settings have been reset'");
-        [self presentPreferencesCorruptedError];
-    }
-    
-    // Check if the Force Quit window is open
-    [self forceQuitWindowCheck];
-
-    // Check if there is a SebClientSettings.seb file saved in the preferences directory
-    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-    if (![configFileManager reconfigureClientWithSebClientSettings] && [MyGlobals sharedMyGlobals].reconfiguredWhileStarting) {
-        // Show alert that SEB was reconfigured
-        NSAlert *newAlert = [[NSAlert alloc] init];
-        [newAlert setMessageText:NSLocalizedString(@"SEB Re-Configured", nil)];
-        [newAlert setInformativeText:NSLocalizedString(@"Local settings of this SEB client have been reconfigured. Do you want to start working with SEB now or quit?", nil)];
-        [newAlert addButtonWithTitle:NSLocalizedString(@"Start", nil)];
-        [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
-        NSInteger answer = [newAlert runModal];
-        switch(answer)
-        {
-            case NSAlertFirstButtonReturn:
-                
-                break; //Continue running SEB
-                
-            case NSAlertSecondButtonReturn:
-            {
-//                [[NSNotificationCenter defaultCenter]
-//                 postNotificationName:@"requestQuitNotification" object:self];
-                [self performSelector:@selector(requestedQuit:) withObject: nil afterDelay: 3];
-            }
-                
-        }
-    }
-    
-    // Set flag that SEB is initialized: Now showing alerts is allowed
-    [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
-}
-
-
 // Check if application is a legit Apple system executable
-- (NSRunningApplication *)signedSystemExecutable:(NSRunningApplication *)runningExecutable
+- (BOOL)signedSystemExecutable:(pid_t)runningExecutablePID
 {
     SecStaticCodeRef ref = NULL;
     
-    NSURL * url = runningExecutable.executableURL;
+    int ret;
+    char pathbuf[PROC_PIDPATHINFO_MAXSIZE];
+    
+    ret = proc_pidpath (runningExecutablePID, pathbuf, sizeof(pathbuf));
+    if ( ret <= 0 ) {
+        fprintf(stderr, "PID %d: proc_pidpath ();\n", runningExecutablePID);
+        fprintf(stderr, "    %s\n", strerror(errno));
+    } else {
+        printf("proc %d: %s\n", runningExecutablePID, pathbuf);
+    }
+
+    NSURL * executableURL = [NSURL URLWithString:[NSString stringWithCString:pathbuf encoding:NSUTF8StringEncoding]];
+
+    DDLogDebug(@"Evaluating code signature of %@", executableURL);
     
     OSStatus status;
     
     // obtain the cert info from the executable
-    status = SecStaticCodeCreateWithPath((__bridge CFURLRef)url, kSecCSDefaultFlags, &ref);
+    status = SecStaticCodeCreateWithPath((__bridge CFURLRef)executableURL, kSecCSDefaultFlags, &ref);
     
     if (ref == NULL) return false;
     if (status != noErr) return false;
@@ -826,19 +844,19 @@ bool insideMatrix();
     // create the requirement to check against
     status = SecRequirementCreateWithString((__bridge CFStringRef)reqStr, kSecCSDefaultFlags, &req);
     
-    if (status != noErr) return nil;
-    if (req == NULL) return nil;
+    if (status != noErr) return false;
+    if (req == NULL) return false;
     
     status = SecStaticCodeCheckValidity(ref, kSecCSCheckAllArchitectures, req);
     
-    if (status != noErr) return nil;
+    if (status != noErr) return false;
     
     CFRelease(ref);
     CFRelease(req);
     
-    DDLogDebug(@"Code signature of %@ was checked and it positively identifies Apple software.", url);
+    DDLogDebug(@"Code signature of %@ was checked and it positively identifies macOS system software.", executableURL);
     
-    return runningExecutable;
+    return true;
 }
 
 
@@ -1529,7 +1547,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             
             // Check for activated screen sharing if settings demand it
             NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-            if ([launchedAppBundleID isEqualToString:@"com.apple.ScreenSharing"] && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"]) {
+            if ([launchedAppBundleID isEqualToString:@"com.apple.screensharing.agent"] && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"]) {
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:@"detectedScreenSharing" object:self];
             }
