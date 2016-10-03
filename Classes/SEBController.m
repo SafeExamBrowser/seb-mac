@@ -50,6 +50,9 @@
 #include <IOKit/pwr_mgt/IOPMLib.h>
 #include <IOKit/IOMessage.h>
 
+#include <signal.h>
+#include <unistd.h>
+
 #import "PrefsBrowserViewController.h"
 #import "SEBBrowserController.h"
 #import "SEBURLFilter.h"
@@ -848,7 +851,7 @@ bool insideMatrix();
         if (runningAirPlayAgents.count != 0) {
             for (NSRunningApplication *airPlayAgent in runningAirPlayAgents) {
                 DDLogWarn(@"Terminating AirPlayUIAgent %@", airPlayAgent);
-                [airPlayAgent forceTerminate];
+                kill([airPlayAgent processIdentifier], 9);
             }
         }
     }
