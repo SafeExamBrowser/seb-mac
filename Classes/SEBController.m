@@ -1584,6 +1584,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 {
     [sebLockedViewController.view removeFromSuperview];
     [self closeCoveringWindows:self.lockdownWindows];
+    _screenSharingDetected = false;
 }
 
 
@@ -2565,12 +2566,17 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         if (!sebLockedViewController.resignActiveLogString) {
             sebLockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
         }
-        self.didResignActiveTime = [NSDate date];
-        DDLogError(@"Screen sharing was activated!");
-        [self openLockdownWindows];
-        
-        // Add log string for resign active
-        [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing was activated", nil)] withTime:self.didResignActiveTime];
+        if (!_screenSharingDetected) {
+            _screenSharingDetected = true;
+            DDLogError(@"Screen sharing was activated!");
+            [self openLockdownWindows];
+            
+            // Add log string for screen sharing active
+            [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing was activated", nil)] withTime:self.didResignActiveTime];
+        } else {
+            // Add log string for screen sharing still active
+            [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing is still active", nil)] withTime:[NSDate date]];
+        }
     }
 }
 

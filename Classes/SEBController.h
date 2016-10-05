@@ -148,6 +148,7 @@
 - (void) openInfoHUD:(NSString *)lockedTimeInfo;
 
 @property(readwrite) BOOL allowSwitchToApplications;
+@property(readwrite) BOOL screenSharingDetected;
 @property(readwrite) BOOL f3Pressed;
 @property(readwrite) BOOL quittingMyself;
 @property(strong) SEBWebView *webView;
