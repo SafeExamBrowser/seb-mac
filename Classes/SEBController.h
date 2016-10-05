@@ -165,5 +165,6 @@
 @property(strong) NSDate *didResumeExamTime;
 @property(strong) NSTimer *windowWatchTimer;
 @property(strong) NSMutableArray *systemProcessPIDs;
+@property(strong) NSMutableArray *terminatedProcessesExecutableURLs;
 
 @end

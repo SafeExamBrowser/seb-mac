@@ -492,6 +492,7 @@ bool insideMatrix();
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(switchHandler:)
                                                  name:@"detectedScreenSharing" object:nil];
+    _terminatedProcessesExecutableURLs = [NSMutableArray new];
     [self forceTerminatePanelApps];
 
 // Prevent display sleep
@@ -921,6 +922,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                                 //[appWithPanel terminate];
                             } else {
                                 DDLogWarn(@"Application %@ is being force terminated because its bundle ID doesn't have the prefix com.apple.", windowOwner);
+                                [_terminatedProcessesExecutableURLs addObject:appWithPanel.executableURL];
                                 [appWithPanel forceTerminate];
                             }
                         } else {
@@ -935,6 +937,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                                     //[appWithPanel terminate];
                                 } else {
                                     DDLogWarn(@"Application %@ is being force terminated because it isn't macOS system software!", windowOwner);
+                                    [_terminatedProcessesExecutableURLs addObject:appWithPanel.executableURL];
                                     [appWithPanel forceTerminate];
                                 }
                             }
@@ -2673,9 +2676,39 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     
     [self stopWindowWatcher];
     
+    // Restart terminated apps
+    DDLogInfo(@"These processes were terminated by SEB during this session: %@", _terminatedProcessesExecutableURLs);
+    NSArray *uniqueTerminatedProcessesURLs = [_terminatedProcessesExecutableURLs valueForKeyPath:@"@distinctUnionOfObjects.self"];
+    DDLogInfo(@"These unique processes were terminated by SEB during this session: %@", uniqueTerminatedProcessesURLs);
+    
+    for (NSURL *executableURL in uniqueTerminatedProcessesURLs) {
+        
+        // Parameter and path to XUL-SEB Application
+        NSArray *taskArguments = [NSArray arrayWithObjects:@"", nil];
+        
+        // Allocate and initialize a new NSTask
+        NSTask *task = [NSTask new];
+        
+        // Tell the NSTask what the path is to the binary it should launch
+        NSString *path = [executableURL.path stringByReplacingOccurrencesOfString:@" " withString:@"\\ "];
+        [task setLaunchPath:path];
+        
+        // The argument that we pass to XULRunner (in the form of an array) is the path to the SEB-XUL-App
+        [task setArguments:taskArguments];
+        
+        // Launch the process asynchronously
+        @try {
+            DDLogInfo(@"Trying to restart terminated process %@", path);
+            [task launch];
+        }
+        @catch (NSException* error) {
+            DDLogError(@"Error %@.  Make sure you have a valid path and arguments.", error);
+        }
+    }
+    
     runningAppsWhileTerminating = [[NSWorkspace sharedWorkspace] runningApplications];
     NSRunningApplication *iterApp;
-    for (iterApp in runningAppsWhileTerminating) 
+    for (iterApp in runningAppsWhileTerminating)
     {
         NSString *appBundleID = [iterApp valueForKey:@"bundleIdentifier"];
         if ([visibleApps indexOfObject:appBundleID] != NSNotFound) {
