@@ -892,7 +892,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     for (NSDictionary *window in windowList) {
         NSString *windowName = [window objectForKey:@"kCGWindowName" ];
         NSString *windowOwner = [window objectForKey:@"kCGWindowOwnerName" ];
-        if (_allowSwitchToApplications && [windowName isEqualToString:@"NotificationTableWindow"]) {
+        if (_allowSwitchToApplications && [windowName isEqualToString:@"NotificationTableWindow"] && ![_preferencesController preferencesAreOpen]) {
             // If switching to applications is allowed and the Notification Center was opened
             DDLogWarn(@"Notification Center panel was openend (owning process name: %@", windowOwner);
             
@@ -913,28 +913,30 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                     NSRunningApplication *appWithPanel = [NSRunningApplication runningApplicationWithProcessIdentifier:windowOwnerPID];
                     NSString *appWithPanelBundleID = appWithPanel.bundleIdentifier;
                     DDLogWarn(@"Application %@ with bundle ID %@ has openend a window with level %@", windowOwner, appWithPanelBundleID, windowLevelString);
-                    if (appWithPanelBundleID && ![appWithPanelBundleID hasPrefix:@"com.apple."]) {
-                        // Application hasn't a com.apple. bundle ID prefix
-                        // The app which opened the window or panel is no system process
-                        if (firstScan) {
-                            //[appWithPanel terminate];
-                        } else {
-                            DDLogWarn(@"Application %@ is being force terminated because its bundle ID doesn't have the prefix com.apple.", windowOwner);
-                            [appWithPanel forceTerminate];
-                        }
-                    } else {
-                        // There is either no bundle ID or the prefix is com.apple.
-                        // Check if application with Bundle ID com.apple. is a legit Apple system executable
-                        if ([self signedSystemExecutable:windowOwnerPID]) {
-                            // Cache this executable PID
-                            [_systemProcessPIDs addObject:windowOwnerPIDString];
-                        } else {
+                    if (!_allowSwitchToApplications && ![_preferencesController preferencesAreOpen]) {
+                        if (appWithPanelBundleID && ![appWithPanelBundleID hasPrefix:@"com.apple."]) {
+                            // Application hasn't a com.apple. bundle ID prefix
                             // The app which opened the window or panel is no system process
                             if (firstScan) {
                                 //[appWithPanel terminate];
                             } else {
-                                DDLogWarn(@"Application %@ is being force terminated!", windowOwner);
+                                DDLogWarn(@"Application %@ is being force terminated because its bundle ID doesn't have the prefix com.apple.", windowOwner);
                                 [appWithPanel forceTerminate];
+                            }
+                        } else {
+                            // There is either no bundle ID or the prefix is com.apple.
+                            // Check if application with Bundle ID com.apple. is a legit Apple system executable
+                            if ([self signedSystemExecutable:windowOwnerPID]) {
+                                // Cache this executable PID
+                                [_systemProcessPIDs addObject:windowOwnerPIDString];
+                            } else {
+                                // The app which opened the window or panel is no system process
+                                if (firstScan) {
+                                    //[appWithPanel terminate];
+                                } else {
+                                    DDLogWarn(@"Application %@ is being force terminated because it isn't macOS system software!", windowOwner);
+                                    [appWithPanel forceTerminate];
+                                }
                             }
                         }
                     }
