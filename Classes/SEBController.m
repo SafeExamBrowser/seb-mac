@@ -2568,6 +2568,11 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         }
         if (!_screenSharingDetected) {
             _screenSharingDetected = true;
+            self.didResignActiveTime = [NSDate date];
+            self.didBecomeActiveTime = [NSDate date];
+            // Report screen sharing is still active every 3rd second
+            #define sebScreenSharingLogCounter 11
+            screenSharingLogCounter = sebScreenSharingLogCounter;
             DDLogError(@"Screen sharing was activated!");
             [self openLockdownWindows];
             
@@ -2575,7 +2580,11 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing was activated", nil)] withTime:self.didResignActiveTime];
         } else {
             // Add log string for screen sharing still active
-            [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing is still active", nil)] withTime:[NSDate date]];
+            self.didBecomeActiveTime = [NSDate date];
+            if (!screenSharingLogCounter--) {
+                [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing is still active", nil)] withTime:[NSDate date]];
+                screenSharingLogCounter = sebScreenSharingLogCounter;
+            }
         }
     }
 }

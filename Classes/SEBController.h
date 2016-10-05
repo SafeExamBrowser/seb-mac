@@ -110,6 +110,7 @@
     pid_t sebPID;
     BOOL airPlayMenuBarButton;
     BOOL allowScreenSharing;
+    NSUInteger screenSharingLogCounter;
 }
 
 - (void) closeAboutWindow;
