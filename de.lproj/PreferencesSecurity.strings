@@ -86,7 +86,7 @@
 "IXz-wb-IuQ.title" = "F8 erlauben";
 
 /* Class = "NSButtonCell"; title = "Disable app switcher when starting"; ObjectID = "JRL-fG-lI3"; */
-"JRL-fG-lI3.title" = "Start: Programmumschalter verbieten";
+"JRL-fG-lI3.title" = "Programmumschalter während Start verbieten";
 
 /* Class = "NSButtonCell"; title = "None (for debugging only)"; ObjectID = "KbI-Yu-DVk"; */
 "KbI-Yu-DVk.title" = "Keiner (nur für Debugging)";

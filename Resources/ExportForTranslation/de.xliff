@@ -1957,7 +1957,7 @@
             </trans-unit>
             <trans-unit id="VV0-Zp-Taw.title">
                 <source>Choose certificate to embedd:</source>
-                <target>Einzbettendes Zertifikat auswählen:</target>
+                <target>Einzubettendes Zertifikat auswählen:</target>
                 <note>Class = "NSTextFieldCell"; title = "Choose certificate to embedd:"; ObjectID = "VV0-Zp-Taw";</note>
             </trans-unit>
             <trans-unit id="Wrm-JO-cYX.title">
@@ -2301,7 +2301,7 @@
             </trans-unit>
             <trans-unit id="JRL-fG-lI3.title">
                 <source>Disable app switcher when starting</source>
-                <target>Start: Programmumschalter verbieten</target>
+                <target>Programmumschalter während Start verbieten</target>
                 <note>Class = "NSButtonCell"; title = "Disable app switcher when starting"; ObjectID = "JRL-fG-lI3";</note>
             </trans-unit>
             <trans-unit id="KbI-Yu-DVk.title">
@@ -3219,7 +3219,7 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
             </trans-unit>
             <trans-unit id="SEB only supports embedding TLS/SSL and CA certificates and using certificate pinning if running on macOS 10.9 or later versions. If you want to make sure that embedded certificates and certificate pinning work on all exam clients, then you should enforce the minimum macOS version 10.9 in the Security pane.">
                 <source>SEB only supports embedding TLS/SSL and CA certificates and using certificate pinning if running on macOS 10.9 or later versions. If you want to make sure that embedded certificates and certificate pinning work on all exam clients, then you should enforce the minimum macOS version 10.9 in the Security pane.</source>
-                <target>SEB unterstützt das Einbetten von TLS/SSL- und CA-Zertifikaten und das Zertifikat-Pinning nur auf macOS 10.9 oder neuer. Wenn Sie sicherstellen wollen, dass eingebettete Zertifikate und das Zertifikat-Pinning auf allen Prüfungsclients funktionieren, dann sollten Sie die Verbindung von mindestens macOS 10.9 in den Sicherheits-Einstellungen erzwingen. </target>
+                <target>SEB unterstützt das Einbetten von TLS/SSL- und CA-Zertifikaten und das Zertifikat-Pinning nur auf macOS 10.9 oder neuer. Wenn Sie sicherstellen wollen, dass eingebettete Zertifikate und das Zertifikat-Pinning auf allen Prüfungsclients funktionieren, dann sollten Sie die Verwendung von mindestens macOS 10.9 in den Sicherheits-Einstellungen erzwingen. </target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)">

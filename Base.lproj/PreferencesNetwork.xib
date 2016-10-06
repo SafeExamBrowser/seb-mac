@@ -801,9 +801,9 @@
                                 <rect key="frame" x="10" y="33" width="604" height="640"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1778">
+                                    <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1778">
                                         <rect key="frame" x="18" y="620" width="326" height="17"/>
-                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Choose TLS/SSL certificate to embed into settings ..." id="1783">
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Choose TLS/SSL certificate to embed into settings ..." usesSingleLineMode="YES" id="1783">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -824,9 +824,9 @@
                                             <action selector="certificateSelected:" target="-2" id="1904"/>
                                         </connections>
                                     </popUpButton>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1813">
+                                    <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1813">
                                         <rect key="frame" x="18" y="573" width="292" height="17"/>
-                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Choose CA certificate to embed into settings ..." id="1818">
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Choose CA certificate to embed into settings ..." usesSingleLineMode="YES" id="1818">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -991,13 +991,13 @@
                                     <constraint firstItem="1779" firstAttribute="leading" secondItem="242" secondAttribute="leading" constant="17" id="1791"/>
                                     <constraint firstItem="1778" firstAttribute="top" secondItem="242" secondAttribute="top" constant="3" id="1792"/>
                                     <constraint firstAttribute="trailing" secondItem="1779" secondAttribute="trailing" constant="17" id="1799"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1778" secondAttribute="trailing" constant="17" id="1802"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1778" secondAttribute="trailing" priority="250" constant="17" id="1802"/>
                                     <constraint firstItem="1778" firstAttribute="leading" secondItem="242" secondAttribute="leading" constant="20" symbolic="YES" id="1809"/>
                                     <constraint firstAttribute="trailing" secondItem="1814" secondAttribute="trailing" constant="17" id="1825"/>
                                     <constraint firstItem="1813" firstAttribute="leading" secondItem="1778" secondAttribute="leading" id="1826"/>
                                     <constraint firstItem="1814" firstAttribute="leading" secondItem="242" secondAttribute="leading" constant="17" id="1827"/>
                                     <constraint firstItem="1813" firstAttribute="top" secondItem="1779" secondAttribute="bottom" constant="8" symbolic="YES" id="1828"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1813" secondAttribute="trailing" constant="17" id="1830"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1813" secondAttribute="trailing" priority="250" constant="17" id="1830"/>
                                     <constraint firstItem="1831" firstAttribute="leading" secondItem="242" secondAttribute="leading" constant="17" id="1842"/>
                                     <constraint firstAttribute="trailing" secondItem="1831" secondAttribute="trailing" constant="17" id="1854"/>
                                     <constraint firstItem="1863" firstAttribute="leading" secondItem="242" secondAttribute="leading" constant="17" id="1869"/>
@@ -2019,7 +2019,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="163" y="199" width="610" height="573"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
             <view key="contentView" id="Oww-cu-u71">
                 <rect key="frame" x="0.0" y="0.0" width="610" height="573"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -2137,15 +2137,15 @@ Gw
                             <action selector="cancelAdvancedCertificateSheet:" target="-2" id="QXD-An-Ere"/>
                         </connections>
                     </button>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NW2-fd-qaY">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NW2-fd-qaY">
                         <rect key="frame" x="18" y="80" width="72" height="17"/>
-                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Embedd as" id="eXh-u4-x04">
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Embedd as" usesSingleLineMode="YES" id="eXh-u4-x04">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <popUpButton toolTip="TLS/SSL certificates from the default keychain. This allows to distribute self-signed certificates to exam clients" horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="An4-xf-7ZG">
+                    <popUpButton toolTip="TLS/SSL certificates from the default keychain. This allows to distribute self-signed certificates to exam clients" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="An4-xf-7ZG">
                         <rect key="frame" x="99" y="76" width="494" height="22"/>
                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="vRH-jI-3R1" id="hMi-Ei-zh1">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -2161,7 +2161,7 @@ Gw
                             <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_SSLCertificateTypes" id="lS5-3c-ZZm"/>
                         </connections>
                     </popUpButton>
-                    <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="poG-uc-dNo">
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="poG-uc-dNo">
                         <rect key="frame" x="177" y="49" width="413" height="22"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="AxE-Qn-sDl">
                             <font key="font" metaFont="system"/>
@@ -2176,7 +2176,7 @@ Gw
                             </binding>
                         </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nDb-Fc-OTn">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nDb-Fc-OTn">
                         <rect key="frame" x="18" y="52" width="153" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Override common name:" usesSingleLineMode="YES" id="Apy-z9-F3c">
                             <font key="font" metaFont="system"/>

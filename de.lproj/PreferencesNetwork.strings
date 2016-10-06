@@ -230,7 +230,7 @@
 "UIS-5m-9TC.ibShadowedToolTip" = "Kryptografische Identitäten (X.509 Zertifikate mit öffentlichem RSA-Schlüssel und dazugehörigem privaten Schlüssel) im Schlüsselbund \"Anmeldung\", die für Verschlüsselung und Entschlüsselung benutzt werden können. In Konfigurationsdateien gespeichert für das \"Konfigurieren von Clients\" eingebettete Identitäten werden in den Schlüsselbund von Prüfungsclients importiert.";
 
 /* Class = "NSTextFieldCell"; title = "Choose certificate to embedd:"; ObjectID = "VV0-Zp-Taw"; */
-"VV0-Zp-Taw.title" = "Einzbettendes Zertifikat auswählen:";
+"VV0-Zp-Taw.title" = "Einzubettendes Zertifikat auswählen:";
 
 /* Class = "NSButtonCell"; title = "Advanced…"; ObjectID = "Wrm-JO-cYX"; */
 "Wrm-JO-cYX.title" = "Erweitert…";

@@ -1685,7 +1685,7 @@
 				LastUpgradeCheck = 0800;
 				TargetAttributes = {
 					69F7B5FA14F411FB00FD0761 = {
-						DevelopmentTeam = 62DXYN3744;
+						DevelopmentTeam = 9Z623UDZ5L;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -2116,7 +2116,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = "";
-				DEVELOPMENT_TEAM = 62DXYN3744;
+				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
