@@ -313,6 +313,7 @@ bool insideMatrix();
 
     // Get all running processes, including daemons
     NSArray *allRunningProcesses = [self getProcessArray];
+    DDLogInfo(@"There are %lu running BSD processes: \n%@", (unsigned long)allRunningProcesses.count, allRunningProcesses);
     // Check for activated screen sharing if settings demand it
     if ([allRunningProcesses containsObject:@"ScreensharingAge"] &&
          ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"]) {
@@ -622,6 +623,8 @@ bool insideMatrix();
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
+    DDLogDebug(@"%s", __FUNCTION__);
+
     [[[NSWorkspace sharedWorkspace] notificationCenter]
      addObserver:self
      selector:@selector(switchHandler:)
@@ -711,7 +714,7 @@ bool insideMatrix();
     size_t mycount = 0;
     mylist = (kinfo_proc *)malloc(sizeof(kinfo_proc));
     GetBSDProcessList(&mylist, &mycount);
-    //printf("There are %d processes.\n", (int)mycount);
+    DDLogDebug(@"There are %d running BSD processes:", (int)mycount);
     int k;
     for(k = 0; k < mycount; k++) {
         kinfo_proc *proc = NULL;
@@ -720,7 +723,7 @@ bool insideMatrix();
         NSString * processName = [NSString stringWithCString:proc-> kp_proc.p_comm encoding:NSUTF8StringEncoding];
         [ProcList addObject:processName];
         //  [ ProcList setObject: proc->kp_proc.p_pid forKey: processName];
-        printf("ID: %d - NAME: %s\n", proc->kp_proc.p_pid, proc-> kp_proc.p_comm);
+        DDLogVerbose(@"PID: %d - Name: %s", proc->kp_proc.p_pid, proc-> kp_proc.p_comm);
     }
     free(mylist);
     
@@ -728,14 +731,14 @@ bool insideMatrix();
 }
 
 
-- (NSDictionary *) getProcessList {
+- (NSDictionary *) getProcessDictionary {
     NSMutableDictionary *ProcList = [[NSMutableDictionary alloc] init];
     
     kinfo_proc *mylist;
     size_t mycount = 0;
     mylist = (kinfo_proc *)malloc(sizeof(kinfo_proc));
     GetBSDProcessList(&mylist, &mycount);
-    //printf("There are %d processes.\n", (int)mycount);
+    DDLogDebug(@"There are %d running BSD processes:", (int)mycount);
     int k;
     for(k = 0; k < mycount; k++) {
         kinfo_proc *proc = NULL;
@@ -743,7 +746,7 @@ bool insideMatrix();
         NSString *processName = [NSString stringWithFormat: @"%s",proc-> kp_proc.p_comm];
         [ ProcList setObject: processName forKey: processName ];
         [ ProcList setObject: [NSNumber numberWithInt:proc->kp_proc.p_pid] forKey: processName];
-        printf("ID: %d - NAME: %s\n", proc->kp_proc.p_pid, proc-> kp_proc.p_comm);
+        DDLogVerbose(@"PID: %d - Name: %s", proc->kp_proc.p_pid, proc-> kp_proc.p_comm);
     }
     free(mylist);
     
@@ -843,6 +846,8 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 // Start the windows watcher if it's not yet running
 - (void)startWindowWatcher
 {
+    DDLogDebug(@"%s", __FUNCTION__);
+    
     if (!_windowWatchTimer) {
         NSDate *dateNextMinute = [NSDate date];
         
@@ -859,7 +864,10 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 
 
 // Start the windows watcher if it's not yet running
-- (void)stopWindowWatcher {
+- (void)stopWindowWatcher
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+    
     if (_windowWatchTimer) {
         [_windowWatchTimer invalidate];
         _windowWatchTimer = nil;
@@ -887,9 +895,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     }
     
     NSArray *windowList = CFBridgingRelease(CGWindowListCopyWindowInfo(options, kCGNullWindowID));
-#ifdef DEBUG
     DDLogVerbose(@"Window list: %@", windowList);
-#endif
     for (NSDictionary *window in windowList) {
         NSString *windowName = [window objectForKey:@"kCGWindowName" ];
         NSString *windowOwner = [window objectForKey:@"kCGWindowOwnerName" ];
@@ -990,7 +996,9 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         fprintf(stderr, "PID %d: proc_pidpath ();\n", runningExecutablePID);
         fprintf(stderr, "    %s\n", strerror(errno));
     } else {
+#ifdef DEBUG
         printf("proc %d: %s\n", runningExecutablePID, pathbuf);
+#endif
     }
 
     NSURL * executableURL = [NSURL URLWithString:[NSString stringWithCString:pathbuf encoding:NSUTF8StringEncoding]];
