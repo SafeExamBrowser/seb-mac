@@ -85,7 +85,7 @@
                                                                 <binding destination="610" name="value" keyPath="arrangedObjects.active" id="1164"/>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="50.10546875" minWidth="10" maxWidth="3.4028234663852886e+38" id="360">
+                                                        <tableColumn width="60" minWidth="10" maxWidth="3.4028234663852886e+38" id="360">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="OS">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -108,7 +108,7 @@
                                                                 <binding destination="610" name="selectedIndex" keyPath="arrangedObjects.os" id="1340"/>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="244.09765625" minWidth="40" maxWidth="1000" id="351">
+                                                        <tableColumn width="239" minWidth="40" maxWidth="1000" id="351">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Executable">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -124,7 +124,7 @@
                                                                 <binding destination="610" name="value" keyPath="arrangedObjects.executable" id="2136"/>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="244" minWidth="10" maxWidth="3.4028234663852886e+38" id="537">
+                                                        <tableColumn width="239" minWidth="10" maxWidth="3.4028234663852886e+38" id="537">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Title">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -559,9 +559,9 @@
                                                     </connections>
                                                 </textField>
                                                 <popUpButton toolTip="Indicates on which operating system the permitted process runs. macOS is currently not supported" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1314">
-                                                    <rect key="frame" x="43" y="254" width="75" height="26"/>
+                                                    <rect key="frame" x="43" y="254" width="80" height="26"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="70" id="yd6-Ea-gPd"/>
+                                                        <constraint firstAttribute="width" constant="75" id="yd6-Ea-gPd"/>
                                                     </constraints>
                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1319" id="1315">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -794,7 +794,7 @@
                                                                 <binding destination="1726" name="value" keyPath="arrangedObjects.active" id="1946"/>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="50.10546875" minWidth="10" maxWidth="3.4028234663852886e+38" id="1930">
+                                                        <tableColumn width="60" minWidth="10" maxWidth="3.4028234663852886e+38" id="1930">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="OS">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -817,7 +817,7 @@
                                                                 <binding destination="1726" name="selectedIndex" keyPath="arrangedObjects.os" id="1941"/>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="244.09765625" minWidth="40" maxWidth="1000" id="1929">
+                                                        <tableColumn width="239" minWidth="40" maxWidth="1000" id="1929">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Executable">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -833,7 +833,7 @@
                                                                 <binding destination="1726" name="value" keyPath="arrangedObjects.executable" id="2132"/>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="244" minWidth="10" maxWidth="3.4028234663852886e+38" id="1931">
+                                                        <tableColumn width="239" minWidth="10" maxWidth="3.4028234663852886e+38" id="1931">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Description">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1075,9 +1075,9 @@
                                                     </connections>
                                                 </textField>
                                                 <popUpButton toolTip="Indicates on which operating system the prohibited process runs. macOS is currently not supported." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1900">
-                                                    <rect key="frame" x="43" y="73" width="75" height="26"/>
+                                                    <rect key="frame" x="43" y="73" width="80" height="26"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="70" id="ooY-Jz-CeW"/>
+                                                        <constraint firstAttribute="width" constant="75" id="ooY-Jz-CeW"/>
                                                     </constraints>
                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1905" id="1901">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
