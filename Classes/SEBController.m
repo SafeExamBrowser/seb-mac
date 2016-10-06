@@ -922,7 +922,10 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                                 //[appWithPanel terminate];
                             } else {
                                 DDLogWarn(@"Application %@ is being force terminated because its bundle ID doesn't have the prefix com.apple.", windowOwner);
-                                [_terminatedProcessesExecutableURLs addObject:appWithPanel.executableURL];
+                                NSURL *appURL = [self getBundleOrExecutableURL:appWithPanel];
+                                if (appURL) {
+                                    [_terminatedProcessesExecutableURLs addObject:appURL];
+                                }
                                 [appWithPanel forceTerminate];
                             }
                         } else {
@@ -937,7 +940,10 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                                     //[appWithPanel terminate];
                                 } else {
                                     DDLogWarn(@"Application %@ is being force terminated because it isn't macOS system software!", windowOwner);
-                                    [_terminatedProcessesExecutableURLs addObject:appWithPanel.executableURL];
+                                    NSURL *appURL = [self getBundleOrExecutableURL:appWithPanel];
+                                    if (appURL) {
+                                        [_terminatedProcessesExecutableURLs addObject:appURL];
+                                    }
                                     [appWithPanel forceTerminate];
                                 }
                             }
@@ -955,6 +961,19 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"detectedScreenSharing" object:self];
     }
+}
+
+
+// Get URL (path) to either bundle or executable of a running application
+- (NSURL *)getBundleOrExecutableURL:(NSRunningApplication *)runningApp
+{
+    NSURL *runningAppURL = runningApp.bundleURL;
+    if (!runningAppURL) {
+        // If this didn't work then it's probably an app without bundle, get executable URL
+        runningAppURL = runningApp.executableURL;
+    }
+    DDLogDebug(@"NSRunningApplication %@ bundle or executable URL: %@", runningApp, runningAppURL);
+    return runningAppURL;
 }
 
 
@@ -2686,23 +2705,32 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         // Parameter and path to XUL-SEB Application
         NSArray *taskArguments = [NSArray arrayWithObjects:@"", nil];
         
-        // Allocate and initialize a new NSTask
-        NSTask *task = [NSTask new];
-        
-        // Tell the NSTask what the path is to the binary it should launch
-        NSString *path = [executableURL.path stringByReplacingOccurrencesOfString:@" " withString:@"\\ "];
-        [task setLaunchPath:path];
-        
-        // The argument that we pass to XULRunner (in the form of an array) is the path to the SEB-XUL-App
-        [task setArguments:taskArguments];
-        
-        // Launch the process asynchronously
-        @try {
-            DDLogInfo(@"Trying to restart terminated process %@", path);
-            [task launch];
-        }
-        @catch (NSException* error) {
-            DDLogError(@"Error %@.  Make sure you have a valid path and arguments.", error);
+        if ([executableURL.pathExtension isEqualToString:@"app"]) {
+            NSError *error;
+            DDLogInfo(@"Trying to restart terminated process with bundle URL %@", executableURL.path);
+            [[NSWorkspace sharedWorkspace] launchApplicationAtURL:executableURL options:NSWorkspaceLaunchDefault configuration:@{} error:&error];
+            if (error) {
+                DDLogError(@"Error %@", error);
+            }
+        } else {
+            // Allocate and initialize a new NSTask
+            NSTask *task = [NSTask new];
+            
+            // Tell the NSTask what the path is to the binary it should launch
+            //        NSString *path = [executableURL.path stringByReplacingOccurrencesOfString:@" " withString:@"\\ "];
+            [task setLaunchPath:executableURL.path];
+            
+            // The argument that we pass to XULRunner (in the form of an array) is the path to the SEB-XUL-App
+            [task setArguments:taskArguments];
+            
+            // Launch the process asynchronously
+            @try {
+                DDLogInfo(@"Trying to restart terminated process %@", executableURL.path);
+                [task launch];
+            }
+            @catch (NSException* error) {
+                DDLogError(@"Error %@.  Make sure you have a valid path and arguments.", error);
+            }
         }
     }
     
