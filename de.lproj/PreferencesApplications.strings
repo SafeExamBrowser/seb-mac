@@ -91,7 +91,7 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Remove an argument"; ObjectID = "866"; */
 "866.ibShadowedToolTip" = "Argument entfernen";
 
-/* Class = "NSTextField"; ibShadowedToolTip = "Bundle identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title for tricky Win applications (Java, Acrobat etc.)"; ObjectID = "887"; */
+/* Class = "NSTextField"; ibShadowedToolTip = "Bundle identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title for tricky Win applications (Java, Acrobat etc.)"; ObjectID = "887"; */
 "887.ibShadowedToolTip" = "Identifikator des Prozesses in der umgekehrten DNS-Notation (macOS) oder ein Teil-String des Titels des Hauptfensters (Win)";
 
 /* Class = "NSTextFieldCell"; title = "Identifier"; ObjectID = "897"; */
@@ -124,7 +124,7 @@
 /* Class = "NSTextFieldCell"; title = "OS"; ObjectID = "1304"; */
 "1304.title" = "OS";
 
-/* Class = "NSPopUpButton"; ibShadowedToolTip = "Indicates on which operating system the permitted process runs. OS X is currently not supported"; ObjectID = "1314"; */
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Indicates on which operating system the permitted process runs. macOS is currently not supported"; ObjectID = "1314"; */
 "1314.ibShadowedToolTip" = "Betriebssystem, auf welchem der erlaubte Prozess läuft";
 
 /* Class = "NSButton"; ibShadowedToolTip = "For choosing a running process which will be added to the list of permitted processes"; ObjectID = "1600"; */
@@ -166,7 +166,7 @@
 /* Class = "NSButton"; ibShadowedToolTip = "The prohibited process has to run under the currently logged in user. Use it instead of indicating the user."; ObjectID = "1856"; */
 "1856.ibShadowedToolTip" = "Der verbotene Prozess muss unter dem momentanen Benutzer laufen. Kann benutzt werden, anstatt den Benutzernamen anzugeben";
 
-/* Class = "NSTextField"; ibShadowedToolTip = "Identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title"; ObjectID = "1859"; */
+/* Class = "NSTextField"; ibShadowedToolTip = "Identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title"; ObjectID = "1859"; */
 "1859.ibShadowedToolTip" = "Identifikator des Prozesses in der umgekehrten DNS-Notation (macOS) oder ein Teil-String des Titels des Hauptfensters (Win)";
 
 /* Class = "NSTextField"; ibShadowedToolTip = "Process name, usually the file name of the executable"; ObjectID = "1893"; */
@@ -181,7 +181,7 @@
 /* Class = "NSButton"; ibShadowedToolTip = "This prohibited process item is active"; ObjectID = "1898"; */
 "1898.ibShadowedToolTip" = "Der Eintrag für diesen verbotenen Prozess ist aktiv";
 
-/* Class = "NSPopUpButton"; ibShadowedToolTip = "Indicates on which operating system the prohibited process runs. OS X is currently not supported."; ObjectID = "1900"; */
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Indicates on which operating system the prohibited process runs. macOS is currently not supported."; ObjectID = "1900"; */
 "1900.ibShadowedToolTip" = "Betriebssystem, auf welchem der verbotene Prozess läuft";
 
 /* Class = "NSTextFieldCell"; title = "OS"; ObjectID = "1906"; */

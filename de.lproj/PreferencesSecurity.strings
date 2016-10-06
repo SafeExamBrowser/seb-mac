@@ -157,7 +157,7 @@
 /* Class = "NSButtonCell"; title = "Disable Explorer Shell"; ObjectID = "dpL-te-8hi"; */
 "dpL-te-8hi.title" = "Windows Explorer deaktivieren";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Controls OS X screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows"; ObjectID = "g34-gq-Owk"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Controls macOS screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows"; ObjectID = "g34-gq-Owk"; */
 "g34-gq-Owk.ibShadowedToolTip" = "Steuert macOS Bildschirmfotos (cmd-3 und cmd-4), entspricht 'Print Screen'-Taste (Windows 'Hooked Keys' Einstellungen)";
 
 /* Class = "NSButtonCell"; title = "Allow using AirPlay"; ObjectID = "hwg-eH-cMm"; */
@@ -208,7 +208,7 @@
 /* Class = "NSButtonCell"; title = "Enable Start Task Manager"; ObjectID = "uiU-JQ-4Yc"; */
 "uiU-JQ-4Yc.title" = "Task-Manager starten erlauben";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Controls Print Screen, corresponds with Enable screen capture in OS X"; ObjectID = "wUs-SE-6xn"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Controls Print Screen, corresponds with Enable screen capture in macOS"; ObjectID = "wUs-SE-6xn"; */
 "wUs-SE-6xn.ibShadowedToolTip" = "'Print Screen'-Taste erlauben, entspricht macOS 'Bildschirmfotos erlauben' (cmd-3 und cmd-4) ";
 
 /* Class = "NSButtonCell"; title = "Enable F4"; ObjectID = "yCu-0c-Hf1"; */

@@ -19,7 +19,7 @@
 /* Class = "NSButtonCell"; title = "Allow spell checking"; ObjectID = "9oR-jn-THC"; */
 "9oR-jn-THC.title" = "Rechtschreibeprüfung zulassen";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Show the OS X menu bar to allow accessing settings like Wi-Fi"; ObjectID = "13"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Show the macOS menu bar to allow accessing settings like Wi-Fi"; ObjectID = "13"; */
 "13.ibShadowedToolTip" = "macOS Menüleiste anzeigen für Zugriff auf Einstellungen wie WLAN";
 
 /* Class = "NSButtonCell"; title = "Show menu bar"; ObjectID = "14"; */
