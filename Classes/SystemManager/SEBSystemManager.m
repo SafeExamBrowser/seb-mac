@@ -67,7 +67,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         if (scLocation.length == 0) {
             // in case it wasn't saved properly, we reset to the OS X default sc location
             scLocation = [@"~/Desktop" stringByExpandingTildeInPath];
-            DDLogWarn(@"The persistantly saved original screencapture location wasn't found, it has been reset to the OS X default location %@", scLocation);
+            DDLogWarn(@"The persistantly saved original screencapture location wasn't found, it has been reset to the macOS default location %@", scLocation);
         }
     } else {
         

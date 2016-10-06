@@ -35,6 +35,9 @@
 "Are you sure?" = "Sind Sie sicher?";
 
 /* No comment provided by engineer. */
+"Authentication Required" = "Authentifizierung erforderlich";
+
+/* No comment provided by engineer. */
 "Auto Proxy Discovery" = "Automatische Proxy-Entdeckung";
 
 /* No comment provided by engineer. */
@@ -44,9 +47,12 @@
 "Browser" = "Browser";
 
 /* No comment provided by engineer. */
-"Cancel" = "Abbrechen";
+"CA Certificate" = "CA-Zertifikat";
 
 /* No comment provided by engineer. */
+"Cancel" = "Abbrechen";
+
+/* (No Commment) */
 "Cannot Decrypt SEB Settings" = "SEB-Konfiguration kann nicht entschlüsselt werden";
 
 /* No comment provided by engineer. */
@@ -83,10 +89,16 @@
 "Correct password entered, closing lockdown windows" = "Korrektes Passwort eingegeben, Lockdown-Fenster werden geschlossen";
 
 /* No comment provided by engineer. */
+"Current SEB settings require at least %@, but your system is older. SEB will quit!" = "Die SEB-Einstellungen verlangen mindestens %@, aber dieses Betriebssystem ist älter. SEB wird beendet!";
+
+/* No comment provided by engineer. */
 "Current settings have unsaved changes. If you don't save those first, you will loose them." = "Aktuelle Einstellungen haben ungesicherte Änderungen. Wenn Sie nicht zuerst sichern, verlieren Sie diese.";
 
 /* No comment provided by engineer. */
 "Debug" = "Debug";
+
+/* No comment provided by engineer. */
+"Debug Certificate" = "Debug-Zertifikat";
 
 /* No comment provided by engineer. */
 "Do you really want to reload the current web page?" = "Wollen Sie die aktuelle Webseite wirklich neu laden?";
@@ -166,7 +178,7 @@
 /* (No Commment) */
 "File to upload not found!" = "Datei zum Heraufladen nicht gefunden!";
 
-/* No comment provided by engineer. */
+/* (No Commment) */
 "FirstTimeUserNotice" = "Bitte benutzen Sie die Fenster-Schliessen-Taste oder Cmd-Q (Befehlstaste-Q) um SEB zu beenden und (fn-)F3-F6 um die Einstellungen zu öffnen.
 
 Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-URL eingeben. Sie sollten dort ausserdem ein Beenden-Passwort und ein Administrator-Passwort festlegen, um das Beenden von SEB und den Zugang zu den Einstellungen einzuschränken.";
@@ -201,7 +213,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
 /* No comment provided by engineer. */
 "If you don't enter the right administrator password from these settings you cannot open them." = "Ohne Eingabe des korrekten, in dieser Konfigurationsdatei verwendeten SEB Administrator-Passworts kann diese nicht geöffnet werden.";
 
-/* No comment provided by engineer. */
+/* (No Commment) */
 "Important Notice for First Time Users" = "Wichtiger Hinweis für neue Benutzer";
 
 /* No comment provided by engineer. */
@@ -247,11 +259,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
 "Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option." = "Die lokalen Client-Einstellungen haben die Option 'Einstellungen-Fenster darf auf Client geöffnet werden' deaktiviert, was das Öffnen des Einstellungen-Fensters selbst nach einem Neustart von SEB verhindert. Sind Sie sicher, dass Sie das anwenden wollen? Ansonsten können Sie diese Option zurücksetzen.";
 
 /* No comment provided by engineer. */
-"Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.
-
-Reset local settings and continue?" = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt oder beschädigt. Sie können die Einstellungen jetzt zurücksetzen oder SEB jetzt beenden und die vorherige SEB-Version benutzen, um die Einstellungen zu exportieren und danach zum Konfigurieren der neuen Version zu benutzen.
-
-Lokale Einstellungen zurücksetzen und weiterfahren?";
+"Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.\n\nReset local settings and continue?" = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt oder beschädigt. Sie können die Einstellungen jetzt zurücksetzen oder SEB jetzt beenden und die vorherige SEB-Version benutzen, um die Einstellungen zu exportieren und danach zum Konfigurieren der neuen Version zu benutzen.\n\nLokale Einstellungen zurücksetzen und weiterfahren?";
 
 /* No comment provided by engineer. */
 "Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly." = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt oder beschädigt. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um SEB wieder korrekt zu konfigurieren.";
@@ -281,6 +289,9 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 "None" = "Keine";
 
 /* No comment provided by engineer. */
+"Not Running Minimal macOS Version!" = "Zu alte macOS-Version!";
+
+/* No comment provided by engineer. */
 "OK" = "OK";
 
 /* No comment provided by engineer. */
@@ -294,6 +305,9 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 
 /* No comment provided by engineer. */
 "Opening Preferences Disabled" = "Öffnen neuer Einstellungen nicht möglich";
+
+/* Title of a temporary browser window for opening a SEB link */
+"Opening SEB Config" = "SEB-Konfiguration wird geöffnet";
 
 /* No comment provided by engineer. */
 "Opening Settings Failed" = "Öffnen der Einstellungen fehlgeschlagen!";
@@ -376,8 +390,11 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 /* No comment provided by engineer. */
 "SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path." = "SEB ist so konfiguriert, dass nur eine zuvor heruntergelade Datei heraufgeladen werden kann. Laden Sie eine Datei herunter und wenn Sie diese in einer Drittapplikation bearbeiten, speichern Sie diese mit demselben Dateinamen im gleichen Verzeichnis.";
 
+/* Default lockdown window alert text */
+"SEB is locked because it was attempted to switch the user. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. SEB kann nur mittels des Neustarten-/Beenden-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
+
 /* No comment provided by engineer. */
-"SEB is locked because a user switch was attempted. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. SEB kann nur mittels des Neustarten-/Beenden-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
+"SEB only supports embedding TLS/SSL and CA certificates and using certificate pinning if running on macOS 10.9 or later versions. If you want to make sure that embedded certificates and certificate pinning work on all exam clients, then you should enforce the minimum macOS version 10.9 in the Security pane." = "SEB unterstützt das Einbetten von TLS/SSL- und CA-Zertifikaten und das Zertifikat-Pinning nur auf macOS 10.9 oder neuer. Wenn Sie sicherstellen wollen, dass eingebettete Zertifikate und das Zertifikat-Pinning auf allen Prüfungsclients funktionieren, dann sollten Sie die Verbindung von mindestens macOS 10.9 in den Sicherheits-Einstellungen erzwingen. ";
 
 /* No comment provided by engineer. */
 "SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" = "SEB war gesperrt (Prüfung unterbrochen) für %ld:%.2ld (Minuten:Sekunden)";
@@ -405,6 +422,18 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 
 /* (No Commment) */
 "Saving Settings Succeeded" = "Einstellungen gespeichert";
+
+/* No comment provided by engineer. */
+"Screen Sharing Detected!" = "Bildschirmfreigabe detektiert!";
+
+/* No comment provided by engineer. */
+"Screen sharing detected. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows.\n\nTo avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing." = "SEB ist gesperrt, weil die Bildschirmfreigabe benutzt wurde. SEB kann nur mittels des Neustarten-/Beenden-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.\n\nUm zu verhindern, dass SEB wegen der Bildschirmfreigabe während einer Prüfung gesperrt wird, kann 'Bildschirmfreigabe' und 'Entfernte Verwaltung' in Systemeinstellungen/Freigaben ausgeschaltet werden.";
+
+/* No comment provided by engineer. */
+"Screen sharing is still active" = "Bildschirmfreigabe ist immer noch aktiv";
+
+/* No comment provided by engineer. */
+"Screen sharing was activated" = "Bildschirmfreigabe wurde aktiviert";
 
 /* No comment provided by engineer. */
 "Secure Web Proxy (HTTPS)" = "Sicherer Web-Proxy (HTTPS)";
@@ -452,6 +481,9 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 "The list containing ignore filter expressions has only an effect on the 'Teach allowed/blocked URLs' mode; loading ignored URLs/resources won't display a dialog anymore. They are blocked anyways, because all not allowed URLs are blocked by the URL filter. Do you want to clear the list now?" = "Die Liste mit Filterregeln für zu ignorierende URLs hat nur im Filterregeln-Lernen-Modus eine Wirkung, für ignorierte URLs/Ressourcen wird dauerhaft keine Warnung angezeigt. Blockiert werden diese URLs sowieso, weil alle nicht explizit erlaubten URLs vom Filter blockiert werden. Wollen Sie die Liste nun löschen?";
 
 /* No comment provided by engineer. */
+"The user name or password you entered for %@ was incorrect. Make sure you’re entering them correctly, and then try again." = "Der Benutzername oder das Passwort für %@ waren falsch. Vergewissern Sie sich, dass sie korrekt eingegeben sind, und versuchen Sie es erneut.";
+
+/* No comment provided by engineer. */
 "These settings are corrupted and cannot be used." = "Diese Einstellungen sind beschädigt und können nicht benutzt werden.";
 
 /* No comment provided by engineer. */
@@ -464,13 +496,16 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 "This embedded resource isn't allowed! You can create a new filter rule based on the following patterns:" = "Es ist nicht erlaubt, diese eingebettete Ressouce zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:";
 
 /* No comment provided by engineer. */
-"This setting allows to switch to any application on the exam client computer. Use this option only when running SEB in a special user account managed by parental controls, with only SEB and the desired applications allowed." = "Diese Einstellung erlaubt es, auf jede beliebige Applikation auf dem Prüfungsrechner zu wechseln. Sie sollte nur benutzt werden, wenn SEB in einem Benutzeraccount verwendet wird, welches mittels der OS X Kindersicherung verwaltet wird. Dabei sollten nur SEB und die gewünschten Applikationen zugelassen werden.";
+"This setting allows to switch to any application on the exam client computer. Use this option only when running SEB in a special user account managed by parental controls, with only SEB and the desired applications allowed." = "Diese Einstellung erlaubt es, auf jede beliebige Applikation auf dem Prüfungsrechner zu wechseln. Sie sollte nur benutzt werden, wenn SEB in einem Benutzeraccount verwendet wird, welches mittels der macOS Kindersicherung verwaltet wird. Dabei sollten nur SEB und die gewünschten Applikationen zugelassen werden.";
 
 /* No comment provided by engineer. */
-"Touch Optimized Mode Warning" = "Warnung Modus Touch-Optimized";
+"To proceed, you must log in to" = "Um weiterzufahren, müssen Sie sich anmelden";
 
 /* No comment provided by engineer. */
-"Touch optimization will not work when kiosk mode is set to 'Create new desktop', please change kiosk mode to 'Disable Explorer Shell' in the Security pane." = "Touch-Optimierung funktioniert nicht, wenn der Kiosk-Modus 'Neuen Desktop erstellen' eingestellt ist, bitte Kiosk-Modus in den Sicherheits-Einstellungen auf 'Windows Explorer deaktivieren' ändern.";
+"Touch Optimized Mode Warning" = "Warnung Modus Touch-optimiert";
+
+/* No comment provided by engineer. */
+"Touch optimization will not work when kiosk mode is set to 'Create new desktop', please change kiosk mode to 'Disable Explorer Shell' in the Security pane." = "Der Modus Touch-optimiert funktioniert nicht, wenn der Kiosk-Modus 'Neuen Desktop erstellen' eingestellt ist, bitte Kiosk-Modus in den Sicherheits-Einstellungen auf 'Windows Explorer deaktivieren' ändern.";
 
 /* No comment provided by engineer. */
 "URL Blocked!" = "Blockierte URL!";
@@ -539,6 +574,9 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 "Wrong quit/restart password." = "Falsches Beenden-/Neustart-Passwort";
 
 /* No comment provided by engineer. */
+"You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.\n\nTo avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing." = "Es ist nicht erlaubt, die Bildschirmfreigabe zu benutzen, während SEB läuft. Starten Sie SEB neu, nachdem Sie die Bildschirmfreigabe beendet haben.\n\nUm zu verhindern, dass SEB wegen der Bildschirmfreigabe während einer Prüfung gesperrt wird, kann 'Bildschirmfreigabe' und 'Entfernte Verwaltung' in Systemeinstellungen/Freigaben ausgeschaltet werden.";
+
+/* No comment provided by engineer. */
 "You are not allowed to run SEB inside a virtual machine!" = "Es ist nicht erlaubt, SEB innerhalb einer virtuellen Maschine zu betreiben!";
 
 /* No comment provided by engineer. */
@@ -557,11 +595,7 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 "You either entered the wrong password or these settings were saved with an incompatible SEB version." = "Sie haben entweder ein falsches Passwort eingegeben oder diese Konfiguration wude mit einer inkompatiblen SEB-Version erstellt.";
 
 /* No comment provided by engineer. */
-"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.
-
-You can save an unencrypted settings file, but this is not recommended for use in exams." = "Sie sollten entweder ein Passwort oder eine kryptografische Identität zum Verschlüsseln der Konfigurationsdatei verwenden.
-
-Sie können eine unverschlüsselte Datei speichern, aber dies ist nicht für die Benutzung in Prüfungen empfohlen.";
+"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file. You can save an unencrypted settings file, but this is not recommended for use in exams." = "Sie sollten entweder ein Passwort oder eine kryptografische Identität zum Verschlüsseln der Konfigurationsdatei verwenden. Sie können eine unverschlüsselte Datei speichern, aber dies wird nicht für die Benutzung in Prüfungen empfohlen.";
 
 /* No comment provided by engineer. */
 "administrator" = "Administrator";
@@ -586,6 +620,9 @@ Sie können eine unverschlüsselte Datei speichern, aber dies ist nicht für die
 
 /* No comment provided by engineer. */
 "get generally blocked" = "werden generell blockiert";
+
+/* No comment provided by engineer. */
+"macOS Support Warning" = "Warnung zur macOS-Unterstützung";
 
 /* No comment provided by engineer. */
 "manually with file requester" = "manuell mit Dateidialog";

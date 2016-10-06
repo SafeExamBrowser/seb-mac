@@ -59,7 +59,7 @@
 "181.title" = "Vorwärts-/Rückwärts-Surfen erlauben";
 
 /* Class = "NSButton"; ibShadowedToolTip = "When the SEB browser is disabled, no browser window is openend. Use this option with specific third party applications allowed."; ObjectID = "413"; */
-"413.ibShadowedToolTip" = "Das SEB-Dock zeigt und schaltet um auf offene Browserfenster, zugelassene Ressourcen und Drittapplikationen und kann zusätzliche Funktionen beinhalten";
+"413.ibShadowedToolTip" = "Wenn der SEB-Browser deaktiviert ist, wird kein Browserfenster geöffnet. Diese Option kann verwendet werden, wenn Drittapplikationen zugelassen sind.";
 
 /* Class = "NSButtonCell"; title = "Use SEB without browser window (Win)"; ObjectID = "415"; */
 "415.title" = "SEB ohne Browserfenster benutzen (Win)";

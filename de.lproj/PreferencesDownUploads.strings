@@ -1,5 +1,5 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Usually to be used with permitted third party applications for which you want to provide files to be downloaded."; ObjectID = "13"; */
-"13.ibShadowedToolTip" = "Normalerweise zu verwenden, wenn das Umschalten auf Drittapplikationen erlaubt ist oder wenn die HTML5 Download-Funktion für lokale Backups benutzt wird";
+"13.ibShadowedToolTip" = "Normalerweise zu verwenden, wenn das Umschalten auf Drittapplikationen erlaubt ist oder wenn die HTML5 Download-Funktion für lokale Backups benutzt wird.";
 
 /* Class = "NSButtonCell"; title = "Allow downloading and uploading files"; ObjectID = "14"; */
 "14.title" = "Download und Upload erlauben";

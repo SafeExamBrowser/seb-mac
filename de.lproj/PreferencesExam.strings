@@ -1,6 +1,9 @@
 /* Class = "NSTextField"; ibShadowedToolTip = "Full URL (starting with http:// or https://) of the page to open when the Restart exam button is pressed"; ObjectID = "2Rr-y4-nE8"; */
 "2Rr-y4-nE8.ibShadowedToolTip" = "Komplette URL (beginnend mit http:// oder https://) der Seite, die durch die Neustart-Taste geöffnet werden soll";
 
+/* Class = "NSButton"; ibShadowedToolTip = "When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system"; ObjectID = "3dP-gi-x4W"; */
+"3dP-gi-x4W.ibShadowedToolTip" = "Wenn angewählt, wird der Browser Exam Key an den Webserver gesendet, um den SEB-Client und seine Einstellungen gegenüber einem kompatiblen Prüfungssystem zu authentifizieren";
+
 /* Class = "NSButtonCell"; title = "Protect restart exam button with the quit/restart password"; ObjectID = "5SR-dU-gy3"; */
 "5SR-dU-gy3.title" = "Neustart-Taste mittels des Neustart-/Beenden-Passworts schützen";
 
@@ -28,12 +31,6 @@
 /* Class = "NSTextFieldCell"; placeholderString = "URL starting with http:// or https://"; ObjectID = "689"; */
 "689.placeholderString" = "URL beginnend mit http:// oder https://";
 
-/* Class = "NSButton"; ibShadowedToolTip = "The Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system"; ObjectID = "970"; */
-"970.ibShadowedToolTip" = "Der Browser Exam Key wird an den verbundenen Webserver gesendet, um den SEB-Client und seine Einstellungen gegenüber einem kompatiblen Prüfungssystem zu authentifizieren";
-
-/* Class = "NSButtonCell"; title = "Send Browser Exam Key in HTTP header"; ObjectID = "971"; */
-"971.title" = "Browser Exam Key im HTTP-Header senden";
-
 /* Class = "NSTextField"; ibShadowedToolTip = "This text is displayed as the title of the password entering/confirming dialog window and tooltip for the restart exam button"; ObjectID = "Qei-df-hVI"; */
 "Qei-df-hVI.ibShadowedToolTip" = "Dieser Text wird als Titel des Passwort-/Bestätigungs-Dialogs und als Tooltip für die Neustart-Taste angezeigt";
 
@@ -48,6 +45,9 @@
 
 /* Class = "NSBox"; title = "Restart exam button"; ObjectID = "czI-08-Q8k"; */
 "czI-08-Q8k.title" = "Neustart-Taste";
+
+/* Class = "NSButtonCell"; title = "Use Browser Exam Key (send in HTTP header)"; ObjectID = "gk0-kD-QIq"; */
+"gk0-kD-QIq.title" = "Browser Exam Key benutzen (im HTTP-Header senden)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Require to enter the quit/restart password when the restart exam button is pressed"; ObjectID = "oJT-BY-ezv"; */
 "oJT-BY-ezv.ibShadowedToolTip" = "Eingabe des Beenden-/Neustart-Passworts verlangen, wenn die Neustart-Taste gedrückt wird";

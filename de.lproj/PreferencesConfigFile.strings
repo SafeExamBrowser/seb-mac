@@ -5,7 +5,7 @@
 "4.title" = "Speichern";
 
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Identities (X.509 certificates with RSA public key and associated private key) in your default keychain which can be used for encrypting and decrypting. Export the chosen identity (in Keychain Access utility) and install it on your SEB clients."; ObjectID = "69"; */
-"69.ibShadowedToolTip" = "Kryptografische Identitäten (X.509 Zertifikate mit öffentlichem RSA-Schlüssel und dazugehörigem privaten Schlüssel) im Schlüsselbund, die für Verschlüsselung und Entschlüsselung benutzt werden können";
+"69.ibShadowedToolTip" = "Kryptografische Identitäten (X.509 Zertifikate mit öffentlichem RSA-Schlüssel und dazugehörigem privaten Schlüssel) im Schlüsselbund \"Anmeldung\", die für Verschlüsselung und Entschlüsselung benutzt werden können";
 
 /* Class = "NSTextFieldCell"; title = "Choose identity to be used for encrypting SEB settings file ..."; ObjectID = "75"; */
 "75.title" = "Identität zur Verschlüsselung der SEB Konfigurationsdatei auswählen …";

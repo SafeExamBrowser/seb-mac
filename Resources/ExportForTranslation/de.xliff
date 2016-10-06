@@ -2,7 +2,7 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
     <file original="Base.lproj/PreferencesAppearance.xib" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="8.0" build-num="8A218a"></tool>
         </header>
         <body>
             <trans-unit id="2KI-tS-neq.ibShadowedToolTip">
@@ -42,7 +42,7 @@
             </trans-unit>
             <trans-unit id="13.ibShadowedToolTip">
                 <source>Show the OS X menu bar to allow accessing settings like Wi-Fi</source>
-                <target>OS X Menüleiste anzeigen für Zugriff auf Einstellungen wie WLAN</target>
+                <target>macOS Menüleiste anzeigen für Zugriff auf Einstellungen wie WLAN</target>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Show the OS X menu bar to allow accessing settings like Wi-Fi"; ObjectID = "13";</note>
             </trans-unit>
             <trans-unit id="14.title">
@@ -245,6 +245,16 @@
                 <target>Zoom-Modus Win (Ctrl-Maustaste)</target>
                 <note>Class = "NSBox"; title = "Zoom mode Win (Ctrl-Mousewheel)"; ObjectID = "eGR-0O-pYN";</note>
             </trans-unit>
+            <trans-unit id="gKH-Yr-UT7.title">
+                <source>Automatic on-screen keyboard behavior (Win)</source>
+                <note>Class = "NSBox"; title = "Automatic on-screen keyboard behavior (Win)"; ObjectID = "gKH-Yr-UT7";</note>
+                <target>Automatische Bildschirmtastatur</target>
+            </trans-unit>
+            <trans-unit id="hAx-4j-pP9.title">
+                <source>Never show</source>
+                <note>Class = "NSButtonCell"; title = "Never show"; ObjectID = "hAx-4j-pP9";</note>
+                <target>Nie anzeigen</target>
+            </trans-unit>
             <trans-unit id="iYV-Zg-Pat.title">
                 <source>Allow dictionary look up</source>
                 <target>Begriffe Nachschlagen erlauben</target>
@@ -257,8 +267,18 @@
             </trans-unit>
             <trans-unit id="mbj-mD-F32.ibShadowedToolTip">
                 <source>Allow looking up text elements on a web site using the 3-finger tap on a trackpad</source>
-                <target>Mit drei Fingern auf dem Trackpad tippen zum Nachschlagen von Begriffen zulassen</target>
+                <target>Mit drei Fingern auf dem Trackpad tippen oder den kräftigen Klick zum Nachschlagen von Begriffen zulassen</target>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Allow looking up text elements on a web site using the 3-finger tap on a trackpad"; ObjectID = "mbj-mD-F32";</note>
+            </trans-unit>
+            <trans-unit id="mvM-mc-Uty.title">
+                <source>Always show</source>
+                <note>Class = "NSButtonCell"; title = "Always show"; ObjectID = "mvM-mc-Uty";</note>
+                <target>Immer anzeigen</target>
+            </trans-unit>
+            <trans-unit id="olD-Iu-XnX.title">
+                <source>Detect physical keyboard</source>
+                <note>Class = "NSButtonCell"; title = "Detect physical keyboard"; ObjectID = "olD-Iu-XnX";</note>
+                <target>Hardwaretastatur erkennen</target>
             </trans-unit>
             <trans-unit id="qpg-Rd-u54.title">
                 <source>Touch optimized (Win)</source>
@@ -269,6 +289,11 @@
                 <source>Show Wi-Fi control (Win)</source>
                 <target>WLAN-Auswahl anzeigen (Win)</target>
                 <note>Class = "NSButtonCell"; title = "Show Wi-Fi control (Win)"; ObjectID = "vAt-Tk-BEf";</note>
+            </trans-unit>
+            <trans-unit id="w24-FI-jsH.ibShadowedToolTip">
+                <source>Sets how the on-screen keyboard is displayed when selecting a text field in the touch optimized mode on tablets (Win)</source>
+                <note>Class = "NSMatrix"; ibShadowedToolTip = "Sets how the on-screen keyboard is displayed when selecting a text field in the touch optimized mode on tablets (Win)"; ObjectID = "w24-FI-jsH";</note>
+                <target>Bestimmt, wann die Bildschirmtastatur angezeigt wird, wenn im Modus Touch-optimiert ein Textfeld angewählt wird (Win)</target>
             </trans-unit>
             <trans-unit id="yCR-0v-z7a.ibShadowedToolTip">
                 <source>Zoom whole web pages or just text using Ctrl-Mousewheel (Win)</source>
@@ -284,7 +309,7 @@
     </file>
     <file original="Base.lproj/PreferencesApplications.xib" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="8.0" build-num="8A218a"></tool>
         </header>
         <body>
             <trans-unit id="3ET-Le-SL5.ibShadowedToolTip">
@@ -414,7 +439,7 @@
             </trans-unit>
             <trans-unit id="687.ibShadowedToolTip">
                 <source>Filesystem path (formatted system specific) to the process executable’s directory (excluding the file name). If the path is not given or relative, then SEB searches system provided paths for applications</source>
-                <target>Dateisystem-Pfad (systemspezifisch formattiert) zum Verzeichnis des Prozess-Executables (ohne Dateiname). Wenn der Pfad nicht angegeben oder relativ ist, sucht SEB die Systempfade für Applikationen ab</target>
+                <target>Dateisystem-Pfad (systemspezifisch formatiert) zum Verzeichnis des Prozess-Executables (ohne Dateiname). Wenn der Pfad nicht angegeben oder relativ ist, sucht SEB die Systempfade für Applikationen ab</target>
                 <note>Class = "NSTextField"; ibShadowedToolTip = "Filesystem path (formatted system specific) to the process executable’s directory (excluding the file name). If the path is not given or relative, then SEB searches system provided paths for applications"; ObjectID = "687";</note>
             </trans-unit>
             <trans-unit id="690.title">
@@ -444,7 +469,7 @@
             </trans-unit>
             <trans-unit id="887.ibShadowedToolTip">
                 <source>Bundle identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title for tricky Win applications (Java, Acrobat etc.)</source>
-                <target>Identifikator des Prozesses in der umgekehrten DNS-Notation (OS X) oder ein Teil-String des Titels des Hauptfensters (Win)</target>
+                <target>Identifikator des Prozesses in der umgekehrten DNS-Notation (macOS) oder ein Teil-String des Titels des Hauptfensters (Win)</target>
                 <note>Class = "NSTextField"; ibShadowedToolTip = "Bundle identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title for tricky Win applications (Java, Acrobat etc.)"; ObjectID = "887";</note>
             </trans-unit>
             <trans-unit id="897.title">
@@ -569,7 +594,7 @@
             </trans-unit>
             <trans-unit id="1859.ibShadowedToolTip">
                 <source>Identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title</source>
-                <target>Identifikator des Prozesses in der umgekehrten DNS-Notation (OS X) oder ein Teil-String des Titels des Hauptfensters (Win)</target>
+                <target>Identifikator des Prozesses in der umgekehrten DNS-Notation (macOS) oder ein Teil-String des Titels des Hauptfensters (Win)</target>
                 <note>Class = "NSTextField"; ibShadowedToolTip = "Identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title"; ObjectID = "1859";</note>
             </trans-unit>
             <trans-unit id="1893.ibShadowedToolTip">
@@ -686,7 +711,7 @@
     </file>
     <file original="Base.lproj/PreferencesBrowser.xib" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="8.0" build-num="8A218a"></tool>
         </header>
         <body>
             <trans-unit id="0dZ-Z1-Pzs.title">
@@ -791,7 +816,7 @@
             </trans-unit>
             <trans-unit id="413.ibShadowedToolTip">
                 <source>When the SEB browser is disabled, no browser window is openend. Use this option with specific third party applications allowed.</source>
-                <target>Das SEB-Dock zeigt und schaltet um auf offene Browserfenster, zugelassene Ressourcen und Drittapplikationen und kann zusätzliche Funktionen beinhalten</target>
+                <target>Wenn der SEB-Browser deaktiviert ist, wird kein Browserfenster geöffnet. Diese Option kann verwendet werden, wenn Drittapplikationen zugelassen sind.</target>
                 <note>Class = "NSButton"; ibShadowedToolTip = "When the SEB browser is disabled, no browser window is openend. Use this option with specific third party applications allowed."; ObjectID = "413";</note>
             </trans-unit>
             <trans-unit id="415.title">
@@ -1005,7 +1030,7 @@
     </file>
     <file original="Base.lproj/PreferencesConfigFile.xib" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="8.0" build-num="8A218a"></tool>
         </header>
         <body>
             <trans-unit id="3.ibShadowedToolTip">
@@ -1020,7 +1045,7 @@
             </trans-unit>
             <trans-unit id="69.ibShadowedToolTip">
                 <source>Identities (X.509 certificates with RSA public key and associated private key) in your default keychain which can be used for encrypting and decrypting. Export the chosen identity (in Keychain Access utility) and install it on your SEB clients.</source>
-                <target>Kryptografische Identitäten (X.509 Zertifikate mit öffentlichem RSA-Schlüssel und dazugehörigem privaten Schlüssel) im Schlüsselbund, die für Verschlüsselung und Entschlüsselung benutzt werden können</target>
+                <target>Kryptografische Identitäten (X.509 Zertifikate mit öffentlichem RSA-Schlüssel und dazugehörigem privaten Schlüssel) im Schlüsselbund "Anmeldung", die für Verschlüsselung und Entschlüsselung benutzt werden können</target>
                 <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Identities (X.509 certificates with RSA public key and associated private key) in your default keychain which can be used for encrypting and decrypting. Export the chosen identity (in Keychain Access utility) and install it on your SEB clients."; ObjectID = "69";</note>
             </trans-unit>
             <trans-unit id="75.title">
@@ -1197,12 +1222,12 @@
     </file>
     <file original="Base.lproj/PreferencesDownUploads.xib" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="8.0" build-num="8A218a"></tool>
         </header>
         <body>
             <trans-unit id="13.ibShadowedToolTip">
                 <source>Usually to be used with permitted third party applications for which you want to provide files to be downloaded.</source>
-                <target>Normalerweise zu verwenden, wenn das Umschalten auf Drittapplikationen erlaubt ist oder wenn die HTML5 Download-Funktion für lokale Backups benutzt wird</target>
+                <target>Normalerweise zu verwenden, wenn das Umschalten auf Drittapplikationen erlaubt ist oder wenn die HTML5 Download-Funktion für lokale Backups benutzt wird.</target>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Usually to be used with permitted third party applications for which you want to provide files to be downloaded."; ObjectID = "13";</note>
             </trans-unit>
             <trans-unit id="14.title">
@@ -1289,13 +1314,18 @@
     </file>
     <file original="Base.lproj/PreferencesExam.xib" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="8.0" build-num="8A218a"></tool>
         </header>
         <body>
             <trans-unit id="2Rr-y4-nE8.ibShadowedToolTip">
                 <source>Full URL (starting with http:// or https://) of the page to open when the Restart exam button is pressed</source>
                 <target>Komplette URL (beginnend mit http:// oder https://) der Seite, die durch die Neustart-Taste geöffnet werden soll</target>
                 <note>Class = "NSTextField"; ibShadowedToolTip = "Full URL (starting with http:// or https://) of the page to open when the Restart exam button is pressed"; ObjectID = "2Rr-y4-nE8";</note>
+            </trans-unit>
+            <trans-unit id="3dP-gi-x4W.ibShadowedToolTip">
+                <source>When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system</source>
+                <note>Class = "NSButton"; ibShadowedToolTip = "When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system"; ObjectID = "3dP-gi-x4W";</note>
+                <target>Wenn angewählt, wird der Browser Exam Key an den Webserver gesendet, um den SEB-Client und seine Einstellungen gegenüber einem kompatiblen Prüfungssystem zu authentifizieren</target>
             </trans-unit>
             <trans-unit id="5SR-dU-gy3.title">
                 <source>Protect restart exam button with the quit/restart password</source>
@@ -1342,16 +1372,6 @@
                 <target>URL beginnend mit http:// oder https://</target>
                 <note>Class = "NSTextFieldCell"; placeholderString = "URL starting with http:// or https://"; ObjectID = "689";</note>
             </trans-unit>
-            <trans-unit id="970.ibShadowedToolTip">
-                <source>The Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system</source>
-                <target>Der Browser Exam Key wird an den verbundenen Webserver gesendet, um den SEB-Client und seine Einstellungen gegenüber einem kompatiblen Prüfungssystem zu authentifizieren</target>
-                <note>Class = "NSButton"; ibShadowedToolTip = "The Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system"; ObjectID = "970";</note>
-            </trans-unit>
-            <trans-unit id="971.title">
-                <source>Send Browser Exam Key in HTTP header</source>
-                <target>Browser Exam Key im HTTP-Header senden</target>
-                <note>Class = "NSButtonCell"; title = "Send Browser Exam Key in HTTP header"; ObjectID = "971";</note>
-            </trans-unit>
             <trans-unit id="Qei-df-hVI.ibShadowedToolTip">
                 <source>This text is displayed as the title of the password entering/confirming dialog window and tooltip for the restart exam button</source>
                 <target>Dieser Text wird als Titel des Passwort-/Bestätigungs-Dialogs und als Tooltip für die Neustart-Taste angezeigt</target>
@@ -1377,6 +1397,11 @@
                 <target>Neustart-Taste</target>
                 <note>Class = "NSBox"; title = "Restart exam button"; ObjectID = "czI-08-Q8k";</note>
             </trans-unit>
+            <trans-unit id="gk0-kD-QIq.title">
+                <source>Use Browser Exam Key (send in HTTP header)</source>
+                <note>Class = "NSButtonCell"; title = "Use Browser Exam Key (send in HTTP header)"; ObjectID = "gk0-kD-QIq";</note>
+                <target>Browser Exam Key benutzen (im HTTP-Header senden)</target>
+            </trans-unit>
             <trans-unit id="oJT-BY-ezv.ibShadowedToolTip">
                 <source>Require to enter the quit/restart password when the restart exam button is pressed</source>
                 <target>Eingabe des Beenden-/Neustart-Passworts verlangen, wenn die Neustart-Taste gedrückt wird</target>
@@ -1401,7 +1426,7 @@
     </file>
     <file original="Base.lproj/PreferencesGeneral.xib" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="8.0" build-num="8A218a"></tool>
         </header>
         <body>
             <trans-unit id="78.ibShadowedToolTip">
@@ -1538,9 +1563,14 @@
     </file>
     <file original="Base.lproj/PreferencesNetwork.xib" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="8.0" build-num="8A218a"></tool>
         </header>
         <body>
+            <trans-unit id="0yk-gp-6bB.ibShadowedToolTip">
+                <source>If selected, then HTTPS connections will only be allowed if there is an exact match of a server certificate with one of the embedded TLS/SSL certificates or if one of the embedded CAs establish trust</source>
+                <note>Class = "NSButton"; ibShadowedToolTip = "If selected, then HTTPS connections will only be allowed if there is an exact match of a server certificate with one of the embedded TLS/SSL certificates or if one of the embedded CAs establish trust"; ObjectID = "0yk-gp-6bB";</note>
+                <target>Wenn angewählt, dann werden HTTPS-Verbindungen nur erlaubt, wenn das Server-Zertifikat exakt mit einem der eingebetteten TLS/SSL-Zertifikate übereinstimmt oder dem Server-Zertifikat durch eines der eingebetteten CA-Zertifikate vertraut wird</target>
+            </trans-unit>
             <trans-unit id="1QG-Ub-GkE.ibShadowedToolTip">
                 <source>Selected action is a regular expression</source>
                 <target>Ausgewählte Aktion ist eine Regular Expression</target>
@@ -1555,6 +1585,16 @@
                 <source>/</source>
                 <target>/</target>
                 <note>Class = "NSTextFieldCell"; title = "/"; ObjectID = "2io-Hc-2AG";</note>
+            </trans-unit>
+            <trans-unit id="3Ez-5z-ngx.headerCell.title">
+                <source>Expires</source>
+                <note>Class = "NSTableColumn"; headerCell.title = "Expires"; ObjectID = "3Ez-5z-ngx";</note>
+                <target>Verfällt</target>
+            </trans-unit>
+            <trans-unit id="5GY-eF-5u2.title">
+                <source>Certificates: Advanced</source>
+                <note>Class = "NSWindow"; title = "Certificates: Advanced"; ObjectID = "5GY-eF-5u2";</note>
+                <target>Erweiterte Zertifikate</target>
             </trans-unit>
             <trans-unit id="6U6-cT-k15.headerCell.title">
                 <source>Action</source>
@@ -1822,9 +1862,9 @@
                 <note>Class = "NSTextFieldCell"; title = "Streaming Proxy Server"; ObjectID = "1659";</note>
             </trans-unit>
             <trans-unit id="1779.ibShadowedToolTip">
-                <source>TLS/SSL certificates from the default keychain. This allows to distribute self-signed certificates to exam clients (Win only)</source>
+                <source>TLS/SSL certificates from the default keychain. This allows to distribute self-signed certificates to exam clients</source>
                 <target>SSL/TLS-Zertifikate aus dem Schlüsselbund. Dies erlaubt, selbst-signierte Zertifikate auf Prüfungs-Clients zu verteilen</target>
-                <note>Class = "NSPopUpButton"; ibShadowedToolTip = "TLS/SSL certificates from the default keychain. This allows to distribute self-signed certificates to exam clients (Win only)"; ObjectID = "1779";</note>
+                <note>Class = "NSPopUpButton"; ibShadowedToolTip = "TLS/SSL certificates from the default keychain. This allows to distribute self-signed certificates to exam clients"; ObjectID = "1779";</note>
             </trans-unit>
             <trans-unit id="1783.title">
                 <source>Choose TLS/SSL certificate to embed into settings ...</source>
@@ -1832,14 +1872,14 @@
                 <note>Class = "NSTextFieldCell"; title = "Choose TLS/SSL certificate to embed into settings ..."; ObjectID = "1783";</note>
             </trans-unit>
             <trans-unit id="1814.ibShadowedToolTip">
-                <source>Identities (X.509 certificates with RSA public key and associated private key) from the default keychain which can be used for encrypting and decrypting. Export the chosen identity (in Keychain Access utility) and install it on your SEB clients.</source>
+                <source>CA (certificate authority) certificates from the default keychain. This allows to extend or override (when 'Pin embedded certificates' is selected) the default browser trust store</source>
                 <target>Kryptografische Identitäten (X.509 Zertifikate mit öffentlichem RSA-Schlüssel und dazugehörigem privaten Schlüssel) im Schlüsselbund, die für Verschlüsselung und Entschlüsselung benutzt werden können. Exportieren Sie die ausgewählte Identität in der Schlüsselbundverwaltung und installieren Sie diese auf Ihren SEB-Clients</target>
-                <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Identities (X.509 certificates with RSA public key and associated private key) from the default keychain which can be used for encrypting and decrypting. Export the chosen identity (in Keychain Access utility) and install it on your SEB clients."; ObjectID = "1814";</note>
+                <note>Class = "NSPopUpButton"; ibShadowedToolTip = "CA (certificate authority) certificates from the default keychain. This allows to extend or override (when 'Pin embedded certificates' is selected) the default browser trust store"; ObjectID = "1814";</note>
             </trans-unit>
             <trans-unit id="1818.title">
-                <source>Choose identity to embed into settings ...</source>
+                <source>Choose CA certificate to embed into settings ...</source>
                 <target>In Konfiguration einzubettende Identität auswählen …</target>
-                <note>Class = "NSTextFieldCell"; title = "Choose identity to embed into settings ..."; ObjectID = "1818";</note>
+                <note>Class = "NSTextFieldCell"; title = "Choose CA certificate to embed into settings ..."; ObjectID = "1818";</note>
             </trans-unit>
             <trans-unit id="1836.headerCell.title">
                 <source>Kind</source>
@@ -1856,10 +1896,25 @@
                 <target>Zertifikat/Identität aus Konfiguration entfernen</target>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Remove certificate/identity from settings"; ObjectID = "1863";</note>
             </trans-unit>
+            <trans-unit id="An4-xf-7ZG.ibShadowedToolTip">
+                <source>TLS/SSL certificates from the default keychain. This allows to distribute self-signed certificates to exam clients</source>
+                <note>Class = "NSPopUpButton"; ibShadowedToolTip = "TLS/SSL certificates from the default keychain. This allows to distribute self-signed certificates to exam clients"; ObjectID = "An4-xf-7ZG";</note>
+                <target>TLS/SSL-Zertifikate aus dem Schlüsselbund "Anmeldung". Dies ermöglicht, selbst-signierte oder gepinnte Zertifikate auf Prüfungsclients zu verteilen.</target>
+            </trans-unit>
+            <trans-unit id="Apy-z9-F3c.title">
+                <source>Override common name:</source>
+                <note>Class = "NSTextFieldCell"; title = "Override common name:"; ObjectID = "Apy-z9-F3c";</note>
+                <target>Common Name überschreiben:</target>
+            </trans-unit>
             <trans-unit id="D1T-ZJ-mqa.title">
                 <source>@</source>
                 <target>@</target>
                 <note>Class = "NSTextFieldCell"; title = "@"; ObjectID = "D1T-ZJ-mqa";</note>
+            </trans-unit>
+            <trans-unit id="DPz-Hy-kg6.title">
+                <source>Cancel</source>
+                <note>Class = "NSButtonCell"; title = "Cancel"; ObjectID = "DPz-Hy-kg6";</note>
+                <target>Abbrechen</target>
             </trans-unit>
             <trans-unit id="DSd-mL-qnG.title">
                 <source>Teach SEB allowed/blocked URLs</source>
@@ -1876,6 +1931,10 @@
                 <target>Ausgewählte Regel</target>
                 <note>Class = "NSBox"; title = "Selected Action"; ObjectID = "GZd-2h-HIq";</note>
             </trans-unit>
+            <trans-unit id="JDn-xc-JVJ.title">
+                <source>Text Cell</source>
+                <note>Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "JDn-xc-JVJ";</note>
+            </trans-unit>
             <trans-unit id="PJT-Mq-ijG.ibShadowedToolTip">
                 <source>Helps to create filter rules for URLs or embedded content elements that should be allowed or blocked</source>
                 <target>Hilft beim Erstellen von Filterregeln für URLs oder eingebettete Inhaltselemente, die erlaubt oder blockiert werden sollen</target>
@@ -1891,6 +1950,26 @@
                 <target>'Blockierte URL!' anzeigen</target>
                 <note>Class = "NSButtonCell"; title = "Display 'URL Blocked!'"; ObjectID = "UCE-sZ-Ixh";</note>
             </trans-unit>
+            <trans-unit id="UIS-5m-9TC.ibShadowedToolTip">
+                <source>Identities (X.509 certificates with RSA public key and associated private key) from the default keychain which can be used for encrypting (see Config File pane) and decrypting SEB config files. Embedded identities in config files saved for configuring clients will be imported into the Keychain of exam clients.</source>
+                <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Identities (X.509 certificates with RSA public key and associated private key) from the default keychain which can be used for encrypting (see Config File pane) and decrypting SEB config files. Embedded identities in config files saved for configuring clients will be imported into the Keychain of exam clients."; ObjectID = "UIS-5m-9TC";</note>
+                <target>Kryptografische Identitäten (X.509 Zertifikate mit öffentlichem RSA-Schlüssel und dazugehörigem privaten Schlüssel) im Schlüsselbund "Anmeldung", die für Verschlüsselung und Entschlüsselung benutzt werden können. In Konfigurationsdateien gespeichert für das "Konfigurieren von Clients" eingebettete Identitäten werden in den Schlüsselbund von Prüfungsclients importiert.</target>
+            </trans-unit>
+            <trans-unit id="VV0-Zp-Taw.title">
+                <source>Choose certificate to embedd:</source>
+                <note>Class = "NSTextFieldCell"; title = "Choose certificate to embedd:"; ObjectID = "VV0-Zp-Taw";</note>
+                <target>Einzbettendes Zertifikat auswählen:</target>
+            </trans-unit>
+            <trans-unit id="Wrm-JO-cYX.title">
+                <source>Advanced…</source>
+                <note>Class = "NSButtonCell"; title = "Advanced…"; ObjectID = "Wrm-JO-cYX";</note>
+                <target>Erweitert…</target>
+            </trans-unit>
+            <trans-unit id="WtC-9s-fhR.headerCell.title">
+                <source>Name</source>
+                <note>Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "WtC-9s-fhR";</note>
+                <target>Name</target>
+            </trans-unit>
             <trans-unit id="bcq-qY-qJM.title">
                 <source>#</source>
                 <target>#</target>
@@ -1900,6 +1979,16 @@
                 <source>Action</source>
                 <target>Aktion</target>
                 <note>Class = "NSTextFieldCell"; title = "Action"; ObjectID = "cCY-tB-p0Y";</note>
+            </trans-unit>
+            <trans-unit id="cfG-U9-U7j.title">
+                <source>Choose identity to embed into settings ...</source>
+                <note>Class = "NSTextFieldCell"; title = "Choose identity to embed into settings ..."; ObjectID = "cfG-U9-U7j";</note>
+                <target>In Konfiguration einzubettende Identität auswählen … </target>
+            </trans-unit>
+            <trans-unit id="eXh-u4-x04.title">
+                <source>Embedd as</source>
+                <note>Class = "NSTextFieldCell"; title = "Embedd as"; ObjectID = "eXh-u4-x04";</note>
+                <target>Einbetten als</target>
             </trans-unit>
             <trans-unit id="f49-Sx-zE7.title">
                 <source>Regex</source>
@@ -1926,10 +2015,20 @@
                 <target>URL-Filterregel ist aktiv</target>
                 <note>Class = "NSButton"; ibShadowedToolTip = "URL filter action item is active"; ObjectID = "jId-HY-bdq";</note>
             </trans-unit>
+            <trans-unit id="lRh-cS-3k7.title">
+                <source>Embedd</source>
+                <note>Class = "NSButtonCell"; title = "Embedd"; ObjectID = "lRh-cS-3k7";</note>
+                <target>Einbetten</target>
+            </trans-unit>
             <trans-unit id="pon-KO-X4n.headerCell.title">
                 <source>Expression</source>
                 <target>Ausdruck</target>
                 <note>Class = "NSTableColumn"; headerCell.title = "Expression"; ObjectID = "pon-KO-X4n";</note>
+            </trans-unit>
+            <trans-unit id="r6V-Ca-cfU.title">
+                <source>Pin embedded certificates</source>
+                <note>Class = "NSButtonCell"; title = "Pin embedded certificates"; ObjectID = "r6V-Ca-cfU";</note>
+                <target>Eingebettete Zertifikate pinnen</target>
             </trans-unit>
             <trans-unit id="tJm-ce-zDQ.title">
                 <source>:</source>
@@ -1955,7 +2054,7 @@
     </file>
     <file original="Base.lproj/PreferencesResources.xib" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="8.0" build-num="8A218a"></tool>
         </header>
         <body>
             <trans-unit id="2301.title">
@@ -2052,7 +2151,7 @@
     </file>
     <file original="Base.lproj/PreferencesSecurity.xib" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="8.0" build-num="8A218a"></tool>
         </header>
         <body>
             <trans-unit id="0Ey-3L-Lb6.title">
@@ -2122,7 +2221,7 @@
             </trans-unit>
             <trans-unit id="93.ibShadowedToolTip">
                 <source>Policy that applies when an exam client doesn't have the SEB Service installed or running</source>
-                <target>Richtline, die angewendet wird, wenn der SEB-Hintergrundservice auf einem Prüfungs-Client nicht installiert ist</target>
+                <target>Richtline, die angewendet wird, wenn der SEB-Hintergrundservice auf einem Prüfungs-Client nicht installiert ist (wird nur unter Windows verwendet)</target>
                 <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Policy that applies when an exam client doesn't have the SEB Service installed or running"; ObjectID = "93";</note>
             </trans-unit>
             <trans-unit id="100.title">
@@ -2131,19 +2230,19 @@
                 <note>Class = "NSTextFieldCell"; title = "SEB Service policy (Win)"; ObjectID = "100";</note>
             </trans-unit>
             <trans-unit id="292.ibShadowedToolTip">
-                <source>Usually Fast User Switching shouldn't be allowed on BYOD exam clients</source>
-                <target>Üblicherweise sollte der schnelle Benutzerwechsel auf studentischen Prüfungsrechnern ausgeschaltet werden</target>
-                <note>Class = "NSButton"; ibShadowedToolTip = "Usually Fast User Switching shouldn't be allowed on BYOD exam clients"; ObjectID = "292";</note>
+                <source>Private clipboard should always be used besides when working with third party applications in a managed user account</source>
+                <target>Üblicherweise sollte die private Zwischenablage verwendet werden, ausser wenn mit zugelassenen Drittapplikationen gearbeitet werden soll</target>
+                <note>Class = "NSButton"; ibShadowedToolTip = "Private clipboard should always be used besides when working with third party applications in a managed user account"; ObjectID = "292";</note>
             </trans-unit>
             <trans-unit id="293.title">
-                <source>Allow user switching</source>
-                <target>Schnellen Benutzerwechsel erlauben</target>
-                <note>Class = "NSButtonCell"; title = "Allow user switching"; ObjectID = "293";</note>
+                <source>Use private clipboard</source>
+                <target>Private Zwischenablage verwenden</target>
+                <note>Class = "NSButtonCell"; title = "Use private clipboard"; ObjectID = "293";</note>
             </trans-unit>
             <trans-unit id="ADm-4H-Zh3.title">
-                <source>Settings for SEB Windows</source>
-                <target>Einstellungen für SEB Windows</target>
-                <note>Class = "NSTextFieldCell"; title = "Settings for SEB Windows"; ObjectID = "ADm-4H-Zh3";</note>
+                <source>OS Specific Settings </source>
+                <target>Betriebssystemabhängige Einstellungen</target>
+                <note>Class = "NSTextFieldCell"; title = "OS Specific Settings "; ObjectID = "ADm-4H-Zh3";</note>
             </trans-unit>
             <trans-unit id="AtG-6Z-aRN.title">
                 <source>Enable Ease of Access</source>
@@ -2156,14 +2255,19 @@
                 <note>Class = "NSButtonCell"; title = "Create new desktop"; ObjectID = "AwA-eq-zFC";</note>
             </trans-unit>
             <trans-unit id="Dce-pG-aKy.title">
-                <source>Special Keys</source>
+                <source>Special Keys (Win)</source>
                 <target>Spezialtasten</target>
-                <note>Class = "NSBox"; title = "Special Keys"; ObjectID = "Dce-pG-aKy";</note>
+                <note>Class = "NSBox"; title = "Special Keys (Win)"; ObjectID = "Dce-pG-aKy";</note>
+            </trans-unit>
+            <trans-unit id="Dcg-5G-FDH.label">
+                <source>macOS</source>
+                <note>Class = "NSTabViewItem"; label = "macOS"; ObjectID = "Dcg-5G-FDH";</note>
+                <target>macOS</target>
             </trans-unit>
             <trans-unit id="Eqg-kF-Hjl.title">
-                <source>Function Keys</source>
+                <source>Function Keys (Win)</source>
                 <target>Funktionstasten</target>
-                <note>Class = "NSBox"; title = "Function Keys"; ObjectID = "Eqg-kF-Hjl";</note>
+                <note>Class = "NSBox"; title = "Function Keys (Win)"; ObjectID = "Eqg-kF-Hjl";</note>
             </trans-unit>
             <trans-unit id="FaM-aF-JR1.title">
                 <source>Directory</source>
@@ -2210,10 +2314,20 @@
                 <target>Abmelden erlauben</target>
                 <note>Class = "NSButtonCell"; title = "Enable Log off"; ObjectID = "LTi-lL-sOs";</note>
             </trans-unit>
+            <trans-unit id="Lff-Up-3Ym.title">
+                <source>Enforce minimum macOS version:</source>
+                <note>Class = "NSTextFieldCell"; title = "Enforce minimum macOS version:"; ObjectID = "Lff-Up-3Ym";</note>
+                <target>Minimale macOS-Version erzwingen:</target>
+            </trans-unit>
             <trans-unit id="M5z-0E-3yB.title">
                 <source>Logging</source>
                 <target>Loggen</target>
                 <note>Class = "NSBox"; title = "Logging"; ObjectID = "M5z-0E-3yB";</note>
+            </trans-unit>
+            <trans-unit id="MYN-Xy-8h5.ibShadowedToolTip">
+                <source>SEB refuses to run on an older system version</source>
+                <note>Class = "NSPopUpButton"; ibShadowedToolTip = "SEB refuses to run on an older system version"; ObjectID = "MYN-Xy-8h5";</note>
+                <target>SEB verweigert den Betrieb auf einer älteren Betriebssystemversion</target>
             </trans-unit>
             <trans-unit id="Ouk-wE-FFP.title">
                 <source>Enable Shut down</source>
@@ -2226,9 +2340,9 @@
                 <note>Class = "NSButton"; ibShadowedToolTip = "Corresponds to 'Allow browsing back/forward' in Browser pane. Disabling browsing to previously visited pages may increase security, because browsing back might allow to leave an exam"; ObjectID = "P88-5S-xeR";</note>
             </trans-unit>
             <trans-unit id="PH3-Cb-12g.ibShadowedToolTip">
-                <source>Controls OS X screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows</source>
-                <target>OS X Bildschirmfoto (cmd-3 und cmd-4) erlauben, entspricht Print Screen Taste (Windows Hooked Keys Einstellungen)</target>
-                <note>Class = "NSButton"; ibShadowedToolTip = "Controls OS X screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows"; ObjectID = "PH3-Cb-12g";</note>
+                <source>Allows macOS screen sharing to be used</source>
+                <target>macOS Bildschirmfotos (cmd-3 und cmd-4) erlauben, entspricht Print Screen Taste (Windows 'Hooked Keys' Einstellungen)</target>
+                <note>Class = "NSButton"; ibShadowedToolTip = "Allows macOS screen sharing to be used"; ObjectID = "PH3-Cb-12g";</note>
             </trans-unit>
             <trans-unit id="PWk-fT-HdC.title">
                 <source>Enable Right Mouse</source>
@@ -2261,9 +2375,9 @@
                 <note>Class = "NSTabViewItem"; label = "System Lockdown"; ObjectID = "UDI-4x-V3M";</note>
             </trans-unit>
             <trans-unit id="UEX-8o-YnQ.title">
-                <source>Kiosk Mode</source>
+                <source>Kiosk Mode (Win)</source>
                 <target>Kiosk-Modus</target>
-                <note>Class = "NSBox"; title = "Kiosk Mode"; ObjectID = "UEX-8o-YnQ";</note>
+                <note>Class = "NSBox"; title = "Kiosk Mode (Win)"; ObjectID = "UEX-8o-YnQ";</note>
             </trans-unit>
             <trans-unit id="UUd-ek-uMg.title">
                 <source>Enable F10</source>
@@ -2305,6 +2419,16 @@
                 <target>Windows Explorer deaktivieren</target>
                 <note>Class = "NSButtonCell"; title = "Disable Explorer Shell"; ObjectID = "dpL-te-8hi";</note>
             </trans-unit>
+            <trans-unit id="g34-gq-Owk.ibShadowedToolTip">
+                <source>Controls OS X screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows</source>
+                <note>Class = "NSButton"; ibShadowedToolTip = "Controls OS X screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows"; ObjectID = "g34-gq-Owk";</note>
+                <target>Steuert macOS Bildschirmfotos (cmd-3 und cmd-4), entspricht 'Print Screen'-Taste (Windows 'Hooked Keys' Einstellungen)</target>
+            </trans-unit>
+            <trans-unit id="hwg-eH-cMm.title">
+                <source>Allow using AirPlay</source>
+                <note>Class = "NSButtonCell"; title = "Allow using AirPlay"; ObjectID = "hwg-eH-cMm";</note>
+                <target>AirPlay erlauben</target>
+            </trans-unit>
             <trans-unit id="i04-6r-xmo.title">
                 <source>Options in the Windows Security Screen invoked by Ctrl-Alt-Del</source>
                 <target>Optionen im durch Ctrl-Alt-Del geöffneten Windows-Sicherheitsfenster</target>
@@ -2319,6 +2443,11 @@
                 <source>The kiosk mode setting reflects how the computer is locked down into SEB.</source>
                 <target>Der Kiosk-Modus bestimmt, wie SEB den Computer abgesichert</target>
                 <note>Class = "NSMatrix"; ibShadowedToolTip = "The kiosk mode setting reflects how the computer is locked down into SEB."; ObjectID = "kBz-Xz-wNK";</note>
+            </trans-unit>
+            <trans-unit id="lyl-Qv-iTq.title">
+                <source>Enable screen capture</source>
+                <note>Class = "NSButtonCell"; title = "Enable screen capture"; ObjectID = "lyl-Qv-iTq";</note>
+                <target>Bildschirmfotos erlauben</target>
             </trans-unit>
             <trans-unit id="n1l-UI-Mxa.title">
                 <source>Enable F3</source>
@@ -2339,6 +2468,11 @@
                 <source>Save log file to:</source>
                 <target>Log speichern:</target>
                 <note>Class = "NSTextFieldCell"; title = "Save log file to:"; ObjectID = "nui-Ct-A6q";</note>
+            </trans-unit>
+            <trans-unit id="oq3-9u-BrJ.ibShadowedToolTip">
+                <source>If AirPlay isn't allowed, SEB attempts to stop a running AirPlay connection when starting/restarting</source>
+                <note>Class = "NSButton"; ibShadowedToolTip = "If AirPlay isn't allowed, SEB attempts to stop a running AirPlay connection when starting/restarting"; ObjectID = "oq3-9u-BrJ";</note>
+                <target>Wenn AirPlay nicht erlaubt ist, stoppt SEB eine aktive AirPlay-Verbindung</target>
             </trans-unit>
             <trans-unit id="q3q-Xm-TRl.title">
                 <source>Enable F9</source>
@@ -2372,7 +2506,7 @@
             </trans-unit>
             <trans-unit id="wUs-SE-6xn.ibShadowedToolTip">
                 <source>Controls Print Screen, corresponds with Enable screen capture in OS X</source>
-                <target>Print Screen erlauben, entspricht OS X 'Bildschirmfoto erlauben' (cmd-3 und cmd-4) </target>
+                <target>'Print Screen'-Taste erlauben, entspricht macOS 'Bildschirmfotos erlauben' (cmd-3 und cmd-4) </target>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Controls Print Screen, corresponds with Enable screen capture in OS X"; ObjectID = "wUs-SE-6xn";</note>
             </trans-unit>
             <trans-unit id="yCu-0c-Hf1.title">
@@ -2381,15 +2515,15 @@
                 <note>Class = "NSButtonCell"; title = "Enable F4"; ObjectID = "yCu-0c-Hf1";</note>
             </trans-unit>
             <trans-unit id="zzi-ch-X4d.title">
-                <source>Enable screen capture</source>
-                <target>Bildschirmfoto erlauben</target>
-                <note>Class = "NSButtonCell"; title = "Enable screen capture"; ObjectID = "zzi-ch-X4d";</note>
+                <source>Allow screen sharing</source>
+                <target>Bildschirmfotos erlauben</target>
+                <note>Class = "NSButtonCell"; title = "Allow screen sharing"; ObjectID = "zzi-ch-X4d";</note>
             </trans-unit>
         </body>
     </file>
     <file original="SafeExamBrowser-Info.plist" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="8.0" build-num="8A218a"></tool>
         </header>
         <body>
             <trans-unit id="CFBundleDisplayName">
@@ -2399,7 +2533,7 @@
                 <source>SafeExamBrowser</source>
             </trans-unit>
             <trans-unit id="CFBundleShortVersionString">
-                <source>2.1</source>
+                <source>2.1.1</source>
             </trans-unit>
             <trans-unit id="NSHumanReadableCopyright">
                 <source>© 2010-2016 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
@@ -2409,7 +2543,7 @@
     </file>
     <file original="en.lproj/Localizable.strings" source-language="en" datatype="plaintext" target-language="de">
         <header>
-            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.1" build-num="7B91b"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="8.0" build-num="8A218a"></tool>
         </header>
         <body>
             <trans-unit id="  SEB session was inactive for %ld:%.2ld (minutes:seconds)">
@@ -2476,6 +2610,11 @@
                 <target>Sind Sie sicher?</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
+            <trans-unit id="Authentication Required">
+                <source>Authentication Required</source>
+                <note>No comment provided by engineer.</note>
+                <target>Authentifizierung erforderlich</target>
+            </trans-unit>
             <trans-unit id="Auto Proxy Discovery">
                 <source>Auto Proxy Discovery</source>
                 <target>Automatische Proxy-Entdeckung</target>
@@ -2491,6 +2630,11 @@
                 <target>Browser</target>
                 <note>Title of 'Browser' preference pane</note>
             </trans-unit>
+            <trans-unit id="CA Certificate">
+                <source>CA Certificate</source>
+                <note>No comment provided by engineer.</note>
+                <target>CA-Zertifikat</target>
+            </trans-unit>
             <trans-unit id="Cancel">
                 <source>Cancel</source>
                 <target>Abbrechen</target>
@@ -2499,7 +2643,6 @@
             <trans-unit id="Cannot Decrypt SEB Settings">
                 <source>Cannot Decrypt SEB Settings</source>
                 <target>SEB-Konfiguration kann nicht entschlüsselt werden</target>
-                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Cannot Decrypt Settings">
                 <source>Cannot Decrypt Settings</source>
@@ -2555,6 +2698,11 @@
                 <target>Korrektes Passwort eingegeben, Lockdown-Fenster werden geschlossen</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
+            <trans-unit id="Current SEB settings require at least %@, but your system is older. SEB will quit!">
+                <source>Current SEB settings require at least %@, but your system is older. SEB will quit!</source>
+                <note>No comment provided by engineer.</note>
+                <target>Die SEB-Einstellungen verlangen mindestens %@, aber dieses Betriebssystem ist älter. SEB wird beendet!</target>
+            </trans-unit>
             <trans-unit id="Current settings have unsaved changes. If you don't save those first, you will loose them.">
                 <source>Current settings have unsaved changes. If you don't save those first, you will loose them.</source>
                 <target>Aktuelle Einstellungen haben ungesicherte Änderungen. Wenn Sie nicht zuerst sichern, verlieren Sie diese.</target>
@@ -2564,6 +2712,11 @@
                 <source>Debug</source>
                 <target>Debug</target>
                 <note>No comment provided by engineer.</note>
+            </trans-unit>
+            <trans-unit id="Debug Certificate">
+                <source>Debug Certificate</source>
+                <note>No comment provided by engineer.</note>
+                <target>Debug-Zertifikat</target>
             </trans-unit>
             <trans-unit id="Do you really want to reload the current web page?">
                 <source>Do you really want to reload the current web page?</source>
@@ -2698,7 +2851,6 @@
                 <target>Bitte benutzen Sie die Fenster-Schliessen-Taste oder Cmd-Q (Befehlstaste-Q) um SEB zu beenden und (fn-)F3-F6 um die Einstellungen zu öffnen.
 
 Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-URL eingeben. Sie sollten dort ausserdem ein Beenden-Passwort und ein Administrator-Passwort festlegen, um das Beenden von SEB und den Zugang zu den Einstellungen einzuschränken.</target>
-                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="General">
                 <source>General</source>
@@ -2751,7 +2903,6 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
             <trans-unit id="Important Notice for First Time Users">
                 <source>Important Notice for First Time Users</source>
                 <target>Wichtiger Hinweis für neue Benutzer</target>
-                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Info">
                 <source>Info</source>
@@ -2873,6 +3024,11 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
                 <target>Keine</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
+            <trans-unit id="Not Running Minimal macOS Version!">
+                <source>Not Running Minimal macOS Version!</source>
+                <note>No comment provided by engineer.</note>
+                <target>Zu alte macOS-Version!</target>
+            </trans-unit>
             <trans-unit id="OK">
                 <source>OK</source>
                 <target>OK</target>
@@ -2883,10 +3039,30 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
                 <target>OS X</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
+            <trans-unit id="OS X 10.7 Lion">
+                <source>OS X 10.7 Lion</source>
+                <note>No comment provided by engineer.</note>
+            </trans-unit>
+            <trans-unit id="OS X 10.8 Mountain Lion">
+                <source>OS X 10.8 Mountain Lion</source>
+                <note>No comment provided by engineer.</note>
+            </trans-unit>
+            <trans-unit id="OS X 10.9 Mavericks">
+                <source>OS X 10.9 Mavericks</source>
+                <note>No comment provided by engineer.</note>
+            </trans-unit>
+            <trans-unit id="OS X 10.10 Yosemite">
+                <source>OS X 10.10 Yosemite</source>
+                <note>No comment provided by engineer.</note>
+            </trans-unit>
+            <trans-unit id="OS X 10.11 El Capitan">
+                <source>OS X 10.11 El Capitan</source>
+                <note>No comment provided by engineer.</note>
+            </trans-unit>
             <trans-unit id="On OS X 10.7 SEB can only be used as an exam client. Run SEB on OS X 10.8 or higher to create a .seb configuration file to configure this SEB client as well.">
                 <source>On OS X 10.7 SEB can only be used as an exam client. Run SEB on OS X 10.8 or higher to create a .seb configuration file to configure this SEB client as well.</source>
-                <note>No comment provided by engineer.</note>
                 <target>Unter OS X 10.7 kann SEB nur als Prüfungs-Client verwendet werden. Benutzen Sie SEB unter OS X 10.8 oder neuer um eine .seb Konfigurationsdatei zu erstellen, mittels derer auch dieser Prüfungs-Client konfiguriert werden kann.</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Opening New Settings Failed!">
                 <source>Opening New Settings Failed!</source>
@@ -2897,6 +3073,11 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
                 <source>Opening Preferences Disabled</source>
                 <target>Öffnen neuer Einstellungen nicht möglich</target>
                 <note>No comment provided by engineer.</note>
+            </trans-unit>
+            <trans-unit id="Opening SEB Config">
+                <source>Opening SEB Config</source>
+                <note>Title of a temporary browser window for opening a SEB link</note>
+                <target>SEB-Konfiguration wird geöffnet</target>
             </trans-unit>
             <trans-unit id="Opening Settings Failed">
                 <source>Opening Settings Failed</source>
@@ -2934,8 +3115,8 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
             </trans-unit>
             <trans-unit id="Preferences Window Not Available on OS X 10.7">
                 <source>Preferences Window Not Available on OS X 10.7</source>
-                <note>No comment provided by engineer.</note>
                 <target>Einstellungen-Fenster nicht verfügbar unter OS X 10.7</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Quit">
                 <source>Quit</source>
@@ -3031,10 +3212,15 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
                 <target>SEB ist so konfiguriert, dass nur eine zuvor heruntergelade Datei heraufgeladen werden kann. Laden Sie eine Datei herunter und wenn Sie diese in einer Drittapplikation bearbeiten, speichern Sie diese mit demselben Dateinamen im gleichen Verzeichnis.</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
-            <trans-unit id="SEB is locked because a user switch was attempted. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.">
-                <source>SEB is locked because a user switch was attempted. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.</source>
+            <trans-unit id="SEB is locked because it was attempted to switch the user. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows.">
+                <source>SEB is locked because it was attempted to switch the user. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows.</source>
+                <note>Default lockdown window alert text</note>
                 <target>SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. SEB kann nur mittels des Neustarten-/Beenden-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
+            </trans-unit>
+            <trans-unit id="SEB only supports embedding TLS/SSL and CA certificates and using certificate pinning if running on macOS 10.9 or later versions. If you want to make sure that embedded certificates and certificate pinning work on all exam clients, then you should enforce the minimum macOS version 10.9 in the Security pane.">
+                <source>SEB only supports embedding TLS/SSL and CA certificates and using certificate pinning if running on macOS 10.9 or later versions. If you want to make sure that embedded certificates and certificate pinning work on all exam clients, then you should enforce the minimum macOS version 10.9 in the Security pane.</source>
                 <note>No comment provided by engineer.</note>
+                <target>SEB unterstützt das Einbetten von TLS/SSL- und CA-Zertifikaten und das Zertifikat-Pinning nur auf macOS 10.9 oder neuer. Wenn Sie sicherstellen wollen, dass eingebettete Zertifikate und das Zertifikat-Pinning auf allen Prüfungsclients funktionieren, dann sollten Sie die Verbindung von mindestens macOS 10.9 in den Sicherheits-Einstellungen erzwingen. </target>
             </trans-unit>
             <trans-unit id="SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)">
                 <source>SEB was locked (exam interrupted) for %1$ld:%2$.2ld (minutes:seconds)</source>
@@ -3079,6 +3265,28 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
             <trans-unit id="Saving Settings Succeeded">
                 <source>Saving Settings Succeeded</source>
                 <target>Einstellungen gespeichert</target>
+            </trans-unit>
+            <trans-unit id="Screen Sharing Detected!">
+                <source>Screen Sharing Detected!</source>
+                <note>No comment provided by engineer.</note>
+                <target>Bildschirmfreigabe detektiert!</target>
+            </trans-unit>
+            <trans-unit id="Screen sharing detected. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows..\n\nTo avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing.">
+                <source>Screen sharing detected. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows..
+
+To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing.</source>
+                <note>No comment provided by engineer.</note>
+                <target>SEB ist gesperrt, weil die Bildschirmfreigabe benutzt wurde. SEB kann nur mittels des Neustarten-/Beenden-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist. Um zu verhindern, dass SEB wegen der Bildschirmfreigabe während einer Prüfung gesperrt wird, kann 'Bildschirmfreigabe' und 'Entfernte Verwaltung' in Systemeinstellungen/Freigaben ausgeschaltet werden.</target>
+            </trans-unit>
+            <trans-unit id="Screen sharing is still active">
+                <source>Screen sharing is still active</source>
+                <note>No comment provided by engineer.</note>
+                <target>Bildschirmfreigabe ist immer noch aktiv</target>
+            </trans-unit>
+            <trans-unit id="Screen sharing was activated">
+                <source>Screen sharing was activated</source>
+                <note>No comment provided by engineer.</note>
+                <target>Bildschirmfreigabe wurde aktiviert</target>
             </trans-unit>
             <trans-unit id="Secure Web Proxy (HTTPS)">
                 <source>Secure Web Proxy (HTTPS)</source>
@@ -3155,6 +3363,11 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
                 <target>Die Liste mit Filterregeln für zu ignorierende URLs hat nur im Filterregeln-Lernen-Modus eine Wirkung, für ignorierte URLs/Ressourcen wird dauerhaft keine Warnung angezeigt. Blockiert werden diese URLs sowieso, weil alle nicht explizit erlaubten URLs vom Filter blockiert werden. Wollen Sie die Liste nun löschen?</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
+            <trans-unit id="The user name or password you entered for %@ was incorrect. Make sure you’re entering them correctly, and then try again.">
+                <source>The user name or password you entered for %@ was incorrect. Make sure you’re entering them correctly, and then try again.</source>
+                <note>No comment provided by engineer.</note>
+                <target>Der Benutzername oder das Passwort für %@ waren falsch. Vergewissern Sie sich, dass sie korrekt eingegeben sind, und versuchen Sie es erneut.</target>
+            </trans-unit>
             <trans-unit id="These settings are corrupted and cannot be used.">
                 <source>These settings are corrupted and cannot be used.</source>
                 <target>Diese Einstellungen sind beschädigt und können nicht benutzt werden.</target>
@@ -3177,17 +3390,22 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
             </trans-unit>
             <trans-unit id="This setting allows to switch to any application on the exam client computer. Use this option only when running SEB in a special user account managed by parental controls, with only SEB and the desired applications allowed.">
                 <source>This setting allows to switch to any application on the exam client computer. Use this option only when running SEB in a special user account managed by parental controls, with only SEB and the desired applications allowed.</source>
-                <target>Diese Einstellung erlaubt es, auf jede beliebige Applikation auf dem Prüfungsrechner zu wechseln. Sie sollte nur benutzt werden, wenn SEB in einem Benutzeraccount verwendet wird, welches mittels der OS X Kindersicherung verwaltet wird. Dabei sollten nur SEB und die gewünschten Applikationen zugelassen werden.</target>
+                <target>Diese Einstellung erlaubt es, auf jede beliebige Applikation auf dem Prüfungsrechner zu wechseln. Sie sollte nur benutzt werden, wenn SEB in einem Benutzeraccount verwendet wird, welches mittels der macOS Kindersicherung verwaltet wird. Dabei sollten nur SEB und die gewünschten Applikationen zugelassen werden.</target>
                 <note>No comment provided by engineer.</note>
+            </trans-unit>
+            <trans-unit id="To proceed, you must log in to">
+                <source>To proceed, you must log in to</source>
+                <note>No comment provided by engineer.</note>
+                <target>Um weiterzufahren, müssen Sie sich anmelden</target>
             </trans-unit>
             <trans-unit id="Touch Optimized Mode Warning">
                 <source>Touch Optimized Mode Warning</source>
-                <target>Warnung Modus Touch-Optimized</target>
+                <target>Warnung Modus Touch-optimiert</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Touch optimization will not work when kiosk mode is set to 'Create new desktop', please change kiosk mode to 'Disable Explorer Shell' in the Security pane.">
                 <source>Touch optimization will not work when kiosk mode is set to 'Create new desktop', please change kiosk mode to 'Disable Explorer Shell' in the Security pane.</source>
-                <target>Touch-Optimierung funktioniert nicht, wenn der Kiosk-Modus 'Neuen Desktop erstellen' eingestellt ist, bitte Kiosk-Modus in den Sicherheits-Einstellungen auf 'Windows Explorer deaktivieren' ändern.</target>
+                <target>Der Modus Touch-optimiert funktioniert nicht, wenn der Kiosk-Modus 'Neuen Desktop erstellen' eingestellt ist, bitte Kiosk-Modus in den Sicherheits-Einstellungen auf 'Windows Explorer deaktivieren' ändern.</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="URL Blocked!">
@@ -3300,6 +3518,13 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
                 <target>Falsches Beenden-/Neustart-Passwort</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
+            <trans-unit id="You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.\n\nTo avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing.">
+                <source>You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.
+
+To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing.</source>
+                <note>No comment provided by engineer.</note>
+                <target>Es ist nicht erlaubt, die Bildschirmfreigabe zu benutzen, während SEB läuft. Starten Sie SEB neu, nachdem Sie die Bildschirmfreigabe beendet haben. Um zu verhindern, dass SEB wegen der Bildschirmfreigabe während einer Prüfung gesperrt wird, kann 'Bildschirmfreigabe' und 'Entfernte Verwaltung' in Systemeinstellungen/Freigaben ausgeschaltet werden.</target>
+            </trans-unit>
             <trans-unit id="You are not allowed to run SEB inside a virtual machine!">
                 <source>You are not allowed to run SEB inside a virtual machine!</source>
                 <target>Es ist nicht erlaubt, SEB innerhalb einer virtuellen Maschine zu betreiben!</target>
@@ -3336,7 +3561,7 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
 You can save an unencrypted settings file, but this is not recommended for use in exams.</source>
                 <target>Sie sollten entweder ein Passwort oder eine kryptografische Identität zum Verschlüsseln der Konfigurationsdatei verwenden.
 
-Sie können eine unverschlüsselte Datei speichern, aber dies ist nicht für die Benutzung in Prüfungen empfohlen.</target>
+Sie können eine unverschlüsselte Datei speichern, aber dies wird nicht für die Benutzung in Prüfungen empfohlen.</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="administrator">
@@ -3381,6 +3606,15 @@ Sie können eine unverschlüsselte Datei speichern, aber dies ist nicht für die
                 <source>get generally blocked</source>
                 <target>werden generell blockiert</target>
                 <note>No comment provided by engineer.</note>
+            </trans-unit>
+            <trans-unit id="macOS 10.12 Sierra">
+                <source>macOS 10.12 Sierra</source>
+                <note>No comment provided by engineer.</note>
+            </trans-unit>
+            <trans-unit id="macOS Support Warning">
+                <source>macOS Support Warning</source>
+                <note>No comment provided by engineer.</note>
+                <target>Warnung zur macOS-Unterstützung</target>
             </trans-unit>
             <trans-unit id="manually with file requester">
                 <source>manually with file requester</source>

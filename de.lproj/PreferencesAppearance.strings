@@ -20,7 +20,7 @@
 "9oR-jn-THC.title" = "Rechtschreibeprüfung zulassen";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Show the OS X menu bar to allow accessing settings like Wi-Fi"; ObjectID = "13"; */
-"13.ibShadowedToolTip" = "OS X Menüleiste anzeigen für Zugriff auf Einstellungen wie WLAN";
+"13.ibShadowedToolTip" = "macOS Menüleiste anzeigen für Zugriff auf Einstellungen wie WLAN";
 
 /* Class = "NSButtonCell"; title = "Show menu bar"; ObjectID = "14"; */
 "14.title" = "Menüleiste anzeigen";
@@ -142,6 +142,12 @@
 /* Class = "NSBox"; title = "Zoom mode Win (Ctrl-Mousewheel)"; ObjectID = "eGR-0O-pYN"; */
 "eGR-0O-pYN.title" = "Zoom-Modus Win (Ctrl-Maustaste)";
 
+/* Class = "NSBox"; title = "Automatic on-screen keyboard behavior (Win)"; ObjectID = "gKH-Yr-UT7"; */
+"gKH-Yr-UT7.title" = "Automatische Bildschirmtastatur";
+
+/* Class = "NSButtonCell"; title = "Never show"; ObjectID = "hAx-4j-pP9"; */
+"hAx-4j-pP9.title" = "Nie anzeigen";
+
 /* Class = "NSButtonCell"; title = "Allow dictionary look up"; ObjectID = "iYV-Zg-Pat"; */
 "iYV-Zg-Pat.title" = "Begriffe Nachschlagen erlauben";
 
@@ -149,13 +155,22 @@
 "iqK-dQ-5mz.title" = "Seiten-Zoom verwenden";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Allow looking up text elements on a web site using the 3-finger tap on a trackpad"; ObjectID = "mbj-mD-F32"; */
-"mbj-mD-F32.ibShadowedToolTip" = "Mit drei Fingern auf dem Trackpad tippen zum Nachschlagen von Begriffen zulassen";
+"mbj-mD-F32.ibShadowedToolTip" = "Mit drei Fingern auf dem Trackpad tippen oder den kräftigen Klick zum Nachschlagen von Begriffen zulassen";
+
+/* Class = "NSButtonCell"; title = "Always show"; ObjectID = "mvM-mc-Uty"; */
+"mvM-mc-Uty.title" = "Immer anzeigen";
+
+/* Class = "NSButtonCell"; title = "Detect physical keyboard"; ObjectID = "olD-Iu-XnX"; */
+"olD-Iu-XnX.title" = "Hardwaretastatur erkennen";
 
 /* Class = "NSButtonCell"; title = "Touch optimized (Win)"; ObjectID = "qpg-Rd-u54"; */
 "qpg-Rd-u54.title" = "Touch-optimiert (Win)";
 
 /* Class = "NSButtonCell"; title = "Show Wi-Fi control (Win)"; ObjectID = "vAt-Tk-BEf"; */
 "vAt-Tk-BEf.title" = "WLAN-Auswahl anzeigen (Win)";
+
+/* Class = "NSMatrix"; ibShadowedToolTip = "Sets how the on-screen keyboard is displayed when selecting a text field in the touch optimized mode on tablets (Win)"; ObjectID = "w24-FI-jsH"; */
+"w24-FI-jsH.ibShadowedToolTip" = "Bestimmt, wann die Bildschirmtastatur angezeigt wird, wenn im Modus Touch-optimiert ein Textfeld angewählt wird (Win)";
 
 /* Class = "NSMatrix"; ibShadowedToolTip = "Zoom whole web pages or just text using Ctrl-Mousewheel (Win)"; ObjectID = "yCR-0v-z7a"; */
 "yCR-0v-z7a.ibShadowedToolTip" = "Ganze Webseiten oder nur Text mittels Ctrl-Mausrad skalieren (Win)";

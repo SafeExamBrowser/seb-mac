@@ -1,3 +1,6 @@
+/* Class = "NSButton"; ibShadowedToolTip = "If selected, then HTTPS connections will only be allowed if there is an exact match of a server certificate with one of the embedded TLS/SSL certificates or if one of the embedded CAs establish trust"; ObjectID = "0yk-gp-6bB"; */
+"0yk-gp-6bB.ibShadowedToolTip" = "Wenn angewählt, dann werden HTTPS-Verbindungen nur erlaubt, wenn das Server-Zertifikat exakt mit einem der eingebetteten TLS/SSL-Zertifikate übereinstimmt oder dem Server-Zertifikat durch eines der eingebetteten CA-Zertifikate vertraut wird";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Selected action is a regular expression"; ObjectID = "1QG-Ub-GkE"; */
 "1QG-Ub-GkE.ibShadowedToolTip" = "Ausgewählte Aktion ist eine Regular Expression";
 
@@ -6,6 +9,12 @@
 
 /* Class = "NSTextFieldCell"; title = "/"; ObjectID = "2io-Hc-2AG"; */
 "2io-Hc-2AG.title" = "/";
+
+/* Class = "NSTableColumn"; headerCell.title = "Expires"; ObjectID = "3Ez-5z-ngx"; */
+"3Ez-5z-ngx.headerCell.title" = "Verfällt";
+
+/* Class = "NSWindow"; title = "Certificates: Advanced"; ObjectID = "5GY-eF-5u2"; */
+"5GY-eF-5u2.title" = "Erweiterte Zertifikate";
 
 /* Class = "NSTableColumn"; headerCell.title = "Action"; ObjectID = "6U6-cT-k15"; */
 "6U6-cT-k15.headerCell.title" = "Aktion";
@@ -166,16 +175,16 @@
 /* Class = "NSTextFieldCell"; title = "Streaming Proxy Server"; ObjectID = "1659"; */
 "1659.title" = "Streaming-Proxy (RTSP)";
 
-/* Class = "NSPopUpButton"; ibShadowedToolTip = "TLS/SSL certificates from the default keychain. This allows to distribute self-signed certificates to exam clients (Win only)"; ObjectID = "1779"; */
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "TLS/SSL certificates from the default keychain. This allows to distribute self-signed certificates to exam clients"; ObjectID = "1779"; */
 "1779.ibShadowedToolTip" = "SSL/TLS-Zertifikate aus dem Schlüsselbund. Dies erlaubt, selbst-signierte Zertifikate auf Prüfungs-Clients zu verteilen";
 
 /* Class = "NSTextFieldCell"; title = "Choose TLS/SSL certificate to embed into settings ..."; ObjectID = "1783"; */
 "1783.title" = "In Konfiguration einzubettendes SSL-Zertifikat auswählen …";
 
-/* Class = "NSPopUpButton"; ibShadowedToolTip = "Identities (X.509 certificates with RSA public key and associated private key) from the default keychain which can be used for encrypting and decrypting. Export the chosen identity (in Keychain Access utility) and install it on your SEB clients."; ObjectID = "1814"; */
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "CA (certificate authority) certificates from the default keychain. This allows to extend or override (when 'Pin embedded certificates' is selected) the default browser trust store"; ObjectID = "1814"; */
 "1814.ibShadowedToolTip" = "Kryptografische Identitäten (X.509 Zertifikate mit öffentlichem RSA-Schlüssel und dazugehörigem privaten Schlüssel) im Schlüsselbund, die für Verschlüsselung und Entschlüsselung benutzt werden können. Exportieren Sie die ausgewählte Identität in der Schlüsselbundverwaltung und installieren Sie diese auf Ihren SEB-Clients";
 
-/* Class = "NSTextFieldCell"; title = "Choose identity to embed into settings ..."; ObjectID = "1818"; */
+/* Class = "NSTextFieldCell"; title = "Choose CA certificate to embed into settings ..."; ObjectID = "1818"; */
 "1818.title" = "In Konfiguration einzubettende Identität auswählen …";
 
 /* Class = "NSTableColumn"; headerCell.title = "Kind"; ObjectID = "1836"; */
@@ -187,8 +196,17 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Remove certificate/identity from settings"; ObjectID = "1863"; */
 "1863.ibShadowedToolTip" = "Zertifikat/Identität aus Konfiguration entfernen";
 
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "TLS/SSL certificates from the default keychain. This allows to distribute self-signed certificates to exam clients"; ObjectID = "An4-xf-7ZG"; */
+"An4-xf-7ZG.ibShadowedToolTip" = "TLS/SSL-Zertifikate aus dem Schlüsselbund \"Anmeldung\". Dies ermöglicht, selbst-signierte oder gepinnte Zertifikate auf Prüfungsclients zu verteilen.";
+
+/* Class = "NSTextFieldCell"; title = "Override common name:"; ObjectID = "Apy-z9-F3c"; */
+"Apy-z9-F3c.title" = "Common Name überschreiben:";
+
 /* Class = "NSTextFieldCell"; title = "@"; ObjectID = "D1T-ZJ-mqa"; */
 "D1T-ZJ-mqa.title" = "@";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "DPz-Hy-kg6"; */
+"DPz-Hy-kg6.title" = "Abbrechen";
 
 /* Class = "NSButtonCell"; title = "Teach SEB allowed/blocked URLs"; ObjectID = "DSd-mL-qnG"; */
 "DSd-mL-qnG.title" = "Erlaubte/blockierte URLs lernen";
@@ -208,11 +226,29 @@
 /* Class = "NSButtonCell"; title = "Display 'URL Blocked!'"; ObjectID = "UCE-sZ-Ixh"; */
 "UCE-sZ-Ixh.title" = "'Blockierte URL!' anzeigen";
 
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Identities (X.509 certificates with RSA public key and associated private key) from the default keychain which can be used for encrypting (see Config File pane) and decrypting SEB config files. Embedded identities in config files saved for configuring clients will be imported into the Keychain of exam clients."; ObjectID = "UIS-5m-9TC"; */
+"UIS-5m-9TC.ibShadowedToolTip" = "Kryptografische Identitäten (X.509 Zertifikate mit öffentlichem RSA-Schlüssel und dazugehörigem privaten Schlüssel) im Schlüsselbund \"Anmeldung\", die für Verschlüsselung und Entschlüsselung benutzt werden können. In Konfigurationsdateien gespeichert für das \"Konfigurieren von Clients\" eingebettete Identitäten werden in den Schlüsselbund von Prüfungsclients importiert.";
+
+/* Class = "NSTextFieldCell"; title = "Choose certificate to embedd:"; ObjectID = "VV0-Zp-Taw"; */
+"VV0-Zp-Taw.title" = "Einzbettendes Zertifikat auswählen:";
+
+/* Class = "NSButtonCell"; title = "Advanced…"; ObjectID = "Wrm-JO-cYX"; */
+"Wrm-JO-cYX.title" = "Erweitert…";
+
+/* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "WtC-9s-fhR"; */
+"WtC-9s-fhR.headerCell.title" = "Name";
+
 /* Class = "NSTextFieldCell"; title = "#"; ObjectID = "bcq-qY-qJM"; */
 "bcq-qY-qJM.title" = "#";
 
 /* Class = "NSTextFieldCell"; title = "Action"; ObjectID = "cCY-tB-p0Y"; */
 "cCY-tB-p0Y.title" = "Aktion";
+
+/* Class = "NSTextFieldCell"; title = "Choose identity to embed into settings ..."; ObjectID = "cfG-U9-U7j"; */
+"cfG-U9-U7j.title" = "In Konfiguration einzubettende Identität auswählen … ";
+
+/* Class = "NSTextFieldCell"; title = "Embedd as"; ObjectID = "eXh-u4-x04"; */
+"eXh-u4-x04.title" = "Einbetten als";
 
 /* Class = "NSButtonCell"; title = "Regex"; ObjectID = "f49-Sx-zE7"; */
 "f49-Sx-zE7.title" = "Regex";
@@ -229,8 +265,14 @@
 /* Class = "NSButton"; ibShadowedToolTip = "URL filter action item is active"; ObjectID = "jId-HY-bdq"; */
 "jId-HY-bdq.ibShadowedToolTip" = "URL-Filterregel ist aktiv";
 
+/* Class = "NSButtonCell"; title = "Embedd"; ObjectID = "lRh-cS-3k7"; */
+"lRh-cS-3k7.title" = "Einbetten";
+
 /* Class = "NSTableColumn"; headerCell.title = "Expression"; ObjectID = "pon-KO-X4n"; */
 "pon-KO-X4n.headerCell.title" = "Ausdruck";
+
+/* Class = "NSButtonCell"; title = "Pin embedded certificates"; ObjectID = "r6V-Ca-cfU"; */
+"r6V-Ca-cfU.title" = "Eingebettete Zertifikate pinnen";
 
 /* Class = "NSTextFieldCell"; title = ":"; ObjectID = "tJm-ce-zDQ"; */
 "tJm-ce-zDQ.title" = ":";

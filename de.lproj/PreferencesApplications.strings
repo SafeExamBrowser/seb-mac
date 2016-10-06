@@ -74,7 +74,7 @@
 "677.title" = "Executable";
 
 /* Class = "NSTextField"; ibShadowedToolTip = "Filesystem path (formatted system specific) to the process executable’s directory (excluding the file name). If the path is not given or relative, then SEB searches system provided paths for applications"; ObjectID = "687"; */
-"687.ibShadowedToolTip" = "Dateisystem-Pfad (systemspezifisch formattiert) zum Verzeichnis des Prozess-Executables (ohne Dateiname). Wenn der Pfad nicht angegeben oder relativ ist, sucht SEB die Systempfade für Applikationen ab";
+"687.ibShadowedToolTip" = "Dateisystem-Pfad (systemspezifisch formatiert) zum Verzeichnis des Prozess-Executables (ohne Dateiname). Wenn der Pfad nicht angegeben oder relativ ist, sucht SEB die Systempfade für Applikationen ab";
 
 /* Class = "NSTextFieldCell"; title = "Path"; ObjectID = "690"; */
 "690.title" = "Pfad";
@@ -92,7 +92,7 @@
 "866.ibShadowedToolTip" = "Argument entfernen";
 
 /* Class = "NSTextField"; ibShadowedToolTip = "Bundle identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title for tricky Win applications (Java, Acrobat etc.)"; ObjectID = "887"; */
-"887.ibShadowedToolTip" = "Identifikator des Prozesses in der umgekehrten DNS-Notation (OS X) oder ein Teil-String des Titels des Hauptfensters (Win)";
+"887.ibShadowedToolTip" = "Identifikator des Prozesses in der umgekehrten DNS-Notation (macOS) oder ein Teil-String des Titels des Hauptfensters (Win)";
 
 /* Class = "NSTextFieldCell"; title = "Identifier"; ObjectID = "897"; */
 "897.title" = "Identifier";
@@ -167,7 +167,7 @@
 "1856.ibShadowedToolTip" = "Der verbotene Prozess muss unter dem momentanen Benutzer laufen. Kann benutzt werden, anstatt den Benutzernamen anzugeben";
 
 /* Class = "NSTextField"; ibShadowedToolTip = "Identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title"; ObjectID = "1859"; */
-"1859.ibShadowedToolTip" = "Identifikator des Prozesses in der umgekehrten DNS-Notation (OS X) oder ein Teil-String des Titels des Hauptfensters (Win)";
+"1859.ibShadowedToolTip" = "Identifikator des Prozesses in der umgekehrten DNS-Notation (macOS) oder ein Teil-String des Titels des Hauptfensters (Win)";
 
 /* Class = "NSTextField"; ibShadowedToolTip = "Process name, usually the file name of the executable"; ObjectID = "1893"; */
 "1893.ibShadowedToolTip" = "Prozessname, üblicherweise der Name der ausführbaren Datei (Executable)";
