@@ -93,9 +93,10 @@
 
 // Action to set the enabled property of dependent buttons
 // This is necessary because bindings don't work with private user defaults
-- (IBAction) enableBrowserWindowToolbarButton:(NSButton *)sender
+- (IBAction) useBrowserExamKey:(NSButton *)sender
 {
-    restartExamURLTextField.enabled = [sender state];
+    examKey.enabled = [sender state];
+    copyBEKToClipboard.enabled = [sender state];
 }
 
 

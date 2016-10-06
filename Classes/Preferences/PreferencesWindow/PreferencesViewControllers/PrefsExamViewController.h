@@ -39,6 +39,7 @@
 
 @interface PrefsExamViewController : NSViewController <MBPreferencesModule, NSTextFieldDelegate> {
     IBOutlet NSTextField *examKey;
+    __weak IBOutlet NSButton *copyBEKToClipboard;
 	IBOutlet NSTextField *quitURL;
     __weak IBOutlet NSTextField *restartExamURLTextField;
 
