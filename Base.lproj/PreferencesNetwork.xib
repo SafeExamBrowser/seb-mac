@@ -306,7 +306,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zft-nz-iLW">
-                                                    <rect key="frame" x="11" y="17" width="10" height="17"/>
+                                                    <rect key="frame" x="11" y="17" width="11" height="17"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="?" id="wOI-qb-1mB">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -666,7 +666,7 @@
                                             <constraint firstItem="zft-nz-iLW" firstAttribute="baseline" secondItem="1PT-7a-wz2" secondAttribute="baseline" id="3uZ-sJ-KQG"/>
                                             <constraint firstAttribute="trailing" secondItem="lCM-go-Urk" secondAttribute="trailing" constant="13" id="4mJ-dY-a2V"/>
                                             <constraint firstItem="jId-HY-bdq" firstAttribute="top" secondItem="9hw-i2-YWH" secondAttribute="bottom" constant="8" symbolic="YES" id="5B6-yv-kiS"/>
-                                            <constraint firstItem="1PT-7a-wz2" firstAttribute="leading" secondItem="zft-nz-iLW" secondAttribute="trailing" constant="6" id="9Ui-tn-w0i"/>
+                                            <constraint firstItem="1PT-7a-wz2" firstAttribute="leading" secondItem="zft-nz-iLW" secondAttribute="trailing" constant="5" id="9Ui-tn-w0i"/>
                                             <constraint firstItem="9hw-i2-YWH" firstAttribute="trailing" secondItem="9du-EF-v3O" secondAttribute="trailing" id="9oY-4F-ioB"/>
                                             <constraint firstItem="oXf-ig-TZU" firstAttribute="top" secondItem="63j-33-Jdu" secondAttribute="bottom" constant="7" id="AbZ-cN-4zh"/>
                                             <constraint firstAttribute="trailing" secondItem="9hw-i2-YWH" secondAttribute="trailing" constant="11" id="Aix-oC-ODs"/>

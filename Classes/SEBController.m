@@ -1672,8 +1672,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 //    if ([[sender name] isEqualToString:@"NSWorkspaceDidLaunchApplicationNotification"]) {
         NSDictionary *userInfo = [sender userInfo];
         if (userInfo) {
-            NSRunningApplication *launchedApp = [userInfo objectForKey:NSWorkspaceApplicationKey];
 #ifdef DEBUG
+            NSRunningApplication *launchedApp = [userInfo objectForKey:NSWorkspaceApplicationKey];
             DDLogInfo(@"Activated app localizedName: %@, executableURL: %@", [launchedApp localizedName], [launchedApp executableURL]);
 #endif
 //            if ([launchedApp isEqual:launchedApplication]) {
