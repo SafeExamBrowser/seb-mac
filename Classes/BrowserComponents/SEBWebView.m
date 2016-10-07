@@ -198,8 +198,11 @@
         [generalPasteboard clearContents];
         NSArray *archive = _browserController.privatePasteboardItems;
         [generalPasteboard restoreArchive:archive];
+        [super paste:sender];
+        [generalPasteboard clearContents];
+    } else {
+        [super paste:sender];
     }
-    [super paste:sender];
 }
 
 @end
