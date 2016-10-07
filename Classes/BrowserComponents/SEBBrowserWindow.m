@@ -640,7 +640,7 @@
             [pathComponents removeObjectAtIndex:0];
             [pathComponents removeLastObject];
             directory = [pathComponents componentsJoinedByString:@"/"];
-            directory = [NSString stringWithFormat:@"/%@/*", directory];
+            directory = [NSString stringWithFormat:@"%@/*", directory];
         } else if (pathComponents.count == 2) {
             directory = @"/*";
         }
@@ -660,11 +660,11 @@
             return host;
             
         case SEBURLFilterAlertPatternHostPath: {
-            return [NSString stringWithFormat:@"%@%@", host, path];
+            return [NSString stringWithFormat:@"%@/%@", host, path];
         }
             
         case SEBURLFilterAlertPatternDirectory: {
-            return [NSString stringWithFormat:@"%@%@", host, directory];
+            return [NSString stringWithFormat:@"%@/%@", host, directory];
         }
             
         case SEBURLFilterAlertPatternCustom:
