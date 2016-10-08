@@ -111,7 +111,7 @@
                                         </connections>
                                     </popUpButton>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="a9Y-jJ-E1h">
-                                        <rect key="frame" x="15" y="295" width="235" height="18"/>
+                                        <rect key="frame" x="15" y="289" width="235" height="18"/>
                                         <string key="toolTip">SEB checks for the command key being held down while SEB is starting up. This prevents using the application switcher to mess with SEB's kiosk mode</string>
                                         <buttonCell key="cell" type="check" title="Disable app switcher when starting" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="JRL-fG-lI3">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -122,7 +122,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="SEB enforces to be installed in an Applications folder (/Applications or ~/Applications)" translatesAutoresizingMaskIntoConstraints="NO" id="Gly-dr-m3X">
-                                        <rect key="frame" x="15" y="275" width="257" height="18"/>
+                                        <rect key="frame" x="15" y="269" width="257" height="18"/>
                                         <buttonCell key="cell" type="check" title="Force installation in Applications folder" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0Ey-3L-Lb6">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -132,7 +132,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="If AirPlay isn't allowed, SEB attempts to stop a running AirPlay connection when starting/restarting" translatesAutoresizingMaskIntoConstraints="NO" id="oq3-9u-BrJ">
-                                        <rect key="frame" x="15" y="255" width="137" height="18"/>
+                                        <rect key="frame" x="15" y="249" width="137" height="18"/>
                                         <buttonCell key="cell" type="check" title="Allow using AirPlay" bezelStyle="regularSquare" imagePosition="left" inset="2" id="hwg-eH-cMm">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -150,7 +150,7 @@
                                     <constraint firstItem="MYN-Xy-8h5" firstAttribute="top" secondItem="ot5-GZ-LBL" secondAttribute="top" constant="13" id="Fci-3r-wOw"/>
                                     <constraint firstItem="oq3-9u-BrJ" firstAttribute="leading" secondItem="Gly-dr-m3X" secondAttribute="leading" id="GUy-Hk-mEX"/>
                                     <constraint firstItem="oq3-9u-BrJ" firstAttribute="top" secondItem="Gly-dr-m3X" secondAttribute="bottom" constant="6" symbolic="YES" id="ILp-wT-FEm"/>
-                                    <constraint firstItem="a9Y-jJ-E1h" firstAttribute="top" secondItem="MYN-Xy-8h5" secondAttribute="bottom" constant="8" id="Rft-9y-ZJx"/>
+                                    <constraint firstItem="a9Y-jJ-E1h" firstAttribute="top" secondItem="MYN-Xy-8h5" secondAttribute="bottom" constant="14" id="Rft-9y-ZJx"/>
                                     <constraint firstItem="a9Y-jJ-E1h" firstAttribute="leading" secondItem="ot5-GZ-LBL" secondAttribute="leading" constant="17" id="ZKN-j7-oFL"/>
                                     <constraint firstItem="Gly-dr-m3X" firstAttribute="top" secondItem="a9Y-jJ-E1h" secondAttribute="bottom" constant="6" symbolic="YES" id="d3j-hs-g8l"/>
                                     <constraint firstItem="7SN-Be-oCc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ot5-GZ-LBL" secondAttribute="leading" constant="16" id="dIo-2D-YgX"/>
@@ -716,9 +716,9 @@
                                     <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableLogging" id="350"/>
                                 </connections>
                             </popUpButton>
-                            <textField verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="95" translatesAutoresizingMaskIntoConstraints="NO" id="3me-3D-EEp">
+                            <textField verticalHuggingPriority="1000" preferredMaxLayoutWidth="95" translatesAutoresizingMaskIntoConstraints="NO" id="3me-3D-EEp">
                                 <rect key="frame" x="193" y="68" width="97" height="17"/>
-                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Save log file to:" id="nui-Ct-A6q">
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Save log file to:" usesSingleLineMode="YES" id="nui-Ct-A6q">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
