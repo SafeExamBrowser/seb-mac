@@ -25,12 +25,12 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="1" userLabel="Appearance Preferences">
+        <customView misplaced="YES" id="1" userLabel="Appearance Preferences">
             <rect key="frame" x="0.0" y="0.0" width="650" height="604"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <box autoresizesSubviews="NO" borderType="line" title="Main browser window size and position" translatesAutoresizingMaskIntoConstraints="NO" id="540">
-                    <rect key="frame" x="17" y="371" width="616" height="88"/>
+                    <rect key="frame" x="17" y="372" width="616" height="88"/>
                     <view key="contentView" id="FTd-Yu-Btn">
                         <rect key="frame" x="1" y="1" width="614" height="72"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -156,7 +156,7 @@
                     </constraints>
                 </box>
                 <box autoresizesSubviews="NO" borderType="line" title="Browser view mode" translatesAutoresizingMaskIntoConstraints="NO" id="Xr6-D9-xmk">
-                    <rect key="frame" x="17" y="470" width="301" height="119"/>
+                    <rect key="frame" x="17" y="471" width="301" height="119"/>
                     <view key="contentView" id="w3t-Gm-6Pi">
                         <rect key="frame" x="1" y="1" width="299" height="103"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -220,13 +220,13 @@
                     </constraints>
                 </box>
                 <box autoresizesSubviews="NO" borderType="line" title="SEB dock/task bar" translatesAutoresizingMaskIntoConstraints="NO" id="Q3v-Xi-ylG">
-                    <rect key="frame" x="17" y="134" width="616" height="137"/>
+                    <rect key="frame" x="17" y="134" width="616" height="138"/>
                     <view key="contentView" id="cqS-Gs-8lG">
-                        <rect key="frame" x="1" y="1" width="614" height="121"/>
+                        <rect key="frame" x="1" y="1" width="614" height="122"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField toolTip="SEB dock height in points (pixel height*2 on Retina displays)" horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DiJ-eI-WGU">
-                                <rect key="frame" x="561" y="93" width="40" height="22"/>
+                                <rect key="frame" x="561" y="94" width="40" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="kWi-jS-1Ll"/>
                                 </constraints>
@@ -250,7 +250,7 @@
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RFK-qQ-lel">
-                                <rect key="frame" x="314" y="96" width="239" height="18"/>
+                                <rect key="frame" x="314" y="95" width="239" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="235" id="FH9-UN-CKI"/>
                                     <constraint firstAttribute="height" constant="18" id="MQ9-I9-ll4"/>
@@ -262,7 +262,7 @@
                                 </textFieldCell>
                             </textField>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="76">
-                                <rect key="frame" x="11" y="95" width="117" height="17"/>
+                                <rect key="frame" x="11" y="95" width="117" height="18"/>
                                 <string key="toolTip">The SEB dock shows and switches between open browser windows, allowed resources and applications and displays additional controls</string>
                                 <buttonCell key="cell" type="check" title="Show SEB dock" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="77">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -322,7 +322,7 @@
                     <constraints>
                         <constraint firstItem="E2T-SZ-Z6U" firstAttribute="top" secondItem="NYh-TA-SfI" secondAttribute="bottom" constant="6" id="185-PN-szP"/>
                         <constraint firstItem="RFK-qQ-lel" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="76" secondAttribute="trailing" constant="20" id="D86-by-nkt"/>
-                        <constraint firstItem="RFK-qQ-lel" firstAttribute="baseline" secondItem="DiJ-eI-WGU" secondAttribute="baseline" id="Drx-8d-9iV"/>
+                        <constraint firstItem="RFK-qQ-lel" firstAttribute="baseline" secondItem="DiJ-eI-WGU" secondAttribute="baseline" constant="2" id="Drx-8d-9iV"/>
                         <constraint firstItem="NYh-TA-SfI" firstAttribute="top" secondItem="76" secondAttribute="bottom" constant="6" id="HjI-Da-7MW"/>
                         <constraint firstItem="E2T-SZ-Z6U" firstAttribute="leading" secondItem="Q3v-Xi-ylG" secondAttribute="leading" constant="30" id="IbE-zS-0F6"/>
                         <constraint firstItem="VqV-Zw-hin" firstAttribute="top" secondItem="E2T-SZ-Z6U" secondAttribute="bottom" constant="6" id="N66-bj-228"/>
@@ -331,7 +331,6 @@
                         <constraint firstItem="cvI-1t-MPD" firstAttribute="top" secondItem="VqV-Zw-hin" secondAttribute="bottom" constant="6" id="fg7-Hx-WvK"/>
                         <constraint firstItem="76" firstAttribute="top" secondItem="Q3v-Xi-ylG" secondAttribute="top" constant="26" id="grm-Tb-bDy"/>
                         <constraint firstAttribute="bottom" secondItem="cvI-1t-MPD" secondAttribute="bottom" constant="14" id="j72-bU-xj6"/>
-                        <constraint firstItem="RFK-qQ-lel" firstAttribute="baseline" secondItem="76" secondAttribute="baseline" id="jOA-CP-BK4"/>
                         <constraint firstItem="DiJ-eI-WGU" firstAttribute="leading" secondItem="RFK-qQ-lel" secondAttribute="trailing" constant="10" id="lxY-nJ-qRC"/>
                         <constraint firstItem="DiJ-eI-WGU" firstAttribute="top" secondItem="Q3v-Xi-ylG" secondAttribute="top" constant="21" id="oMC-kZ-0ZM"/>
                         <constraint firstItem="VqV-Zw-hin" firstAttribute="leading" secondItem="Q3v-Xi-ylG" secondAttribute="leading" constant="30" id="pZQ-Z7-Idt"/>
@@ -451,7 +450,7 @@
                     </constraints>
                 </box>
                 <box autoresizesSubviews="NO" borderType="line" title="Mac specific" translatesAutoresizingMaskIntoConstraints="NO" id="d5d-zh-qxU">
-                    <rect key="frame" x="17" y="282" width="616" height="78"/>
+                    <rect key="frame" x="17" y="283" width="616" height="78"/>
                     <view key="contentView" id="DNm-GU-yko">
                         <rect key="frame" x="1" y="1" width="614" height="62"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -528,7 +527,7 @@
                     </connections>
                 </button>
                 <box autoresizesSubviews="NO" borderType="line" title="Automatic on-screen keyboard behavior (Win)" translatesAutoresizingMaskIntoConstraints="NO" id="gKH-Yr-UT7">
-                    <rect key="frame" x="332" y="470" width="301" height="119"/>
+                    <rect key="frame" x="332" y="471" width="301" height="119"/>
                     <view key="contentView" id="Yx6-Bp-e0B">
                         <rect key="frame" x="1" y="1" width="299" height="103"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
