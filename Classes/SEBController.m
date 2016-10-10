@@ -1014,15 +1014,26 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     if (status != noErr) return false;
     
     SecRequirementRef req = NULL;
+    NSString * reqStr;
     
-    // this is the public SHA1 fingerprint of the cert match string
-    NSString * reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
-                         @"certificate",
-                         @"leaf",
-                         @"H\"013E2787748A74",
-                         @"103D62D2CDBF77",
-                         @"A1345517C482\""
-                         ];
+    if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
+        // Public SHA1 fingerprint of the CA cert match string
+        reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
+                  @"certificate",
+                  @"leaf",
+                  @"H\"013E2787748A74",
+                  @"103D62D2CDBF77",
+                  @"A1345517C482\""
+                  ];
+    } else {
+        reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
+                  @"certificate",
+                  @"leaf",
+                  @"H\"2203029E85EFB1",
+                  @"828B928C3B6545",
+                  @"F003CC0E515C\""
+                  ];
+    }
     
     // create the requirement to check against
     status = SecRequirementCreateWithString((__bridge CFStringRef)reqStr, kSecCSDefaultFlags, &req);
