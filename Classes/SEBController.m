@@ -2261,7 +2261,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 
 - (IBAction) openPreferences:(id)sender {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"]) {
+    if (lockdownWindows.count == 0 && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"]) {
         if (floor(NSAppKitVersionNumber) == NSAppKitVersionNumber10_7) {
             NSAlert *newAlert = [[NSAlert alloc] init];
             [newAlert setMessageText:NSLocalizedString(@"Preferences Window Not Available on OS X 10.7", nil)];
