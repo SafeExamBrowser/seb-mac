@@ -97,6 +97,40 @@
 }
 
 
++ (NSRegularExpression *) regexForPathFilterString:(NSString *)filterString error:(NSError **)error
+{
+    // Trim a possible trailing slash "/", we will instead add a rule to also match paths to directories without trailing slash
+    filterString = [filterString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+    
+    if (filterString.length == 0) {
+        
+        return nil;
+        
+    } else {
+        // Check if path string ends with a "/*" for matching contents of a directory
+        if ([filterString hasSuffix:@"/*"]) {
+            // As the path filter string matches for a directory, we need to add a string to match directories without trailing slash
+            
+            // Get host string without the "/*" suffix
+            NSString *filterStringDirectory = [filterString substringToIndex:filterString.length-2];
+            
+            NSString *regexString = [NSRegularExpression escapedPatternForString:filterString];
+            regexString = [regexString stringByReplacingOccurrencesOfString:@"\\*" withString:@".*?"];
+
+            NSString *regexStringDir = [NSRegularExpression escapedPatternForString:filterStringDirectory];
+            regexStringDir = [regexStringDir stringByReplacingOccurrencesOfString:@"\\*" withString:@".*?"];
+
+        }
+        // Allow subdomain matching: Create combined regex for <example.com> and <*.example.com>
+        NSString *regexString = [NSRegularExpression escapedPatternForString:filterString];
+        regexString = [regexString stringByReplacingOccurrencesOfString:@"\\*" withString:@".*?"];
+        // Add regex command characters for matching at start and end of a line (part)
+        regexString = [NSString stringWithFormat:@"^((%@)|(.*?\\.%@))$", regexString, regexString];
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexString options:NSRegularExpressionCaseInsensitive | NSRegularExpressionAnchorsMatchLines error:error];
+        return regex;
+    }
+}
+
 - (NSString *) string
 {
     NSMutableString *expressionString = [NSMutableString new];

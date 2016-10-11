@@ -358,7 +358,7 @@
 
 - (void) showURLFilterMessage {
     
-    if (!self.filterMessageHolder) {
+    if (!_filterMessageHolder) {
         
         NSRect frameRect = NSMakeRect(0,0,155,21); // This will change based on the size you need
         NSTextField *message = [[NSTextField alloc] initWithFrame:frameRect];
@@ -392,9 +392,9 @@
         CGFloat messageLabelHeight = messageLabelSize.height;
         [message setFrameSize:NSMakeSize(messageLabelWidth, messageLabelHeight)];
         
-        self.filterMessageHolder = [[NSView alloc] initWithFrame:message.frame];
-        [self.filterMessageHolder addSubview:message];
-        [self.filterMessageHolder setContentHuggingPriority:NSLayoutPriorityFittingSizeCompression-1.0 forOrientation:NSLayoutConstraintOrientationVertical];
+        _filterMessageHolder = [[NSView alloc] initWithFrame:message.frame];
+        [_filterMessageHolder addSubview:message];
+        [_filterMessageHolder setContentHuggingPriority:NSLayoutPriorityFittingSizeCompression-1.0 forOrientation:NSLayoutConstraintOrientationVertical];
         
         [message setFrame:NSMakeRect(
                                      
@@ -406,21 +406,17 @@
                                      
                                      )];
         
-        [message setNextResponder:self.filterMessageHolder];
+        [message setNextResponder:_filterMessageHolder];
         
-//    } else {
-//        if (self.isFullScreen) {
-//            [self adjustPositionOfViewInTitleBar:self.filterMessageHolder atrighto:10 verticalOffset:0];
-//        }
     }
     
     // Show the message
     if (self.isFullScreen) {
-        [self addViewToTitleBar:self.filterMessageHolder atRightOffset:43];
+        [self addViewToTitleBar:_filterMessageHolder atRightOffset:43];
     } else {
-        [self addViewToTitleBar:self.filterMessageHolder atRightOffset:5];
+        [self addViewToTitleBar:_filterMessageHolder atRightOffset:5];
     }
-    [self.filterMessageHolder setNextResponder:self];
+    [_filterMessageHolder setNextResponder:self];
 
     // Remove the URL filter message after a delay
     [self performSelector:@selector(hideURLFilterMessage) withObject: nil afterDelay: 1];
@@ -477,8 +473,8 @@
                         // Set filter expression according to selected pattern in the NSMatrix radio button group
                         [self changedFilterPattern:self.filterPatternMatrix];
                         
-                        // Set full URL in the filter expression text field
-                        self.filterExpressionField.string = self.URLFilterAlertURL.absoluteString;
+                        // Set full URL in the filter expression text field, trim a possible trailing "/"
+                        self.filterExpressionField.string = [self.URLFilterAlertURL.absoluteString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
                         
                         // Set the domain pattern label/button string
                         self.domainPatternButton.title = [self filterExpressionForPattern:SEBURLFilterAlertPatternDomain];
@@ -629,8 +625,8 @@
     if (host.length == 0) {
         host = [self.URLFilterAlertURL.scheme stringByAppendingString:@":"];
     }
-    NSString *path = [self.URLFilterAlertURL.path stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
-    if (!path) {
+    NSString *path = self.URLFilterAlertURL.path;
+    if (!path || [path isEqualToString:@"/"]) {
         path = @"";
     }
     NSString *directory = @"";
@@ -640,7 +636,7 @@
             [pathComponents removeObjectAtIndex:0];
             [pathComponents removeLastObject];
             directory = [pathComponents componentsJoinedByString:@"/"];
-            directory = [NSString stringWithFormat:@"%@/*", directory];
+            directory = [NSString stringWithFormat:@"/%@/*", directory];
         } else if (pathComponents.count == 2) {
             directory = @"/*";
         }
@@ -660,11 +656,11 @@
             return host;
             
         case SEBURLFilterAlertPatternHostPath: {
-            return [NSString stringWithFormat:@"%@/%@", host, path];
+            return [NSString stringWithFormat:@"%@%@", host, path];
         }
             
         case SEBURLFilterAlertPatternDirectory: {
-            return [NSString stringWithFormat:@"%@/%@", host, directory];
+            return [NSString stringWithFormat:@"%@%@", host, directory];
         }
             
         case SEBURLFilterAlertPatternCustom:
