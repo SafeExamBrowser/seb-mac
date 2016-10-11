@@ -1619,12 +1619,15 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     
     [sebLockedViewController.view.superview addConstraints:constraints];
     
-    [coveringWindow makeKeyAndOrderFront:self];
+//    [coveringWindow makeKeyAndOrderFront:self];
+    lockdownModalSession = [NSApp beginModalSessionForWindow:coveringWindow];
+    [NSApp runModalSession:lockdownModalSession];
 }
 
 
 - (void) closeLockdownWindows
 {
+    [NSApp endModalSession:lockdownModalSession];
     [sebLockedViewController.view removeFromSuperview];
     [self closeCoveringWindows:self.lockdownWindows];
     _screenSharingDetected = false;

@@ -111,6 +111,7 @@
     BOOL airPlayMenuBarButton;
     BOOL allowScreenSharing;
     NSUInteger screenSharingLogCounter;
+    NSModalSession lockdownModalSession;
 }
 
 - (void) closeAboutWindow;
