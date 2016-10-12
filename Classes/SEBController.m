@@ -2071,7 +2071,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     // if no quit password is required, then confirm quitting
     NSAlert *newAlert = [[NSAlert alloc] init];
     [newAlert setMessageText:restartExamText];
-    [newAlert setInformativeText:NSLocalizedString(@"Are you sure?\n\n(Please note: This function doesn't log you out if you have been logged in on a website)", nil)];
+    [newAlert setInformativeText:NSLocalizedString(@"Are you sure?\n\n(This function doesn't clear session cookies/doesn't log you out if you are logged in on a website)", nil)];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
     [newAlert setAlertStyle:NSWarningAlertStyle];

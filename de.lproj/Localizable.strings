@@ -32,7 +32,7 @@
 "Are you sure you want to quit SEB?" = "Sind Sie sicher, dass Sie SEB beenden wollen?";
 
 /* No comment provided by engineer. */
-"Are you sure?" = "Sind Sie sicher?";
+"Are you sure?\n\n(This function doesn't clear session cookies/doesn't log you out if you are logged in on a website)" = "Sind Sie sicher?\n\n(Diese Funktion löscht keine Session-Cookies/loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben)";
 
 /* No comment provided by engineer. */
 "Authentication Required" = "Authentifizierung erforderlich";
@@ -101,6 +101,9 @@
 "Debug Certificate" = "Debug-Zertifikat";
 
 /* No comment provided by engineer. */
+"Decrypting settings with identity from the keychain failed!" = "Fehler beim Entschlüsseln der Einstellungen mittels Identität aus dem Schlüsselbund!";
+
+/* No comment provided by engineer. */
 "Do you really want to reload the current web page?" = "Wollen Sie die aktuelle Webseite wirklich neu laden?";
 
 /* No comment provided by engineer. */
@@ -131,6 +134,9 @@
 "Either an incompatible version of SEB has been used on this computer or the preferences file has been manipulated. In the first case you can quit SEB now and use the previous version to export settings as a .seb config file for reconfiguring the new version. Otherwise local settings need to be reset to the default values in order for SEB to continue running." = "Entweder wurde eine inkompatible SEB-Version auf diesem Rechner benutzt oder die Einstellungen-Datei wurde beschädigt. Im ersten Fall können Sie SEB jetzt beenden und die vorherige SEB-Version benutzen, um die Einstellungen zu exportieren und danach zum Konfigurieren der neuen Version zu benutzen. Anderenfalls müssen die lokalen Einstellungen zurückgesetzt werden, damit SEB weiter laufen kann.";
 
 /* No comment provided by engineer. */
+"Encrypting settings with identity from the keychain failed!" = "Fehler beim Verschlüsseln der Einstellungen mittels Identität aus dem Schlüsselbund!";
+
+/* No comment provided by engineer. */
 "Enter Password:" = "Passwort eingeben:";
 
 /* No comment provided by engineer. */
@@ -153,6 +159,9 @@
 
 /* No comment provided by engineer. */
 "Error Decrypting Settings" = "Fehler beim Entschüsseln der Einstellungen";
+
+/* No comment provided by engineer. */
+"Error Encrypting Settings" = "Fehler beim Verschlüsseln der Einstellungen";
 
 /* No comment provided by engineer. */
 "Error Loading Page" = "Fehler beim Laden der Seite";
@@ -292,7 +301,7 @@
 /* No comment provided by engineer. */
 "OK" = "OK";
 
-/* No comment provided by engineer. */
+/* (No Commment) */
 "OS X" = "OS X";
 
 /* No comment provided by engineer. */
