@@ -885,7 +885,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                            modalDelegate:(id)modalDelegate
                           didEndSelector:(SEL)didEndSelector
 {
-    [_sebController showEnterUsernamePasswordDialog:text
+    [_sebController showEnterUsernamePasswordDialog:[[NSAttributedString alloc] initWithString:text]
                                      modalForWindow:window
                                         windowTitle:title
                                            username:username
@@ -911,7 +911,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                            modalDelegate:(id)modalDelegate
                           didEndSelector:(SEL)didEndSelector
 {
-    [_sebController showEnterUsernamePasswordDialog:text
+    [_sebController showEnterUsernamePasswordDialog:[[NSAttributedString alloc] initWithString:text]
                                      modalForWindow:self.activeBrowserWindow
                                         windowTitle:title
                                            username:username

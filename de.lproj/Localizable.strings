@@ -8,7 +8,7 @@
 "%@ was downloaded." = "%@ wurde heruntergeladen.";
 
 /* No comment provided by engineer. */
-"(This function doesn't log you out if you are logged in on a website)" = "(Diese Funktion löscht keine Session-Cookies/loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben)";
+"(This function doesn't log you out if you are logged in on a website)" = "(Diese Funktion loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben)";
 
 /* (No Commment) */
 "Add Action to Rule" = "Aktion zur Regel hinzufügen";

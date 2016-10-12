@@ -171,9 +171,9 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="530" translatesAutoresizingMaskIntoConstraints="NO" id="KaS-Nf-iUK" customClass="SEBTextField">
-                        <rect key="frame" x="18" y="282" width="534" height="32"/>
+                        <rect key="frame" x="18" y="280" width="534" height="34"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="32" id="6Wq-4h-1e9"/>
+                            <constraint firstAttribute="height" constant="34" id="6Wq-4h-1e9"/>
                         </constraints>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="It's not allowed to open this link! You can create a new filter rule based on the following patterns:" id="B3X-Rp-SlN">
                             <font key="font" metaFont="system"/>
@@ -393,7 +393,7 @@ Gw
                     <constraint firstItem="sfT-nQ-Hte" firstAttribute="top" secondItem="jnc-il-FuZ" secondAttribute="bottom" constant="1" id="Jxz-9W-R36"/>
                     <constraint firstItem="ig8-v8-XUJ" firstAttribute="width" secondItem="8py-w9-weT" secondAttribute="width" id="KgE-G4-sSR"/>
                     <constraint firstAttribute="bottom" secondItem="cja-1x-YEa" secondAttribute="bottom" constant="12" id="LKE-jq-nJi"/>
-                    <constraint firstItem="jnc-il-FuZ" firstAttribute="top" secondItem="KaS-Nf-iUK" secondAttribute="bottom" constant="9" id="OC8-g9-GKN"/>
+                    <constraint firstItem="jnc-il-FuZ" firstAttribute="top" secondItem="KaS-Nf-iUK" secondAttribute="bottom" constant="7" id="OC8-g9-GKN"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mvP-Sq-mee" secondAttribute="trailing" constant="20" symbolic="YES" id="PGr-4j-6ph"/>
                     <constraint firstItem="KUW-Xw-ucJ" firstAttribute="top" secondItem="mvP-Sq-mee" secondAttribute="bottom" constant="1" id="PhL-Kj-HYb"/>
                     <constraint firstAttribute="trailing" secondItem="KaS-Nf-iUK" secondAttribute="trailing" constant="20" id="Pjm-w8-dlh"/>
@@ -409,7 +409,7 @@ Gw
                     <constraint firstItem="sfT-nQ-Hte" firstAttribute="leading" secondItem="sIN-ro-zV3" secondAttribute="leading" id="gdi-rA-dH6"/>
                     <constraint firstItem="mvP-Sq-mee" firstAttribute="top" secondItem="sfT-nQ-Hte" secondAttribute="bottom" constant="1" id="hK0-Ys-Viw"/>
                     <constraint firstItem="KId-E2-Y59" firstAttribute="leading" secondItem="52A-2p-iMa" secondAttribute="leading" constant="20" id="jRT-ik-uNO"/>
-                    <constraint firstItem="JTI-Ar-k0D" firstAttribute="top" secondItem="KaS-Nf-iUK" secondAttribute="bottom" constant="8" id="kdJ-f7-5ej"/>
+                    <constraint firstItem="JTI-Ar-k0D" firstAttribute="top" secondItem="KaS-Nf-iUK" secondAttribute="bottom" constant="6" id="kdJ-f7-5ej"/>
                     <constraint firstItem="ig8-v8-XUJ" firstAttribute="width" secondItem="cja-1x-YEa" secondAttribute="width" id="oAO-hH-b6Q"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="sIN-ro-zV3" secondAttribute="trailing" constant="20" symbolic="YES" id="ow5-og-SnT"/>
                     <constraint firstItem="sfT-nQ-Hte" firstAttribute="leading" secondItem="jnc-il-FuZ" secondAttribute="leading" id="sT3-XT-wDi"/>

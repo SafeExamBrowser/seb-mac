@@ -2050,11 +2050,14 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamPasswordProtected"] && ![hashedQuitPassword isEqualToString:@""]) {
         // if quit/restart password is set, then restrict quitting
-        NSString *dialogText = [NSString stringWithFormat:@"%@\n\n%@",
-                                NSLocalizedString(@"Enter quit/restart password:",nil),
-                                NSLocalizedString(@"(This function doesn't log you out if you are logged in on a website)", nil)
-                                ];
-        if ([self showEnterPasswordDialog:dialogText modalForWindow:self.browserController.mainBrowserWindow windowTitle:restartExamText] == SEBEnterPasswordCancel) return;
+        NSMutableAttributedString *dialogText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n\n", NSLocalizedString(@"(This function doesn't log you out if you are logged in on a website)", nil)]
+                                                                                attributes:@{NSFontAttributeName:[NSFont systemFontOfSize:NSFont.smallSystemFontSize]}].mutableCopy;
+        
+        NSAttributedString *information = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Enter quit/restart password:",nil)
+                                                                          attributes:@{NSFontAttributeName:[NSFont systemFontOfSize:NSFont.systemFontSize]}];
+        [dialogText appendAttributedString:information];
+        
+        if ([self showEnterPasswordDialog:dialogText.copy modalForWindow:self.browserController.mainBrowserWindow windowTitle:restartExamText] == SEBEnterPasswordCancel) return;
         NSString *password = [self.enterPassword stringValue];
         
         SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
@@ -2112,7 +2115,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 }
 
 
-- (NSInteger) showEnterPasswordDialog:(NSString *)text modalForWindow:(NSWindow *)window windowTitle:(NSString *)title {
+- (NSInteger) showEnterPasswordDialog:(NSAttributedString *)text modalForWindow:(NSWindow *)window windowTitle:(NSString *)title {
     
     [self.enterPassword setStringValue:@""]; //reset the enterPassword NSSecureTextField
 
@@ -2122,12 +2125,17 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     }
     // Add the alert title string to the dialog text if the alert will be presented as sheet on a window
     if (window && title.length > 0) {
-        text = [NSString stringWithFormat:@"%@\n\n%@", title, text];
+        NSMutableAttributedString *dialogText = [[NSAttributedString alloc] initWithString:
+                                                 [NSString stringWithFormat:@"%@\n\n", title]
+                                                                                attributes:@{NSFontAttributeName:[NSFont boldSystemFontOfSize:NSFont.systemFontSize]}].mutableCopy;
+        
+        [dialogText appendAttributedString:text];
+        text = dialogText.copy;
     } else if (title) {
         enterPasswordDialogWindow.title = title;
     }
 
-    [enterPasswordDialog setStringValue:text];
+    [enterPasswordDialog setAttributedStringValue:text];
     
     [NSApp beginSheet: enterPasswordDialogWindow
        modalForWindow: window

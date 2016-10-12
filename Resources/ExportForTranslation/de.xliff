@@ -2567,7 +2567,7 @@
             </trans-unit>
             <trans-unit id="(This function doesn't log you out if you are logged in on a website)">
                 <source>(This function doesn't log you out if you are logged in on a website)</source>
-                <target>(Diese Funktion löscht keine Session-Cookies/loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben)</target>
+                <target>(Diese Funktion loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben)</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Add Action to Rule">

@@ -127,7 +127,7 @@
 - (IBAction) okEnterPassword: (id)sender;
 - (IBAction) cancelEnterPassword: (id)sender;
 
-- (void) showEnterUsernamePasswordDialog:(NSString *)text
+- (void) showEnterUsernamePasswordDialog:(NSAttributedString *)text
                           modalForWindow:(NSWindow *)window
                              windowTitle:(NSString *)title
                                 username:(NSString *)username
