@@ -714,7 +714,9 @@ bool insideMatrix();
     size_t mycount = 0;
     mylist = (kinfo_proc *)malloc(sizeof(kinfo_proc));
     GetBSDProcessList(&mylist, &mycount);
-    DDLogDebug(@"There are %d running BSD processes:", (int)mycount);
+#ifdef DEBUG
+    DDLogDebug(@"There are %d running BSD processes.", (int)mycount);
+#endif
     int k;
     for(k = 0; k < mycount; k++) {
         kinfo_proc *proc = NULL;
@@ -738,7 +740,9 @@ bool insideMatrix();
     size_t mycount = 0;
     mylist = (kinfo_proc *)malloc(sizeof(kinfo_proc));
     GetBSDProcessList(&mylist, &mycount);
-    DDLogDebug(@"There are %d running BSD processes:", (int)mycount);
+#ifdef DEBUG
+    DDLogDebug(@"There are %d running BSD processes.", (int)mycount);
+#endif
     int k;
     for(k = 0; k < mycount; k++) {
         kinfo_proc *proc = NULL;
@@ -2067,7 +2071,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     // if no quit password is required, then confirm quitting
     NSAlert *newAlert = [[NSAlert alloc] init];
     [newAlert setMessageText:restartExamText];
-    [newAlert setInformativeText:NSLocalizedString(@"Are you sure?", nil)];
+    [newAlert setInformativeText:NSLocalizedString(@"Are you sure?\n\n(Please note: This function doesn't log you out if you have been logged in on a website)", nil)];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
     [newAlert setAlertStyle:NSWarningAlertStyle];
