@@ -368,24 +368,32 @@
         [message.cell setUsesSingleLineMode:YES];
         CGFloat messageLabelYOffset = 0;
 
+        NSString *messageString;
+        
         // Set message for URL blocked according to settings
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         switch ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_URLFilterMessage"]) {
                 
             case URLFilterMessageText:
-                message.stringValue = NSLocalizedString(@"URL Blocked!", nil);
+                messageString = NSLocalizedString(@"URL Blocked!", nil);
+                message.stringValue = messageString;
                 [message setFont:[NSFont systemFontOfSize:[NSFont smallSystemFontSize]]];
                 [message setTextColor:[NSColor redColor]];
                 break;
                 
             case URLFilterMessageX:
-                message.stringValue = @"✕";
+                messageString = @"✕";
+                message.stringValue = messageString;
                 [message setFont:[NSFont systemFontOfSize:20]];
                 [message setTextColor:[NSColor darkGrayColor]];
                 messageLabelYOffset = 4;
                 break;
         }
 
+        NSButton *URLBlockedButton = [NSButton new];
+        URLBlockedButton.title = messageString;
+        [URLBlockedButton setButtonType:NSMomentaryLightButton];
+        
         NSSize messageLabelSize = [message intrinsicContentSize];
         [message setAlignment:NSRightTextAlignment];
         CGFloat messageLabelWidth = messageLabelSize.width + 2;
@@ -396,7 +404,7 @@
         [_filterMessageHolder addSubview:message];
         [_filterMessageHolder setContentHuggingPriority:NSLayoutPriorityFittingSizeCompression-1.0 forOrientation:NSLayoutConstraintOrientationVertical];
         
-        [message setFrame:NSMakeRect(
+        NSRect messageFrame = NSMakeRect(
                                      
                                      0.5 * ([message superview].frame.size.width - message.frame.size.width),
                                      (0.5 * ([message superview].frame.size.height - message.frame.size.height)) + messageLabelYOffset,
@@ -404,7 +412,13 @@
                                      message.frame.size.width,
                                      message.frame.size.height
                                      
-                                     )];
+                                     );
+        
+        
+        [message setFrame:messageFrame];
+//        [URLBlockedButton setFrame:messageFrame];
+//        
+//        [_filterMessageHolder addSubview:URLBlockedButton];
         
         [message setNextResponder:_filterMessageHolder];
         
@@ -412,7 +426,8 @@
     
     // Show the message
     if (self.isFullScreen) {
-        [self addViewToTitleBar:_filterMessageHolder atRightOffset:43];
+//        [self addViewToTitleBar:_filterMessageHolder atRightOffset:43];
+        [self.webView addSubview:_filterMessageHolder];
     } else {
         [self addViewToTitleBar:_filterMessageHolder atRightOffset:5];
     }

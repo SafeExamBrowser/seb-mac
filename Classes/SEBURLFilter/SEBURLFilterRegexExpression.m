@@ -47,7 +47,7 @@
     filterExpression.password = [self regexForFilterString:URLFromString.password error:error];
     filterExpression.host = [self regexForHostFilterString:URLFromString.host error:error];
     filterExpression.port = URLFromString.port;
-    filterExpression.path = [self regexForFilterString:[URLFromString.path stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]] error:error];
+    filterExpression.path = [self regexForPathFilterString:URLFromString.path error:error];
     filterExpression.query = [self regexForFilterString:URLFromString.query error:error];
     filterExpression.fragment = [self regexForFilterString:URLFromString.fragment error:error];
     
@@ -111,7 +111,7 @@
         if ([filterString hasSuffix:@"/*"]) {
             // As the path filter string matches for a directory, we need to add a string to match directories without trailing slash
             
-            // Get host string without the "/*" suffix
+            // Get path string without the "/*" suffix
             NSString *filterStringDirectory = [filterString substringToIndex:filterString.length-2];
             
             NSString *regexString = [NSRegularExpression escapedPatternForString:filterString];
@@ -120,16 +120,17 @@
             NSString *regexStringDir = [NSRegularExpression escapedPatternForString:filterStringDirectory];
             regexStringDir = [regexStringDir stringByReplacingOccurrencesOfString:@"\\*" withString:@".*?"];
 
+            // Add regex command characters for matching at start and end of a line (part)
+            regexString = [NSString stringWithFormat:@"^((%@)|(%@))$", regexString, regexStringDir];
+
+            NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexString options:NSRegularExpressionCaseInsensitive | NSRegularExpressionAnchorsMatchLines error:error];
+            return regex;
+        } else {
+            return [self regexForFilterString:filterString error:error];
         }
-        // Allow subdomain matching: Create combined regex for <example.com> and <*.example.com>
-        NSString *regexString = [NSRegularExpression escapedPatternForString:filterString];
-        regexString = [regexString stringByReplacingOccurrencesOfString:@"\\*" withString:@".*?"];
-        // Add regex command characters for matching at start and end of a line (part)
-        regexString = [NSString stringWithFormat:@"^((%@)|(.*?\\.%@))$", regexString, regexString];
-        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexString options:NSRegularExpressionCaseInsensitive | NSRegularExpressionAnchorsMatchLines error:error];
-        return regex;
     }
 }
+
 
 - (NSString *) string
 {

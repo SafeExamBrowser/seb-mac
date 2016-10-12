@@ -53,6 +53,8 @@
 
 + (NSRegularExpression *) regexForHostFilterString:(NSString *)filterString error:(NSError **)error;
 
++ (NSRegularExpression *) regexForPathFilterString:(NSString *)filterString error:(NSError **)error;
+
 - (NSString *) string;
 
 
