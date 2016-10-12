@@ -2047,7 +2047,10 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamPasswordProtected"] && ![hashedQuitPassword isEqualToString:@""]) {
         // if quit/restart password is set, then restrict quitting
-        if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit/restart password:",nil) modalForWindow:self.browserController.mainBrowserWindow windowTitle:restartExamText] == SEBEnterPasswordCancel) return;
+        NSString *dialogText = [NSString stringWithFormat:@"%@\n\n%@",
+                                NSLocalizedString(@"(This function doesn't clear session cookies/doesn't log you out if you are logged in on a website)", nil),
+                                NSLocalizedString(@"Enter quit/restart password:",nil)];
+        if ([self showEnterPasswordDialog:dialogText modalForWindow:self.browserController.mainBrowserWindow windowTitle:restartExamText] == SEBEnterPasswordCancel) return;
         NSString *password = [self.enterPassword stringValue];
         
         SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
@@ -2071,7 +2074,10 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     // if no quit password is required, then confirm quitting
     NSAlert *newAlert = [[NSAlert alloc] init];
     [newAlert setMessageText:restartExamText];
-    [newAlert setInformativeText:NSLocalizedString(@"Are you sure?\n\n(This function doesn't clear session cookies/doesn't log you out if you are logged in on a website)", nil)];
+    [newAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@",
+                                  NSLocalizedString(@"Are you sure?", nil),
+                                  NSLocalizedString(@"(This function doesn't clear session cookies/doesn't log you out if you are logged in on a website)", nil)
+                                  ]];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
     [newAlert setAlertStyle:NSWarningAlertStyle];
@@ -2105,13 +2111,19 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 - (NSInteger) showEnterPasswordDialog:(NSString *)text modalForWindow:(NSWindow *)window windowTitle:(NSString *)title {
     
     [self.enterPassword setStringValue:@""]; //reset the enterPassword NSSecureTextField
-    if (title) enterPasswordDialogWindow.title = title;
-    [enterPasswordDialog setStringValue:text];
-    
+
     // If the (main) browser window is full screen, we don't show the dialog as sheet
     if (window && (self.browserController.mainBrowserWindow.isFullScreen || [self.preferencesController preferencesAreOpen])) {
         window = nil;
+    } else if (title) {
+        enterPasswordDialogWindow.title = title;
     }
+    // Add the window title string to the dialog text if there is no window
+    if (window && title.length > 0) {
+        text = [NSString stringWithFormat:@"%@\n\n%@", title, text];
+    }
+
+    [enterPasswordDialog setStringValue:text];
     
     [NSApp beginSheet: enterPasswordDialogWindow
        modalForWindow: window
