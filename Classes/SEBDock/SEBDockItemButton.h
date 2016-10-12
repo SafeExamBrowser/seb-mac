@@ -61,4 +61,6 @@
 - (void)mouseExited:(NSEvent *)theEvent;
 - (void)updateTrackingAreas;
 
+- (void)setHighlighted:(BOOL)highlighted;
+
 @end

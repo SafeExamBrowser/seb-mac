@@ -89,7 +89,7 @@ static SEBCertServices *gSharedInstance = nil;
                         
                         if (dataString)
                         {
-                            NSData *data = [[NSData alloc] initWithBase64EncodedString:dataString options:0];
+                            NSData *data = [[NSData alloc] initWithBase64Encoding:dataString];
                             
                             if (data)
                             {
@@ -140,7 +140,7 @@ static SEBCertServices *gSharedInstance = nil;
                         
                         if (dataString)
                         {
-                            NSData *data = [[NSData alloc] initWithBase64EncodedString:dataString options:0];
+                            NSData *data = [[NSData alloc] initWithBase64Encoding:dataString];
                             
                             if (data)
                             {
@@ -188,7 +188,7 @@ static SEBCertServices *gSharedInstance = nil;
                         
                         if (dataString)
                         {
-                            NSData *data = [[NSData alloc] initWithBase64EncodedString:dataString options:0];
+                            NSData *data = [[NSData alloc] initWithBase64Encoding:dataString];
                             
                             if (data)
                             {

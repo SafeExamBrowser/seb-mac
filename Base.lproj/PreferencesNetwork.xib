@@ -1972,7 +1972,7 @@
                 </binding>
             </connections>
         </arrayController>
-        <arrayController automaticallyPreparesContent="YES" preservesSelection="NO" selectsInsertedObjects="NO" id="1875" userLabel="Certificates Array Controller" customClass="SEBCertificatesArrayController">
+        <arrayController automaticallyPreparesContent="YES" preservesSelection="NO" selectsInsertedObjects="NO" id="1875" userLabel="Certificates Array Controller">
             <connections>
                 <binding destination="110" name="contentArray" keyPath="values.org_safeexambrowser_SEB_embeddedCertificates" id="JfN-zO-2ya">
                     <dictionary key="options">

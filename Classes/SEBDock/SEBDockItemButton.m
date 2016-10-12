@@ -254,5 +254,14 @@
             [self mouseExited: nil];
         }
 }
-    
+
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+    if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_10) {
+        [super setHighlighted:highlighted];
+    }
+}
+
+
 @end
