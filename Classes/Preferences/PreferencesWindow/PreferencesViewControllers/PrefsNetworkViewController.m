@@ -300,10 +300,10 @@
         NSMutableDictionary *certificateToEmbed = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                             [NSNumber numberWithInteger:certificateType], @"type",
                                             [sender titleOfSelectedItem], @"name",
-                                            [certificateData base64EncodedStringWithOptions:0], @"certificateDataBase64",
+                                            [certificateData base64Encoding], @"certificateDataBase64",
                                             // We also save the certificate data into the deprecated subkey certificateDataWin
                                             // (for downwards compatibility to < SEB 2.2)
-                                            [certificateData base64EncodedStringWithOptions:0], @"certificateDataWin",
+                                            [certificateData base64Encoding], @"certificateDataWin",
                                             nil];
         [certificatesArrayController addObject:certificateToEmbed];
         [self conditionallyShowOSCertWarning:nil];
@@ -342,10 +342,10 @@
                 NSMutableDictionary *certificateToEmbed = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                                     certType, @"type",
                                                     [sender titleOfSelectedItem], @"name",
-                                                    [certificateData base64EncodedStringWithOptions:0], @"certificateDataBase64",
+                                                    [certificateData base64Encoding], @"certificateDataBase64",
                                                     // We also save the certificate data into the deprecated subkey certificateDataWin
                                                     // (for downwards compatibility to < SEB 2.2)
-                                                    [certificateData base64EncodedStringWithOptions:0], @"certificateDataWin",
+                                                    [certificateData base64Encoding], @"certificateDataWin",
                                                     nil];
                 [certificatesArrayController addObject:certificateToEmbed];
                 [self conditionallyShowOSCertWarning:nil];
@@ -468,14 +468,14 @@
                 certificateToEmbed = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                                     [NSNumber numberWithInteger:embeddCertificateType], @"type",
                                                     certificateName, @"name",
-                                                    [certificateData base64EncodedStringWithOptions:0], @"certificateDataBase64",
-                                                    [certificateData base64EncodedStringWithOptions:0], @"certificateDataWin",
+                                                    [certificateData base64Encoding], @"certificateDataBase64",
+                                                    [certificateData base64Encoding], @"certificateDataWin",
                                                     nil];
             } else {
                 certificateToEmbed = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                                     [NSNumber numberWithInteger:embeddCertificateType], @"type",
                                                     certificateName, @"name",
-                                                    [certificateData base64EncodedStringWithOptions:0], @"certificateDataBase64",
+                                                    [certificateData base64Encoding], @"certificateDataBase64",
                                                     nil];
             }
 
