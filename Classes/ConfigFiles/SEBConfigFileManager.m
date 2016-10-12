@@ -891,7 +891,10 @@
         if (settingsPassword.length == 0 && !identityRef) {
             NSAlert *newAlert = [[NSAlert alloc] init];
             [newAlert setMessageText:NSLocalizedString(@"No Encryption Credentials Chosen", nil)];
-            [newAlert setInformativeText:NSLocalizedString(@"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted settings file, but this is not recommended for use in exams.", nil)];
+            [newAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@",
+                                          NSLocalizedString(@"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.", nil),
+                                          NSLocalizedString(@"You can save an unencrypted settings file, but this is not recommended for use in exams.", nil)
+                                          ]];
             [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Save unencrypted", nil)];
             [newAlert setAlertStyle:NSWarningAlertStyle];

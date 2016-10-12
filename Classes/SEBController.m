@@ -320,7 +320,10 @@ bool insideMatrix();
              // Screen sharing is active
              NSAlert *newAlert = [[NSAlert alloc] init];
              [newAlert setMessageText:NSLocalizedString(@"Screen Sharing Detected!", nil)];
-             [newAlert setInformativeText:NSLocalizedString(@"You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.\n\nTo avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing.", nil)];
+             [newAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@",
+                                           NSLocalizedString(@"You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.", nil),
+                                           NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing.", nil)
+                                           ]];
              [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
              [newAlert setAlertStyle:NSCriticalAlertStyle];
              [newAlert runModal];
@@ -2048,8 +2051,9 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamPasswordProtected"] && ![hashedQuitPassword isEqualToString:@""]) {
         // if quit/restart password is set, then restrict quitting
         NSString *dialogText = [NSString stringWithFormat:@"%@\n\n%@",
-                                NSLocalizedString(@"(This function doesn't clear session cookies/doesn't log you out if you are logged in on a website)", nil),
-                                NSLocalizedString(@"Enter quit/restart password:",nil)];
+                                NSLocalizedString(@"Enter quit/restart password:",nil),
+                                NSLocalizedString(@"(This function doesn't log you out if you are logged in on a website)", nil)
+                                ];
         if ([self showEnterPasswordDialog:dialogText modalForWindow:self.browserController.mainBrowserWindow windowTitle:restartExamText] == SEBEnterPasswordCancel) return;
         NSString *password = [self.enterPassword stringValue];
         
@@ -2076,7 +2080,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     [newAlert setMessageText:restartExamText];
     [newAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@",
                                   NSLocalizedString(@"Are you sure?", nil),
-                                  NSLocalizedString(@"(This function doesn't clear session cookies/doesn't log you out if you are logged in on a website)", nil)
+                                  NSLocalizedString(@"(This function doesn't log you out if you are logged in on a website)", nil)
                                   ]];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
@@ -2115,12 +2119,12 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     // If the (main) browser window is full screen, we don't show the dialog as sheet
     if (window && (self.browserController.mainBrowserWindow.isFullScreen || [self.preferencesController preferencesAreOpen])) {
         window = nil;
-    } else if (title) {
-        enterPasswordDialogWindow.title = title;
     }
-    // Add the window title string to the dialog text if there is no window
+    // Add the alert title string to the dialog text if the alert will be presented as sheet on a window
     if (window && title.length > 0) {
         text = [NSString stringWithFormat:@"%@\n\n%@", title, text];
+    } else if (title) {
+        enterPasswordDialogWindow.title = title;
     }
 
     [enterPasswordDialog setStringValue:text];
@@ -2623,7 +2627,10 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
                 @"detectedScreenSharing"])
     {
         // Set custom alert message string
-        [sebLockedViewController setLockdownAlertMessage:NSLocalizedString(@"Screen sharing detected. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows.\n\nTo avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing.", nil)];
+        [sebLockedViewController setLockdownAlertMessage:[NSString stringWithFormat:@"%@\n\n%@",
+                                                          NSLocalizedString(@"Screen sharing detected. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows.", nil),
+                                                          NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing.", nil)
+                                                          ]];
         
         if (!sebLockedViewController.resignActiveLogString) {
             sebLockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
