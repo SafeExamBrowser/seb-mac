@@ -73,6 +73,7 @@
 @property (weak) IBOutlet NSButton *directoryPatternButton;
 @property (strong) NSView *progressIndicatorHolder;
 @property (strong) NSView *filterMessageHolder;
+@property (strong) NSPanel *filterMessageHUD;
 
 @property (strong) NSURLAuthenticationChallenge *pendingChallenge;
 

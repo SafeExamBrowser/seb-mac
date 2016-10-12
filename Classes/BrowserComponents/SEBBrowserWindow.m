@@ -41,6 +41,7 @@
 #include "WebPreferencesPrivate.h"
 #import "SEBURLFilter.h"
 #import "NSURL+KKDomain.h"
+#import "HUDPanel.h"
 
 #include <CoreServices/CoreServices.h>
 
@@ -62,7 +63,7 @@
 - (void)setTitle:(NSString *)title
 {
     [super setTitle:title];
-    if (!self.isFullScreen) {
+    if (!_isFullScreen) {
         [self adjustPositionOfViewInTitleBar:_progressIndicatorHolder atRightOffsetToTitle:10 verticalOffset:0];
     }
 }
@@ -91,7 +92,7 @@
     // Display or don't display toolbar
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     // No toolbar on full screen window
-    if (!self.isFullScreen) {
+    if (!_isFullScreen) {
         if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"])
         {
             [self.toolbar setVisible:NO];
@@ -182,7 +183,7 @@
     NSInteger windowPositioning;
     if (self == self.browserController.mainBrowserWindow) {
         // This is the main browser window
-        if (self.isFullScreen) {
+        if (_isFullScreen) {
             // Full screen windows cover the whole screen
             windowWidth = @"100%";
             windowHeight = @"100%";
@@ -306,7 +307,7 @@
         [_progressIndicatorHolder setFrame:progressIndicator.frame];
         [progressIndicator startAnimation:self];
         
-        if (self.isFullScreen) {
+        if (_isFullScreen) {
             [self addViewToTitleBar:_progressIndicatorHolder atRightOffset:20];
         } else {
             [self addViewToTitleBar:_progressIndicatorHolder atRightOffsetToTitle:10 verticalOffset:0];
@@ -325,7 +326,7 @@
         [progressIndicator setNextResponder:_progressIndicatorHolder];
         [_progressIndicatorHolder setNextResponder:self];
     } else {
-        if (!self.isFullScreen) {
+        if (!_isFullScreen) {
             [self adjustPositionOfViewInTitleBar:_progressIndicatorHolder atRightOffsetToTitle:10 verticalOffset:0];
         }
     }
@@ -375,18 +376,16 @@
         switch ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_URLFilterMessage"]) {
                 
             case URLFilterMessageText:
-                messageString = NSLocalizedString(@"URL Blocked!", nil);
-                message.stringValue = messageString;
-                [message setFont:[NSFont systemFontOfSize:[NSFont smallSystemFontSize]]];
+                message.stringValue = NSLocalizedString(@"URL Blocked!", nil);
+                [message setFont:[NSFont boldSystemFontOfSize:[NSFont smallSystemFontSize]]];
                 [message setTextColor:[NSColor redColor]];
                 break;
                 
             case URLFilterMessageX:
-                messageString = @"✕";
-                message.stringValue = messageString;
-                [message setFont:[NSFont systemFontOfSize:20]];
-                [message setTextColor:[NSColor darkGrayColor]];
-                messageLabelYOffset = 4;
+                message.stringValue = @"✕";
+                [message setFont:[NSFont boldSystemFontOfSize:_isFullScreen ? 16 : 20]];
+                [message setTextColor:[NSColor blackColor]];
+                messageLabelYOffset = _isFullScreen ? 0 : 4;
                 break;
         }
 
@@ -404,7 +403,7 @@
         [_filterMessageHolder addSubview:message];
         [_filterMessageHolder setContentHuggingPriority:NSLayoutPriorityFittingSizeCompression-1.0 forOrientation:NSLayoutConstraintOrientationVertical];
         
-        NSRect messageFrame = NSMakeRect(
+        [message setFrame:NSMakeRect(
                                      
                                      0.5 * ([message superview].frame.size.width - message.frame.size.width),
                                      (0.5 * ([message superview].frame.size.height - message.frame.size.height)) + messageLabelYOffset,
@@ -412,36 +411,74 @@
                                      message.frame.size.width,
                                      message.frame.size.height
                                      
-                                     );
-        
-        
-        [message setFrame:messageFrame];
-//        [URLBlockedButton setFrame:messageFrame];
-//        
-//        [_filterMessageHolder addSubview:URLBlockedButton];
+                                     )];
         
         [message setNextResponder:_filterMessageHolder];
         
     }
     
     // Show the message
-    if (self.isFullScreen) {
-//        [self addViewToTitleBar:_filterMessageHolder atRightOffset:43];
-        [self.webView addSubview:_filterMessageHolder];
+    if (_isFullScreen) {
+        [self showURLBlockedHUD];
     } else {
         [self addViewToTitleBar:_filterMessageHolder atRightOffset:5];
+        [_filterMessageHolder setNextResponder:self];
+        
+        // Remove the URL filter message after a delay
+        [self performSelector:@selector(hideURLFilterMessage) withObject: nil afterDelay: 1];
     }
-    [_filterMessageHolder setNextResponder:self];
-
-    // Remove the URL filter message after a delay
-    [self performSelector:@selector(hideURLFilterMessage) withObject: nil afterDelay: 1];
-
 }
 
 - (void) hideURLFilterMessage {
     
     [self.filterMessageHolder removeFromSuperview];
-//    self.filterMessageHolder = nil;
+}
+
+
+- (void) showURLBlockedHUD
+{
+    if (!_filterMessageHUD) {
+
+        NSRect messageRect = _filterMessageHolder.frame;
+        CGFloat horizontalPadding = 8.0;
+        CGFloat verticalPadding = 5.0;
+        
+        NSRect backgroundRect = NSMakeRect(0, 0, messageRect.size.width+horizontalPadding*2, messageRect.size.height+verticalPadding*2);
+        NSView *HUDBackground = [[NSView alloc] initWithFrame:backgroundRect];
+        HUDBackground.wantsLayer = true;
+        HUDBackground.layer.cornerRadius = MIN(horizontalPadding, verticalPadding);
+        HUDBackground.layer.backgroundColor = [NSColor lightGrayColor].CGColor;
+        
+        [HUDBackground addSubview:_filterMessageHolder];
+        [_filterMessageHolder setFrameOrigin:NSMakePoint(horizontalPadding, verticalPadding)];
+        
+        _filterMessageHUD = [[HUDPanel alloc] initWithContentRect:HUDBackground.bounds styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:false];
+        _filterMessageHUD.backgroundColor = [NSColor clearColor];
+        _filterMessageHUD.opaque = false;
+        _filterMessageHUD.alphaValue = 0.75;
+
+        _filterMessageHUD.contentView = HUDBackground;
+    }
+    NSRect visibleScreenRect = self.screen.visibleFrame;
+    NSPoint topLeftPoint;
+    topLeftPoint.x = visibleScreenRect.origin.x + visibleScreenRect.size.width - _filterMessageHUD.frame.size.width - 42;
+    topLeftPoint.y = visibleScreenRect.origin.y + visibleScreenRect.size.height - 3;
+    [_filterMessageHUD setFrameTopLeftPoint:topLeftPoint];
+    
+    _filterMessageHUD.becomesKeyOnlyIfNeeded = YES;
+    [_filterMessageHUD setLevel:NSModalPanelWindowLevel];
+    DDLogDebug(@"Opening URL blocked HUD: %@", _filterMessageHUD);
+    [_filterMessageHUD makeKeyAndOrderFront:nil];
+    [_filterMessageHUD invalidateShadow];
+
+    // Hide the HUD filter message after a delay
+    [self performSelector:@selector(hideURLBlockedHUD) withObject: nil afterDelay: 1];
+}
+
+
+- (void) hideURLBlockedHUD
+{
+    [_filterMessageHUD orderOut:self];
 }
 
 
