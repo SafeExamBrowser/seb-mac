@@ -794,6 +794,9 @@
                                 </textFieldCell>
                             </textField>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="3me-3D-EEp" firstAttribute="top" secondItem="22" secondAttribute="bottom" constant="12" id="7S0-P7-ylD"/>
+                        </constraints>
                     </view>
                     <constraints>
                         <constraint firstItem="eiE-cV-UEx" firstAttribute="top" secondItem="32" secondAttribute="bottom" constant="8" id="2zP-K9-F0M"/>
