@@ -443,6 +443,9 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 "Screen Sharing Detected!" = "Bildschirmfreigabe detektiert!";
 
 /* No comment provided by engineer. */
+"Screen sharing detected. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil die Bildschirmfreigabe benutzt wurde. SEB kann nur mittels des Neustarten-/Beenden-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
+
+/* No comment provided by engineer. */
 "Screen sharing is still active" = "Bildschirmfreigabe ist immer noch aktiv";
 
 /* No comment provided by engineer. */

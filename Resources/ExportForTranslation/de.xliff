@@ -2565,6 +2565,11 @@
                 <target>%@ wurde heruntergeladen.</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
+            <trans-unit id="(This function doesn't log you out if you are logged in on a website)">
+                <source>(This function doesn't log you out if you are logged in on a website)</source>
+                <target>(Diese Funktion löscht keine Session-Cookies/loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben)</target>
+                <note>No comment provided by engineer.</note>
+            </trans-unit>
             <trans-unit id="Add Action to Rule">
                 <source>Add Action to Rule</source>
                 <target>Aktion zur Regel hinzufügen</target>
@@ -2605,12 +2610,10 @@
                 <target>Sind Sie sicher, dass Sie SEB beenden wollen?</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
-            <trans-unit id="Are you sure?\n\n(This function doesn't clear session cookies/doesn't log you out if you are logged in on a website)">
-                <source>Are you sure?
-
-(This function doesn't clear session cookies/doesn't log you out if you are logged in on a website)</source>
+            <trans-unit id="Are you sure?">
+                <source>Are you sure?</source>
+                <target>Sind Sie sicher?</target>
                 <note>No comment provided by engineer.</note>
-                <target>Sind Sie sicher? (Diese Funktion löscht keine Session-Cookies/loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben)</target>
             </trans-unit>
             <trans-unit id="Authentication Required">
                 <source>Authentication Required</source>
@@ -2722,8 +2725,8 @@
             </trans-unit>
             <trans-unit id="Decrypting settings with identity from the keychain failed!">
                 <source>Decrypting settings with identity from the keychain failed!</source>
-                <note>No comment provided by engineer.</note>
                 <target>Fehler beim Entschlüsseln der Einstellungen mittels Identität aus dem Schlüsselbund!</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Do you really want to reload the current web page?">
                 <source>Do you really want to reload the current web page?</source>
@@ -2777,8 +2780,8 @@
             </trans-unit>
             <trans-unit id="Encrypting settings with identity from the keychain failed!">
                 <source>Encrypting settings with identity from the keychain failed!</source>
-                <note>No comment provided by engineer.</note>
                 <target>Fehler beim Verschlüsseln der Einstellungen mittels Identität aus dem Schlüsselbund!</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Enter Password:">
                 <source>Enter Password:</source>
@@ -2822,8 +2825,8 @@
             </trans-unit>
             <trans-unit id="Error Encrypting Settings">
                 <source>Error Encrypting Settings</source>
-                <note>No comment provided by engineer.</note>
                 <target>Fehler beim Verschlüsseln der Einstellungen</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Error Loading Page">
                 <source>Error Loading Page</source>
@@ -3287,14 +3290,10 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
                 <target>Bildschirmfreigabe detektiert!</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
-            <trans-unit id="Screen sharing detected. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows.\n\nTo avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing.">
-                <source>Screen sharing detected. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows.
-
-To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing.</source>
-                <target>SEB ist gesperrt, weil die Bildschirmfreigabe benutzt wurde. SEB kann nur mittels des Neustarten-/Beenden-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.
-
-Um zu verhindern, dass SEB wegen der Bildschirmfreigabe während einer Prüfung gesperrt wird, kann 'Bildschirmfreigabe' und 'Entfernte Verwaltung' in Systemeinstellungen/Freigaben ausgeschaltet werden.</target>
+            <trans-unit id="Screen sharing detected. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows.">
+                <source>Screen sharing detected. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows.</source>
                 <note>No comment provided by engineer.</note>
+                <target>SEB ist gesperrt, weil die Bildschirmfreigabe benutzt wurde. SEB kann nur mittels des Neustarten-/Beenden-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
             </trans-unit>
             <trans-unit id="Screen sharing is still active">
                 <source>Screen sharing is still active</source>
@@ -3409,6 +3408,11 @@ Um zu verhindern, dass SEB wegen der Bildschirmfreigabe während einer Prüfung 
             <trans-unit id="This setting allows to switch to any application on the exam client computer. Use this option only when running SEB in a special user account managed by parental controls, with only SEB and the desired applications allowed.">
                 <source>This setting allows to switch to any application on the exam client computer. Use this option only when running SEB in a special user account managed by parental controls, with only SEB and the desired applications allowed.</source>
                 <target>Diese Einstellung erlaubt es, auf jede beliebige Applikation auf dem Prüfungsrechner zu wechseln. Sie sollte nur benutzt werden, wenn SEB in einem Benutzeraccount verwendet wird, welches mittels der macOS Kindersicherung verwaltet wird. Dabei sollten nur SEB und die gewünschten Applikationen zugelassen werden.</target>
+                <note>No comment provided by engineer.</note>
+            </trans-unit>
+            <trans-unit id="To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing.">
+                <source>To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing.</source>
+                <target>Um zu verhindern, dass SEB wegen der Bildschirmfreigabe während einer Prüfung gesperrt wird, kann 'Bildschirmfreigabe' und 'Entfernte Verwaltung' in Systemeinstellungen/Freigaben ausgeschaltet werden.</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="To proceed, you must log in to">
@@ -3536,13 +3540,9 @@ Um zu verhindern, dass SEB wegen der Bildschirmfreigabe während einer Prüfung 
                 <target>Falsches Beenden-/Neustart-Passwort</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
-            <trans-unit id="You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.\n\nTo avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing.">
-                <source>You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.
-
-To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing.</source>
-                <target>Es ist nicht erlaubt, die Bildschirmfreigabe zu benutzen, während SEB läuft. Starten Sie SEB neu, nachdem Sie die Bildschirmfreigabe beendet haben.
-
-Um zu verhindern, dass SEB wegen der Bildschirmfreigabe während einer Prüfung gesperrt wird, kann 'Bildschirmfreigabe' und 'Entfernte Verwaltung' in Systemeinstellungen/Freigaben ausgeschaltet werden.</target>
+            <trans-unit id="You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.">
+                <source>You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.</source>
+                <target>Es ist nicht erlaubt, die Bildschirmfreigabe zu benutzen, während SEB läuft. Starten Sie SEB neu, nachdem Sie die Bildschirmfreigabe beendet haben.</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="You are not allowed to run SEB inside a virtual machine!">
@@ -3553,6 +3553,11 @@ Um zu verhindern, dass SEB wegen der Bildschirmfreigabe während einer Prüfung 
             <trans-unit id="You can only reconfigure SEB by entering the current SEB administrator password:">
                 <source>You can only reconfigure SEB by entering the current SEB administrator password:</source>
                 <target>Sie können SEB nur nach Eingabe des aktuellen SEB-Administrator-Passwortes neu konfigurieren:</target>
+                <note>No comment provided by engineer.</note>
+            </trans-unit>
+            <trans-unit id="You can save an unencrypted settings file, but this is not recommended for use in exams.">
+                <source>You can save an unencrypted settings file, but this is not recommended for use in exams.</source>
+                <target>Sie können eine unverschlüsselte Datei speichern, aber dies wird nicht für die Benutzung in Prüfungen empfohlen.</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="You didn't enter the correct current SEB administrator password.">
@@ -3575,6 +3580,11 @@ Um zu verhindern, dass SEB wegen der Bildschirmfreigabe während einer Prüfung 
                 <target>Sie haben entweder ein falsches Passwort eingegeben oder diese Konfiguration wude mit einer inkompatiblen SEB-Version erstellt.</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
+            <trans-unit id="You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.">
+                <source>You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.</source>
+                <target>Sie sollten entweder ein Passwort oder eine kryptografische Identität zum Verschlüsseln der Konfigurationsdatei verwenden.</target>
+                <note>No comment provided by engineer.</note>
+            </trans-unit>
             <trans-unit id="You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted settings file, but this is not recommended for use in exams.">
                 <source>You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.
 
@@ -3582,7 +3592,6 @@ You can save an unencrypted settings file, but this is not recommended for use i
                 <target>Sie sollten entweder ein Passwort oder eine kryptografische Identität zum Verschlüsseln der Konfigurationsdatei verwenden.
 
 Sie können eine unverschlüsselte Datei speichern, aber dies wird nicht für die Benutzung in Prüfungen empfohlen.</target>
-                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="administrator">
                 <source>administrator</source>
