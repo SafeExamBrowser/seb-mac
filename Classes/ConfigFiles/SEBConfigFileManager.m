@@ -767,6 +767,18 @@
     
     sebData = [keychainManager decryptData:sebData withPrivateKey:privateKeyRef];
     
+    if (!sebData) {
+        NSAlert *newAlert = [[NSAlert alloc] init];
+        [newAlert setMessageText:NSLocalizedString(@"Error Decrypting Settings", nil)];
+        [newAlert setInformativeText:NSLocalizedString(@"Decrypting settings with identity from the keychain failed!", nil)];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [newAlert setAlertStyle:NSCriticalAlertStyle];
+        [newAlert runModal];
+        DDLogError(@"%s: Error Decrypting Settings: Decrypting settings with identity from the keychain failed!", __FUNCTION__);
+        
+        return nil;
+    }
+    
     return sebData;
 }
 
@@ -962,6 +974,17 @@
                 [encryptedSebData appendData:encryptedData];
             }
         }
+    }
+    if (!encryptedSebData) {
+        NSAlert *newAlert = [[NSAlert alloc] init];
+        [newAlert setMessageText:NSLocalizedString(@"Error Encrypting Settings", nil)];
+        [newAlert setInformativeText:NSLocalizedString(@"Encrypting settings with identity from the keychain failed!", nil)];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [newAlert setAlertStyle:NSCriticalAlertStyle];
+        [newAlert runModal];
+        DDLogError(@"%s: Error Encrypting Settings: Encrypting settings with identity from the keychain failed!", __FUNCTION__);
+        
+        return nil;
     }
     return encryptedSebData;
 }

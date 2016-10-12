@@ -829,15 +829,24 @@
                                             CSSM_ALGID_RSA,
                                             creds, pubKey,
                                             CSSM_PADDING_PKCS1, &ccHandle);
-    cssmPerror("encrypt context", crtn);
-    assert(crtn == CSSM_OK);
-    
+    cssmPerror("Encrypt context", crtn);
+    if (crtn != CSSM_OK) {
+        if (publicKeyRef) {
+            CFRelease(publicKeyRef);
+        }
+        return nil;
+    }
     CSSM_SIZE       bytesEncrypted;
     CSSM_DATA       remData = {0, NULL};
     crtn = CSSM_EncryptData(ccHandle, &ptext, 1,
                             &ctext, 1, &bytesEncrypted, &remData);
-    cssmPerror("encryptdata", crtn);
-    assert(crtn == CSSM_OK);
+    cssmPerror("Encrypt data", crtn);
+    if (crtn != CSSM_OK) {
+        if (publicKeyRef) {
+            CFRelease(publicKeyRef);
+        }
+        return nil;
+    }
     CSSM_DeleteContext(ccHandle);
 
     NSData *cipherData = [NSData dataWithBytes:ctext.Data length:ctext.Length];
@@ -845,7 +854,6 @@
     if (publicKeyRef) CFRelease(publicKeyRef);
     free(ctext.Data);
     return cipherData;
-    //[cipherData encodeBase64ForData];
 }
 
 - (NSData*)decryptData:(NSData*)cipherData withPrivateKey:(SecKeyRef)privateKeyRef
@@ -889,13 +897,23 @@
                                             CSSM_ALGID_RSA,
                                             creds, privKey,
                                             CSSM_PADDING_PKCS1, &ccHandle);
-    cssmPerror("decrypt context", crtn);
-    assert(crtn == CSSM_OK);
+    cssmPerror("Decrypt context", crtn);
+    if (crtn != CSSM_OK) {
+        if (privateKeyRef) {
+            CFRelease(privateKeyRef);
+        }
+        return nil;
+    }
     
     crtn = CSSM_DecryptData(ccHandle, &ctext, 1,
                             &ptext, 1, &bytesEncrypted, &remData);
-    cssmPerror("decryptdata", crtn);
-    assert(crtn == CSSM_OK);
+    cssmPerror("Decrypt data", crtn);
+    if (crtn != CSSM_OK) {
+        if (privateKeyRef) {
+            CFRelease(privateKeyRef);
+        }
+        return nil;
+    }
     CSSM_DeleteContext(ccHandle);
     
     if(crtn) {
