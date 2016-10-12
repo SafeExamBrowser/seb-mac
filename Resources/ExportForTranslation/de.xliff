@@ -2605,10 +2605,12 @@
                 <target>Sind Sie sicher, dass Sie SEB beenden wollen?</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
-            <trans-unit id="Are you sure?">
-                <source>Are you sure?</source>
-                <target>Sind Sie sicher?</target>
+            <trans-unit id="Are you sure?\n\n(This function doesn't clear session cookies/doesn't log you out if you are logged in on a website)">
+                <source>Are you sure?
+
+(This function doesn't clear session cookies/doesn't log you out if you are logged in on a website)</source>
                 <note>No comment provided by engineer.</note>
+                <target>Sind Sie sicher? (Diese Funktion löscht keine Session-Cookies/loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben)</target>
             </trans-unit>
             <trans-unit id="Authentication Required">
                 <source>Authentication Required</source>
@@ -2718,6 +2720,11 @@
                 <target>Debug-Zertifikat</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
+            <trans-unit id="Decrypting settings with identity from the keychain failed!">
+                <source>Decrypting settings with identity from the keychain failed!</source>
+                <note>No comment provided by engineer.</note>
+                <target>Fehler beim Entschlüsseln der Einstellungen mittels Identität aus dem Schlüsselbund!</target>
+            </trans-unit>
             <trans-unit id="Do you really want to reload the current web page?">
                 <source>Do you really want to reload the current web page?</source>
                 <target>Wollen Sie die aktuelle Webseite wirklich neu laden?</target>
@@ -2768,6 +2775,11 @@
                 <target>Entweder wurde eine inkompatible SEB-Version auf diesem Rechner benutzt oder die Einstellungen-Datei wurde beschädigt. Im ersten Fall können Sie SEB jetzt beenden und die vorherige SEB-Version benutzen, um die Einstellungen zu exportieren und danach zum Konfigurieren der neuen Version zu benutzen. Anderenfalls müssen die lokalen Einstellungen zurückgesetzt werden, damit SEB weiter laufen kann.</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
+            <trans-unit id="Encrypting settings with identity from the keychain failed!">
+                <source>Encrypting settings with identity from the keychain failed!</source>
+                <note>No comment provided by engineer.</note>
+                <target>Fehler beim Verschlüsseln der Einstellungen mittels Identität aus dem Schlüsselbund!</target>
+            </trans-unit>
             <trans-unit id="Enter Password:">
                 <source>Enter Password:</source>
                 <target>Passwort eingeben:</target>
@@ -2807,6 +2819,11 @@
                 <source>Error Decrypting Settings</source>
                 <target>Fehler beim Entschüsseln der Einstellungen</target>
                 <note>No comment provided by engineer.</note>
+            </trans-unit>
+            <trans-unit id="Error Encrypting Settings">
+                <source>Error Encrypting Settings</source>
+                <note>No comment provided by engineer.</note>
+                <target>Fehler beim Verschlüsseln der Einstellungen</target>
             </trans-unit>
             <trans-unit id="Error Loading Page">
                 <source>Error Loading Page</source>
@@ -3037,7 +3054,6 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
             <trans-unit id="OS X">
                 <source>OS X</source>
                 <target>OS X</target>
-                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="OS X 10.7 Lion">
                 <source>OS X 10.7 Lion</source>
@@ -3563,10 +3579,10 @@ Um zu verhindern, dass SEB wegen der Bildschirmfreigabe während einer Prüfung 
                 <source>You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.
 
 You can save an unencrypted settings file, but this is not recommended for use in exams.</source>
-                <note>No comment provided by engineer.</note>
                 <target>Sie sollten entweder ein Passwort oder eine kryptografische Identität zum Verschlüsseln der Konfigurationsdatei verwenden.
 
 Sie können eine unverschlüsselte Datei speichern, aber dies wird nicht für die Benutzung in Prüfungen empfohlen.</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="administrator">
                 <source>administrator</source>
@@ -3609,6 +3625,10 @@ Sie können eine unverschlüsselte Datei speichern, aber dies wird nicht für di
             <trans-unit id="get generally blocked">
                 <source>get generally blocked</source>
                 <target>werden generell blockiert</target>
+                <note>No comment provided by engineer.</note>
+            </trans-unit>
+            <trans-unit id="macOS">
+                <source>macOS</source>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="macOS 10.12 Sierra">
