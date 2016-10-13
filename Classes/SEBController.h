@@ -108,7 +108,6 @@
     BOOL _forceAppFolder;
     SEBMinMacOSVersion _enforceMinMacOSVersion;
     pid_t sebPID;
-    BOOL airPlayMenuBarButton;
     BOOL allowScreenSharing;
     NSUInteger screenSharingLogCounter;
     NSModalSession lockdownModalSession;

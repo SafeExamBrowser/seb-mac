@@ -1083,21 +1083,13 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 - (void)conditionallyTerminateAirPlay
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-
+    
     // Also set flag for screen sharing
     allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"];
-                          
-    if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowAirPlay"]) {
+    
+    if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowAirPlay"])
+    {
         // If using AirPlay isn't allowed
-        // If menu bar is visible: Check if AirPlay Display mirroring options in menu bar are allowed
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"]) {
-            NSUserDefaults *appUserDefaults = [[NSUserDefaults alloc] init];
-            [appUserDefaults addSuiteNamed:@"com.apple.airplay"];
-            NSDictionary *prefsDict = [appUserDefaults dictionaryRepresentation];
-            airPlayMenuBarButton = [[prefsDict objectForKey:@"showInMenuBarIfPresent"] boolValue];
-        } else {
-            airPlayMenuBarButton = NO;
-        }
         [self killAirPlayUIAgent];
     }
 }
@@ -1567,9 +1559,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     
     if (![self.preferencesController preferencesAreOpen]) {
 
-        // Terminate AirPlayUIAgent in case the AirPlay Display mirror button is active the
-        // menu bar (if this is shown)
-        if (airPlayMenuBarButton) {
+        // Terminate AirPlayUIAgent when AirPlay Display isn't allowed
+        if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowAirPlay"]) {
             DDLogDebug(@"Kill AirPlayUIAgent after NSApplicationDidChangeScreenParametersNotification");
             [self killAirPlayUIAgent];
         }
