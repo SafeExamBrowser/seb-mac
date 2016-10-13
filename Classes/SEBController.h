@@ -112,6 +112,7 @@
     BOOL allowScreenSharing;
     NSUInteger screenSharingLogCounter;
     NSModalSession lockdownModalSession;
+    NSUInteger lastNumberRunningBSDProcesses;
 }
 
 - (void) closeAboutWindow;

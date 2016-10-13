@@ -978,7 +978,7 @@
             }
         }
     }
-    if (!encryptedSebData) {
+    if (encryptedSebData.length == 0) {
         NSAlert *newAlert = [[NSAlert alloc] init];
         [newAlert setMessageText:NSLocalizedString(@"Error Encrypting Settings", nil)];
         [newAlert setInformativeText:NSLocalizedString(@"Encrypting settings with identity from the keychain failed!", nil)];

@@ -717,9 +717,12 @@ bool insideMatrix();
     size_t mycount = 0;
     mylist = (kinfo_proc *)malloc(sizeof(kinfo_proc));
     GetBSDProcessList(&mylist, &mycount);
-#ifdef DEBUG
-    DDLogDebug(@"There are %d running BSD processes.", (int)mycount);
-#endif
+    BOOL numberRunningBSDProcessesChanged = false;
+    if ((NSUInteger)mycount != lastNumberRunningBSDProcesses) {
+        numberRunningBSDProcessesChanged = true;
+        lastNumberRunningBSDProcesses = (NSUInteger)mycount;
+        DDLogVerbose(@"There are %lu running BSD processes.", (unsigned long)lastNumberRunningBSDProcesses);
+    }
     int k;
     for(k = 0; k < mycount; k++) {
         kinfo_proc *proc = NULL;
@@ -728,7 +731,9 @@ bool insideMatrix();
         NSString * processName = [NSString stringWithCString:proc-> kp_proc.p_comm encoding:NSUTF8StringEncoding];
         [ProcList addObject:processName];
         //  [ ProcList setObject: proc->kp_proc.p_pid forKey: processName];
-        DDLogVerbose(@"PID: %d - Name: %s", proc->kp_proc.p_pid, proc-> kp_proc.p_comm);
+        if (numberRunningBSDProcessesChanged) {
+            DDLogVerbose(@"PID: %d - Name: %s", proc->kp_proc.p_pid, proc-> kp_proc.p_comm);
+        }
     }
     free(mylist);
     
@@ -743,20 +748,25 @@ bool insideMatrix();
     size_t mycount = 0;
     mylist = (kinfo_proc *)malloc(sizeof(kinfo_proc));
     GetBSDProcessList(&mylist, &mycount);
-#ifdef DEBUG
-    DDLogDebug(@"There are %d running BSD processes.", (int)mycount);
-#endif
+    BOOL numberRunningBSDProcessesChanged = false;
+    if ((NSUInteger)mycount != lastNumberRunningBSDProcesses) {
+        numberRunningBSDProcessesChanged = true;
+        lastNumberRunningBSDProcesses = (NSUInteger)mycount;
+        DDLogVerbose(@"There are %lu running BSD processes: ", (unsigned long)lastNumberRunningBSDProcesses);
+    }
     int k;
     for(k = 0; k < mycount; k++) {
         kinfo_proc *proc = NULL;
         proc = &mylist[k];
         NSString *processName = [NSString stringWithFormat: @"%s",proc-> kp_proc.p_comm];
-        [ ProcList setObject: processName forKey: processName ];
-        [ ProcList setObject: [NSNumber numberWithInt:proc->kp_proc.p_pid] forKey: processName];
-        DDLogVerbose(@"PID: %d - Name: %s", proc->kp_proc.p_pid, proc-> kp_proc.p_comm);
+        [ ProcList setObject: processName forKey: @"name" ];
+        [ ProcList setObject: [NSNumber numberWithInt:proc->kp_proc.p_pid] forKey: @"PID"];
     }
     free(mylist);
     
+    if (numberRunningBSDProcessesChanged) {
+        DDLogVerbose(@"%@", ProcList);
+    }
     return ProcList;
 }
 
@@ -886,6 +896,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 {
     CGWindowListOption options;
     BOOL firstScan = false;
+    BOOL fishyWindowWasOpened = false;
     if (!_systemProcessPIDs) {
         // When this method is called the first time, we scan all windows
         firstScan = true;
@@ -895,14 +906,15 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         NSRunningApplication *sebRunningApp = [NSRunningApplication currentApplication];
         sebPID = [sebRunningApp processIdentifier];
         allowScreenSharing = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"];
+        fishyWindowWasOpened = true;
 
     } else {
         // otherwise only those which are visible (on screen)
         options = kCGWindowListOptionOnScreenOnly;
     }
     
+    
     NSArray *windowList = CFBridgingRelease(CGWindowListCopyWindowInfo(options, kCGNullWindowID));
-    DDLogVerbose(@"Window list: %@", windowList);
     for (NSDictionary *window in windowList) {
         NSString *windowName = [window objectForKey:@"kCGWindowName" ];
         NSString *windowOwner = [window objectForKey:@"kCGWindowOwnerName" ];
@@ -940,6 +952,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                                     [_terminatedProcessesExecutableURLs addObject:appURL];
                                 }
                                 [appWithPanel forceTerminate];
+                                fishyWindowWasOpened = true;
                             }
                         } else {
                             // There is either no bundle ID or the prefix is com.apple.
@@ -958,6 +971,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                                         [_terminatedProcessesExecutableURLs addObject:appURL];
                                     }
                                     [appWithPanel forceTerminate];
+                                    fishyWindowWasOpened = true;
                                 }
                             }
                         }
@@ -965,6 +979,9 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                 }
             }
         }
+    }
+    if (fishyWindowWasOpened) {
+        DDLogVerbose(@"Window list: %@", windowList);
     }
     // Check if screen sharing was activated
     // Get all running processes, including daemons
