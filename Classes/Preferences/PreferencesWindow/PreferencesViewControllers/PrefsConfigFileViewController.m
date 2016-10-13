@@ -273,11 +273,12 @@
     // Get SecIdentityRef for selected identity
     SecIdentityRef identityRef;
     // Is there one saved from the currently open config file?
-    if (_currentConfigFileKeyRef) {
-        identityRef = (SecIdentityRef)_currentConfigFileKeyRef;
-    } else {
+    // ToDo: This is broken, needs refactoring
+//    if (_currentConfigFileKeyRef) {
+//        identityRef = (SecIdentityRef)_currentConfigFileKeyRef;
+//    } else {
         identityRef = [self getSelectedIdentity];
-    }
+//    }
     
     // Get password
     NSString *encryptingPassword;
@@ -289,7 +290,10 @@
     }
     
     // Encrypt current settings with current credentials
-    NSData *encryptedSebData = [configFileManager encryptSEBSettingsWithPassword:encryptingPassword passwordIsHash:self.configPasswordIsHash withIdentity:identityRef forPurpose:configPurpose];
+    NSData *encryptedSebData = [configFileManager encryptSEBSettingsWithPassword:encryptingPassword
+                                                                  passwordIsHash:self.configPasswordIsHash
+                                                                    withIdentity:identityRef
+                                                                      forPurpose:configPurpose];
     return encryptedSebData;
 }
 

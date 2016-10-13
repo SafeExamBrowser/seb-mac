@@ -127,7 +127,7 @@
     NSDictionary *sebPreferencesDict;
     NSString *sebFilePassword = nil;
     BOOL passwordIsHash = false;
-    SecKeyRef sebFileKeyRef = nil;
+    SecKeyRef sebFileKeyRef = NULL;
 
     _suppressFileFormatError = suppressFileFormatError;
     

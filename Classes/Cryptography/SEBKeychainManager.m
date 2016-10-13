@@ -464,11 +464,11 @@
 
 
 - (SecKeyRef)getPrivateKeyFromPublicKeyHash:(NSData*)publicKeyHash {
-    SecKeyRef privateKeyRef = NULL;
     SecIdentityRef identityRef = [self getIdentityRefFromPublicKeyHash:publicKeyHash];
     if (!identityRef) {
         return NULL;
     }
+    SecKeyRef privateKeyRef = NULL;
     OSStatus status = SecIdentityCopyPrivateKey(identityRef, &privateKeyRef);
     if (identityRef) CFRelease(identityRef);
     if (status != errSecSuccess) {
