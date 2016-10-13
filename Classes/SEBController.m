@@ -2050,11 +2050,13 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamPasswordProtected"] && ![hashedQuitPassword isEqualToString:@""]) {
         // if quit/restart password is set, then restrict quitting
-        NSMutableAttributedString *dialogText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n\n", NSLocalizedString(@"(This function doesn't log you out if you are logged in on a website)", nil)]
-                                                                                attributes:@{NSFontAttributeName:[NSFont systemFontOfSize:NSFont.smallSystemFontSize]}].mutableCopy;
+        NSMutableParagraphStyle *textParagraph = [[NSMutableParagraphStyle alloc] init];
+        textParagraph.lineSpacing = 5.0;
+        NSMutableAttributedString *dialogText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Enter quit/restart password:",nil)]
+                                                                                attributes:@{NSFontAttributeName:[NSFont systemFontOfSize:NSFont.systemFontSize], NSParagraphStyleAttributeName:textParagraph}].mutableCopy;
         
-        NSAttributedString *information = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Enter quit/restart password:",nil)
-                                                                          attributes:@{NSFontAttributeName:[NSFont systemFontOfSize:NSFont.systemFontSize]}];
+        NSAttributedString *information = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"(This function doesn't log you out if you are logged in on a website)", nil)
+                                                                          attributes:@{NSFontAttributeName:[NSFont systemFontOfSize:NSFont.smallSystemFontSize]}];
         [dialogText appendAttributedString:information];
         
         if ([self showEnterPasswordDialog:dialogText.copy modalForWindow:self.browserController.mainBrowserWindow windowTitle:restartExamText] == SEBEnterPasswordCancel) return;
@@ -2125,9 +2127,11 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     }
     // Add the alert title string to the dialog text if the alert will be presented as sheet on a window
     if (window && title.length > 0) {
+        NSMutableParagraphStyle *textParagraph = [[NSMutableParagraphStyle alloc] init];
+        textParagraph.lineSpacing = 5.0;
         NSMutableAttributedString *dialogText = [[NSAttributedString alloc] initWithString:
-                                                 [NSString stringWithFormat:@"%@\n\n", title]
-                                                                                attributes:@{NSFontAttributeName:[NSFont boldSystemFontOfSize:NSFont.systemFontSize]}].mutableCopy;
+                                                 [NSString stringWithFormat:@"%@\n", title]
+                                                                                attributes:@{NSFontAttributeName:[NSFont boldSystemFontOfSize:NSFont.systemFontSize], NSParagraphStyleAttributeName:textParagraph}].mutableCopy;
         
         [dialogText appendAttributedString:text];
         text = dialogText.copy;
