@@ -572,13 +572,13 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 "Wrong Admin Password" = "Falsches Administrator-Passwort";
 
 /* No comment provided by engineer. */
-"Wrong Password! Try again to enter the correct current SEB administrator password:" = "Falsches Passwort! Bitte erneut versuchen, das korrrekte SEB Administrator-Passwort einzugeben:";
+"Wrong Password! Try again to enter the correct current SEB administrator password:" = "Falsches Passwort! Bitte das korrrekte SEB Administrator-Passwort eingeben:";
 
 /* No comment provided by engineer. */
-"Wrong Password! Try again to enter the correct password used to encrypt these settings:" = "Falsches Passwort! Bitte erneut versuchen, das korrrekte zur Verschlüsselung dieser Einstellungen benutzte Passwort einzugeben:";
+"Wrong Password! Try again to enter the correct password used to encrypt these settings:" = "Falsches Passwort! Bitte das korrekte zur Verschlüsselung dieser Einstellungen benutzte Passwort eingeben:";
 
 /* No comment provided by engineer. */
-"Wrong Password! Try again to enter the correct password:" = "Falsches Passwort! Bitte erneut versuchen, das korrrekte Passwort einzugeben:";
+"Wrong Password! Try again to enter the correct password:" = "Falsches Passwort! Bitte das korrrekte Passwort eingeben:";
 
 /* No comment provided by engineer. */
 "Wrong Quit Password" = "Falsches Beenden-Passwort";
@@ -587,7 +587,7 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 "Wrong password entered!" = "Falsches Passwort eingegeben!";
 
 /* No comment provided by engineer. */
-"Wrong password! Try again to enter the correct SEB administrator password from these settings:" = "Falsches Passwort! Bitte erneut versuchen, das korrrekte SEB Administrator-Passwort aus diesen Einstellungen einzugeben:";
+"Wrong password! Try again to enter the correct SEB administrator password from these settings:" = "Falsches Passwort! Bitte das korrrekte SEB Administrator-Passwort aus diesen Einstellungen eingeben:";
 
 /* No comment provided by engineer. */
 "Wrong quit/restart password." = "Falsches Beenden-/Neustart-Passwort";
