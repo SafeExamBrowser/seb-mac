@@ -221,12 +221,12 @@ DQ
                         </connections>
                     </button>
                     <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTI-Ar-k0D">
-                        <rect key="frame" x="31" y="173" width="92" height="99"/>
+                        <rect key="frame" x="31" y="173" width="100" height="99"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="99" id="97k-RU-XCX"/>
                         </constraints>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        <size key="cellSize" width="92" height="18"/>
+                        <size key="cellSize" width="100" height="18"/>
                         <size key="intercellSpacing" width="4" height="2"/>
                         <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" scrollable="YES" lineBreakMode="clipping" inset="2" id="ms5-0D-xhq">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -274,7 +274,7 @@ Gw
                         </connections>
                     </button>
                     <button toolTip="Anklicken, um den Host-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren" translatesAutoresizingMaskIntoConstraints="NO" id="sfT-nQ-Hte">
-                        <rect key="frame" x="131" y="232" width="81" height="19"/>
+                        <rect key="frame" x="139" y="232" width="81" height="19"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="4fm-eH-cuM"/>
                         </constraints>
@@ -287,7 +287,7 @@ Gw
                         </connections>
                     </button>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="jnc-il-FuZ">
-                        <rect key="frame" x="131" y="252" width="53" height="19"/>
+                        <rect key="frame" x="139" y="252" width="53" height="19"/>
                         <string key="toolTip">Anklicken, um den registrierten Domain-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren</string>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="6bD-qk-pYa"/>
@@ -301,7 +301,7 @@ Gw
                         </connections>
                     </button>
                     <button toolTip="Anklicken, um den Host/Pfad-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren" translatesAutoresizingMaskIntoConstraints="NO" id="mvP-Sq-mee">
-                        <rect key="frame" x="131" y="212" width="109" height="19"/>
+                        <rect key="frame" x="139" y="212" width="109" height="19"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="cpa-WY-9B7"/>
                         </constraints>
@@ -314,7 +314,7 @@ Gw
                         </connections>
                     </button>
                     <button toolTip="Anklicken, um den Host/Verzeichnis-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren" translatesAutoresizingMaskIntoConstraints="NO" id="sIN-ro-zV3">
-                        <rect key="frame" x="131" y="172" width="387" height="19"/>
+                        <rect key="frame" x="139" y="172" width="387" height="19"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="Nd2-90-D0f"/>
                         </constraints>
@@ -327,7 +327,7 @@ Gw
                         </connections>
                     </button>
                     <button toolTip="Anklicken, um den Host/Verzeichnis-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren" translatesAutoresizingMaskIntoConstraints="NO" id="KUW-Xw-ucJ">
-                        <rect key="frame" x="131" y="192" width="141" height="19"/>
+                        <rect key="frame" x="139" y="192" width="141" height="19"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="C1B-Ur-e6Z"/>
                         </constraints>
