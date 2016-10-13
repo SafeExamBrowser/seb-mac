@@ -46,7 +46,6 @@
     IBOutlet NSObjectController *controller;
     
     @private
-    NSString *_quitLinkBeforeEditing;
 }
 
 @property (strong, nonatomic) IBOutlet NSTextField *examKey;

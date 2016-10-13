@@ -73,8 +73,6 @@
 
 // Delegate called before the Exam settings preferences pane will be displayed
 - (void)willBeDisplayed {
-    // Save value of the quit link text field
-    _quitLinkBeforeEditing = quitURL.stringValue;
     // Check if current settings have unsaved changes
     if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:!NSUserDefaults.userDefaultsPrivate
                                                         updateSalt:NO] && NSUserDefaults.userDefaultsPrivate) {
@@ -97,6 +95,7 @@
 {
     examKey.enabled = [sender state];
     copyBEKToClipboard.enabled = [sender state];
+    [self displayMessageOrReGenerateKey];
 }
 
 
@@ -129,7 +128,6 @@
 
 - (void)browserExamKeyChanged
 {
-    // Check if settings/
     // There are unsaved changes: Display message instead of Browser Exam Key
     [examKey setStringValue:NSLocalizedString(@"Save settings to display its Browser Exam Key", nil)];
 }
@@ -137,18 +135,6 @@
 
 - (IBAction) restartExamPasswordProtected:(id)sender {
     [self displayMessageOrReGenerateKey];
-}
-
-
-- (void)controlTextDidEndEditing:(NSNotification *)notification {
-    // If the text in the quit URL field actually changed
-    if (![quitURL.stringValue isEqualToString:_quitLinkBeforeEditing]) {
-        // It changed: Display a message or re-generated key
-        [self displayMessageOrReGenerateKey];
-        
-        // Save new value of the quit link text field
-        _quitLinkBeforeEditing = quitURL.stringValue;
-    }
 }
 
 
