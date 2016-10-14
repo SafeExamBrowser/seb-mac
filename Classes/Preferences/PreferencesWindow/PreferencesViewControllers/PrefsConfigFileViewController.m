@@ -274,11 +274,11 @@
     SecIdentityRef identityRef;
     // Is there one saved from the currently open config file?
     // ToDo: This is broken, needs refactoring
-//    if (_currentConfigFileKeyRef) {
-//        identityRef = (SecIdentityRef)_currentConfigFileKeyRef;
-//    } else {
+    if (_currentConfigFileKeyRef) {
+        identityRef = (SecIdentityRef)_currentConfigFileKeyRef;
+    } else {
         identityRef = [self getSelectedIdentity];
-//    }
+    }
     
     // Get password
     NSString *encryptingPassword;
