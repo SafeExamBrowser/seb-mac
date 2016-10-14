@@ -441,51 +441,78 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="340" y="419" width="550" height="300"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
             <view key="contentView" id="860" customClass="AboutView">
                 <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="201" translatesAutoresizingMaskIntoConstraints="NO" id="870" customClass="SEBTextField">
-                        <rect key="frame" x="325" y="12" width="205" height="170"/>
+                    <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="102" translatesAutoresizingMaskIntoConstraints="NO" id="D54-TE-6HD">
+                        <rect key="frame" x="322" y="194" width="110" height="32"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="170" id="LTe-P4-WGh"/>
-                            <constraint firstAttribute="width" constant="201" id="fbt-kn-prC"/>
+                            <constraint firstAttribute="width" constant="106" id="KRq-hK-VJe"/>
+                            <constraint firstAttribute="height" constant="32" id="Onq-ED-jc5"/>
                         </constraints>
-                        <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" id="871">
-                            <font key="font" metaFont="miniSystem"/>
-                            <string key="title">© 2010-2016 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browsers von Stefan Schneider, Universität von Giessen
-
-Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat. </string>
-                            <color key="textColor" red="0.1467391304" green="0.1467391304" blue="0.1467391304" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="102" translatesAutoresizingMaskIntoConstraints="NO" id="872">
-                        <rect key="frame" x="325" y="196" width="106" height="16"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="102" id="rbG-C9-PhJ"/>
-                        </constraints>
-                        <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="873">
+                        <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="d9i-ec-a6H">
                             <font key="font" metaFont="cellTitle"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jvX-MN-TW4">
+                        <rect key="frame" x="319" y="12" width="220" height="170"/>
+                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="t0O-vG-yWY">
+                            <rect key="frame" x="0.0" y="0.0" width="220" height="170"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <textView editable="NO" drawsBackground="NO" importsGraphics="NO" findStyle="panel" allowsUndo="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="y4d-ck-W5g">
+                                    <rect key="frame" x="0.0" y="0.0" width="220" height="170"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <size key="minSize" width="220" height="170"/>
+                                    <size key="maxSize" width="463" height="10000000"/>
+                                    <attributedString key="textStorage">
+                                        <fragment>
+                                            <string key="content">© 2010-2016 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browsers von Stefan Schneider, Universität von Giessen
+
+Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.</string>
+                                            <attributes>
+                                                <font key="NSFont" metaFont="miniSystem"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                </textView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
+                        </clipView>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="170" id="6Df-mF-bzA"/>
+                            <constraint firstAttribute="width" constant="220" id="CHn-Hl-8XK"/>
+                        </constraints>
+                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="BgF-4Z-0fQ">
+                            <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="oBX-JU-yqC">
+                            <rect key="frame" x="-100" y="-100" width="15" height="168"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                    </scrollView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="870" secondAttribute="bottom" constant="12" id="86s-Pf-grZ"/>
-                    <constraint firstItem="872" firstAttribute="top" secondItem="860" secondAttribute="top" constant="88" id="aoC-Eg-7gz"/>
-                    <constraint firstAttribute="trailing" secondItem="870" secondAttribute="trailing" constant="22" id="f8E-um-xv9"/>
-                    <constraint firstItem="870" firstAttribute="top" secondItem="872" secondAttribute="bottom" constant="14" id="gVb-YQ-vDv"/>
-                    <constraint firstItem="872" firstAttribute="leading" secondItem="870" secondAttribute="leading" id="mWD-3A-NxX"/>
+                    <constraint firstItem="jvX-MN-TW4" firstAttribute="top" secondItem="D54-TE-6HD" secondAttribute="bottom" constant="12" id="4ZK-EK-VoM"/>
+                    <constraint firstAttribute="trailing" secondItem="D54-TE-6HD" secondAttribute="trailing" constant="120" id="4zB-rq-gES"/>
+                    <constraint firstItem="D54-TE-6HD" firstAttribute="top" secondItem="860" secondAttribute="top" constant="74" id="YR5-eH-HP5"/>
+                    <constraint firstAttribute="bottom" secondItem="jvX-MN-TW4" secondAttribute="bottom" constant="12" id="q5U-35-vsM"/>
+                    <constraint firstAttribute="trailing" secondItem="jvX-MN-TW4" secondAttribute="trailing" constant="11" id="uws-5b-spM"/>
                 </constraints>
             </view>
             <connections>
-                <outlet property="copyright" destination="870" id="889"/>
-                <outlet property="version" destination="872" id="890"/>
+                <outlet property="copyright" destination="y4d-ck-W5g" id="UAK-Is-XFV"/>
+                <outlet property="version" destination="D54-TE-6HD" id="0W9-Xc-O5Y"/>
             </connections>
-            <point key="canvasLocation" x="361" y="1403"/>
+            <point key="canvasLocation" x="380" y="1552"/>
         </window>
         <customView id="862" customClass="AboutView">
             <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
@@ -570,7 +597,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="109"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="vWC-gd-xPh">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
@@ -810,7 +837,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" nonactivatingPanel="YES" HUD="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="274" width="500" height="45"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
             <view key="contentView" id="94S-Ha-RmY">
                 <rect key="frame" x="0.0" y="0.0" width="500" height="45"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -871,7 +898,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="158"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="cFG-Qx-89n">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="158"/>

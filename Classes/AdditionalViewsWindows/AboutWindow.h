@@ -40,7 +40,7 @@
 @interface AboutWindow : NSWindow <NSWindowDelegate> {
 
   	IBOutlet NSTextField *version;
-	IBOutlet NSTextField *copyright;
+	IBOutlet NSTextView *copyright;
   
 }
 

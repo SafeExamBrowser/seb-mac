@@ -446,25 +446,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="201" translatesAutoresizingMaskIntoConstraints="NO" id="870" customClass="SEBTextField">
-                        <rect key="frame" x="325" y="12" width="205" height="170"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="170" id="LTe-P4-WGh"/>
-                            <constraint firstAttribute="width" constant="201" id="fbt-kn-prC"/>
-                        </constraints>
-                        <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" id="871">
-                            <font key="font" metaFont="miniSystem"/>
-                            <string key="title">© 2010-2016 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen
-
-Parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network, and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board.</string>
-                            <color key="textColor" red="0.1467391304" green="0.1467391304" blue="0.1467391304" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
                     <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="102" translatesAutoresizingMaskIntoConstraints="NO" id="872">
-                        <rect key="frame" x="325" y="196" width="106" height="16"/>
+                        <rect key="frame" x="322" y="194" width="110" height="32"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="102" id="rbG-C9-PhJ"/>
+                            <constraint firstAttribute="height" constant="32" id="Dxo-1f-sWl"/>
+                            <constraint firstAttribute="width" constant="106" id="qMA-rg-OR5"/>
                         </constraints>
                         <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="873">
                             <font key="font" metaFont="cellTitle"/>
@@ -472,17 +458,73 @@ Parts of this project have been carried out as part of the program 'AAA/SWITCH �
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6sw-Ja-52d">
+                        <rect key="frame" x="319" y="12" width="220" height="170"/>
+                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="QVG-V8-8iz">
+                            <rect key="frame" x="0.0" y="0.0" width="220" height="170"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <textView editable="NO" drawsBackground="NO" importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="5oh-B4-DAg">
+                                    <rect key="frame" x="0.0" y="0.0" width="220" height="170"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <size key="minSize" width="220" height="170"/>
+                                    <size key="maxSize" width="463" height="10000000"/>
+                                    <attributedString key="textStorage">
+                                        <fragment>
+                                            <string key="content">© 2010-2016 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen
+
+</string>
+                                            <attributes>
+                                                <font key="NSFont" metaFont="miniSystem"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment>
+                                            <string key="content">This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board.</string>
+                                            <attributes>
+                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" metaFont="miniSystem"/>
+                                                <integer key="NSLigature" value="0"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" defaultTabInterval="27.149999999999999" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                    <tabStops>
+                                                        <textTab alignment="left" location="27.149999618530273">
+                                                            <options/>
+                                                        </textTab>
+                                                    </tabStops>
+                                                </paragraphStyle>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                </textView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
+                        </clipView>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="170" id="Egl-bF-AuO"/>
+                            <constraint firstAttribute="width" constant="220" id="XqY-nP-FWe"/>
+                        </constraints>
+                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="fPc-rw-tKb">
+                            <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="KnF-WA-vtw">
+                            <rect key="frame" x="-100" y="-100" width="15" height="168"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                    </scrollView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="870" secondAttribute="bottom" constant="12" id="86s-Pf-grZ"/>
-                    <constraint firstItem="872" firstAttribute="top" secondItem="860" secondAttribute="top" constant="88" id="aoC-Eg-7gz"/>
-                    <constraint firstAttribute="trailing" secondItem="870" secondAttribute="trailing" constant="22" id="f8E-um-xv9"/>
-                    <constraint firstItem="870" firstAttribute="top" secondItem="872" secondAttribute="bottom" constant="14" id="gVb-YQ-vDv"/>
-                    <constraint firstItem="872" firstAttribute="leading" secondItem="870" secondAttribute="leading" id="mWD-3A-NxX"/>
+                    <constraint firstAttribute="trailing" secondItem="872" secondAttribute="trailing" constant="120" id="Bk6-4E-L9u"/>
+                    <constraint firstItem="872" firstAttribute="top" secondItem="860" secondAttribute="top" constant="74" id="aoC-Eg-7gz"/>
+                    <constraint firstAttribute="trailing" secondItem="6sw-Ja-52d" secondAttribute="trailing" constant="11" id="czH-UU-e9i"/>
+                    <constraint firstItem="6sw-Ja-52d" firstAttribute="top" secondItem="872" secondAttribute="bottom" constant="12" id="jqp-tx-DBv"/>
+                    <constraint firstAttribute="bottom" secondItem="6sw-Ja-52d" secondAttribute="bottom" constant="12" id="oBn-ID-D7h"/>
                 </constraints>
             </view>
             <connections>
-                <outlet property="copyright" destination="870" id="889"/>
+                <outlet property="copyright" destination="5oh-B4-DAg" id="JH5-HK-OBD"/>
                 <outlet property="version" destination="872" id="890"/>
             </connections>
             <point key="canvasLocation" x="440" y="438"/>
