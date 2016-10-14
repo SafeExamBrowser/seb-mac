@@ -545,6 +545,53 @@
 }
 
 
+// Return identity reference for passed private key reference
+- (SecIdentityRef) getIdentityForPrivateKey:(SecKeyRef)settingsPrivateKeyRef
+{
+    // Get all identities from keychain
+    SecKeychainRef keychain = NULL;
+    OSStatus status;
+    status = SecKeychainCopyDefault(&keychain);
+    if (status != noErr) {
+        DDLogError(@"Error in %s: SecKeychainCopyDefault returned %@. Cannot access keychain, no identities can be read.",
+                   __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
+        if (keychain) CFRelease(keychain);
+        return NULL;
+    }
+    
+    NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
+                           (__bridge id)kSecClassIdentity, (__bridge id)kSecClass,
+                           [NSArray arrayWithObject:(__bridge id)keychain], (__bridge id)kSecMatchSearchList,
+                           (__bridge id)kCFBooleanTrue, (__bridge id)kSecReturnRef,
+                           (__bridge id)kSecMatchLimitAll, (__bridge id)kSecMatchLimit,
+                           NULL];
+    CFArrayRef items = NULL;
+    status = SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&items);
+    if (keychain) CFRelease(keychain);
+    if (status != errSecSuccess) {
+        DDLogError(@"Error in %s: SecItemCopyMatching(kSecClassIdentity) returned %@. Can't search keychain, no identities can be read.",
+                   __FUNCTION__, [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
+        if (items) CFRelease(items);
+        return nil;
+    }
+    NSArray *identities = (__bridge NSArray*)(items);
+    SecIdentityRef foundIdentity = NULL;
+    
+    NSUInteger i, count = identities.count;
+    for (i=0; i<count; i++) {
+        SecIdentityRef identityFromKeychain = (__bridge SecIdentityRef)identities[i];
+        SecKeyRef privateKeyRef = [self copyPrivateKeyRefFromIdentityRef:identityFromKeychain];
+        if (settingsPrivateKeyRef == privateKeyRef) {
+            foundIdentity = identityFromKeychain;
+            if (privateKeyRef) CFRelease(privateKeyRef);
+            break;
+        }
+        if (privateKeyRef) CFRelease(privateKeyRef);
+    }
+    return foundIdentity;
+}
+
+
 - (SecCertificateRef)copyCertificateFromIdentity:(SecIdentityRef)identityRef {
     SecCertificateRef certificateRef = NULL;
     OSStatus status;
@@ -554,7 +601,7 @@
     @catch (NSException* error) {
         DDLogError(@"%s Error %@. ",  __FUNCTION__, error);
     }
-
+    
     if (status != errSecSuccess) {
         DDLogError(@"No certificate found for identity. Error: %@", [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:NULL]);
         if (certificateRef) CFRelease(certificateRef);

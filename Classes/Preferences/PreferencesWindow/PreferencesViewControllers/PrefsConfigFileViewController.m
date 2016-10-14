@@ -49,6 +49,8 @@
 @synthesize identitiesNames;
 @synthesize identities;
 
+@synthesize keychainManager;
+
 
 - (NSString *)title
 {
@@ -70,7 +72,15 @@
 
 - (void) awakeFromNib
 {
-    self.keychainManager = [[SEBKeychainManager alloc] init];
+}
+
+
+- (SEBKeychainManager *) keychainManager
+{
+    if (!keychainManager) {
+        keychainManager = [[SEBKeychainManager alloc] init];
+    }
+    return keychainManager;
 }
 
 
@@ -165,9 +175,8 @@
 // Delegate called before the Exam settings preferences pane will be displayed
 - (void)willBeDisplayed {
     if (!self.identitiesNames) { //no identities available yet, get them from keychain
-        SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
         NSArray *names;
-        NSArray *identitiesInKeychain = [keychainManager getIdentitiesAndNames:&names];
+        NSArray *identitiesInKeychain = [self.keychainManager getIdentitiesAndNames:&names];
         self.identities = identitiesInKeychain;
         self.identitiesNames = [names copy];
         [chooseIdentity removeAllItems];
@@ -275,7 +284,7 @@
     // Is there one saved from the currently open config file?
     // ToDo: This is broken, needs refactoring
     if (_currentConfigFileKeyRef) {
-        identityRef = (SecIdentityRef)_currentConfigFileKeyRef;
+        identityRef = [self.keychainManager getIdentityForPrivateKey:_currentConfigFileKeyRef];
     } else {
         identityRef = [self getSelectedIdentity];
     }

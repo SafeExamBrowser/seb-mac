@@ -50,6 +50,7 @@
 - (SecKeyRef)copyPrivateKeyRefFromIdentityRef:(SecIdentityRef)identityRef;
 - (SecKeyRef*)copyPublicKeyFromCertificate:(SecCertificateRef)certificate;
 - (SecIdentityRef)createIdentityWithCertificate:(SecCertificateRef)certificate;
+- (SecIdentityRef) getIdentityForPrivateKey:(SecKeyRef)settingsPrivateKeyRef;
 
 - (SecCertificateRef)copyCertificateFromIdentity:(SecIdentityRef)identityRef;
 - (NSData*)getDataForCertificate:(SecCertificateRef)certificate;

@@ -56,7 +56,7 @@
 }
 
 @property (weak, nonatomic) PreferencesController *preferencesController;
-@property (strong, nonatomic) SEBKeychainManager *keychainManager;
+@property (retain, nonatomic) SEBKeychainManager *keychainManager;
 
 @property (strong, nonatomic) NSMutableArray *identitiesNames;
 @property (strong, nonatomic) NSArray *identities;
