@@ -82,11 +82,17 @@
 /* No comment provided by engineer. */
 "Close Force Quit Window" = "Fenster 'Programme sofort beenden' schliessen";
 
+/* No comment provided by engineer. */
+"Code contributions © 2015 - 2016 Janison" = "Code-Beiträge © 2015 - 2016 Janison";
+
 /* Title of 'Config File' preference pane */
 "Config File" = "Konfiguration";
 
 /* No comment provided by engineer. */
 "Continue" = "Weiter";
+
+/* No comment provided by engineer. */
+"Contributors: (see below)" = "Externe Beiträge: (siehe unten)";
 
 /* No comment provided by engineer. */
 "Correct password entered, closing lockdown windows" = "Korrektes Passwort eingegeben, Lockdown-Fenster werden geschlossen";
@@ -334,7 +340,7 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 /* No comment provided by engineer. */
 "Override" = "Ignorieren";
 
-/* No comment provided by engineer. */
+/* (No Commment) */
 "Parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board." = "Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.";
 
 /* No comment provided by engineer. */
@@ -348,6 +354,9 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 
 /* No comment provided by engineer. */
 "Preferences Window Not Available on OS X 10.7" = "Einstellungen-Fenster nicht verfügbar unter OS X 10.7";
+
+/* No comment provided by engineer. */
+"Project concept: Thomas Piendl, Daniel R. Schneider, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs." = "Projekt-Konzept: Thomas Piendl, Daniel R. Schneider, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs.";
 
 /* No comment provided by engineer. */
 "Quit" = "Beenden";
@@ -510,6 +519,9 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 
 /* No comment provided by engineer. */
 "This embedded resource isn't allowed! You can create a new filter rule based on the following patterns:" = "Es ist nicht erlaubt, diese eingebettete Ressouce zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:";
+
+/* No comment provided by engineer. */
+"This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board." = "Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.";
 
 /* No comment provided by engineer. */
 "This setting allows to switch to any application on the exam client computer. Use this option only when running SEB in a special user account managed by parental controls, with only SEB and the desired applications allowed." = "Diese Einstellung erlaubt es, auf jede beliebige Applikation auf dem Prüfungsrechner zu wechseln. Sie sollte nur benutzt werden, wenn SEB in einem Benutzeraccount verwendet wird, welches mittels der macOS Kindersicherung verwaltet wird. Dabei sollten nur SEB und die gewünschten Applikationen zugelassen werden.";

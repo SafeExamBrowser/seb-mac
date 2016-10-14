@@ -2688,6 +2688,11 @@
                 <target>Fenster 'Programme sofort beenden' schliessen</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
+            <trans-unit id="Code contributions © 2015 - 2016 Janison">
+                <source>Code contributions © 2015 - 2016 Janison</source>
+                <note>No comment provided by engineer.</note>
+                <target>Code-Beiträge © 2015 - 2016 Janison</target>
+            </trans-unit>
             <trans-unit id="Config File">
                 <source>Config File</source>
                 <target>Konfiguration</target>
@@ -2697,6 +2702,11 @@
                 <source>Continue</source>
                 <target>Weiter</target>
                 <note>No comment provided by engineer.</note>
+            </trans-unit>
+            <trans-unit id="Contributors: (see below)">
+                <source>Contributors: (see below)</source>
+                <note>No comment provided by engineer.</note>
+                <target>Externe Beiträge: (siehe unten)</target>
             </trans-unit>
             <trans-unit id="Correct password entered, closing lockdown windows">
                 <source>Correct password entered, closing lockdown windows</source>
@@ -3115,7 +3125,6 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
             <trans-unit id="Parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board.">
                 <source>Parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board.</source>
                 <target>Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.</target>
-                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Paste from saved clipboard">
                 <source>Paste from saved clipboard</source>
@@ -3136,6 +3145,11 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
                 <source>Preferences Window Not Available on OS X 10.7</source>
                 <target>Einstellungen-Fenster nicht verfügbar unter OS X 10.7</target>
                 <note>No comment provided by engineer.</note>
+            </trans-unit>
+            <trans-unit id="Project concept: Thomas Piendl, Daniel R. Schneider, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs.">
+                <source>Project concept: Thomas Piendl, Daniel R. Schneider, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs.</source>
+                <note>No comment provided by engineer.</note>
+                <target>Projekt-Konzept: Thomas Piendl, Daniel R. Schneider, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs.</target>
             </trans-unit>
             <trans-unit id="Quit">
                 <source>Quit</source>
@@ -3292,8 +3306,8 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
             </trans-unit>
             <trans-unit id="Screen sharing detected. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows.">
                 <source>Screen sharing detected. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows.</source>
-                <note>No comment provided by engineer.</note>
                 <target>SEB ist gesperrt, weil die Bildschirmfreigabe benutzt wurde. SEB kann nur mittels des Neustarten-/Beenden-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Screen sharing is still active">
                 <source>Screen sharing is still active</source>
@@ -3405,6 +3419,11 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
                 <target>Es ist nicht erlaubt, diese eingebettete Ressouce zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
+            <trans-unit id="This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board.">
+                <source>This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board.</source>
+                <note>No comment provided by engineer.</note>
+                <target>Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.</target>
+            </trans-unit>
             <trans-unit id="This setting allows to switch to any application on the exam client computer. Use this option only when running SEB in a special user account managed by parental controls, with only SEB and the desired applications allowed.">
                 <source>This setting allows to switch to any application on the exam client computer. Use this option only when running SEB in a special user account managed by parental controls, with only SEB and the desired applications allowed.</source>
                 <target>Diese Einstellung erlaubt es, auf jede beliebige Applikation auf dem Prüfungsrechner zu wechseln. Sie sollte nur benutzt werden, wenn SEB in einem Benutzeraccount verwendet wird, welches mittels der macOS Kindersicherung verwaltet wird. Dabei sollten nur SEB und die gewünschten Applikationen zugelassen werden.</target>
@@ -3507,17 +3526,17 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
             </trans-unit>
             <trans-unit id="Wrong Password! Try again to enter the correct current SEB administrator password:">
                 <source>Wrong Password! Try again to enter the correct current SEB administrator password:</source>
-                <target>Falsches Passwort! Bitte erneut versuchen, das korrrekte SEB Administrator-Passwort einzugeben:</target>
+                <target>Falsches Passwort! Bitte das korrrekte SEB Administrator-Passwort eingeben:</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Wrong Password! Try again to enter the correct password used to encrypt these settings:">
                 <source>Wrong Password! Try again to enter the correct password used to encrypt these settings:</source>
-                <target>Falsches Passwort! Bitte erneut versuchen, das korrrekte zur Verschlüsselung dieser Einstellungen benutzte Passwort einzugeben:</target>
+                <target>Falsches Passwort! Bitte das korrekte zur Verschlüsselung dieser Einstellungen benutzte Passwort eingeben:</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Wrong Password! Try again to enter the correct password:">
                 <source>Wrong Password! Try again to enter the correct password:</source>
-                <target>Falsches Passwort! Bitte erneut versuchen, das korrrekte Passwort einzugeben:</target>
+                <target>Falsches Passwort! Bitte das korrrekte Passwort eingeben:</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Wrong Quit Password">
@@ -3532,7 +3551,7 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
             </trans-unit>
             <trans-unit id="Wrong password! Try again to enter the correct SEB administrator password from these settings:">
                 <source>Wrong password! Try again to enter the correct SEB administrator password from these settings:</source>
-                <target>Falsches Passwort! Bitte erneut versuchen, das korrrekte SEB Administrator-Passwort aus diesen Einstellungen einzugeben:</target>
+                <target>Falsches Passwort! Bitte das korrrekte SEB Administrator-Passwort aus diesen Einstellungen eingeben:</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Wrong quit/restart password.">
