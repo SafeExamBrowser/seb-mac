@@ -71,6 +71,7 @@
 #import "SEBCertServices.h"
 #import "NSWindow+SEBWindow.h"
 #import "SEBConfigFileManager.h"
+#import "NSRunningApplication+SEB.h"
 
 #import "SEBDockItemMenu.h"
 
@@ -1143,10 +1144,11 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     if (runningAirPlayAgents.count != 0) {
         for (NSRunningApplication *airPlayAgent in runningAirPlayAgents) {
             DDLogWarn(@"Terminating AirPlayUIAgent %@", airPlayAgent);
-            kill([airPlayAgent processIdentifier], 9);
+            [airPlayAgent kill];
         }
     }
 }
+
 
 // Check if running on minimal allowed macOS version or a newer version
 - (void)checkMinMacOSVersion
@@ -1827,9 +1829,16 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     if (launchedApplication) {
         // Yes: We assume it's the app which switched the space and force terminate it!
         DDLogError(@"An app was started and switched the Space. SEB will force terminate it! (app localized name: %@, executable URL: %@)", [launchedApplication localizedName], [launchedApplication executableURL]);
-        [launchedApplication forceTerminate];
+        [self performSelector:@selector(killApplication:) withObject:launchedApplication afterDelay:1];
+        //[launchedApplication kill];
         launchedApplication = nil;
     }
+}
+
+
+- (void) killApplication:(NSRunningApplication *)application
+{
+    [application kill];
 }
 
 

@@ -309,6 +309,8 @@
 		69DFAF3719C468E700CBE69F /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2A19C468E700CBE69F /* RNCryptorEngine.m */; };
 		69DFAF3919C468E700CBE69F /* RNCryptor+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2B19C468E700CBE69F /* RNCryptor+Private.h */; };
 		69DFAF3A19C468E700CBE69F /* RNCryptor OS X-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2C19C468E700CBE69F /* RNCryptor OS X-Prefix.pch */; };
+		69E9EA321DB1A2D500C949FE /* NSRunningApplication+SEB.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E9EA301DB1A2D500C949FE /* NSRunningApplication+SEB.h */; };
+		69E9EA331DB1A2D500C949FE /* NSRunningApplication+SEB.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E9EA311DB1A2D500C949FE /* NSRunningApplication+SEB.m */; };
 		69EA170319FA77A0001E0C51 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69EA170119FA77A0001E0C51 /* Localizable.strings */; };
 		69EC2A3D1BD63B4800790AF7 /* WebViewInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 69EC2A3C1BD63B4800790AF7 /* WebViewInternal.h */; };
 		69EC2A3F1BD6C4FF00790AF7 /* WebPluginDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 69EC2A3E1BD6C4FF00790AF7 /* WebPluginDatabase.h */; };
@@ -753,6 +755,8 @@
 		69DFAF2C19C468E700CBE69F /* RNCryptor OS X-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNCryptor OS X-Prefix.pch"; sourceTree = "<group>"; };
 		69E13AEE127C812900CB81E1 /* AboutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutView.h; sourceTree = "<group>"; };
 		69E13AEF127C812900CB81E1 /* AboutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutView.m; sourceTree = "<group>"; };
+		69E9EA301DB1A2D500C949FE /* NSRunningApplication+SEB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRunningApplication+SEB.h"; sourceTree = "<group>"; };
+		69E9EA311DB1A2D500C949FE /* NSRunningApplication+SEB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRunningApplication+SEB.m"; sourceTree = "<group>"; };
 		69EC2A3C1BD63B4800790AF7 /* WebViewInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewInternal.h; sourceTree = "<group>"; };
 		69EC2A3E1BD6C4FF00790AF7 /* WebPluginDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebPluginDatabase.h; sourceTree = "<group>"; };
 		69EDAC1C1BBB476F00A3E6C4 /* SEBLockedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBLockedViewController.h; sourceTree = "<group>"; };
@@ -1230,6 +1234,8 @@
 				6906F3C11A3FA5EE0011CF93 /* NSURL+KKDomain.m */,
 				695572E31D91EC45003C048A /* NSPasteboard+SaveRestore.h */,
 				695572E41D91EC45003C048A /* NSPasteboard+SaveRestore.m */,
+				69E9EA301DB1A2D500C949FE /* NSRunningApplication+SEB.h */,
+				69E9EA311DB1A2D500C949FE /* NSRunningApplication+SEB.m */,
 			);
 			name = Categories;
 			path = Classes/Categories;
@@ -1576,6 +1582,7 @@
 				69009BE019EA7F590083274C /* SEBBrowserOpenWindowWebView.h in Headers */,
 				69C2283D1C767B0900F78634 /* sha512.h in Headers */,
 				690C6EE619E29E3600EDE103 /* SEBOSXBrowserController.h in Headers */,
+				69E9EA321DB1A2D500C949FE /* NSRunningApplication+SEB.h in Headers */,
 				6909E3431A019F7A0086A741 /* DDAssertMacros.h in Headers */,
 				69C228191C767B0900F78634 /* compat-1.3.h in Headers */,
 				69C228391C767B0900F78634 /* ripemd160.h in Headers */,
@@ -1832,6 +1839,7 @@
 				6950F4741D89F9AB00CCB42A /* HUDPanel.m in Sources */,
 				69F7B61114F411FB00FD0761 /* PreferencesController.m in Sources */,
 				69F7B61214F411FB00FD0761 /* PrefsDownUploadsViewController.m in Sources */,
+				69E9EA331DB1A2D500C949FE /* NSRunningApplication+SEB.m in Sources */,
 				69C2288E1C767B0900F78634 /* x509_csr.c in Sources */,
 				6909E3421A019F7A0086A741 /* DDASLLogger.m in Sources */,
 				69CBEB571834C55D00FB0460 /* SEBSystemManager.m in Sources */,

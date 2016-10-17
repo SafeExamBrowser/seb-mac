@@ -1,8 +1,8 @@
 //
-//  NSPasteboard+SaveRestore
+//  NSRunningApplication+SEB
 //  SafeExamBrowser
 //
-//  Created by Daniel R. Schneider on 21.09.16.
+//  Created by Daniel R. Schneider on 15.10.16.
 //  Copyright (c) 2010-2016 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
@@ -32,43 +32,16 @@
 //  Contributor(s): ______________________________________.
 //
 
-#import "NSPasteboard+SaveRestore.h"
+#import "NSRunningApplication+SEB.h"
 
 
-@implementation NSPasteboard (SaveRestore)
+@implementation NSRunningApplication (SEB)
 
-- (NSArray *)archiveObjects
+
+- (void)kill
 {
-    NSMutableArray *archive = [NSMutableArray array];
-    for (NSPasteboardItem *item in [self pasteboardItems]) {
-        NSPasteboardItem *archivedItem = [[NSPasteboardItem alloc] init];
-        for (NSString *type in [item types]) {
-            NSData *data = [item dataForType:type];
-            if (data) {
-                [archivedItem setData:data forType:type];
-            }
-        }
-        [archive addObject:archivedItem];
-    }
-    return archive.copy;
+    kill([self processIdentifier], 9);
 }
 
-- (void)restoreArchive:(NSArray *)archive
-{
-    NSMutableArray *copiedPasteboardItems = [NSMutableArray array];
-    for (NSPasteboardItem *item in archive) {
-        NSPasteboardItem *archivedItem = [[NSPasteboardItem alloc] init];
-        for (NSString *type in [item types]) {
-            NSData *data = [item dataForType:type];
-            if (data) {
-                [archivedItem setData:data forType:type];
-            }
-        }
-        [copiedPasteboardItems addObject:archivedItem];
-    }
-
-    [self clearContents];
-    [self writeObjects:copiedPasteboardItems];
-}
 
 @end
