@@ -59,6 +59,7 @@
 #include <libproc.h>
 #include <assert.h>
 #include <sys/sysctl.h>
+#include <CoreGraphics/CGDirectDisplay.h>
 
 #import "PrefsBrowserViewController.h"
 #import "SEBBrowserController.h"
@@ -1087,10 +1088,51 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     // Also set flag for screen sharing
     allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"];
     
+    // Get list of all displays
+    CGDisplayCount maxDisplays = 12;
+    CGDirectDisplayID onlineDisplays[maxDisplays];
+    CGDisplayCount displayCount = 0;
+    CGError error = CGGetOnlineDisplayList(maxDisplays, onlineDisplays, &displayCount);
+    if (error != kCGErrorSuccess) {
+        DDLogError(@"CGGetOnlineDisplayList error: %@", [NSError errorWithDomain:NSOSStatusErrorDomain code:error userInfo:NULL]);
+        return;
+    }
+    for(int i = 0; i < displayCount; i++)
+    {
+        CGRect bounds = CGDisplayBounds(onlineDisplays[i]);
+        BOOL isBuiltin = CGDisplayIsBuiltin(onlineDisplays[i]);
+        BOOL isMirrored = CGDisplayIsInMirrorSet(onlineDisplays[i]);
+        DDLogInfo(@"Display with Resolution %f x %f is %sbuilt-in and %smirrored", bounds.size.width, bounds.size.height, isBuiltin ? "" : "not ", isMirrored ? "" : "not ");
+    }
+
+//    NSArray *allDisplays = (__bridge NSArray*)onlineDisplays;
+//    DDLogInfo(@"List of all online displays: %@", onlineDisplays);
+
     if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowAirPlay"])
     {
         // If using AirPlay isn't allowed
-        [self killAirPlayUIAgent];
+        //[self killAirPlayUIAgent];
+        
+        // This we do because the above doesn't work on OS X 10.10
+//        CGDisplayConfigRef displayConfigRef;
+//        
+//        error = CGBeginDisplayConfiguration(&displayConfigRef);
+//        if (error != kCGErrorSuccess) {
+//            DDLogError(@"CGBeginDisplayConfiguration error: %@", [NSError errorWithDomain:NSOSStatusErrorDomain code:error userInfo:NULL]);
+//            return;
+//        }
+//
+//        error = CGConfigureDisplayMirrorOfDisplay(displayConfigRef, CGMainDisplayID(), kCGNullDirectDisplay);
+//        if (error != kCGErrorSuccess) {
+//            DDLogError(@"CGConfigureDisplayMirrorOfDisplay error: %@", [NSError errorWithDomain:NSOSStatusErrorDomain code:error userInfo:NULL]);
+//            return;
+//        }
+//        
+//        error = CGCompleteDisplayConfiguration(displayConfigRef, kCGConfigureForAppOnly);
+//        if (error != kCGErrorSuccess) {
+//            DDLogError(@"CGCompleteDisplayConfiguration error: %@", [NSError errorWithDomain:NSOSStatusErrorDomain code:error userInfo:NULL]);
+//            return;
+//        }
     }
 }
 
@@ -1559,11 +1601,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     
     if (![self.preferencesController preferencesAreOpen]) {
 
-        // Terminate AirPlayUIAgent when AirPlay Display isn't allowed
-        if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowAirPlay"]) {
-            DDLogDebug(@"Kill AirPlayUIAgent after NSApplicationDidChangeScreenParametersNotification");
-            [self killAirPlayUIAgent];
-        }
+        // Switch off display mirroring if it isn't allowed
+        [self conditionallyTerminateAirPlay];
         
         DDLogDebug(@"Adjusting screen locking");
 

@@ -131,9 +131,9 @@
                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_forceAppFolderInstall" id="pLR-2h-wnH"/>
                                         </connections>
                                     </button>
-                                    <button toolTip="If AirPlay isn't allowed, SEB attempts to stop a running AirPlay connection when starting/restarting" translatesAutoresizingMaskIntoConstraints="NO" id="oq3-9u-BrJ">
-                                        <rect key="frame" x="15" y="249" width="137" height="18"/>
-                                        <buttonCell key="cell" type="check" title="Allow using AirPlay" bezelStyle="regularSquare" imagePosition="left" inset="2" id="hwg-eH-cMm">
+                                    <button toolTip="If not selected, SEB prevents to mirror the main display to another (for example a AirPlay Display)" translatesAutoresizingMaskIntoConstraints="NO" id="oq3-9u-BrJ">
+                                        <rect key="frame" x="15" y="249" width="196" height="18"/>
+                                        <buttonCell key="cell" type="check" title="Allow using display mirroring" bezelStyle="regularSquare" imagePosition="left" inset="2" id="hwg-eH-cMm">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
