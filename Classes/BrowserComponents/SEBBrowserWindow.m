@@ -167,10 +167,17 @@
 
 - (void) setCalculatedFrame
 {
+    [self setCalculatedFrameOnScreen:self.screen];
+
+}
+
+
+- (void) setCalculatedFrameOnScreen:(NSScreen *)screen
+{
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
     // Get frame of the visible screen (considering if menu bar is enabled)
-    NSRect screenFrame = self.screen.visibleFrame;
+    NSRect screenFrame = screen.visibleFrame;
     // Check if SEB Dock is displayed and reduce visibleFrame accordingly
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
         double dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];

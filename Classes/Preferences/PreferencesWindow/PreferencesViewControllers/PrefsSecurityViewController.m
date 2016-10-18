@@ -57,6 +57,8 @@
 // Before displaying pane set the download directory
 - (void)willBeDisplayed
 {
+    [maxNumberDisplays addItemsWithObjectValues:@[@1, @2, @3]];
+    
     [self setLogDirectory];
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];

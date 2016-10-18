@@ -81,6 +81,7 @@
 @property (copy) NSString *downloadFileExtension;
 
 - (void) setCalculatedFrame;
+- (void) setCalculatedFrameOnScreen:(NSScreen *)screen;
 
 - (void) startProgressIndicatorAnimation;
 - (void) stopProgressIndicatorAnimation;

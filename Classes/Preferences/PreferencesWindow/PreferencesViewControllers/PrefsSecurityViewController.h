@@ -3,7 +3,7 @@
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 15.02.13.
-//  Copyright (c) 2010-2016 Daniel R. Schneider, ETH Zurich, 
+//  Copyright (c) 2010-2016 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
@@ -44,7 +44,7 @@
     IBOutlet NSButton *selectStandardDirectoryButton;
     IBOutlet NSMenuItem *logDirectory;
     IBOutlet NSMatrix *kioskMode;
-
+    __weak IBOutlet NSComboBox *maxNumberDisplays;
 }
 
 - (NSString *)identifier;

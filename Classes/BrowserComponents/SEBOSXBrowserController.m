@@ -376,6 +376,23 @@
 
 
 // Change window level of all open browser windows
+- (void) moveAllBrowserWindowsToScreen:(NSScreen *)screen
+{
+    NSArray *openWindowDocuments = [[NSDocumentController sharedDocumentController] documents];
+    SEBBrowserWindowDocument *openWindowDocument;
+    for (openWindowDocument in openWindowDocuments) {
+        SEBBrowserWindow *browserWindow = (SEBBrowserWindow *)openWindowDocument.mainWindowController.window;
+        if (browserWindow.screen != screen) {
+            [browserWindow setCalculatedFrameOnScreen:screen];
+        }
+    }
+    
+    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+    [self.mainBrowserWindow makeKeyAndOrderFront:self];
+}
+
+
+// Change window level of all open browser windows
 - (void) allBrowserWindowsChangeLevel:(BOOL)allowApps
 {
     NSArray *openWindowDocuments = [[NSDocumentController sharedDocumentController] documents];
@@ -389,7 +406,7 @@
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"] && self.mainBrowserWindow.isFullScreen) {
         self.mainBrowserWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
     }
-
+    
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [self.mainBrowserWindow makeKeyAndOrderFront:self];
 }

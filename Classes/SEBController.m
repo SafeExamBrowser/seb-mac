@@ -60,6 +60,7 @@
 #include <assert.h>
 #include <sys/sysctl.h>
 #include <CoreGraphics/CGDirectDisplay.h>
+#import "NSScreen+DisplayInfo.h"
 
 #import "PrefsBrowserViewController.h"
 #import "SEBBrowserController.h"
@@ -333,9 +334,8 @@ bool insideMatrix();
              [NSApp terminate: nil]; //quit SEB
     }
     
-    // If AirPlay isn't allowed in settings, kill the AirPlay agent
-    // to stop a possibly running AirPlay connection
-    [self conditionallyTerminateAirPlay];
+    // Switch off display mirroring if it isn't allowed in settings
+    [self conditionallyTerminateDisplayMirroring];
 
     
     // Setup Notifications and Kiosk Mode
@@ -1080,11 +1080,12 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 }
 
 
-// If AirPlay isn't allowed in settings, kill the AirPlay agent
-// to stop a possibly running AirPlay connection
-- (void)conditionallyTerminateAirPlay
+// Switch off display mirroring if it isn't allowed in settings
+- (void)conditionallyTerminateDisplayMirroring
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    BOOL allowDisplayMirroring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDisplayMirroring"];
     
     // Also set flag for screen sharing
     allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"];
@@ -1098,43 +1099,48 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         DDLogError(@"CGGetOnlineDisplayList error: %@", [NSError errorWithDomain:NSOSStatusErrorDomain code:error userInfo:NULL]);
         return;
     }
+//    CGDirectDisplayID mainDisplay = CGMainDisplayID();
+    NSScreen *mainScreen = [NSScreen mainScreen];
+    
     for(int i = 0; i < displayCount; i++)
     {
-        CGRect bounds = CGDisplayBounds(onlineDisplays[i]);
-        BOOL isBuiltin = CGDisplayIsBuiltin(onlineDisplays[i]);
-        BOOL isMirrored = CGDisplayIsInMirrorSet(onlineDisplays[i]);
-        DDLogInfo(@"Display with Resolution %f x %f is %sbuilt-in and %smirrored", bounds.size.width, bounds.size.height, isBuiltin ? "" : "not ", isMirrored ? "" : "not ");
-    }
-
-//    NSArray *allDisplays = (__bridge NSArray*)onlineDisplays;
-//    DDLogInfo(@"List of all online displays: %@", onlineDisplays);
-
-    if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowAirPlay"])
-    {
-        // If using AirPlay isn't allowed
-        //[self killAirPlayUIAgent];
+        CGDirectDisplayID display = onlineDisplays[i];
+        CGRect bounds = CGDisplayBounds(display);
+        BOOL isBuiltin = CGDisplayIsBuiltin(display);
+        BOOL isMain = CGDisplayIsMain(display);
+        BOOL isMirrored = CGDisplayIsInMirrorSet(display);
+        BOOL isHWMirrored = CGDisplayIsInHWMirrorSet(display);
+        BOOL isAlwaysMirrored = CGDisplayIsAlwaysInMirrorSet(display);
+        BOOL isCaptured = CGDisplayIsCaptured(display);
+        uint32_t vendorID = CGDisplayVendorNumber(display);
         
-        // This we do because the above doesn't work on OS X 10.10
-//        CGDisplayConfigRef displayConfigRef;
-//        
-//        error = CGBeginDisplayConfiguration(&displayConfigRef);
-//        if (error != kCGErrorSuccess) {
-//            DDLogError(@"CGBeginDisplayConfiguration error: %@", [NSError errorWithDomain:NSOSStatusErrorDomain code:error userInfo:NULL]);
-//            return;
-//        }
-//
-//        error = CGConfigureDisplayMirrorOfDisplay(displayConfigRef, CGMainDisplayID(), kCGNullDirectDisplay);
-//        if (error != kCGErrorSuccess) {
-//            DDLogError(@"CGConfigureDisplayMirrorOfDisplay error: %@", [NSError errorWithDomain:NSOSStatusErrorDomain code:error userInfo:NULL]);
-//            return;
-//        }
-//        
-//        error = CGCompleteDisplayConfiguration(displayConfigRef, kCGConfigureForAppOnly);
-//        if (error != kCGErrorSuccess) {
-//            DDLogError(@"CGCompleteDisplayConfiguration error: %@", [NSError errorWithDomain:NSOSStatusErrorDomain code:error userInfo:NULL]);
-//            return;
-//        }
+        DDLogInfo(@"Display %@ from vendor %u with Resolution %f x %f\n is %sbuilt-in\n is %smain\n is %smirrored\n is %sHW mirrored\n is %salways mirrored\n is %scaptured", [NSScreen displayNameForID:display], vendorID, bounds.size.width, bounds.size.height, isBuiltin ? "" : "not ", isMain ? "" : "not ", isMirrored ? "" : "not ", isHWMirrored ? "" : "not ", isAlwaysMirrored ? "" : "not ", isCaptured ? "" : "not ");
+        
+        if (!allowDisplayMirroring && (isMirrored || isHWMirrored)) {
+            CGDisplayConfigRef displayConfigRef;
+            
+            error = CGBeginDisplayConfiguration(&displayConfigRef);
+            if (error != kCGErrorSuccess) {
+                DDLogError(@"CGBeginDisplayConfiguration error: %@", [NSError errorWithDomain:NSOSStatusErrorDomain code:error userInfo:NULL]);
+                return;
+            }
+            
+            error = CGConfigureDisplayMirrorOfDisplay(displayConfigRef, display, kCGNullDirectDisplay);
+            if (error != kCGErrorSuccess) {
+                DDLogError(@"CGConfigureDisplayMirrorOfDisplay error: %@", [NSError errorWithDomain:NSOSStatusErrorDomain code:error userInfo:NULL]);
+                return;
+            }
+            
+            error = CGCompleteDisplayConfiguration(displayConfigRef, kCGConfigureForAppOnly);
+            if (error != kCGErrorSuccess) {
+                DDLogError(@"CGCompleteDisplayConfiguration error: %@", [NSError errorWithDomain:NSOSStatusErrorDomain code:error userInfo:NULL]);
+                return;
+            }
+        }
     }
+
+    // Move all browser windows to the previous main screen (if they aren't on it already)
+    [self.browserController moveAllBrowserWindowsToScreen:mainScreen];
 }
 
 
@@ -1604,7 +1610,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     if (![self.preferencesController preferencesAreOpen]) {
 
         // Switch off display mirroring if it isn't allowed
-        [self conditionallyTerminateAirPlay];
+        [self conditionallyTerminateDisplayMirroring];
         
         DDLogDebug(@"Adjusting screen locking");
 
@@ -2489,9 +2495,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 {
     DDLogInfo(@"---------- RESTARTING SEB SESSION -------------");
 
-    // If AirPlay isn't allowed in settings, kill the AirPlay agent
-    // to stop a possibly running AirPlay connection
-    [self conditionallyTerminateAirPlay];
+    // Switch off display mirroring if it isn't allowed in settings
+    [self conditionallyTerminateDisplayMirroring];
     
     // Clear Pasteboard
     [self clearPasteboardSavingCurrentString];

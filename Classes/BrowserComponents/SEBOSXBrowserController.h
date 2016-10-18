@@ -86,6 +86,7 @@
 - (void) openMainBrowserWindow;
 - (void) clearBackForwardList;
 - (void) adjustMainBrowserWindow;
+- (void) moveAllBrowserWindowsToScreen:(NSScreen *)screen;
 - (void) allBrowserWindowsChangeLevel:(BOOL)allowApps;
 
 - (void) openURLString:(NSString *)urlText withSEBUserAgentInWebView:(SEBWebView *)webView;
