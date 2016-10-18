@@ -54,6 +54,7 @@
     return screenName;
 }
 
+
 -(NSString*) displayName
 {
     CGDirectDisplayID displayID = [[self displayID] intValue];

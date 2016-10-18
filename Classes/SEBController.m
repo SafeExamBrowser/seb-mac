@@ -1099,7 +1099,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         DDLogError(@"CGGetOnlineDisplayList error: %@", [NSError errorWithDomain:NSOSStatusErrorDomain code:error userInfo:NULL]);
         return;
     }
-//    CGDirectDisplayID mainDisplay = CGMainDisplayID();
+    CGDirectDisplayID mainDisplay = CGMainDisplayID();
     NSScreen *mainScreen = [NSScreen mainScreen];
     
     for(int i = 0; i < displayCount; i++)
@@ -1531,10 +1531,24 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     NSMutableArray *coveringWindows = [NSMutableArray new];	// array for storing our cap (covering)  windows
     NSArray *screens = [NSScreen screens];	// get all available screens
     NSScreen *iterScreen;
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL allowDisplayMirroring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDisplayMirroring"];
+    BOOL allowDisplayMirroring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowedDisplayBuiltin"];
+    NSUInteger maxDisplays = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowedDisplaysMaxNumber"];
+    NSUInteger displaysCounter = 0;
+
     for (iterScreen in screens)
     {
         NSDictionary *screenDeviceDescription = iterScreen.deviceDescription;
         DDLogDebug(@"Device description for screen: %@", screenDeviceDescription);
+        
+        CGDirectDisplayID display = [iterScreen displayID];
+        CGRect bounds = CGDisplayBounds(display);
+        BOOL isBuiltin = CGDisplayIsBuiltin(display);
+        BOOL isMain = CGDisplayIsMain(display);
+        BOOL isMirrored = CGDisplayIsInMirrorSet(display);
+
+        
         //NSRect frame = size of the current screen;
         NSRect frame = [iterScreen frame];
         NSUInteger styleMask = NSBorderlessWindowMask;
