@@ -60,7 +60,6 @@
 #include <assert.h>
 #include <sys/sysctl.h>
 #include <CoreGraphics/CGDirectDisplay.h>
-#import "NSScreen+DisplayInfo.h"
 
 #import "PrefsBrowserViewController.h"
 #import "SEBBrowserController.h"
@@ -70,6 +69,7 @@
 #import "SEBKeychainManager.h"
 #import "SEBCryptor.h"
 #import "SEBCertServices.h"
+#import "NSScreen+DisplayInfo.h"
 #import "NSWindow+SEBWindow.h"
 #import "SEBConfigFileManager.h"
 #import "NSRunningApplication+SEB.h"
@@ -1170,22 +1170,32 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         [displays removeObject:[NSNumber numberWithInteger:mainDisplay]];
     }
 
-    // Number of found displays
-    NSUInteger displaysCounter = 0;
-    
     NSScreen *mainScreen = nil;
     NSArray *screens = [NSScreen screens];	// get all available screens
+    
+    // If a main display already has been identified
+    if (mainDisplay) {
+        // we find the matching main screen
+        for (NSScreen *iterScreen in screens)
+        {
+            CGDirectDisplayID screenDisplayID = iterScreen.displayID.intValue;
+            if (screenDisplayID == mainDisplay) {
+                mainScreen = iterScreen;
+                iterScreen.inactive = false;
+                maxAllowedDisplays--;
+            }
+        }
+    }
+    
+    // Flag screens active or inactive
+    NSUInteger displaysCounter = 0;
     for (NSScreen *iterScreen in screens)
     {
-        CGDirectDisplayID screenDisplayID = [iterScreen displayID];
-        if (screenDisplayID == mainDisplay) {
-            mainScreen = iterScreen;
-            iterScreen.isInactive = false;
-        } else {
-            if (displaysCounter <= maxAllowedDisplays) {
-                iterScreen.isInactive = false;
+        if (iterScreen != mainScreen) {
+            if (displaysCounter < maxAllowedDisplays) {
+                iterScreen.inactive = false;
             } else {
-                iterScreen.isInactive = true;
+                iterScreen.inactive = true;
             }
         }
         displaysCounter++;
@@ -1194,7 +1204,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     if (!mainScreen) {
         for (NSScreen *iterScreen in screens)
         {
-            if (iterScreen.isInactive == false && iterScreen.displayID != builtinDisplay) {
+            if (iterScreen.inactive == false && iterScreen.displayID.intValue != builtinDisplay) {
                 mainScreen = iterScreen;
             }
         }
@@ -1592,54 +1602,12 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     NSMutableArray *coveringWindows = [NSMutableArray new];	// array for storing our cap (covering)  windows
     NSArray *screens = [NSScreen screens];	// get all available screens
     NSScreen *iterScreen;
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL allowDisplayMirroring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDisplayMirroring"];
-    BOOL useBuiltin = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowedDisplayBuiltin"];
-    NSUInteger maxDisplays = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowedDisplaysMaxNumber"];
-    NSUInteger displaysCounter = 0;
-    CGDirectDisplayID mainDisplay = kCGNullDirectDisplay;
-    CGDirectDisplayID builtinDisplay = kCGNullDirectDisplay;
 
     for (iterScreen in screens)
     {
         NSDictionary *screenDeviceDescription = iterScreen.deviceDescription;
-        DDLogDebug(@"Device description for screen: %@", screenDeviceDescription);
-        
-        CGDirectDisplayID display = [iterScreen displayID];
-        BOOL isInactive;
-        
-        CGRect bounds = CGDisplayBounds(display);
-        BOOL isBuiltin = CGDisplayIsBuiltin(display);
-        BOOL isMain = CGDisplayIsMain(display);
-        BOOL isMirrored = CGDisplayIsInMirrorSet(display);
-
-        // Has the display the built-in flag set?
-        if (isBuiltin) {
-            // Check if we already found another display which claims (maybe untruthfully) to be built-in
-            if (builtinDisplay) {
-                // Another display claimed to be built-in, check if this one has the Apple vendor number
-                if (CGDisplayVendorNumber(display) == 1552) {
-                    // This seems to be the real built-in display, rembember it
-                    builtinDisplay = display;
-                }
-            } else {
-                // this is the first display which claims to be built-in, so save its ID
-                builtinDisplay = display;
-            }
-            // Check if this should be the main display according to settings
-            if (useBuiltin) {
-                mainDisplay = builtinDisplay;
-            }
-        }
-        
-        // Check if we already reached the maximum number of displays
-        displaysCounter++;
-        if (displaysCounter <= maxDisplays) {
-            isInactive = false;
-        } else {
-            isInactive = true;
-        }
-        
+        BOOL inactive = iterScreen.inactive;
+        DDLogDebug(@"Screen is %@active, device description: %@", inactive ? @"in" : @"", screenDeviceDescription);
         
         //NSRect frame = size of the current screen;
         NSRect frame = [iterScreen frame];
@@ -1653,7 +1621,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         // If showing menu bar
         // On OS X >= 10.10 we exclude the menu bar on all screens from the covering windows
         // On OS X <= 10.9 we exclude the menu bar only on the screen which actually displays the menu bar
-        if (excludeMenuBar && (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_10 || iterScreen == screens[0])) {
+        if (!inactive && excludeMenuBar && (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_10 || iterScreen == screens[0])) {
             // Reduce size of covering background windows to not cover the menu bar
             rect.size.height -= 22;
         }
@@ -1665,7 +1633,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             case coveringWindowBackground: {
                 window = [[NSWindow alloc] initWithContentRect:rect styleMask:styleMask backing: NSBackingStoreBuffered defer:NO screen:iterScreen];
                 capview = [[CapView alloc] initWithFrame:rect];
-                windowColor = [NSColor blackColor];
+                windowColor = inactive ? [NSColor orangeColor] : [NSColor blackColor];
                 break;
             }
                 
@@ -1685,7 +1653,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
             [window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
         }
-        [window newSetLevel:windowLevel];
+        [window newSetLevel:inactive ? NSScreenSaverWindowLevel : windowLevel];
         //[window orderBack:self];
         [coveringWindows addObject: window];
         NSView *superview = [window contentView];
@@ -1997,12 +1965,12 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 
     for (capWindow in self.capWindows) {
         if (allowApps) {
-            [capWindow newSetLevel:NSNormalWindowLevel];
+            [capWindow newSetLevel:capWindow.screen.inactive ? NSScreenSaverWindowLevel : NSNormalWindowLevel];
             if (allowAppsUserDefaultsSetting) {
                 capWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
             }
         } else {
-            [capWindow newSetLevel:NSMainMenuWindowLevel+2];
+            [capWindow newSetLevel:capWindow.screen.inactive ? NSScreenSaverWindowLevel : NSMainMenuWindowLevel+2];
         }
     }
     

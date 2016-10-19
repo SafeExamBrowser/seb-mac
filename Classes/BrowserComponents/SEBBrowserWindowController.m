@@ -36,6 +36,8 @@
 #import "MyGlobals.h"
 #import <WebKit/WebKit.h>
 #import "SEBBrowserWindow.h"
+#import "NSScreen+DisplayInfo.h"
+
 
 WindowRef FrontWindow();
 void DisposeWindow (
@@ -70,6 +72,7 @@ void DisposeWindow (
     SEBBrowserWindow *browserWindow = (SEBBrowserWindow *)self.window;
     [browserWindow setCalculatedFrame];
     self.browserController.activeBrowserWindow = (SEBBrowserWindow *)self.window;
+    _previousScreen = self.window.screen;
 }
 
 
@@ -126,9 +129,21 @@ void DisposeWindow (
 
 - (void)windowDidChangeScreen:(NSNotification *)notification
 {
+    NSScreen *currentScreen = self.window.screen;
+    BOOL movingWindowBack = false;
+    // Check if the new screen is inactive
+    if (currentScreen.inactive) {
+        // Yes: Move the window back to the screen it has been on before
+        currentScreen = _previousScreen;
+        movingWindowBack = true;
+    }
+    
+    _previousScreen = currentScreen;
+    
     // Check if Window is too heigh for the new screen
     // Get screen visible frame
-    NSRect newFrame = self.window.screen.visibleFrame;
+    NSRect newFrame = currentScreen.visibleFrame;
+    
     
     // Check if SEB Dock is displayed and reduce visibleFrame accordingly
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -137,14 +152,23 @@ void DisposeWindow (
         newFrame.origin.y += dockHeight;
         newFrame.size.height -= dockHeight;
     }
-    NSRect oldWindowFrame = self.window.frame;
-    if (oldWindowFrame.size.height > newFrame.size.height) {
-        NSRect newWindowFrame = NSMakeRect(oldWindowFrame.origin.x, newFrame.origin.y, oldWindowFrame.size.width, newFrame.size.height);
+    if (movingWindowBack) {
+        [self.window setFrame:newFrame display:YES animate:YES];
+    } else {
+        NSRect oldWindowFrame = self.window.frame;
+        NSRect newWindowFrame = oldWindowFrame;
+        if (oldWindowFrame.size.height > newFrame.size.height) {
+            newWindowFrame = NSMakeRect(oldWindowFrame.origin.x, newFrame.origin.y, oldWindowFrame.size.width, newFrame.size.height);
+            oldWindowFrame = newWindowFrame;
+        }
+        if (oldWindowFrame.size.width > newFrame.size.width) {
+            newWindowFrame = NSMakeRect(newFrame.origin.x, oldWindowFrame.origin.y, newFrame.size.width, oldWindowFrame.size.height);
+        }
         [self.window setFrame:newWindowFrame display:YES animate:YES];
     }
    
     // If this is the main browser window, check if it's still on the same screen as when the dock was opened
-    if (self.window == self.browserController.mainBrowserWindow) {
+    if (!movingWindowBack && self.window == self.browserController.mainBrowserWindow) {
         // Post a notification that the main screen changed
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"mainScreenChanged" object:self];

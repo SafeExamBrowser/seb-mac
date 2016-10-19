@@ -54,11 +54,17 @@
 }
 
 
+- (void) awakeFromNib
+{
+    // Add default values (NSNumbers!) to the max displays combo box
+    [maxNumberDisplays addItemsWithObjectValues:@[@1, @2, @3]];
+    
+}
+
+
 // Before displaying pane set the download directory
 - (void)willBeDisplayed
 {
-    [maxNumberDisplays addItemsWithObjectValues:@[@1, @2, @3]];
-    
     [self setLogDirectory];
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];

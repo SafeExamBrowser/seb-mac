@@ -142,9 +142,8 @@
                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowDisplayMirroring" id="tab-6i-tiz"/>
                                         </connections>
                                     </button>
-                                    <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZZ6-sG-BWw">
+                                    <comboBox toolTip="If more displays are connected, these are blanked with an orange full screen window" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZZ6-sG-BWw">
                                         <rect key="frame" x="530" y="226" width="60" height="26"/>
-                                        <string key="toolTip">If there are more displays connected, these are blanked with an orange full screen window (to avoid WiFi streaming of exam content onto virtual displays)</string>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="57" id="AAT-5S-sGW"/>
                                         </constraints>
@@ -172,7 +171,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button toolTip="Use the built-in display (if available) when only one display is allowed" translatesAutoresizingMaskIntoConstraints="NO" id="btE-nf-WWC">
+                                    <button toolTip="Use the built-in display (if available) when only one display is allowed or when switching off display mirroring" translatesAutoresizingMaskIntoConstraints="NO" id="btE-nf-WWC">
                                         <rect key="frame" x="14" y="209" width="576" height="18"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="571" id="iGt-RT-AMX"/>

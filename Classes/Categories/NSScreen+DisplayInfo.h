@@ -35,7 +35,7 @@
 
 @interface NSScreen (DisplayInfo)
 
-@property (readwrite) BOOL isInactive;
+@property (nonatomic, assign)  BOOL inactive;
 
 +(NSString*) displayNameForID:(NSInteger)displayID;
 -(NSString*) displayName;

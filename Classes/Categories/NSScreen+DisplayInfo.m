@@ -34,8 +34,22 @@
 
 #import "NSScreen+DisplayInfo.h"
 #import <IOKit/graphics/IOGraphicsLib.h>
+#import "objc/runtime.h"
 
 @implementation NSScreen (DisplayInfo)
+
+
+- (void)setInactive:(BOOL)inactive
+{
+    NSNumber *inactiveBool = [NSNumber numberWithBool:inactive];
+    objc_setAssociatedObject(self, @selector(inactive), inactiveBool, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)inactive
+{
+    NSNumber *inactiveBool = objc_getAssociatedObject(self, @selector(inactive));
+    return inactiveBool.boolValue;
+}
 
 
 +(NSString*) displayNameForID:(NSInteger)displayID
