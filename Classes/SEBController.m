@@ -1091,7 +1091,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"];
     
     // Get list of all displays
-    CGDisplayCount maxDisplays = 12;
+    CGDisplayCount maxDisplays = 16;
     CGDirectDisplayID onlineDisplays[maxDisplays];
     CGDisplayCount displayCount = 0;
     CGError error = CGGetOnlineDisplayList(maxDisplays, onlineDisplays, &displayCount);
@@ -1099,8 +1099,11 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         DDLogError(@"CGGetOnlineDisplayList error: %@", [NSError errorWithDomain:NSOSStatusErrorDomain code:error userInfo:NULL]);
         return;
     }
-    CGDirectDisplayID mainDisplay = CGMainDisplayID();
-    NSScreen *mainScreen = [NSScreen mainScreen];
+    CGDirectDisplayID builtinDisplay = kCGNullDirectDisplay;
+    CGDirectDisplayID mainDisplay = kCGNullDirectDisplay;
+    BOOL useBuiltin = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowedDisplayBuiltin"];
+    NSUInteger maxAllowedDisplays = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowedDisplaysMaxNumber"];
+    NSMutableArray *displays = [NSMutableArray new];
     
     for(int i = 0; i < displayCount; i++)
     {
@@ -1122,19 +1125,77 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
             error = CGBeginDisplayConfiguration(&displayConfigRef);
             if (error != kCGErrorSuccess) {
                 DDLogError(@"CGBeginDisplayConfiguration error: %@", [NSError errorWithDomain:NSOSStatusErrorDomain code:error userInfo:NULL]);
-                return;
+                continue;
             }
             
             error = CGConfigureDisplayMirrorOfDisplay(displayConfigRef, display, kCGNullDirectDisplay);
             if (error != kCGErrorSuccess) {
                 DDLogError(@"CGConfigureDisplayMirrorOfDisplay error: %@", [NSError errorWithDomain:NSOSStatusErrorDomain code:error userInfo:NULL]);
-                return;
+                continue;
             }
             
             error = CGCompleteDisplayConfiguration(displayConfigRef, kCGConfigureForAppOnly);
             if (error != kCGErrorSuccess) {
                 DDLogError(@"CGCompleteDisplayConfiguration error: %@", [NSError errorWithDomain:NSOSStatusErrorDomain code:error userInfo:NULL]);
+                continue;
+            } else {
+                // Switching off mirroring worked, we can abort here
+                // and wait for this method to be called again after mirroring is actually off
                 return;
+            }
+        }
+        
+        // Has the display the built-in flag set?
+        if (isBuiltin) {
+            // Check if we already found another display which claims (maybe untruthfully) to be built-in
+            if (builtinDisplay) {
+                // Another display claimed to be built-in, check if this one has the Apple vendor number
+                if (vendorID == 1552) {
+                    // This seems to be the real built-in display, rembember it
+                    builtinDisplay = display;
+                }
+            } else {
+                // this is the first display which claims to be built-in, so save its ID
+                builtinDisplay = display;
+            }
+        }
+        
+        [displays addObject:[NSNumber numberWithInteger:display]];
+    }
+
+    // Check if the the built-in display should be the main according to settings
+    if (useBuiltin) {
+        mainDisplay = builtinDisplay;
+        // remove the built-in display from the array of found displays
+        [displays removeObject:[NSNumber numberWithInteger:mainDisplay]];
+    }
+
+    // Number of found displays
+    NSUInteger displaysCounter = 0;
+    
+    NSScreen *mainScreen = nil;
+    NSArray *screens = [NSScreen screens];	// get all available screens
+    for (NSScreen *iterScreen in screens)
+    {
+        CGDirectDisplayID screenDisplayID = [iterScreen displayID];
+        if (screenDisplayID == mainDisplay) {
+            mainScreen = iterScreen;
+            iterScreen.isInactive = false;
+        } else {
+            if (displaysCounter <= maxAllowedDisplays) {
+                iterScreen.isInactive = false;
+            } else {
+                iterScreen.isInactive = true;
+            }
+        }
+        displaysCounter++;
+    }
+    
+    if (!mainScreen) {
+        for (NSScreen *iterScreen in screens)
+        {
+            if (iterScreen.isInactive == false && iterScreen.displayID != builtinDisplay) {
+                mainScreen = iterScreen;
             }
         }
     }
@@ -1533,9 +1594,11 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     NSScreen *iterScreen;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL allowDisplayMirroring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDisplayMirroring"];
-    BOOL allowDisplayMirroring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowedDisplayBuiltin"];
+    BOOL useBuiltin = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowedDisplayBuiltin"];
     NSUInteger maxDisplays = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowedDisplaysMaxNumber"];
     NSUInteger displaysCounter = 0;
+    CGDirectDisplayID mainDisplay = kCGNullDirectDisplay;
+    CGDirectDisplayID builtinDisplay = kCGNullDirectDisplay;
 
     for (iterScreen in screens)
     {
@@ -1543,11 +1606,40 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         DDLogDebug(@"Device description for screen: %@", screenDeviceDescription);
         
         CGDirectDisplayID display = [iterScreen displayID];
+        BOOL isInactive;
+        
         CGRect bounds = CGDisplayBounds(display);
         BOOL isBuiltin = CGDisplayIsBuiltin(display);
         BOOL isMain = CGDisplayIsMain(display);
         BOOL isMirrored = CGDisplayIsInMirrorSet(display);
 
+        // Has the display the built-in flag set?
+        if (isBuiltin) {
+            // Check if we already found another display which claims (maybe untruthfully) to be built-in
+            if (builtinDisplay) {
+                // Another display claimed to be built-in, check if this one has the Apple vendor number
+                if (CGDisplayVendorNumber(display) == 1552) {
+                    // This seems to be the real built-in display, rembember it
+                    builtinDisplay = display;
+                }
+            } else {
+                // this is the first display which claims to be built-in, so save its ID
+                builtinDisplay = display;
+            }
+            // Check if this should be the main display according to settings
+            if (useBuiltin) {
+                mainDisplay = builtinDisplay;
+            }
+        }
+        
+        // Check if we already reached the maximum number of displays
+        displaysCounter++;
+        if (displaysCounter <= maxDisplays) {
+            isInactive = false;
+        } else {
+            isInactive = true;
+        }
+        
         
         //NSRect frame = size of the current screen;
         NSRect frame = [iterScreen frame];
