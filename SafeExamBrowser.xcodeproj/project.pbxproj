@@ -100,6 +100,7 @@
 		694B08A416B14ABF00E4997C /* SEBCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 694B08A216B14ABF00E4997C /* SEBCryptor.m */; };
 		6950F4731D89F9AB00CCB42A /* HUDPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = 6950F4711D89F9AB00CCB42A /* HUDPanel.h */; };
 		6950F4741D89F9AB00CCB42A /* HUDPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6950F4721D89F9AB00CCB42A /* HUDPanel.m */; };
+		69519F041DB95E4700159E5B /* CGSPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 69519F031DB95E4700159E5B /* CGSPrivate.h */; };
 		695283DD16CDB54C0055AF6F /* PrefsSecurityViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */; };
 		695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */; };
 		695572E51D91EC46003C048A /* NSPasteboard+SaveRestore.h in Headers */ = {isa = PBXBuildFile; fileRef = 695572E31D91EC45003C048A /* NSPasteboard+SaveRestore.h */; };
@@ -521,6 +522,7 @@
 		694B08A216B14ABF00E4997C /* SEBCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBCryptor.m; sourceTree = "<group>"; };
 		6950F4711D89F9AB00CCB42A /* HUDPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUDPanel.h; sourceTree = "<group>"; };
 		6950F4721D89F9AB00CCB42A /* HUDPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUDPanel.m; sourceTree = "<group>"; };
+		69519F031DB95E4700159E5B /* CGSPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGSPrivate.h; sourceTree = "<group>"; };
 		695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsSecurityViewController.h; sourceTree = "<group>"; };
 		695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsSecurityViewController.m; sourceTree = "<group>"; };
 		695572E31D91EC45003C048A /* NSPasteboard+SaveRestore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPasteboard+SaveRestore.h"; sourceTree = "<group>"; };
@@ -1509,6 +1511,7 @@
 				69EC2A3E1BD6C4FF00790AF7 /* WebPluginDatabase.h */,
 				69623A2B1A26180E00ED451C /* WebStorageManagerPrivate.h */,
 				69623A2D1A26184900ED451C /* WebPreferencesPrivate.h */,
+				69519F031DB95E4700159E5B /* CGSPrivate.h */,
 			);
 			name = "Bugfixing Subclasses";
 			path = Classes/BugfixingSubclasses;
@@ -1615,6 +1618,7 @@
 				69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */,
 				69C228311C767B0900F78634 /* padlock.h in Headers */,
 				6909E3501A019F7A0086A741 /* DDMultiFormatter.h in Headers */,
+				69519F041DB95E4700159E5B /* CGSPrivate.h in Headers */,
 				695572E51D91EC46003C048A /* NSPasteboard+SaveRestore.h in Headers */,
 				6909E33F1A019F7A0086A741 /* DDASLLogCapture.h in Headers */,
 				69C228401C767B0900F78634 /* ssl_ciphersuites.h in Headers */,

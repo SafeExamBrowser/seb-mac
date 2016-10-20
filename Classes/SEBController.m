@@ -60,6 +60,7 @@
 #include <assert.h>
 #include <sys/sysctl.h>
 #include <CoreGraphics/CGDirectDisplay.h>
+#import "CGSPrivate.h"
 
 #import "PrefsBrowserViewController.h"
 #import "SEBBrowserController.h"
@@ -912,7 +913,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 
     } else {
         // otherwise only those which are visible (on screen)
-        options = kCGWindowListOptionOnScreenOnly;
+        options = kCGWindowListOptionOnScreenOnly; // | kCGWindowListExcludeDesktopElements
     }
     
     
@@ -920,6 +921,8 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     for (NSDictionary *window in windowList) {
         NSString *windowName = [window objectForKey:@"kCGWindowName" ];
         NSString *windowOwner = [window objectForKey:@"kCGWindowOwnerName" ];
+        NSString *windowNumber = [window objectForKey:@"kCGWindowNumber" ];
+
         if (_allowSwitchToApplications && [windowName isEqualToString:@"NotificationTableWindow"] && ![_preferencesController preferencesAreOpen]) {
             // If switching to applications is allowed and the Notification Center was opened
             DDLogWarn(@"Notification Center panel was openend (owning process name: %@", windowOwner);
@@ -941,6 +944,13 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                     NSRunningApplication *appWithPanel = [NSRunningApplication runningApplicationWithProcessIdentifier:windowOwnerPID];
                     NSString *appWithPanelBundleID = appWithPanel.bundleIdentifier;
                     DDLogWarn(@"Application %@ with bundle ID %@ has openend a window with level %@", windowOwner, appWithPanelBundleID, windowLevelString);
+#ifdef DEBUG
+                    CGSConnection connection = _CGSDefaultConnection();
+                    int workspace;
+                    int windowID = windowNumber.intValue;
+                    CGSGetWindowWorkspace(connection, windowID, &workspace);
+                    DDLogVerbose(@"Window %@ is on space %d", windowName, workspace);
+#endif
                     if (!_allowSwitchToApplications && ![_preferencesController preferencesAreOpen]) {
                         if (appWithPanelBundleID && ![appWithPanelBundleID hasPrefix:@"com.apple."]) {
                             // Application hasn't a com.apple. bundle ID prefix
@@ -1103,7 +1113,6 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     CGDirectDisplayID mainDisplay = kCGNullDirectDisplay;
     BOOL useBuiltin = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowedDisplayBuiltin"];
     NSUInteger maxAllowedDisplays = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowedDisplaysMaxNumber"];
-    NSMutableArray *displays = [NSMutableArray new];
     
     for(int i = 0; i < displayCount; i++)
     {
@@ -1159,15 +1168,12 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                 builtinDisplay = display;
             }
         }
-        
-        [displays addObject:[NSNumber numberWithInteger:display]];
     }
 
     // Check if the the built-in display should be the main according to settings
     if (useBuiltin) {
         mainDisplay = builtinDisplay;
         // remove the built-in display from the array of found displays
-        [displays removeObject:[NSNumber numberWithInteger:mainDisplay]];
     }
 
     NSScreen *mainScreen = nil;
@@ -1621,7 +1627,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         // If showing menu bar
         // On OS X >= 10.10 we exclude the menu bar on all screens from the covering windows
         // On OS X <= 10.9 we exclude the menu bar only on the screen which actually displays the menu bar
-        if (!inactive && excludeMenuBar && (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_10 || iterScreen == screens[0])) {
+        if (excludeMenuBar && (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_10 || iterScreen == screens[0])) {
             // Reduce size of covering background windows to not cover the menu bar
             rect.size.height -= 22;
         }
@@ -1633,7 +1639,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             case coveringWindowBackground: {
                 window = [[NSWindow alloc] initWithContentRect:rect styleMask:styleMask backing: NSBackingStoreBuffered defer:NO screen:iterScreen];
                 capview = [[CapView alloc] initWithFrame:rect];
-                windowColor = inactive ? [NSColor orangeColor] : [NSColor blackColor];
+                windowColor = [NSColor blackColor];
                 break;
             }
                 
@@ -1653,7 +1659,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
             [window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
         }
-        [window newSetLevel:inactive ? NSScreenSaverWindowLevel : windowLevel];
+        [window newSetLevel:windowLevel];
         //[window orderBack:self];
         [coveringWindows addObject: window];
         NSView *superview = [window contentView];
@@ -1965,12 +1971,12 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 
     for (capWindow in self.capWindows) {
         if (allowApps) {
-            [capWindow newSetLevel:capWindow.screen.inactive ? NSScreenSaverWindowLevel : NSNormalWindowLevel];
+            [capWindow newSetLevel:NSNormalWindowLevel];
             if (allowAppsUserDefaultsSetting) {
                 capWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
             }
         } else {
-            [capWindow newSetLevel:capWindow.screen.inactive ? NSScreenSaverWindowLevel : NSMainMenuWindowLevel+2];
+            [capWindow newSetLevel:NSMainMenuWindowLevel+2];
         }
     }
     

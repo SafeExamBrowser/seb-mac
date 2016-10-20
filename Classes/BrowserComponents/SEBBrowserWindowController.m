@@ -37,12 +37,19 @@
 #import <WebKit/WebKit.h>
 #import "SEBBrowserWindow.h"
 #import "NSScreen+DisplayInfo.h"
+#import <Carbon/Carbon.h>
+#import <Foundation/Foundation.h>
+
+#include <stdio.h>
+#include <unistd.h>
+#include "CGSPrivate.h"
 
 
 WindowRef FrontWindow();
 void DisposeWindow (
                     WindowRef window
                     );
+
 
 @implementation SEBBrowserWindowController
 
@@ -127,6 +134,79 @@ void DisposeWindow (
 }
 
 
+- (void)windowWillMove:(NSNotification *)notification
+{
+    DDLogDebug(@"BrowserWindow %@ will move", self.window);
+    [self startWindowWatcher];
+}
+
+
+- (void)windowDidMove:(NSNotification *)notification
+{
+    DDLogDebug(@"BrowserWindow %@ did move", self.window);
+}
+
+
+// Start the windows watcher if it's not yet running
+- (void)startWindowWatcher
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+    
+    if (!_windowWatchTimer) {
+        NSDate *dateNextMinute = [NSDate date];
+        
+        _windowWatchTimer = [[NSTimer alloc] initWithFireDate: dateNextMinute
+                                                     interval: 0.25
+                                                       target: self
+                                                     selector:@selector(windowScreenWatcher)
+                                                     userInfo:nil repeats:YES];
+        
+        NSRunLoop *currentRunLoop = [NSRunLoop currentRunLoop];
+        [currentRunLoop addTimer:_windowWatchTimer forMode: NSRunLoopCommonModes];
+    }
+}
+
+
+// Start the windows watcher if it's not yet running
+- (void)stopWindowWatcher
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+    
+    if (_windowWatchTimer) {
+        [_windowWatchTimer invalidate];
+        _windowWatchTimer = nil;
+    }
+}
+
+
+- (void)windowScreenWatcher
+{
+    NSInteger windowIsOnScreens = [self windowIsOnScreens];
+    CGRect windowFrame = self.window.frame;
+    DDLogDebug(@"Window is on %ld screens and has frame %@", (long)windowIsOnScreens, CGRectCreateDictionaryRepresentation(windowFrame));
+    
+    NSUInteger pressedButtons = [NSEvent pressedMouseButtons];
+    if ((pressedButtons & (1 << 0)) != (1 << 0)) {
+        [self stopWindowWatcher];
+    }
+}
+
+
+- (NSInteger)windowIsOnScreens
+{
+    #define MAX_DISPLAYS (16)
+    NSRect windowFrame;
+    CGDirectDisplayID displays[MAX_DISPLAYS];
+    CGDisplayCount displayCount;
+    
+    windowFrame = self.window.frame;
+    
+    CGGetDisplaysWithRect(windowFrame, MAX_DISPLAYS, displays, &displayCount);
+    
+    return (NSInteger)displayCount;
+}
+
+
 - (void)windowDidChangeScreen:(NSNotification *)notification
 {
     NSScreen *currentScreen = self.window.screen;
@@ -153,7 +233,9 @@ void DisposeWindow (
         newFrame.size.height -= dockHeight;
     }
     if (movingWindowBack) {
-        [self.window setFrame:newFrame display:YES animate:YES];
+        [self.window setFrame:newFrame display:YES animate:NO];
+        DDLogDebug(@"Moved browser window back to previous screen");
+        
     } else {
         NSRect oldWindowFrame = self.window.frame;
         NSRect newWindowFrame = oldWindowFrame;
