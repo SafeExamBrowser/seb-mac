@@ -254,7 +254,12 @@ void DisposeWindow (
         currentScreen = _previousScreen;
         movingWindowBack = true;
     }
-    
+    [self adjustWindowForScreen:currentScreen moveBack:movingWindowBack];
+}
+
+
+- (void)adjustWindowForScreen:(NSScreen *)currentScreen moveBack:(BOOL)movingWindowBack
+{
     _previousScreen = currentScreen;
     
     // Check if Window is too heigh for the new screen
@@ -285,7 +290,7 @@ void DisposeWindow (
         }
         [self.window setFrame:newWindowFrame display:YES animate:YES];
     }
-   
+    
     // If this is the main browser window, check if it's still on the same screen as when the dock was opened
     if (!movingWindowBack && self.window == self.browserController.mainBrowserWindow) {
         // Post a notification that the main screen changed
