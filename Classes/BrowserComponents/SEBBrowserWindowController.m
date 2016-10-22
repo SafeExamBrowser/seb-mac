@@ -197,52 +197,58 @@ void DisposeWindow (
 
 - (void)updateCoveringIntersectingInactiveScreens
 {
-    NSPoint cursorPosition = [NSEvent mouseLocation];
-
-    if (!dragStarted) {
-        dragStarted = true;
-        // Save mouse position when starting dragging
-        dragCursorStartPosition = cursorPosition;
-    }
-    
-#define MAX_DISPLAYS (16)
-    NSRect windowFrame;
-    CGDirectDisplayID intersectingDisplays[MAX_DISPLAYS];
-    CGDisplayCount displayCount;
-    
-    windowFrame = self.window.frame;
-    
-    NSPoint cursorDisplacement = NSMakePoint(cursorPosition.x - dragCursorStartPosition.x, cursorPosition.y - dragCursorStartPosition.y);
-    NSRect actualWindowFrame = NSMakeRect(windowFrame.origin.x + cursorDisplacement.x,
-                                          windowFrame.origin.y + cursorDisplacement.y,
-                                          windowFrame.size.width,
-                                          windowFrame.size.height);
-    
-    // Get online displays which the window frame intersects
-    CGGetDisplaysWithRect(actualWindowFrame, MAX_DISPLAYS, intersectingDisplays, &displayCount);
-#ifdef DEBUG
-    DDLogDebug(@"Window is on %u screen(s) and has frame %@", displayCount,CGRectCreateDictionaryRepresentation(actualWindowFrame));
-#endif
-    NSMutableArray *inactiveScreensToCover = [NSMutableArray new];
-    
-    for(int i = 0; i < displayCount; i++)
-    {
-        CGDirectDisplayID display = intersectingDisplays[i];
-        NSArray *inactiveDisplays = _browserController.sebController.inactiveDisplays.copy;
-        NSUInteger indexOfDisplay = [inactiveDisplays indexOfObjectPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([[obj valueForKey:@"displayID"] isEqualTo:[NSNumber numberWithInt:display]]) {
-                *stop = YES;
-                return YES;
-            }
-            return NO;
-        }];
-        if (indexOfDisplay != NSNotFound) {
-            [inactiveScreensToCover addObject:[inactiveDisplays[indexOfDisplay] valueForKey:@"screen"]];
+    if (!updatingCoveringForIntersectingInactiveScreens) {
+        updatingCoveringForIntersectingInactiveScreens = true;
+        
+        NSPoint cursorPosition = [NSEvent mouseLocation];
+        
+        if (!dragStarted) {
+            dragStarted = true;
+            // Save mouse position when starting dragging
+            dragCursorStartPosition = cursorPosition;
         }
+        
+#define MAX_DISPLAYS (16)
+        NSRect windowFrame;
+        CGDirectDisplayID intersectingDisplays[MAX_DISPLAYS];
+        CGDisplayCount displayCount;
+        
+        windowFrame = self.window.frame;
+        
+        NSPoint cursorDisplacement = NSMakePoint(cursorPosition.x - dragCursorStartPosition.x, cursorPosition.y - dragCursorStartPosition.y);
+        NSRect actualWindowFrame = NSMakeRect(windowFrame.origin.x + cursorDisplacement.x,
+                                              windowFrame.origin.y + cursorDisplacement.y,
+                                              windowFrame.size.width,
+                                              windowFrame.size.height);
+        
+        // Get online displays which the window frame intersects
+        CGGetDisplaysWithRect(actualWindowFrame, MAX_DISPLAYS, intersectingDisplays, &displayCount);
+#ifdef DEBUG
+        DDLogDebug(@"Window is on %u screen(s) and has frame %@", displayCount,CGRectCreateDictionaryRepresentation(actualWindowFrame));
+#endif
+        NSMutableArray *inactiveScreensToCover = [NSMutableArray new];
+        
+        for(int i = 0; i < displayCount; i++)
+        {
+            CGDirectDisplayID display = intersectingDisplays[i];
+            NSArray *inactiveDisplays = _browserController.sebController.inactiveDisplays.copy;
+            NSUInteger indexOfDisplay = [inactiveDisplays indexOfObjectPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([[obj valueForKey:@"displayID"] isEqualTo:[NSNumber numberWithInt:display]]) {
+                    *stop = YES;
+                    return YES;
+                }
+                return NO;
+            }];
+            if (indexOfDisplay != NSNotFound) {
+                [inactiveScreensToCover addObject:[inactiveDisplays[indexOfDisplay] valueForKey:@"screen"]];
+            }
+        }
+        // Cover currently intersected inactive screens and
+        // remove cover windows of no longer intersected screens
+        [_browserController.sebController coverInactiveScreens:[inactiveScreensToCover copy]];
+        
+        updatingCoveringForIntersectingInactiveScreens = false;
     }
-    // Cover currently intersected inactive screens and
-    // remove cover windows of no longer intersected screens
-    [_browserController.sebController coverInactiveScreens:[inactiveScreensToCover copy]];
 }
 
 

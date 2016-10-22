@@ -46,6 +46,7 @@
     NSRect frameForNonFullScreenMode;
     BOOL dragStarted;
     NSPoint dragCursorStartPosition;
+    BOOL updatingCoveringForIntersectingInactiveScreens;
 }
 
 @property (assign) NSRect frameForNonFullScreenMode;
