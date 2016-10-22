@@ -277,7 +277,7 @@ void DisposeWindow (
         newFrame.size.height -= dockHeight;
     }
     if (movingWindowBack) {
-        [self.window setFrame:newFrame display:YES animate:NO];
+        [self.window setFrameOrigin:newFrame.origin];
         DDLogDebug(@"Moved browser window back to previous screen");
         
     } else {
