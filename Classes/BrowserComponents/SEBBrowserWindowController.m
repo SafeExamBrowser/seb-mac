@@ -107,12 +107,8 @@ void DisposeWindow (
 
 - (void)windowDidBecomeKey:(NSNotification *)notification
 {
-    //    [self.browserController setStateForWindow:(SEBBrowserWindow *)self.window withWebView:self.webView];
     self.browserController.activeBrowserWindow = (SEBBrowserWindow *)self.window;
     DDLogDebug(@"BrowserWindow %@ did become key", self.window);
-//    if (_browserController.panelWatchTimer) {
-//        [_browserController.panelWatchTimer invalidate];
-//    }
 }
 
 
@@ -177,6 +173,12 @@ void DisposeWindow (
     if (_windowWatchTimer) {
         [_windowWatchTimer invalidate];
         _windowWatchTimer = nil;
+    }
+    // If window is still intersecting inactive screens (which are covered therefore)
+    if (_browserController.sebController.inactiveScreenWindows.count > 0) {
+        // Move the window back to the screen is has been on previously
+        [self adjustWindowForScreen:_previousScreen moveBack:true];
+        [self updateCoveringIntersectingInactiveScreens];
     }
 }
 
