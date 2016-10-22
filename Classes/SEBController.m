@@ -227,6 +227,10 @@ bool insideMatrix();
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
         [MyGlobals sharedMyGlobals].reconfiguredWhileStarting = NO;
         
+        if (!_inactiveScreenWindows) {
+            _inactiveScreenWindows = [NSMutableArray new];
+        }
+
         [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
         DDLogDebug(@"Installed get URL event handler");
 
@@ -1113,6 +1117,11 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     CGDirectDisplayID mainDisplay = kCGNullDirectDisplay;
     BOOL useBuiltin = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowedDisplayBuiltin"];
     NSUInteger maxAllowedDisplays = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowedDisplaysMaxNumber"];
+    if (!_inactiveDisplays) {
+        _inactiveDisplays = [NSMutableArray new];
+    } else {
+        [_inactiveDisplays removeAllObjects];
+    }
     
     for(int i = 0; i < displayCount; i++)
     {
@@ -1173,7 +1182,6 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     // Check if the the built-in display should be the main according to settings
     if (useBuiltin) {
         mainDisplay = builtinDisplay;
-        // remove the built-in display from the array of found displays
     }
 
     NSScreen *mainScreen = nil;
@@ -1202,20 +1210,30 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                 iterScreen.inactive = false;
             } else {
                 iterScreen.inactive = true;
+                [_inactiveDisplays addObject: @{@"screen": iterScreen,
+                                                @"displayID": iterScreen.displayID}];
             }
         }
         displaysCounter++;
     }
     
+    // If no main display has been identified, we take the first non-built-in
     if (!mainScreen) {
         for (NSScreen *iterScreen in screens)
         {
             if (iterScreen.inactive == false && iterScreen.displayID.intValue != builtinDisplay) {
                 mainScreen = iterScreen;
+                break;
             }
         }
     }
 
+    // Still no main display? Probably there is only one non-built-in display connected
+    // so we take that single active display
+    if (!mainScreen) {
+        mainScreen = screens[0];
+    }
+    
     // Move all browser windows to the previous main screen (if they aren't on it already)
     [self.browserController moveAllBrowserWindowsToScreen:mainScreen];
 }
@@ -1615,12 +1633,12 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         BOOL inactive = iterScreen.inactive;
         DDLogDebug(@"Screen is %@active, device description: %@", inactive ? @"in" : @"", screenDeviceDescription);
         
-        //NSRect frame = size of the current screen;
+        // NSRect frame = size of the current screen
         NSRect frame = [iterScreen frame];
         NSUInteger styleMask = NSBorderlessWindowMask;
         NSRect rect = [NSWindow contentRectForFrameRect:frame styleMask:styleMask];
         
-        //set origin of the window rect to left bottom corner (important for non-main screens, since they have offsets)
+        // Set origin of the window rect to left bottom corner (important for non-main screens, since they have offsets)
         rect.origin.x = 0;
         rect.origin.y = 0;
 
@@ -1677,6 +1695,66 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 #endif
     }
     return coveringWindows;
+}
+
+
+// Cover currently intersected inactive screens and
+// remove cover windows of no longer intersected screens
+- (void) coverInactiveScreens:(NSArray *)inactiveScreens
+{
+    NSMutableArray *newCoverWindows = [NSMutableArray new];
+    for (NSScreen *screen in inactiveScreens) {
+        // Check if this screen is already covered
+        BOOL isAlreadyCovered = false;
+        NSUInteger i = 0;
+        while (i < _inactiveScreenWindows.count) {
+            CapWindow *coverWindow = _inactiveScreenWindows[i];
+            if (coverWindow.screen == screen) {
+                isAlreadyCovered = true;
+                [newCoverWindows addObject:coverWindow];
+                [_inactiveScreenWindows removeObject:coverWindow];
+                break;
+            } else {
+                i++;
+            }
+        }
+        if (!isAlreadyCovered) {
+            CapWindow *newCoverWindow = [self coverInactiveScreen:screen];
+            [newCoverWindows addObject:newCoverWindow];
+        }
+    }
+    // Close covering windows if necessary
+    for (CapWindow *coverWindowToClose in _inactiveScreenWindows) {
+        [coverWindowToClose close];
+    }
+    _inactiveScreenWindows = newCoverWindows;
+}
+
+
+- (CapWindow *) coverInactiveScreen:(NSScreen *)screen
+{
+    NSRect frame = screen.frame;
+    NSUInteger styleMask = NSBorderlessWindowMask;
+    NSRect rect = [NSWindow contentRectForFrameRect:frame styleMask:styleMask];
+    
+    // Set origin of the window rect to left bottom corner (important for non-main screens, since they have offsets)
+    rect.origin.x = 0;
+    rect.origin.y = 0;
+
+    DDLogDebug(@"Opening inactive screen covering window with frame %@ ", CGRectCreateDictionaryRepresentation(rect));
+    
+    CapWindow *window = [[CapWindow alloc] initWithContentRect:rect styleMask:styleMask backing: NSBackingStoreBuffered defer:NO screen:screen];
+    NSView *capview = [[NSView alloc] initWithFrame:rect];
+    [window setReleasedWhenClosed:YES];
+    [window setBackgroundColor:[NSColor orangeColor]];
+    [window newSetLevel:NSScreenSaverWindowLevel];
+    NSView *superview = [window contentView];
+    [superview addSubview:capview];
+    CapWindowController *capWindowController = [[CapWindowController alloc] initWithWindow:window];
+    [capWindowController showWindow:self];
+    [window makeKeyAndOrderFront:self];
+
+    return window;
 }
 
 

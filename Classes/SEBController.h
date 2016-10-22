@@ -117,6 +117,7 @@
 - (void) closeAboutWindow;
 - (void) closeDocument:(id)sender;
 - (void) coverScreens;
+- (void) coverInactiveScreens:(NSArray *)inactiveScreens;
 - (void) adjustScreenLocking:(id)sender;
 - (void) startTask;
 - (void) regainActiveStatus:(id)sender;
@@ -156,6 +157,7 @@
 @property(strong) SEBWebView *webView;
 @property(strong) NSMutableArray *capWindows;
 @property(strong) NSMutableArray *lockdownWindows;
+@property(strong) NSMutableArray *inactiveScreenWindows;
 @property(strong) IBOutlet NSSecureTextField *enterPassword;
 @property(strong) IBOutlet id preferencesController;
 @property(strong) IBOutlet SEBSystemManager *systemManager;
@@ -165,6 +167,7 @@
 @property(strong) NSDate *didBecomeActiveTime;
 @property(strong) NSDate *didResumeExamTime;
 @property(strong) NSTimer *windowWatchTimer;
+@property(strong) NSMutableArray *inactiveDisplays;
 @property(strong) NSMutableArray *systemProcessPIDs;
 @property(strong) NSMutableArray *terminatedProcessesExecutableURLs;
 

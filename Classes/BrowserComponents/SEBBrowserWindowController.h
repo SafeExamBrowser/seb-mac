@@ -44,6 +44,8 @@
 {
 @private
     NSRect frameForNonFullScreenMode;
+    BOOL dragStarted;
+    NSPoint dragCursorStartPosition;
 }
 
 @property (assign) NSRect frameForNonFullScreenMode;
