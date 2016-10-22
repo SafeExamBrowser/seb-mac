@@ -419,6 +419,7 @@
                 <outlet property="enterPasswordDialogWindow" destination="rLU-be-IrT" id="2h2-Gv-9U4"/>
                 <outlet property="enterUsernamePasswordDialogWindow" destination="aPD-nQ-pl7" id="fvv-I2-H7d"/>
                 <outlet property="enterUsernamePasswordText" destination="XNo-Zw-SiV" id="7zd-Ji-TWi"/>
+                <outlet property="inactiveScreenCoverLabel" destination="seo-VR-ST1" id="dAY-V0-X6q"/>
                 <outlet property="informationHUD" destination="kwi-CI-5lx" id="mna-B2-nsm"/>
                 <outlet property="informationHUDLabel" destination="j4C-Za-nAA" id="IF4-wB-5bP"/>
                 <outlet property="passwordSecureTextField" destination="WxA-I6-hf2" id="JpD-Mg-Hzg"/>
@@ -1134,6 +1135,27 @@ DQ
                 <constraint firstAttribute="bottom" secondItem="xZt-eP-PbW" secondAttribute="bottom" constant="20" id="us8-gY-fWc"/>
             </constraints>
             <point key="canvasLocation" x="440" y="1486"/>
+        </customView>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="seo-VR-ST1" userLabel="SEB Inactive Screen View">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="90"/>
+            <subviews>
+                <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="240" translatesAutoresizingMaskIntoConstraints="NO" id="fBQ-HD-9r1" customClass="SEBTextField">
+                    <rect key="frame" x="134" y="20" width="232" height="50"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="This screen is disabled in current settings" id="0RK-x9-0F0">
+                        <font key="font" size="20" name="HelveticaNeue-Bold"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="fBQ-HD-9r1" firstAttribute="top" secondItem="seo-VR-ST1" secondAttribute="top" constant="20" id="U3g-F5-Z0O"/>
+                <constraint firstItem="fBQ-HD-9r1" firstAttribute="centerX" secondItem="seo-VR-ST1" secondAttribute="centerX" id="gWy-xX-bu9"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fBQ-HD-9r1" secondAttribute="trailing" constant="20" id="k6a-el-Wl2"/>
+                <constraint firstItem="fBQ-HD-9r1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="seo-VR-ST1" secondAttribute="leading" constant="20" id="sY5-VK-ZSo"/>
+                <constraint firstAttribute="bottom" secondItem="fBQ-HD-9r1" secondAttribute="bottom" constant="20" id="wvd-ro-7DG"/>
+            </constraints>
+            <point key="canvasLocation" x="1006" y="709"/>
         </customView>
     </objects>
     <resources>

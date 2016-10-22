@@ -419,6 +419,7 @@
                 <outlet property="enterPasswordDialogWindow" destination="rLU-be-IrT" id="2h2-Gv-9U4"/>
                 <outlet property="enterUsernamePasswordDialogWindow" destination="QWW-Sk-cMP" id="5jX-Kv-sY5"/>
                 <outlet property="enterUsernamePasswordText" destination="QqR-Ok-rnZ" id="0eI-lg-O7f"/>
+                <outlet property="inactiveScreenCoverLabel" destination="1To-uA-cJT" id="WC8-i9-Gbz"/>
                 <outlet property="informationHUD" destination="kwi-CI-5lx" id="mna-B2-nsm"/>
                 <outlet property="informationHUDLabel" destination="j4C-Za-nAA" id="IF4-wB-5bP"/>
                 <outlet property="passwordSecureTextField" destination="TIS-W4-dXG" id="tcN-eB-eeh"/>
@@ -1017,6 +1018,27 @@ Gw
             </view>
             <point key="canvasLocation" x="201" y="530"/>
         </window>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="1To-uA-cJT" userLabel="SEB Inactive Screen View">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="90"/>
+            <subviews>
+                <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="400" translatesAutoresizingMaskIntoConstraints="NO" id="tzS-P2-y9k" customClass="SEBTextField">
+                    <rect key="frame" x="66" y="20" width="368" height="50"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Dieser Bildschirm ist in den aktuellen Einstellungen deaktiviert" id="XJl-Bt-kJo">
+                        <font key="font" size="20" name="HelveticaNeue-Bold"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="tzS-P2-y9k" firstAttribute="centerX" secondItem="1To-uA-cJT" secondAttribute="centerX" id="CkO-5N-KH3"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tzS-P2-y9k" secondAttribute="trailing" constant="20" id="FJG-EE-SE7"/>
+                <constraint firstAttribute="bottom" secondItem="tzS-P2-y9k" secondAttribute="bottom" constant="20" id="JqL-8d-3aJ"/>
+                <constraint firstItem="tzS-P2-y9k" firstAttribute="top" secondItem="1To-uA-cJT" secondAttribute="top" constant="20" id="ULH-MY-LPi"/>
+                <constraint firstItem="tzS-P2-y9k" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1To-uA-cJT" secondAttribute="leading" constant="20" id="sGp-Kg-pPy"/>
+            </constraints>
+            <point key="canvasLocation" x="1006" y="696"/>
+        </customView>
     </objects>
     <resources>
         <image name="NSGoRightTemplate" width="9" height="12"/>

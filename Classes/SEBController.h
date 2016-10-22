@@ -83,6 +83,7 @@
     IBOutlet SEBLockedViewController *sebLockedViewController;
     IBOutlet NSPanel *informationHUD;
     IBOutlet NSTextField *informationHUDLabel;
+    __weak IBOutlet NSView *inactiveScreenCoverLabel;
 
     IBOutlet NSWindow *enterPasswordDialogWindow;
     IBOutlet NSTextField *enterPasswordDialog;

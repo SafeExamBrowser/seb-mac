@@ -1754,6 +1754,32 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     [capWindowController showWindow:self];
     [window makeKeyAndOrderFront:self];
 
+    NSView *coveringView = window.contentView;
+    [coveringView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+    [coveringView setTranslatesAutoresizingMaskIntoConstraints:true];
+    
+    [coveringView addSubview:inactiveScreenCoverLabel];
+    
+    DDLogVerbose(@"Frame of superview: %f, %f", inactiveScreenCoverLabel.superview.frame.size.width, inactiveScreenCoverLabel.superview.frame.size.height);
+    NSMutableArray *constraints = [NSMutableArray new];
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:inactiveScreenCoverLabel
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:inactiveScreenCoverLabel.superview
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1.0
+                                                         constant:0.0]];
+    
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:inactiveScreenCoverLabel
+                                                        attribute:NSLayoutAttributeCenterY
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:inactiveScreenCoverLabel.superview
+                                                        attribute:NSLayoutAttributeCenterY
+                                                       multiplier:1.0
+                                                         constant:0.0]];
+    
+    [inactiveScreenCoverLabel.superview addConstraints:constraints];
+
     return window;
 }
 
