@@ -268,7 +268,6 @@ void DisposeWindow (
     // Get screen visible frame
     NSRect newFrame = currentScreen.visibleFrame;
     
-    
     // Check if SEB Dock is displayed and reduce visibleFrame accordingly
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
@@ -277,7 +276,8 @@ void DisposeWindow (
         newFrame.size.height -= dockHeight;
     }
     if (movingWindowBack) {
-        [self.window setFrameOrigin:newFrame.origin];
+        NSRect recalculatedFrame = NSMakeRect(newFrame.origin.x, newFrame.origin.y, self.window.frame.size.width, newFrame.size.height);
+        [self.window setFrame:recalculatedFrame display:YES animate:NO];
         DDLogDebug(@"Moved browser window back to previous screen");
         
     } else {
