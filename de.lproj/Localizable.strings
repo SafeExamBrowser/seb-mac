@@ -197,9 +197,7 @@
 "File to upload not found!" = "Datei zum Heraufladen nicht gefunden!";
 
 /* (No Commment) */
-"FirstTimeUserNotice" = "Bitte benutzen Sie die Fenster-Schliessen-Taste oder Cmd-Q (Befehlstaste-Q) um SEB zu beenden und (fn-)F3-F6 um die Einstellungen zu öffnen.
-
-Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-URL eingeben. Sie sollten dort ausserdem ein Beenden-Passwort und ein Administrator-Passwort festlegen, um das Beenden von SEB und den Zugang zu den Einstellungen einzuschränken.";
+"FirstTimeUserNotice" = "Bitte benutzen Sie die Fenster-Schliessen-Taste oder Cmd-Q (Befehlstaste-Q) um SEB zu beenden und (fn-)F3-F6 um die Einstellungen zu öffnen.\n\nDieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-URL eingeben. Sie sollten dort ausserdem ein Beenden-Passwort und ein Administrator-Passwort festlegen, um das Beenden von SEB und den Zugang zu den Einstellungen einzuschränken.";
 
 /* Title of 'General' preference pane */
 "General" = "Allgemein";
@@ -274,14 +272,10 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
 "Local SEB settings are corrupted!" = "Lokale Client-Einstellungen sind beschädigt!";
 
 /* No comment provided by engineer. */
-"Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option." = "Die lokalen Client-Einstellungen haben die Option 'Einstellungen-Fenster darf auf Client geöffnet werden' deaktiviert, was das Öffnen des Einstellungen-Fensters selbst nach einem Neustart von SEB verhindert. Sind Sie sicher, dass Sie das anwenden wollen? Ansonsten können Sie diese Option zurücksetzen.";
+"Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option." = "Die lokalen Client-Einstellungen haben die Option 'Einstellungen-Fenster darf auf Client geöffnet werden' deaktiviert, was das Öffnen des Einstellungen-Fensters selbst nach einem Neustart von SEB verhindert. Sind Sie sicher, dass Sie dies anwenden wollen? Ansonsten können Sie diese Option zurücksetzen.";
 
 /* No comment provided by engineer. */
-"Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.
-
-Reset local settings and continue?" = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt oder beschädigt. Sie können die Einstellungen jetzt zurücksetzen oder SEB jetzt beenden und die vorherige SEB-Version benutzen, um die Einstellungen zu exportieren und danach zum Konfigurieren der neuen Version zu benutzen.
-
-Lokale Einstellungen zurücksetzen und weiterfahren?";
+"Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.\n\nReset local settings and continue?" = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt oder beschädigt. Sie können die Einstellungen jetzt zurücksetzen oder SEB jetzt beenden und die vorherige SEB-Version benutzen, um die Einstellungen zu exportieren und danach zum Konfigurieren der neuen Version zu benutzen.\n\nLokale Einstellungen zurücksetzen und weiterfahren?";
 
 /* No comment provided by engineer. */
 "Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly." = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt oder beschädigt. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um SEB wieder korrekt zu konfigurieren.";
@@ -292,7 +286,7 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 /* No comment provided by engineer. */
 "Local settings of this SEB client have been reconfigured. Do you want to continue working with SEB now or quit?" = "Lokale Einstelllungen von SEB wurden neu konfiguriert. Wollen Sie jetzt mit SEB weiter arbeiten oder beenden?";
 
-/* No comment provided by engineer. */
+/* (No Commment) */
 "Local settings of this SEB client have been reconfigured. Do you want to start working with SEB now or quit?" = "Lokale Einstelllungen von SEB wurden neu konfiguriert. Wollen Sie jetzt mit SEB arbeiten oder beenden?";
 
 /* No comment provided by engineer. */
@@ -300,6 +294,9 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 
 /* Title of 'Network' preference pane */
 "Network" = "Netzwerk";
+
+/* No comment provided by engineer. */
+"New settings have been saved, they will be used when you start SEB next time again. Do you want to start working with SEB or quit for now?" = "Neue Konfiguration wurde gespeichert, diese wird benutzt, wenn SEB das nächste Mal gestartet wird. Wollen Sie jetzt mit SEB arbeiten oder beenden?";
 
 /* No comment provided by engineer. */
 "No Encryption Credentials Chosen" = "Keine Verschlüsselung gewählt";
@@ -482,6 +479,9 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 "Settings for Starting Exam" = "Einstellungen zum Starten einer Prüfung";
 
 /* No comment provided by engineer. */
+"Settings have been saved, use this file to configure a SEB client permanently." = "Einstellungen wurden gespeichert, benutzen Sie diese Konfigurationsdatei, um einen SEB-Prüfungsrechner permanent zu konfigurieren.";
+
+/* (No Commment) */
 "Settings have been saved, use this file to configure local settings of a SEB client." = "Konfiguration wurde gespeichert, benutzen Sie diese Datei um die lokalen Einstellungen eines SEB-Clients umzukonfigurieren.";
 
 /* No comment provided by engineer. */
@@ -632,11 +632,7 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 "You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file." = "Sie sollten entweder ein Passwort oder eine kryptografische Identität zum Verschlüsseln der Konfigurationsdatei verwenden.";
 
 /* (No Commment) */
-"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.
-
-You can save an unencrypted settings file, but this is not recommended for use in exams." = "Sie sollten entweder ein Passwort oder eine kryptografische Identität zum Verschlüsseln der Konfigurationsdatei verwenden.
-
-Sie können eine unverschlüsselte Datei speichern, aber dies wird nicht für die Benutzung in Prüfungen empfohlen.";
+"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted settings file, but this is not recommended for use in exams." = "Sie sollten entweder ein Passwort oder eine kryptografische Identität zum Verschlüsseln der Konfigurationsdatei verwenden.\n\nSie können eine unverschlüsselte Datei speichern, aber dies wird nicht für die Benutzung in Prüfungen empfohlen.";
 
 /* No comment provided by engineer. */
 "administrator" = "Administrator";

@@ -142,11 +142,17 @@
 /* Class = "NSButtonCell"; title = "Enable VMware Client Shade"; ObjectID = "Y3K-X1-40d"; */
 "Y3K-X1-40d.title" = "VMware Client Shade erlauben";
 
+/* Class = "NSComboBox"; ibShadowedToolTip = "If more displays are connected, these are blanked with an orange full screen window"; ObjectID = "ZZ6-sG-BWw"; */
+"ZZ6-sG-BWw.ibShadowedToolTip" = "Wenn mehr Bildschirme angeschlossen sind, werden diese mit einem orangen Fenster abgedeckt.";
+
 /* Class = "NSButton"; ibShadowedToolTip = "SEB checks for the command key being held down while SEB is starting up. This prevents using the application switcher to mess with SEB's kiosk mode"; ObjectID = "a9Y-jJ-E1h"; */
 "a9Y-jJ-E1h.ibShadowedToolTip" = "SEB überprüft während des Aufstartens, ob die Befehlstaste (cmd) gedrückt gehalten wird. Dies verhindert Manipulationen mit Hilfe des Programmumschalters";
 
 /* Class = "NSButtonCell"; title = "Enable Alt-Esc"; ObjectID = "bTO-u1-Mao"; */
 "bTO-u1-Mao.title" = "Alt-Esc erlauben";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Use the built-in display (if available) when only one display is allowed or when switching off display mirroring"; ObjectID = "btE-nf-WWC"; */
+"btE-nf-WWC.ibShadowedToolTip" = "Den eingebauten Bildschirm (falls vorhanden) benutzen, wenn nur ein Display erlaubt ist oder wenn Display-Mirroring beendet wird.";
 
 /* Class = "NSBox"; title = "While running SEB"; ObjectID = "dYr-I9-VL8"; */
 "dYr-I9-VL8.title" = "Während SEB läuft";
@@ -160,8 +166,14 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Controls macOS screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows"; ObjectID = "g34-gq-Owk"; */
 "g34-gq-Owk.ibShadowedToolTip" = "Steuert macOS Bildschirmfotos (cmd-3 und cmd-4), entspricht 'Print Screen'-Taste (Windows 'Hooked Keys' Einstellungen)";
 
-/* Class = "NSButtonCell"; title = "Allow using AirPlay"; ObjectID = "hwg-eH-cMm"; */
-"hwg-eH-cMm.title" = "AirPlay erlauben";
+/* Class = "NSButtonCell"; title = "Use built-in display"; ObjectID = "gma-Qm-KEF"; */
+"gma-Qm-KEF.title" = "Eingebautes Display benutzen";
+
+/* Class = "NSTextFieldCell"; title = "maximum allowed number of connected displays"; ObjectID = "hpd-SM-vcA"; */
+"hpd-SM-vcA.title" = "maximal erlaubte Displays";
+
+/* Class = "NSButtonCell"; title = "Allow display mirroring (affects also AirPlay Display)"; ObjectID = "hwg-eH-cMm"; */
+"hwg-eH-cMm.title" = "Display-Mirroring erlauben (u.a. AirPlay-Monitor)";
 
 /* Class = "NSTextFieldCell"; title = "Options in the Windows Security Screen invoked by Ctrl-Alt-Del"; ObjectID = "i04-6r-xmo"; */
 "i04-6r-xmo.title" = "Optionen im durch Ctrl-Alt-Del geöffneten Windows-Sicherheitsfenster";
@@ -187,8 +199,8 @@
 /* Class = "NSTextFieldCell"; title = "Save log file to:"; ObjectID = "nui-Ct-A6q"; */
 "nui-Ct-A6q.title" = "Log speichern:";
 
-/* Class = "NSButton"; ibShadowedToolTip = "If AirPlay isn't allowed, SEB attempts to stop a running AirPlay connection when starting/restarting"; ObjectID = "oq3-9u-BrJ"; */
-"oq3-9u-BrJ.ibShadowedToolTip" = "Wenn AirPlay nicht erlaubt ist, stoppt SEB eine aktive AirPlay-Verbindung";
+/* Class = "NSButton"; ibShadowedToolTip = "If not selected, SEB prevents to mirror the main display to another (for example an AirPlay Display)"; ObjectID = "oq3-9u-BrJ"; */
+"oq3-9u-BrJ.ibShadowedToolTip" = "SEB verhindert, dass der Hauptbildschirm auf einen anderen gespiegelt wird (beispielsweise auf einen AirPlay-Monitor)";
 
 /* Class = "NSButtonCell"; title = "Enable F9"; ObjectID = "q3q-Xm-TRl"; */
 "q3q-Xm-TRl.title" = "F9 erlauben";
