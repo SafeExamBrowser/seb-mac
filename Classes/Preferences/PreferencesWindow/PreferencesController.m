@@ -941,7 +941,7 @@
                     }
                     if (fileURLUpdate) {
                         NSString *settingsSavedTitle = configPurpose ? NSLocalizedString(@"Settings for Configuring Client", nil) : NSLocalizedString(@"Settings for Starting Exam", nil);
-                        NSString *settingsSavedMessage = configPurpose ? NSLocalizedString(@"Settings have been saved, use this file to configure local settings of a SEB client.", nil) : NSLocalizedString(@"Settings have been saved, use this file to start an exam with SEB.", nil);
+                        NSString *settingsSavedMessage = configPurpose ? NSLocalizedString(@"Settings have been saved, use this file to configure a SEB client permanently.", nil) : NSLocalizedString(@"Settings have been saved, use this file to start an exam with SEB.", nil);
                         NSAlert *settingsSavedAlert = [[NSAlert alloc] init];
                         [settingsSavedAlert setMessageText:settingsSavedTitle];
                         [settingsSavedAlert setInformativeText:settingsSavedMessage];
