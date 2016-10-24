@@ -187,8 +187,18 @@ void DisposeWindow (
     DDLogDebug(@"%s window is currently on screen %@", __FUNCTION__, self.window.screen);
 #endif
     
+    NSScreen *currentScreen = self.window.screen;
+    // Check if window is off-screen or the new screen is inactive
+    if (currentScreen.inactive) {
+        // Yes: Move the window back to the screen it has been on before
+        currentScreen = _previousScreen;
+#ifdef DEBUG
+        DDLogDebug(@"Screen is inactive, move window back to previous screen %@", currentScreen);
+#endif
+    }
+
     // Move the window back to the screen is has been on previously
-    [self adjustWindowForScreen:_previousScreen moveBack:(_browserController.sebController.inactiveScreenWindows.count > 0)];
+    [self adjustWindowForScreen:currentScreen moveBack:(_browserController.sebController.inactiveScreenWindows.count > 0)];
     [self updateCoveringIntersectingInactiveScreens];
 }
 
