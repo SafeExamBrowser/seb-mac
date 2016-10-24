@@ -155,7 +155,7 @@ void DisposeWindow (
         NSDate *dateNow = [NSDate date];
         
         _windowWatchTimer = [[NSTimer alloc] initWithFireDate:dateNow
-                                                     interval: 0.1
+                                                     interval: 0.05
                                                        target: self
                                                      selector:@selector(windowScreenWatcher)
                                                      userInfo:nil repeats:YES];
@@ -184,13 +184,12 @@ void DisposeWindow (
     // or if it is outside of any screen
 #ifdef DEBUG
     DDLogDebug(@"%s number of inactive screen covering windows %lu", __FUNCTION__, (unsigned long)_browserController.sebController.inactiveScreenWindows.count);
+    DDLogDebug(@"%s window is currently on screen %@", __FUNCTION__, self.window.screen);
 #endif
-    if (_browserController.sebController.inactiveScreenWindows.count > 0 || !self.window.screen) {
-        // Move the window back to the screen is has been on previously
-        [self adjustWindowForScreen:_previousScreen moveBack:true];
-        [self updateCoveringIntersectingInactiveScreens];
-        DDLogDebug(@"%s: Window frame %@", __FUNCTION__, CGRectCreateDictionaryRepresentation(self.window.frame));
-    }
+    
+    // Move the window back to the screen is has been on previously
+    [self adjustWindowForScreen:_previousScreen moveBack:(_browserController.sebController.inactiveScreenWindows.count > 0)];
+    [self updateCoveringIntersectingInactiveScreens];
 }
 
 
@@ -262,8 +261,7 @@ void DisposeWindow (
 - (void)adjustWindowForScreen:(NSScreen *)newScreen moveBack:(BOOL)movingWindowBack
 {
     NSUInteger pressedButtons = [NSEvent pressedMouseButtons];
-    if (!adjustingWindowForScreen && ((pressedButtons & (1 << 0)) != (1 << 0))) {
-//        adjustingWindowForScreen = true;
+    if (((pressedButtons & (1 << 0)) != (1 << 0))) {
         
         if (newScreen && !newScreen.inactive) {
             _previousScreen = newScreen;
@@ -275,14 +273,15 @@ void DisposeWindow (
         
         // Check if SEB Dock is displayed and reduce visibleFrame accordingly
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
-            CGFloat dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
+        BOOL showDock = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"];
+        CGFloat dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
+        if (showDock) {
             newFrame.origin.y += dockHeight;
             newFrame.size.height -= dockHeight;
         }
         if (movingWindowBack) {
             NSRect recalculatedFrame = NSMakeRect(newFrame.origin.x, newFrame.origin.y, self.window.frame.size.width, newFrame.size.height);
-            [self.window setFrame:recalculatedFrame display:YES animate:NO];
+            [self.window setFrame:recalculatedFrame display:YES animate:YES];
             DDLogDebug(@"Moved browser window back to previous screen, frame: %@", CGRectCreateDictionaryRepresentation(recalculatedFrame));
             
         } else {
@@ -295,6 +294,13 @@ void DisposeWindow (
             if (oldWindowFrame.size.width > newFrame.size.width) {
                 newWindowFrame = NSMakeRect(newFrame.origin.x, oldWindowFrame.origin.y, newFrame.size.width, oldWindowFrame.size.height);
             }
+            // Check if top of window is hidden below the dock (if visible)
+            // or just slightly (20 points) above the bottom edge of the visible screen space
+            if ((newWindowFrame.origin.y + newWindowFrame.size.height) < (newFrame.origin.y + 22)) { //showDock * dockHeight +
+                // In this case shift the window up
+                newWindowFrame = NSMakeRect(newWindowFrame.origin.x, newFrame.origin.y, newWindowFrame.size.width, newWindowFrame.size.height);
+            }
+            
             [self.window setFrame:newWindowFrame display:YES animate:YES];
             DDLogDebug(@"Adjusted window frame for new screen to: %@", CGRectCreateDictionaryRepresentation(newWindowFrame));
         }
@@ -306,7 +312,6 @@ void DisposeWindow (
              postNotificationName:@"mainScreenChanged" object:self];
         }
         
-//        adjustingWindowForScreen = false;
     }
 }
 
