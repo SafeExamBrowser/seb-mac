@@ -2394,6 +2394,11 @@
                 <target>VMware Client Shade erlauben</target>
                 <note>Class = "NSButtonCell"; title = "Enable VMware Client Shade"; ObjectID = "Y3K-X1-40d";</note>
             </trans-unit>
+            <trans-unit id="ZZ6-sG-BWw.ibShadowedToolTip">
+                <source>If more displays are connected, these are blanked with an orange full screen window</source>
+                <note>Class = "NSComboBox"; ibShadowedToolTip = "If more displays are connected, these are blanked with an orange full screen window"; ObjectID = "ZZ6-sG-BWw";</note>
+                <target>Wenn mehr Bildschirme angeschlossen sind, werden diese mit einem orangen Fenster abgedeckt.</target>
+            </trans-unit>
             <trans-unit id="a9Y-jJ-E1h.ibShadowedToolTip">
                 <source>SEB checks for the command key being held down while SEB is starting up. This prevents using the application switcher to mess with SEB's kiosk mode</source>
                 <target>SEB überprüft während des Aufstartens, ob die Befehlstaste (cmd) gedrückt gehalten wird. Dies verhindert Manipulationen mit Hilfe des Programmumschalters</target>
@@ -2403,6 +2408,11 @@
                 <source>Enable Alt-Esc</source>
                 <target>Alt-Esc erlauben</target>
                 <note>Class = "NSButtonCell"; title = "Enable Alt-Esc"; ObjectID = "bTO-u1-Mao";</note>
+            </trans-unit>
+            <trans-unit id="btE-nf-WWC.ibShadowedToolTip">
+                <source>Use the built-in display (if available) when only one display is allowed or when switching off display mirroring</source>
+                <note>Class = "NSButton"; ibShadowedToolTip = "Use the built-in display (if available) when only one display is allowed or when switching off display mirroring"; ObjectID = "btE-nf-WWC";</note>
+                <target>Den eingebauten Bildschirm (falls vorhanden) benutzen, wenn nur ein Display erlaubt ist oder wenn Display-Mirroring beendet wird.</target>
             </trans-unit>
             <trans-unit id="dYr-I9-VL8.title">
                 <source>While running SEB</source>
@@ -2424,10 +2434,20 @@
                 <target>Steuert macOS Bildschirmfotos (cmd-3 und cmd-4), entspricht 'Print Screen'-Taste (Windows 'Hooked Keys' Einstellungen)</target>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Controls macOS screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows"; ObjectID = "g34-gq-Owk";</note>
             </trans-unit>
+            <trans-unit id="gma-Qm-KEF.title">
+                <source>Use built-in display</source>
+                <note>Class = "NSButtonCell"; title = "Use built-in display"; ObjectID = "gma-Qm-KEF";</note>
+                <target>Eingebautes Display benutzen</target>
+            </trans-unit>
+            <trans-unit id="hpd-SM-vcA.title">
+                <source>maximum allowed number of connected displays</source>
+                <note>Class = "NSTextFieldCell"; title = "maximum allowed number of connected displays"; ObjectID = "hpd-SM-vcA";</note>
+                <target>maximal erlaubte Displays</target>
+            </trans-unit>
             <trans-unit id="hwg-eH-cMm.title">
-                <source>Allow using AirPlay</source>
-                <target>AirPlay erlauben</target>
-                <note>Class = "NSButtonCell"; title = "Allow using AirPlay"; ObjectID = "hwg-eH-cMm";</note>
+                <source>Allow display mirroring (affects also AirPlay Display)</source>
+                <target>Display-Mirroring erlauben (u.a. AirPlay-Monitor)</target>
+                <note>Class = "NSButtonCell"; title = "Allow display mirroring (affects also AirPlay Display)"; ObjectID = "hwg-eH-cMm";</note>
             </trans-unit>
             <trans-unit id="i04-6r-xmo.title">
                 <source>Options in the Windows Security Screen invoked by Ctrl-Alt-Del</source>
@@ -2470,9 +2490,9 @@
                 <note>Class = "NSTextFieldCell"; title = "Save log file to:"; ObjectID = "nui-Ct-A6q";</note>
             </trans-unit>
             <trans-unit id="oq3-9u-BrJ.ibShadowedToolTip">
-                <source>If AirPlay isn't allowed, SEB attempts to stop a running AirPlay connection when starting/restarting</source>
-                <target>Wenn AirPlay nicht erlaubt ist, stoppt SEB eine aktive AirPlay-Verbindung</target>
-                <note>Class = "NSButton"; ibShadowedToolTip = "If AirPlay isn't allowed, SEB attempts to stop a running AirPlay connection when starting/restarting"; ObjectID = "oq3-9u-BrJ";</note>
+                <source>If not selected, SEB prevents to mirror the main display to another (for example an AirPlay Display)</source>
+                <target>SEB verhindert, dass der Hauptbildschirm auf einen anderen gespiegelt wird (beispielsweise auf einen AirPlay-Monitor)</target>
+                <note>Class = "NSButton"; ibShadowedToolTip = "If not selected, SEB prevents to mirror the main display to another (for example an AirPlay Display)"; ObjectID = "oq3-9u-BrJ";</note>
             </trans-unit>
             <trans-unit id="q3q-Xm-TRl.title">
                 <source>Enable F9</source>
@@ -2690,8 +2710,8 @@
             </trans-unit>
             <trans-unit id="Code contributions © 2015 - 2016 Janison">
                 <source>Code contributions © 2015 - 2016 Janison</source>
-                <note>No comment provided by engineer.</note>
                 <target>Code-Beiträge © 2015 - 2016 Janison</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Config File">
                 <source>Config File</source>
@@ -2705,8 +2725,8 @@
             </trans-unit>
             <trans-unit id="Contributors: (see below)">
                 <source>Contributors: (see below)</source>
-                <note>No comment provided by engineer.</note>
                 <target>Externe Beiträge: (siehe unten)</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Correct password entered, closing lockdown windows">
                 <source>Correct password entered, closing lockdown windows</source>
@@ -2999,7 +3019,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
             </trans-unit>
             <trans-unit id="Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.">
                 <source>Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.</source>
-                <target>Die lokalen Client-Einstellungen haben die Option 'Einstellungen-Fenster darf auf Client geöffnet werden' deaktiviert, was das Öffnen des Einstellungen-Fensters selbst nach einem Neustart von SEB verhindert. Sind Sie sicher, dass Sie das anwenden wollen? Ansonsten können Sie diese Option zurücksetzen.</target>
+                <target>Die lokalen Client-Einstellungen haben die Option 'Einstellungen-Fenster darf auf Client geöffnet werden' deaktiviert, was das Öffnen des Einstellungen-Fensters selbst nach einem Neustart von SEB verhindert. Sind Sie sicher, dass Sie dies anwenden wollen? Ansonsten können Sie diese Option zurücksetzen.</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.\n\nReset local settings and continue?">
@@ -3028,7 +3048,6 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
             <trans-unit id="Local settings of this SEB client have been reconfigured. Do you want to start working with SEB now or quit?">
                 <source>Local settings of this SEB client have been reconfigured. Do you want to start working with SEB now or quit?</source>
                 <target>Lokale Einstelllungen von SEB wurden neu konfiguriert. Wollen Sie jetzt mit SEB arbeiten oder beenden?</target>
-                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Main Browser Window">
                 <source>Main Browser Window</source>
@@ -3039,6 +3058,11 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
                 <source>Network</source>
                 <target>Netzwerk</target>
                 <note>Title of 'Network' preference pane</note>
+            </trans-unit>
+            <trans-unit id="New settings have been saved, they will be used when you start SEB next time again. Do you want to start working with SEB or quit for now?">
+                <source>New settings have been saved, they will be used when you start SEB next time again. Do you want to start working with SEB or quit for now?</source>
+                <note>No comment provided by engineer.</note>
+                <target>Neue Konfiguration wurde gespeichert, diese wird benutzt, wenn SEB das nächste Mal gestartet wird. Wollen Sie jetzt mit SEB arbeiten oder beenden?</target>
             </trans-unit>
             <trans-unit id="No Encryption Credentials Chosen">
                 <source>No Encryption Credentials Chosen</source>
@@ -3148,8 +3172,8 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
             </trans-unit>
             <trans-unit id="Project concept: Thomas Piendl, Daniel R. Schneider, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs.">
                 <source>Project concept: Thomas Piendl, Daniel R. Schneider, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs.</source>
-                <note>No comment provided by engineer.</note>
                 <target>Projekt-Konzept: Thomas Piendl, Daniel R. Schneider, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs.</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Quit">
                 <source>Quit</source>
@@ -3354,10 +3378,14 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
                 <target>Einstellungen zum Starten einer Prüfung</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
+            <trans-unit id="Settings have been saved, use this file to configure a SEB client permanently.">
+                <source>Settings have been saved, use this file to configure a SEB client permanently.</source>
+                <note>No comment provided by engineer.</note>
+                <target>Einstellungen wurden gespeichert, benutzen Sie diese Konfigurationsdatei, um einen SEB-Prüfungsrechner permanent zu konfigurieren.</target>
+            </trans-unit>
             <trans-unit id="Settings have been saved, use this file to configure local settings of a SEB client.">
                 <source>Settings have been saved, use this file to configure local settings of a SEB client.</source>
                 <target>Konfiguration wurde gespeichert, benutzen Sie diese Datei um die lokalen Einstellungen eines SEB-Clients umzukonfigurieren.</target>
-                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Settings have been saved, use this file to start an exam with SEB.">
                 <source>Settings have been saved, use this file to start an exam with SEB.</source>
@@ -3421,8 +3449,8 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
             </trans-unit>
             <trans-unit id="This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board.">
                 <source>This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board.</source>
-                <note>No comment provided by engineer.</note>
                 <target>Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.</target>
+                <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="This setting allows to switch to any application on the exam client computer. Use this option only when running SEB in a special user account managed by parental controls, with only SEB and the desired applications allowed.">
                 <source>This setting allows to switch to any application on the exam client computer. Use this option only when running SEB in a special user account managed by parental controls, with only SEB and the desired applications allowed.</source>
