@@ -147,13 +147,15 @@ void DisposeWindow (
 // Start the windows watcher if it's not yet running
 - (void)startWindowWatcher
 {
+#ifdef DEBUG
     DDLogDebug(@"%s", __FUNCTION__);
+#endif
     
     if (!_windowWatchTimer) {
-        NSDate *dateNextMinute = [NSDate date];
+        NSDate *dateNow = [NSDate date];
         
-        _windowWatchTimer = [[NSTimer alloc] initWithFireDate: dateNextMinute
-                                                     interval: 0.25
+        _windowWatchTimer = [[NSTimer alloc] initWithFireDate:dateNow
+                                                     interval: 0.1
                                                        target: self
                                                      selector:@selector(windowScreenWatcher)
                                                      userInfo:nil repeats:YES];
@@ -168,17 +170,26 @@ void DisposeWindow (
 // Start the windows watcher if it's not yet running
 - (void)stopWindowWatcher
 {
-    DDLogDebug(@"%s", __FUNCTION__);
+#ifdef DEBUG
+    DDLogDebug(@"%s on thread %@", __FUNCTION__, [NSThread currentThread]);
+#endif
     
     if (_windowWatchTimer) {
         [_windowWatchTimer invalidate];
         _windowWatchTimer = nil;
     }
+    dragStarted = false;
+    [self updateCoveringIntersectingInactiveScreens];
     // If window is still intersecting inactive screens (which are covered therefore)
-    if (_browserController.sebController.inactiveScreenWindows.count > 0) {
+    // or if it is outside of any screen
+#ifdef DEBUG
+    DDLogDebug(@"%s number of inactive screen covering windows %lu", __FUNCTION__, (unsigned long)_browserController.sebController.inactiveScreenWindows.count);
+#endif
+    if (_browserController.sebController.inactiveScreenWindows.count > 0 || !self.window.screen) {
         // Move the window back to the screen is has been on previously
         [self adjustWindowForScreen:_previousScreen moveBack:true];
         [self updateCoveringIntersectingInactiveScreens];
+        DDLogDebug(@"%s: Window frame %@", __FUNCTION__, CGRectCreateDictionaryRepresentation(self.window.frame));
     }
 }
 
@@ -190,65 +201,45 @@ void DisposeWindow (
     NSUInteger pressedButtons = [NSEvent pressedMouseButtons];
     if ((pressedButtons & (1 << 0)) != (1 << 0)) {
         [self stopWindowWatcher];
-        dragStarted = false;
     }
 }
 
 
 - (void)updateCoveringIntersectingInactiveScreens
 {
-    if (!updatingCoveringForIntersectingInactiveScreens) {
-        updatingCoveringForIntersectingInactiveScreens = true;
-        
-        NSPoint cursorPosition = [NSEvent mouseLocation];
-        
-        if (!dragStarted) {
-            dragStarted = true;
-            // Save mouse position when starting dragging
-            dragCursorStartPosition = cursorPosition;
-        }
-        
-#define MAX_DISPLAYS (16)
-        NSRect windowFrame;
-        CGDirectDisplayID intersectingDisplays[MAX_DISPLAYS];
-        CGDisplayCount displayCount;
-        
-        windowFrame = self.window.frame;
-        
-        NSPoint cursorDisplacement = NSMakePoint(cursorPosition.x - dragCursorStartPosition.x, cursorPosition.y - dragCursorStartPosition.y);
-        NSRect actualWindowFrame = NSMakeRect(windowFrame.origin.x + cursorDisplacement.x,
-                                              windowFrame.origin.y + cursorDisplacement.y,
-                                              windowFrame.size.width,
-                                              windowFrame.size.height);
-        
-        // Get online displays which the window frame intersects
-        CGGetDisplaysWithRect(actualWindowFrame, MAX_DISPLAYS, intersectingDisplays, &displayCount);
-#ifdef DEBUG
-        DDLogDebug(@"Window is on %u screen(s) and has frame %@", displayCount,CGRectCreateDictionaryRepresentation(actualWindowFrame));
-#endif
-        NSMutableArray *inactiveScreensToCover = [NSMutableArray new];
-        
-        for(int i = 0; i < displayCount; i++)
-        {
-            CGDirectDisplayID display = intersectingDisplays[i];
-            NSArray *inactiveDisplays = _browserController.sebController.inactiveDisplays.copy;
-            NSUInteger indexOfDisplay = [inactiveDisplays indexOfObjectPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if ([[obj valueForKey:@"displayID"] isEqualTo:[NSNumber numberWithInt:display]]) {
-                    *stop = YES;
-                    return YES;
-                }
-                return NO;
-            }];
-            if (indexOfDisplay != NSNotFound) {
-                [inactiveScreensToCover addObject:[inactiveDisplays[indexOfDisplay] valueForKey:@"screen"]];
-            }
-        }
-        // Cover currently intersected inactive screens and
-        // remove cover windows of no longer intersected screens
-        [_browserController.sebController coverInactiveScreens:[inactiveScreensToCover copy]];
-        
-        updatingCoveringForIntersectingInactiveScreens = false;
+    
+    NSPoint cursorPosition = [NSEvent mouseLocation];
+    
+    if (!dragStarted) {
+        dragStarted = true;
+        // Save mouse position when starting dragging
+        dragCursorStartPosition = cursorPosition;
     }
+    NSRect windowFrame = self.window.frame;
+    
+    NSPoint cursorDisplacement = NSMakePoint(cursorPosition.x - dragCursorStartPosition.x, cursorPosition.y - dragCursorStartPosition.y);
+    NSRect actualWindowFrame = NSMakeRect(windowFrame.origin.x + cursorDisplacement.x,
+                                          windowFrame.origin.y + cursorDisplacement.y,
+                                          windowFrame.size.width,
+                                          windowFrame.size.height);
+
+    // Get screens which the window frame intersects
+    NSArray *allScreens = [NSScreen screens];
+    NSMutableArray *intersectingScreens = [NSMutableArray new];
+    for (NSScreen *screen in allScreens) {
+        if (CGRectIntersectsRect(actualWindowFrame, screen.frame) && screen.inactive) {
+            [intersectingScreens addObject:screen];
+        }
+    }
+    
+#ifdef DEBUG
+    DDLogDebug(@"Window is on %lu inactive screen(s) and has frame %@", (unsigned long)intersectingScreens.count, CGRectCreateDictionaryRepresentation(actualWindowFrame));
+#endif
+
+    // Cover currently intersected inactive screens and
+    // remove cover windows of no longer intersected screens
+    [_browserController.sebController coverInactiveScreens:[intersectingScreens copy]];
+    
 }
 
 
@@ -256,54 +247,66 @@ void DisposeWindow (
 {
     NSScreen *currentScreen = self.window.screen;
     BOOL movingWindowBack = false;
-    // Check if the new screen is inactive
+    DDLogDebug(@"windowDidChangeScreen to %@", currentScreen);
+    // Check if window is off-screen or the new screen is inactive
     if (currentScreen.inactive) {
         // Yes: Move the window back to the screen it has been on before
         currentScreen = _previousScreen;
         movingWindowBack = true;
+        DDLogDebug(@"Screen is inactive, move window back to previous screen %@", currentScreen);
     }
     [self adjustWindowForScreen:currentScreen moveBack:movingWindowBack];
 }
 
 
-- (void)adjustWindowForScreen:(NSScreen *)currentScreen moveBack:(BOOL)movingWindowBack
+- (void)adjustWindowForScreen:(NSScreen *)newScreen moveBack:(BOOL)movingWindowBack
 {
-    _previousScreen = currentScreen;
-    
-    // Check if Window is too heigh for the new screen
-    // Get screen visible frame
-    NSRect newFrame = currentScreen.visibleFrame;
-    
-    // Check if SEB Dock is displayed and reduce visibleFrame accordingly
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
-        CGFloat dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
-        newFrame.origin.y += dockHeight;
-        newFrame.size.height -= dockHeight;
-    }
-    if (movingWindowBack) {
-        NSRect recalculatedFrame = NSMakeRect(newFrame.origin.x, newFrame.origin.y, self.window.frame.size.width, newFrame.size.height);
-        [self.window setFrame:recalculatedFrame display:YES animate:NO];
-        DDLogDebug(@"Moved browser window back to previous screen");
+    NSUInteger pressedButtons = [NSEvent pressedMouseButtons];
+    if (!adjustingWindowForScreen && ((pressedButtons & (1 << 0)) != (1 << 0))) {
+//        adjustingWindowForScreen = true;
         
-    } else {
-        NSRect oldWindowFrame = self.window.frame;
-        NSRect newWindowFrame = oldWindowFrame;
-        if (oldWindowFrame.size.height > newFrame.size.height) {
-            newWindowFrame = NSMakeRect(oldWindowFrame.origin.x, newFrame.origin.y, oldWindowFrame.size.width, newFrame.size.height);
-            oldWindowFrame = newWindowFrame;
+        if (newScreen && !newScreen.inactive) {
+            _previousScreen = newScreen;
         }
-        if (oldWindowFrame.size.width > newFrame.size.width) {
-            newWindowFrame = NSMakeRect(newFrame.origin.x, oldWindowFrame.origin.y, newFrame.size.width, oldWindowFrame.size.height);
+        
+        // Check if Window is too heigh for the new screen
+        // Get screen visible frame
+        NSRect newFrame = newScreen.visibleFrame;
+        
+        // Check if SEB Dock is displayed and reduce visibleFrame accordingly
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
+            CGFloat dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
+            newFrame.origin.y += dockHeight;
+            newFrame.size.height -= dockHeight;
         }
-        [self.window setFrame:newWindowFrame display:YES animate:YES];
-    }
-    
-    // If this is the main browser window, check if it's still on the same screen as when the dock was opened
-    if (!movingWindowBack && self.window == self.browserController.mainBrowserWindow) {
-        // Post a notification that the main screen changed
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"mainScreenChanged" object:self];
+        if (movingWindowBack) {
+            NSRect recalculatedFrame = NSMakeRect(newFrame.origin.x, newFrame.origin.y, self.window.frame.size.width, newFrame.size.height);
+            [self.window setFrame:recalculatedFrame display:YES animate:NO];
+            DDLogDebug(@"Moved browser window back to previous screen, frame: %@", CGRectCreateDictionaryRepresentation(recalculatedFrame));
+            
+        } else {
+            NSRect oldWindowFrame = self.window.frame;
+            NSRect newWindowFrame = oldWindowFrame;
+            if (oldWindowFrame.size.height > newFrame.size.height) {
+                newWindowFrame = NSMakeRect(oldWindowFrame.origin.x, newFrame.origin.y, oldWindowFrame.size.width, newFrame.size.height);
+                oldWindowFrame = newWindowFrame;
+            }
+            if (oldWindowFrame.size.width > newFrame.size.width) {
+                newWindowFrame = NSMakeRect(newFrame.origin.x, oldWindowFrame.origin.y, newFrame.size.width, oldWindowFrame.size.height);
+            }
+            [self.window setFrame:newWindowFrame display:YES animate:YES];
+            DDLogDebug(@"Adjusted window frame for new screen to: %@", CGRectCreateDictionaryRepresentation(newWindowFrame));
+        }
+        
+        // If this is the main browser window, check if it's still on the same screen as when the dock was opened
+        if (!movingWindowBack && self.window == self.browserController.mainBrowserWindow) {
+            // Post a notification that the main screen changed
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"mainScreenChanged" object:self];
+        }
+        
+//        adjustingWindowForScreen = false;
     }
 }
 

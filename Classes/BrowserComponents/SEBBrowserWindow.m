@@ -59,6 +59,12 @@
 }
 
 
+- (NSTimeInterval)animationResizeTime:(NSRect)newFrame
+{
+    return 0.1;
+}
+
+
 // Overriding setTitle method to adjust position of progress indicator
 - (void)setTitle:(NSString *)title
 {
