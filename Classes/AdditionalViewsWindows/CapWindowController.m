@@ -62,10 +62,6 @@
     DDLogDebug(@"Cap window %@ didLoad.", self.window);
 }
 
-
-// -------------------------------------------------------------------------------
-//	awakeFromNib
-// -------------------------------------------------------------------------------
 - (void)awakeFromNib
 {
     DDLogDebug(@"Cap window %@ awakeFromNib.", self.window);

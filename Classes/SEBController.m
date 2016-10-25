@@ -925,7 +925,9 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     for (NSDictionary *window in windowList) {
         NSString *windowName = [window objectForKey:@"kCGWindowName" ];
         NSString *windowOwner = [window objectForKey:@"kCGWindowOwnerName" ];
+#ifdef DEBUG
         NSString *windowNumber = [window objectForKey:@"kCGWindowNumber" ];
+#endif
 
         if (_allowSwitchToApplications && [windowName isEqualToString:@"NotificationTableWindow"] && ![_preferencesController preferencesAreOpen]) {
             // If switching to applications is allowed and the Notification Center was opened
@@ -1117,13 +1119,9 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     CGDirectDisplayID mainDisplay = kCGNullDirectDisplay;
     BOOL useBuiltin = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowedDisplayBuiltin"];
     NSUInteger maxAllowedDisplays = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowedDisplaysMaxNumber"];
-    if (!_inactiveDisplays) {
-        _inactiveDisplays = [NSMutableArray new];
-    } else {
-        [_inactiveDisplays removeAllObjects];
-    }
-    
-    for(int i = 0; i < displayCount; i++)
+    DDLogInfo(@"Current Settings: Maximum allowed displays: %lu, %suse built-in display.", maxAllowedDisplays, useBuiltin ? "" : "don't ");
+
+    for (int i = 0; i < displayCount; i++)
     {
         CGDirectDisplayID display = onlineDisplays[i];
         CGRect bounds = CGDisplayBounds(display);
@@ -1134,8 +1132,20 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         BOOL isAlwaysMirrored = CGDisplayIsAlwaysInMirrorSet(display);
         BOOL isCaptured = CGDisplayIsCaptured(display);
         uint32_t vendorID = CGDisplayVendorNumber(display);
+        NSString *displayName = [NSScreen displayNameForID:display];
         
-        DDLogInfo(@"Display %@ from vendor %u with Resolution %f x %f\n is %sbuilt-in\n is %smain\n is %smirrored\n is %sHW mirrored\n is %salways mirrored\n is %scaptured", [NSScreen displayNameForID:display], vendorID, bounds.size.width, bounds.size.height, isBuiltin ? "" : "not ", isMain ? "" : "not ", isMirrored ? "" : "not ", isHWMirrored ? "" : "not ", isAlwaysMirrored ? "" : "not ", isCaptured ? "" : "not ");
+        DDLogInfo(@"Display %@ (ID %u) from vendor %u with Resolution %f x %f\n is %sbuilt-in\n is %smain\n is %smirrored\n is %sHW mirrored\n is %salways mirrored\n is %scaptured",
+                  displayName,
+                  display,
+                  vendorID,
+                  bounds.size.width,
+                  bounds.size.height,
+                  isBuiltin ? "" : "not ",
+                  isMain ? "" : "not ",
+                  isMirrored ? "" : "not ",
+                  isHWMirrored ? "" : "not ",
+                  isAlwaysMirrored ? "" : "not ",
+                  isCaptured ? "" : "not ");
         
         if (!allowDisplayMirroring && (isMirrored || isHWMirrored)) {
             CGDisplayConfigRef displayConfigRef;
@@ -1165,11 +1175,13 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         
         // Has the display the built-in flag set?
         if (isBuiltin) {
+            DDLogInfo(@"Display %@ (ID %u) is claming to be built-in", displayName, display);
             // Check if we already found another display which claims (maybe untruthfully) to be built-in
-            if (builtinDisplay) {
+            if (builtinDisplay != kCGNullDirectDisplay) {
                 // Another display claimed to be built-in, check if this one has the Apple vendor number
                 if (vendorID == 1552) {
                     // This seems to be the real built-in display, rembember it
+                    DDLogInfo(@"Display %@ (ID %u) seems to be the real built-in display, as its vendor ID is 1552", displayName, display);
                     builtinDisplay = display;
                 }
             } else {
@@ -1181,6 +1193,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 
     // Check if the the built-in display should be the main according to settings
     if (useBuiltin) {
+        DDLogInfo(@"Use built-in option set, using display with ID %u", builtinDisplay);
         mainDisplay = builtinDisplay;
     }
 
@@ -1188,12 +1201,13 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     NSArray *screens = [NSScreen screens];	// get all available screens
     
     // If a main display already has been identified
-    if (mainDisplay) {
+    if (mainDisplay != kCGNullDirectDisplay) {
         // we find the matching main screen
         for (NSScreen *iterScreen in screens)
         {
             CGDirectDisplayID screenDisplayID = iterScreen.displayID.intValue;
             if (screenDisplayID == mainDisplay) {
+                DDLogInfo(@"Found matching screen (%@) for main display (ID %u)", iterScreen, mainDisplay);
                 mainScreen = iterScreen;
                 iterScreen.inactive = false;
                 maxAllowedDisplays--;
@@ -1208,10 +1222,10 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         if (iterScreen != mainScreen) {
             if (displaysCounter < maxAllowedDisplays) {
                 iterScreen.inactive = false;
+                DDLogInfo(@"Flagged screen %@ as active", iterScreen);
             } else {
                 iterScreen.inactive = true;
-                [_inactiveDisplays addObject: @{@"screen": iterScreen,
-                                                @"displayID": iterScreen.displayID}];
+                DDLogInfo(@"Flagged screen %@ as inactive", iterScreen);
             }
         }
         displaysCounter++;
@@ -1223,6 +1237,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         {
             if (iterScreen.inactive == false && iterScreen.displayID.intValue != builtinDisplay) {
                 mainScreen = iterScreen;
+                DDLogInfo(@"No main display identified before, so taking the first non-built-in screen %@ as main screen.", iterScreen);
                 break;
             }
         }
@@ -1232,6 +1247,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     // so we take that single active display
     if (!mainScreen) {
         mainScreen = screens[0];
+        DDLogInfo(@"Still no main display? Probably there is only one non-built-in display connected (number of screens: %lu), so we take that single active screen %@ as main screen.", (unsigned long)screens.count, mainScreen);
     }
     
     // Move all browser windows to the previous main screen (if they aren't on it already)
@@ -1473,7 +1489,16 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 //        NSHost *host;
 //        host = [NSHost currentHost];
 
-        DDLogInfo(@"---------- INITIALIZING SEB - STARTING SESSION -------------");
+        DDLogError(@"---------- INITIALIZING SEB - STARTING SESSION -------------");
+        NSString *displayName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleDisplayName"];
+        NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
+        NSString *buildNumber = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
+        NSString *bundleID = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"];
+        NSString *bundleExecutable = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleExecutable"];
+        DDLogError(@"%@ Version %@ (Build %@)", displayName, versionString, buildNumber);
+        DDLogError(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
+        DDLogError(@"Default browser user agent string: %@", [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"]);
+
         DDLogInfo(@"Local hostname: %@", localHostname);
         DDLogInfo(@"Computer name: %@", computerName);
         DDLogInfo(@"User name: %@", userName);
@@ -2677,7 +2702,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 
 - (void)requestedRestart:(NSNotification *)notification
 {
-    DDLogInfo(@"---------- RESTARTING SEB SESSION -------------");
+    DDLogError(@"---------- RESTARTING SEB SESSION -------------");
 
     // Switch off display mirroring if it isn't allowed in settings
     [self conditionallyTerminateDisplayMirroring];
@@ -3060,7 +3085,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 	IOPMAssertionRelease(assertionID1);
 	/*// Allow system to sleep again
 	success = IOPMAssertionRelease(assertionID2);*/
-    DDLogInfo(@"---------- EXITING SEB - ENDING SESSION -------------");
+    DDLogError(@"---------- EXITING SEB - ENDING SESSION -------------");
 }
 
 
