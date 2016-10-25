@@ -1210,7 +1210,6 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                 DDLogInfo(@"Found matching screen (%@) for main display (ID %u)", iterScreen, mainDisplay);
                 mainScreen = iterScreen;
                 iterScreen.inactive = false;
-                maxAllowedDisplays--;
             }
         }
     }
