@@ -185,7 +185,7 @@
     // Get frame of the visible screen (considering if menu bar is enabled)
     NSRect screenFrame = screen.visibleFrame;
     // Check if SEB Dock is displayed and reduce visibleFrame accordingly
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
+    if (screen == self.browserController.mainBrowserWindow.screen && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
         double dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
         screenFrame.origin.y += dockHeight;
         screenFrame.size.height -= dockHeight;
@@ -774,7 +774,7 @@
 //    {
 //    }
     
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
+    if (self.screen == self.browserController.mainBrowserWindow.screen && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
         CGFloat dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
         newFrame.origin.y += dockHeight;
         newFrame.size.height -= dockHeight;

@@ -77,6 +77,10 @@ void DisposeWindow (
     
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
     SEBBrowserWindow *browserWindow = (SEBBrowserWindow *)self.window;
+    
+    // Set the reference to the browser controller in the browser window instance
+    browserWindow.browserController = _browserController;
+
     [browserWindow setCalculatedFrame];
     self.browserController.activeBrowserWindow = (SEBBrowserWindow *)self.window;
     _previousScreen = self.window.screen;
@@ -285,7 +289,7 @@ void DisposeWindow (
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         BOOL showDock = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"];
         CGFloat dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
-        if (showDock) {
+        if (newScreen == self.browserController.mainBrowserWindow.screen && showDock) {
             newFrame.origin.y += dockHeight;
             newFrame.size.height -= dockHeight;
         }

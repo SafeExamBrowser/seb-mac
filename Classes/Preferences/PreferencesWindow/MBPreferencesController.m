@@ -376,11 +376,10 @@ static MBPreferencesController *sharedPreferencesController = nil;
     }
 }
 
-// -------------------------------------------------------------------------------
+
 //	dropDownAction:sender
 //
 //	User clicked the DropDownButton.
-// -------------------------------------------------------------------------------
 - (IBAction)dropDownAction:(id)sender
 {
 	// Drop down button clicked

@@ -168,7 +168,6 @@
 @property(strong) NSDate *didBecomeActiveTime;
 @property(strong) NSDate *didResumeExamTime;
 @property(strong) NSTimer *windowWatchTimer;
-@property(strong) NSMutableArray *inactiveDisplays;
 @property(strong) NSMutableArray *systemProcessPIDs;
 @property(strong) NSMutableArray *terminatedProcessesExecutableURLs;
 

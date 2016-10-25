@@ -175,15 +175,16 @@
 - (SEBBrowserWindowDocument *) openBrowserWindowDocument
 {
     NSError *error;
-    SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:&error];
+    SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:NO error:&error];
     
     if (!error) {
-        // Set the reference to the browser controller in the browser window controller instance
-        browserWindowDocument.mainWindowController.browserController = self;
+        // Set the reference to the browser controller in the browser window document instance
+        browserWindowDocument.browserController = self;
         
-        // Set the reference to the browser controller in the browser window instance
+        // Show the browser window document = browser window
+        [browserWindowDocument makeWindowControllers];
+        
         SEBBrowserWindow *newWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
-        newWindow.browserController = self;
         
         // Prevent that the browser window displays the button to make it fullscreen in OS X 10.11
         // and that it would allow to be used in split screen mode
@@ -442,6 +443,8 @@
 - (void)openResourceWithURL:(NSString *)URL andTitle:(NSString *)title
 {
     NSError *error;
+    
+    /// ToDo: change opening and passing the reference to self
     SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:&error];
     if (!error) {
         NSWindow *additionalBrowserWindow = browserWindowDocument.mainWindowController.window;
