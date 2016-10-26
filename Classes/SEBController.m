@@ -1191,65 +1191,57 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         }
     }
 
-    // Check if the the built-in display should be the main according to settings
+    NSScreen *mainScreen = nil;
+    NSMutableArray *screens = [NSScreen screens].mutableCopy;	// get all available screens
+    
+    // Check if the the built-in display should be the main display according to settings
     if (useBuiltin) {
         DDLogInfo(@"Use built-in option set, using display with ID %u", builtinDisplay);
-        mainDisplay = builtinDisplay;
-    }
-
-    NSScreen *mainScreen = nil;
-    NSArray *screens = [NSScreen screens];	// get all available screens
-    
-    // If a main display already has been identified
-    if (mainDisplay != kCGNullDirectDisplay) {
         // we find the matching main screen
-        for (NSScreen *iterScreen in screens)
+        for (NSUInteger i = 0; i < screens.count; i++)
         {
+            NSScreen *iterScreen = screens[i];
             CGDirectDisplayID screenDisplayID = iterScreen.displayID.intValue;
-            if (screenDisplayID == mainDisplay) {
+            if (screenDisplayID == builtinDisplay) {
                 DDLogInfo(@"Found matching screen (%@) for main display (ID %u)", iterScreen, mainDisplay);
                 mainScreen = iterScreen;
-                iterScreen.inactive = false;
+                mainScreen.inactive = false;
+                [screens removeObjectAtIndex:i];
             }
         }
-    }
-    
-    // Flag screens active or inactive
-    NSUInteger displaysCounter = 0;
-    for (NSScreen *iterScreen in screens)
-    {
-        if (iterScreen != mainScreen) {
-            if (displaysCounter < maxAllowedDisplays) {
-                iterScreen.inactive = false;
-                DDLogInfo(@"Flagged screen %@ as active", iterScreen);
-            } else {
-                iterScreen.inactive = true;
-                DDLogInfo(@"Flagged screen %@ as inactive", iterScreen);
-            }
-        }
-        displaysCounter++;
     }
     
     // If no main display has been identified, we take the first non-built-in
     if (!mainScreen) {
-        for (NSScreen *iterScreen in screens)
+        for (NSUInteger i = 0; i < screens.count; i++)
         {
-            if (iterScreen.inactive == false && iterScreen.displayID.intValue != builtinDisplay) {
+            NSScreen *iterScreen = screens[i];
+            CGDirectDisplayID screenDisplayID = iterScreen.displayID.intValue;
+            if (screenDisplayID != builtinDisplay) {
+                DDLogInfo(@"Found matching non built-in screen (%@) for main display", iterScreen);
                 mainScreen = iterScreen;
-                DDLogInfo(@"No main display identified before, so taking the first non-built-in screen %@ as main screen.", iterScreen);
-                break;
+                mainScreen.inactive = false;
+                [screens removeObjectAtIndex:i];
             }
         }
     }
-
-    // Still no main display? Probably there is only one non-built-in display connected
-    // so we take that single active display
-    if (!mainScreen) {
-        mainScreen = screens[0];
-        DDLogInfo(@"Still no main display? Probably there is only one non-built-in display connected (number of screens: %lu), so we take that single active screen %@ as main screen.", (unsigned long)screens.count, mainScreen);
+    
+    // Flag remaining screens active or inactive
+    NSUInteger displaysCounter = (mainScreen != nil);
+    for (NSScreen *iterScreen in screens)
+    {
+        if (displaysCounter < maxAllowedDisplays) {
+            iterScreen.inactive = false;
+            DDLogInfo(@"Flagged screen %@ as active", iterScreen);
+        } else {
+            iterScreen.inactive = true;
+            DDLogInfo(@"Flagged screen %@ as inactive", iterScreen);
+        }
+        displaysCounter++;
     }
     
     // Move all browser windows to the previous main screen (if they aren't on it already)
+    DDLogInfo(@"Move all browser windows to new main screen %@.", mainScreen);
     [self.browserController moveAllBrowserWindowsToScreen:mainScreen];
 }
 
@@ -1816,6 +1808,11 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     DDLogDebug(@"NSApplicationDidChangeScreenParametersNotification");
     
     if (![self.preferencesController preferencesAreOpen]) {
+
+        // Close inactive screen covering windows if some are open
+        for (CapWindow *coverWindowToClose in _inactiveScreenWindows) {
+            [coverWindowToClose close];
+        }
 
         // Switch off display mirroring if it isn't allowed
         [self conditionallyTerminateDisplayMirroring];
