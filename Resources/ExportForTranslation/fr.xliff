@@ -1936,8 +1936,8 @@
         <note>Class = "NSButtonCell"; title = "Enable Shut down"; ObjectID = "Ouk-wE-FFP";</note>
       </trans-unit>
       <trans-unit id="PH3-Cb-12g.ibShadowedToolTip">
-        <source>Controls OS X screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows</source>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Controls OS X screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows"; ObjectID = "PH3-Cb-12g";</note>
+        <source>Controls OS X screen capture (invoked with cmd-shift-3 and cmd-shift-4), corresponds with Enable Print Screen in Windows</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Controls OS X screen capture (invoked with cmd-shift-3 and cmd-shift-4), corresponds with Enable Print Screen in Windows"; ObjectID = "PH3-Cb-12g";</note>
       </trans-unit>
       <trans-unit id="PWk-fT-HdC.title">
         <source>Enable Right Mouse</source>

@@ -143,7 +143,7 @@
 "Y3K-X1-40d.title" = "VMware Client Shade erlauben";
 
 /* Class = "NSComboBox"; ibShadowedToolTip = "If more displays are connected, these are blanked with an orange full screen window"; ObjectID = "ZZ6-sG-BWw"; */
-"ZZ6-sG-BWw.ibShadowedToolTip" = "Wenn mehr Bildschirme angeschlossen sind, werden diese mit einem orangen Fenster abgedeckt.";
+"ZZ6-sG-BWw.ibShadowedToolTip" = "Wenn mehr Bildschirme angeschlossen sind, werden diese mit einem orangen Fenster abgedeckt";
 
 /* Class = "NSButton"; ibShadowedToolTip = "SEB checks for the command key being held down while SEB is starting up. This prevents using the application switcher to mess with SEB's kiosk mode"; ObjectID = "a9Y-jJ-E1h"; */
 "a9Y-jJ-E1h.ibShadowedToolTip" = "SEB überprüft während des Aufstartens, ob die Befehlstaste (cmd) gedrückt gehalten wird. Dies verhindert Manipulationen mit Hilfe des Programmumschalters";
@@ -152,7 +152,7 @@
 "bTO-u1-Mao.title" = "Alt-Esc erlauben";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Use the built-in display (if available) when only one display is allowed or when switching off display mirroring"; ObjectID = "btE-nf-WWC"; */
-"btE-nf-WWC.ibShadowedToolTip" = "Den eingebauten Bildschirm (falls vorhanden) benutzen, wenn nur ein Display erlaubt ist oder wenn Display-Mirroring beendet wird.";
+"btE-nf-WWC.ibShadowedToolTip" = "Den eingebauten Bildschirm (falls vorhanden) benutzen, wenn nur ein Display erlaubt ist oder wenn Display-Mirroring beendet wird";
 
 /* Class = "NSBox"; title = "While running SEB"; ObjectID = "dYr-I9-VL8"; */
 "dYr-I9-VL8.title" = "Während SEB läuft";
@@ -163,8 +163,8 @@
 /* Class = "NSButtonCell"; title = "Disable Explorer Shell"; ObjectID = "dpL-te-8hi"; */
 "dpL-te-8hi.title" = "Windows Explorer deaktivieren";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Controls macOS screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows"; ObjectID = "g34-gq-Owk"; */
-"g34-gq-Owk.ibShadowedToolTip" = "Steuert macOS Bildschirmfotos (cmd-3 und cmd-4), entspricht 'Print Screen'-Taste (Windows 'Hooked Keys' Einstellungen)";
+/* Class = "NSButton"; ibShadowedToolTip = "Controls macOS screen capture (invoked with cmd-shift-3 and cmd-shift-4), corresponds with Enable Print Screen in Windows"; ObjectID = "g34-gq-Owk"; */
+"g34-gq-Owk.ibShadowedToolTip" = "Steuert macOS Bildschirmfotos (cmd-shift-3 und cmd-shift-4), entspricht 'Print Screen'-Taste (Windows 'Hooked Keys' Einstellungen)";
 
 /* Class = "NSButtonCell"; title = "Use built-in display"; ObjectID = "gma-Qm-KEF"; */
 "gma-Qm-KEF.title" = "Eingebautes Display benutzen";
@@ -221,7 +221,7 @@
 "uiU-JQ-4Yc.title" = "Task-Manager starten erlauben";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Controls Print Screen, corresponds with Enable screen capture in macOS"; ObjectID = "wUs-SE-6xn"; */
-"wUs-SE-6xn.ibShadowedToolTip" = "'Print Screen'-Taste erlauben, entspricht macOS 'Bildschirmfotos erlauben' (cmd-3 und cmd-4) ";
+"wUs-SE-6xn.ibShadowedToolTip" = "'Print Screen'-Taste erlauben, entspricht macOS 'Bildschirmfotos erlauben' (cmd-shift-3 und cmd-shift-4)";
 
 /* Class = "NSButtonCell"; title = "Enable F4"; ObjectID = "yCu-0c-Hf1"; */
 "yCu-0c-Hf1.title" = "F4 erlauben";

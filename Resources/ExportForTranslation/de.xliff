@@ -2430,9 +2430,9 @@
                 <note>Class = "NSButtonCell"; title = "Disable Explorer Shell"; ObjectID = "dpL-te-8hi";</note>
             </trans-unit>
             <trans-unit id="g34-gq-Owk.ibShadowedToolTip">
-                <source>Controls macOS screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows</source>
-                <target>Steuert macOS Bildschirmfotos (cmd-3 und cmd-4), entspricht 'Print Screen'-Taste (Windows 'Hooked Keys' Einstellungen)</target>
-                <note>Class = "NSButton"; ibShadowedToolTip = "Controls macOS screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows"; ObjectID = "g34-gq-Owk";</note>
+                <source>Controls macOS screen capture (invoked with cmd-shift-3 and cmd-shift-4), corresponds with Enable Print Screen in Windows</source>
+                <target>Steuert macOS Bildschirmfotos (cmd-shift-3 und cmd-shift-4), entspricht 'Print Screen'-Taste (Windows 'Hooked Keys' Einstellungen)</target>
+                <note>Class = "NSButton"; ibShadowedToolTip = "Controls macOS screen capture (invoked with cmd-shift-3 and cmd-shift-4), corresponds with Enable Print Screen in Windows"; ObjectID = "g34-gq-Owk";</note>
             </trans-unit>
             <trans-unit id="gma-Qm-KEF.title">
                 <source>Use built-in display</source>
@@ -2526,7 +2526,7 @@
             </trans-unit>
             <trans-unit id="wUs-SE-6xn.ibShadowedToolTip">
                 <source>Controls Print Screen, corresponds with Enable screen capture in macOS</source>
-                <target>'Print Screen'-Taste erlauben, entspricht macOS 'Bildschirmfotos erlauben' (cmd-3 und cmd-4) </target>
+                <target>'Print Screen'-Taste erlauben, entspricht macOS 'Bildschirmfotos erlauben' (cmd-shift-3 und cmd-shift-4) </target>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Controls Print Screen, corresponds with Enable screen capture in macOS"; ObjectID = "wUs-SE-6xn";</note>
             </trans-unit>
             <trans-unit id="yCu-0c-Hf1.title">
