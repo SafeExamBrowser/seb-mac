@@ -2341,7 +2341,7 @@
             </trans-unit>
             <trans-unit id="PH3-Cb-12g.ibShadowedToolTip">
                 <source>Allows macOS screen sharing to be used</source>
-                <target>macOS Bildschirmfotos (cmd-3 und cmd-4) erlauben, entspricht Print Screen Taste (Windows 'Hooked Keys' Einstellungen)</target>
+                <target>Bildschirmfreigabe kann genutzt werden, während SEB läuft</target>
                 <note>Class = "NSButton"; ibShadowedToolTip = "Allows macOS screen sharing to be used"; ObjectID = "PH3-Cb-12g";</note>
             </trans-unit>
             <trans-unit id="PWk-fT-HdC.title">
@@ -2536,7 +2536,7 @@
             </trans-unit>
             <trans-unit id="zzi-ch-X4d.title">
                 <source>Allow screen sharing</source>
-                <target>Bildschirmfotos erlauben</target>
+                <target>Bildschirmfreigabe erlauben</target>
                 <note>Class = "NSButtonCell"; title = "Allow screen sharing"; ObjectID = "zzi-ch-X4d";</note>
             </trans-unit>
         </body>

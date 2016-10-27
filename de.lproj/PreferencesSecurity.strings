@@ -110,7 +110,7 @@
 "P88-5S-xeR.ibShadowedToolTip" = "Entspricht 'Vorwärts-/Rückwärts-Surfen erlauben' im Browser-Tab. Ausschalten der Funktion, auf bereits besuchte Seiten zurückzukehren verhindert, eine Prüfung zu verlassen, indem man auf eine Startseite ausserhalb des Prüfungs-Servers zurückkehrt";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Allows macOS screen sharing to be used"; ObjectID = "PH3-Cb-12g"; */
-"PH3-Cb-12g.ibShadowedToolTip" = "macOS Bildschirmfotos (cmd-3 und cmd-4) erlauben, entspricht Print Screen Taste (Windows 'Hooked Keys' Einstellungen)";
+"PH3-Cb-12g.ibShadowedToolTip" = "Bildschirmfreigabe kann genutzt werden, während SEB läuft";
 
 /* Class = "NSButtonCell"; title = "Enable Right Mouse"; ObjectID = "PWk-fT-HdC"; */
 "PWk-fT-HdC.title" = "Rechte Maustaste erlauben";
@@ -227,5 +227,5 @@
 "yCu-0c-Hf1.title" = "F4 erlauben";
 
 /* Class = "NSButtonCell"; title = "Allow screen sharing"; ObjectID = "zzi-ch-X4d"; */
-"zzi-ch-X4d.title" = "Bildschirmfotos erlauben";
+"zzi-ch-X4d.title" = "Bildschirmfreigabe erlauben";
 
