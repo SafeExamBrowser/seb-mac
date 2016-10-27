@@ -871,7 +871,7 @@
                         <constraint firstItem="H9Q-8A-xab" firstAttribute="baseline" secondItem="6DQ-Jd-s1A" secondAttribute="baseline" id="yj2-SS-clN"/>
                     </constraints>
                 </box>
-                <button toolTip="Controls macOS screen capture (invoked with cmd-3 and cmd-4), corresponds with Enable Print Screen in Windows" translatesAutoresizingMaskIntoConstraints="NO" id="g34-gq-Owk">
+                <button toolTip="Controls macOS screen capture (invoked with cmd-shift-3 and cmd-shift-4), corresponds with Enable Print Screen in Windows" translatesAutoresizingMaskIntoConstraints="NO" id="g34-gq-Owk">
                     <rect key="frame" x="333" y="616" width="299" height="18"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="295" id="zq2-5H-d0V"/>
