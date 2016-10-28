@@ -148,6 +148,25 @@ void DisposeWindow (
 }
 
 
+- (BOOL)windowShouldClose:(id)sender
+{
+    DDLogDebug(@"BrowserWindow %@ should close", self.window);
+    return YES;
+}
+
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+    DDLogDebug(@"BrowserWindow %@ will close", self.window);
+    
+    if (_windowWatchTimer) {
+        [_windowWatchTimer invalidate];
+        _windowWatchTimer = nil;
+    }
+    self.window = nil;
+}
+
+
 // Start the windows watcher if it's not yet running
 - (void)startWindowWatcher
 {

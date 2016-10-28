@@ -134,28 +134,27 @@
 }
 
 
-/*
-- (void)canCloseDocumentWithDelegate:(id)delegate shouldCloseSelector:(SEL)shouldClose contextInfo:(void *)contextInfo
-{
-    [self document:self shouldClose:YES contextInfo:nil];
-}
+//- (void)canCloseDocumentWithDelegate:(id)delegate shouldCloseSelector:(SEL)shouldClose contextInfo:(void *)contextInfo
+//{
+//    DDLogDebug(@"%s: Closing document!", __FUNCTION__);
+//    [self document:self shouldClose:YES contextInfo:nil];
+//}
 
  
-- (void)document:(NSDocument *)doc shouldClose:(BOOL)shouldClose contextInfo:(void  *)contextInfo
-{
-    if (shouldClose) {
-        DDLogDebug(@"Closing document!");
-        NSArray *windowControllers = [self windowControllers];
-        // Get first window controller
-        NSWindowController *windowController;
-        windowController = [windowControllers objectAtIndex:0];
-        [[(BrowserWindow*)[windowController window] webView] close];
-        [self removeWindowController:windowController];
-        [windowController close];
-
-        [self close];
-    }
-}
-*/
+//- (void)document:(NSDocument *)doc shouldClose:(BOOL)shouldClose contextInfo:(void  *)contextInfo
+//{
+//    if (shouldClose) {
+//        DDLogDebug(@"%s: Closing document!", __FUNCTION__);
+//        NSArray *windowControllers = [self windowControllers];
+//        // Get first window controller
+//        NSWindowController *windowController;
+//        windowController = [windowControllers objectAtIndex:0];
+//        [[(SEBBrowserWindow*)[windowController window] webView] close];
+//        [self removeWindowController:windowController];
+//        [windowController close];
+//
+//        [self close];
+//    }
+//}
 
 @end
