@@ -180,81 +180,83 @@
 
 - (void) setCalculatedFrameOnScreen:(NSScreen *)screen
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    
-    // Get frame of the visible screen (considering if menu bar is enabled)
-    NSRect screenFrame = screen.visibleFrame;
-    // Check if SEB Dock is displayed and reduce visibleFrame accordingly
-    if (screen == self.browserController.mainBrowserWindow.screen && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
-        double dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
-        screenFrame.origin.y += dockHeight;
-        screenFrame.size.height -= dockHeight;
-    }
-    NSRect windowFrame;
-    NSString *windowWidth;
-    NSString *windowHeight;
-    NSInteger windowPositioning;
-    if (self == self.browserController.mainBrowserWindow) {
-        // This is the main browser window
-        if (_isFullScreen) {
-            // Full screen windows cover the whole screen
-            windowWidth = @"100%";
+    if (screen) {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        
+        // Get frame of the visible screen (considering if menu bar is enabled)
+        NSRect screenFrame = screen.visibleFrame;
+        // Check if SEB Dock is displayed and reduce visibleFrame accordingly
+        if (screen == self.browserController.mainBrowserWindow.screen && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
+            double dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
+            screenFrame.origin.y += dockHeight;
+            screenFrame.size.height -= dockHeight;
+        }
+        NSRect windowFrame;
+        NSString *windowWidth;
+        NSString *windowHeight;
+        NSInteger windowPositioning;
+        if (self == self.browserController.mainBrowserWindow) {
+            // This is the main browser window
+            if (_isFullScreen) {
+                // Full screen windows cover the whole screen
+                windowWidth = @"100%";
+                windowHeight = @"100%";
+                windowPositioning = browserWindowPositioningCenter;
+            } else {
+                windowWidth = [preferences secureStringForKey:@"org_safeexambrowser_SEB_mainBrowserWindowWidth"];
+                windowHeight = [preferences secureStringForKey:@"org_safeexambrowser_SEB_mainBrowserWindowHeight"];
+                windowPositioning = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mainBrowserWindowPositioning"];
+            }
+        } else if (self.webView == self.browserController.temporaryWebView) {
+            // This is a temporary browser window used for downloads with authentication
+            windowWidth = @"1050";
             windowHeight = @"100%";
             windowPositioning = browserWindowPositioningCenter;
         } else {
-            windowWidth = [preferences secureStringForKey:@"org_safeexambrowser_SEB_mainBrowserWindowWidth"];
-            windowHeight = [preferences secureStringForKey:@"org_safeexambrowser_SEB_mainBrowserWindowHeight"];
-            windowPositioning = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mainBrowserWindowPositioning"];
+            // This is another browser window
+            windowWidth = [preferences secureStringForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkWidth"];
+            windowHeight = [preferences secureStringForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkHeight"];
+            windowPositioning = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPositioning"];
         }
-    } else if (self.webView == self.browserController.temporaryWebView) {
-        // This is a temporary browser window used for downloads with authentication
-        windowWidth = @"1050";
-        windowHeight = @"100%";
-        windowPositioning = browserWindowPositioningCenter;
-    } else {
-        // This is another browser window
-        windowWidth = [preferences secureStringForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkWidth"];
-        windowHeight = [preferences secureStringForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkHeight"];
-        windowPositioning = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPositioning"];
+        if ([windowWidth rangeOfString:@"%"].location == NSNotFound) {
+            // Width is in pixels
+            windowFrame.size.width = [windowWidth integerValue];
+        } else {
+            // Width is in percent
+            windowFrame.size.width = ([windowWidth integerValue] * screenFrame.size.width) / 100;
+        }
+        if ([windowHeight rangeOfString:@"%"].location == NSNotFound) {
+            // Height is in pixels
+            windowFrame.size.height = [windowHeight integerValue];
+        } else {
+            // Height is in percent
+            windowFrame.size.height = ([windowHeight integerValue] * screenFrame.size.height) / 100;
+        }
+        // Enforce minimum window size
+        if (windowFrame.size.width < 394) windowFrame.size.width = 394;
+        if (windowFrame.size.height < 247) windowFrame.size.height = 247;
+        // Calculate x position according to positioning flag
+        switch (windowPositioning) {
+            case browserWindowPositioningLeft:
+                windowFrame.origin.x = screenFrame.origin.x;
+                break;
+            case browserWindowPositioningCenter:
+                windowFrame.origin.x = screenFrame.origin.x+(screenFrame.size.width-windowFrame.size.width) / 2;
+                break;
+            case browserWindowPositioningRight:
+                windowFrame.origin.x = screenFrame.origin.x+screenFrame.size.width-windowFrame.size.width;
+                break;
+                
+            default:
+                //just in case set screen origin
+                windowFrame.origin.x = screenFrame.origin.x;
+                break;
+        }
+        // Calculate y position: On top
+        windowFrame.origin.y = screenFrame.origin.y + screenFrame.size.height - windowFrame.size.height;
+        // Change Window size
+        [self setFrame:windowFrame display:YES];
     }
-    if ([windowWidth rangeOfString:@"%"].location == NSNotFound) {
-        // Width is in pixels
-        windowFrame.size.width = [windowWidth integerValue];
-    } else {
-        // Width is in percent
-        windowFrame.size.width = ([windowWidth integerValue] * screenFrame.size.width) / 100;
-    }
-    if ([windowHeight rangeOfString:@"%"].location == NSNotFound) {
-        // Height is in pixels
-        windowFrame.size.height = [windowHeight integerValue];
-    } else {
-        // Height is in percent
-        windowFrame.size.height = ([windowHeight integerValue] * screenFrame.size.height) / 100;
-    }
-    // Enforce minimum window size
-    if (windowFrame.size.width < 394) windowFrame.size.width = 394;
-    if (windowFrame.size.height < 247) windowFrame.size.height = 247;
-    // Calculate x position according to positioning flag
-    switch (windowPositioning) {
-        case browserWindowPositioningLeft:
-            windowFrame.origin.x = screenFrame.origin.x;
-            break;
-        case browserWindowPositioningCenter:
-            windowFrame.origin.x = screenFrame.origin.x+(screenFrame.size.width-windowFrame.size.width) / 2;
-            break;
-        case browserWindowPositioningRight:
-            windowFrame.origin.x = screenFrame.origin.x+screenFrame.size.width-windowFrame.size.width;
-            break;
-            
-        default:
-            //just in case set screen origin
-            windowFrame.origin.x = screenFrame.origin.x;
-            break;
-    }
-    // Calculate y position: On top
-    windowFrame.origin.y = screenFrame.origin.y + screenFrame.size.height - windowFrame.size.height;
-    // Change Window size
-    [self setFrame:windowFrame display:YES];
 }
 
 

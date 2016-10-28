@@ -1226,6 +1226,14 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         }
     }
     
+    // If we still don't have a screen, then useBuiltin was false and all available screens
+    // (probably only one) is built-in, we just take that screen
+    if (!mainScreen) {
+        mainScreen = screens[0];
+        mainScreen.inactive = false;
+        [screens removeObjectAtIndex:0];
+    }
+    
     // Flag remaining screens active or inactive
     NSUInteger displaysCounter = (mainScreen != nil);
     for (NSScreen *iterScreen in screens)
