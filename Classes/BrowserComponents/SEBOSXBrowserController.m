@@ -482,6 +482,9 @@
         // Check if SEB is in exam mode = private UserDefauls are switched on
         if (NSUserDefaults.userDefaultsPrivate) {
             // If yes, we don't download the .seb file
+            _sebController.openingSettings = false;
+            // Also reset the flag for SEB starting up
+            _sebController.startingUp = false;
             NSAlert *newAlert = [[NSAlert alloc] init];
             [newAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
             [newAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
@@ -574,6 +577,15 @@
             [self closeWebView:_temporaryWebView];
         });
     }
+    // If SEB was just started (by opening a seb(s) link)
+    if (_sebController.startingUp) {
+        // we quit, as decrypting the config wasn't successful
+        _sebController.quittingMyself = TRUE; // SEB is terminating itself
+        [NSApp terminate: nil]; // Quit SEB
+    }
+    _sebController.openingSettings = false;
+    // Also reset the flag for SEB starting up
+    _sebController.startingUp = false;
 }
 
 
@@ -621,6 +633,14 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self closeWebView:_temporaryWebView];
                 });
+                // If SEB was just started (by opening a seb(s) link)
+                if (_sebController.startingUp) {
+                    // we quit, as decrypting the config wasn't successful
+                    _sebController.quittingMyself = TRUE; // SEB is terminating itself
+                    [NSApp terminate: nil]; // Quit SEB
+                }
+                _sebController.openingSettings = false;
+
             } else {
                 _directConfigDownloadAttempted = false;
             }
@@ -705,6 +725,15 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                 completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
                 // inform the user that the user name and password
                 // in the preferences are incorrect
+                
+                // If SEB was just started (by opening a seb(s) link)
+                if (_sebController.startingUp) {
+                    // we quit, as decrypting the config wasn't successful
+                    _sebController.quittingMyself = TRUE; // SEB is terminating itself
+                    [NSApp terminate: nil]; // Quit SEB
+                }
+                _sebController.openingSettings = false;
+
             }
         }
     } else {
@@ -727,6 +756,9 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
             _pendingChallengeCompletionHandler(NSURLSessionAuthChallengeUseCredential, newCredential);
 
             _enteredCredential = newCredential;
+            return;
+            
+        // Authentication wasn't successful
         } else if (returnCode == SEBEnterPasswordCancel) {
             _pendingChallengeCompletionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
             _enteredCredential = nil;
@@ -736,6 +768,13 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
             _enteredCredential = nil;
             _pendingChallengeCompletionHandler = nil;
         }
+        // If SEB was just started (by opening a seb(s) link)
+        if (_sebController.startingUp) {
+            // we quit, as decrypting the config wasn't successful
+            _sebController.quittingMyself = TRUE; // SEB is terminating itself
+            [NSApp terminate: nil]; // Quit SEB
+        }
+        _sebController.openingSettings = false;
     }
 }
 
@@ -750,6 +789,13 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         [self closeWebView:_temporaryWebView];
         // Show the load error
         [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
+        // If SEB was just started (by opening a seb(s) link)
+        if (_sebController.startingUp) {
+            // we quit, as decrypting the config wasn't successful
+            _sebController.quittingMyself = TRUE; // SEB is terminating itself
+            [NSApp terminate: nil]; // Quit SEB
+        }
+        _sebController.openingSettings = false;
     }
 }
 
@@ -775,6 +821,10 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     if (storingConfigResult == storeDecryptedSEBSettingsResultSuccess) {
         // Reset the direct download flag for the case this was a successful direct download
         _directConfigDownloadAttempted = false;
+        // Reset the flag that settings are being opened
+        _sebController.openingSettings = false;
+        // Also reset the flag for SEB starting up
+        _sebController.startingUp = false;
         // Post a notification that it was requested to restart SEB with changed settings
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"requestRestartNotification" object:self];
@@ -794,6 +844,18 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 
             // Reset the direct download flag for the case this was a successful direct download
             _directConfigDownloadAttempted = false;
+            
+            // Reset the flag that settings are being opened
+            _sebController.openingSettings = false;
+            
+            // If SEB was just started (by opening a seb(s) link)
+            if (_sebController.startingUp) {
+                // we quit, as decrypting the config wasn't successful
+                _sebController.quittingMyself = TRUE; // SEB is terminating itself
+                [NSApp terminate: nil]; // Quit SEB
+            }
+            _sebController.openingSettings = false;
+
         }
     }
 }

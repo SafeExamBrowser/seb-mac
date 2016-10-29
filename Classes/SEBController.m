@@ -146,6 +146,8 @@ bool insideMatrix();
 //
 - (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename
 {
+    _openingSettings = true;
+    
     NSURL *sebFileURL = [NSURL fileURLWithPath:filename];
 
     DDLogInfo(@"Open file event: Loading .seb settings file with URL %@",sebFileURL);
@@ -165,6 +167,7 @@ bool insideMatrix();
         
         // Check if SEB is in exam mode = private UserDefauls are switched on
         if (NSUserDefaults.userDefaultsPrivate) {
+            _openingSettings = false;
             NSAlert *newAlert = [[NSAlert alloc] init];
             [newAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
             [newAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
@@ -186,10 +189,22 @@ bool insideMatrix();
         // Decrypt and store the .seb config file
         if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO] == storeDecryptedSEBSettingsResultSuccess) {
             // if successfull restart with new settings
+            _openingSettings = false;
+
+            // SEB finished starting up, reset the flag for starting up
+            _startingUp = false;
+
             [self requestedRestart:nil];
         } else {
-            // if decrypting new settings wasn't successfull, we have to restore the path to the old settings
-            [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
+            // If SEB was just started (by opening a config file)
+            if (_startingUp) {
+                // we quit, as decrypting the config wasn't successful
+                quittingMyself = TRUE; // SEB is terminating itself
+                [NSApp terminate: nil]; // Quit SEB
+            } else {
+                // otherwise, if decrypting new settings wasn't successfull, we have to restore the path to the old settings
+                [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
+            }
         }
     }
     
@@ -204,6 +219,7 @@ bool insideMatrix();
     if (url) {
         // If we have any URL, we try to download and open (conditionally) a .seb file
         // hopefully linked by this URL (also supporting redirections and authentification)
+        _openingSettings = true;
         DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", urlString);
         [self.browserController openConfigFromSEBURL:url];
     }
@@ -215,7 +231,7 @@ bool insideMatrix();
 - (id)init {
     self = [super init];
     if (self) {
-        
+        _startingUp = true;
         // Initialize console loggers
 #ifdef DEBUG
         // We show log messages only in Console.app and the Xcode console in debug mode
@@ -408,6 +424,10 @@ bool insideMatrix();
     
     // Switch to kiosk mode by setting the proper presentation options
     [self startKioskMode];
+
+    // Set up and open SEB Dock
+    [self openSEBDock];
+    self.browserController.dockController = self.dockController;
     
     // Hide all other applications
     [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
@@ -592,17 +612,6 @@ bool insideMatrix();
 
     [self clearPasteboardSavingCurrentString];
 
-    /// Set up SEB Browser
-
-    self.browserController.reinforceKioskModeRequested = YES;
-    
-    // Set up and open SEB Dock
-    [self openSEBDock];
-    self.browserController.dockController = self.dockController;
-    
-    // Open the main browser window
-    [self.browserController openMainBrowserWindow];
-    
 // Handling of Hotkeys for Preferences-Window
 	
 	// Register Carbon event handlers for the required hotkeys
@@ -659,6 +668,19 @@ bool insideMatrix();
     }
 
     [self startWindowWatcher];
+    
+    if (!_openingSettings)
+    {
+        // SEB finished starting up, reset the flag for starting up
+        _startingUp = false;
+
+        // Set up SEB Browser
+        
+        self.browserController.reinforceKioskModeRequested = YES;
+        
+        // Open the main browser window
+        [self.browserController openMainBrowserWindow];
+    }
     
     [self performSelector:@selector(performAfterStartActions:) withObject: nil afterDelay: 2];
 }

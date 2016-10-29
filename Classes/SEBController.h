@@ -115,6 +115,29 @@
     NSUInteger lastNumberRunningBSDProcesses;
 }
 
+@property(readwrite) BOOL allowSwitchToApplications;
+@property(readwrite) BOOL screenSharingDetected;
+@property(readwrite) BOOL f3Pressed;
+@property(readwrite) BOOL startingUp;
+@property(readwrite) BOOL openingSettings;
+@property(readwrite) BOOL quittingMyself;
+@property(strong) SEBWebView *webView;
+@property(strong) NSMutableArray *capWindows;
+@property(strong) NSMutableArray *lockdownWindows;
+@property(strong) NSMutableArray *inactiveScreenWindows;
+@property(strong) IBOutlet NSSecureTextField *enterPassword;
+@property(strong) IBOutlet id preferencesController;
+@property(strong) IBOutlet SEBSystemManager *systemManager;
+@property(strong) SEBDockController *dockController;
+@property(nonatomic, retain) SEBOSXBrowserController *browserController;
+@property(strong) NSDate *didResignActiveTime;
+@property(strong) NSDate *didBecomeActiveTime;
+@property(strong) NSDate *didResumeExamTime;
+@property(strong) NSTimer *windowWatchTimer;
+@property(strong) NSMutableArray *systemProcessPIDs;
+@property(strong) NSMutableArray *terminatedProcessesExecutableURLs;
+
+
 - (void) closeAboutWindow;
 - (void) closeDocument:(id)sender;
 - (void) coverScreens;
@@ -150,25 +173,5 @@
 
 - (void) closeLockdownWindows;
 - (void) openInfoHUD:(NSString *)lockedTimeInfo;
-
-@property(readwrite) BOOL allowSwitchToApplications;
-@property(readwrite) BOOL screenSharingDetected;
-@property(readwrite) BOOL f3Pressed;
-@property(readwrite) BOOL quittingMyself;
-@property(strong) SEBWebView *webView;
-@property(strong) NSMutableArray *capWindows;
-@property(strong) NSMutableArray *lockdownWindows;
-@property(strong) NSMutableArray *inactiveScreenWindows;
-@property(strong) IBOutlet NSSecureTextField *enterPassword;
-@property(strong) IBOutlet id preferencesController;
-@property(strong) IBOutlet SEBSystemManager *systemManager;
-@property(strong) SEBDockController *dockController;
-@property(nonatomic, retain) SEBOSXBrowserController *browserController;
-@property(strong) NSDate *didResignActiveTime;
-@property(strong) NSDate *didBecomeActiveTime;
-@property(strong) NSDate *didResumeExamTime;
-@property(strong) NSTimer *windowWatchTimer;
-@property(strong) NSMutableArray *systemProcessPIDs;
-@property(strong) NSMutableArray *terminatedProcessesExecutableURLs;
 
 @end
