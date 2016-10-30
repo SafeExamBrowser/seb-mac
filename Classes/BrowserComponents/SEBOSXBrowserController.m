@@ -289,15 +289,15 @@
     // because otherwise menu bar and dock are deducted from screen size)
     SEBBrowserWindowDocument *browserWindowDocument = [self openBrowserWindowDocument];
     
-    self.webView = browserWindowDocument.mainWindowController.webView;
-    self.webView.creatingWebView = nil;
-    self.webView.browserController = self;
+    self.mainWebView = browserWindowDocument.mainWindowController.webView;
+    self.mainWebView.creatingWebView = nil;
+    self.mainWebView.browserController = self;
 
     // Load start URL from the system's user defaults
     NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
     
     // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
-    [self setCustomWebPreferencesForWebView:self.webView];
+    [self setCustomWebPreferencesForWebView:self.mainWebView];
     
     self.mainBrowserWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
 
@@ -338,7 +338,7 @@
           withKeyPath:@"values.org_safeexambrowser_SEB_allowQuit"
               options:nil];
     
-    [self addBrowserWindow:self.mainBrowserWindow withWebView:self.webView withTitle:NSLocalizedString(@"Main Browser Window", nil)];
+    [self addBrowserWindow:self.mainBrowserWindow withWebView:self.mainWebView withTitle:NSLocalizedString(@"Main Browser Window", nil)];
     
     [self.mainBrowserWindow makeMainWindow];
     [self.mainBrowserWindow makeKeyAndOrderFront:self];
@@ -346,7 +346,7 @@
     
     DDLogInfo(@"Open MainBrowserWindow with start URL: %@", urlText);
     
-    [self openURLString:urlText withSEBUserAgentInWebView:self.webView];
+    [self openURLString:urlText withSEBUserAgentInWebView:self.mainWebView];
 }
 
 
@@ -354,8 +354,8 @@
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
-    [self.mainBrowserWindow.webView setMaintainsBackForwardList:NO];
-    [self.mainBrowserWindow.webView setMaintainsBackForwardList:[preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"]];
+    [self.mainWebView setMaintainsBackForwardList:NO];
+    [self.mainWebView setMaintainsBackForwardList:[preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"]];
 }
 
 
@@ -1017,13 +1017,13 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         // Load start URL from the system's user defaults
         NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
         DDLogInfo(@"Reloading Start URL in main browser window: %@", urlText);
-        [self openURLString:urlText withSEBUserAgentInWebView:self.webView];
+        [self openURLString:urlText withSEBUserAgentInWebView:self.mainWebView];
     } else {
         NSString* restartExamURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamURL"];
         if (restartExamURL.length > 0) {
             // Load restart exam URL into the main browser window
             DDLogInfo(@"Reloading Restart Exam URL in main browser window: %@", restartExamURL);
-            [self openURLString:restartExamURL withSEBUserAgentInWebView:self.webView];
+            [self openURLString:restartExamURL withSEBUserAgentInWebView:self.mainWebView];
         }
     }
 }

@@ -58,7 +58,7 @@
 }
 
 @property (weak) SEBOSXBrowserController *browserController;
-@property (weak) IBOutlet SEBWebView *webView;
+@property (strong) IBOutlet SEBWebView *webView;
 @property (strong) IBOutlet NSWindow *URLFilterAlert;
 @property (weak) IBOutlet SEBTextField *URLFilterAlertText;
 @property (strong) IBOutlet NSURL *URLFilterAlertURL;

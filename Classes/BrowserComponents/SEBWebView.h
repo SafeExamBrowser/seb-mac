@@ -42,7 +42,7 @@
 @interface SEBWebView : WebView
 
 @property (weak, nonatomic) SEBWebView *creatingWebView;
-@property (strong, nonatomic) SEBOSXBrowserController *browserController;
+@property (weak, nonatomic) SEBOSXBrowserController *browserController;
 @property (strong, nonatomic) NSMutableArray *notAllowedURLs;
 @property (readwrite) BOOL dismissAll;
 
