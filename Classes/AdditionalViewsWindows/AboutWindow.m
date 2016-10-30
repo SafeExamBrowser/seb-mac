@@ -78,10 +78,7 @@
     [self setDelegate:self];
     [self setStyleMask:NSBorderlessWindowMask];
     [self center];
-    [self setLevel:NSFloatingWindowLevel];
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
-        [self setLevel:NSMainMenuWindowLevel+5];
-    }
+    [self setLevel:NSMainMenuWindowLevel+5];
     DDLogDebug(@"orderFront About Window");
 	[self orderFront:self];
     
