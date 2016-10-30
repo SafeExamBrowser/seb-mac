@@ -148,13 +148,6 @@ void DisposeWindow (
 }
 
 
-- (BOOL)windowShouldClose:(id)sender
-{
-    DDLogDebug(@"BrowserWindow %@ should close", self.window);
-    return YES;
-}
-
-
 - (void)windowWillClose:(NSNotification *)notification
 {
     DDLogDebug(@"BrowserWindow %@ will close", self.window);

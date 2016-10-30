@@ -85,10 +85,15 @@
          postNotificationName:@"requestExitNotification" object:self];
         
         return NO; //but don't close the window (that will happen anyways in case quitting is confirmed)
-    } else {
-        [self.browserController closeWebView:self.webView];
-        return YES;
     }
+    if (self.webView == _browserController.temporaryWebView && _browserController.sebController.startingUp) {
+        // If SEB was just started (by opening a seb(s) link) and this was opened in a temporary window
+        // we quit, as decrypting the config wasn't successful
+        _browserController.sebController.quittingMyself = TRUE; // SEB is terminating itself
+        [NSApp terminate: nil]; // Quit SEB
+    }
+    [self.browserController closeWebView:self.webView];
+    return YES;
 }
 
 

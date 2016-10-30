@@ -54,13 +54,13 @@
     NSString *lastUsername;
 }
 
-@property (weak) SEBController *sebController;
+@property (strong) SEBController *sebController;
 @property (strong) SEBBrowserController *browserController;
-@property (weak) SEBWebView *webView;
-@property (weak) SEBBrowserWindowDocument *temporaryBrowserWindowDocument;
-@property (weak) SEBWebView *temporaryWebView;
-@property (weak) SEBBrowserWindow *mainBrowserWindow;
-@property (weak) SEBBrowserWindow *activeBrowserWindow;
+@property (strong) SEBWebView *webView;
+@property (strong) SEBBrowserWindowDocument *temporaryBrowserWindowDocument;
+@property (strong) SEBWebView *temporaryWebView;
+@property (strong) SEBBrowserWindow *mainBrowserWindow;
+@property (strong) SEBBrowserWindow *activeBrowserWindow;
 @property (strong) SEBDockController *dockController;
 @property (strong) SEBDockItemButton *sebDockItemButton;
 @property (strong) NSString *currentMainHost;
