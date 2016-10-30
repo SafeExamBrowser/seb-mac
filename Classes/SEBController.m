@@ -2349,14 +2349,16 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         // if quit/restart password is set, then restrict quitting
         NSMutableParagraphStyle *textParagraph = [[NSMutableParagraphStyle alloc] init];
         textParagraph.lineSpacing = 5.0;
-        NSMutableAttributedString *dialogText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Enter quit/restart password:",nil)]
-                                                                                attributes:@{NSFontAttributeName:[NSFont systemFontOfSize:NSFont.systemFontSize], NSParagraphStyleAttributeName:textParagraph}].mutableCopy;
+        NSMutableAttributedString *dialogText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Enter quit/restart password:",nil)] attributes:@{NSFontAttributeName:[NSFont systemFontOfSize:NSFont.systemFontSize], NSParagraphStyleAttributeName:textParagraph}].mutableCopy;
         
-        NSAttributedString *information = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"(This function doesn't log you out if you are logged in on a website)", nil)
-                                                                          attributes:@{NSFontAttributeName:[NSFont systemFontOfSize:NSFont.smallSystemFontSize]}];
+        NSAttributedString *information = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"(This function doesn't log you out if you are logged in on a website)", nil) attributes:@{NSFontAttributeName:[NSFont systemFontOfSize:NSFont.smallSystemFontSize]}];
         [dialogText appendAttributedString:information];
         
-        if ([self showEnterPasswordDialog:dialogText.copy modalForWindow:self.browserController.mainBrowserWindow windowTitle:restartExamText] == SEBEnterPasswordCancel) return;
+        if ([self showEnterPasswordDialog:dialogText.copy
+                           modalForWindow:self.browserController.mainBrowserWindow
+                              windowTitle:restartExamText] == SEBEnterPasswordCancel) {
+           return;
+        }
         NSString *password = [self.enterPassword stringValue];
         
         SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
