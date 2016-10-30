@@ -147,6 +147,7 @@ bool insideMatrix();
 - (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename
 {
     _openingSettings = true;
+    DDLogDebug(@"%s Open file: %@", __FUNCTION__, filename);
     
     NSURL *sebFileURL = [NSURL fileURLWithPath:filename];
 
@@ -167,7 +168,6 @@ bool insideMatrix();
         
         // Check if SEB is in exam mode = private UserDefauls are switched on
         if (NSUserDefaults.userDefaultsPrivate) {
-            _openingSettings = false;
             NSAlert *newAlert = [[NSAlert alloc] init];
             [newAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
             [newAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
@@ -189,7 +189,6 @@ bool insideMatrix();
         // Decrypt and store the .seb config file
         if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO] == storeDecryptedSEBSettingsResultSuccess) {
             // if successfull restart with new settings
-            _openingSettings = false;
 
             // SEB finished starting up, reset the flag for starting up
             _startingUp = false;
@@ -679,6 +678,7 @@ bool insideMatrix();
         self.browserController.reinforceKioskModeRequested = YES;
         
         // Open the main browser window
+        DDLogDebug(@"%s openMainBrowserWindow", __FUNCTION__);
         [self.browserController openMainBrowserWindow];
     }
     
@@ -2782,6 +2782,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     self.browserController.dockController = self.dockController;
 
     // Reopen main browser window and load start URL
+    DDLogDebug(@"%s re-openMainBrowserWindow", __FUNCTION__);
     [self.browserController openMainBrowserWindow];
 
     // Adjust screen locking
