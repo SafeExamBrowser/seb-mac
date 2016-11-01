@@ -2314,7 +2314,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         [self.dockController setRightItems:rightDockItems];
         
         // Display the dock
-        [self.dockController showDock];
+        [self.dockController showDockOnScreen:_mainScreen];
 
     } else {
         DDLogDebug(@"SEBController openSEBDock: dock disabled");

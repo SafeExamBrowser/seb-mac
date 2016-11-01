@@ -340,10 +340,10 @@
 }
 
 
-- (void) showDock
+- (void) showDockOnScreen:(NSScreen *)screen
 {
     DDLogDebug(@"[SEBDockController showDock]");
-    [self.dockWindow setCalculatedFrame:self.window.screen];
+    [self.dockWindow setCalculatedFrame:screen];
     [self showWindow:self];
 }
 

@@ -154,7 +154,7 @@
 - (void) setCenterItems:(NSArray *)newCenterDockItems;
 - (void) setRightItems:(NSArray *)newRightDockItems;
 
-- (void) showDock;
+- (void) showDockOnScreen:(NSScreen *)screen;
 - (void) hideDock;
 - (void) adjustDock;
 - (void) moveDockToScreen:(NSScreen *)screen;
