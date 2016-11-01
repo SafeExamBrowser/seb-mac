@@ -84,6 +84,8 @@
 - (void) webViewShow:(SEBWebView *)sender;
 - (void) openMainBrowserWindow;
 - (void) clearBackForwardList;
+
+- (NSRect) visibleFrameForScreen:(NSScreen *)screen;
 - (void) adjustMainBrowserWindow;
 - (void) moveAllBrowserWindowsToScreen:(NSScreen *)screen;
 - (void) allBrowserWindowsChangeLevel:(BOOL)allowApps;

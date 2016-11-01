@@ -42,6 +42,7 @@
 #include "WebPreferencesPrivate.h"
 #import "WebPluginDatabase.h"
 #import "NSURL+SEBURL.h"
+#import "NSScreen+SEBScreen.h"
 
 @implementation SEBOSXBrowserController
 
@@ -364,6 +365,25 @@
 {
     // Load start URL into browser window
     [[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];
+}
+
+
+// Find the real visible frame of a screen SEB is running on
+- (NSRect) visibleFrameForScreen:(NSScreen *)screen
+{
+    // Get frame of the usable screen (considering if menu bar is enabled)
+    NSRect screenFrame = screen.usableFrame;
+    // Check if SEB Dock is displayed and reduce visibleFrame accordingly
+    // Also check if mainBrowserWindow exists, because when starting with a temporary
+    // browser window for loading a seb(s):// link from a authenticated server, there
+    // is no main browser window open yet
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ((!_mainBrowserWindow || screen == _mainBrowserWindow.screen) && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
+        double dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
+        screenFrame.origin.y += dockHeight;
+        screenFrame.size.height -= dockHeight;
+    }
+    return screenFrame;
 }
 
 

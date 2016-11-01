@@ -189,17 +189,9 @@
     if (screen) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         
-        // Get frame of the usable screen (considering if menu bar is enabled)
-        NSRect screenFrame = screen.usableFrame;
-        // Check if SEB Dock is displayed and reduce visibleFrame accordingly
-        // Also check if mainBrowserWindow exists, because when starting with a temporary
-        // browser window for loading a seb(s):// link from a authenticated server, there
-        // is no main browser window open yet
-        if ((!self.browserController.mainBrowserWindow || screen == self.browserController.mainBrowserWindow.screen) && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
-            double dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
-            screenFrame.origin.y += dockHeight;
-            screenFrame.size.height -= dockHeight;
-        }
+        // Get frame of the usable screen (considering if menu bar or SEB dock is enabled)
+        NSRect screenFrame = [_browserController visibleFrameForScreen:screen];
+
         NSRect windowFrame;
         NSString *windowWidth;
         NSString *windowHeight;
@@ -781,11 +773,8 @@
     // Get frame of the usable screen (considering if menu bar is enabled)
     NSRect screenFrame = self.screen.usableFrame;
     newFrame.size.height = screenFrame.size.height;
-//    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"])
-//    {
-//    }
     
-    if (self.screen == self.browserController.mainBrowserWindow.screen && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
+    if ((!_browserController.mainBrowserWindow || self.screen == _browserController.mainBrowserWindow.screen) && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
         CGFloat dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
         newFrame.origin.y += dockHeight;
         newFrame.size.height -= dockHeight;

@@ -294,17 +294,9 @@ void DisposeWindow (
         }
         
         // Check if Window is too heigh for the new screen
-        // Get usable screen frame
-        NSRect newFrame = newScreen.usableFrame;
+        // Get frame of the usable screen (considering if menu bar or SEB dock is enabled)
+        NSRect newFrame = [_browserController visibleFrameForScreen:newScreen];
         
-        // Check if SEB Dock is displayed and reduce visibleFrame accordingly
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        BOOL showDock = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"];
-        CGFloat dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
-        if (newScreen == self.browserController.mainBrowserWindow.screen && showDock) {
-            newFrame.origin.y += dockHeight;
-            newFrame.size.height -= dockHeight;
-        }
         if (movingWindowBack) {
             NSRect recalculatedFrame = NSMakeRect(newFrame.origin.x, newFrame.origin.y, self.window.frame.size.width, newFrame.size.height);
             [self.window setFrame:recalculatedFrame display:YES animate:YES];
