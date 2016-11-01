@@ -325,7 +325,7 @@
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
         [self.mainBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
     }
-    [self.mainBrowserWindow setCalculatedFrame];
+    [self.mainBrowserWindow setCalculatedFrameOnScreen:_sebController.mainScreen];
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
         [self.mainBrowserWindow newSetLevel:NSMainMenuWindowLevel+3];
     }
@@ -532,7 +532,7 @@
     _temporaryWebView.browserController = self;
 
     newWindow.isPanel = true;
-    [newWindow setCalculatedFrame];
+    [newWindow setCalculatedFrameOnScreen:_sebController.mainScreen];
     [newWindow setTitle:tempWindowTitle];
     
     // Create custom WebPreferences with bugfix for local storage not persisting application quit/start

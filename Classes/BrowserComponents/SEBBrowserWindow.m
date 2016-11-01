@@ -42,6 +42,7 @@
 #import "SEBURLFilter.h"
 #import "NSURL+KKDomain.h"
 #import "HUDPanel.h"
+#import "NSScreen+SEBScreen.h"
 
 #include <CoreServices/CoreServices.h>
 
@@ -188,10 +189,13 @@
     if (screen) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         
-        // Get frame of the visible screen (considering if menu bar is enabled)
-        NSRect screenFrame = screen.visibleFrame;
+        // Get frame of the usable screen (considering if menu bar is enabled)
+        NSRect screenFrame = screen.usableFrame;
         // Check if SEB Dock is displayed and reduce visibleFrame accordingly
-        if (screen == self.browserController.mainBrowserWindow.screen && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
+        // Also check if mainBrowserWindow exists, because when starting with a temporary
+        // browser window for loading a seb(s):// link from a authenticated server, there
+        // is no main browser window open yet
+        if ((!self.browserController.mainBrowserWindow || screen == self.browserController.mainBrowserWindow.screen) && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
             double dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
             screenFrame.origin.y += dockHeight;
             screenFrame.size.height -= dockHeight;
@@ -479,7 +483,7 @@
 
         _filterMessageHUD.contentView = HUDBackground;
     }
-    NSRect visibleScreenRect = self.screen.visibleFrame;
+    NSRect visibleScreenRect = self.screen.usableFrame;
     NSPoint topLeftPoint;
     topLeftPoint.x = visibleScreenRect.origin.x + visibleScreenRect.size.width - _filterMessageHUD.frame.size.width - 42;
     topLeftPoint.y = visibleScreenRect.origin.y + visibleScreenRect.size.height - 3;
@@ -774,8 +778,8 @@
     // Check if SEB Dock is displayed and reduce visibleFrame accordingly
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
-    // Get frame of the visible screen (considering if menu bar is enabled)
-    NSRect screenFrame = self.screen.visibleFrame;
+    // Get frame of the usable screen (considering if menu bar is enabled)
+    NSRect screenFrame = self.screen.usableFrame;
     newFrame.size.height = screenFrame.size.height;
 //    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"])
 //    {

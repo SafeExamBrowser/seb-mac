@@ -36,7 +36,7 @@
 #import "MyGlobals.h"
 #import <WebKit/WebKit.h>
 #import "SEBBrowserWindow.h"
-#import "NSScreen+DisplayInfo.h"
+#import "NSScreen+SEBScreen.h"
 #import <Carbon/Carbon.h>
 #import <Foundation/Foundation.h>
 
@@ -294,8 +294,8 @@ void DisposeWindow (
         }
         
         // Check if Window is too heigh for the new screen
-        // Get screen visible frame
-        NSRect newFrame = newScreen.visibleFrame;
+        // Get usable screen frame
+        NSRect newFrame = newScreen.usableFrame;
         
         // Check if SEB Dock is displayed and reduce visibleFrame accordingly
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -322,7 +322,7 @@ void DisposeWindow (
             }
             // Check if top of window is hidden below the dock (if visible)
             // or just slightly (20 points) above the bottom edge of the visible screen space
-            if ((newWindowFrame.origin.y + newWindowFrame.size.height) < (newFrame.origin.y + 22)) { //showDock * dockHeight +
+            if ((newWindowFrame.origin.y + newWindowFrame.size.height) < (newFrame.origin.y + kMenuBarHeight)) { //showDock * dockHeight +
                 // In this case shift the window up
                 newWindowFrame = NSMakeRect(newWindowFrame.origin.x, newFrame.origin.y, newWindowFrame.size.width, newWindowFrame.size.height);
             }

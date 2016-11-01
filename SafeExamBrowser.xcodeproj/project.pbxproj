@@ -138,8 +138,8 @@
 		699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */; };
 		699D8DFE1C5F998D00A051F2 /* SEBBrowserController.h in Headers */ = {isa = PBXBuildFile; fileRef = 699D8DFC1C5F998D00A051F2 /* SEBBrowserController.h */; };
 		699D8DFF1C5F998D00A051F2 /* SEBBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699D8DFD1C5F998D00A051F2 /* SEBBrowserController.m */; };
-		69A23AB71DB500C700110243 /* NSScreen+DisplayInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A23AB51DB500C700110243 /* NSScreen+DisplayInfo.h */; };
-		69A23AB81DB500C700110243 /* NSScreen+DisplayInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A23AB61DB500C700110243 /* NSScreen+DisplayInfo.m */; };
+		69A23AB71DB500C700110243 /* NSScreen+SEBScreen.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A23AB51DB500C700110243 /* NSScreen+SEBScreen.h */; };
+		69A23AB81DB500C700110243 /* NSScreen+SEBScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A23AB61DB500C700110243 /* NSScreen+SEBScreen.m */; };
 		69A443FF1B14AAAC00577693 /* SEBReloadIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69A443FD1B14AAAC00577693 /* SEBReloadIcon.iconset */; };
 		69A444001B14AAAC00577693 /* SEBRestartIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69A443FE1B14AAAC00577693 /* SEBRestartIcon.iconset */; };
 		69B2EB871A435E2000B5AE67 /* AboutSEB.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2EB851A435E2000B5AE67 /* AboutSEB.png */; };
@@ -563,8 +563,8 @@
 		699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBUIUserDefaultsController.m; path = Classes/Preferences/SEBUIUserDefaultsController.m; sourceTree = "<group>"; };
 		699D8DFC1C5F998D00A051F2 /* SEBBrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBBrowserController.h; path = Classes/BrowserComponents/SEBBrowserController.h; sourceTree = "<group>"; };
 		699D8DFD1C5F998D00A051F2 /* SEBBrowserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBBrowserController.m; path = Classes/BrowserComponents/SEBBrowserController.m; sourceTree = "<group>"; };
-		69A23AB51DB500C700110243 /* NSScreen+DisplayInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSScreen+DisplayInfo.h"; sourceTree = "<group>"; };
-		69A23AB61DB500C700110243 /* NSScreen+DisplayInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSScreen+DisplayInfo.m"; sourceTree = "<group>"; };
+		69A23AB51DB500C700110243 /* NSScreen+SEBScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSScreen+SEBScreen.h"; sourceTree = "<group>"; };
+		69A23AB61DB500C700110243 /* NSScreen+SEBScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSScreen+SEBScreen.m"; sourceTree = "<group>"; };
 		69A3022919FE7B8F00B9A0F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		69A443FD1B14AAAC00577693 /* SEBReloadIcon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBReloadIcon.iconset; path = Resources/Icons/SEBReloadIcon.iconset; sourceTree = "<group>"; };
 		69A443FE1B14AAAC00577693 /* SEBRestartIcon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBRestartIcon.iconset; path = Resources/Icons/SEBRestartIcon.iconset; sourceTree = "<group>"; };
@@ -1242,8 +1242,8 @@
 				695572E41D91EC45003C048A /* NSPasteboard+SaveRestore.m */,
 				69E9EA301DB1A2D500C949FE /* NSRunningApplication+SEB.h */,
 				69E9EA311DB1A2D500C949FE /* NSRunningApplication+SEB.m */,
-				69A23AB51DB500C700110243 /* NSScreen+DisplayInfo.h */,
-				69A23AB61DB500C700110243 /* NSScreen+DisplayInfo.m */,
+				69A23AB51DB500C700110243 /* NSScreen+SEBScreen.h */,
+				69A23AB61DB500C700110243 /* NSScreen+SEBScreen.m */,
 			);
 			name = Categories;
 			path = Classes/Categories;
@@ -1663,7 +1663,7 @@
 				69C228241C767B0900F78634 /* entropy_poll.h in Headers */,
 				6949A48D1D0EF5890040ABF1 /* QNSURLSessionDemux.h in Headers */,
 				6909E34A1A019F7A0086A741 /* DDTTYLogger.h in Headers */,
-				69A23AB71DB500C700110243 /* NSScreen+DisplayInfo.h in Headers */,
+				69A23AB71DB500C700110243 /* NSScreen+SEBScreen.h in Headers */,
 				6915F2E919C8F77600DAEA37 /* SEBDockWindow.h in Headers */,
 				6949A48B1D0EF5890040ABF1 /* CustomHTTPProtocol.h in Headers */,
 			);
@@ -1926,7 +1926,7 @@
 				69F9110116CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */,
 				69C228531C767B0900F78634 /* blowfish.c in Sources */,
 				69C2288C1C767B0900F78634 /* x509_crl.c in Sources */,
-				69A23AB81DB500C700110243 /* NSScreen+DisplayInfo.m in Sources */,
+				69A23AB81DB500C700110243 /* NSScreen+SEBScreen.m in Sources */,
 				6909E3481A019F7A0086A741 /* DDLog.m in Sources */,
 				695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */,
 				6909E34D1A019F7A0086A741 /* DDContextFilterLogFormatter.m in Sources */,

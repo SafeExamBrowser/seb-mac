@@ -1,5 +1,5 @@
 //
-//  NSScreen+DisplayInfo
+//  NSScreen+SEBScreen
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 17.10.16.
@@ -32,11 +32,11 @@
 //  Contributor(s): ______________________________________.
 //
 
-#import "NSScreen+DisplayInfo.h"
+#import "NSScreen+SEBScreen.h"
 #import <IOKit/graphics/IOGraphicsLib.h>
 #import "objc/runtime.h"
 
-@implementation NSScreen (DisplayInfo)
+@implementation NSScreen (SEBScreen)
 
 
 - (void)setInactive:(BOOL)inactive
@@ -89,6 +89,18 @@
 -(NSNumber*) displayID
 {
     return [[self deviceDescription] valueForKey:@"NSScreenNumber"];
+}
+
+
+-(NSRect) usableFrame
+{
+    // Get full screen frame
+    NSRect newFrame = self.frame;
+    // Deduct menu bar height
+    CGFloat menuBarHeight = [NSApplication sharedApplication].mainMenu.menuBarHeight;
+    newFrame.size.height -= [NSMenu menuBarVisible] * menuBarHeight;
+
+    return newFrame;
 }
 
 

@@ -70,7 +70,7 @@
 #import "SEBKeychainManager.h"
 #import "SEBCryptor.h"
 #import "SEBCertServices.h"
-#import "NSScreen+DisplayInfo.h"
+#import "NSScreen+SEBScreen.h"
 #import "NSWindow+SEBWindow.h"
 #import "SEBConfigFileManager.h"
 #import "NSRunningApplication+SEB.h"
@@ -279,6 +279,9 @@ bool insideMatrix();
         // Regardless if switching to third party applications is allowed in current settings,
         // we need to first open the background cover windows with standard window levels
         [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
+        
+        // Switch off display mirroring and find main active screen according to settings
+        [self conditionallyTerminateDisplayMirroring];
     }
     return self;
 }
@@ -353,10 +356,6 @@ bool insideMatrix();
              quittingMyself = TRUE; //SEB is terminating itself
              [NSApp terminate: nil]; //quit SEB
     }
-    
-    // Switch off display mirroring if it isn't allowed in settings
-    [self conditionallyTerminateDisplayMirroring];
-
     
     // Setup Notifications and Kiosk Mode
     
@@ -1270,6 +1269,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         displaysCounter++;
     }
     
+    _mainScreen = mainScreen;
     // Move all browser windows to the previous main screen (if they aren't on it already)
     DDLogInfo(@"Move all browser windows to new main screen %@.", mainScreen);
     [self.browserController moveAllBrowserWindowsToScreen:mainScreen];
@@ -2067,7 +2067,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         DDLogInfo(@"App which switched Space localized name: %@, executable URL: %@", [workspaceSwitchingApp localizedName], [workspaceSwitchingApp executableURL]);
     }
     // If an app was started since SEB was running
-    if (launchedApplication) {
+    if (launchedApplication && launchedApplication != [NSRunningApplication currentApplication]) {
         // Yes: We assume it's the app which switched the space and force terminate it!
         DDLogError(@"An app was started and switched the Space. SEB will force terminate it! (app localized name: %@, executable URL: %@)", [launchedApplication localizedName], [launchedApplication executableURL]);
         [self performSelector:@selector(killApplication:) withObject:launchedApplication afterDelay:1];

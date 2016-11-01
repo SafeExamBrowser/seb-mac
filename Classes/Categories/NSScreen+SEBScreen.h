@@ -1,5 +1,5 @@
 //
-//  NSScreen+DisplayInfo
+//  NSScreen+SEBScreen
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 17.10.16.
@@ -33,12 +33,13 @@
 //
 
 
-@interface NSScreen (DisplayInfo)
+@interface NSScreen (SEBScreen)
 
 @property (nonatomic, assign)  BOOL inactive;
 
 +(NSString*) displayNameForID:(NSInteger)displayID;
 -(NSString*) displayName;
 -(NSNumber*) displayID;
+-(NSRect) usableFrame;
 
 @end
