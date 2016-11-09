@@ -95,6 +95,7 @@
     [self clearBackForwardList];
     
     self.currentMainHost = nil;
+    _temporaryWebView = nil;
     
     [_browserController conditionallyInitCustomHTTPProtocol];
 }

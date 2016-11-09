@@ -99,7 +99,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         DDLogDebug(@"UserDefaults key retrieved.");
 #endif
     } else {
-        DDLogDebug(@"UserDefaults not found, probably it wasn't yet existing, creating a new one.");
+        DDLogDebug(@"UserDefaults key not found, probably it wasn't yet existing, creating a new one.");
         _currentKey = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
         if ([keychainManager storeKey:_currentKey]) {
 #ifdef DEBUG
