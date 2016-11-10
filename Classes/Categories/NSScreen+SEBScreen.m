@@ -97,7 +97,7 @@
     // Get full screen frame
     NSRect newFrame = self.frame;
     // Deduct menu bar height
-    CGFloat menuBarHeight = [NSApplication sharedApplication].mainMenu.menuBarHeight;
+    CGFloat menuBarHeight = [NSApplication sharedApplication].mainMenu.menuBarHeight + 1;
     newFrame.size.height -= [NSMenu menuBarVisible] * menuBarHeight;
 
     return newFrame;
