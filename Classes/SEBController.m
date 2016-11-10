@@ -2067,7 +2067,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         DDLogInfo(@"App which switched Space localized name: %@, executable URL: %@", [workspaceSwitchingApp localizedName], [workspaceSwitchingApp executableURL]);
     }
     // If an app was started since SEB was running
-    if (launchedApplication && launchedApplication != [NSRunningApplication currentApplication]) {
+    if (launchedApplication && ![launchedApplication isEqual:[NSRunningApplication currentApplication]]) {
         // Yes: We assume it's the app which switched the space and force terminate it!
         DDLogError(@"An app was started and switched the Space. SEB will force terminate it! (app localized name: %@, executable URL: %@)", [launchedApplication localizedName], [launchedApplication executableURL]);
         [self performSelector:@selector(killApplication:) withObject:launchedApplication afterDelay:1];
