@@ -14,7 +14,6 @@
 		6901331B19B371CB0050574D /* PreferencesWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 6901331919B371CB0050574D /* PreferencesWindow.h */; };
 		6901331C19B371CB0050574D /* PreferencesWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901331A19B371CB0050574D /* PreferencesWindow.m */; };
 		6902C9701B0CF95E00715855 /* SEBShutDownIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 6902C96F1B0CF95E00715855 /* SEBShutDownIcon.iconset */; };
-		690408EB1D4181A800A9EDDA /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 690408EA1D4181A800A9EDDA /* Info.plist */; };
 		6905C5AB1961B4E5000008EC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6905C5AA1961B4E5000008EC /* SystemConfiguration.framework */; };
 		6906F3C21A3FA5EE0011CF93 /* NSURL+KKDomain.h in Headers */ = {isa = PBXBuildFile; fileRef = 6906F3C01A3FA5EE0011CF93 /* NSURL+KKDomain.h */; };
 		6906F3C31A3FA5EE0011CF93 /* NSURL+KKDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = 6906F3C11A3FA5EE0011CF93 /* NSURL+KKDomain.m */; };
@@ -1921,7 +1920,6 @@
 				696DAD191C3C2AB900397E18 /* Next@2x.png in Resources */,
 				6966F87C1D1C081300684182 /* SEBSliderShutDownIcon@2x.png in Resources */,
 				696DAD1D1C3C2AB900397E18 /* Reload@2x.png in Resources */,
-				690408EB1D4181A800A9EDDA /* Info.plist in Resources */,
 				69B226E61D4108BA0065B831 /* Icon-64x64.png in Resources */,
 				696DAD171C3C2AB900397E18 /* Cancel@2x.png in Resources */,
 				6966F8871D1DE07100684182 /* SEBSliderSettingsIcon.png in Resources */,
