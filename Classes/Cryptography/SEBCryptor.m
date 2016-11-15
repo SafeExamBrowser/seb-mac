@@ -94,7 +94,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     if (defaultsKey) {
         _currentKey = defaultsKey;
 #ifdef DEBUG
-        DDLogVerbose(@"UserDefaults key %@ retrieved.", _currentKey);
+        DDLogDebug(@"UserDefaults key %@ retrieved.", _currentKey);
 #else
         DDLogDebug(@"UserDefaults key retrieved.");
 #endif
@@ -103,7 +103,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         _currentKey = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
         if ([keychainManager storeKey:_currentKey]) {
 #ifdef DEBUG
-            DDLogVerbose(@"Generated UserDefaults key %@ as there was none defined yet.", _currentKey);
+            DDLogDebug(@"Generated UserDefaults key %@ as there was none defined yet.", _currentKey);
 #else
             DDLogDebug(@"Generated UserDefaults key as there was none defined yet.");
 #endif

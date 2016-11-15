@@ -110,7 +110,7 @@ bool insideMatrix();
 {
     [[MyGlobals sharedMyGlobals] setFinishedInitializing:NO];
     [[MyGlobals sharedMyGlobals] setStartKioskChangedPresentationOptions:NO];
-    [[MyGlobals sharedMyGlobals] setLogLevel:DDLogLevelVerbose];
+    [[MyGlobals sharedMyGlobals] setLogLevel:DDLogLevelDebug];
 
     SEBWindowSizeValueTransformer *windowSizeTransformer = [[SEBWindowSizeValueTransformer alloc] init];
     [NSValueTransformer setValueTransformer:windowSizeTransformer
@@ -238,6 +238,8 @@ bool insideMatrix();
         [DDLog addLogger:[DDTTYLogger sharedInstance]];
 #endif
 
+        [self initializeTemporaryLogger];
+        
         [[MyGlobals sharedMyGlobals] setPreferencesReset:NO];
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
         [MyGlobals sharedMyGlobals].reconfiguredWhileStarting = NO;
@@ -270,6 +272,7 @@ bool insideMatrix();
         NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
         NSString *defaultUserAgent = [[WebView new] userAgentForURL:[NSURL URLWithString:urlText]];
         [self.browserController createSEBUserAgentFromDefaultAgent:defaultUserAgent];
+        DDLogError(@"Default browser user agent string: %@", [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"]);
         
         // Update URL filter flags and rules
         [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
@@ -1477,6 +1480,38 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 }
 
 
+// Initializes a temporary logger unconditionally with the Debug log level
+// and the standard log file path, so SEB can log startup events before
+// settings are initialized
+- (void) initializeTemporaryLogger
+{
+    DDLogFileManagerDefault* logFileManager = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:nil];
+    _myLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
+    _myLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
+    _myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
+    [DDLog addLogger:_myLogger];
+    
+    DDLogError(@"---------- STARTING UP SEB - INITIALIZE SETTINGS -------------");
+    DDLogError(@"(log after start up is finished may continue in another file, according to current settings)");
+    NSString *localHostname = (NSString *)CFBridgingRelease(SCDynamicStoreCopyLocalHostName(NULL));
+    NSString *computerName = (NSString *)CFBridgingRelease(SCDynamicStoreCopyComputerName(NULL, NULL));
+    NSString *userName = NSUserName();
+    NSString *fullUserName = NSFullUserName();
+    NSString *displayName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleDisplayName"];
+    NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
+    NSString *buildNumber = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
+    NSString *bundleID = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"];
+    NSString *bundleExecutable = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleExecutable"];
+    DDLogError(@"%@ Version %@ (Build %@)", displayName, versionString, buildNumber);
+    DDLogError(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
+    
+    DDLogInfo(@"Local hostname: %@", localHostname);
+    DDLogInfo(@"Computer name: %@", computerName);
+    DDLogInfo(@"User name: %@", userName);
+    DDLogInfo(@"Full user name: %@", fullUserName);
+}
+
+
 - (void) initializeLogger
 {
     // Initialize file logger if logging enabled
@@ -1500,17 +1535,17 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         _myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
         [DDLog addLogger:_myLogger];
         
+        DDLogError(@"---------- INITIALIZING SEB - STARTING SESSION -------------");
         NSString *localHostname = (NSString *)CFBridgingRelease(SCDynamicStoreCopyLocalHostName(NULL));
         NSString *computerName = (NSString *)CFBridgingRelease(SCDynamicStoreCopyComputerName(NULL, NULL));
         NSString *userName = NSUserName();
         NSString *fullUserName = NSFullUserName();
-
+        
         // To Do: Find out domain of the current host address
         // This has to be processed asynchronously with GCD
-//        NSHost *host;
-//        host = [NSHost currentHost];
-
-        DDLogError(@"---------- INITIALIZING SEB - STARTING SESSION -------------");
+        //        NSHost *host;
+        //        host = [NSHost currentHost];
+        
         NSString *displayName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleDisplayName"];
         NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
         NSString *buildNumber = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
@@ -1518,7 +1553,6 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         NSString *bundleExecutable = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleExecutable"];
         DDLogError(@"%@ Version %@ (Build %@)", displayName, versionString, buildNumber);
         DDLogError(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
-        DDLogError(@"Default browser user agent string: %@", [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"]);
 
         DDLogInfo(@"Local hostname: %@", localHostname);
         DDLogInfo(@"Computer name: %@", computerName);

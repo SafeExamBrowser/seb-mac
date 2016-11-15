@@ -497,7 +497,7 @@ static NSNumber *_logLevel;
 // Returns YES if SEB was started first time on this system (no SEB settings found in UserDefaults)
 - (BOOL)setSEBDefaults
 {
-    DDLogInfo(@"Setting local client settings (NSUserDefaults)");
+    DDLogWarn(@"Setting local client settings (NSUserDefaults)");
 
     BOOL firstStart = NO;
     _cachedUserDefaults = [NSMutableDictionary new];
@@ -532,6 +532,7 @@ static NSNumber *_logLevel;
     } else {
         // Were there invalid SEB prefs keys in UserDefaults?
         if ([self sebKeysSet].count > 0) {
+            DDLogError(@"There were invalid SEB prefs keys in UserDefaults: Local preferences have been reset!");
             // Set the flag to indicate to user later that settings have been reset
             [[MyGlobals sharedMyGlobals] setPreferencesReset:YES];
         } else {

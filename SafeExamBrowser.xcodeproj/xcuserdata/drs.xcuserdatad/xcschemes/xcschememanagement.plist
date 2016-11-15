@@ -4,10 +4,20 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Safe Exam Browser Release.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>Safe Exam Browser copy.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
 		<key>Safe Exam Browser.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -33,6 +43,11 @@
 			<true/>
 		</dict>
 		<key>69903AF214CD7624007E7DF7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>69B377471DD5E8E4008F6692</key>
 		<dict>
 			<key>primary</key>
 			<true/>

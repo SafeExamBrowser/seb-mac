@@ -373,6 +373,16 @@
 }
 
 
+// Enable back/forward buttons according to availablility for this webview
+- (void)backForwardButtonsSetEnabled {
+    NSSegmentedControl *backForwardButtons = [(SEBBrowserWindowController *)self.windowController backForwardButtons];
+    [backForwardButtons setEnabled:self.webView.canGoBack forSegment:0];
+    [backForwardButtons setEnabled:self.webView.canGoForward forSegment:1];
+}
+
+
+#pragma mark URL Filter Blocked Message
+
 - (void) showURLFilterMessage {
     
     if (!_filterMessageHolder) {
@@ -497,6 +507,8 @@
     [_filterMessageHUD orderOut:self];
 }
 
+
+#pragma mark URL Filter Teaching Mode Alert
 
 - (BOOL) showURLFilterAlertSheetForWindow:(NSWindow *)window forRequest:(NSURLRequest *)request forContentFilter:(BOOL)contentFilter filterResponse:(URLFilterRuleActions)filterResponse
 {
@@ -750,14 +762,6 @@
         return;
     }
     [alert.window orderOut:self];
-}
-
-
-// Enable back/forward buttons according to availablility for this webview
-- (void)backForwardButtonsSetEnabled {
-    NSSegmentedControl *backForwardButtons = [(SEBBrowserWindowController *)self.windowController backForwardButtons];
-    [backForwardButtons setEnabled:self.webView.canGoBack forSegment:0];
-    [backForwardButtons setEnabled:self.webView.canGoForward forSegment:1];
 }
 
 

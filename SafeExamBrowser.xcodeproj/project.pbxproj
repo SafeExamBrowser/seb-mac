@@ -144,6 +144,365 @@
 		69A444001B14AAAC00577693 /* SEBRestartIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69A443FE1B14AAAC00577693 /* SEBRestartIcon.iconset */; };
 		69B2EB871A435E2000B5AE67 /* AboutSEB.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2EB851A435E2000B5AE67 /* AboutSEB.png */; };
 		69B2EB881A435E2000B5AE67 /* AboutSEB@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2EB861A435E2000B5AE67 /* AboutSEB@2x.png */; };
+		69B3774C1DD5E8E4008F6692 /* SEBReloadIconHighlighted.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69DA91261C6A5CCF008D38E6 /* SEBReloadIconHighlighted.iconset */; };
+		69B3774D1DD5E8E4008F6692 /* LICENCE in Resources */ = {isa = PBXBuildFile; fileRef = 69A9A22E1369AF9600840AE1 /* LICENCE */; };
+		69B3774E1DD5E8E4008F6692 /* PreferencesGeneral.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FC9057136C9A00009B55CB /* PreferencesGeneral.xib */; };
+		69B3774F1DD5E8E4008F6692 /* PreferencesDownUploads.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FC905C136CA80F009B55CB /* PreferencesDownUploads.xib */; };
+		69B377501DD5E8E4008F6692 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
+		69B377511DD5E8E4008F6692 /* SEBShutDownIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 6902C96F1B0CF95E00715855 /* SEBShutDownIcon.iconset */; };
+		69B377521DD5E8E4008F6692 /* SEBicon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 6932C9671191B7FE00688EBB /* SEBicon.icns */; };
+		69B377531DD5E8E4008F6692 /* SEBBrowserWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6929228D19FD9F1B00B57347 /* SEBBrowserWindow.xib */; };
+		69B377541DD5E8E4008F6692 /* BrowserIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 690D234A1452000800CCCFF9 /* BrowserIcon.png */; };
+		69B377551DD5E8E4008F6692 /* BrowserIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 690D234B1452000800CCCFF9 /* BrowserIcon@2x.png */; };
+		69B377561DD5E8E4008F6692 /* PreferencesBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69BE8662145872C900E87C22 /* PreferencesBrowser.xib */; };
+		69B377571DD5E8E4008F6692 /* AboutSEB@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2EB861A435E2000B5AE67 /* AboutSEB@2x.png */; };
+		69B377581DD5E8E4008F6692 /* ZoomPageIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6947D8941BB073EA00899A8A /* ZoomPageIn.png */; };
+		69B377591DD5E8E4008F6692 /* SEBUIUserDefaultsController.h in Resources */ = {isa = PBXBuildFile; fileRef = 699C540315EFA13B00B8D210 /* SEBUIUserDefaultsController.h */; };
+		69B3775A1DD5E8E4008F6692 /* MenuTriangleDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F60FAC19AB7A7E00A5F650 /* MenuTriangleDown.png */; };
+		69B3775B1DD5E8E4008F6692 /* PreferencesExam.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AEF19F6FBEA00274214 /* PreferencesExam.xib */; };
+		69B3775C1DD5E8E4008F6692 /* PreferencesConfigFile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AE719F6FBC500274214 /* PreferencesConfigFile.xib */; };
+		69B3775D1DD5E8E4008F6692 /* PreferencesApplications.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AF319F6FBF600274214 /* PreferencesApplications.xib */; };
+		69B3775E1DD5E8E4008F6692 /* PreferencesNetwork.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AFB19F6FC4C00274214 /* PreferencesNetwork.xib */; };
+		69B3775F1DD5E8E4008F6692 /* SEBRestartIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69A443FE1B14AAAC00577693 /* SEBRestartIcon.iconset */; };
+		69B377601DD5E8E4008F6692 /* ApplicationsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 696EB10016CAAFF600707B0F /* ApplicationsIcon.png */; };
+		69B377611DD5E8E4008F6692 /* ApplicationsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */; };
+		69B377621DD5E8E4008F6692 /* DownUploadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EFA36816CB121200E967B4 /* DownUploadIcon.png */; };
+		69B377631DD5E8E4008F6692 /* AboutSEB.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2EB851A435E2000B5AE67 /* AboutSEB.png */; };
+		69B377641DD5E8E4008F6692 /* DownUploadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EFA36916CB121200E967B4 /* DownUploadIcon@2x.png */; };
+		69B377651DD5E8E4008F6692 /* SEBReloadIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69A443FD1B14AAAC00577693 /* SEBReloadIcon.iconset */; };
+		69B377661DD5E8E4008F6692 /* ExamIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAB16CB210E008FC401 /* ExamIcon.png */; };
+		69B377671DD5E8E4008F6692 /* ExamIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAC16CB210E008FC401 /* ExamIcon@2x.png */; };
+		69B377681DD5E8E4008F6692 /* PreferencesSecurity.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AFF19F6FC5600274214 /* PreferencesSecurity.xib */; };
+		69B377691DD5E8E4008F6692 /* etld.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6906F3CC1A3FA7300011CF93 /* etld.plist */; };
+		69B3776A1DD5E8E4008F6692 /* Appearance.icns in Resources */ = {isa = PBXBuildFile; fileRef = 69F32DBD16D232C0003C9502 /* Appearance.icns */; };
+		69B3776B1DD5E8E4008F6692 /* PreferencesAppearance.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AEB19F6FBCD00274214 /* PreferencesAppearance.xib */; };
+		69B3776C1DD5E8E4008F6692 /* ZoomPageIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6947D8951BB073EA00899A8A /* ZoomPageIn@2x.png */; };
+		69B3776D1DD5E8E4008F6692 /* PreferencesResources.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AF719F6FC3F00274214 /* PreferencesResources.xib */; };
+		69B3776E1DD5E8E4008F6692 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69DD92A01A463435004072E5 /* InfoPlist.strings */; };
+		69B3776F1DD5E8E4008F6692 /* SecurityIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CCC172F0C1300C87C58 /* SecurityIcon.png */; };
+		69B377701DD5E8E4008F6692 /* MenuTriangleDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F60FAD19AB7A7E00A5F650 /* MenuTriangleDown@2x.png */; };
+		69B377711DD5E8E4008F6692 /* ZoomPageOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 6947D8961BB073EA00899A8A /* ZoomPageOut.png */; };
+		69B377721DD5E8E4008F6692 /* SecurityIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CCD172F0C1300C87C58 /* SecurityIcon@2x.png */; };
+		69B377731DD5E8E4008F6692 /* SEBDocumentIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 69428CE1172F284B00C87C58 /* SEBDocumentIcon.icns */; };
+		69B377741DD5E8E4008F6692 /* sebConfigIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CEA172F2B5700C87C58 /* sebConfigIcon.png */; };
+		69B377751DD5E8E4008F6692 /* sebConfigIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CEB172F2B5700C87C58 /* sebConfigIcon@2x.png */; };
+		69B377761DD5E8E4008F6692 /* SEBShutDownIconHighlighted.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69DA91241C6A3685008D38E6 /* SEBShutDownIconHighlighted.iconset */; };
+		69B377771DD5E8E4008F6692 /* ZoomTextIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CF0172F2E2500C87C58 /* ZoomTextIn.png */; };
+		69B377781DD5E8E4008F6692 /* ZoomTextIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CF1172F2E2500C87C58 /* ZoomTextIn@2x.png */; };
+		69B377791DD5E8E4008F6692 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 697E5AB21D2ABCF400BA3730 /* Images.xcassets */; };
+		69B3777A1DD5E8E4008F6692 /* ZoomPageOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6947D8971BB073EA00899A8A /* ZoomPageOut@2x.png */; };
+		69B3777B1DD5E8E4008F6692 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69EA170119FA77A0001E0C51 /* Localizable.strings */; };
+		69B3777C1DD5E8E4008F6692 /* ZoomTextOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CF2172F2E2500C87C58 /* ZoomTextOut.png */; };
+		69B3777D1DD5E8E4008F6692 /* ZoomTextOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CF3172F2E2500C87C58 /* ZoomTextOut@2x.png */; };
+		69B3777E1DD5E8E4008F6692 /* SEBRestartIconHighlighted.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69DA91271C6A5CCF008D38E6 /* SEBRestartIconHighlighted.iconset */; };
+		69B377801DD5E8E4008F6692 /* pkcs11.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227E81C767B0900F78634 /* pkcs11.c */; };
+		69B377811DD5E8E4008F6692 /* md2.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227DD1C767B0900F78634 /* md2.c */; };
+		69B377821DD5E8E4008F6692 /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2A19C468E700CBE69F /* RNCryptorEngine.m */; };
+		69B377831DD5E8E4008F6692 /* PrefsGeneralViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A9A233136AF6E000840AE1 /* PrefsGeneralViewController.m */; };
+		69B377841DD5E8E4008F6692 /* NSTextFieldNilToEmptyStringTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6913E5C31A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m */; };
+		69B377851DD5E8E4008F6692 /* entropy.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227D61C767B0900F78634 /* entropy.c */; };
+		69B377861DD5E8E4008F6692 /* pkcs5.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227EA1C767B0900F78634 /* pkcs5.c */; };
+		69B377871DD5E8E4008F6692 /* camellia.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227C81C767B0900F78634 /* camellia.c */; };
+		69B377881DD5E8E4008F6692 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		69B377891DD5E8E4008F6692 /* ecdh.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227D11C767B0900F78634 /* ecdh.c */; };
+		69B3778A1DD5E8E4008F6692 /* version.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227FC1C767B0900F78634 /* version.c */; };
+		69B3778B1DD5E8E4008F6692 /* SEBController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D588201189EB8F005AE3F1 /* SEBController.m */; };
+		69B3778C1DD5E8E4008F6692 /* CapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DD2FD01201C416009B1005 /* CapView.m */; };
+		69B3778D1DD5E8E4008F6692 /* ripemd160.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227EE1C767B0900F78634 /* ripemd160.c */; };
+		69B3778E1DD5E8E4008F6692 /* AboutWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6969B1D2127C7AB60027FF8D /* AboutWindow.m */; };
+		69B3778F1DD5E8E4008F6692 /* rsa.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227EF1C767B0900F78634 /* rsa.c */; };
+		69B377901DD5E8E4008F6692 /* AboutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E13AEF127C812900CB81E1 /* AboutView.m */; };
+		69B377911DD5E8E4008F6692 /* SEBBrowserWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 692891B112ACEBDC00EEE7C9 /* SEBBrowserWindow.m */; };
+		69B377921DD5E8E4008F6692 /* md.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227DC1C767B0900F78634 /* md.c */; };
+		69B377931DD5E8E4008F6692 /* MBPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A9A22B1368784500840AE1 /* MBPreferencesController.m */; };
+		69B377941DD5E8E4008F6692 /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227CE1C767B0900F78634 /* debug.c */; };
+		69B377951DD5E8E4008F6692 /* ssl_cache.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227F31C767B0900F78634 /* ssl_cache.c */; };
+		69B377961DD5E8E4008F6692 /* HUDPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6950F4721D89F9AB00CCB42A /* HUDPanel.m */; };
+		69B377971DD5E8E4008F6692 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C52802136AFDBD00F9F000 /* PreferencesController.m */; };
+		69B377981DD5E8E4008F6692 /* PrefsDownUploadsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C52805136AFE9500F9F000 /* PrefsDownUploadsViewController.m */; };
+		69B377991DD5E8E4008F6692 /* NSRunningApplication+SEB.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E9EA311DB1A2D500C949FE /* NSRunningApplication+SEB.m */; };
+		69B3779A1DD5E8E4008F6692 /* x509_csr.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C228021C767B0900F78634 /* x509_csr.c */; };
+		69B3779B1DD5E8E4008F6692 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3291A019F7A0086A741 /* DDASLLogger.m */; };
+		69B3779C1DD5E8E4008F6692 /* SEBSystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBEB551834C55C00FB0460 /* SEBSystemManager.m */; };
+		69B3779D1DD5E8E4008F6692 /* CapWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699282E219D0430A00270E86 /* CapWindowController.m */; };
+		69B3779E1DD5E8E4008F6692 /* SEBBrowserWindowDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F684CB143653880091CDA7 /* SEBBrowserWindowDocument.m */; };
+		69B3779F1DD5E8E4008F6692 /* memory_buffer_alloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227E11C767B0900F78634 /* memory_buffer_alloc.c */; };
+		69B377A01DD5E8E4008F6692 /* MyGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 6991A79114471F8C00F9149D /* MyGlobals.m */; };
+		69B377A11DD5E8E4008F6692 /* SEBURLFilterRegexExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 691774491A2776FB0039CC39 /* SEBURLFilterRegexExpression.m */; };
+		69B377A21DD5E8E4008F6692 /* SEBDockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 690BBEB519D30DF800F7C9C6 /* SEBDockView.m */; };
+		69B377A31DD5E8E4008F6692 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3321A019F7A0086A741 /* DDTTYLogger.m */; };
+		69B377A41DD5E8E4008F6692 /* PrefsBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690D23471451EF2400CCCFF9 /* PrefsBrowserViewController.m */; };
+		69B377A51DD5E8E4008F6692 /* ecdsa.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227D21C767B0900F78634 /* ecdsa.c */; };
+		69B377A61DD5E8E4008F6692 /* SEBEncryptedUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 691CD9AB1468947E00B43CDC /* SEBEncryptedUserDefaultsController.m */; };
+		69B377A71DD5E8E4008F6692 /* pkwrite.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227EC1C767B0900F78634 /* pkwrite.c */; };
+		69B377A81DD5E8E4008F6692 /* SEBURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F0A3381AD40237008A3553 /* SEBURLProtocol.m */; };
+		69B377A91DD5E8E4008F6692 /* SEBOSXBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690C6EE519E29E3600EDE103 /* SEBOSXBrowserController.m */; };
+		69B377AA1DD5E8E4008F6692 /* ecjpake.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227D31C767B0900F78634 /* ecjpake.c */; };
+		69B377AB1DD5E8E4008F6692 /* padlock.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227E41C767B0900F78634 /* padlock.c */; };
+		69B377AC1DD5E8E4008F6692 /* CapWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 699731C318C8D6ED0069FE35 /* CapWindow.m */; };
+		69B377AD1DD5E8E4008F6692 /* WebKit+WebKitExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6946373F1498FEF000C896D0 /* WebKit+WebKitExtensions.m */; };
+		69B377AE1DD5E8E4008F6692 /* NSURL+SEBURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 69627F8F1A1A46D000E9F2A8 /* NSURL+SEBURL.m */; };
+		69B377AF1DD5E8E4008F6692 /* ssl_ciphersuites.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227F41C767B0900F78634 /* ssl_ciphersuites.c */; };
+		69B377B01DD5E8E4008F6692 /* pem.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227E51C767B0900F78634 /* pem.c */; };
+		69B377B11DD5E8E4008F6692 /* ssl_ticket.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227F81C767B0900F78634 /* ssl_ticket.c */; };
+		69B377B21DD5E8E4008F6692 /* SEBBrowserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693D5A1614C59B4300E37C68 /* SEBBrowserWindowController.m */; };
+		69B377B31DD5E8E4008F6692 /* x509_create.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227FF1C767B0900F78634 /* x509_create.c */; };
+		69B377B41DD5E8E4008F6692 /* CustomHTTPProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 6949A4841D0EF5890040ABF1 /* CustomHTTPProtocol.m */; };
+		69B377B51DD5E8E4008F6692 /* havege.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227DA1C767B0900F78634 /* havege.c */; };
+		69B377B61DD5E8E4008F6692 /* aes.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227C01C767B0900F78634 /* aes.c */; };
+		69B377B71DD5E8E4008F6692 /* NSWindow+SEBWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D5983314C81FEA005FE98C /* NSWindow+SEBWindow.m */; };
+		69B377B81DD5E8E4008F6692 /* version_features.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227FD1C767B0900F78634 /* version_features.c */; };
+		69B377B91DD5E8E4008F6692 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3391A019F7A0086A741 /* DDMultiFormatter.m */; };
+		69B377BA1DD5E8E4008F6692 /* MethodSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D5983714C823AE005FE98C /* MethodSwizzling.m */; };
+		69B377BB1DD5E8E4008F6692 /* pkcs12.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227E91C767B0900F78634 /* pkcs12.c */; };
+		69B377BC1DD5E8E4008F6692 /* SEBCertServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C228981C7B64DF00F78634 /* SEBCertServices.m */; };
+		69B377BD1DD5E8E4008F6692 /* SEBDockItemButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 690BBEB019D2C6E500F7C9C6 /* SEBDockItemButton.m */; };
+		69B377BE1DD5E8E4008F6692 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227DF1C767B0900F78634 /* md5.c */; };
+		69B377BF1DD5E8E4008F6692 /* SEBBrowserOpenWindowWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69009BDF19EA7F590083274C /* SEBBrowserOpenWindowWebView.m */; };
+		69B377C01DD5E8E4008F6692 /* asn1parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227C31C767B0900F78634 /* asn1parse.c */; };
+		69B377C11DD5E8E4008F6692 /* SEBURLFilterExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F45D3D1A2123C3009CF3AA /* SEBURLFilterExpression.m */; };
+		69B377C21DD5E8E4008F6692 /* SEBDockWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6915F2E819C8F77600DAEA37 /* SEBDockWindow.m */; };
+		69B377C31DD5E8E4008F6692 /* oid.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227E31C767B0900F78634 /* oid.c */; };
+		69B377C41DD5E8E4008F6692 /* NSData+NSDataZIPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940A7601853B2AD00D9D00D /* NSData+NSDataZIPExtension.m */; };
+		69B377C51DD5E8E4008F6692 /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 693F135215767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m */; };
+		69B377C61DD5E8E4008F6692 /* NSPasteboard+SaveRestore.m in Sources */ = {isa = PBXBuildFile; fileRef = 695572E41D91EC45003C048A /* NSPasteboard+SaveRestore.m */; };
+		69B377C71DD5E8E4008F6692 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693EB53D15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m */; };
+		69B377C81DD5E8E4008F6692 /* xtea.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C228051C767B0900F78634 /* xtea.c */; };
+		69B377C91DD5E8E4008F6692 /* SEBUIUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */; };
+		69B377CA1DD5E8E4008F6692 /* PrefsExamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6943D0751655054600AB6B1D /* PrefsExamViewController.m */; };
+		69B377CB1DD5E8E4008F6692 /* SEBKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F293AD164A324B00875C00 /* SEBKeychainManager.m */; };
+		69B377CC1DD5E8E4008F6692 /* threading.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227FA1C767B0900F78634 /* threading.c */; };
+		69B377CD1DD5E8E4008F6692 /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3371A019F7A0086A741 /* DDDispatchQueueLogFormatter.m */; };
+		69B377CE1DD5E8E4008F6692 /* QNSURLSessionDemux.m in Sources */ = {isa = PBXBuildFile; fileRef = 6949A4861D0EF5890040ABF1 /* QNSURLSessionDemux.m */; };
+		69B377CF1DD5E8E4008F6692 /* ccm.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227C91C767B0900F78634 /* ccm.c */; };
+		69B377D01DD5E8E4008F6692 /* pk_wrap.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227E71C767B0900F78634 /* pk_wrap.c */; };
+		69B377D11DD5E8E4008F6692 /* gcm.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227D91C767B0900F78634 /* gcm.c */; };
+		69B377D21DD5E8E4008F6692 /* cipher_wrap.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227CC1C767B0900F78634 /* cipher_wrap.c */; };
+		69B377D31DD5E8E4008F6692 /* SEBCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 694B08A216B14ABF00E4997C /* SEBCryptor.m */; };
+		69B377D41DD5E8E4008F6692 /* sha256.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227F11C767B0900F78634 /* sha256.c */; };
+		69B377D51DD5E8E4008F6692 /* SEBDockItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 690B5B6119DBEAA400704F36 /* SEBDockItem.m */; };
+		69B377D61DD5E8E4008F6692 /* SEBFilterArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF14AB1A1BB10300912933 /* SEBFilterArrayController.m */; };
+		69B377D71DD5E8E4008F6692 /* net.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227E21C767B0900F78634 /* net.c */; };
+		69B377D81DD5E8E4008F6692 /* PrefsConfigFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992499116C3B18B00DF6B53 /* PrefsConfigFileViewController.m */; };
+		69B377D91DD5E8E4008F6692 /* ctr_drbg.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227CD1C767B0900F78634 /* ctr_drbg.c */; };
+		69B377DA1DD5E8E4008F6692 /* CLIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3221A019F7A0086A741 /* CLIColor.m */; };
+		69B377DB1DD5E8E4008F6692 /* PrefsApplicationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992499B16C5B62000DF6B53 /* PrefsApplicationsViewController.m */; };
+		69B377DC1DD5E8E4008F6692 /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2419C468E700CBE69F /* RNCryptor.m */; };
+		69B377DD1DD5E8E4008F6692 /* x509write_csr.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C228041C767B0900F78634 /* x509write_csr.c */; };
+		69B377DE1DD5E8E4008F6692 /* ssl_cookie.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227F61C767B0900F78634 /* ssl_cookie.c */; };
+		69B377DF1DD5E8E4008F6692 /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2819C468E700CBE69F /* RNEncryptor.m */; };
+		69B377E01DD5E8E4008F6692 /* ssl_srv.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227F71C767B0900F78634 /* ssl_srv.c */; };
+		69B377E11DD5E8E4008F6692 /* SEBWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69263A9D1A2E0765006F1E31 /* SEBWebView.m */; };
+		69B377E21DD5E8E4008F6692 /* PrefsNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F910FF16CA5C720041EA38 /* PrefsNetworkViewController.m */; };
+		69B377E31DD5E8E4008F6692 /* blowfish.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227C71C767B0900F78634 /* blowfish.c */; };
+		69B377E41DD5E8E4008F6692 /* x509_crl.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C228001C767B0900F78634 /* x509_crl.c */; };
+		69B377E51DD5E8E4008F6692 /* NSScreen+SEBScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A23AB61DB500C700110243 /* NSScreen+SEBScreen.m */; };
+		69B377E61DD5E8E4008F6692 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E32F1A019F7A0086A741 /* DDLog.m */; };
+		69B377E71DD5E8E4008F6692 /* PrefsSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */; };
+		69B377E81DD5E8E4008F6692 /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3351A019F7A0086A741 /* DDContextFilterLogFormatter.m */; };
+		69B377E91DD5E8E4008F6692 /* PrefsAppearanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F32DC216D23374003C9502 /* PrefsAppearanceViewController.m */; };
+		69B377EA1DD5E8E4008F6692 /* SEBWindowSizeValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */; };
+		69B377EB1DD5E8E4008F6692 /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2619C468E700CBE69F /* RNDecryptor.m */; };
+		69B377EC1DD5E8E4008F6692 /* asn1write.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227C41C767B0900F78634 /* asn1write.c */; };
+		69B377ED1DD5E8E4008F6692 /* x509write_crt.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C228031C767B0900F78634 /* x509write_crt.c */; };
+		69B377EE1DD5E8E4008F6692 /* NSURL+KKDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = 6906F3C11A3FA5EE0011CF93 /* NSURL+KKDomain.m */; };
+		69B377EF1DD5E8E4008F6692 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227D81C767B0900F78634 /* error.c */; };
+		69B377F01DD5E8E4008F6692 /* BoolValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6921294116F91C6600AFC3B0 /* BoolValueTransformer.m */; };
+		69B377F11DD5E8E4008F6692 /* IsEmptyCollectionValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6921294616F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m */; };
+		69B377F21DD5E8E4008F6692 /* SEBDockItemTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 6941A6611BDB8DED0050BF1E /* SEBDockItemTime.m */; };
+		69B377F31DD5E8E4008F6692 /* base64.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227C51C767B0900F78634 /* base64.c */; };
+		69B377F41DD5E8E4008F6692 /* ssl_tls.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227F91C767B0900F78634 /* ssl_tls.c */; };
+		69B377F51DD5E8E4008F6692 /* platform.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227ED1C767B0900F78634 /* platform.c */; };
+		69B377F61DD5E8E4008F6692 /* SEBURLFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D817E418017DDB00EB7885 /* SEBURLFilter.m */; };
+		69B377F71DD5E8E4008F6692 /* pkparse.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227EB1C767B0900F78634 /* pkparse.c */; };
+		69B377F81DD5E8E4008F6692 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3251A019F7A0086A741 /* DDAbstractDatabaseLogger.m */; };
+		69B377F91DD5E8E4008F6692 /* arc4.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227C21C767B0900F78634 /* arc4.c */; };
+		69B377FA1DD5E8E4008F6692 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E32C1A019F7A0086A741 /* DDFileLogger.m */; };
+		69B377FB1DD5E8E4008F6692 /* certs.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227CA1C767B0900F78634 /* certs.c */; };
+		69B377FC1DD5E8E4008F6692 /* SEBDockItemMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 695BE5F319EC3FED00CA2BB4 /* SEBDockItemMenu.m */; };
+		69B377FD1DD5E8E4008F6692 /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227F01C767B0900F78634 /* sha1.c */; };
+		69B377FE1DD5E8E4008F6692 /* DropDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 693647F917122A0300EE41BC /* DropDownButton.m */; };
+		69B377FF1DD5E8E4008F6692 /* cipher.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227CB1C767B0900F78634 /* cipher.c */; };
+		69B378001DD5E8E4008F6692 /* SEBConfigFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE9C5C17326AB90011609B /* SEBConfigFileManager.m */; };
+		69B378011DD5E8E4008F6692 /* ssl_cli.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227F51C767B0900F78634 /* ssl_cli.c */; };
+		69B378021DD5E8E4008F6692 /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 6909E3271A019F7A0086A741 /* DDASLLogCapture.m */; };
+		69B378031DD5E8E4008F6692 /* SEBDockController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690BBEAB19D2C6A000F7C9C6 /* SEBDockController.m */; };
+		69B378041DD5E8E4008F6692 /* x509_crt.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C228011C767B0900F78634 /* x509_crt.c */; };
+		69B378051DD5E8E4008F6692 /* SEBWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F5BDA01CFB4098006FBF81 /* SEBWebViewController.m */; };
+		69B378061DD5E8E4008F6692 /* sha512.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227F21C767B0900F78634 /* sha512.c */; };
+		69B378071DD5E8E4008F6692 /* SEBTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE9C6217378B9A0011609B /* SEBTextField.m */; };
+		69B378081DD5E8E4008F6692 /* md_wrap.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227E01C767B0900F78634 /* md_wrap.c */; };
+		69B378091DD5E8E4008F6692 /* SEBFilterTreeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE1C161741309C0072207D /* SEBFilterTreeController.m */; };
+		69B3780A1DD5E8E4008F6692 /* dhm.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227D01C767B0900F78634 /* dhm.c */; };
+		69B3780B1DD5E8E4008F6692 /* entropy_poll.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227D71C767B0900F78634 /* entropy_poll.c */; };
+		69B3780C1DD5E8E4008F6692 /* CanonicalRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6949A4821D0EF5890040ABF1 /* CanonicalRequest.m */; };
+		69B3780D1DD5E8E4008F6692 /* x509.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227FE1C767B0900F78634 /* x509.c */; };
+		69B3780E1DD5E8E4008F6692 /* SEBLockedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69EDAC1D1BBB476F00A3E6C4 /* SEBLockedViewController.m */; };
+		69B3780F1DD5E8E4008F6692 /* pk.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227E61C767B0900F78634 /* pk.c */; };
+		69B378101DD5E8E4008F6692 /* ecp.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227D41C767B0900F78634 /* ecp.c */; };
+		69B378111DD5E8E4008F6692 /* timing.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227FB1C767B0900F78634 /* timing.c */; };
+		69B378121DD5E8E4008F6692 /* SEBBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699D8DFD1C5F998D00A051F2 /* SEBBrowserController.m */; };
+		69B378131DD5E8E4008F6692 /* NSColorValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C1FF9F1D0820E20087A5A1 /* NSColorValueTransformer.m */; };
+		69B378141DD5E8E4008F6692 /* CacheStoragePolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6949A4801D0EF5890040ABF1 /* CacheStoragePolicy.m */; };
+		69B378151DD5E8E4008F6692 /* md4.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227DE1C767B0900F78634 /* md4.c */; };
+		69B378161DD5E8E4008F6692 /* des.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227CF1C767B0900F78634 /* des.c */; };
+		69B378171DD5E8E4008F6692 /* bignum.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227C61C767B0900F78634 /* bignum.c */; };
+		69B378181DD5E8E4008F6692 /* PrefsResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DE764617FC2A9300EE5958 /* PrefsResourcesViewController.m */; };
+		69B378191DD5E8E4008F6692 /* ecp_curves.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227D51C767B0900F78634 /* ecp_curves.c */; };
+		69B3781A1DD5E8E4008F6692 /* PreferencesWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901331A19B371CB0050574D /* PreferencesWindow.m */; };
+		69B3781B1DD5E8E4008F6692 /* NSString+KKDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = 6906F3C51A3FA60C0011CF93 /* NSString+KKDomain.m */; };
+		69B3781C1DD5E8E4008F6692 /* aesni.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227C11C767B0900F78634 /* aesni.c */; };
+		69B3781D1DD5E8E4008F6692 /* hmac_drbg.c in Sources */ = {isa = PBXBuildFile; fileRef = 69C227DB1C767B0900F78634 /* hmac_drbg.c */; };
+		69B3781F1DD5E8E4008F6692 /* libmbedtls.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C228951C767B0A00F78634 /* libmbedtls.a */; };
+		69B378201DD5E8E4008F6692 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6905C5AA1961B4E5000008EC /* SystemConfiguration.framework */; };
+		69B378211DD5E8E4008F6692 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6940A7661853B62000D9D00D /* libz.dylib */; };
+		69B378221DD5E8E4008F6692 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6962F88D13A8C21B007C16F0 /* WebKit.framework */; };
+		69B378231DD5E8E4008F6692 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		69B378241DD5E8E4008F6692 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 693A94D711B68D8A0083C66D /* Carbon.framework */; };
+		69B378251DD5E8E4008F6692 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6947949C12B050AA00651933 /* IOKit.framework */; };
+		69B378261DD5E8E4008F6692 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696F28E715751ED600780DA8 /* Security.framework */; };
+		69B378291DD5E8E4008F6692 /* xtea.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227BE1C767B0900F78634 /* xtea.h */; };
+		69B3782A1DD5E8E4008F6692 /* md5.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C2279F1C767B0900F78634 /* md5.h */; };
+		69B3782B1DD5E8E4008F6692 /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E32E1A019F7A0086A741 /* DDLog.h */; };
+		69B3782C1DD5E8E4008F6692 /* SEBCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 694B08A116B14ABF00E4997C /* SEBCryptor.h */; };
+		69B3782D1DD5E8E4008F6692 /* certs.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227881C767B0900F78634 /* certs.h */; };
+		69B3782E1DD5E8E4008F6692 /* bn_mul.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227851C767B0900F78634 /* bn_mul.h */; };
+		69B3782F1DD5E8E4008F6692 /* NSString+KKDomain.h in Headers */ = {isa = PBXBuildFile; fileRef = 6906F3C41A3FA60C0011CF93 /* NSString+KKDomain.h */; };
+		69B378301DD5E8E4008F6692 /* SEBCertServices.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C228971C7B64DF00F78634 /* SEBCertServices.h */; };
+		69B378311DD5E8E4008F6692 /* NSTextFieldNilToEmptyStringTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6913E5C21A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.h */; };
+		69B378321DD5E8E4008F6692 /* ssl_ticket.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227B61C767B0900F78634 /* ssl_ticket.h */; };
+		69B378331DD5E8E4008F6692 /* pkcs12.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227A91C767B0900F78634 /* pkcs12.h */; };
+		69B378341DD5E8E4008F6692 /* SEBDockItemTime.h in Headers */ = {isa = PBXBuildFile; fileRef = 6941A6601BDB8DED0050BF1E /* SEBDockItemTime.h */; };
+		69B378351DD5E8E4008F6692 /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227981C767B0900F78634 /* error.h */; };
+		69B378361DD5E8E4008F6692 /* PrefsConfigFileViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992499016C3B18B00DF6B53 /* PrefsConfigFileViewController.h */; };
+		69B378371DD5E8E4008F6692 /* SEBURLFilterExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F45D3C1A2123C3009CF3AA /* SEBURLFilterExpression.h */; };
+		69B378381DD5E8E4008F6692 /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227AB1C767B0900F78634 /* platform.h */; };
+		69B378391DD5E8E4008F6692 /* ecdsa.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227931C767B0900F78634 /* ecdsa.h */; };
+		69B3783A1DD5E8E4008F6692 /* ecjpake.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227941C767B0900F78634 /* ecjpake.h */; };
+		69B3783B1DD5E8E4008F6692 /* PrefsApplicationsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992499A16C5B62000DF6B53 /* PrefsApplicationsViewController.h */; };
+		69B3783C1DD5E8E4008F6692 /* HUDPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = 6950F4711D89F9AB00CCB42A /* HUDPanel.h */; };
+		69B3783D1DD5E8E4008F6692 /* ccm.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227871C767B0900F78634 /* ccm.h */; };
+		69B3783E1DD5E8E4008F6692 /* hmac_drbg.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C2279B1C767B0900F78634 /* hmac_drbg.h */; };
+		69B3783F1DD5E8E4008F6692 /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C2278D1C767B0900F78634 /* config.h */; };
+		69B378401DD5E8E4008F6692 /* PrefsNetworkViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F910FE16CA5C720041EA38 /* PrefsNetworkViewController.h */; };
+		69B378411DD5E8E4008F6692 /* CapWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 699282E119D0430A00270E86 /* CapWindowController.h */; };
+		69B378421DD5E8E4008F6692 /* ssl_cookie.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227B41C767B0900F78634 /* ssl_cookie.h */; };
+		69B378431DD5E8E4008F6692 /* SEBDockItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 690B5B6019DBEAA400704F36 /* SEBDockItem.h */; };
+		69B378441DD5E8E4008F6692 /* gcm.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227991C767B0900F78634 /* gcm.h */; };
+		69B378451DD5E8E4008F6692 /* pkcs11.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227A81C767B0900F78634 /* pkcs11.h */; };
+		69B378461DD5E8E4008F6692 /* des.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227901C767B0900F78634 /* des.h */; };
+		69B378471DD5E8E4008F6692 /* camellia.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227861C767B0900F78634 /* camellia.h */; };
+		69B378481DD5E8E4008F6692 /* RNCryptorEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2919C468E700CBE69F /* RNCryptorEngine.h */; };
+		69B378491DD5E8E4008F6692 /* DDLog+LOGV.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E32D1A019F7A0086A741 /* DDLog+LOGV.h */; };
+		69B3784A1DD5E8E4008F6692 /* PrefsSecurityViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */; };
+		69B3784B1DD5E8E4008F6692 /* SEBBrowserController.h in Headers */ = {isa = PBXBuildFile; fileRef = 699D8DFC1C5F998D00A051F2 /* SEBBrowserController.h */; };
+		69B3784C1DD5E8E4008F6692 /* PrefsAppearanceViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F32DC116D23374003C9502 /* PrefsAppearanceViewController.h */; };
+		69B3784D1DD5E8E4008F6692 /* CLIColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3211A019F7A0086A741 /* CLIColor.h */; };
+		69B3784E1DD5E8E4008F6692 /* DDContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3341A019F7A0086A741 /* DDContextFilterLogFormatter.h */; };
+		69B3784F1DD5E8E4008F6692 /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3241A019F7A0086A741 /* DDAbstractDatabaseLogger.h */; };
+		69B378501DD5E8E4008F6692 /* SEBFilterArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69FF14AA1A1BB10300912933 /* SEBFilterArrayController.h */; };
+		69B378511DD5E8E4008F6692 /* RNDecryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2519C468E700CBE69F /* RNDecryptor.h */; };
+		69B378521DD5E8E4008F6692 /* timing.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227B81C767B0900F78634 /* timing.h */; };
+		69B378531DD5E8E4008F6692 /* PrefsResourcesViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69DE764517FC2A9300EE5958 /* PrefsResourcesViewController.h */; };
+		69B378541DD5E8E4008F6692 /* ecp.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227951C767B0900F78634 /* ecp.h */; };
+		69B378551DD5E8E4008F6692 /* ecdh.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227921C767B0900F78634 /* ecdh.h */; };
+		69B378561DD5E8E4008F6692 /* x509_crl.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227BB1C767B0900F78634 /* x509_crl.h */; };
+		69B378571DD5E8E4008F6692 /* pem.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227A51C767B0900F78634 /* pem.h */; };
+		69B378581DD5E8E4008F6692 /* SEBWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F5BD9F1CFB4098006FBF81 /* SEBWebViewController.h */; };
+		69B378591DD5E8E4008F6692 /* ssl_cache.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227B21C767B0900F78634 /* ssl_cache.h */; };
+		69B3785A1DD5E8E4008F6692 /* blowfish.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227841C767B0900F78634 /* blowfish.h */; };
+		69B3785B1DD5E8E4008F6692 /* x509_csr.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227BD1C767B0900F78634 /* x509_csr.h */; };
+		69B3785C1DD5E8E4008F6692 /* CocoaLumberjack.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3231A019F7A0086A741 /* CocoaLumberjack.h */; };
+		69B3785D1DD5E8E4008F6692 /* pkcs5.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227AA1C767B0900F78634 /* pkcs5.h */; };
+		69B3785E1DD5E8E4008F6692 /* aes.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C2277D1C767B0900F78634 /* aes.h */; };
+		69B3785F1DD5E8E4008F6692 /* SEBWindowSizeValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */; };
+		69B378601DD5E8E4008F6692 /* havege.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C2279A1C767B0900F78634 /* havege.h */; };
+		69B378611DD5E8E4008F6692 /* CapWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 699731C218C8D6ED0069FE35 /* CapWindow.h */; };
+		69B378621DD5E8E4008F6692 /* bignum.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227831C767B0900F78634 /* bignum.h */; };
+		69B378631DD5E8E4008F6692 /* threading.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227B71C767B0900F78634 /* threading.h */; };
+		69B378641DD5E8E4008F6692 /* pk_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227A71C767B0900F78634 /* pk_internal.h */; };
+		69B378651DD5E8E4008F6692 /* check_config.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227891C767B0900F78634 /* check_config.h */; };
+		69B378661DD5E8E4008F6692 /* pk.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227A61C767B0900F78634 /* pk.h */; };
+		69B378671DD5E8E4008F6692 /* BoolValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6921294016F91C6600AFC3B0 /* BoolValueTransformer.h */; };
+		69B378681DD5E8E4008F6692 /* memory_buffer_alloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227A11C767B0900F78634 /* memory_buffer_alloc.h */; };
+		69B378691DD5E8E4008F6692 /* SEBBrowserOpenWindowWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 69009BDE19EA7F590083274C /* SEBBrowserOpenWindowWebView.h */; };
+		69B3786A1DD5E8E4008F6692 /* sha512.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227B01C767B0900F78634 /* sha512.h */; };
+		69B3786B1DD5E8E4008F6692 /* SEBOSXBrowserController.h in Headers */ = {isa = PBXBuildFile; fileRef = 690C6EE419E29E3600EDE103 /* SEBOSXBrowserController.h */; };
+		69B3786C1DD5E8E4008F6692 /* NSRunningApplication+SEB.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E9EA301DB1A2D500C949FE /* NSRunningApplication+SEB.h */; };
+		69B3786D1DD5E8E4008F6692 /* DDAssertMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E32A1A019F7A0086A741 /* DDAssertMacros.h */; };
+		69B3786E1DD5E8E4008F6692 /* compat-1.3.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C2278C1C767B0900F78634 /* compat-1.3.h */; };
+		69B3786F1DD5E8E4008F6692 /* ripemd160.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227AC1C767B0900F78634 /* ripemd160.h */; };
+		69B378701DD5E8E4008F6692 /* RNEncryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2719C468E700CBE69F /* RNEncryptor.h */; };
+		69B378711DD5E8E4008F6692 /* WebViewInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 69EC2A3C1BD63B4800790AF7 /* WebViewInternal.h */; };
+		69B378721DD5E8E4008F6692 /* cipher_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C2278B1C767B0900F78634 /* cipher_internal.h */; };
+		69B378731DD5E8E4008F6692 /* RNCryptor OS X-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2C19C468E700CBE69F /* RNCryptor OS X-Prefix.pch */; };
+		69B378741DD5E8E4008F6692 /* aesni.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C2277E1C767B0900F78634 /* aesni.h */; };
+		69B378751DD5E8E4008F6692 /* NSURL+KKDomain.h in Headers */ = {isa = PBXBuildFile; fileRef = 6906F3C01A3FA5EE0011CF93 /* NSURL+KKDomain.h */; };
+		69B378761DD5E8E4008F6692 /* SEBURLFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D817E318017DDB00EB7885 /* SEBURLFilter.h */; };
+		69B378771DD5E8E4008F6692 /* SEBWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 69263A9C1A2E0765006F1E31 /* SEBWebView.h */; };
+		69B378781DD5E8E4008F6692 /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E32B1A019F7A0086A741 /* DDFileLogger.h */; };
+		69B378791DD5E8E4008F6692 /* SEBDockItemButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 690BBEAF19D2C6E500F7C9C6 /* SEBDockItemButton.h */; };
+		69B3787A1DD5E8E4008F6692 /* IsEmptyCollectionValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6921294516F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h */; };
+		69B3787B1DD5E8E4008F6692 /* md.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C2279C1C767B0900F78634 /* md.h */; };
+		69B3787C1DD5E8E4008F6692 /* cipher.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C2278A1C767B0900F78634 /* cipher.h */; };
+		69B3787D1DD5E8E4008F6692 /* PreferencesWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 6901331919B371CB0050574D /* PreferencesWindow.h */; };
+		69B3787E1DD5E8E4008F6692 /* ssl_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227B51C767B0900F78634 /* ssl_internal.h */; };
+		69B3787F1DD5E8E4008F6692 /* DDLogMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3301A019F7A0086A741 /* DDLogMacros.h */; };
+		69B378801DD5E8E4008F6692 /* NSData+NSDataZIPExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 6940A75F1853B2AD00D9D00D /* NSData+NSDataZIPExtension.h */; };
+		69B378811DD5E8E4008F6692 /* asn1.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227801C767B0900F78634 /* asn1.h */; };
+		69B378821DD5E8E4008F6692 /* SEBURLProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F0A3371AD40237008A3553 /* SEBURLProtocol.h */; };
+		69B378831DD5E8E4008F6692 /* rsa.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227AD1C767B0900F78634 /* rsa.h */; };
+		69B378841DD5E8E4008F6692 /* SEBSystemManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CBEB541834C55C00FB0460 /* SEBSystemManager.h */; };
+		69B378851DD5E8E4008F6692 /* padlock.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227A41C767B0900F78634 /* padlock.h */; };
+		69B378861DD5E8E4008F6692 /* DDMultiFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3381A019F7A0086A741 /* DDMultiFormatter.h */; };
+		69B378871DD5E8E4008F6692 /* CGSPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 69519F031DB95E4700159E5B /* CGSPrivate.h */; };
+		69B378881DD5E8E4008F6692 /* NSPasteboard+SaveRestore.h in Headers */ = {isa = PBXBuildFile; fileRef = 695572E31D91EC45003C048A /* NSPasteboard+SaveRestore.h */; };
+		69B378891DD5E8E4008F6692 /* DDASLLogCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3261A019F7A0086A741 /* DDASLLogCapture.h */; };
+		69B3788A1DD5E8E4008F6692 /* ssl_ciphersuites.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227B31C767B0900F78634 /* ssl_ciphersuites.h */; };
+		69B3788B1DD5E8E4008F6692 /* WebPreferencesPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 69623A2D1A26184900ED451C /* WebPreferencesPrivate.h */; };
+		69B3788C1DD5E8E4008F6692 /* WebStorageManagerPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 69623A2B1A26180E00ED451C /* WebStorageManagerPrivate.h */; };
+		69B3788D1DD5E8E4008F6692 /* DropDownButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 693647F817122A0300EE41BC /* DropDownButton.h */; };
+		69B3788E1DD5E8E4008F6692 /* CanonicalRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 6949A4811D0EF5890040ABF1 /* CanonicalRequest.h */; };
+		69B3788F1DD5E8E4008F6692 /* RNCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2319C468E700CBE69F /* RNCryptor.h */; };
+		69B378901DD5E8E4008F6692 /* x509_crt.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227BC1C767B0900F78634 /* x509_crt.h */; };
+		69B378911DD5E8E4008F6692 /* entropy.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227961C767B0900F78634 /* entropy.h */; };
+		69B378921DD5E8E4008F6692 /* SEBDockView.h in Headers */ = {isa = PBXBuildFile; fileRef = 690BBEB419D30DF800F7C9C6 /* SEBDockView.h */; };
+		69B378931DD5E8E4008F6692 /* RNCryptor+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2B19C468E700CBE69F /* RNCryptor+Private.h */; };
+		69B378941DD5E8E4008F6692 /* ctr_drbg.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C2278E1C767B0900F78634 /* ctr_drbg.h */; };
+		69B378951DD5E8E4008F6692 /* dhm.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227911C767B0900F78634 /* dhm.h */; };
+		69B378961DD5E8E4008F6692 /* SEBURLFilterRegexExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 691774481A2776FB0039CC39 /* SEBURLFilterRegexExpression.h */; };
+		69B378971DD5E8E4008F6692 /* base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227821C767B0900F78634 /* base64.h */; };
+		69B378981DD5E8E4008F6692 /* oid.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227A31C767B0900F78634 /* oid.h */; };
+		69B378991DD5E8E4008F6692 /* DDDispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3361A019F7A0086A741 /* DDDispatchQueueLogFormatter.h */; };
+		69B3789A1DD5E8E4008F6692 /* asn1write.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227811C767B0900F78634 /* asn1write.h */; };
+		69B3789B1DD5E8E4008F6692 /* ssl.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227B11C767B0900F78634 /* ssl.h */; };
+		69B3789C1DD5E8E4008F6692 /* md4.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C2279E1C767B0900F78634 /* md4.h */; };
+		69B3789D1DD5E8E4008F6692 /* SEBConfigFileManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CE9C5B17326AB90011609B /* SEBConfigFileManager.h */; };
+		69B3789E1DD5E8E4008F6692 /* SEBTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CE9C6117378B9A0011609B /* SEBTextField.h */; };
+		69B3789F1DD5E8E4008F6692 /* WebPluginDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 69EC2A3E1BD6C4FF00790AF7 /* WebPluginDatabase.h */; };
+		69B378A01DD5E8E4008F6692 /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3281A019F7A0086A741 /* DDASLLogger.h */; };
+		69B378A11DD5E8E4008F6692 /* sha256.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227AF1C767B0900F78634 /* sha256.h */; };
+		69B378A21DD5E8E4008F6692 /* NSColorValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C1FF9E1D0820E20087A5A1 /* NSColorValueTransformer.h */; };
+		69B378A31DD5E8E4008F6692 /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227B91C767B0900F78634 /* version.h */; };
+		69B378A41DD5E8E4008F6692 /* md2.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C2279D1C767B0900F78634 /* md2.h */; };
+		69B378A51DD5E8E4008F6692 /* net.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227A21C767B0900F78634 /* net.h */; };
+		69B378A61DD5E8E4008F6692 /* SEBFilterTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CE1C151741309C0072207D /* SEBFilterTreeController.h */; };
+		69B378A71DD5E8E4008F6692 /* x509.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227BA1C767B0900F78634 /* x509.h */; };
+		69B378A81DD5E8E4008F6692 /* debug.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C2278F1C767B0900F78634 /* debug.h */; };
+		69B378A91DD5E8E4008F6692 /* SEBDockController.h in Headers */ = {isa = PBXBuildFile; fileRef = 690BBEAA19D2C6A000F7C9C6 /* SEBDockController.h */; };
+		69B378AA1DD5E8E4008F6692 /* md_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227A01C767B0900F78634 /* md_internal.h */; };
+		69B378AB1DD5E8E4008F6692 /* arc4.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C2277F1C767B0900F78634 /* arc4.h */; };
+		69B378AC1DD5E8E4008F6692 /* NSURL+SEBURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 69627F8E1A1A46CF00E9F2A8 /* NSURL+SEBURL.h */; };
+		69B378AD1DD5E8E4008F6692 /* CacheStoragePolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 6949A47F1D0EF5890040ABF1 /* CacheStoragePolicy.h */; };
+		69B378AE1DD5E8E4008F6692 /* SEBLockedViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69EDAC1C1BBB476F00A3E6C4 /* SEBLockedViewController.h */; };
+		69B378AF1DD5E8E4008F6692 /* sha1.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227AE1C767B0900F78634 /* sha1.h */; };
+		69B378B01DD5E8E4008F6692 /* SEBDockItemMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 695BE5F219EC3FED00CA2BB4 /* SEBDockItemMenu.h */; };
+		69B378B11DD5E8E4008F6692 /* entropy_poll.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C227971C767B0900F78634 /* entropy_poll.h */; };
+		69B378B21DD5E8E4008F6692 /* QNSURLSessionDemux.h in Headers */ = {isa = PBXBuildFile; fileRef = 6949A4851D0EF5890040ABF1 /* QNSURLSessionDemux.h */; };
+		69B378B31DD5E8E4008F6692 /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 6909E3311A019F7A0086A741 /* DDTTYLogger.h */; };
+		69B378B41DD5E8E4008F6692 /* NSScreen+SEBScreen.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A23AB51DB500C700110243 /* NSScreen+SEBScreen.h */; };
+		69B378B51DD5E8E4008F6692 /* SEBDockWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 6915F2E719C8F77600DAEA37 /* SEBDockWindow.h */; };
+		69B378B61DD5E8E4008F6692 /* CustomHTTPProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 6949A4831D0EF5890040ABF1 /* CustomHTTPProtocol.h */; };
 		69C1FFA01D0820E20087A5A1 /* NSColorValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C1FF9E1D0820E20087A5A1 /* NSColorValueTransformer.h */; };
 		69C1FFA11D0820E30087A5A1 /* NSColorValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C1FF9F1D0820E20087A5A1 /* NSColorValueTransformer.m */; };
 		69C2280A1C767B0900F78634 /* aes.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C2277D1C767B0900F78634 /* aes.h */; };
@@ -376,6 +735,13 @@
 			remoteGlobalIDString = 0E1B53781C62D05300CE0319;
 			remoteInfo = mbedtls;
 		};
+		69B377491DD5E8E4008F6692 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 69C228061C767B0900F78634 /* mbedtls.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 0E1B53781C62D05300CE0319;
+			remoteInfo = mbedtls;
+		};
 		69C228941C767B0A00F78634 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 69C228061C767B0900F78634 /* mbedtls.xcodeproj */;
@@ -386,6 +752,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		69B378271DD5E8E4008F6692 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69F7B62114F411FB00FD0761 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -577,6 +952,8 @@
 		69A9A234136AF6E000840AE1 /* PrefsDownUploadsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsDownUploadsViewController.h; sourceTree = "<group>"; };
 		69B2EB851A435E2000B5AE67 /* AboutSEB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AboutSEB.png; path = Resources/Images/AboutSEB.png; sourceTree = "<group>"; };
 		69B2EB861A435E2000B5AE67 /* AboutSEB@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AboutSEB@2x.png"; path = "Resources/Images/AboutSEB@2x.png"; sourceTree = "<group>"; };
+		69B378BA1DD5E8E4008F6692 /* Safe Exam Browser copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Safe Exam Browser copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		69B378BB1DD5E8E5008F6692 /* Safe Exam Browser copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Safe Exam Browser copy-Info.plist"; path = "/Users/drs/developer/SafeExamBrowser-ARC/seb-mac/Safe Exam Browser copy-Info.plist"; sourceTree = "<absolute>"; };
 		69C1FF9E1D0820E20087A5A1 /* NSColorValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSColorValueTransformer.h; sourceTree = "<group>"; };
 		69C1FF9F1D0820E20087A5A1 /* NSColorValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSColorValueTransformer.m; sourceTree = "<group>"; };
 		69C2277D1C767B0900F78634 /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
@@ -807,6 +1184,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		69B3781E1DD5E8E4008F6692 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69B3781F1DD5E8E4008F6692 /* libmbedtls.a in Frameworks */,
+				69B378201DD5E8E4008F6692 /* SystemConfiguration.framework in Frameworks */,
+				69B378211DD5E8E4008F6692 /* libz.dylib in Frameworks */,
+				69B378221DD5E8E4008F6692 /* WebKit.framework in Frameworks */,
+				69B378231DD5E8E4008F6692 /* Cocoa.framework in Frameworks */,
+				69B378241DD5E8E4008F6692 /* Carbon.framework in Frameworks */,
+				69B378251DD5E8E4008F6692 /* IOKit.framework in Frameworks */,
+				69B378261DD5E8E4008F6692 /* Security.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69F7B61C14F411FB00FD0761 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -870,6 +1262,7 @@
 			isa = PBXGroup;
 			children = (
 				69F7B62514F411FB00FD0761 /* Safe Exam Browser.app */,
+				69B378BA1DD5E8E4008F6692 /* Safe Exam Browser copy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -884,6 +1277,7 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				69C227791C767B0900F78634 /* osx-mbedtls */,
+				69B378BB1DD5E8E5008F6692 /* Safe Exam Browser copy-Info.plist */,
 			);
 			name = SEB;
 			sourceTree = "<group>";
@@ -1669,9 +2063,180 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		69B378281DD5E8E4008F6692 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69B378291DD5E8E4008F6692 /* xtea.h in Headers */,
+				69B3782A1DD5E8E4008F6692 /* md5.h in Headers */,
+				69B3782B1DD5E8E4008F6692 /* DDLog.h in Headers */,
+				69B3782C1DD5E8E4008F6692 /* SEBCryptor.h in Headers */,
+				69B3782D1DD5E8E4008F6692 /* certs.h in Headers */,
+				69B3782E1DD5E8E4008F6692 /* bn_mul.h in Headers */,
+				69B3782F1DD5E8E4008F6692 /* NSString+KKDomain.h in Headers */,
+				69B378301DD5E8E4008F6692 /* SEBCertServices.h in Headers */,
+				69B378311DD5E8E4008F6692 /* NSTextFieldNilToEmptyStringTransformer.h in Headers */,
+				69B378321DD5E8E4008F6692 /* ssl_ticket.h in Headers */,
+				69B378331DD5E8E4008F6692 /* pkcs12.h in Headers */,
+				69B378341DD5E8E4008F6692 /* SEBDockItemTime.h in Headers */,
+				69B378351DD5E8E4008F6692 /* error.h in Headers */,
+				69B378361DD5E8E4008F6692 /* PrefsConfigFileViewController.h in Headers */,
+				69B378371DD5E8E4008F6692 /* SEBURLFilterExpression.h in Headers */,
+				69B378381DD5E8E4008F6692 /* platform.h in Headers */,
+				69B378391DD5E8E4008F6692 /* ecdsa.h in Headers */,
+				69B3783A1DD5E8E4008F6692 /* ecjpake.h in Headers */,
+				69B3783B1DD5E8E4008F6692 /* PrefsApplicationsViewController.h in Headers */,
+				69B3783C1DD5E8E4008F6692 /* HUDPanel.h in Headers */,
+				69B3783D1DD5E8E4008F6692 /* ccm.h in Headers */,
+				69B3783E1DD5E8E4008F6692 /* hmac_drbg.h in Headers */,
+				69B3783F1DD5E8E4008F6692 /* config.h in Headers */,
+				69B378401DD5E8E4008F6692 /* PrefsNetworkViewController.h in Headers */,
+				69B378411DD5E8E4008F6692 /* CapWindowController.h in Headers */,
+				69B378421DD5E8E4008F6692 /* ssl_cookie.h in Headers */,
+				69B378431DD5E8E4008F6692 /* SEBDockItem.h in Headers */,
+				69B378441DD5E8E4008F6692 /* gcm.h in Headers */,
+				69B378451DD5E8E4008F6692 /* pkcs11.h in Headers */,
+				69B378461DD5E8E4008F6692 /* des.h in Headers */,
+				69B378471DD5E8E4008F6692 /* camellia.h in Headers */,
+				69B378481DD5E8E4008F6692 /* RNCryptorEngine.h in Headers */,
+				69B378491DD5E8E4008F6692 /* DDLog+LOGV.h in Headers */,
+				69B3784A1DD5E8E4008F6692 /* PrefsSecurityViewController.h in Headers */,
+				69B3784B1DD5E8E4008F6692 /* SEBBrowserController.h in Headers */,
+				69B3784C1DD5E8E4008F6692 /* PrefsAppearanceViewController.h in Headers */,
+				69B3784D1DD5E8E4008F6692 /* CLIColor.h in Headers */,
+				69B3784E1DD5E8E4008F6692 /* DDContextFilterLogFormatter.h in Headers */,
+				69B3784F1DD5E8E4008F6692 /* DDAbstractDatabaseLogger.h in Headers */,
+				69B378501DD5E8E4008F6692 /* SEBFilterArrayController.h in Headers */,
+				69B378511DD5E8E4008F6692 /* RNDecryptor.h in Headers */,
+				69B378521DD5E8E4008F6692 /* timing.h in Headers */,
+				69B378531DD5E8E4008F6692 /* PrefsResourcesViewController.h in Headers */,
+				69B378541DD5E8E4008F6692 /* ecp.h in Headers */,
+				69B378551DD5E8E4008F6692 /* ecdh.h in Headers */,
+				69B378561DD5E8E4008F6692 /* x509_crl.h in Headers */,
+				69B378571DD5E8E4008F6692 /* pem.h in Headers */,
+				69B378581DD5E8E4008F6692 /* SEBWebViewController.h in Headers */,
+				69B378591DD5E8E4008F6692 /* ssl_cache.h in Headers */,
+				69B3785A1DD5E8E4008F6692 /* blowfish.h in Headers */,
+				69B3785B1DD5E8E4008F6692 /* x509_csr.h in Headers */,
+				69B3785C1DD5E8E4008F6692 /* CocoaLumberjack.h in Headers */,
+				69B3785D1DD5E8E4008F6692 /* pkcs5.h in Headers */,
+				69B3785E1DD5E8E4008F6692 /* aes.h in Headers */,
+				69B3785F1DD5E8E4008F6692 /* SEBWindowSizeValueTransformer.h in Headers */,
+				69B378601DD5E8E4008F6692 /* havege.h in Headers */,
+				69B378611DD5E8E4008F6692 /* CapWindow.h in Headers */,
+				69B378621DD5E8E4008F6692 /* bignum.h in Headers */,
+				69B378631DD5E8E4008F6692 /* threading.h in Headers */,
+				69B378641DD5E8E4008F6692 /* pk_internal.h in Headers */,
+				69B378651DD5E8E4008F6692 /* check_config.h in Headers */,
+				69B378661DD5E8E4008F6692 /* pk.h in Headers */,
+				69B378671DD5E8E4008F6692 /* BoolValueTransformer.h in Headers */,
+				69B378681DD5E8E4008F6692 /* memory_buffer_alloc.h in Headers */,
+				69B378691DD5E8E4008F6692 /* SEBBrowserOpenWindowWebView.h in Headers */,
+				69B3786A1DD5E8E4008F6692 /* sha512.h in Headers */,
+				69B3786B1DD5E8E4008F6692 /* SEBOSXBrowserController.h in Headers */,
+				69B3786C1DD5E8E4008F6692 /* NSRunningApplication+SEB.h in Headers */,
+				69B3786D1DD5E8E4008F6692 /* DDAssertMacros.h in Headers */,
+				69B3786E1DD5E8E4008F6692 /* compat-1.3.h in Headers */,
+				69B3786F1DD5E8E4008F6692 /* ripemd160.h in Headers */,
+				69B378701DD5E8E4008F6692 /* RNEncryptor.h in Headers */,
+				69B378711DD5E8E4008F6692 /* WebViewInternal.h in Headers */,
+				69B378721DD5E8E4008F6692 /* cipher_internal.h in Headers */,
+				69B378731DD5E8E4008F6692 /* RNCryptor OS X-Prefix.pch in Headers */,
+				69B378741DD5E8E4008F6692 /* aesni.h in Headers */,
+				69B378751DD5E8E4008F6692 /* NSURL+KKDomain.h in Headers */,
+				69B378761DD5E8E4008F6692 /* SEBURLFilter.h in Headers */,
+				69B378771DD5E8E4008F6692 /* SEBWebView.h in Headers */,
+				69B378781DD5E8E4008F6692 /* DDFileLogger.h in Headers */,
+				69B378791DD5E8E4008F6692 /* SEBDockItemButton.h in Headers */,
+				69B3787A1DD5E8E4008F6692 /* IsEmptyCollectionValueTransformer.h in Headers */,
+				69B3787B1DD5E8E4008F6692 /* md.h in Headers */,
+				69B3787C1DD5E8E4008F6692 /* cipher.h in Headers */,
+				69B3787D1DD5E8E4008F6692 /* PreferencesWindow.h in Headers */,
+				69B3787E1DD5E8E4008F6692 /* ssl_internal.h in Headers */,
+				69B3787F1DD5E8E4008F6692 /* DDLogMacros.h in Headers */,
+				69B378801DD5E8E4008F6692 /* NSData+NSDataZIPExtension.h in Headers */,
+				69B378811DD5E8E4008F6692 /* asn1.h in Headers */,
+				69B378821DD5E8E4008F6692 /* SEBURLProtocol.h in Headers */,
+				69B378831DD5E8E4008F6692 /* rsa.h in Headers */,
+				69B378841DD5E8E4008F6692 /* SEBSystemManager.h in Headers */,
+				69B378851DD5E8E4008F6692 /* padlock.h in Headers */,
+				69B378861DD5E8E4008F6692 /* DDMultiFormatter.h in Headers */,
+				69B378871DD5E8E4008F6692 /* CGSPrivate.h in Headers */,
+				69B378881DD5E8E4008F6692 /* NSPasteboard+SaveRestore.h in Headers */,
+				69B378891DD5E8E4008F6692 /* DDASLLogCapture.h in Headers */,
+				69B3788A1DD5E8E4008F6692 /* ssl_ciphersuites.h in Headers */,
+				69B3788B1DD5E8E4008F6692 /* WebPreferencesPrivate.h in Headers */,
+				69B3788C1DD5E8E4008F6692 /* WebStorageManagerPrivate.h in Headers */,
+				69B3788D1DD5E8E4008F6692 /* DropDownButton.h in Headers */,
+				69B3788E1DD5E8E4008F6692 /* CanonicalRequest.h in Headers */,
+				69B3788F1DD5E8E4008F6692 /* RNCryptor.h in Headers */,
+				69B378901DD5E8E4008F6692 /* x509_crt.h in Headers */,
+				69B378911DD5E8E4008F6692 /* entropy.h in Headers */,
+				69B378921DD5E8E4008F6692 /* SEBDockView.h in Headers */,
+				69B378931DD5E8E4008F6692 /* RNCryptor+Private.h in Headers */,
+				69B378941DD5E8E4008F6692 /* ctr_drbg.h in Headers */,
+				69B378951DD5E8E4008F6692 /* dhm.h in Headers */,
+				69B378961DD5E8E4008F6692 /* SEBURLFilterRegexExpression.h in Headers */,
+				69B378971DD5E8E4008F6692 /* base64.h in Headers */,
+				69B378981DD5E8E4008F6692 /* oid.h in Headers */,
+				69B378991DD5E8E4008F6692 /* DDDispatchQueueLogFormatter.h in Headers */,
+				69B3789A1DD5E8E4008F6692 /* asn1write.h in Headers */,
+				69B3789B1DD5E8E4008F6692 /* ssl.h in Headers */,
+				69B3789C1DD5E8E4008F6692 /* md4.h in Headers */,
+				69B3789D1DD5E8E4008F6692 /* SEBConfigFileManager.h in Headers */,
+				69B3789E1DD5E8E4008F6692 /* SEBTextField.h in Headers */,
+				69B3789F1DD5E8E4008F6692 /* WebPluginDatabase.h in Headers */,
+				69B378A01DD5E8E4008F6692 /* DDASLLogger.h in Headers */,
+				69B378A11DD5E8E4008F6692 /* sha256.h in Headers */,
+				69B378A21DD5E8E4008F6692 /* NSColorValueTransformer.h in Headers */,
+				69B378A31DD5E8E4008F6692 /* version.h in Headers */,
+				69B378A41DD5E8E4008F6692 /* md2.h in Headers */,
+				69B378A51DD5E8E4008F6692 /* net.h in Headers */,
+				69B378A61DD5E8E4008F6692 /* SEBFilterTreeController.h in Headers */,
+				69B378A71DD5E8E4008F6692 /* x509.h in Headers */,
+				69B378A81DD5E8E4008F6692 /* debug.h in Headers */,
+				69B378A91DD5E8E4008F6692 /* SEBDockController.h in Headers */,
+				69B378AA1DD5E8E4008F6692 /* md_internal.h in Headers */,
+				69B378AB1DD5E8E4008F6692 /* arc4.h in Headers */,
+				69B378AC1DD5E8E4008F6692 /* NSURL+SEBURL.h in Headers */,
+				69B378AD1DD5E8E4008F6692 /* CacheStoragePolicy.h in Headers */,
+				69B378AE1DD5E8E4008F6692 /* SEBLockedViewController.h in Headers */,
+				69B378AF1DD5E8E4008F6692 /* sha1.h in Headers */,
+				69B378B01DD5E8E4008F6692 /* SEBDockItemMenu.h in Headers */,
+				69B378B11DD5E8E4008F6692 /* entropy_poll.h in Headers */,
+				69B378B21DD5E8E4008F6692 /* QNSURLSessionDemux.h in Headers */,
+				69B378B31DD5E8E4008F6692 /* DDTTYLogger.h in Headers */,
+				69B378B41DD5E8E4008F6692 /* NSScreen+SEBScreen.h in Headers */,
+				69B378B51DD5E8E4008F6692 /* SEBDockWindow.h in Headers */,
+				69B378B61DD5E8E4008F6692 /* CustomHTTPProtocol.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		69B377471DD5E8E4008F6692 /* Safe Exam Browser copy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 69B378B71DD5E8E4008F6692 /* Build configuration list for PBXNativeTarget "Safe Exam Browser copy" */;
+			buildPhases = (
+				69B3774A1DD5E8E4008F6692 /* Run Script */,
+				69B3774B1DD5E8E4008F6692 /* Resources */,
+				69B3777F1DD5E8E4008F6692 /* Sources */,
+				69B3781E1DD5E8E4008F6692 /* Frameworks */,
+				69B378271DD5E8E4008F6692 /* CopyFiles */,
+				69B378281DD5E8E4008F6692 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				69B377481DD5E8E4008F6692 /* PBXTargetDependency */,
+			);
+			name = "Safe Exam Browser copy";
+			productInstallPath = "$(HOME)/Applications";
+			productName = SEB;
+			productReference = 69B378BA1DD5E8E4008F6692 /* Safe Exam Browser copy.app */;
+			productType = "com.apple.product-type.application";
+		};
 		69F7B5FA14F411FB00FD0761 /* Safe Exam Browser */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69F7B62214F411FB00FD0761 /* Build configuration list for PBXNativeTarget "Safe Exam Browser" */;
@@ -1703,7 +2268,7 @@
 				LastUpgradeCheck = 0800;
 				TargetAttributes = {
 					69F7B5FA14F411FB00FD0761 = {
-						DevelopmentTeam = 62DXYN3744;
+						DevelopmentTeam = 9Z623UDZ5L;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -1728,6 +2293,7 @@
 			projectRoot = "";
 			targets = (
 				69F7B5FA14F411FB00FD0761 /* Safe Exam Browser */,
+				69B377471DD5E8E4008F6692 /* Safe Exam Browser copy */,
 			);
 		};
 /* End PBXProject section */
@@ -1743,6 +2309,64 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		69B3774B1DD5E8E4008F6692 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69B3774C1DD5E8E4008F6692 /* SEBReloadIconHighlighted.iconset in Resources */,
+				69B3774D1DD5E8E4008F6692 /* LICENCE in Resources */,
+				69B3774E1DD5E8E4008F6692 /* PreferencesGeneral.xib in Resources */,
+				69B3774F1DD5E8E4008F6692 /* PreferencesDownUploads.xib in Resources */,
+				69B377501DD5E8E4008F6692 /* MainMenu.xib in Resources */,
+				69B377511DD5E8E4008F6692 /* SEBShutDownIcon.iconset in Resources */,
+				69B377521DD5E8E4008F6692 /* SEBicon.icns in Resources */,
+				69B377531DD5E8E4008F6692 /* SEBBrowserWindow.xib in Resources */,
+				69B377541DD5E8E4008F6692 /* BrowserIcon.png in Resources */,
+				69B377551DD5E8E4008F6692 /* BrowserIcon@2x.png in Resources */,
+				69B377561DD5E8E4008F6692 /* PreferencesBrowser.xib in Resources */,
+				69B377571DD5E8E4008F6692 /* AboutSEB@2x.png in Resources */,
+				69B377581DD5E8E4008F6692 /* ZoomPageIn.png in Resources */,
+				69B377591DD5E8E4008F6692 /* SEBUIUserDefaultsController.h in Resources */,
+				69B3775A1DD5E8E4008F6692 /* MenuTriangleDown.png in Resources */,
+				69B3775B1DD5E8E4008F6692 /* PreferencesExam.xib in Resources */,
+				69B3775C1DD5E8E4008F6692 /* PreferencesConfigFile.xib in Resources */,
+				69B3775D1DD5E8E4008F6692 /* PreferencesApplications.xib in Resources */,
+				69B3775E1DD5E8E4008F6692 /* PreferencesNetwork.xib in Resources */,
+				69B3775F1DD5E8E4008F6692 /* SEBRestartIcon.iconset in Resources */,
+				69B377601DD5E8E4008F6692 /* ApplicationsIcon.png in Resources */,
+				69B377611DD5E8E4008F6692 /* ApplicationsIcon@2x.png in Resources */,
+				69B377621DD5E8E4008F6692 /* DownUploadIcon.png in Resources */,
+				69B377631DD5E8E4008F6692 /* AboutSEB.png in Resources */,
+				69B377641DD5E8E4008F6692 /* DownUploadIcon@2x.png in Resources */,
+				69B377651DD5E8E4008F6692 /* SEBReloadIcon.iconset in Resources */,
+				69B377661DD5E8E4008F6692 /* ExamIcon.png in Resources */,
+				69B377671DD5E8E4008F6692 /* ExamIcon@2x.png in Resources */,
+				69B377681DD5E8E4008F6692 /* PreferencesSecurity.xib in Resources */,
+				69B377691DD5E8E4008F6692 /* etld.plist in Resources */,
+				69B3776A1DD5E8E4008F6692 /* Appearance.icns in Resources */,
+				69B3776B1DD5E8E4008F6692 /* PreferencesAppearance.xib in Resources */,
+				69B3776C1DD5E8E4008F6692 /* ZoomPageIn@2x.png in Resources */,
+				69B3776D1DD5E8E4008F6692 /* PreferencesResources.xib in Resources */,
+				69B3776E1DD5E8E4008F6692 /* InfoPlist.strings in Resources */,
+				69B3776F1DD5E8E4008F6692 /* SecurityIcon.png in Resources */,
+				69B377701DD5E8E4008F6692 /* MenuTriangleDown@2x.png in Resources */,
+				69B377711DD5E8E4008F6692 /* ZoomPageOut.png in Resources */,
+				69B377721DD5E8E4008F6692 /* SecurityIcon@2x.png in Resources */,
+				69B377731DD5E8E4008F6692 /* SEBDocumentIcon.icns in Resources */,
+				69B377741DD5E8E4008F6692 /* sebConfigIcon.png in Resources */,
+				69B377751DD5E8E4008F6692 /* sebConfigIcon@2x.png in Resources */,
+				69B377761DD5E8E4008F6692 /* SEBShutDownIconHighlighted.iconset in Resources */,
+				69B377771DD5E8E4008F6692 /* ZoomTextIn.png in Resources */,
+				69B377781DD5E8E4008F6692 /* ZoomTextIn@2x.png in Resources */,
+				69B377791DD5E8E4008F6692 /* Images.xcassets in Resources */,
+				69B3777A1DD5E8E4008F6692 /* ZoomPageOut@2x.png in Resources */,
+				69B3777B1DD5E8E4008F6692 /* Localizable.strings in Resources */,
+				69B3777C1DD5E8E4008F6692 /* ZoomTextOut.png in Resources */,
+				69B3777D1DD5E8E4008F6692 /* ZoomTextOut@2x.png in Resources */,
+				69B3777E1DD5E8E4008F6692 /* SEBRestartIconHighlighted.iconset in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69F7B5FB14F411FB00FD0761 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1818,9 +2442,188 @@
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/bash\nbN=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbN=$((0x$bN))\nbN=$(($bN + 1))\nbN=$(printf \"%X\" $bN)\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $bN\" \"$INFOPLIST_FILE\"";
 		};
+		69B3774A1DD5E8E4008F6692 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/bash\nbN=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbN=$((0x$bN))\nbN=$(($bN + 1))\nbN=$(printf \"%X\" $bN)\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $bN\" \"$INFOPLIST_FILE\"";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		69B3777F1DD5E8E4008F6692 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69B377801DD5E8E4008F6692 /* pkcs11.c in Sources */,
+				69B377811DD5E8E4008F6692 /* md2.c in Sources */,
+				69B377821DD5E8E4008F6692 /* RNCryptorEngine.m in Sources */,
+				69B377831DD5E8E4008F6692 /* PrefsGeneralViewController.m in Sources */,
+				69B377841DD5E8E4008F6692 /* NSTextFieldNilToEmptyStringTransformer.m in Sources */,
+				69B377851DD5E8E4008F6692 /* entropy.c in Sources */,
+				69B377861DD5E8E4008F6692 /* pkcs5.c in Sources */,
+				69B377871DD5E8E4008F6692 /* camellia.c in Sources */,
+				69B377881DD5E8E4008F6692 /* main.m in Sources */,
+				69B377891DD5E8E4008F6692 /* ecdh.c in Sources */,
+				69B3778A1DD5E8E4008F6692 /* version.c in Sources */,
+				69B3778B1DD5E8E4008F6692 /* SEBController.m in Sources */,
+				69B3778C1DD5E8E4008F6692 /* CapView.m in Sources */,
+				69B3778D1DD5E8E4008F6692 /* ripemd160.c in Sources */,
+				69B3778E1DD5E8E4008F6692 /* AboutWindow.m in Sources */,
+				69B3778F1DD5E8E4008F6692 /* rsa.c in Sources */,
+				69B377901DD5E8E4008F6692 /* AboutView.m in Sources */,
+				69B377911DD5E8E4008F6692 /* SEBBrowserWindow.m in Sources */,
+				69B377921DD5E8E4008F6692 /* md.c in Sources */,
+				69B377931DD5E8E4008F6692 /* MBPreferencesController.m in Sources */,
+				69B377941DD5E8E4008F6692 /* debug.c in Sources */,
+				69B377951DD5E8E4008F6692 /* ssl_cache.c in Sources */,
+				69B377961DD5E8E4008F6692 /* HUDPanel.m in Sources */,
+				69B377971DD5E8E4008F6692 /* PreferencesController.m in Sources */,
+				69B377981DD5E8E4008F6692 /* PrefsDownUploadsViewController.m in Sources */,
+				69B377991DD5E8E4008F6692 /* NSRunningApplication+SEB.m in Sources */,
+				69B3779A1DD5E8E4008F6692 /* x509_csr.c in Sources */,
+				69B3779B1DD5E8E4008F6692 /* DDASLLogger.m in Sources */,
+				69B3779C1DD5E8E4008F6692 /* SEBSystemManager.m in Sources */,
+				69B3779D1DD5E8E4008F6692 /* CapWindowController.m in Sources */,
+				69B3779E1DD5E8E4008F6692 /* SEBBrowserWindowDocument.m in Sources */,
+				69B3779F1DD5E8E4008F6692 /* memory_buffer_alloc.c in Sources */,
+				69B377A01DD5E8E4008F6692 /* MyGlobals.m in Sources */,
+				69B377A11DD5E8E4008F6692 /* SEBURLFilterRegexExpression.m in Sources */,
+				69B377A21DD5E8E4008F6692 /* SEBDockView.m in Sources */,
+				69B377A31DD5E8E4008F6692 /* DDTTYLogger.m in Sources */,
+				69B377A41DD5E8E4008F6692 /* PrefsBrowserViewController.m in Sources */,
+				69B377A51DD5E8E4008F6692 /* ecdsa.c in Sources */,
+				69B377A61DD5E8E4008F6692 /* SEBEncryptedUserDefaultsController.m in Sources */,
+				69B377A71DD5E8E4008F6692 /* pkwrite.c in Sources */,
+				69B377A81DD5E8E4008F6692 /* SEBURLProtocol.m in Sources */,
+				69B377A91DD5E8E4008F6692 /* SEBOSXBrowserController.m in Sources */,
+				69B377AA1DD5E8E4008F6692 /* ecjpake.c in Sources */,
+				69B377AB1DD5E8E4008F6692 /* padlock.c in Sources */,
+				69B377AC1DD5E8E4008F6692 /* CapWindow.m in Sources */,
+				69B377AD1DD5E8E4008F6692 /* WebKit+WebKitExtensions.m in Sources */,
+				69B377AE1DD5E8E4008F6692 /* NSURL+SEBURL.m in Sources */,
+				69B377AF1DD5E8E4008F6692 /* ssl_ciphersuites.c in Sources */,
+				69B377B01DD5E8E4008F6692 /* pem.c in Sources */,
+				69B377B11DD5E8E4008F6692 /* ssl_ticket.c in Sources */,
+				69B377B21DD5E8E4008F6692 /* SEBBrowserWindowController.m in Sources */,
+				69B377B31DD5E8E4008F6692 /* x509_create.c in Sources */,
+				69B377B41DD5E8E4008F6692 /* CustomHTTPProtocol.m in Sources */,
+				69B377B51DD5E8E4008F6692 /* havege.c in Sources */,
+				69B377B61DD5E8E4008F6692 /* aes.c in Sources */,
+				69B377B71DD5E8E4008F6692 /* NSWindow+SEBWindow.m in Sources */,
+				69B377B81DD5E8E4008F6692 /* version_features.c in Sources */,
+				69B377B91DD5E8E4008F6692 /* DDMultiFormatter.m in Sources */,
+				69B377BA1DD5E8E4008F6692 /* MethodSwizzling.m in Sources */,
+				69B377BB1DD5E8E4008F6692 /* pkcs12.c in Sources */,
+				69B377BC1DD5E8E4008F6692 /* SEBCertServices.m in Sources */,
+				69B377BD1DD5E8E4008F6692 /* SEBDockItemButton.m in Sources */,
+				69B377BE1DD5E8E4008F6692 /* md5.c in Sources */,
+				69B377BF1DD5E8E4008F6692 /* SEBBrowserOpenWindowWebView.m in Sources */,
+				69B377C01DD5E8E4008F6692 /* asn1parse.c in Sources */,
+				69B377C11DD5E8E4008F6692 /* SEBURLFilterExpression.m in Sources */,
+				69B377C21DD5E8E4008F6692 /* SEBDockWindow.m in Sources */,
+				69B377C31DD5E8E4008F6692 /* oid.c in Sources */,
+				69B377C41DD5E8E4008F6692 /* NSData+NSDataZIPExtension.m in Sources */,
+				69B377C51DD5E8E4008F6692 /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
+				69B377C61DD5E8E4008F6692 /* NSPasteboard+SaveRestore.m in Sources */,
+				69B377C71DD5E8E4008F6692 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */,
+				69B377C81DD5E8E4008F6692 /* xtea.c in Sources */,
+				69B377C91DD5E8E4008F6692 /* SEBUIUserDefaultsController.m in Sources */,
+				69B377CA1DD5E8E4008F6692 /* PrefsExamViewController.m in Sources */,
+				69B377CB1DD5E8E4008F6692 /* SEBKeychainManager.m in Sources */,
+				69B377CC1DD5E8E4008F6692 /* threading.c in Sources */,
+				69B377CD1DD5E8E4008F6692 /* DDDispatchQueueLogFormatter.m in Sources */,
+				69B377CE1DD5E8E4008F6692 /* QNSURLSessionDemux.m in Sources */,
+				69B377CF1DD5E8E4008F6692 /* ccm.c in Sources */,
+				69B377D01DD5E8E4008F6692 /* pk_wrap.c in Sources */,
+				69B377D11DD5E8E4008F6692 /* gcm.c in Sources */,
+				69B377D21DD5E8E4008F6692 /* cipher_wrap.c in Sources */,
+				69B377D31DD5E8E4008F6692 /* SEBCryptor.m in Sources */,
+				69B377D41DD5E8E4008F6692 /* sha256.c in Sources */,
+				69B377D51DD5E8E4008F6692 /* SEBDockItem.m in Sources */,
+				69B377D61DD5E8E4008F6692 /* SEBFilterArrayController.m in Sources */,
+				69B377D71DD5E8E4008F6692 /* net.c in Sources */,
+				69B377D81DD5E8E4008F6692 /* PrefsConfigFileViewController.m in Sources */,
+				69B377D91DD5E8E4008F6692 /* ctr_drbg.c in Sources */,
+				69B377DA1DD5E8E4008F6692 /* CLIColor.m in Sources */,
+				69B377DB1DD5E8E4008F6692 /* PrefsApplicationsViewController.m in Sources */,
+				69B377DC1DD5E8E4008F6692 /* RNCryptor.m in Sources */,
+				69B377DD1DD5E8E4008F6692 /* x509write_csr.c in Sources */,
+				69B377DE1DD5E8E4008F6692 /* ssl_cookie.c in Sources */,
+				69B377DF1DD5E8E4008F6692 /* RNEncryptor.m in Sources */,
+				69B377E01DD5E8E4008F6692 /* ssl_srv.c in Sources */,
+				69B377E11DD5E8E4008F6692 /* SEBWebView.m in Sources */,
+				69B377E21DD5E8E4008F6692 /* PrefsNetworkViewController.m in Sources */,
+				69B377E31DD5E8E4008F6692 /* blowfish.c in Sources */,
+				69B377E41DD5E8E4008F6692 /* x509_crl.c in Sources */,
+				69B377E51DD5E8E4008F6692 /* NSScreen+SEBScreen.m in Sources */,
+				69B377E61DD5E8E4008F6692 /* DDLog.m in Sources */,
+				69B377E71DD5E8E4008F6692 /* PrefsSecurityViewController.m in Sources */,
+				69B377E81DD5E8E4008F6692 /* DDContextFilterLogFormatter.m in Sources */,
+				69B377E91DD5E8E4008F6692 /* PrefsAppearanceViewController.m in Sources */,
+				69B377EA1DD5E8E4008F6692 /* SEBWindowSizeValueTransformer.m in Sources */,
+				69B377EB1DD5E8E4008F6692 /* RNDecryptor.m in Sources */,
+				69B377EC1DD5E8E4008F6692 /* asn1write.c in Sources */,
+				69B377ED1DD5E8E4008F6692 /* x509write_crt.c in Sources */,
+				69B377EE1DD5E8E4008F6692 /* NSURL+KKDomain.m in Sources */,
+				69B377EF1DD5E8E4008F6692 /* error.c in Sources */,
+				69B377F01DD5E8E4008F6692 /* BoolValueTransformer.m in Sources */,
+				69B377F11DD5E8E4008F6692 /* IsEmptyCollectionValueTransformer.m in Sources */,
+				69B377F21DD5E8E4008F6692 /* SEBDockItemTime.m in Sources */,
+				69B377F31DD5E8E4008F6692 /* base64.c in Sources */,
+				69B377F41DD5E8E4008F6692 /* ssl_tls.c in Sources */,
+				69B377F51DD5E8E4008F6692 /* platform.c in Sources */,
+				69B377F61DD5E8E4008F6692 /* SEBURLFilter.m in Sources */,
+				69B377F71DD5E8E4008F6692 /* pkparse.c in Sources */,
+				69B377F81DD5E8E4008F6692 /* DDAbstractDatabaseLogger.m in Sources */,
+				69B377F91DD5E8E4008F6692 /* arc4.c in Sources */,
+				69B377FA1DD5E8E4008F6692 /* DDFileLogger.m in Sources */,
+				69B377FB1DD5E8E4008F6692 /* certs.c in Sources */,
+				69B377FC1DD5E8E4008F6692 /* SEBDockItemMenu.m in Sources */,
+				69B377FD1DD5E8E4008F6692 /* sha1.c in Sources */,
+				69B377FE1DD5E8E4008F6692 /* DropDownButton.m in Sources */,
+				69B377FF1DD5E8E4008F6692 /* cipher.c in Sources */,
+				69B378001DD5E8E4008F6692 /* SEBConfigFileManager.m in Sources */,
+				69B378011DD5E8E4008F6692 /* ssl_cli.c in Sources */,
+				69B378021DD5E8E4008F6692 /* DDASLLogCapture.m in Sources */,
+				69B378031DD5E8E4008F6692 /* SEBDockController.m in Sources */,
+				69B378041DD5E8E4008F6692 /* x509_crt.c in Sources */,
+				69B378051DD5E8E4008F6692 /* SEBWebViewController.m in Sources */,
+				69B378061DD5E8E4008F6692 /* sha512.c in Sources */,
+				69B378071DD5E8E4008F6692 /* SEBTextField.m in Sources */,
+				69B378081DD5E8E4008F6692 /* md_wrap.c in Sources */,
+				69B378091DD5E8E4008F6692 /* SEBFilterTreeController.m in Sources */,
+				69B3780A1DD5E8E4008F6692 /* dhm.c in Sources */,
+				69B3780B1DD5E8E4008F6692 /* entropy_poll.c in Sources */,
+				69B3780C1DD5E8E4008F6692 /* CanonicalRequest.m in Sources */,
+				69B3780D1DD5E8E4008F6692 /* x509.c in Sources */,
+				69B3780E1DD5E8E4008F6692 /* SEBLockedViewController.m in Sources */,
+				69B3780F1DD5E8E4008F6692 /* pk.c in Sources */,
+				69B378101DD5E8E4008F6692 /* ecp.c in Sources */,
+				69B378111DD5E8E4008F6692 /* timing.c in Sources */,
+				69B378121DD5E8E4008F6692 /* SEBBrowserController.m in Sources */,
+				69B378131DD5E8E4008F6692 /* NSColorValueTransformer.m in Sources */,
+				69B378141DD5E8E4008F6692 /* CacheStoragePolicy.m in Sources */,
+				69B378151DD5E8E4008F6692 /* md4.c in Sources */,
+				69B378161DD5E8E4008F6692 /* des.c in Sources */,
+				69B378171DD5E8E4008F6692 /* bignum.c in Sources */,
+				69B378181DD5E8E4008F6692 /* PrefsResourcesViewController.m in Sources */,
+				69B378191DD5E8E4008F6692 /* ecp_curves.c in Sources */,
+				69B3781A1DD5E8E4008F6692 /* PreferencesWindow.m in Sources */,
+				69B3781B1DD5E8E4008F6692 /* NSString+KKDomain.m in Sources */,
+				69B3781C1DD5E8E4008F6692 /* aesni.c in Sources */,
+				69B3781D1DD5E8E4008F6692 /* hmac_drbg.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69F7B60814F411FB00FD0761 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1994,6 +2797,11 @@
 			name = mbedtls;
 			targetProxy = 691B14F01D9EC8AC00C471B1 /* PBXContainerItemProxy */;
 		};
+		69B377481DD5E8E4008F6692 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = mbedtls;
+			targetProxy = 69B377491DD5E8E4008F6692 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -2125,6 +2933,86 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		69B378B81DD5E8E4008F6692 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = "";
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/..\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = OtherSources/SEB_Prefix.pch;
+				INFOPLIST_FILE = "Safe Exam Browser copy-Info.plist";
+				INSTALL_PATH = /Applications;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SDKROOT)/usr/lib/system\"",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CODE_SIGN_FLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.safeexambrowser.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = macosx;
+				SYMROOT = ../build;
+				VALID_ARCHS = x86_64;
+			};
+			name = Debug;
+		};
+		69B378B91DD5E8E4008F6692 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/..\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = OtherSources/SEB_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
+				INFOPLIST_FILE = "Safe Exam Browser copy-Info.plist";
+				INSTALL_PATH = /Applications;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SDKROOT)/usr/lib/system\"",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CODE_SIGN_FLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.safeexambrowser.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = macosx;
+				SYMROOT = ../build;
+				VALID_ARCHS = x86_64;
+			};
+			name = Release;
+		};
 		69F7B62314F411FB00FD0761 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2136,7 +3024,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = "";
-				DEVELOPMENT_TEAM = 62DXYN3744;
+				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2284,6 +3172,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		69B378B71DD5E8E4008F6692 /* Build configuration list for PBXNativeTarget "Safe Exam Browser copy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				69B378B81DD5E8E4008F6692 /* Debug */,
+				69B378B91DD5E8E4008F6692 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		69F7B62214F411FB00FD0761 /* Build configuration list for PBXNativeTarget "Safe Exam Browser" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
