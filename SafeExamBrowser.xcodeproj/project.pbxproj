@@ -953,7 +953,6 @@
 		69B2EB851A435E2000B5AE67 /* AboutSEB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AboutSEB.png; path = Resources/Images/AboutSEB.png; sourceTree = "<group>"; };
 		69B2EB861A435E2000B5AE67 /* AboutSEB@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AboutSEB@2x.png"; path = "Resources/Images/AboutSEB@2x.png"; sourceTree = "<group>"; };
 		69B378BA1DD5E8E4008F6692 /* Safe Exam Browser copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Safe Exam Browser copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		69B378BB1DD5E8E5008F6692 /* Safe Exam Browser copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Safe Exam Browser copy-Info.plist"; path = "/Users/drs/developer/SafeExamBrowser-ARC/seb-mac/Safe Exam Browser copy-Info.plist"; sourceTree = "<absolute>"; };
 		69C1FF9E1D0820E20087A5A1 /* NSColorValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSColorValueTransformer.h; sourceTree = "<group>"; };
 		69C1FF9F1D0820E20087A5A1 /* NSColorValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSColorValueTransformer.m; sourceTree = "<group>"; };
 		69C2277D1C767B0900F78634 /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
@@ -1277,7 +1276,6 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				69C227791C767B0900F78634 /* osx-mbedtls */,
-				69B378BB1DD5E8E5008F6692 /* Safe Exam Browser copy-Info.plist */,
 			);
 			name = SEB;
 			sourceTree = "<group>";
