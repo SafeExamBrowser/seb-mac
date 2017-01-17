@@ -56,9 +56,9 @@
 
 @property (weak) SEBController *sebController;
 @property (strong) SEBBrowserController *browserController;
-@property (weak) SEBWebView *mainWebView;
+@property (strong) SEBWebView *mainWebView;
 @property (strong) SEBBrowserWindowDocument *temporaryBrowserWindowDocument;
-@property (weak) SEBWebView *temporaryWebView;
+@property (strong) SEBWebView *temporaryWebView;
 @property (strong) SEBBrowserWindow *mainBrowserWindow;
 @property (strong) SEBBrowserWindow *activeBrowserWindow;
 @property (strong) SEBDockController *dockController;
