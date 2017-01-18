@@ -56,12 +56,12 @@
 
 @property (weak) SEBController *sebController;
 @property (strong) SEBBrowserController *browserController;
-@property (strong) SEBWebView *mainWebView;
+@property (weak) SEBWebView *mainWebView;
 @property (strong) SEBBrowserWindowDocument *temporaryBrowserWindowDocument;
-@property (strong) SEBWebView *temporaryWebView;
+@property (weak) SEBWebView *temporaryWebView;
 @property (strong) SEBBrowserWindow *mainBrowserWindow;
-@property (strong) SEBBrowserWindow *activeBrowserWindow;
-@property (strong) SEBDockController *dockController;
+@property (unsafe_unretained) SEBBrowserWindow *activeBrowserWindow;
+@property (weak) SEBDockController *dockController;
 @property (strong) NSString *currentMainHost;
 @property (strong) NSMutableArray *openBrowserWindowsWebViews;
 @property (strong) SEBDockItemMenu *openBrowserWindowsWebViewsMenu;

@@ -54,7 +54,7 @@
 @property (weak) IBOutlet NSSegmentedControl *backForwardButtons;
 @property (weak) SEBOSXBrowserController *browserController;
 @property (strong) NSScreen *previousScreen;
-@property(strong) NSTimer *windowWatchTimer;
+@property (strong) NSTimer *windowWatchTimer;
 
 - (IBAction) backForward: (id)sender;
 - (IBAction) zoomText: (id)sender;

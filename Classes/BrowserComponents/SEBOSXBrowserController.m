@@ -86,6 +86,8 @@
 //        // Do something once it's done.
 //    }];
 
+    _activeBrowserWindow = nil;
+    
     [self.openBrowserWindowsWebViews removeAllObjects];
     // Initialize SEB dock item menu for open browser windows/WebViews
     SEBDockItemMenu *dockMenu = [[SEBDockItemMenu alloc] initWithTitle:@""];
@@ -248,6 +250,7 @@
         DDLogInfo(@"Now closing new document browser window with WebView: %@", webViewToClose);
         
         [myDocument close];
+        _activeBrowserWindow = nil;
         
         if (webViewToClose == _temporaryWebView) {
             _temporaryWebView = nil;
@@ -887,10 +890,10 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     DDLogDebug(@"setStateForWindow: %@ withWebView: %@", browserWindow, webView);
 
     for (SEBBrowserOpenWindowWebView *openWindowWebView in self.openBrowserWindowsWebViews) {
-        if ([openWindowWebView.webView isEqualTo:webView]) {
+        if (openWindowWebView && [openWindowWebView.webView isEqualTo:webView]) {
             [openWindowWebView setState:NSOnState];
             DDLogDebug(@"setState: NSOnState: %@", webView);
-        } else {
+        } else if (openWindowWebView) {
             [openWindowWebView setState:NSOffState];
         }
     }

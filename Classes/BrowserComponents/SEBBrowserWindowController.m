@@ -122,14 +122,16 @@ void DisposeWindow (
     
     NSWindow *keyWindow = [[NSApplication sharedApplication] keyWindow];
     DDLogDebug(@"Current key window: %@", keyWindow);
-    if (keyWindow.isModalPanel) {
-        DDLogWarn(@"Current key window is modal panel: %@", keyWindow);
-    }
-    if (keyWindow.isFloatingPanel) {
-        DDLogWarn(@"Current key window is floating panel: %@", keyWindow);
-    }
-    if (keyWindow.isSheet) {
-        DDLogWarn(@"Current key window is sheet: %@", keyWindow);
+    if (keyWindow) {
+        if (keyWindow.isModalPanel) {
+            DDLogWarn(@"Current key window is modal panel: %@", keyWindow);
+        }
+        if (keyWindow.isFloatingPanel) {
+            DDLogWarn(@"Current key window is floating panel: %@", keyWindow);
+        }
+        if (keyWindow.isSheet) {
+            DDLogWarn(@"Current key window is sheet: %@", keyWindow);
+        }
     }
 }
 
@@ -157,6 +159,7 @@ void DisposeWindow (
         _windowWatchTimer = nil;
     }
     self.window = nil;
+    _browserController.activeBrowserWindow = nil;
 }
 
 
