@@ -904,8 +904,14 @@ static NSMutableSet *browserWindowControllers;
 
 - (void) initSEB
 {
-    // Create browser user agent according to settings
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    // Set up system
+    
+    // Set preventing Auto-Lock according to settings
+    [UIApplication sharedApplication].idleTimerDisabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobilePreventAutoLock"];
+    
+    // Create browser user agent according to settings
     NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
     NSString *overrideUserAgent;
     
