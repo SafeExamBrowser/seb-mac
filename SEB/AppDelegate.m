@@ -38,6 +38,7 @@
 #import "MMDrawerController.h"
 #import "MMDrawerVisualState.h"
 #import "SEBBrowserController.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface AppDelegate ()
 {
@@ -71,6 +72,15 @@
     [lagFreeField becomeFirstResponder];
     [lagFreeField resignFirstResponder];
     [lagFreeField removeFromSuperview];
+    
+    // Sets audio session category to "playback" for enabling proper sound output
+    // when playing a video in the webview
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    NSError *setCategoryError = nil;
+    BOOL success = [audioSession setCategory:AVAudioSessionCategoryPlayback error:&setCategoryError];
+    if (!success) {
+        NSLog(@"Couldn't set AVAudioSession category to playback %@!", setCategoryError);
+    }
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences setSEBDefaults]) {
