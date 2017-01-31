@@ -351,6 +351,8 @@ static NSNumber *_logLevel;
                                  @YES,
                                  @"org_safeexambrowser_SEB_mobileSupportedScreenOrientationsRegularLandscapeRight",
                                  @YES,
+                                 @"org_safeexambrowser_SEB_mobilePreventAutoLock",
+                                 @YES,
                                  @"org_safeexambrowser_SEB_monitorProcesses",
                                  @NO,
                                  @"org_safeexambrowser_SEB_newBrowserWindowByLinkBlockForeign",
