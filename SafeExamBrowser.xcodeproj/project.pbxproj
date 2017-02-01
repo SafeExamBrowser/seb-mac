@@ -129,8 +129,6 @@
 		69623A2E1A26184900ED451C /* WebPreferencesPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 69623A2D1A26184900ED451C /* WebPreferencesPrivate.h */; };
 		69627F901A1A46D000E9F2A8 /* NSURL+SEBURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 69627F8E1A1A46CF00E9F2A8 /* NSURL+SEBURL.h */; };
 		69627F911A1A46D000E9F2A8 /* NSURL+SEBURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 69627F8F1A1A46D000E9F2A8 /* NSURL+SEBURL.m */; };
-		6962CA291C6E0D9E000749B7 /* VectorPencilKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69566EAA1C653E0500BBC653 /* VectorPencilKit.framework */; };
-		6962CA2A1C6E0D9E000749B7 /* VectorPencilKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69566EAA1C653E0500BBC653 /* VectorPencilKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		69640B291C1F0F75007ADE72 /* SEBConfigFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE9C5C17326AB90011609B /* SEBConfigFileManager.m */; };
 		69640B2A1C1F0F7D007ADE72 /* SEBConfigFileManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CE9C5B17326AB90011609B /* SEBConfigFileManager.h */; };
 		6966F87B1D1C081300684182 /* SEBSliderShutDownIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F8791D1C081300684182 /* SEBSliderShutDownIcon.png */; };
@@ -432,17 +430,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		69CC9DA41C6D521E00CD7372 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				6962CA2A1C6E0D9E000749B7 /* VectorPencilKit.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		69F7B62114F411FB00FD0761 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -810,7 +797,6 @@
 				69967B741C58FD9800EE5658 /* libSEBSupport.a in Frameworks */,
 				69A223421C20E45A00766354 /* libz.tbd in Frameworks */,
 				69BB07441BA11CD40065E1F2 /* WebKit.framework in Frameworks */,
-				6962CA291C6E0D9E000749B7 /* VectorPencilKit.framework in Frameworks */,
 				475D9F35BFDB0A53775F5009 /* libPods-SEB.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1734,7 +1720,6 @@
 				6940B9631BA0F2FB008C8CFC /* Frameworks */,
 				6940B9641BA0F2FB008C8CFC /* Resources */,
 				6943165D1BFEBB4900F784EE /* Headers */,
-				69CC9DA41C6D521E00CD7372 /* Embed Frameworks */,
 				C979265F4E0FF6F5EB23EAA6 /* [CP] Copy Pods Resources */,
 				ED98C99F0B17482EAB65EA5E /* [CP] Embed Pods Frameworks */,
 			);
@@ -1834,11 +1819,12 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0820;
 				TargetAttributes = {
 					6940B9651BA0F2FB008C8CFC = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = 6F38DNSC7X;
+						ProvisioningStyle = Manual;
 					};
 					6940B9801BA0F2FB008C8CFC = {
 						CreatedOnToolsVersion = 7.1;
@@ -2546,6 +2532,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D06EA54C6D009E61DDABF880 /* Pods-SEB.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -2561,12 +2548,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_ENTITLEMENTS = SEB/Resources/SEB.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Daniel Schneider (Z5G2R38AGY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Daniel Schneider (Z5G2R38AGY)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2609,6 +2595,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 43E151A8C7866B214F0E9F03 /* Pods-SEB.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -2624,12 +2611,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_ENTITLEMENTS = SEB/Resources/SEB.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Daniel Schneider (Z5G2R38AGY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Daniel Schneider (Z5G2R38AGY)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2655,7 +2641,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SEB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f1735f53-befc-4699-9442-df69474e9fb9";
+				PROVISIONING_PROFILE = "ef0f1163-5f89-4d1e-9dcd-a0389e38f892";
 				PROVISIONING_PROFILE_SPECIFIER = "XC Wildcard Edu Assessment";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3029,14 +3015,30 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
 				CURRENT_PROJECT_VERSION = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = /Installer;
@@ -3053,11 +3055,27 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
 				CURRENT_PROJECT_VERSION = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "SafeExamBrowser-Info.plist";
 				INSTALL_PATH = /Installer;
