@@ -534,7 +534,7 @@ static NSNumber *_logLevel;
     NSArray *additionalResources;
 
     // Check if there are valid SEB UserDefaults already
-    if ([self haveSEBUserDefaults]) {
+    if ([self hasDefaultsKey]) {
         // Read decrypted existing SEB UserDefaults
         additionalResources = [self secureArrayForKey:@"org_safeexambrowser_additionalResources"];
         NSDictionary *sebUserDefaults = [self dictionaryRepresentationSEB];
@@ -598,7 +598,7 @@ static NSNumber *_logLevel;
 }
 
 
-- (BOOL)haveSEBUserDefaults
+- (BOOL)hasDefaultsKey
 {
     return [[SEBCryptor sharedSEBCryptor] hasDefaultsKey];
 }

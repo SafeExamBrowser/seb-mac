@@ -147,6 +147,8 @@
         // If the main SEB view controller was already instantiated
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"allowEditingConfig"]) {
             [_sebViewController conditionallyShowSettingsModal];
+        } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"initiateResetConfig"]) {
+            [_sebViewController conditionallyResetSettings];
         }
     }
 }

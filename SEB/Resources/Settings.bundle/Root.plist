@@ -24,6 +24,24 @@
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
+		<dict>
+			<key>FooterText</key>
+			<string>You can reset settings after opening SEB, to allow the initial configuration to be set again.</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Reset SEB Client Settings</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Initiate Reset of SEB Client Settings</string>
+			<key>Key</key>
+			<string>initiateResetConfig</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
 	</array>
 </dict>
 </plist>
