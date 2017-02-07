@@ -34,6 +34,7 @@
 #import <WebKit/WebKit.h>
 #import "Constants.h"
 #import "RNCryptor.h"
+#import "SEBCryptor.h"
 #import "SEBSliderItem.h"
 #import "SEBIASKSecureSettingsStore.h"
 #import "IASKSettingsReader.h"
@@ -145,6 +146,8 @@ static NSMutableSet *browserWindowControllers;
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"allowEditingConfig"]) {
         [self conditionallyShowSettingsModal];
+    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"initiateResetConfig"]) {
+        [self conditionallyResetSettings];
     } else {
         [self startAutonomousSingleAppMode];
     }
@@ -163,7 +166,7 @@ static NSMutableSet *browserWindowControllers;
             // There is no admin password: Just open settings
             [self showSettingsModal];
         } else {
-            // Allow up to 5 attempts for entering decoding password
+            // Allow up to 5 attempts for entering password
             attempts = 5;
             NSString *enterPasswordString = NSLocalizedString(@"You can only edit settings after entering the SEB administrator password:", nil);
             
@@ -186,28 +189,9 @@ static NSMutableSet *browserWindowControllers;
         return;
     }
     
-    // Get admin password hash from current client settings
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-    if (!hashedAdminPassword) {
-        hashedAdminPassword = @"";
-    } else {
-        hashedAdminPassword = [hashedAdminPassword uppercaseString];
-    }
-    
-    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    NSString *hashedPassword;
-    if (password.length == 0) {
-        // An empty password has to be an empty hashed password string
-        hashedPassword = @"";
-    } else {
-        hashedPassword = [keychainManager generateSHAHashString:password];
-        hashedPassword = [hashedPassword uppercaseString];
-    }
-    
     attempts--;
     
-    if ([hashedPassword caseInsensitiveCompare:hashedAdminPassword] != NSOrderedSame) {
+    if (![self correctAdminPassword:password]) {
         // wrong password entered, are there still attempts left?
         if (attempts > 0) {
             // Let the user try it again
@@ -234,6 +218,93 @@ static NSMutableSet *browserWindowControllers;
     } else {
         // The correct admin password was entered: continue processing the parsed SEB settings it
         [self showSettingsModal];
+        return;
+    }
+}
+
+- (BOOL)correctAdminPassword: (NSString *)password {
+    // Get admin password hash from current client settings
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+    if (!hashedAdminPassword) {
+        hashedAdminPassword = @"";
+    } else {
+        hashedAdminPassword = [hashedAdminPassword uppercaseString];
+    }
+    
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    NSString *hashedPassword;
+    if (password.length == 0) {
+        // An empty password has to be an empty hashed password string
+        hashedPassword = @"";
+    } else {
+        hashedPassword = [keychainManager generateSHAHashString:password];
+        hashedPassword = [hashedPassword uppercaseString];
+    }
+    return [hashedPassword caseInsensitiveCompare:hashedAdminPassword] == NSOrderedSame;
+}
+
+- (void)conditionallyResetSettings
+{
+    // If there is a hashed admin password the user has to enter it before editing settings
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+    
+    if (hashedAdminPassword.length == 0) {
+        // There is no admin password: Just open settings
+        [self resetSettings];
+    } else {
+        // Allow up to 5 attempts for entering password
+        attempts = 5;
+        NSString *enterPasswordString = NSLocalizedString(@"You can only reset settings after entering the SEB administrator password:", nil);
+        
+        // Ask the user to enter the settings password and proceed to the callback method after this happend
+        [self.configFileController promptPasswordWithMessageText:enterPasswordString
+                                                           title:NSLocalizedString(@"Reset Settings",nil)
+                                                        callback:self
+                                                        selector:@selector(adminPasswordResetSettings:)];
+        return;
+    }
+}
+
+- (void) adminPasswordResetSettings:(NSString *)password
+{
+    // Check if the cancel button was pressed
+    if (!password) {
+        // Continue SEB without resetting settings
+        [self startAutonomousSingleAppMode];
+        return;
+    }
+    
+    attempts--;
+    
+    if (![self correctAdminPassword:password]) {
+        // wrong password entered, are there still attempts left?
+        if (attempts > 0) {
+            // Let the user try it again
+            NSString *enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the current SEB administrator password:",nil);
+            // Ask the user to enter the settings password and proceed to the callback method after this happend
+            [self.configFileController promptPasswordWithMessageText:enterPasswordString
+                                                               title:NSLocalizedString(@"Reset Settings",nil)
+                                                            callback:self
+                                                            selector:@selector(adminPasswordResetSettings:)];
+            return;
+            
+        } else {
+            // Wrong password entered in the last allowed attempts: Stop reading .seb file
+            DDLogError(@"%s: Cannot Reset SEB Settings: You didn't enter the correct current SEB administrator password.", __FUNCTION__);
+            
+            NSString *title = NSLocalizedString(@"Cannot Reset SEB Settings", nil);
+            NSString *informativeText = NSLocalizedString(@"You didn't enter the correct SEB administrator password.", nil);
+            [self.configFileController showAlertWithTitle:title andText:informativeText];
+            
+            // Continue SEB without resetting settings
+            [self startAutonomousSingleAppMode];
+        }
+        
+    } else {
+        // The correct admin password was entered: continue resetting SEB settings
+        [self resetSettings];
         return;
     }
 }
@@ -280,6 +351,23 @@ static NSMutableSet *browserWindowControllers;
     _settingsOpen = true;
     
     [self presentViewController:aNavController animated:YES completion:nil];
+}
+
+
+- (void)resetSettings
+{
+    // Switch to system's (persisted) UserDefaults
+    [NSUserDefaults setUserDefaultsPrivate:NO];
+
+    [[NSUserDefaults standardUserDefaults] setBool:false forKey:@"initiateResetConfig"];
+    
+    // Write just default SEB settings to UserDefaults
+    NSDictionary *emptySettings = [NSDictionary dictionary];
+    [self.configFileController storeIntoUserDefaults:emptySettings];
+    
+    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
+    
+    [self resetSEB];
 }
 
 
@@ -1114,6 +1202,7 @@ static NSMutableSet *browserWindowControllers;
     [NSUserDefaults setUserDefaultsPrivate:NO];
     
     [self initSEB];
+    [self startAutonomousSingleAppMode];
 }
 
 

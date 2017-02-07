@@ -90,6 +90,7 @@
 @property(readwrite, strong) NSDate *didResumeExamTime;
 
 - (void)conditionallyShowSettingsModal;
+- (void)conditionallyResetSettings;
 
 - (void) showStartGuidedAccess;
 - (void) showGuidedAccessWarning;

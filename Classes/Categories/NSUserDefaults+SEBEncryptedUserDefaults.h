@@ -103,7 +103,7 @@
 // Set default preferences for the case there are no user prefs yet
 - (BOOL)setSEBDefaults;
 
-- (BOOL)haveSEBUserDefaults;
+- (BOOL)hasDefaultsKey;
 
 // Get dictionary representation of all SEB user defaults
 - (NSDictionary *)dictionaryRepresentationSEB;
