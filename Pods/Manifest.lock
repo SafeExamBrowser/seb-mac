@@ -7,7 +7,7 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.3.0):
     - CocoaLumberjack/Default
-  - InAppSettingsKit (2.7.1)
+  - InAppSettingsKit (2.8.1)
   - MMDrawerController (0.6.0):
     - MMDrawerController/Core (= 0.6.0)
     - MMDrawerController/MMDrawerBarButtonItem (= 0.6.0)
@@ -35,10 +35,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   CocoaLumberjack: 97fab7ee5f507fe54445cca7ea80f926729cfd15
-  InAppSettingsKit: 2b9fcdb82cdff2f99c51cae544e9f4df0df7afbf
+  InAppSettingsKit: 94d2fba3ccd700fc4e32c6d09fabcc0af2426744
   MMDrawerController: e3a54a5570388463ad3b36975251575b50c4e1a0
   MMDrawerController-Storyboard: 89a38d3c39816bc97de73d3b5bcbba04d5345acd
 
 PODFILE CHECKSUM: 24cfa1f64944eb1c78bf76c90be3b76c033b5fb9
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.2.0

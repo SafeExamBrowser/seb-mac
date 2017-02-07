@@ -163,13 +163,18 @@
 	return [self localizedObjectForKey:kIASKSubtitle];
 }
 
+- (NSString *)placeholder {
+    return [self localizedObjectForKey:kIASKPlaceholder];
+}
+
 - (NSString*)footerText {
     return [self localizedObjectForKey:kIASKFooterText];
 }
 
 - (Class)viewControllerClass {
     [IASKAppSettingsWebViewController class]; // make sure this is linked into the binary/library
-    return [self classFromString:([_specifierDict objectForKey:kIASKViewControllerClass])];
+	NSString *classString = [_specifierDict objectForKey:kIASKViewControllerClass];
+	return classString ? ([self classFromString:classString] ?: [NSNull class]) : nil;
 }
 
 - (Class)classFromString:(NSString *)className {
@@ -193,6 +198,10 @@
 
 - (NSString*)viewControllerStoryBoardID {
 	return [_specifierDict objectForKey:kIASKViewControllerStoryBoardId];
+}
+
+- (NSString*)segueIdentifier {
+    return [_specifierDict objectForKey:kIASKSegueIdentifier];
 }
 
 - (Class)buttonClass {

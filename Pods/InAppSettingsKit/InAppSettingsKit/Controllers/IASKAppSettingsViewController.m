@@ -220,7 +220,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 }
 
-- (CGSize)contentSizeForViewInPopover {
+- (CGSize)preferredContentSize {
     return [[self view] sizeThatFits:CGSizeMake(320, 2000)];
 }
 
@@ -427,7 +427,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
 	if ([specifier.type isEqualToString:kIASKTextViewSpecifier]) {
-		CGFloat height = [self.rowHeights[specifier.key] doubleValue];
+		CGFloat height = (CGFloat)[self.rowHeights[specifier.key] doubleValue];
 		return height > 0 ? height : UITableViewAutomaticDimension;
 	} else if ([[specifier type] isEqualToString:kIASKCustomViewSpecifier]) {
 		if ([self.delegate respondsToSelector:@selector(tableView:heightForSpecifier:)]) {
@@ -600,6 +600,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		}
 		IASKTextField *textField = ((IASKPSTextFieldSpecifierViewCell*)cell).textField;
 		textField.text = textValue;
+		textField.placeholder = specifier.placeholder;
 		textField.key = specifier.key;
 		textField.delegate = self;
 		textField.secureTextEntry = [specifier isSecure];
@@ -727,6 +728,11 @@ CGRect IASKCGRectSwap(CGRect rect);
         
         Class vcClass = [specifier viewControllerClass];
         if (vcClass) {
+			if (vcClass == [NSNull class]) {
+				NSLog(@"class '%@' not found", [specifier localizedObjectForKey:kIASKViewControllerClass]);
+				[tableView deselectRowAtIndexPath:indexPath animated:YES];
+				return;
+			}
             SEL initSelector = [specifier viewControllerSelector];
             if (!initSelector) {
                 initSelector = @selector(init);
@@ -744,6 +750,17 @@ CGRect IASKCGRectSwap(CGRect rect);
             }
 			IASK_IF_IOS7_OR_GREATER(vc.view.tintColor = self.view.tintColor;)
             [self.navigationController pushViewController:vc animated:YES];
+            return;
+		}
+			
+        NSString *segueIdentifier = [specifier segueIdentifier];
+        if (segueIdentifier) {
+			@try {
+				[self performSegueWithIdentifier:segueIdentifier sender:self];
+			} @catch (NSException *exception) {
+				NSLog(@"segue with identifier '%@' not defined", segueIdentifier);
+				[tableView deselectRowAtIndexPath:indexPath animated:YES];
+			}
             return;
         }
         
@@ -849,6 +866,8 @@ CGRect IASKCGRectSwap(CGRect rect);
             }];
 			
         } else {
+			IASK_IF_PRE_IOS8
+			(
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:NSLocalizedString(@"Mail not configured", @"InAppSettingsKit")
                                   message:NSLocalizedString(@"This device is not configured for sending Email. Please configure the Mail settings in the Settings app.", @"InAppSettingsKit")
@@ -856,8 +875,17 @@ CGRect IASKCGRectSwap(CGRect rect);
                                   cancelButtonTitle:NSLocalizedString(@"OK", @"InAppSettingsKit")
                                   otherButtonTitles:nil];
             [alert show];
+			 )
+			IASK_IF_IOS8_OR_GREATER
+			(
+			 UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Mail not configured", @"InAppSettingsKit")
+																			message:NSLocalizedString(@"This device is not configured for sending Email. Please configure the Mail settings in the Settings app.", @"InAppSettingsKit")
+																	 preferredStyle:UIAlertControllerStyleAlert];
+			 [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"InAppSettingsKit") style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {}]];
+			 [self presentViewController:alert animated:YES completion:nil];
+			)
         }
-        
+		
     } else if ([[specifier type] isEqualToString:kIASKCustomViewSpecifier] && [self.delegate respondsToSelector:@selector(settingsViewController:tableView:didSelectCustomViewSpecifier:)]) {
         [self.delegate settingsViewController:self tableView:tableView didSelectCustomViewSpecifier:specifier];
 	} else if ([[specifier type] isEqualToString:kIASKPSRadioGroupSpecifier]) {
@@ -888,9 +916,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 #pragma mark -
 #pragma mark UITextFieldDelegate Functions
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
 	self.currentFirstResponder = textField;
-	return YES;
 }
 
 - (void)_textChanged:(id)sender {
