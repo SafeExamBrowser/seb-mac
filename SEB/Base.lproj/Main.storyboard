@@ -209,7 +209,7 @@
                                                         <constraint firstAttribute="width" constant="34" id="Kd0-Dw-jKp"/>
                                                         <constraint firstAttribute="height" constant="32" id="xs4-lP-b8t"/>
                                                     </constraints>
-                                                    <state key="normal" image="Cancel.png">
+                                                    <state key="normal" image="SEBSliderClosePage.png">
                                                         <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                 </button>
@@ -247,7 +247,7 @@
                                                         <constraint firstAttribute="height" constant="32" id="4gU-jZ-fWU"/>
                                                         <constraint firstAttribute="width" constant="34" id="XjP-bI-Em7"/>
                                                     </constraints>
-                                                    <state key="normal" image="Cancel.png">
+                                                    <state key="normal" image="SEBSliderClosePage.png">
                                                         <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                 </button>
@@ -394,7 +394,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Cancel.png" width="16" height="16"/>
+        <image name="SEBSliderClosePage.png" width="20" height="20"/>
         <image name="continueCircle.png" width="28" height="28"/>
     </resources>
 </document>
