@@ -251,7 +251,7 @@ static NSMutableSet *browserWindowControllers;
     NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
     
     if (hashedAdminPassword.length == 0) {
-        // There is no admin password: Just open settings
+        // There is no admin password: Immediately reset settings
         [self resetSettings];
     } else {
         // Allow up to 5 attempts for entering password
@@ -271,8 +271,14 @@ static NSMutableSet *browserWindowControllers;
 {
     // Check if the cancel button was pressed
     if (!password) {
-        // Continue SEB without resetting settings
-        [self startAutonomousSingleAppMode];
+        // Reset the setting for initiating the reset
+        [[NSUserDefaults standardUserDefaults] setBool:false forKey:@"initiateResetConfig"];
+        
+        if (!_finishedStartingUp) {
+            // Continue starting up SEB without resetting settings
+            [self startAutonomousSingleAppMode];
+        }
+
         return;
     }
     
@@ -298,8 +304,10 @@ static NSMutableSet *browserWindowControllers;
             NSString *informativeText = NSLocalizedString(@"You didn't enter the correct SEB administrator password.", nil);
             [self.configFileController showAlertWithTitle:title andText:informativeText];
             
-            // Continue SEB without resetting settings
-            [self startAutonomousSingleAppMode];
+            if (!_finishedStartingUp) {
+                // Continue starting up SEB without resetting settings
+                [self startAutonomousSingleAppMode];
+            }
         }
         
     } else {
@@ -452,6 +460,10 @@ static NSMutableSet *browserWindowControllers;
             [preferences setSecureString:@"" forKey:@"quitPassword"];
         }
         _settingsOpen = false;
+        
+        // Close all tabs before re-initializing SEB with new settings
+        [_browserTabViewController closeAllTabs];
+        _examRunning = false;
         
         [self initSEB];
         [self startAutonomousSingleAppMode];
