@@ -36,7 +36,7 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Initiate Reset Settings</string>
+			<string>Initiate Settings Reset</string>
 			<key>Key</key>
 			<string>initiateResetConfig</string>
 			<key>DefaultValue</key>
