@@ -248,6 +248,8 @@ static NSMutableSet *browserWindowControllers;
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
     
     [self resetSEB];
+    [self initSEB];
+    [self startAutonomousSingleAppMode];
 }
 
 
@@ -737,9 +739,6 @@ static NSMutableSet *browserWindowControllers;
     
     // Switch to system's (persisted) UserDefaults
     [NSUserDefaults setUserDefaultsPrivate:NO];
-    
-    [self initSEB];
-    [self startAutonomousSingleAppMode];
 }
 
 
@@ -968,6 +967,7 @@ static NSMutableSet *browserWindowControllers;
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                  [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                 [self initSEB];
                                                                  [self startAutonomousSingleAppMode];
                                                              }]];
         [self presentViewController:_alertController animated:YES completion:nil];
@@ -982,6 +982,7 @@ static NSMutableSet *browserWindowControllers;
         [self presentViewController:_alertController animated:YES completion:nil];
     } else {
         // When Guided Access is off, then we can restart SEB with the start URL in local client settings
+        [self initSEB];
         [self startExam];
     }
 }
