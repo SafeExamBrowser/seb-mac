@@ -66,6 +66,8 @@ static NSMutableSet *browserWindowControllers;
 @synthesize appSettingsViewController;
 
 
+#pragma mark - Initializing
+
 - (IASKAppSettingsViewController*)appSettingsViewController {
     if (!appSettingsViewController) {
         appSettingsViewController = [[IASKAppSettingsViewController alloc] init];
@@ -98,6 +100,8 @@ static NSMutableSet *browserWindowControllers;
     return configuration;
 }
 
+
+#pragma mark - View management delegate methods
 
 - (void)viewDidLoad
 {
@@ -154,6 +158,101 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+#pragma mark - Handle request to reset settings
+
+- (void)conditionallyResetSettings
+{
+    // If there is a hashed admin password the user has to enter it before editing settings
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+    
+    if (hashedAdminPassword.length == 0) {
+        // There is no admin password: Immediately reset settings
+        [self resetSettings];
+    } else {
+        // Allow up to 5 attempts for entering password
+        attempts = 5;
+        NSString *enterPasswordString = NSLocalizedString(@"You can only reset settings after entering the SEB administrator password:", nil);
+        
+        // Ask the user to enter the settings password and proceed to the callback method after this happend
+        [self.configFileController promptPasswordWithMessageText:enterPasswordString
+                                                           title:NSLocalizedString(@"Reset Settings",nil)
+                                                        callback:self
+                                                        selector:@selector(resetSettingsEnteredAdminPassword:)];
+        return;
+    }
+}
+
+- (void) resetSettingsEnteredAdminPassword:(NSString *)password
+{
+    // Check if the cancel button was pressed
+    if (!password) {
+        // Reset the setting for initiating the reset
+        [[NSUserDefaults standardUserDefaults] setBool:false forKey:@"initiateResetConfig"];
+        
+        if (!_finishedStartingUp) {
+            // Continue starting up SEB without resetting settings
+            [self startAutonomousSingleAppMode];
+        }
+        
+        return;
+    }
+    
+    attempts--;
+    
+    if (![self correctAdminPassword:password]) {
+        // wrong password entered, are there still attempts left?
+        if (attempts > 0) {
+            // Let the user try it again
+            NSString *enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the current SEB administrator password:",nil);
+            // Ask the user to enter the settings password and proceed to the callback method after this happend
+            [self.configFileController promptPasswordWithMessageText:enterPasswordString
+                                                               title:NSLocalizedString(@"Reset Settings",nil)
+                                                            callback:self
+                                                            selector:@selector(adminPasswordResetSettings:)];
+            return;
+            
+        } else {
+            // Wrong password entered in the last allowed attempts: Stop reading .seb file
+            DDLogError(@"%s: Cannot Reset SEB Settings: You didn't enter the correct current SEB administrator password.", __FUNCTION__);
+            
+            NSString *title = NSLocalizedString(@"Cannot Reset SEB Settings", nil);
+            NSString *informativeText = NSLocalizedString(@"You didn't enter the correct SEB administrator password.", nil);
+            [self.configFileController showAlertWithTitle:title andText:informativeText];
+            
+            if (!_finishedStartingUp) {
+                // Continue starting up SEB without resetting settings
+                [self startAutonomousSingleAppMode];
+            }
+        }
+        
+    } else {
+        // The correct admin password was entered: continue resetting SEB settings
+        [self resetSettings];
+        return;
+    }
+}
+
+
+- (void)resetSettings
+{
+    // Switch to system's (persisted) UserDefaults
+    [NSUserDefaults setUserDefaultsPrivate:NO];
+    
+    [[NSUserDefaults standardUserDefaults] setBool:false forKey:@"initiateResetConfig"];
+    
+    // Write just default SEB settings to UserDefaults
+    NSDictionary *emptySettings = [NSDictionary dictionary];
+    [self.configFileController storeIntoUserDefaults:emptySettings];
+    
+    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
+    
+    [self resetSEB];
+}
+
+
+#pragma mark - Handle requests to show in-app settings
+
 - (void)conditionallyShowSettingsModal
 {
     // Check if settings are already displayed
@@ -174,13 +273,14 @@ static NSMutableSet *browserWindowControllers;
             [self.configFileController promptPasswordWithMessageText:enterPasswordString
                                                                title:NSLocalizedString(@"Edit Settings",nil)
                                                             callback:self
-                                                            selector:@selector(adminPasswordSettingsConfiguringClient:)];
+                                                            selector:@selector(enteredAdminPassword:)];
             return;
         }
     }
 }
 
-- (void) adminPasswordSettingsConfiguringClient:(NSString *)password
+
+- (void) enteredAdminPassword:(NSString *)password
 {
     // Check if the cancel button was pressed
     if (!password) {
@@ -244,79 +344,8 @@ static NSMutableSet *browserWindowControllers;
     return [hashedPassword caseInsensitiveCompare:hashedAdminPassword] == NSOrderedSame;
 }
 
-- (void)conditionallyResetSettings
-{
-    // If there is a hashed admin password the user has to enter it before editing settings
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-    
-    if (hashedAdminPassword.length == 0) {
-        // There is no admin password: Immediately reset settings
-        [self resetSettings];
-    } else {
-        // Allow up to 5 attempts for entering password
-        attempts = 5;
-        NSString *enterPasswordString = NSLocalizedString(@"You can only reset settings after entering the SEB administrator password:", nil);
-        
-        // Ask the user to enter the settings password and proceed to the callback method after this happend
-        [self.configFileController promptPasswordWithMessageText:enterPasswordString
-                                                           title:NSLocalizedString(@"Reset Settings",nil)
-                                                        callback:self
-                                                        selector:@selector(adminPasswordResetSettings:)];
-        return;
-    }
-}
 
-- (void) adminPasswordResetSettings:(NSString *)password
-{
-    // Check if the cancel button was pressed
-    if (!password) {
-        // Reset the setting for initiating the reset
-        [[NSUserDefaults standardUserDefaults] setBool:false forKey:@"initiateResetConfig"];
-        
-        if (!_finishedStartingUp) {
-            // Continue starting up SEB without resetting settings
-            [self startAutonomousSingleAppMode];
-        }
-
-        return;
-    }
-    
-    attempts--;
-    
-    if (![self correctAdminPassword:password]) {
-        // wrong password entered, are there still attempts left?
-        if (attempts > 0) {
-            // Let the user try it again
-            NSString *enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the current SEB administrator password:",nil);
-            // Ask the user to enter the settings password and proceed to the callback method after this happend
-            [self.configFileController promptPasswordWithMessageText:enterPasswordString
-                                                               title:NSLocalizedString(@"Reset Settings",nil)
-                                                            callback:self
-                                                            selector:@selector(adminPasswordResetSettings:)];
-            return;
-            
-        } else {
-            // Wrong password entered in the last allowed attempts: Stop reading .seb file
-            DDLogError(@"%s: Cannot Reset SEB Settings: You didn't enter the correct current SEB administrator password.", __FUNCTION__);
-            
-            NSString *title = NSLocalizedString(@"Cannot Reset SEB Settings", nil);
-            NSString *informativeText = NSLocalizedString(@"You didn't enter the correct SEB administrator password.", nil);
-            [self.configFileController showAlertWithTitle:title andText:informativeText];
-            
-            if (!_finishedStartingUp) {
-                // Continue starting up SEB without resetting settings
-                [self startAutonomousSingleAppMode];
-            }
-        }
-        
-    } else {
-        // The correct admin password was entered: continue resetting SEB settings
-        [self resetSettings];
-        return;
-    }
-}
-
+#pragma mark - Show in-app settings
 
 - (void)showSettingsModal
 {
@@ -359,23 +388,6 @@ static NSMutableSet *browserWindowControllers;
     _settingsOpen = true;
     
     [self presentViewController:aNavController animated:YES completion:nil];
-}
-
-
-- (void)resetSettings
-{
-    // Switch to system's (persisted) UserDefaults
-    [NSUserDefaults setUserDefaultsPrivate:NO];
-
-    [[NSUserDefaults standardUserDefaults] setBool:false forKey:@"initiateResetConfig"];
-    
-    // Write just default SEB settings to UserDefaults
-    NSDictionary *emptySettings = [NSDictionary dictionary];
-    [self.configFileController storeIntoUserDefaults:emptySettings];
-    
-    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
-    
-    [self resetSEB];
 }
 
 
@@ -513,41 +525,479 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (BOOL) prefersStatusBarHidden
-{
-    return ([[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] == mobileStatusBarAppearanceNone);
-}
+#pragma mark - Init and reset SEB
 
-- (UIStatusBarStyle)preferredStatusBarStyle
+- (void) initSEB
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] == false) {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] == mobileStatusBarAppearanceLight) {
-            return UIStatusBarStyleLightContent;
+    
+    // Set up system
+    
+    // Set preventing Auto-Lock according to settings
+    [UIApplication sharedApplication].idleTimerDisabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobilePreventAutoLock"];
+    
+    // Create browser user agent according to settings
+    NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
+    NSString *overrideUserAgent;
+    
+    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserUserAgentMac"] == browserUserAgentModeMacDefault) {
+        overrideUserAgent = [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"];
+    } else {
+        overrideUserAgent = [preferences secureStringForKey:@"org_safeexambrowser_SEB_browserUserAgentMacCustom"];
+    }
+    // Add "SEB <version number>" to the browser's user agent, so the LMS SEB plugins recognize us
+    overrideUserAgent = [overrideUserAgent stringByAppendingString:[NSString stringWithFormat:@" %@/%@", SEBUserAgentDefaultSuffix, versionString]];
+    
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:overrideUserAgent, @"UserAgent", nil];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+    
+    // UI
+    
+    // Draw background view for status bar if it is enabled
+    if (!_statusBarView) {
+        _statusBarView = [UIView new];
+        [_statusBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.view addSubview:_statusBarView];
+        
+        NSDictionary *viewsDictionary = @{@"statusBarView" : _statusBarView,
+                                          @"containerView" : _containerView};
+        
+        _containerTopContraint.active = false;
+        NSArray *constraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[statusBarView]-0-|"
+                                                                         options: 0
+                                                                         metrics: nil
+                                                                           views: viewsDictionary];
+        NSArray *constraints_V = [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-0-[statusBarView(==20)]-0-[containerView]"
+                                                                         options: 0
+                                                                         metrics: nil
+                                                                           views: viewsDictionary];
+        [self.view addConstraints:constraints_H];
+        [self.view addConstraints:constraints_V];
+    }
+    
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    NSUInteger statusBarAppearance = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"];
+    appDelegate.statusBarAppearance = statusBarAppearance;
+    
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] == false &&
+        statusBarAppearance != mobileStatusBarAppearanceNone) {
+        // Only draw background for status bar when it is enabled and there is no navigation bar displayed
+        
+        _statusBarView.backgroundColor = (statusBarAppearance == mobileStatusBarAppearanceLight ? [UIColor blackColor] : [UIColor whiteColor]);
+        _statusBarView.hidden = false;
+        
+    } else {
+        _statusBarView.hidden = true;
+    }
+    
+    [self setNeedsStatusBarAppearanceUpdate];
+    
+    //// Initialize SEB Dock and commands section in the slider view
+    
+    NSMutableArray *newDockItems = [NSMutableArray new];
+    UIBarButtonItem *dockItem;
+    UIImage *dockIcon;
+    NSMutableArray *sliderCommands = [NSMutableArray new];
+    SEBSliderItem *sliderCommandItem;
+    UIImage *sliderIcon;
+    
+    /// Add left items
+    
+    // Add SEB app icon to the left side of the dock
+    dockIcon = [UIImage imageNamed:@"SEBDockIcon"]
+    ; //[appIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+    //        UIImage *appIcon = [UIImage imageNamed:@"SEBicon"]; //[appIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+    
+    dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+    dockItem.width = -12;
+    [newDockItems addObject:dockItem];
+    
+    dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                style:UIBarButtonItemStylePlain
+                                               target:self
+                                               action:@selector(leftDrawerButtonPress:)];
+    [newDockItems addObject:dockItem];
+    
+    // Add flexible space between left and right items
+    dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    [newDockItems addObject:dockItem];
+    
+    
+    /// Add right items
+    
+    // Add Edit Settings command if enabled
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showSettingsInApp"]) {
+        sliderIcon = [UIImage imageNamed:@"SEBSliderSettingsIcon"];
+        sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Edit Settings",nil)
+                                                            icon:sliderIcon
+                                                          target:self
+                                                          action:@selector(conditionallyShowSettingsModal)];
+        [sliderCommands addObject:sliderCommandItem];
+    }
+    
+    // Add Restart Exam button if enabled
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamUseStartURL"] ||
+        [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamURL"].length > 0) {
+        dockIcon = [UIImage imageNamed:@"SEBRestartIcon"];
+        
+        NSString *restartButtonText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamText"];
+        if (restartButtonText.length == 0) {
+            restartButtonText = NSLocalizedString(@"Restart Exam",nil);
+        }
+        dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(reload)];
+        [newDockItems addObject:dockItem];
+        
+        dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+        dockItem.width = 0;
+        [newDockItems addObject:dockItem];
+        
+        // Add Restart Exam command to slider items
+        sliderIcon = [UIImage imageNamed:@"SEBSliderRestartIcon"];
+        sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:restartButtonText
+                                                            icon:sliderIcon
+                                                          target:self
+                                                          action:@selector(reload)];
+        [sliderCommands addObject:sliderCommandItem];
+    }
+    
+    // Add Reload button if enabled
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
+        dockIcon = [UIImage imageNamed:@"SEBReloadIcon"];
+        dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(reload)];
+        [newDockItems addObject:dockItem];
+        
+        dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+        dockItem.width = 0;
+        [newDockItems addObject:dockItem];
+        
+        // Add reload page command to slider items
+        sliderIcon = [UIImage imageNamed:@"SEBSliderReloadIcon"];
+        sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Reload Page",nil)
+                                                            icon:sliderIcon
+                                                          target:self
+                                                          action:@selector(reload)];
+        [sliderCommands addObject:sliderCommandItem];
+    }
+    
+    // Add Quit button
+    dockIcon = [UIImage imageNamed:@"SEBShutDownIcon"];
+    dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(quitExamConditionally)];
+    [newDockItems addObject:dockItem];
+    
+    dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+    dockItem.width = -12;
+    [newDockItems addObject:dockItem];
+    
+    // Add quit command to slider items
+    sliderIcon = [UIImage imageNamed:@"SEBSliderShutDownIcon"];
+    sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Quit Session",nil)
+                                                        icon:sliderIcon
+                                                      target:self
+                                                      action:@selector(quitExamConditionally)];
+    [sliderCommands addObject:sliderCommandItem];
+    
+    // Register slider commands
+    appDelegate.leftSliderCommands = [sliderCommands copy];
+    
+    // If dock is enabled, register items to the tool bar
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
+        [self.navigationController setToolbarHidden:NO];
+        _dockItems = newDockItems;
+        [self setToolbarItems:_dockItems];
+    } else {
+        [self.navigationController setToolbarHidden:YES];
+    }
+    
+    // Show navigation bar if browser toolbar is enabled in settings and populate it with enabled controls
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"]) {
+        [self.navigationController setNavigationBarHidden:NO];
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"]) {
+            // ToDo: Add back/forward buttons to navigation bar
+        }
+    } else {
+        [self.navigationController setNavigationBarHidden:YES];
+    }
+    
+    // Register slider view items
+    appDelegate.leftSliderCommands = [sliderCommands copy];
+}
+
+
+- (void) resetSEB
+{
+    [_browserTabViewController closeAllTabs];
+    _examRunning = false;
+    
+    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+    // downloads to disk, and ensures that future requests occur on a new socket.
+    [[NSURLSession sharedSession] resetWithCompletionHandler:^{
+        // Do something once it's done.
+    }];
+    
+    // Switch to system's (persisted) UserDefaults
+    [NSUserDefaults setUserDefaultsPrivate:NO];
+    
+    [self initSEB];
+    [self startAutonomousSingleAppMode];
+}
+
+
+- (void) downloadAndOpenSEBConfigFromURL:(NSURL *)url
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
+        // Check if SEB is in exam mode = private UserDefauls are switched on
+        if (NSUserDefaults.userDefaultsPrivate) {
+            // If yes, we don't download the .seb file
+            if (_alertController) {
+                [_alertController dismissViewControllerAnimated:NO completion:nil];
+            }
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)
+                                                                    message:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session and use a quit link or the quit button in SEB before starting another exam.", nil)
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                     [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                 }]];
+            [self presentViewController:_alertController animated:YES completion:nil];
+            
+        } else {
+            // SEB isn't in exam mode: reconfiguring is allowed
+            NSError *error = nil;
+            NSData *sebFileData;
+            // Download the .seb file directly into memory (not onto disc like other files)
+            if ([url.scheme isEqualToString:@"seb"]) {
+                // If it's a seb:// URL, we try to download it by http
+                NSURL *httpURL = [[NSURL alloc] initWithScheme:@"http" host:url.host path:url.path];
+                sebFileData = [NSData dataWithContentsOfURL:httpURL options:NSDataReadingUncached error:&error];
+                if (error) {
+                    // If that didn't work, we try to download it by https
+                    NSURL *httpsURL = [[NSURL alloc] initWithScheme:@"https" host:url.host path:url.path];
+                    sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
+                    // Still couldn't download the .seb file: present an error and abort
+                    if (error) {
+                        //                        [_mainBrowserWindow presentError:error modalForWindow:_mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
+                        return;
+                    }
+                }
+            } else if ([url.scheme isEqualToString:@"sebs"]) {
+                // If it's a sebs:// URL, we try to download it by https
+                NSURL *httpsURL = [[NSURL alloc] initWithScheme:@"https" host:url.host path:url.path];
+                sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
+                // Couldn't download the .seb file: present an error and abort
+                if (error) {
+                    //                    [_mainBrowserWindow presentError:error modalForWindow:_mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
+                    return;
+                }
+            } else {
+                sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
+                if (error) {
+                    //                    [_mainBrowserWindow presentError:error modalForWindow:_mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
+                }
+            }
+            // Get current config path
+            currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
+            // Store the URL of the .seb file as current config file path
+            [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
+            
+            [self.configFileController storeNewSEBSettings:sebFileData forEditing:false callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
         }
     }
-    return UIStatusBarStyleDefault;
 }
 
 
-#pragma mark - Button Handlers
--(void)leftDrawerButtonPress:(id)sender{
-    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+- (void) storeNewSEBSettingsSuccessful:(BOOL)success
+{
+    NSLog(@"%s: Storing new SEB settings was %@successful", __FUNCTION__, success ? @"" : @"not ");
+    if (success) {
+        [_browserTabViewController closeAllTabs];
+        _examRunning = false;
+        [self initSEB];
+        
+        _isReconfiguring = false;
+        
+        [self startAutonomousSingleAppMode];
+        
+        
+        //        // Post a notification that it was requested to restart SEB with changed settings
+        //        [[NSNotificationCenter defaultCenter]
+        //         postNotificationName:@"requestRestartNotification" object:self];
+        
+    } else {
+        _isReconfiguring = false;
+        
+        // if decrypting new settings wasn't successfull, we have to restore the path to the old settings
+        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
+    }
 }
 
-- (IBAction)goBack:(id)sender {
-    [_browserTabViewController goBack];
+
+#pragma mark - Start and quit exam session
+
+- (void) startExam {
+    _examRunning = true;
+    
+    // Load all open web pages from the persistent store and re-create webview(s) for them
+    // or if no persisted web pages are available, load the start URL
+    [_browserTabViewController loadPersistedOpenWebPages];
 }
 
-- (IBAction)goForward:(id)sender {
-    [_browserTabViewController goForward];
+
+- (void) quitExamConditionally
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"] == YES) {
+        // if quitting SEB is allowed
+        if (hashedQuitPassword.length > 0) {
+            // if quit password is set, then restrict quitting
+            // Allow up to 5 attempts for entering decoding password
+            attempts = 5;
+            NSString *enterPasswordString = NSLocalizedString(@"Enter quit password:", nil);
+            
+            // Ask the user to enter the quit password and proceed to the callback method after this happend
+            [self.configFileController promptPasswordWithMessageText:enterPasswordString
+                                                               title:NSLocalizedString(@"Quit Session",nil)
+                                                            callback:self
+                                                            selector:@selector(enteredQuitPassword:)];
+        } else {
+            // if no quit password is required, then just confirm quitting
+            [self quitExamIgnoringQuitPW];
+        }
+    }
 }
 
-- (IBAction)reload {
-    [_browserTabViewController reload];
+
+- (void)requestedQuitWOPwd:(NSNotification *)notification
+{
+    [self quitExamIgnoringQuitPW];
+}
+
+
+// If no quit password is required, then confirm quitting
+- (void) quitExamIgnoringQuitPW
+{
+    _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Quit Session", nil)
+                                                            message:NSLocalizedString(@"Are you sure you want to quit this session?", nil)
+                                                     preferredStyle:UIAlertControllerStyleAlert];
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Quit", nil)
+                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                             [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                             [self quitExam];
+                                                         }]];
+    
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                             [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+                                                             //                                                                     [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                         }]];
+    
+    [self presentViewController:_alertController animated:YES completion:nil];
+}
+
+
+- (void) enteredQuitPassword:(NSString *)password
+{
+    // Check if the cancel button was pressed
+    if (!password) {
+        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+        return;
+    }
+    
+    // Get quit password hash from current client settings
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+    hashedQuitPassword = [hashedQuitPassword uppercaseString];
+    
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    NSString *hashedPassword = [keychainManager generateSHAHashString:password];
+    hashedPassword = [hashedPassword uppercaseString];
+    
+    attempts--;
+    
+    if ([hashedPassword caseInsensitiveCompare:hashedQuitPassword] != NSOrderedSame) {
+        // wrong password entered, are there still attempts left?
+        if (attempts > 0) {
+            // Let the user try it again
+            NSString *enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the quit password:",nil);
+            // Ask the user to enter the settings password and proceed to the callback method after this happend
+            [self.configFileController promptPasswordWithMessageText:enterPasswordString
+                                                               title:NSLocalizedString(@"Quit Session",nil)
+                                                            callback:self
+                                                            selector:@selector(enteredQuitPassword:)];
+            return;
+            
+        } else {
+            // Wrong password entered in the last allowed attempts: Stop quitting the exam
+            DDLogError(@"%s: Couldn't quit the session: The correct quit password wasn't entered.", __FUNCTION__);
+            
+            NSString *title = NSLocalizedString(@"Cannot Quit Session", nil);
+            NSString *informativeText = NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit the session.", nil);
+            [self.configFileController showAlertWithTitle:title andText:informativeText];
+            [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+            return;
+        }
+        
+    } else {
+        // The correct quit password was entered
+        [self quitExam];
+    }
+}
+
+
+- (void) quitExam
+{
+    // Close the left slider view if it was open
     [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+    
+    // Close browser tabs and reset SEB settings to the local client settings if necessary
+    [self resetSEB];
+    // Update (because settings might have changed to local client settings)
+    // if a quit password is set = run SEB in secure mode
+    _secureMode = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
+    
+    
+    // If ASAM is active, we stop it now and display the alert for restarting session
+    if (_ASAMActive) {
+        [self stopAutonomousSingleAppMode];
+        //        _ASAMActive = false;
+        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Restart Session", nil)
+                                                                message:_secureMode ? NSLocalizedString(@"Return to start page and lock device into SEB.", nil) : NSLocalizedString(@"Return to start page.", nil)
+                                                         preferredStyle:UIAlertControllerStyleAlert];
+        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                 [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                 [self startAutonomousSingleAppMode];
+                                                             }]];
+        [self presentViewController:_alertController animated:YES completion:nil];
+    } else if (_guidedAccessActive) {
+        if (_lockedViewController) {
+            _lockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
+        }
+        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Stop Guided Access", nil)
+                                                                message:NSLocalizedString(@"You can now switch off Guided Access by home button triple click or Touch ID.", nil)
+                                                         preferredStyle:UIAlertControllerStyleAlert];
+        _guidedAccessWarningDisplayed = true;
+        [self presentViewController:_alertController animated:YES completion:nil];
+    } else {
+        // When Guided Access is off, then we can restart SEB with the start URL in local client settings
+        [self startExam];
+    }
 }
 
+
+// Inform the callback method if decrypting, parsing and storing new settings was successful or not
+- (void) quitExamWithCallback:(id)callback selector:(SEL)selector
+{
+    BOOL success = true;
+    IMP imp = [callback methodForSelector:selector];
+    void (*func)(id, SEL, BOOL) = (void *)imp;
+    func(callback, selector, success);
+}
+
+
+#pragma mark - Kiosk mode
 
 // Called when the Guided Access status changes
 - (void) guidedAccessChanged
@@ -799,167 +1249,7 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (void) startExam {
-    _examRunning = true;
-
-    // Load all open web pages from the persistent store and re-create webview(s) for them
-    // or if no persisted web pages are available, load the start URL
-    [_browserTabViewController loadPersistedOpenWebPages];
-}
-
-
-- (void) quitExamConditionally
-{
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"] == YES) {
-        // if quitting SEB is allowed
-        if (hashedQuitPassword.length > 0) {
-            // if quit password is set, then restrict quitting
-            // Allow up to 5 attempts for entering decoding password
-            attempts = 5;
-            NSString *enterPasswordString = NSLocalizedString(@"Enter quit password:", nil);
-            
-            // Ask the user to enter the quit password and proceed to the callback method after this happend
-            [self.configFileController promptPasswordWithMessageText:enterPasswordString
-                                                       title:NSLocalizedString(@"Quit Session",nil)
-                                                    callback:self
-                                                    selector:@selector(quitPasswordEntered:)];
-        } else {
-            // if no quit password is required, then just confirm quitting
-            [self quitExamIgnoringQuitPW];
-        }
-    }
-}
-
-
-// If no quit password is required, then confirm quitting
-- (void) quitExamIgnoringQuitPW
-{
-    _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Quit Session", nil)
-                                                            message:NSLocalizedString(@"Are you sure you want to quit this session?", nil)
-                                                     preferredStyle:UIAlertControllerStyleAlert];
-    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Quit", nil)
-                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                             [_alertController dismissViewControllerAnimated:NO completion:nil];
-                                                             [self quitExam];
-                                                         }]];
-    
-    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
-                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                             [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
-                                                             //                                                                     [_alertController dismissViewControllerAnimated:NO completion:nil];
-                                                         }]];
-    
-    [self presentViewController:_alertController animated:YES completion:nil];
-}
-
-
-- (void)requestedQuitWOPwd:(NSNotification *)notification
-{
-    [self quitExamIgnoringQuitPW];
-}
-
-
-- (void) quitPasswordEntered:(NSString *)password
-{
-    // Check if the cancel button was pressed
-    if (!password) {
-        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
-        return;
-    }
-    
-    // Get quit password hash from current client settings
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-    hashedQuitPassword = [hashedQuitPassword uppercaseString];
-    
-    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    NSString *hashedPassword = [keychainManager generateSHAHashString:password];
-    hashedPassword = [hashedPassword uppercaseString];
-    
-    attempts--;
-    
-    if ([hashedPassword caseInsensitiveCompare:hashedQuitPassword] != NSOrderedSame) {
-        // wrong password entered, are there still attempts left?
-        if (attempts > 0) {
-            // Let the user try it again
-            NSString *enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the quit password:",nil);
-            // Ask the user to enter the settings password and proceed to the callback method after this happend
-            [self.configFileController promptPasswordWithMessageText:enterPasswordString
-                                                           title:NSLocalizedString(@"Quit Session",nil)
-                                                        callback:self
-                                                        selector:@selector(quitPasswordEntered:)];
-            return;
-            
-        } else {
-            // Wrong password entered in the last allowed attempts: Stop quitting the exam
-            DDLogError(@"%s: Couldn't quit the session: The correct quit password wasn't entered.", __FUNCTION__);
-            
-            NSString *title = NSLocalizedString(@"Cannot Quit Session", nil);
-            NSString *informativeText = NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit the session.", nil);
-            [self.configFileController showAlertWithTitle:title andText:informativeText];
-            [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
-            return;
-        }
-        
-    } else {
-        // The correct quit password was entered
-        [self quitExam];
-    }
-}
-
-
-- (void) quitExam
-{
-    // Close the left slider view if it was open
-    [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
-
-    // Close browser tabs and reset SEB settings to the local client settings if necessary
-    [self resetSEB];
-    // Update (because settings might have changed to local client settings)
-    // if a quit password is set = run SEB in secure mode
-    _secureMode = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
-    
-
-    // If ASAM is active, we stop it now and display the alert for restarting session
-    if (_ASAMActive) {
-        [self stopAutonomousSingleAppMode];
-//        _ASAMActive = false;
-        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Restart Session", nil)
-                                                                message:_secureMode ? NSLocalizedString(@"Return to start page and lock device into SEB.", nil) : NSLocalizedString(@"Return to start page.", nil)
-                                                         preferredStyle:UIAlertControllerStyleAlert];
-        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
-                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                 [_alertController dismissViewControllerAnimated:NO completion:nil];
-                                                                 [self startAutonomousSingleAppMode];
-                                                             }]];
-        [self presentViewController:_alertController animated:YES completion:nil];
-    } else if (_guidedAccessActive) {
-        if (_lockedViewController) {
-            _lockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
-        }
-        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Stop Guided Access", nil)
-                                                                    message:NSLocalizedString(@"You can now switch off Guided Access by home button triple click or Touch ID.", nil)
-                                                             preferredStyle:UIAlertControllerStyleAlert];
-        _guidedAccessWarningDisplayed = true;
-        [self presentViewController:_alertController animated:YES completion:nil];
-    } else {
-        // When Guided Access is off, then we can restart SEB with the start URL in local client settings
-        [self startExam];
-    }
-}
-
-
-// Inform the callback method if decrypting, parsing and storing new settings was successful or not
-- (void) quitExamWithCallback:(id)callback selector:(SEL)selector
-{
-    BOOL success = true;
-    IMP imp = [callback methodForSelector:selector];
-    void (*func)(id, SEL, BOOL) = (void *)imp;
-    func(callback, selector, success);
-}
-
+#pragma mark - Lockdown windows
 
 - (void) openLockdownWindows
 {
@@ -1002,311 +1292,46 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (void) initSEB
+#pragma mark - Status bar appearance
+
+- (BOOL) prefersStatusBarHidden
+{
+    return ([[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] == mobileStatusBarAppearanceNone);
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-
-    // Set up system
-    
-    // Set preventing Auto-Lock according to settings
-    [UIApplication sharedApplication].idleTimerDisabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobilePreventAutoLock"];
-    
-    // Create browser user agent according to settings
-    NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
-    NSString *overrideUserAgent;
-    
-    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserUserAgentMac"] == browserUserAgentModeMacDefault) {
-        overrideUserAgent = [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"];
-    } else {
-        overrideUserAgent = [preferences secureStringForKey:@"org_safeexambrowser_SEB_browserUserAgentMacCustom"];
-    }
-    // Add "SEB <version number>" to the browser's user agent, so the LMS SEB plugins recognize us
-    overrideUserAgent = [overrideUserAgent stringByAppendingString:[NSString stringWithFormat:@" %@/%@", SEBUserAgentDefaultSuffix, versionString]];
-    
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:overrideUserAgent, @"UserAgent", nil];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
-    
-    // UI
-    
-    // Draw background view for status bar if it is enabled
-    if (!_statusBarView) {
-        _statusBarView = [UIView new];
-        [_statusBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [self.view addSubview:_statusBarView];
-
-        NSDictionary *viewsDictionary = @{@"statusBarView" : _statusBarView,
-                                          @"containerView" : _containerView};
-        
-        _containerTopContraint.active = false;
-        NSArray *constraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[statusBarView]-0-|"
-                                                                         options: 0
-                                                                         metrics: nil
-                                                                           views: viewsDictionary];
-        NSArray *constraints_V = [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-0-[statusBarView(==20)]-0-[containerView]"
-                                                                         options: 0
-                                                                         metrics: nil
-                                                                           views: viewsDictionary];
-        [self.view addConstraints:constraints_H];
-        [self.view addConstraints:constraints_V];
-    }
-
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-
-    NSUInteger statusBarAppearance = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"];
-    appDelegate.statusBarAppearance = statusBarAppearance;
-
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] == false &&
-        statusBarAppearance != mobileStatusBarAppearanceNone) {
-        // Only draw background for status bar when it is enabled and there is no navigation bar displayed
-
-        _statusBarView.backgroundColor = (statusBarAppearance == mobileStatusBarAppearanceLight ? [UIColor blackColor] : [UIColor whiteColor]);
-        _statusBarView.hidden = false;
-
-    } else {
-        _statusBarView.hidden = true;
-    }
-
-    [self setNeedsStatusBarAppearanceUpdate];
-
-    //// Initialize SEB Dock and commands section in the slider view
-
-    NSMutableArray *newDockItems = [NSMutableArray new];
-    UIBarButtonItem *dockItem;
-    UIImage *dockIcon;
-    NSMutableArray *sliderCommands = [NSMutableArray new];
-    SEBSliderItem *sliderCommandItem;
-    UIImage *sliderIcon;
-    
-    /// Add left items
-    
-    // Add SEB app icon to the left side of the dock
-    dockIcon = [UIImage imageNamed:@"SEBDockIcon"]
-    ; //[appIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-    //        UIImage *appIcon = [UIImage imageNamed:@"SEBicon"]; //[appIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-
-    dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
-    dockItem.width = -12;
-    [newDockItems addObject:dockItem];
-    
-    dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                                                style:UIBarButtonItemStylePlain
-                                               target:self
-                                               action:@selector(leftDrawerButtonPress:)];
-    [newDockItems addObject:dockItem];
-    
-    // Add flexible space between left and right items
-    dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    [newDockItems addObject:dockItem];
-    
-    
-    /// Add right items
-
-    // Add Edit Settings command if enabled
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showSettingsInApp"]) {
-        sliderIcon = [UIImage imageNamed:@"SEBSliderSettingsIcon"];
-        sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Edit Settings",nil)
-                                                            icon:sliderIcon
-                                                          target:self
-                                                          action:@selector(conditionallyShowSettingsModal)];
-        [sliderCommands addObject:sliderCommandItem];
-    }
-    
-    // Add Restart Exam button if enabled
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamUseStartURL"] ||
-        [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamURL"].length > 0) {
-        dockIcon = [UIImage imageNamed:@"SEBRestartIcon"];
-        
-        NSString *restartButtonText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamText"];
-        if (restartButtonText.length == 0) {
-            restartButtonText = NSLocalizedString(@"Restart Exam",nil);
-        }
-        dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(reload)];
-        [newDockItems addObject:dockItem];
-        
-        dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
-        dockItem.width = 0;
-        [newDockItems addObject:dockItem];
-        
-        // Add Restart Exam command to slider items
-        sliderIcon = [UIImage imageNamed:@"SEBSliderRestartIcon"];
-        sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:restartButtonText
-                                                            icon:sliderIcon
-                                                          target:self
-                                                          action:@selector(reload)];
-        [sliderCommands addObject:sliderCommandItem];
-   }
-    
-    // Add Reload button if enabled
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
-        dockIcon = [UIImage imageNamed:@"SEBReloadIcon"];
-        dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(reload)];
-        [newDockItems addObject:dockItem];
-        
-        dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
-        dockItem.width = 0;
-        [newDockItems addObject:dockItem];
-        
-        // Add reload page command to slider items
-        sliderIcon = [UIImage imageNamed:@"SEBSliderReloadIcon"];
-        sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Reload Page",nil)
-                                                            icon:sliderIcon
-                                                          target:self
-                                                          action:@selector(reload)];
-        [sliderCommands addObject:sliderCommandItem];
-    }
-    
-    // Add Quit button
-    dockIcon = [UIImage imageNamed:@"SEBShutDownIcon"];
-    dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(quitExamConditionally)];
-    [newDockItems addObject:dockItem];
-    
-    dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
-    dockItem.width = -12;
-    [newDockItems addObject:dockItem];
-    
-    // Add quit command to slider items
-    sliderIcon = [UIImage imageNamed:@"SEBSliderShutDownIcon"];
-    sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Quit Session",nil)
-                                                        icon:sliderIcon
-                                                      target:self
-                                                      action:@selector(quitExamConditionally)];
-    [sliderCommands addObject:sliderCommandItem];
-
-    // Register slider commands
-    appDelegate.leftSliderCommands = [sliderCommands copy];
-    
-    // If dock is enabled, register items to the tool bar
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
-        [self.navigationController setToolbarHidden:NO];
-        _dockItems = newDockItems;
-        [self setToolbarItems:_dockItems];
-    } else {
-        [self.navigationController setToolbarHidden:YES];
-    }
-    
-    // Show navigation bar if browser toolbar is enabled in settings and populate it with enabled controls
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"]) {
-        [self.navigationController setNavigationBarHidden:NO];
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"]) {
-            // ToDo: Add back/forward buttons to navigation bar
-        }
-    } else {
-        [self.navigationController setNavigationBarHidden:YES];
-    }
-    
-    // Register slider view items
-    appDelegate.leftSliderCommands = [sliderCommands copy];
-}
-
-
-- (void) resetSEB
-{
-    [_browserTabViewController closeAllTabs];
-    _examRunning = false;
-    
-    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-    // downloads to disk, and ensures that future requests occur on a new socket.
-    [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-        // Do something once it's done.
-    }];
-    
-    // Switch to system's (persisted) UserDefaults
-    [NSUserDefaults setUserDefaultsPrivate:NO];
-    
-    [self initSEB];
-    [self startAutonomousSingleAppMode];
-}
-
-
-- (void) downloadAndOpenSEBConfigFromURL:(NSURL *)url
-{
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
-        // Check if SEB is in exam mode = private UserDefauls are switched on
-        if (NSUserDefaults.userDefaultsPrivate) {
-            // If yes, we don't download the .seb file
-            if (_alertController) {
-                [_alertController dismissViewControllerAnimated:NO completion:nil];
-            }
-            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)
-                                                                              message:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session and use a quit link or the quit button in SEB before starting another exam.", nil)
-                                                                       preferredStyle:UIAlertControllerStyleAlert];
-            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
-                                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                               [_alertController dismissViewControllerAnimated:NO completion:nil];
-                                                                           }]];
-            [self presentViewController:_alertController animated:YES completion:nil];
-
-        } else {
-            // SEB isn't in exam mode: reconfiguring is allowed
-            NSError *error = nil;
-            NSData *sebFileData;
-            // Download the .seb file directly into memory (not onto disc like other files)
-            if ([url.scheme isEqualToString:@"seb"]) {
-                // If it's a seb:// URL, we try to download it by http
-                NSURL *httpURL = [[NSURL alloc] initWithScheme:@"http" host:url.host path:url.path];
-                sebFileData = [NSData dataWithContentsOfURL:httpURL options:NSDataReadingUncached error:&error];
-                if (error) {
-                    // If that didn't work, we try to download it by https
-                    NSURL *httpsURL = [[NSURL alloc] initWithScheme:@"https" host:url.host path:url.path];
-                    sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
-                    // Still couldn't download the .seb file: present an error and abort
-                    if (error) {
-//                        [_mainBrowserWindow presentError:error modalForWindow:_mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
-                        return;
-                    }
-                }
-            } else if ([url.scheme isEqualToString:@"sebs"]) {
-                // If it's a sebs:// URL, we try to download it by https
-                NSURL *httpsURL = [[NSURL alloc] initWithScheme:@"https" host:url.host path:url.path];
-                sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
-                // Couldn't download the .seb file: present an error and abort
-                if (error) {
-//                    [_mainBrowserWindow presentError:error modalForWindow:_mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
-                    return;
-                }
-            } else {
-                sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
-                if (error) {
-//                    [_mainBrowserWindow presentError:error modalForWindow:_mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
-                }
-            }
-            // Get current config path
-            currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
-            // Store the URL of the .seb file as current config file path
-            [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
-            
-            [self.configFileController storeNewSEBSettings:sebFileData forEditing:false callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] == false) {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] == mobileStatusBarAppearanceLight) {
+            return UIStatusBarStyleLightContent;
         }
     }
+    return UIStatusBarStyleDefault;
 }
 
 
-- (void) storeNewSEBSettingsSuccessful:(BOOL)success
-{
-    NSLog(@"%s: Storing new SEB settings was %@successful", __FUNCTION__, success ? @"" : @"not ");
-    if (success) {
-        [_browserTabViewController closeAllTabs];
-        _examRunning = false;
-        [self initSEB];
+#pragma mark - SEB Dock and left slider button handler
 
-        _isReconfiguring = false;
-        
-        [self startAutonomousSingleAppMode];
-
-        
-//        // Post a notification that it was requested to restart SEB with changed settings
-//        [[NSNotificationCenter defaultCenter]
-//         postNotificationName:@"requestRestartNotification" object:self];
-        
-    } else {
-        _isReconfiguring = false;
-        
-        // if decrypting new settings wasn't successfull, we have to restore the path to the old settings
-        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
-    }
+-(void)leftDrawerButtonPress:(id)sender{
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
+- (IBAction)goBack:(id)sender {
+    [_browserTabViewController goBack];
+}
+
+- (IBAction)goForward:(id)sender {
+    [_browserTabViewController goForward];
+}
+
+- (IBAction)reload {
+    [_browserTabViewController reload];
+    [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+}
+
+
+#pragma mark - Search
 
 - (void)searchStarted
 {
@@ -1344,6 +1369,8 @@ static NSMutableSet *browserWindowControllers;
     [_browserTabViewController loadWebPageOrSearchResultWithString:searchString];
 }
 
+
+#pragma mark - Memory warning delegate methods
 
 - (void) didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
