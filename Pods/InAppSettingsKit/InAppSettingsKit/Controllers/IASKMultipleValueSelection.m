@@ -11,6 +11,15 @@
 
 @synthesize settingsStore = _settingsStore;
 
+- (instancetype)initWithSettingsStore:(id<IASKSettingsStore>)settingsStore
+{
+    self = [super init];
+    if (self) {
+        self.settingsStore = settingsStore;
+    }
+    return self;
+}
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSUserDefaultsDidChangeNotification object:nil];
 }
@@ -26,6 +35,7 @@
 
 - (void)updateCheckedItem {
     // Find the currently checked item
+    NSString *key = [_specifier key];
     id value = [self.settingsStore objectForKey:[_specifier key]];
     if (!value) {
         value = [_specifier defaultValue];
@@ -73,6 +83,8 @@
     [self selectCell:[self.tableView cellForRowAtIndexPath:indexPath]];
     _checkedIndex = indexPath.row;
 
+    NSString *key = [_specifier key];
+    id object = [values objectAtIndex:indexPath.row];
     [self.settingsStore setObject:[values objectAtIndex:indexPath.row] forKey:[_specifier key]];
     [self.settingsStore synchronize];
     [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged
