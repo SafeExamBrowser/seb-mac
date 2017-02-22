@@ -76,6 +76,14 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
+			<string>Browser</string>
+			<key>File</key>
+			<string>Browser</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
 			<string>Exams</string>
 			<key>File</key>
 			<string>Exams</string>

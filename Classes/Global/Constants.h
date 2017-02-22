@@ -63,6 +63,13 @@
 
 
 enum {
+    browserUserAgentModeiOSDefault              = 0,
+    browserUserAgentModeiOSCustom               = 1
+};
+typedef NSUInteger browserUserAgentModeiOS;
+
+
+enum {
     browserUserAgentModeMacDefault              = 0,
     browserUserAgentModeMacCustom               = 1
 };

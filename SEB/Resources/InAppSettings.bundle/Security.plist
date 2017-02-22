@@ -18,7 +18,7 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Use ASAM if available</string>
+			<string>Use ASAM If Available</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_mobileEnableASAM</string>
 			<key>DefaultValue</key>
