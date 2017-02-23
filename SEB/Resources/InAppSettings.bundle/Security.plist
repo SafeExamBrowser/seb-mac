@@ -12,7 +12,7 @@
 			<key>Title</key>
 			<string>Autonomous Single App Mode (ASAM)</string>
 			<key>FooterText</key>
-			<string>Requires device to be supervised and having SEB set as allowed app to enter ASAM.</string>
+			<string>Uses either Automatic Assessment Configuration (for BYOD) or requires device to be supervised and having SEB set as allowed app to enter ASAM.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
