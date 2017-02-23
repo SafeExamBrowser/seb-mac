@@ -19,8 +19,8 @@
 			<string>Start URL</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_startURL</string>
-			<key>DefaultValue</key>
-			<string></string>
+			<key>IASKPlaceholder</key>
+			<string>Full URL</string>
 			<key>IsSecure</key>
 			<false/>
 			<key>KeyboardType</key>
@@ -37,6 +37,8 @@
 			<string>Administrator Password</string>
 			<key>Key</key>
 			<string>adminPassword</string>
+			<key>IASKPlaceholder</key>
+			<string>Controlls editing of config</string>
 			<key>IsSecure</key>
 			<true/>
 		</dict>
@@ -47,6 +49,8 @@
 			<string>Quit/Restart Password</string>
 			<key>Key</key>
 			<string>quitPassword</string>
+			<key>IASKPlaceholder</key>
+			<string>Enter one for secure mode</string>
 			<key>IsSecure</key>
 			<true/>
 		</dict>

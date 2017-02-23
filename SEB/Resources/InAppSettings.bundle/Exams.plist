@@ -21,8 +21,8 @@
 			<string>Quit URL</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_quitURL</string>
-			<key>DefaultValue</key>
-			<string></string>
+			<key>IASKPlaceholder</key>
+			<string>Exact full URL</string>
 			<key>IsSecure</key>
 			<false/>
 			<key>KeyboardType</key>
