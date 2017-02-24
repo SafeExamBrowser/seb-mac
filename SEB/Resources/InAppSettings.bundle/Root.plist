@@ -38,7 +38,7 @@
 			<key>Key</key>
 			<string>adminPassword</string>
 			<key>IASKPlaceholder</key>
-			<string>Restricts editing of settings</string>
+			<string>Restricts editing settings</string>
 			<key>IsSecure</key>
 			<true/>
 		</dict>
@@ -50,7 +50,7 @@
 			<key>Key</key>
 			<string>quitPassword</string>
 			<key>IASKPlaceholder</key>
-			<string>Set to invoke secure mode</string>
+			<string>Set to run in secure mode</string>
 			<key>IsSecure</key>
 			<true/>
 		</dict>

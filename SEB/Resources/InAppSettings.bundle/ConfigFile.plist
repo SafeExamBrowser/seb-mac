@@ -16,7 +16,7 @@
 			<key>DefaultValue</key>
 			<string>SEBClientSettings</string>
 			<key>IASKPlaceholder</key>
-			<string>config_file.seb</string>
+			<string>Shared config file name</string>
 		</dict>
 		<dict>
 			<key>Type</key>
