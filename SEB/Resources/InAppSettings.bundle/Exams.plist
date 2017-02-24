@@ -39,8 +39,46 @@
 			<string>Confirm Quitting</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_quitURLConfirm</string>
-			<key>DefaultValue</key>
-			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Back to Start Button</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Use Start URL</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_restartExamUseStartURL</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_restartExamURL</string>
+			<key>IASKPlaceholder</key>
+			<string>Custom URL</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Custom Title Text</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_restartExamText</string>
+			<key>IASKPlaceholder</key>
+			<string>Back to Start</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Require Quit Password</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_restartExamPasswordProtected</string>
 		</dict>
 	</array>
 </dict>

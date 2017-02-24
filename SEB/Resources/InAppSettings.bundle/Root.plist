@@ -34,11 +34,11 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>Administrator Password</string>
+			<string>Admin Password</string>
 			<key>Key</key>
 			<string>adminPassword</string>
 			<key>IASKPlaceholder</key>
-			<string>Controlls editing of config</string>
+			<string>Restricts editing of settings</string>
 			<key>IsSecure</key>
 			<true/>
 		</dict>
@@ -46,11 +46,11 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>Quit/Restart Password</string>
+			<string>Quit Password</string>
 			<key>Key</key>
 			<string>quitPassword</string>
 			<key>IASKPlaceholder</key>
-			<string>Enter one for secure mode</string>
+			<string>Set to invoke secure mode</string>
 			<key>IsSecure</key>
 			<true/>
 		</dict>

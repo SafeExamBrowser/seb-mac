@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Browser Security</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow Navigation in Exam</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_allowBrowsingBackForward</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow Navigation in New Tabs</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_newBrowserWindowNavigation</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Show Reload Warning</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_showReloadWarning</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSRadioGroupSpecifier</string>
+			<key>Title</key>
+			<string>User Agent</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_browserUserAgentiOS</string>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<string>2</string>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>Default</string>
+				<string>Mac Desktop</string>
+				<string>Custom</string>
+			</array>
+			<key>FooterText</key>
+			<string>SEB always appends its version number. Default string depends on iOS version and therefore can differ on exam clients.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_browserUserAgentiOSCustom</string>
+			<key>IASKPlaceholder</key>
+			<string>Custom user agent string</string>
+		</dict>
+	</array>
+</dict>
+</plist>
