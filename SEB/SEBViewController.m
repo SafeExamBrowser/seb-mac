@@ -107,7 +107,7 @@ static NSMutableSet *browserWindowControllers;
 {
     [super viewDidLoad];
     
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     appDelegate.sebViewController = self;
     
     _browserTabViewController = self.childViewControllers[0];
@@ -209,7 +209,7 @@ static NSMutableSet *browserWindowControllers;
             [self.configFileController promptPasswordWithMessageText:enterPasswordString
                                                                title:NSLocalizedString(@"Reset Settings",nil)
                                                             callback:self
-                                                            selector:@selector(adminPasswordResetSettings:)];
+                                                            selector:@selector(resetSettingsEnteredAdminPassword:)];
             return;
             
         } else {
@@ -302,7 +302,7 @@ static NSMutableSet *browserWindowControllers;
             [self.configFileController promptPasswordWithMessageText:enterPasswordString
                                                                title:NSLocalizedString(@"Edit Settings",nil)
                                                             callback:self
-                                                            selector:@selector(adminPasswordSettingsConfiguringClient:)];
+                                                            selector:@selector(enteredAdminPassword:)];
             return;
             
         } else {
@@ -368,9 +368,13 @@ static NSMutableSet *browserWindowControllers;
         [_alertController dismissViewControllerAnimated:NO completion:nil];
     }
 
-    UINavigationController *aNavController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
-    //[viewController setShowCreditsFooter:NO];   // Uncomment to not display InAppSettingsKit credits for creators.
-    // But we encourage you not to uncomment. Thank you!
+//    UISplitViewController *splitViewController = [UISplitViewController new];
+//    UIViewController *detailViewController = [[UIViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
+//    UINavigationController *detailNavigationController = [[UINavigationController alloc] initWithRootViewController:detailViewController];
+//    //[viewController setShowCreditsFooter:NO];   // Uncomment to not display InAppSettingsKit credits for creators.
+//    // But we encourage you not to uncomment. Thank you!
+//    splitViewController.viewControllers = [NSArray arrayWithObjects:navigationController, detailNavigationController, nil];
     self.appSettingsViewController.showDoneButton = YES;
     
     if (!settingsShareButton) {
@@ -389,7 +393,7 @@ static NSMutableSet *browserWindowControllers;
     
     _settingsOpen = true;
     
-    [self presentViewController:aNavController animated:YES completion:nil];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 
@@ -577,7 +581,7 @@ static NSMutableSet *browserWindowControllers;
         [self.view addConstraints:constraints_V];
     }
     
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     
     NSUInteger statusBarAppearance = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"];
     appDelegate.statusBarAppearance = statusBarAppearance;

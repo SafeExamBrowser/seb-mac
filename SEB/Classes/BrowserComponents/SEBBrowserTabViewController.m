@@ -80,7 +80,7 @@
     [super viewWillAppear:animated];
     
     // TO DO: Ok, later we will get the context from the creator of this VC
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     [self setManagedObjectContext:[appDelegate managedObjectContext]];
     _persistentWebpages = appDelegate.persistentWebpages;
     

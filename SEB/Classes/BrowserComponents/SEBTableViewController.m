@@ -61,7 +61,7 @@
 {
     [super viewDidLoad];
     
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
 
     [self setManagedObjectContext:[appDelegate managedObjectContext]];
 
@@ -89,7 +89,7 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     _webpagesArray = [appDelegate.persistentWebpages mutableCopy];
 
     NSUInteger statusBarAppearance = appDelegate.statusBarAppearance;
