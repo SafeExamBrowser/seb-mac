@@ -11,16 +11,24 @@
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>SEB Dock</string>
+			<key>FooterText</key>
+			<string>Left slider menu is always displayed and can be accessed by swiping right from the left display edge.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Show SEB Dock</string>
+			<string>Show Dock</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_showTaskBar</string>
-			<key>DefaultValue</key>
-			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Dock Command Items</string>
+			<key>FooterText</key>
+			<string>The dock shows open browser tabs and commands. The command items above will always be displayed in the slider menu (reload) or when their functionality is enabled (Exam pane/back to start, Browser pane/navigation).</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -29,8 +37,22 @@
 			<string>Show Reload Button</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_showReloadButton</string>
-			<key>DefaultValue</key>
-			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Show Navigation Buttons</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_showNavigationButtons</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Show Back to Start Button</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_showBackToStartButton</string>
 		</dict>
 	</array>
 </dict>

@@ -16,7 +16,7 @@
 			<key>DefaultValue</key>
 			<string>SEBClientSettings</string>
 			<key>IASKPlaceholder</key>
-			<string>SEB config file</string>
+			<string>config_file.seb</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -58,7 +58,7 @@
 			<key>IsSecure</key>
 			<true/>
 			<key>IASKPlaceholder</key>
-			<string>Encryption password</string>
+			<string>Encrypts config file</string>
 		</dict>
 		<dict>
 			<key>Type</key>
