@@ -1324,21 +1324,154 @@ static NSMutableSet *browserWindowControllers;
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
-- (IBAction)backToStart {
-    [_browserTabViewController backToStart];
+
+- (IBAction)backToStart
+{
+    NSString *backToStartText = [self backToStartText];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamPasswordProtected"] == YES) {
+        NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+        // if quitting SEB is allowed
+        if (hashedQuitPassword.length > 0) {
+            // if quit password is set, then restrict quitting
+            // Allow up to 5 attempts for entering decoding password
+            attempts = 5;
+            NSString *enterPasswordString = NSLocalizedString(@"Enter quit password:", nil);
+            
+            // Ask the user to enter the quit password and proceed to the callback method after this happend
+            [self.configFileController promptPasswordWithMessageText:enterPasswordString
+                                                               title:backToStartText
+                                                            callback:self
+                                                            selector:@selector(enteredBackToStartPassword:)];
+            return;
+        }
+    }
+    // if no quit password is required, then just confirm Back to Start
+    [self alertWithTitle:backToStartText
+                 message:NSLocalizedString(@"Are you sure?", nil)
+            action1Title:NSLocalizedString(@"OK", nil)
+          action1Handler:^{
+              [_browserTabViewController backToStart];
+          }
+            action2Title:NSLocalizedString(@"Cancel", nil)
+          action2Handler:^{
+              [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+          }];
 }
+
+
+- (void) alertWithTitle:(NSString *)title
+                message:(NSString *)message
+           action1Title:(NSString *)action1Title
+         action1Handler:(void (^)())action1Handler
+           action2Title:(NSString *)action2Title
+         action2Handler:(void (^)())action2Handler
+{
+    _alertController = [UIAlertController  alertControllerWithTitle:title
+                                                            message:message
+                                                     preferredStyle:UIAlertControllerStyleAlert];
+    [_alertController addAction:[UIAlertAction actionWithTitle:action1Title
+                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                             [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                             action1Handler();
+                                                         }]];
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                             action2Handler();
+                                                         }]];
+    
+    [self presentViewController:_alertController animated:YES completion:nil];
+}
+
+
+- (void) enteredBackToStartPassword:(NSString *)password
+{
+    // Check if the cancel button was pressed
+    if (!password) {
+        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+        return;
+    }
+    
+    // Get quit password hash from current client settings
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+    hashedQuitPassword = [hashedQuitPassword uppercaseString];
+    
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    NSString *hashedPassword = [keychainManager generateSHAHashString:password];
+    hashedPassword = [hashedPassword uppercaseString];
+    
+    attempts--;
+    
+    NSString *backToStartText = [self backToStartText];
+    if ([hashedPassword caseInsensitiveCompare:hashedQuitPassword] != NSOrderedSame) {
+        // wrong password entered, are there still attempts left?
+        if (attempts > 0) {
+            // Let the user try it again
+            NSString *enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the quit password:",nil);
+            // Ask the user to enter the settings password and proceed to the callback method after this happend
+            [self.configFileController promptPasswordWithMessageText:enterPasswordString
+                                                               title:backToStartText
+                                                            callback:self
+                                                            selector:@selector(enteredBackToStartPassword:)];
+            return;
+            
+        } else {
+            // Wrong password entered in the last allowed attempts: Stop quitting the exam
+            DDLogError(@"%s: Couldn't go back to start: The correct quit password wasn't entered.", __FUNCTION__);
+            
+            NSString *title = backToStartText;
+            NSString *informativeText = NSLocalizedString(@"You need to enter the correct quit password for this command.", nil);
+            [self.configFileController showAlertWithTitle:title andText:informativeText];
+            return;
+        }
+        
+    } else {
+        // The correct quit password was entered
+        [_browserTabViewController backToStart];
+    }
+}
+
+
+- (NSString *)backToStartText
+{
+    NSString *backToStartText = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_restartExamText"];
+    if (backToStartText.length == 0) {
+        backToStartText = NSLocalizedString(@"Back to Start",nil);
+    }
+    return backToStartText;
+}
+
 
 - (IBAction)goBack {
     [_browserTabViewController goBack];
 }
 
+
 - (IBAction)goForward {
     [_browserTabViewController goForward];
 }
 
+
 - (IBAction)reload {
-    [_browserTabViewController reload];
-    [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+    void (^action1Handler)() =
+    ^{
+        [_browserTabViewController reload];
+        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+    };
+
+    if ([[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_showReloadWarning"]) {
+        [self alertWithTitle:NSLocalizedString(@"Reload Current Page", nil)
+                     message:NSLocalizedString(@"Do you really want to reload the current web page?", nil)
+                action1Title:NSLocalizedString(@"Reload", nil)
+              action1Handler:action1Handler
+                action2Title:NSLocalizedString(@"Cancel", nil)
+              action2Handler:^{
+                  [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+              }];
+    } else {
+        action1Handler();
+    }
 }
 
 
