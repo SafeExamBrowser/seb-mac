@@ -50,7 +50,7 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
-			<string>SEB Dock and Slider Menu</string>
+			<string>SEB Dock and Slider</string>
 			<key>File</key>
 			<string>Dock</string>
 		</dict>

@@ -12,7 +12,7 @@
 			<key>Title</key>
 			<string>SEB Dock</string>
 			<key>FooterText</key>
-			<string>Left slider menu is always displayed and can be accessed by swiping right from the left display edge.</string>
+			<string>Left slider menu can always be accessed by swiping right from the left display edge.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -28,7 +28,7 @@
 			<key>Title</key>
 			<string>Dock Command Items</string>
 			<key>FooterText</key>
-			<string>The dock shows open browser tabs and commands. The command items above will always be displayed in the slider menu (reload) or when their functionality is enabled (Exam pane/back to start, Browser pane/navigation).</string>
+			<string>SEB Dock shows open browser tabs and commands. The command items above will always be displayed in the slider menu (reload) or when their functionality is enabled (Exam pane/back to start, Browser pane/navigation).</string>
 		</dict>
 		<dict>
 			<key>Type</key>
