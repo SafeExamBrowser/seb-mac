@@ -64,7 +64,8 @@
 
 enum {
     browserUserAgentModeiOSDefault              = 0,
-    browserUserAgentModeiOSCustom               = 1
+    browserUserAgentModeiOSMacDesktop           = 1,
+    browserUserAgentModeiOSCustom               = 2
 };
 typedef NSUInteger browserUserAgentModeiOS;
 
@@ -85,7 +86,7 @@ typedef NSUInteger browserUserAgentModeWinDesktop;
 
 enum {
     browserUserAgentModeWinTouchDefault         = 0,
-    browserUserAgentModeWinTouchIPad            = 1,
+    browserUserAgentModeWinTouchiPad            = 1,
     browserUserAgentModeWinTouchCustom          = 2
 };
 typedef NSUInteger browserUserAgentModeWinTouch;
@@ -302,7 +303,8 @@ static NSString __unused *sebErrorDomain = @"org.safeexambrowser.SEBCryptor";
 
 static NSString __unused *SEBUserAgentDefaultSuffix = @"SEB";
 static NSString __unused *SEBUserAgentDefaultBrowserSuffix = @"Safari";
-static NSString __unused *SEBUserAgentDefaultSafariVersion = @"601.1";
+static NSString __unused *SEBUserAgentDefaultSafariVersion = @"602.4.6";
+static NSString __unused *SEBiOSUserAgentDesktopMac = @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/602.4.8 (KHTML, like Gecko) Version/10.0.3 Safari/602.4.8";
 static NSString __unused *SEBWinUserAgentDesktopDefault = @"Mozilla/5.0 (Windows NT 6.3; rv:41.0) Gecko/20100101 Firefox/41";
 static NSString __unused *SEBWinUserAgentTouchDefault = @"Mozilla/5.0 (Windows NT 6.3; rv:41.0; Touch) Gecko/20100101 Firefox/41";
 static NSString __unused *SEBWinUserAgentTouchiPad = @"Mozilla/5.0 (iPad; CPU OS 9_0_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13A452 Safari/601.1";
