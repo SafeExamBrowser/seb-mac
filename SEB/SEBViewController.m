@@ -1460,7 +1460,7 @@ static NSMutableSet *browserWindowControllers;
         [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
     };
 
-    if ([[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_showReloadWarning"]) {
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_showReloadWarning"]) {
         [self alertWithTitle:NSLocalizedString(@"Reload Current Page", nil)
                      message:NSLocalizedString(@"Do you really want to reload the current web page?", nil)
                 action1Title:NSLocalizedString(@"Reload", nil)
