@@ -86,7 +86,7 @@
     [self setManagedObjectContext:[appDelegate managedObjectContext]];
     _persistentWebpages = appDelegate.persistentWebpages;
     
-    self.openWebpages = [NSMutableArray new];
+    _openWebpages = [NSMutableArray new];
     
     // Add an observer for the request to reload webpage
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -119,7 +119,7 @@
 //    [_visibleWebViewController backToStart];
     
     // Conditionally load Back to Start URL into the main browser view
-    OpenWebpages *mainWebpage = self.openWebpages[0];
+    OpenWebpages *mainWebpage = _openWebpages[0];
 
     // Determine the right URL depending on settings
     NSURL* backToStartURL = [NSURL URLWithString:[[SEBBrowserController new] backToStartURLString]];
@@ -129,7 +129,9 @@
         if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow != 0) {
             [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow = 0;
             [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
-                [self switchToTab:self];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self switchToTab:self];
+                });
             }];
         }
     }
@@ -225,7 +227,7 @@
     newOpenWebpage.webViewController = newViewController;
     newOpenWebpage.loadDate = timeStamp;
     // Add this to the Array of all open webpages
-    [self.openWebpages addObject:newOpenWebpage];
+    [_openWebpages addObject:newOpenWebpage];
     
     // Set the index of the current web page
     [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow = _openWebpages.count-1;
@@ -251,24 +253,26 @@
 // Open new tab and load URL
 - (void)switchToTab:(id)sender {
     NSUInteger tabIndex = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;
-    OpenWebpages *webpageToSwitch = self.openWebpages[tabIndex];
-    SEBWebViewController *webViewControllerToSwitch = webpageToSwitch.webViewController;
-    
-    // Create the webView in case it doesn't exist
-    if (!webViewControllerToSwitch) {
-        webViewControllerToSwitch = [self createNewWebViewController];
+    if (tabIndex < _openWebpages.count) {
+        OpenWebpages *webpageToSwitch = _openWebpages[tabIndex];
+        SEBWebViewController *webViewControllerToSwitch = webpageToSwitch.webViewController;
+        
+        // Create the webView in case it doesn't exist
+        if (!webViewControllerToSwitch) {
+            webViewControllerToSwitch = [self createNewWebViewController];
+        }
+        
+        // Exchange the old against the new webview
+        [_visibleWebViewController removeFromParentViewController];
+        
+        [self addChildViewController:webViewControllerToSwitch];
+        [webViewControllerToSwitch didMoveToParentViewController:self];
+        
+        _visibleWebViewController = webViewControllerToSwitch;
+        
+        [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;;
+        [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
     }
-    
-    // Exchange the old against the new webview
-    [_visibleWebViewController removeFromParentViewController];
-    
-    [self addChildViewController:webViewControllerToSwitch];
-    [webViewControllerToSwitch didMoveToParentViewController:self];
-
-    _visibleWebViewController = webViewControllerToSwitch;
-
-    [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;;
-    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
 
@@ -294,43 +298,45 @@
     // Delete the row from the data source
     NSManagedObjectContext *context = self.managedObjectContext;
     
-    Webpages *webpageToClose = _persistentWebpages[tabIndex];
-    
-    NSString *pageToCloseURL = webpageToClose.url;
-    if ([pageToCloseURL hasPrefix:@"drawing"]) {
-    }
-    
-    [context deleteObject:[context objectWithID:[webpageToClose objectID]]];
-    
-    // Save everything
-    NSError *error = nil;
-    if ([context save:&error]) {
-        NSLog(@"The save was successful!");
-    } else {
-        NSLog(@"The save wasn't successful: %@", [error userInfo]);
-    }
-    
-    [_persistentWebpages removeObjectAtIndex:tabIndex];
-    [_openWebpages removeObjectAtIndex:tabIndex];
-    
-    // Check if the user is closing the main web view (with the exam)
-    if (tabIndex == 0) {
-        [_visibleWebViewController removeFromParentViewController];
-        _visibleWebViewController = nil;
-    } else {
-        NSInteger selectedWebpageIndexPathRow = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;
-        NSInteger currentWebpageIndexPathRow = [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow;
-        // Was a tab closed which was before the currently displayed in the webpage side panel list
-        if (selectedWebpageIndexPathRow < currentWebpageIndexPathRow) {
-            // Yes: the index of the current webpage must be decreased by one
-            [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow--;
-            // Or was the currently displayed webpage closed?
-        } else if (selectedWebpageIndexPathRow == currentWebpageIndexPathRow) {
-            // Yes: the index of the current webpage must be decreased by one
-            [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow--;
-            [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow--;
-            // and we switch to the webpage one position before the closed one in the webpage side panel list
-            [self switchToTab:nil];
+    if (tabIndex < _persistentWebpages.count) {
+        Webpages *webpageToClose = _persistentWebpages[tabIndex];
+        
+        NSString *pageToCloseURL = webpageToClose.url;
+        if ([pageToCloseURL hasPrefix:@"drawing"]) {
+        }
+        
+        [context deleteObject:[context objectWithID:[webpageToClose objectID]]];
+        
+        // Save everything
+        NSError *error = nil;
+        if ([context save:&error]) {
+            NSLog(@"The save was successful!");
+        } else {
+            NSLog(@"The save wasn't successful: %@", [error userInfo]);
+        }
+        
+        [_persistentWebpages removeObjectAtIndex:tabIndex];
+        [_openWebpages removeObjectAtIndex:tabIndex];
+        
+        // Check if the user is closing the main web view (with the exam)
+        if (tabIndex == 0) {
+            [_visibleWebViewController removeFromParentViewController];
+            _visibleWebViewController = nil;
+        } else {
+            NSInteger selectedWebpageIndexPathRow = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;
+            NSInteger currentWebpageIndexPathRow = [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow;
+            // Was a tab closed which was before the currently displayed in the webpage side panel list
+            if (selectedWebpageIndexPathRow < currentWebpageIndexPathRow) {
+                // Yes: the index of the current webpage must be decreased by one
+                [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow--;
+                // Or was the currently displayed webpage closed?
+            } else if (selectedWebpageIndexPathRow == currentWebpageIndexPathRow) {
+                // Yes: the index of the current webpage must be decreased by one
+                [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow--;
+                [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow--;
+                // and we switch to the webpage one position before the closed one in the webpage side panel list
+                [self switchToTab:nil];
+            }
         }
     }
 }
@@ -342,7 +348,7 @@
      ^(OpenWebpages *openPage, NSUInteger idx, BOOL *stop) {
          return [openPage.webViewController isEqual:webViewController];
      }];
-    if (index != NSNotFound) {
+    if (index != NSNotFound && index < _persistentWebpages.count) {
         [(Webpages *)_persistentWebpages[index] setValue:title forKey:@"title"];
     }
 }
@@ -403,12 +409,12 @@
             newOpenWebpage.index = index;
             newOpenWebpage.loadDate = webpage.loadDate;
             // Add this to the Array of all open webpages
-            [self.openWebpages addObject:newOpenWebpage];
+            [_openWebpages addObject:newOpenWebpage];
             
             [newWebViewController loadURL:[NSURL URLWithString:webpage.url]];
             
         }
-        OpenWebpages *newOpenWebpage = (self.openWebpages.lastObject);
+        OpenWebpages *newOpenWebpage = (_openWebpages.lastObject);
         SEBWebViewController *newVisibleWebViewController = newOpenWebpage.webViewController;
 
         // Exchange the old against the new webview
