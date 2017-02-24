@@ -11,5 +11,6 @@
 @interface SEBBrowserController : NSObject
 
 - (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;
+- (NSString *) backToStartURLString;
 
 @end

@@ -71,13 +71,14 @@
 - (id) infoValueForKey:(NSString *)key;
 - (NSString *) documentsDirectoryPath;
 
+- (void) backToStart;
 - (void) goBack;
 - (void) goForward;
 - (void) reload;
 - (void) stopLoading;
 
 - (void) setLoading:(BOOL)loading;
-- (void)setTitle:(NSString *)title forWebViewController:(SEBWebViewController *)webViewController;
+- (void) setTitle:(NSString *)title forWebViewController:(SEBWebViewController *)webViewController;
 
 - (void) loadWebPageOrSearchResultWithString:(NSString *)webSearchString;
 

@@ -150,6 +150,10 @@
 #pragma mark -
 #pragma mark Controller interface
 
+- (void)backToStart {
+    [_sebWebView goBack];
+}
+
 - (void)goBack {
     [_sebWebView goBack];
 }

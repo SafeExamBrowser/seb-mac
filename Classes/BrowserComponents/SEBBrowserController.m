@@ -35,4 +35,19 @@
 }
 
 
+- (NSString *) backToStartURLString
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString* backToStartURL;
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamUseStartURL"]) {
+        // Load start URL from the system's user defaults
+        backToStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+        DDLogInfo(@"Will load Start URL in main browser window: %@", backToStartURL);
+    } else {
+        backToStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamURL"];
+        DDLogInfo(@"Will load Back to Start URL in main browser window: %@", backToStartURL);
+    }
+    return backToStartURL;
+}
+
 @end
