@@ -644,16 +644,16 @@ static NSMutableSet *browserWindowControllers;
         [sliderCommands addObject:sliderCommandItem];
     }
     
-    // Add Restart Exam button if enabled
+    // Add Back to Start button if enabled
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamUseStartURL"] ||
         [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamURL"].length > 0) {
-        dockIcon = [UIImage imageNamed:@"SEBRestartIcon"];
+        dockIcon = [UIImage imageNamed:@"SEBSkipBackIcon"];
         
         NSString *restartButtonText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamText"];
         if (restartButtonText.length == 0) {
-            restartButtonText = NSLocalizedString(@"Restart Exam",nil);
+            restartButtonText = NSLocalizedString(@"Back to Start",nil);
         }
-        dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(reload)];
+        dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(backToStart)];
         [newDockItems addObject:dockItem];
         
         dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
@@ -661,11 +661,11 @@ static NSMutableSet *browserWindowControllers;
         [newDockItems addObject:dockItem];
         
         // Add Restart Exam command to slider items
-        sliderIcon = [UIImage imageNamed:@"SEBSliderRestartIcon"];
+        sliderIcon = [UIImage imageNamed:@"SEBSliderSkipBackIcon"];
         sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:restartButtonText
                                                             icon:sliderIcon
                                                           target:self
-                                                          action:@selector(reload)];
+                                                          action:@selector(backToStart)];
         [sliderCommands addObject:sliderCommandItem];
     }
     
@@ -1324,11 +1324,15 @@ static NSMutableSet *browserWindowControllers;
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
-- (IBAction)goBack:(id)sender {
+- (IBAction)backToStart {
+    [_browserTabViewController backToStart];
+}
+
+- (IBAction)goBack {
     [_browserTabViewController goBack];
 }
 
-- (IBAction)goForward:(id)sender {
+- (IBAction)goForward {
     [_browserTabViewController goForward];
 }
 

@@ -57,6 +57,7 @@
 - (id) infoValueForKey:(NSString *)key;
 - (NSString *)documentsDirectoryPath;
 
+- (void)backToStart;
 - (void)goBack;
 - (void)goForward;
 - (void)reload;

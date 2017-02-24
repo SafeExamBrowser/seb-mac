@@ -38,6 +38,8 @@
 #import "Constants.h"
 #import "Webpages.h"
 #import "OpenWebpages.h"
+#import "SEBBrowserController.h"
+
 
 @implementation SEBBrowserTabViewController
 
@@ -112,6 +114,26 @@
 
 #pragma mark -
 #pragma mark Controller interface
+
+- (void)backToStart {
+//    [_visibleWebViewController backToStart];
+    
+    // Conditionally load Back to Start URL into the main browser view
+    OpenWebpages *mainWebpage = self.openWebpages[0];
+
+    // Determine the right URL depending on settings
+    NSURL* backToStartURL = [NSURL URLWithString:[[SEBBrowserController new] backToStartURLString]];
+    if (backToStartURL) {
+        [mainWebpage.webViewController loadURL:backToStartURL];
+        
+        if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow != 0) {
+            [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow = 0;
+            [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
+                [self switchToTab:self];
+            }];
+        }
+    }
+}
 
 - (void)goBack {
     [_visibleWebViewController goBack];
