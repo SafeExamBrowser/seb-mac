@@ -649,10 +649,7 @@ static NSMutableSet *browserWindowControllers;
         [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamURL"].length > 0) {
         dockIcon = [UIImage imageNamed:@"SEBSkipBackIcon"];
         
-        NSString *restartButtonText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamText"];
-        if (restartButtonText.length == 0) {
-            restartButtonText = NSLocalizedString(@"Back to Start",nil);
-        }
+        NSString *restartButtonText = [self backToStartText];
         dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(backToStart)];
         [newDockItems addObject:dockItem];
         
@@ -669,6 +666,46 @@ static NSMutableSet *browserWindowControllers;
         [sliderCommands addObject:sliderCommandItem];
     }
     
+    // Add Navigate Back button if enabled
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showNavigationButtons"] &&
+        ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"] ||
+        [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowNavigation"])) {
+        
+        // Add Navigate Back Button
+        dockIcon = [UIImage imageNamed:@"SEBNavigateBackIcon"];
+        
+        dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+        [newDockItems addObject:dockItem];
+        
+        dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+        dockItem.width = 0;
+        [newDockItems addObject:dockItem];
+        
+        sliderIcon = [UIImage imageNamed:@"SEBSliderNavigateBackIcon"];
+        sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Go Back",nil)
+                                                            icon:sliderIcon
+                                                          target:self
+                                                          action:@selector(goBack)];
+        [sliderCommands addObject:sliderCommandItem];
+
+        // Add Navigate Forward Button
+        dockIcon = [UIImage imageNamed:@"SEBNavigateForwardIcon"];
+        
+        dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(goForward)];
+        [newDockItems addObject:dockItem];
+        
+        dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+        dockItem.width = 0;
+        [newDockItems addObject:dockItem];
+        
+        sliderIcon = [UIImage imageNamed:@"SEBSliderNavigateForwardIcon"];
+        sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Go Forward",nil)
+                                                            icon:sliderIcon
+                                                          target:self
+                                                          action:@selector(goForward)];
+        [sliderCommands addObject:sliderCommandItem];
+    }
+
     // Add Reload button if enabled
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
         dockIcon = [UIImage imageNamed:@"SEBReloadIcon"];
@@ -1445,11 +1482,13 @@ static NSMutableSet *browserWindowControllers;
 
 - (IBAction)goBack {
     [_browserTabViewController goBack];
+    [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
 }
 
 
 - (IBAction)goForward {
     [_browserTabViewController goForward];
+    [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
 }
 
 
