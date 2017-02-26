@@ -338,7 +338,7 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 "Reload" = "Neu laden";
 
 /* No comment provided by engineer. */
-"Reload Current Page" = "Aktuelle Seite neu laden";
+"Reload Page" = "Seite neu laden";
 
 /* No comment provided by engineer. */
 "Reset" = "Zurücksetzen";

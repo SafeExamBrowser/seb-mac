@@ -1500,8 +1500,8 @@ static NSMutableSet *browserWindowControllers;
     };
 
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_showReloadWarning"]) {
-        [self alertWithTitle:NSLocalizedString(@"Reload Current Page", nil)
-                     message:NSLocalizedString(@"Do you really want to reload the current web page?", nil)
+        [self alertWithTitle:NSLocalizedString(@"Reload Page", nil)
+                     message:NSLocalizedString(@"Do you really want to reload this web page?", nil)
                 action1Title:NSLocalizedString(@"Reload", nil)
               action1Handler:action1Handler
                 action2Title:NSLocalizedString(@"Cancel", nil)

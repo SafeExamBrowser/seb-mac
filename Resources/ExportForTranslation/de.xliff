@@ -2967,9 +2967,9 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
                 <target>Neu laden</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
-            <trans-unit id="Reload Current Page">
-                <source>Reload Current Page</source>
-                <target>Aktuelle Seite neu laden</target>
+            <trans-unit id="Reload Page">
+                <source>Reload Page</source>
+                <target>Seite neu laden</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
             <trans-unit id="Reset">

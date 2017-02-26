@@ -52,8 +52,8 @@
 
         // Display warning and ask if to reload page
         NSAlert *newAlert = [[NSAlert alloc] init];
-        [newAlert setMessageText:NSLocalizedString(@"Reload Current Page", nil)];
-        [newAlert setInformativeText:NSLocalizedString(@"Do you really want to reload the current web page?", nil)];
+        [newAlert setMessageText:NSLocalizedString(@"Reload Page", nil)];
+        [newAlert setInformativeText:NSLocalizedString(@"Do you really want to reload this web page?", nil)];
         [newAlert addButtonWithTitle:NSLocalizedString(@"Reload", nil)];
         [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
         [newAlert setAlertStyle:NSWarningAlertStyle];
