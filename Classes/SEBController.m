@@ -1410,7 +1410,7 @@ bool insideMatrix(){
             SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil
                                                                           icon:[NSImage imageNamed:@"SEBReloadIcon"]
                                                                highlightedIcon:[NSImage imageNamed:@"SEBReloadIconHighlighted"]
-                                                                       toolTip:NSLocalizedString(@"Reload Current Page",nil)
+                                                                       toolTip:NSLocalizedString(@"Reload Page",nil)
                                                                           menu:nil
                                                                         target:self
                                                                         action:@selector(reloadButtonPressed)];
