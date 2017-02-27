@@ -112,8 +112,8 @@
     [self.searchBarController setLoading:NO];
 }
 
-#pragma mark -
-#pragma mark Controller interface
+
+#pragma mark - Controller interface
 
 - (void)backToStart {
 //    [_visibleWebViewController backToStart];
@@ -181,6 +181,9 @@
     [_visibleWebViewController stopLoading];
 }
 
+
+#pragma mark - Callbacks for UI state changes
+
 - (void)setLoading:(BOOL)loading
 {
 //    if (self.searchBar.text.length > 0) {
@@ -192,8 +195,21 @@
 //    } else {
 //        [self.searchBarRightButton setImage:nil forState:UIControlStateNormal];
 //    }
+    if (loading == false) {
+        // Enable or disable back/forward buttons according to settings and
+        // availability of browsing history for this webview
+        
+    }
 }
 
+
+- (void)setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward
+{
+    [_sebViewController setCanGoBack:canGoBack canGoForward:canGoForward];
+}
+
+
+#pragma mark - Opening and closing tabs
 
 // Open new tab and load URL
 - (void)openNewTabWithURL:(NSURL *)url

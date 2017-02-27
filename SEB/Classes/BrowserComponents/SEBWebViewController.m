@@ -145,6 +145,7 @@
     self.sebWebView.delegate = nil;	// disconnect the delegate as the webview is hidden
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [_browserTabViewController setLoading:NO];
+    [self setBackForwardAvailabilty];
 }
 
 #pragma mark -
@@ -222,6 +223,7 @@
     // finished loading, hide the activity indicator in the status bar
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [_browserTabViewController setLoading:NO];
+    [self setBackForwardAvailabilty];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
@@ -229,6 +231,7 @@
     // load error, hide the activity indicator in the status bar
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [_browserTabViewController setLoading:NO];
+    [self setBackForwardAvailabilty];
     
     // report the error inside the webview
     NSString* errorString = [NSString stringWithFormat:
@@ -335,6 +338,14 @@
     return YES;
 }
 
+
+- (void)setBackForwardAvailabilty
+{
+    [_browserTabViewController setCanGoBack:_sebWebView.canGoBack canGoForward:_sebWebView.canGoForward];
+}
+
+
+#pragma mark - Search in WebView
 
 - (UIImage *)invertImage:(UIImage *)originalImage
 {

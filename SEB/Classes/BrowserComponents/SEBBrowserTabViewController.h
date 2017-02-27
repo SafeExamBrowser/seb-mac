@@ -58,6 +58,7 @@
 
 @property (nonatomic, strong) SEBSearchBarViewController *searchBarController;
 
+- (void)setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 
 - (void) openNewTabWithURL:(NSURL *)url;
 - (void) openNewTabWithURL:(NSURL *)url index:(NSUInteger)index;
