@@ -682,7 +682,7 @@ static NSMutableSet *browserWindowControllers;
             // Add Navigate Back Button
             dockIcon = [UIImage imageNamed:@"SEBNavigateBackIcon"];
             
-            dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+            dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
                                                         style:UIBarButtonItemStylePlain
                                                        target:self
                                                        action:@selector(goBack)];
@@ -704,10 +704,11 @@ static NSMutableSet *browserWindowControllers;
             // Add Navigate Forward Button
             dockIcon = [UIImage imageNamed:@"SEBNavigateForwardIcon"];
             
-            dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+            dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
                                                         style:UIBarButtonItemStylePlain
                                                        target:self
                                                        action:@selector(goForward)];
+            dockItem.enabled = false;
             [newDockItems addObject:dockItem];
             dockForwardButton = dockItem;
             
