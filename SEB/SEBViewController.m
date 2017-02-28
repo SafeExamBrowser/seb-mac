@@ -54,8 +54,8 @@
 
     UIBarButtonItem *dockBackButton;
     UIBarButtonItem *dockForwardButton;
-    UIBarButtonItem *sliderBackButton;
-    UIBarButtonItem *sliderForwardButton;
+    SEBSliderItem *sliderBackButton;
+    SEBSliderItem *sliderForwardButton;
 }
 
 @property (weak) IBOutlet UIView *containerView;
@@ -682,7 +682,7 @@ static NSMutableSet *browserWindowControllers;
             // Add Navigate Back Button
             dockIcon = [UIImage imageNamed:@"SEBNavigateBackIcon"];
             
-            dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
+            dockItem = [[UIBarButtonItem alloc] initWithImage:dockIcon
                                                         style:UIBarButtonItemStylePlain
                                                        target:self
                                                        action:@selector(goBack)];
@@ -700,11 +700,12 @@ static NSMutableSet *browserWindowControllers;
                                                               target:self
                                                               action:@selector(goBack)];
             [sliderCommands addObject:sliderCommandItem];
+            sliderBackButton = sliderCommandItem;
             
             // Add Navigate Forward Button
             dockIcon = [UIImage imageNamed:@"SEBNavigateForwardIcon"];
             
-            dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
+            dockItem = [[UIBarButtonItem alloc] initWithImage:dockIcon
                                                         style:UIBarButtonItemStylePlain
                                                        target:self
                                                        action:@selector(goForward)];
@@ -722,7 +723,7 @@ static NSMutableSet *browserWindowControllers;
                                                               target:self
                                                               action:@selector(goForward)];
             [sliderCommands addObject:sliderCommandItem];
-            sliderForwardButton = dockItem;
+            sliderForwardButton = sliderCommandItem;
         }
 
     // Add Reload button if enabled
