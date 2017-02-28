@@ -69,6 +69,12 @@
     NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
     _SEBTitleLabel.text = [NSString stringWithFormat:@"SafeExamBrowser %@",
                            versionString];
+    
+    // Add an observer for refreshing the table view
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshTableView:)
+                                                 name:@"refreshSlider" object:nil];
+    
      // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -127,6 +133,12 @@
 
 - (BOOL)prefersStatusBarHidden {
     return YES;
+}
+
+
+- (void)refreshTableView:(id)sender
+{
+    [self.tableView reloadData];
 }
 
 
@@ -231,6 +243,7 @@
             UIButton *closeButton = (UIButton *)[cell viewWithTag:1];
             [closeButton setImage:commandItem.icon forState:UIControlStateNormal];
             [closeButton addTarget:cell action:@selector(fireAction:) forControlEvents:UIControlEventTouchUpInside];
+            closeButton.enabled = commandItem.enabled;
             
             return cell;
 

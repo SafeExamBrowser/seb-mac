@@ -48,6 +48,7 @@
         _icon = newIcon;
         _target = newTarget;
         _action = newAction;
+        _enabled = true;
     }
     return self;
 }

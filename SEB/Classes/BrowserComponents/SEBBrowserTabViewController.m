@@ -412,6 +412,9 @@
     if (index != NSNotFound && index < _persistentWebpages.count) {
         [(Webpages *)_persistentWebpages[index] setValue:title forKey:@"title"];
     }
+    // Post a notification that the slider should be refreshed
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"refreshSlider" object:self];
 }
 
 
