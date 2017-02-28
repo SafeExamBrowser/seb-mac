@@ -54,8 +54,8 @@
 
     UIBarButtonItem *dockBackButton;
     UIBarButtonItem *dockForwardButton;
-    SEBSliderItem *sliderBackButton;
-    SEBSliderItem *sliderForwardButton;
+    SEBSliderItem *sliderBackButtonItem;
+    SEBSliderItem *sliderForwardButtonItem;
 }
 
 @property (weak) IBOutlet UIView *containerView;
@@ -700,7 +700,7 @@ static NSMutableSet *browserWindowControllers;
                                                               target:self
                                                               action:@selector(goBack)];
             [sliderCommands addObject:sliderCommandItem];
-            sliderBackButton = sliderCommandItem;
+            sliderBackButtonItem = sliderCommandItem;
             
             // Add Navigate Forward Button
             dockIcon = [UIImage imageNamed:@"SEBNavigateForwardIcon"];
@@ -723,7 +723,7 @@ static NSMutableSet *browserWindowControllers;
                                                               target:self
                                                               action:@selector(goForward)];
             [sliderCommands addObject:sliderCommandItem];
-            sliderForwardButton = sliderCommandItem;
+            sliderForwardButtonItem = sliderCommandItem;
         }
 
     // Add Reload button if enabled
@@ -1538,6 +1538,13 @@ static NSMutableSet *browserWindowControllers;
 {
     dockBackButton.enabled = canGoBack;
     dockForwardButton.enabled = canGoForward;
+    
+    sliderBackButtonItem.enabled = canGoBack;
+    sliderForwardButtonItem.enabled = canGoForward;
+    
+    // Post a notification that the slider should be refreshed
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"refreshSlider" object:self];
 }
 
 
