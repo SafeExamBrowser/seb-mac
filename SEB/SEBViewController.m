@@ -637,6 +637,9 @@ static NSMutableSet *browserWindowControllers;
     dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     [newDockItems addObject:dockItem];
     
+    // Reset settings view controller (so new settings are displayed)
+    self.appSettingsViewController = nil;
+    
     // If running with persisted (client) settings
     if (!NSUserDefaults.userDefaultsPrivate) {
         // Set the local flag for showing settings in-app, so this is also enabled
@@ -806,6 +809,9 @@ static NSMutableSet *browserWindowControllers;
     [[NSURLSession sharedSession] resetWithCompletionHandler:^{
         // Do something once it's done.
     }];
+    
+    // Reset settings view controller (so new settings are displayed)
+    self.appSettingsViewController = nil;
     
     // Switch to system's (persisted) UserDefaults
     [NSUserDefaults setUserDefaultsPrivate:NO];
