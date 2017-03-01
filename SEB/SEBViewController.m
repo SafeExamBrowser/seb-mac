@@ -41,6 +41,20 @@
 
 #import "SEBViewController.h"
 
+//@interface UINavigationBar (CustomHeight)
+//
+//@end
+//
+//
+//@implementation UINavigationBar (CustomHeight)
+//
+//- (CGSize)sizeThatFits:(CGSize)size {
+//    CGRect screenRect = [[UIScreen mainScreen] bounds];
+//    return CGSizeMake(screenRect.size.width, 20);
+//}
+//@end
+
+
 @interface SEBViewController () <WKNavigationDelegate, IASKSettingsDelegate>
 {
     NSURL *currentConfigPath;
@@ -57,6 +71,8 @@
     UIBarButtonItem *dockForwardButton;
     SEBSliderItem *sliderBackButtonItem;
     SEBSliderItem *sliderForwardButtonItem;
+    UIBarButtonItem *toolbarBackButton;
+    UIBarButtonItem *toolbarForwardButton;
 }
 
 @property (weak) IBOutlet UIView *containerView;
@@ -739,7 +755,10 @@ static NSMutableSet *browserWindowControllers;
     // Add Reload button if enabled
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
         dockIcon = [UIImage imageNamed:@"SEBReloadIcon"];
-        dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(reload)];
+        dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                    style:UIBarButtonItemStylePlain
+                                                   target:self
+                                                   action:@selector(reload)];
         [newDockItems addObject:dockItem];
         
         dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
@@ -787,8 +806,29 @@ static NSMutableSet *browserWindowControllers;
     // Show navigation bar if browser toolbar is enabled in settings and populate it with enabled controls
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"]) {
         [self.navigationController setNavigationBarHidden:NO];
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"]) {
-            // ToDo: Add back/forward buttons to navigation bar
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"] ||
+            [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowNavigation"]) {
+            // Add back/forward buttons to navigation bar
+            toolbarBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBNavigateBackIcon"]
+                                                                 style:UIBarButtonItemStylePlain
+                                                                target:self
+                                                                action:@selector(goBack)];
+            
+            toolbarForwardButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBNavigateForwardIcon"]
+                                                                 style:UIBarButtonItemStylePlain
+                                                                target:self
+                                                                action:@selector(goForward)];
+            
+            UIBarButtonItem *toolbarReloadButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBReloadIcon"]
+                                                                                    style:UIBarButtonItemStylePlain
+                                                                                   target:self
+                                                                                   action:@selector(reload)];
+            
+            
+            self.navigationItem.leftBarButtonItems  = [NSArray arrayWithObjects:toolbarBackButton, toolbarForwardButton, nil];
+            self.navigationItem.rightBarButtonItem  = toolbarReloadButton;
+            self.navigationItem.title = @"SafeExamBrowser";
+
         }
     } else {
         [self.navigationController setNavigationBarHidden:YES];
@@ -1388,6 +1428,14 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+#pragma mark - Toolbar
+
+- (void)setToolbarTitle:(NSString *)title
+{
+    self.navigationItem.title = title;
+}
+
+
 #pragma mark - SEB Dock and left slider button handler
 
 -(void)leftDrawerButtonPress:(id)sender{
@@ -1554,6 +1602,9 @@ static NSMutableSet *browserWindowControllers;
     
     sliderBackButtonItem.enabled = canGoBack;
     sliderForwardButtonItem.enabled = canGoForward;
+    
+    toolbarBackButton.enabled = canGoBack;
+    toolbarForwardButton.enabled = canGoForward;
     
     // Post a notification that the slider should be refreshed
     [[NSNotificationCenter defaultCenter]
