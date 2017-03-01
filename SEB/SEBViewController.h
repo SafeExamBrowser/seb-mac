@@ -106,6 +106,8 @@
 - (void) downloadAndOpenSEBConfigFromURL:(NSURL *)url;
 - (void) storeNewSEBSettingsSuccessful:(BOOL)success;
 
+- (void)setToolbarTitle:(NSString *)title;
+
 - (void)setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 
 @end

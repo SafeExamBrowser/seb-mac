@@ -301,6 +301,8 @@
     
     _visibleWebViewController = newViewController;
     
+    [_sebViewController setToolbarTitle:url.absoluteString];
+
     [_visibleWebViewController loadURL:url];
     
     [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
@@ -330,6 +332,13 @@
         [webViewControllerToSwitch didMoveToParentViewController:self];
         
         _visibleWebViewController = webViewControllerToSwitch;
+        
+        // Update back/forward buttons according to new visible webview
+        [_visibleWebViewController setBackForwardAvailabilty];
+        
+        // Update title in toolbar according to new visible webview
+        NSString *title = [(Webpages *)_persistentWebpages[tabIndex] valueForKey:@"title"];
+        [_sebViewController setToolbarTitle:title];
         
         [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;;
         [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
@@ -412,6 +421,8 @@
     if (index != NSNotFound && index < _persistentWebpages.count) {
         [(Webpages *)_persistentWebpages[index] setValue:title forKey:@"title"];
     }
+    [_sebViewController setToolbarTitle:title];
+    
     // Post a notification that the slider should be refreshed
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"refreshSlider" object:self];

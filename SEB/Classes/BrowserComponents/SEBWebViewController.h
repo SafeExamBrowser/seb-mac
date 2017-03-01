@@ -65,4 +65,6 @@
 
 - (void)loadURL:(NSURL *)url;
 
+- (void)setBackForwardAvailabilty;
+
 @end
