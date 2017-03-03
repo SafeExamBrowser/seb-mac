@@ -41,18 +41,18 @@
 
 #import "SEBViewController.h"
 
-//@interface UINavigationBar (CustomHeight)
-//
-//@end
-//
-//
-//@implementation UINavigationBar (CustomHeight)
-//
-//- (CGSize)sizeThatFits:(CGSize)size {
-//    CGRect screenRect = [[UIScreen mainScreen] bounds];
-//    return CGSizeMake(screenRect.size.width, 20);
-//}
-//@end
+@interface UINavigationBar (CustomHeight)
+
+@end
+
+
+@implementation UINavigationBar (CustomHeight)
+
+- (CGSize)sizeThatFits:(CGSize)size {
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    return CGSizeMake(screenRect.size.width, 32);
+}
+@end
 
 
 @interface SEBViewController () <WKNavigationDelegate, IASKSettingsDelegate>
@@ -809,17 +809,17 @@ static NSMutableSet *browserWindowControllers;
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"] ||
             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowNavigation"]) {
             // Add back/forward buttons to navigation bar
-            toolbarBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBNavigateBackIcon"]
+            toolbarBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBSliderNavigateBackIcon"]
                                                                  style:UIBarButtonItemStylePlain
                                                                 target:self
                                                                 action:@selector(goBack)];
             
-            toolbarForwardButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBNavigateForwardIcon"]
+            toolbarForwardButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBSliderNavigateForwardIcon"]
                                                                  style:UIBarButtonItemStylePlain
                                                                 target:self
                                                                 action:@selector(goForward)];
             
-            UIBarButtonItem *toolbarReloadButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBReloadIcon"]
+            UIBarButtonItem *toolbarReloadButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Reload"]
                                                                                     style:UIBarButtonItemStylePlain
                                                                                    target:self
                                                                                    action:@selector(reload)];
@@ -828,6 +828,8 @@ static NSMutableSet *browserWindowControllers;
             self.navigationItem.leftBarButtonItems  = [NSArray arrayWithObjects:toolbarBackButton, toolbarForwardButton, nil];
             self.navigationItem.rightBarButtonItem  = toolbarReloadButton;
             self.navigationItem.title = @"SafeExamBrowser";
+            [self.navigationController.navigationBar setTitleTextAttributes:
+             @{NSFontAttributeName:[UIFont systemFontOfSize:16]}];
 
         }
     } else {
