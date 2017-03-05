@@ -38,6 +38,7 @@
 #import "SEBSliderItem.h"
 #import "SEBIASKSecureSettingsStore.h"
 #import "IASKSettingsReader.h"
+#import "SEBNavigationController.h"
 
 #import "SEBViewController.h"
 
@@ -50,7 +51,15 @@
 
 - (CGSize)sizeThatFits:(CGSize)size {
     CGRect screenRect = [[UIScreen mainScreen] bounds];
-    return CGSizeMake(screenRect.size.width, 32);
+    id navBarDelegate = self.delegate;
+    if ([navBarDelegate isKindOfClass:[SEBNavigationController class]]) {
+        MMDrawerController *mmDrawerController = (MMDrawerController *)[(UINavigationController *)navBarDelegate parentViewController];
+        if (mmDrawerController.openSide == MMDrawerSideLeft && [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] != mobileStatusBarAppearanceNone) {
+            return CGSizeMake(screenRect.size.width, 32+kStatusbarHeight);
+        }
+        return CGSizeMake(screenRect.size.width, 32);
+    }
+    return CGSizeMake(screenRect.size.width, kNavbarHeight);
 }
 @end
 
@@ -181,41 +190,9 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
 {
-    [self setToolbarButtonInsets];
-}
-
-
-- (void)setToolbarButtonInsets
-{
-    if (!self.navigationController.navigationBarHidden) {
-        UIUserInterfaceSizeClass currentVerticalSizeClass = self.traitCollection.verticalSizeClass;
-        UIEdgeInsets currentInsets = toolbarBackButton.imageInsets;
-        if (currentVerticalSizeClass == UIUserInterfaceSizeClassCompact || currentVerticalSizeClass == UIUserInterfaceSizeClassUnspecified) {
-            [toolbarBackButton setImageInsets:UIEdgeInsetsMake(6, 0, -6, 0)];
-            [toolbarForwardButton setImageInsets:UIEdgeInsetsMake(6, 0, -6, 0)];
-            [toolbarReloadButton setImageInsets:UIEdgeInsetsMake(6, 0, -6, 0)];
-        } else {
-            [toolbarBackButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-            [toolbarForwardButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-            [toolbarReloadButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-        }
-        currentInsets = toolbarBackButton.imageInsets;
-        
-        NSArray *leftBarItems = self.navigationItem.leftBarButtonItems;
-        NSArray *rightBarItems = self.navigationItem.rightBarButtonItems;
-        self.navigationItem.leftBarButtonItems = nil;
-        self.navigationItem.rightBarButtonItems = nil;
-        self.navigationItem.leftBarButtonItems = leftBarItems;
-        self.navigationItem.rightBarButtonItems = rightBarItems;
-
-        // Refresh navigation bar
-//        UINavigationBar *navigationBar = self.navigationController.navigationBar;
-//        [navigationBar setNeedsLayout];
-//        [navigationBar layoutIfNeeded];
-//        [navigationBar setNeedsDisplay];
-    }
+    [self changeToolbarButtonInsets];
 }
 
 
@@ -844,40 +821,17 @@ static NSMutableSet *browserWindowControllers;
     
     // Show navigation bar if browser toolbar is enabled in settings and populate it with enabled controls
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"]) {
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"] ||
-            [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowNavigation"]) {
-            // Add back/forward buttons to navigation bar
-            dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
-            dockItem.width = -12;
-
-            toolbarBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBSliderNavigateBackIcon"]
-                                                                 style:UIBarButtonItemStylePlain
-                                                                target:self
-                                                                action:@selector(goBack)];
-            
-            toolbarForwardButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBSliderNavigateForwardIcon"]
-                                                                 style:UIBarButtonItemStylePlain
-                                                                target:self
-                                                                action:@selector(goForward)];
-            
-            toolbarReloadButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBSliderReloadIcon"]
-                                                                                    style:UIBarButtonItemStylePlain
-                                                                                   target:self
-                                                                                   action:@selector(reload)];
-
-            [toolbarBackButton setImageInsets:UIEdgeInsetsMake(6, 0, -6, 0)];
-            [toolbarForwardButton setImageInsets:UIEdgeInsetsMake(6, 0, -6, 0)];
-
-            self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:toolbarBackButton, toolbarForwardButton, nil];
-        }
-        toolbarReloadButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBSliderReloadIcon"]
+        toolbarReloadButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBToolbarReloadIcon"]
                                                                style:UIBarButtonItemStylePlain
                                                               target:self
                                                               action:@selector(reload)];
         
         [toolbarReloadButton setImageInsets:UIEdgeInsetsMake(6, 0, -6, 0)];
-        
         self.navigationItem.rightBarButtonItem = toolbarReloadButton;
+        
+        // Conditionally add back/forward buttons to navigation bar
+        [self showToolbarNavigation:[preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"]];
+
         self.navigationItem.title = @"SafeExamBrowser";
         [self.navigationController.navigationBar setTitleTextAttributes:
          @{NSFontAttributeName:[UIFont systemFontOfSize:16]}];
@@ -892,8 +846,6 @@ static NSMutableSet *browserWindowControllers;
     // Register slider view items
     appDelegate.leftSliderCommands = [sliderCommands copy];
 }
-
-
 
 
 - (void) resetSEB
@@ -1486,6 +1438,63 @@ static NSMutableSet *browserWindowControllers;
 
 
 #pragma mark - Toolbar
+
+// Conditionally add back/forward buttons to navigation bar
+- (void) showToolbarNavigation:(BOOL)show
+{
+    if (show) {
+        // Add back/forward buttons to navigation bar
+        toolbarBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBToolbarNavigateBackIcon"]
+                                                             style:UIBarButtonItemStylePlain
+                                                            target:self
+                                                            action:@selector(goBack)];
+        
+        toolbarForwardButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBToolbarNavigateForwardIcon"]
+                                                                style:UIBarButtonItemStylePlain
+                                                               target:self
+                                                               action:@selector(goForward)];
+        
+        self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:toolbarBackButton, toolbarForwardButton, nil];
+        
+    } else {
+        self.navigationItem.leftBarButtonItems = nil;
+    }
+    
+    [self changeToolbarButtonInsets];
+}
+
+
+- (void)changeToolbarButtonInsets
+{
+    if (!self.navigationController.navigationBarHidden) {
+        [self setToolbarButtonInsets];
+        
+        NSArray *leftBarItems = self.navigationItem.leftBarButtonItems;
+        NSArray *rightBarItems = self.navigationItem.rightBarButtonItems;
+        self.navigationItem.leftBarButtonItems = nil;
+        self.navigationItem.rightBarButtonItems = nil;
+        self.navigationItem.leftBarButtonItems = leftBarItems;
+        self.navigationItem.rightBarButtonItems = rightBarItems;
+    }
+}
+
+
+- (void)setToolbarButtonInsets
+{
+    if (!self.navigationController.navigationBarHidden) {
+        UIUserInterfaceSizeClass currentVerticalSizeClass = self.traitCollection.verticalSizeClass;
+        if (currentVerticalSizeClass == UIUserInterfaceSizeClassCompact || currentVerticalSizeClass == UIUserInterfaceSizeClassUnspecified) {
+            [toolbarBackButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+            [toolbarForwardButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+            [toolbarReloadButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+        } else {
+            [toolbarBackButton setImageInsets:UIEdgeInsetsMake(6, 0, -6, 0)];
+            [toolbarForwardButton setImageInsets:UIEdgeInsetsMake(6, 0, -6, 0)];
+            [toolbarReloadButton setImageInsets:UIEdgeInsetsMake(6, 0, -6, 0)];
+        }
+    }
+}
+
 
 - (void)setToolbarTitle:(NSString *)title
 {

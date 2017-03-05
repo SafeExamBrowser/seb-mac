@@ -146,7 +146,6 @@
     self.sebWebView.delegate = nil;	// disconnect the delegate as the webview is hidden
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [_browserTabViewController setLoading:NO];
-    [self setBackForwardAvailabilty];
 }
 
 #pragma mark -
