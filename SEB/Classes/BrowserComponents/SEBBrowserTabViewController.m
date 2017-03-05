@@ -206,10 +206,12 @@
 - (void)setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL showToolbarNavigation = true;
     if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow == 0) {
         // Main browser tab with the exam
         if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"]) {
             // Cancel if navigation is disabled in exam
+            showToolbarNavigation = false;
             canGoBack = false;
             canGoForward = false;
         }
@@ -217,11 +219,13 @@
         // Additional browser tab
         if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowNavigation"]) {
             // Cancel if navigation is disabled in additional browser tabs
+            showToolbarNavigation = false;
             canGoBack = false;
             canGoForward = false;
         }
     }
 
+    [_sebViewController showToolbarNavigation:showToolbarNavigation];
     [_sebViewController setCanGoBack:canGoBack canGoForward:canGoForward];
 }
 
