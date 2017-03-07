@@ -17,6 +17,8 @@ pod 'CocoaLumberjack'
 pod 'InAppSettingsKit'
 pod 'MMDrawerController'
 pod 'MMDrawerController-Storyboard', :podspec => 'https://raw.github.com/TomSwift/MMDrawerController-Storyboard/1.0.0/MMDrawerController-Storyboard.podspec'
+source 'https://github.com/CocoaPods/Specs.git'
+pod 'QRCodeReaderViewController', '~> 4.0.2'
 
 end
 
@@ -27,7 +29,9 @@ target 'SEB Enterprise' do
     pod 'InAppSettingsKit'
     pod 'MMDrawerController'
     pod 'MMDrawerController-Storyboard', :podspec => 'https://raw.github.com/TomSwift/MMDrawerController-Storyboard/1.0.0/MMDrawerController-Storyboard.podspec'
-    
+source 'https://github.com/CocoaPods/Specs.git'
+pod 'QRCodeReaderViewController', '~> 4.0.2'
+   
 
 end
 
