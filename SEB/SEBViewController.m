@@ -154,6 +154,11 @@ static NSMutableSet *browserWindowControllers;
                                              selector:@selector(requestedQuitWOPwd:)
                                                  name:@"requestQuitWPwdNotification" object:nil];
     
+    // Add an observer for the request to quit SEB without confirming or asking for quit password
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(quitExam)
+                                                 name:@"requestQuit" object:nil];
+    
     // Add Notification Center observer to be alerted of any change to NSUserDefaults.
     // Managed app configuration changes pushed down from an MDM server appear in NSUSerDefaults.
     [[NSNotificationCenter defaultCenter] addObserverForName:NSUserDefaultsDidChangeNotification
