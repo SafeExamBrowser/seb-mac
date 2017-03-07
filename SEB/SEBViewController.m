@@ -151,6 +151,11 @@ static NSMutableSet *browserWindowControllers;
     
     // Add an observer for the request to conditionally quit SEB with asking quit password
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(quitExamConditionally)
+                                                 name:@"requestConditionalQuitNotification" object:nil];
+    
+    // Add an observer for the request to quit SEB without asking quit password
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(requestedQuitWOPwd:)
                                                  name:@"requestQuitWPwdNotification" object:nil];
     
@@ -1317,7 +1322,14 @@ static NSMutableSet *browserWindowControllers;
                                                                      [_alertController dismissViewControllerAnimated:NO completion:nil];
                                                                      [self startAutonomousSingleAppMode];
                                                                  }]];
-
+            
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Quit", nil)
+                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                     [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                     [[NSNotificationCenter defaultCenter]
+                                                                      postNotificationName:@"requestQuit" object:self];
+                                                                 }]];
+            
             [self presentViewController:_alertController animated:YES completion:nil];
         }
     }
