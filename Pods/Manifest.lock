@@ -22,12 +22,14 @@ PODS:
     - MMDrawerController/Core
   - MMDrawerController/Subclass (0.6.0):
     - MMDrawerController/Core
+  - QRCodeReaderViewController (4.0.2)
 
 DEPENDENCIES:
   - CocoaLumberjack
   - InAppSettingsKit
   - MMDrawerController
   - MMDrawerController-Storyboard (from `https://raw.github.com/TomSwift/MMDrawerController-Storyboard/1.0.0/MMDrawerController-Storyboard.podspec`)
+  - QRCodeReaderViewController (~> 4.0.2)
 
 EXTERNAL SOURCES:
   MMDrawerController-Storyboard:
@@ -38,7 +40,8 @@ SPEC CHECKSUMS:
   InAppSettingsKit: 94d2fba3ccd700fc4e32c6d09fabcc0af2426744
   MMDrawerController: e3a54a5570388463ad3b36975251575b50c4e1a0
   MMDrawerController-Storyboard: 89a38d3c39816bc97de73d3b5bcbba04d5345acd
+  QRCodeReaderViewController: e8f27d035b3e72b1d4b1c61ff66458287e3be0ff
 
-PODFILE CHECKSUM: 24cfa1f64944eb1c78bf76c90be3b76c033b5fb9
+PODFILE CHECKSUM: d60d153670defb40769d66b08a7e64036b00c49c
 
 COCOAPODS: 1.2.0

@@ -73,6 +73,26 @@
 		69331F0B1C10AF1D0038BD31 /* SEBLockedViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69331F081C10AF1D0038BD31 /* SEBLockedViewController.h */; };
 		69331F0C1C10AF1D0038BD31 /* SEBLockedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69331F091C10AF1D0038BD31 /* SEBLockedViewController.m */; };
 		69331F0D1C10AF1D0038BD31 /* SEBLockedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69331F091C10AF1D0038BD31 /* SEBLockedViewController.m */; };
+		69358DD41E6E0D5F000539F6 /* SEBQRCode.png in Resources */ = {isa = PBXBuildFile; fileRef = 69358DD11E6E0D5F000539F6 /* SEBQRCode.png */; };
+		69358DD51E6E0D5F000539F6 /* SEBQRCode.png in Resources */ = {isa = PBXBuildFile; fileRef = 69358DD11E6E0D5F000539F6 /* SEBQRCode.png */; };
+		69358DD61E6E0D5F000539F6 /* SEBQRCode.png in Resources */ = {isa = PBXBuildFile; fileRef = 69358DD11E6E0D5F000539F6 /* SEBQRCode.png */; };
+		69358DD71E6E0D5F000539F6 /* SEBQRCode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69358DD21E6E0D5F000539F6 /* SEBQRCode@2x.png */; };
+		69358DD81E6E0D5F000539F6 /* SEBQRCode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69358DD21E6E0D5F000539F6 /* SEBQRCode@2x.png */; };
+		69358DD91E6E0D5F000539F6 /* SEBQRCode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69358DD21E6E0D5F000539F6 /* SEBQRCode@2x.png */; };
+		69358DDA1E6E0D5F000539F6 /* SEBQRCode@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69358DD31E6E0D5F000539F6 /* SEBQRCode@3x.png */; };
+		69358DDB1E6E0D5F000539F6 /* SEBQRCode@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69358DD31E6E0D5F000539F6 /* SEBQRCode@3x.png */; };
+		69358DDC1E6E0D5F000539F6 /* SEBQRCode@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69358DD31E6E0D5F000539F6 /* SEBQRCode@3x.png */; };
+		69358DE01E6E142A000539F6 /* SEBiOSInitAssistantViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69358DDD1E6E142A000539F6 /* SEBiOSInitAssistantViewController.h */; };
+		69358DE11E6E142A000539F6 /* SEBiOSInitAssistantViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69358DDD1E6E142A000539F6 /* SEBiOSInitAssistantViewController.h */; };
+		69358DE21E6E142A000539F6 /* SEBiOSInitAssistantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69358DDE1E6E142A000539F6 /* SEBiOSInitAssistantViewController.m */; };
+		69358DE31E6E142A000539F6 /* SEBiOSInitAssistantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69358DDE1E6E142A000539F6 /* SEBiOSInitAssistantViewController.m */; };
+		69358DE41E6E142A000539F6 /* SEBiOSInitAssistantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69358DDE1E6E142A000539F6 /* SEBiOSInitAssistantViewController.m */; };
+		69358DE71E6ECECD000539F6 /* SEBInitAssistantViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69358DE51E6ECECD000539F6 /* SEBInitAssistantViewController.h */; };
+		69358DE81E6ECECD000539F6 /* SEBInitAssistantViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69358DE51E6ECECD000539F6 /* SEBInitAssistantViewController.h */; };
+		69358DE91E6ECECD000539F6 /* SEBInitAssistantViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69358DE51E6ECECD000539F6 /* SEBInitAssistantViewController.h */; };
+		69358DEA1E6ECECD000539F6 /* SEBInitAssistantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69358DE61E6ECECD000539F6 /* SEBInitAssistantViewController.m */; };
+		69358DEB1E6ECECD000539F6 /* SEBInitAssistantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69358DE61E6ECECD000539F6 /* SEBInitAssistantViewController.m */; };
+		69358DEC1E6ECECD000539F6 /* SEBInitAssistantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69358DE61E6ECECD000539F6 /* SEBInitAssistantViewController.m */; };
 		693647FA17122A0300EE41BC /* DropDownButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 693647F817122A0300EE41BC /* DropDownButton.h */; };
 		693647FB17122A0300EE41BC /* DropDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 693647F917122A0300EE41BC /* DropDownButton.m */; };
 		693A395B1E60AC6C005030B0 /* SEBNavigateBackIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A39551E60AC6C005030B0 /* SEBNavigateBackIcon.png */; };
@@ -593,6 +613,13 @@
 		69331F051C10AD750038BD31 /* SEBiOSLockedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBiOSLockedViewController.m; path = Classes/AdditionalViews/SEBiOSLockedViewController.m; sourceTree = "<group>"; };
 		69331F081C10AF1D0038BD31 /* SEBLockedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBLockedViewController.h; sourceTree = "<group>"; };
 		69331F091C10AF1D0038BD31 /* SEBLockedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBLockedViewController.m; sourceTree = "<group>"; };
+		69358DD11E6E0D5F000539F6 /* SEBQRCode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBQRCode.png; path = SEB/Resources/Icons/SEBQRCode.png; sourceTree = SOURCE_ROOT; };
+		69358DD21E6E0D5F000539F6 /* SEBQRCode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBQRCode@2x.png"; path = "SEB/Resources/Icons/SEBQRCode@2x.png"; sourceTree = SOURCE_ROOT; };
+		69358DD31E6E0D5F000539F6 /* SEBQRCode@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBQRCode@3x.png"; path = "SEB/Resources/Icons/SEBQRCode@3x.png"; sourceTree = SOURCE_ROOT; };
+		69358DDD1E6E142A000539F6 /* SEBiOSInitAssistantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBiOSInitAssistantViewController.h; path = Classes/AdditionalViews/SEBiOSInitAssistantViewController.h; sourceTree = "<group>"; };
+		69358DDE1E6E142A000539F6 /* SEBiOSInitAssistantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBiOSInitAssistantViewController.m; path = Classes/AdditionalViews/SEBiOSInitAssistantViewController.m; sourceTree = "<group>"; };
+		69358DE51E6ECECD000539F6 /* SEBInitAssistantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBInitAssistantViewController.h; sourceTree = "<group>"; };
+		69358DE61E6ECECD000539F6 /* SEBInitAssistantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBInitAssistantViewController.m; sourceTree = "<group>"; };
 		693647F817122A0300EE41BC /* DropDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropDownButton.h; sourceTree = "<group>"; };
 		693647F917122A0300EE41BC /* DropDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropDownButton.m; sourceTree = "<group>"; };
 		693A39551E60AC6C005030B0 /* SEBNavigateBackIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBNavigateBackIcon.png; path = Resources/Icons/Dock/SEBNavigateBackIcon.png; sourceTree = "<group>"; };
@@ -1207,6 +1234,8 @@
 			children = (
 				69331F041C10AD750038BD31 /* SEBiOSLockedViewController.h */,
 				69331F051C10AD750038BD31 /* SEBiOSLockedViewController.m */,
+				69358DDD1E6E142A000539F6 /* SEBiOSInitAssistantViewController.h */,
+				69358DDE1E6E142A000539F6 /* SEBiOSInitAssistantViewController.m */,
 				69B5393C1C490CB200A967B0 /* SEBActionUITableViewCell.h */,
 				69B5393D1C490CB200A967B0 /* SEBActionUITableViewCell.m */,
 			);
@@ -1323,6 +1352,9 @@
 				698F3F061D17F4F9003DABBC /* Settings@2x.png */,
 				69331EFF1C10AC1B0038BD31 /* continueCircle.png */,
 				69331F001C10AC1B0038BD31 /* continueCircle@2x.png */,
+				69358DD11E6E0D5F000539F6 /* SEBQRCode.png */,
+				69358DD21E6E0D5F000539F6 /* SEBQRCode@2x.png */,
+				69358DD31E6E0D5F000539F6 /* SEBQRCode@3x.png */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -1444,6 +1476,8 @@
 				69EDAC1D1BBB476F00A3E6C4 /* SEBOSXLockedViewController.m */,
 				69331F081C10AF1D0038BD31 /* SEBLockedViewController.h */,
 				69331F091C10AF1D0038BD31 /* SEBLockedViewController.m */,
+				69358DE51E6ECECD000539F6 /* SEBInitAssistantViewController.h */,
+				69358DE61E6ECECD000539F6 /* SEBInitAssistantViewController.m */,
 			);
 			name = "Additional Views+Windows";
 			path = Classes/AdditionalViewsWindows;
@@ -1750,6 +1784,7 @@
 				696DAD451C3C2D0500397E18 /* UIWebView+SEBWebView.h in Headers */,
 				69B5393E1C490CB200A967B0 /* SEBActionUITableViewCell.h in Headers */,
 				696DAD3F1C3C2D0500397E18 /* SEBTextField.h in Headers */,
+				69358DE81E6ECECD000539F6 /* SEBInitAssistantViewController.h in Headers */,
 				69A2233C1C20C10B00766354 /* SEBiOSConfigFileController.h in Headers */,
 				69B416101BFFA0430049ED2A /* SEB_Prefix.pch in Headers */,
 				694316601BFEBB6500F784EE /* Constants.h in Headers */,
@@ -1758,6 +1793,7 @@
 				69640B2A1C1F0F7D007ADE72 /* SEBConfigFileManager.h in Headers */,
 				696DAD3B1C3C2D0500397E18 /* SEBSearchBarViewController.h in Headers */,
 				696DAD351C3C2D0500397E18 /* SEBDetailViewController.h in Headers */,
+				69358DE01E6E142A000539F6 /* SEBiOSInitAssistantViewController.h in Headers */,
 				6930D2251C2011580087F79E /* SEBCryptor.h in Headers */,
 				696DAD371C3C2D0500397E18 /* SEBMasterViewController.h in Headers */,
 				696DAD411C3C2D0500397E18 /* SEBBrowserTabViewController.h in Headers */,
@@ -1813,6 +1849,7 @@
 				693647FA17122A0300EE41BC /* DropDownButton.h in Headers */,
 				69DFAF2D19C468E700CBE69F /* RNCryptor.h in Headers */,
 				690BBEB619D30DF800F7C9C6 /* SEBDockView.h in Headers */,
+				69358DE71E6ECECD000539F6 /* SEBInitAssistantViewController.h in Headers */,
 				69DFAF3919C468E700CBE69F /* RNCryptor+Private.h in Headers */,
 				6917744A1A2776FB0039CC39 /* SEBURLFilterRegexExpression.h in Headers */,
 				69CE9C5D17326AB90011609B /* SEBConfigFileManager.h in Headers */,
@@ -1847,6 +1884,7 @@
 				69CFFA621D3641B500FE5655 /* UIWebView+SEBWebView.h in Headers */,
 				69CFFA631D3641B500FE5655 /* SEBActionUITableViewCell.h in Headers */,
 				69CFFA641D3641B500FE5655 /* SEBTextField.h in Headers */,
+				69358DE91E6ECECD000539F6 /* SEBInitAssistantViewController.h in Headers */,
 				69CFFA651D3641B500FE5655 /* SEBiOSConfigFileController.h in Headers */,
 				69CFFA661D3641B500FE5655 /* SEB_Prefix.pch in Headers */,
 				69CFFA671D3641B500FE5655 /* Constants.h in Headers */,
@@ -1855,6 +1893,7 @@
 				69CFFA6A1D3641B500FE5655 /* SEBConfigFileManager.h in Headers */,
 				69CFFA6B1D3641B500FE5655 /* SEBSearchBarViewController.h in Headers */,
 				69CFFA6C1D3641B500FE5655 /* SEBDetailViewController.h in Headers */,
+				69358DE11E6E142A000539F6 /* SEBiOSInitAssistantViewController.h in Headers */,
 				69CFFA6D1D3641B500FE5655 /* SEBCryptor.h in Headers */,
 				69CFFA6E1D3641B500FE5655 /* SEBMasterViewController.h in Headers */,
 				69CFFA6F1D3641B500FE5655 /* SEBBrowserTabViewController.h in Headers */,
@@ -2077,6 +2116,8 @@
 				69B226E41D4108BA0065B831 /* Icon-22x29@2x.png in Resources */,
 				695A8EDE1E6CC87600601099 /* SEBToolbarNavigateBackIcon@2x.png in Resources */,
 				692476F51D27343600931AD8 /* SEB.entitlements in Resources */,
+				69358DD81E6E0D5F000539F6 /* SEBQRCode@2x.png in Resources */,
+				69358DDB1E6E0D5F000539F6 /* SEBQRCode@3x.png in Resources */,
 				69782A4E1CCE068C00C2AA9A /* Settings.bundle in Resources */,
 				693A395F1E60AC6C005030B0 /* SEBNavigateBackIcon@3x.png in Resources */,
 				69B253D61E4E2200000B4A6D /* SEBSliderClosePage.png in Resources */,
@@ -2086,6 +2127,7 @@
 				6966F87B1D1C081300684182 /* SEBSliderShutDownIcon.png in Resources */,
 				696DAD1C1C3C2AB900397E18 /* Reload.png in Resources */,
 				693A396D1E60AC8F005030B0 /* SEBSliderNavigateBackIcon.png in Resources */,
+				69358DD51E6E0D5F000539F6 /* SEBQRCode.png in Resources */,
 				696DAD1B1C3C2AB900397E18 /* Previous@2x.png in Resources */,
 				696DAD191C3C2AB900397E18 /* Next@2x.png in Resources */,
 				69B253DF1E4E2211000B4A6D /* SEBSliderSkipBackIcon.png in Resources */,
@@ -2131,6 +2173,7 @@
 				69CFFA2E1D3641B500FE5655 /* ModifyPages.js in Resources */,
 				69CFFA2F1D3641B500FE5655 /* Cancel.png in Resources */,
 				693A39641E60AC6C005030B0 /* SEBNavigateForwardIcon@2x.png in Resources */,
+				69358DD91E6E0D5F000539F6 /* SEBQRCode@2x.png in Resources */,
 				69CFFA301D3641B500FE5655 /* SEBReloadIcon@3x.png in Resources */,
 				693A39721E60AC8F005030B0 /* SEBSliderNavigateBackIcon@3x.png in Resources */,
 				69CFFA311D3641B500FE5655 /* Previous.png in Resources */,
@@ -2176,6 +2219,7 @@
 				69CFFA491D3641B500FE5655 /* Reload.png in Resources */,
 				69CFFA4A1D3641B500FE5655 /* Previous@2x.png in Resources */,
 				69CFFA4B1D3641B500FE5655 /* Next@2x.png in Resources */,
+				69358DD61E6E0D5F000539F6 /* SEBQRCode.png in Resources */,
 				693A39741E60AC8F005030B0 /* SEBSliderNavigateForwardIcon.png in Resources */,
 				69B253F51E4E275D000B4A6D /* SEBSkipBackIcon.png in Resources */,
 				69B253E01E4E2211000B4A6D /* SEBSliderSkipBackIcon.png in Resources */,
@@ -2194,6 +2238,7 @@
 				693A395C1E60AC6C005030B0 /* SEBNavigateBackIcon.png in Resources */,
 				69B253EA1E4E2630000B4A6D /* SEBSliderReloadIcon@3x.png in Resources */,
 				69CFFA511D3641B500FE5655 /* SearchWebView.js in Resources */,
+				69358DDC1E6E0D5F000539F6 /* SEBQRCode@3x.png in Resources */,
 				69CFFA521D3641B500FE5655 /* SEBSliderRestartIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2214,6 +2259,7 @@
 				69F7B60514F411FB00FD0761 /* BrowserIcon.png in Resources */,
 				69F7B60614F411FB00FD0761 /* BrowserIcon@2x.png in Resources */,
 				69F7B60714F411FB00FD0761 /* PreferencesBrowser.xib in Resources */,
+				69358DDA1E6E0D5F000539F6 /* SEBQRCode@3x.png in Resources */,
 				69B2EB881A435E2000B5AE67 /* AboutSEB@2x.png in Resources */,
 				6947D8981BB073EA00899A8A /* ZoomPageIn.png in Resources */,
 				699C540415EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */,
@@ -2234,10 +2280,12 @@
 				69A443FF1B14AAAC00577693 /* SEBReloadIcon.iconset in Resources */,
 				695C5CAD16CB210E008FC401 /* ExamIcon.png in Resources */,
 				695C5CB016CB210E008FC401 /* ExamIcon@2x.png in Resources */,
+				69358DD41E6E0D5F000539F6 /* SEBQRCode.png in Resources */,
 				695A8EDD1E6CC87600601099 /* SEBToolbarNavigateBackIcon@2x.png in Resources */,
 				696A3AFC19F6FC5600274214 /* PreferencesSecurity.xib in Resources */,
 				6906F3CD1A3FA7300011CF93 /* etld.plist in Resources */,
 				695A8EE01E6CC87600601099 /* SEBToolbarNavigateForwardIcon@2x.png in Resources */,
+				69358DD71E6E0D5F000539F6 /* SEBQRCode@2x.png in Resources */,
 				69F32DBE16D232C0003C9502 /* Appearance.icns in Resources */,
 				695A8EF31E6CCEFA00601099 /* SEBToolbarNavigateForwardIcon.png in Resources */,
 				696A3AE819F6FBCD00274214 /* PreferencesAppearance.xib in Resources */,
@@ -2443,6 +2491,8 @@
 				69E4EDFE1C208F2300F5E5EB /* SEBiOSKeychainManager.m in Sources */,
 				69A2233F1C20E0BD00766354 /* NSData+NSDataZIPExtension.m in Sources */,
 				6930D2261C205F470087F79E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
+				69358DEB1E6ECECD000539F6 /* SEBInitAssistantViewController.m in Sources */,
+				69358DE31E6E142A000539F6 /* SEBiOSInitAssistantViewController.m in Sources */,
 				69B539451C52974200A967B0 /* SEBBrowserController.m in Sources */,
 				6940B96D1BA0F2FB008C8CFC /* AppDelegate.m in Sources */,
 				694FB9D31CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.m in Sources */,
@@ -2502,6 +2552,8 @@
 				69CFFA121D3641B500FE5655 /* SEBiOSKeychainManager.m in Sources */,
 				69CFFA131D3641B500FE5655 /* NSData+NSDataZIPExtension.m in Sources */,
 				69CFFA141D3641B500FE5655 /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
+				69358DEC1E6ECECD000539F6 /* SEBInitAssistantViewController.m in Sources */,
+				69358DE41E6E142A000539F6 /* SEBiOSInitAssistantViewController.m in Sources */,
 				69CFFA151D3641B500FE5655 /* SEBBrowserController.m in Sources */,
 				69CFFA161D3641B500FE5655 /* AppDelegate.m in Sources */,
 				69CFFA171D3641B500FE5655 /* SEBIASKSecureSettingsStore.m in Sources */,
@@ -2542,6 +2594,7 @@
 				699282E419D0430A00270E86 /* CapWindowController.m in Sources */,
 				69F7B61314F411FB00FD0761 /* SEBBrowserWindowDocument.m in Sources */,
 				69F7B61514F411FB00FD0761 /* MyGlobals.m in Sources */,
+				69358DEA1E6ECECD000539F6 /* SEBInitAssistantViewController.m in Sources */,
 				6917744B1A2776FB0039CC39 /* SEBURLFilterRegexExpression.m in Sources */,
 				690BBEB719D30DF800F7C9C6 /* SEBDockView.m in Sources */,
 				69F7B61614F411FB00FD0761 /* PrefsBrowserViewController.m in Sources */,
@@ -2573,6 +2626,7 @@
 				6992499316C3B18B00DF6B53 /* PrefsConfigFileViewController.m in Sources */,
 				6992499D16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */,
 				69DFAF2E19C468E700CBE69F /* RNCryptor.m in Sources */,
+				69358DE21E6E142A000539F6 /* SEBiOSInitAssistantViewController.m in Sources */,
 				69DFAF3419C468E700CBE69F /* RNEncryptor.m in Sources */,
 				69263A9F1A2E0765006F1E31 /* SEBWebView.m in Sources */,
 				69F9110116CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */,
