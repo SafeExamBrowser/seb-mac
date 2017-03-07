@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SEB Is Locked!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2p-As-V6t">
-                                <rect key="frame" x="311.5" y="35" width="145" height="24"/>
+                                <rect key="frame" x="311" y="35" width="145" height="24"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -39,7 +39,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0nm-pU-BZ0">
-                                <rect key="frame" x="256" y="137" width="257" height="30"/>
+                                <rect key="frame" x="255.5" y="137" width="257" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 <connections>
@@ -47,13 +47,13 @@
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter restart/quit password to unlock SEB:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jBa-LL-dKG">
-                                <rect key="frame" x="256" y="113" width="257" height="16"/>
+                                <rect key="frame" x="255.5" y="113" width="257" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter correct password!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6fi-rT-cNJ">
-                                <rect key="frame" x="283" y="173" width="203" height="16"/>
+                                <rect key="frame" x="282.5" y="173" width="203" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="203" id="YW0-x6-yYr"/>
                                 </constraints>
@@ -62,7 +62,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="arM-6u-TmT">
-                                <rect key="frame" x="521" y="138" width="28" height="28"/>
+                                <rect key="frame" x="520.5" y="138" width="28" height="28"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" image="continueCircle.png"/>
                                 <connections>
@@ -354,7 +354,7 @@
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="F0X-iW-mMS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="F0X-iW-mMS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -392,9 +392,158 @@
             </objects>
             <point key="canvasLocation" x="-4" y="319"/>
         </scene>
+        <!--Init Assistant View Controller-->
+        <scene sceneID="4vU-jb-K1q">
+            <objects>
+                <viewController storyboardIdentifier="SEBInitAssistantView" id="h8j-pm-u2W" userLabel="Init Assistant View Controller" customClass="SEBiOSInitAssistantViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ajx-Gz-cZT"/>
+                        <viewControllerLayoutGuide type="bottom" id="Kng-S6-Zzl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="DgT-Dq-MHH">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" text="Start an exam or configure SafeExamBrowser for your institution:" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HWG-Fr-VSs">
+                                <rect key="frame" x="73" y="35" width="622.5" height="24"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="• Open a SEB exam or configuration link in Safari, in Mail or a messenger app." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="exZ-7R-rAF">
+                                <rect key="frame" x="103.5" y="94" width="561" height="18"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="• Administrators: Set up your exam" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1BV-xe-RGK">
+                                <rect key="frame" x="103.5" y="435" width="561" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" priority="750" constant="561" id="WVH-9Y-AoJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IcA-3S-BaA">
+                                <rect key="frame" x="261.5" y="204" width="244" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Partial or full URL of a SEB configuration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="QTO-Dl-iep">
+                                <rect key="frame" x="261.5" y="180" width="244" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No SEB configuration found!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="r1q-6w-EEq">
+                                <rect key="frame" x="292" y="240" width="183" height="16"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vbw-ig-cyd">
+                                <rect key="frame" x="513.5" y="205" width="28" height="28"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="continueCircle.png"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FRN-Sh-GrD">
+                                <rect key="frame" x="346" y="324" width="76" height="76"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="SEBQRCode.png"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="• Enter a URL of an institution which supports SEB" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qC6-JD-Ytm">
+                                <rect key="frame" x="201" y="147" width="366" height="18"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="• Scan SEB configuration QR code" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z6l-FA-ClT">
+                                <rect key="frame" x="260" y="291" width="248" height="18"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vXp-WC-Xv2">
+                                <rect key="frame" x="330.5" y="468" width="107" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Edit Settings" image="SEBSliderSettingsIcon.png">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="exZ-7R-rAF" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="DgT-Dq-MHH" secondAttribute="trailingMargin" id="3Mz-OG-Pba"/>
+                            <constraint firstItem="exZ-7R-rAF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DgT-Dq-MHH" secondAttribute="leading" constant="20" id="3Ns-Iw-AOe"/>
+                            <constraint firstItem="FRN-Sh-GrD" firstAttribute="top" secondItem="Z6l-FA-ClT" secondAttribute="bottom" constant="15" id="5uX-hV-JlX"/>
+                            <constraint firstItem="vXp-WC-Xv2" firstAttribute="centerX" secondItem="DgT-Dq-MHH" secondAttribute="centerX" id="6dQ-bS-Doq"/>
+                            <constraint firstItem="exZ-7R-rAF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DgT-Dq-MHH" secondAttribute="leadingMargin" id="9EW-iM-2Uz"/>
+                            <constraint firstItem="FRN-Sh-GrD" firstAttribute="centerX" secondItem="DgT-Dq-MHH" secondAttribute="centerX" id="9Iq-xe-v01"/>
+                            <constraint firstItem="qC6-JD-Ytm" firstAttribute="centerX" secondItem="DgT-Dq-MHH" secondAttribute="centerX" id="A2S-Yy-Hw8"/>
+                            <constraint firstItem="QTO-Dl-iep" firstAttribute="leading" secondItem="IcA-3S-BaA" secondAttribute="leading" id="AbV-Pl-dGd"/>
+                            <constraint firstItem="vXp-WC-Xv2" firstAttribute="centerX" secondItem="DgT-Dq-MHH" secondAttribute="centerX" id="Ask-ch-Dac"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="qC6-JD-Ytm" secondAttribute="trailing" constant="20" id="Csw-2s-eDQ"/>
+                            <constraint firstItem="Z6l-FA-ClT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DgT-Dq-MHH" secondAttribute="leading" constant="20" id="DcO-oP-3xv"/>
+                            <constraint firstItem="exZ-7R-rAF" firstAttribute="centerX" secondItem="DgT-Dq-MHH" secondAttribute="centerX" id="E8f-Ic-I0z"/>
+                            <constraint firstItem="1BV-xe-RGK" firstAttribute="top" secondItem="FRN-Sh-GrD" secondAttribute="bottom" constant="35" id="GPG-hk-k9g"/>
+                            <constraint firstItem="1BV-xe-RGK" firstAttribute="centerX" secondItem="DgT-Dq-MHH" secondAttribute="centerX" id="GdC-gU-4wY"/>
+                            <constraint firstItem="HWG-Fr-VSs" firstAttribute="centerX" secondItem="DgT-Dq-MHH" secondAttribute="centerX" id="Gg5-1D-ZNw"/>
+                            <constraint firstItem="1BV-xe-RGK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DgT-Dq-MHH" secondAttribute="leading" constant="20" id="Iu4-Fl-u7e"/>
+                            <constraint firstItem="exZ-7R-rAF" firstAttribute="centerX" secondItem="DgT-Dq-MHH" secondAttribute="centerX" id="K70-ac-TiF"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Z6l-FA-ClT" secondAttribute="trailing" constant="20" id="OJU-0p-z6G"/>
+                            <constraint firstItem="vXp-WC-Xv2" firstAttribute="top" secondItem="1BV-xe-RGK" secondAttribute="bottom" constant="15" id="P23-Lq-Wt2"/>
+                            <constraint firstItem="r1q-6w-EEq" firstAttribute="centerX" secondItem="IcA-3S-BaA" secondAttribute="centerX" id="Pde-m9-aiB"/>
+                            <constraint firstItem="qC6-JD-Ytm" firstAttribute="top" secondItem="exZ-7R-rAF" secondAttribute="bottom" constant="35" id="PjE-gI-fJD"/>
+                            <constraint firstItem="HWG-Fr-VSs" firstAttribute="top" secondItem="ajx-Gz-cZT" secondAttribute="bottom" constant="8" symbolic="YES" id="Pt4-x7-08s"/>
+                            <constraint firstItem="Kng-S6-Zzl" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vXp-WC-Xv2" secondAttribute="bottom" constant="15" id="Qnk-jK-83y"/>
+                            <constraint firstItem="exZ-7R-rAF" firstAttribute="centerX" secondItem="QTO-Dl-iep" secondAttribute="centerX" id="U6W-eW-ZRT"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="HWG-Fr-VSs" secondAttribute="trailing" constant="20" id="WVd-Ze-CPd"/>
+                            <constraint firstItem="QTO-Dl-iep" firstAttribute="centerX" secondItem="DgT-Dq-MHH" secondAttribute="centerX" id="XYI-8S-GRD"/>
+                            <constraint firstItem="1BV-xe-RGK" firstAttribute="centerX" secondItem="DgT-Dq-MHH" secondAttribute="centerX" id="YL0-2D-zVp"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1BV-xe-RGK" secondAttribute="trailing" constant="20" id="YMj-n4-DTW"/>
+                            <constraint firstItem="r1q-6w-EEq" firstAttribute="top" secondItem="IcA-3S-BaA" secondAttribute="bottom" constant="6" id="Zvk-ih-fpI"/>
+                            <constraint firstItem="Z6l-FA-ClT" firstAttribute="centerX" secondItem="DgT-Dq-MHH" secondAttribute="centerX" id="bH6-Qv-hOv"/>
+                            <constraint firstItem="QTO-Dl-iep" firstAttribute="trailing" secondItem="IcA-3S-BaA" secondAttribute="trailing" id="c4d-p8-Ccr"/>
+                            <constraint firstItem="FRN-Sh-GrD" firstAttribute="centerX" secondItem="DgT-Dq-MHH" secondAttribute="centerX" id="c5B-sW-eZB"/>
+                            <constraint firstItem="Vbw-ig-cyd" firstAttribute="leading" secondItem="IcA-3S-BaA" secondAttribute="trailing" constant="8" symbolic="YES" id="dri-hp-cx0"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="exZ-7R-rAF" secondAttribute="trailing" constant="20" id="eD2-VB-Iwh"/>
+                            <constraint firstItem="IcA-3S-BaA" firstAttribute="top" secondItem="QTO-Dl-iep" secondAttribute="bottom" constant="8" symbolic="YES" id="eJC-wN-jpV"/>
+                            <constraint firstItem="IcA-3S-BaA" firstAttribute="centerY" secondItem="Vbw-ig-cyd" secondAttribute="centerY" id="eK3-rB-8cB"/>
+                            <constraint firstItem="r1q-6w-EEq" firstAttribute="centerX" secondItem="DgT-Dq-MHH" secondAttribute="centerX" id="fa2-Lt-WH7"/>
+                            <constraint firstItem="IcA-3S-BaA" firstAttribute="centerX" secondItem="DgT-Dq-MHH" secondAttribute="centerX" id="hrA-hX-iRb"/>
+                            <constraint firstItem="qC6-JD-Ytm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DgT-Dq-MHH" secondAttribute="leading" constant="20" id="kVj-VM-fIl"/>
+                            <constraint firstItem="QTO-Dl-iep" firstAttribute="top" secondItem="qC6-JD-Ytm" secondAttribute="bottom" constant="15" id="lKX-33-35I"/>
+                            <constraint firstItem="Z6l-FA-ClT" firstAttribute="centerX" secondItem="DgT-Dq-MHH" secondAttribute="centerX" id="lln-fs-XLL"/>
+                            <constraint firstItem="HWG-Fr-VSs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DgT-Dq-MHH" secondAttribute="leading" constant="20" id="mVG-Ez-3LQ"/>
+                            <constraint firstItem="exZ-7R-rAF" firstAttribute="top" secondItem="HWG-Fr-VSs" secondAttribute="bottom" constant="35" id="oPs-Gg-cCN"/>
+                            <constraint firstItem="HWG-Fr-VSs" firstAttribute="top" secondItem="ajx-Gz-cZT" secondAttribute="bottom" constant="15" id="rtr-Zg-Nsp"/>
+                            <constraint firstItem="Z6l-FA-ClT" firstAttribute="top" secondItem="r1q-6w-EEq" secondAttribute="bottom" constant="35" id="thK-Ie-9w1"/>
+                            <constraint firstItem="qC6-JD-Ytm" firstAttribute="centerX" secondItem="DgT-Dq-MHH" secondAttribute="centerX" id="yz0-Xh-WSD"/>
+                            <constraint firstItem="exZ-7R-rAF" firstAttribute="centerX" secondItem="HWG-Fr-VSs" secondAttribute="centerX" id="zfU-ff-wBS"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Pt4-x7-08s"/>
+                                <exclude reference="3Mz-OG-Pba"/>
+                                <exclude reference="9EW-iM-2Uz"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="URLWrongLabel" destination="r1q-6w-EEq" id="4cn-OV-2Nu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="agb-Z3-6wR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2242.1875" y="726.5625"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="SEBQRCode.png" width="76" height="76"/>
         <image name="SEBSliderClosePage.png" width="20" height="20"/>
+        <image name="SEBSliderSettingsIcon.png" width="20" height="20"/>
         <image name="continueCircle.png" width="28" height="28"/>
     </resources>
 </document>
