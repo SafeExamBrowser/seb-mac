@@ -109,6 +109,9 @@
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     // Allow the animation to complete
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        // Adjust scroll position so top of webpage is below the navigation bar (if enabled)
+        // and bottom is above the tool bar (if SEB dock is enabled)
+        [self adjustScrollPosition];
         [_sebWebView.scrollView setZoomScale:0 animated:YES];
     });
 }
@@ -117,14 +120,6 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	return YES;
-}
-
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    // Adjust scroll position so top of webpage is below the navigation bar (if enabled)
-    // and bottom is above the tool bar (if SEB dock is enabled)
-    [self adjustScrollPosition];
 }
 
 
@@ -273,8 +268,13 @@
     // Check if quit URL has been clicked (regardless of current URL Filter)
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([[url absoluteString] isEqualToString:[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"]]) {
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"requestQuitWPwdNotification" object:self];
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"requestQuitWPwdNotification" object:self];
+        } else {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"requestQuit" object:self];
+        }
         return NO;
     }
 
