@@ -88,8 +88,9 @@
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences setSEBDefaults]) {
         NSLog(@"UserDefaults for SEB were empty while starting.");
-        // If Standard User Defaults were empty, show preferences later
-        [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"allowEditingConfig"];
+        // If Standard User Defaults were empty, show init assistant later
+        [[MyGlobals sharedMyGlobals] setStartInitAssistant:YES];
+        //[[NSUserDefaults standardUserDefaults] setBool:true forKey:@" "];
     }
     
     // Get default WebKit browser User Agent and create

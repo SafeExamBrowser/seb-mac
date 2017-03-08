@@ -430,6 +430,9 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fR0-Do-Xhc">
+                                <rect key="frame" x="480" y="209" width="20" height="20"/>
+                            </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Partial or full URL of a SEB configuration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="QTO-Dl-iep">
                                 <rect key="frame" x="261.5" y="180" width="244" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -446,6 +449,9 @@
                                 <rect key="frame" x="513.5" y="205" width="28" height="28"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" image="continueCircle.png"/>
+                                <connections>
+                                    <action selector="urlEntered:" destination="h8j-pm-u2W" eventType="touchUpInside" id="egX-LO-q6F"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FRN-Sh-GrD">
                                 <rect key="frame" x="346" y="324" width="76" height="76"/>
@@ -492,6 +498,7 @@
                             <constraint firstItem="HWG-Fr-VSs" firstAttribute="centerX" secondItem="DgT-Dq-MHH" secondAttribute="centerX" id="Gg5-1D-ZNw"/>
                             <constraint firstItem="1BV-xe-RGK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DgT-Dq-MHH" secondAttribute="leading" constant="20" id="Iu4-Fl-u7e"/>
                             <constraint firstItem="exZ-7R-rAF" firstAttribute="centerX" secondItem="DgT-Dq-MHH" secondAttribute="centerX" id="K70-ac-TiF"/>
+                            <constraint firstItem="fR0-Do-Xhc" firstAttribute="top" secondItem="QTO-Dl-iep" secondAttribute="bottom" constant="13" id="Neg-V6-12c"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Z6l-FA-ClT" secondAttribute="trailing" constant="20" id="OJU-0p-z6G"/>
                             <constraint firstItem="vXp-WC-Xv2" firstAttribute="top" secondItem="1BV-xe-RGK" secondAttribute="bottom" constant="15" id="P23-Lq-Wt2"/>
                             <constraint firstItem="r1q-6w-EEq" firstAttribute="centerX" secondItem="IcA-3S-BaA" secondAttribute="centerX" id="Pde-m9-aiB"/>
@@ -518,6 +525,7 @@
                             <constraint firstItem="Z6l-FA-ClT" firstAttribute="centerX" secondItem="DgT-Dq-MHH" secondAttribute="centerX" id="lln-fs-XLL"/>
                             <constraint firstItem="HWG-Fr-VSs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DgT-Dq-MHH" secondAttribute="leading" constant="20" id="mVG-Ez-3LQ"/>
                             <constraint firstItem="exZ-7R-rAF" firstAttribute="top" secondItem="HWG-Fr-VSs" secondAttribute="bottom" constant="35" id="oPs-Gg-cCN"/>
+                            <constraint firstItem="Vbw-ig-cyd" firstAttribute="leading" secondItem="fR0-Do-Xhc" secondAttribute="trailing" constant="13.5" id="qbs-E0-Z7g"/>
                             <constraint firstItem="HWG-Fr-VSs" firstAttribute="top" secondItem="ajx-Gz-cZT" secondAttribute="bottom" constant="15" id="rtr-Zg-Nsp"/>
                             <constraint firstItem="Z6l-FA-ClT" firstAttribute="top" secondItem="r1q-6w-EEq" secondAttribute="bottom" constant="35" id="thK-Ie-9w1"/>
                             <constraint firstItem="qC6-JD-Ytm" firstAttribute="centerX" secondItem="DgT-Dq-MHH" secondAttribute="centerX" id="yz0-Xh-WSD"/>
@@ -533,6 +541,7 @@
                     </view>
                     <connections>
                         <outlet property="URLWrongLabel" destination="r1q-6w-EEq" id="4cn-OV-2Nu"/>
+                        <outlet property="configURLField" destination="IcA-3S-BaA" id="Hjj-Lg-zeU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="agb-Z3-6wR" userLabel="First Responder" sceneMemberID="firstResponder"/>

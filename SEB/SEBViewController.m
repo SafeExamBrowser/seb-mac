@@ -190,7 +190,10 @@ static NSMutableSet *browserWindowControllers;
     // Check if we received new settings from an MDM server
     //    [self readDefaultsValues];
     
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"allowEditingConfig"]) {
+    // Check if settings aren't initialized and initial config assistant should be started
+    if ([[MyGlobals sharedMyGlobals] startInitAssistant]) {
+        [self openInitAssistant];
+    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"allowEditingConfig"]) {
         [self conditionallyShowSettingsModal];
     } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"initiateResetConfig"]) {
         [self conditionallyResetSettings];
@@ -1410,17 +1413,35 @@ static NSMutableSet *browserWindowControllers;
     DDLogError(@"Guided Accesss switched off!");
     
     // Open the lockdown view
-//    [_lockedViewController willMoveToParentViewController:self];
+    //    [_lockedViewController willMoveToParentViewController:self];
     
     UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
     
-//    [rootViewController.view addSubview:_lockedViewController.view];
+    //    [rootViewController.view addSubview:_lockedViewController.view];
     [rootViewController addChildViewController:_lockedViewController];
     [_lockedViewController didMoveToParentViewController:rootViewController];
     
     _sebLocked = true;
     
     [_lockedViewController didOpenLockdownWindows];
+}
+
+
+#pragma mark - Inititial Configuration Assistant
+
+- (void) openInitAssistant
+{
+    if (!_assistantViewController) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        _assistantViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBInitAssistantView"];
+    }
+    
+   
+    UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    [[MyGlobals sharedMyGlobals] setStartInitAssistant:NO];
+    [rootViewController addChildViewController:_assistantViewController];
+    [_assistantViewController didMoveToParentViewController:rootViewController];
+    
 }
 
 

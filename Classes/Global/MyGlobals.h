@@ -50,6 +50,7 @@
 
 @property(copy, readwrite) NSMutableString *pasteboardString;
 @property(readwrite) NSUInteger presentationOptions;
+@property(readwrite) BOOL startInitAssistant;
 @property(readwrite) BOOL startKioskChangedPresentationOptions;
 @property(readwrite) BOOL flashChangedPresentationOptions;
 @property(readwrite) BOOL preferencesReset;

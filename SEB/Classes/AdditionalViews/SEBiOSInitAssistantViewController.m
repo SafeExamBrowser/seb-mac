@@ -48,8 +48,16 @@
 - (void)didMoveToParentViewController:(UIViewController *)parent
 {
     if (parent) {
-        // Add the view to the parent view and position it if you want
-        [[parent view] addSubview:self.view];
+        // Add a scroll view
+        UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height)];
+        [scrollView setBackgroundColor:[UIColor yellowColor]];
+        [scrollView setScrollEnabled:YES];
+        [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
+        scrollView.showsHorizontalScrollIndicator = NO;
+        scrollView.showsVerticalScrollIndicator = YES;
+        [[parent view] addSubview:scrollView];
+
+        [scrollView addSubview:self.view];
         CGRect viewFrame = parent.view.bounds;
         //viewFrame.origin.y += kNavbarHeight;
         //viewFrame.size.height -= kNavbarHeight;
@@ -76,7 +84,6 @@
 - (void)viewDidLayoutSubviews
 {
 }
-
 
 
 - (IBAction)urlEntered:(id)sender {

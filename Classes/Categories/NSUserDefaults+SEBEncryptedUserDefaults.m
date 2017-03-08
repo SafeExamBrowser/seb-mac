@@ -558,6 +558,8 @@ static NSNumber *_logLevel;
             currentUserDefaults = [NSMutableDictionary new];
         } else {
             currentUserDefaults = [[NSMutableDictionary alloc] initWithDictionary:sebUserDefaults copyItems:YES];
+            // If local client settings are not yet available
+            firstStart = YES;
             // Generate Exam Settings Key
             NSData *examSettingsKey = [sharedSEBCryptor checksumForLocalPrefDictionary:currentUserDefaults];
             // If exam settings are corrupted
