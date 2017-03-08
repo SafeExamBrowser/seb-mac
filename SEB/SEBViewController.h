@@ -37,6 +37,8 @@
 #import "UIViewController+MMDrawerController.h"
 #import "IASKAppSettingsViewController.h"
 
+#import "SEBiOSInitAssistantViewController.h"
+
 #import "SEBLockedViewController.h"
 #import "SEBiOSLockedViewController.h"
 #import "SEBiOSConfigFileController.h"
@@ -56,6 +58,8 @@
 @property (nonatomic, strong) SEBBrowserTabViewController *browserTabViewController;
 //@property (nonatomic, strong) SEBiOSDockController *dockController;
 @property (nonatomic, strong) SEBSearchBarViewController *searchBarViewController;
+
+@property (strong, nonatomic) SEBiOSInitAssistantViewController<SEBInitAssistantViewControllerDelegate> *assistantViewController;
 
 @property (strong, nonatomic) SEBiOSLockedViewController< SEBLockedViewUIDelegate > *lockedViewController;
 @property (strong, nonatomic) SEBiOSConfigFileController *configFileController;
