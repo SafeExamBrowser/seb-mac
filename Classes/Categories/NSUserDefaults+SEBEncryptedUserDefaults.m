@@ -488,7 +488,7 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_showTaskBar",
                                  @YES,
                                  @"org_safeexambrowser_SEB_showTime",
-                                 @"http://www.safeexambrowser.org/start",
+                                 @"",
                                  @"org_safeexambrowser_SEB_startURL",
                                  [NSNumber numberWithLong:40],
                                  @"org_safeexambrowser_SEB_taskBarHeight",
@@ -558,8 +558,6 @@ static NSNumber *_logLevel;
             currentUserDefaults = [NSMutableDictionary new];
         } else {
             currentUserDefaults = [[NSMutableDictionary alloc] initWithDictionary:sebUserDefaults copyItems:YES];
-            // If local client settings are not yet available
-            firstStart = YES;
             // Generate Exam Settings Key
             NSData *examSettingsKey = [sharedSEBCryptor checksumForLocalPrefDictionary:currentUserDefaults];
             // If exam settings are corrupted

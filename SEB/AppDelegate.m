@@ -87,12 +87,16 @@
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences setSEBDefaults]) {
-        NSLog(@"UserDefaults for SEB were empty while starting.");
+        NSLog(@"SEB was started the first time, UserDefaults were empty.");
         // If Standard User Defaults were empty, show init assistant later
         [[MyGlobals sharedMyGlobals] setStartInitAssistant:YES];
-        //[[NSUserDefaults standardUserDefaults] setBool:true forKey:@" "];
     }
-    
+    NSString *startURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+    if (startURLString.length == 0 || [startURLString isEqualToString:@"http://www.safeexambrowser.org/start"]) {
+        // Start URL was set to the default value, show init assistant later
+        [[MyGlobals sharedMyGlobals] setStartInitAssistant:YES];
+    }
+
     // Get default WebKit browser User Agent and create
     // default SEB User Agent
     NSString *defaultUserAgent = [[UIWebView new] stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];

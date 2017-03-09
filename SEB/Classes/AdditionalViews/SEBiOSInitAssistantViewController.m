@@ -38,6 +38,8 @@
     
     __weak IBOutlet UITextField *configURLField;
     __weak IBOutlet UILabel *URLWrongLabel;
+    __weak IBOutlet UIActivityIndicatorView *loadingConfig;
+    __weak IBOutlet UILabel *noConfigFoundLabel;
     
 }
 @end
@@ -48,16 +50,8 @@
 - (void)didMoveToParentViewController:(UIViewController *)parent
 {
     if (parent) {
-        // Add a scroll view
-        UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height)];
-        [scrollView setBackgroundColor:[UIColor yellowColor]];
-        [scrollView setScrollEnabled:YES];
-        [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
-        scrollView.showsHorizontalScrollIndicator = NO;
-        scrollView.showsVerticalScrollIndicator = YES;
-        [[parent view] addSubview:scrollView];
-
-        [scrollView addSubview:self.view];
+        // Add the view to the parent view and position it if you want
+        [[parent view] addSubview:self.view];
         CGRect viewFrame = parent.view.bounds;
         //viewFrame.origin.y += kNavbarHeight;
         //viewFrame.size.height -= kNavbarHeight;
@@ -107,5 +101,13 @@
     URLWrongLabel.hidden = hidden;
 }
 
+- (IBAction)scanQRCode:(id)sender {
+}
+
+- (IBAction)editSettings:(id)sender {
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"allowEditingConfig"];
+    [self dismissViewControllerAnimated:YES completion:^{
+    }];
+}
 
 @end

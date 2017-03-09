@@ -34,10 +34,14 @@
 
 #import <UIKit/UIKit.h>
 #import "SEBInitAssistantViewController.h"
+#import "SEBViewController.h"
+
+@class SEBViewController;
 
 @interface SEBiOSInitAssistantViewController : UIViewController <SEBInitAssistantViewControllerDelegate>
 
 @property (strong) SEBInitAssistantViewController *assistantController;
+@property (strong) SEBViewController *sebViewController;
 
 
 @end

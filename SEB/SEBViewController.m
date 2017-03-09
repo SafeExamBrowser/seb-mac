@@ -192,6 +192,7 @@ static NSMutableSet *browserWindowControllers;
     
     // Check if settings aren't initialized and initial config assistant should be started
     if ([[MyGlobals sharedMyGlobals] startInitAssistant]) {
+        [[MyGlobals sharedMyGlobals] setStartInitAssistant:NO];
         [self openInitAssistant];
     } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"allowEditingConfig"]) {
         [self conditionallyShowSettingsModal];
@@ -300,7 +301,7 @@ static NSMutableSet *browserWindowControllers;
     
     [self resetSEB];
     [self initSEB];
-    [self startAutonomousSingleAppMode];
+    [self openInitAssistant];
 }
 
 
@@ -1214,63 +1215,69 @@ static NSMutableSet *browserWindowControllers;
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     _finishedStartingUp = true;
-    
-    // First check if a quit password is set = run SEB in secure mode
-    _secureMode = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
-    
-    // Is ASAM enabled in current settings?
-    _enableASAM = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableASAM"];
-    
-    // Is ASAM active or any other of the Single App Modes not yet active?
-    if (_ASAMActive || UIAccessibilityIsGuidedAccessEnabled() == false) {
 
-        // Is ASAM already active?
-        if (_ASAMActive) {
-            NSLog(@"Autonomous Single App Mode already active");
-            if (!_secureMode || !_enableASAM) {
-                [self stopAutonomousSingleAppMode];
-            }
-            [self startExam];
-
-        } else {
-            // ASAM not active
-            // Is ASAM enabled in settings?
-            if (_secureMode && _enableASAM) {
-                NSLog(@"Requesting Autonomous Single App Mode");
-                _ASAMActive = true;
-                UIAccessibilityRequestGuidedAccessSession(true, ^(BOOL didSucceed) {
-                    if (didSucceed) {
-                        NSLog(@"Entered Autonomous Single App Mode");
-                        [self startExam];
-                    }
-                    else {
-                        NSLog(@"Failed to enter Autonomous Single App Mode");
-                        _ASAMActive = false;
-                        // Conditionally ask user to start Guided Access
-                        [self showStartGuidedAccess];
-                    }
-                });
-            } else {
-                [self showStartGuidedAccess];
-            }
-        }
+    NSString *startURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+    if (startURLString.length == 0 || [startURLString isEqualToString:@"http://www.safeexambrowser.org/start"]) {
+        // Start URL was set to the default value, show init assistant later
+        [self openInitAssistant];
     } else {
-        // Guided Access, SAM or ASAM is already active (maybe because of a crash)
-        NSLog(@"Guided Access or ASAM is already active, maybe because of a crash.");
-        // Try to switch ASAM off to find out if it was active
-        _ASAMActive = true;
-        UIAccessibilityRequestGuidedAccessSession(false, ^(BOOL didSucceed) {
-            if (didSucceed) {
-                NSLog(@"Exited Autonomous Single App Mode");
-                _ASAMActive = false;
-//                // Restart ASAM properly again
-//                [self startAutonomousSingleAppMode];
+        // First check if a quit password is set = run SEB in secure mode
+        _secureMode = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
+        
+        // Is ASAM enabled in current settings?
+        _enableASAM = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableASAM"];
+        
+        // Is ASAM active or any other of the Single App Modes not yet active?
+        if (_ASAMActive || UIAccessibilityIsGuidedAccessEnabled() == false) {
+            
+            // Is ASAM already active?
+            if (_ASAMActive) {
+                NSLog(@"Autonomous Single App Mode already active");
+                if (!_secureMode || !_enableASAM) {
+                    [self stopAutonomousSingleAppMode];
+                }
+                [self startExam];
+                
+            } else {
+                // ASAM not active
+                // Is ASAM enabled in settings?
+                if (_secureMode && _enableASAM) {
+                    NSLog(@"Requesting Autonomous Single App Mode");
+                    _ASAMActive = true;
+                    UIAccessibilityRequestGuidedAccessSession(true, ^(BOOL didSucceed) {
+                        if (didSucceed) {
+                            NSLog(@"Entered Autonomous Single App Mode");
+                            [self startExam];
+                        }
+                        else {
+                            NSLog(@"Failed to enter Autonomous Single App Mode");
+                            _ASAMActive = false;
+                            // Conditionally ask user to start Guided Access
+                            [self showStartGuidedAccess];
+                        }
+                    });
+                } else {
+                    [self showStartGuidedAccess];
+                }
             }
-            else {
-                NSLog(@"Failed to exit Autonomous Single App Mode, Guided Access must be active");
-                _ASAMActive = false;
-            }
-        });
+        } else {
+            // Guided Access, SAM or ASAM is already active (maybe because of a crash)
+            NSLog(@"Guided Access or ASAM is already active, maybe because of a crash.");
+            // Try to switch ASAM off to find out if it was active
+            _ASAMActive = true;
+            UIAccessibilityRequestGuidedAccessSession(false, ^(BOOL didSucceed) {
+                if (didSucceed) {
+                    NSLog(@"Exited Autonomous Single App Mode");
+                    _ASAMActive = false;
+                    //                // Restart ASAM properly again
+                    //                [self startAutonomousSingleAppMode];
+                }
+                else {
+                    NSLog(@"Failed to exit Autonomous Single App Mode, Guided Access must be active");
+                    _ASAMActive = false;
+                }
+            });
+        }
     }
 }
 
@@ -1434,14 +1441,10 @@ static NSMutableSet *browserWindowControllers;
     if (!_assistantViewController) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         _assistantViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBInitAssistantView"];
+        _assistantViewController.sebViewController = self;
     }
     
-   
-    UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-    [[MyGlobals sharedMyGlobals] setStartInitAssistant:NO];
-    [rootViewController addChildViewController:_assistantViewController];
-    [_assistantViewController didMoveToParentViewController:rootViewController];
-    
+    [self presentViewController:_assistantViewController animated:YES completion:nil];
 }
 
 
