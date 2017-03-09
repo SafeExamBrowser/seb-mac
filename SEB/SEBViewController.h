@@ -52,6 +52,7 @@
 //@class SEBiOSDockController;
 @class SEBSearchBarViewController;
 @class SEBiOSConfigFileController;
+@class SEBiOSInitAssistantViewController;
 
 @interface SEBViewController : UIViewController <SEBLockedViewControllerDelegate>
 
