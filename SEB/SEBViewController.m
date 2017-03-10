@@ -191,10 +191,8 @@ static NSMutableSet *browserWindowControllers;
     //    [self readDefaultsValues];
     
     // Check if settings aren't initialized and initial config assistant should be started
-    if ([[MyGlobals sharedMyGlobals] startInitAssistant]) {
-        [[MyGlobals sharedMyGlobals] setStartInitAssistant:NO];
-        [self openInitAssistant];
-    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"allowEditingConfig"]) {
+    if (!_initAssistantOpen && [[NSUserDefaults standardUserDefaults] boolForKey:@"allowEditingConfig"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"allowEditingConfig"];
         [self conditionallyShowSettingsModal];
     } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"initiateResetConfig"]) {
         [self conditionallyResetSettings];
@@ -214,38 +212,44 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)conditionallyResetSettings
 {
-    // If there is a hashed admin password the user has to enter it before editing settings
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-    
-    if (hashedAdminPassword.length == 0) {
-        // There is no admin password: Immediately reset settings
-        [self resetSettings];
+    // Check if settings are currently open
+    if (_settingsOpen) {
+        // Close settings first
+        [self settingsViewControllerDidEnd:self.appSettingsViewController];
     } else {
-        // Allow up to 5 attempts for entering password
-        attempts = 5;
-        NSString *enterPasswordString = NSLocalizedString(@"You can only reset settings after entering the SEB administrator password:", nil);
+        // If there is a hashed admin password the user has to enter it before editing settings
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+        // Reset the setting for initiating the reset
+        [preferences setBool:NO forKey:@"initiateResetConfig"];
+
+        NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
         
-        // Ask the user to enter the settings password and proceed to the callback method after this happend
-        [self.configFileController promptPasswordWithMessageText:enterPasswordString
-                                                           title:NSLocalizedString(@"Reset Settings",nil)
-                                                        callback:self
-                                                        selector:@selector(resetSettingsEnteredAdminPassword:)];
-        return;
+        if (hashedAdminPassword.length == 0) {
+            // There is no admin password: Immediately reset settings
+            [self resetSettings];
+        } else {
+            // Allow up to 5 attempts for entering password
+            attempts = 5;
+            NSString *enterPasswordString = NSLocalizedString(@"You can only reset settings after entering the SEB administrator password:", nil);
+            
+            // Ask the user to enter the settings password and proceed to the callback method after this happend
+            [self.configFileController promptPasswordWithMessageText:enterPasswordString
+                                                               title:NSLocalizedString(@"Reset Settings",nil)
+                                                            callback:self
+                                                            selector:@selector(resetSettingsEnteredAdminPassword:)];
+            return;
+        }
     }
 }
 
 - (void) resetSettingsEnteredAdminPassword:(NSString *)password
 {
     // Check if the cancel button was pressed
-    if (!password) {
-        // Reset the setting for initiating the reset
-        [[NSUserDefaults standardUserDefaults] setBool:false forKey:@"initiateResetConfig"];
+    if (!password && !_finishedStartingUp) {
         
-        if (!_finishedStartingUp) {
-            // Continue starting up SEB without resetting settings
-            [self startAutonomousSingleAppMode];
-        }
+        // Continue starting up SEB without resetting settings
+        [self startAutonomousSingleAppMode];
         
         return;
     }
@@ -291,8 +295,6 @@ static NSMutableSet *browserWindowControllers;
     // Switch to system's (persisted) UserDefaults
     [NSUserDefaults setUserDefaultsPrivate:NO];
     
-    [[NSUserDefaults standardUserDefaults] setBool:false forKey:@"initiateResetConfig"];
-    
     // Write just default SEB settings to UserDefaults
     NSDictionary *emptySettings = [NSDictionary dictionary];
     [self.configFileController storeIntoUserDefaults:emptySettings];
@@ -305,30 +307,54 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+#pragma mark - Inititial Configuration Assistant
+
+- (void) openInitAssistant
+{
+    if (!_initAssistantOpen) {
+        if (!_assistantViewController) {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            _assistantViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBInitAssistantView"];
+            _assistantViewController.sebViewController = self;
+        }
+        _initAssistantOpen = true;
+        [self presentViewController:_assistantViewController animated:YES completion:nil];
+    }
+}
+
+
 #pragma mark - Handle requests to show in-app settings
 
 - (void)conditionallyShowSettingsModal
 {
-    // Check if settings are already displayed
-    if (!_settingsOpen) {
-        // If there is a hashed admin password the user has to enter it before editing settings
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-        
-        if (hashedAdminPassword.length == 0) {
-            // There is no admin password: Just open settings
-            [self showSettingsModal];
-        } else {
-            // Allow up to 5 attempts for entering password
-            attempts = 5;
-            NSString *enterPasswordString = NSLocalizedString(@"You can only edit settings after entering the SEB administrator password:", nil);
+    // Check if the initialize settings assistant is open
+    if (_initAssistantOpen) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            _initAssistantOpen = false;
+            [self conditionallyShowSettingsModal];
+        }];
+    } else {
+        // Check if settings are already displayed
+        if (!_settingsOpen) {
+            // If there is a hashed admin password the user has to enter it before editing settings
+            NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+            NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
             
-            // Ask the user to enter the settings password and proceed to the callback method after this happend
-            [self.configFileController promptPasswordWithMessageText:enterPasswordString
-                                                               title:NSLocalizedString(@"Edit Settings",nil)
-                                                            callback:self
-                                                            selector:@selector(enteredAdminPassword:)];
-            return;
+            if (hashedAdminPassword.length == 0) {
+                // There is no admin password: Just open settings
+                [self showSettingsModal];
+            } else {
+                // Allow up to 5 attempts for entering password
+                attempts = 5;
+                NSString *enterPasswordString = NSLocalizedString(@"You can only edit settings after entering the SEB administrator password:", nil);
+                
+                // Ask the user to enter the settings password and proceed to the callback method after this happend
+                [self.configFileController promptPasswordWithMessageText:enterPasswordString
+                                                                   title:NSLocalizedString(@"Edit Settings",nil)
+                                                                callback:self
+                                                                selector:@selector(enteredAdminPassword:)];
+                return;
+            }
         }
     }
 }
@@ -512,7 +538,6 @@ static NSMutableSet *browserWindowControllers;
 {
     [sender dismissViewControllerAnimated:YES completion:^{
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        [preferences setBool:NO forKey:@"allowEditingConfig"];
         
         // Get entered passwords and save their hashes to SEB settings
         // as long as the passwords were really entered and don't contain the hash placeholders
@@ -883,63 +908,74 @@ static NSMutableSet *browserWindowControllers;
 
 - (void) downloadAndOpenSEBConfigFromURL:(NSURL *)url
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
-        // Check if SEB is in exam mode = private UserDefauls are switched on
-        if (NSUserDefaults.userDefaultsPrivate) {
-            // If yes, we don't download the .seb file
-            if (_alertController) {
-                [_alertController dismissViewControllerAnimated:NO completion:nil];
-            }
-            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)
-                                                                    message:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session and use a quit link or the quit button in SEB before starting another exam.", nil)
-                                                             preferredStyle:UIAlertControllerStyleAlert];
-            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
-                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                     [_alertController dismissViewControllerAnimated:NO completion:nil];
-                                                                 }]];
-            [self presentViewController:_alertController animated:YES completion:nil];
-            
-        } else {
-            // SEB isn't in exam mode: reconfiguring is allowed
-            NSError *error = nil;
-            NSData *sebFileData;
-            // Download the .seb file directly into memory (not onto disc like other files)
-            if ([url.scheme isEqualToString:@"seb"]) {
-                // If it's a seb:// URL, we try to download it by http
-                NSURL *httpURL = [[NSURL alloc] initWithScheme:@"http" host:url.host path:url.path];
-                sebFileData = [NSData dataWithContentsOfURL:httpURL options:NSDataReadingUncached error:&error];
-                if (error) {
-                    // If that didn't work, we try to download it by https
+    // Check if the initialize settings assistant is open
+    if (_initAssistantOpen) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            _initAssistantOpen = false;
+            // Reset the finished starting up flag, because if loading settings fails or is canceled,
+            // we need to load the webpage
+            _finishedStartingUp = false;
+            [self downloadAndOpenSEBConfigFromURL:(NSURL *)url];
+        }];
+    } else {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
+            // Check if SEB is in exam mode = private UserDefauls are switched on
+            if (NSUserDefaults.userDefaultsPrivate) {
+                // If yes, we don't download the .seb file
+                if (_alertController) {
+                    [_alertController dismissViewControllerAnimated:NO completion:nil];
+                }
+                _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)
+                                                                        message:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session and use a quit link or the quit button in SEB before starting another exam.", nil)
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                     style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                         [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                     }]];
+                [self presentViewController:_alertController animated:YES completion:nil];
+                
+            } else {
+                // SEB isn't in exam mode: reconfiguring is allowed
+                NSError *error = nil;
+                NSData *sebFileData;
+                // Download the .seb file directly into memory (not onto disc like other files)
+                if ([url.scheme isEqualToString:@"seb"]) {
+                    // If it's a seb:// URL, we try to download it by http
+                    NSURL *httpURL = [[NSURL alloc] initWithScheme:@"http" host:url.host path:url.path];
+                    sebFileData = [NSData dataWithContentsOfURL:httpURL options:NSDataReadingUncached error:&error];
+                    if (error) {
+                        // If that didn't work, we try to download it by https
+                        NSURL *httpsURL = [[NSURL alloc] initWithScheme:@"https" host:url.host path:url.path];
+                        sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
+                        // Still couldn't download the .seb file: present an error and abort
+                        if (error) {
+                            //                        [_mainBrowserWindow presentError:error modalForWindow:_mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
+                            return;
+                        }
+                    }
+                } else if ([url.scheme isEqualToString:@"sebs"]) {
+                    // If it's a sebs:// URL, we try to download it by https
                     NSURL *httpsURL = [[NSURL alloc] initWithScheme:@"https" host:url.host path:url.path];
                     sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
-                    // Still couldn't download the .seb file: present an error and abort
+                    // Couldn't download the .seb file: present an error and abort
                     if (error) {
-                        //                        [_mainBrowserWindow presentError:error modalForWindow:_mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
+                        //                    [_mainBrowserWindow presentError:error modalForWindow:_mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
                         return;
                     }
+                } else {
+                    sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
+                    if (error) {
+                        //                    [_mainBrowserWindow presentError:error modalForWindow:_mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
+                    }
                 }
-            } else if ([url.scheme isEqualToString:@"sebs"]) {
-                // If it's a sebs:// URL, we try to download it by https
-                NSURL *httpsURL = [[NSURL alloc] initWithScheme:@"https" host:url.host path:url.path];
-                sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
-                // Couldn't download the .seb file: present an error and abort
-                if (error) {
-                    //                    [_mainBrowserWindow presentError:error modalForWindow:_mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
-                    return;
-                }
-            } else {
-                sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
-                if (error) {
-                    //                    [_mainBrowserWindow presentError:error modalForWindow:_mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
-                }
+                // Get current config path
+                currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
+                // Store the URL of the .seb file as current config file path
+                [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
+                
+                [self.configFileController storeNewSEBSettings:sebFileData forEditing:false callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
             }
-            // Get current config path
-            currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
-            // Store the URL of the .seb file as current config file path
-            [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
-            
-            [self.configFileController storeNewSEBSettings:sebFileData forEditing:false callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
         }
     }
 }
@@ -967,6 +1003,11 @@ static NSMutableSet *browserWindowControllers;
         
         // if decrypting new settings wasn't successfull, we have to restore the path to the old settings
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
+        
+        if (!_finishedStartingUp) {
+            // Continue starting up SEB without resetting settings
+            [self startAutonomousSingleAppMode];
+        }
     }
 }
 
@@ -1404,6 +1445,17 @@ static NSMutableSet *browserWindowControllers;
 
 #pragma mark - Lockdown windows
 
+- (void) conditionallyOpenLockdownWindows
+{
+    if ([[SEBLockedViewController new] shouldOpenLockdownWindows]) {
+        [self openLockdownWindows];
+        
+        // Add log string for entering a locked exam
+        [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", nil)] withTime:[NSDate date]];
+    }
+}
+
+
 - (void) openLockdownWindows
 {
     if (!_lockedViewController) {
@@ -1431,31 +1483,6 @@ static NSMutableSet *browserWindowControllers;
     _sebLocked = true;
     
     [_lockedViewController didOpenLockdownWindows];
-}
-
-
-#pragma mark - Inititial Configuration Assistant
-
-- (void) openInitAssistant
-{
-    if (!_assistantViewController) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        _assistantViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBInitAssistantView"];
-        _assistantViewController.sebViewController = self;
-    }
-    
-    [self presentViewController:_assistantViewController animated:YES completion:nil];
-}
-
-
-- (void) conditionallyOpenLockdownWindows
-{
-    if ([[SEBLockedViewController new] shouldOpenLockdownWindows]) {
-        [self openLockdownWindows];
-        
-        // Add log string for entering a locked exam
-        [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", nil)] withTime:[NSDate date]];
-    }
 }
 
 

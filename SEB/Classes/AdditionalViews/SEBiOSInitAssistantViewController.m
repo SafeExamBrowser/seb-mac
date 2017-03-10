@@ -69,9 +69,9 @@
     _assistantController = [[SEBInitAssistantViewController alloc] init];
     _assistantController.controllerDelegate = self;
     
-//    [lockedAlertPasswordField addTarget:lockedAlertPasswordField
-//                  action:@selector(resignFirstResponder)
-//        forControlEvents:UIControlEventEditingDidEndOnExit];
+    [configURLField addTarget:configURLField
+                  action:@selector(resignFirstResponder)
+        forControlEvents:UIControlEventEditingDidEndOnExit];
 }
 
 
@@ -105,8 +105,9 @@
 }
 
 - (IBAction)editSettings:(id)sender {
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"allowEditingConfig"];
     [self dismissViewControllerAnimated:YES completion:^{
+        _sebViewController.initAssistantOpen = false;
+        [_sebViewController conditionallyShowSettingsModal];
     }];
 }
 
