@@ -88,13 +88,6 @@
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences setSEBDefaults]) {
         NSLog(@"SEB was started the first time, UserDefaults were empty.");
-        // If Standard User Defaults were empty, show init assistant later
-        [[MyGlobals sharedMyGlobals] setStartInitAssistant:YES];
-    }
-    NSString *startURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-    if (startURLString.length == 0 || [startURLString isEqualToString:@"http://www.safeexambrowser.org/start"]) {
-        // Start URL was set to the default value, show init assistant later
-        [[MyGlobals sharedMyGlobals] setStartInitAssistant:YES];
     }
 
     // Get default WebKit browser User Agent and create
@@ -154,6 +147,7 @@
     if (self.sebViewController) {
         // If the main SEB view controller was already instantiated
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"allowEditingConfig"]) {
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"allowEditingConfig"];
             [_sebViewController conditionallyShowSettingsModal];
         } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"initiateResetConfig"]) {
             [_sebViewController conditionallyResetSettings];
