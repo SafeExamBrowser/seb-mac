@@ -441,6 +441,9 @@
                                                 <rect key="frame" x="262" y="246" width="244" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                <connections>
+                                                    <action selector="urlEntered:" destination="h8j-pm-u2W" eventType="editingDidEnd" id="alY-kD-P9e"/>
+                                                </connections>
                                             </textField>
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fIn-8J-8FZ">
                                                 <rect key="frame" x="480" y="251" width="20" height="20"/>
@@ -465,7 +468,7 @@
                                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" image="continueCircle.png"/>
                                                 <connections>
-                                                    <action selector="urlEntered:" destination="h8j-pm-u2W" eventType="touchUpInside" id="v66-xz-ZnR"/>
+                                                    <action selector="urlEntered:" destination="h8j-pm-u2W" eventType="touchUpInside" id="Bjm-06-rdb"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TLh-eI-sov">
