@@ -183,6 +183,15 @@ typedef NSUInteger sebConfigPurposes;
 
 
 enum {
+    SEBClientConfigURLSchemeNone                = 0,
+    SEBClientConfigURLSchemeDomain              = 1,
+    SEBClientConfigURLSchemeSubdomainShort      = 2,
+    SEBClientConfigURLSchemeSubdomainLong       = 3
+};
+typedef NSUInteger SEBClientConfigURLSchemes;
+
+
+enum {
     SEBEnterPasswordCancel                      = 0,
     SEBEnterPasswordOK                          = 1
 };

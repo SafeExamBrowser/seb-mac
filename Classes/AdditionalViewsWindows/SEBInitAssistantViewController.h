@@ -38,6 +38,11 @@
 #include <Security/Security.h>
 #import <CommonCrypto/CommonDigest.h>
 
+#import "SEBViewController.h"
+
+
+@class SEBViewController;
+
 
 /**
  * @protocol    SEBInitAssistantViewControllerDelegate
@@ -102,8 +107,9 @@
 @interface SEBInitAssistantViewController : NSObject
 
 @property (nonatomic, strong) id< SEBInitAssistantViewControllerDelegate > controllerDelegate;
+@property (strong, nonatomic) SEBViewController *sebViewController;
 
 
-- (IBAction) urlEntered:(id)sender;
+- (void) evaluateEnteredURLString:(NSString *)URLString;
 
 @end

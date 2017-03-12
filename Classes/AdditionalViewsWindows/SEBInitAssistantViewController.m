@@ -45,7 +45,88 @@
 @implementation SEBInitAssistantViewController
 
 
-- (void) urlEntered:(id)sender {
+- (void) evaluateEnteredURLString:(NSString *)URLString
+{
+    NSString *scheme;
+    NSURL *URLFromString;
+    if (URLString.length > 0) {
+        NSRange scanResult = [URLString rangeOfString:@"://"];
+        if (scanResult.location != NSNotFound) {
+            // Filter expression contains a scheme: save it and replace it with http
+            // (in case scheme contains a wildcard [NSURL URLWithString:... fails)
+            scheme = [URLString substringToIndex:scanResult.location];
+            URLString = [NSString stringWithFormat:@"http%@", [URLString substringFromIndex:scanResult.location]];
+            // Convert filter expression string to a NSURL
+            URLFromString = [NSURL URLWithString:URLString];
+        } else {
+            // Filter expression doesn't contain a scheme followed by an authority part,
+            // Prefix it with a http:// scheme
+            URLString = [NSString stringWithFormat:@"http://%@", URLString];
+            // Convert filter expression string to a NSURL
+            URLFromString = [NSURL URLWithString:URLString];
+        }
+    }
+    [self checkSEBClientConfigURL:URLFromString withScheme:0];
+}
+
+
+// Check for SEB client config at the passed URL using the next scheme
+- (void) checkSEBClientConfigURL:(NSURL *)url withScheme:(SEBClientConfigURLSchemes)configURLScheme
+{
+    // Check using the next scheme (we can skip first scheme = none)
+    configURLScheme++;
+    NSURL *newURL;
+    switch (configURLScheme) {
+        case SEBClientConfigURLSchemeDomain:
+        {
+            [self downloadSEBClientConfigFromURL:newURL originalURL:url withScheme:configURLScheme];
+            break;
+        }
+            
+        case SEBClientConfigURLSchemeSubdomainShort:
+        {
+            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+            NSString *host = url.host;
+            host = [NSString stringWithFormat:@"seb.%@", host];
+            urlComponents.host = host;
+            newURL = urlComponents.URL;
+            [self downloadSEBClientConfigFromURL:newURL originalURL:url withScheme:configURLScheme];
+            break;
+        }
+            
+        case SEBClientConfigURLSchemeSubdomainLong:
+        {
+            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+            NSString *host = url.host;
+            host = [NSString stringWithFormat:@"safeexambrowser.%@", host];
+            urlComponents.host = host;
+            newURL = urlComponents.URL;
+            [self downloadSEBClientConfigFromURL:newURL originalURL:url withScheme:configURLScheme];
+            break;
+        }
+            
+        default:
+            break;
+    }
+}
+
+
+- (void) downloadSEBClientConfigFromURL:(NSURL *)url originalURL:(NSURL *)originalURL withScheme:(SEBClientConfigURLSchemes)configURLScheme
+{
+    NSError *error = nil;
+    url = [url URLByAppendingPathComponent:@"safeexambrowser/SEBClientSettings.seb"];
+    NSData *sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
+    if (error) {
+    }
+//    [self.configFileController storeNewSEBSettings:sebFileData forEditing:false callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
+
+
+}
+
+
+- (void) storeNewSEBSettingsSuccessful:(BOOL)success
+{
+    
 }
 
 

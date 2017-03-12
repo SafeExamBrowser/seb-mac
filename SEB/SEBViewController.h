@@ -37,6 +37,7 @@
 #import "UIViewController+MMDrawerController.h"
 #import "IASKAppSettingsViewController.h"
 
+#import "SEBInitAssistantViewController.h"
 #import "SEBiOSInitAssistantViewController.h"
 
 #import "SEBLockedViewController.h"
@@ -44,14 +45,13 @@
 #import "SEBiOSConfigFileController.h"
 
 #import "SEBBrowserTabViewController.h"
-//#import "SEBiOSDockController.h"
 #import "SEBSearchBarViewController.h"
 
 
 @class SEBBrowserTabViewController;
-//@class SEBiOSDockController;
 @class SEBSearchBarViewController;
 @class SEBiOSConfigFileController;
+@class SEBInitAssistantViewController;
 @class SEBiOSInitAssistantViewController;
 
 @interface SEBViewController : UIViewController <SEBLockedViewControllerDelegate>

@@ -68,6 +68,7 @@
     
     _assistantController = [[SEBInitAssistantViewController alloc] init];
     _assistantController.controllerDelegate = self;
+    _assistantController.sebViewController = _sebViewController;
     
     [configURLField addTarget:configURLField
                   action:@selector(resignFirstResponder)
@@ -81,7 +82,7 @@
 
 
 - (IBAction)urlEntered:(id)sender {
-    [_assistantController urlEntered:sender];
+    [_assistantController evaluateEnteredURLString:configURLField.text];
 }
 
 
