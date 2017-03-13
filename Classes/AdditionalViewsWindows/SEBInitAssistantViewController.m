@@ -122,7 +122,9 @@
 {
     NSError *error = nil;
     NSData *sebFileData;
-    url = [url URLByAppendingPathComponent:@"safeexambrowser/SEBClientSettings.seb"];
+    if (![url.pathExtension isEqualToString:@"seb"]) {
+        url = [url URLByAppendingPathComponent:@"safeexambrowser/SEBClientSettings.seb"];
+    }
     if (url) {
         sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
     }
