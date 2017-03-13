@@ -35,11 +35,15 @@
 #import <UIKit/UIKit.h>
 #import "SEBInitAssistantViewController.h"
 #import "SEBViewController.h"
+#import "QRCodeReaderViewController.h"
+
 
 @class SEBInitAssistantViewController;
 @class SEBViewController;
+@class QRCodeReaderViewController;
 
-@interface SEBiOSInitAssistantViewController : UIViewController <SEBInitAssistantDelegate> {
+
+@interface SEBiOSInitAssistantViewController : UIViewController <SEBInitAssistantDelegate, QRCodeReaderDelegate> {
     
     __weak IBOutlet UITextField *configURLField;
     __weak IBOutlet UIActivityIndicatorView *loadingConfig;
@@ -49,6 +53,8 @@
 @property (nonatomic, strong) SEBInitAssistantViewController *assistantController;
 //@property (nonatomic, strong) id< SEBInitAssistantViewControllerDelegate > assistantControllerDelegate;
 @property (nonatomic, strong) SEBViewController *sebViewController;
+
+@property (nonatomic, strong) QRCodeReaderViewController *codeReaderViewController;
 
 
 @end

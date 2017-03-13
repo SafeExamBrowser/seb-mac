@@ -59,11 +59,23 @@
     
     _assistantController = [[SEBInitAssistantViewController alloc] init];
     _assistantController.controllerDelegate = self;
-//    _assistantController.sebViewController = _sebViewController;
     
     [configURLField addTarget:configURLField
                   action:@selector(resignFirstResponder)
         forControlEvents:UIControlEventEditingDidEndOnExit];
+    
+    /// Initialize QR code reader
+    // Create the reader object
+    QRCodeReader *codeReader = [QRCodeReader readerWithMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]];
+    
+    // Instantiate the view controller
+    _codeReaderViewController = [QRCodeReaderViewController readerWithCancelButtonTitle:@"Cancel" codeReader:codeReader startScanningAtLoad:YES showSwitchCameraButton:YES showTorchButton:YES];
+    
+    // Set the presentation style
+    _codeReaderViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+    
+    // Define the delegate receiver
+    _codeReaderViewController.delegate = self;
 }
 
 
@@ -117,8 +129,11 @@
 }
 
 
-- (IBAction)scanQRCode:(id)sender {
+- (IBAction)scanQRCode:(id)sender
+{
+    [self presentViewController:_codeReaderViewController animated:YES completion:NULL];
 }
+
 
 - (IBAction)editSettings:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{
@@ -126,5 +141,22 @@
         [_sebViewController conditionallyShowSettingsModal];
     }];
 }
+
+
+#pragma mark - QRCodeReader Delegate Methods
+
+- (void)reader:(QRCodeReaderViewController *)reader didScanResult:(NSString *)result
+{
+    [_codeReaderViewController dismissViewControllerAnimated:YES completion:^{
+        NSLog(@"%@", result);
+        [_assistantController evaluateEnteredURLString:result];
+    }];
+}
+
+- (void)readerDidCancel:(QRCodeReaderViewController *)reader
+{
+    [_codeReaderViewController dismissViewControllerAnimated:YES completion:NULL];
+}
+
 
 @end
