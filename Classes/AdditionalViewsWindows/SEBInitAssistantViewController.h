@@ -64,6 +64,12 @@
                    callback:(id)callback
                    selector:(SEL)selector;
 
+/**
+ * @brief       Close Assistant and restart SEB (using new settings).
+ * @details
+ */
+-(void) closeAssistantRestartSEB;
+
 @optional
 
 /**
@@ -71,19 +77,6 @@
  * @details
  */
 @property(readwrite) BOOL examRunning;
-
-/**
- * @brief       Open lockdown windows to block access to the exam.
- .
- * @details
- */
-//- (void) openLockdownWindows;
-
-/**
- * @brief       Close lockdown windows and allow to access the exam again.
- * @details
- */
-- (void) closeLockdownWindows;
 
 @end
 

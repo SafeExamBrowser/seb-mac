@@ -77,6 +77,11 @@
 }
 
 
+- (IBAction)typingURL:(id)sender {
+    [self setConfigURLWrongLabelHidden:true];
+}
+
+
 #pragma mark Delegates
 
 - (NSString *)configURLString {
@@ -90,7 +95,7 @@
 
 
 - (void)setConfigURLWrongLabelHidden:(BOOL)hidden {
-    URLWrongLabel.hidden = hidden;
+    noConfigFoundLabel.hidden = hidden;
 }
 
 
@@ -100,6 +105,15 @@
                       selector:(SEL)selector
 {
     [_sebViewController.configFileController storeNewSEBSettings:sebData forEditing:false callback:callback selector:selector];
+}
+
+
+-(void) closeAssistantRestartSEB
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        _sebViewController.initAssistantOpen = false;
+        [_sebViewController storeNewSEBSettingsSuccessful:true];
+    }];
 }
 
 

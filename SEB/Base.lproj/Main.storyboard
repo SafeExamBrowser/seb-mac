@@ -442,6 +442,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL"/>
                                                 <connections>
+                                                    <action selector="typingURL:" destination="h8j-pm-u2W" eventType="editingDidBegin" id="aAV-OS-tq3"/>
                                                     <action selector="urlEntered:" destination="h8j-pm-u2W" eventType="editingDidEnd" id="alY-kD-P9e"/>
                                                 </connections>
                                             </textField>
@@ -580,7 +581,7 @@
                     <connections>
                         <outlet property="configURLField" destination="7o6-KW-3Qp" id="gxR-q6-rec"/>
                         <outlet property="loadingConfig" destination="fIn-8J-8FZ" id="Pyr-ve-A0U"/>
-                        <outlet property="noConfigFoundLabel" destination="9il-ut-H8z" id="bAf-m1-d7d"/>
+                        <outlet property="noConfigFoundLabel" destination="9il-ut-H8z" id="6T6-dF-CYV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="agb-Z3-6wR" userLabel="First Responder" sceneMemberID="firstResponder"/>
