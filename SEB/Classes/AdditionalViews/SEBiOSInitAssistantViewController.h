@@ -1,5 +1,5 @@
 //
-//  SEBiOSLockedViewController.h
+//  SEBiOSInitAssistantViewController.h
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 03/12/15.
@@ -39,10 +39,17 @@
 @class SEBInitAssistantViewController;
 @class SEBViewController;
 
-@interface SEBiOSInitAssistantViewController : UIViewController <SEBInitAssistantViewControllerDelegate>
+@interface SEBiOSInitAssistantViewController : UIViewController <SEBInitAssistantDelegate> {
+    
+    __weak IBOutlet UITextField *configURLField;
+    __weak IBOutlet UILabel *URLWrongLabel;
+    __weak IBOutlet UIActivityIndicatorView *loadingConfig;
+    __weak IBOutlet UILabel *noConfigFoundLabel;
+}
 
-@property (strong) SEBInitAssistantViewController *assistantController;
-@property (strong) SEBViewController *sebViewController;
+@property (nonatomic, strong) SEBInitAssistantViewController *assistantController;
+//@property (nonatomic, strong) id< SEBInitAssistantViewControllerDelegate > assistantControllerDelegate;
+@property (nonatomic, strong) SEBViewController *sebViewController;
 
 
 @end
