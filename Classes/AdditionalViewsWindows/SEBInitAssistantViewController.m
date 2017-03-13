@@ -45,10 +45,20 @@
     if (URLString.length > 0) {
         NSRange scanResult = [URLString rangeOfString:@"://"];
         if (scanResult.location != NSNotFound) {
-            // Filter expression contains a scheme: save it and replace it with http
-            // (in case scheme contains a wildcard [NSURL URLWithString:... fails)
+            // Filter expression contains a scheme: Check if it is a seb(s):// scheme
+            // if yes, replace it with http(s)
             scheme = [URLString substringToIndex:scanResult.location];
-            URLString = [NSString stringWithFormat:@"http%@", [URLString substringFromIndex:scanResult.location]];
+            NSString *newScheme = scheme;
+            if ([scheme isEqualToString:@"seb"]) {
+                newScheme = @"http";
+            } else if ([scheme isEqualToString:@"sebs"]) {
+                newScheme = @"https";
+            } else if (!([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"])) {
+                // if the scheme isn't seb, sebs, http, https, then don't accept the URL
+                [_controllerDelegate setConfigURLWrongLabelHidden:false];
+                return;
+            }
+            URLString = [NSString stringWithFormat:@"%@%@", newScheme, [URLString substringFromIndex:scanResult.location]];
             // Convert filter expression string to a NSURL
             URLFromString = [NSURL URLWithString:URLString];
         } else {

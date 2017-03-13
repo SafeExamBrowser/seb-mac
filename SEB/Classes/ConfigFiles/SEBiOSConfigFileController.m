@@ -56,22 +56,26 @@
     if (!forceConfiguringClient) {
 
         if ([[MyGlobals sharedMyGlobals] finishedInitializing]) {
-            
             if (_sebViewController.alertController) {
                 [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
             }
-            _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"SEB Re-Configured", nil)
-                                                                        message:NSLocalizedString(@"Local settings of this SEB client have been reconfigured.", nil)
-                                                                 preferredStyle:UIAlertControllerStyleAlert];
-            [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Continue", nil)
-                                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                               [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
-                                                                               
-                                                                               // Inform callback that storing new settings was successful
-                                                                               [super storeNewSEBSettingsSuccessful:true];
-                                                                           }]];
-            
-            [_sebViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
+            if ([_sebViewController.navigationController.visibleViewController isKindOfClass:[_sebViewController class]]) {
+                _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"SEB Re-Configured", nil)
+                                                                                          message:NSLocalizedString(@"Local settings of this SEB client have been reconfigured.", nil)
+                                                                                   preferredStyle:UIAlertControllerStyleAlert];
+                [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Continue", nil)
+                                                                                       style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                                           [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                                           
+                                                                                           // Inform callback that storing new settings was successful
+                                                                                           [super storeNewSEBSettingsSuccessful:true];
+                                                                                       }]];
+                
+                [_sebViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
+            } else {
+                // Inform callback that storing new settings was successful
+                [super storeNewSEBSettingsSuccessful:true];
+            }
 
         } else {
             // Set the flag to eventually display the dialog later
@@ -80,7 +84,6 @@
             // Inform callback that storing new settings was successful
             [super storeNewSEBSettingsSuccessful:true];
         }
-        
     }
     
 //    PreferencesController *prefsController = self.sebController.preferencesController;
