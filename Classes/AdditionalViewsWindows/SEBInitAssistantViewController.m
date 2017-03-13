@@ -59,7 +59,11 @@
             URLFromString = [NSURL URLWithString:URLString];
         }
     }
-    [self checkSEBClientConfigURL:URLFromString withScheme:0];
+    if (URLFromString) {
+        [self checkSEBClientConfigURL:URLFromString withScheme:0];
+    } else {
+        [_controllerDelegate setConfigURLWrongLabelHidden:false];
+    }
 }
 
 
@@ -107,9 +111,12 @@
 - (void) downloadSEBClientConfigFromURL:(NSURL *)url originalURL:(NSURL *)originalURL withScheme:(SEBClientConfigURLSchemes)configURLScheme
 {
     NSError *error = nil;
+    NSData *sebFileData;
     url = [url URLByAppendingPathComponent:@"safeexambrowser/SEBClientSettings.seb"];
-    NSData *sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
-    if (error) {
+    if (url) {
+        sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
+    }
+    if (error || !sebFileData) {
         [self checkSEBClientConfigURL:originalURL withScheme:configURLScheme];
     } else {
         [_controllerDelegate storeSEBClientSettings:sebFileData callback:self selector:@selector(storeSEBClientSettingsSuccessful:)];
@@ -121,6 +128,7 @@
 {
     if (success) {
         [_controllerDelegate setConfigURLWrongLabelHidden:true];
+        [_controllerDelegate closeAssistantRestartSEB];
     } else {
         [_controllerDelegate setConfigURLWrongLabelHidden:false];
     }

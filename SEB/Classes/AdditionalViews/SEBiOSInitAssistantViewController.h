@@ -42,7 +42,6 @@
 @interface SEBiOSInitAssistantViewController : UIViewController <SEBInitAssistantDelegate> {
     
     __weak IBOutlet UITextField *configURLField;
-    __weak IBOutlet UILabel *URLWrongLabel;
     __weak IBOutlet UIActivityIndicatorView *loadingConfig;
     __weak IBOutlet UILabel *noConfigFoundLabel;
 }
