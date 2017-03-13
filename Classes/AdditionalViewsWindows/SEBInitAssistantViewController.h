@@ -38,11 +38,6 @@
 #include <Security/Security.h>
 #import <CommonCrypto/CommonDigest.h>
 
-#import "SEBViewController.h"
-
-
-@class SEBViewController;
-
 
 /**
  * @protocol    SEBInitAssistantViewControllerDelegate
@@ -50,7 +45,7 @@
  * @brief       All SEBInitAssistant view controllers must conform to
  *              the SEBInitAssistantViewControllerDelegate protocol.
  */
-@protocol SEBInitAssistantViewControllerDelegate <NSObject>
+@protocol SEBInitAssistantDelegate <NSObject>
 /**
  * @name		Item Attributes
  */
@@ -61,6 +56,14 @@
  */
 - (void) setConfigURLWrongLabelHidden:(BOOL)hidden;
 
+/**
+ * @brief       Store downloaded SEB client settings and inform callback if successful.
+ * @details
+ */
+-(void) storeSEBClientSettings:(NSData *)sebData
+                   callback:(id)callback
+                   selector:(SEL)selector;
+
 @optional
 
 /**
@@ -68,25 +71,6 @@
  * @details
  */
 @property(readwrite) BOOL examRunning;
-
-/**
- * @brief       Indicates if the exam is running.
- * @details
- */
-@property(readwrite) BOOL sebLocked;
-
-/**
- * @brief       Indicates that the correct quit/restart password was entered and
- *              lockdown windows can be closed now.
- * @details
- */
-@property(readwrite) BOOL unlockPasswordEntered;
-
-/**
- * @brief       Hide or show label indicating wrong password was entered.
- * @details
- */
-- (void) openInfoHUD:(NSString *)lockedTimeInfo;
 
 /**
  * @brief       Open lockdown windows to block access to the exam.
@@ -106,8 +90,7 @@
 
 @interface SEBInitAssistantViewController : NSObject
 
-@property (nonatomic, strong) id< SEBInitAssistantViewControllerDelegate > controllerDelegate;
-@property (strong, nonatomic) SEBViewController *sebViewController;
+@property (nonatomic, strong) id< SEBInitAssistantDelegate > controllerDelegate;
 
 
 - (void) evaluateEnteredURLString:(NSString *)URLString;

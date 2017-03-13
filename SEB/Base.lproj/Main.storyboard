@@ -440,7 +440,7 @@
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7o6-KW-3Qp">
                                                 <rect key="frame" x="262" y="246" width="244" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL"/>
                                                 <connections>
                                                     <action selector="urlEntered:" destination="h8j-pm-u2W" eventType="editingDidEnd" id="alY-kD-P9e"/>
                                                 </connections>
@@ -578,6 +578,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="configURLField" destination="7o6-KW-3Qp" id="gxR-q6-rec"/>
                         <outlet property="loadingConfig" destination="fIn-8J-8FZ" id="Pyr-ve-A0U"/>
                         <outlet property="noConfigFoundLabel" destination="9il-ut-H8z" id="bAf-m1-d7d"/>
                     </connections>

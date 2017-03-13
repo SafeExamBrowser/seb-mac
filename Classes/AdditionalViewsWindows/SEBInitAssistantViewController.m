@@ -34,13 +34,6 @@
 
 #import "SEBInitAssistantViewController.h"
 
-@interface SEBInitAssistantViewController()
-{
-
-}
-
-@end
-
 
 @implementation SEBInitAssistantViewController
 
@@ -75,11 +68,10 @@
 {
     // Check using the next scheme (we can skip first scheme = none)
     configURLScheme++;
-    NSURL *newURL;
     switch (configURLScheme) {
         case SEBClientConfigURLSchemeDomain:
         {
-            [self downloadSEBClientConfigFromURL:newURL originalURL:url withScheme:configURLScheme];
+            [self downloadSEBClientConfigFromURL:url originalURL:url withScheme:configURLScheme];
             break;
         }
             
@@ -89,7 +81,7 @@
             NSString *host = url.host;
             host = [NSString stringWithFormat:@"seb.%@", host];
             urlComponents.host = host;
-            newURL = urlComponents.URL;
+            NSURL *newURL = urlComponents.URL;
             [self downloadSEBClientConfigFromURL:newURL originalURL:url withScheme:configURLScheme];
             break;
         }
@@ -100,12 +92,13 @@
             NSString *host = url.host;
             host = [NSString stringWithFormat:@"safeexambrowser.%@", host];
             urlComponents.host = host;
-            newURL = urlComponents.URL;
+            NSURL *newURL = urlComponents.URL;
             [self downloadSEBClientConfigFromURL:newURL originalURL:url withScheme:configURLScheme];
             break;
         }
             
         default:
+            [self storeSEBClientSettingsSuccessful:false];
             break;
     }
 }
@@ -117,16 +110,20 @@
     url = [url URLByAppendingPathComponent:@"safeexambrowser/SEBClientSettings.seb"];
     NSData *sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
     if (error) {
+        [self checkSEBClientConfigURL:originalURL withScheme:configURLScheme];
+    } else {
+        [_controllerDelegate storeSEBClientSettings:sebFileData callback:self selector:@selector(storeSEBClientSettingsSuccessful:)];
     }
-//    [self.configFileController storeNewSEBSettings:sebFileData forEditing:false callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
-
-
 }
 
 
-- (void) storeNewSEBSettingsSuccessful:(BOOL)success
+- (void) storeSEBClientSettingsSuccessful:(BOOL)success
 {
-    
+    if (success) {
+        [_controllerDelegate setConfigURLWrongLabelHidden:true];
+    } else {
+        [_controllerDelegate setConfigURLWrongLabelHidden:false];
+    }
 }
 
 

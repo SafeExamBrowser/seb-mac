@@ -35,9 +35,11 @@
 #import <UIKit/UIKit.h>
 #import "SEBLockedViewController.h"
 
+@class SEBLockedViewController;
+
 @interface SEBiOSLockedViewController : UIViewController <SEBLockedViewUIDelegate>
 
-@property (strong) SEBLockedViewController *lockedViewController;
+@property (nonatomic, strong) SEBLockedViewController *lockedViewController;
 @property (nonatomic, strong) id< SEBLockedViewControllerDelegate > controllerDelegate;
 
 @property (readwrite, copy) NSAttributedString *resignActiveLogString;

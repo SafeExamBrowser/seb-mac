@@ -1,5 +1,5 @@
 //
-//  SEBiOSLockedViewController.m
+//  SEBiOSInitAssistantViewController.m
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 03/12/15.
@@ -34,15 +34,6 @@
 
 #import "SEBiOSInitAssistantViewController.h"
 
-@interface SEBiOSInitAssistantViewController() {
-    
-    __weak IBOutlet UITextField *configURLField;
-    __weak IBOutlet UILabel *URLWrongLabel;
-    __weak IBOutlet UIActivityIndicatorView *loadingConfig;
-    __weak IBOutlet UILabel *noConfigFoundLabel;
-    
-}
-@end
 
 @implementation SEBiOSInitAssistantViewController
 
@@ -68,7 +59,7 @@
     
     _assistantController = [[SEBInitAssistantViewController alloc] init];
     _assistantController.controllerDelegate = self;
-    _assistantController.sebViewController = _sebViewController;
+//    _assistantController.sebViewController = _sebViewController;
     
     [configURLField addTarget:configURLField
                   action:@selector(resignFirstResponder)
@@ -101,6 +92,16 @@
 - (void)setConfigURLWrongLabelHidden:(BOOL)hidden {
     URLWrongLabel.hidden = hidden;
 }
+
+
+// Store downloaded SEB client settings and inform callback if successful.
+-(void) storeSEBClientSettings:(NSData *)sebData
+                      callback:(id)callback
+                      selector:(SEL)selector
+{
+    [_sebViewController.configFileController storeNewSEBSettings:sebData forEditing:false callback:callback selector:selector];
+}
+
 
 - (IBAction)scanQRCode:(id)sender {
 }

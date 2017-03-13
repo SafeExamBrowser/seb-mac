@@ -60,7 +60,7 @@
 //@property (nonatomic, strong) SEBiOSDockController *dockController;
 @property (nonatomic, strong) SEBSearchBarViewController *searchBarViewController;
 
-@property (strong, nonatomic) SEBiOSInitAssistantViewController<SEBInitAssistantViewControllerDelegate> *assistantViewController;
+@property (strong, nonatomic) SEBiOSInitAssistantViewController *assistantViewController;
 
 @property (strong, nonatomic) SEBiOSLockedViewController< SEBLockedViewUIDelegate > *lockedViewController;
 @property (strong, nonatomic) SEBiOSConfigFileController *configFileController;
