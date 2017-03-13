@@ -446,7 +446,7 @@
                                                     <action selector="urlEntered:" destination="h8j-pm-u2W" eventType="editingDidEnd" id="alY-kD-P9e"/>
                                                 </connections>
                                             </textField>
-                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fIn-8J-8FZ">
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fIn-8J-8FZ">
                                                 <rect key="frame" x="480" y="251" width="20" height="20"/>
                                             </activityIndicatorView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Partial or full URL of a SEB configuration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="wIO-7G-XG7">
@@ -533,6 +533,7 @@
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lf7-gn-5ng" secondAttribute="trailing" constant="20" id="LQS-Z3-e15"/>
                                             <constraint firstItem="BE1-ZM-fgu" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dvS-YS-Rz4" secondAttribute="trailingMargin" id="OHu-Ok-DFz"/>
                                             <constraint firstItem="7o6-KW-3Qp" firstAttribute="centerX" secondItem="dvS-YS-Rz4" secondAttribute="centerX" id="PQn-vD-Uc3"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6pO-9x-gSg" secondAttribute="trailing" constant="20" id="PzI-yh-pWq"/>
                                             <constraint firstItem="BE1-ZM-fgu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dvS-YS-Rz4" secondAttribute="leadingMargin" id="Q2k-yN-IOs"/>
                                             <constraint firstItem="7o6-KW-3Qp" firstAttribute="top" secondItem="wIO-7G-XG7" secondAttribute="bottom" constant="8" symbolic="YES" id="Qrx-tX-vmn"/>
                                             <constraint firstItem="BE1-ZM-fgu" firstAttribute="centerX" secondItem="dvS-YS-Rz4" secondAttribute="centerX" id="UYZ-v4-utF"/>
@@ -543,6 +544,7 @@
                                             <constraint firstItem="Wmj-TM-U1f" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dvS-YS-Rz4" secondAttribute="leading" constant="20" id="a0U-dD-CYr"/>
                                             <constraint firstItem="9il-ut-H8z" firstAttribute="top" secondItem="7o6-KW-3Qp" secondAttribute="bottom" constant="6" id="deY-NC-tl2"/>
                                             <constraint firstItem="lf7-gn-5ng" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dvS-YS-Rz4" secondAttribute="leading" constant="20" id="f5U-t0-8QO"/>
+                                            <constraint firstItem="7o6-KW-3Qp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dvS-YS-Rz4" secondAttribute="leading" constant="20" id="fEE-FH-7Lj"/>
                                             <constraint firstItem="wIO-7G-XG7" firstAttribute="centerX" secondItem="dvS-YS-Rz4" secondAttribute="centerX" id="fyt-eT-jse"/>
                                             <constraint firstItem="wIO-7G-XG7" firstAttribute="leading" secondItem="7o6-KW-3Qp" secondAttribute="leading" id="gLB-5x-LyZ"/>
                                             <constraint firstItem="9il-ut-H8z" firstAttribute="centerX" secondItem="dvS-YS-Rz4" secondAttribute="centerX" id="hYA-xJ-eQo"/>
