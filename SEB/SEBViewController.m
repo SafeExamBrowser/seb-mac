@@ -1163,7 +1163,7 @@ static NSMutableSet *browserWindowControllers;
     } else {
         // When Guided Access is off, then we can restart SEB with the start URL in local client settings
         [self initSEB];
-        [self startExam];
+        [self startAutonomousSingleAppMode];
     }
 }
 
