@@ -446,7 +446,7 @@
                                                     <action selector="urlEntered:" destination="h8j-pm-u2W" eventType="editingDidEnd" id="alY-kD-P9e"/>
                                                 </connections>
                                             </textField>
-                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fIn-8J-8FZ">
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fIn-8J-8FZ">
                                                 <rect key="frame" x="480" y="251" width="20" height="20"/>
                                             </activityIndicatorView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Partial or full URL of a SEB configuration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="wIO-7G-XG7">

@@ -111,6 +111,17 @@
 }
 
 
+- (void)activityIndicatorAnimate:(BOOL)animate
+{
+    if (animate) {
+        loadingConfig.hidden = false;
+        [loadingConfig startAnimating];
+    } else {
+        [loadingConfig stopAnimating];
+        loadingConfig.hidden = true;
+    }
+}
+
 // Store downloaded SEB client settings and inform callback if successful.
 -(void) storeSEBClientSettings:(NSData *)sebData
                       callback:(id)callback
