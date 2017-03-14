@@ -2,7 +2,7 @@
 //  SEBiOSInitAssistantViewController.h
 //  SafeExamBrowser
 //
-//  Created by Daniel R. Schneider on 03/12/15.
+//  Created by Daniel R. Schneider on 07/03/17.
 //  Copyright (c) 2010-2016 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser

@@ -59,23 +59,18 @@
             if (_sebViewController.alertController) {
                 [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
             }
-            if ([_sebViewController.navigationController.visibleViewController isKindOfClass:[_sebViewController class]]) {
-                _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"SEB Re-Configured", nil)
-                                                                                          message:NSLocalizedString(@"Local settings of this SEB client have been reconfigured.", nil)
-                                                                                   preferredStyle:UIAlertControllerStyleAlert];
-                [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Continue", nil)
-                                                                                       style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                                           [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
-                                                                                           
-                                                                                           // Inform callback that storing new settings was successful
-                                                                                           [super storeNewSEBSettingsSuccessful:true];
-                                                                                       }]];
-                
-                [_sebViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
-            } else {
-                // Inform callback that storing new settings was successful
-                [super storeNewSEBSettingsSuccessful:true];
-            }
+            _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"SEB Re-Configured", nil)
+                                                                                      message:NSLocalizedString(@"Local settings of this SEB client have been reconfigured.", nil)
+                                                                               preferredStyle:UIAlertControllerStyleAlert];
+            [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Continue", nil)
+                                                                                   style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                                       [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                                       
+                                                                                       // Inform callback that storing new settings was successful
+                                                                                       [super storeNewSEBSettingsSuccessful:true];
+                                                                                   }]];
+            
+            [_sebViewController.navigationController.visibleViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
 
         } else {
             // Set the flag to eventually display the dialog later
@@ -142,7 +137,7 @@
                                                                  func(callback, selector, nil);
                                                              }]];
     
-    [_sebViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
+    [_sebViewController.navigationController.visibleViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
 }
 
 
@@ -172,7 +167,7 @@
                                                                  [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
                                                              }]];
     
-    [_sebViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
+    [_sebViewController.navigationController.visibleViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
 }
 
 

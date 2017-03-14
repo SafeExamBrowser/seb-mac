@@ -933,7 +933,7 @@ static NSMutableSet *browserWindowControllers;
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                          [_alertController dismissViewControllerAnimated:NO completion:nil];
                                                                      }]];
-                [self presentViewController:_alertController animated:YES completion:nil];
+                [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
                 
             } else {
                 // SEB isn't in exam mode: reconfiguring is allowed
@@ -1072,7 +1072,7 @@ static NSMutableSet *browserWindowControllers;
                                                              //                                                                     [_alertController dismissViewControllerAnimated:NO completion:nil];
                                                          }]];
     
-    [self presentViewController:_alertController animated:YES completion:nil];
+    [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
 }
 
 
@@ -1150,7 +1150,7 @@ static NSMutableSet *browserWindowControllers;
                                                                  [self initSEB];
                                                                  [self startAutonomousSingleAppMode];
                                                              }]];
-        [self presentViewController:_alertController animated:YES completion:nil];
+        [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
     } else if (_guidedAccessActive) {
         if (_lockedViewController) {
             _lockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
@@ -1159,7 +1159,7 @@ static NSMutableSet *browserWindowControllers;
                                                                 message:NSLocalizedString(@"You can now switch off Guided Access by home button triple click or Touch ID.", nil)
                                                          preferredStyle:UIAlertControllerStyleAlert];
         _guidedAccessWarningDisplayed = true;
-        [self presentViewController:_alertController animated:YES completion:nil];
+        [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
     } else {
         // When Guided Access is off, then we can restart SEB with the start URL in local client settings
         [self initSEB];
@@ -1360,7 +1360,7 @@ static NSMutableSet *browserWindowControllers;
                 _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Start Guided Access", nil)
                                                                         message:NSLocalizedString(@"Enable Guided Access in Settings -> General -> Accessibility and after returning to SEB, triple click home button to proceed to exam.", nil)
                                                                  preferredStyle:UIAlertControllerStyleAlert];
-                [self presentViewController:_alertController animated:YES completion:nil];
+                [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
             }
         } else {
             // Guided Access isn't allowed: SEB refuses to start the exam
@@ -1381,7 +1381,7 @@ static NSMutableSet *browserWindowControllers;
                                                                       postNotificationName:@"requestQuit" object:self];
                                                                  }]];
             
-            [self presentViewController:_alertController animated:YES completion:nil];
+            [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
         }
     }
 }
@@ -1399,7 +1399,7 @@ static NSMutableSet *browserWindowControllers;
                                                                     message:NSLocalizedString(@"Activate Guided Access with triple click home button to return to exam.", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];
             _guidedAccessActive = true;
-            [self presentViewController:_alertController animated:YES completion:nil];
+            [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
         }
     } else {
         // If no quit password is defined, then we can restart the exam / reload the start page directly
@@ -1427,7 +1427,7 @@ static NSMutableSet *browserWindowControllers;
                                                                            [self startExam];
         }]];
         _guidedAccessWarningDisplayed = true;
-        [self presentViewController:_alertController animated:YES completion:nil];
+        [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
     }
 }
 
@@ -1632,7 +1632,7 @@ static NSMutableSet *browserWindowControllers;
                                                              action2Handler();
                                                          }]];
     
-    [self presentViewController:_alertController animated:YES completion:nil];
+    [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
 }
 
 
