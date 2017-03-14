@@ -50,6 +50,13 @@
  * @name		Item Attributes
  */
 @required
+
+/**
+ * @brief       Start or stop animating the activity indicator for downloading the config.
+ * @details
+ */
+- (void)activityIndicatorAnimate:(BOOL)animate;
+
 /**
  * @brief       Hide or show the label indicating that the URL entered was wrong.
  * @details

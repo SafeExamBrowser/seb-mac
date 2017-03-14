@@ -126,7 +126,9 @@
         url = [url URLByAppendingPathComponent:@"safeexambrowser/SEBClientSettings.seb"];
     }
     if (url) {
+        [_controllerDelegate activityIndicatorAnimate:true];
         sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
+        [_controllerDelegate activityIndicatorAnimate:false];
     }
     if (error || !sebFileData) {
         [self checkSEBClientConfigURL:originalURL withScheme:configURLScheme];
