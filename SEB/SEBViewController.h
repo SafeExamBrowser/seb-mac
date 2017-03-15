@@ -31,6 +31,28 @@
 //  Contributor(s): ______________________________________.
 //
 
+
+/**
+ * @protocol    SEBConfigURLManagerDelegate
+ *
+ * @brief       All SEB config URL managers must conform to
+ *              the SEBConfigURLDelegate protocol.
+ */
+@protocol SEBConfigURLManagerDelegate <NSObject>
+/**
+ * @name		Item Attributes
+ */
+@required
+
+/**
+ * @brief       Evaluate an entered string, derive a SEB config URL and act on result.
+ * @details
+ */
+- (void)evaluateEnteredURLString:(NSString *)inputURLString;
+
+@end
+
+
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
@@ -56,6 +78,7 @@
 @class SEBiOSInitAssistantViewController;
 @class QRCodeReaderViewController;
 
+
 @interface SEBViewController : UIViewController <SEBLockedViewControllerDelegate, QRCodeReaderDelegate>
 
 @property (nonatomic, strong) SEBBrowserTabViewController *browserTabViewController;
@@ -70,6 +93,8 @@
 @property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
 
 @property (nonatomic, strong) QRCodeReaderViewController *codeReaderViewController;
+
+@property (nonatomic, strong) id <SEBConfigURLManagerDelegate> configURLManagerDelegate;
 
 @property (strong, nonatomic) UIAlertController *alertController;
 @property (strong, nonatomic) UIAlertController *inactiveAlertController;
@@ -98,6 +123,8 @@
 @property(readwrite, strong) NSDate *didResignActiveTime;
 @property(readwrite, strong) NSDate *didBecomeActiveTime;
 @property(readwrite, strong) NSDate *didResumeExamTime;
+
+- (void)scanQRCode:(id)sender;
 
 - (void)conditionallyShowSettingsModal;
 - (void)conditionallyResetSettings;

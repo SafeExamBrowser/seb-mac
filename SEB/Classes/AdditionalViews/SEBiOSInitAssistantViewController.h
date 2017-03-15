@@ -43,7 +43,7 @@
 @class QRCodeReaderViewController;
 
 
-@interface SEBiOSInitAssistantViewController : UIViewController <SEBInitAssistantDelegate, QRCodeReaderDelegate> {
+@interface SEBiOSInitAssistantViewController : UIViewController <SEBInitAssistantDelegate, QRCodeReaderDelegate, SEBConfigURLManagerDelegate> {
     
     __weak IBOutlet UITextField *configURLField;
     __weak IBOutlet UIActivityIndicatorView *loadingConfig;

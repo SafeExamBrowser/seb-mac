@@ -63,24 +63,17 @@
     [configURLField addTarget:configURLField
                   action:@selector(resignFirstResponder)
         forControlEvents:UIControlEventEditingDidEndOnExit];
-    
-    /// Initialize QR code reader
-    // Create the reader object
-    QRCodeReader *codeReader = [QRCodeReader readerWithMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]];
-    
-    // Instantiate the view controller
-    _codeReaderViewController = [QRCodeReaderViewController readerWithCancelButtonTitle:@"Cancel" codeReader:codeReader startScanningAtLoad:YES showSwitchCameraButton:YES showTorchButton:YES];
-    
-    // Set the presentation style
-    _codeReaderViewController.modalPresentationStyle = UIModalPresentationFormSheet;
-    
-    // Define the delegate receiver
-    _codeReaderViewController.delegate = self;
 }
 
 
 - (void)viewDidLayoutSubviews
 {
+}
+
+
+- (BOOL) prefersStatusBarHidden
+{
+    return true;
 }
 
 
@@ -142,7 +135,16 @@
 
 - (IBAction)scanQRCode:(id)sender
 {
-    [self presentViewController:_codeReaderViewController animated:YES completion:NULL];
+    // Define the ConfigURLManager delegate for evaluating the scanned URL
+    _sebViewController.configURLManagerDelegate = self;
+
+    [_sebViewController scanQRCode:self];
+}
+
+
+- (void)evaluateEnteredURLString:(NSString *)inputURLString
+{
+    [_assistantController evaluateEnteredURLString:inputURLString];
 }
 
 
@@ -160,7 +162,7 @@
 {
     [_codeReaderViewController dismissViewControllerAnimated:YES completion:^{
         NSLog(@"%@", result);
-        [_assistantController evaluateEnteredURLString:result];
+//        [_assistantController evaluateEnteredURLString:result];
     }];
 }
 
