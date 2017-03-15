@@ -347,7 +347,7 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)scanQRCode:(id)sender
 {
-    [self.navigationController.visibleViewController presentViewController:_codeReaderViewController animated:YES completion:NULL];
+    [self.navigationController.visibleViewController presentViewController:self.codeReaderViewController animated:YES completion:NULL];
 }
 
 
@@ -355,15 +355,15 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)reader:(QRCodeReaderViewController *)reader didScanResult:(NSString *)result
 {
-    [_codeReaderViewController dismissViewControllerAnimated:YES completion:^{
+    [self.codeReaderViewController dismissViewControllerAnimated:YES completion:^{
         NSLog(@"%@", result);
-//        [_assistantController evaluateEnteredURLString:result];
+        [_configURLManagerDelegate evaluateEnteredURLString:result];
     }];
 }
 
 - (void)readerDidCancel:(QRCodeReaderViewController *)reader
 {
-    [_codeReaderViewController dismissViewControllerAnimated:YES completion:NULL];
+    [self.codeReaderViewController dismissViewControllerAnimated:YES completion:NULL];
 }
 
 
