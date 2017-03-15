@@ -121,6 +121,26 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+// Initialize and return QR code reader
+- (QRCodeReaderViewController*)codeReaderViewController
+{
+    if (!_codeReaderViewController) {
+        // Create the reader object
+        QRCodeReader *codeReader = [QRCodeReader readerWithMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]];
+        
+        // Instantiate the view controller
+        _codeReaderViewController = [QRCodeReaderViewController readerWithCancelButtonTitle:@"Cancel" codeReader:codeReader startScanningAtLoad:YES showSwitchCameraButton:NO showTorchButton:YES];
+        
+        // Set the presentation style
+        _codeReaderViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+        
+        // Define the delegate receiver
+        _codeReaderViewController.delegate = self;
+    }
+    return _codeReaderViewController;
+}
+
+
 + (WKWebViewConfiguration *)defaultWebViewConfiguration
 {
     static WKWebViewConfiguration *configuration;
@@ -320,6 +340,30 @@ static NSMutableSet *browserWindowControllers;
         _initAssistantOpen = true;
         [self presentViewController:_assistantViewController animated:YES completion:nil];
     }
+}
+
+
+#pragma mark - QRCodeReader
+
+- (void)scanQRCode:(id)sender
+{
+    [self.navigationController.visibleViewController presentViewController:_codeReaderViewController animated:YES completion:NULL];
+}
+
+
+#pragma mark - QRCodeReader Delegate Methods
+
+- (void)reader:(QRCodeReaderViewController *)reader didScanResult:(NSString *)result
+{
+    [_codeReaderViewController dismissViewControllerAnimated:YES completion:^{
+        NSLog(@"%@", result);
+//        [_assistantController evaluateEnteredURLString:result];
+    }];
+}
+
+- (void)readerDidCancel:(QRCodeReaderViewController *)reader
+{
+    [_codeReaderViewController dismissViewControllerAnimated:YES completion:NULL];
 }
 
 

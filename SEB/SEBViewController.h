@@ -43,6 +43,7 @@
 #import "SEBLockedViewController.h"
 #import "SEBiOSLockedViewController.h"
 #import "SEBiOSConfigFileController.h"
+#import "QRCodeReaderViewController.h"
 
 #import "SEBBrowserTabViewController.h"
 #import "SEBSearchBarViewController.h"
@@ -53,8 +54,9 @@
 @class SEBiOSConfigFileController;
 @class SEBInitAssistantViewController;
 @class SEBiOSInitAssistantViewController;
+@class QRCodeReaderViewController;
 
-@interface SEBViewController : UIViewController <SEBLockedViewControllerDelegate>
+@interface SEBViewController : UIViewController <SEBLockedViewControllerDelegate, QRCodeReaderDelegate>
 
 @property (nonatomic, strong) SEBBrowserTabViewController *browserTabViewController;
 //@property (nonatomic, strong) SEBiOSDockController *dockController;
@@ -66,6 +68,8 @@
 @property (strong, nonatomic) SEBiOSConfigFileController *configFileController;
 
 @property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
+
+@property (nonatomic, strong) QRCodeReaderViewController *codeReaderViewController;
 
 @property (strong, nonatomic) UIAlertController *alertController;
 @property (strong, nonatomic) UIAlertController *inactiveAlertController;
