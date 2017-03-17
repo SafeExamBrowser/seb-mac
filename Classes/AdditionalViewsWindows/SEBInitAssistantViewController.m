@@ -72,7 +72,7 @@
     if (URLFromString) {
         [self checkSEBClientConfigURL:URLFromString withScheme:0];
     } else {
-        [_controllerDelegate setConfigURLWrongLabelHidden:false];
+        [_controllerDelegate setConfigURLWrongLabelHidden:URLString.length == 0];
     }
 }
 

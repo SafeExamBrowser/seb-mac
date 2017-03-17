@@ -336,6 +336,7 @@ static NSMutableSet *browserWindowControllers;
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             _assistantViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBInitAssistantView"];
             _assistantViewController.sebViewController = self;
+            _assistantViewController.modalPresentationStyle = UIModalPresentationFormSheet;
         }
         _initAssistantOpen = true;
         [self presentViewController:_assistantViewController animated:YES completion:nil];
@@ -356,7 +357,7 @@ static NSMutableSet *browserWindowControllers;
 - (void)reader:(QRCodeReaderViewController *)reader didScanResult:(NSString *)result
 {
     [self.codeReaderViewController dismissViewControllerAnimated:YES completion:^{
-        NSLog(@"%@", result);
+        DDLogInfo(@"%@", result);
         [_configURLManagerDelegate evaluateEnteredURLString:result];
     }];
 }
