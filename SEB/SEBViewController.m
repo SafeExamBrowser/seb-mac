@@ -124,18 +124,57 @@ static NSMutableSet *browserWindowControllers;
 // Initialize and return QR code reader
 - (QRCodeReaderViewController*)codeReaderViewController
 {
-    if (!_codeReaderViewController) {
-        // Create the reader object
-        QRCodeReader *codeReader = [QRCodeReader readerWithMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]];
-        
-        // Instantiate the view controller
-        _codeReaderViewController = [QRCodeReaderViewController readerWithCancelButtonTitle:@"Cancel" codeReader:codeReader startScanningAtLoad:YES showSwitchCameraButton:NO showTorchButton:YES];
-        
-        // Set the presentation style
-        _codeReaderViewController.modalPresentationStyle = UIModalPresentationFormSheet;
-        
-        // Define the delegate receiver
-        _codeReaderViewController.delegate = self;
+    if ([QRCodeReader isAvailable]) {
+        if (!_codeReaderViewController) {
+            // Create the reader object
+            QRCodeReader *codeReader = [QRCodeReader readerWithMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]];
+            
+            // Instantiate the view controller
+            _codeReaderViewController = [QRCodeReaderViewController readerWithCancelButtonTitle:NSLocalizedString(@"Cancel", nil) codeReader:codeReader startScanningAtLoad:YES showSwitchCameraButton:NO showTorchButton:YES];
+            
+            // Set the presentation style
+            _codeReaderViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+            
+            // Define the delegate receiver
+            _codeReaderViewController.delegate = self;
+        }
+    } else {
+        // Check if user denied access to camera
+        NSString *mediaType = AVMediaTypeVideo;
+        AVAuthorizationStatus camAuthStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
+        if (camAuthStatus == AVAuthorizationStatusDenied) {
+            if (_alertController) {
+                [_alertController dismissViewControllerAnimated:NO completion:nil];
+            }
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Camera Access Denied", nil)
+                                                                    message:NSLocalizedString(@"To scan a QR code, enable the camera in settings", nil)
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Settings", nil)
+                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                     [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                     NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                                                                     if ([[UIApplication sharedApplication] canOpenURL:url]) {
+                                                                         [[UIApplication sharedApplication] openURL:url];
+                                                                     }
+                                                                 }]];
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                 style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                                     [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                 }]];
+            [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
+        } else if (camAuthStatus == AVAuthorizationStatusNotDetermined) {
+            if (_alertController) {
+                [_alertController dismissViewControllerAnimated:NO completion:nil];
+            }
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Camera Available", nil)
+                                                                    message:NSLocalizedString(@"To scan a QR code, your device must have a camera", nil)
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                     [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                 }]];
+            [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
+        }
     }
     return _codeReaderViewController;
 }
@@ -348,7 +387,11 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)scanQRCode:(id)sender
 {
-    [self.navigationController.visibleViewController presentViewController:self.codeReaderViewController animated:YES completion:NULL];
+    if (self.codeReaderViewController) {
+        if ([QRCodeReader isAvailable]) {
+            [self.navigationController.visibleViewController presentViewController:self.codeReaderViewController animated:YES completion:NULL];
+        }
+    }
 }
 
 
@@ -1112,7 +1155,7 @@ static NSMutableSet *browserWindowControllers;
                                                          }]];
     
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
-                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                         style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                                                              [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
                                                              //                                                                     [_alertController dismissViewControllerAnimated:NO completion:nil];
                                                          }]];
@@ -1420,7 +1463,7 @@ static NSMutableSet *browserWindowControllers;
                                                                  }]];
             
             [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Quit", nil)
-                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                 style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                                                                      [_alertController dismissViewControllerAnimated:NO completion:nil];
                                                                      [[NSNotificationCenter defaultCenter]
                                                                       postNotificationName:@"requestQuit" object:self];
@@ -1673,7 +1716,7 @@ static NSMutableSet *browserWindowControllers;
                                                              action1Handler();
                                                          }]];
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
-                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                         style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                                                              action2Handler();
                                                          }]];
     

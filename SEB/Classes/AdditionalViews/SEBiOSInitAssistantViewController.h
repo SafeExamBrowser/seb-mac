@@ -35,12 +35,10 @@
 #import <UIKit/UIKit.h>
 #import "SEBInitAssistantViewController.h"
 #import "SEBViewController.h"
-#import "QRCodeReaderViewController.h"
 
 
 @class SEBInitAssistantViewController;
 @class SEBViewController;
-@class QRCodeReaderViewController;
 
 
 @interface SEBiOSInitAssistantViewController : UIViewController <SEBInitAssistantDelegate, SEBConfigURLManagerDelegate> {
@@ -49,6 +47,7 @@
     __weak IBOutlet UIActivityIndicatorView *loadingConfig;
     __weak IBOutlet UILabel *noConfigURLFoundLabel;
     __weak IBOutlet UILabel *noConfigQRCodeFoundLabel;
+    __weak IBOutlet UIButton *QRCodeScanButton;
     
     UILabel *noConfigFoundLabel;
     
@@ -57,8 +56,6 @@
 @property (nonatomic, strong) SEBInitAssistantViewController *assistantController;
 //@property (nonatomic, strong) id< SEBInitAssistantViewControllerDelegate > assistantControllerDelegate;
 @property (nonatomic, strong) SEBViewController *sebViewController;
-
-@property (nonatomic, strong) QRCodeReaderViewController *codeReaderViewController;
 
 
 @end
