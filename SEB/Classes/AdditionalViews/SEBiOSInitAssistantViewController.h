@@ -43,11 +43,15 @@
 @class QRCodeReaderViewController;
 
 
-@interface SEBiOSInitAssistantViewController : UIViewController <SEBInitAssistantDelegate, QRCodeReaderDelegate, SEBConfigURLManagerDelegate> {
+@interface SEBiOSInitAssistantViewController : UIViewController <SEBInitAssistantDelegate, SEBConfigURLManagerDelegate> {
     
     __weak IBOutlet UITextField *configURLField;
     __weak IBOutlet UIActivityIndicatorView *loadingConfig;
-    __weak IBOutlet UILabel *noConfigFoundLabel;
+    __weak IBOutlet UILabel *noConfigURLFoundLabel;
+    __weak IBOutlet UILabel *noConfigQRCodeFoundLabel;
+    
+    UILabel *noConfigFoundLabel;
+    
 }
 
 @property (nonatomic, strong) SEBInitAssistantViewController *assistantController;

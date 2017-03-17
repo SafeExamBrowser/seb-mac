@@ -22,7 +22,7 @@
 			<key>Key</key>
 			<string>allowEditingConfig</string>
 			<key>DefaultValue</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FooterText</key>

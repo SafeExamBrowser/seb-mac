@@ -78,7 +78,10 @@
 
 
 - (IBAction)urlEntered:(id)sender {
+    noConfigQRCodeFoundLabel.hidden = true;
+    noConfigFoundLabel = noConfigURLFoundLabel;
     [_assistantController evaluateEnteredURLString:configURLField.text];
+    [configURLField resignFirstResponder];
 }
 
 
@@ -135,6 +138,9 @@
 
 - (IBAction)scanQRCode:(id)sender
 {
+    configURLField.text = @"";
+    noConfigURLFoundLabel.hidden = true;
+    noConfigFoundLabel = noConfigQRCodeFoundLabel;
     // Define the ConfigURLManager delegate for evaluating the scanned URL
     _sebViewController.configURLManagerDelegate = self;
 
@@ -153,22 +159,6 @@
         _sebViewController.initAssistantOpen = false;
         [_sebViewController conditionallyShowSettingsModal];
     }];
-}
-
-
-#pragma mark - QRCodeReader Delegate Methods
-
-- (void)reader:(QRCodeReaderViewController *)reader didScanResult:(NSString *)result
-{
-    [_codeReaderViewController dismissViewControllerAnimated:YES completion:^{
-        NSLog(@"%@", result);
-//        [_assistantController evaluateEnteredURLString:result];
-    }];
-}
-
-- (void)readerDidCancel:(QRCodeReaderViewController *)reader
-{
-    [_codeReaderViewController dismissViewControllerAnimated:YES completion:NULL];
 }
 
 
