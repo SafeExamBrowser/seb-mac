@@ -460,12 +460,11 @@
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fIn-8J-8FZ">
                                                 <rect key="frame" x="709" y="163" width="20" height="20"/>
                                             </activityIndicatorView>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6pO-9x-gSg">
-                                                <rect key="frame" x="745" y="162" width="11" height="22"/>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6pO-9x-gSg">
+                                                <rect key="frame" x="745" y="163" width="11" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="11" id="bj0-dq-iPp"/>
                                                 </constraints>
-                                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" image="SEBToolbarNavigateForwardIcon.png"/>
                                                 <connections>
                                                     <action selector="urlEntered:" destination="h8j-pm-u2W" eventType="touchUpInside" id="Bjm-06-rdb"/>
@@ -491,7 +490,6 @@
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TLh-eI-sov">
                                                 <rect key="frame" x="32" y="259" width="54" height="54"/>
-                                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" image="SEBQRCode.png"/>
                                                 <connections>
                                                     <action selector="scanQRCode:" destination="h8j-pm-u2W" eventType="touchUpInside" id="wjr-1w-Inm"/>
@@ -513,13 +511,9 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sIk-vP-dKf">
-                                                <rect key="frame" x="32" y="377" width="112" height="20"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <state key="normal" title="Edit Settings" image="SEBSliderSettingsIcon.png">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sIk-vP-dKf">
+                                                <rect key="frame" x="32" y="377" width="107" height="20"/>
+                                                <state key="normal" title="Edit Settings" image="SEBSliderSettingsIcon.png"/>
                                                 <connections>
                                                     <action selector="editSettings:" destination="h8j-pm-u2W" eventType="touchUpInside" id="ywv-Ov-gNn"/>
                                                 </connections>
@@ -615,6 +609,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="QRCodeScanButton" destination="TLh-eI-sov" id="kOi-wo-i5i"/>
                         <outlet property="configURLField" destination="7o6-KW-3Qp" id="gxR-q6-rec"/>
                         <outlet property="loadingConfig" destination="fIn-8J-8FZ" id="Pyr-ve-A0U"/>
                         <outlet property="noConfigQRCodeFoundLabel" destination="fem-Ic-Pih" id="oh9-gt-NO8"/>
