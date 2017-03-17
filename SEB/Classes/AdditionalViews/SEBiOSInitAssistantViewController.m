@@ -127,7 +127,7 @@
 }
 
 
--(void) closeAssistantRestartSEB
+-(void)closeAssistantRestartSEB
 {
     [self dismissViewControllerAnimated:YES completion:^{
         _sebViewController.initAssistantOpen = false;
@@ -145,6 +145,12 @@
     _sebViewController.configURLManagerDelegate = self;
 
     [_sebViewController scanQRCode:self];
+}
+
+
+- (void)enableQRScanButton:(BOOL)enabled
+{
+    QRCodeScanButton.enabled = enabled;
 }
 
 
