@@ -534,6 +534,8 @@ static NSMutableSet *browserWindowControllers;
         [_alertController dismissViewControllerAnimated:NO completion:nil];
     }
 
+    [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:0 forBarMetrics:UIBarMetricsDefault];
+
 //    UISplitViewController *splitViewController = [UISplitViewController new];
 //    UIViewController *detailViewController = [[UIViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
@@ -624,7 +626,10 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
 {
+    [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:5 forBarMetrics:UIBarMetricsDefault];
+    
     [sender dismissViewControllerAnimated:YES completion:^{
+        
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         
         // Get entered passwords and save their hashes to SEB settings
@@ -651,7 +656,6 @@ static NSMutableSet *browserWindowControllers;
         [self initSEB];
         [self startAutonomousSingleAppMode];
     }];
-
 }
 
 
