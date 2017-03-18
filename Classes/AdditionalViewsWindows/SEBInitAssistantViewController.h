@@ -61,7 +61,7 @@
  * @brief       Hide or show the label indicating that the URL entered was wrong.
  * @details
  */
-- (void) setConfigURLWrongLabelHidden:(BOOL)hidden;
+- (void)setConfigURLWrongLabelHidden:(BOOL)hidden forClientConfigURL:(BOOL)clientConfigURL;
 
 /**
  * @brief       Store downloaded SEB client settings and inform callback if successful.
@@ -88,7 +88,9 @@
 @end
 
 
-@interface SEBInitAssistantViewController : NSObject
+@interface SEBInitAssistantViewController : NSObject {
+    BOOL clientConfigURL;
+}
 
 @property (nonatomic, strong) id< SEBInitAssistantDelegate > controllerDelegate;
 

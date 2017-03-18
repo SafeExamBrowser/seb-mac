@@ -124,6 +124,8 @@
 @property(readwrite, strong) NSDate *didBecomeActiveTime;
 @property(readwrite, strong) NSDate *didResumeExamTime;
 
+
+- (void)showConfigURLWarning;
 - (void)scanQRCode:(id)sender;
 
 - (void)conditionallyShowSettingsModal;

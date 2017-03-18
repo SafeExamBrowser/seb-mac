@@ -55,7 +55,7 @@
                 newScheme = @"https";
             } else if (!([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"])) {
                 // if the scheme isn't seb, sebs, http, https, then don't accept the URL
-                [_controllerDelegate setConfigURLWrongLabelHidden:false];
+                [_controllerDelegate setConfigURLWrongLabelHidden:false forClientConfigURL:false];
                 return;
             }
             URLString = [NSString stringWithFormat:@"%@%@", newScheme, [URLString substringFromIndex:scanResult.location]];
@@ -70,9 +70,10 @@
         }
     }
     if (URLFromString) {
+        clientConfigURL = false;
         [self checkSEBClientConfigURL:URLFromString withScheme:0];
     } else {
-        [_controllerDelegate setConfigURLWrongLabelHidden:URLString.length == 0];
+        [_controllerDelegate setConfigURLWrongLabelHidden:URLString.length == 0 forClientConfigURL:false];
     }
 }
 
@@ -124,6 +125,7 @@
     NSData *sebFileData;
     if (![url.pathExtension isEqualToString:@"seb"]) {
         url = [url URLByAppendingPathComponent:@"safeexambrowser/SEBClientSettings.seb"];
+        clientConfigURL = true;
     }
     if (url) {
         [_controllerDelegate activityIndicatorAnimate:true];
@@ -141,10 +143,10 @@
 - (void) storeSEBClientSettingsSuccessful:(BOOL)success
 {
     if (success) {
-        [_controllerDelegate setConfigURLWrongLabelHidden:true];
+        [_controllerDelegate setConfigURLWrongLabelHidden:true forClientConfigURL:clientConfigURL];
         [_controllerDelegate closeAssistantRestartSEB];
     } else {
-        [_controllerDelegate setConfigURLWrongLabelHidden:false];
+        [_controllerDelegate setConfigURLWrongLabelHidden:false forClientConfigURL:clientConfigURL];
     }
 }
 

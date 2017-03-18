@@ -368,7 +368,7 @@ static NSMutableSet *browserWindowControllers;
 
 #pragma mark - Inititial Configuration Assistant
 
-- (void) openInitAssistant
+- (void)openInitAssistant
 {
     if (!_initAssistantOpen) {
         if (!_assistantViewController) {
@@ -380,6 +380,17 @@ static NSMutableSet *browserWindowControllers;
         _initAssistantOpen = true;
         [self presentViewController:_assistantViewController animated:YES completion:nil];
     }
+}
+
+
+- (void)showConfigURLWarning
+{
+    [self alertWithTitle:NSLocalizedString(@"No SEB Configuration Found", nil)
+                 message:NSLocalizedString(@"Your institution might not support Automatic SEB Client Configuration. Follow the instructions of your exam administrator.", nil)
+            action1Title:NSLocalizedString(@"OK", nil)
+          action1Handler:^{}
+            action2Title:nil
+          action2Handler:^{}];
 }
 
 
@@ -1719,10 +1730,12 @@ static NSMutableSet *browserWindowControllers;
                                                              [_alertController dismissViewControllerAnimated:NO completion:nil];
                                                              action1Handler();
                                                          }]];
-    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
-                                                         style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                                             action2Handler();
-                                                         }]];
+    if (action2Title) {
+        [_alertController addAction:[UIAlertAction actionWithTitle:action2Title
+                                                             style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                                 action2Handler();
+                                                             }]];
+    }
     
     [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
 }
