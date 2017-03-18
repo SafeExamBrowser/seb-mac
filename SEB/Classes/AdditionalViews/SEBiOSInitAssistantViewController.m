@@ -86,7 +86,7 @@
 
 
 - (IBAction)typingURL:(id)sender {
-    [self setConfigURLWrongLabelHidden:true];
+    [self setConfigURLWrongLabelHidden:true forClientConfigURL:false];
 }
 
 
@@ -102,8 +102,15 @@
 }
 
 
-- (void)setConfigURLWrongLabelHidden:(BOOL)hidden {
+- (void)setConfigURLWrongLabelHidden:(BOOL)hidden forClientConfigURL:(BOOL)clientConfigURL {
     noConfigFoundLabel.hidden = hidden;
+
+    // The first time a wrong SEB client config URL is entered, we display a warning
+    // that not all institutions support Automatic SEB Client Configuration
+    if (!hidden && clientConfigURL && ![[NSUserDefaults standardUserDefaults] boolForKey:@"configURLWarningDisplayed"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"configURLWarningDisplayed"];
+        [_sebViewController showConfigURLWarning];
+    }
 }
 
 
