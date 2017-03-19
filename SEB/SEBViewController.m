@@ -923,13 +923,49 @@ static NSMutableSet *browserWindowControllers;
         dockItem.width = 0;
         [newDockItems addObject:dockItem];
         
-        // Add reload page command to slider items
+    }
+    // Always add reload page command to slider items
+    sliderIcon = [UIImage imageNamed:@"SEBSliderReloadIcon"];
+    sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Reload Page",nil)
+                                                        icon:sliderIcon
+                                                      target:self
+                                                      action:@selector(reload)];
+    [sliderCommands addObject:sliderCommandItem];
+    
+    // Add scan QR code command/Home screen quick action/dock button
+    // if SEB isn't running in exam mode (= no quit pw)
+    if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length == 0) {
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showScanQRCodeButton"]) {
+            dockIcon = [UIImage imageNamed:@"SEBReloadIcon"];
+            dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                        style:UIBarButtonItemStylePlain
+                                                       target:self
+                                                       action:@selector(scanQRCode:)];
+            [newDockItems addObject:dockItem];
+            
+            dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+            dockItem.width = 0;
+            [newDockItems addObject:dockItem];
+            
+        }
+        // Add scan QR code command to slider items
         sliderIcon = [UIImage imageNamed:@"SEBSliderReloadIcon"];
-        sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Reload Page",nil)
+        sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Scan QR Code Config",nil)
                                                             icon:sliderIcon
                                                           target:self
-                                                          action:@selector(reload)];
+                                                          action:@selector(scanQRCode:)];
         [sliderCommands addObject:sliderCommandItem];
+        
+        // Add scan QR code Home screen quick action
+        NSMutableArray *shortcutItems = [UIApplication sharedApplication].shortcutItems.mutableCopy;
+        UIApplicationShortcutIcon *shortcutItemIcon = [UIApplicationShortcutIcon iconWithTemplateImageName:@"SEBReloadIcon"];
+        UIApplicationShortcutItem *scanQRCodeShortcutItem = [[UIApplicationShortcutItem alloc] initWithType:@"org.safeexambrowser.SEB.ScanQRCodeConfig"
+                                                                                             localizedTitle:@"Scan QR Code Config"
+                                                                                          localizedSubtitle:nil
+                                                                                                       icon:shortcutItemIcon
+                                                                                                   userInfo:nil];
+        [shortcutItems addObject:scanQRCodeShortcutItem];
+        [UIApplication sharedApplication].shortcutItems = shortcutItems.copy;
     }
     
     // Add Quit button
