@@ -433,6 +433,12 @@
 		69CFFA701D3641B500FE5655 /* SEBSliderItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F215E41CE74FF300BD9AA3 /* SEBSliderItem.h */; };
 		69D1EBE61BFEAD73001838DC /* SEBDockItemTime.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D1EBE41BFEAD73001838DC /* SEBDockItemTime.h */; };
 		69D1EBE71BFEAD73001838DC /* SEBDockItemTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D1EBE51BFEAD73001838DC /* SEBDockItemTime.m */; };
+		69D5988A1E7F222D00698BA8 /* SEBQRCodeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D598871E7F222D00698BA8 /* SEBQRCodeIcon.png */; };
+		69D5988B1E7F222D00698BA8 /* SEBQRCodeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D598871E7F222D00698BA8 /* SEBQRCodeIcon.png */; };
+		69D5988C1E7F222D00698BA8 /* SEBQRCodeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D598881E7F222D00698BA8 /* SEBQRCodeIcon@2x.png */; };
+		69D5988D1E7F222D00698BA8 /* SEBQRCodeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D598881E7F222D00698BA8 /* SEBQRCodeIcon@2x.png */; };
+		69D5988E1E7F222D00698BA8 /* SEBQRCodeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D598891E7F222D00698BA8 /* SEBQRCodeIcon@3x.png */; };
+		69D5988F1E7F222D00698BA8 /* SEBQRCodeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D598891E7F222D00698BA8 /* SEBQRCodeIcon@3x.png */; };
 		69D817E518017DDB00EB7885 /* SEBURLFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D817E318017DDB00EB7885 /* SEBURLFilter.h */; };
 		69D817E618017DDB00EB7885 /* SEBURLFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D817E418017DDB00EB7885 /* SEBURLFilter.m */; };
 		69DA91251C6A3685008D38E6 /* SEBShutDownIconHighlighted.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69DA91241C6A3685008D38E6 /* SEBShutDownIconHighlighted.iconset */; };
@@ -845,6 +851,9 @@
 		69D5983314C81FEA005FE98C /* NSWindow+SEBWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSWindow+SEBWindow.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69D5983614C823AE005FE98C /* MethodSwizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MethodSwizzling.h; sourceTree = "<group>"; };
 		69D5983714C823AE005FE98C /* MethodSwizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MethodSwizzling.m; sourceTree = "<group>"; };
+		69D598871E7F222D00698BA8 /* SEBQRCodeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBQRCodeIcon.png; path = Resources/Icons/Dock/SEBQRCodeIcon.png; sourceTree = "<group>"; };
+		69D598881E7F222D00698BA8 /* SEBQRCodeIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBQRCodeIcon@2x.png"; path = "Resources/Icons/Dock/SEBQRCodeIcon@2x.png"; sourceTree = "<group>"; };
+		69D598891E7F222D00698BA8 /* SEBQRCodeIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBQRCodeIcon@3x.png"; path = "Resources/Icons/Dock/SEBQRCodeIcon@3x.png"; sourceTree = "<group>"; };
 		69D817E318017DDB00EB7885 /* SEBURLFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBURLFilter.h; sourceTree = "<group>"; };
 		69D817E418017DDB00EB7885 /* SEBURLFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBURLFilter.m; sourceTree = "<group>"; };
 		69D9A1641AEE405C005680FF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesBrowser.strings; sourceTree = "<group>"; };
@@ -1195,6 +1204,9 @@
 				694055A51CF32B030036C480 /* SEBRestartIcon.png */,
 				694055A61CF32B030036C480 /* SEBRestartIcon@2x.png */,
 				694055A71CF32B030036C480 /* SEBRestartIcon@3x.png */,
+				69D598871E7F222D00698BA8 /* SEBQRCodeIcon.png */,
+				69D598881E7F222D00698BA8 /* SEBQRCodeIcon@2x.png */,
+				69D598891E7F222D00698BA8 /* SEBQRCodeIcon@3x.png */,
 				691018C41CF1B33900AB8803 /* SEBShutDownIcon.png */,
 				691018C31CF1B33900AB8803 /* SEBShutDownIcon@2x.png */,
 				694055AD1CF32B310036C480 /* SEBShutDownIcon@3x.png */,
@@ -2099,6 +2111,7 @@
 				694055AA1CF32B030036C480 /* SEBRestartIcon@3x.png in Resources */,
 				691018D21CF1EA8300AB8803 /* SEBDockIcon@2x.png in Resources */,
 				693A39711E60AC8F005030B0 /* SEBSliderNavigateBackIcon@3x.png in Resources */,
+				69D5988E1E7F222D00698BA8 /* SEBQRCodeIcon@3x.png in Resources */,
 				691018D91CF26A9C00AB8803 /* SEBReloadIcon.png in Resources */,
 				6966F8831D1D96BE00684182 /* SEBSliderRestartIcon.png in Resources */,
 				69B253EF1E4E2630000B4A6D /* SEBSliderShutDownIcon@3x.png in Resources */,
@@ -2114,6 +2127,7 @@
 				69B253ED1E4E2630000B4A6D /* SEBSliderSettingsIcon@3x.png in Resources */,
 				69B226E41D4108BA0065B831 /* Icon-22x29@2x.png in Resources */,
 				695A8EDE1E6CC87600601099 /* SEBToolbarNavigateBackIcon@2x.png in Resources */,
+				69D5988C1E7F222D00698BA8 /* SEBQRCodeIcon@2x.png in Resources */,
 				692476F51D27343600931AD8 /* SEB.entitlements in Resources */,
 				69358DD81E6E0D5F000539F6 /* SEBQRCode@2x.png in Resources */,
 				69358DDB1E6E0D5F000539F6 /* SEBQRCode@3x.png in Resources */,
@@ -2139,6 +2153,7 @@
 				6966F8871D1DE07100684182 /* SEBSliderSettingsIcon.png in Resources */,
 				691018D11CF1EA8300AB8803 /* SEBDockIcon.png in Resources */,
 				693A39611E60AC6C005030B0 /* SEBNavigateForwardIcon.png in Resources */,
+				69D5988A1E7F222D00698BA8 /* SEBQRCodeIcon.png in Resources */,
 				69B253EB1E4E2630000B4A6D /* SEBSliderRestartIcon@3x.png in Resources */,
 				696DAD221C3C2B1400397E18 /* SearchWebView.js in Resources */,
 				6966F8841D1D96BE00684182 /* SEBSliderRestartIcon@2x.png in Resources */,
@@ -2165,6 +2180,7 @@
 			files = (
 				69CFFA2C1D3641B500FE5655 /* continueCircle@2x.png in Resources */,
 				69B253EE1E4E2630000B4A6D /* SEBSliderSettingsIcon@3x.png in Resources */,
+				69D5988D1E7F222D00698BA8 /* SEBQRCodeIcon@2x.png in Resources */,
 				693A396E1E60AC8F005030B0 /* SEBSliderNavigateBackIcon.png in Resources */,
 				69CFFA2D1D3641B500FE5655 /* SEBRestartIcon.png in Resources */,
 				695A8EF21E6CCEFA00601099 /* SEBToolbarNavigateBackIcon@3x.png in Resources */,
@@ -2211,6 +2227,7 @@
 				69B253E41E4E2211000B4A6D /* SEBSliderSkipBackIcon@3x.png in Resources */,
 				69CFFA451D3641B500FE5655 /* Settings.bundle in Resources */,
 				69CFFA461D3641B500FE5655 /* Main.storyboard in Resources */,
+				69D5988B1E7F222D00698BA8 /* SEBQRCodeIcon.png in Resources */,
 				69CFFA471D3641B500FE5655 /* SEBRestartIcon@2x.png in Resources */,
 				69CFFA481D3641B500FE5655 /* SEBSliderShutDownIcon.png in Resources */,
 				69B253E21E4E2211000B4A6D /* SEBSliderSkipBackIcon@2x.png in Resources */,
@@ -2227,6 +2244,7 @@
 				69CFFA4C1D3641B500FE5655 /* SEBSliderShutDownIcon@2x.png in Resources */,
 				69CFFA4D1D3641B500FE5655 /* Reload@2x.png in Resources */,
 				695A8EF81E6CCEFA00601099 /* SEBToolbarNavigateForwardIcon@3x.png in Resources */,
+				69D5988F1E7F222D00698BA8 /* SEBQRCodeIcon@3x.png in Resources */,
 				69CFFA4E1D3641B500FE5655 /* Cancel@2x.png in Resources */,
 				69CFFA4F1D3641B500FE5655 /* SEBSliderSettingsIcon.png in Resources */,
 				695A8EF51E6CCEFA00601099 /* SEBToolbarNavigateForwardIcon.png in Resources */,

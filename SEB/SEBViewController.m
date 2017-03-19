@@ -937,7 +937,7 @@ static NSMutableSet *browserWindowControllers;
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowQRCodeConfig"] &&
         [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length == 0) {
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showScanQRCodeButton"]) {
-            dockIcon = [UIImage imageNamed:@"SEBReloadIcon"];
+            dockIcon = [UIImage imageNamed:@"SEBQRCodeIcon"];
             dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                                                         style:UIBarButtonItemStylePlain
                                                        target:self
@@ -959,7 +959,7 @@ static NSMutableSet *browserWindowControllers;
         
         // Add scan QR code Home screen quick action
         NSMutableArray *shortcutItems = [UIApplication sharedApplication].shortcutItems.mutableCopy;
-        UIApplicationShortcutIcon *shortcutItemIcon = [UIApplicationShortcutIcon iconWithTemplateImageName:@"SEBReloadIcon"];
+        UIApplicationShortcutIcon *shortcutItemIcon = [UIApplicationShortcutIcon iconWithTemplateImageName:@"SEBQRCodeIcon"];
         UIApplicationShortcutItem *scanQRCodeShortcutItem = [[UIApplicationShortcutItem alloc] initWithType:@"org.safeexambrowser.SEB.ScanQRCodeConfig"
                                                                                              localizedTitle:@"QR Code Config"
                                                                                           localizedSubtitle:nil
@@ -967,6 +967,8 @@ static NSMutableSet *browserWindowControllers;
                                                                                                    userInfo:nil];
         [shortcutItems addObject:scanQRCodeShortcutItem];
         [UIApplication sharedApplication].shortcutItems = shortcutItems.copy;
+    } else {
+        [UIApplication sharedApplication].shortcutItems = nil;
     }
     
     // Add Quit button

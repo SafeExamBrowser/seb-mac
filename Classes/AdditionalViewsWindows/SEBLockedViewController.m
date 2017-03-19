@@ -91,8 +91,9 @@
         NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
         
         NSString *password = [self.UIDelegate lockedAlertPassword];
+#ifdef DEBUG
         DDLogDebug(@"Lockdown alert user entered password: %@, compare it with hashed quit password %@", password, hashedQuitPassword);
-        
+#endif
         if (!self.keychainManager) {
             self.keychainManager = [[SEBKeychainManager alloc] init];
         }
