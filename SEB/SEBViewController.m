@@ -934,7 +934,8 @@ static NSMutableSet *browserWindowControllers;
     
     // Add scan QR code command/Home screen quick action/dock button
     // if SEB isn't running in exam mode (= no quit pw)
-    if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length == 0) {
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowQRCodeConfig"] &&
+        [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length == 0) {
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showScanQRCodeButton"]) {
             dockIcon = [UIImage imageNamed:@"SEBReloadIcon"];
             dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
@@ -960,7 +961,7 @@ static NSMutableSet *browserWindowControllers;
         NSMutableArray *shortcutItems = [UIApplication sharedApplication].shortcutItems.mutableCopy;
         UIApplicationShortcutIcon *shortcutItemIcon = [UIApplicationShortcutIcon iconWithTemplateImageName:@"SEBReloadIcon"];
         UIApplicationShortcutItem *scanQRCodeShortcutItem = [[UIApplicationShortcutItem alloc] initWithType:@"org.safeexambrowser.SEB.ScanQRCodeConfig"
-                                                                                             localizedTitle:@"Scan QR Code Config"
+                                                                                             localizedTitle:@"QR Code Config"
                                                                                           localizedSubtitle:nil
                                                                                                        icon:shortcutItemIcon
                                                                                                    userInfo:nil];
