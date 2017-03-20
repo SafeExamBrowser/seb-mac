@@ -781,7 +781,8 @@ static NSMutableSet *browserWindowControllers;
     
     [self setNeedsStatusBarAppearanceUpdate];
     
-    //// Initialize SEB Dock and commands section in the slider view
+    //// Initialize SEB Dock, commands section in the slider view and
+    //// 3D Touch Home screen quick actions
     
     NSMutableArray *newDockItems = [NSMutableArray new];
     UIBarButtonItem *dockItem;
@@ -789,6 +790,8 @@ static NSMutableSet *browserWindowControllers;
     NSMutableArray *sliderCommands = [NSMutableArray new];
     SEBSliderItem *sliderCommandItem;
     UIImage *sliderIcon;
+    // Reset dynamic Home screen quick actions
+    [UIApplication sharedApplication].shortcutItems = nil;
     
     /// Add left items
     
@@ -951,7 +954,7 @@ static NSMutableSet *browserWindowControllers;
         }
         // Add scan QR code command to slider items
         sliderIcon = [UIImage imageNamed:@"SEBSliderReloadIcon"];
-        sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Scan QR Code Config",nil)
+        sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Scan Config QR Code",nil)
                                                             icon:sliderIcon
                                                           target:self
                                                           action:@selector(scanQRCode:)];
@@ -961,7 +964,7 @@ static NSMutableSet *browserWindowControllers;
         NSMutableArray *shortcutItems = [UIApplication sharedApplication].shortcutItems.mutableCopy;
         UIApplicationShortcutIcon *shortcutItemIcon = [UIApplicationShortcutIcon iconWithTemplateImageName:@"SEBQRCodeIcon"];
         UIApplicationShortcutItem *scanQRCodeShortcutItem = [[UIApplicationShortcutItem alloc] initWithType:@"org.safeexambrowser.SEB.ScanQRCodeConfig"
-                                                                                             localizedTitle:@"QR Code Config"
+                                                                                             localizedTitle:@"Config QR Code"
                                                                                           localizedSubtitle:nil
                                                                                                        icon:shortcutItemIcon
                                                                                                    userInfo:nil];
