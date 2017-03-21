@@ -63,8 +63,8 @@
             URLFromString = [NSURL URLWithString:URLString];
         } else {
             // Filter expression doesn't contain a scheme followed by an authority part,
-            // Prefix it with a http:// scheme
-            URLString = [NSString stringWithFormat:@"http://%@", URLString];
+            // Prefix it with a https:// scheme
+            URLString = [NSString stringWithFormat:@"https://%@", URLString];
             // Convert filter expression string to a NSURL
             URLFromString = [NSURL URLWithString:URLString];
         }
