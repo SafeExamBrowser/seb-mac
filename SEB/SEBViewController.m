@@ -255,7 +255,7 @@ static NSMutableSet *browserWindowControllers;
         [self conditionallyShowSettingsModal];
     } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"initiateResetConfig"]) {
         [self conditionallyResetSettings];
-    } else {
+    } else if (![[MyGlobals sharedMyGlobals] finishedInitializing]) {
         [self startAutonomousSingleAppMode];
     }
 }
