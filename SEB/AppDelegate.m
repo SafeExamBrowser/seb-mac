@@ -50,7 +50,10 @@
 
 @synthesize persistentWebpages;
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    BOOL shouldPerformAdditionalDelegateHandling = true;
+
     // Check if Single App Mode is active
     // or Autonomous Single App Mode stayed active because
     // SEB crashed before and was automatically restarted
@@ -122,7 +125,20 @@
     //                                                 name:NSUserDefaultsDidChangeNotification
     //                                               object:nil];
 
-    return YES;
+    // If a shortcut was launched, display its information and take the appropriate action
+    UIApplicationShortcutItem *shortcutItem = [launchOptions objectForKeyedSubscript:UIApplicationLaunchOptionsShortcutItemKey];
+    
+    if (shortcutItem)
+    {
+        NSLog(@"Launched with shortcut item: %@", shortcutItem);
+        
+        _shortcutItemAtLaunch = shortcutItem;
+        
+        // This will block "performActionForShortcutItem:completionHandler" from being called.
+        shouldPerformAdditionalDelegateHandling = false;
+    }
+
+    return shouldPerformAdditionalDelegateHandling;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -144,7 +160,7 @@
 
     // Update UserDefaults as settings might have been changed in the settings app
     [self populateRegistrationDomain];
-    if (self.sebViewController) {
+    if (_sebViewController) {
         // If the main SEB view controller was already instantiated
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"allowEditingConfig"]) {
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"allowEditingConfig"];
@@ -176,9 +192,9 @@
         if ([url.pathExtension isEqualToString:@"seb"] || [url.pathExtension isEqualToString:@"gz"]) {
             // If we have a valid URL with the path for a .seb file, we download and open it (conditionally)
             DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", url);
-            if (self.sebViewController) {
+            if (_sebViewController) {
                 // Is the main SEB view controller already instantiated?
-                [self.sebViewController downloadAndOpenSEBConfigFromURL:url];
+                [_sebViewController downloadAndOpenSEBConfigFromURL:url];
             } else {
                 // Postpone loading .seb file until app did finish launching
                 _sebFileURL = url;
@@ -187,6 +203,22 @@
     }
 
     return YES;
+}
+
+
+- (void)application:(UIApplication *)application
+performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
+  completionHandler:(void (^)(BOOL succeeded))completionHandler;
+{
+    BOOL handled;
+    
+    NSLog(@"%s: shortcut item %@", __FUNCTION__, shortcutItem.type);
+    
+    if (_sebViewController) {
+        // Is the main SEB view controller already instantiated?
+        handled = [_sebViewController handleShortcutItem:shortcutItem];
+    }
+    completionHandler(handled);
 }
 
 

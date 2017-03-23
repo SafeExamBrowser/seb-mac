@@ -205,6 +205,12 @@
 		69633E5A1E841A4200C71FF0 /* SEBQuickActionQRCodeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E551E841A4200C71FF0 /* SEBQuickActionQRCodeIcon@2x.png */; };
 		69633E5B1E841A4200C71FF0 /* SEBQuickActionQRCodeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E561E841A4200C71FF0 /* SEBQuickActionQRCodeIcon@3x.png */; };
 		69633E5C1E841A4200C71FF0 /* SEBQuickActionQRCodeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E561E841A4200C71FF0 /* SEBQuickActionQRCodeIcon@3x.png */; };
+		69633E601E844B3600C71FF0 /* SEBSliderQRCodeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E5D1E844B3600C71FF0 /* SEBSliderQRCodeIcon.png */; };
+		69633E611E844B3600C71FF0 /* SEBSliderQRCodeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E5D1E844B3600C71FF0 /* SEBSliderQRCodeIcon.png */; };
+		69633E621E844B3600C71FF0 /* SEBSliderQRCodeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E5E1E844B3600C71FF0 /* SEBSliderQRCodeIcon@2x.png */; };
+		69633E631E844B3600C71FF0 /* SEBSliderQRCodeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E5E1E844B3600C71FF0 /* SEBSliderQRCodeIcon@2x.png */; };
+		69633E641E844B3600C71FF0 /* SEBSliderQRCodeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E5F1E844B3600C71FF0 /* SEBSliderQRCodeIcon@3x.png */; };
+		69633E651E844B3600C71FF0 /* SEBSliderQRCodeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E5F1E844B3600C71FF0 /* SEBSliderQRCodeIcon@3x.png */; };
 		69640B291C1F0F75007ADE72 /* SEBConfigFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE9C5C17326AB90011609B /* SEBConfigFileManager.m */; };
 		69640B2A1C1F0F7D007ADE72 /* SEBConfigFileManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CE9C5B17326AB90011609B /* SEBConfigFileManager.h */; };
 		6966F87B1D1C081300684182 /* SEBSliderShutDownIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F8791D1C081300684182 /* SEBSliderShutDownIcon.png */; };
@@ -734,6 +740,9 @@
 		69633E541E841A4200C71FF0 /* SEBQuickActionQRCodeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SEBQuickActionQRCodeIcon.png; sourceTree = "<group>"; };
 		69633E551E841A4200C71FF0 /* SEBQuickActionQRCodeIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SEBQuickActionQRCodeIcon@2x.png"; sourceTree = "<group>"; };
 		69633E561E841A4200C71FF0 /* SEBQuickActionQRCodeIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SEBQuickActionQRCodeIcon@3x.png"; sourceTree = "<group>"; };
+		69633E5D1E844B3600C71FF0 /* SEBSliderQRCodeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBSliderQRCodeIcon.png; path = Resources/Icons/Slider/SEBSliderQRCodeIcon.png; sourceTree = "<group>"; };
+		69633E5E1E844B3600C71FF0 /* SEBSliderQRCodeIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderQRCodeIcon@2x.png"; path = "Resources/Icons/Slider/SEBSliderQRCodeIcon@2x.png"; sourceTree = "<group>"; };
+		69633E5F1E844B3600C71FF0 /* SEBSliderQRCodeIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderQRCodeIcon@3x.png"; path = "Resources/Icons/Slider/SEBSliderQRCodeIcon@3x.png"; sourceTree = "<group>"; };
 		6966F8791D1C081300684182 /* SEBSliderShutDownIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBSliderShutDownIcon.png; path = Resources/Icons/Slider/SEBSliderShutDownIcon.png; sourceTree = "<group>"; };
 		6966F87A1D1C081300684182 /* SEBSliderShutDownIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderShutDownIcon@2x.png"; path = "Resources/Icons/Slider/SEBSliderShutDownIcon@2x.png"; sourceTree = "<group>"; };
 		6966F87D1D1D4E7100684182 /* SEBSliderReloadIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBSliderReloadIcon.png; path = Resources/Icons/Slider/SEBSliderReloadIcon.png; sourceTree = "<group>"; };
@@ -1615,6 +1624,9 @@
 				6966F87D1D1D4E7100684182 /* SEBSliderReloadIcon.png */,
 				6966F87E1D1D4E7100684182 /* SEBSliderReloadIcon@2x.png */,
 				69B253E51E4E2630000B4A6D /* SEBSliderReloadIcon@3x.png */,
+				69633E5D1E844B3600C71FF0 /* SEBSliderQRCodeIcon.png */,
+				69633E5E1E844B3600C71FF0 /* SEBSliderQRCodeIcon@2x.png */,
+				69633E5F1E844B3600C71FF0 /* SEBSliderQRCodeIcon@3x.png */,
 				6966F8791D1C081300684182 /* SEBSliderShutDownIcon.png */,
 				6966F87A1D1C081300684182 /* SEBSliderShutDownIcon@2x.png */,
 				69B253E81E4E2630000B4A6D /* SEBSliderShutDownIcon@3x.png */,
@@ -2140,6 +2152,7 @@
 				695A8EE51E6CCA0600601099 /* SEBToolbarReloadIcon@2x.png in Resources */,
 				695A8EFA1E6CCEFA00601099 /* SEBToolbarReloadIcon.png in Resources */,
 				695A8EE11E6CC87600601099 /* SEBToolbarNavigateForwardIcon@2x.png in Resources */,
+				69633E601E844B3600C71FF0 /* SEBSliderQRCodeIcon.png in Resources */,
 				69B226E31D4108BA0065B831 /* Icon-22x29.png in Resources */,
 				694055AE1CF32B310036C480 /* SEBShutDownIcon@3x.png in Resources */,
 				69633E591E841A4200C71FF0 /* SEBQuickActionQRCodeIcon@2x.png in Resources */,
@@ -2161,9 +2174,11 @@
 				69B253D81E4E2200000B4A6D /* SEBSliderClosePage@2x.png in Resources */,
 				6940B9731BA0F2FB008C8CFC /* Main.storyboard in Resources */,
 				694055A91CF32B030036C480 /* SEBRestartIcon@2x.png in Resources */,
+				69633E621E844B3600C71FF0 /* SEBSliderQRCodeIcon@2x.png in Resources */,
 				6966F87B1D1C081300684182 /* SEBSliderShutDownIcon.png in Resources */,
 				696DAD1C1C3C2AB900397E18 /* Reload.png in Resources */,
 				693A396D1E60AC8F005030B0 /* SEBSliderNavigateBackIcon.png in Resources */,
+				69633E641E844B3600C71FF0 /* SEBSliderQRCodeIcon@3x.png in Resources */,
 				69358DD51E6E0D5F000539F6 /* SEBQRCode.png in Resources */,
 				696DAD1B1C3C2AB900397E18 /* Previous@2x.png in Resources */,
 				696DAD191C3C2AB900397E18 /* Next@2x.png in Resources */,
@@ -2217,6 +2232,7 @@
 				69CFFA301D3641B500FE5655 /* SEBReloadIcon@3x.png in Resources */,
 				693A39721E60AC8F005030B0 /* SEBSliderNavigateBackIcon@3x.png in Resources */,
 				69CFFA311D3641B500FE5655 /* Previous.png in Resources */,
+				69633E631E844B3600C71FF0 /* SEBSliderQRCodeIcon@2x.png in Resources */,
 				69B253D91E4E2200000B4A6D /* SEBSliderClosePage@2x.png in Resources */,
 				69B253F01E4E2630000B4A6D /* SEBSliderShutDownIcon@3x.png in Resources */,
 				693A395E1E60AC6C005030B0 /* SEBNavigateBackIcon@2x.png in Resources */,
@@ -2237,6 +2253,7 @@
 				695A8EE61E6CCA0600601099 /* SEBToolbarReloadIcon@2x.png in Resources */,
 				69CFFA3A1D3641B500FE5655 /* InAppSettings.bundle in Resources */,
 				69CFFA3B1D3641B500FE5655 /* SEBSliderReloadIcon@2x.png in Resources */,
+				69633E611E844B3600C71FF0 /* SEBSliderQRCodeIcon.png in Resources */,
 				693A39761E60AC8F005030B0 /* SEBSliderNavigateForwardIcon@2x.png in Resources */,
 				69CFFA3C1D3641B500FE5655 /* SEBRestartIcon@3x.png in Resources */,
 				69CFFA3D1D3641B500FE5655 /* SEBDockIcon@2x.png in Resources */,
@@ -2283,6 +2300,7 @@
 				69B253EA1E4E2630000B4A6D /* SEBSliderReloadIcon@3x.png in Resources */,
 				69CFFA511D3641B500FE5655 /* SearchWebView.js in Resources */,
 				69358DDC1E6E0D5F000539F6 /* SEBQRCode@3x.png in Resources */,
+				69633E651E844B3600C71FF0 /* SEBSliderQRCodeIcon@3x.png in Resources */,
 				69CFFA521D3641B500FE5655 /* SEBSliderRestartIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

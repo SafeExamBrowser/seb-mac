@@ -239,6 +239,11 @@ static NSMutableSet *browserWindowControllers;
         // Yes: Load the .seb file now that the necessary SEB main view controller was loaded
         [self downloadAndOpenSEBConfigFromURL:appDelegate.sebFileURL];
     }
+    
+    // Was SEB opened by a Home screen quick action shortcut item?
+    if (appDelegate.shortcutItemAtLaunch) {
+        [self handleShortcutItem:appDelegate.shortcutItemAtLaunch];
+    }
 }
 
 
@@ -394,6 +399,22 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+#pragma mark - Handle Home screen quick actions
+
+- (BOOL)handleShortcutItem:(UIApplicationShortcutItem *)shortcutItem
+{
+    BOOL handled;
+    
+    NSString *scanQRCodeConfigItemType = [NSString stringWithFormat:@"%@.ScanQRCodeConfig", [NSBundle mainBundle].bundleIdentifier];
+
+    if ([shortcutItem.type isEqualToString:scanQRCodeConfigItemType]) {
+        handled = true;
+        [self scanQRCode:self];
+    }
+    return handled;
+}
+
+
 #pragma mark - QRCodeReader
 
 - (void)scanQRCode:(id)sender
@@ -411,8 +432,11 @@ static NSMutableSet *browserWindowControllers;
 - (void)reader:(QRCodeReaderViewController *)reader didScanResult:(NSString *)result
 {
     [self.codeReaderViewController dismissViewControllerAnimated:YES completion:^{
-        DDLogInfo(@"%@", result);
-        [_configURLManagerDelegate evaluateEnteredURLString:result];
+        DDLogInfo(@"Scanned QR code: %@", result);
+        NSURL *URLFromString = [NSURL URLWithString:result];
+        if (URLFromString) {
+            [self downloadAndOpenSEBConfigFromURL:URLFromString];
+        }
     }];
 }
 
@@ -965,7 +989,7 @@ static NSMutableSet *browserWindowControllers;
             
         }
         // Add scan QR code command to slider items
-        sliderIcon = [UIImage imageNamed:@"SEBSliderReloadIcon"];
+        sliderIcon = [UIImage imageNamed:@"SEBSliderQRCodeIcon"];
         sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Scan Config QR Code",nil)
                                                             icon:sliderIcon
                                                           target:self
@@ -975,7 +999,9 @@ static NSMutableSet *browserWindowControllers;
         // Add scan QR code Home screen quick action
         NSMutableArray *shortcutItems = [UIApplication sharedApplication].shortcutItems.mutableCopy;
         UIApplicationShortcutIcon *shortcutItemIcon = [UIApplicationShortcutIcon iconWithTemplateImageName:@"SEBQuickActionQRCodeIcon"];
-        UIApplicationShortcutItem *scanQRCodeShortcutItem = [[UIApplicationShortcutItem alloc] initWithType:@"org.safeexambrowser.SEB.ScanQRCodeConfig"
+        NSString *shortcutItemType = [NSString stringWithFormat:@"%@.ScanQRCodeConfig", [NSBundle mainBundle].bundleIdentifier];
+        UIApplicationShortcutItem *scanQRCodeShortcutItem = [[UIApplicationShortcutItem alloc]
+                                                             initWithType:shortcutItemType
                                                                                              localizedTitle:@"Config QR Code"
                                                                                           localizedSubtitle:nil
                                                                                                        icon:shortcutItemIcon

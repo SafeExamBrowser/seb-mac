@@ -45,6 +45,7 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) SEBViewController *sebViewController;
 @property (strong, nonatomic, readonly) NSURL *sebFileURL;
+@property (strong, nonatomic) UIApplicationShortcutItem *shortcutItemAtLaunch;
 @property(readwrite) BOOL SAMActive;
 
 @property (nonatomic, strong) NSMutableArray *persistentWebpages;
