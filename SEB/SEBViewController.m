@@ -277,7 +277,7 @@ static NSMutableSet *browserWindowControllers;
 - (void)conditionallyResetSettings
 {
     // Check if settings are currently open
-    if (_settingsOpen) {
+    if (self.navigationController.visibleViewController == self.appSettingsViewController) {
         // Close settings first
         [self settingsViewControllerDidEnd:self.appSettingsViewController];
     } else {
