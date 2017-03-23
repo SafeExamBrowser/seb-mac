@@ -974,7 +974,7 @@ static NSMutableSet *browserWindowControllers;
         
         // Add scan QR code Home screen quick action
         NSMutableArray *shortcutItems = [UIApplication sharedApplication].shortcutItems.mutableCopy;
-        UIApplicationShortcutIcon *shortcutItemIcon = [UIApplicationShortcutIcon iconWithTemplateImageName:@"SEBQRCodeIcon"];
+        UIApplicationShortcutIcon *shortcutItemIcon = [UIApplicationShortcutIcon iconWithTemplateImageName:@"SEBQuickActionQRCodeIcon"];
         UIApplicationShortcutItem *scanQRCodeShortcutItem = [[UIApplicationShortcutItem alloc] initWithType:@"org.safeexambrowser.SEB.ScanQRCodeConfig"
                                                                                              localizedTitle:@"Config QR Code"
                                                                                           localizedSubtitle:nil
