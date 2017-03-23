@@ -125,6 +125,8 @@
 @property(readwrite, strong) NSDate *didResumeExamTime;
 
 
+- (BOOL)handleShortcutItem:(UIApplicationShortcutItem *)shortcutItem;
+
 - (void)showConfigURLWarning;
 - (void)scanQRCode:(id)sender;
 
