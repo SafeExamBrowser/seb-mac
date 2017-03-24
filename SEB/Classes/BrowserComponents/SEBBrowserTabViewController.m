@@ -46,6 +46,8 @@
 @synthesize managedObjectContext = __managedObjectContext;
 
 
+#pragma mark - View management delegate methods
+
 - (void)didMoveToParentViewController:(UIViewController *)parent
 {
     if (parent) {
@@ -77,9 +79,10 @@
 //    [self.visibleWebView.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+
+- (void)viewDidLoad
 {
-    [super viewWillAppear:animated];
+    [super viewDidLoad];
     
     // TO DO: Ok, later we will get the context from the creator of this VC
     AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
@@ -97,12 +100,18 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(closeTabRequested:)
                                                  name:@"requestWebpageClose" object:nil];
-    
 //    // Load all open web pages from the persistent store and re-create webview(s) for them
 //    [self loadPersistedOpenWebPages];
     
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
 }
+
 
 - (void)viewWillDisappear:(BOOL)animated
 {
