@@ -1000,8 +1000,7 @@ static NSMutableSet *browserWindowControllers;
         NSMutableArray *shortcutItems = [UIApplication sharedApplication].shortcutItems.mutableCopy;
         UIApplicationShortcutIcon *shortcutItemIcon = [UIApplicationShortcutIcon iconWithTemplateImageName:@"SEBQuickActionQRCodeIcon"];
         NSString *shortcutItemType = [NSString stringWithFormat:@"%@.ScanQRCodeConfig", [NSBundle mainBundle].bundleIdentifier];
-        UIApplicationShortcutItem *scanQRCodeShortcutItem = [[UIApplicationShortcutItem alloc]
-                                                             initWithType:shortcutItemType
+        UIApplicationShortcutItem *scanQRCodeShortcutItem = [[UIApplicationShortcutItem alloc] initWithType:shortcutItemType
                                                                                              localizedTitle:@"Config QR Code"
                                                                                           localizedSubtitle:nil
                                                                                                        icon:shortcutItemIcon
