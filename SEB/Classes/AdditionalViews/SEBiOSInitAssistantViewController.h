@@ -51,6 +51,8 @@
     
     UILabel *noConfigFoundLabel;
     
+    NSString *enteredConfigURLString;
+    
 }
 
 @property (nonatomic, strong) SEBInitAssistantViewController *assistantController;
