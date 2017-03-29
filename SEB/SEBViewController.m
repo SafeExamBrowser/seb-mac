@@ -431,13 +431,17 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)reader:(QRCodeReaderViewController *)reader didScanResult:(NSString *)result
 {
-    [self.codeReaderViewController dismissViewControllerAnimated:YES completion:^{
-        DDLogInfo(@"Scanned QR code: %@", result);
-        NSURL *URLFromString = [NSURL URLWithString:result];
-        if (URLFromString) {
-            [self downloadAndOpenSEBConfigFromURL:URLFromString];
-        }
-    }];
+    if (!_scannedQRCodeScan) {
+        _scannedQRCodeScan = true;
+        [self.codeReaderViewController dismissViewControllerAnimated:YES completion:^{
+            DDLogInfo(@"Scanned QR code: %@", result);
+            _scannedQRCodeScan = false;
+            NSURL *URLFromString = [NSURL URLWithString:result];
+            if (URLFromString) {
+                [self downloadAndOpenSEBConfigFromURL:URLFromString];
+            }
+        }];
+    }
 }
 
 - (void)readerDidCancel:(QRCodeReaderViewController *)reader
