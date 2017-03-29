@@ -78,9 +78,12 @@
 
 
 - (IBAction)urlEntered:(id)sender {
-    noConfigQRCodeFoundLabel.hidden = true;
-    noConfigFoundLabel = noConfigURLFoundLabel;
-    [_assistantController evaluateEnteredURLString:configURLField.text];
+    if (![enteredConfigURLString isEqualToString:configURLField.text]) {
+        enteredConfigURLString = configURLField.text;
+        noConfigQRCodeFoundLabel.hidden = true;
+        noConfigFoundLabel = noConfigURLFoundLabel;
+        [_assistantController evaluateEnteredURLString:enteredConfigURLString];
+    }
     [configURLField resignFirstResponder];
 }
 
