@@ -42,6 +42,8 @@
 
 -(void)awakeFromNib
 {
+    [super awakeFromNib];
+    
     // If we were instantiated via a storybard then we'll assume that we have pre-defined segues to denote
     // our center controller, and optionally left and right controllers!
     if ( self.storyboard != nil )

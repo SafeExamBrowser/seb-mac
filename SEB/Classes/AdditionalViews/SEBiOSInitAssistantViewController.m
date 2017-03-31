@@ -83,6 +83,8 @@
         noConfigQRCodeFoundLabel.hidden = true;
         noConfigFoundLabel = noConfigURLFoundLabel;
         [_assistantController evaluateEnteredURLString:enteredConfigURLString];
+    } else {
+        enteredConfigURLString = nil;
     }
     [configURLField resignFirstResponder];
 }

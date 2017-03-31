@@ -81,6 +81,11 @@
 // Check for SEB client config at the passed URL using the next scheme
 - (void) checkSEBClientConfigURL:(NSURL *)url withScheme:(SEBClientConfigURLSchemes)configURLScheme
 {
+    // Cancel a processing download of a previously entered URL
+    if (_downloadTask) {
+        [_downloadTask cancel];
+    }
+    
     // Check using the next scheme (we can skip first scheme = none)
     configURLScheme++;
     switch (configURLScheme) {
@@ -121,22 +126,49 @@
 
 - (void) downloadSEBClientConfigFromURL:(NSURL *)url originalURL:(NSURL *)originalURL withScheme:(SEBClientConfigURLSchemes)configURLScheme
 {
-    NSError *error = nil;
-    NSData *sebFileData;
     if (![url.pathExtension isEqualToString:@"seb"]) {
         url = [url URLByAppendingPathComponent:@"safeexambrowser/SEBClientSettings.seb"];
         clientConfigURL = true;
     }
     if (url) {
         [_controllerDelegate activityIndicatorAnimate:true];
-        sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
+        if (!_URLSession) {
+            NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+            _URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
+        }
+        _downloadTask = [_URLSession dataTaskWithURL:url
+                                                        completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
+                                              {
+                                                  [self didDownloadData:sebFileData
+                                                               response:response
+                                                                  error:error
+                                                                    URL:originalURL
+                                                             withScheme:configURLScheme];
+                                              }];
+        [_downloadTask resume];
+    }
+}
+
+
+- (void) didDownloadData:(NSData *)sebFileData
+                response:(NSURLResponse *)response
+                   error:(NSError *)error
+                     URL:(NSURL *)url
+              withScheme:(SEBClientConfigURLSchemes)configURLScheme
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
         [_controllerDelegate activityIndicatorAnimate:false];
-    }
-    if (error || !sebFileData) {
-        [self checkSEBClientConfigURL:originalURL withScheme:configURLScheme];
-    } else {
-        [_controllerDelegate storeSEBClientSettings:sebFileData callback:self selector:@selector(storeSEBClientSettingsSuccessful:)];
-    }
+        _downloadTask = nil;
+        
+        if (error || !sebFileData) {
+            if (error.code == NSURLErrorCancelled) {
+                return;
+            }
+            [self checkSEBClientConfigURL:url withScheme:configURLScheme];
+        } else {
+            [_controllerDelegate storeSEBClientSettings:sebFileData callback:self selector:@selector(storeSEBClientSettingsSuccessful:)];
+        }
+    });
 }
 
 
