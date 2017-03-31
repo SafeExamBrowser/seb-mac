@@ -210,7 +210,7 @@
 performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
   completionHandler:(void (^)(BOOL succeeded))completionHandler;
 {
-    BOOL handled;
+    BOOL handled = false;
     
     NSLog(@"%s: shortcut item %@", __FUNCTION__, shortcutItem.type);
     

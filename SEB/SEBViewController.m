@@ -403,7 +403,7 @@ static NSMutableSet *browserWindowControllers;
 
 - (BOOL)handleShortcutItem:(UIApplicationShortcutItem *)shortcutItem
 {
-    BOOL handled;
+    BOOL handled = false;
     
     NSString *scanQRCodeConfigItemType = [NSString stringWithFormat:@"%@.ScanQRCodeConfig", [NSBundle mainBundle].bundleIdentifier];
 
@@ -1193,6 +1193,8 @@ static NSMutableSet *browserWindowControllers;
         if (!_finishedStartingUp) {
             // Continue starting up SEB without resetting settings
             [self startAutonomousSingleAppMode];
+        } else {
+            [_configFileController showAlertCorruptedSettings];
         }
     }
 }

@@ -216,7 +216,7 @@
                     // No valid prefix and no unencrypted file with valid header
                     // cancel reading .seb file
                     DDLogError(@"%s: No valid prefix and no unencrypted file with valid header", __FUNCTION__);
-                    [self.delegate showAlertCorruptedSettings];
+//                    [self.delegate showAlertCorruptedSettings];
                     
                     // Inform callback that storing new settings failed
                     [self storeNewSEBSettingsSuccessful:false];
@@ -938,7 +938,7 @@
         // Looks like there is a key with a NULL value
         DDLogError(@"%s: Serialization of the XML plist went wrong! Error: %@", __FUNCTION__, error.description);
         
-        [self.delegate showAlertCorruptedSettings];
+//        [self.delegate showAlertCorruptedSettings];
 
         return nil;
     }

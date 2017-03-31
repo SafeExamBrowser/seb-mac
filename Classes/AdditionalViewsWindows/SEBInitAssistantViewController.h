@@ -84,11 +84,14 @@
 @end
 
 
-@interface SEBInitAssistantViewController : NSObject {
+@interface SEBInitAssistantViewController : NSObject <NSURLSessionTaskDelegate> {
     BOOL clientConfigURL;
 }
 
 @property (nonatomic, strong) id< SEBInitAssistantDelegate > controllerDelegate;
+
+@property (strong) id URLSession;
+@property (strong) NSURLSessionDataTask *downloadTask;
 
 
 - (void) evaluateEnteredURLString:(NSString *)URLString;

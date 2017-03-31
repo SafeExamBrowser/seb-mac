@@ -51,7 +51,7 @@
 - (void)loadView
 {
     // Create a webview to fit underneath the navigation view (=fill the whole screen).
-    CGRect webFrame = [[UIScreen mainScreen] applicationFrame];
+    CGRect webFrame = [[UIScreen mainScreen] bounds];
     if (!_sebWebView) {
         _sebWebView = [[UIWebView alloc] initWithFrame:webFrame];
     }
@@ -249,7 +249,7 @@
 
     NSURL *url = [request URL];
     if ([[url scheme] isEqualToString:@"newtab"]) {
-        NSString *urlString = [[url resourceSpecifier] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *urlString = [[url resourceSpecifier] stringByRemovingPercentEncoding];
         url = [NSURL URLWithString:urlString relativeToURL:[webView url]];
         [_browserTabViewController openNewTabWithURL:url];
         return NO;
@@ -400,7 +400,7 @@
 // Create a UIWebView to hold new webpages
 - (UIWebView *)createNewWebView {
     // Create a webview to fit underneath the navigation view (=fill the whole screen).
-    CGRect webFrame = [[UIScreen mainScreen] applicationFrame];
+    CGRect webFrame = [[UIScreen mainScreen] bounds];
     UIWebView *newWebView = [[UIWebView alloc] initWithFrame:webFrame];
     
     newWebView.backgroundColor = [UIColor lightGrayColor];
