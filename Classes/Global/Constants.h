@@ -184,9 +184,9 @@ typedef NSUInteger sebConfigPurposes;
 
 enum {
     SEBClientConfigURLSchemeNone                = 0,
-    SEBClientConfigURLSchemeDomain              = 1,
-    SEBClientConfigURLSchemeSubdomainShort      = 2,
-    SEBClientConfigURLSchemeSubdomainLong       = 3
+    SEBClientConfigURLSchemeSubdomainShort      = 1,
+    SEBClientConfigURLSchemeSubdomainLong       = 2,
+    SEBClientConfigURLSchemeDomain              = 3
 };
 typedef NSUInteger SEBClientConfigURLSchemes;
 

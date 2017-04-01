@@ -48,6 +48,12 @@
 @required
 
 /**
+ * @brief       Entered config URL.
+ * @details
+ */
+@property(readwrite) NSString* configURLString;
+
+/**
  * @brief       Start or stop animating the activity indicator for downloading the config.
  * @details
  */

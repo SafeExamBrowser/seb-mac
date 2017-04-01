@@ -89,12 +89,7 @@
     // Check using the next scheme (we can skip first scheme = none)
     configURLScheme++;
     switch (configURLScheme) {
-        case SEBClientConfigURLSchemeDomain:
-        {
-            [self downloadSEBClientConfigFromURL:url originalURL:url withScheme:configURLScheme];
-            break;
-        }
-            
+
         case SEBClientConfigURLSchemeSubdomainShort:
         {
             NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
@@ -114,6 +109,12 @@
             urlComponents.host = host;
             NSURL *newURL = urlComponents.URL;
             [self downloadSEBClientConfigFromURL:newURL originalURL:url withScheme:configURLScheme];
+            break;
+        }
+            
+        case SEBClientConfigURLSchemeDomain:
+        {
+            [self downloadSEBClientConfigFromURL:url originalURL:url withScheme:configURLScheme];
             break;
         }
             
@@ -176,6 +177,7 @@
 {
     if (success) {
         [_controllerDelegate setConfigURLWrongLabelHidden:true forClientConfigURL:clientConfigURL];
+        _controllerDelegate.configURLString = @"";
         [_controllerDelegate closeAssistantRestartSEB];
     } else {
         [_controllerDelegate setConfigURLWrongLabelHidden:false forClientConfigURL:clientConfigURL];
