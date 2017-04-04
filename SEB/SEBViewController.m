@@ -1128,11 +1128,15 @@ static NSMutableSet *browserWindowControllers;
                 // Download the .seb file directly into memory (not onto disc like other files)
                 if ([url.scheme isEqualToString:@"seb"]) {
                     // If it's a seb:// URL, we try to download it by http
-                    NSURL *httpURL = [[NSURL alloc] initWithScheme:@"http" host:url.host path:url.path];
+                    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+                    urlComponents.scheme = @"http";
+                    NSURL *httpURL = urlComponents.URL;
                     sebFileData = [NSData dataWithContentsOfURL:httpURL options:NSDataReadingUncached error:&error];
                     if (error) {
                         // If that didn't work, we try to download it by https
-                        NSURL *httpsURL = [[NSURL alloc] initWithScheme:@"https" host:url.host path:url.path];
+                        NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+                        urlComponents.scheme = @"https";
+                        NSURL *httpsURL = urlComponents.URL;
                         sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
                         // Still couldn't download the .seb file: present an error and abort
                         if (error) {
@@ -1142,7 +1146,9 @@ static NSMutableSet *browserWindowControllers;
                     }
                 } else if ([url.scheme isEqualToString:@"sebs"]) {
                     // If it's a sebs:// URL, we try to download it by https
-                    NSURL *httpsURL = [[NSURL alloc] initWithScheme:@"https" host:url.host path:url.path];
+                    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+                    urlComponents.scheme = @"https";
+                    NSURL *httpsURL = urlComponents.URL;
                     sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
                     // Couldn't download the .seb file: present an error and abort
                     if (error) {
