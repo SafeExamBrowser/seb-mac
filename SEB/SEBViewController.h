@@ -146,7 +146,7 @@
 - (void) openLockdownWindows;
 
 - (void) downloadAndOpenSEBConfigFromURL:(NSURL *)url;
-- (void) storeNewSEBSettingsSuccessful:(BOOL)success;
+- (void) storeNewSEBSettingsSuccessful:(NSError *)error;
 
 - (void) showToolbarNavigation:(BOOL)show;
 - (void) setToolbarTitle:(NSString *)title;

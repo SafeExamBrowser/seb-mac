@@ -72,6 +72,11 @@
 - (void) showAlertCorruptedSettings;
 
 /**
+ * @brief       Delegate method to display an alert for an error
+ */
+- (void) showAlertWithError:(NSError *)error;
+
+/**
  * @brief       Delegate method to display an alert with free title and text
  */
 - (void) showAlertWithTitle:(NSString *)title
@@ -192,8 +197,9 @@
 
 -(void) storeIntoUserDefaults:(NSDictionary *)sebPreferencesDict;
 
-// Inform the callback method if decrypting, parsing and storing new settings was successful or not
-- (void) storeNewSEBSettingsSuccessful:(BOOL)success;
+// Inform the callback method if decrypting, parsing and storing new settings
+// was successful (error = nil) or failed with some error
+- (void) storeNewSEBSettingsSuccessful:(NSError *)error;
 
 // Read SEB settings from UserDefaults and encrypt them using provided security credentials
 - (NSData *) encryptSEBSettingsWithPassword:(NSString *)settingsPassword
