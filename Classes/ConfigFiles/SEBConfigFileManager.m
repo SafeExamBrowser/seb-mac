@@ -155,7 +155,7 @@
         sebData = [self decryptDataWithPublicKeyHashPrefix:sebData error:&error];
         if (!sebData || error) {
             // Inform callback that storing new settings failed
-            [self storeNewSEBSettingsSuccessful:false];
+            [self storeNewSEBSettingsSuccessful:error];
             return;
         }
 
@@ -215,11 +215,14 @@
                 } else {
                     // No valid prefix and no unencrypted file with valid header
                     // cancel reading .seb file
-                    DDLogError(@"%s: No valid prefix and no unencrypted file with valid header", __FUNCTION__);
-//                    [self.delegate showAlertCorruptedSettings];
                     
+                    NSString *reason = @"No valid prefix and no unencrypted file with valid header";
+                    NSError *error = [self errorCorruptedSettingsForUnderlyingErrorReason:reason];
+                    
+                    DDLogError(@"%s: %@ (underlying error: %@)", __FUNCTION__, error.userInfo, reason);
+
                     // Inform callback that storing new settings failed
-                    [self storeNewSEBSettingsSuccessful:false];
+                    [self storeNewSEBSettingsSuccessful:error];
                     return;
                 }
             }
@@ -236,6 +239,31 @@
         encryptedSEBData = [encryptedSEBData gzipInflate];
     }
     [self parseSettingsStartingExamForEditing:forEditing];
+}
+
+
+- (NSError *) errorCorruptedSettingsForUnderlyingErrorReason:(NSString *)reason
+{
+    NSMutableDictionary *errorUserInfo = [NSMutableDictionary dictionary];
+    errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Decrypting Settings Failed", nil);
+    errorUserInfo[NSLocalizedFailureReasonErrorKey] = reason;
+    NSError *underlyingError = [NSError errorWithDomain:sebErrorDomain code:9999 userInfo:errorUserInfo];
+    
+    return [self errorCorruptedSettingsForUnderlyingError:underlyingError];
+}
+
+
+- (NSError *) errorCorruptedSettingsForUnderlyingError:(NSError *)error
+{
+    NSError *newError = nil;
+    NSString *failureReason = NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil);
+    NSMutableDictionary *errorUserInfo = [NSMutableDictionary dictionary];
+    errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Error Decrypting Settings", nil);
+    errorUserInfo[NSLocalizedFailureReasonErrorKey] = failureReason;
+    errorUserInfo[NSUnderlyingErrorKey] = error;
+    newError = [NSError errorWithDomain:sebErrorDomain code:9999 userInfo:errorUserInfo];
+    
+    return newError;
 }
 
 
@@ -264,10 +292,10 @@
 
 
 // Inform the callback method if decrypting, parsing and storing new settings was successful or not
-- (void) storeNewSEBSettingsSuccessful:(BOOL)success {
+- (void) storeNewSEBSettingsSuccessful:(NSError *)error {
     IMP imp = [storeSettingsCallback methodForSelector:storeSettingsSelector];
     void (*func)(id, SEL, BOOL) = (void *)imp;
-    func(storeSettingsCallback, storeSettingsSelector, success);
+    func(storeSettingsCallback, storeSettingsSelector, error);
 }
 
 
@@ -521,14 +549,17 @@
             
         } else {
             // Wrong password entered in the last allowed attempts: Stop reading .seb file
-            DDLogError(@"%s: Cannot Reconfigure SEB Settings: You didn't enter the correct current SEB administrator password.", __FUNCTION__);
-            
-            NSString *title = NSLocalizedString(@"Cannot Reconfigure SEB Settings", nil);
-            NSString *informativeText = NSLocalizedString(@"You didn't enter the correct current SEB administrator password.", nil);
-            [self.delegate showAlertWithTitle:title andText:informativeText];
-            
+            NSError *error = nil;
+            NSString *failureReason = NSLocalizedString(@"You didn't enter the correct current SEB administrator password.", nil);
+            NSMutableDictionary *errorUserInfo = [NSMutableDictionary dictionary];
+            errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Cannot Reconfigure SEB Settings", nil);
+            errorUserInfo[NSLocalizedFailureReasonErrorKey] = failureReason;
+            errorUserInfo[NSUnderlyingErrorKey] = error;
+            error = [NSError errorWithDomain:sebErrorDomain code:9999 userInfo:errorUserInfo];
+            DDLogError(@"%s: %@ (underlying error key: %@)", __FUNCTION__, error.userInfo, error);
+
             // Inform callback that storing new settings failed
-            [self storeNewSEBSettingsSuccessful:false];
+            [self storeNewSEBSettingsSuccessful:error];
             return;
         }
         
@@ -598,7 +629,7 @@
         }
         
         // Inform callback that storing new settings was successful
-        [self storeNewSEBSettingsSuccessful:true];
+        [self storeNewSEBSettingsSuccessful:nil];
         return;
         
     } else {
@@ -851,12 +882,14 @@
     SecKeyRef privateKeyRef = [keychainManager getPrivateKeyFromPublicKeyHash:publicKeyHash];
     if (!privateKeyRef) {
 
-        DDLogError(@"%s: Error Decrypting Settings: The identity needed to decrypt settings has not been found in the keychain!", __FUNCTION__);
+        NSString *failureReason = NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil);
+        NSMutableDictionary *errorUserInfo = [NSMutableDictionary dictionary];
+        errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Error Decrypting Settings", nil);
+        errorUserInfo[NSLocalizedFailureReasonErrorKey] = failureReason;
+        errorUserInfo[NSUnderlyingErrorKey] = *error;
+        *error = [NSError errorWithDomain:sebErrorDomain code:9999 userInfo:errorUserInfo];
+        DDLogError(@"%s: %@ (underlying error key: %@)", __FUNCTION__, [*error userInfo], *error);
         
-        NSString *title = NSLocalizedString(@"Error Decrypting Settings", nil);
-        NSString *informativeText = NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil);
-        [self.delegate showAlertWithTitle:title andText:informativeText];
-
         return nil;
     }
 

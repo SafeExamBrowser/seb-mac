@@ -67,7 +67,7 @@
                                                                                        [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
                                                                                        
                                                                                        // Inform callback that storing new settings was successful
-                                                                                       [super storeNewSEBSettingsSuccessful:true];
+                                                                                       [super storeNewSEBSettingsSuccessful:nil];
                                                                                    }]];
             
             [_sebViewController.navigationController.visibleViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
@@ -77,7 +77,7 @@
             [MyGlobals sharedMyGlobals].reconfiguredWhileStarting = YES;
             
             // Inform callback that storing new settings was successful
-            [super storeNewSEBSettingsSuccessful:true];
+            [super storeNewSEBSettingsSuccessful:nil];
         }
     }
     
@@ -154,18 +154,35 @@
 }
 
 
+- (void) showAlertWithError:(NSError *)error
+{
+    if (_sebViewController.alertController) {
+        [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
+    }
+    _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:error.localizedDescription
+                                                                              message:error.localizedFailureReason
+                                                                       preferredStyle:UIAlertControllerStyleAlert];
+    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                               [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                           }]];
+    
+    [_sebViewController.navigationController.visibleViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
+}
+
+
 - (void) showAlertWithTitle:(NSString *)title andText:(NSString *)informativeText
 {
     if (_sebViewController.alertController) {
         [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
     }
     _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:title
-                                                                message:informativeText
-                                                         preferredStyle:UIAlertControllerStyleAlert];
+                                                                              message:informativeText
+                                                                       preferredStyle:UIAlertControllerStyleAlert];
     [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
-                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                 [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
-                                                             }]];
+                                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                               [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                           }]];
     
     [_sebViewController.navigationController.visibleViewController presentViewController:_sebViewController.alertController animated:YES completion:nil];
 }
