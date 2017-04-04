@@ -30,7 +30,6 @@
 		690BBEB719D30DF800F7C9C6 /* SEBDockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 690BBEB519D30DF800F7C9C6 /* SEBDockView.m */; };
 		690C6EE619E29E3600EDE103 /* SEBOSXBrowserController.h in Headers */ = {isa = PBXBuildFile; fileRef = 690C6EE419E29E3600EDE103 /* SEBOSXBrowserController.h */; };
 		690C6EE719E29E3600EDE103 /* SEBOSXBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690C6EE519E29E3600EDE103 /* SEBOSXBrowserController.m */; };
-		690E25A61BFC7DCC00B41217 /* SEBWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 690E25A51BFC7DCC00B41217 /* SEBWKWebView.m */; };
 		691018C51CF1B33900AB8803 /* SEBShutDownIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018C31CF1B33900AB8803 /* SEBShutDownIcon@2x.png */; };
 		691018C61CF1B33900AB8803 /* SEBShutDownIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018C41CF1B33900AB8803 /* SEBShutDownIcon.png */; };
 		691018D11CF1EA8300AB8803 /* SEBDockIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018CE1CF1EA8300AB8803 /* SEBDockIcon.png */; };
@@ -239,11 +238,8 @@
 		696DAD211C3C2B1400397E18 /* ModifyPages.js in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD1F1C3C2B1400397E18 /* ModifyPages.js */; };
 		696DAD221C3C2B1400397E18 /* SearchWebView.js in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD201C3C2B1400397E18 /* SearchWebView.js */; };
 		696DAD351C3C2D0500397E18 /* SEBDetailViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD231C3C2D0500397E18 /* SEBDetailViewController.h */; };
-		696DAD361C3C2D0500397E18 /* SEBDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD241C3C2D0500397E18 /* SEBDetailViewController.m */; };
 		696DAD371C3C2D0500397E18 /* SEBMasterViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD251C3C2D0500397E18 /* SEBMasterViewController.h */; };
-		696DAD381C3C2D0500397E18 /* SEBMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD261C3C2D0500397E18 /* SEBMasterViewController.m */; };
 		696DAD3B1C3C2D0500397E18 /* SEBSearchBarViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD291C3C2D0500397E18 /* SEBSearchBarViewController.h */; };
-		696DAD3C1C3C2D0500397E18 /* SEBSearchBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD2A1C3C2D0500397E18 /* SEBSearchBarViewController.m */; };
 		696DAD3D1C3C2D0500397E18 /* SEBTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD2B1C3C2D0500397E18 /* SEBTableViewController.h */; };
 		696DAD3E1C3C2D0500397E18 /* SEBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD2C1C3C2D0500397E18 /* SEBTableViewController.m */; };
 		696DAD3F1C3C2D0500397E18 /* SEBTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD2D1C3C2D0500397E18 /* SEBTextField.h */; };
@@ -2537,7 +2533,6 @@
 				694316651BFF943C00F784EE /* MyGlobals.m in Sources */,
 				69E0F3481C454F370038CCCD /* SEB.xcdatamodeld in Sources */,
 				696DAD461C3C2D0500397E18 /* UIWebView+SEBWebView.m in Sources */,
-				696DAD381C3C2D0500397E18 /* SEBMasterViewController.m in Sources */,
 				691CC4131BA134070020D3EC /* RNEncryptor.m in Sources */,
 				69B5393F1C490CB200A967B0 /* SEBActionUITableViewCell.m in Sources */,
 				6940B9701BA0F2FB008C8CFC /* SEBViewController.m in Sources */,
@@ -2546,9 +2541,7 @@
 				696DAD421C3C2D0500397E18 /* SEBBrowserTabViewController.m in Sources */,
 				69331F071C10AD750038BD31 /* SEBiOSLockedViewController.m in Sources */,
 				696DAD441C3C2D0500397E18 /* SEBWebViewController.m in Sources */,
-				696DAD3C1C3C2D0500397E18 /* SEBSearchBarViewController.m in Sources */,
 				6930D2211C2011200087F79E /* SEBCryptor.m in Sources */,
-				696DAD361C3C2D0500397E18 /* SEBDetailViewController.m in Sources */,
 				69782A511CCEA41B00C2AA9A /* MethodSwizzling.m in Sources */,
 				69E4EDFE1C208F2300F5E5EB /* SEBiOSKeychainManager.m in Sources */,
 				69A2233F1C20E0BD00766354 /* NSData+NSDataZIPExtension.m in Sources */,
@@ -2569,7 +2562,6 @@
 				691CC4141BA134070020D3EC /* RNCryptorEngine.m in Sources */,
 				691CC4121BA134070020D3EC /* RNDecryptor.m in Sources */,
 				691CC4111BA134070020D3EC /* RNCryptor.m in Sources */,
-				690E25A61BFC7DCC00B41217 /* SEBWKWebView.m in Sources */,
 				696DAD521C3C7C9A00397E18 /* Webpages.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
