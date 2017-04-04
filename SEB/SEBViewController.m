@@ -1175,7 +1175,7 @@ static NSMutableSet *browserWindowControllers;
 
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error
 {
-    NSLog(@"%s: Storing new SEB settings was %@successful", __FUNCTION__, error ? @"" : @"not ");
+    NSLog(@"%s: Storing new SEB settings was %@successful", __FUNCTION__, error ? @"not " : @"");
     if (!error) {
         [_browserTabViewController closeAllTabs];
         _examRunning = false;
