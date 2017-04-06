@@ -255,15 +255,11 @@
 
 - (NSError *) errorCorruptedSettingsForUnderlyingError:(NSError *)error
 {
-    NSError *newError = nil;
-    NSString *failureReason = NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil);
-    NSMutableDictionary *errorUserInfo = [NSMutableDictionary dictionary];
-    errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Error Decrypting Settings", nil);
-    errorUserInfo[NSLocalizedFailureReasonErrorKey] = failureReason;
-    errorUserInfo[NSUnderlyingErrorKey] = error;
-    newError = [NSError errorWithDomain:sebErrorDomain code:9999 userInfo:errorUserInfo];
-    
-    return newError;
+    return [NSError errorWithDomain:sebErrorDomain
+                               code:9999
+                           userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", nil),
+                                      NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil),
+                                      NSUnderlyingErrorKey : error}];
 }
 
 
