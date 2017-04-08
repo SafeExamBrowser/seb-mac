@@ -258,27 +258,30 @@
     return [NSError errorWithDomain:sebErrorDomain
                                code:9999
                            userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", nil),
-                                      NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil),
+                                      NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"These settings are corrupted and cannot be used.", nil),
                                       NSUnderlyingErrorKey : error}];
 }
 
 
 // Get preferences dictionary from decrypted data and store settings
 -(void) parseSettingsStartingExamForEditing:(BOOL)forEditing {
+    NSError *error = nil;
     // Get preferences dictionary from decrypted data
-    NSDictionary *sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:encryptedSEBData forEditing:forEditing];
+    NSDictionary *sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:encryptedSEBData
+                                                                         forEditing:forEditing
+                                                                              error:&error];
     // If we didn't get a preferences dict back, we abort reading settings
     if (!sebPreferencesDict) {
         // Inform callback that storing new settings failed
-        [self storeNewSEBSettingsSuccessful:false];
+        [self storeNewSEBSettingsSuccessful:error];
         return;
     }
     
     // Check if a some value is from a wrong class (another than the value from default settings)
     // and quit reading .seb file if a wrong value was found
-    if (![self checkClassOfSettings:sebPreferencesDict]) {
+    if (![self checkClassOfSettings:sebPreferencesDict error:&error]) {
         // Inform callback that storing new settings failed
-        [self storeNewSEBSettingsSuccessful:false];
+        [self storeNewSEBSettingsSuccessful:error];
         return;
     }
 
@@ -300,7 +303,10 @@
     // Check if the cancel button was pressed
     if (!password) {
         // Inform callback that storing new settings failed
-        [self storeNewSEBSettingsSuccessful:false];
+        [self storeNewSEBSettingsSuccessful:[NSError errorWithDomain:sebErrorDomain
+                                                                code:9999
+                                                            userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", nil),
+                                                                       NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"Decrypting settings was canceled", nil)}]];
         return;
     }
     
@@ -320,9 +326,11 @@
         } else {
             // Wrong password entered in the last allowed attempts: Stop reading .seb file
             DDLogError(@"%s: Cannot Decrypt Settings: You either entered the wrong password or these settings were saved with an incompatible SEB version.", __FUNCTION__);
-            [self.delegate showAlertWrongPassword];
             // Inform callback that storing new settings failed
-            [self storeNewSEBSettingsSuccessful:false];
+            [self storeNewSEBSettingsSuccessful:[NSError errorWithDomain:sebErrorDomain
+                                                                    code:9999
+                                                                userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Decrypt Settings", nil),
+                                                                           NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"You didn't enter the correct settings password.", nil)}]];
             return;
         }
         
@@ -395,7 +403,10 @@
     // Check if the cancel button was pressed
     if (!password) {
         // Inform callback that storing new settings failed
-        [self storeNewSEBSettingsSuccessful:false];
+        [self storeNewSEBSettingsSuccessful:[NSError errorWithDomain:sebErrorDomain
+                                                                code:9999
+                                                            userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", nil),
+                                                                       NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"Decrypting settings was canceled", nil)}]];
         return;
     }
     
@@ -569,10 +580,11 @@
 // Check if a some value is from a wrong class (another than the value from default settings)
 // and quit reading .seb file if a wrong value was found
 - (void) checkParsedSettingForConfiguringAndStore:(NSDictionary *)sebPreferencesDict {
-    if (![self checkClassOfSettings:sebPreferencesDict]) {
+    NSError *error = nil;
+    if (![self checkClassOfSettings:sebPreferencesDict error:&error]) {
         NSLog(@"%s: Checking received MDM settings failed!", __FUNCTION__);
         // Inform callback that storing new settings failed
-        [self storeNewSEBSettingsSuccessful:false];
+        [self storeNewSEBSettingsSuccessful:error];
         return;
     }
     
@@ -585,7 +597,9 @@
 // Store and use new SEB settings
 - (void) storeDecryptedSEBSettings:(NSDictionary *)sebPreferencesDict
 {
-    if (!sebPreferencesDict) return; //Decryption didn't work, we abort
+    if (!sebPreferencesDict) {
+        return; //Decryption didn't work, we abort
+    }
     
     // Reset SEB, close third party applications
     
@@ -693,7 +707,7 @@
 
 
 // Check if a some value is from a wrong class (another than the value from default settings)
-- (BOOL)checkClassOfSettings:(NSDictionary *)sebPreferencesDict
+- (BOOL)checkClassOfSettings:(NSDictionary *)sebPreferencesDict error:(NSError **)error
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
@@ -731,14 +745,12 @@
 // In editing mode, users have to enter the right SEB administrator password
 // before they can access the settings contents
 // and returns the decrypted bytes
--(NSDictionary *) getPreferencesDictionaryFromConfigData:(NSData *)sebData forEditing:(BOOL)forEditing
+-(NSDictionary *) getPreferencesDictionaryFromConfigData:(NSData *)sebData forEditing:(BOOL)forEditing error:(NSError **)error
 {
     // Get preferences dictionary from decrypted data
-    NSError *error = nil;
-    NSDictionary *sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:sebData error:&error];
+    NSDictionary *sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:sebData error:error];
     if (error) {
-        DDLogError(@"%s: Serialization of the XML plist went wrong! Error: %@", __FUNCTION__, error.description);
-        [self.delegate presentErrorAlert:error];
+        DDLogError(@"%s: Failed serializing XML plist! Error: %@", __FUNCTION__, *error);
 
         return nil; //we abort reading the new settings here
     }
@@ -784,19 +796,17 @@
                                                                                    error:&plistError];
     if (plistError) {
         // If it exists, then add the localized error reason from serializing the plist to the error object
-        DDLogError(@"%s: Serialization of the XML plist went wrong! Error: %@", __FUNCTION__, plistError.description);
+        DDLogError(@"%s: Failed serialisaing of the XML plist ! Error: %@", __FUNCTION__, plistError.description);
         NSString *failureReason = [plistError localizedFailureReason];
-        if (!failureReason) failureReason = @"";
-        NSMutableDictionary *newErrorDict =
-        [NSMutableDictionary dictionaryWithDictionary:@{ NSLocalizedDescriptionKey :
-                                                             NSLocalizedString(@"Loading new settings failed!", nil),
-                                                         NSLocalizedRecoverySuggestionErrorKey :
-                                                             [NSString stringWithFormat:@"%@\n%@", NSLocalizedString(@"These settings are corrupted and cannot be used.", nil), failureReason]
-                                                         }];
-        
-        NSError *newError = [[NSError alloc] initWithDomain:sebErrorDomain
-                                                       code:1 userInfo:newErrorDict];
-        *error = newError;
+        if (!failureReason) {
+            failureReason = @"";
+        }
+        *error = [[NSError alloc] initWithDomain:sebErrorDomain
+                                            code:1
+                                        userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"Loading new settings failed!", nil),
+                                                    NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString(@"These settings are corrupted and cannot be used.", nil),
+                                                    NSLocalizedFailureReasonErrorKey : failureReason
+                                                    }];
         sebPreferencesDict = nil; //we don't have any settings to return
     }
     return sebPreferencesDict;
@@ -865,6 +875,16 @@
 }
 
 
+-(NSError *) errorDecryptingIdentityNotFoundUnderlyingError:(NSError *)error
+{
+    return [NSError errorWithDomain:sebErrorDomain
+                               code:9999
+                           userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", nil),
+                                      NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil),
+                                      NSUnderlyingErrorKey : error}];
+}
+
+
 // Helper method which fetches the public key hash from a seb data object,
 // retrieves the according cryptographic identity from the keychain
 // and returns the decrypted data
@@ -878,12 +898,11 @@
     SecKeyRef privateKeyRef = [keychainManager getPrivateKeyFromPublicKeyHash:publicKeyHash];
     if (!privateKeyRef) {
 
-        NSString *failureReason = NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil);
-        NSMutableDictionary *errorUserInfo = [NSMutableDictionary dictionary];
-        errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Error Decrypting Settings", nil);
-        errorUserInfo[NSLocalizedFailureReasonErrorKey] = failureReason;
-        errorUserInfo[NSUnderlyingErrorKey] = *error;
-        *error = [NSError errorWithDomain:sebErrorDomain code:9999 userInfo:errorUserInfo];
+        *error = [NSError errorWithDomain:sebErrorDomain
+                                     code:9999
+                                 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", nil),
+                                            NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil),
+                                            NSUnderlyingErrorKey : *error}];
         DDLogError(@"%s: %@ (underlying error key: %@)", __FUNCTION__, [*error userInfo], *error);
         
         return nil;
