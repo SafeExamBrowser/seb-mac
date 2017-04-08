@@ -143,7 +143,7 @@
 {
     [self dismissViewControllerAnimated:YES completion:^{
         _sebViewController.initAssistantOpen = false;
-        [_sebViewController storeNewSEBSettingsSuccessful:true];
+        [_sebViewController storeNewSEBSettingsSuccessful:nil];
     }];
 }
 
