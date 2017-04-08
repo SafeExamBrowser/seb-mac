@@ -878,16 +878,6 @@
 }
 
 
--(NSError *) errorDecryptingIdentityNotFoundUnderlyingError:(NSError *)error
-{
-    return [NSError errorWithDomain:sebErrorDomain
-                               code:9999
-                           userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", nil),
-                                      NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil),
-                                      NSUnderlyingErrorKey : error}];
-}
-
-
 // Helper method which fetches the public key hash from a seb data object,
 // retrieves the according cryptographic identity from the keychain
 // and returns the decrypted data
@@ -904,9 +894,8 @@
         *error = [NSError errorWithDomain:sebErrorDomain
                                      code:9999
                                  userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", nil),
-                                            NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil),
-                                            NSUnderlyingErrorKey : *error}];
-        DDLogError(@"%s: %@ (underlying error key: %@)", __FUNCTION__, [*error userInfo], *error);
+                                            NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil)}];
+        DDLogError(@"%s: %@", __FUNCTION__, [*error userInfo]);
         
         return nil;
     }
