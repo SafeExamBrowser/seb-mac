@@ -1,5 +1,5 @@
 //
-//  SEBLockedViewController.h
+//  SEBInitAssistantViewController.h
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 07/03/17.

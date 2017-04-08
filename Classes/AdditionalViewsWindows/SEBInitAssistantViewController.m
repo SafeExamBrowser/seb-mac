@@ -119,7 +119,11 @@
         }
             
         default:
-            [self storeSEBClientSettingsSuccessful:false];
+            [self storeSEBClientSettingsSuccessful:[[NSError alloc] initWithDomain:sebErrorDomain
+                                                                                               code:9999
+                                                                                           userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"No SEB Configuration Found", nil),
+                                                                                                       NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"Your institution might not support Automatic SEB Client Configuration. Follow the instructions of your exam administrator.", nil)
+                                                                                                       }]];
             break;
     }
 }
@@ -173,9 +177,9 @@
 }
 
 
-- (void) storeSEBClientSettingsSuccessful:(BOOL)success
+- (void) storeSEBClientSettingsSuccessful:(NSError *)error
 {
-    if (success) {
+    if (!error) {
         [_controllerDelegate setConfigURLWrongLabelHidden:true forClientConfigURL:clientConfigURL];
         _controllerDelegate.configURLString = @"";
         [_controllerDelegate closeAssistantRestartSEB];
