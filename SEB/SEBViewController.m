@@ -1185,11 +1185,6 @@ static NSMutableSet *browserWindowControllers;
         
         [self startAutonomousSingleAppMode];
         
-        
-        //        // Post a notification that it was requested to restart SEB with changed settings
-        //        [[NSNotificationCenter defaultCenter]
-        //         postNotificationName:@"requestRestartNotification" object:self];
-        
     } else {
         _isReconfiguring = false;
         
@@ -1200,7 +1195,7 @@ static NSMutableSet *browserWindowControllers;
             // Continue starting up SEB without resetting settings
             [self startAutonomousSingleAppMode];
         } else {
-            [_configFileController showAlertCorruptedSettings];
+            [_configFileController showAlertWithError:error];
         }
     }
 }
