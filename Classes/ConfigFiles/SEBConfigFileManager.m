@@ -245,7 +245,7 @@
 - (NSError *) errorCorruptedSettingsForUnderlyingErrorReason:(NSString *)reason
 {
     NSMutableDictionary *errorUserInfo = [NSMutableDictionary dictionary];
-    errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Decrypting Settings Failed", nil);
+    errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Parsing Settings Failed", nil);
     errorUserInfo[NSLocalizedFailureReasonErrorKey] = reason;
     NSError *underlyingError = [NSError errorWithDomain:sebErrorDomain code:9999 userInfo:errorUserInfo];
     
@@ -257,8 +257,8 @@
 {
     return [NSError errorWithDomain:sebErrorDomain
                                code:9999
-                           userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", nil),
-                                      NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"These settings are corrupted and cannot be used.", nil),
+                           userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Opening Settings Failed", nil),
+                                      NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"Loaded data doesn't contain valid SEB settings.", nil),
                                       NSUnderlyingErrorKey : error}];
 }
 

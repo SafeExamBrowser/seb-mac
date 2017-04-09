@@ -159,8 +159,10 @@
     if (_sebViewController.alertController) {
         [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
     }
+    NSString *alertMessage = error.localizedRecoverySuggestion;
+    alertMessage = [NSString stringWithFormat:@"%@%@%@", alertMessage ? alertMessage : @"", alertMessage ? @"\n" : @"", error.localizedFailureReason];
     _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:error.localizedDescription
-                                                                              message:error.localizedFailureReason
+                                                                              message:alertMessage
                                                                        preferredStyle:UIAlertControllerStyleAlert];
     [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
