@@ -61,6 +61,16 @@
 
 #define kCustomButtonHeight     30.0
 
+#define SEBErrorNoValidConfigData 10
+#define SEBErrorNoValidPrefixNoValidUnencryptedHeader 11
+#define SEBErrorDecryptingSettingsCanceled 101
+#define SEBErrorDecryptingNoSettingsPasswordEntered 102
+#define SEBErrorDecryptingSettingsAdminPasswordCanceled 105
+#define SEBErrorDecryptingNoAdminPasswordEntered 106
+#define SEBErrorDecryptingIdentityNotFound 110
+#define SEBErrorParsingSettingsFailedValueClassMissmatch 201
+#define SEBErrorParsingSettingsSerializingFailed 205
+
 
 enum {
     browserUserAgentModeiOSDefault              = 0,
@@ -308,6 +318,7 @@ typedef NSUInteger SEBZoomModes;
 
 static NSString __unused *userDefaultsMasala = @"Di𝈭l𝈖Ch𝈒ah𝉇t𝈁a𝉈Hai1972";
 
+// Error numbers for SEB error domains
 static NSString __unused *sebErrorDomain = @"org.safeexambrowser.SEB";
 
 static NSString __unused *SEBUserAgentDefaultSuffix = @"SEB";
