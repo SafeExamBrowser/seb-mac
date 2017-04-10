@@ -1206,21 +1206,32 @@ static NSMutableSet *browserWindowControllers;
         // if decrypting new settings wasn't successfull, we have to restore the path to the old settings
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
         
-        if (!_finishedStartingUp) {
-            // Continue starting up SEB without resetting settings
+        if (_scannedQRCode) {
             _scannedQRCode = false;
+            if (error.code == SEBErrorNoValidConfigData) {
+                error = [NSError errorWithDomain:sebErrorDomain
+                                            code:SEBErrorNoValidConfigData userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Scanning Config QR Code Failed", nil),
+                                                   NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"No valid SEB config found.", nil),
+                                                   NSUnderlyingErrorKey : error}];
+                if (self.alertController) {
+                    [self.alertController dismissViewControllerAnimated:NO completion:nil];
+                }
+                NSString *alertMessage = error.localizedRecoverySuggestion;
+                alertMessage = [NSString stringWithFormat:@"%@%@%@", alertMessage ? alertMessage : @"", alertMessage ? @"\n" : @"", error.localizedFailureReason];
+                self.alertController = [UIAlertController alertControllerWithTitle:error.localizedDescription
+                                                                                          message:alertMessage
+                                                                                   preferredStyle:UIAlertControllerStyleAlert];
+                [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                                       style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                                           [self startAutonomousSingleAppMode];
+                                                                                       }]];
+                
+                [self.navigationController.visibleViewController presentViewController:self.alertController animated:YES completion:nil];
+            }
+        } else if (!_finishedStartingUp) {
+            // Continue starting up SEB without resetting settings
             [self startAutonomousSingleAppMode];
         } else {
-            if (_scannedQRCode) {
-                _scannedQRCode = false;
-                if (error.code == SEBErrorNoValidConfigData) {
-                    error = [NSError errorWithDomain:sebErrorDomain
-                                                code:SEBErrorNoValidConfigData
-                                            userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Scanning Config QR Code Failed", nil),
-                                                       NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"No valid SEB config found.", nil),
-                                                       NSUnderlyingErrorKey : error}];
-                }
-            }
             [_configFileController showAlertWithError:error];
         }
     }
