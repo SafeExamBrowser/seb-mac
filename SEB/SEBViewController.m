@@ -431,11 +431,10 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)reader:(QRCodeReaderViewController *)reader didScanResult:(NSString *)result
 {
-    if (!_scannedQRCodeScan) {
-        _scannedQRCodeScan = true;
+    if (!_scannedQRCode) {
+        _scannedQRCode = true;
         [self.codeReaderViewController dismissViewControllerAnimated:YES completion:^{
             DDLogInfo(@"Scanned QR code: %@", result);
-            _scannedQRCodeScan = false;
             NSURL *URLFromString = [NSURL URLWithString:result];
             if (URLFromString) {
                 [self downloadAndOpenSEBConfigFromURL:URLFromString];
@@ -1116,6 +1115,7 @@ static NSMutableSet *browserWindowControllers;
             // Check if SEB is in exam mode = private UserDefauls are switched on
             if (NSUserDefaults.userDefaultsPrivate) {
                 // If yes, we don't download the .seb file
+                _scannedQRCode = false;
                 if (_alertController) {
                     [_alertController dismissViewControllerAnimated:NO completion:nil];
                 }
@@ -1147,7 +1147,9 @@ static NSMutableSet *browserWindowControllers;
                         sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
                         // Still couldn't download the .seb file: present an error and abort
                         if (error) {
+                            
                             //                        [_mainBrowserWindow presentError:error modalForWindow:_mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
+                            _scannedQRCode = false;
                             return;
                         }
                     }
@@ -1160,12 +1162,14 @@ static NSMutableSet *browserWindowControllers;
                     // Couldn't download the .seb file: present an error and abort
                     if (error) {
                         //                    [_mainBrowserWindow presentError:error modalForWindow:_mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
+                        _scannedQRCode = false;
                         return;
                     }
                 } else {
                     sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
                     if (error) {
                         //                    [_mainBrowserWindow presentError:error modalForWindow:_mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
+                        _scannedQRCode = false;
                         return;
                     }
                 }
@@ -1176,6 +1180,8 @@ static NSMutableSet *browserWindowControllers;
                 
                 [self.configFileController storeNewSEBSettings:sebFileData forEditing:false callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
             }
+        } else {
+            _scannedQRCode = false;
         }
     }
 }
@@ -1190,6 +1196,7 @@ static NSMutableSet *browserWindowControllers;
         [self initSEB];
         
         _isReconfiguring = false;
+        _scannedQRCode = false;
         
         [self startAutonomousSingleAppMode];
         
@@ -1201,8 +1208,19 @@ static NSMutableSet *browserWindowControllers;
         
         if (!_finishedStartingUp) {
             // Continue starting up SEB without resetting settings
+            _scannedQRCode = false;
             [self startAutonomousSingleAppMode];
         } else {
+            if (_scannedQRCode) {
+                _scannedQRCode = false;
+                if (error.code == SEBErrorNoValidConfigData) {
+                    error = [NSError errorWithDomain:sebErrorDomain
+                                                code:SEBErrorNoValidConfigData
+                                            userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Scanning Config QR Code Failed", nil),
+                                                       NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"No valid SEB config found.", nil),
+                                                       NSUnderlyingErrorKey : error}];
+                }
+            }
             [_configFileController showAlertWithError:error];
         }
     }
