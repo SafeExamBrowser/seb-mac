@@ -754,7 +754,7 @@
 {
     // Get preferences dictionary from decrypted data
     NSDictionary *sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:sebData error:error];
-    if (error) {
+    if (*error) {
         DDLogError(@"%s: Failed serializing XML plist! Error: %@", __FUNCTION__, *error);
 
         return nil; //we abort reading the new settings here
@@ -810,7 +810,8 @@
                                             code:SEBErrorParsingSettingsSerializingFailed
                                         userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"Reading Settings Failed", nil),
                                                     NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString(@"These settings are corrupted and cannot be used.", nil),
-                                                    NSLocalizedFailureReasonErrorKey : failureReason
+                                                    NSLocalizedFailureReasonErrorKey : failureReason,
+                                                    NSUnderlyingErrorKey : plistError
                                                     }];
         sebPreferencesDict = nil; //we don't have any settings to return
     }
