@@ -60,7 +60,7 @@
                 [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
             }
             _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"SEB Re-Configured", nil)
-                                                                                      message:NSLocalizedString(@"Local settings of this SEB client have been reconfigured.", nil)
+                                                                                      message:NSLocalizedString(@"New settings have been saved, they will be used when you start SEB next time again.", nil)
                                                                                preferredStyle:UIAlertControllerStyleAlert];
             [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Continue", nil)
                                                                                    style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {

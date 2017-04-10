@@ -115,7 +115,7 @@
         if ([[MyGlobals sharedMyGlobals] finishedInitializing]) {
             NSAlert *newAlert = [[NSAlert alloc] init];
             [newAlert setMessageText:NSLocalizedString(@"SEB Re-Configured", nil)];
-            [newAlert setInformativeText:NSLocalizedString(@"Local settings of this SEB client have been reconfigured. Do you want to continue working with SEB now or quit?", nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"New settings have been saved, they will be used when you start SEB next time again. Do you want to start working with SEB or quit for now?", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Continue", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
             int answer = [newAlert runModal];
