@@ -119,7 +119,7 @@
 @property(readwrite) BOOL settingsOpen;
 @property(readwrite) BOOL sebLocked;
 @property(readwrite) BOOL unlockPasswordEntered;
-@property(readwrite) BOOL scannedQRCodeScan;
+@property(readwrite) BOOL scannedQRCode;
 
 @property(readwrite, strong) NSDate *didResignActiveTime;
 @property(readwrite, strong) NSDate *didBecomeActiveTime;
