@@ -177,6 +177,11 @@
   return YES;
 }
 
+- (BOOL) prefersStatusBarHidden
+{
+    return true;
+}
+
 #pragma mark - Controlling the Reader
 
 - (void)startScanning {
