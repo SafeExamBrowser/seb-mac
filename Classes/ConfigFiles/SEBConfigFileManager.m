@@ -247,7 +247,9 @@
     NSMutableDictionary *errorUserInfo = [NSMutableDictionary dictionary];
     errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Parsing Settings Failed", nil);
     errorUserInfo[NSLocalizedFailureReasonErrorKey] = reason;
-    NSError *underlyingError = [NSError errorWithDomain:sebErrorDomain code:9999 userInfo:errorUserInfo];
+    NSError *underlyingError = [NSError errorWithDomain:sebErrorDomain
+                                                   code:SEBErrorNoValidPrefixNoValidUnencryptedHeader
+                                               userInfo:errorUserInfo];
     
     return [self errorCorruptedSettingsForUnderlyingError:underlyingError];
 }
@@ -256,7 +258,7 @@
 - (NSError *) errorCorruptedSettingsForUnderlyingError:(NSError *)error
 {
     return [NSError errorWithDomain:sebErrorDomain
-                               code:9999
+                               code:SEBErrorNoValidConfigData
                            userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Opening Settings Failed", nil),
                                       NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"Loaded data doesn't contain valid SEB settings.", nil),
                                       NSUnderlyingErrorKey : error}];
@@ -304,7 +306,7 @@
     if (!password) {
         // Inform callback that storing new settings failed
         [self storeNewSEBSettingsSuccessful:[NSError errorWithDomain:sebErrorDomain
-                                                                code:9999
+                                                                code:SEBErrorDecryptingSettingsCanceled
                                                             userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", nil),
                                                                        NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"Decrypting settings was canceled", nil)}]];
         return;
@@ -328,7 +330,7 @@
             DDLogError(@"%s: Cannot Decrypt Settings: User either entered the wrong password several times or these settings were saved with an incompatible SEB version.", __FUNCTION__);
             // Inform callback that storing new settings failed
             [self storeNewSEBSettingsSuccessful:[NSError errorWithDomain:sebErrorDomain
-                                                                    code:9999
+                                                                    code:SEBErrorDecryptingNoSettingsPasswordEntered
                                                                 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Decrypt Settings", nil),
                                                                            NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"You didn't enter the correct settings password.", nil)}]];
             return;
@@ -404,7 +406,7 @@
     if (!password) {
         // Inform callback that storing new settings failed
         [self storeNewSEBSettingsSuccessful:[NSError errorWithDomain:sebErrorDomain
-                                                                code:9999
+                                                                code:SEBErrorDecryptingSettingsCanceled
                                                             userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", nil),
                                                                        NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"Decrypting settings was canceled", nil)}]];
         return;
@@ -433,7 +435,7 @@
             DDLogError(@"%s: Cannot Decrypt Settings: User either entered the wrong password several times or these settings were saved with an incompatible SEB version.", __FUNCTION__);
             // Inform callback that storing new settings failed
             [self storeNewSEBSettingsSuccessful:[NSError errorWithDomain:sebErrorDomain
-                                                                    code:9999
+                                                                    code:SEBErrorDecryptingNoSettingsPasswordEntered
                                                                 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Decrypt Settings", nil),
                                                                            NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"You didn't enter the correct settings password.", nil)}]];
             return;
@@ -520,7 +522,7 @@
     if (!password) {
         // Inform callback that storing new settings failed
         [self storeNewSEBSettingsSuccessful:[NSError errorWithDomain:sebErrorDomain
-                                                                code:9999
+                                                                code:SEBErrorDecryptingSettingsAdminPasswordCanceled
                                                             userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Reconfigure", nil),
                                                                        NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"Entering the current SEB administrator password was canceled", nil)}]];
         return;
@@ -561,7 +563,7 @@
         } else {
             // Wrong password entered in the last allowed attempts: Stop reading .seb file
             NSError *error = [NSError errorWithDomain:sebErrorDomain
-                                                 code:9999
+                                                 code:SEBErrorDecryptingNoAdminPasswordEntered
                                              userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Reconfigure", nil),
                                                         NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"You didn't enter the correct current SEB administrator password.", nil)}];
             DDLogError(@"%s: %@ ", __FUNCTION__, error.userInfo);
@@ -733,7 +735,7 @@
             DDLogError(@"%s Value for key %@ is NULL or doesn't have the correct class!", __FUNCTION__, key);
 
             *error = [NSError errorWithDomain:sebErrorDomain
-                                         code:9999
+                                         code:SEBErrorParsingSettingsFailedValueClassMissmatch
                                      userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Reading Settings Failed", nil),
                                                 NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"These settings are corrupted and cannot be used.", nil)}];
             
@@ -799,13 +801,13 @@
                                                                                    error:&plistError];
     if (plistError) {
         // If it exists, then add the localized error reason from serializing the plist to the error object
-        DDLogError(@"%s: Failed serialisaing of the XML plist ! Error: %@", __FUNCTION__, plistError.description);
+        DDLogError(@"%s: Failed serializing of the XML plist ! Error: %@", __FUNCTION__, plistError.description);
         NSString *failureReason = [plistError localizedFailureReason];
         if (!failureReason) {
             failureReason = @"";
         }
         *error = [[NSError alloc] initWithDomain:sebErrorDomain
-                                            code:9999
+                                            code:SEBErrorParsingSettingsSerializingFailed
                                         userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"Reading Settings Failed", nil),
                                                     NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString(@"These settings are corrupted and cannot be used.", nil),
                                                     NSLocalizedFailureReasonErrorKey : failureReason
@@ -892,7 +894,7 @@
     if (!privateKeyRef) {
 
         *error = [NSError errorWithDomain:sebErrorDomain
-                                     code:9999
+                                     code:SEBErrorDecryptingIdentityNotFound
                                  userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", nil),
                                             NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil)}];
         DDLogError(@"%s: %@", __FUNCTION__, [*error userInfo]);
