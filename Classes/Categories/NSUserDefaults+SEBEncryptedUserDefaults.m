@@ -182,6 +182,8 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_browserUserAgentWinTouchMode",
                                  @"",
                                  @"org_safeexambrowser_SEB_browserUserAgentWinTouchModeCustom",
+                                 SEBWinUserAgentTouchiPad,
+                                 @"org_safeexambrowser_SEB_browserUserAgentWinTouchModeIPad",
                                  [NSNumber numberWithLong:browserViewModeWindow],
                                  @"org_safeexambrowser_SEB_browserViewMode",
                                  [NSNumber numberWithLong:manuallyWithFileRequester],
