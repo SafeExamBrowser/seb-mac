@@ -228,11 +228,8 @@
     [_browserTabViewController setLoading:NO];
     [self setBackForwardAvailabilty];
     
-    // report the error inside the webview
-    NSString* errorString = [NSString stringWithFormat:
-                             @"<html><center><font size=+5 color='red'>An error occurred:<br>%@</font></center></html>",
-                             error.localizedDescription];
-    [webView loadHTMLString:errorString baseURL:nil];
+    [_browserTabViewController.sebViewController.configFileController showAlertWithError:error];
+    
 }
 
 
