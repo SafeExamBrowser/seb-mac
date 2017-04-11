@@ -1224,7 +1224,9 @@ static NSMutableSet *browserWindowControllers;
                                                                 preferredStyle:UIAlertControllerStyleAlert];
             [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                         [self startAutonomousSingleAppMode];
+                                                                         if (!_finishedStartingUp) {
+                                                                             [self startAutonomousSingleAppMode];
+                                                                         }
                                                                      }]];
             
             [self.navigationController.visibleViewController presentViewController:self.alertController animated:YES completion:nil];
