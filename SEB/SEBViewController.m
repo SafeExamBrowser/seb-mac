@@ -382,9 +382,28 @@ static NSMutableSet *browserWindowControllers;
             _assistantViewController.sebViewController = self;
             _assistantViewController.modalPresentationStyle = UIModalPresentationFormSheet;
         }
+        //// Initialize SEB Dock, commands section in the slider view and
+        //// 3D Touch Home screen quick actions
+        
+        // Add scan QR code Home screen quick action
+        [UIApplication sharedApplication].shortcutItems = [NSArray arrayWithObject:[ self scanQRCodeShortcutItem]];
+
         _initAssistantOpen = true;
         [self presentViewController:_assistantViewController animated:YES completion:nil];
     }
+}
+
+
+- (UIApplicationShortcutItem *)scanQRCodeShortcutItem
+{
+    UIApplicationShortcutIcon *shortcutItemIcon = [UIApplicationShortcutIcon iconWithTemplateImageName:@"SEBQuickActionQRCodeIcon"];
+    NSString *shortcutItemType = [NSString stringWithFormat:@"%@.ScanQRCodeConfig", [NSBundle mainBundle].bundleIdentifier];
+    UIApplicationShortcutItem *scanQRCodeShortcutItem = [[UIApplicationShortcutItem alloc] initWithType:shortcutItemType
+                                                                                         localizedTitle:@"Config QR Code"
+                                                                                      localizedSubtitle:nil
+                                                                                                   icon:shortcutItemIcon
+                                                                                               userInfo:nil];
+    return scanQRCodeShortcutItem;
 }
 
 
@@ -1002,14 +1021,7 @@ static NSMutableSet *browserWindowControllers;
         
         // Add scan QR code Home screen quick action
         NSMutableArray *shortcutItems = [UIApplication sharedApplication].shortcutItems.mutableCopy;
-        UIApplicationShortcutIcon *shortcutItemIcon = [UIApplicationShortcutIcon iconWithTemplateImageName:@"SEBQuickActionQRCodeIcon"];
-        NSString *shortcutItemType = [NSString stringWithFormat:@"%@.ScanQRCodeConfig", [NSBundle mainBundle].bundleIdentifier];
-        UIApplicationShortcutItem *scanQRCodeShortcutItem = [[UIApplicationShortcutItem alloc] initWithType:shortcutItemType
-                                                                                             localizedTitle:@"Config QR Code"
-                                                                                          localizedSubtitle:nil
-                                                                                                       icon:shortcutItemIcon
-                                                                                                   userInfo:nil];
-        [shortcutItems addObject:scanQRCodeShortcutItem];
+        [shortcutItems addObject:[self scanQRCodeShortcutItem]];
         [UIApplication sharedApplication].shortcutItems = shortcutItems.copy;
     } else {
         [UIApplication sharedApplication].shortcutItems = nil;
