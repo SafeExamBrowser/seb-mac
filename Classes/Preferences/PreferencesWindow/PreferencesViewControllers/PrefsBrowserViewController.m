@@ -45,7 +45,6 @@
 #endif
     [userAgentWinDesktopDefault setStringValue:SEBWinUserAgentDesktopDefault];
     [userAgentWinTouchDefault setStringValue:SEBWinUserAgentTouchDefault];
-    [userAgentWinTouchiPad setStringValue:SEBWinUserAgentTouchiPad];
 }
 
 
