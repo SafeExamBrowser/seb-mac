@@ -453,6 +453,7 @@ static NSMutableSet *browserWindowControllers;
     if (!_scannedQRCode) {
         _scannedQRCode = true;
         [self.codeReaderViewController dismissViewControllerAnimated:YES completion:^{
+            [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
             DDLogInfo(@"Scanned QR code: %@", result);
             NSURL *URLFromString = [NSURL URLWithString:result];
             if (URLFromString) {
@@ -464,7 +465,9 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)readerDidCancel:(QRCodeReaderViewController *)reader
 {
-    [self.codeReaderViewController dismissViewControllerAnimated:YES completion:NULL];
+    [self.codeReaderViewController dismissViewControllerAnimated:YES completion:^{
+        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+    }];
 }
 
 
