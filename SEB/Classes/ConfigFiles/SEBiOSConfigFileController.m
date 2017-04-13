@@ -160,7 +160,7 @@
         [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
     }
     NSString *alertMessage = error.localizedRecoverySuggestion;
-    alertMessage = [NSString stringWithFormat:@"%@%@%@", alertMessage ? alertMessage : @"", alertMessage ? @"\n" : @"", error.localizedFailureReason];
+    alertMessage = [NSString stringWithFormat:@"%@%@%@", alertMessage ? alertMessage : @"", alertMessage ? @"\n" : @"", error.localizedFailureReason ? error.localizedFailureReason : @""];
     _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:error.localizedDescription
                                                                               message:alertMessage
                                                                        preferredStyle:UIAlertControllerStyleAlert];
