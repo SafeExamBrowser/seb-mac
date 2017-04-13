@@ -221,6 +221,7 @@
     [self setBackForwardAvailabilty];
 }
 
+
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     // load error, hide the activity indicator in the status bar
@@ -228,8 +229,22 @@
     [_browserTabViewController setLoading:NO];
     [self setBackForwardAvailabilty];
     
-    [_browserTabViewController.sebViewController.configFileController showAlertWithError:error];
+    UIAlertController *alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Load Error", nil)
+                                                                              message:error.localizedDescription
+                                                                       preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
+                                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                               NSURL *failingURL = [NSURL URLWithString:[error.userInfo objectForKey:@"NSErrorFailingURLStringKey"]];
+                                                                               if (failingURL) {
+                                                                                   [self loadURL:failingURL];
+                                                                               }
+                                                                           }]];
     
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                         style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                         }]];
+
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 
