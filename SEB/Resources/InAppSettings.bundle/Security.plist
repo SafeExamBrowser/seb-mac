@@ -10,9 +10,9 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Autonomous Single App Mode (ASAM)</string>
+			<string>Automatic Assessment Configuration (AAC) &amp; Autonomous Single App Mode (ASAM)</string>
 			<key>FooterText</key>
-			<string>Uses either Automatic Assessment Configuration (for BYOD) or requires device to be supervised and having SEB set as allowed app to enter ASAM.</string>
+			<string>Uses either AAC (for BYOD) or requires device to be supervised and having SEB set as allowed app to invoke ASAM.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -26,17 +26,17 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Allow Using Guided Access</string>
+			<string>Allow Single App Mode</string>
 			<key>FooterText</key>
-			<string>If disabled, manually activated Guided Access won&apos;t be used even if ASAM or Single App Mode isn&apos;t available (SEB will refuse to run in this case).</string>
+			<string>Use Single App Mode invoked by MDM or Apple Configurator instead of ASAM or if ASAM fails. Note: You have to disable manual Guided Access if you want to make sure that Single App Mode is used by iOS.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Allow Guided Access</string>
+			<string>Allow Single App Mode</string>
 			<key>Key</key>
-			<string>org_safeexambrowser_SEB_mobileAllowGuidedAccess</string>
+			<string>org_safeexambrowser_SEB_mobileAllowSingleAppMode</string>
 		</dict>
 		<dict>
 			<key>Type</key>
