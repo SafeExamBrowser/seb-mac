@@ -1395,17 +1395,17 @@ static NSMutableSet *browserWindowControllers;
                                                                  [self startAutonomousSingleAppMode];
                                                              }]];
         [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
-    } else if (_guidedAccessActive) {
+    } else if (_singleAppModeActive) {
         if (_lockedViewController) {
             _lockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
         }
-        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Stop Guided Access", nil)
-                                                                message:NSLocalizedString(@"You can now switch off Guided Access by home button triple click or Touch ID.", nil)
+        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting For Single App Mode to End", nil)
+                                                                message:NSLocalizedString(@"You will be able to switch to another app when Single App Mode is switched off by your administrator.", nil)
                                                          preferredStyle:UIAlertControllerStyleAlert];
-        _guidedAccessWarningDisplayed = true;
+        _singleAppModeWarningDisplayed = true;
         [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
     } else {
-        // When Guided Access is off, then we can restart SEB with the start URL in local client settings
+        // When Single App Mode is off, then we can restart SEB with the start URL in local client settings
         [self initSEB];
         [self startAutonomousSingleAppMode];
     }
@@ -1427,7 +1427,7 @@ static NSMutableSet *browserWindowControllers;
 // Called when the Guided Access status changes
 - (void) guidedAccessChanged
 {
-    if (_finishedStartingUp && _guidedAccessActive && _ASAMActive == false) {
+    if (_finishedStartingUp && _singleAppModeActive && _ASAMActive == false) {
         // Is the exam already running?
         if (_examRunning) {
             
@@ -1437,10 +1437,10 @@ static NSMutableSet *browserWindowControllers;
                 /// Guided Access is off
                 
                 // Dismiss the Guided Access warning alert if it still was visible
-                if (_guidedAccessWarningDisplayed) {
+                if (_singleAppModeWarningDisplayed) {
                     [_alertController dismissViewControllerAnimated:NO completion:nil];
                     _alertController = nil;
-                    _guidedAccessWarningDisplayed = false;
+                    _singleAppModeWarningDisplayed = false;
                 }
                 
                 /// Lock the exam down
@@ -1449,7 +1449,7 @@ static NSMutableSet *browserWindowControllers;
                 if (!_sebLocked) {
                     [self openLockdownWindows];
                 }
-                [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Guided Access switched off!", nil)] withTime:_didResignActiveTime];
+                [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode switched off!", nil)] withTime:_didResignActiveTime];
 
             } else {
                 
@@ -1475,21 +1475,21 @@ static NSMutableSet *browserWindowControllers;
             
             /// Exam is not yet running
             
-            // If Guided Access switched on
+            // If Single App Mode is switched on
             if (UIAccessibilityIsGuidedAccessEnabled() == true) {
                 
                 // Proceed to exam
-                [self showGuidedAccessWarning];
+                [self startExam];
                 
             }
-            // Guided Access off
-            else if (_guidedAccessWarningDisplayed) {
-                // Guided Access warning was already displayed: dismiss it
+            // if Single App Mode is off
+            else if (_singleAppModeWarningDisplayed) {
+                // Single App Mode warning was already displayed: dismiss it
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
                 _alertController = nil;
-                _guidedAccessWarningDisplayed = false;
-                _guidedAccessActive = false;
-                [self showRestartGuidedAccess];
+                _singleAppModeWarningDisplayed = false;
+                _singleAppModeActive = false;
+                [self showRestartSingleAppMode];
             }
         }
     }
@@ -1589,15 +1589,15 @@ static NSMutableSet *browserWindowControllers;
 
     // First check if a quit password is set
     if (!_secureMode) {
-        // No quit password set in current settings: Don't ask user to switch on Guided Access
+        // No quit password set in current settings: Don't ask user to switch on Single App Mode
         // and open an exam portal page or a mock exam (which don't need to be secured)
-        _guidedAccessActive = false;
+        _singleAppModeActive = false;
         [self startExam];
     } else {
         // A quit password is set: Ask user to switch on Guided Access (as far as it is allowed in settings)
-        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowGuidedAccess"]) {
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowSingleAppMode"]) {
             // Guided Access is allowed
-            _guidedAccessActive = true;
+            _singleAppModeActive = true;
             if (UIAccessibilityIsGuidedAccessEnabled() == false) {
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
                 _startGuidedAccessDisplayed = true;
@@ -1631,7 +1631,7 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (void) showRestartGuidedAccess {
+- (void) showRestartSingleAppMode {
     // First check if a quit password is set
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
@@ -1642,7 +1642,7 @@ static NSMutableSet *browserWindowControllers;
             _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Restart Guided Access", nil)
                                                                     message:NSLocalizedString(@"Activate Guided Access with triple click home button to return to exam.", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];
-            _guidedAccessActive = true;
+            _singleAppModeActive = true;
             [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
         }
     } else {
@@ -1652,33 +1652,9 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (void) showGuidedAccessWarning
-{
-    // If Guided Access switched on
-    if (UIAccessibilityIsGuidedAccessEnabled() == true) {
-        // Proceed to exam
-        [_alertController dismissViewControllerAnimated:NO completion:nil];
-        
-        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Guided Access Warning", nil)
-                                                                          message:NSLocalizedString(@"Don't switch Guided Access off (home button triple click or Touch ID) before submitting your exam, otherwise SEB will lock access to the exam! SEB will notify you when you're allowed to switch Guided Access off.", nil)
-                                                                   preferredStyle:UIAlertControllerStyleAlert];
-        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"I Understand", nil)
-                                                                       style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                           [_alertController dismissViewControllerAnimated:NO completion:nil];
-                                                                           _alertController = nil;
-                                                                           _guidedAccessWarningDisplayed = false;
-                                                                           
-                                                                           [self startExam];
-        }]];
-        _guidedAccessWarningDisplayed = true;
-        [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
-    }
-}
-
-
 - (void) correctPasswordEntered {
     // If necessary show the dialog to start Guided Access again
-    [self showRestartGuidedAccess];
+    [self showRestartSingleAppMode];
 
     // If Guided Access is already switched on, close lockdown window
     if (UIAccessibilityIsGuidedAccessEnabled() == true) {

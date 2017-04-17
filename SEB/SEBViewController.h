@@ -107,12 +107,12 @@
 @property(readwrite) BOOL enableASAM;
 
 @property(readwrite) BOOL ASAMActive;
-@property(readwrite) BOOL guidedAccessActive;
+@property(readwrite) BOOL singleAppModeActive;
 
 @property(readwrite) BOOL finishedStartingUp;
 @property(readwrite) BOOL isReconfiguring;
 @property(readwrite) BOOL startGuidedAccessDisplayed;
-@property(readwrite) BOOL guidedAccessWarningDisplayed;
+@property(readwrite) BOOL singleAppModeWarningDisplayed;
 @property(readwrite) BOOL restartSessionAlertDisplayed;
 @property(readwrite) BOOL examRunning;
 @property(readwrite) BOOL initAssistantOpen;
@@ -135,7 +135,6 @@
 - (void)conditionallyResetSettings;
 
 - (void) showStartGuidedAccess;
-- (void) showGuidedAccessWarning;
 - (void) startExam;
 - (void) quitExamConditionally;
 - (void) quitExamWithCallback:(id)callback selector:(SEL)selector;

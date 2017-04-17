@@ -327,7 +327,7 @@ static NSNumber *_logLevel;
                                  @"100%",
                                  @"org_safeexambrowser_SEB_mainBrowserWindowWidth",
                                  @NO,
-                                 @"org_safeexambrowser_SEB_mobileAllowGuidedAccess",
+                                 @"org_safeexambrowser_SEB_mobileAllowSingleAppMode",
                                  @NO,
                                  @"org_safeexambrowser_SEB_mobileAllowQRCodeConfig",
                                  @YES,
