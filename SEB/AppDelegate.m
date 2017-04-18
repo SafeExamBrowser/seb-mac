@@ -58,7 +58,12 @@
     // or Autonomous Single App Mode stayed active because
     // SEB crashed before and was automatically restarted
     _SAMActive = UIAccessibilityIsGuidedAccessEnabled();
-    NSLog(@"%s: Single App Mode is %@active", __FUNCTION__, _SAMActive ? @"" : @"not ");
+    NSLog(@"%s: Single App Mode was %@active at app launch.", __FUNCTION__, _SAMActive ? @"" : @"not ");
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        _SAMActive = UIAccessibilityIsGuidedAccessEnabled();
+        _SAMTested = true;
+        NSLog(@"%s: Single App Mode is %@active 2 seconds after app launch.", __FUNCTION__, _SAMActive ? @"" : @"not ");
+    });
 
     // Override point for customization after application launch.
     [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:5 forBarMetrics:UIBarMetricsDefault];
