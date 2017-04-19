@@ -26,9 +26,9 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Allow Single App Mode</string>
+			<string>Classic Single App Mode (SAM)</string>
 			<key>FooterText</key>
-			<string>Use Single App Mode invoked by MDM or Apple Configurator instead of ASAM/AAC. Note: You have to disable manual Guided Access if you want to make sure that only Single App Mode is used by the system.</string>
+			<string>Use Single App Mode invoked by MDM or Apple Configurator instead of ASAM/AAC. Note: You have to distribute devices already locked into SAM or disable manual Guided Access if you want to make sure that only SAM is used by the system.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
