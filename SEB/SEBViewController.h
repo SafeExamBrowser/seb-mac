@@ -105,8 +105,10 @@
 
 @property(readwrite) BOOL secureMode;
 @property(readwrite) BOOL enableASAM;
+@property(readwrite) BOOL allowSAM;
 
 @property(readwrite) BOOL ASAMActive;
+@property(readwrite) BOOL SAMActive;
 @property(readwrite) BOOL singleAppModeActive;
 
 @property(readwrite) BOOL finishedStartingUp;
@@ -134,7 +136,7 @@
 - (void)conditionallyShowSettingsModal;
 - (void)conditionallyResetSettings;
 
-- (void) showStartGuidedAccess;
+- (void) showStartSingleAppMode;
 - (void) startExam;
 - (void) quitExamConditionally;
 - (void) quitExamWithCallback:(id)callback selector:(SEL)selector;

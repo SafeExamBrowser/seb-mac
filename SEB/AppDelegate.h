@@ -47,7 +47,7 @@
 @property (strong, nonatomic, readonly) NSURL *sebFileURL;
 @property (strong, nonatomic) UIApplicationShortcutItem *shortcutItemAtLaunch;
 @property(readwrite) BOOL SAMActive;
-@property(readwrite) BOOL SAMTested;
+@property(readwrite) dispatch_time_t dispatchTimeAppLaunched;
 
 @property (nonatomic, strong) NSMutableArray *persistentWebpages;
 
