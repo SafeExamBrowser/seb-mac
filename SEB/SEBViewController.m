@@ -206,7 +206,7 @@ static NSMutableSet *browserWindowControllers;
     _browserTabViewController.sebViewController = self;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(guidedAccessChanged)
+                                             selector:@selector(singleAppModeStatusChanged)
                                                  name:UIAccessibilityGuidedAccessStatusDidChangeNotification object:nil];
     
     // Add an observer for the request to conditionally quit SEB with asking quit password
@@ -264,6 +264,9 @@ static NSMutableSet *browserWindowControllers;
     } else if (![[MyGlobals sharedMyGlobals] finishedInitializing]) {
         [self conditionallyStartKioskMode];
     }
+    
+    // Set flag that SEB is initialized: Now showing alerts is allowed
+    [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
 }
 
 
@@ -1260,11 +1263,17 @@ static NSMutableSet *browserWindowControllers;
 #pragma mark - Start and quit exam session
 
 - (void) startExam {
-    _examRunning = true;
-    
-    // Load all open web pages from the persistent store and re-create webview(s) for them
-    // or if no persisted web pages are available, load the start URL
-    [_browserTabViewController loadPersistedOpenWebPages];
+    NSString *startURLString = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+    if (startURLString.length == 0 || [startURLString isEqualToString:@"http://www.safeexambrowser.org/start"]) {
+        // Start URL was set to the default value, show init assistant later
+        [self openInitAssistant];
+    } else {
+        _examRunning = true;
+        
+        // Load all open web pages from the persistent store and re-create webview(s) for them
+        // or if no persisted web pages are available, load the start URL
+        [_browserTabViewController loadPersistedOpenWebPages];
+    }
 }
 
 
@@ -1425,8 +1434,8 @@ static NSMutableSet *browserWindowControllers;
 
 #pragma mark - Kiosk mode
 
-// Called when the Guided Access status changes
-- (void) guidedAccessChanged
+// Called when the Single App Mode status changes
+- (void) singleAppModeStatusChanged
 {
     if (_finishedStartingUp && _singleAppModeActive && _ASAMActive == false) {
         // Is the exam already running?
@@ -1502,48 +1511,35 @@ static NSMutableSet *browserWindowControllers;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     _finishedStartingUp = true;
 
-    NSString *startURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-    if (startURLString.length == 0 || [startURLString isEqualToString:@"http://www.safeexambrowser.org/start"]) {
-        // Start URL was set to the default value, show init assistant later
-        [self openInitAssistant];
-    } else {
-        // First check if a quit password is set = run SEB in secure mode
-        _secureMode = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
-        
-        if (!_secureMode) {
-            // If secure mode isn't required, we can proceed to open start URL
-            [self startExam];
-        } else {
-            /// Secure mode required, find out which kiosk mode to use
-            
-            // Is ASAM/AAC enabled in current settings?
-            _enableASAM = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableASAM"];
-            
-            // Is using classic Single App Mode (SAM) allowed in current settings?
-            _allowSAM = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowSingleAppMode"];
-            
-            // If ASAM is enabled and SAM not allowed, we have to check if SAM or Guided Access is
-            // already active and deny starting a secured exam until Guided Access is switched off
-            if (_enableASAM && !_allowSAM) {
-                // Get time of app launch
-                AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-                dispatch_time_t dispatchTimeAppLaunched = appDelegate.dispatchTimeAppLaunched;
-                // Wait at least 2 seconds after app launch
-                dispatch_after(dispatch_time(dispatchTimeAppLaunched, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    // Is SAM/Guided Access (or ASAM because of previous crash) active?
-                    _SAMActive = UIAccessibilityIsGuidedAccessEnabled();
-                    NSLog(@"%s: Single App Mode is %@active at least 2 seconds after app launch.", __FUNCTION__, _SAMActive ? @"" : @"not ");
-                    if (_SAMActive) {
-                        // SAM or Guided Access (or ASAM because of previous crash) is already active:
-                        // refuse starting a secured exam until SAM/Guided Access is switched off
-                        ASAMActiveChecked = false;
-                        [self requestDisablingSAM];
-                    } else {
-                        [self conditionallyStartASAM];
-                    }
-                });
+    // First check if a quit password is set = run SEB in secure mode
+    _secureMode = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
+    
+    // Is ASAM/AAC enabled in current settings?
+    _enableASAM = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableASAM"];
+    
+    // Is using classic Single App Mode (SAM) allowed in current settings?
+    _allowSAM = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowSingleAppMode"];
+    
+    // If ASAM is enabled and SAM not allowed, we have to check if SAM or Guided Access is
+    // already active and deny starting a secured exam until Guided Access is switched off
+    if (_enableASAM && !_allowSAM) {
+        // Get time of app launch
+        AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+        dispatch_time_t dispatchTimeAppLaunched = appDelegate.dispatchTimeAppLaunched;
+        // Wait at least 2 seconds after app launch
+        dispatch_after(dispatch_time(dispatchTimeAppLaunched, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            // Is SAM/Guided Access (or ASAM because of previous crash) active?
+            _SAMActive = UIAccessibilityIsGuidedAccessEnabled();
+            NSLog(@"%s: Single App Mode is %@active at least 2 seconds after app launch.", __FUNCTION__, _SAMActive ? @"" : @"not ");
+            if (_SAMActive) {
+                // SAM or Guided Access (or ASAM because of previous crash) is already active:
+                // refuse starting a secured exam until SAM/Guided Access is switched off
+                ASAMActiveChecked = false;
+                [self requestDisablingSAM];
+            } else {
+                [self conditionallyStartASAM];
             }
-        }
+        });
     }
 }
 
@@ -1570,26 +1566,30 @@ static NSMutableSet *browserWindowControllers;
                 }
             });
         } else {
-            // Warn user that SAM/Guided Access must first be switched off
-            [_alertController dismissViewControllerAnimated:NO completion:nil];
-            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Single App Mode/Guided Access Not Allowed", nil)
-                                                                    message:NSLocalizedString(@"Current settings require that Guided Access or an MDM/configuration profile invoked Single App Mode is first switched off before the exam can be started.", nil)
-                                                             preferredStyle:UIAlertControllerStyleAlert];
-            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
-                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                     [_alertController dismissViewControllerAnimated:NO completion:nil];
-                                                                     // Check again if a single app mode is still active
-                                                                     [self requestDisablingSAM];
-                                                                 }]];
-            
-            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Quit", nil)
-                                                                 style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                                                     [_alertController dismissViewControllerAnimated:NO completion:nil];
-                                                                     [[NSNotificationCenter defaultCenter]
-                                                                      postNotificationName:@"requestQuit" object:self];
-                                                                 }]];
-            
-            [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
+            // If ASAM is enabled and SAM not allowed, we have to deny starting a secured exam
+            // until Guided Access/SAM is switched off
+            if (_enableASAM && !_allowSAM) {
+                // Warn user that SAM/Guided Access must first be switched off
+                [_alertController dismissViewControllerAnimated:NO completion:nil];
+                _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Single App Mode/Guided Access Not Allowed", nil)
+                                                                        message:NSLocalizedString(@"Current settings require that Guided Access or an MDM/configuration profile invoked Single App Mode is first switched off before the exam can be started.", nil)
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
+                                                                     style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                         [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                         // Check again if a single app mode is still active
+                                                                         [self requestDisablingSAM];
+                                                                     }]];
+                
+                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Quit", nil)
+                                                                     style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                                         [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                         [[NSNotificationCenter defaultCenter]
+                                                                          postNotificationName:@"requestQuit" object:self];
+                                                                     }]];
+                
+                [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
+            }
         }
     } else {
         // SAM/Guided Access (or ASAM because of previous crash) is no longer active: start ASAM
@@ -1600,55 +1600,31 @@ static NSMutableSet *browserWindowControllers;
 
 - (void) conditionallyStartASAM
 {
-    if (_ASAMActive || !_SAMActive) {
-        
-        // Is ASAM already active?
-        if (_ASAMActive) {
-            NSLog(@"Autonomous Single App Mode already active");
-            if (!_secureMode || !_enableASAM) {
-                [self stopAutonomousSingleAppMode];
-            }
-            [self startExam];
-            
-        } else {
-            // ASAM not active
-            // Is ASAM enabled in settings?
-            if (_secureMode && _enableASAM) {
-                NSLog(@"Requesting Autonomous Single App Mode");
-                _ASAMActive = true;
-                UIAccessibilityRequestGuidedAccessSession(true, ^(BOOL didSucceed) {
-                    if (didSucceed) {
-                        NSLog(@"Entered Autonomous Single App Mode");
-                        [self startExam];
-                    }
-                    else {
-                        NSLog(@"Failed to enter Autonomous Single App Mode");
-                        _ASAMActive = false;
-                        // Conditionally ask user to start Guided Access
-                        [self showStartSingleAppMode];
-                    }
-                });
-            } else {
-                [self showStartSingleAppMode];
-            }
-        }
+    // First check if a quit password is set = run SEB in secure mode
+    if (!_secureMode) {
+        // If secure mode isn't required, we can proceed to opening start URL
+        [self startExam];
     } else {
-        // Guided Access, SAM or ASAM is already active (maybe because of a crash)
-        NSLog(@"Guided Access or ASAM is already active, maybe because of a crash.");
-        // Try to switch ASAM off to find out if it was active
-        _ASAMActive = true;
-        UIAccessibilityRequestGuidedAccessSession(false, ^(BOOL didSucceed) {
-            if (didSucceed) {
-                NSLog(@"Exited Autonomous Single App Mode");
-                _ASAMActive = false;
-                //                // Restart ASAM properly again
-                //                [self conditionallyStartKioskMode];
-            }
-            else {
-                NSLog(@"Failed to exit Autonomous Single App Mode, Guided Access must be active");
-                _ASAMActive = false;
-            }
-        });
+        // Secure mode required, find out which kiosk mode to use
+        // Is ASAM enabled in settings?
+        if (_enableASAM) {
+            NSLog(@"Requesting Autonomous Single App Mode");
+            _ASAMActive = true;
+            UIAccessibilityRequestGuidedAccessSession(true, ^(BOOL didSucceed) {
+                if (didSucceed) {
+                    NSLog(@"Entered Autonomous Single App Mode");
+                    [self startExam];
+                }
+                else {
+                    NSLog(@"Failed to enter Autonomous Single App Mode");
+                    _ASAMActive = false;
+                    // Conditionally ask user to start Guided Access
+                    [self showStartSingleAppMode];
+                }
+            });
+        } else {
+            [self showStartSingleAppMode];
+        }
     }
 }
 
@@ -1670,24 +1646,11 @@ static NSMutableSet *browserWindowControllers;
 
 - (void) showStartSingleAppMode
 {
-    // Set flag that SEB is initialized: Now showing alerts is allowed
-    [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
-
-//    // First check if a quit password is set
-//    if (!_secureMode) {
-//        // No quit password set in current settings: Don't ask user to switch on Single App Mode
-//        // and open an exam portal page or a mock exam (which don't need to be secured)
-//        _singleAppModeActive = false;
-//        [self startExam];
-//    } else {
-//        // A quit password is set: Ask user to switch on Guided Access (as far as it is allowed in settings)
-//    }
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowSingleAppMode"]) {
+    if (_allowSAM) {
         // SAM is allowed
         _singleAppModeActive = true;
         if (UIAccessibilityIsGuidedAccessEnabled() == false) {
             [_alertController dismissViewControllerAnimated:NO completion:nil];
-            _startGuidedAccessDisplayed = true;
             _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting for Single App Mode", nil)
                                                                     message:NSLocalizedString(@"Current Settings require Single App Mode to be active to proceed.", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];
@@ -1697,7 +1660,7 @@ static NSMutableSet *browserWindowControllers;
         // SAM isn't allowed: SEB refuses to start the exam
         [_alertController dismissViewControllerAnimated:NO completion:nil];
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Kiosk Mode Available", nil)
-                                                                message:NSLocalizedString(@"Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes restarting the device might help.", nil)
+                                                                message:NSLocalizedString(@"Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help.", nil)
                                                          preferredStyle:UIAlertControllerStyleAlert];
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
