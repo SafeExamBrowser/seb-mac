@@ -113,7 +113,6 @@
 
 @property(readwrite) BOOL finishedStartingUp;
 @property(readwrite) BOOL isReconfiguring;
-@property(readwrite) BOOL startGuidedAccessDisplayed;
 @property(readwrite) BOOL singleAppModeWarningDisplayed;
 @property(readwrite) BOOL restartSessionAlertDisplayed;
 @property(readwrite) BOOL examRunning;
