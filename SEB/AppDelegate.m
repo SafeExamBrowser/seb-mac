@@ -59,7 +59,7 @@
     // SEB crashed before and was automatically restarted
     // Apple recommends to wait 2 seconds before using UIAccessibilityIsGuidedAccessEnabled(),
     // so we save current time and to another check later
-    _dispatchTimeAppLaunched = DISPATCH_TIME_NOW;
+    _dispatchTimeAppLaunched = dispatch_time(DISPATCH_TIME_NOW, 0);
     _SAMActive = UIAccessibilityIsGuidedAccessEnabled();
     NSLog(@"%s: Single App Mode was %@active at app launch.", __FUNCTION__, _SAMActive ? @"" : @"not ");
     

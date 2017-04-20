@@ -1580,7 +1580,7 @@ static NSMutableSet *browserWindowControllers;
                 // Warn user that SAM/Guided Access must first be switched off
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
                 _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Single App Mode/Guided Access Not Allowed", nil)
-                                                                        message:NSLocalizedString(@"Current settings require that Guided Access or an MDM/configuration profile invoked Single App Mode is first switched off before the exam can be started.", nil)
+                                                                        message:NSLocalizedString(@"Current settings require that Guided Access or an MDM/Apple Configurator invoked Single App Mode is first switched off before the exam can be started.", nil)
                                                                  preferredStyle:UIAlertControllerStyleAlert];
                 [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
