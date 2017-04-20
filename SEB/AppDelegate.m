@@ -63,11 +63,6 @@
     _SAMActive = UIAccessibilityIsGuidedAccessEnabled();
     NSLog(@"%s: Single App Mode was %@active at app launch.", __FUNCTION__, _SAMActive ? @"" : @"not ");
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        _SAMActive = UIAccessibilityIsGuidedAccessEnabled();
-        NSLog(@"%s: Single App Mode is %@active 2 seconds after app launch.", __FUNCTION__, _SAMActive ? @"" : @"not ");
-    });
-
     // Override point for customization after application launch.
     [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:5 forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:0 forBarMetrics:UIBarMetricsCompact];

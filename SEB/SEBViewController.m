@@ -1,4 +1,4 @@
-        //
+         //
 //  SEBViewController.m
 //
 //  Created by Daniel R. Schneider on 10/09/15.
@@ -1394,7 +1394,6 @@ static NSMutableSet *browserWindowControllers;
     // If ASAM is active, we stop it now and display the alert for restarting session
     if (_ASAMActive) {
         [self stopAutonomousSingleAppMode];
-        //        _ASAMActive = false;
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Restart Session", nil)
                                                                 message:_secureMode ? NSLocalizedString(@"Return to start page and lock device into SEB.", nil) : NSLocalizedString(@"Return to start page.", nil)
                                                          preferredStyle:UIAlertControllerStyleAlert];
@@ -1434,19 +1433,19 @@ static NSMutableSet *browserWindowControllers;
 
 #pragma mark - Kiosk mode
 
-// Called when the Single App Mode status changes
+// Called when the Single App Mode (SAM) status changes
 - (void) singleAppModeStatusChanged
 {
     if (_finishedStartingUp && _singleAppModeActive && _ASAMActive == false) {
         // Is the exam already running?
         if (_examRunning) {
             
-            // Exam running: Check if Guided Access is switched off
+            // Exam running: Check if SAM is switched off
             if (UIAccessibilityIsGuidedAccessEnabled() == false) {
                 
-                /// Guided Access is off
+                /// SAM is off
                 
-                // Dismiss the Guided Access warning alert if it still was visible
+                // Dismiss the SAM warning alert if it still was visible
                 if (_singleAppModeWarningDisplayed) {
                     [_alertController dismissViewControllerAnimated:NO completion:nil];
                     _alertController = nil;
@@ -1471,7 +1470,7 @@ static NSMutableSet *browserWindowControllers;
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
                 _alertController = nil;
 
-                [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Guided Access is switched on again.", nil)] withTime:_didBecomeActiveTime];
+                [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode was switched on again.", nil)] withTime:_didBecomeActiveTime];
                 
                 // Close unlock windows only if the correct quit/restart password was entered already
                 if (_unlockPasswordEntered) {
@@ -1485,6 +1484,13 @@ static NSMutableSet *browserWindowControllers;
             
             /// Exam is not yet running
             
+            // Dismiss the SAM warning alert if it still was visible
+            if (_singleAppModeWarningDisplayed) {
+                [_alertController dismissViewControllerAnimated:NO completion:nil];
+                _alertController = nil;
+                _singleAppModeWarningDisplayed = false;
+            }
+
             // If Single App Mode is switched on
             if (UIAccessibilityIsGuidedAccessEnabled() == true) {
                 
@@ -1540,6 +1546,8 @@ static NSMutableSet *browserWindowControllers;
                 [self conditionallyStartASAM];
             }
         });
+    } else {
+        [self conditionallyStartASAM];
     }
 }
 
@@ -1654,6 +1662,7 @@ static NSMutableSet *browserWindowControllers;
             _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting for Single App Mode", nil)
                                                                     message:NSLocalizedString(@"Current Settings require Single App Mode to be active to proceed.", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];
+            _singleAppModeWarningDisplayed = true;
             [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
         }
     } else {
@@ -1688,8 +1697,8 @@ static NSMutableSet *browserWindowControllers;
         // A quit password is set in current settings: Ask user to restart Guided Access
         // If Guided Access isn't already on, show alert to switch it on again
         if (UIAccessibilityIsGuidedAccessEnabled() == false) {
-            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Restart Guided Access", nil)
-                                                                    message:NSLocalizedString(@"Activate Guided Access with triple click home button to return to exam.", nil)
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting for Single App Mode", nil)
+                                                                    message:NSLocalizedString(@"Single App Mode needs to be reactivated before SEB can continue.", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];
             _singleAppModeActive = true;
             [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
