@@ -109,11 +109,13 @@
 
 @property(readwrite) BOOL ASAMActive;
 @property(readwrite) BOOL SAMActive;
-@property(readwrite) BOOL singleAppModeActive;
+@property(readwrite) BOOL singleAppModeActivated;
 
 @property(readwrite) BOOL finishedStartingUp;
 @property(readwrite) BOOL isReconfiguring;
-@property(readwrite) BOOL singleAppModeWarningDisplayed;
+@property(readwrite) BOOL startSAMWAlertDisplayed;
+@property(readwrite) BOOL pausedSAMAlertDisplayed;
+@property(readwrite) BOOL endSAMWAlertDisplayed;
 @property(readwrite) BOOL restartSessionAlertDisplayed;
 @property(readwrite) BOOL examRunning;
 @property(readwrite) BOOL initAssistantOpen;
