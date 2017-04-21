@@ -713,12 +713,9 @@ static NSMutableSet *browserWindowControllers;
         }
         _settingsOpen = false;
         
-        // Close all tabs before re-initializing SEB with new settings
-        [_browserTabViewController closeAllTabs];
-        _examRunning = false;
-        
-        [self initSEB];
-        [self conditionallyStartKioskMode];
+        // Restart exam: Close all tabs, reset browser and reset kiosk mode
+        // before re-initializing SEB with new settings
+        [self restartExam];
     }];
 }
 
@@ -1111,9 +1108,6 @@ static NSMutableSet *browserWindowControllers;
     
     // Reset settings view controller (so new settings are displayed)
     self.appSettingsViewController = nil;
-    
-    // Switch to system's (persisted) UserDefaults
-    [NSUserDefaults setUserDefaultsPrivate:NO];
 }
 
 
@@ -1128,6 +1122,19 @@ static NSMutableSet *browserWindowControllers;
             _finishedStartingUp = false;
             [self downloadAndOpenSEBConfigFromURL:(NSURL *)url];
         }];
+    } else if (_startSAMWAlertDisplayed) {
+        // Dismiss the Activate SAM alert in case it still was visible
+        [_alertController dismissViewControllerAnimated:NO completion:^{
+            _alertController = nil;
+            _startSAMWAlertDisplayed = false;
+            _singleAppModeActivated = false;
+            // Set the paused SAM alert displayed flag, because if loading settings
+            // fails or is canceled, we need to restart the kiosk mode
+            _pausedSAMAlertDisplayed = true;
+            [self downloadAndOpenSEBConfigFromURL:(NSURL *)url];
+        }];
+        return;
+
     } else {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
@@ -1210,14 +1217,10 @@ static NSMutableSet *browserWindowControllers;
 {
     NSLog(@"%s: Storing new SEB settings was %@successful", __FUNCTION__, error ? @"not " : @"");
     if (!error) {
-        [_browserTabViewController closeAllTabs];
-        _examRunning = false;
-        [self initSEB];
-        
         _isReconfiguring = false;
         _scannedQRCode = false;
         
-        [self conditionallyStartKioskMode];
+        [self restartExam];
         
     } else {
         _isReconfiguring = false;
@@ -1250,7 +1253,8 @@ static NSMutableSet *browserWindowControllers;
             
             [self.navigationController.visibleViewController presentViewController:self.alertController animated:YES completion:nil];
 
-        } else if (!_finishedStartingUp) {
+        } else if (!_finishedStartingUp || _pausedSAMAlertDisplayed) {
+            _pausedSAMAlertDisplayed = false;
             // Continue starting up SEB without resetting settings
             [self conditionallyStartKioskMode];
         } else {
@@ -1381,11 +1385,23 @@ static NSMutableSet *browserWindowControllers;
 
 - (void) quitExam
 {
+    // Switch to system's (persisted) UserDefaults
+    [NSUserDefaults setUserDefaultsPrivate:NO];
+    
+    [self restartExam];
+}
+
+
+// Close all tabs, reset browser and reset kiosk mode
+// before re-initializing SEB with new settings and restarting exam
+- (void) restartExam
+{
     // Close the left slider view if it was open
     [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
     
-    // Close browser tabs and reset SEB settings to the local client settings if necessary
+    // Close browser tabs and reset browser session
     [self resetSEB];
+    
     // Update (because settings might have changed to local client settings)
     // if a quit password is set = run SEB in secure mode
     _secureMode = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
@@ -1404,14 +1420,14 @@ static NSMutableSet *browserWindowControllers;
                                                                  [self conditionallyStartKioskMode];
                                                              }]];
         [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
-    } else if (_singleAppModeActive) {
+    } else if (_singleAppModeActivated) {
         if (_lockedViewController) {
             _lockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
         }
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting For Single App Mode to End", nil)
                                                                 message:NSLocalizedString(@"You will be able to switch to another app when Single App Mode is switched off by your administrator.", nil)
                                                          preferredStyle:UIAlertControllerStyleAlert];
-        _singleAppModeWarningDisplayed = true;
+        _endSAMWAlertDisplayed = true;
         [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
     } else {
         // When Single App Mode is off, then we can restart SEB with the start URL in local client settings
@@ -1436,23 +1452,22 @@ static NSMutableSet *browserWindowControllers;
 // Called when the Single App Mode (SAM) status changes
 - (void) singleAppModeStatusChanged
 {
-    if (_finishedStartingUp && _singleAppModeActive && _ASAMActive == false) {
+    if (_finishedStartingUp && _singleAppModeActivated && _ASAMActive == false) {
+
         // Is the exam already running?
         if (_examRunning) {
+            
+            // Dismiss the Activate SAM alert in case it still was visible
+            [_alertController dismissViewControllerAnimated:NO completion:nil];
+            _alertController = nil;
+            _startSAMWAlertDisplayed = false;
             
             // Exam running: Check if SAM is switched off
             if (UIAccessibilityIsGuidedAccessEnabled() == false) {
                 
                 /// SAM is off
                 
-                // Dismiss the SAM warning alert if it still was visible
-                if (_singleAppModeWarningDisplayed) {
-                    [_alertController dismissViewControllerAnimated:NO completion:nil];
-                    _alertController = nil;
-                    _singleAppModeWarningDisplayed = false;
-                }
-                
-                /// Lock the exam down
+                // Lock the exam down
                 
                 // If there wasn't a lockdown covering view openend yet, initialize it
                 if (!_sebLocked) {
@@ -1462,14 +1477,11 @@ static NSMutableSet *browserWindowControllers;
 
             } else {
                 
-                /// Guided Access is on again
+                /// SAM is on again
                 
                 // Add log string
                 _didBecomeActiveTime = [NSDate date];
                 
-                [_alertController dismissViewControllerAnimated:NO completion:nil];
-                _alertController = nil;
-
                 [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode was switched on again.", nil)] withTime:_didBecomeActiveTime];
                 
                 // Close unlock windows only if the correct quit/restart password was entered already
@@ -1484,28 +1496,33 @@ static NSMutableSet *browserWindowControllers;
             
             /// Exam is not yet running
             
-            // Dismiss the SAM warning alert if it still was visible
-            if (_singleAppModeWarningDisplayed) {
-                [_alertController dismissViewControllerAnimated:NO completion:nil];
-                _alertController = nil;
-                _singleAppModeWarningDisplayed = false;
-            }
-
             // If Single App Mode is switched on
             if (UIAccessibilityIsGuidedAccessEnabled() == true) {
+                
+                // Dismiss the Activate SAM alert in case it still was visible
+                [_alertController dismissViewControllerAnimated:NO completion:nil];
+                _alertController = nil;
+                _startSAMWAlertDisplayed = false;
                 
                 // Proceed to exam
                 [self startExam];
                 
-            }
-            // if Single App Mode is off
-            else if (_singleAppModeWarningDisplayed) {
-                // Single App Mode warning was already displayed: dismiss it
-                [_alertController dismissViewControllerAnimated:NO completion:nil];
-                _alertController = nil;
-                _singleAppModeWarningDisplayed = false;
-                _singleAppModeActive = false;
-                [self showRestartSingleAppMode];
+            } else {
+
+                // Dismiss the Waiting for SAM to end alert
+                if (_endSAMWAlertDisplayed) {
+                    [_alertController dismissViewControllerAnimated:NO completion:^{
+                        _alertController = nil;
+                        _endSAMWAlertDisplayed = false;
+                        [self showRestartSingleAppMode];
+                    }];
+                    return;
+                }
+                
+                // if Single App Mode is off
+                if (!_startSAMWAlertDisplayed && !_pausedSAMAlertDisplayed) {
+                    [self showRestartSingleAppMode];
+                }
             }
         }
     }
@@ -1656,13 +1673,13 @@ static NSMutableSet *browserWindowControllers;
 {
     if (_allowSAM) {
         // SAM is allowed
-        _singleAppModeActive = true;
+        _singleAppModeActivated = true;
         if (UIAccessibilityIsGuidedAccessEnabled() == false) {
             [_alertController dismissViewControllerAnimated:NO completion:nil];
             _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting for Single App Mode", nil)
                                                                     message:NSLocalizedString(@"Current Settings require Single App Mode to be active to proceed.", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];
-            _singleAppModeWarningDisplayed = true;
+            _startSAMWAlertDisplayed = true;
             [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
         }
     } else {
@@ -1700,7 +1717,8 @@ static NSMutableSet *browserWindowControllers;
             _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting for Single App Mode", nil)
                                                                     message:NSLocalizedString(@"Single App Mode needs to be reactivated before SEB can continue.", nil)
                                                              preferredStyle:UIAlertControllerStyleAlert];
-            _singleAppModeActive = true;
+            _singleAppModeActivated = true;
+            _startSAMWAlertDisplayed = true;
             [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
         }
     } else {
@@ -1747,7 +1765,7 @@ static NSMutableSet *browserWindowControllers;
     }
     // Save current time for information about when Guided Access was switched off
     _didResignActiveTime = [NSDate date];
-    DDLogError(@"Guided Accesss switched off!");
+    DDLogError(@"Single App Mode switched off!");
     
     // Open the lockdown view
     //    [_lockedViewController willMoveToParentViewController:self];
