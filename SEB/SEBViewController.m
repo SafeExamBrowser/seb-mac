@@ -1412,42 +1412,72 @@ static NSMutableSet *browserWindowControllers;
     // Close browser tabs and reset browser session
     [self resetSEB];
     
-    // Update (because settings might have changed to local client settings)
-    // if a quit password is set = run SEB in secure mode
-    _secureMode = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
-    
-    // If SAM is active, we display the alert for waiting for it to be switched off
-    if (_singleAppModeActivated) {
-        if (_lockedViewController) {
-            _lockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
-        }
-        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting For Single App Mode to End", nil)
-                                                                message:NSLocalizedString(@"You will be able to work with other apps after Single App Mode is switched off by your administrator.", nil)
-                                                         preferredStyle:UIAlertControllerStyleAlert];
-        _endSAMWAlertDisplayed = true;
-        [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
-        return;
-    }
-    
-    // If ASAM is active, we stop it now and display the alert for restarting session
-    if (_enableASAM) {
-        if (_ASAMActive) {
-            NSLog(@"Requesting to exit Autonomous Single App Mode");
-            UIAccessibilityRequestGuidedAccessSession(false, ^(BOOL didSucceed) {
-                if (didSucceed) {
-                    NSLog(@"Exited Autonomous Single App Mode");
-                    _ASAMActive = false;
+    // We only might need to switch off kiosk mode if it was active in previous settings
+    if (_secureMode) {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+        // Get new setting for running SEB in secure mode
+        BOOL newSecureMode = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
+        
+        // Get new setting for ASAM/AAC enabled
+        BOOL newEnableASAM = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableASAM"];
+        
+        // Get new setting for using classic Single App Mode (SAM) allowed
+        BOOL newAllowSAM = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowSingleAppMode"];
+
+        // If there is one or more difference(s) in active kiosk mode
+        // compared to the new kiosk mode settings, also considering:
+        // when we're running in SAM mode, it's not relevant if settings for ASAM differ
+        // when we're running in ASAM mode, it's not relevant if settings for SAM differ
+        // we deactivate current kiosk mode
+        if (_secureMode != newSecureMode ||
+            (!_singleAppModeActivated && (_ASAMActive != newEnableASAM)) ||
+            (!_ASAMActive && (_singleAppModeActivated != newAllowSAM))) {
+            
+            // If SAM is active, we display the alert for waiting for it to be switched off
+            if (_singleAppModeActivated) {
+                if (_lockedViewController) {
+                    _lockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
                 }
-                else {
-                    NSLog(@"Failed to exit Autonomous Single App Mode");
+                _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting For Single App Mode to End", nil)
+                                                                        message:NSLocalizedString(@"You will be able to work with other apps after Single App Mode is switched off by your administrator.", nil)
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+                _endSAMWAlertDisplayed = true;
+                [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
+                return;
+            }
+            
+            // If ASAM is active, we stop it now and display the alert for restarting session
+            if (_enableASAM) {
+                if (_ASAMActive) {
+                    NSLog(@"Requesting to exit Autonomous Single App Mode");
+                    UIAccessibilityRequestGuidedAccessSession(false, ^(BOOL didSucceed) {
+                        if (didSucceed) {
+                            NSLog(@"Exited Autonomous Single App Mode");
+                            _ASAMActive = false;
+                        }
+                        else {
+                            NSLog(@"Failed to exit Autonomous Single App Mode");
+                        }
+                        [self restartExamASAM:quitting];
+                    });
+                } else {
+                    [self restartExamASAM:quitting];
                 }
-                [self restartExamASAM:quitting];
-            });
+            } else {
+                // When no kiosk mode was active, then we can just restart SEB with the start URL in local client settings
+                [self initSEB];
+                [self conditionallyStartKioskMode];
+            }
         } else {
-            [self restartExamASAM:quitting];
+            // If kiosk mode settings stay same, we just initialize SEB with new settings and start the exam
+            [self initSEB];
+            [self startExam];
         }
+        
     } else {
-        // When no kiosk mode was active, then we can just restart SEB with the start URL in local client settings
+        // When no kiosk mode was active, then we can just restart SEB
+        // and switch kiosk mode on conditionally according to new settings
         [self initSEB];
         [self conditionallyStartKioskMode];
     }
