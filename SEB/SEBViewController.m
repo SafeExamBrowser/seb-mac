@@ -152,7 +152,7 @@ static NSMutableSet *browserWindowControllers;
                                                              preferredStyle:UIAlertControllerStyleAlert];
             [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Settings", nil)
                                                                  style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                     [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                     _alertController = nil;
                                                                      NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
                                                                      if ([[UIApplication sharedApplication] canOpenURL:url]) {
                                                                          [[UIApplication sharedApplication] openURL:url];
@@ -160,7 +160,7 @@ static NSMutableSet *browserWindowControllers;
                                                                  }]];
             [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                                  style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                                                     [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                     _alertController = nil;
                                                                  }]];
             [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
         } else if (camAuthStatus == AVAuthorizationStatusNotDetermined) {
@@ -172,7 +172,7 @@ static NSMutableSet *browserWindowControllers;
                                                              preferredStyle:UIAlertControllerStyleAlert];
             [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                  style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                     [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                     _alertController = nil;
                                                                  }]];
             [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
         }
@@ -595,7 +595,9 @@ static NSMutableSet *browserWindowControllers;
     
     // Dismiss an alert in case one is open
     if (_alertController) {
-        [_alertController dismissViewControllerAnimated:NO completion:nil];
+        [_alertController dismissViewControllerAnimated:NO completion:^{
+            _alertController = nil;
+        }];
     }
 
     [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:0 forBarMetrics:UIBarMetricsDefault];
@@ -715,7 +717,7 @@ static NSMutableSet *browserWindowControllers;
         
         // Restart exam: Close all tabs, reset browser and reset kiosk mode
         // before re-initializing SEB with new settings
-        [self restartExam];
+        [self restartExam:false];
     }];
 }
 
@@ -1135,6 +1137,13 @@ static NSMutableSet *browserWindowControllers;
         }];
         return;
 
+    } else if (_alertController) {
+        [_alertController dismissViewControllerAnimated:NO completion:^{
+            _alertController = nil;
+            _pausedSAMAlertDisplayed = true;
+            [self downloadAndOpenSEBConfigFromURL:(NSURL *)url];
+        }];
+        return;
     } else {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
@@ -1150,7 +1159,7 @@ static NSMutableSet *browserWindowControllers;
                                                                  preferredStyle:UIAlertControllerStyleAlert];
                 [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                         [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                         _alertController = nil;
                                                                      }]];
                 [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
                 
@@ -1220,7 +1229,7 @@ static NSMutableSet *browserWindowControllers;
         _isReconfiguring = false;
         _scannedQRCode = false;
         
-        [self restartExam];
+        [self restartExam:false];
         
     } else {
         _isReconfiguring = false;
@@ -1236,16 +1245,17 @@ static NSMutableSet *browserWindowControllers;
                                                    NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"No valid SEB config found.", nil),
                                                    NSUnderlyingErrorKey : error}];
             }
-            if (self.alertController) {
-                [self.alertController dismissViewControllerAnimated:NO completion:nil];
+            if (_alertController) {
+                [_alertController dismissViewControllerAnimated:NO completion:nil];
             }
             NSString *alertMessage = error.localizedRecoverySuggestion;
             alertMessage = [NSString stringWithFormat:@"%@%@%@", alertMessage ? alertMessage : @"", alertMessage ? @"\n" : @"", error.localizedFailureReason];
-            self.alertController = [UIAlertController alertControllerWithTitle:error.localizedDescription
+            _alertController = [UIAlertController alertControllerWithTitle:error.localizedDescription
                                                                        message:alertMessage
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-            [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                         _alertController = nil;
                                                                          if (!_finishedStartingUp) {
                                                                              [self conditionallyStartKioskMode];
                                                                          }
@@ -1320,14 +1330,14 @@ static NSMutableSet *browserWindowControllers;
                                                      preferredStyle:UIAlertControllerStyleAlert];
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Quit", nil)
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                             [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                             _alertController = nil;
                                                              [self quitExam];
                                                          }]];
     
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                             _alertController = nil;
                                                              [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
-                                                             //                                                                     [_alertController dismissViewControllerAnimated:NO completion:nil];
                                                          }]];
     
     [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
@@ -1388,13 +1398,13 @@ static NSMutableSet *browserWindowControllers;
     // Switch to system's (persisted) UserDefaults
     [NSUserDefaults setUserDefaultsPrivate:NO];
     
-    [self restartExam];
+    [self restartExam:true];
 }
 
 
 // Close all tabs, reset browser and reset kiosk mode
 // before re-initializing SEB with new settings and restarting exam
-- (void) restartExam
+- (void) restartExam:(BOOL)quitting
 {
     // Close the left slider view if it was open
     [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
@@ -1406,36 +1416,62 @@ static NSMutableSet *browserWindowControllers;
     // if a quit password is set = run SEB in secure mode
     _secureMode = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
     
-    
-    // If ASAM is active, we stop it now and display the alert for restarting session
-    if (_ASAMActive) {
-        [self stopAutonomousSingleAppMode];
-        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Restart Session", nil)
-                                                                message:_secureMode ? NSLocalizedString(@"Return to start page and lock device into SEB.", nil) : NSLocalizedString(@"Return to start page.", nil)
-                                                         preferredStyle:UIAlertControllerStyleAlert];
-        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
-                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                 [_alertController dismissViewControllerAnimated:NO completion:nil];
-                                                                 [self initSEB];
-                                                                 [self conditionallyStartKioskMode];
-                                                             }]];
-        [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
-    } else if (_singleAppModeActivated) {
+    // If SAM is active, we display the alert for waiting for it to be switched off
+    if (_singleAppModeActivated) {
         if (_lockedViewController) {
             _lockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
         }
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting For Single App Mode to End", nil)
-                                                                message:NSLocalizedString(@"You will be able to switch to another app when Single App Mode is switched off by your administrator.", nil)
+                                                                message:NSLocalizedString(@"You will be able to work with other apps after Single App Mode is switched off by your administrator.", nil)
                                                          preferredStyle:UIAlertControllerStyleAlert];
         _endSAMWAlertDisplayed = true;
         [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
+        return;
+    }
+    
+    // If ASAM is active, we stop it now and display the alert for restarting session
+    if (_enableASAM) {
+        if (_ASAMActive) {
+            NSLog(@"Requesting to exit Autonomous Single App Mode");
+            UIAccessibilityRequestGuidedAccessSession(false, ^(BOOL didSucceed) {
+                if (didSucceed) {
+                    NSLog(@"Exited Autonomous Single App Mode");
+                    _ASAMActive = false;
+                }
+                else {
+                    NSLog(@"Failed to exit Autonomous Single App Mode");
+                }
+                [self restartExamASAM:quitting];
+            });
+        } else {
+            [self restartExamASAM:quitting];
+        }
     } else {
-        // When Single App Mode is off, then we can restart SEB with the start URL in local client settings
+        // When no kiosk mode was active, then we can just restart SEB with the start URL in local client settings
         [self initSEB];
         [self conditionallyStartKioskMode];
     }
 }
 
+
+- (void) restartExamASAM:(BOOL)quitting
+{
+    if (quitting) {
+        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Restart Session", nil)
+                                                                message:_secureMode ? NSLocalizedString(@"Return to start page and lock device into SEB.", nil) : NSLocalizedString(@"Return to start page.", nil)
+                                                         preferredStyle:UIAlertControllerStyleAlert];
+        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                 _alertController = nil;
+                                                                 [self initSEB];
+                                                                 [self conditionallyStartKioskMode];
+                                                             }]];
+        [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
+    } else {
+        [self initSEB];
+        [self conditionallyStartKioskMode];
+    }
+}
 
 // Inform the callback method if decrypting, parsing and storing new settings was successful or not
 - (void) quitExamWithCallback:(id)callback selector:(SEL)selector
@@ -1487,8 +1523,6 @@ static NSMutableSet *browserWindowControllers;
                 // Close unlock windows only if the correct quit/restart password was entered already
                 if (_unlockPasswordEntered) {
                     _unlockPasswordEntered = false;
-//                    [_alertController dismissViewControllerAnimated:NO completion:nil];
-//                    _alertController = nil;
                     [_lockedViewController shouldCloseLockdownWindows];
                 }
             }
@@ -1545,25 +1579,31 @@ static NSMutableSet *browserWindowControllers;
     
     // If ASAM is enabled and SAM not allowed, we have to check if SAM or Guided Access is
     // already active and deny starting a secured exam until Guided Access is switched off
+    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     if (_enableASAM && !_allowSAM) {
         // Get time of app launch
-        AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
         dispatch_time_t dispatchTimeAppLaunched = appDelegate.dispatchTimeAppLaunched;
-        // Wait at least 2 seconds after app launch
-        dispatch_after(dispatch_time(dispatchTimeAppLaunched, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            // Is SAM/Guided Access (or ASAM because of previous crash) active?
-            _SAMActive = UIAccessibilityIsGuidedAccessEnabled();
-            NSLog(@"%s: Single App Mode is %@active at least 2 seconds after app launch.", __FUNCTION__, _SAMActive ? @"" : @"not ");
-            if (_SAMActive) {
-                // SAM or Guided Access (or ASAM because of previous crash) is already active:
-                // refuse starting a secured exam until SAM/Guided Access is switched off
-                ASAMActiveChecked = false;
-                [self requestDisablingSAM];
-            } else {
-                [self conditionallyStartASAM];
-            }
-        });
+        if (dispatchTimeAppLaunched != 0) {
+            // Wait at least 2 seconds after app launch
+            dispatch_after(dispatch_time(dispatchTimeAppLaunched, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                appDelegate.dispatchTimeAppLaunched = 0;
+                // Is SAM/Guided Access (or ASAM because of previous crash) active?
+                _SAMActive = UIAccessibilityIsGuidedAccessEnabled();
+                NSLog(@"%s: Single App Mode is %@active at least 2 seconds after app launch.", __FUNCTION__, _SAMActive ? @"" : @"not ");
+                if (_SAMActive) {
+                    // SAM or Guided Access (or ASAM because of previous crash) is already active:
+                    // refuse starting a secured exam until SAM/Guided Access is switched off
+                    ASAMActiveChecked = false;
+                    [self requestDisablingSAM];
+                } else {
+                    [self conditionallyStartASAM];
+                }
+            });
+        } else {
+            [self conditionallyStartASAM];
+        }
     } else {
+        appDelegate.dispatchTimeAppLaunched = 0;
         [self conditionallyStartASAM];
     }
 }
@@ -1601,14 +1641,14 @@ static NSMutableSet *browserWindowControllers;
                                                                  preferredStyle:UIAlertControllerStyleAlert];
                 [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                         [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                         _alertController = nil;
                                                                          // Check again if a single app mode is still active
                                                                          [self requestDisablingSAM];
                                                                      }]];
                 
                 [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Quit", nil)
                                                                      style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                                                         [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                                         _alertController = nil;
                                                                          [[NSNotificationCenter defaultCenter]
                                                                           postNotificationName:@"requestQuit" object:self];
                                                                      }]];
@@ -1629,7 +1669,7 @@ static NSMutableSet *browserWindowControllers;
     if (!_secureMode) {
         // If secure mode isn't required, we can proceed to opening start URL
         [self startExam];
-    } else {
+    } else if (!_ASAMActive) {
         // Secure mode required, find out which kiosk mode to use
         // Is ASAM enabled in settings?
         if (_enableASAM) {
@@ -1643,8 +1683,7 @@ static NSMutableSet *browserWindowControllers;
                 else {
                     NSLog(@"Failed to enter Autonomous Single App Mode");
                     _ASAMActive = false;
-                    // Conditionally ask user to start Guided Access
-                    [self showStartSingleAppMode];
+                    [self showNoKioskModeAvailable];
                 }
             });
         } else {
@@ -1684,25 +1723,32 @@ static NSMutableSet *browserWindowControllers;
         }
     } else {
         // SAM isn't allowed: SEB refuses to start the exam
-        [_alertController dismissViewControllerAnimated:NO completion:nil];
-        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Kiosk Mode Available", nil)
-                                                                message:NSLocalizedString(@"Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help.", nil)
-                                                         preferredStyle:UIAlertControllerStyleAlert];
-        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
-                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                 [_alertController dismissViewControllerAnimated:NO completion:nil];
-                                                                 [self conditionallyStartKioskMode];
-                                                             }]];
-        
-        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Quit", nil)
-                                                             style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                                                 [_alertController dismissViewControllerAnimated:NO completion:nil];
-                                                                 [[NSNotificationCenter defaultCenter]
-                                                                  postNotificationName:@"requestQuit" object:self];
-                                                             }]];
-        
-        [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
+        [self showNoKioskModeAvailable];
     }
+}
+
+
+// No kiosk mode available: SEB refuses to start the exam
+- (void) showNoKioskModeAvailable
+{
+    [_alertController dismissViewControllerAnimated:NO completion:nil];
+    _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Kiosk Mode Available", nil)
+                                                            message:NSLocalizedString(@"Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help.", nil)
+                                                     preferredStyle:UIAlertControllerStyleAlert];
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
+                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                             _alertController = nil;
+                                                             [self conditionallyStartKioskMode];
+                                                         }]];
+    
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Quit", nil)
+                                                         style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                             _alertController = nil;
+                                                             [[NSNotificationCenter defaultCenter]
+                                                              postNotificationName:@"requestQuit" object:self];
+                                                         }]];
+    
+    [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
 }
 
 
@@ -1925,12 +1971,13 @@ static NSMutableSet *browserWindowControllers;
                                                      preferredStyle:UIAlertControllerStyleAlert];
     [_alertController addAction:[UIAlertAction actionWithTitle:action1Title
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                             [_alertController dismissViewControllerAnimated:NO completion:nil];
+                                                             _alertController = nil;
                                                              action1Handler();
                                                          }]];
     if (action2Title) {
         [_alertController addAction:[UIAlertAction actionWithTitle:action2Title
                                                              style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                                 _alertController = nil;
                                                                  action2Handler();
                                                              }]];
     }
