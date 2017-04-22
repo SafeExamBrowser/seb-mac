@@ -191,4 +191,7 @@
 - (void) closeLockdownWindows;
 - (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
 
+- (void) addLockedExam:(NSString *)examURLString;
+- (void) removeLockedExam:(NSString *)examURLString;
+
 @end
