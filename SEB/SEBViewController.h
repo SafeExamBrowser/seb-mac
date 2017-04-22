@@ -94,6 +94,7 @@
 @property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
 
 @property (nonatomic, strong) QRCodeReaderViewController *codeReaderViewController;
+@property (nonatomic, strong) QRCodeReaderViewController *visibleCodeReaderViewController;
 
 @property (nonatomic, strong) id <SEBConfigURLManagerDelegate> configURLManagerDelegate;
 
