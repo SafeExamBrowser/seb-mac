@@ -188,14 +188,6 @@
     if ([self.controllerDelegate respondsToSelector:@selector(sebLocked)]) {
         self.controllerDelegate.sebLocked = false;
     }
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *startURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-    NSMutableArray *lockedExams = [NSMutableArray arrayWithArray:[preferences persistedSecureObjectForKey:@"org_safeexambrowser_additionalResources"]];
-    NSUInteger indexOfLockedExamDictionary = [self getIndexOfLockedExam:lockedExams withStartURL:startURL];
-    if (indexOfLockedExamDictionary != NSNotFound) {
-        [lockedExams removeObjectAtIndex:indexOfLockedExamDictionary];
-        [preferences setPersistedSecureObject:lockedExams forKey:@"org_safeexambrowser_additionalResources"];
-    }
     closingLockdownWindowsInProgress = false;
 }
 
