@@ -7,12 +7,6 @@
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
-			<string>Main Browser Window</string>
-		</dict>
-		<dict>
 			<key>DefaultValue</key>
 			<integer>0</integer>
 			<key>Key</key>
@@ -53,6 +47,14 @@
 			<string>SEB Dock and Slider</string>
 			<key>File</key>
 			<string>Dock</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Auto-Correction &amp; Predictive Text</string>
+			<key>FooterText</key>
+			<string>This setting doesn&apos;t work with AAC/ASAM single app modes.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
