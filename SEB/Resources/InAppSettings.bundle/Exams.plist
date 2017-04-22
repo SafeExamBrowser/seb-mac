@@ -45,6 +45,8 @@
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>Back to Start Button</string>
+			<key>FooterText</key>
+			<string>This function doesn&apos;t log you out if you are logged in on a website (doesn&apos;t clear session cookies). </string>
 		</dict>
 		<dict>
 			<key>Type</key>
