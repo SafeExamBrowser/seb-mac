@@ -118,6 +118,8 @@
         [lockedExams removeObjectAtIndex:indexOfLockedExamDictionary];
         [preferences setPersistedSecureObject:lockedExams forKey:@"org_safeexambrowser_additionalResources"];
     }
+    [self appendErrorString:[NSString stringWithFormat:@"%@%@\n", NSLocalizedString(@"Quit exam with URL ", nil), examURLString]
+                   withTime:[NSDate date]];
 }
 
 - (void) passwordEntered:(id)sender {

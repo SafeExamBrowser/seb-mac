@@ -1299,7 +1299,9 @@ static NSMutableSet *browserWindowControllers;
         [_browserTabViewController loadPersistedOpenWebPages];
         
         currentStartURL = startURLString;
-        [self.sebLockedViewController addLockedExam:startURLString];
+        if (_secureMode) {
+            [self.sebLockedViewController addLockedExam:startURLString];
+        }
     }
 }
 
@@ -1425,7 +1427,9 @@ static NSMutableSet *browserWindowControllers;
     // Close browser tabs and reset browser session
     [self resetSEB];
     
-    [self.sebLockedViewController removeLockedExam:currentStartURL];
+    if (_secureMode) {
+        [self.sebLockedViewController removeLockedExam:currentStartURL];
+    }
     
     // We only might need to switch off kiosk mode if it was active in previous settings
     if (_secureMode) {
@@ -1820,11 +1824,11 @@ static NSMutableSet *browserWindowControllers;
 
 
 - (void) correctPasswordEntered {
-    // If necessary show the dialog to start Guided Access again
-    [self showRestartSingleAppMode];
+//    // If necessary show the dialog to start Guided Access again
+//    [self showRestartSingleAppMode];
 
-    // If Guided Access is already switched on, close lockdown window
-    if (UIAccessibilityIsGuidedAccessEnabled() == true) {
+    // If kiosk mode is already switched on, close lockdown window
+    if (!_secureMode || (_secureMode && UIAccessibilityIsGuidedAccessEnabled() == true)) {
         [_lockedViewController shouldCloseLockdownWindows];
     }
 }
@@ -1835,10 +1839,15 @@ static NSMutableSet *browserWindowControllers;
 - (void) conditionallyOpenLockdownWindows
 {
     if ([self.sebLockedViewController shouldOpenLockdownWindows]) {
-        [self openLockdownWindows];
-        
-        // Add log string for entering a locked exam
-        [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", nil)] withTime:[NSDate date]];
+        if (_secureMode) {
+            [self openLockdownWindows];
+            
+            // Add log string for entering a locked exam
+            [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", nil)] withTime:[NSDate date]];
+        } else {
+            // Add log string for entering a previously locked exam
+            [_lockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.", nil)] withTime:[NSDate date]];
+        }
     }
 }
 
