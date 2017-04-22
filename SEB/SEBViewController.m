@@ -452,9 +452,10 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)scanQRCode:(id)sender
 {
-    if (self.codeReaderViewController) {
+    _visibleCodeReaderViewController = self.codeReaderViewController;
+    if (_visibleCodeReaderViewController) {
         if ([QRCodeReader isAvailable]) {
-            [self.navigationController.visibleViewController presentViewController:self.codeReaderViewController animated:YES completion:NULL];
+            [self.navigationController.visibleViewController presentViewController:_visibleCodeReaderViewController animated:YES completion:NULL];
         }
     }
 }
@@ -466,7 +467,7 @@ static NSMutableSet *browserWindowControllers;
 {
     if (!_scannedQRCode) {
         _scannedQRCode = true;
-        [self.codeReaderViewController dismissViewControllerAnimated:YES completion:^{
+        [_visibleCodeReaderViewController dismissViewControllerAnimated:YES completion:^{
             [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
             DDLogInfo(@"Scanned QR code: %@", result);
             NSURL *URLFromString = [NSURL URLWithString:result];
@@ -479,7 +480,7 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)readerDidCancel:(QRCodeReaderViewController *)reader
 {
-    [self.codeReaderViewController dismissViewControllerAnimated:YES completion:^{
+    [_visibleCodeReaderViewController dismissViewControllerAnimated:YES completion:^{
         [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
     }];
 }
