@@ -89,6 +89,7 @@
 
 @property (strong, nonatomic) SEBiOSLockedViewController< SEBLockedViewUIDelegate > *lockedViewController;
 @property (strong, nonatomic) SEBiOSConfigFileController *configFileController;
+@property (strong, nonatomic) SEBLockedViewController *sebLockedViewController;
 
 @property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
 

@@ -76,6 +76,7 @@
     BOOL quitPasswordPlaceholder;
     BOOL showSettingsInApp;
     BOOL ASAMActiveChecked;
+    NSString *currentStartURL;
 
     UIBarButtonItem *dockBackButton;
     UIBarButtonItem *dockForwardButton;
@@ -119,6 +120,15 @@ static NSMutableSet *browserWindowControllers;
         _configFileController.sebViewController = self;
     }
     return _configFileController;
+}
+
+
+- (SEBLockedViewController*)sebLockedViewController
+{
+    if (!_sebLockedViewController) {
+        _sebLockedViewController = [[SEBLockedViewController alloc] init];
+    }
+    return _sebLockedViewController;
 }
 
 
@@ -1287,6 +1297,9 @@ static NSMutableSet *browserWindowControllers;
         // Load all open web pages from the persistent store and re-create webview(s) for them
         // or if no persisted web pages are available, load the start URL
         [_browserTabViewController loadPersistedOpenWebPages];
+        
+        currentStartURL = startURLString;
+        [self.sebLockedViewController addLockedExam:startURLString];
     }
 }
 
@@ -1411,6 +1424,8 @@ static NSMutableSet *browserWindowControllers;
     
     // Close browser tabs and reset browser session
     [self resetSEB];
+    
+    [self.sebLockedViewController removeLockedExam:currentStartURL];
     
     // We only might need to switch off kiosk mode if it was active in previous settings
     if (_secureMode) {
@@ -1819,7 +1834,7 @@ static NSMutableSet *browserWindowControllers;
 
 - (void) conditionallyOpenLockdownWindows
 {
-    if ([[SEBLockedViewController new] shouldOpenLockdownWindows]) {
+    if ([self.sebLockedViewController shouldOpenLockdownWindows]) {
         [self openLockdownWindows];
         
         // Add log string for entering a locked exam
