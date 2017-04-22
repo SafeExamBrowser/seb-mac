@@ -46,7 +46,7 @@
 			<key>Title</key>
 			<string>Encryption</string>
 			<key>FooterText</key>
-			<string>Encryption is only relevant when settings are shared as a config file. Use either a cryptographic identity or a password or both.</string>
+			<string>Encryption is only relevant when settings are shared as a config file.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
