@@ -1637,22 +1637,29 @@ static NSMutableSet *browserWindowControllers;
             dispatch_after(dispatch_time(dispatchTimeAppLaunched, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 appDelegate.dispatchTimeAppLaunched = 0;
                 // Is SAM/Guided Access (or ASAM because of previous crash) active?
-                _SAMActive = UIAccessibilityIsGuidedAccessEnabled();
-                NSLog(@"%s: Single App Mode is %@active at least 2 seconds after app launch.", __FUNCTION__, _SAMActive ? @"" : @"not ");
-                if (_SAMActive) {
-                    // SAM or Guided Access (or ASAM because of previous crash) is already active:
-                    // refuse starting a secured exam until SAM/Guided Access is switched off
-                    ASAMActiveChecked = false;
-                    [self requestDisablingSAM];
-                } else {
-                    [self conditionallyStartASAM];
-                }
+                [self assureSAMNotActive];
             });
         } else {
-            [self conditionallyStartASAM];
+            [self assureSAMNotActive];
         }
     } else {
         appDelegate.dispatchTimeAppLaunched = 0;
+        [self conditionallyStartASAM];
+    }
+}
+
+
+// Is SAM/Guided Access (or ASAM because of previous crash) active?
+- (void) assureSAMNotActive
+{
+    _SAMActive = UIAccessibilityIsGuidedAccessEnabled();
+    NSLog(@"%s: Single App Mode is %@active at least 2 seconds after app launch.", __FUNCTION__, _SAMActive ? @"" : @"not ");
+    if (_SAMActive) {
+        // SAM or Guided Access (or ASAM because of previous crash) is already active:
+        // refuse starting a secured exam until SAM/Guided Access is switched off
+        ASAMActiveChecked = false;
+        [self requestDisablingSAM];
+    } else {
         [self conditionallyStartASAM];
     }
 }
@@ -1793,6 +1800,8 @@ static NSMutableSet *browserWindowControllers;
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Quit", nil)
                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                                                              _alertController = nil;
+                                                             // We didn't actually succeed to switch a kiosk mode on
+                                                             _secureMode = false;
                                                              [[NSNotificationCenter defaultCenter]
                                                               postNotificationName:@"requestQuit" object:self];
                                                          }]];
