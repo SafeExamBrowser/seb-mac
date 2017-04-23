@@ -54,7 +54,7 @@
 			<key>Title</key>
 			<string>Auto-Correction &amp; Predictive Text</string>
 			<key>FooterText</key>
-			<string>This setting doesn&apos;t work with AAC/ASAM single app modes.</string>
+			<string>In AAC/ASAM single app modes auto-correction and predictive text is always disabled.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
