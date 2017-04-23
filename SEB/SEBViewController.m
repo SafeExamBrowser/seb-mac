@@ -1411,6 +1411,7 @@ static NSMutableSet *browserWindowControllers;
 
 - (void) quitExam
 {
+    _quittingClientConfig = ![NSUserDefaults userDefaultsPrivate];
     // Switch to system's (persisted) UserDefaults
     [NSUserDefaults setUserDefaultsPrivate:NO];
     
@@ -1450,7 +1451,8 @@ static NSMutableSet *browserWindowControllers;
         // when we're running in SAM mode, it's not relevant if settings for ASAM differ
         // when we're running in ASAM mode, it's not relevant if settings for SAM differ
         // we deactivate current kiosk mode
-        if (_secureMode != newSecureMode ||
+        if ((_quittingClientConfig && _secureMode) ||
+            _secureMode != newSecureMode ||
             (!_singleAppModeActivated && (_ASAMActive != newEnableASAM)) ||
             (!_ASAMActive && (_singleAppModeActivated != newAllowSAM))) {
             
