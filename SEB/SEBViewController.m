@@ -473,6 +473,9 @@ static NSMutableSet *browserWindowControllers;
             NSURL *URLFromString = [NSURL URLWithString:result];
             if (URLFromString) {
                 [self downloadAndOpenSEBConfigFromURL:URLFromString];
+            } else {
+                NSError *error = [self.configFileController errorCorruptedSettingsForUnderlyingError:nil];
+                [self storeNewSEBSettingsSuccessful:error];
             }
         }];
     }
@@ -1193,9 +1196,8 @@ static NSMutableSet *browserWindowControllers;
                         sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
                         // Still couldn't download the .seb file: present an error and abort
                         if (error) {
-                            
-                            //                        [_mainBrowserWindow presentError:error modalForWindow:_mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
-                            _scannedQRCode = false;
+                            error = [self.configFileController errorCorruptedSettingsForUnderlyingError:error];
+                            [self storeNewSEBSettingsSuccessful:error];
                             return;
                         }
                     }
@@ -1207,15 +1209,15 @@ static NSMutableSet *browserWindowControllers;
                     sebFileData = [NSData dataWithContentsOfURL:httpsURL options:NSDataReadingUncached error:&error];
                     // Couldn't download the .seb file: present an error and abort
                     if (error) {
-                        //                    [_mainBrowserWindow presentError:error modalForWindow:_mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
-                        _scannedQRCode = false;
+                        error = [self.configFileController errorCorruptedSettingsForUnderlyingError:error];
+                        [self storeNewSEBSettingsSuccessful:error];
                         return;
                     }
                 } else {
                     sebFileData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
                     if (error) {
-                        //                    [_mainBrowserWindow presentError:error modalForWindow:_mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
-                        _scannedQRCode = false;
+                        error = [self.configFileController errorCorruptedSettingsForUnderlyingError:error];
+                        [self storeNewSEBSettingsSuccessful:error];
                         return;
                     }
                 }
