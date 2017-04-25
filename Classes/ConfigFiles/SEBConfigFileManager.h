@@ -167,6 +167,9 @@
 - (SecKeyRef)currentConfigKeyRef UNAVAILABLE_ATTRIBUTE;
 
 
+// Helper methods
+- (NSError *) errorCorruptedSettingsForUnderlyingError:(NSError *)error;
+
 // Load a SebClientSettings.seb file saved in the preferences directory
 // and if it existed and was loaded, use it to re-configure SEB
 - (void) reconfigureClientWithSebClientSettings;
