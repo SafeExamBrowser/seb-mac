@@ -8,13 +8,19 @@
 	<array>
 		<dict>
 			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Sharing Settings as Config Files</string>
+			<key>FooterText</key>
+			<string>Use Share button to export settings as a SEB config file, which can be placed on a web server and opened with a seb(s):// link to start exams or configuring SEB clients.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
 			<string>File Name</string>
 			<key>Key</key>
 			<string>configFileName</string>
-			<key>DefaultValue</key>
-			<string>SEBClientSettings</string>
 			<key>IASKPlaceholder</key>
 			<string>Shared config file name</string>
 		</dict>
@@ -25,8 +31,8 @@
 			<string>Use Config File For …</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_sebConfigPurpose</string>
-			<key>DefaultValue</key>
-			<integer>1</integer>
+			<key>FooterText</key>
+			<string>A config file will either start an exam using these settings (temporarily) or change the settings of a SEB client (permanently).</string>
 			<key>Values</key>
 			<array>
 				<integer>0</integer>
@@ -64,7 +70,9 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string></string>
+			<string>Editing Settings</string>
+			<key>FooterText</key>
+			<string>If this option is enabled in the client configuration, in-app-settings will also be available after opening an exam config. Use this for easier setting up and testing.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -73,8 +81,6 @@
 			<string>Show Settings In App</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_showSettingsInApp</string>
-			<key>DefaultValue</key>
-			<false/>
 		</dict>
 	</array>
 </dict>
