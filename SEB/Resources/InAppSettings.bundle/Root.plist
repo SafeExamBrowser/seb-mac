@@ -11,6 +11,8 @@
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>General</string>
+			<key>FooterText</key>
+			<string>Without Start URL, SEB displays the initial configuration assistant. Always set a SEB administrator password to protect settings to be changed. Only with a quit password SEB invokes the single app mode.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
