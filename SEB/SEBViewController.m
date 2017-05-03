@@ -671,14 +671,12 @@ static NSMutableSet *browserWindowControllers;
         password = [preferences secureStringForKey:@"adminPassword"];
         hashedPassword = [self sebHashedPassword:password];
         [preferences setSecureString:hashedPassword forKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-        [preferences setSecureString:@"" forKey:@"adminPassword"];
     }
     
     if (!quitPasswordPlaceholder) {
         password = [preferences secureStringForKey:@"quitPassword"];
         hashedPassword = [self sebHashedPassword:password];
         [preferences setSecureString:hashedPassword forKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-        [preferences setSecureString:@"" forKey:@"quitPassword"];
     }
 }
 
@@ -687,6 +685,10 @@ static NSMutableSet *browserWindowControllers;
 {
     NSLog(@"Share settings button pressed");
 
+    // Update entered passwords and save their hashes to SEB settings
+    // as long as the passwords were really entered and don't contain the hash placeholders
+    [self updateEnteredPasswords];
+    
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
     // Get selected config purpose
