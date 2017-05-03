@@ -921,12 +921,15 @@ static NSNumber *_logLevel;
     }
 
     if (_usePrivateUserDefaults) {
-        if (value == nil) value = [NSNull null];
-        [privateUserDefaults setValue:value forKey:key];
-        //NSString *keypath = [NSString stringWithFormat:@"values.%@", key];
-        //[[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController] setValue:value forKeyPath:keypath];
-
-        DDLogVerbose(@"[localUserDefaults setObject:%@ forKey:%@]", [privateUserDefaults valueForKey:key], key);
+        if (value) {
+            [privateUserDefaults setValue:value forKey:key];
+            //NSString *keypath = [NSString stringWithFormat:@"values.%@", key];
+            //[[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController] setValue:value forKeyPath:keypath];
+            
+            DDLogVerbose(@"[localUserDefaults setObject:%@ forKey:%@]", [privateUserDefaults valueForKey:key], key);
+        } else {
+            DDLogVerbose(@"[localUserDefaults setObject: not set, because value was nil, existing value is: %@ forKey:%@]", [privateUserDefaults valueForKey:key], key);
+        }
 
     } else {
         if (value == nil || key == nil) {

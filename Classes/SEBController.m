@@ -1460,7 +1460,7 @@ bool insideMatrix(){
     }
 
     // Check if restarting is protected with the quit/restart password (and one is set)
-    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+    NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamPasswordProtected"] && ![hashedQuitPassword isEqualToString:@""]) {
         // if quit/restart password is set, then restrict quitting
@@ -1564,7 +1564,7 @@ bool insideMatrix(){
 - (IBAction) exitSEB:(id)sender {
 	// Load quitting preferences from the system's user defaults database
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-	NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+	NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"] == YES) {
 		// if quitting SEB is allowed
 		
@@ -1631,7 +1631,7 @@ bool insideMatrix(){
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         if (![self.preferencesController preferencesAreOpen]) {
             // Load admin password from the system's user defaults database
-            NSString *hashedAdminPW = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+            NSString *hashedAdminPW = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
             if (![hashedAdminPW isEqualToString:@""]) {
                 // If admin password is set, then restrict access to the preferences window
                 if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter administrator password:",nil)  modalForWindow:self.browserController.mainBrowserWindow windowTitle:@""] == SEBEnterPasswordCancel) return;
