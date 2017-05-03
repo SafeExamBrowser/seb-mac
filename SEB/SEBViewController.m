@@ -301,7 +301,7 @@ static NSMutableSet *browserWindowControllers;
         // Reset the setting for initiating the reset
         [preferences setBool:NO forKey:@"initiateResetConfig"];
 
-        NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+        NSString *hashedAdminPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
         
         if (hashedAdminPassword.length == 0) {
             // There is no admin password: Immediately reset settings
@@ -504,7 +504,7 @@ static NSMutableSet *browserWindowControllers;
         if (!_settingsOpen) {
             // If there is a hashed admin password the user has to enter it before editing settings
             NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-            NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+            NSString *hashedAdminPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
             
             if (hashedAdminPassword.length == 0) {
                 // There is no admin password: Just open settings
@@ -571,7 +571,7 @@ static NSMutableSet *browserWindowControllers;
 - (BOOL)correctAdminPassword: (NSString *)password {
     // Get admin password hash from current client settings
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+    NSString *hashedAdminPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
     if (!hashedAdminPassword) {
         hashedAdminPassword = @"";
     } else {
@@ -597,12 +597,12 @@ static NSMutableSet *browserWindowControllers;
 {
     // Get hashed passwords and put empty or placeholder strings into the password fields in InAppSettings
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+    NSString *hashedPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
     NSString *placeholder = [self placeholderStringForHashedPassword:hashedPassword];
     [preferences setSecureString:placeholder forKey:@"adminPassword"];
     adminPasswordPlaceholder = true;
 
-    hashedPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+    hashedPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     placeholder = [self placeholderStringForHashedPassword:hashedPassword];
     [preferences setSecureString:placeholder forKey:@"quitPassword"];
     quitPasswordPlaceholder = true;
@@ -668,14 +668,14 @@ static NSMutableSet *browserWindowControllers;
     NSString *hashedPassword;
     
     if (!adminPasswordPlaceholder) {
-        password = [preferences secureObjectForKey:@"adminPassword"];
+        password = [preferences secureStringForKey:@"adminPassword"];
         hashedPassword = [self sebHashedPassword:password];
         [preferences setSecureString:hashedPassword forKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
         [preferences setSecureString:@"" forKey:@"adminPassword"];
     }
     
     if (!quitPasswordPlaceholder) {
-        password = [preferences secureObjectForKey:@"quitPassword"];
+        password = [preferences secureStringForKey:@"quitPassword"];
         hashedPassword = [self sebHashedPassword:password];
         [preferences setSecureString:hashedPassword forKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
         [preferences setSecureString:@"" forKey:@"quitPassword"];
@@ -695,14 +695,14 @@ static NSMutableSet *browserWindowControllers;
     // Get password
     NSString *encryptingPassword;
     // Is there one saved from the currently open config file?
-    encryptingPassword = [preferences secureObjectForKey:@"settingsPassword"];
+    encryptingPassword = [preferences secureStringForKey:@"settingsPassword"];
     
     // Encrypt current settings with current credentials
     NSData *encryptedSEBData = [self.configFileController encryptSEBSettingsWithPassword:encryptingPassword passwordIsHash:NO withIdentity:nil forPurpose:configPurpose];
     if (encryptedSEBData) {
 
         // Get config file name
-        NSString *configFileName = [preferences secureObjectForKey:@"configFileName"];
+        NSString *configFileName = [preferences secureStringForKey:@"configFileName"];
         if (configFileName.length == 0) {
             configFileName = @"SEBConfigFile";
         }
@@ -1252,6 +1252,12 @@ static NSMutableSet *browserWindowControllers;
     if (!error) {
         _isReconfiguring = false;
         _scannedQRCode = false;
+        // If we got a valid filename from the opened config file
+        // we save this for displaing in InAppSettings
+        NSString *newSettingsFilename = [[MyGlobals sharedMyGlobals] currentConfigURL].lastPathComponent.stringByDeletingPathExtension;
+        if (newSettingsFilename.length > 0) {
+            [[NSUserDefaults standardUserDefaults] setSecureString:newSettingsFilename forKey:@"configFileName"];
+        }
         
         [self restartExam:false];
         
@@ -1323,7 +1329,7 @@ static NSMutableSet *browserWindowControllers;
 - (void) quitExamConditionally
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+    NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"] == YES) {
         // if quitting SEB is allowed
         if (hashedQuitPassword.length > 0) {
@@ -1383,7 +1389,7 @@ static NSMutableSet *browserWindowControllers;
     
     // Get quit password hash from current client settings
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+    NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     hashedQuitPassword = [hashedQuitPassword uppercaseString];
     
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
@@ -1829,7 +1835,7 @@ static NSMutableSet *browserWindowControllers;
 - (void) showRestartSingleAppMode {
     // First check if a quit password is set
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+    NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     if (hashedQuitPassword.length > 0) {
         // A quit password is set in current settings: Ask user to restart Guided Access
         // If Guided Access isn't already on, show alert to switch it on again
@@ -2008,7 +2014,7 @@ static NSMutableSet *browserWindowControllers;
     NSString *backToStartText = [self backToStartText];
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamPasswordProtected"] == YES) {
-        NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+        NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
         // if quitting SEB is allowed
         if (hashedQuitPassword.length > 0) {
             // if quit password is set, then restrict quitting
@@ -2075,7 +2081,7 @@ static NSMutableSet *browserWindowControllers;
     
     // Get quit password hash from current client settings
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+    NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     hashedQuitPassword = [hashedQuitPassword uppercaseString];
     
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
