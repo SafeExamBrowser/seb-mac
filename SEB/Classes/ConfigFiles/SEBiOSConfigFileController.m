@@ -35,20 +35,12 @@
 }
 
 
-- (void) didReconfigureTemporaryForEditing:(BOOL)forEditing sebFileCredentials:(SEBConfigFileCredentials *)sebFileCrentials {
-    // Reset SEB, close third party applications
+- (void) didReconfigureTemporaryForEditing:(BOOL)forEditing sebFileCredentials:(SEBConfigFileCredentials *)sebFileCrentials
+{
+    // Save settings password from the opened config file
+    // for possible editing in InAppSettings
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-//    PreferencesController *prefsController = self.sebController.preferencesController;
-    
-    // If editing mode or opening the preferences window is allowed
-    if (forEditing || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"]) {
-        // we store the .seb file password/hash and/or certificate/identity
-//        [prefsController setCurrentConfigPassword:sebFileCrentials.password];
-//        [prefsController setCurrentConfigPasswordIsHash:sebFileCrentials.passwordIsHash];
-//        [prefsController setCurrentConfigKeyRef:sebFileCrentials.keyRef];
-    }
-    
-//    [prefsController initPreferencesWindow];
+    [preferences setSecureString:sebFileCrentials.password forKey:@"settingsPassword"];
 }
 
 
@@ -81,17 +73,10 @@
         }
     }
     
-//    PreferencesController *prefsController = self.sebController.preferencesController;
-//
-//    // If opening the preferences window is allowed
-//    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"]) {
-//        // we store the .seb file password/hash and/or certificate/identity
-//        [prefsController setCurrentConfigPassword:sebFileCrentials.password];
-//        [prefsController setCurrentConfigPasswordIsHash:sebFileCrentials.passwordIsHash];
-//        [prefsController setCurrentConfigKeyRef:sebFileCrentials.keyRef];
-//    }
-    
-//    [prefsController initPreferencesWindow];
+    // Save settings password from the opened config file
+    // for possible editing in InAppSettings
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setSecureString:sebFileCrentials.password forKey:@"settingsPassword"];
 }
 
 
