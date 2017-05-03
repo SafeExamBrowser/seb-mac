@@ -238,7 +238,7 @@
     
     // CAUTION: We need to reset this flag BEFORE changing the textBox text value,
     // because otherwise the compare passwords method will delete the first textBox again.
-    if ([[preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"] isEqualToString:@""]) {
+    if ([[preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"] isEqualToString:@""]) {
         adminPasswordIsHash = NO;
         [self setValue:nil forKey:@"adminPassword"];
         [self setValue:nil forKey:@"confirmAdminPassword"];
@@ -249,7 +249,7 @@
         [self setValue:@"0000000000000000" forKey:@"confirmAdminPassword"];
     }
     
-    if ([[preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"] isEqualToString:@""]) {
+    if ([[preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"] isEqualToString:@""]) {
         quitPasswordIsHash = NO;
         [self setValue:nil forKey:@"quitPassword"];
         [self setValue:nil forKey:@"confirmQuitPassword"];

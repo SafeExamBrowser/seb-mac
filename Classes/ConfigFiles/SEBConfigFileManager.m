@@ -362,7 +362,7 @@
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     // First try to decrypt with the current admin password
     // get admin password hash
-    NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+    NSString *hashedAdminPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
     if (!hashedAdminPassword) {
         // If there was no hashed admin password saved, we set it to an empty string
         // as this is the standard password used to encrypt settings for configuring client
@@ -471,7 +471,7 @@
     }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     // Get admin password hash from current client settings
-    NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+    NSString *hashedAdminPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
     if (!hashedAdminPassword) {
         hashedAdminPassword = @"";
     } else {
@@ -530,7 +530,7 @@
 
     // Get admin password hash from current client settings
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+    NSString *hashedAdminPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
     if (!hashedAdminPassword) {
         hashedAdminPassword = @"";
     } else {
@@ -769,7 +769,7 @@
         if (sebFileHashedAdminPassword.length > 0) {
             // Get the current hashed admin password
             NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-            NSString *hashedAdminPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+            NSString *hashedAdminPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
             if (!hashedAdminPassword) {
                 hashedAdminPassword = @"";
             }

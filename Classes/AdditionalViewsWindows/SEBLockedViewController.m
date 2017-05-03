@@ -126,7 +126,7 @@
     // Check if restarting is protected with the quit/restart password (and one is set)
     if (!closingLockdownWindowsInProgress) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+        NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
         
         NSString *password = [self.UIDelegate lockedAlertPassword];
 #ifdef DEBUG
