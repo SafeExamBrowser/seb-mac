@@ -659,6 +659,30 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+// Update entered passwords and save their hashes to SEB settings
+// as long as the passwords were really entered and don't contain the hash placeholders
+- (void)updateEnteredPasswords
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *password;
+    NSString *hashedPassword;
+    
+    if (!adminPasswordPlaceholder) {
+        password = [preferences secureObjectForKey:@"adminPassword"];
+        hashedPassword = [self sebHashedPassword:password];
+        [preferences setSecureString:hashedPassword forKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+        [preferences setSecureString:@"" forKey:@"adminPassword"];
+    }
+    
+    if (!quitPasswordPlaceholder) {
+        password = [preferences secureObjectForKey:@"quitPassword"];
+        hashedPassword = [self sebHashedPassword:password];
+        [preferences setSecureString:hashedPassword forKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+        [preferences setSecureString:@"" forKey:@"quitPassword"];
+    }
+}
+
+
 - (void)shareSettingsAction:(id)sender
 {
     NSLog(@"Share settings button pressed");
@@ -710,23 +734,10 @@ static NSMutableSet *browserWindowControllers;
     
     [sender dismissViewControllerAnimated:YES completion:^{
         
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        
-        // Get entered passwords and save their hashes to SEB settings
+        // Update entered passwords and save their hashes to SEB settings
         // as long as the passwords were really entered and don't contain the hash placeholders
-        NSString *password = [preferences secureObjectForKey:@"adminPassword"];
-        NSString *hashedPassword = [self sebHashedPassword:password];
-        if (!adminPasswordPlaceholder) {
-            [preferences setSecureString:hashedPassword forKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-            [preferences setSecureString:@"" forKey:@"adminPassword"];
-        }
+        [self updateEnteredPasswords];
         
-        if (!quitPasswordPlaceholder) {
-            password = [preferences secureObjectForKey:@"quitPassword"];
-            hashedPassword = [self sebHashedPassword:password];
-            [preferences setSecureString:hashedPassword forKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-            [preferences setSecureString:@"" forKey:@"quitPassword"];
-        }
         _settingsOpen = false;
         
         // Restart exam: Close all tabs, reset browser and reset kiosk mode
