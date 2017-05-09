@@ -12,7 +12,7 @@
 			<key>Title</key>
 			<string>Sharing Settings as Config Files</string>
 			<key>FooterText</key>
-			<string>Use Share button to export settings as a SEB config file, which can be placed on a web server and opened with a seb(s):// link to start exams or configuring SEB clients.</string>
+			<string>Use Share button to export settings as an SEB config file, which can be placed on a web server and opened with an seb(s):// link to start exams or configuring SEB clients.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
