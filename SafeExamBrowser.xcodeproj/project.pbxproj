@@ -2056,7 +2056,7 @@
 				TargetAttributes = {
 					6940B9651BA0F2FB008C8CFC = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = 9Z623UDZ5L;
+						DevelopmentTeam = 6F38DNSC7X;
 						ProvisioningStyle = Manual;
 					};
 					6940B9801BA0F2FB008C8CFC = {
@@ -2887,11 +2887,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_ENTITLEMENTS = SEB/Resources/SEB.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Daniel Schneider (7S7KU5SD3Z)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Daniel Schneider (7S7KU5SD3Z)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Daniel Schneider (Z5G2R38AGY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Daniel Schneider (Z5G2R38AGY)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 9Z623UDZ5L;
+				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2922,8 +2922,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.ios.seb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "aa0d0031-ad00-4b8e-9664-95a0883193f1";
-				PROVISIONING_PROFILE_SPECIFIER = ETHZ_SEB_EDU_Assessment;
+				PROVISIONING_PROFILE = "91bc4b2d-4722-4e73-b918-3500ab38e1b9";
+				PROVISIONING_PROFILE_SPECIFIER = "XC Wildcard Edu Assessment";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";
