@@ -334,7 +334,7 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_mobileEnableASAM",
                                  @NO,
                                  @"org_safeexambrowser_SEB_mobileShowSettings",
-                                 [NSNumber numberWithLong:mobileStatusBarAppearanceNone],
+                                 [NSNumber numberWithLong:mobileStatusBarAppearanceLight],
                                  @"org_safeexambrowser_SEB_mobileStatusBarAppearance",
                                  @YES,
                                  @"org_safeexambrowser_SEB_mobileSupportedFormFactorsCompact",
