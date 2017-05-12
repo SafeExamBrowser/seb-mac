@@ -249,6 +249,10 @@ static NSMutableSet *browserWindowControllers;
     if (appDelegate.sebFileURL) {
         // Yes: Load the .seb file now that the necessary SEB main view controller was loaded
         [self downloadAndOpenSEBConfigFromURL:appDelegate.sebFileURL];
+        
+        // Set flag that SEB is initialized to prevent the client config
+        // Start URL to be loaded
+        [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
     }
     
     // Was SEB opened by a Home screen quick action shortcut item?
@@ -402,8 +406,9 @@ static NSMutableSet *browserWindowControllers;
         // Add scan QR code Home screen quick action
         [UIApplication sharedApplication].shortcutItems = [NSArray arrayWithObject:[ self scanQRCodeShortcutItem]];
 
-        _initAssistantOpen = true;
-        [self presentViewController:_assistantViewController animated:YES completion:nil];
+        [self presentViewController:_assistantViewController animated:YES completion:^{
+            _initAssistantOpen = true;
+        }];
     }
 }
 
@@ -1298,6 +1303,8 @@ static NSMutableSet *browserWindowControllers;
         } else if (!_finishedStartingUp || _pausedSAMAlertDisplayed) {
             _pausedSAMAlertDisplayed = false;
             // Continue starting up SEB without resetting settings
+            // but user interface might need to be re-initialized
+            [self initSEB];
             [self conditionallyStartKioskMode];
         } else {
             [_configFileController showAlertWithError:error];
@@ -2038,6 +2045,7 @@ static NSMutableSet *browserWindowControllers;
             action1Title:NSLocalizedString(@"OK", nil)
           action1Handler:^{
               [_browserTabViewController backToStart];
+              [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
           }
             action2Title:NSLocalizedString(@"Cancel", nil)
           action2Handler:^{
@@ -2118,6 +2126,7 @@ static NSMutableSet *browserWindowControllers;
     } else {
         // The correct quit password was entered
         [_browserTabViewController backToStart];
+        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
     }
 }
 

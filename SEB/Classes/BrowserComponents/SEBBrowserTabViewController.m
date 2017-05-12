@@ -128,20 +128,22 @@
 //    [_visibleWebViewController backToStart];
     
     // Conditionally load Back to Start URL into the main browser view
-    OpenWebpages *mainWebpage = _openWebpages[0];
-
-    // Determine the right URL depending on settings
-    NSURL* backToStartURL = [NSURL URLWithString:[[SEBBrowserController new] backToStartURLString]];
-    if (backToStartURL) {
-        [mainWebpage.webViewController loadURL:backToStartURL];
+    if (_openWebpages.count > 0) {
+        OpenWebpages *mainWebpage = _openWebpages[0];
         
-        if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow != 0) {
-            [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow = 0;
-            [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self switchToTab:self];
-                });
-            }];
+        // Determine the right URL depending on settings
+        NSURL* backToStartURL = [NSURL URLWithString:[[SEBBrowserController new] backToStartURLString]];
+        if (backToStartURL) {
+            [mainWebpage.webViewController loadURL:backToStartURL];
+            
+            if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow != 0) {
+                [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow = 0;
+                [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self switchToTab:self];
+                    });
+                }];
+            }
         }
     }
 }
