@@ -1819,18 +1819,21 @@ static NSMutableSet *browserWindowControllers;
 - (void) showNoKioskModeAvailable
 {
     [_alertController dismissViewControllerAnimated:NO completion:nil];
+    _noSAMAlertDisplayed = true;
     _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Kiosk Mode Available", nil)
                                                             message:NSLocalizedString(@"Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help.", nil)
                                                      preferredStyle:UIAlertControllerStyleAlert];
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                              _alertController = nil;
+                                                             _noSAMAlertDisplayed = false;
                                                              [self conditionallyStartKioskMode];
                                                          }]];
     
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Quit", nil)
                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                                                              _alertController = nil;
+                                                             _noSAMAlertDisplayed = false;
                                                              // We didn't actually succeed to switch a kiosk mode on
                                                              _secureMode = false;
                                                              [[NSNotificationCenter defaultCenter]
