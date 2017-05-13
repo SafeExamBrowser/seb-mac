@@ -1509,10 +1509,10 @@ static NSMutableSet *browserWindowControllers;
                         else {
                             NSLog(@"Failed to exit Autonomous Single App Mode");
                         }
-                        [self restartExamASAM:quitting];
+                        [self restartExamASAM:quitting && newSecureMode];
                     });
                 } else {
-                    [self restartExamASAM:quitting];
+                    [self restartExamASAM:quitting && newSecureMode];
                 }
             } else {
                 // When no kiosk mode was active, then we can just restart SEB with the start URL in local client settings
@@ -1534,11 +1534,11 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (void) restartExamASAM:(BOOL)quitting
+- (void) restartExamASAM:(BOOL)quittingASAMtoSAM
 {
-    if (quitting) {
+    if (quittingASAMtoSAM) {
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Restart Session", nil)
-                                                                message:_secureMode ? NSLocalizedString(@"Return to start page and lock device into SEB.", nil) : NSLocalizedString(@"Return to start page.", nil)
+                                                                message:NSLocalizedString(@"Return to start page and lock device into SEB.", nil)
                                                          preferredStyle:UIAlertControllerStyleAlert];
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
