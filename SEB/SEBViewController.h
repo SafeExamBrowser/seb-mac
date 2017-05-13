@@ -116,6 +116,7 @@
 
 @property(readwrite) BOOL finishedStartingUp;
 @property(readwrite) BOOL isReconfiguring;
+@property(readwrite) BOOL noSAMAlertDisplayed;
 @property(readwrite) BOOL startSAMWAlertDisplayed;
 @property(readwrite) BOOL pausedSAMAlertDisplayed;
 @property(readwrite) BOOL endSAMWAlertDisplayed;
