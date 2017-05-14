@@ -52,7 +52,7 @@
 			<key>Title</key>
 			<string>Encryption</string>
 			<key>FooterText</key>
-			<string>Encryption is only relevant when settings are shared as a config file.</string>
+			<string>You should use a settings password when a config file is shared for starting exams. Encryption prevents settings to be altered and to access the exam before communicating the password to examinees.</string>
 		</dict>
 		<dict>
 			<key>Type</key>

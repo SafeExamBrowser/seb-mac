@@ -2421,8 +2421,8 @@
         <source>If you don't enter the correct quit password, then you cannot quit SEB.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="If you don't enter the right administrator password from these settings you cannot open them.">
-        <source>If you don't enter the right administrator password from these settings you cannot open them.</source>
+      <trans-unit id="If you don't enter the right administrator password used in these settings you cannot open them.">
+        <source>If you don't enter the right administrator password used in these settings you cannot open them.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Important Notice for First Time Users">
@@ -2753,8 +2753,8 @@
         <source>Wrong Quit Password</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Wrong password! Try again to enter the correct SEB administrator password from these settings:">
-        <source>Wrong password! Try again to enter the correct SEB administrator password from these settings:</source>
+      <trans-unit id="Wrong password! Try again to enter the correct SEB administrator password used in these settings:">
+        <source>Wrong password! Try again to enter the correct SEB administrator password used in these settings:</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You are not allowed to run SEB inside a virtual machine!">
