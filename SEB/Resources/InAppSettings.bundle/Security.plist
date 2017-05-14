@@ -42,6 +42,22 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
+			<string></string>
+			<key>FooterText</key>
+			<string>Disable for preventing seb(s):// links to be used for starting exams or reconfiguring the client.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Download/Open SEB Config Files</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_downloadAndOpenSebConfig</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
 			<string>SEB Config QR Code</string>
 			<key>FooterText</key>
 			<string>Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to a SEB config file. This is only possible while SEB isn&apos;t running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action.</string>
@@ -67,8 +83,6 @@
 			<string>Prevent Auto-Lock</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_mobilePreventAutoLock</string>
-			<key>DefaultValue</key>
-			<true/>
 		</dict>
 	</array>
 </dict>
