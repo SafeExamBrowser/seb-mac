@@ -179,7 +179,7 @@
 "If you don't enter the correct SEB administrator password, then you cannot open preferences." = "If you don't enter the correct SEB administrator password, then you cannot open preferences.";
 
 /* No comment provided by engineer. */
-"If you don't enter the right administrator password from these settings you cannot open them." = "If you don't enter the right administrator password from these settings you cannot open them.";
+"If you don't enter the right administrator password used in these settings you cannot open them." = "If you don't enter the right administrator password used in these settings you cannot open them.";
 
 /* No comment provided by engineer. */
 "Important Notice for First Time Users" = "Important Notice for First Time Users";
@@ -407,7 +407,7 @@
 "Wrong Password! Try again to enter the correct password:" = "Wrong Password! Try again to enter the correct password:";
 
 /* No comment provided by engineer. */
-"Wrong password! Try again to enter the correct SEB administrator password from these settings:" = "Wrong password! Try again to enter the correct SEB administrator password from these settings:";
+"Wrong password! Try again to enter the correct SEB administrator password used in these settings:" = "Wrong password! Try again to enter the correct SEB administrator password used in these settings:";
 
 /* No comment provided by engineer. */
 "Wrong Quit Password" = "Wrong Quit Password";

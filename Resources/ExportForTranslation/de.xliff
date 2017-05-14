@@ -2743,8 +2743,8 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
                 <target>Wenn Sie das korrekte Beenden-Passwort nicht eingeben, können Sie SEB nicht beenden.</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
-            <trans-unit id="If you don't enter the right administrator password from these settings you cannot open them.">
-                <source>If you don't enter the right administrator password from these settings you cannot open them.</source>
+            <trans-unit id="If you don't enter the right administrator password used in these settings you cannot open them.">
+                <source>If you don't enter the right administrator password used in these settings you cannot open them.</source>
                 <target>Ohne Eingabe des korrekten, in dieser Konfigurationsdatei verwendeten SEB Administrator-Passworts kann diese nicht geöffnet werden.</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
@@ -3290,8 +3290,8 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
                 <target>Falsches Passwort eingegeben!</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
-            <trans-unit id="Wrong password! Try again to enter the correct SEB administrator password from these settings:">
-                <source>Wrong password! Try again to enter the correct SEB administrator password from these settings:</source>
+            <trans-unit id="Wrong password! Try again to enter the correct SEB administrator password used in these settings:">
+                <source>Wrong password! Try again to enter the correct SEB administrator password used in these settings:</source>
                 <target>Falsches Passwort! Bitte erneut versuchen, das korrrekte SEB Administrator-Passwort aus diesen Einstellungen einzugeben:</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>

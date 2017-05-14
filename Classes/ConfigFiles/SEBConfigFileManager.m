@@ -176,7 +176,7 @@
         
         // Allow up to 5 attempts for entering decoding password
         attempts = 5;
-        NSString *enterPasswordString = NSLocalizedString(@"Enter Password:",nil);
+        NSString *enterPasswordString = NSLocalizedString(@"Enter Exam Password:",nil);
         
         // Prompt for password
         // if we don't have it already
@@ -308,7 +308,7 @@
         [self storeNewSEBSettingsSuccessful:[NSError errorWithDomain:sebErrorDomain
                                                                 code:SEBErrorDecryptingSettingsCanceled
                                                             userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", nil),
-                                                                       NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"Decrypting settings was canceled", nil)}]];
+                                                                       NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"Decrypting exam settings was canceled", nil)}]];
         return;
     }
     
@@ -320,7 +320,7 @@
         // wrong password entered, are there still attempts left?
         if (attempts > 0) {
             // Let the user try it again
-            NSString *enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the correct password:",nil);
+            NSString *enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the correct exam password:",nil);
             // Ask the user to enter the settings password and proceed to the callback method after this happend
             [self.delegate promptPasswordWithMessageText:enterPasswordString callback:self selector:@selector(passwordSettingsStartingExam:)];
             return;
@@ -332,7 +332,7 @@
             [self storeNewSEBSettingsSuccessful:[NSError errorWithDomain:sebErrorDomain
                                                                     code:SEBErrorDecryptingNoSettingsPasswordEntered
                                                                 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Decrypt Settings", nil),
-                                                                           NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"You didn't enter the correct settings password.", nil)}]];
+                                                                           NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"You didn't enter the correct exam password.", nil)}]];
             return;
         }
         
@@ -855,16 +855,16 @@
         }
         passwordsMatch = ([hashedPassword caseInsensitiveCompare:sebFileHashedAdminPassword] == NSOrderedSame);
         // in case we get an error we allow the user to try it again
-//        enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the correct SEB administrator password from these settings:", nil);
+//        enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the correct SEB administrator password used in these settings:", nil);
     } while ((password == nil || !passwordsMatch) && i > 0);
     
     if (!passwordsMatch) {
         //wrong password entered in 5th try: stop reading .seb file
         NSString *title = NSLocalizedString(@"Loading Settings", nil);
-        NSString *informativeText = NSLocalizedString(@"If you don't enter the right administrator password from these settings you cannot open them.", nil);
+        NSString *informativeText = NSLocalizedString(@"If you don't enter the right administrator password used in these settings you cannot open them.", nil);
         [self.delegate showAlertWithTitle:title andText:informativeText];
 
-        DDLogError(@"%s: Loading Settings: If you don't enter the right administrator password from these settings you cannot open them.", __FUNCTION__);
+        DDLogError(@"%s: Loading Settings: If you don't enter the right administrator password used in these settings you cannot open them.", __FUNCTION__);
         
         return NO;
     }

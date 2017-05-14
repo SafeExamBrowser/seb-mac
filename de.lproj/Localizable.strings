@@ -199,7 +199,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
 "If you don't enter the correct quit password, then you cannot quit SEB." = "Wenn Sie das korrekte Beenden-Passwort nicht eingeben, können Sie SEB nicht beenden.";
 
 /* No comment provided by engineer. */
-"If you don't enter the right administrator password from these settings you cannot open them." = "Ohne Eingabe des korrekten, in dieser Konfigurationsdatei verwendeten SEB Administrator-Passworts kann diese nicht geöffnet werden.";
+"If you don't enter the right administrator password used in these settings you cannot open them." = "Ohne Eingabe des korrekten, in dieser Konfigurationsdatei verwendeten SEB Administrator-Passworts kann diese nicht geöffnet werden.";
 
 /* No comment provided by engineer. */
 "Important Notice for First Time Users" = "Wichtiger Hinweis für neue Benutzer";
@@ -533,7 +533,7 @@ Lokale Einstellungen zurücksetzen und weiterfahren?";
 "Wrong password entered!" = "Falsches Passwort eingegeben!";
 
 /* No comment provided by engineer. */
-"Wrong password! Try again to enter the correct SEB administrator password from these settings:" = "Falsches Passwort! Bitte erneut versuchen, das korrrekte SEB Administrator-Passwort aus diesen Einstellungen einzugeben:";
+"Wrong password! Try again to enter the correct SEB administrator password used in these settings:" = "Falsches Passwort! Bitte erneut versuchen, das korrrekte SEB Administrator-Passwort aus diesen Einstellungen einzugeben:";
 
 /* No comment provided by engineer. */
 "Wrong quit/restart password." = "Falsches Beenden-/Neustart-Passwort";
