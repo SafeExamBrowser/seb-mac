@@ -19,6 +19,5 @@
 
 @property (strong, nonatomic) SEBViewController *sebViewController;
 
-- (void) promptPasswordWithMessageText:(NSString *)messageText title:(NSString *)titleString callback:(id)callback selector:(SEL)selector;
 
 @end

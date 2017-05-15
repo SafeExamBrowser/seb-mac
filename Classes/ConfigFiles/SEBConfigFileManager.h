@@ -53,10 +53,20 @@
 @required
 /**
  * @brief       Delegate method to display an enter password dialog with the
- *              passed message text asynchronously, calling the callback 
+ *              passed message text asynchronously, calling the callback
  *              method with the entered password when one was entered
  */
 - (void) promptPasswordWithMessageText:(NSString *)messageText
+                              callback:(id)callback
+                              selector:(SEL)aSelector;
+
+/**
+ * @brief       Delegate method to display an enter password dialog with the
+ *              passed message text asynchronously, calling the callback
+ *              method with the entered password when one was entered
+ */
+- (void) promptPasswordWithMessageText:(NSString *)messageText
+                                 title:(NSString *)title
                               callback:(id)callback
                               selector:(SEL)aSelector;
 

@@ -185,6 +185,7 @@
         } else {
             // Ask the user to enter the settings password and proceed to the callback method after this happend
             [self.delegate promptPasswordWithMessageText:enterPasswordString
+                                                   title:NSLocalizedString(@"Starting Exam",nil)
                                                 callback:self
                                                 selector:@selector(passwordSettingsStartingExam:)];
         }
@@ -307,7 +308,7 @@
         // Inform callback that storing new settings failed
         [self storeNewSEBSettingsSuccessful:[NSError errorWithDomain:sebErrorDomain
                                                                 code:SEBErrorDecryptingSettingsCanceled
-                                                            userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", nil),
+                                                            userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Start Exam", nil),
                                                                        NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"Decrypting exam settings was canceled", nil)}]];
         return;
     }
@@ -322,7 +323,10 @@
             // Let the user try it again
             NSString *enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the correct exam password:",nil);
             // Ask the user to enter the settings password and proceed to the callback method after this happend
-            [self.delegate promptPasswordWithMessageText:enterPasswordString callback:self selector:@selector(passwordSettingsStartingExam:)];
+            [self.delegate promptPasswordWithMessageText:enterPasswordString
+                                                   title:NSLocalizedString(@"Starting Exam",nil)
+                                                callback:self
+                                                selector:@selector(passwordSettingsStartingExam:)];
             return;
             
         } else {
@@ -331,7 +335,7 @@
             // Inform callback that storing new settings failed
             [self storeNewSEBSettingsSuccessful:[NSError errorWithDomain:sebErrorDomain
                                                                     code:SEBErrorDecryptingNoSettingsPasswordEntered
-                                                                userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Decrypt Settings", nil),
+                                                                userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Start Exam", nil),
                                                                            NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"You didn't enter the correct exam password.", nil)}]];
             return;
         }
@@ -384,6 +388,7 @@
             
             // Ask the user to enter the settings password and proceed to the callback method after this happend
             [self.delegate promptPasswordWithMessageText:enterPasswordString
+                                                   title:NSLocalizedString(@"Configuring Client",nil)
                                                 callback:self
                                                 selector:@selector(passwordSettingsConfiguringClient:)];
             return;
@@ -407,7 +412,7 @@
         // Inform callback that storing new settings failed
         [self storeNewSEBSettingsSuccessful:[NSError errorWithDomain:sebErrorDomain
                                                                 code:SEBErrorDecryptingSettingsCanceled
-                                                            userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", nil),
+                                                            userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Configure Client", nil),
                                                                        NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"Decrypting settings was canceled", nil)}]];
         return;
     }
@@ -436,7 +441,7 @@
             // Inform callback that storing new settings failed
             [self storeNewSEBSettingsSuccessful:[NSError errorWithDomain:sebErrorDomain
                                                                     code:SEBErrorDecryptingNoSettingsPasswordEntered
-                                                                userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Decrypt Settings", nil),
+                                                                userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Configure Client", nil),
                                                                            NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"You didn't enter the correct settings password.", nil)}]];
             return;
         }
@@ -505,6 +510,7 @@
                 
                 // Ask the user to enter the settings password and proceed to the callback method after this happend
                 [self.delegate promptPasswordWithMessageText:enterPasswordString
+                                                       title:NSLocalizedString(@"Configuring Client",nil)
                                                     callback:self
                                                     selector:@selector(adminPasswordSettingsConfiguringClient:)];
                 return;
@@ -523,7 +529,7 @@
         // Inform callback that storing new settings failed
         [self storeNewSEBSettingsSuccessful:[NSError errorWithDomain:sebErrorDomain
                                                                 code:SEBErrorDecryptingSettingsAdminPasswordCanceled
-                                                            userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Reconfigure", nil),
+                                                            userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Reconfigure Client", nil),
                                                                        NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"Entering the current SEB administrator password was canceled", nil)}]];
         return;
     }
@@ -556,6 +562,7 @@
             NSString *enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the current SEB administrator password:",nil);
             // Ask the user to enter the settings password and proceed to the callback method after this happend
             [self.delegate promptPasswordWithMessageText:enterPasswordString
+                                                   title:NSLocalizedString(@"Configuring Client",nil)
                                                 callback:self
                                                 selector:@selector(adminPasswordSettingsConfiguringClient:)];
             return;
@@ -564,7 +571,7 @@
             // Wrong password entered in the last allowed attempts: Stop reading .seb file
             NSError *error = [NSError errorWithDomain:sebErrorDomain
                                                  code:SEBErrorDecryptingNoAdminPasswordEntered
-                                             userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Reconfigure", nil),
+                                             userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Reconfigure Client", nil),
                                                         NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"You didn't enter the correct current SEB administrator password.", nil)}];
             DDLogError(@"%s: %@ ", __FUNCTION__, error.userInfo);
 
