@@ -224,27 +224,38 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    // load error, hide the activity indicator in the status bar
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    [_browserTabViewController setLoading:NO];
-    [self setBackForwardAvailabilty];
-    
-    UIAlertController *alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Load Error", nil)
-                                                                              message:error.localizedDescription
-                                                                       preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
-                                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                               NSURL *failingURL = [NSURL URLWithString:[error.userInfo objectForKey:@"NSErrorFailingURLStringKey"]];
-                                                                               if (failingURL) {
-                                                                                   [self loadURL:failingURL];
-                                                                               }
-                                                                           }]];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
-                                                         style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                                         }]];
-
-    [self presentViewController:alertController animated:YES completion:nil];
+    if ([error code] != -999) {
+        
+        DDLogError(@"Load Error: %@", error.description);
+        
+        // Load error, hide the activity indicator in the status bar
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        [_browserTabViewController setLoading:NO];
+        [self setBackForwardAvailabilty];
+        
+        UIAlertController *alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Load Error", nil)
+                                                                                  message:error.localizedDescription
+                                                                           preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
+                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                NSURL *failingURL = [NSURL URLWithString:[error.userInfo objectForKey:@"NSErrorFailingURLStringKey"]];
+                                                                if (failingURL) {
+                                                                    [self loadURL:failingURL];
+                                                                }
+                                                            }]];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                            style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                            }]];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+        
+#ifdef DEBUG
+    } else {
+        NSLog(@"Load Error: %@", error.description);
+#endif
+        
+    }
 }
 
 
