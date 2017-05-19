@@ -10,13 +10,13 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Browser Security</string>
+			<string>Restrictions in Exam Tab</string>
 		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Allow Navigation in Exam</string>
+			<string>Allow Navigation</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_allowBrowsingBackForward</string>
 		</dict>
@@ -24,9 +24,9 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Allow Navigation in New Tabs</string>
+			<string>Allow Reload</string>
 			<key>Key</key>
-			<string>org_safeexambrowser_SEB_newBrowserWindowNavigation</string>
+			<string>org_safeexambrowser_SEB_browserWindowAllowReload</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -35,6 +35,36 @@
 			<string>Show Reload Warning</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_showReloadWarning</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Restrictions in New Tabs</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow Navigation</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_newBrowserWindowNavigation</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow Reload</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_newBrowserWindowAllowReload</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Show Reload Warning</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_newBrowserWindowShowReloadWarning</string>
 		</dict>
 		<dict>
 			<key>Type</key>
