@@ -155,6 +155,8 @@
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error;
 
 - (void) showToolbarNavigation:(BOOL)show;
+- (void) showToolbarReloadExamTab:(BOOL)examTab;
+- (void) showToolbarReload:(BOOL)reloadEnabled;
 - (void) setToolbarTitle:(NSString *)title;
 
 - (void)setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
