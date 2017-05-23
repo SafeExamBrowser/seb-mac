@@ -1009,7 +1009,9 @@ static NSMutableSet *browserWindowControllers;
     }
 
     // Add Reload dock button if enabled and dock visible
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"] &&
+    if (([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"] ||
+         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowAllowReload"]) &&
+        [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"] &&
         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
         dockIcon = [UIImage imageNamed:@"SEBReloadIcon"];
         dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
@@ -1022,7 +1024,9 @@ static NSMutableSet *browserWindowControllers;
         dockItem.width = 0;
         [newDockItems addObject:dockItem];
         
-    } else if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"]) {
+    } else if (([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"] ||
+                [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowAllowReload"]) &&
+               ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"]) {
         // otherwise add reload page command to slider if the toolbar isn't enabled
         sliderIcon = [UIImage imageNamed:@"SEBSliderReloadIcon"];
         sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Reload Page",nil)
@@ -1096,27 +1100,22 @@ static NSMutableSet *browserWindowControllers;
     
     // Show navigation bar if browser toolbar is enabled in settings and populate it with enabled controls
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"]) {
-        if (!([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"] &&
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"] &&
+            !([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"] &&
               [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"])) {
-            toolbarReloadButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBToolbarReloadIcon"]
-                                                                   style:UIBarButtonItemStylePlain
-                                                                  target:self
-                                                                  action:@selector(reload)];
-            
-            [toolbarReloadButton setImageInsets:UIEdgeInsetsMake(6, 0, -6, 0)];
-            self.navigationItem.rightBarButtonItem = toolbarReloadButton;
-        } else {
-            self.navigationItem.rightBarButtonItem = nil;
-        }
+                [self showToolbarReload:true];
+            } else {
+                [self showToolbarReload:false];
+            }
         
         // Conditionally add back/forward buttons to navigation bar
         [self showToolbarNavigation:([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"] ||
                                      [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowNavigation"])];
-
+        
         self.navigationItem.title = @"SafeExamBrowser";
         [self.navigationController.navigationBar setTitleTextAttributes:
          @{NSFontAttributeName:[UIFont systemFontOfSize:16]}];
-
+        
         [self.navigationController setNavigationBarHidden:NO];
         
     } else {
@@ -1973,6 +1972,39 @@ static NSMutableSet *browserWindowControllers;
     }
     
     [self changeToolbarButtonInsets];
+}
+
+
+- (void) showToolbarReloadExamTab:(BOOL)examTab
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL showReload = false;
+    if (examTab) {
+        // Main browser tab with the exam
+        showReload = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"];
+    } else {
+        // Additional browser tab
+        showReload = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowAllowReload"];
+    }
+    [self showToolbarReload:showReload];
+}
+
+
+// Conditionally add reload button to navigation bar
+- (void) showToolbarReload:(BOOL)reloadEnabled
+{
+    if (reloadEnabled)  {
+        // Add reload button to navigation bar
+        toolbarReloadButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBToolbarReloadIcon"]
+                                                               style:UIBarButtonItemStylePlain
+                                                              target:self
+                                                              action:@selector(reload)];
+        
+        [toolbarReloadButton setImageInsets:UIEdgeInsetsMake(6, 0, -6, 0)];
+        self.navigationItem.rightBarButtonItem = toolbarReloadButton;
+    } else {
+        self.navigationItem.rightBarButtonItem = nil;
+    }
 }
 
 
