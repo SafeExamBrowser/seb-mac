@@ -56,8 +56,17 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
+#import "RNCryptor.h"
+#import "SEBCryptor.h"
+
 #import "UIViewController+MMDrawerController.h"
+
 #import "IASKAppSettingsViewController.h"
+#import "IASKSettingsReader.h"
+#import "SEBIASKSecureSettingsStore.h"
+
+#import "SEBSliderItem.h"
+#import "SEBNavigationController.h"
 
 #import "SEBInitAssistantViewController.h"
 #import "SEBiOSInitAssistantViewController.h"
@@ -79,7 +88,35 @@
 @class QRCodeReaderViewController;
 
 
-@interface SEBViewController : UIViewController <SEBLockedViewControllerDelegate, QRCodeReaderDelegate>
+@interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate>
+{
+    NSURL *currentConfigPath;
+    UIBarButtonItem *leftButton;
+    UIBarButtonItem *settingsShareButton;
+    
+@private
+    NSInteger attempts;
+    BOOL adminPasswordPlaceholder;
+    BOOL quitPasswordPlaceholder;
+    BOOL showSettingsInApp;
+    BOOL ASAMActiveChecked;
+    NSString *currentStartURL;
+    
+    BOOL toolbarEnabled;
+    UIBarButtonItem *dockBackButton;
+    UIBarButtonItem *dockForwardButton;
+    UIBarButtonItem *dockReloadButton;
+    SEBSliderItem *sliderBackButtonItem;
+    SEBSliderItem *sliderForwardButtonItem;
+    SEBSliderItem *sliderReloadButtonItem;
+    UIBarButtonItem *toolbarBackButton;
+    UIBarButtonItem *toolbarForwardButton;
+    UIBarButtonItem *toolbarReloadButton;
+}
+
+@property (weak) IBOutlet UIView *containerView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerTopContraint;
+@property (copy) NSURLRequest *request;
 
 @property (nonatomic, strong) SEBBrowserTabViewController *browserTabViewController;
 //@property (nonatomic, strong) SEBiOSDockController *dockController;
@@ -133,13 +170,13 @@
 @property(readwrite, strong) NSDate *didResumeExamTime;
 
 
-- (BOOL)handleShortcutItem:(UIApplicationShortcutItem *)shortcutItem;
+- (BOOL) handleShortcutItem:(UIApplicationShortcutItem *)shortcutItem;
 
-- (void)showConfigURLWarning;
-- (void)scanQRCode:(id)sender;
+- (void) showConfigURLWarning;
+- (void) scanQRCode:(id)sender;
 
-- (void)conditionallyShowSettingsModal;
-- (void)conditionallyResetSettings;
+- (void) conditionallyShowSettingsModal;
+- (void) conditionallyResetSettings;
 
 - (void) showStartSingleAppMode;
 - (void) startExam;
@@ -155,11 +192,11 @@
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error;
 
 - (void) showToolbarNavigation:(BOOL)show;
-- (void) showToolbarReloadExamTab:(BOOL)examTab;
-- (void) showToolbarReload:(BOOL)reloadEnabled;
 - (void) setToolbarTitle:(NSString *)title;
 
-- (void)setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
+- (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
+- (void) activateReloadButtonsExamTab:(BOOL)examTab;
+- (void) activateReloadButtons:(BOOL)reloadEnabled;
 
 @end
 

@@ -33,12 +33,6 @@
 
 #import <WebKit/WebKit.h>
 #import "Constants.h"
-#import "RNCryptor.h"
-#import "SEBCryptor.h"
-#import "SEBSliderItem.h"
-#import "SEBIASKSecureSettingsStore.h"
-#import "IASKSettingsReader.h"
-#import "SEBNavigationController.h"
 
 #import "SEBViewController.h"
 
@@ -63,35 +57,6 @@
 }
 @end
 
-
-@interface SEBViewController () <WKNavigationDelegate, IASKSettingsDelegate>
-{
-    NSURL *currentConfigPath;
-    UIBarButtonItem *leftButton;
-    UIBarButtonItem *settingsShareButton;
-    
-    @private
-    NSInteger attempts;
-    BOOL adminPasswordPlaceholder;
-    BOOL quitPasswordPlaceholder;
-    BOOL showSettingsInApp;
-    BOOL ASAMActiveChecked;
-    NSString *currentStartURL;
-
-    UIBarButtonItem *dockBackButton;
-    UIBarButtonItem *dockForwardButton;
-    SEBSliderItem *sliderBackButtonItem;
-    SEBSliderItem *sliderForwardButtonItem;
-    UIBarButtonItem *toolbarBackButton;
-    UIBarButtonItem *toolbarForwardButton;
-    UIBarButtonItem *toolbarReloadButton;
-}
-
-@property (weak) IBOutlet UIView *containerView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerTopContraint;
-@property (copy) NSURLRequest *request;
-
-@end
 
 static NSMutableSet *browserWindowControllers;
 
@@ -874,6 +839,15 @@ static NSMutableSet *browserWindowControllers;
     NSMutableArray *sliderCommands = [NSMutableArray new];
     SEBSliderItem *sliderCommandItem;
     UIImage *sliderIcon;
+    
+    // Reset dock and slider items which might have been active in previous settings
+    dockBackButton = nil;
+    dockForwardButton = nil;
+    dockReloadButton = nil;
+    sliderBackButtonItem = nil;
+    sliderForwardButtonItem = nil;
+    sliderReloadButtonItem = nil;
+    
     // Reset dynamic Home screen quick actions
     [UIApplication sharedApplication].shortcutItems = nil;
     
@@ -1019,6 +993,7 @@ static NSMutableSet *browserWindowControllers;
                                                    target:self
                                                    action:@selector(reload)];
         [newDockItems addObject:dockItem];
+        dockReloadButton = dockItem;
         
         dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
         dockItem.width = 0;
@@ -1034,6 +1009,7 @@ static NSMutableSet *browserWindowControllers;
                                                           target:self
                                                           action:@selector(reload)];
         [sliderCommands addObject:sliderCommandItem];
+        sliderReloadButtonItem = sliderCommandItem;
     }
     
     // Add scan QR code command/Home screen quick action/dock button
@@ -1103,9 +1079,9 @@ static NSMutableSet *browserWindowControllers;
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"] &&
             !([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"] &&
               [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"])) {
-                [self showToolbarReload:true];
+                [self activateReloadButtons:true];
             } else {
-                [self showToolbarReload:false];
+                [self activateReloadButtons:false];
             }
         
         // Conditionally add back/forward buttons to navigation bar
@@ -1117,10 +1093,12 @@ static NSMutableSet *browserWindowControllers;
          @{NSFontAttributeName:[UIFont systemFontOfSize:16]}];
         
         [self.navigationController setNavigationBarHidden:NO];
+        toolbarEnabled = false;
         
     } else {
         
         [self.navigationController setNavigationBarHidden:YES];
+        toolbarEnabled = true;
     }
     
     // Register slider view items
@@ -1975,39 +1953,6 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (void) showToolbarReloadExamTab:(BOOL)examTab
-{
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL showReload = false;
-    if (examTab) {
-        // Main browser tab with the exam
-        showReload = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"];
-    } else {
-        // Additional browser tab
-        showReload = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowAllowReload"];
-    }
-    [self showToolbarReload:showReload];
-}
-
-
-// Conditionally add reload button to navigation bar
-- (void) showToolbarReload:(BOOL)reloadEnabled
-{
-    if (reloadEnabled)  {
-        // Add reload button to navigation bar
-        toolbarReloadButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBToolbarReloadIcon"]
-                                                               style:UIBarButtonItemStylePlain
-                                                              target:self
-                                                              action:@selector(reload)];
-        
-        [toolbarReloadButton setImageInsets:UIEdgeInsetsMake(6, 0, -6, 0)];
-        self.navigationItem.rightBarButtonItem = toolbarReloadButton;
-    } else {
-        self.navigationItem.rightBarButtonItem = nil;
-    }
-}
-
-
 - (void)changeToolbarButtonInsets
 {
     if (!self.navigationController.navigationBarHidden) {
@@ -2224,6 +2169,52 @@ static NSMutableSet *browserWindowControllers;
     // Post a notification that the slider should be refreshed
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"refreshSlider" object:self];
+}
+
+
+// Add reload button to navigation bar or enable/disable
+// reload buttons in dock and left slider, depending if
+// active tab is the exam tab or a new (additional) tab
+- (void) activateReloadButtonsExamTab:(BOOL)examTab
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL showReload = false;
+    if (examTab) {
+        // Main browser tab with the exam
+        showReload = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"];
+    } else {
+        // Additional browser tab
+        showReload = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowAllowReload"];
+    }
+    [self activateReloadButtons:showReload];
+}
+
+
+// Conditionally add reload button to navigation bar or
+// enable/disable reload buttons in dock and left slider
+- (void) activateReloadButtons:(BOOL)reloadEnabled
+{
+    if (reloadEnabled)  {
+        if (toolbarEnabled) {
+            // Add reload button to navigation bar
+            toolbarReloadButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBToolbarReloadIcon"]
+                                                                   style:UIBarButtonItemStylePlain
+                                                                  target:self
+                                                                  action:@selector(reload)];
+            
+            [toolbarReloadButton setImageInsets:UIEdgeInsetsMake(6, 0, -6, 0)];
+            self.navigationItem.rightBarButtonItem = toolbarReloadButton;
+        }
+        // Activate reload buttons in dock and slider
+        dockReloadButton.enabled = true;
+        sliderReloadButtonItem.enabled = true;
+        
+    } else {
+        // Deactivate reload buttons in toolbar, dock and slider
+        self.navigationItem.rightBarButtonItem = nil;
+        dockReloadButton.enabled = false;
+        sliderReloadButtonItem.enabled = false;
+    }
 }
 
 

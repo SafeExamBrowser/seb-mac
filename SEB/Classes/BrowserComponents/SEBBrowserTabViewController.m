@@ -332,7 +332,7 @@
     
     [_sebViewController setToolbarTitle:url.absoluteString];
     
-    [_sebViewController showToolbarReloadExamTab:index == 0];
+    [_sebViewController activateReloadButtonsExamTab:index == 0];
 
     [_visibleWebViewController loadURL:url];
     
@@ -366,6 +366,9 @@
         
         // Update back/forward buttons according to new visible webview
         [_visibleWebViewController setBackForwardAvailabilty];
+        
+        // Update reload button depending if switching to exam or new tab
+        [_sebViewController activateReloadButtonsExamTab:tabIndex == 0];
         
         // Update title in toolbar according to new visible webview
         NSString *title = [(Webpages *)_persistentWebpages[tabIndex] valueForKey:@"title"];
