@@ -943,15 +943,6 @@ static NSMutableSet *browserWindowControllers;
             dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
             dockItem.width = 0;
             [newDockItems addObject:dockItem];
-        } else if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"]) {
-//            // Otherwise add Navigate Back Button to slider if the toolbar isn't enabled
-//            sliderIcon = [UIImage imageNamed:@"SEBSliderNavigateBackIcon"];
-//            sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Go Back",nil)
-//                                                                icon:sliderIcon
-//                                                              target:self
-//                                                              action:@selector(goBack)];
-//            [sliderCommands addObject:sliderCommandItem];
-//            sliderBackButtonItem = sliderCommandItem;
         }
         
         // Add Navigate Forward Button to dock if enabled
@@ -970,15 +961,6 @@ static NSMutableSet *browserWindowControllers;
             dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
             dockItem.width = 0;
             [newDockItems addObject:dockItem];
-        } else if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"]) {
-//            // Otherwise add Navigate Forward Button to slider if the toolbar isn't enabled
-//            sliderIcon = [UIImage imageNamed:@"SEBSliderNavigateForwardIcon"];
-//            sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Go Forward",nil)
-//                                                                icon:sliderIcon
-//                                                              target:self
-//                                                              action:@selector(goForward)];
-//            [sliderCommands addObject:sliderCommandItem];
-//            sliderForwardButtonItem = sliderCommandItem;
         }
     }
 
@@ -988,7 +970,7 @@ static NSMutableSet *browserWindowControllers;
         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"] &&
         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
         dockIcon = [UIImage imageNamed:@"SEBReloadIcon"];
-        dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+        dockItem = [[UIBarButtonItem alloc] initWithImage:dockIcon
                                                     style:UIBarButtonItemStylePlain
                                                    target:self
                                                    action:@selector(reload)];
@@ -1076,29 +1058,9 @@ static NSMutableSet *browserWindowControllers;
     
     // Show navigation bar if browser toolbar is enabled in settings and populate it with enabled controls
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"]) {
-
         browserToolbarEnabled = true;
-        
-//        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"] &&
-//            !([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"] &&
-//              [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"])) {
-//                [self activateReloadButtons:true];
-//            } else {
-//                [self activateReloadButtons:false];
-//            }
-        
-        // Conditionally add back/forward buttons to navigation bar
-//        [self showToolbarNavigation:([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"] ||
-//                                     [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowNavigation"])];
-        
-//        self.navigationItem.title = @"SafeExamBrowser";
-//        [self.navigationController.navigationBar setTitleTextAttributes:
-//         @{NSFontAttributeName:[UIFont systemFontOfSize:16]}];
-        
         [self.navigationController setNavigationBarHidden:NO];
-        
     } else {
-        
         browserToolbarEnabled = false;
         [self.navigationController setNavigationBarHidden:YES];
     }
