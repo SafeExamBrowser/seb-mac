@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="uRk-Nj-abt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="uRk-Nj-abt">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -619,8 +619,105 @@
             </objects>
             <point key="canvasLocation" x="-2242.96875" y="726.5625"/>
         </scene>
+        <!--About SEB View Controller-->
+        <scene sceneID="Eh1-Ww-hMf">
+            <objects>
+                <viewController storyboardIdentifier="AboutSEBView" id="lcz-oo-6j2" userLabel="About SEB View Controller" customClass="SEBiOSInitAssistantViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="owT-1K-fgC"/>
+                        <viewControllerLayoutGuide type="bottom" id="OLf-6D-Xu6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleAspectFill" id="TRi-6W-cpL">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQa-Q9-gCh">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tMF-sG-E2Z">
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="412"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6PK-IY-rk8">
+                                                <rect key="frame" x="0.0" y="0.0" width="768" height="118"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SEBAppIcon_256.png" translatesAutoresizingMaskIntoConstraints="NO" id="Xbh-jE-19H">
+                                                        <rect key="frame" x="8" y="8" width="160" height="160"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="160" id="8ut-wF-lE9"/>
+                                                            <constraint firstAttribute="height" constant="160" id="hiD-jU-187"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SEB" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NvO-V8-xMf">
+                                                        <rect key="frame" x="176" y="26" width="152" height="66"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="80"/>
+                                                        <color key="textColor" red="0.93725490199999995" green="0.42745098040000001" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" text="SafeExamBrowser" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t05-Ok-qqM">
+                                                        <rect key="frame" x="336" y="26" width="266" height="37"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="37" id="K07-NW-vuv"/>
+                                                            <constraint firstAttribute="width" constant="266" id="WNA-Cg-lJ1"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="NvO-V8-xMf" firstAttribute="leading" secondItem="Xbh-jE-19H" secondAttribute="trailing" constant="8" id="1B3-y0-UVY"/>
+                                                    <constraint firstItem="t05-Ok-qqM" firstAttribute="top" secondItem="NvO-V8-xMf" secondAttribute="top" id="7bZ-aS-Epn"/>
+                                                    <constraint firstItem="t05-Ok-qqM" firstAttribute="top" secondItem="NvO-V8-xMf" secondAttribute="top" id="Bai-5H-X1O"/>
+                                                    <constraint firstItem="NvO-V8-xMf" firstAttribute="centerY" secondItem="6PK-IY-rk8" secondAttribute="centerY" id="Cns-u5-s7Z"/>
+                                                    <constraint firstItem="Xbh-jE-19H" firstAttribute="leading" secondItem="6PK-IY-rk8" secondAttribute="leading" constant="8" id="KcD-LJ-w9Q"/>
+                                                    <constraint firstAttribute="bottom" secondItem="t05-Ok-qqM" secondAttribute="bottom" constant="55" id="L1Z-2W-F3b"/>
+                                                    <constraint firstItem="t05-Ok-qqM" firstAttribute="top" secondItem="6PK-IY-rk8" secondAttribute="top" constant="26" id="wxk-6Z-f0q"/>
+                                                    <constraint firstItem="Xbh-jE-19H" firstAttribute="top" secondItem="6PK-IY-rk8" secondAttribute="top" constant="8" id="yvy-21-CG0"/>
+                                                    <constraint firstItem="t05-Ok-qqM" firstAttribute="leading" secondItem="NvO-V8-xMf" secondAttribute="trailing" constant="8" symbolic="YES" id="zAf-dY-7KX"/>
+                                                </constraints>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RLL-cr-aYF">
+                                                <rect key="frame" x="184" y="126" width="576" height="286"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="6PK-IY-rk8" firstAttribute="leading" secondItem="tMF-sG-E2Z" secondAttribute="leading" id="1Jv-Wd-H4I"/>
+                                            <constraint firstAttribute="trailing" secondItem="6PK-IY-rk8" secondAttribute="trailing" id="Hmd-wa-0Wf"/>
+                                            <constraint firstItem="6PK-IY-rk8" firstAttribute="top" secondItem="tMF-sG-E2Z" secondAttribute="top" id="ic9-0x-10S"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="tMF-sG-E2Z" firstAttribute="top" secondItem="nQa-Q9-gCh" secondAttribute="top" id="3dy-oQ-dZA"/>
+                                    <constraint firstAttribute="trailing" secondItem="tMF-sG-E2Z" secondAttribute="trailing" id="AG4-OO-x72"/>
+                                    <constraint firstAttribute="bottom" secondItem="tMF-sG-E2Z" secondAttribute="bottom" id="VAL-8o-6bU"/>
+                                    <constraint firstItem="tMF-sG-E2Z" firstAttribute="leading" secondItem="nQa-Q9-gCh" secondAttribute="leading" id="ajW-FK-g5f"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="OLf-6D-Xu6" firstAttribute="top" secondItem="nQa-Q9-gCh" secondAttribute="bottom" id="2wh-sN-4p9"/>
+                            <constraint firstItem="nQa-Q9-gCh" firstAttribute="top" secondItem="TRi-6W-cpL" secondAttribute="top" id="QQA-Tf-Pbq"/>
+                            <constraint firstAttribute="trailing" secondItem="nQa-Q9-gCh" secondAttribute="trailing" id="dVf-An-b4z"/>
+                            <constraint firstItem="tMF-sG-E2Z" firstAttribute="width" secondItem="TRi-6W-cpL" secondAttribute="width" id="eDm-Iz-3h2"/>
+                            <constraint firstItem="nQa-Q9-gCh" firstAttribute="leading" secondItem="TRi-6W-cpL" secondAttribute="leading" id="o2k-bG-IrH"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="biC-or-lrZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2242.96875" y="726.5625"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="SEBAppIcon_256.png" width="256" height="256"/>
         <image name="SEBQRCode.png" width="54" height="54"/>
         <image name="SEBSliderClosePage.png" width="20" height="20"/>
         <image name="SEBSliderSettingsIcon.png" width="20" height="20"/>

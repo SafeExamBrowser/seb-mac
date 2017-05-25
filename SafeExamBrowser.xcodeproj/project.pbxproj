@@ -325,6 +325,10 @@
 		69B539431C52974200A967B0 /* SEBBrowserController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B539401C52974100A967B0 /* SEBBrowserController.h */; };
 		69B539441C52974200A967B0 /* SEBBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B539411C52974100A967B0 /* SEBBrowserController.m */; };
 		69B539451C52974200A967B0 /* SEBBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B539411C52974100A967B0 /* SEBBrowserController.m */; };
+		69B581771ED70CC700CE70F3 /* SEBAppIcon_256@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B581751ED70CC700CE70F3 /* SEBAppIcon_256@2x.png */; };
+		69B581781ED70CC700CE70F3 /* SEBAppIcon_256@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B581751ED70CC700CE70F3 /* SEBAppIcon_256@2x.png */; };
+		69B581791ED70CC700CE70F3 /* SEBAppIcon_256.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B581761ED70CC700CE70F3 /* SEBAppIcon_256.png */; };
+		69B5817A1ED70CC700CE70F3 /* SEBAppIcon_256.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B581761ED70CC700CE70F3 /* SEBAppIcon_256.png */; };
 		69BB07441BA11CD40065E1F2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69BB07431BA11CD40065E1F2 /* WebKit.framework */; };
 		69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CBEB541834C55C00FB0460 /* SEBSystemManager.h */; };
 		69CBEB571834C55D00FB0460 /* SEBSystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBEB551834C55C00FB0460 /* SEBSystemManager.m */; };
@@ -841,6 +845,8 @@
 		69B5393D1C490CB200A967B0 /* SEBActionUITableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBActionUITableViewCell.m; path = Classes/AdditionalViews/SEBActionUITableViewCell.m; sourceTree = "<group>"; };
 		69B539401C52974100A967B0 /* SEBBrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBBrowserController.h; path = Classes/BrowserComponents/SEBBrowserController.h; sourceTree = "<group>"; };
 		69B539411C52974100A967B0 /* SEBBrowserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBBrowserController.m; path = Classes/BrowserComponents/SEBBrowserController.m; sourceTree = "<group>"; };
+		69B581751ED70CC700CE70F3 /* SEBAppIcon_256@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBAppIcon_256@2x.png"; path = "Resources/Icons/AboutSEB/SEBAppIcon_256@2x.png"; sourceTree = "<group>"; };
+		69B581761ED70CC700CE70F3 /* SEBAppIcon_256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBAppIcon_256.png; path = Resources/Icons/AboutSEB/SEBAppIcon_256.png; sourceTree = "<group>"; };
 		69BA05AA1D57E80C00C07C4F /* libPods-SEB.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-SEB.a"; path = "../../Builds/SafeExamBrowser-gcyjidykkgkznbatujqrlsxvsklv/Build/Products/Debug-iphonesimulator/libPods-SEB.a"; sourceTree = "<group>"; };
 		69BB07431BA11CD40065E1F2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		69C52802136AFDBD00F9F000 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PreferencesController.m; path = Classes/Preferences/PreferencesWindow/PreferencesController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -1362,6 +1368,7 @@
 		6940B99D1BA0FBDF008C8CFC /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				69B581741ED70CB100CE70F3 /* AboutSEB */,
 				69B226DE1D4108BA0065B831 /* Document */,
 				6966F8781D1C080100684182 /* Slider */,
 				691018C71CF1E9EE00AB8803 /* Dock */,
@@ -1713,6 +1720,15 @@
 			);
 			name = Document;
 			path = Resources/Icons/Document;
+			sourceTree = "<group>";
+		};
+		69B581741ED70CB100CE70F3 /* AboutSEB */ = {
+			isa = PBXGroup;
+			children = (
+				69B581751ED70CC700CE70F3 /* SEBAppIcon_256@2x.png */,
+				69B581761ED70CC700CE70F3 /* SEBAppIcon_256.png */,
+			);
+			name = AboutSEB;
 			sourceTree = "<group>";
 		};
 		69BA05A91D57E4C200C07C4F /* Recovered References */ = {
@@ -2128,6 +2144,7 @@
 				696DAD181C3C2AB900397E18 /* Next.png in Resources */,
 				69B253F81E4E275D000B4A6D /* SEBSkipBackIcon@3x.png in Resources */,
 				69331F011C10AC1B0038BD31 /* continueCircle.png in Resources */,
+				69B581791ED70CC700CE70F3 /* SEBAppIcon_256.png in Resources */,
 				6966F8881D1DE07100684182 /* SEBSliderSettingsIcon@2x.png in Resources */,
 				691018C61CF1B33900AB8803 /* SEBShutDownIcon.png in Resources */,
 				693A39731E60AC8F005030B0 /* SEBSliderNavigateForwardIcon.png in Resources */,
@@ -2169,6 +2186,7 @@
 				69B253D61E4E2200000B4A6D /* SEBSliderClosePage.png in Resources */,
 				69B253D81E4E2200000B4A6D /* SEBSliderClosePage@2x.png in Resources */,
 				6940B9731BA0F2FB008C8CFC /* Main.storyboard in Resources */,
+				69B581771ED70CC700CE70F3 /* SEBAppIcon_256@2x.png in Resources */,
 				694055A91CF32B030036C480 /* SEBRestartIcon@2x.png in Resources */,
 				69633E621E844B3600C71FF0 /* SEBSliderQRCodeIcon@2x.png in Resources */,
 				6966F87B1D1C081300684182 /* SEBSliderShutDownIcon.png in Resources */,
@@ -2219,6 +2237,7 @@
 				693A396E1E60AC8F005030B0 /* SEBSliderNavigateBackIcon.png in Resources */,
 				69CFFA2D1D3641B500FE5655 /* SEBRestartIcon.png in Resources */,
 				695A8EF21E6CCEFA00601099 /* SEBToolbarNavigateBackIcon@3x.png in Resources */,
+				69B581781ED70CC700CE70F3 /* SEBAppIcon_256@2x.png in Resources */,
 				69B253EC1E4E2630000B4A6D /* SEBSliderRestartIcon@3x.png in Resources */,
 				69CFFA2E1D3641B500FE5655 /* ModifyPages.js in Resources */,
 				69CFFA2F1D3641B500FE5655 /* Cancel.png in Resources */,
@@ -2262,6 +2281,7 @@
 				695A8EDF1E6CC87600601099 /* SEBToolbarNavigateBackIcon@2x.png in Resources */,
 				695A8EFB1E6CCEFA00601099 /* SEBToolbarReloadIcon.png in Resources */,
 				693A39781E60AC8F005030B0 /* SEBSliderNavigateForwardIcon@3x.png in Resources */,
+				69B5817A1ED70CC700CE70F3 /* SEBAppIcon_256.png in Resources */,
 				69CFFA431D3641B500FE5655 /* Assets.xcassets in Resources */,
 				69CFFA441D3641B500FE5655 /* SEB.entitlements in Resources */,
 				69B253E41E4E2211000B4A6D /* SEBSliderSkipBackIcon@3x.png in Resources */,
