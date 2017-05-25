@@ -944,14 +944,14 @@ static NSMutableSet *browserWindowControllers;
             dockItem.width = 0;
             [newDockItems addObject:dockItem];
         } else if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"]) {
-            // Otherwise add Navigate Back Button to slider if the toolbar isn't enabled
-            sliderIcon = [UIImage imageNamed:@"SEBSliderNavigateBackIcon"];
-            sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Go Back",nil)
-                                                                icon:sliderIcon
-                                                              target:self
-                                                              action:@selector(goBack)];
-            [sliderCommands addObject:sliderCommandItem];
-            sliderBackButtonItem = sliderCommandItem;
+//            // Otherwise add Navigate Back Button to slider if the toolbar isn't enabled
+//            sliderIcon = [UIImage imageNamed:@"SEBSliderNavigateBackIcon"];
+//            sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Go Back",nil)
+//                                                                icon:sliderIcon
+//                                                              target:self
+//                                                              action:@selector(goBack)];
+//            [sliderCommands addObject:sliderCommandItem];
+//            sliderBackButtonItem = sliderCommandItem;
         }
         
         // Add Navigate Forward Button to dock if enabled
@@ -971,14 +971,14 @@ static NSMutableSet *browserWindowControllers;
             dockItem.width = 0;
             [newDockItems addObject:dockItem];
         } else if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"]) {
-            // Otherwise add Navigate Forward Button to slider if the toolbar isn't enabled
-            sliderIcon = [UIImage imageNamed:@"SEBSliderNavigateForwardIcon"];
-            sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Go Forward",nil)
-                                                                icon:sliderIcon
-                                                              target:self
-                                                              action:@selector(goForward)];
-            [sliderCommands addObject:sliderCommandItem];
-            sliderForwardButtonItem = sliderCommandItem;
+//            // Otherwise add Navigate Forward Button to slider if the toolbar isn't enabled
+//            sliderIcon = [UIImage imageNamed:@"SEBSliderNavigateForwardIcon"];
+//            sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Go Forward",nil)
+//                                                                icon:sliderIcon
+//                                                              target:self
+//                                                              action:@selector(goForward)];
+//            [sliderCommands addObject:sliderCommandItem];
+//            sliderForwardButtonItem = sliderCommandItem;
         }
     }
 
@@ -1076,29 +1076,31 @@ static NSMutableSet *browserWindowControllers;
     
     // Show navigation bar if browser toolbar is enabled in settings and populate it with enabled controls
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"]) {
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"] &&
-            !([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"] &&
-              [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"])) {
-                [self activateReloadButtons:true];
-            } else {
-                [self activateReloadButtons:false];
-            }
+
+        browserToolbarEnabled = true;
+        
+//        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"] &&
+//            !([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"] &&
+//              [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"])) {
+//                [self activateReloadButtons:true];
+//            } else {
+//                [self activateReloadButtons:false];
+//            }
         
         // Conditionally add back/forward buttons to navigation bar
-        [self showToolbarNavigation:([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"] ||
-                                     [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowNavigation"])];
+//        [self showToolbarNavigation:([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"] ||
+//                                     [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowNavigation"])];
         
-        self.navigationItem.title = @"SafeExamBrowser";
-        [self.navigationController.navigationBar setTitleTextAttributes:
-         @{NSFontAttributeName:[UIFont systemFontOfSize:16]}];
+//        self.navigationItem.title = @"SafeExamBrowser";
+//        [self.navigationController.navigationBar setTitleTextAttributes:
+//         @{NSFontAttributeName:[UIFont systemFontOfSize:16]}];
         
         [self.navigationController setNavigationBarHidden:NO];
-        toolbarEnabled = false;
         
     } else {
         
+        browserToolbarEnabled = false;
         [self.navigationController setNavigationBarHidden:YES];
-        toolbarEnabled = true;
     }
     
     // Register slider view items
@@ -2140,9 +2142,28 @@ static NSMutableSet *browserWindowControllers;
         [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
     };
 
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_showReloadWarning"]) {
+    BOOL showReloadWarning = false;
+    
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow == 0) {
+        // Main browser tab with the exam
+        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"]) {
+            // Cancel if navigation is disabled in exam
+            return;
+        }
+        showReloadWarning = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadWarning"];
+    } else {
+        // Additional browser tab
+        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowNavigation"]) {
+            // Cancel if navigation is disabled in additional browser tabs
+            return;
+        }
+        showReloadWarning = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowReloadWarning"];
+    }
+
+    if (showReloadWarning) {
         [self alertWithTitle:NSLocalizedString(@"Reload Page", nil)
-                     message:NSLocalizedString(@"Do you really want to reload this web page?", nil)
+                     message:NSLocalizedString(@"Do you really want to reload the web page?", nil)
                 action1Title:NSLocalizedString(@"Reload", nil)
               action1Handler:action1Handler
                 action2Title:NSLocalizedString(@"Cancel", nil)
@@ -2195,7 +2216,7 @@ static NSMutableSet *browserWindowControllers;
 - (void) activateReloadButtons:(BOOL)reloadEnabled
 {
     if (reloadEnabled)  {
-        if (toolbarEnabled) {
+        if (browserToolbarEnabled) {
             // Add reload button to navigation bar
             toolbarReloadButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBToolbarReloadIcon"]
                                                                    style:UIBarButtonItemStylePlain

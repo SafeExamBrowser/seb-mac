@@ -102,7 +102,7 @@
     BOOL ASAMActiveChecked;
     NSString *currentStartURL;
     
-    BOOL toolbarEnabled;
+    BOOL browserToolbarEnabled;
     UIBarButtonItem *dockBackButton;
     UIBarButtonItem *dockForwardButton;
     UIBarButtonItem *dockReloadButton;
