@@ -622,7 +622,7 @@
         <!--About SEB View Controller-->
         <scene sceneID="Eh1-Ww-hMf">
             <objects>
-                <viewController storyboardIdentifier="AboutSEBView" id="lcz-oo-6j2" userLabel="About SEB View Controller" customClass="SEBiOSInitAssistantViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AboutSEBView" id="lcz-oo-6j2" userLabel="About SEB View Controller" customClass="AboutSEBiOSViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="owT-1K-fgC"/>
                         <viewControllerLayoutGuide type="bottom" id="OLf-6D-Xu6"/>
@@ -631,11 +631,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQa-Q9-gCh">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQa-Q9-gCh">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tMF-sG-E2Z">
-                                        <rect key="frame" x="0.0" y="0.0" width="768" height="412"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tMF-sG-E2Z">
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="126"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6PK-IY-rk8">
                                                 <rect key="frame" x="0.0" y="0.0" width="768" height="118"/>
@@ -663,13 +663,21 @@
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C6t-3t-DKh">
+                                                        <rect key="frame" x="336" y="71" width="42" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="NvO-V8-xMf" firstAttribute="leading" secondItem="Xbh-jE-19H" secondAttribute="trailing" constant="8" id="1B3-y0-UVY"/>
                                                     <constraint firstItem="t05-Ok-qqM" firstAttribute="top" secondItem="NvO-V8-xMf" secondAttribute="top" id="7bZ-aS-Epn"/>
+                                                    <constraint firstItem="C6t-3t-DKh" firstAttribute="bottom" secondItem="NvO-V8-xMf" secondAttribute="bottom" id="9V4-Nl-k9R"/>
                                                     <constraint firstItem="t05-Ok-qqM" firstAttribute="top" secondItem="NvO-V8-xMf" secondAttribute="top" id="Bai-5H-X1O"/>
                                                     <constraint firstItem="NvO-V8-xMf" firstAttribute="centerY" secondItem="6PK-IY-rk8" secondAttribute="centerY" id="Cns-u5-s7Z"/>
+                                                    <constraint firstItem="C6t-3t-DKh" firstAttribute="leading" secondItem="t05-Ok-qqM" secondAttribute="leading" id="H3V-R1-7OW"/>
                                                     <constraint firstItem="Xbh-jE-19H" firstAttribute="leading" secondItem="6PK-IY-rk8" secondAttribute="leading" constant="8" id="KcD-LJ-w9Q"/>
                                                     <constraint firstAttribute="bottom" secondItem="t05-Ok-qqM" secondAttribute="bottom" constant="55" id="L1Z-2W-F3b"/>
                                                     <constraint firstItem="t05-Ok-qqM" firstAttribute="top" secondItem="6PK-IY-rk8" secondAttribute="top" constant="26" id="wxk-6Z-f0q"/>
@@ -677,9 +685,8 @@
                                                     <constraint firstItem="t05-Ok-qqM" firstAttribute="leading" secondItem="NvO-V8-xMf" secondAttribute="trailing" constant="8" symbolic="YES" id="zAf-dY-7KX"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RLL-cr-aYF">
-                                                <rect key="frame" x="184" y="126" width="576" height="286"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RLL-cr-aYF">
+                                                <rect key="frame" x="184" y="126" width="584" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -688,8 +695,12 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="6PK-IY-rk8" firstAttribute="leading" secondItem="tMF-sG-E2Z" secondAttribute="leading" id="1Jv-Wd-H4I"/>
+                                            <constraint firstAttribute="trailing" secondItem="RLL-cr-aYF" secondAttribute="trailing" id="2Gp-Wu-ilA"/>
                                             <constraint firstAttribute="trailing" secondItem="6PK-IY-rk8" secondAttribute="trailing" id="Hmd-wa-0Wf"/>
                                             <constraint firstItem="6PK-IY-rk8" firstAttribute="top" secondItem="tMF-sG-E2Z" secondAttribute="top" id="ic9-0x-10S"/>
+                                            <constraint firstItem="RLL-cr-aYF" firstAttribute="leading" secondItem="tMF-sG-E2Z" secondAttribute="leading" constant="184" id="pZZ-Er-eCm"/>
+                                            <constraint firstItem="RLL-cr-aYF" firstAttribute="top" secondItem="6PK-IY-rk8" secondAttribute="bottom" constant="8" id="sb5-Nw-kdR"/>
+                                            <constraint firstAttribute="bottom" secondItem="RLL-cr-aYF" secondAttribute="bottom" id="vY0-p9-DFb"/>
                                         </constraints>
                                     </view>
                                 </subviews>
