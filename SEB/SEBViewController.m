@@ -2111,6 +2111,7 @@ static NSMutableSet *browserWindowControllers;
         // Main browser tab with the exam
         if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"]) {
             // Cancel if navigation is disabled in exam
+            [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
             return;
         }
         showReloadWarning = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadWarning"];
@@ -2118,6 +2119,7 @@ static NSMutableSet *browserWindowControllers;
         // Additional browser tab
         if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowNavigation"]) {
             // Cancel if navigation is disabled in additional browser tabs
+            [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
             return;
         }
         showReloadWarning = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowReloadWarning"];
