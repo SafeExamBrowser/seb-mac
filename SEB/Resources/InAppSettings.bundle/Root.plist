@@ -90,9 +90,9 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
-			<string>Exams</string>
+			<string>Exam</string>
 			<key>File</key>
-			<string>Exams</string>
+			<string>Exam</string>
 		</dict>
 		<dict>
 			<key>Type</key>
