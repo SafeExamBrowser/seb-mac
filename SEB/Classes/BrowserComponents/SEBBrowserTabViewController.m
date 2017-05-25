@@ -185,20 +185,6 @@
 }
 
 - (void)reload {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow == 0) {
-        // Main browser tab with the exam
-        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"]) {
-            // Cancel if navigation is disabled in exam
-            return;
-        }
-    } else {
-        // Additional browser tab
-        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowNavigation"]) {
-            // Cancel if navigation is disabled in additional browser tabs
-            return;
-        }
-    }
     [_visibleWebViewController reload];
 }
 
