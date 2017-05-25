@@ -214,6 +214,11 @@
             
             NSString *webpageCellLabelText = (!webpage.title || [webpage.title isEqualToString:@""]) ? webpage.url : webpage.title;
             cellLabel.text = webpageCellLabelText;
+            if (index == 0) {
+                cellLabel.textColor = [UIColor blackColor];
+            } else {
+                cellLabel.textColor = [UIColor whiteColor];
+            }
             UIButton *closeButton = (UIButton *)[cell viewWithTag:1];
             [closeButton addTarget:cell action:@selector(fireAction:) forControlEvents:UIControlEventTouchUpInside];
             
