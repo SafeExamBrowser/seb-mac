@@ -669,6 +669,14 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Een-Fo-nNJ">
+                                                        <rect key="frame" x="744" y="26" width="16" height="18"/>
+                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <state key="normal" image="Cancel.png"/>
+                                                        <connections>
+                                                            <action selector="urlEntered:" destination="h8j-pm-u2W" eventType="touchUpInside" id="cbA-HK-Epy"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                 <constraints>
@@ -680,6 +688,8 @@
                                                     <constraint firstItem="C6t-3t-DKh" firstAttribute="leading" secondItem="t05-Ok-qqM" secondAttribute="leading" id="H3V-R1-7OW"/>
                                                     <constraint firstItem="Xbh-jE-19H" firstAttribute="leading" secondItem="6PK-IY-rk8" secondAttribute="leading" constant="8" id="KcD-LJ-w9Q"/>
                                                     <constraint firstAttribute="bottom" secondItem="t05-Ok-qqM" secondAttribute="bottom" constant="55" id="L1Z-2W-F3b"/>
+                                                    <constraint firstItem="Een-Fo-nNJ" firstAttribute="top" secondItem="t05-Ok-qqM" secondAttribute="top" id="Mhl-St-Lyt"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Een-Fo-nNJ" secondAttribute="trailing" constant="8" id="XMm-8b-Co5"/>
                                                     <constraint firstItem="t05-Ok-qqM" firstAttribute="top" secondItem="6PK-IY-rk8" secondAttribute="top" constant="26" id="wxk-6Z-f0q"/>
                                                     <constraint firstItem="Xbh-jE-19H" firstAttribute="top" secondItem="6PK-IY-rk8" secondAttribute="top" constant="8" id="yvy-21-CG0"/>
                                                     <constraint firstItem="t05-Ok-qqM" firstAttribute="leading" secondItem="NvO-V8-xMf" secondAttribute="trailing" constant="8" symbolic="YES" id="zAf-dY-7KX"/>
@@ -732,6 +742,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Cancel.png" width="16" height="16"/>
         <image name="SEBAppIcon_256.png" width="256" height="256"/>
         <image name="SEBQRCode.png" width="54" height="54"/>
         <image name="SEBSliderClosePage.png" width="20" height="20"/>

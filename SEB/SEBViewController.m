@@ -561,6 +561,20 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+#pragma mark - Show About SEB
+
+- (void)showAboutSEB
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    AboutSEBiOSViewController aboutSEBViewController = [storyboard instantiateViewControllerWithIdentifier:@"AboutSEBiOSViewController"];
+    aboutSEBViewController.sebViewController = self;
+    aboutSEBViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+    
+    [self presentViewController:aboutSEBViewController animated:YES completion:^{
+    }];
+}
+
+
 #pragma mark - Show in-app settings
 
 - (void)showSettingsModal
