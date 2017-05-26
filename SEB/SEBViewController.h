@@ -75,6 +75,7 @@
 #import "SEBiOSLockedViewController.h"
 #import "SEBiOSConfigFileController.h"
 #import "QRCodeReaderViewController.h"
+#import "AboutSEBiOSViewController.h"
 
 #import "SEBBrowserTabViewController.h"
 #import "SEBSearchBarViewController.h"
