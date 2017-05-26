@@ -55,9 +55,9 @@
 {
     [super viewDidLoad];
     
-//    _assistantController = [[SEBInitAssistantViewController alloc] init];
-//    _assistantController.controllerDelegate = self;
-    
+    SEBAboutController *aboutController = [SEBAboutController new];
+    versionLabel.text = [aboutController version];
+    copyrightLabel.text = [aboutController copyright];
 }
 
 
@@ -73,8 +73,7 @@
 -(void)closeAbout
 {
     [self dismissViewControllerAnimated:YES completion:^{
-        _sebViewController.initAssistantOpen = false;
-        [_sebViewController storeNewSEBSettingsSuccessful:nil];
+//        _sebViewController.initAssistantOpen = false;
     }];
 }
 

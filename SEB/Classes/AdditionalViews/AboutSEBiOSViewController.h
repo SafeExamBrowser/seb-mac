@@ -34,7 +34,7 @@
 
 #import <UIKit/UIKit.h>
 #import "AboutSEBiOSViewController.h"
-#import "SEBViewController.h"
+#import "SEBAboutController.h"
 
 
 @class SEBViewController;
@@ -42,14 +42,12 @@
 
 @interface AboutSEBiOSViewController : UIViewController {
     
-    __weak IBOutlet UILabel *copyright;
-    __weak IBOutlet UILabel *version;
+    __weak IBOutlet UILabel *copyrightLabel;
+    __weak IBOutlet UILabel *versionLabel;
     __weak IBOutlet UIButton *closeAbout;
     
 }
 
-@property (nonatomic, strong) SEBInitAssistantViewController *assistantController;
-//@property (nonatomic, strong) id< SEBInitAssistantViewControllerDelegate > assistantControllerDelegate;
 @property (nonatomic, strong) SEBViewController *sebViewController;
 
 

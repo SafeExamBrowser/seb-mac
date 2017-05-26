@@ -663,8 +663,8 @@
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C6t-3t-DKh">
-                                                        <rect key="frame" x="336" y="71" width="42" height="21"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C6t-3t-DKh">
+                                                        <rect key="frame" x="336" y="92" width="0.0" height="0.0"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -685,7 +685,7 @@
                                                     <constraint firstItem="t05-Ok-qqM" firstAttribute="leading" secondItem="NvO-V8-xMf" secondAttribute="trailing" constant="8" symbolic="YES" id="zAf-dY-7KX"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RLL-cr-aYF">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RLL-cr-aYF" userLabel="Copyright Text">
                                                 <rect key="frame" x="184" y="126" width="584" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -721,6 +721,10 @@
                             <constraint firstItem="nQa-Q9-gCh" firstAttribute="leading" secondItem="TRi-6W-cpL" secondAttribute="leading" id="o2k-bG-IrH"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="copyrightLabel" destination="RLL-cr-aYF" id="QNe-Vg-rTw"/>
+                        <outlet property="versionLabel" destination="C6t-3t-DKh" id="HZO-4A-peS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="biC-or-lrZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

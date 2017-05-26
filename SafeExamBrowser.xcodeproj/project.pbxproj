@@ -333,6 +333,12 @@
 		69B5817F1ED7197700CE70F3 /* AboutSEBiOSViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B5817C1ED7197700CE70F3 /* AboutSEBiOSViewController.h */; };
 		69B581801ED7197700CE70F3 /* AboutSEBiOSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B5817D1ED7197700CE70F3 /* AboutSEBiOSViewController.m */; };
 		69B581811ED7197700CE70F3 /* AboutSEBiOSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B5817D1ED7197700CE70F3 /* AboutSEBiOSViewController.m */; };
+		69B581841ED8214700CE70F3 /* SEBAboutController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B581821ED8214700CE70F3 /* SEBAboutController.h */; };
+		69B581851ED8214700CE70F3 /* SEBAboutController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B581821ED8214700CE70F3 /* SEBAboutController.h */; };
+		69B581861ED8214700CE70F3 /* SEBAboutController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B581821ED8214700CE70F3 /* SEBAboutController.h */; };
+		69B581871ED8214700CE70F3 /* SEBAboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B581831ED8214700CE70F3 /* SEBAboutController.m */; };
+		69B581881ED8214700CE70F3 /* SEBAboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B581831ED8214700CE70F3 /* SEBAboutController.m */; };
+		69B581891ED8214700CE70F3 /* SEBAboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B581831ED8214700CE70F3 /* SEBAboutController.m */; };
 		69BB07441BA11CD40065E1F2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69BB07431BA11CD40065E1F2 /* WebKit.framework */; };
 		69CBEB561834C55C00FB0460 /* SEBSystemManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CBEB541834C55C00FB0460 /* SEBSystemManager.h */; };
 		69CBEB571834C55D00FB0460 /* SEBSystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBEB551834C55C00FB0460 /* SEBSystemManager.m */; };
@@ -853,6 +859,8 @@
 		69B581761ED70CC700CE70F3 /* SEBAppIcon_256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBAppIcon_256.png; path = Resources/Icons/AboutSEB/SEBAppIcon_256.png; sourceTree = "<group>"; };
 		69B5817C1ED7197700CE70F3 /* AboutSEBiOSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutSEBiOSViewController.h; path = Classes/AdditionalViews/AboutSEBiOSViewController.h; sourceTree = "<group>"; };
 		69B5817D1ED7197700CE70F3 /* AboutSEBiOSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutSEBiOSViewController.m; path = Classes/AdditionalViews/AboutSEBiOSViewController.m; sourceTree = "<group>"; };
+		69B581821ED8214700CE70F3 /* SEBAboutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBAboutController.h; sourceTree = "<group>"; };
+		69B581831ED8214700CE70F3 /* SEBAboutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBAboutController.m; sourceTree = "<group>"; };
 		69BA05AA1D57E80C00C07C4F /* libPods-SEB.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-SEB.a"; path = "../../Builds/SafeExamBrowser-gcyjidykkgkznbatujqrlsxvsklv/Build/Products/Debug-iphonesimulator/libPods-SEB.a"; sourceTree = "<group>"; };
 		69BB07431BA11CD40065E1F2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		69C52802136AFDBD00F9F000 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PreferencesController.m; path = Classes/Preferences/PreferencesWindow/PreferencesController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -1519,6 +1527,8 @@
 				69331F091C10AF1D0038BD31 /* SEBLockedViewController.m */,
 				69358DE51E6ECECD000539F6 /* SEBInitAssistantViewController.h */,
 				69358DE61E6ECECD000539F6 /* SEBInitAssistantViewController.m */,
+				69B581821ED8214700CE70F3 /* SEBAboutController.h */,
+				69B581831ED8214700CE70F3 /* SEBAboutController.m */,
 			);
 			name = "Additional Views+Windows";
 			path = Classes/AdditionalViewsWindows;
@@ -1859,6 +1869,7 @@
 				696DAD3B1C3C2D0500397E18 /* SEBSearchBarViewController.h in Headers */,
 				696DAD351C3C2D0500397E18 /* SEBDetailViewController.h in Headers */,
 				69358DE01E6E142A000539F6 /* SEBiOSInitAssistantViewController.h in Headers */,
+				69B581851ED8214700CE70F3 /* SEBAboutController.h in Headers */,
 				6930D2251C2011580087F79E /* SEBCryptor.h in Headers */,
 				696DAD371C3C2D0500397E18 /* SEBMasterViewController.h in Headers */,
 				696DAD411C3C2D0500397E18 /* SEBBrowserTabViewController.h in Headers */,
@@ -1915,6 +1926,7 @@
 				69DFAF2D19C468E700CBE69F /* RNCryptor.h in Headers */,
 				690BBEB619D30DF800F7C9C6 /* SEBDockView.h in Headers */,
 				69358DE71E6ECECD000539F6 /* SEBInitAssistantViewController.h in Headers */,
+				69B581841ED8214700CE70F3 /* SEBAboutController.h in Headers */,
 				69DFAF3919C468E700CBE69F /* RNCryptor+Private.h in Headers */,
 				6917744A1A2776FB0039CC39 /* SEBURLFilterRegexExpression.h in Headers */,
 				69CE9C5D17326AB90011609B /* SEBConfigFileManager.h in Headers */,
@@ -1960,6 +1972,7 @@
 				69CFFA6B1D3641B500FE5655 /* SEBSearchBarViewController.h in Headers */,
 				69CFFA6C1D3641B500FE5655 /* SEBDetailViewController.h in Headers */,
 				69358DE11E6E142A000539F6 /* SEBiOSInitAssistantViewController.h in Headers */,
+				69B581861ED8214700CE70F3 /* SEBAboutController.h in Headers */,
 				69CFFA6D1D3641B500FE5655 /* SEBCryptor.h in Headers */,
 				69CFFA6E1D3641B500FE5655 /* SEBMasterViewController.h in Headers */,
 				69CFFA6F1D3641B500FE5655 /* SEBBrowserTabViewController.h in Headers */,
@@ -2559,6 +2572,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69B581881ED8214700CE70F3 /* SEBAboutController.m in Sources */,
 				69640B291C1F0F75007ADE72 /* SEBConfigFileManager.m in Sources */,
 				694316651BFF943C00F784EE /* MyGlobals.m in Sources */,
 				69E0F3481C454F370038CCCD /* SEB.xcdatamodeld in Sources */,
@@ -2649,6 +2663,7 @@
 				69CFFA1B1D3641B500FE5655 /* SEBSliderItem.m in Sources */,
 				69CFFA1C1D3641B500FE5655 /* SEBConfigFileCredentials.m in Sources */,
 				69CFFA1D1D3641B500FE5655 /* SEBTextField.m in Sources */,
+				69B581891ED8214700CE70F3 /* SEBAboutController.m in Sources */,
 				69CFFA1E1D3641B500FE5655 /* SEBLockedViewController.m in Sources */,
 				69CFFA1F1D3641B500FE5655 /* SEBTableViewController.m in Sources */,
 				69CFFA201D3641B500FE5655 /* RNCryptorEngine.m in Sources */,
@@ -2724,6 +2739,7 @@
 				6921294816F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */,
 				69D817E618017DDB00EB7885 /* SEBURLFilter.m in Sources */,
 				69A3FCD61C1B5680009BEA13 /* SEBConfigFileCredentials.m in Sources */,
+				69B581871ED8214700CE70F3 /* SEBAboutController.m in Sources */,
 				695BE5F519EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */,
 				693647FB17122A0300EE41BC /* DropDownButton.m in Sources */,
 				69331F0C1C10AF1D0038BD31 /* SEBLockedViewController.m in Sources */,
