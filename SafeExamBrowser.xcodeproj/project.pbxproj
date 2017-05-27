@@ -190,6 +190,12 @@
 		695A8EFC1E6CCEFA00601099 /* SEBToolbarReloadIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EEC1E6CCEFA00601099 /* SEBToolbarReloadIcon@3x.png */; };
 		695A8EFD1E6CCEFA00601099 /* SEBToolbarReloadIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EEC1E6CCEFA00601099 /* SEBToolbarReloadIcon@3x.png */; };
 		695A8EFE1E6CCEFA00601099 /* SEBToolbarReloadIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EEC1E6CCEFA00601099 /* SEBToolbarReloadIcon@3x.png */; };
+		695AEAD71EDA375A008D46C0 /* SEBSliderInfoIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695AEAD41EDA375A008D46C0 /* SEBSliderInfoIcon@3x.png */; };
+		695AEAD81EDA375A008D46C0 /* SEBSliderInfoIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695AEAD41EDA375A008D46C0 /* SEBSliderInfoIcon@3x.png */; };
+		695AEAD91EDA375A008D46C0 /* SEBSliderInfoIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695AEAD51EDA375A008D46C0 /* SEBSliderInfoIcon@2x.png */; };
+		695AEADA1EDA375A008D46C0 /* SEBSliderInfoIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695AEAD51EDA375A008D46C0 /* SEBSliderInfoIcon@2x.png */; };
+		695AEADB1EDA375A008D46C0 /* SEBSliderInfoIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695AEAD61EDA375A008D46C0 /* SEBSliderInfoIcon.png */; };
+		695AEADC1EDA375A008D46C0 /* SEBSliderInfoIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695AEAD61EDA375A008D46C0 /* SEBSliderInfoIcon.png */; };
 		695BE5F419EC3FED00CA2BB4 /* SEBDockItemMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 695BE5F219EC3FED00CA2BB4 /* SEBDockItemMenu.h */; };
 		695BE5F519EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 695BE5F319EC3FED00CA2BB4 /* SEBDockItemMenu.m */; };
 		695C5CAD16CB210E008FC401 /* ExamIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAB16CB210E008FC401 /* ExamIcon.png */; };
@@ -738,6 +744,9 @@
 		695A8EEC1E6CCEFA00601099 /* SEBToolbarReloadIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SEBToolbarReloadIcon@3x.png"; sourceTree = "<group>"; };
 		695AE31319FE634300F8C6A5 /* de.xliff */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = de.xliff; sourceTree = "<group>"; };
 		695AE31419FE634300F8C6A5 /* fr.xliff */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fr.xliff; sourceTree = "<group>"; };
+		695AEAD41EDA375A008D46C0 /* SEBSliderInfoIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderInfoIcon@3x.png"; path = "Resources/Icons/Slider/SEBSliderInfoIcon@3x.png"; sourceTree = "<group>"; };
+		695AEAD51EDA375A008D46C0 /* SEBSliderInfoIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderInfoIcon@2x.png"; path = "Resources/Icons/Slider/SEBSliderInfoIcon@2x.png"; sourceTree = "<group>"; };
+		695AEAD61EDA375A008D46C0 /* SEBSliderInfoIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBSliderInfoIcon.png; path = Resources/Icons/Slider/SEBSliderInfoIcon.png; sourceTree = "<group>"; };
 		695BE5F219EC3FED00CA2BB4 /* SEBDockItemMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockItemMenu.h; path = Classes/SEBDock/SEBDockItemMenu.h; sourceTree = "<group>"; };
 		695BE5F319EC3FED00CA2BB4 /* SEBDockItemMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockItemMenu.m; path = Classes/SEBDock/SEBDockItemMenu.m; sourceTree = "<group>"; };
 		695C5CAB16CB210E008FC401 /* ExamIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ExamIcon.png; path = Resources/Icons/ExamIcon.png; sourceTree = "<group>"; };
@@ -1648,6 +1657,9 @@
 				69633E5D1E844B3600C71FF0 /* SEBSliderQRCodeIcon.png */,
 				69633E5E1E844B3600C71FF0 /* SEBSliderQRCodeIcon@2x.png */,
 				69633E5F1E844B3600C71FF0 /* SEBSliderQRCodeIcon@3x.png */,
+				695AEAD41EDA375A008D46C0 /* SEBSliderInfoIcon@3x.png */,
+				695AEAD51EDA375A008D46C0 /* SEBSliderInfoIcon@2x.png */,
+				695AEAD61EDA375A008D46C0 /* SEBSliderInfoIcon.png */,
 				6966F8791D1C081300684182 /* SEBSliderShutDownIcon.png */,
 				6966F87A1D1C081300684182 /* SEBSliderShutDownIcon@2x.png */,
 				69B253E81E4E2630000B4A6D /* SEBSliderShutDownIcon@3x.png */,
@@ -2215,15 +2227,18 @@
 				6966F87B1D1C081300684182 /* SEBSliderShutDownIcon.png in Resources */,
 				696DAD1C1C3C2AB900397E18 /* Reload.png in Resources */,
 				693A396D1E60AC8F005030B0 /* SEBSliderNavigateBackIcon.png in Resources */,
+				695AEAD91EDA375A008D46C0 /* SEBSliderInfoIcon@2x.png in Resources */,
 				69633E641E844B3600C71FF0 /* SEBSliderQRCodeIcon@3x.png in Resources */,
 				69358DD51E6E0D5F000539F6 /* SEBQRCode.png in Resources */,
 				696DAD1B1C3C2AB900397E18 /* Previous@2x.png in Resources */,
+				695AEAD71EDA375A008D46C0 /* SEBSliderInfoIcon@3x.png in Resources */,
 				696DAD191C3C2AB900397E18 /* Next@2x.png in Resources */,
 				69B253DF1E4E2211000B4A6D /* SEBSliderSkipBackIcon.png in Resources */,
 				69B253E11E4E2211000B4A6D /* SEBSliderSkipBackIcon@2x.png in Resources */,
 				6966F87C1D1C081300684182 /* SEBSliderShutDownIcon@2x.png in Resources */,
 				696DAD1D1C3C2AB900397E18 /* Reload@2x.png in Resources */,
 				69B226E61D4108BA0065B831 /* Icon-64x64.png in Resources */,
+				695AEADB1EDA375A008D46C0 /* SEBSliderInfoIcon.png in Resources */,
 				693A39751E60AC8F005030B0 /* SEBSliderNavigateForwardIcon@2x.png in Resources */,
 				696DAD171C3C2AB900397E18 /* Cancel@2x.png in Resources */,
 				6966F8871D1DE07100684182 /* SEBSliderSettingsIcon.png in Resources */,
@@ -2311,6 +2326,7 @@
 				69CFFA451D3641B500FE5655 /* Settings.bundle in Resources */,
 				69CFFA461D3641B500FE5655 /* Main.storyboard in Resources */,
 				69D5988B1E7F222D00698BA8 /* SEBQRCodeIcon.png in Resources */,
+				695AEADA1EDA375A008D46C0 /* SEBSliderInfoIcon@2x.png in Resources */,
 				69CFFA471D3641B500FE5655 /* SEBRestartIcon@2x.png in Resources */,
 				69CFFA481D3641B500FE5655 /* SEBSliderShutDownIcon.png in Resources */,
 				69B253E21E4E2211000B4A6D /* SEBSliderSkipBackIcon@2x.png in Resources */,
@@ -2331,9 +2347,11 @@
 				69CFFA4E1D3641B500FE5655 /* Cancel@2x.png in Resources */,
 				69CFFA4F1D3641B500FE5655 /* SEBSliderSettingsIcon.png in Resources */,
 				695A8EF51E6CCEFA00601099 /* SEBToolbarNavigateForwardIcon.png in Resources */,
+				695AEADC1EDA375A008D46C0 /* SEBSliderInfoIcon.png in Resources */,
 				69CFFA501D3641B500FE5655 /* SEBDockIcon.png in Resources */,
 				693A39601E60AC6C005030B0 /* SEBNavigateBackIcon@3x.png in Resources */,
 				69B253DB1E4E2200000B4A6D /* SEBSliderClosePage@3x.png in Resources */,
+				695AEAD81EDA375A008D46C0 /* SEBSliderInfoIcon@3x.png in Resources */,
 				695A8EFE1E6CCEFA00601099 /* SEBToolbarReloadIcon@3x.png in Resources */,
 				693A395C1E60AC6C005030B0 /* SEBNavigateBackIcon.png in Resources */,
 				69B253EA1E4E2630000B4A6D /* SEBSliderReloadIcon@3x.png in Resources */,

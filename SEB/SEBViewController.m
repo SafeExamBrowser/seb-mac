@@ -565,8 +565,10 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)showAboutSEB
 {
+    [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    AboutSEBiOSViewController aboutSEBViewController = [storyboard instantiateViewControllerWithIdentifier:@"AboutSEBiOSViewController"];
+    AboutSEBiOSViewController *aboutSEBViewController = [storyboard instantiateViewControllerWithIdentifier:@"AboutSEBView"];
     aboutSEBViewController.sebViewController = self;
     aboutSEBViewController.modalPresentationStyle = UIModalPresentationFormSheet;
     
@@ -1040,6 +1042,14 @@ static NSMutableSet *browserWindowControllers;
     } else {
         [UIApplication sharedApplication].shortcutItems = nil;
     }
+    
+    // Add About SEB command to slider items
+    sliderIcon = [UIImage imageNamed:@"SEBSliderInfoIcon"];
+    sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"About SEB",nil)
+                                                        icon:sliderIcon
+                                                      target:self
+                                                      action:@selector(showAboutSEB)];
+    [sliderCommands addObject:sliderCommandItem];
     
     // Add Quit button
     dockIcon = [UIImage imageNamed:@"SEBShutDownIcon"];
