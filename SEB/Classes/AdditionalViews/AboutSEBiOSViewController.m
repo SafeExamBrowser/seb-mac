@@ -38,7 +38,7 @@
 @implementation AboutSEBiOSViewController
 
 
-- (void)didMoveToParentViewController:(UIViewController *)parent
+- (void) didMoveToParentViewController:(UIViewController *)parent
 {
     if (parent) {
         // Add the view to the parent view and position it if you want
@@ -51,7 +51,7 @@
 }
 
 
-- (void)viewDidLoad
+- (void) viewDidLoad
 {
     [super viewDidLoad];
     
@@ -70,7 +70,7 @@
 #pragma mark Delegates
 
 
--(void)closeAbout
+-(IBAction) closeAbout
 {
     [self dismissViewControllerAnimated:YES completion:^{
 //        _sebViewController.initAssistantOpen = false;
