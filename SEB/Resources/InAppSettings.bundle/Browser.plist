@@ -37,6 +37,32 @@
 			<string>org_safeexambrowser_SEB_showReloadWarning</string>
 		</dict>
 		<dict>
+			<key>DefaultValue</key>
+			<integer>0</integer>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_browserWindowShowURL</string>
+			<key>Title</key>
+			<string>Show URLs</string>
+			<key>Titles</key>
+			<array>
+				<string>Never</string>
+				<string>Only in Load Error</string>
+				<string>Before Receiving Title</string>
+				<string>Always</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<string>3</string>
+			</array>
+			<key>DisplaySortedByTitle</key>
+			<false/>
+		</dict>
+		<dict>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
@@ -65,6 +91,32 @@
 			<string>Show Reload Warning</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_newBrowserWindowShowReloadWarning</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<integer>0</integer>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_newBrowserWindowShowURL</string>
+			<key>Title</key>
+			<string>Show URLs</string>
+			<key>Titles</key>
+			<array>
+				<string>Never</string>
+				<string>Only in Load Error</string>
+				<string>Before Receiving Title</string>
+				<string>Always</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<string>3</string>
+			</array>
+			<key>DisplaySortedByTitle</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>Type</key>
