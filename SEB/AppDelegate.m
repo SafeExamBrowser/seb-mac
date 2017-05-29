@@ -161,6 +161,12 @@
          postNotificationName:@"requestQuit" object:self];
 
     }
+    if (_sebViewController.aboutSEBViewDisplayed) {
+        [_sebViewController.aboutSEBViewController dismissViewControllerAnimated:NO completion:^{
+            _sebViewController.aboutSEBViewDisplayed = false;
+            _sebViewController.aboutSEBViewController = nil;
+        }];
+    }
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {

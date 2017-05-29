@@ -1,4 +1,4 @@
-         //
+//
 //  SEBViewController.m
 //
 //  Created by Daniel R. Schneider on 10/09/15.
@@ -568,11 +568,12 @@ static NSMutableSet *browserWindowControllers;
     [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
 
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    AboutSEBiOSViewController *aboutSEBViewController = [storyboard instantiateViewControllerWithIdentifier:@"AboutSEBView"];
-    aboutSEBViewController.sebViewController = self;
-    aboutSEBViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+    _aboutSEBViewController = [storyboard instantiateViewControllerWithIdentifier:@"AboutSEBView"];
+    _aboutSEBViewController.sebViewController = self;
+    _aboutSEBViewController.modalPresentationStyle = UIModalPresentationFormSheet;
     
-    [self presentViewController:aboutSEBViewController animated:YES completion:^{
+    [self presentViewController:_aboutSEBViewController animated:YES completion:^{
+        _aboutSEBViewDisplayed = true;
     }];
 }
 

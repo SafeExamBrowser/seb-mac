@@ -73,7 +73,8 @@
 -(IBAction) closeAbout
 {
     [self dismissViewControllerAnimated:YES completion:^{
-//        _sebViewController.initAssistantOpen = false;
+        _sebViewController.aboutSEBViewDisplayed = false;
+        _sebViewController.aboutSEBViewController = nil;
     }];
 }
 
