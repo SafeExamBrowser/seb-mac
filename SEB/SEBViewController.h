@@ -87,6 +87,7 @@
 @class SEBInitAssistantViewController;
 @class SEBiOSInitAssistantViewController;
 @class QRCodeReaderViewController;
+@class AboutSEBiOSViewController;
 
 
 @interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate>
@@ -125,6 +126,8 @@
 
 @property (strong, nonatomic) SEBiOSInitAssistantViewController *assistantViewController;
 
+@property (strong, nonatomic) AboutSEBiOSViewController *aboutSEBViewController;
+
 @property (strong, nonatomic) SEBiOSLockedViewController< SEBLockedViewUIDelegate > *lockedViewController;
 @property (strong, nonatomic) SEBiOSConfigFileController *configFileController;
 @property (strong, nonatomic) SEBLockedViewController *sebLockedViewController;
@@ -159,6 +162,7 @@
 @property(readwrite) BOOL pausedSAMAlertDisplayed;
 @property(readwrite) BOOL endSAMWAlertDisplayed;
 @property(readwrite) BOOL restartSessionAlertDisplayed;
+@property(readwrite) BOOL aboutSEBViewDisplayed;
 @property(readwrite) BOOL examRunning;
 @property(readwrite) BOOL initAssistantOpen;
 @property(readwrite) BOOL settingsOpen;

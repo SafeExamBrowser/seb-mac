@@ -35,6 +35,7 @@
 #import <UIKit/UIKit.h>
 #import "AboutSEBiOSViewController.h"
 #import "SEBAboutController.h"
+#import "SEBViewController.h"
 
 
 @class SEBViewController;
