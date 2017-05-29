@@ -209,9 +209,17 @@
     //[self speakWebView:webView];
     
     NSString *webPageTitle = [_sebWebView title];
-    if ([webPageTitle isEqualToString:@""]) {
-        
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow == 0) {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] == browserWindowShowURLAlways) {
+            webPageTitle = nil;
+        }
     } else {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] == browserWindowShowURLAlways) {
+            webPageTitle = nil;
+        }
+    }
+    if (webPageTitle.length != 0) {
         [_browserTabViewController setTitle:webPageTitle forWebViewController:self];
     }
     
@@ -233,8 +241,9 @@
         [_browserTabViewController setLoading:NO];
         [self setBackForwardAvailabilty];
         
+        NSString *errorMessage = error.localizedDescription;
         UIAlertController *alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Load Error", nil)
-                                                                                  message:error.localizedDescription
+                                                                                  message:errorMessage
                                                                            preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {

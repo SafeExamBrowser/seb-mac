@@ -603,13 +603,11 @@ static NSMutableSet *browserWindowControllers;
 
     [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:0 forBarMetrics:UIBarMetricsDefault];
 
-//    UISplitViewController *splitViewController = [UISplitViewController new];
-//    UIViewController *detailViewController = [[UIViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
-//    UINavigationController *detailNavigationController = [[UINavigationController alloc] initWithRootViewController:detailViewController];
-//    //[viewController setShowCreditsFooter:NO];   // Uncomment to not display InAppSettingsKit credits for creators.
-//    // But we encourage you not to uncomment. Thank you!
-//    splitViewController.viewControllers = [NSArray arrayWithObjects:navigationController, detailNavigationController, nil];
+
+    //[viewController setShowCreditsFooter:NO];   // Uncomment to not display InAppSettingsKit credits for creators.
+    // But we encourage you not to uncomment. Thank you!
+
     self.appSettingsViewController.showDoneButton = YES;
     
     if (!settingsShareButton) {
