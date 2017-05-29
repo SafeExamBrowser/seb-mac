@@ -315,8 +315,23 @@
     [newViewController didMoveToParentViewController:self];
     
     _visibleWebViewController = newViewController;
-    
-    [_sebViewController setToolbarTitle:url.absoluteString];
+
+    NSString *browserTabTitle;
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if (index == 0) {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] >= browserWindowShowURLBeforeTitle) {
+            browserTabTitle = url.absoluteString;
+        } else {
+            browserTabTitle = NSLocalizedString(@"Exam Page", nil);
+        }
+    } else {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] >= browserWindowShowURLBeforeTitle) {
+            browserTabTitle = url.absoluteString;
+        } else {
+            browserTabTitle = NSLocalizedString(@"Untitled Page", nil);
+        }
+    }
+    [_sebViewController setToolbarTitle:browserTabTitle];
     
     [_sebViewController activateReloadButtonsExamTab:index == 0];
 
@@ -441,6 +456,7 @@
     if (index != NSNotFound && index < _persistentWebpages.count) {
         [(Webpages *)_persistentWebpages[index] setValue:title forKey:@"title"];
     }
+    
     [_sebViewController setToolbarTitle:title];
     
     // Post a notification that the slider should be refreshed
