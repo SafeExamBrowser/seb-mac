@@ -1836,13 +1836,14 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (void) correctPasswordEntered {
-//    // If necessary show the dialog to start Guided Access again
-//    [self showRestartSingleAppMode];
-
+- (void) correctPasswordEntered
+{
     // If kiosk mode is already switched on, close lockdown window
     if (!_secureMode || (_secureMode && UIAccessibilityIsGuidedAccessEnabled() == true)) {
         [_lockedViewController shouldCloseLockdownWindows];
+    } else {
+        // If necessary show the dialog to start SAM again
+        [self showRestartSingleAppMode];
     }
 }
 
