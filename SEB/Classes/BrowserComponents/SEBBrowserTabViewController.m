@@ -118,7 +118,7 @@
     [super viewWillDisappear:animated];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    [self.searchBarController setLoading:NO];
+//    [self.searchBarController setLoading:NO];
 }
 
 
@@ -341,7 +341,7 @@
         [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
     }];
     
-    self.searchBarController.url = url.absoluteString;
+//    self.searchBarController.url = url.absoluteString;
 }
 
 
@@ -536,8 +536,8 @@
 
         _visibleWebViewController = newVisibleWebViewController;
 
-        Webpages *visibleWebPage = persistedOpenWebPages.lastObject;
-        [self.searchBarController setUrl:visibleWebPage.url];
+//        Webpages *visibleWebPage = persistedOpenWebPages.lastObject;
+//        [self.searchBarController setUrl:visibleWebPage.url];
     } else {
         // There were no persisted pages
         // Load start URL from the system's user defaults
