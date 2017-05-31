@@ -501,7 +501,10 @@ static NSMutableSet *browserWindowControllers;
     // Check if the cancel button was pressed
     if (!password) {
         // Continue SEB without displaying settings
-        [self conditionallyStartKioskMode];
+        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+        if (!_finishedStartingUp) {
+            [self conditionallyStartKioskMode];
+        }
         return;
     }
     
@@ -528,7 +531,10 @@ static NSMutableSet *browserWindowControllers;
             [self.configFileController showAlertWithTitle:title andText:informativeText];
             
             // Continue SEB without displaying settings
-            [self conditionallyStartKioskMode];
+            [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+            if (!_finishedStartingUp) {
+                [self conditionallyStartKioskMode];
+            }
         }
         
     } else {

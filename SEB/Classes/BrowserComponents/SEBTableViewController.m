@@ -212,7 +212,7 @@
             UILabel *cellLabel;
             cellLabel = (UILabel *)[cell viewWithTag:2];
             
-            NSString *webpageCellLabelText = (!webpage.title || [webpage.title isEqualToString:@""]) ? webpage.url : webpage.title;
+            NSString *webpageCellLabelText = (!webpage.title || [webpage.title isEqualToString:@""]) ? (index == 0 ? NSLocalizedString(@"Exam Page", nil) : NSLocalizedString(@"Untitled Page", nil)) : webpage.title;
             cellLabel.text = webpageCellLabelText;
             if (index == 0) {
                 cellLabel.textColor = [UIColor blackColor];
