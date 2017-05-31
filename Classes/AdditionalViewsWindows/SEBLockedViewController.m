@@ -88,7 +88,13 @@
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSMutableArray *lockedExams = [NSMutableArray arrayWithArray:[preferences persistedSecureObjectForKey:@"org_safeexambrowser_additionalResources"]];
-    NSAttributedString *logString = [self errorStringWithString:[NSString stringWithFormat:@"%@%@\n", NSLocalizedString(@"Started exam with URL ", nil), examURLString] andTime:[NSDate date]];
+    NSAttributedString *logString;
+    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] >= browserWindowShowURLBeforeTitle) {
+        logString = [self errorStringWithString:[NSString stringWithFormat:@"%@%@\n", NSLocalizedString(@"Started exam with URL ", nil), examURLString] andTime:[NSDate date]];
+    } else {
+        logString = [self errorStringWithString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Started exam", nil)] andTime:[NSDate date]];
+    }
+
     NSUInteger indexOfLockedExamDictionary = [self getIndexOfLockedExam:lockedExams withStartURL:examURLString];
     if (indexOfLockedExamDictionary != NSNotFound) {
         // Append the new log string to the persisted one
@@ -118,8 +124,13 @@
         [lockedExams removeObjectAtIndex:indexOfLockedExamDictionary];
         [preferences setPersistedSecureObject:lockedExams forKey:@"org_safeexambrowser_additionalResources"];
     }
-    [self appendErrorString:[NSString stringWithFormat:@"%@%@\n", NSLocalizedString(@"Quit exam with URL ", nil), examURLString]
-                   withTime:[NSDate date]];
+    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] >= browserWindowShowURLBeforeTitle) {
+        [self appendErrorString:[NSString stringWithFormat:@"%@%@\n", NSLocalizedString(@"Quit exam with URL ", nil), examURLString]
+                       withTime:[NSDate date]];
+    } else {
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Quit exam", nil)]
+                       withTime:[NSDate date]];
+    }
 }
 
 - (void) passwordEntered:(id)sender {
