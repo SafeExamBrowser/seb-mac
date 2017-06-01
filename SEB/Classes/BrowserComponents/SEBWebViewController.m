@@ -241,13 +241,29 @@
         [_browserTabViewController setLoading:NO];
         [self setBackForwardAvailabilty];
         
-        NSString *errorMessage = error.localizedDescription;
+        // Decide if of failed load should be displayed in the alert
+        // (according to current ShowURL policy settings for exam/additional tab)
+        BOOL showURL = false;
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow == 0) {
+            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] >= browserWindowShowURLOnlyLoadError) {
+                showURL = true;
+            }
+        } else {
+            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] >= browserWindowShowURLOnlyLoadError) {
+                showURL = true;
+            }
+        }
+
+        NSString *failingURLString = [error.userInfo objectForKey:NSURLErrorFailingURLStringErrorKey];
+        NSString *errorMessage = [NSString stringWithFormat:@"%@%@", error.localizedDescription, showURL ? [NSString stringWithFormat:@"\n%@", failingURLString] : @""];
+        
         UIAlertController *alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Load Error", nil)
                                                                                   message:errorMessage
                                                                            preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                NSURL *failingURL = [NSURL URLWithString:[error.userInfo objectForKey:@"NSErrorFailingURLStringKey"]];
+                                                                NSURL *failingURL = [NSURL URLWithString:failingURLString];
                                                                 if (failingURL) {
                                                                     [self loadURL:failingURL];
                                                                 }
