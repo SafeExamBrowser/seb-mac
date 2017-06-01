@@ -28,7 +28,7 @@
 			<key>Title</key>
 			<string>Dock Command Items</string>
 			<key>FooterText</key>
-			<string>SEB Dock shows open browser tabs and commands. The command items above will always be displayed in the slider menu (reload) or when their functionality is enabled (Exam pane/back to start, Browser pane/navigation).</string>
+			<string>The command items enabled above will be displayed in the SEB Dock when their functionality is enabled as well (Browser pane/Allow Navigation &amp; Allow Reload, Exam pane/Back to Start Button/Use Start URL or Custom URL). If not enabled above, those commands will be displayed in the (enabled) browser toolbar or otherwise in the slider menu.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
