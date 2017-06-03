@@ -12,7 +12,7 @@
 			<key>Title</key>
 			<string>Automatic Assessment Configuration (AAC) &amp; Autonomous Single App Mode (ASAM)</string>
 			<key>FooterText</key>
-			<string>Uses either AAC (for BYOD) or requires device to be supervised and having SEB set as allowed app to invoke ASAM (which takes priority over AAC).</string>
+			<string>Uses either AAC (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke ASAM (which takes priority over AAC).</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -28,7 +28,7 @@
 			<key>Title</key>
 			<string>Classic Single App Mode (SAM)</string>
 			<key>FooterText</key>
-			<string>Use Single App Mode invoked by MDM or Apple Configurator instead of ASAM/AAC. Note: You have to distribute devices already locked into SAM or disable manual Guided Access if you want to make sure that only SAM is used by the system.</string>
+			<string>Use Single App Mode invoked by Classroom, an MDM system or Apple Configurator instead of ASAM/AAC. Note: You have to distribute devices already locked into SAM or disable manual Guided Access if you want to make sure that only SAM is used by the system.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -60,7 +60,7 @@
 			<key>Title</key>
 			<string>SEB Config QR Code</string>
 			<key>FooterText</key>
-			<string>Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to a SEB config file. This is only possible while SEB isn&apos;t running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action.</string>
+			<string>Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB config file. This is only possible while SEB isn&apos;t running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action.</string>
 		</dict>
 		<dict>
 			<key>Type</key>

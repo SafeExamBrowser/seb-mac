@@ -12,7 +12,7 @@
 			<key>Title</key>
 			<string>Sharing Settings as Config Files</string>
 			<key>FooterText</key>
-			<string>Use Share button to export settings as an SEB config file, which can be placed on a web server and opened with an seb(s):// link to start exams or configuring SEB clients.</string>
+			<string>Use the Share button on the Settings page to export settings as an SEB config file, which can be placed on a web server and opened with an seb(s):// link to start exams or configure SEB clients.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -32,7 +32,7 @@
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_sebConfigPurpose</string>
 			<key>FooterText</key>
-			<string>A config file will either start an exam using these settings (temporarily) or change the settings of a SEB client (permanently).</string>
+			<string>A config file will either start an exam using these settings (temporarily) or change the settings of an SEB client (permanently).</string>
 			<key>Values</key>
 			<array>
 				<integer>0</integer>
@@ -41,7 +41,7 @@
 			</array>
 			<key>Titles</key>
 			<array>
-				<string>Starting Exam</string>
+				<string>Starting Exams</string>
 				<string>Configuring Clients</string>
 				<string>MDM Managed Configuration</string>
 			</array>
@@ -52,7 +52,7 @@
 			<key>Title</key>
 			<string>Encryption</string>
 			<key>FooterText</key>
-			<string>You should use a settings password when a config file is shared for starting exams. Encryption prevents settings to be altered and to access the exam before communicating the password to examinees.</string>
+			<string>You should use Settings Password when a config file is shared for starting exams. Encryption prevents settings to be altered and an exam to be accessed before communicating the password to examinees.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -72,7 +72,7 @@
 			<key>Title</key>
 			<string>Editing Settings</string>
 			<key>FooterText</key>
-			<string>If this option is enabled in the client configuration, in-app-settings will also be available after opening an exam config. Use this for easier setting up and testing.</string>
+			<string>Recommended for easier set-up and testing. Shows the &quot;Edit Settings&quot; command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config file.</string>
 		</dict>
 		<dict>
 			<key>Type</key>

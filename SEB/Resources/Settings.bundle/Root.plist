@@ -26,7 +26,7 @@
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>You can reset settings after opening SEB, to allow the initial configuration to be set again.</string>
+			<string>You can reset settings after opening SEB to allow the initial configuration to be set again.</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>

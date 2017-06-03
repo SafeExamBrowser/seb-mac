@@ -46,7 +46,7 @@
 			<key>Titles</key>
 			<array>
 				<string>Never</string>
-				<string>Only in Load Error</string>
+				<string>Only on Load Error</string>
 				<string>Before Receiving Title</string>
 				<string>Always</string>
 			</array>
@@ -138,7 +138,7 @@
 				<string>Custom</string>
 			</array>
 			<key>FooterText</key>
-			<string>SEB always appends its version number. Default string depends on iOS version and therefore can differ on exam clients.</string>
+			<string>SEB always appends its version number. Default string depends on the iOS version and therefore can differ on exam clients.</string>
 		</dict>
 		<dict>
 			<key>Type</key>

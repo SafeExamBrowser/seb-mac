@@ -12,7 +12,7 @@
 			<key>Title</key>
 			<string>Quit Link</string>
 			<key>FooterText</key>
-			<string>Place this Quit Link onto the &apos;feedback&apos; page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password.</string>
+			<string>Place a hyperlink with this Quit URL in the feedback page displayed after an exam is successfully finished or enter the feedback page URL as Quit URL. Clicking the link or navigating to the feedback page will quit SEB without having to enter the quit password.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -46,7 +46,7 @@
 			<key>Title</key>
 			<string>Back to Start Button</string>
 			<key>FooterText</key>
-			<string>This function doesn&apos;t log you out if you are logged in on a website (doesn&apos;t clear session cookies). </string>
+			<string>This function doesn&apos;t log you out if you are logged in a website (doesn&apos;t clear session cookies). </string>
 		</dict>
 		<dict>
 			<key>Type</key>

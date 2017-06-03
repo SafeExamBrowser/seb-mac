@@ -12,7 +12,7 @@
 			<key>Title</key>
 			<string>General</string>
 			<key>FooterText</key>
-			<string>Without Start URL, SEB displays the Initial Configuration Assistant. Always set an SEB administrator password to protect settings from being changed. Only when a quit password is set, SEB invokes the single app mode.</string>
+			<string>Without Start URL, SEB displays the Initial Configuration Assistant. Always set SEB Admin Password to protect settings from being changed. SEB runs in Single App Mode only when Quit Password is set.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
