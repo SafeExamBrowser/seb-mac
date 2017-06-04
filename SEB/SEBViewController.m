@@ -1427,12 +1427,16 @@ static NSMutableSet *browserWindowControllers;
     // Close browser tabs and reset browser session
     [self resetSEB];
     
-    if (_secureMode) {
-        [self.sebLockedViewController removeLockedExam:currentStartURL];
-    }
-    
     // We only might need to switch off kiosk mode if it was active in previous settings
     if (_secureMode) {
+
+        // Remove this exam from the list of running exams,
+        // otherwise it would be locked next time it is started again
+        [self.sebLockedViewController removeLockedExam:currentStartURL];
+
+        // Clear Pasteboard
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.items = @[];
 
         // Get new setting for running SEB in secure mode
         BOOL oldSecureMode = _secureMode;
@@ -1619,6 +1623,12 @@ static NSMutableSet *browserWindowControllers;
 
     // Update kiosk flags according to current settings
     [self updateKioskSettingFlags];
+    
+    if (_secureMode) {
+        // Clear Pasteboard
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.items = @[];
+    }
     
     // If ASAM is enabled and SAM not allowed, we have to check if SAM or Guided Access is
     // already active and deny starting a secured exam until Guided Access is switched off
