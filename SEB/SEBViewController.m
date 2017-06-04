@@ -1433,26 +1433,25 @@ static NSMutableSet *browserWindowControllers;
     
     // We only might need to switch off kiosk mode if it was active in previous settings
     if (_secureMode) {
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
         // Get new setting for running SEB in secure mode
-        BOOL newSecureMode = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
+        BOOL oldSecureMode = _secureMode;
         
         // Get new setting for ASAM/AAC enabled
-        BOOL newEnableASAM = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableASAM"];
+        BOOL oldEnableASAM = _enableASAM;
         
-        // Get new setting for using classic Single App Mode (SAM) allowed
-        BOOL newAllowSAM = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowSingleAppMode"];
+        // Update kiosk flags according to current settings
+        [self updateKioskSettingFlags];
 
         // If there is one or more difference(s) in active kiosk mode
         // compared to the new kiosk mode settings, also considering:
         // when we're running in SAM mode, it's not relevant if settings for ASAM differ
         // when we're running in ASAM mode, it's not relevant if settings for SAM differ
         // we deactivate current kiosk mode
-        if ((_quittingClientConfig && _secureMode) ||
-            _secureMode != newSecureMode ||
-            (!_singleAppModeActivated && (_ASAMActive != newEnableASAM)) ||
-            (!_ASAMActive && (_singleAppModeActivated != newAllowSAM))) {
+        if ((_quittingClientConfig && oldSecureMode) ||
+            oldSecureMode != _secureMode ||
+            (!_singleAppModeActivated && (_ASAMActive != _enableASAM)) ||
+            (!_ASAMActive && (_singleAppModeActivated != _allowSAM))) {
             
             // If SAM is active, we display the alert for waiting for it to be switched off
             if (_singleAppModeActivated) {
@@ -1468,7 +1467,7 @@ static NSMutableSet *browserWindowControllers;
             }
             
             // If ASAM is active, we stop it now and display the alert for restarting session
-            if (_enableASAM) {
+            if (oldEnableASAM) {
                 if (_ASAMActive) {
                     NSLog(@"Requesting to exit Autonomous Single App Mode");
                     UIAccessibilityRequestGuidedAccessSession(false, ^(BOOL didSucceed) {
@@ -1479,10 +1478,10 @@ static NSMutableSet *browserWindowControllers;
                         else {
                             NSLog(@"Failed to exit Autonomous Single App Mode");
                         }
-                        [self restartExamASAM:quitting && newSecureMode];
+                        [self restartExamASAM:quitting && _secureMode];
                     });
                 } else {
-                    [self restartExamASAM:quitting && newSecureMode];
+                    [self restartExamASAM:quitting && _secureMode];
                 }
             } else {
                 // When no kiosk mode was active, then we can just restart SEB with the start URL in local client settings
@@ -1598,6 +1597,7 @@ static NSMutableSet *browserWindowControllers;
                     [_alertController dismissViewControllerAnimated:NO completion:^{
                         _alertController = nil;
                         _endSAMWAlertDisplayed = false;
+                        _singleAppModeActivated = false;
                         [self showRestartSingleAppMode];
                     }];
                     return;
@@ -1615,17 +1615,10 @@ static NSMutableSet *browserWindowControllers;
 
 - (void) conditionallyStartKioskMode
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     _finishedStartingUp = true;
 
-    // First check if a quit password is set = run SEB in secure mode
-    _secureMode = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
-    
-    // Is ASAM/AAC enabled in current settings?
-    _enableASAM = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableASAM"];
-    
-    // Is using classic Single App Mode (SAM) allowed in current settings?
-    _allowSAM = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowSingleAppMode"];
+    // Update kiosk flags according to current settings
+    [self updateKioskSettingFlags];
     
     // If ASAM is enabled and SAM not allowed, we have to check if SAM or Guided Access is
     // already active and deny starting a secured exam until Guided Access is switched off
@@ -1649,6 +1642,21 @@ static NSMutableSet *browserWindowControllers;
     }
 }
 
+
+- (void) updateKioskSettingFlags
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    // First check if a quit password is set = run SEB in secure mode
+    _secureMode = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
+    
+    // Is ASAM/AAC enabled in current settings?
+    _enableASAM = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableASAM"];
+    
+    // Is using classic Single App Mode (SAM) allowed in current settings?
+    _allowSAM = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowSingleAppMode"];
+
+}
 
 // Is SAM/Guided Access (or ASAM because of previous crash) active?
 - (void) assureSAMNotActive
@@ -1830,7 +1838,9 @@ static NSMutableSet *browserWindowControllers;
             [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
         }
     } else {
-        // If no quit password is defined, then we can restart the exam / reload the start page directly
+        // If no quit password is defined, then we can initialize SEB with new settings
+        // quit and restart the exam / reload the start page directly
+        [self initSEB];
         [self startExam];
     }
 }
@@ -1838,7 +1848,8 @@ static NSMutableSet *browserWindowControllers;
 
 - (void) correctPasswordEntered
 {
-    // If kiosk mode is already switched on, close lockdown window
+    // If (new) setting don't require a kiosk mode or
+    // kiosk mode is already switched on, close lockdown window
     if (!_secureMode || (_secureMode && UIAccessibilityIsGuidedAccessEnabled() == true)) {
         [_lockedViewController shouldCloseLockdownWindows];
     } else {

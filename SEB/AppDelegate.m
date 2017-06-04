@@ -152,11 +152,14 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    if (_sebViewController.noSAMAlertDisplayed) {
+    if (_sebViewController.noSAMAlertDisplayed || _sebViewController.startSAMWAlertDisplayed) {
         [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
+        _sebViewController.alertController = nil;
         _sebViewController.noSAMAlertDisplayed = false;
+        _sebViewController.startSAMWAlertDisplayed = false;
         // We didn't actually succeed to switch a kiosk mode on
         _sebViewController.secureMode = false;
+        _sebViewController.singleAppModeActivated = false;
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"requestQuit" object:self];
 
