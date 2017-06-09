@@ -243,6 +243,15 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
 }
 
 
+// Block custom keyboards
+- (BOOL)application:(UIApplication *)application shouldAllowExtensionPointIdentifier:(NSString *)extensionPointIdentifier {
+    if ([extensionPointIdentifier isEqualToString: UIApplicationKeyboardExtensionPointIdentifier]) {
+        return NO;
+    }
+    return YES;
+}
+
+
 - (void)onDefaultsChanged:(NSNotification*)aNotification
 {
     [[NSUserDefaults standardUserDefaults] synchronize];
