@@ -37,8 +37,6 @@
 			<string>org_safeexambrowser_SEB_showReloadWarning</string>
 		</dict>
 		<dict>
-			<key>DefaultValue</key>
-			<integer>0</integer>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_browserWindowShowURL</string>
 			<key>Title</key>
@@ -93,8 +91,6 @@
 			<string>org_safeexambrowser_SEB_newBrowserWindowShowReloadWarning</string>
 		</dict>
 		<dict>
-			<key>DefaultValue</key>
-			<integer>0</integer>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_newBrowserWindowShowURL</string>
 			<key>Title</key>
