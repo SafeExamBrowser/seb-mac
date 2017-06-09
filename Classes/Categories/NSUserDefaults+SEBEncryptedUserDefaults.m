@@ -330,6 +330,8 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_mainBrowserWindowPositioning",
                                  @"100%",
                                  @"org_safeexambrowser_SEB_mainBrowserWindowWidth",
+                                 [NSNumber numberWithLong:iOSBetaVersionNone],
+                                 @"org_safeexambrowser_SEB_allowiOSBetaVersionNumber",
                                  @NO,
                                  @"org_safeexambrowser_SEB_mobileAllowSingleAppMode",
                                  @NO,
