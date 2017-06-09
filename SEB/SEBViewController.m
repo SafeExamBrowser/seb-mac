@@ -233,12 +233,13 @@ static NSMutableSet *browserWindowControllers;
     
     // Check if we received new settings from an MDM server
     //    [self readDefaultsValues];
-    
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
     // Check if settings aren't initialized and initial config assistant should be started
-    if (!_initAssistantOpen && [[NSUserDefaults standardUserDefaults] boolForKey:@"allowEditingConfig"]) {
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"allowEditingConfig"];
+    if (!_initAssistantOpen && [preferences boolForKey:@"allowEditingConfig"]) {
+        [preferences setBool:NO forKey:@"allowEditingConfig"];
         [self conditionallyShowSettingsModal];
-    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"initiateResetConfig"]) {
+    } else if ([preferences boolForKey:@"initiateResetConfig"]) {
         [self conditionallyResetSettings];
     } else if (![[MyGlobals sharedMyGlobals] finishedInitializing]) {
         [self conditionallyStartKioskMode];
@@ -246,6 +247,7 @@ static NSMutableSet *browserWindowControllers;
     
     // Set flag that SEB is initialized: Now showing alerts is allowed
     [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
+    
 }
 
 
@@ -1623,6 +1625,21 @@ static NSMutableSet *browserWindowControllers;
 
     // Update kiosk flags according to current settings
     [self updateKioskSettingFlags];
+    
+    // Check if running on beta iOS
+    NSUInteger allowBetaiOSVersion = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSBetaVersionNumber"];
+    NSUInteger currentOSMajorVersion = NSProcessInfo.processInfo.operatingSystemVersion.majorVersion;
+    if ((allowBetaiOSVersion == iOSBetaVersionNone &&
+         currentOSMajorVersion > currentStableMajoriOSVersion) ||
+        (allowBetaiOSVersion != iOSBetaVersionNone &&
+         !(allowBetaiOSVersion > currentOSMajorVersion &&
+         allowBetaiOSVersion > currentStableMajoriOSVersion))) {
+        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Running on New iOS Version Not Allowed", nil)
+                                                                message:NSLocalizedString(@"Currently it isn't allowed to run SEB on the  iOS version installed on this device.", nil)
+                                                         preferredStyle:UIAlertControllerStyleAlert];
+        [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
+        return;
+    }
     
     if (_secureMode) {
         // Clear Pasteboard
