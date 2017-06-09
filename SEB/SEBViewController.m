@@ -1632,7 +1632,8 @@ static NSMutableSet *browserWindowControllers;
     if ((allowBetaiOSVersion == iOSBetaVersionNone &&
          currentOSMajorVersion > currentStableMajoriOSVersion) ||
         (allowBetaiOSVersion != iOSBetaVersionNone &&
-         !(allowBetaiOSVersion > currentOSMajorVersion &&
+         allowBetaiOSVersion > currentStableMajoriOSVersion &&
+         !(allowBetaiOSVersion >= currentOSMajorVersion ||
          allowBetaiOSVersion > currentStableMajoriOSVersion))) {
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Running on New iOS Version Not Allowed", nil)
                                                                 message:NSLocalizedString(@"Currently it isn't allowed to run SEB on the  iOS version installed on this device.", nil)
