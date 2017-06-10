@@ -1629,12 +1629,9 @@ static NSMutableSet *browserWindowControllers;
     // Check if running on beta iOS
     NSUInteger allowBetaiOSVersion = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSBetaVersionNumber"];
     NSUInteger currentOSMajorVersion = NSProcessInfo.processInfo.operatingSystemVersion.majorVersion;
-    if ((allowBetaiOSVersion == iOSBetaVersionNone &&
-         currentOSMajorVersion > currentStableMajoriOSVersion) ||
-        (allowBetaiOSVersion != iOSBetaVersionNone &&
-         allowBetaiOSVersion > currentStableMajoriOSVersion &&
-         !(allowBetaiOSVersion >= currentOSMajorVersion ||
-         allowBetaiOSVersion > currentStableMajoriOSVersion))) {
+    if (currentOSMajorVersion > currentStableMajoriOSVersion && //first check if we're running on a beta at all
+        (allowBetaiOSVersion == iOSBetaVersionNone || //if no beta allowed, abort
+         allowBetaiOSVersion != currentOSMajorVersion)) { //if allowed, version has to match current iOS
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Running on New iOS Version Not Allowed", nil)
                                                                 message:NSLocalizedString(@"Currently it isn't allowed to run SEB on the  iOS version installed on this device.", nil)
                                                          preferredStyle:UIAlertControllerStyleAlert];
