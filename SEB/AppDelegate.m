@@ -248,7 +248,9 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
     if ([extensionPointIdentifier isEqualToString: UIApplicationKeyboardExtensionPointIdentifier]) {
         return NO;
     }
-    return YES;
+    // Currently, the keyboard extension is the only one that can
+    // be disallowed, but we will disallow all other types too
+    return NO;
 }
 
 
