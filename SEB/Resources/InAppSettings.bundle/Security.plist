@@ -94,7 +94,7 @@
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_allowiOSBetaVersionNumber</string>
 			<key>Title</key>
-			<string>Allow Running on iOS Beta Version</string>
+			<string>Allow Running on iOS Beta</string>
 			<key>Titles</key>
 			<array>
 				<string>None</string>
