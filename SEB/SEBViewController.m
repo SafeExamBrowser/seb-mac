@@ -1633,7 +1633,7 @@ static NSMutableSet *browserWindowControllers;
         (allowBetaiOSVersion == iOSBetaVersionNone || //if no beta allowed, abort
          allowBetaiOSVersion != currentOSMajorVersion)) { //if allowed, version has to match current iOS
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Running on New iOS Version Not Allowed", nil)
-                                                                message:NSLocalizedString(@"Currently it isn't allowed to run SEB on the  iOS version installed on this device.", nil)
+                                                                message:NSLocalizedString(@"Currently it isn't allowed to run SEB on the iOS version installed on this device.", nil)
                                                          preferredStyle:UIAlertControllerStyleAlert];
         [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
         return;
