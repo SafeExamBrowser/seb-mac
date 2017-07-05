@@ -135,7 +135,8 @@
 }
 
 
-/// Filter Section
+#pragma mark -
+#pragma mark Filter Section
 
 - (BOOL) URLFilterLearningMode {
     return [SEBURLFilter sharedSEBURLFilter].learningMode;
@@ -277,8 +278,8 @@
 }
 
 
-
-/// Certificates Section
+#pragma mark -
+#pragma mark Certificates Section
 
 // A certificate was selected in the drop down menu
 - (IBAction) certificateSelected:(id)sender
