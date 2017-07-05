@@ -1065,8 +1065,8 @@ willPerformClientRedirectToURL:(NSURL *)URL
 
 // Invoked if an error occurs when starting to load data for a page
 - (void)webView:(SEBWebView *)sender didFailProvisionalLoadWithError:(NSError *)error
-       forFrame:(WebFrame *)frame {
-    
+       forFrame:(WebFrame *)frame
+{
     // Enable back/forward buttons according to availablility for this webview
     NSSegmentedControl *backForwardButtons = [(SEBBrowserWindowController *)self.windowController backForwardButtons];
     [backForwardButtons setEnabled:self.webView.canGoBack forSegment:0];
@@ -1079,37 +1079,38 @@ willPerformClientRedirectToURL:(NSURL *)URL
         if ([error code] !=  WebKitErrorFrameLoadInterruptedByPolicyChange && !_browserController.directConfigDownloadAttempted) //this error can be ignored
         {
             DDLogError(@"Error in %s: %@", __FUNCTION__, error.description);
-
-            //Is it a "plug-in handled load error"?
             
-            
-            //Close the About Window first, because it would hide the error alert
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"requestCloseAboutWindowNotification" object:self];
-            
-            NSString *titleString = NSLocalizedString(@"Error Loading Page",nil);
-            NSString *messageString = [error localizedDescription];
-            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-            [self makeKeyAndOrderFront:self];
-            NSAlert *newAlert = [[NSAlert alloc] init];
-            [newAlert setMessageText:titleString];
-            [newAlert setInformativeText:messageString];
-            [newAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
-            [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-            [newAlert setAlertStyle:NSCriticalAlertStyle];
-            NSInteger answer = [newAlert runModal];
-
-            switch(answer) {
-                case NSAlertFirstButtonReturn:
-                    //Retry: try reloading
-                    //self.browserController.currentMainHost = nil;
-                    DDLogInfo(@"Trying to reload after %s: Request: %@ URL: %@", __FUNCTION__, [[frame provisionalDataSource] request], [[frame provisionalDataSource] request].URL);
-
-                    [[sender mainFrame] loadRequest:[[frame provisionalDataSource] request]];
-                    return;
-                default:
-                    // Close a temporary browser window which might have been opened for loading a config file from a SEB URL
-                    [_browserController openingConfigURLFailed];
-                    return;
+            // Show alert only if load of the main frame failed
+            if (frame == [sender mainFrame]) {
+                
+                //Close the About Window first, because it would hide the error alert
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"requestCloseAboutWindowNotification" object:self];
+                
+                NSString *titleString = NSLocalizedString(@"Error Loading Page",nil);
+                NSString *messageString = [error localizedDescription];
+                [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+                [self makeKeyAndOrderFront:self];
+                NSAlert *newAlert = [[NSAlert alloc] init];
+                [newAlert setMessageText:titleString];
+                [newAlert setInformativeText:messageString];
+                [newAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
+                [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+                [newAlert setAlertStyle:NSCriticalAlertStyle];
+                NSInteger answer = [newAlert runModal];
+                
+                switch(answer) {
+                    case NSAlertFirstButtonReturn:
+                        //Retry: try reloading
+                        //self.browserController.currentMainHost = nil;
+                        DDLogInfo(@"Trying to reload after %s: Request: %@ URL: %@", __FUNCTION__, [[frame provisionalDataSource] request], [[frame provisionalDataSource] request].URL);
+                        
+                        [[sender mainFrame] loadRequest:[[frame provisionalDataSource] request]];
+                        return;
+                    default:
+                        // Close a temporary browser window which might have been opened for loading a config file from a SEB URL
+                        [_browserController openingConfigURLFailed];
+                        return;
+                }
             }
         }
     }
@@ -1117,8 +1118,8 @@ willPerformClientRedirectToURL:(NSURL *)URL
 
 
 // Invoked when an error occurs loading a committed data source
-- (void)webView:(SEBWebView *)sender didFailLoadWithError:(NSError *)error forFrame:(WebFrame *)frame {
-    
+- (void)webView:(SEBWebView *)sender didFailLoadWithError:(NSError *)error forFrame:(WebFrame *)frame
+{
     // Enable back/forward buttons according to availablility for this webview
     NSSegmentedControl *backForwardButtons = [(SEBBrowserWindowController *)self.windowController backForwardButtons];
     [backForwardButtons setEnabled:self.webView.canGoBack forSegment:0];
@@ -1152,7 +1153,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
                     //Retry: try reloading
                     //self.browserController.currentMainHost = setCurrentMainHost:nil;
                     DDLogInfo(@"Trying to reload after %s: Request: %@ URL: %@", __FUNCTION__, [[frame dataSource] request], [[frame dataSource] request].URL);
-
+                    
                     [[sender mainFrame] loadRequest:[[frame dataSource] request]];
                     return;
                 default:
