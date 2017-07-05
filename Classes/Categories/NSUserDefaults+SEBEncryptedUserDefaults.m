@@ -257,7 +257,7 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_enableAltF4",
                                  @NO,
                                  @"org_safeexambrowser_SEB_enablePrintScreen",
-                                 @NO,
+                                 @YES,
                                  @"org_safeexambrowser_SEB_enableRightMouse",
                                  @NO,
                                  @"org_safeexambrowser_SEB_enableStartMenu",
