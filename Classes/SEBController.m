@@ -2373,7 +2373,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *restartExamText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamText"];
     if (restartExamText.length == 0) {
-        restartExamText = NSLocalizedString(@"Restart Exam",nil);
+        restartExamText = NSLocalizedString(@"Back to Start",nil);
     }
 
     // Check if restarting is protected with the quit/restart password (and one is set)

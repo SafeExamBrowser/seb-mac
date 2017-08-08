@@ -214,10 +214,17 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 - (NSString *) getCurrentSCLocation
 {
     // Get current screencapture location
+    return (NSString *)[self valueForDefaultsDomain:@"com.apple.screencapture" key:@"location"];
+}
+
+
+// Get current screencapture location
+- (id) valueForDefaultsDomain:(NSString *)domain key:(NSString *)key
+{
     NSUserDefaults *appUserDefaults = [[NSUserDefaults alloc] init];
-    [appUserDefaults addSuiteNamed:@"com.apple.screencapture"];
+    [appUserDefaults addSuiteNamed:domain];
     NSDictionary *prefsDict = [appUserDefaults dictionaryRepresentation];
-    return [prefsDict valueForKey:@"location"];
+    return [prefsDict valueForKey:key];
 }
 
 
