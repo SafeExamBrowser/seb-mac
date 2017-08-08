@@ -288,7 +288,7 @@ static NSString __unused *userDefaultsMasala = @"Di𝈭l𝈖Ch𝈒ah𝉇t𝈁a�
 static NSString __unused *sebErrorDomain = @"org.safeexambrowser.SEBCryptor";
 
 static NSString __unused *SEBUserAgentDefaultSuffix = @"SEB";
-static NSString __unused *SEBUserAgentDefaultBrowserSuffix = @"Safari";
+static NSString __unused *SEBUserAgentDefaultBrowserSuffix = @"Version/10.0.3 Safari";
 static NSString __unused *SEBUserAgentDefaultSafariVersion = @"601.1";
 static NSString __unused *SEBWinUserAgentDesktopDefault = @"Mozilla/5.0 (Windows NT 6.3; rv:41.0) Gecko/20100101 Firefox/41";
 static NSString __unused *SEBWinUserAgentTouchDefault = @"Mozilla/5.0 (Windows NT 6.3; rv:41.0; Touch) Gecko/20100101 Firefox/41";
