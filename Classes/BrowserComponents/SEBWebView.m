@@ -40,6 +40,12 @@
 @implementation SEBWebView
 
 
+- (NSTouchBar *)makeTouchBar
+{
+    return nil;
+}
+
+
 - (NSArray *)plugins
 {
     NSArray *plugins = [[WebPluginDatabase sharedDatabase] plugins];

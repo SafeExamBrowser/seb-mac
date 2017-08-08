@@ -39,7 +39,9 @@
 @class WebBasePluginPackage;
 @class SEBOSXBrowserController;
 
-@interface SEBWebView : WebView
+@interface SEBWebView : WebView <NSTouchBarProvider>
+
+@property(strong, readonly) NSTouchBar *touchBar;
 
 @property (weak, nonatomic) SEBWebView *creatingWebView;
 @property (weak, nonatomic) SEBOSXBrowserController *browserController;
