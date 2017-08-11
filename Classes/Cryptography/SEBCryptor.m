@@ -219,10 +219,10 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSSet *filteredPrefsSet = [preferences sebKeysSet];
     NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:[filteredPrefsSet count]];
 
-    // get default settings
+    // Get default settings
     NSDictionary *defaultSettings = [preferences sebDefaultSettings];
     
-    // iterate keys and read all values
+    // Iterate keys and read all values
     for (NSString *key in filteredPrefsSet) {
         id value = [preferences secureObjectForKey:key];
         id defaultValue = [defaultSettings objectForKey:key];
@@ -248,7 +248,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 //            if (value) [filteredPrefsDict setObject:value forKey:key];
 //        }
     }
-
+   
     // Convert preferences dictionary to XML property list
     NSData *HMACData = [self checksumForPrefDictionary:filteredPrefsDict];
     *newChecksumPtr = HMACData;
@@ -351,6 +351,70 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSData *HMACKey = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
     [preferences setSecureObject:HMACKey forKey:@"org_safeexambrowser_SEB_examKeySalt"];
     return HMACKey;
+}
+
+/// Config Key
+
+// Update Config Key
+- (void) updateConfigKey
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    // Get current salt for exam key
+    NSData *HMACKey = [preferences secureDataForKey:@"org_safeexambrowser_SEB_examKeySalt"];
+    // If there was no salt yet, then we generate it in any case
+    if ([HMACKey isEqualToData:[NSData data]]) {
+        [self generateExamKeySalt];
+        
+        DDLogInfo(@"Generated Browser Exam Key salt as there was none defined yet.");
+    }
+    
+    // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
+    NSSet *filteredPrefsSet = [preferences sebKeysSet];
+    NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:[filteredPrefsSet count]];
+    
+    // Get default settings
+    NSDictionary *defaultSettings = [preferences sebDefaultSettings];
+    
+    // Get array of the keys covered by the Config Key in current settings
+    NSArray *configKeyContainedKeys = [filteredPrefsDict objectForKey:@"org_safeexambrowser_SEB_configKeyContainedKeys"];
+
+    // Iterate keys and read all values
+    for (NSString *key in filteredPrefsSet) {
+        id value = [preferences secureObjectForKey:key];
+        id defaultValue = [defaultSettings objectForKey:key];
+        Class valueClass = [value superclass];
+        Class defaultValueClass = [defaultValue superclass];
+        if (!value || (valueClass && defaultValueClass && !([defaultValue isKindOfClass:valueClass] || [value isKindOfClass:defaultValueClass]))) {
+            // Class of local preferences value is different than the one from the default value
+            // If yes, then cancel reading .seb file and create error object
+            DDLogError(@"%s Value for key %@ is not having the correct class!", __FUNCTION__, key);
+            DDLogError(@"Triggering present alert for 'Local SEB settings have been reset'");
+            // Reset Config Key
+            [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
+            [self presentPreferencesCorruptedError];
+            // Return value: Checksum changed
+            return;
+        }
+        // If the key isn't contained in the array of keys in current settings
+        // probably because those settings were saved in an older or other
+        // platform version of SEB
+        // then the value has to be equal to the default value of this key
+        if (![configKeyContainedKeys containsObject:key] && ![value isEqualToValue:defaultValue]) {
+            // if this isn't the case, we have to reset the Config Key and abort
+            [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
+            return;
+        }
+        if (value) {
+            [filteredPrefsDict setObject:value forKey:key];
+        }
+    }
+    
+    // Convert preferences dictionary to XML property list
+    NSData *HMACData = [self checksumForPrefDictionary:filteredPrefsDict];
+    
+    // Store new exam key in UserDefaults
+    [preferences setSecureObject:HMACData forKey:@"org_safeexambrowser_configKey"];
 }
 
 
