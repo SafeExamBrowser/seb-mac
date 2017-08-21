@@ -204,6 +204,8 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 
 - (BOOL)updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt newChecksum:(NSData **)newChecksumPtr
 {
+    [self updateConfigKey];
+    
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
     // Get current salt for exam key
@@ -355,7 +357,15 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 
 /// Config Key
 
-// Update Config Key
+// Update Config Key, which is a hash over all config keys
+// in a JSON object. As this key needs to be platform independent,
+// following rules must be followed strictly when creating the key:
+// - Convert binary data to base64 strings
+// - Exception: additionalResources
+// - Sort keys alphabetically, also in sub-dictionaries
+// - UTF-8 character encoding
+// - Strip all whitespace from the beginning and end of strings
+//
 - (void) updateConfigKey
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -401,6 +411,8 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             // Return value: Checksum changed
             return;
         }
+        // Check for sub-dictionaries, key/values of these need to be sorted alphabetically too
+        
         // If the key isn't contained in the array of keys in current settings
         // probably because those settings were saved in an older or other
         // platform version of SEB
