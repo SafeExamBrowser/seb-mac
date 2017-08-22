@@ -10,4 +10,6 @@
 
 @interface SEBSettings : NSDictionary
 
++ (NSDictionary *)defaultSettings;
+
 @end
