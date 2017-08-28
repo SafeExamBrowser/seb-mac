@@ -1452,31 +1452,6 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     newAlert = nil;
 
     DDLogInfo(@"Dismissed alert for local SEB settings have been reset");
-
-    //    NSDictionary *newDict = @{ NSLocalizedDescriptionKey :
-    //                                   NSLocalizedString(@"Local SEB settings are corrupted!", nil),
-    //                               /*NSLocalizedFailureReasonErrorKey :
-    //                                NSLocalizedString(@"Either an incompatible version of SEB has been used on this computer or the preferences file has been manipulated. In the first case you can quit SEB now and use the previous version to export settings as a .seb config file for reconfiguring the new version. Otherwise local settings need to be reset to the default values in order for SEB to continue running.", nil),*/
-    //                               //NSURLErrorKey : furl,
-    //                               NSRecoveryAttempterErrorKey : self,
-    //                               NSLocalizedRecoverySuggestionErrorKey :
-    //                                   NSLocalizedString(@"Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.\n\nReset local settings and continue?", @""),
-    //                               NSLocalizedRecoveryOptionsErrorKey :
-    //                                   @[NSLocalizedString(@"Continue", @""), NSLocalizedString(@"Quit", @"")] };
-    //
-    //    NSError *newError = [[NSError alloc] initWithDomain:sebErrorDomain
-    //                                                   code:1 userInfo:newDict];
-    
-    
-    // Reset settings to the default values
-    //	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    //    [preferences resetSEBUserDefaults];
-    //    [preferences storeSEBDefaultSettings];
-    //    // Update Exam Browser Key
-    //    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-    //#ifdef DEBUG
-    //    DDLogError(@"Local preferences have been reset!");
-    //#endif
 }
 
 

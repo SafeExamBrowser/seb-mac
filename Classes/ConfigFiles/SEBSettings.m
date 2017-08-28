@@ -225,25 +225,7 @@
                                  @"org_safeexambrowser_SEB_openDownloads",
                                  [NSNumber numberWithLong:oskBehaviorAutoShow],
                                  @"org_safeexambrowser_SEB_oskBehavior",
-                                 @[
-                                   @{
-                                       @"active" : @YES,
-                                       @"allowUserToChooseApp" : @NO,
-                                       @"allowedExecutables" : @"",
-                                       @"arguments" : @[],
-                                       @"autostart" : @YES,
-                                       @"description" : @"",
-                                       @"executable" : @"xulrunner.exe",
-                                       @"iconInTaskbar" : @YES,
-                                       @"identifier" : @"XULRunner",
-                                       @"os" : @1,
-                                       @"path" : @"../xulrunner/",
-                                       @"runInBackground" : @NO,
-                                       @"strongKill" : @YES,
-                                       @"title" : @"SEB",
-                                       @"windowHandlingProcess" : @""
-                                       }
-                                   ],
+                                 [NSArray array],
                                  @"org_safeexambrowser_SEB_permittedProcesses",
                                  @NO,
                                  @"org_safeexambrowser_SEB_pinEmbeddedCertificates",
@@ -370,25 +352,40 @@
 }
 
 
-+ (NSDictionary *)permittedProcess
-{
++ (NSDictionary *) defaultPermittedProcess {
     return @{
              @"active" : @YES,
              @"allowUserToChooseApp" : @NO,
              @"allowedExecutables" : @"",
              @"arguments" : @[],
-             @"autostart" : @YES,
+             @"autostart" : @NO,
              @"description" : @"",
-             @"executable" : @"xulrunner.exe",
+             @"executable" : @"",
              @"iconInTaskbar" : @YES,
-             @"identifier" : @"XULRunner",
-             @"os" : @1,
-             @"path" : @"../xulrunner/",
+             @"identifier" : @"",
+             @"os" : @0,
+             @"path" : @"",
              @"runInBackground" : @NO,
-             @"strongKill" : @YES,
-             @"title" : @"SEB",
+             @"strongKill" : @NO,
+             @"title" : @"",
              @"windowHandlingProcess" : @""
              };
 }
+
+
++ (NSDictionary *) defaultProhibitedProcess {
+    return @{
+             @"active" : @YES,
+             @"allowedExecutables" : @"",
+             @"currentUser" : @NO,
+             @"description" : @"",
+             @"executable" : @"",
+             @"identifier" : @"",
+             @"os" : @0,
+             @"strongKill" : @NO,
+             @"user" : @""
+             };
+}
+
 
 @end

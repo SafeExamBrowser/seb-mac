@@ -381,7 +381,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     
     // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
     NSSet *filteredPrefsSet = [preferences sebKeysSet];
-    NSArray *configKeysAlphabetically = [filteredPrefsSet sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
+    NSArray *configKeysAlphabetically = [filteredPrefsSet sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]]];
     NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:[filteredPrefsSet count]];
     
     // Get default settings
