@@ -39,6 +39,7 @@
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
 #import "SEBKeychainManager.h"
+#import "SEBSettings.h"
 
 @implementation SEBCryptor
 
@@ -380,23 +381,55 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     }
     
     // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
-    NSSet *filteredPrefsSet = [preferences sebKeysSet];
-    NSArray *configKeysAlphabetically = [filteredPrefsSet sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]]];
-    NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:[filteredPrefsSet count]];
+    NSDictionary *filteredPrefsDict = [preferences dictionaryRepresentationSEB];
+    
+    // Get dictionary with keys covered by the Config Key in current settings
+    NSDictionary *configKeyContainedKeys = [filteredPrefsDict objectForKey:@"configKeyContainedKeys"];
+    if ([[configKeyContainedKeys superclass] isKindOfClass:[NSDictionary class]]) {
+        // Class of local preferences value is different than the one from the default value
+        // If yes, then cancel reading .seb file and create error object
+        DDLogError(@"%s Value for key configKeyContainedKeys is not having the correct NSDictionary class!", __FUNCTION__);
+        DDLogError(@"Triggering present alert for 'Local SEB settings have been reset'");
+        // Reset Config Key
+        [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
+        [self presentPreferencesCorruptedError];
+        return;
+    }
+    NSMutableDictionary *containedKeysMutable = [configKeyContainedKeys mutableCopy];
+    NSMutableDictionary *sortedPrefsDict = [[self getConfigKeyDictionaryForKey:@"rootSettings" dictionary:filteredPrefsDict containedKeysPtr:&containedKeysMutable] mutableCopy];
+    [sortedPrefsDict setObject:configKeyContainedKeys forKey:@"configKeyContainedKeys"];
+    
+    // Convert preferences dictionary to XML property list
+    NSData *HMACData = [self checksumForPrefDictionary:sortedPrefsDict];
+    
+    // Store new exam key in UserDefaults
+    [preferences setSecureObject:HMACData forKey:@"org_safeexambrowser_configKey"];
+}
+
+
+- (NSDictionary *) getConfigKeyDictionaryForKey:(NSString *)dictionaryKey dictionary:(NSDictionary *)sourceDictionary containedKeysPtr:(NSMutableDictionary **)containedKeysPtr
+{
+    if (dictionaryKey.length == 0) {
+        return nil;
+    }
+    
+    // Get all dictionary keys alphabetically sorted
+    NSArray *configKeysAlphabetically = [[sourceDictionary allKeys] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]]];
+    NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:configKeysAlphabetically.count];
     
     // Get default settings
-    NSDictionary *defaultSettings = [preferences sebDefaultSettings];
+    NSDictionary *defaultSettings = [[SEBSettings defaultSettings] objectForKey:dictionaryKey];
     
-    // Get array of the keys covered by the Config Key in current settings
-    NSArray *configKeyContainedKeys = [filteredPrefsDict objectForKey:@"org_safeexambrowser_SEB_configKeyContainedKeys"];
-    if (configKeyContainedKeys.count == 0) {
+    NSArray *containedKeys = [*containedKeysPtr objectForKey:dictionaryKey];
+    if (containedKeys.count == 0) {
         // In case this key was empty, we use all current keys
-        configKeyContainedKeys = configKeysAlphabetically;
+        containedKeys = configKeysAlphabetically;
+        [*containedKeysPtr setObject:containedKeys forKey:dictionaryKey];
     }
-
+    
     // Iterate keys and read all values
     for (NSString *key in configKeysAlphabetically) {
-        id value = [preferences secureObjectForKey:key];
+        id value = [sourceDictionary objectForKey:key];
         id defaultValue = [defaultSettings objectForKey:key];
         Class valueClass = [value superclass];
         Class defaultValueClass = [defaultValue superclass];
@@ -406,32 +439,57 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             DDLogError(@"%s Value for key %@ is not having the correct class!", __FUNCTION__, key);
             DDLogError(@"Triggering present alert for 'Local SEB settings have been reset'");
             // Reset Config Key
-            [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
+            [filteredPrefsDict setObject:[NSData data] forKey:@"configKey"];
             [self presentPreferencesCorruptedError];
-            // Return value: Checksum changed
-            return;
+            // Return value: No settings
+            return nil;
         }
+        
         // Check for sub-dictionaries, key/values of these need to be sorted alphabetically too
+        if ([[valueClass superclass] isKindOfClass:[NSDictionary class]]) {
+            value = [self getConfigKeyDictionaryForKey:key dictionary:value containedKeysPtr:containedKeysPtr];
+        }
+        
+        // Currently at least the proxies dictionary needs to be saved as a mutable dictionary,
+        // so we have to treat this case differently
+        if ([[valueClass superclass] isKindOfClass:[NSMutableDictionary class]]) {
+            value = [[self getConfigKeyDictionaryForKey:key dictionary:value containedKeysPtr:containedKeysPtr] mutableCopy];
+        }
+        
+        // Sub-dictionaries are usually contained in arrays, so we have to treat this case separately
+        if ([[valueClass superclass] isKindOfClass:[NSArray class]]) {
+            value = [[self getConfigKeyDictionaryForKey:key dictionary:value containedKeysPtr:containedKeysPtr] mutableCopy];
+        }
         
         // If the key isn't contained in the array of keys in current settings
         // probably because those settings were saved in an older or other
         // platform version of SEB
         // then the value has to be equal to the default value of this key
-        if (![configKeyContainedKeys containsObject:key] && ![value isEqualToValue:defaultValue]) {
+        if (![containedKeys containsObject:key] && ![value isEqualToValue:defaultValue]) {
             // if this isn't the case, we have to reset the Config Key and abort
-            [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
-            return;
+            [filteredPrefsDict setObject:[NSData data] forKey:@"configKey"];
+            return nil;
         }
         if (value) {
             [filteredPrefsDict setObject:value forKey:key];
         }
     }
-    
-    // Convert preferences dictionary to XML property list
-    NSData *HMACData = [self checksumForPrefDictionary:filteredPrefsDict];
-    
-    // Store new exam key in UserDefaults
-    [preferences setSecureObject:HMACData forKey:@"org_safeexambrowser_configKey"];
+    return [filteredPrefsDict copy];
+}
+
+
+- (NSArray *) getConfigKeyArrayForKey:(NSString *)dictionaryKey array:(NSArray *)sourceArray containedKeysPtr:(NSMutableDictionary **)containedKeysPtr
+{
+    NSMutableArray *processedArray = [NSMutableArray new];
+    for (id object in sourceArray) {
+        Class objectClass = [object superclass];
+        if (objectClass == [NSDictionary class]) {
+            [processedArray addObject:(NSDictionary *)[self getConfigKeyDictionaryForKey:dictionaryKey dictionary:object containedKeysPtr:containedKeysPtr]];
+        } else {
+            [processedArray addObject:object];
+        }
+    }
+    return [processedArray copy];
 }
 
 
@@ -476,14 +534,14 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     [[MyGlobals sharedMyGlobals] setPreferencesReset:YES];
     DDLogError(@"%s: \[\[MyGlobals sharedMyGlobals] setPreferencesReset:YES]", __FUNCTION__);
     // Reset settings to the default values
-//	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-//    [preferences resetSEBUserDefaults];
-//    [preferences storeSEBDefaultSettings];
-//    // Update Exam Browser Key
-//    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-//#ifdef DEBUG
-//    NSLog(@"Local preferences have been reset!");
-//#endif
+	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences resetSEBUserDefaults];
+    [preferences storeSEBDefaultSettings];
+    // Update Exam Browser Key
+    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+#ifdef DEBUG
+    NSLog(@"Local preferences have been reset!");
+#endif
     return;
 }
 

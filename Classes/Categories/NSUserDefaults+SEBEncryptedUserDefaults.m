@@ -196,7 +196,7 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_chooseFileToUploadPolicy",
                                  @YES,
                                  @"org_safeexambrowser_SEB_createNewDesktop",
-                                 [NSArray array],
+                                 [NSDictionary dictionary],
                                  @"org_safeexambrowser_SEB_configKeyContainedKeys",
                                  @YES,
                                  @"org_safeexambrowser_SEB_downloadAndOpenSebConfig",
