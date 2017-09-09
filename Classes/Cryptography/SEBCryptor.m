@@ -237,6 +237,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             DDLogError(@"%s Value for key %@ is not having the correct class!", __FUNCTION__, key);
             DDLogError(@"Triggering present alert for 'Local SEB settings have been reset'");
             [self presentPreferencesCorruptedError];
+            [self resetSEBUserDefaults];
             // Return value: Checksum changed
             return YES;
         }
@@ -316,7 +317,6 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
                                                                        format:NSPropertyListXMLFormat_v1_0
                                                                       options:0
                                                                         error:&error];
-//    NSData *archivedPrefs = [NSJSONSerialization dataWithJSONObject:prefsDict options:0 error:&error];
     NSData *HMACData;
     if (error || !archivedPrefs) {
         // Serialization of the XML plist went wrong
@@ -330,6 +330,28 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     } else {
         // Generate new pref key
         HMACData = [self generateSHAHashForData:archivedPrefs];
+    }
+    return HMACData;
+}
+
+
+- (NSData *)checksumForJSONDictionary:(NSDictionary *)prefsDict
+{
+    NSError *error = nil;
+    
+    NSData *serializedPrefs = [NSJSONSerialization dataWithJSONObject:prefsDict options:0 error:&error];
+    NSString *serializedPrefsJSONString = [[NSString alloc] initWithData:serializedPrefs encoding:NSUTF8StringEncoding];
+    DDLogVerbose(@"JSON for Config Key: %@", serializedPrefsJSONString);
+    
+    NSData *HMACData;
+    if (error || !serializedPrefs) {
+        // Serialization of the XML plist went wrong
+        DDLogError(@"%s: Serialization of the JSON plist went wrong! Error: %@", __FUNCTION__, error.description);
+        // Pref key is empty
+        HMACData = [NSData data];
+    } else {
+        // Generate new pref key
+        HMACData = [self generateChecksumForCurrentData:serializedPrefs];
     }
     return HMACData;
 }
@@ -385,7 +407,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     
     // Get dictionary with keys covered by the Config Key in current settings
     NSDictionary *configKeyContainedKeys = [filteredPrefsDict objectForKey:@"configKeyContainedKeys"];
-    if ([[configKeyContainedKeys superclass] isKindOfClass:[NSDictionary class]]) {
+    if ([configKeyContainedKeys superclass] != [NSDictionary class] && [configKeyContainedKeys superclass] != [NSMutableDictionary class]) {
         // Class of local preferences value is different than the one from the default value
         // If yes, then cancel reading .seb file and create error object
         DDLogError(@"%s Value for key configKeyContainedKeys is not having the correct NSDictionary class!", __FUNCTION__);
@@ -393,14 +415,17 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         // Reset Config Key
         [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
         [self presentPreferencesCorruptedError];
+        [self resetSEBUserDefaults];
         return;
     }
     NSMutableDictionary *containedKeysMutable = [configKeyContainedKeys mutableCopy];
     NSMutableDictionary *sortedPrefsDict = [[self getConfigKeyDictionaryForKey:@"rootSettings" dictionary:filteredPrefsDict containedKeysPtr:&containedKeysMutable] mutableCopy];
+    configKeyContainedKeys = [containedKeysMutable copy];
     [sortedPrefsDict setObject:configKeyContainedKeys forKey:@"configKeyContainedKeys"];
+    [preferences setSecureObject:configKeyContainedKeys forKey:@"org_safeexambrowser_SEB_configKeyContainedKeys"];
     
     // Convert preferences dictionary to XML property list
-    NSData *HMACData = [self checksumForPrefDictionary:sortedPrefsDict];
+    NSData *HMACData = [self checksumForJSONDictionary:sortedPrefsDict];
     
     // Store new exam key in UserDefaults
     [preferences setSecureObject:HMACData forKey:@"org_safeexambrowser_configKey"];
@@ -414,14 +439,14 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     }
     
     // Get all dictionary keys alphabetically sorted
-    NSArray *configKeysAlphabetically = [[sourceDictionary allKeys] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]]];
+    NSArray *configKeysAlphabetically = [[sourceDictionary allKeys] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(compare:)]]];
     NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:configKeysAlphabetically.count];
     
     // Get default settings
     NSDictionary *defaultSettings = [[SEBSettings defaultSettings] objectForKey:dictionaryKey];
     
     NSArray *containedKeys = [*containedKeysPtr objectForKey:dictionaryKey];
-    if (containedKeys.count == 0) {
+    if (containedKeys.count == 0 && configKeysAlphabetically.count != 0) {
         // In case this key was empty, we use all current keys
         containedKeys = configKeysAlphabetically;
         [*containedKeysPtr setObject:containedKeys forKey:dictionaryKey];
@@ -441,36 +466,45 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             // Reset Config Key
             [filteredPrefsDict setObject:[NSData data] forKey:@"configKey"];
             [self presentPreferencesCorruptedError];
+            [self resetSEBUserDefaults];
             // Return value: No settings
             return nil;
         }
         
         // Check for sub-dictionaries, key/values of these need to be sorted alphabetically too
-        if ([[valueClass superclass] isKindOfClass:[NSDictionary class]]) {
+        if (valueClass == [NSDictionary class]) {
             value = [self getConfigKeyDictionaryForKey:key dictionary:value containedKeysPtr:containedKeysPtr];
         }
-        
-        // Currently at least the proxies dictionary needs to be saved as a mutable dictionary,
-        // so we have to treat this case differently
-        if ([[valueClass superclass] isKindOfClass:[NSMutableDictionary class]]) {
+        if (valueClass == [NSMutableDictionary class]) {
             value = [[self getConfigKeyDictionaryForKey:key dictionary:value containedKeysPtr:containedKeysPtr] mutableCopy];
         }
         
         // Sub-dictionaries are usually contained in arrays, so we have to treat this case separately
-        if ([[valueClass superclass] isKindOfClass:[NSArray class]]) {
-            value = [[self getConfigKeyDictionaryForKey:key dictionary:value containedKeysPtr:containedKeysPtr] mutableCopy];
+        if (valueClass == [NSArray class]) {
+            value = [self getConfigKeyArrayForKey:key array:value containedKeysPtr:containedKeysPtr];
+        }
+        if (valueClass == [NSMutableArray class]) {
+            value = [[self getConfigKeyArrayForKey:key array:value containedKeysPtr:containedKeysPtr] mutableCopy];
+        }
+        
+        // Check for NSData values and convert it to a Base64 string
+        if (valueClass == [NSData class] || valueClass == [NSMutableData class]) {
+            value = [value base64Encoding];
         }
         
         // If the key isn't contained in the array of keys in current settings
         // probably because those settings were saved in an older or other
         // platform version of SEB
         // then the value has to be equal to the default value of this key
-        if (![containedKeys containsObject:key] && ![value isEqualToValue:defaultValue]) {
-            // if this isn't the case, we have to reset the Config Key and abort
-            [filteredPrefsDict setObject:[NSData data] forKey:@"configKey"];
-            return nil;
-        }
-        if (value) {
+        if (![containedKeys containsObject:key]) {
+            if (![value isEqualTo:defaultValue]) {
+                // if this isn't the case, we have to reset the Config Key and abort
+                [filteredPrefsDict setObject:[NSData data] forKey:@"configKey"];
+                return nil;
+            }
+        } else if (value) {
+            // If the key is contained in the array of keys in current settings,
+            // we use it for calculating the Config Key
             [filteredPrefsDict setObject:value forKey:key];
         }
     }
@@ -485,6 +519,8 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         Class objectClass = [object superclass];
         if (objectClass == [NSDictionary class]) {
             [processedArray addObject:(NSDictionary *)[self getConfigKeyDictionaryForKey:dictionaryKey dictionary:object containedKeysPtr:containedKeysPtr]];
+        } else if (objectClass == [NSMutableDictionary class]) {
+            [processedArray addObject:(NSMutableDictionary *)[[self getConfigKeyDictionaryForKey:dictionaryKey dictionary:object containedKeysPtr:containedKeysPtr] mutableCopy]];
         } else {
             [processedArray addObject:object];
         }
@@ -513,41 +549,31 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 }
 
 
-- (void)presentPreferencesCorruptedError
+- (void) presentPreferencesCorruptedError
 {
-//    NSDictionary *newDict = @{ NSLocalizedDescriptionKey :
-//                                   NSLocalizedString(@"Local SEB settings are corrupted!", nil),
-//                               /*NSLocalizedFailureReasonErrorKey :
-//                                NSLocalizedString(@"Either an incompatible version of SEB has been used on this computer or the preferences file has been manipulated. In the first case you can quit SEB now and use the previous version to export settings as a .seb config file for reconfiguring the new version. Otherwise local settings need to be reset to the default values in order for SEB to continue running.", nil),*/
-//                               //NSURLErrorKey : furl,
-//                               NSRecoveryAttempterErrorKey : self,
-//                               NSLocalizedRecoverySuggestionErrorKey :
-//                                   NSLocalizedString(@"Local preferences have either been manipulated or created by an incompatible SEB version. You can reset settings now or quit and try to use your previous SEB version to review or export settings as a .seb file for configuring the new version.\n\nReset local settings and continue?", @""),
-//                               NSLocalizedRecoveryOptionsErrorKey :
-//                                   @[NSLocalizedString(@"Continue", @""), NSLocalizedString(@"Quit", @"")] };
-//    
-//    NSError *newError = [[NSError alloc] initWithDomain:sebErrorDomain
-//                                                   code:1 userInfo:newDict];
-
-
     // Set the flag to indicate to user later that settings have been reset
     [[MyGlobals sharedMyGlobals] setPreferencesReset:YES];
     DDLogError(@"%s: \[\[MyGlobals sharedMyGlobals] setPreferencesReset:YES]", __FUNCTION__);
+    return;
+}
+
+
+- (void) resetSEBUserDefaults
+{
     // Reset settings to the default values
-	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences resetSEBUserDefaults];
     [preferences storeSEBDefaultSettings];
     // Update Exam Browser Key
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
 #ifdef DEBUG
-    NSLog(@"Local preferences have been reset!");
+    NSLog(@"Client settings have been reset!");
 #endif
-    return;
 }
 
 
 // Error recovery attempter when local preferences need to be reset
-- (BOOL)attemptRecoveryFromError:(NSError *)error
+- (BOOL) attemptRecoveryFromError:(NSError *)error
                      optionIndex:(NSUInteger)recoveryOptionIndex
 {
     BOOL success = NO;

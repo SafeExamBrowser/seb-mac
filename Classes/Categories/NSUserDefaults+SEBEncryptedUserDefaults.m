@@ -931,7 +931,6 @@ static NSNumber *_logLevel;
             }
             
         }
-        //[[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
     }
     if ([key isEqualToString:@"org_safeexambrowser_SEB_logLevel"]) {
         _logLevel = value;
