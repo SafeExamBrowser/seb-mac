@@ -335,18 +335,15 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 }
 
 
-- (NSData *)checksumForJSONDictionary:(NSDictionary *)prefsDict
+- (NSData *)checksumForJSONString:(NSString *)jsonString
 {
-    NSError *error = nil;
-    
-    NSData *serializedPrefs = [NSJSONSerialization dataWithJSONObject:prefsDict options:0 error:&error];
-    NSString *serializedPrefsJSONString = [[NSString alloc] initWithData:serializedPrefs encoding:NSUTF8StringEncoding];
-    DDLogVerbose(@"JSON for Config Key: %@", serializedPrefsJSONString);
+    DDLogDebug(@"JSON for Config Key: %@", jsonString);
+    NSData *serializedPrefs = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     NSData *HMACData;
-    if (error || !serializedPrefs) {
-        // Serialization of the XML plist went wrong
-        DDLogError(@"%s: Serialization of the JSON plist went wrong! Error: %@", __FUNCTION__, error.description);
+    if (jsonString.length == 0) {
+        // Serialization of settings went wrong
+        DDLogError(@"%s: Serializing settings failed!", __FUNCTION__);
         // Pref key is empty
         HMACData = [NSData data];
     } else {
@@ -354,6 +351,27 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         HMACData = [self generateChecksumForCurrentData:serializedPrefs];
     }
     return HMACData;
+}
+
+
+- (NSString *)jsonStringForObject:(id)object
+{
+    NSError *error = nil;
+    
+    NSData *jsonObject = [NSJSONSerialization dataWithJSONObject:object options:0 error:&error];
+    NSString *jsonObjectString;
+    
+    if (error || !jsonObject) {
+        // Creating JSON from object went wrong
+        DDLogError(@"%s: Creating JSON from object went wrong! Error: %@", __FUNCTION__, error.description);
+        // Pref key is empty
+        jsonObjectString = @"";
+    } else {
+        // Generate new pref key
+        jsonObjectString = [[NSString alloc] initWithData:jsonObject encoding:NSUTF8StringEncoding];
+        DDLogVerbose(@"JSON for Config Key: %@", jsonObjectString);
+    }
+    return jsonObjectString;
 }
 
 
@@ -419,20 +437,29 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         return;
     }
     NSMutableDictionary *containedKeysMutable = [configKeyContainedKeys mutableCopy];
-    NSMutableDictionary *sortedPrefsDict = [[self getConfigKeyDictionaryForKey:@"rootSettings" dictionary:filteredPrefsDict containedKeysPtr:&containedKeysMutable] mutableCopy];
+    NSMutableString *jsonString = [NSMutableString new];
+    NSMutableDictionary *sortedPrefsDict = [[self getConfigKeyDictionaryForKey:@"rootSettings"
+                                                                    dictionary:filteredPrefsDict
+                                                              containedKeysPtr:&containedKeysMutable
+                                                                       jsonPtr:&jsonString
+                                             ] mutableCopy];
+
     configKeyContainedKeys = [containedKeysMutable copy];
     [sortedPrefsDict setObject:configKeyContainedKeys forKey:@"configKeyContainedKeys"];
     [preferences setSecureObject:configKeyContainedKeys forKey:@"org_safeexambrowser_SEB_configKeyContainedKeys"];
     
     // Convert preferences dictionary to XML property list
-    NSData *HMACData = [self checksumForJSONDictionary:sortedPrefsDict];
+    NSData *HMACData = [self checksumForJSONString:[jsonString copy]];
     
     // Store new exam key in UserDefaults
     [preferences setSecureObject:HMACData forKey:@"org_safeexambrowser_configKey"];
 }
 
 
-- (NSDictionary *) getConfigKeyDictionaryForKey:(NSString *)dictionaryKey dictionary:(NSDictionary *)sourceDictionary containedKeysPtr:(NSMutableDictionary **)containedKeysPtr
+- (NSDictionary *) getConfigKeyDictionaryForKey:(NSString *)dictionaryKey
+                                     dictionary:(NSDictionary *)sourceDictionary
+                               containedKeysPtr:(NSMutableDictionary **)containedKeysPtr
+                                        jsonPtr:(NSMutableString **)jsonStringPtr
 {
     if (dictionaryKey.length == 0) {
         return nil;
@@ -451,6 +478,9 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         containedKeys = configKeysAlphabetically;
         [*containedKeysPtr setObject:containedKeys forKey:dictionaryKey];
     }
+    
+    [*jsonStringPtr appendString:@"{"];
+    NSMutableString *dictionaryJSON = [NSMutableString new];
     
     // Iterate keys and read all values
     for (NSString *key in configKeysAlphabetically) {
@@ -473,18 +503,30 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         
         // Check for sub-dictionaries, key/values of these need to be sorted alphabetically too
         if (valueClass == [NSDictionary class]) {
-            value = [self getConfigKeyDictionaryForKey:key dictionary:value containedKeysPtr:containedKeysPtr];
+            value = [self getConfigKeyDictionaryForKey:key
+                                            dictionary:value
+                                      containedKeysPtr:containedKeysPtr
+                                               jsonPtr:&dictionaryJSON];
         }
         if (valueClass == [NSMutableDictionary class]) {
-            value = [[self getConfigKeyDictionaryForKey:key dictionary:value containedKeysPtr:containedKeysPtr] mutableCopy];
+            value = [[self getConfigKeyDictionaryForKey:key
+                                             dictionary:value
+                                       containedKeysPtr:containedKeysPtr
+                                                jsonPtr:&dictionaryJSON] mutableCopy];
         }
         
         // Sub-dictionaries are usually contained in arrays, so we have to treat this case separately
         if (valueClass == [NSArray class]) {
-            value = [self getConfigKeyArrayForKey:key array:value containedKeysPtr:containedKeysPtr];
+            value = [self getConfigKeyArrayForKey:key
+                                            array:value
+                                 containedKeysPtr:containedKeysPtr
+                                          jsonPtr:&dictionaryJSON];
         }
         if (valueClass == [NSMutableArray class]) {
-            value = [[self getConfigKeyArrayForKey:key array:value containedKeysPtr:containedKeysPtr] mutableCopy];
+            value = [[self getConfigKeyArrayForKey:key
+                                             array:value
+                                  containedKeysPtr:containedKeysPtr
+                                           jsonPtr:&dictionaryJSON] mutableCopy];
         }
         
         // Check for NSData values and convert it to a Base64 string
@@ -506,25 +548,56 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             // If the key is contained in the array of keys in current settings,
             // we use it for calculating the Config Key
             [filteredPrefsDict setObject:value forKey:key];
+            // Update JSON string
+            [*jsonStringPtr appendFormat:@"\"%@\":", key];
+            if (dictionaryJSON.length > 0) {
+                [*jsonStringPtr appendFormat:@"%@,", dictionaryJSON];
+            } else {
+                NSString *jsonString = [self jsonStringForObject:value];
+                [*jsonStringPtr appendFormat:@"%@,", jsonString];
+            }
+            dictionaryJSON.string = @"";
         }
     }
+    if ([*jsonStringPtr length] > 2) {
+        [*jsonStringPtr deleteCharactersInRange:NSMakeRange([*jsonStringPtr length] - 1, 1)];
+    }
+    [*jsonStringPtr appendString:@"}"];
+
     return [filteredPrefsDict copy];
 }
 
 
-- (NSArray *) getConfigKeyArrayForKey:(NSString *)dictionaryKey array:(NSArray *)sourceArray containedKeysPtr:(NSMutableDictionary **)containedKeysPtr
+- (NSArray *) getConfigKeyArrayForKey:(NSString *)dictionaryKey
+                                array:(NSArray *)sourceArray
+                     containedKeysPtr:(NSMutableDictionary **)containedKeysPtr
+                              jsonPtr:(NSMutableString **)jsonStringPtr
 {
+    [*jsonStringPtr appendString:@"["];
+
     NSMutableArray *processedArray = [NSMutableArray new];
     for (id object in sourceArray) {
         Class objectClass = [object superclass];
         if (objectClass == [NSDictionary class]) {
-            [processedArray addObject:(NSDictionary *)[self getConfigKeyDictionaryForKey:dictionaryKey dictionary:object containedKeysPtr:containedKeysPtr]];
+            [processedArray addObject:(NSDictionary *)[self getConfigKeyDictionaryForKey:dictionaryKey
+                                                                              dictionary:object
+                                                                        containedKeysPtr:containedKeysPtr
+                                                                                 jsonPtr:jsonStringPtr]];
         } else if (objectClass == [NSMutableDictionary class]) {
-            [processedArray addObject:(NSMutableDictionary *)[[self getConfigKeyDictionaryForKey:dictionaryKey dictionary:object containedKeysPtr:containedKeysPtr] mutableCopy]];
+            [processedArray addObject:(NSMutableDictionary *)[[self getConfigKeyDictionaryForKey:dictionaryKey
+                                                                                      dictionary:object
+                                                                                containedKeysPtr:containedKeysPtr
+                                                                                         jsonPtr:jsonStringPtr] mutableCopy]];
         } else {
             [processedArray addObject:object];
+            
         }
     }
+    if ([*jsonStringPtr length] > 2) {
+        [*jsonStringPtr deleteCharactersInRange:NSMakeRange([*jsonStringPtr length] - 1, 1)];
+    }
+    [*jsonStringPtr appendString:@"]"];
+
     return [processedArray copy];
 }
 
