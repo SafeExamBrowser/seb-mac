@@ -356,22 +356,20 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 
 - (NSString *)jsonStringForObject:(id)object
 {
-    NSError *error = nil;
-    
-    NSData *jsonObject = [NSJSONSerialization dataWithJSONObject:object options:0 error:&error];
-    NSString *jsonObjectString;
-    
-    if (error || !jsonObject) {
-        // Creating JSON from object went wrong
-        DDLogError(@"%s: Creating JSON from object went wrong! Error: %@", __FUNCTION__, error.description);
-        // Pref key is empty
-        jsonObjectString = @"";
+    Class objectClass = [object superclass];
+    NSString *jsonString;
+
+    if (objectClass == [NSData class] || objectClass == [NSMutableData class]) {
+        jsonString = [NSString stringWithFormat:@"\"%@\"", [object base64Encoding]];
+    } else if (objectClass == [NSString class] || [objectClass isSubclassOfClass:[NSString class]]) {
+        jsonString = [NSString stringWithFormat:@"\"%@\"", object];
+    } else if ((strcmp([object objCType], @encode(BOOL)) == 0)) {
+        jsonString = [NSString stringWithFormat:@"%@", ([object boolValue] == 0 ? @"false" : @"true")];
     } else {
-        // Generate new pref key
-        jsonObjectString = [[NSString alloc] initWithData:jsonObject encoding:NSUTF8StringEncoding];
-        DDLogVerbose(@"JSON for Config Key: %@", jsonObjectString);
+        jsonString = [NSString stringWithFormat:@"%@", object];
     }
-    return jsonObjectString;
+    
+    return jsonString;
 }
 
 
@@ -466,7 +464,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     }
     
     // Get all dictionary keys alphabetically sorted
-    NSArray *configKeysAlphabetically = [[sourceDictionary allKeys] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(compare:)]]];
+    NSArray *configKeysAlphabetically = [[sourceDictionary allKeys] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]]];
     NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:configKeysAlphabetically.count];
     
     // Get default settings
@@ -527,11 +525,6 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
                                              array:value
                                   containedKeysPtr:containedKeysPtr
                                            jsonPtr:&dictionaryJSON] mutableCopy];
-        }
-        
-        // Check for NSData values and convert it to a Base64 string
-        if (valueClass == [NSData class] || valueClass == [NSMutableData class]) {
-            value = [value base64Encoding];
         }
         
         // If the key isn't contained in the array of keys in current settings
