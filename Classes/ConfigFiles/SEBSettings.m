@@ -77,9 +77,6 @@
              @NO,
              @"browserScreenKeyboard",
              
-             @YES,
-             @"browserURLSalt",
-             
              [NSNumber numberWithLong:browserUserAgentModeMacDefault],
              @"browserUserAgentMac",
              
@@ -106,7 +103,10 @@
              
              [NSNumber numberWithLong:manuallyWithFileRequester],
              @"chooseFileToUploadPolicy",
-             
+
+             [NSData data],
+             @"configKeySalt",
+
              @YES,
              @"createNewDesktop",
              

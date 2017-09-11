@@ -410,7 +410,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
     // Get current salt for exam key
-    NSData *HMACKey = [preferences secureDataForKey:@"org_safeexambrowser_SEB_examKeySalt"];
+    NSData *HMACKey = [preferences secureDataForKey:@"org_safeexambrowser_SEB_configKeySalt"];
     // If there was no salt yet, then we generate it in any case
     if ([HMACKey isEqualToData:[NSData data]]) {
         [self generateExamKeySalt];
