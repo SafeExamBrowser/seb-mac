@@ -422,7 +422,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSDictionary *filteredPrefsDict = [preferences dictionaryRepresentationSEB];
     
     // Get dictionary with keys covered by the Config Key in current settings
-    NSDictionary *configKeyContainedKeys = [filteredPrefsDict objectForKey:@"configKeyContainedKeys"];
+    NSDictionary *configKeyContainedKeys = [preferences secureDictionaryForKey:@"org_safeexambrowser_configKeyContainedKeys"];
     if ([configKeyContainedKeys superclass] != [NSDictionary class] && [configKeyContainedKeys superclass] != [NSMutableDictionary class]) {
         // Class of local preferences value is different than the one from the default value
         // If yes, then cancel reading .seb file and create error object
@@ -436,15 +436,14 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     }
     NSMutableDictionary *containedKeysMutable = [configKeyContainedKeys mutableCopy];
     NSMutableString *jsonString = [NSMutableString new];
-    NSMutableDictionary *sortedPrefsDict = [[self getConfigKeyDictionaryForKey:@"rootSettings"
+    [[self getConfigKeyDictionaryForKey:@"rootSettings"
                                                                     dictionary:filteredPrefsDict
                                                               containedKeysPtr:&containedKeysMutable
                                                                        jsonPtr:&jsonString
                                              ] mutableCopy];
 
     configKeyContainedKeys = [containedKeysMutable copy];
-    [sortedPrefsDict setObject:configKeyContainedKeys forKey:@"configKeyContainedKeys"];
-    [preferences setSecureObject:configKeyContainedKeys forKey:@"org_safeexambrowser_SEB_configKeyContainedKeys"];
+    [preferences setSecureObject:configKeyContainedKeys forKey:@"org_safeexambrowser_configKeyContainedKeys"];
     
     // Convert preferences dictionary to XML property list
     NSData *HMACData = [self checksumForJSONString:[jsonString copy]];
@@ -546,11 +545,10 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             if (dictionaryJSON.length > 0) {
                 [*jsonStringPtr appendFormat:@"%@,", dictionaryJSON];
             } else {
-                NSString *jsonString = [self jsonStringForObject:value];
-                [*jsonStringPtr appendFormat:@"%@,", jsonString];
+                [*jsonStringPtr appendFormat:@"%@,", [self jsonStringForObject:value]];
             }
-            dictionaryJSON.string = @"";
         }
+        dictionaryJSON.string = @"";
     }
     if ([*jsonStringPtr length] > 2) {
         [*jsonStringPtr deleteCharactersInRange:NSMakeRange([*jsonStringPtr length] - 1, 1)];
@@ -583,8 +581,9 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
                                                                                          jsonPtr:jsonStringPtr] mutableCopy]];
         } else {
             [processedArray addObject:object];
-            
+            [*jsonStringPtr appendFormat:@"%@", [self jsonStringForObject:object]];
         }
+        [*jsonStringPtr appendString:@","];
     }
     if ([*jsonStringPtr length] > 2) {
         [*jsonStringPtr deleteCharactersInRange:NSMakeRange([*jsonStringPtr length] - 1, 1)];
