@@ -74,8 +74,8 @@
 // Delegate called before the Exam settings preferences pane will be displayed
 - (void)willBeDisplayed {
     // Check if current settings have unsaved changes
-    if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:!NSUserDefaults.userDefaultsPrivate
-                                                        updateSalt:NO] && NSUserDefaults.userDefaultsPrivate) {
+    if (NSUserDefaults.userDefaultsPrivate && [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:!NSUserDefaults.userDefaultsPrivate
+                                                        updateSalt:NO]) {
         // There are unsaved changes and private UserDefaults are active
         [self browserExamKeyChanged];
     } else {

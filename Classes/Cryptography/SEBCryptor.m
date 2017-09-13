@@ -388,11 +388,20 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 // Calculate a random salt value for the Browser Exam Key and save it to UserDefaults
 - (NSData *)generateExamKeySalt
 {
-	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSData *HMACKey = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
     [preferences setSecureObject:HMACKey forKey:@"org_safeexambrowser_SEB_examKeySalt"];
     return HMACKey;
 }
+
+
+// Calculate a random salt value for the Browser Exam Key and save it to UserDefaults
+- (NSData *)generateConfigKeySalt
+{
+    NSData *HMACKey = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
+    return HMACKey;
+}
+
 
 /// Config Key
 
@@ -409,18 +418,31 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
-    // Get current salt for exam key
-    NSData *HMACKey = [preferences secureDataForKey:@"org_safeexambrowser_SEB_configKeySalt"];
-    // If there was no salt yet, then we generate it in any case
-    if ([HMACKey isEqualToData:[NSData data]]) {
-        [self generateExamKeySalt];
-        
-        DDLogInfo(@"Generated Browser Exam Key salt as there was none defined yet.");
-    }
-    
     // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
     NSDictionary *filteredPrefsDict = [preferences dictionaryRepresentationSEB];
-    
+    [self updateConfigKeyInSettings:filteredPrefsDict];
+}
+
+
+- (NSDictionary *) updateConfigKeyInSettings:(NSDictionary *) sourceDictionary
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    // Get current salt for Config Key
+    NSData *HMACKey = [sourceDictionary objectForKey:@"configKeySalt"];
+    // If there was no salt yet, then we generate it
+    if ([HMACKey isEqualToData:[NSData data]]) {
+        HMACKey = [self generateConfigKeySalt];
+        NSMutableDictionary *sourceDictionaryMutable = [sourceDictionary mutableCopy];
+        [sourceDictionaryMutable setObject:HMACKey forKey:@"configKeySalt"];
+        sourceDictionary = [sourceDictionaryMutable copy];
+        // Store new config key salt also in UserDefaults
+        [preferences setSecureObject:HMACKey forKey:@"org_safeexambrowser_configKey"];
+
+        
+        DDLogInfo(@"Generated Config Key salt as there was none defined yet.");
+    }
+
     // Get dictionary with keys covered by the Config Key in current settings
     NSDictionary *configKeyContainedKeys = [preferences secureDictionaryForKey:@"org_safeexambrowser_configKeyContainedKeys"];
     if ([configKeyContainedKeys superclass] != [NSDictionary class] && [configKeyContainedKeys superclass] != [NSMutableDictionary class]) {
@@ -432,15 +454,14 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
         [self presentPreferencesCorruptedError];
         [self resetSEBUserDefaults];
-        return;
+        return nil;
     }
     NSMutableDictionary *containedKeysMutable = [configKeyContainedKeys mutableCopy];
     NSMutableString *jsonString = [NSMutableString new];
-    [[self getConfigKeyDictionaryForKey:@"rootSettings"
-                                                                    dictionary:filteredPrefsDict
+    NSDictionary *processedDictionary = [self getConfigKeyDictionaryForKey:@"rootSettings"
+                                                                    dictionary:sourceDictionary
                                                               containedKeysPtr:&containedKeysMutable
-                                                                       jsonPtr:&jsonString
-                                             ] mutableCopy];
+                                                                       jsonPtr:&jsonString];
 
     configKeyContainedKeys = [containedKeysMutable copy];
     [preferences setSecureObject:configKeyContainedKeys forKey:@"org_safeexambrowser_configKeyContainedKeys"];
@@ -450,6 +471,8 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     
     // Store new exam key in UserDefaults
     [preferences setSecureObject:HMACData forKey:@"org_safeexambrowser_configKey"];
+    
+    return processedDictionary;
 }
 
 

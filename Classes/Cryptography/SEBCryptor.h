@@ -52,14 +52,16 @@
 
 - (BOOL) checkExamSettings:(NSData *)examSettingsKey;
 - (void) updateExamSettingsKey:(NSDictionary *)settings;
-- (BOOL)updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt;
-- (BOOL)updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt newChecksum:(NSData **)newChecksumPtr;
-- (NSData *)checksumForPrefDictionary:(NSDictionary *)prefsDict;
-- (NSData *)checksumForLocalPrefDictionary:(NSDictionary *)prefsDict;
+- (NSDictionary *) updateConfigKeyInSettings:(NSDictionary *) sourceDictionary;
 
-- (void)presentPreferencesCorruptedError;
+- (BOOL) updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt;
+- (BOOL) updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt newChecksum:(NSData **)newChecksumPtr;
+- (NSData *) checksumForPrefDictionary:(NSDictionary *)prefsDict;
+- (NSData *) checksumForLocalPrefDictionary:(NSDictionary *)prefsDict;
 
-- (NSData *)generateExamKeySalt;
+- (void) presentPreferencesCorruptedError;
+
+- (NSData *) generateExamKeySalt;
 
 - (NSData*) generateSHAHash:(NSString*)inputString;
 - (NSData*) generateSHAHashForData:(NSData *)inputData;
