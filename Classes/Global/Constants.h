@@ -71,7 +71,7 @@
 #define SEBErrorParsingSettingsFailedValueClassMissmatch 201
 #define SEBErrorParsingSettingsSerializingFailed 205
 
-#define currentStableMajoriOSVersion 10
+#define currentStableMajoriOSVersion 11
 
 enum {
     browserUserAgentModeiOSDefault              = 0,
@@ -157,8 +157,8 @@ typedef NSUInteger cryptoIdentities;
 
 
 enum {
-    iOSBetaVersionNone                          = 0,
-    iOSBetaVersion11                            = 11
+    iOSBetaVersionNone                          = 0 //,
+//    iOSBetaVersion11                            = 11
 };
 typedef NSUInteger iOSBetaVersion;
 
