@@ -213,6 +213,7 @@
         if ([url.pathExtension isEqualToString:@"seb"] || [url.pathExtension isEqualToString:@"gz"]) {
             // If we have a valid URL with the path for a .seb file, we download and open it (conditionally)
             DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", url);
+            _openedURL = true;
             if (_sebViewController) {
                 // Is the main SEB view controller already instantiated?
                 [_sebViewController downloadAndOpenSEBConfigFromURL:url];

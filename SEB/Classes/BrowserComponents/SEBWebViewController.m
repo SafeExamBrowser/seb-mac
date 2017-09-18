@@ -76,7 +76,7 @@
 //    CGFloat navBarHeight = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] ? self.navigationController.navigationBar.frame.size.height : [UIApplication sharedApplication].statusBarFrame.size.height;
     CGFloat navBarHeight = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] ?
     32 : 0;
-    navBarHeight += ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] != mobileStatusBarAppearanceNone ? kStatusbarHeight : 0);
+    navBarHeight += ([preferences mobileStatusBarAppearance] != mobileStatusBarAppearanceNone ? kStatusbarHeight : 0);
     CGFloat toolBarHeight = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"] ? self.navigationController.toolbar.frame.size.height : 0;
     [_sebWebView.scrollView setContentInset:UIEdgeInsetsMake(navBarHeight, 0, toolBarHeight, 0)];
     [_sebWebView.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(navBarHeight, 0, toolBarHeight, 0)];

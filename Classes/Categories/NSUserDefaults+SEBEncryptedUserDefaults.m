@@ -48,6 +48,7 @@
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
 #import "SEBCryptor.h"
+#import "AppDelegate.h"
 
 @interface NSUserDefaults (SEBEncryptedUserDefaultsPrivate)
 
@@ -124,6 +125,24 @@ static NSNumber *_logLevel;
 - (NSNumber *)logLevel
 {
     return _logLevel;
+}
+
+
+- (mobileStatusBarAppearances) mobileStatusBarAppearance
+{
+    if (!self.currentMobileStatusBarAppearance) {
+        NSUInteger statusBarAppearance = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"];
+
+        AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+
+        if (NSProcessInfo.processInfo.operatingSystemVersion.majorVersion < 10 && appDelegate.openedURL) {
+            statusBarAppearance = mobileStatusBarAppearanceNone;
+        }
+        self.currentMobileStatusBarAppearance = [NSNumber numberWithUnsignedInteger:statusBarAppearance];
+        return statusBarAppearance;
+    }
+
+    return self.currentMobileStatusBarAppearance.unsignedIntegerValue;
 }
 
 
@@ -674,6 +693,8 @@ static NSNumber *_logLevel;
 // Save imported settings into user defaults (either in private memory or local client shared NSUserDefaults)
 - (void) storeSEBDictionary:(NSDictionary *)sebPreferencesDict
 {
+
+    
     // Write SEB default values to NSUserDefaults
     [self storeSEBDefaultSettings];
 
@@ -694,6 +715,8 @@ static NSNumber *_logLevel;
 // Write SEB default values to local preferences
 - (void) storeSEBDefaultSettings
 {
+    self.currentMobileStatusBarAppearance = nil;
+    
     // Get default settings
     NSDictionary *defaultSettings = [self sebDefaultSettings];
     
