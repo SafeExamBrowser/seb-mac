@@ -48,7 +48,7 @@
     id navBarDelegate = self.delegate;
     if ([navBarDelegate isKindOfClass:[SEBNavigationController class]]) {
         MMDrawerController *mmDrawerController = (MMDrawerController *)[(UINavigationController *)navBarDelegate parentViewController];
-        if (mmDrawerController.openSide == MMDrawerSideLeft && [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] != mobileStatusBarAppearanceNone) {
+        if (mmDrawerController.openSide == MMDrawerSideLeft && [[NSUserDefaults standardUserDefaults] mobileStatusBarAppearance] != mobileStatusBarAppearanceNone) {
             return CGSizeMake(screenRect.size.width, 32+kStatusbarHeight);
         }
         return CGSizeMake(screenRect.size.width, 32);
@@ -837,7 +837,8 @@ static NSMutableSet *browserWindowControllers;
     
     AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     
-    NSUInteger statusBarAppearance = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"];
+    NSUInteger statusBarAppearance = [[NSUserDefaults standardUserDefaults] mobileStatusBarAppearance];
+    
     appDelegate.statusBarAppearance = statusBarAppearance;
     
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] == false &&
@@ -1936,14 +1937,14 @@ static NSMutableSet *browserWindowControllers;
 
 - (BOOL) prefersStatusBarHidden
 {
-    return ([[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] == mobileStatusBarAppearanceNone);
+    return ([[NSUserDefaults standardUserDefaults] mobileStatusBarAppearance] == mobileStatusBarAppearanceNone);
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] == false) {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] == mobileStatusBarAppearanceLight) {
+        if ([preferences mobileStatusBarAppearance] == mobileStatusBarAppearanceLight) {
             return UIStatusBarStyleLightContent;
         }
     }
