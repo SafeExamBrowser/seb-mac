@@ -29,8 +29,7 @@
 #import <Security/SecRandom.h>
 #import <fcntl.h>
 
-int SecRandomCopyBytes(SecRandomRef __nullable rnd, size_t count, void *bytes) __attribute__((weak_import));
-// For Xcode < 9: extern int SecRandomCopyBytes(SecRandomRef rnd, size_t count, uint8_t *bytes) __attribute__((weak_import));
+extern int SecRandomCopyBytes(SecRandomRef rnd, size_t count, uint8_t *bytes) __attribute__((weak_import));
 extern int
 CCKeyDerivationPBKDF( CCPBKDFAlgorithm algorithm, const char *password, size_t passwordLen,
                      const uint8_t *salt, size_t saltLen,
