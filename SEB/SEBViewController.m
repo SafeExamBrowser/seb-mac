@@ -1415,6 +1415,7 @@ static NSMutableSet *browserWindowControllers;
     _quittingClientConfig = ![NSUserDefaults userDefaultsPrivate];
     // Switch to system's (persisted) UserDefaults
     [NSUserDefaults setUserDefaultsPrivate:NO];
+    [[NSUserDefaults standardUserDefaults] resetMobileStatusBarAppearance];
     
     [self restartExam:true];
 }
