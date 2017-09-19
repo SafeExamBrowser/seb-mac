@@ -309,8 +309,6 @@
     // Check if this is a seb:// or sebs:// link
     if ([url.scheme isEqualToString:@"seb"] || [url.scheme isEqualToString:@"sebs"]) {
         // If the scheme is seb:// we (conditionally) download and open the linked .seb file
-        AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-        appDelegate.openedURL = false;
         [_browserTabViewController downloadAndOpenSEBConfigFromURL:url];
         return NO;
     }
