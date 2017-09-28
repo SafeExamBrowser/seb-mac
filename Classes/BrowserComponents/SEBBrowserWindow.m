@@ -1255,7 +1255,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
 #ifdef DEBUG
         DDLogVerbose(@"Current request URL + Config Key: %@", configKeyString);
 #endif
-        urlString = [browserExamKeyString UTF8String];
+        urlString = [configKeyString UTF8String];
         CC_SHA256(urlString,
                   (uint)strlen(urlString),
                   hashedChars);
@@ -1264,7 +1264,7 @@ willPerformClientRedirectToURL:(NSURL *)URL
         for (NSUInteger i = 0 ; i < 32 ; ++i) {
             [hashedConfigKeyString appendFormat: @"%02x", hashedChars[i]];
         }
-        [modifiedRequest setValue:hashedString forHTTPHeaderField:@"X-SafeExamBrowser-ConfigKeyHash"];
+        [modifiedRequest setValue:hashedConfigKeyString forHTTPHeaderField:@"X-SafeExamBrowser-ConfigKeyHash"];
 
         headerFields = [modifiedRequest allHTTPHeaderFields];
         DDLogVerbose(@"All HTTP header fields in modified request: %@", headerFields);
