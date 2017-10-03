@@ -932,7 +932,7 @@
 - (NSArray *)webView:(SEBWebView *)sender contextMenuItemsForElement:(NSDictionary *)element 
     defaultMenuItems:(NSArray *)defaultMenuItems {
     // disable right-click context menu
-    return NO;
+    return [NSArray array];
 }
 
 

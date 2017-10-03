@@ -335,6 +335,7 @@ RN_CCKeyDerivationPBKDF( CCPBKDFAlgorithm algorithm, const char *password, size_
  *
  * @APPLE_LICENSE_HEADER_END@
  */
+/*
 static int RN_SecRandomCopyBytes(void *rnd, size_t count, uint8_t *bytes) {
   static int kSecRandomFD;
   static dispatch_once_t onceToken;
@@ -360,6 +361,7 @@ static int RN_SecRandomCopyBytes(void *rnd, size_t count, uint8_t *bytes) {
 
 	return 0;
 }
+ */
 /* End code dervied from SecFramework.c */
 
 + (NSData *)randomDataOfLength:(size_t)length
