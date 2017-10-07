@@ -45,7 +45,7 @@
 @end
 
 @implementation PrefsExamViewController
-@synthesize examKey;
+@synthesize examKeyTextField;
 
 
 - (NSString *)title
@@ -81,6 +81,7 @@
     } else {
         // There are no unsaved changes or local client settings are active
         [self displayBrowserExamKey];
+        [self displayConfigKey];
     }
 }
 
@@ -93,30 +94,43 @@
 // This is necessary because bindings don't work with private user defaults
 - (IBAction) useBrowserExamKey:(NSButton *)sender
 {
-    examKey.enabled = [sender state];
+    examKeyTextField.enabled = [sender state];
+    configKeyTextField.enabled = [sender state];
     copyBEKToClipboard.enabled = [sender state];
     [self displayMessageOrReGenerateKey];
 }
 
 
-- (IBAction) generateBrowserExamKey:(id)sender {
+- (IBAction) generateKeys:(id)sender {
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
     [self displayBrowserExamKey];
+    [self displayConfigKey];
 }
 
 
-- (void)displayBrowserExamKey
-{
-	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSData *browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
+- (void)displayKey:(NSData *)keyData keyTextField:(NSTextField *)keyTextField {
     unsigned char hashedChars[32];
-    [browserExamKey getBytes:hashedChars length:32];
+    [keyData getBytes:hashedChars length:32];
     
     NSMutableString* hashedString = [[NSMutableString alloc] init];
     for (int i = 0 ; i < 32 ; ++i) {
         [hashedString appendFormat: @"%02x", hashedChars[i]];
     }
-    [examKey setStringValue:hashedString];
+    [keyTextField setStringValue:hashedString];
+}
+
+- (void)displayBrowserExamKey
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSData *browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
+    [self displayKey:browserExamKey keyTextField:examKeyTextField];
+}
+
+- (void)displayConfigKey
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSData *configKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
+    [self displayKey:configKey keyTextField:configKeyTextField];
 }
 
 
@@ -129,7 +143,8 @@
 - (void)browserExamKeyChanged
 {
     // There are unsaved changes: Display message instead of Browser Exam Key
-    [examKey setStringValue:NSLocalizedString(@"Save settings to display its Browser Exam Key", nil)];
+    [examKeyTextField setStringValue:NSLocalizedString(@"Save settings to display its Browser Exam Key", nil)];
+    [configKeyTextField setStringValue:NSLocalizedString(@"Save settings to display its Config Key", nil)];
 }
 
 
@@ -148,10 +163,11 @@
         } else {
             // No, there are no unsaved changes: Display the key again
             [self displayBrowserExamKey];
+            [self displayConfigKey];
         }
     } else {
         // Local client settings are active: Re-generate key
-        [self generateBrowserExamKey:self];
+        [self generateKeys:self];
     }
 }
 
