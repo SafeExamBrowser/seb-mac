@@ -445,7 +445,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 
     // Get dictionary with keys covered by the Config Key in current settings
     NSDictionary *configKeyContainedKeys = [preferences secureDictionaryForKey:@"org_safeexambrowser_configKeyContainedKeys"];
-    if ([configKeyContainedKeys superclass] != [NSDictionary class] && [configKeyContainedKeys superclass] != [NSMutableDictionary class]) {
+    if (configKeyContainedKeys && [configKeyContainedKeys superclass] != [NSDictionary class] && [configKeyContainedKeys superclass] != [NSMutableDictionary class]) {
         // Class of local preferences value is different than the one from the default value
         // If yes, then cancel reading .seb file and create error object
         DDLogError(@"%s Value for key configKeyContainedKeys is not having the correct NSDictionary class!", __FUNCTION__);
