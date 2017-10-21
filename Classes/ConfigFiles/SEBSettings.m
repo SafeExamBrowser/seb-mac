@@ -498,7 +498,7 @@
                       },
               
               @"embeddedCertificates" : @{
-                      @"certificateData" : @YES,
+                      @"certificateData" : [NSData data],
                       @"name" : @"",
                       @"type" : [NSNumber numberWithLong:certificateTypeSSL],
                       },

@@ -300,7 +300,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         HMACData = [NSData data];
     } else {
         // Generate new pref key
-        HMACData = [self generateChecksumForCurrentData:archivedPrefs];
+        HMACData = [self generateChecksumForBEK:archivedPrefs];
     }
     return HMACData;
 }
@@ -335,7 +335,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 }
 
 
-- (NSData *)checksumForJSONString:(NSString *)jsonString
+- (NSData *)checksumForJSONString:(NSString *)jsonString withSalt:(NSData *)salt
 {
     DDLogDebug(@"JSON for Config Key: %@", jsonString);
     NSData *serializedPrefs = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
@@ -347,8 +347,8 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         // Pref key is empty
         HMACData = [NSData data];
     } else {
-        // Generate new pref key
-        HMACData = [self generateChecksumForCurrentData:serializedPrefs];
+        // Generate new Config Key
+        HMACData = [self generateChecksumForData:serializedPrefs withSalt:salt];
     }
     return HMACData;
 }
@@ -373,12 +373,16 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 }
 
 
-- (NSData *)generateChecksumForCurrentData:(NSData *)currentData
+- (NSData *)generateChecksumForBEK:(NSData *)currentData
 {
     // Get current salt for exam key
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSData *HMACKey = [preferences secureDataForKey:@"org_safeexambrowser_SEB_examKeySalt"];
 
+    return [self generateChecksumForData:currentData withSalt:HMACKey];
+}
+
+- (NSData *)generateChecksumForData:(NSData *)currentData withSalt:(NSData *)HMACKey {
     NSMutableData *HMACData = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
     CCHmac(kCCHmacAlgSHA256, HMACKey.bytes, HMACKey.length, currentData.bytes, currentData.length, HMACData.mutableBytes);
     return HMACData;
@@ -420,31 +424,12 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     
     // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
     NSDictionary *filteredPrefsDict = [preferences dictionaryRepresentationSEB];
-    [self updateConfigKeyInSettings:filteredPrefsDict];
-}
-
-
-- (NSDictionary *) updateConfigKeyInSettings:(NSDictionary *) sourceDictionary
-{
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-
-    // Get current salt for Config Key
-    NSData *HMACKey = [sourceDictionary objectForKey:@"configKeySalt"];
-    // If there was no salt yet, then we generate it
-    if ([HMACKey isEqualToData:[NSData data]]) {
-        HMACKey = [self generateConfigKeySalt];
-        NSMutableDictionary *sourceDictionaryMutable = [sourceDictionary mutableCopy];
-        [sourceDictionaryMutable setObject:HMACKey forKey:@"configKeySalt"];
-        sourceDictionary = [sourceDictionaryMutable copy];
-        // Store new config key salt also in UserDefaults
-        [preferences setSecureObject:HMACKey forKey:@"org_safeexambrowser_configKey"];
-
-        
-        DDLogInfo(@"Generated Config Key salt as there was none defined yet.");
-    }
-
-    // Get dictionary with keys covered by the Config Key in current settings
+    
+    // Get dictionary with keys covered by the Config Key in the settings to process
     NSDictionary *configKeyContainedKeys = [preferences secureDictionaryForKey:@"org_safeexambrowser_configKeyContainedKeys"];
+    if (!configKeyContainedKeys) {
+        configKeyContainedKeys = [NSDictionary dictionary];
+    }
     if (configKeyContainedKeys && [configKeyContainedKeys superclass] != [NSDictionary class] && [configKeyContainedKeys superclass] != [NSMutableDictionary class]) {
         // Class of local preferences value is different than the one from the default value
         // If yes, then cancel reading .seb file and create error object
@@ -454,23 +439,45 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
         [self presentPreferencesCorruptedError];
         [self resetSEBUserDefaults];
-        return nil;
+        return;
     }
-    NSMutableDictionary *containedKeysMutable = [configKeyContainedKeys mutableCopy];
+
+    NSData *configKey = [NSData data];
+    [self updateConfigKeyInSettings:filteredPrefsDict configKeyContainedKeysRef:&configKeyContainedKeys configKeyRef:&configKey];
+    
+    [preferences setSecureObject:configKeyContainedKeys forKey:@"org_safeexambrowser_configKeyContainedKeys"];
+
+    // Store new Config Key in UserDefaults
+    [preferences setSecureObject:configKey forKey:@"org_safeexambrowser_configKey"];
+}
+
+
+- (NSDictionary *) updateConfigKeyInSettings:(NSDictionary *) sourceDictionary
+                   configKeyContainedKeysRef:(NSDictionary **) configKeyContainedKeys
+                                configKeyRef:(NSData **)configKeyRef
+{
+    NSMutableDictionary *containedKeysMutable = [*configKeyContainedKeys mutableCopy];
     NSMutableString *jsonString = [NSMutableString new];
     NSDictionary *processedDictionary = [self getConfigKeyDictionaryForKey:@"rootSettings"
                                                                     dictionary:sourceDictionary
                                                               containedKeysPtr:&containedKeysMutable
                                                                        jsonPtr:&jsonString];
 
-    configKeyContainedKeys = [containedKeysMutable copy];
-    [preferences setSecureObject:configKeyContainedKeys forKey:@"org_safeexambrowser_configKeyContainedKeys"];
+    // Get current salt for Config Key
+    NSData *HMACKey = [sourceDictionary objectForKey:@"configKeySalt"];
+    // If there was no salt yet, then we generate it
+    if ([HMACKey isEqualToData:[NSData data]]) {
+        HMACKey = [self generateConfigKeySalt];
+        NSMutableDictionary *processedDictionaryMutable = [processedDictionary mutableCopy];
+        [processedDictionaryMutable setObject:HMACKey forKey:@"configKeySalt"];
+        processedDictionary = [processedDictionaryMutable copy];
+        DDLogInfo(@"Generated Config Key salt as there was none defined yet.");
+    }
     
-    // Convert preferences dictionary to XML property list
-    NSData *HMACData = [self checksumForJSONString:[jsonString copy]];
+    *configKeyContainedKeys = [containedKeysMutable copy];
     
-    // Store new exam key in UserDefaults
-    [preferences setSecureObject:HMACData forKey:@"org_safeexambrowser_configKey"];
+    // Convert preferences dictionary to JSON and generate the Config Key hash
+    *configKeyRef = [self checksumForJSONString:[jsonString copy] withSalt:HMACKey];
     
     return processedDictionary;
 }
@@ -553,8 +560,11 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         // probably because those settings were saved in an older or other
         // platform version of SEB
         // then the value has to be equal to the default value of this key
+        // but only when there is a default value for that key
+        // this is important also for values, where a default value doesn't make sense
+        // like for example "originatorVersion"
         if (![containedKeys containsObject:key]) {
-            if (![value isEqualTo:defaultValue]) {
+            if (defaultValue && ![value isEqualTo:defaultValue]) {
                 // if this isn't the case, we have to reset the Config Key and abort
                 [filteredPrefsDict setObject:[NSData data] forKey:@"configKey"];
                 return nil;
@@ -648,11 +658,11 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 
 - (void) resetSEBUserDefaults
 {
-    // Reset settings to the default values
+    // Remove SEB settings key/values from User Defaults
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences resetSEBUserDefaults];
-    [preferences storeSEBDefaultSettings];
-    // Update Exam Browser Key
+//    [preferences storeSEBDefaultSettings];
+    // Update Config and Browser Exam Keys
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
 #ifdef DEBUG
     NSLog(@"Client settings have been reset!");
