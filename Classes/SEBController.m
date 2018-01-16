@@ -758,10 +758,9 @@ bool insideMatrix();
     for(k = 0; k < mycount; k++) {
         kinfo_proc *proc = NULL;
         proc = &mylist[k];
-        //NSString *processName = [NSString stringWithFormat: @"%s",proc-> kp_proc.p_comm];
-        NSString * processName = [NSString stringWithCString:proc-> kp_proc.p_comm encoding:NSUTF8StringEncoding];
+        pid_t processPID = proc-> kp_proc.p_pid;
+        NSString * processName = [self getProcessName:processPID];
         [ProcList addObject:processName];
-        //  [ ProcList setObject: proc->kp_proc.p_pid forKey: processName];
         if (numberRunningBSDProcessesChanged) {
             DDLogVerbose(@"PID: %d - Name: %s", proc->kp_proc.p_pid, proc-> kp_proc.p_comm);
         }
@@ -769,6 +768,18 @@ bool insideMatrix();
     free(mylist);
     
     return ProcList;
+}
+
+
+-(NSString*) getProcessName:(pid_t) pid {
+    char executablePath[PROC_PIDPATHINFO_MAXSIZE];
+    NSString *executableStringPath = [[NSString alloc] init];
+    bzero(executablePath, PROC_PIDPATHINFO_MAXSIZE);
+    proc_pidpath(pid, executablePath, sizeof(executablePath));
+    if (sizeof(executablePath) > 0) {
+        executableStringPath = @(executablePath);
+    }
+    return executableStringPath.lastPathComponent;
 }
 
 
