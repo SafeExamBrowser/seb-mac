@@ -344,14 +344,15 @@ bool insideMatrix();
     NSArray *allRunningProcesses = [self getProcessArray];
     DDLogInfo(@"There are %lu running BSD processes: \n%@", (unsigned long)allRunningProcesses.count, allRunningProcesses);
     // Check for activated screen sharing if settings demand it
-    if ([allRunningProcesses containsObject:@"ScreensharingAge"] &&
-         ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"]) {
+    if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"] &&
+        ([allRunningProcesses containsObject:screenSharingAgent] ||
+         [allRunningProcesses containsObject:AppleVNCAgent])) {
              // Screen sharing is active
              NSAlert *newAlert = [[NSAlert alloc] init];
              [newAlert setMessageText:NSLocalizedString(@"Screen Sharing Detected!", nil)];
              [newAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@",
                                            NSLocalizedString(@"You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.", nil),
-                                           NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing.", nil)
+                                           NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud.", nil)
                                            ]];
              [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
              [newAlert setAlertStyle:NSCriticalAlertStyle];
@@ -1040,7 +1041,9 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     // Get all running processes, including daemons
     NSArray *allRunningProcesses = [self getProcessArray];
     // Check for activated screen sharing if settings demand it
-    if ([allRunningProcesses containsObject:@"ScreensharingAge"] && !allowScreenSharing) {
+    if (!allowScreenSharing &&
+        ([allRunningProcesses containsObject:screenSharingAgent] ||
+        [allRunningProcesses containsObject:AppleVNCAgent])) {
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"detectedScreenSharing" object:self];
     }
@@ -2985,7 +2988,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         // Set custom alert message string
         [sebLockedViewController setLockdownAlertMessage:[NSString stringWithFormat:@"%@\n\n%@",
                                                           NSLocalizedString(@"Screen sharing detected. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows.", nil),
-                                                          NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing.", nil)
+                                                          NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud.", nil)
                                                           ]];
         
         if (!sebLockedViewController.resignActiveLogString) {

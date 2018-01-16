@@ -283,6 +283,9 @@ enum {
 typedef NSUInteger SEBZoomModes;
 
 
+static NSString __unused *screenSharingAgent = @"ScreensharingAgent";
+static NSString __unused *AppleVNCAgent = @"AppleVNCServer";
+
 static NSString __unused *userDefaultsMasala = @"Di𝈭l𝈖Ch𝈒ah𝉇t𝈁a𝉈Hai1972";
 
 static NSString __unused *sebErrorDomain = @"org.safeexambrowser.SEBCryptor";
