@@ -86,8 +86,14 @@
         };
         
         if (self.window.styleMask == NSBorderlessWindowMask) {
-            NSModalResponse answer = [newAlert runModal];
-            conditionalReload(answer);
+            NSAlert *modalAlert = self.browserController.sebController.modalAlert;
+            if (!modalAlert) {
+                modalAlert = newAlert;
+                NSModalResponse answer = [modalAlert runModal];
+                modalAlert = nil;
+                conditionalReload(answer);
+            }
+
         } else {
             [newAlert beginSheetModalForWindow:self.window completionHandler:(void (^)(NSModalResponse answer))conditionalReload];
         }

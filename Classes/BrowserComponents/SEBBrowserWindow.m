@@ -871,12 +871,17 @@
                     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
                     [self makeKeyAndOrderFront:self];
                     
-                    NSAlert *newAlert = [[NSAlert alloc] init];
-                    [newAlert setMessageText:NSLocalizedString(@"File Automatically Chosen", nil)];
-                    [newAlert setInformativeText:NSLocalizedString(@"SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.", nil)];
-                    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-                    [newAlert setAlertStyle:NSInformationalAlertStyle];
-                    [newAlert runModal];
+                    NSAlert *modalAlert = self.browserController.sebController.modalAlert;
+                    DDLogInfo(@"File to upload automatically chosen");
+                    if (!modalAlert) {
+                        modalAlert = [[NSAlert alloc] init];
+                        [modalAlert setMessageText:NSLocalizedString(@"File Automatically Chosen", nil)];
+                        [modalAlert setInformativeText:NSLocalizedString(@"SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.", nil)];
+                        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                        [modalAlert setAlertStyle:NSInformationalAlertStyle];
+                        [modalAlert runModal];
+                        modalAlert = nil;
+                    }
                     return;
                 }
             }
@@ -885,12 +890,18 @@
                 // if the policy is "Only allow to upload the same file downloaded before"
                 [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
                 [self makeKeyAndOrderFront:self];
-                NSAlert *newAlert = [[NSAlert alloc] init];
-                [newAlert setMessageText:NSLocalizedString(@"File to Upload Not Found!", nil)];
-                [newAlert setInformativeText:NSLocalizedString(@"SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.", nil)];
-                [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-                [newAlert setAlertStyle:NSCriticalAlertStyle];
-                [newAlert runModal];
+                
+                NSAlert *modalAlert = self.browserController.sebController.modalAlert;
+                DDLogError(@"File to upload (which was downloaded before) not found");
+                if (!modalAlert) {
+                    modalAlert = [[NSAlert alloc] init];
+                    [modalAlert setMessageText:NSLocalizedString(@"File to Upload Not Found!", nil)];
+                    [modalAlert setInformativeText:NSLocalizedString(@"SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.", nil)];
+                    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                    [modalAlert setAlertStyle:NSCriticalAlertStyle];
+                    [modalAlert runModal];
+                    modalAlert = nil;
+                }
                 return;
             }
         }
@@ -943,12 +954,17 @@ initiatedByFrame:(WebFrame *)frame {
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [self makeKeyAndOrderFront:self];
     
-    NSAlert *newAlert = [[NSAlert alloc] init];
-    [newAlert setMessageText:pageTitle];
-    [newAlert setInformativeText:message];
-    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-    [newAlert setAlertStyle:NSInformationalAlertStyle];
-    [newAlert runModal];
+    NSAlert *modalAlert = self.browserController.sebController.modalAlert;
+    DDLogWarn(@"%s: %@", __FUNCTION__, message);
+    if (!modalAlert) {
+        modalAlert = [[NSAlert alloc] init];
+        [modalAlert setMessageText:pageTitle];
+        [modalAlert setInformativeText:message];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [modalAlert setAlertStyle:NSInformationalAlertStyle];
+        [modalAlert runModal];
+        modalAlert = nil;
+    }
 }
 
 
@@ -959,13 +975,20 @@ initiatedByFrame:(WebFrame *)frame {
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [self makeKeyAndOrderFront:self];
 
-    NSAlert *newAlert = [[NSAlert alloc] init];
-    [newAlert setMessageText:pageTitle];
-    [newAlert setInformativeText:message];
-    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-    [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-    [newAlert setAlertStyle:NSInformationalAlertStyle];
-    return [newAlert runModal];
+    NSAlert *modalAlert = self.browserController.sebController.modalAlert;
+    NSInteger alertResultButton = NSCancelButton;
+    DDLogInfo(@"%s: %@", __FUNCTION__, message);
+    if (!modalAlert) {
+        modalAlert = [[NSAlert alloc] init];
+        [modalAlert setMessageText:pageTitle];
+        [modalAlert setInformativeText:message];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+        [modalAlert setAlertStyle:NSInformationalAlertStyle];
+        alertResultButton = [modalAlert runModal];
+        modalAlert = nil;
+    }
+    return alertResultButton;
 }
 
 
@@ -1090,26 +1113,35 @@ willPerformClientRedirectToURL:(NSURL *)URL
                 NSString *messageString = [error localizedDescription];
                 [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
                 [self makeKeyAndOrderFront:self];
-                NSAlert *newAlert = [[NSAlert alloc] init];
-                [newAlert setMessageText:titleString];
-                [newAlert setInformativeText:messageString];
-                [newAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
-                [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-                [newAlert setAlertStyle:NSCriticalAlertStyle];
-                NSInteger answer = [newAlert runModal];
                 
-                switch(answer) {
-                    case NSAlertFirstButtonReturn:
-                        //Retry: try reloading
-                        //self.browserController.currentMainHost = nil;
-                        DDLogInfo(@"Trying to reload after %s: Request: %@ URL: %@", __FUNCTION__, [[frame provisionalDataSource] request], [[frame provisionalDataSource] request].URL);
-                        
-                        [[sender mainFrame] loadRequest:[[frame provisionalDataSource] request]];
-                        return;
-                    default:
-                        // Close a temporary browser window which might have been opened for loading a config file from a SEB URL
-                        [_browserController openingConfigURLFailed];
-                        return;
+                NSAlert *modalAlert = self.browserController.sebController.modalAlert;
+                if (!modalAlert) {
+                    modalAlert = [[NSAlert alloc] init];
+                    [modalAlert setMessageText:titleString];
+                    [modalAlert setInformativeText:messageString];
+                    [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
+                    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+                    [modalAlert setAlertStyle:NSCriticalAlertStyle];
+                    NSInteger answer = [modalAlert runModal];
+                    modalAlert = nil;
+                    
+                    switch(answer) {
+                        case NSAlertFirstButtonReturn:
+                            //Retry: try reloading
+                            //self.browserController.currentMainHost = nil;
+                            DDLogInfo(@"Trying to reload after %s: Request: %@ URL: %@", __FUNCTION__, [[frame provisionalDataSource] request], [[frame provisionalDataSource] request].URL);
+                            
+                            [[sender mainFrame] loadRequest:[[frame provisionalDataSource] request]];
+                            return;
+                        default:
+                            // Close a temporary browser window which might have been opened for loading a config file from a SEB URL
+                            [_browserController openingConfigURLFailed];
+                            return;
+                    }
+                } else {
+                    // Close a temporary browser window which might have been opened for loading a config file from a SEB URL
+                    [_browserController openingConfigURLFailed];
+                    return;
                 }
             }
         }
@@ -1141,25 +1173,33 @@ willPerformClientRedirectToURL:(NSURL *)URL
             
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
             [self makeKeyAndOrderFront:self];
-            NSAlert *newAlert = [[NSAlert alloc] init];
-            [newAlert setMessageText:titleString];
-            [newAlert setInformativeText:messageString];
-            [newAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
-            [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-            [newAlert setAlertStyle:NSCriticalAlertStyle];
-            NSInteger answer = [newAlert runModal];
-            switch(answer) {
-                case NSAlertFirstButtonReturn:
-                    //Retry: try reloading
-                    //self.browserController.currentMainHost = setCurrentMainHost:nil;
-                    DDLogInfo(@"Trying to reload after %s: Request: %@ URL: %@", __FUNCTION__, [[frame dataSource] request], [[frame dataSource] request].URL);
-                    
-                    [[sender mainFrame] loadRequest:[[frame dataSource] request]];
-                    return;
-                default:
-                    // Close a temporary browser window which might have been opened for loading a config file from a SEB URL
-                    [_browserController openingConfigURLFailed];
-                    return;
+            NSAlert *modalAlert = self.browserController.sebController.modalAlert;
+            if (!modalAlert) {
+                modalAlert = [[NSAlert alloc] init];
+                [modalAlert setMessageText:titleString];
+                [modalAlert setInformativeText:messageString];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+                [modalAlert setAlertStyle:NSCriticalAlertStyle];
+                NSInteger answer = [modalAlert runModal];
+                modalAlert = nil;
+                switch(answer) {
+                    case NSAlertFirstButtonReturn:
+                        //Retry: try reloading
+                        //self.browserController.currentMainHost = setCurrentMainHost:nil;
+                        DDLogInfo(@"Trying to reload after %s: Request: %@ URL: %@", __FUNCTION__, [[frame dataSource] request], [[frame dataSource] request].URL);
+                        
+                        [[sender mainFrame] loadRequest:[[frame dataSource] request]];
+                        return;
+                    default:
+                        // Close a temporary browser window which might have been opened for loading a config file from a SEB URL
+                        [_browserController openingConfigURLFailed];
+                        return;
+                }
+            } else {
+                // Close a temporary browser window which might have been opened for loading a config file from a SEB URL
+                [_browserController openingConfigURLFailed];
+                return;
             }
         }
     }
@@ -1742,13 +1782,17 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     // Open downloaded file
     [[NSWorkspace sharedWorkspace] openFile:downloadPath];
     } else {
-        // Inform user that download succeeded
-        NSAlert *newAlert = [[NSAlert alloc] init];
-        [newAlert setMessageText:NSLocalizedString(@"Download Finished", nil)];
-        [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ was downloaded.", nil), downloadPath]];
-        [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-        [newAlert setAlertStyle:NSInformationalAlertStyle];
-        [newAlert runModal];
+        NSAlert *modalAlert = self.browserController.sebController.modalAlert;
+        if (!modalAlert) {
+            // Inform user that download succeeded
+            modalAlert = [[NSAlert alloc] init];
+            [modalAlert setMessageText:NSLocalizedString(@"Download Finished", nil)];
+            [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ was downloaded.", nil), downloadPath]];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [modalAlert setAlertStyle:NSInformationalAlertStyle];
+            [modalAlert runModal];
+            modalAlert = nil;
+        }
     }
 }
 

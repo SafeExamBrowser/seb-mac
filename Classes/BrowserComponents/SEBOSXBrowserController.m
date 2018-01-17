@@ -509,12 +509,15 @@
             // If yes, we don't download the .seb file
             // Also reset the flag for SEB starting up
             _sebController.startingUp = false;
-            NSAlert *newAlert = [[NSAlert alloc] init];
-            [newAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
-            [newAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
-            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-            [newAlert setAlertStyle:NSCriticalAlertStyle];
-            [newAlert runModal];
+            if (!_sebController.modalAlert) {
+                _sebController.modalAlert = [[NSAlert alloc] init];
+                [_sebController.modalAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
+                [_sebController.modalAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
+                [_sebController.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                [_sebController.modalAlert setAlertStyle:NSCriticalAlertStyle];
+                [_sebController.modalAlert runModal];
+                _sebController.modalAlert = nil;
+            }
         } else {
             // SEB isn't in exam mode: reconfiguring is allowed
             
