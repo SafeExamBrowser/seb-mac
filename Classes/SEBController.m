@@ -201,6 +201,7 @@ bool insideMatrix();
             // If SEB was just started (by opening a config file)
             if (_startingUp) {
                 // we quit, as decrypting the config wasn't successful
+                DDLogError(@"SEB was started with a SEB Config File as argument, but decrypting this configuration failed: Terminating.");
                 quittingMyself = TRUE; // SEB is terminating itself
                 [NSApp terminate: nil]; // Quit SEB
             } else {
@@ -2499,6 +2500,18 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     if (window && (self.browserController.mainBrowserWindow.isFullScreen || [self.preferencesController preferencesAreOpen])) {
         window = nil;
     }
+    
+    // If the dialog needs to be shown application modal
+    if (!window) {
+        if (!self.modalAlert) {
+            // block opening other modal alerts while the password dialog is open
+            self.modalAlert = [NSAlert new];
+        } else {
+            DDLogError(@"%s cannot open password dialog (modally) because another modal dialog is open", __FUNCTION__);
+            return SEBEnterPasswordCancel;
+        }
+    }
+    
     // Add the alert title string to the dialog text if the alert will be presented as sheet on a window
     if (window && title.length > 0) {
         NSMutableParagraphStyle *textParagraph = [[NSMutableParagraphStyle alloc] init];
@@ -2524,6 +2537,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     // Dialog is up here.
     [NSApp endSheet: enterPasswordDialogWindow];
     [enterPasswordDialogWindow orderOut: self];
+    self.modalAlert = nil;
+    
     return returnCode;
 }
 
@@ -2570,6 +2585,19 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         window = nil;
     }
     
+    // If the dialog needs to be shown application modal
+    if (!window) {
+        if (!self.modalAlert) {
+            // block opening other modal alerts while the password dialog is open
+            self.modalAlert = [NSAlert new];
+        } else {
+            DDLogError(@"%s cannot open password dialog (modally) because another modal dialog is open", __FUNCTION__);
+            IMP imp = [senderModalDelegate methodForSelector:senderDidEndSelector];
+            void (*func)(id, SEL, NSString*, NSString*, NSInteger) = (void *)imp;
+            func(senderModalDelegate, senderDidEndSelector, @"", @"", SEBEnterPasswordAborted);
+        }
+    }
+    
     [NSApp beginSheet: enterUsernamePasswordDialogWindow
        modalForWindow: window
         modalDelegate: self
@@ -2580,6 +2608,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 
 - (IBAction) okEnterUsernamePassword: (id)sender {
     [NSApp endSheet:enterUsernamePasswordDialogWindow returnCode:SEBEnterPasswordOK];
+    self.modalAlert = nil;
 }
 
 
@@ -2587,6 +2616,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     [NSApp endSheet:enterUsernamePasswordDialogWindow returnCode:SEBEnterPasswordCancel];
     // Reset the username field (password is always reset whenever the dialog is displayed)
     [usernameTextField setStringValue:@""];
+    self.modalAlert = nil;
 }
 
 
@@ -2595,6 +2625,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     [NSApp endSheet:enterUsernamePasswordDialogWindow returnCode:SEBEnterPasswordAborted];
     // Reset the user name field (password is always reset whenever the dialog is displayed)
     [usernameTextField setStringValue:@""];
+    self.modalAlert = nil;
 }
 
 
@@ -2603,6 +2634,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     DDLogDebug(@"sheetDidEnd with return code: %ld", (long)returnCode);
     
     [sheet orderOut: self];
+    self.modalAlert = nil;
 
     IMP imp = [senderModalDelegate methodForSelector:senderDidEndSelector];
     void (*func)(id, SEL, NSString*, NSString*, NSInteger) = (void *)imp;
