@@ -447,6 +447,16 @@
     // Check if a some value is from a wrong class (another than the value from default settings)
     // and quit reading .seb file if a wrong value was found
     if (![preferences checkClassOfSettings:sebPreferencesDict]) {
+        NSAlert *modalAlert = self.sebController.modalAlert;
+        if (!modalAlert) {
+            modalAlert = [[NSAlert alloc] init];
+            [modalAlert setMessageText:NSLocalizedString(@"Reading New Settings Failed!",nil)];
+            [modalAlert setInformativeText:NSLocalizedString(@"These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted.", nil)];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [modalAlert setAlertStyle:NSCriticalAlertStyle];
+            [modalAlert runModal];
+            modalAlert = nil;
+        }
         return nil;
     }
     // Reading preferences was successful!
@@ -607,6 +617,16 @@
     // Check if a some value is from a wrong class (another than the value from default settings)
     // and quit reading .seb file if a wrong value was found
     if (![preferences checkClassOfSettings:sebPreferencesDict]) {
+        NSAlert *modalAlert = self.sebController.modalAlert;
+        if (!modalAlert) {
+            modalAlert = [[NSAlert alloc] init];
+            [modalAlert setMessageText:NSLocalizedString(@"Reading New Settings Failed!",nil)];
+            [modalAlert setInformativeText:NSLocalizedString(@"These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted.", nil)];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [modalAlert setAlertStyle:NSCriticalAlertStyle];
+            [modalAlert runModal];
+            modalAlert = nil;
+        }
         return nil;
     }
     
@@ -849,12 +869,16 @@
     if (!informativeText) {
         informativeText = NSLocalizedString(@"These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted.", nil);
     }
-    NSAlert *newAlert = [[NSAlert alloc] init];
-    [newAlert setMessageText:title];
-    [newAlert setInformativeText:informativeText];
-    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-    [newAlert setAlertStyle:NSCriticalAlertStyle];
-    [newAlert runModal];
+    NSAlert *modalAlert = self.sebController.modalAlert;
+    if (!modalAlert) {
+        modalAlert = [[NSAlert alloc] init];
+        [modalAlert setMessageText:title];
+        [modalAlert setInformativeText:informativeText];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [modalAlert setAlertStyle:NSCriticalAlertStyle];
+        [modalAlert runModal];
+        modalAlert = nil;
+    }
 }
 
 
@@ -1003,14 +1027,17 @@
         }
     }
     if (encryptedSebData.length == 0) {
-        NSAlert *newAlert = [[NSAlert alloc] init];
-        [newAlert setMessageText:NSLocalizedString(@"Error Encrypting Settings", nil)];
-        [newAlert setInformativeText:NSLocalizedString(@"Encrypting settings with identity from the keychain failed!", nil)];
-        [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-        [newAlert setAlertStyle:NSCriticalAlertStyle];
-        [newAlert runModal];
+        NSAlert *modalAlert = self.sebController.modalAlert;
+        if (!modalAlert) {
+            modalAlert = [[NSAlert alloc] init];
+            [modalAlert setMessageText:NSLocalizedString(@"Error Encrypting Settings", nil)];
+            [modalAlert setInformativeText:NSLocalizedString(@"Encrypting settings with identity from the keychain failed!", nil)];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [modalAlert setAlertStyle:NSCriticalAlertStyle];
+            [modalAlert runModal];
+            modalAlert = nil;
+        }
         DDLogError(@"%s: Error Encrypting Settings: Encrypting settings with identity from the keychain failed!", __FUNCTION__);
-        
         return nil;
     }
     return encryptedSebData;
