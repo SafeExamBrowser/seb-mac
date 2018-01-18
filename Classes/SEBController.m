@@ -2197,6 +2197,16 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             [self.modalAlert.window newSetLevel:NSMainMenuWindowLevel+6];
         }
     }
+    
+    // Change window level of the about window if it is displayed
+    if (aboutWindow.isVisible) {
+        DDLogWarn(@"About window displayed");
+        if (allowApps) {
+            [aboutWindow newSetLevel:NSModalPanelWindowLevel-1];
+        } else {
+            [aboutWindow newSetLevel:NSMainMenuWindowLevel+5];
+        }
+    }
 }
 
 
@@ -2252,6 +2262,16 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             [self.modalAlert.window newSetLevel:NSModalPanelWindowLevel];
         } else {
             [self.modalAlert.window newSetLevel:NSMainMenuWindowLevel+6];
+        }
+    }
+    
+    // Change window level of the about window if it is displayed
+    if (aboutWindow.isVisible) {
+        DDLogWarn(@"About window displayed");
+        if (allowSwitchToThirdPartyApps) {
+            [aboutWindow newSetLevel:NSModalPanelWindowLevel-1];
+        } else {
+            [aboutWindow newSetLevel:NSMainMenuWindowLevel+5];
         }
     }
 }
