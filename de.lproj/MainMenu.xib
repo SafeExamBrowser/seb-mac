@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication"/>
@@ -463,9 +464,9 @@
                         <rect key="frame" x="319" y="12" width="220" height="170"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="t0O-vG-yWY">
                             <rect key="frame" x="0.0" y="0.0" width="220" height="170"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
-                                <textView editable="NO" drawsBackground="NO" importsGraphics="NO" findStyle="panel" allowsUndo="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="y4d-ck-W5g">
+                                <textView editable="NO" drawsBackground="NO" importsGraphics="NO" verticallyResizable="YES" findStyle="panel" allowsUndo="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="y4d-ck-W5g">
                                     <rect key="frame" x="0.0" y="0.0" width="220" height="170"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -689,10 +690,10 @@ Gw
         </window>
         <userDefaultsController representsSharedInstance="YES" id="SRG-SJ-3eg"/>
         <customView verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="Re1-C5-57e" userLabel="SEB Locked View">
-            <rect key="frame" x="0.0" y="0.0" width="500" height="512"/>
+            <rect key="frame" x="0.0" y="0.0" width="500" height="520"/>
             <subviews>
                 <secureTextField canDrawConcurrently="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E6M-vB-bca">
-                    <rect key="frame" x="65" y="40" width="370" height="22"/>
+                    <rect key="frame" x="65" y="48" width="370" height="22"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="370" id="QBc-XF-qdA"/>
                     </constraints>
@@ -709,7 +710,7 @@ Gw
                     </connections>
                 </secureTextField>
                 <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="165" translatesAutoresizingMaskIntoConstraints="NO" id="i1K-9z-xtU" customClass="SEBTextField">
-                    <rect key="frame" x="165" y="475" width="169" height="25"/>
+                    <rect key="frame" x="165" y="483" width="169" height="25"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="SEB ist gesperrt!" id="h8S-7a-w0u">
                         <font key="font" size="20" name="HelveticaNeue-Bold"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -717,7 +718,7 @@ Gw
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="406" translatesAutoresizingMaskIntoConstraints="NO" id="rDJ-35-BLL" customClass="SEBTextField">
-                    <rect key="frame" x="49" y="70" width="403" height="17"/>
+                    <rect key="frame" x="49" y="78" width="403" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Neustarten-/Beenden-Passwort eingeben, um SEB zu Entsperren" id="Fnc-XR-wb9">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -733,7 +734,7 @@ Gw
                     </textFieldCell>
                 </textField>
                 <textField horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="N8L-96-Ced" customClass="SEBTextField">
-                    <rect key="frame" x="18" y="399" width="464" height="68"/>
+                    <rect key="frame" x="18" y="407" width="464" height="68"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="61" id="dAk-vN-xZy"/>
                     </constraints>
@@ -745,12 +746,12 @@ Gw
                     </textFieldCell>
                 </textField>
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7g-WL-v0B">
-                    <rect key="frame" x="20" y="102" width="460" height="282"/>
+                    <rect key="frame" x="20" y="110" width="460" height="282"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="UQl-yY-TGx">
                         <rect key="frame" x="1" y="1" width="458" height="280"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView editable="NO" drawsBackground="NO" importsGraphics="NO" findStyle="bar" allowsNonContiguousLayout="YES" id="FId-0c-znr">
+                            <textView editable="NO" drawsBackground="NO" importsGraphics="NO" verticallyResizable="YES" findStyle="bar" allowsNonContiguousLayout="YES" id="FId-0c-znr">
                                 <rect key="frame" x="0.0" y="0.0" width="458" height="280"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -782,7 +783,7 @@ Gw
                     </scroller>
                 </scrollView>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="saq-WU-u0D">
-                    <rect key="frame" x="443" y="41" width="20" height="20"/>
+                    <rect key="frame" x="443" y="49" width="20" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="7My-ZY-uZS"/>
                         <constraint firstAttribute="width" constant="20" id="k7i-7N-vWO"/>
@@ -795,6 +796,13 @@ Gw
                         </connections>
                     </buttonCell>
                 </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="K9k-Bw-WrB">
+                    <rect key="frame" x="103" y="29" width="294" height="18"/>
+                    <buttonCell key="cell" type="check" title="Sicherheits-Check deaktivieren und SEB entsperren" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="K35-KX-kQR">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                    </buttonCell>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="i1K-9z-xtU" secondAttribute="trailing" constant="20" id="0Rc-5r-2V5"/>
@@ -802,11 +810,13 @@ Gw
                 <constraint firstItem="E6M-vB-bca" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Re1-C5-57e" secondAttribute="leading" constant="20" id="3AB-uT-8r3"/>
                 <constraint firstItem="rDJ-35-BLL" firstAttribute="top" secondItem="h7g-WL-v0B" secondAttribute="bottom" constant="15" id="4BD-ug-fme"/>
                 <constraint firstItem="N8L-96-Ced" firstAttribute="leading" secondItem="Re1-C5-57e" secondAttribute="leading" constant="20" id="5tR-so-ZAv"/>
+                <constraint firstItem="cZ9-xX-IzI" firstAttribute="top" secondItem="K9k-Bw-WrB" secondAttribute="bottom" id="7Dv-iS-bAt"/>
                 <constraint firstItem="h7g-WL-v0B" firstAttribute="top" secondItem="N8L-96-Ced" secondAttribute="bottom" constant="15" id="CDh-3C-zZ2"/>
                 <constraint firstItem="rDJ-35-BLL" firstAttribute="centerX" secondItem="Re1-C5-57e" secondAttribute="centerX" id="EgM-Ju-crd"/>
                 <constraint firstItem="E6M-vB-bca" firstAttribute="centerX" secondItem="Re1-C5-57e" secondAttribute="centerX" id="EtL-nQ-EHo"/>
+                <constraint firstItem="K9k-Bw-WrB" firstAttribute="centerX" secondItem="Re1-C5-57e" secondAttribute="centerX" id="FGX-e4-fbv"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="K9k-Bw-WrB" secondAttribute="trailing" constant="20" id="G3Y-Qa-j27"/>
                 <constraint firstAttribute="trailing" secondItem="N8L-96-Ced" secondAttribute="trailing" constant="20" id="Meg-I5-PQs"/>
-                <constraint firstItem="cZ9-xX-IzI" firstAttribute="top" secondItem="E6M-vB-bca" secondAttribute="bottom" constant="8" id="NL5-e8-BtN"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="saq-WU-u0D" secondAttribute="trailing" constant="20" id="OpY-Jm-E0S"/>
                 <constraint firstItem="i1K-9z-xtU" firstAttribute="top" secondItem="Re1-C5-57e" secondAttribute="top" constant="12" id="Oz4-js-tTF"/>
                 <constraint firstItem="i1K-9z-xtU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Re1-C5-57e" secondAttribute="leading" constant="20" id="YQu-jV-jMe"/>
@@ -818,8 +828,10 @@ Gw
                 <constraint firstItem="E6M-vB-bca" firstAttribute="top" secondItem="rDJ-35-BLL" secondAttribute="bottom" constant="8" id="f0O-BW-n15"/>
                 <constraint firstItem="N8L-96-Ced" firstAttribute="top" secondItem="i1K-9z-xtU" secondAttribute="bottom" constant="8" id="fhp-cs-DJX"/>
                 <constraint firstAttribute="trailing" secondItem="h7g-WL-v0B" secondAttribute="trailing" constant="20" id="hqH-Qv-SeG"/>
+                <constraint firstItem="K9k-Bw-WrB" firstAttribute="top" secondItem="E6M-vB-bca" secondAttribute="bottom" constant="4" id="i60-Qt-U9d"/>
                 <constraint firstItem="cZ9-xX-IzI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Re1-C5-57e" secondAttribute="leading" constant="20" id="iDN-W5-Sl7"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cZ9-xX-IzI" secondAttribute="trailing" constant="20" id="ip3-Yj-pf5"/>
+                <constraint firstItem="K9k-Bw-WrB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Re1-C5-57e" secondAttribute="leading" constant="20" id="p7Z-5K-O70"/>
                 <constraint firstItem="saq-WU-u0D" firstAttribute="centerY" secondItem="E6M-vB-bca" secondAttribute="centerY" id="rjI-YY-BR9"/>
                 <constraint firstItem="saq-WU-u0D" firstAttribute="leading" secondItem="E6M-vB-bca" secondAttribute="trailing" constant="8" id="soY-M9-brc"/>
             </constraints>
@@ -830,6 +842,7 @@ Gw
                 <outlet property="alertMessage" destination="N8L-96-Ced" id="baX-Wp-6Rz"/>
                 <outlet property="lockedAlertPasswordField" destination="E6M-vB-bca" id="0bI-FS-sC0"/>
                 <outlet property="logScrollView" destination="h7g-WL-v0B" id="py4-EN-Zox"/>
+                <outlet property="overrideSecurityCheck" destination="K9k-Bw-WrB" id="FN7-xr-r3V"/>
                 <outlet property="passwordWrongLabel" destination="cZ9-xX-IzI" id="2Xz-pn-weo"/>
                 <outlet property="view" destination="Re1-C5-57e" id="bGA-Gx-ekw"/>
             </connections>

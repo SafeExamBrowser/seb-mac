@@ -76,6 +76,7 @@
     BOOL quittingMyself;
 
 	IBOutlet AboutWindow *aboutWindow;
+    NSAlert *_modalAlert;
     IBOutlet NSWindow *cmdKeyAlertWindow;
     IBOutlet NSMenuItem *configMenu;
     IBOutlet NSMenu *settingsMenu;
@@ -117,6 +118,7 @@
 
 @property(readwrite) BOOL allowSwitchToApplications;
 @property(readwrite) BOOL screenSharingDetected;
+@property(readwrite) BOOL screenSharingCheckOverride;
 @property(readwrite) BOOL f3Pressed;
 @property(readwrite) BOOL startingUp;
 @property(readwrite) BOOL openingSettings;

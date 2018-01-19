@@ -14,7 +14,7 @@
     __weak IBOutlet NSSecureTextField *lockedAlertPasswordField;
     __weak IBOutlet NSTextField *passwordWrongLabel;
     __weak IBOutlet NSScrollView *logScrollView;
-
+    
 }
 @end
 
@@ -53,6 +53,9 @@
         DDLogError(@"Lockdown alert: Correct password entered, closing lockdown windows");
         self.sebController.didResumeExamTime = [NSDate date];
         [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Correct password entered, closing lockdown windows", nil)] withTime:self.sebController.didResumeExamTime];
+        if (self.overrideSecurityCheck.state == true) {
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Overriding security check is enabled!", nil)] withTime:nil];
+        }
         // Calculate time difference between session resigning active and closing lockdown alert
         NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         NSDateComponents *components = [calendar components:NSMinuteCalendarUnit | NSSecondCalendarUnit

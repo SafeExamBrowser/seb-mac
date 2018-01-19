@@ -17,6 +17,7 @@
 @property (strong) SEBController *sebController;
 @property (strong) SEBKeychainManager *keychainManager;
 @property (readwrite, copy) NSAttributedString *resignActiveLogString;
+@property (strong) IBOutlet NSButton *overrideSecurityCheck;
 
 - (void)setLockdownAlertMessage:(NSString *)newAlertMessage;
 - (void)appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;

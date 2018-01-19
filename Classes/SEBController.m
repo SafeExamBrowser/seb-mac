@@ -141,6 +141,20 @@ bool insideMatrix();
 }
 
 
+- (NSAlert *) modalAlert
+{
+    return _modalAlert;
+}
+
+- (void) setModalAlert:(NSAlert *)modalAlert
+{
+    if (aboutWindow.isVisible) {
+        [self closeAboutWindow];
+    }
+    _modalAlert = modalAlert;
+}
+
+
 // Tells the application delegate to open a single file.
 // Returning YES if the file is successfully opened, and NO otherwise.
 //
@@ -1936,48 +1950,53 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 
 - (void) openLockdownWindows
 {
-    self.lockdownWindows = [self fillScreensWithCoveringWindows:coveringWindowLockdownAlert windowLevel:NSScreenSaverWindowLevel excludeMenuBar:false];
-    NSWindow *coveringWindow = self.lockdownWindows[0];
-    NSView *coveringView = coveringWindow.contentView;
-    [coveringView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
-    [coveringView setTranslatesAutoresizingMaskIntoConstraints:true];
-    
-    sebLockedViewController.sebController = self;
-    
-    [coveringView addSubview:sebLockedViewController.view];
-    
-    DDLogVerbose(@"Frame of superview: %f, %f", sebLockedViewController.view.superview.frame.size.width, sebLockedViewController.view.superview.frame.size.height);
-    NSMutableArray *constraints = [NSMutableArray new];
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:sebLockedViewController.view
-                                                        attribute:NSLayoutAttributeCenterX
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:sebLockedViewController.view.superview
-                                                        attribute:NSLayoutAttributeCenterX
-                                                       multiplier:1.0
-                                                         constant:0.0]];
-    
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:sebLockedViewController.view
-                                                        attribute:NSLayoutAttributeCenterY
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:sebLockedViewController.view.superview
-                                                        attribute:NSLayoutAttributeCenterY
-                                                       multiplier:1.0
-                                                         constant:0.0]];
-    
-    [sebLockedViewController.view.superview addConstraints:constraints];
-    
-//    [coveringWindow makeKeyAndOrderFront:self];
-    lockdownModalSession = [NSApp beginModalSessionForWindow:coveringWindow];
-    [NSApp runModalSession:lockdownModalSession];
+    if (!self.lockdownWindows) {
+        self.lockdownWindows = [self fillScreensWithCoveringWindows:coveringWindowLockdownAlert windowLevel:NSScreenSaverWindowLevel excludeMenuBar:false];
+        NSWindow *coveringWindow = self.lockdownWindows[0];
+        NSView *coveringView = coveringWindow.contentView;
+        [coveringView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+        [coveringView setTranslatesAutoresizingMaskIntoConstraints:true];
+        
+        sebLockedViewController.sebController = self;
+        
+        [coveringView addSubview:sebLockedViewController.view];
+        
+        DDLogVerbose(@"Frame of superview: %f, %f", sebLockedViewController.view.superview.frame.size.width, sebLockedViewController.view.superview.frame.size.height);
+        NSMutableArray *constraints = [NSMutableArray new];
+        [constraints addObject:[NSLayoutConstraint constraintWithItem:sebLockedViewController.view
+                                                            attribute:NSLayoutAttributeCenterX
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:sebLockedViewController.view.superview
+                                                            attribute:NSLayoutAttributeCenterX
+                                                           multiplier:1.0
+                                                             constant:0.0]];
+        
+        [constraints addObject:[NSLayoutConstraint constraintWithItem:sebLockedViewController.view
+                                                            attribute:NSLayoutAttributeCenterY
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:sebLockedViewController.view.superview
+                                                            attribute:NSLayoutAttributeCenterY
+                                                           multiplier:1.0
+                                                             constant:0.0]];
+        
+        [sebLockedViewController.view.superview addConstraints:constraints];
+        
+        lockdownModalSession = [NSApp beginModalSessionForWindow:coveringWindow];
+        [NSApp runModalSession:lockdownModalSession];
+    }
 }
 
 
 - (void) closeLockdownWindows
 {
     [NSApp endModalSession:lockdownModalSession];
+    _screenSharingCheckOverride = sebLockedViewController.overrideSecurityCheck.state;
     [sebLockedViewController.view removeFromSuperview];
     [self closeCoveringWindows:self.lockdownWindows];
-    _screenSharingDetected = false;
+    self.lockdownWindows = nil;
+    if (_screenSharingCheckOverride == false) {
+        _screenSharingDetected = false;
+    }
 }
 
 
@@ -3039,7 +3058,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 }
 
 
-// Handler called when user switch happens
+/// Handler called when user switch happens
 - (void) switchHandler:(NSNotification*) notification
 {
     if ([[notification name] isEqualToString:
@@ -3047,7 +3066,9 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     {
         // Set standard message string
         [sebLockedViewController setLockdownAlertMessage:nil];
-        
+        sebLockedViewController.overrideSecurityCheck.state = false;
+        sebLockedViewController.overrideSecurityCheck.enabled = false;
+
         if (!sebLockedViewController.resignActiveLogString) {
             sebLockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
         }
@@ -3078,6 +3099,9 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
                                                     options:false];
         [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"  SEB session was inactive for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:nil];
     }
+    
+    /// Handler called when screen sharing was detected
+
     else if ([[notification name] isEqualToString:
                 @"detectedScreenSharing"])
     {
@@ -3090,6 +3114,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         if (!sebLockedViewController.resignActiveLogString) {
             sebLockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
         }
+        sebLockedViewController.overrideSecurityCheck.enabled = true;
+
         if (!_screenSharingDetected) {
             _screenSharingDetected = true;
             self.didResignActiveTime = [NSDate date];
@@ -3098,7 +3124,10 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             #define sebScreenSharingLogCounter 11
             screenSharingLogCounter = sebScreenSharingLogCounter;
             DDLogError(@"Screen sharing was activated!");
-            [self openLockdownWindows];
+            
+            if (_screenSharingCheckOverride == false) {
+                [self openLockdownWindows];
+            }
             
             // Add log string for screen sharing active
             [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing was activated", nil)] withTime:self.didResignActiveTime];
@@ -3116,8 +3145,13 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 
 - (void) openInfoHUD:(NSString *)lockedTimeInfo
 {
+    if (_screenSharingCheckOverride) {
+        lockedTimeInfo = [NSString stringWithFormat:@"%@\n\nScreen sharing detection was disabled!", lockedTimeInfo];
+        informationHUDLabel.textColor = [NSColor redColor];
+    } else {
+        informationHUDLabel.textColor = [NSColor whiteColor];
+    }
     [informationHUDLabel setStringValue:lockedTimeInfo];
-    //[informationHUD center];
     NSArray *screens = [NSScreen screens];	// get all available screens
     NSScreen *mainScreen = screens[0];
     
