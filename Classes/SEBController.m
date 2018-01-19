@@ -160,67 +160,73 @@ bool insideMatrix();
 //
 - (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename
 {
-    _openingSettings = true;
-    DDLogDebug(@"%s Open file: %@", __FUNCTION__, filename);
-    
-    NSURL *sebFileURL = [NSURL fileURLWithPath:filename];
-
-    DDLogInfo(@"Open file event: Loading .seb settings file with URL %@",sebFileURL);
-
-    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-
-    // Check if preferences window is open
-    if ([self.preferencesController preferencesAreOpen]) {
-
-        /// Open settings file in preferences window for editing
-
-        [self.preferencesController openSEBPrefsAtURL:sebFileURL];
-    
-    } else {
+    if (!_openingSettings) {
+        _openingSettings = true;
+        DDLogDebug(@"%s Open file: %@", __FUNCTION__, filename);
         
-        /// Open settings file for exam/reconfiguring client
+        NSURL *sebFileURL = [NSURL fileURLWithPath:filename];
         
-        // Check if SEB is in exam mode = private UserDefauls are switched on
-        if (NSUserDefaults.userDefaultsPrivate) {
-            if (!self.modalAlert) {
-                self.modalAlert = [[NSAlert alloc] init];
-                [self.modalAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
-                [self.modalAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
-                [self.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-                [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
-                [self.modalAlert runModal];
-                self.modalAlert = nil;
-            }
-            return YES;
-        }
+        DDLogInfo(@"Open file event: Loading .seb settings file with URL %@",sebFileURL);
         
-        NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL];
+        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         
-        SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-        
-        // Get current config path
-        NSURL *currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
-        // Save the path to the file for possible editing in the preferences window
-        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:sebFileURL];
-        
-        // Decrypt and store the .seb config file
-        if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO] == storeDecryptedSEBSettingsResultSuccess) {
-            // if successfull restart with new settings
-
-            // SEB finished starting up, reset the flag for starting up
-            _startingUp = false;
-
-            [self requestedRestart:nil];
+        // Check if preferences window is open
+        if ([self.preferencesController preferencesAreOpen]) {
+            
+            /// Open settings file in preferences window for editing
+            
+            [self.preferencesController openSEBPrefsAtURL:sebFileURL];
+            _openingSettings = false;
+            
         } else {
-            // If SEB was just started (by opening a config file)
-            if (_startingUp) {
-                // we quit, as decrypting the config wasn't successful
-                DDLogError(@"SEB was started with a SEB Config File as argument, but decrypting this configuration failed: Terminating.");
-                quittingMyself = TRUE; // SEB is terminating itself
-                [NSApp terminate: nil]; // Quit SEB
+            
+            /// Open settings file for exam/reconfiguring client
+            
+            // Check if SEB is in exam mode = private UserDefauls are switched on
+            if (NSUserDefaults.userDefaultsPrivate) {
+                if (!self.modalAlert) {
+                    self.modalAlert = [[NSAlert alloc] init];
+                    [self.modalAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
+                    [self.modalAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
+                    [self.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                    [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
+                    [self.modalAlert runModal];
+                    self.modalAlert = nil;
+                }
+                _openingSettings = false;
+                return YES;
+            }
+            
+            NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL];
+            
+            SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+            
+            // Get current config path
+            NSURL *currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
+            // Save the path to the file for possible editing in the preferences window
+            [[MyGlobals sharedMyGlobals] setCurrentConfigURL:sebFileURL];
+            
+            // Decrypt and store the .seb config file
+            if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO] == storeDecryptedSEBSettingsResultSuccess) {
+                // if successfull restart with new settings
+                
+                // SEB finished starting up, reset the flag for starting up
+                _startingUp = false;
+                _openingSettings = false;
+
+                [self requestedRestart:nil];
             } else {
-                // otherwise, if decrypting new settings wasn't successfull, we have to restore the path to the old settings
-                [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
+                // If SEB was just started (by opening a config file)
+                if (_startingUp) {
+                    // we quit, as decrypting the config wasn't successful
+                    DDLogError(@"SEB was started with a SEB Config File as argument, but decrypting this configuration failed: Terminating.");
+                    quittingMyself = TRUE; // SEB is terminating itself
+                    [NSApp terminate: nil]; // Quit SEB
+                } else {
+                    // otherwise, if decrypting new settings wasn't successfull, we have to restore the path to the old settings
+                    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
+                }
+                _openingSettings = false;
             }
         }
     }
@@ -233,7 +239,7 @@ bool insideMatrix();
 {
     NSString *urlString = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
     NSURL *url = [NSURL URLWithString:urlString];
-    if (url) {
+    if (url && !_openingSettings) {
         // If we have any URL, we try to download and open (conditionally) a .seb file
         // hopefully linked by this URL (also supporting redirections and authentification)
         _openingSettings = true;

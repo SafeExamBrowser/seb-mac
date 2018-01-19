@@ -518,6 +518,7 @@
                 [_sebController.modalAlert runModal];
                 _sebController.modalAlert = nil;
             }
+            _sebController.openingSettings = false;
         } else {
             // SEB isn't in exam mode: reconfiguring is allowed
             
@@ -542,6 +543,8 @@
                 [self openTempWindowForDownloadingConfigFromURL:url];
             }
         }
+    } else {
+        _sebController.openingSettings = false;
     }
 }
 
@@ -612,6 +615,7 @@
     }
     // Also reset the flag for SEB starting up
     _sebController.startingUp = false;
+    _sebController.openingSettings = false;
 }
 
 
@@ -844,6 +848,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         _directConfigDownloadAttempted = false;
         // Also reset the flag for SEB starting up
         _sebController.startingUp = false;
+        _sebController.openingSettings = false;
         // Post a notification that it was requested to restart SEB with changed settings
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"requestRestartNotification" object:self];
@@ -870,6 +875,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                 _sebController.quittingMyself = TRUE; // SEB is terminating itself
                 [NSApp terminate: nil]; // Quit SEB
             }
+            _sebController.openingSettings = false;
         }
     }
 }
