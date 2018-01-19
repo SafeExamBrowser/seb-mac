@@ -637,7 +637,7 @@
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5C8-Dy-pUH">
                                 <rect key="frame" x="301" y="5" width="96" height="32"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="84" id="OMm-AP-8xl"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="84" id="OMm-AP-8xl"/>
                                 </constraints>
                                 <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="iQ5-CR-q1d">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -653,7 +653,7 @@ DQ
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bGb-Fd-rpF">
                                 <rect key="frame" x="205" y="5" width="96" height="32"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="84" id="HqM-8Y-m9g"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="84" id="HqM-8Y-m9g"/>
                                 </constraints>
                                 <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Qlt-2p-OmY">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -690,6 +690,7 @@ Gw
                             <constraint firstItem="bGb-Fd-rpF" firstAttribute="top" secondItem="8aH-DI-gaF" secondAttribute="bottom" constant="10" id="hSu-Zt-wY9"/>
                             <constraint firstItem="5C8-Dy-pUH" firstAttribute="leading" secondItem="bGb-Fd-rpF" secondAttribute="trailing" constant="12" symbolic="YES" id="rHg-Em-JLz"/>
                             <constraint firstItem="14K-iu-K30" firstAttribute="leading" secondItem="8aH-DI-gaF" secondAttribute="leading" id="tjH-Uv-Nic"/>
+                            <constraint firstItem="bGb-Fd-rpF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="w4A-0q-NaR" secondAttribute="leading" constant="20" id="tjL-fs-oXS"/>
                             <constraint firstAttribute="trailing" secondItem="8aH-DI-gaF" secondAttribute="trailing" constant="21" id="zRM-Ju-67V"/>
                         </constraints>
                     </customView>
@@ -1025,6 +1026,7 @@ Gw
                             <constraint firstItem="WPU-Uw-nFp" firstAttribute="leading" secondItem="Kab-W5-RGJ" secondAttribute="leading" constant="20" id="RBl-eH-s7y"/>
                             <constraint firstAttribute="trailing" secondItem="XNo-Zw-SiV" secondAttribute="trailing" constant="20" id="SrY-9R-kkK"/>
                             <constraint firstItem="XNo-Zw-SiV" firstAttribute="top" secondItem="Kab-W5-RGJ" secondAttribute="top" constant="14" id="Vj7-ZO-fsq"/>
+                            <constraint firstItem="KOI-2A-N5H" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Kab-W5-RGJ" secondAttribute="leading" constant="20" id="c6R-TD-rWE"/>
                             <constraint firstItem="Odg-nf-m29" firstAttribute="baseline" secondItem="KOI-2A-N5H" secondAttribute="baseline" id="fE5-3s-le2"/>
                             <constraint firstItem="mNH-qP-q3l" firstAttribute="leading" secondItem="7iw-YD-is5" secondAttribute="trailing" constant="8" id="iGd-vx-7Gl"/>
                             <constraint firstItem="mNH-qP-q3l" firstAttribute="baseline" secondItem="7iw-YD-is5" secondAttribute="baseline" id="kqq-hf-3lo"/>
@@ -1073,7 +1075,7 @@ Gw
                     <rect key="frame" x="20" y="92" width="460" height="292"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="poc-GF-ali">
                         <rect key="frame" x="1" y="1" width="458" height="290"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView editable="NO" drawsBackground="NO" importsGraphics="NO" verticallyResizable="YES" findStyle="bar" allowsNonContiguousLayout="YES" id="Yge-oE-zei">
                                 <rect key="frame" x="0.0" y="0.0" width="458" height="290"/>
