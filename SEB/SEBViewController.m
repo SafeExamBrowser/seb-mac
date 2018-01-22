@@ -1514,10 +1514,10 @@ static NSMutableSet *browserWindowControllers;
 - (void) restartExamASAM:(BOOL)quittingASAMtoSAM
 {
     if (quittingASAMtoSAM) {
-        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Restart Session", nil)
-                                                                message:NSLocalizedString(@"Return to start page and lock device into SEB.", nil)
+        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Exam Session Finished", nil)
+                                                                message:NSLocalizedString(@"Your device is now unlocked, you can exit SEB using the Home button/indicator.\n\nUse the button below to start another exam session and lock the device again.", nil)
                                                          preferredStyle:UIAlertControllerStyleAlert];
-        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Start Another Exam", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                  _alertController = nil;
                                                                  [self initSEB];
