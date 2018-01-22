@@ -10,9 +10,9 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Automatic Assessment Configuration (AAC) &amp; Autonomous Single App Mode (ASAM)</string>
+			<string>Automatic Assessment Configuration (AAC) &amp; ASAM</string>
 			<key>FooterText</key>
-			<string>Uses either AAC (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke ASAM (which takes priority over AAC).</string>
+			<string>Uses either AAC (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over AAC).</string>
 		</dict>
 		<dict>
 			<key>Type</key>
