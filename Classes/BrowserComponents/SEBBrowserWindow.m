@@ -292,8 +292,15 @@
 	int controlKeyDown = [theEvent modifierFlags] & NSControlKeyMask;
 	// filter out right clicks
 	if (!(([theEvent type] == NSLeftMouseDown && controlKeyDown) ||
-		[theEvent type] == NSRightMouseDown))
-		[super sendEvent:theEvent];
+          [theEvent type] == NSRightMouseDown)) {
+        [super sendEvent:theEvent];
+    } else {
+        // Allow right mouse button/context menu according to setting
+        // This only has an effect in browser plugins and video players etc. (not on regular website elements)
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableRightMouse"]) {
+            [super sendEvent:theEvent];
+        }
+    }
 }
 
 
