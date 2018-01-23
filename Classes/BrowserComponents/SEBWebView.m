@@ -217,4 +217,11 @@
     }
 }
 
+
+- (BOOL)isAutomaticSpellingCorrectionEnabled
+{
+    return _browserController.allowSpellCheck;
+}
+
+
 @end

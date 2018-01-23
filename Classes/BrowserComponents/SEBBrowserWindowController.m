@@ -121,7 +121,7 @@ void DisposeWindow (
     DDLogDebug(@"BrowserWindow %@ did resign key", self.window);
     
     NSWindow *keyWindow = [[NSApplication sharedApplication] keyWindow];
-    DDLogDebug(@"Current key window: %@", keyWindow);
+    DDLogDebug(@"Current key window: %@ with title %@", keyWindow, keyWindow.title);
     if (keyWindow) {
         if (keyWindow.isModalPanel) {
             DDLogWarn(@"Current key window is modal panel: %@", keyWindow);

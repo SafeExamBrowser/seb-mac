@@ -67,6 +67,7 @@
 @property (strong) SEBDockItemMenu *openBrowserWindowsWebViewsMenu;
 @property (readwrite) BOOL reinforceKioskModeRequested;
 @property (readwrite) BOOL directConfigDownloadAttempted;
+@property (readwrite) BOOL allowSpellCheck;
 @property (strong) NSURL *originalURL;
 @property (strong) NSURLCredential *enteredCredential;
 @property (strong) id URLSession;
