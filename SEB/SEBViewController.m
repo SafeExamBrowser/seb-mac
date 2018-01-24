@@ -2069,9 +2069,9 @@ static NSMutableSet *browserWindowControllers;
 - (void) alertWithTitle:(NSString *)title
                 message:(NSString *)message
            action1Title:(NSString *)action1Title
-         action1Handler:(void (^)())action1Handler
+         action1Handler:(void (^)(void))action1Handler
            action2Title:(NSString *)action2Title
-         action2Handler:(void (^)())action2Handler
+         action2Handler:(void (^)(void))action2Handler
 {
     _alertController = [UIAlertController  alertControllerWithTitle:title
                                                             message:message
@@ -2166,7 +2166,7 @@ static NSMutableSet *browserWindowControllers;
 
 
 - (IBAction)reload {
-    void (^action1Handler)() =
+    void (^action1Handler)(void) =
     ^{
         [_browserTabViewController reload];
         [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
