@@ -885,7 +885,7 @@
 		69CE9C6117378B9A0011609B /* SEBTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBTextField.h; sourceTree = "<group>"; };
 		69CE9C6217378B9A0011609B /* SEBTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBTextField.m; sourceTree = "<group>"; };
 		69CFFA761D3641B500FE5655 /* SEB Enterprise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SEB Enterprise.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		69CFFA771D3641B500FE5655 /* SEB copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SEB copy-Info.plist"; path = "/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/SEB copy-Info.plist"; sourceTree = "<absolute>"; };
+		69CFFA771D3641B500FE5655 /* SEB-Enterprise-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SEB-Enterprise-Info.plist"; path = "/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/SEB-Enterprise-Info.plist"; sourceTree = "<absolute>"; };
 		69D1EBE41BFEAD73001838DC /* SEBDockItemTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockItemTime.h; path = Classes/SEBDock/SEBDockItemTime.h; sourceTree = "<group>"; };
 		69D1EBE51BFEAD73001838DC /* SEBDockItemTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockItemTime.m; path = Classes/SEBDock/SEBDockItemTime.m; sourceTree = "<group>"; };
 		69D5881F1189EB8F005AE3F1 /* SEBController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = SEBController.h; path = Classes/SEBController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -1098,7 +1098,6 @@
 				6940B9671BA0F2FB008C8CFC /* SEB iOS */,
 				6940B9841BA0F2FB008C8CFC /* SEBTests */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				69CFFA771D3641B500FE5655 /* SEB copy-Info.plist */,
 				69BA05A91D57E4C200C07C4F /* Recovered References */,
 				4F7957D674BE468F1FD09857 /* Pods */,
 			);
@@ -1386,6 +1385,7 @@
 				69782A4D1CCE068C00C2AA9A /* Settings.bundle */,
 				69782A4F1CCE26AD00C2AA9A /* InAppSettings.bundle */,
 				690408EA1D4181A800A9EDDA /* Info.plist */,
+				69CFFA771D3641B500FE5655 /* SEB-Enterprise-Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -3271,7 +3271,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "SEB copy-Info.plist";
+				INFOPLIST_FILE = "SEB-Enterprise-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -3326,7 +3326,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "SEB copy-Info.plist";
+				INFOPLIST_FILE = "SEB-Enterprise-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
