@@ -64,9 +64,6 @@
     NSLog(@"%s: Single App Mode was %@active at app launch.", __FUNCTION__, _SAMActive ? @"" : @"not ");
     
     // Override point for customization after application launch.
-    [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:5 forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:0 forBarMetrics:UIBarMetricsCompact];
-    
     MMDrawerController * drawerController = (MMDrawerController *)self.window.rootViewController;
     [drawerController setMaximumRightDrawerWidth:200.0];
     [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeBezelPanningCenterView];
