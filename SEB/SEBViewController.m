@@ -36,28 +36,6 @@
 
 #import "SEBViewController.h"
 
-@interface UINavigationBar (CustomHeight)
-
-@end
-
-
-@implementation UINavigationBar (CustomHeight)
-
-- (CGSize)sizeThatFits:(CGSize)size {
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    id navBarDelegate = self.delegate;
-    if ([navBarDelegate isKindOfClass:[SEBNavigationController class]]) {
-        MMDrawerController *mmDrawerController = (MMDrawerController *)[(UINavigationController *)navBarDelegate parentViewController];
-        if (mmDrawerController.openSide == MMDrawerSideLeft && [[NSUserDefaults standardUserDefaults] mobileStatusBarAppearance] != mobileStatusBarAppearanceNone) {
-            return CGSizeMake(screenRect.size.width, 32+kStatusbarHeight);
-        }
-        return CGSizeMake(screenRect.size.width, 32);
-    }
-    return CGSizeMake(screenRect.size.width, kNavbarHeight);
-}
-@end
-
-
 static NSMutableSet *browserWindowControllers;
 
 @implementation SEBViewController
@@ -248,12 +226,6 @@ static NSMutableSet *browserWindowControllers;
     // Set flag that SEB is initialized: Now showing alerts is allowed
     [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
     
-}
-
-
-- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
-{
-    [self changeToolbarButtonInsets];
 }
 
 
@@ -609,8 +581,6 @@ static NSMutableSet *browserWindowControllers;
         }];
     }
 
-    [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:0 forBarMetrics:UIBarMetricsDefault];
-
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
 
     //[viewController setShowCreditsFooter:NO];   // Uncomment to not display InAppSettingsKit credits for creators.
@@ -724,9 +694,7 @@ static NSMutableSet *browserWindowControllers;
 
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
-{
-    [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:5 forBarMetrics:UIBarMetricsDefault];
-    
+{    
     [sender dismissViewControllerAnimated:YES completion:^{
         
         // Update entered passwords and save their hashes to SEB settings
@@ -1980,40 +1948,6 @@ static NSMutableSet *browserWindowControllers;
     } else {
         self.navigationItem.leftBarButtonItems = nil;
     }
-    
-    [self changeToolbarButtonInsets];
-}
-
-
-- (void)changeToolbarButtonInsets
-{
-    if (!self.navigationController.navigationBarHidden) {
-        [self setToolbarButtonInsets];
-        
-        NSArray *leftBarItems = self.navigationItem.leftBarButtonItems;
-        NSArray *rightBarItems = self.navigationItem.rightBarButtonItems;
-        self.navigationItem.leftBarButtonItems = nil;
-        self.navigationItem.rightBarButtonItems = nil;
-        self.navigationItem.leftBarButtonItems = leftBarItems;
-        self.navigationItem.rightBarButtonItems = rightBarItems;
-    }
-}
-
-
-- (void)setToolbarButtonInsets
-{
-    if (!self.navigationController.navigationBarHidden) {
-        UIUserInterfaceSizeClass currentVerticalSizeClass = self.traitCollection.verticalSizeClass;
-        if (currentVerticalSizeClass == UIUserInterfaceSizeClassCompact || currentVerticalSizeClass == UIUserInterfaceSizeClassUnspecified) {
-            [toolbarBackButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-            [toolbarForwardButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-            [toolbarReloadButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-        } else {
-            [toolbarBackButton setImageInsets:UIEdgeInsetsMake(6, 0, -6, 0)];
-            [toolbarForwardButton setImageInsets:UIEdgeInsetsMake(6, 0, -6, 0)];
-            [toolbarReloadButton setImageInsets:UIEdgeInsetsMake(6, 0, -6, 0)];
-        }
-    }
 }
 
 
@@ -2255,7 +2189,6 @@ static NSMutableSet *browserWindowControllers;
                                                                   target:self
                                                                   action:@selector(reload)];
             
-            [toolbarReloadButton setImageInsets:UIEdgeInsetsMake(6, 0, -6, 0)];
             self.navigationItem.rightBarButtonItem = toolbarReloadButton;
         }
         // Activate reload buttons in dock and slider
