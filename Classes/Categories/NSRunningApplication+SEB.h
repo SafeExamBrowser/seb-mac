@@ -35,6 +35,6 @@
 
 @interface NSRunningApplication (SEB)
 
-- (void)kill;
+- (NSInteger)kill;
 
 @end

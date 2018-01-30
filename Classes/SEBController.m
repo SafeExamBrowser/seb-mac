@@ -2146,7 +2146,6 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         // Yes: We assume it's the app which switched the space and force terminate it!
         DDLogError(@"An app was started and switched the Space. SEB will force terminate it! (app localized name: %@, executable URL: %@)", [launchedApplication localizedName], [launchedApplication executableURL]);
         [self performSelector:@selector(killApplication:) withObject:launchedApplication afterDelay:1];
-        //[launchedApplication kill];
         launchedApplication = nil;
     }
 }

@@ -38,9 +38,9 @@
 @implementation NSRunningApplication (SEB)
 
 
-- (void)kill
+- (NSInteger)kill
 {
-    kill([self processIdentifier], 9);
+    return (NSInteger)kill([self processIdentifier], 9);
 }
 
 
