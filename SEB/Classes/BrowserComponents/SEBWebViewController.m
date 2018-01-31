@@ -55,7 +55,9 @@
     if (!_sebWebView) {
         _sebWebView = [[UIWebView alloc] initWithFrame:webFrame];
     }
-    _sebWebView.backgroundColor = [UIColor lightGrayColor];
+    
+    _sebWebView.backgroundColor = ([[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] == mobileStatusBarAppearanceLight ? [UIColor blackColor] : [UIColor whiteColor]);
+    
     _sebWebView.scalesPageToFit = YES;
     _sebWebView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     _sebWebView.scrollView.scrollEnabled = YES;

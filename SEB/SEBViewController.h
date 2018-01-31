@@ -144,6 +144,7 @@
 
 @property (strong, nonatomic) UIView *coveringView;
 @property (strong, nonatomic) UIView *statusBarView;
+@property (strong, nonatomic) UIView *toolBarView;
 @property (strong, nonatomic) NSArray *dockItems;
 
 @property(readwrite) BOOL quittingClientConfig;

@@ -120,10 +120,10 @@
     // Begin listening for changes to our preferences when the Settings app does
     // so, when we are resumed from the backround, this will give us a chance to
     // update our UI
-    //    [[NSNotificationCenter defaultCenter] addObserver:self
-    //                                             selector:@selector(onDefaultsChanged:)
-    //                                                 name:NSUserDefaultsDidChangeNotification
-    //                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(onDefaultsChanged:)
+//                                                 name:NSUserDefaultsDidChangeNotification
+//                                               object:nil];
 
     // If a shortcut was launched, display its information and take the appropriate action
     UIApplicationShortcutItem *shortcutItem = [launchOptions objectForKeyedSubscript:UIApplicationLaunchOptionsShortcutItemKey];
