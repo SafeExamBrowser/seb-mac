@@ -124,11 +124,11 @@
                                 <exclude reference="4Cf-TB-bgy"/>
                                 <exclude reference="KDY-3t-mkg"/>
                                 <exclude reference="zI1-ak-deL"/>
+                                <exclude reference="XgE-rC-Fgh"/>
                                 <exclude reference="TmR-fM-hvc"/>
                                 <exclude reference="Tta-fx-jYS"/>
                                 <exclude reference="cZC-Wr-uvr"/>
                                 <exclude reference="xVi-47-At1"/>
-                                <exclude reference="XgE-rC-Fgh"/>
                             </mask>
                         </variation>
                     </view>
@@ -196,7 +196,7 @@
                                 <color key="sectionIndexBackgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="sectionIndexTrackingBackgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" misplaced="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WebpageCell" id="Ati-f3-XtO" customClass="SEBActionUITableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WebpageCell" id="Ati-f3-XtO" customClass="SEBActionUITableViewCell">
                                         <rect key="frame" x="0.0" y="22" width="375" height="33"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" autoresizesSubviews="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ati-f3-XtO" id="ghO-1C-TKs">
@@ -234,7 +234,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" misplaced="YES" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CommandCell" id="IIu-gY-Wy3" customClass="SEBActionUITableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CommandCell" id="IIu-gY-Wy3" customClass="SEBActionUITableViewCell">
                                         <rect key="frame" x="0.0" y="55" width="375" height="33"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" autoresizesSubviews="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IIu-gY-Wy3" id="GOz-5x-upb">
@@ -294,8 +294,8 @@
                         <viewLayoutGuide key="safeArea" id="u9M-DG-nHJ"/>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="ODx-Wd-YgI"/>
                                 <exclude reference="Ppo-qu-mXY"/>
+                                <exclude reference="ODx-Wd-YgI"/>
                             </mask>
                         </variation>
                     </view>
@@ -319,47 +319,18 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <containerView multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h56-rn-gda">
-                                <rect key="frame" x="0.0" y="76" width="375" height="736"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <segue destination="r54-Dr-aZy" kind="embed" identifier="WebViewController" id="o7m-aL-pHo"/>
                                 </connections>
                             </containerView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h6o-aO-zWn" userLabel="NavBar">
-                                <rect key="frame" x="0.0" y="44" width="375" height="32"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhr-Qj-nas">
-                                        <rect key="frame" x="166" y="5.6666666666666643" width="42" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="Dyw-x1-YQ1"/>
-                                    <constraint firstItem="dhr-Qj-nas" firstAttribute="centerY" secondItem="h6o-aO-zWn" secondAttribute="centerY" id="k45-S0-GEW"/>
-                                    <constraint firstItem="dhr-Qj-nas" firstAttribute="centerX" secondItem="h6o-aO-zWn" secondAttribute="centerX" id="vhr-1C-hLb"/>
-                                </constraints>
-                                <viewLayoutGuide key="safeArea" id="ghE-3Z-enP"/>
-                            </view>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ttJ-w5-08c" userLabel="NavBarBackground">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="ttJ-w5-08c" firstAttribute="leading" secondItem="dca-zC-5bL" secondAttribute="leading" id="0a5-z3-RWZ"/>
-                            <constraint firstItem="h6o-aO-zWn" firstAttribute="top" secondItem="ICe-hN-vhB" secondAttribute="top" id="2sh-UW-Wib"/>
-                            <constraint firstItem="h6o-aO-zWn" firstAttribute="trailing" secondItem="ICe-hN-vhB" secondAttribute="trailing" id="33A-GO-ZMV"/>
-                            <constraint firstItem="h56-rn-gda" firstAttribute="top" secondItem="h6o-aO-zWn" secondAttribute="bottom" identifier="containerTopContraint" id="3sc-Ae-4k9"/>
-                            <constraint firstItem="ttJ-w5-08c" firstAttribute="top" secondItem="dca-zC-5bL" secondAttribute="top" id="6ZS-Ur-n0y"/>
-                            <constraint firstItem="h6o-aO-zWn" firstAttribute="leading" secondItem="ICe-hN-vhB" secondAttribute="leading" id="IPp-UW-xYp"/>
-                            <constraint firstItem="ttJ-w5-08c" firstAttribute="trailing" secondItem="dca-zC-5bL" secondAttribute="trailing" id="Jc6-Wz-ojc"/>
+                            <constraint firstItem="h56-rn-gda" firstAttribute="top" secondItem="dca-zC-5bL" secondAttribute="top" id="YaN-u4-kby"/>
                             <constraint firstItem="h56-rn-gda" firstAttribute="leading" secondItem="ICe-hN-vhB" secondAttribute="leading" id="fh2-Fn-Yc2"/>
                             <constraint firstAttribute="bottom" secondItem="h56-rn-gda" secondAttribute="bottom" id="wF0-Kc-wEv"/>
-                            <constraint firstItem="h6o-aO-zWn" firstAttribute="bottom" secondItem="ttJ-w5-08c" secondAttribute="bottom" id="wgl-Gl-DVH"/>
                             <constraint firstItem="ICe-hN-vhB" firstAttribute="trailing" secondItem="h56-rn-gda" secondAttribute="trailing" id="xrL-TG-R2p"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ICe-hN-vhB"/>
@@ -367,7 +338,6 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="FWQ-b1-9pU"/>
                     <connections>
-                        <outlet property="containerTopContraint" destination="3sc-Ae-4k9" id="fvY-Nj-d0S"/>
                         <outlet property="containerView" destination="h56-rn-gda" id="bIU-es-c1T"/>
                     </connections>
                 </viewController>
@@ -404,7 +374,7 @@
             <objects>
                 <viewController storyboardIdentifier="WebPageViewController" title="SEB Browser Tab View Controller" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="r54-Dr-aZy" customClass="SEBBrowserTabViewController" sceneMemberID="viewController">
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="BAX-6j-zcF">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="nAz-Ws-BSI"/>
