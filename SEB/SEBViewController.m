@@ -84,7 +84,11 @@ static NSMutableSet *browserWindowControllers;
             QRCodeReader *codeReader = [QRCodeReader readerWithMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]];
             
             // Instantiate the view controller
-            _codeReaderViewController = [QRCodeReaderViewController readerWithCancelButtonTitle:NSLocalizedString(@"Cancel", nil) codeReader:codeReader startScanningAtLoad:YES showSwitchCameraButton:NO showTorchButton:YES];
+            _codeReaderViewController = [QRCodeReaderViewController readerWithCancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                                                                     codeReader:codeReader
+                                                                            startScanningAtLoad:YES
+                                                                         showSwitchCameraButton:NO
+                                                                                showTorchButton:YES];
             
             // Set the presentation style
             _codeReaderViewController.modalPresentationStyle = UIModalPresentationFormSheet;
@@ -1095,48 +1099,80 @@ void run_on_ui_thread(dispatch_block_t block)
                 UIWindow *window = UIApplication.sharedApplication.keyWindow;
                 CGFloat bottomPadding = window.safeAreaInsets.bottom;
                 if (bottomPadding != 0) {
-                    self.navigationController.toolbar.barTintColor = [UIColor clearColor];
-                    self.navigationController.toolbar.translucent = true;
+//                    self.navigationController.toolbar.barTintColor = [UIColor clearColor];
+                    [self.navigationController.toolbar setBackgroundImage:[UIImage new] forToolbarPosition:UIBarPositionBottom barMetrics:UIBarMetricsDefault];
+                    [self.navigationController.toolbar setShadowImage:[UIImage new] forToolbarPosition:UIBarPositionBottom];
+                    self.navigationController.toolbar.translucent = YES;
                     
                     _toolBarView = [UIView new];
                     [_toolBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
                     [self.view addSubview:_toolBarView];
                     
-                    NSDictionary *viewsDictionary = @{@"statusBarView" : _toolBarView,
-                                                      @"containerView" : _containerView};
+                    _bottomBackgroundView = [UIView new];
+                    [_bottomBackgroundView setTranslatesAutoresizingMaskIntoConstraints:NO];
+                    [self.view addSubview:_bottomBackgroundView];
                     
-                    _containerTopContraint.active = false;
-                    NSArray *constraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[statusBarView]-0-|"
+                    NSDictionary *viewsDictionary = @{@"toolBarView" : _toolBarView,
+                                                      @"bottomBackgroundView" : _bottomBackgroundView,
+                                                      @"containerView" : _containerView};
+
+                    
+//                    _containerTopContraint.active = false;
+                    NSArray *constraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[toolBarView]-0-|"
                                                                                      options: 0
                                                                                      metrics: nil
                                                                                        views: viewsDictionary];
-                    NSArray *constraints_V;
-                    if (@available(iOS 11.0, *)) {
-                        NSLayoutConstraint *topConstraint   = [NSLayoutConstraint constraintWithItem:_toolBarView
-                                                                                           attribute:NSLayoutAttributeTop
-                                                                                           relatedBy:NSLayoutRelationEqual
-                                                                                              toItem:_containerView
-                                                                                           attribute:NSLayoutAttributeTop
-                                                                                          multiplier:1.0
-                                                                                            constant:0];
-                        
-                        NSLayoutConstraint *bottomConstraint   = [NSLayoutConstraint constraintWithItem:_toolBarView
-                                                                                              attribute:NSLayoutAttributeBottom
-                                                                                              relatedBy:NSLayoutRelationEqual
-                                                                                                 toItem:_containerView.safeAreaLayoutGuide
-                                                                                              attribute:NSLayoutAttributeTop
-                                                                                             multiplier:1.0
-                                                                                               constant:0];
-                        
-                        constraints_V = @[topConstraint, bottomConstraint];
-                    } else {
-                        constraints_V = [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-0-[statusBarView(==20)]-0-[containerView]"
-                                                                                options: 0
-                                                                                metrics: nil
-                                                                                  views: viewsDictionary];
-                    }
+                    
+                    NSMutableArray *constraints_V = [[NSMutableArray alloc] initWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[toolBarView(==54)]"
+                                                                                                  options:0
+                                                                                                  metrics:nil
+                                                                                                    views:viewsDictionary]];
+                    
+                    [constraints_V addObject:[NSLayoutConstraint constraintWithItem:_toolBarView
+                                                                          attribute:NSLayoutAttributeTop
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:_containerView.safeAreaLayoutGuide
+                                                                          attribute:NSLayoutAttributeBottom
+                                                                         multiplier:1.0
+                                                                           constant:0]];
+                    
+                    [constraints_V addObject:[NSLayoutConstraint constraintWithItem:_toolBarView
+                                                                          attribute:NSLayoutAttributeBottom
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:_bottomBackgroundView
+                                                                          attribute:NSLayoutAttributeTop
+                                                                         multiplier:1.0
+                                                                           constant:0]];
+                    
+                    [constraints_V addObject:[NSLayoutConstraint constraintWithItem:_bottomBackgroundView
+                                                                          attribute:NSLayoutAttributeBottom
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:_containerView
+                                                                          attribute:NSLayoutAttributeBottom
+                                                                         multiplier:1.0
+                                                                           constant:0]];
+                    
                     [self.view addConstraints:constraints_H];
-                    [self.view addConstraints:constraints_V];
+                    [self.view addConstraints:[constraints_V copy]];
+
+                    _toolBarView.backgroundColor = [UIColor lightGrayColor];
+                    _toolBarView.hidden = false;
+
+                    constraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[bottomBackgroundView]-0-|"
+                                                                                     options: 0
+                                                                                     metrics: nil
+                                                                                       views: viewsDictionary];
+
+//                    NSArray *bBV_constraints_V = [NSLayoutConstraint constraintsWithVisualFormat: @"V:[toolBarView]-0-[bottomBackgroundView]-0-[containerView]"
+//                                                                            options: 0
+//                                                                            metrics: nil
+//                                                                              views: viewsDictionary];
+//
+                    [self.view addConstraints:constraints_H];
+//                    [self.view addConstraints:bBV_constraints_V];
+//
+                    _bottomBackgroundView.backgroundColor = (statusBarAppearance == mobileStatusBarAppearanceLight ? [UIColor blackColor] : [UIColor whiteColor]);
+                    _bottomBackgroundView.hidden = false;
                 }
             }
 
