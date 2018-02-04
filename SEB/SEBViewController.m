@@ -233,6 +233,17 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+{
+    [super traitCollectionDidChange: previousTraitCollection];
+
+    if (_toolBarHeightConstraint) {
+        CGFloat toolBarHeight = self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 32 : 54;
+        _toolBarHeightConstraint.constant = toolBarHeight;
+    }
+}
+
+
 #pragma mark - Handle request to reset settings
 
 - (void)conditionallyResetSettings
@@ -816,10 +827,10 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                            views: viewsDictionary];
         NSArray *constraints_V;
         if (@available(iOS 11.0, *)) {
-            NSLayoutConstraint *topConstraint   = [NSLayoutConstraint constraintWithItem:_containerView
+            NSLayoutConstraint *topConstraint   = [NSLayoutConstraint constraintWithItem:_statusBarView
                                                                                attribute:NSLayoutAttributeTop
                                                                                relatedBy:NSLayoutRelationEqual
-                                                                                  toItem:_statusBarView
+                                                                                  toItem:_containerView
                                                                                attribute:NSLayoutAttributeTop
                                                                               multiplier:1.0
                                                                                 constant:0];
@@ -1093,12 +1104,9 @@ void run_on_ui_thread(dispatch_block_t block)
             // Check if we need to customize the toolbar, because running on a device
             // like iPhone X
             if (@available(iOS 11.0, *)) {
-//                UIWindow *window = UIApplication.sharedApplication.keyWindow;
-//                CGFloat topPadding = window.safeAreaInsets.top;
-//                if (topPadding != 0) {
                 UIWindow *window = UIApplication.sharedApplication.keyWindow;
                 CGFloat bottomPadding = window.safeAreaInsets.bottom;
-                if (bottomPadding != 0) {
+                if (bottomPadding != 0 && statusBarAppearance == mobileStatusBarAppearanceLight) {
 //                    self.navigationController.toolbar.barTintColor = [UIColor clearColor];
                     [self.navigationController.toolbar setBackgroundImage:[UIImage new] forToolbarPosition:UIBarPositionBottom barMetrics:UIBarMetricsDefault];
                     [self.navigationController.toolbar setShadowImage:[UIImage new] forToolbarPosition:UIBarPositionBottom];
@@ -1115,18 +1123,36 @@ void run_on_ui_thread(dispatch_block_t block)
                     NSDictionary *viewsDictionary = @{@"toolBarView" : _toolBarView,
                                                       @"bottomBackgroundView" : _bottomBackgroundView,
                                                       @"containerView" : _containerView};
-
                     
-//                    _containerTopContraint.active = false;
-                    NSArray *constraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[toolBarView]-0-|"
-                                                                                     options: 0
-                                                                                     metrics: nil
-                                                                                       views: viewsDictionary];
+                    NSMutableArray *constraints_H = [NSMutableArray new];
                     
-                    NSMutableArray *constraints_V = [[NSMutableArray alloc] initWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[toolBarView(==54)]"
-                                                                                                  options:0
-                                                                                                  metrics:nil
-                                                                                                    views:viewsDictionary]];
+                    [constraints_H addObject:[NSLayoutConstraint constraintWithItem:_toolBarView
+                                                                          attribute:NSLayoutAttributeLeading
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:_containerView.safeAreaLayoutGuide
+                                                                          attribute:NSLayoutAttributeLeading
+                                                                         multiplier:1.0
+                                                                           constant:0]];
+                    
+                    [constraints_H addObject:[NSLayoutConstraint constraintWithItem:_toolBarView
+                                                                          attribute:NSLayoutAttributeTrailing
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:_containerView.safeAreaLayoutGuide
+                                                                          attribute:NSLayoutAttributeTrailing
+                                                                         multiplier:1.0
+                                                                           constant:0]];
+                    
+                    NSMutableArray *constraints_V = [NSMutableArray new];
+                    
+                    CGFloat toolBarHeight = self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 32 : 54;
+                    _toolBarHeightConstraint = [NSLayoutConstraint constraintWithItem:_toolBarView
+                                                                            attribute:NSLayoutAttributeHeight
+                                                                            relatedBy:NSLayoutRelationEqual
+                                                                               toItem:nil
+                                                                            attribute:NSLayoutAttributeNotAnAttribute
+                                                                           multiplier:1.0
+                                                                             constant:toolBarHeight];
+                    [constraints_V addObject: _toolBarHeightConstraint];
                     
                     [constraints_V addObject:[NSLayoutConstraint constraintWithItem:_toolBarView
                                                                           attribute:NSLayoutAttributeTop
@@ -1152,27 +1178,31 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                          multiplier:1.0
                                                                            constant:0]];
                     
-                    [self.view addConstraints:constraints_H];
-                    [self.view addConstraints:[constraints_V copy]];
+//                    [self.view addConstraints:constraints_H];
+//                    [self.view addConstraints:[constraints_V copy]];
+                    [NSLayoutConstraint activateConstraints:constraints_H];
+                    [NSLayoutConstraint activateConstraints:[constraints_V copy]];
 
                     _toolBarView.backgroundColor = [UIColor lightGrayColor];
                     _toolBarView.hidden = false;
 
-                    constraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[bottomBackgroundView]-0-|"
+                    NSArray *bottomBackgroundViewConstraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[bottomBackgroundView]-0-|"
                                                                                      options: 0
                                                                                      metrics: nil
                                                                                        views: viewsDictionary];
 
-//                    NSArray *bBV_constraints_V = [NSLayoutConstraint constraintsWithVisualFormat: @"V:[toolBarView]-0-[bottomBackgroundView]-0-[containerView]"
-//                                                                            options: 0
-//                                                                            metrics: nil
-//                                                                              views: viewsDictionary];
-//
-                    [self.view addConstraints:constraints_H];
-//                    [self.view addConstraints:bBV_constraints_V];
-//
+                    [self.view addConstraints:bottomBackgroundViewConstraints_H];
+
                     _bottomBackgroundView.backgroundColor = (statusBarAppearance == mobileStatusBarAppearanceLight ? [UIColor blackColor] : [UIColor whiteColor]);
                     _bottomBackgroundView.hidden = false;
+                    
+                    CGFloat bottomPadding = window.safeAreaInsets.bottom;
+                    CGFloat bottomMargin = window.layoutMargins.bottom;
+                    CGFloat bottomInset = self.view.superview.safeAreaInsets.bottom;
+                    NSLog(@"%f, %f, %f, ", bottomPadding, bottomMargin, bottomInset);
+
+                } else {
+                    _toolBarHeightConstraint = nil;
                 }
             }
 

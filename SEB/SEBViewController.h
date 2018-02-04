@@ -148,6 +148,8 @@
 @property (strong, nonatomic) UIView *bottomBackgroundView;
 @property (strong, nonatomic) NSArray *dockItems;
 
+@property (strong, nonatomic) NSLayoutConstraint *toolBarHeightConstraint;
+
 @property(readwrite) BOOL quittingClientConfig;
 @property(readwrite) BOOL secureMode;
 @property(readwrite) BOOL enableASAM;

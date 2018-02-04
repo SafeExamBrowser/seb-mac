@@ -103,16 +103,19 @@
     
     switch (statusBarAppearance) {
         case mobileStatusBarAppearanceNone:
+            self.view.backgroundColor = [UIColor darkGrayColor];
             _StatusBarBackgroundView.backgroundColor = [UIColor darkGrayColor];
             _SEBTitleLabel.textColor = [UIColor whiteColor];
             break;
             
         case mobileStatusBarAppearanceLight:
+            self.view.backgroundColor = [UIColor blackColor];
             _StatusBarBackgroundView.backgroundColor = [UIColor blackColor];
             _SEBTitleLabel.textColor = [UIColor whiteColor];
             break;
             
         case mobileStatusBarAppearanceDark:
+            self.view.backgroundColor = [UIColor whiteColor];
             _StatusBarBackgroundView.backgroundColor = [UIColor whiteColor];
             _SEBTitleLabel.textColor = [UIColor blackColor];
             break;
