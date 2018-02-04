@@ -955,6 +955,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                             style:UIBarButtonItemStylePlain
                                                            target:self
                                                            action:@selector(backToStart)];
+                [dockItem setLandscapeImagePhone:[UIImage imageNamed:@"SEBSliderSkipBackIcon"]];
                 [newDockItems addObject:dockItem];
                 
                 dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
@@ -977,6 +978,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                             style:UIBarButtonItemStylePlain
                                                            target:self
                                                            action:@selector(goBack)];
+                [dockItem setLandscapeImagePhone:[UIImage imageNamed:@"SEBSliderNavigateBackIcon"]];
                 dockItem.enabled = false;
                 [newDockItems addObject:dockItem];
                 dockBackButton = dockItem;
@@ -1079,6 +1081,7 @@ void run_on_ui_thread(dispatch_block_t block)
         // Add Quit button
         dockIcon = [UIImage imageNamed:@"SEBShutDownIcon"];
         dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(quitExamConditionally)];
+        [dockItem setLandscapeImagePhone:[UIImage imageNamed:@"SEBSliderShutDownIcon"]];
         [newDockItems addObject:dockItem];
         
         dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
