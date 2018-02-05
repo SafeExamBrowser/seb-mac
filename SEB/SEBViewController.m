@@ -1109,7 +1109,10 @@ void run_on_ui_thread(dispatch_block_t block)
             if (@available(iOS 11.0, *)) {
                 UIWindow *window = UIApplication.sharedApplication.keyWindow;
                 CGFloat bottomPadding = window.safeAreaInsets.bottom;
-                if (bottomPadding != 0 && statusBarAppearance == mobileStatusBarAppearanceLight) {
+                if (bottomPadding != 0 &&
+                    ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] && 
+                    (statusBarAppearance == mobileStatusBarAppearanceLight ||
+                     statusBarAppearance == mobileStatusBarAppearanceDark)) {
 //                    self.navigationController.toolbar.barTintColor = [UIColor clearColor];
                     [self.navigationController.toolbar setBackgroundImage:[UIImage new] forToolbarPosition:UIBarPositionBottom barMetrics:UIBarMetricsDefault];
                     [self.navigationController.toolbar setShadowImage:[UIImage new] forToolbarPosition:UIBarPositionBottom];

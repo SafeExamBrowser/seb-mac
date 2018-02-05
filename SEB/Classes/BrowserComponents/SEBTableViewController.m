@@ -93,14 +93,15 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) viewWillAppear:(BOOL)animated {
+- (void) viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
+
     AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     _webpagesArray = [appDelegate.persistentWebpages mutableCopy];
+    _commandItems = appDelegate.leftSliderCommands;
 
     NSUInteger statusBarAppearance = appDelegate.statusBarAppearance;
-    _commandItems = appDelegate.leftSliderCommands;
-    
     switch (statusBarAppearance) {
         case mobileStatusBarAppearanceNone:
             self.view.backgroundColor = [UIColor darkGrayColor];
@@ -115,9 +116,9 @@
             break;
             
         case mobileStatusBarAppearanceDark:
-            self.view.backgroundColor = [UIColor whiteColor];
-            _StatusBarBackgroundView.backgroundColor = [UIColor whiteColor];
-            _SEBTitleLabel.textColor = [UIColor blackColor];
+            self.view.backgroundColor = [UIColor darkGrayColor];
+            _StatusBarBackgroundView.backgroundColor = [UIColor darkGrayColor];
+            _SEBTitleLabel.textColor = [UIColor whiteColor];
             break;
             
         default:
