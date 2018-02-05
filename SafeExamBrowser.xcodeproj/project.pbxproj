@@ -619,6 +619,7 @@
 		691018D01CF1EA8300AB8803 /* SEBDockIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBDockIcon@3x.png"; path = "Resources/Icons/Dock/SEBDockIcon@3x.png"; sourceTree = "<group>"; };
 		691018D51CF26A9C00AB8803 /* SEBReloadIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBReloadIcon@2x.png"; path = "Resources/Icons/Dock/SEBReloadIcon@2x.png"; sourceTree = "<group>"; };
 		691018D61CF26A9C00AB8803 /* SEBReloadIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBReloadIcon.png; path = Resources/Icons/Dock/SEBReloadIcon.png; sourceTree = "<group>"; };
+		6910F530202900980054ECA6 /* SEB copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SEB copy-Info.plist"; path = "/Users/drs/developer/SafeExamBrowser-ARC/SEB-iOS/SEB copy-Info.plist"; sourceTree = "<absolute>"; };
 		6913E5C21A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTextFieldNilToEmptyStringTransformer.h; sourceTree = "<group>"; };
 		6913E5C31A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTextFieldNilToEmptyStringTransformer.m; sourceTree = "<group>"; };
 		6915F2E719C8F77600DAEA37 /* SEBDockWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockWindow.h; path = Classes/SEBDock/SEBDockWindow.h; sourceTree = "<group>"; };
@@ -1100,6 +1101,7 @@
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				69BA05A91D57E4C200C07C4F /* Recovered References */,
 				4F7957D674BE468F1FD09857 /* Pods */,
+				6910F530202900980054ECA6 /* SEB copy-Info.plist */,
 			);
 			name = SEB;
 			sourceTree = "<group>";
@@ -2108,7 +2110,7 @@
 					6940B9651BA0F2FB008C8CFC = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = 6F38DNSC7X;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					6940B9801BA0F2FB008C8CFC = {
 						CreatedOnToolsVersion = 7.1;
@@ -2956,10 +2958,11 @@
 				CODE_SIGN_ENTITLEMENTS = SEB/Resources/SEB.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 11057;
+				CURRENT_PROJECT_VERSION = 11070;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 6F38DNSC7X;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2990,8 +2993,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.ios.seb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "91bc4b2d-4722-4e73-b918-3500ab38e1b9";
-				PROVISIONING_PROFILE_SPECIFIER = "XC Wildcard Edu Assessment";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -3022,10 +3025,11 @@
 				CODE_SIGN_ENTITLEMENTS = SEB/Resources/SEB.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 11057;
+				CURRENT_PROJECT_VERSION = 11070;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 9Z623UDZ5L;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3051,8 +3055,8 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.ios.seb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1580f87e-6ad7-4a57-810a-a43c3655db6d";
-				PROVISIONING_PROFILE_SPECIFIER = ETHZ_SEB_EDU_Assessment;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -3357,7 +3361,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 11057;
+				CURRENT_PROJECT_VERSION = 11070;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -3395,7 +3399,7 @@
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 11057;
+				CURRENT_PROJECT_VERSION = 11070;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3444,7 +3448,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 11057;
+				CURRENT_PROJECT_VERSION = 11070;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3490,7 +3494,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 11057;
+				CURRENT_PROJECT_VERSION = 11070;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
