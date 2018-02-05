@@ -188,7 +188,7 @@
                                 </constraints>
                             </view>
                             <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="33" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="yZU-Q0-ht8">
-                                <rect key="frame" x="0.0" y="64" width="375" height="714"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="700"/>
                                 <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <viewLayoutGuide key="safeArea" id="09Z-pA-jDI"/>
                                 <inset key="separatorInset" minX="33" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -231,8 +231,10 @@
                                                 <constraint firstItem="aA9-gn-PKl" firstAttribute="leading" secondItem="8n2-VP-KRt" secondAttribute="trailing" id="pXA-7T-Au5"/>
                                                 <constraint firstItem="aA9-gn-PKl" firstAttribute="top" secondItem="ghO-1C-TKs" secondAttribute="top" constant="3" id="pmE-In-VeJ"/>
                                             </constraints>
+                                            <viewLayoutGuide key="safeArea" id="cuZ-fv-SOF"/>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <viewLayoutGuide key="safeArea" id="hjb-fJ-KQz"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CommandCell" id="IIu-gY-Wy3" customClass="SEBActionUITableViewCell">
                                         <rect key="frame" x="0.0" y="55" width="375" height="33"/>
@@ -271,6 +273,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <viewLayoutGuide key="safeArea" id="l8R-XI-TFy"/>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -288,7 +291,7 @@
                             <constraint firstItem="yZU-Q0-ht8" firstAttribute="top" secondItem="89q-Ri-gFf" secondAttribute="top" id="ODx-Wd-YgI"/>
                             <constraint firstItem="qWE-7B-Tda" firstAttribute="bottom" secondItem="Akj-nl-a50" secondAttribute="bottom" id="Ppo-qu-mXY"/>
                             <constraint firstItem="Akj-nl-a50" firstAttribute="top" secondItem="qWE-7B-Tda" secondAttribute="top" id="VkA-yv-Ali"/>
-                            <constraint firstItem="yZU-Q0-ht8" firstAttribute="bottom" secondItem="qWE-7B-Tda" secondAttribute="bottom" id="fFM-Gb-YLu"/>
+                            <constraint firstItem="yZU-Q0-ht8" firstAttribute="bottom" secondItem="qWE-7B-Tda" secondAttribute="bottom" constant="-14" id="fFM-Gb-YLu"/>
                             <constraint firstItem="yZU-Q0-ht8" firstAttribute="top" secondItem="Akj-nl-a50" secondAttribute="bottom" id="kya-Ev-PS8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qWE-7B-Tda"/>
