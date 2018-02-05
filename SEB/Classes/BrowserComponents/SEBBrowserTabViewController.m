@@ -69,15 +69,15 @@
 }
 
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
+//- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+//{
     // Adjust scroll position so top of webpage is below the navigation bar
 //    CGFloat navBarHeight = self.navigationController.navigationBar.frame.size.height;
 //    CGFloat toolBarHeight = self.navigationController.toolbar.frame.size.height;
 //    [self.visibleWebView.scrollView setContentInset:UIEdgeInsetsMake(navBarHeight, 0, toolBarHeight, 0)];
 //    [self.visibleWebView.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(navBarHeight, 0, toolBarHeight, 0)];
 //    [self.visibleWebView.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
-}
+//}
 
 
 - (void)viewDidLoad
