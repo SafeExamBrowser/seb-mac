@@ -346,22 +346,14 @@ static NSString *MMDrawerOpenSideKey = @"MMDrawerOpenSide";
         }
         
         if(sideDrawerViewController){
-//            CGRect newFrame = self.centerContainerView.frame;
-            UIWindow *window = UIApplication.sharedApplication.keyWindow;
-            CGRect newFrame = window.frame;
-            if (@available(iOS 11.0, *)) {
-                UIEdgeInsets safeAreaInsets;
-                safeAreaInsets = window.safeAreaInsets;
-                newFrame = CGRectMake(newFrame.origin.x+safeAreaInsets.left,
-                                      newFrame.origin.y+safeAreaInsets.top,
-                                      newFrame.size.width-safeAreaInsets.left-safeAreaInsets.right, newFrame.size.height-safeAreaInsets.top-safeAreaInsets.bottom);
-            }
+            CGRect newFrame;
             CGRect oldFrame = self.centerContainerView.frame;
-//            CGRect oldFrame = newFrame;
             if(drawerSide == MMDrawerSideLeft){
+                newFrame = self.centerContainerView.frame;
                 newFrame.origin.x = self.maximumLeftDrawerWidth;
             }
             else {
+                newFrame = self.centerContainerView.frame;
                 newFrame.origin.x = 0-self.maximumRightDrawerWidth;
             }
             
@@ -463,7 +455,21 @@ static NSString *MMDrawerOpenSideKey = @"MMDrawerOpenSide";
     }
   
     BOOL forwardAppearanceMethodsToCenterViewController = ([self.centerViewController isEqual:newCenterViewController] == NO);
+
+    UIViewController * oldCenterViewController = self.centerViewController;
+    // This is related to issue 363 (https://github.com/novkostya/MMDrawerController/pull/363)
+    // This needs to be refactored so the appearance logic is easier
+    // to follow across the multiple close/setter methods
+    if (animated && forwardAppearanceMethodsToCenterViewController) {
+        [oldCenterViewController beginAppearanceTransition:NO animated:NO];
+    }
+    
     [self setCenterViewController:newCenterViewController animated:animated];
+    
+    // Related to note above.
+    if (animated && forwardAppearanceMethodsToCenterViewController) {
+        [oldCenterViewController endAppearanceTransition];
+    }
     
     if(animated){
         [self updateDrawerVisualStateForDrawerSide:self.openSide percentVisible:1.0];
@@ -630,7 +636,7 @@ static NSString *MMDrawerOpenSideKey = @"MMDrawerOpenSide";
 #pragma mark - Bounce Methods
 -(void)bouncePreviewForDrawerSide:(MMDrawerSide)drawerSide completion:(void(^)(BOOL finished))completion{
     NSParameterAssert(drawerSide!=MMDrawerSideNone);
-    [self bouncePreviewForDrawerSide:drawerSide distance:MMDrawerDefaultBounceDistance completion:nil];
+    [self bouncePreviewForDrawerSide:drawerSide distance:MMDrawerDefaultBounceDistance completion:completion];
 }
 
 -(void)bouncePreviewForDrawerSide:(MMDrawerSide)drawerSide distance:(CGFloat)distance completion:(void(^)(BOOL finished))completion{
