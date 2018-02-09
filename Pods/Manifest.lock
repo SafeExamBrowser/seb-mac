@@ -24,14 +24,26 @@ PODS:
 
 DEPENDENCIES:
   - CocoaLumberjack
-  - InAppSettingsKit
-  - MMDrawerController
+  - InAppSettingsKit (from `https://github.com/futuretap/InAppSettingsKit.git`)
+  - MMDrawerController (from `https://github.com/mutualmobile/MMDrawerController.git`)
   - MMDrawerController-Storyboard (from `https://raw.github.com/TomSwift/MMDrawerController-Storyboard/1.0.0/MMDrawerController-Storyboard.podspec`)
   - QRCodeReaderViewController (~> 4.0.2)
 
 EXTERNAL SOURCES:
+  InAppSettingsKit:
+    :git: https://github.com/futuretap/InAppSettingsKit.git
+  MMDrawerController:
+    :git: https://github.com/mutualmobile/MMDrawerController.git
   MMDrawerController-Storyboard:
     :podspec: https://raw.github.com/TomSwift/MMDrawerController-Storyboard/1.0.0/MMDrawerController-Storyboard.podspec
+
+CHECKOUT OPTIONS:
+  InAppSettingsKit:
+    :commit: 303b856953a8c90d98a3b9cbd24352631c25cb28
+    :git: https://github.com/futuretap/InAppSettingsKit.git
+  MMDrawerController:
+    :commit: 08b153860e26ddbe6b8906909fb30e32c670a9f4
+    :git: https://github.com/mutualmobile/MMDrawerController.git
 
 SPEC CHECKSUMS:
   CocoaLumberjack: 3c8c74683302f9012bb168e1c4b7ae3c0b558431
@@ -40,6 +52,6 @@ SPEC CHECKSUMS:
   MMDrawerController-Storyboard: 89a38d3c39816bc97de73d3b5bcbba04d5345acd
   QRCodeReaderViewController: e8f27d035b3e72b1d4b1c61ff66458287e3be0ff
 
-PODFILE CHECKSUM: d60d153670defb40769d66b08a7e64036b00c49c
+PODFILE CHECKSUM: 7f39a23f8e001ec2b4ff4baf01ed47a9e4b08f0c
 
 COCOAPODS: 1.4.0
