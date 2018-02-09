@@ -223,11 +223,12 @@ As an alternative to `IASKViewControllerClass` and `IASKViewControllerSelector` 
 Subtitles
 ---------
 The `IASKSubtitle` key allows to define subtitles for these elements: Toggle, ChildPane, OpenURL, MailCompose, Button. Using a subtitle implies left alignment.
+A child pane displays its value as a subtitle, if available and no `IASKSubtitle` is specified.
 
 
 Placeholder
 --------------
-The `IASKPlaceholder` key allows to define plcaholer for TextField.
+The `IASKPlaceholder` key allows to define placeholder for TextField and TextView (`IASKTextViewSpecifier`).
 
 
 Text alignment
@@ -248,6 +249,18 @@ To disable this behavior, add a `IASKAdjustsFontSizeToFitWidth` Boolean attribut
 Icons
 -----
 All element types (except sliders which already have a `MinimumValueImage`) support an icon image on the left side of the cell. You can specify the image name in an optional `IASKCellImage` attribute. The ".png" or "@2x.png" suffix is automatically appended and will be searched in the project. Optionally, you can add an image with suffix "Highlighted.png" or "Highlighted@2x.png" to the project and it will be automatically used as a highlight image when the cell is selected (for Buttons and ChildPanes).
+
+
+MultiValue Lists
+----------------
+MultiValue lists (`PSMultiValueSpecifier`) can fetch their values and titles dynamically from the delegate instead of the static Plist. Implement these two methods in your `IASKSettingsDelegate`:
+
+    - (NSArray*)settingsViewController:(IASKAppSettingsViewController*)sender valuesForSpecifier:(IASKSpecifier*)specifier;
+    - (NSArray*)settingsViewController:(IASKAppSettingsViewController*)sender titlesForSpecifier:(IASKSpecifier*)specifier;
+
+The sample app returns a list of all country codes as values and the localized country names as titles.
+
+MultiValue lists can be sorted alphabetically by adding a `true` Boolean `DisplaySortedByTitle` key in the Plist.
 
 
 Settings Storage
@@ -277,6 +290,10 @@ See the sample app for more details. Note that InAppSettingsKit uses Settings sc
 More information
 ----------------
 In the [Dr. Touch podcast](http://www.drobnik.com/touch/2010/01/dr-touch-010-a-new-decade/) and the [MDN Show Episode 027](http://itunes.apple.com/us/podcast/the-mdn-show/id318584787) [Ortwin Gentz](http://twitter.com/ortwingentz) talks about InAppSettingsKit.
+
+Support
+=======
+Please don't use Github issues for support requests, we'll close them. Instead, post your question on [StackOverflow](http://stackoverflow.com) with tag `inappsettingskit`.
 
 The License
 ===========
