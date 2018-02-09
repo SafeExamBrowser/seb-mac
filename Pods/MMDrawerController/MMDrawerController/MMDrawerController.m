@@ -346,14 +346,22 @@ static NSString *MMDrawerOpenSideKey = @"MMDrawerOpenSide";
         }
         
         if(sideDrawerViewController){
-            CGRect newFrame;
+//            CGRect newFrame = self.centerContainerView.frame;
+            UIWindow *window = UIApplication.sharedApplication.keyWindow;
+            CGRect newFrame = window.frame;
+            if (@available(iOS 11.0, *)) {
+                UIEdgeInsets safeAreaInsets;
+                safeAreaInsets = window.safeAreaInsets;
+                newFrame = CGRectMake(newFrame.origin.x+safeAreaInsets.left,
+                                      newFrame.origin.y+safeAreaInsets.top,
+                                      newFrame.size.width-safeAreaInsets.left-safeAreaInsets.right, newFrame.size.height-safeAreaInsets.top-safeAreaInsets.bottom);
+            }
             CGRect oldFrame = self.centerContainerView.frame;
+//            CGRect oldFrame = newFrame;
             if(drawerSide == MMDrawerSideLeft){
-                newFrame = self.centerContainerView.frame;
                 newFrame.origin.x = self.maximumLeftDrawerWidth;
             }
             else {
-                newFrame = self.centerContainerView.frame;
                 newFrame.origin.x = 0-self.maximumRightDrawerWidth;
             }
             
