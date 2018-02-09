@@ -1,13 +1,11 @@
 PODS:
-  - CocoaLumberjack (2.3.0):
-    - CocoaLumberjack/Default (= 2.3.0)
-    - CocoaLumberjack/Extensions (= 2.3.0)
-  - CocoaLumberjack/Core (2.3.0)
-  - CocoaLumberjack/Default (2.3.0):
-    - CocoaLumberjack/Core
-  - CocoaLumberjack/Extensions (2.3.0):
+  - CocoaLumberjack (3.3.0):
+    - CocoaLumberjack/Default (= 3.3.0)
+    - CocoaLumberjack/Extensions (= 3.3.0)
+  - CocoaLumberjack/Default (3.3.0)
+  - CocoaLumberjack/Extensions (3.3.0):
     - CocoaLumberjack/Default
-  - InAppSettingsKit (2.8.1)
+  - InAppSettingsKit (2.9)
   - MMDrawerController (0.6.0):
     - MMDrawerController/Core (= 0.6.0)
     - MMDrawerController/MMDrawerBarButtonItem (= 0.6.0)
@@ -36,12 +34,12 @@ EXTERNAL SOURCES:
     :podspec: https://raw.github.com/TomSwift/MMDrawerController-Storyboard/1.0.0/MMDrawerController-Storyboard.podspec
 
 SPEC CHECKSUMS:
-  CocoaLumberjack: 97fab7ee5f507fe54445cca7ea80f926729cfd15
-  InAppSettingsKit: 94d2fba3ccd700fc4e32c6d09fabcc0af2426744
+  CocoaLumberjack: 3c8c74683302f9012bb168e1c4b7ae3c0b558431
+  InAppSettingsKit: fc3dea21846535b76b8289b119dbfdbe2505b2b2
   MMDrawerController: e3a54a5570388463ad3b36975251575b50c4e1a0
   MMDrawerController-Storyboard: 89a38d3c39816bc97de73d3b5bcbba04d5345acd
   QRCodeReaderViewController: e8f27d035b3e72b1d4b1c61ff66458287e3be0ff
 
 PODFILE CHECKSUM: d60d153670defb40769d66b08a7e64036b00c49c
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.4.0
