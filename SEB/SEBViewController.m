@@ -427,7 +427,7 @@ static NSMutableSet *browserWindowControllers;
     if (!_scannedQRCode) {
         _scannedQRCode = true;
         [_visibleCodeReaderViewController dismissViewControllerAnimated:YES completion:^{
-            [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+            [self.sideMenuController hideLeftViewAnimated];
             DDLogInfo(@"Scanned QR code: %@", result);
             NSURL *URLFromString = [NSURL URLWithString:result];
             if (URLFromString) {
@@ -443,7 +443,7 @@ static NSMutableSet *browserWindowControllers;
 - (void)readerDidCancel:(QRCodeReaderViewController *)reader
 {
     [_visibleCodeReaderViewController dismissViewControllerAnimated:YES completion:^{
-        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+        [self.sideMenuController hideLeftViewAnimated];
     }];
 }
 
@@ -490,7 +490,7 @@ static NSMutableSet *browserWindowControllers;
     // Check if the cancel button was pressed
     if (!password) {
         // Continue SEB without displaying settings
-        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+        [self.sideMenuController hideLeftViewAnimated];
         if (!_finishedStartingUp) {
             [self conditionallyStartKioskMode];
         }
@@ -520,7 +520,7 @@ static NSMutableSet *browserWindowControllers;
             [self.configFileController showAlertWithTitle:title andText:informativeText];
             
             // Continue SEB without displaying settings
-            [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+            [self.sideMenuController hideLeftViewAnimated];
             if (!_finishedStartingUp) {
                 [self conditionallyStartKioskMode];
             }
@@ -560,7 +560,7 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)showAboutSEB
 {
-    [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+    [self.sideMenuController hideLeftViewAnimated];
 
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     _aboutSEBViewController = [storyboard instantiateViewControllerWithIdentifier:@"AboutSEBView"];
@@ -1494,7 +1494,7 @@ void run_on_ui_thread(dispatch_block_t block)
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                                                              _alertController = nil;
-                                                             [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+                                                             [self.sideMenuController hideLeftViewAnimated];
                                                          }]];
     
     [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
@@ -1505,7 +1505,7 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     // Check if the cancel button was pressed
     if (!password) {
-        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+        [self.sideMenuController hideLeftViewAnimated];
         return;
     }
     
@@ -1539,7 +1539,7 @@ void run_on_ui_thread(dispatch_block_t block)
             NSString *title = NSLocalizedString(@"Cannot Quit Session", nil);
             NSString *informativeText = NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit the session.", nil);
             [self.configFileController showAlertWithTitle:title andText:informativeText];
-            [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+            [self.sideMenuController hideLeftViewAnimated];
             return;
         }
         
@@ -1566,7 +1566,7 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) restartExam:(BOOL)quitting
 {
     // Close the left slider view if it was open
-    [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+    [self.sideMenuController hideLeftViewAnimated];
     
     // Close browser tabs and reset browser session
     [self resetSEB];
@@ -2132,7 +2132,7 @@ void run_on_ui_thread(dispatch_block_t block)
 #pragma mark - SEB Dock and left slider button handler
 
 -(void)leftDrawerButtonPress:(id)sender{
-    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+    [self.sideMenuController showLeftViewAnimated];
 }
 
 
@@ -2163,11 +2163,11 @@ void run_on_ui_thread(dispatch_block_t block)
             action1Title:NSLocalizedString(@"OK", nil)
           action1Handler:^{
               [_browserTabViewController backToStart];
-              [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+              [self.sideMenuController hideLeftViewAnimated];
           }
             action2Title:NSLocalizedString(@"Cancel", nil)
           action2Handler:^{
-              [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+              [self.sideMenuController hideLeftViewAnimated];
           }];
 }
 
@@ -2203,7 +2203,7 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     // Check if the cancel button was pressed
     if (!password) {
-        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+        [self.sideMenuController hideLeftViewAnimated];
         return;
     }
     
@@ -2244,7 +2244,7 @@ void run_on_ui_thread(dispatch_block_t block)
     } else {
         // The correct quit password was entered
         [_browserTabViewController backToStart];
-        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+        [self.sideMenuController hideLeftViewAnimated];
     }
 }
 
@@ -2261,13 +2261,13 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (IBAction)goBack {
     [_browserTabViewController goBack];
-    [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+    [self.sideMenuController hideLeftViewAnimated];
 }
 
 
 - (IBAction)goForward {
     [_browserTabViewController goForward];
-    [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+    [self.sideMenuController hideLeftViewAnimated];
 }
 
 
@@ -2275,7 +2275,7 @@ void run_on_ui_thread(dispatch_block_t block)
     void (^action1Handler)(void) =
     ^{
         [_browserTabViewController reload];
-        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+        [self.sideMenuController hideLeftViewAnimated];
     };
 
     BOOL showReloadWarning = false;
@@ -2285,7 +2285,7 @@ void run_on_ui_thread(dispatch_block_t block)
         // Main browser tab with the exam
         if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"]) {
             // Cancel if navigation is disabled in exam
-            [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+            [self.sideMenuController hideLeftViewAnimated];
             return;
         }
         showReloadWarning = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadWarning"];
@@ -2293,7 +2293,7 @@ void run_on_ui_thread(dispatch_block_t block)
         // Additional browser tab
         if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowNavigation"]) {
             // Cancel if navigation is disabled in additional browser tabs
-            [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+            [self.sideMenuController hideLeftViewAnimated];
             return;
         }
         showReloadWarning = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowReloadWarning"];
@@ -2306,7 +2306,7 @@ void run_on_ui_thread(dispatch_block_t block)
               action1Handler:action1Handler
                 action2Title:NSLocalizedString(@"Cancel", nil)
               action2Handler:^{
-                  [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+                  [self.sideMenuController hideLeftViewAnimated];
               }];
     } else {
         action1Handler();
@@ -2380,7 +2380,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void)searchStarted
 {
-    [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+    [self.sideMenuController hideLeftViewAnimated];
     
     [self.navigationItem setLeftBarButtonItem:nil animated:YES];
     

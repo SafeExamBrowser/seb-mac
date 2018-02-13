@@ -35,8 +35,13 @@
 #import "AppDelegate.h"
 
 #import "SEBMasterViewController.h"
+
 #import "MMDrawerController.h"
 #import "MMDrawerVisualState.h"
+
+#import "LGSideMenuController.h"
+#import "UIViewController+LGSideMenuController.h"
+
 #import "SEBBrowserController.h"
 #import <AVFoundation/AVFoundation.h>
 
@@ -64,13 +69,13 @@
     NSLog(@"%s: Single App Mode was %@active at app launch.", __FUNCTION__, _SAMActive ? @"" : @"not ");
     
     // Override point for customization after application launch.
-    MMDrawerController * drawerController = (MMDrawerController *)self.window.rootViewController;
-    [drawerController setMaximumRightDrawerWidth:200.0];
-    [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeBezelPanningCenterView];
-    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModePanningCenterView];
-    [drawerController setCenterHiddenInteractionMode:MMDrawerOpenCenterInteractionModeFull];
-    [drawerController setShouldStretchDrawer:NO];
-    [drawerController setShowsShadow:YES];
+//    MMDrawerController * drawerController = (MMDrawerController *)self.window.rootViewController;
+//    [drawerController setMaximumRightDrawerWidth:200.0];
+//    [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeBezelPanningCenterView];
+//    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModePanningCenterView];
+//    [drawerController setCenterHiddenInteractionMode:MMDrawerOpenCenterInteractionModeFull];
+//    [drawerController setShouldStretchDrawer:NO];
+//    [drawerController setShowsShadow:YES];
 
     // Preloads keyboard so there's no lag on initial keyboard appearance.
     UITextField *lagFreeField = [[UITextField alloc] init];

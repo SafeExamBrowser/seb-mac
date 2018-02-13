@@ -33,7 +33,9 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
-#import "UIViewController+MMDrawerController.h"
+
+#import "UIViewController+LGSideMenuController.h"
+
 #import "SEBViewController.h"
 
 #import "SEBWebViewController.h"

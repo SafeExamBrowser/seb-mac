@@ -138,7 +138,7 @@
             
             if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow != 0) {
                 [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow = 0;
-                [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
+                [self.sideMenuController showLeftViewAnimated:YES completionHandler:^(void) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self switchToTab:self];
                     });
@@ -337,8 +337,8 @@
 
     [_visibleWebViewController loadURL:url];
     
-    [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
-        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+    [self.sideMenuController showLeftViewAnimated:YES completionHandler:^(void) {
+        [self.sideMenuController hideLeftViewAnimated];
     }];
     
 //    self.searchBarController.url = url.absoluteString;
@@ -376,7 +376,7 @@
         [_sebViewController setToolbarTitle:title];
         
         [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;;
-        [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+        [self.sideMenuController toggleLeftViewAnimated];
     }
 }
 
@@ -552,7 +552,7 @@
 // Close all tabs with open web pages and remove persisted open webpages
 - (void)closeAllTabs
 {
-    [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+    [self.sideMenuController hideLeftViewAnimated];
 
     [_visibleWebViewController removeFromParentViewController];
 
