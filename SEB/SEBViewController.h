@@ -61,6 +61,9 @@
 
 #import "UIViewController+MMDrawerController.h"
 
+#import "LGSideMenuController.h"
+#import "UIViewController+LGSideMenuController.h"
+
 #import "IASKAppSettingsViewController.h"
 #import "IASKSettingsReader.h"
 #import "SEBIASKSecureSettingsStore.h"
@@ -117,6 +120,7 @@
 }
 
 @property (weak) IBOutlet UIView *containerView;
+@property (weak) IBOutlet LGSideMenuController *lgSideMenuController;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerTopContraint;
 @property (copy) NSURLRequest *request;
 

@@ -141,10 +141,10 @@
             </objects>
             <point key="canvasLocation" x="-2242" y="727"/>
         </scene>
-        <!--Drawer Controller-->
+        <!--Side Menu Controller-->
         <scene sceneID="3jO-dL-tYP">
             <objects>
-                <viewController id="uRk-Nj-abt" customClass="MMDrawerController" sceneMemberID="viewController">
+                <viewController id="uRk-Nj-abt" customClass="LGSideMenuController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9oO-YA-MFd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -152,9 +152,17 @@
                         <color key="tintColor" red="0.58806046199999995" green="0.03958869508" blue="0.090146587520000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="Qm8-kQ-e0v"/>
                     </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="leftViewPresentationStyle">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="swipeGestureArea">
+                            <integer key="value" value="0"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
-                        <segue destination="sAK-QH-Sgm" kind="custom" identifier="mm_center" customClass="MMDrawerControllerSegue" id="uF7-CC-mtx"/>
-                        <segue destination="qX6-yp-qcn" kind="custom" identifier="mm_left" customClass="MMDrawerControllerSegue" id="5bR-z5-j7m"/>
+                        <segue destination="sAK-QH-Sgm" kind="custom" identifier="root" customClass="LGSideMenuSegue" id="uF7-CC-mtx"/>
+                        <segue destination="qX6-yp-qcn" kind="custom" identifier="left" customClass="LGSideMenuSegue" id="5bR-z5-j7m"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yuz-nc-GjD" sceneMemberID="firstResponder"/>
