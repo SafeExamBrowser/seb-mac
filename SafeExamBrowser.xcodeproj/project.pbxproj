@@ -161,9 +161,6 @@
 		694FB9D31CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 694FB9D11CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.m */; };
 		695283DD16CDB54C0055AF6F /* PrefsSecurityViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */; };
 		695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */; };
-		6953708320338ED600C638A8 /* LGSideMenuController in Resources */ = {isa = PBXBuildFile; fileRef = 6953708220338ED600C638A8 /* LGSideMenuController */; };
-		6953708420338ED600C638A8 /* LGSideMenuController in Resources */ = {isa = PBXBuildFile; fileRef = 6953708220338ED600C638A8 /* LGSideMenuController */; };
-		6953708520338ED600C638A8 /* LGSideMenuController in Resources */ = {isa = PBXBuildFile; fileRef = 6953708220338ED600C638A8 /* LGSideMenuController */; };
 		69544E521C0CEB8800D60C3E /* SEBOSXConfigFileController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69544E501C0CEB8800D60C3E /* SEBOSXConfigFileController.h */; };
 		69544E531C0CEB8800D60C3E /* SEBOSXConfigFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69544E511C0CEB8800D60C3E /* SEBOSXConfigFileController.m */; };
 		695A8EDD1E6CC87600601099 /* SEBToolbarNavigateBackIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EDB1E6CC87600601099 /* SEBToolbarNavigateBackIcon@2x.png */; };
@@ -761,7 +758,6 @@
 		694FB9D11CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBIASKSecureSettingsStore.m; path = Classes/Preferences/SEBIASKSecureSettingsStore.m; sourceTree = "<group>"; };
 		695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsSecurityViewController.h; sourceTree = "<group>"; };
 		695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsSecurityViewController.m; sourceTree = "<group>"; };
-		6953708220338ED600C638A8 /* LGSideMenuController */ = {isa = PBXFileReference; lastKnownFileType = folder; name = LGSideMenuController; path = Frameworks/LGSideMenuController; sourceTree = "<group>"; };
 		69544E501C0CEB8800D60C3E /* SEBOSXConfigFileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBOSXConfigFileController.h; sourceTree = "<group>"; };
 		69544E511C0CEB8800D60C3E /* SEBOSXConfigFileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBOSXConfigFileController.m; sourceTree = "<group>"; };
 		69566EAA1C653E0500BBC653 /* VectorPencilKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VectorPencilKit.framework; path = Frameworks/VectorPencilKit.framework; sourceTree = "<group>"; };
@@ -1778,7 +1774,6 @@
 			children = (
 				69566EAA1C653E0500BBC653 /* VectorPencilKit.framework */,
 				69967B731C58FD9800EE5658 /* libSEBSupport.a */,
-				6953708220338ED600C638A8 /* LGSideMenuController */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2283,7 +2278,6 @@
 				6940B9731BA0F2FB008C8CFC /* Main.storyboard in Resources */,
 				69B581771ED70CC700CE70F3 /* SEBAppIcon_256@2x.png in Resources */,
 				694055A91CF32B030036C480 /* SEBRestartIcon@2x.png in Resources */,
-				6953708420338ED600C638A8 /* LGSideMenuController in Resources */,
 				69633E621E844B3600C71FF0 /* SEBSliderQRCodeIcon@2x.png in Resources */,
 				6966F87B1D1C081300684182 /* SEBSliderShutDownIcon.png in Resources */,
 				696DAD1C1C3C2AB900397E18 /* Reload.png in Resources */,
@@ -2348,7 +2342,6 @@
 				69633E581E841A4200C71FF0 /* SEBQuickActionQRCodeIcon.png in Resources */,
 				69CFFA301D3641B500FE5655 /* SEBReloadIcon@3x.png in Resources */,
 				693A39721E60AC8F005030B0 /* SEBSliderNavigateBackIcon@3x.png in Resources */,
-				6953708520338ED600C638A8 /* LGSideMenuController in Resources */,
 				69CFFA311D3641B500FE5655 /* Previous.png in Resources */,
 				69633E631E844B3600C71FF0 /* SEBSliderQRCodeIcon@2x.png in Resources */,
 				69B253D91E4E2200000B4A6D /* SEBSliderClosePage@2x.png in Resources */,
@@ -2507,7 +2500,6 @@
 				69E87E44202926080055988F /* SEBReloadIconLandscape@2x.png in Resources */,
 				69428CF8172F2E2500C87C58 /* ZoomTextOut.png in Resources */,
 				69428CFA172F2E2500C87C58 /* ZoomTextOut@2x.png in Resources */,
-				6953708320338ED600C638A8 /* LGSideMenuController in Resources */,
 				695A8EE41E6CCA0600601099 /* SEBToolbarReloadIcon@2x.png in Resources */,
 				69DA91291C6A5CCF008D38E6 /* SEBRestartIconHighlighted.iconset in Resources */,
 			);
