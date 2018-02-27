@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsApplicationsViewController">
@@ -70,7 +71,7 @@
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn width="18" minWidth="18" maxWidth="1000" id="350">
+                                                        <tableColumn identifier="" width="18" minWidth="18" maxWidth="1000" id="350">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -85,7 +86,7 @@
                                                                 <binding destination="610" name="value" keyPath="arrangedObjects.active" id="1164"/>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="60" minWidth="10" maxWidth="3.4028234663852886e+38" id="360">
+                                                        <tableColumn identifier="" width="60" minWidth="10" maxWidth="3.4028234663852886e+38" id="360">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="OS">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -108,7 +109,7 @@
                                                                 <binding destination="610" name="selectedIndex" keyPath="arrangedObjects.os" id="1340"/>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="239" minWidth="40" maxWidth="1000" id="351">
+                                                        <tableColumn identifier="" width="239" minWidth="40" maxWidth="1000" id="351">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Executable">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -124,7 +125,7 @@
                                                                 <binding destination="610" name="value" keyPath="arrangedObjects.executable" id="2136"/>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="239" minWidth="10" maxWidth="3.4028234663852886e+38" id="537">
+                                                        <tableColumn identifier="" width="239" minWidth="10" maxWidth="3.4028234663852886e+38" id="537">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Title">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -353,7 +354,7 @@
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                 <tableColumns>
-                                                                    <tableColumn width="18" minWidth="18" maxWidth="1000" id="738">
+                                                                    <tableColumn identifier="" width="18" minWidth="18" maxWidth="1000" id="738">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                                             <font key="font" metaFont="smallSystem"/>
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -368,7 +369,7 @@
                                                                             <binding destination="1782" name="value" keyPath="arrangedObjects.active" id="1791"/>
                                                                         </connections>
                                                                     </tableColumn>
-                                                                    <tableColumn width="432" minWidth="10" maxWidth="3.4028234663852886e+38" id="1290">
+                                                                    <tableColumn identifier="" width="432" minWidth="10" maxWidth="3.4028234663852886e+38" id="1290">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                                             <font key="font" metaFont="smallSystem"/>
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -770,7 +771,7 @@
                                         <rect key="frame" x="17" y="226" width="570" height="360"/>
                                         <clipView key="contentView" id="dAi-vy-Xqu">
                                             <rect key="frame" x="1" y="0.0" width="568" height="359"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" autosaveName="" headerView="1926" id="1924">
                                                     <rect key="frame" x="0.0" y="0.0" width="568" height="336"/>
@@ -779,7 +780,7 @@
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn width="18" minWidth="18" maxWidth="1000" id="1928">
+                                                        <tableColumn identifier="" width="18" minWidth="18" maxWidth="1000" id="1928">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -794,7 +795,7 @@
                                                                 <binding destination="1726" name="value" keyPath="arrangedObjects.active" id="1946"/>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="60" minWidth="10" maxWidth="3.4028234663852886e+38" id="1930">
+                                                        <tableColumn identifier="" width="60" minWidth="10" maxWidth="3.4028234663852886e+38" id="1930">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="OS">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -817,7 +818,7 @@
                                                                 <binding destination="1726" name="selectedIndex" keyPath="arrangedObjects.os" id="1941"/>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="239" minWidth="40" maxWidth="1000" id="1929">
+                                                        <tableColumn identifier="" width="239" minWidth="40" maxWidth="1000" id="1929">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Executable">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -833,7 +834,7 @@
                                                                 <binding destination="1726" name="value" keyPath="arrangedObjects.executable" id="2132"/>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="239" minWidth="10" maxWidth="3.4028234663852886e+38" id="1931">
+                                                        <tableColumn identifier="" width="239" minWidth="10" maxWidth="3.4028234663852886e+38" id="1931">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Description">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
