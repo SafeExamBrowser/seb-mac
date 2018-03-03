@@ -68,6 +68,7 @@
 #import "IASKSettingsReader.h"
 #import "SEBIASKSecureSettingsStore.h"
 
+#import "SEBUIController.h"
 #import "SEBSliderItem.h"
 #import "SEBNavigationController.h"
 
@@ -84,6 +85,8 @@
 #import "SEBSearchBarViewController.h"
 
 
+@class AppDelegate;
+@class SEBUIController;
 @class SEBBrowserTabViewController;
 @class SEBSearchBarViewController;
 @class SEBiOSConfigFileController;
@@ -119,14 +122,16 @@
     UIBarButtonItem *toolbarReloadButton;
 }
 
+@property (strong, nonatomic) AppDelegate *appDelegate;
 @property (weak) IBOutlet UIView *containerView;
 @property (weak) IBOutlet LGSideMenuController *lgSideMenuController;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerTopContraint;
 @property (copy) NSURLRequest *request;
 
-@property (nonatomic, strong) SEBBrowserTabViewController *browserTabViewController;
+@property (strong, nonatomic) SEBBrowserTabViewController *browserTabViewController;
+@property (strong, nonatomic) SEBUIController *sebUIController;
 //@property (nonatomic, strong) SEBiOSDockController *dockController;
-@property (nonatomic, strong) SEBSearchBarViewController *searchBarViewController;
+@property (strong, nonatomic) SEBSearchBarViewController *searchBarViewController;
 
 @property (strong, nonatomic) SEBiOSInitAssistantViewController *assistantViewController;
 
@@ -138,8 +143,8 @@
 
 @property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
 
-@property (nonatomic, strong) QRCodeReaderViewController *codeReaderViewController;
-@property (nonatomic, strong) QRCodeReaderViewController *visibleCodeReaderViewController;
+@property (strong, nonatomic) QRCodeReaderViewController *codeReaderViewController;
+@property (strong, nonatomic) QRCodeReaderViewController *visibleCodeReaderViewController;
 
 @property (nonatomic, strong) id <SEBConfigURLManagerDelegate> configURLManagerDelegate;
 
@@ -206,6 +211,15 @@
 
 - (void) showToolbarNavigation:(BOOL)show;
 - (void) setToolbarTitle:(NSString *)title;
+
+#pragma mark - SEB Dock and left slider button handler
+
+- (void) leftDrawerButtonPress:(id)sender;
+- (void) showAboutSEB;
+- (IBAction) backToStart;
+- (IBAction) goBack;
+- (IBAction) goForward;
+- (IBAction) reload;
 
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 - (void) activateReloadButtonsExamTab:(BOOL)examTab;

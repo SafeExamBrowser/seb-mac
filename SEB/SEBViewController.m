@@ -56,6 +56,11 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+- (SEBUIController *)sebUIController {
+    return _appDelegate.sebUIController;
+}
+
+
 - (SEBiOSConfigFileController*)configFileController
 {
     if (!_configFileController) {
@@ -156,8 +161,8 @@ static NSMutableSet *browserWindowControllers;
 {
     [super viewDidLoad];
     
-    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    appDelegate.sebViewController = self;
+    _appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    _appDelegate.sebViewController = self;
     
     _browserTabViewController = self.childViewControllers[0];
     _browserTabViewController.sebViewController = self;
@@ -193,9 +198,9 @@ static NSMutableSet *browserWindowControllers;
     [self initSEB];
     
     // Was SEB opened by loading a .seb file/using a seb:// link?
-    if (appDelegate.sebFileURL) {
+    if (_appDelegate.sebFileURL) {
         // Yes: Load the .seb file now that the necessary SEB main view controller was loaded
-        [self downloadAndOpenSEBConfigFromURL:appDelegate.sebFileURL];
+        [self downloadAndOpenSEBConfigFromURL:_appDelegate.sebFileURL];
         
         // Set flag that SEB is initialized to prevent the client config
         // Start URL to be loaded
@@ -203,8 +208,8 @@ static NSMutableSet *browserWindowControllers;
     }
     
     // Was SEB opened by a Home screen quick action shortcut item?
-    if (appDelegate.shortcutItemAtLaunch) {
-        [self handleShortcutItem:appDelegate.shortcutItemAtLaunch];
+    if (_appDelegate.shortcutItemAtLaunch) {
+        [self handleShortcutItem:_appDelegate.shortcutItemAtLaunch];
     }
 }
 
@@ -781,6 +786,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) initSEB
 {
+    
     run_on_ui_thread(^{
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         
@@ -853,11 +859,9 @@ void run_on_ui_thread(dispatch_block_t block)
         [self.view addConstraints:constraints_H];
         [self.view addConstraints:constraints_V];
         
-        AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-        
         NSUInteger statusBarAppearance = [[NSUserDefaults standardUserDefaults] mobileStatusBarAppearance];
         
-        appDelegate.statusBarAppearance = statusBarAppearance;
+        _appDelegate.statusBarAppearance = statusBarAppearance;
         
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] == false) {
             // Only draw background for status bar when it is enabled
@@ -1098,7 +1102,7 @@ void run_on_ui_thread(dispatch_block_t block)
         [sliderCommands addObject:sliderCommandItem];
         
         // Register slider commands
-        appDelegate.leftSliderCommands = [sliderCommands copy];
+        _appDelegate.leftSliderCommands = [sliderCommands copy];
         
         /// If dock is enabled, register items to the tool bar
         
@@ -1236,7 +1240,7 @@ void run_on_ui_thread(dispatch_block_t block)
         }
         
         // Register slider view items
-        appDelegate.leftSliderCommands = [sliderCommands copy];
+        _appDelegate.leftSliderCommands = [sliderCommands copy];
         
     });
 }
@@ -1789,14 +1793,13 @@ void run_on_ui_thread(dispatch_block_t block)
     
     // If ASAM is enabled and SAM not allowed, we have to check if SAM or Guided Access is
     // already active and deny starting a secured exam until Guided Access is switched off
-    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     if (_enableASAM && !_allowSAM) {
         // Get time of app launch
-        dispatch_time_t dispatchTimeAppLaunched = appDelegate.dispatchTimeAppLaunched;
+        dispatch_time_t dispatchTimeAppLaunched = _appDelegate.dispatchTimeAppLaunched;
         if (dispatchTimeAppLaunched != 0) {
             // Wait at least 2 seconds after app launch
             dispatch_after(dispatch_time(dispatchTimeAppLaunched, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                appDelegate.dispatchTimeAppLaunched = 0;
+                _appDelegate.dispatchTimeAppLaunched = 0;
                 // Is SAM/Guided Access (or ASAM because of previous crash) active?
                 [self assureSAMNotActive];
             });
@@ -1804,7 +1807,7 @@ void run_on_ui_thread(dispatch_block_t block)
             [self assureSAMNotActive];
         }
     } else {
-        appDelegate.dispatchTimeAppLaunched = 0;
+        _appDelegate.dispatchTimeAppLaunched = 0;
         [self conditionallyStartASAM];
     }
 }

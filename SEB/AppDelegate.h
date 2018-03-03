@@ -35,15 +35,18 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import "SEBViewController.h"
+#import "SEBUIController.h"
 #import "SEBLockedViewController.h"
 #import "SEBiOSLockedViewController.h"
 
 @class SEBViewController;
+@class SEBUIController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) SEBViewController *sebViewController;
+@property (strong, nonatomic) SEBUIController *sebUIController;
 @property (strong, nonatomic, readonly) NSURL *sebFileURL;
 @property (strong, nonatomic) UIApplicationShortcutItem *shortcutItemAtLaunch;
 @property(readwrite) BOOL SAMActive;

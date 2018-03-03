@@ -55,6 +55,13 @@
 
 @synthesize persistentWebpages;
 
+- (SEBUIController *)sebUIController {
+    if (!_sebUIController) {
+        _sebUIController = [[SEBUIController alloc] init];
+    }
+    return _sebUIController;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     BOOL shouldPerformAdditionalDelegateHandling = true;
