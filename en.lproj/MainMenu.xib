@@ -764,7 +764,7 @@ Gw
                     <rect key="frame" x="20" y="110" width="460" height="282"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="UQl-yY-TGx">
                         <rect key="frame" x="1" y="1" width="458" height="280"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textView editable="NO" drawsBackground="NO" importsGraphics="NO" verticallyResizable="YES" findStyle="bar" allowsNonContiguousLayout="YES" id="FId-0c-znr">
                                 <rect key="frame" x="0.0" y="0.0" width="458" height="280"/>
@@ -1194,11 +1194,11 @@ DQ
                     </connections>
                 </secureTextField>
                 <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="5Ez-0g-525" customClass="SEBTextField">
-                    <rect key="frame" x="75" y="579" width="351" height="25"/>
+                    <rect key="frame" x="92" y="579" width="317" height="25"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="YY8-hs-9RH"/>
                     </constraints>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Prohibited Process(es) Locked SEB!" usesSingleLineMode="YES" id="9V8-Fs-9oi">
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Prohibited Process Locked SEB!" usesSingleLineMode="YES" id="9V8-Fs-9oi">
                         <font key="font" size="20" name="HelveticaNeue-Bold"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1292,7 +1292,7 @@ DQ
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uLX-fM-8i5">
                     <rect key="frame" x="62" y="27" width="332" height="18"/>
-                    <buttonCell key="cell" type="check" title="Override checking for the above processes and unlock SEB" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="9TK-SC-OtA">
+                    <buttonCell key="cell" type="check" title="Override checking for the processes above and unlock SEB" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="9TK-SC-OtA">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
