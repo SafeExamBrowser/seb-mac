@@ -104,7 +104,7 @@
 
     AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     _webpagesArray = [appDelegate.persistentWebpages mutableCopy];
-    _commandItems = appDelegate.leftSliderCommands;
+    _commandItems = appDelegate.sebUIController.leftSliderCommands;
 
     NSUInteger statusBarAppearance = appDelegate.statusBarAppearance;
     switch (statusBarAppearance) {

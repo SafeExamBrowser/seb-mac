@@ -229,9 +229,11 @@
                                                       action:@selector(quitExamConditionally)];
     [sliderCommands addObject:sliderCommandItem];
     
-    // Register slider commands
-    appDelegate.leftSliderCommands = [sliderCommands copy];
+    // Register dock commands
+    _dockItems = [newDockItems copy];
     
+    // Register slider commands
+    _leftSliderCommands = [sliderCommands copy];
 }
 
 
