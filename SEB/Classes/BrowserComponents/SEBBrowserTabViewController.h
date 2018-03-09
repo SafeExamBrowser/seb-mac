@@ -35,7 +35,6 @@
 #import <CoreData/CoreData.h>
 
 #import "UIViewController+LGSideMenuController.h"
-
 #import "SEBViewController.h"
 
 #import "SEBWebViewController.h"

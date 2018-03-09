@@ -111,12 +111,6 @@
     NSString *currentStartURL;
     
     BOOL browserToolbarEnabled;
-    UIBarButtonItem *dockBackButton;
-    UIBarButtonItem *dockForwardButton;
-    UIBarButtonItem *dockReloadButton;
-    SEBSliderItem *sliderBackButtonItem;
-    SEBSliderItem *sliderForwardButtonItem;
-    SEBSliderItem *sliderReloadButtonItem;
     UIBarButtonItem *toolbarBackButton;
     UIBarButtonItem *toolbarForwardButton;
     UIBarButtonItem *toolbarReloadButton;

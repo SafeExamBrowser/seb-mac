@@ -27,4 +27,6 @@
 @property (nonatomic, strong) NSArray *leftSliderCommands;
 @property (nonatomic, strong) NSArray *dockItems;
 
+- (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
+
 @end
