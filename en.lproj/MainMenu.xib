@@ -443,7 +443,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="340" y="419" width="550" height="300"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" id="860" customClass="AboutView">
                 <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -614,7 +614,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="109"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="vWC-gd-xPh">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
@@ -764,7 +764,7 @@ Gw
                     <rect key="frame" x="20" y="110" width="460" height="282"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="UQl-yY-TGx">
                         <rect key="frame" x="1" y="1" width="458" height="280"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView editable="NO" drawsBackground="NO" importsGraphics="NO" verticallyResizable="YES" findStyle="bar" allowsNonContiguousLayout="YES" id="FId-0c-znr">
                                 <rect key="frame" x="0.0" y="0.0" width="458" height="280"/>
@@ -857,6 +857,7 @@ Gw
                 <outlet property="alertMessage" destination="N8L-96-Ced" id="GHq-SK-8gL"/>
                 <outlet property="lockedAlertPasswordField" destination="E6M-vB-bca" id="0bI-FS-sC0"/>
                 <outlet property="logScrollView" destination="h7g-WL-v0B" id="usj-Tc-mnT"/>
+                <outlet property="overrideCheckForAllProcesses" destination="62k-M2-j1C" id="W2A-TX-xHg"/>
                 <outlet property="overrideSecurityCheck" destination="csW-Na-AHP" id="bej-ME-79P"/>
                 <outlet property="passwordWrongLabel" destination="cZ9-xX-IzI" id="2Xz-pn-weo"/>
                 <outlet property="view" destination="Re1-C5-57e" id="bGA-Gx-ekw"/>
@@ -866,7 +867,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" nonactivatingPanel="YES" HUD="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="274" width="500" height="45"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" id="94S-Ha-RmY">
                 <rect key="frame" x="0.0" y="0.0" width="500" height="45"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -927,7 +928,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="158"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="6KH-Lc-Pm5">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="158"/>
@@ -1190,7 +1191,7 @@ DQ
                         </allowedInputSourceLocales>
                     </secureTextFieldCell>
                     <connections>
-                        <action selector="passwordEntered:" target="agr-W5-n2K" id="FBX-Y8-dP5"/>
+                        <action selector="passwordEntered:" target="Rrb-2s-MCf" id="002-X1-0bU"/>
                     </connections>
                 </secureTextField>
                 <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="5Ez-0g-525" customClass="SEBTextField">
@@ -1278,10 +1279,10 @@ DQ
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSGoRightTemplate" imagePosition="only" alignment="center" imageScaling="axesIndependently" inset="2" id="Diq-E8-esA">
                         <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
-                        <connections>
-                            <action selector="passwordEntered:" target="agr-W5-n2K" id="dt7-ZW-9xQ"/>
-                        </connections>
                     </buttonCell>
+                    <connections>
+                        <action selector="passwordEntered:" target="Rrb-2s-MCf" id="UXC-kf-yRt"/>
+                    </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="62k-M2-j1C">
                     <rect key="frame" x="62" y="9" width="338" height="18"/>
@@ -1334,6 +1335,16 @@ DQ
             </constraints>
             <point key="canvasLocation" x="440" y="930"/>
         </customView>
+        <viewController id="Rrb-2s-MCf" customClass="SEBProhibitedProcessLockedViewController">
+            <connections>
+                <outlet property="alertMessage" destination="5sW-Md-KnP" id="OED-fe-HzX"/>
+                <outlet property="lockedAlertPasswordField" destination="K91-6e-rl1" id="urg-hp-WIL"/>
+                <outlet property="logScrollView" destination="SZz-tz-Eao" id="YZs-Q7-qHB"/>
+                <outlet property="overrideCheckForAllProcesses" destination="62k-M2-j1C" id="Ocf-tT-fA5"/>
+                <outlet property="overrideCheckForSpecificProcesses" destination="uLX-fM-8i5" id="wEa-Py-Y7w"/>
+                <outlet property="passwordWrongLabel" destination="5gu-rS-ItL" id="Af3-pG-4Xf"/>
+            </connections>
+        </viewController>
     </objects>
     <resources>
         <image name="NSGoRightTemplate" width="9" height="12"/>
