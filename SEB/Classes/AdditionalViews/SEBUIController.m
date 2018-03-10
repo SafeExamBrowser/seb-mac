@@ -336,4 +336,11 @@
     [_sebViewController scanQRCode:sender];
 }
 
+
+- (void) quitExamConditionally
+{
+    [_sebViewController quitExamConditionally];
+}
+
+
 @end
