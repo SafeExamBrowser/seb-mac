@@ -30,8 +30,6 @@
     NSMutableArray *sliderCommands = [NSMutableArray new];
     SEBSliderItem *sliderCommandItem;
     UIImage *sliderIcon;
-    NSUInteger statusBarAppearance = [[NSUserDefaults standardUserDefaults] mobileStatusBarAppearance];
-    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
 
     /// Add left items
     
@@ -261,22 +259,22 @@
 }
 
 
-// Add reload button to navigation bar or enable/disable
-// reload buttons in dock and left slider, depending if
-// active tab is the exam tab or a new (additional) tab
-- (void) activateReloadButtonsExamTab:(BOOL)examTab
-{
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL showReload = false;
-    if (examTab) {
-        // Main browser tab with the exam
-        showReload = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"];
-    } else {
-        // Additional browser tab
-        showReload = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowAllowReload"];
-    }
-    [self activateReloadButtons:showReload];
-}
+//// Add reload button to navigation bar or enable/disable
+//// reload buttons in dock and left slider, depending if
+//// active tab is the exam tab or a new (additional) tab
+//- (void) activateReloadButtonsExamTab:(BOOL)examTab
+//{
+//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+//    BOOL showReload = false;
+//    if (examTab) {
+//        // Main browser tab with the exam
+//        showReload = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"];
+//    } else {
+//        // Additional browser tab
+//        showReload = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowAllowReload"];
+//    }
+//    [self activateReloadButtons:showReload];
+//}
 
 
 // Conditionally add reload button to navigation bar or
@@ -324,6 +322,12 @@
 
 - (IBAction)reload {
     [_sebViewController reload];
+}
+
+
+- (void)showAboutSEB
+{
+    [_sebViewController showAboutSEB];
 }
 
 
