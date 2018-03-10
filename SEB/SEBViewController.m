@@ -57,7 +57,9 @@ static NSMutableSet *browserWindowControllers;
 
 
 - (SEBUIController *)sebUIController {
-    return _appDelegate.sebUIController;
+    SEBUIController *uiController = _appDelegate.sebUIController;
+    uiController.sebViewController = self;
+    return uiController;
 }
 
 
@@ -786,7 +788,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) initSEB
 {
-    
+    //_appDelegate.sebUIController = nil;
     run_on_ui_thread(^{
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         
@@ -1024,7 +1026,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     }
             }
             
-            [self setToolbarItems:_appDelegate.sebUIController.dockItems];
+            [self setToolbarItems:self.sebUIController.dockItems];
         } else {
             [self.navigationController setToolbarHidden:YES];
         }
@@ -2153,16 +2155,12 @@ void run_on_ui_thread(dispatch_block_t block)
             
             self.navigationItem.rightBarButtonItem = toolbarReloadButton;
         }
-        // Activate reload buttons in dock and slider
-        dockReloadButton.enabled = true;
-        sliderReloadButtonItem.enabled = true;
-        
     } else {
-        // Deactivate reload buttons in toolbar, dock and slider
+        // Deactivate reload button in toolbar
         self.navigationItem.rightBarButtonItem = nil;
-        dockReloadButton.enabled = false;
-        sliderReloadButtonItem.enabled = false;
     }
+    // Activate/Deactivate reload buttons in dock and slider
+    [_sebUIController activateReloadButtons:reloadEnabled];
 }
 
 

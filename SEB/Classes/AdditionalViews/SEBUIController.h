@@ -28,5 +28,7 @@
 @property (nonatomic, strong) NSArray *dockItems;
 
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
+//- (void) activateReloadButtonsExamTab:(BOOL)examTab;
+- (void) activateReloadButtons:(BOOL)reloadEnabled; 
 
 @end
