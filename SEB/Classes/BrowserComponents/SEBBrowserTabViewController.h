@@ -34,11 +34,13 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-#import "UIViewController+LGSideMenuController.h"
 #import "SEBViewController.h"
 
 #import "SEBWebViewController.h"
 #import "SEBSearchBarViewController.h"
+
+#import "LGSideMenuController.h"
+#import "UIViewController+LGSideMenuController.h"
 
 @class SEBViewController;
 @class SEBWebViewController;
