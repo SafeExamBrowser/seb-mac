@@ -27,6 +27,8 @@
 @property (nonatomic, strong) NSArray *leftSliderCommands;
 @property (nonatomic, strong) NSArray *dockItems;
 
+@property (readwrite) NSUInteger statusBarAppearance;
+
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 //- (void) activateReloadButtonsExamTab:(BOOL)examTab;
 - (void) activateReloadButtons:(BOOL)reloadEnabled; 

@@ -33,12 +33,16 @@
 
 #import <UIKit/UIKit.h>
 #import "SEBActionUITableViewCell.h"
-#import "UIViewController+MMDrawerController.h"
+#import "AppDelegate.h"
+//#import "LGSideMenuController.h"
+//#import "UIViewController+LGSideMenuController.h"
 
 @class SEBActionUITableViewCell;
+@class AppDelegate;
 
-@interface SEBTableViewController : UIViewController  <UITableViewDelegate, UITableViewDataSource, SEBActionUITableViewCellDelegate>
+@interface SEBTableViewController : UIViewController  <UITableViewDelegate, UITableViewDataSource, SEBActionUITableViewCellDelegate, LGSideMenuDelegate>
 
+@property (strong, nonatomic) AppDelegate *appDelegate;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSMutableArray *webpagesArray;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;

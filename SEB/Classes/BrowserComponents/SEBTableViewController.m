@@ -33,7 +33,6 @@
 
 #import "SEBTableViewController.h"
 #import "Webpages.h"
-#import "AppDelegate.h"
 #import "SEBSliderItem.h"
 
 @interface SEBTableViewController ()
@@ -61,9 +60,9 @@
 {
     [super viewDidLoad];
     
-    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    _appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
 
-    [self setManagedObjectContext:[appDelegate managedObjectContext]];
+    [self setManagedObjectContext:[_appDelegate managedObjectContext]];
 
 //    NSString *appName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleName"];
     NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
@@ -74,6 +73,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(refreshTableView:)
                                                  name:@"refreshSlider" object:nil];
+    
+    // Add an observer for refreshing the table view
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(initSliderViewAppearance)
+                                                 name:@"LGSideMenuWillShowLeftViewNotification" object:nil];
     
      // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -97,16 +101,29 @@
 {
     [super viewWillAppear:animated];
     
+    [self initSliderViewAppearance];
+    
+    // TO DO: Ok, later we will get the context from the creater of this VC
+
+    /* Here we call the method to load the table data */
+    [self loadTableData];
+    
+    //UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addItem)];
+    
+    //self.navigationItem.rightBarButtonItem = item;
+}
+
+- (void)initSliderViewAppearance
+{
+    _webpagesArray = [_appDelegate.persistentWebpages mutableCopy];
+    _commandItems = _appDelegate.sebUIController.leftSliderCommands;
+    
     UIEdgeInsets safeAreaInsets;
     if (@available(iOS 11.0, *)) {
         safeAreaInsets = self.view.safeAreaInsets;
     }
-
-    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    _webpagesArray = [appDelegate.persistentWebpages mutableCopy];
-    _commandItems = appDelegate.sebUIController.leftSliderCommands;
-
-    NSUInteger statusBarAppearance = appDelegate.statusBarAppearance;
+    
+    NSUInteger statusBarAppearance = _appDelegate.sebUIController.statusBarAppearance;
     switch (statusBarAppearance) {
         case mobileStatusBarAppearanceNone:
             self.view.backgroundColor = [UIColor darkGrayColor];
@@ -130,14 +147,6 @@
             break;
     }
     
-    // TO DO: Ok, later we will get the context from the creater of this VC
-
-    /* Here we call the method to load the table data */
-    [self loadTableData];
-    
-    //UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addItem)];
-    
-    //self.navigationItem.rightBarButtonItem = item;
 }
 
 - (BOOL)prefersStatusBarHidden {

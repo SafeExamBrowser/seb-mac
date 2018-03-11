@@ -863,7 +863,7 @@ void run_on_ui_thread(dispatch_block_t block)
         
         NSUInteger statusBarAppearance = [[NSUserDefaults standardUserDefaults] mobileStatusBarAppearance];
         
-        _appDelegate.statusBarAppearance = statusBarAppearance;
+        _sebUIController.statusBarAppearance = statusBarAppearance;
         
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] == false) {
             // Only draw background for status bar when it is enabled
