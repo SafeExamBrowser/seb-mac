@@ -109,6 +109,7 @@
     BOOL sebUIInitialized;
     NSString *currentStartURL;
     
+    NSUInteger statusBarAppearance;
     BOOL browserToolbarEnabled;
     UIBarButtonItem *toolbarBackButton;
     UIBarButtonItem *toolbarForwardButton;

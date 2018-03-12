@@ -54,8 +54,6 @@
 
 @property (strong, atomic) NSNumber *logLevel;
 
-- (mobileStatusBarAppearances) mobileStatusBarAppearance;
-
 // Return (and allocate if necessary) shared secure UserDefaults
 + (NSMutableDictionary *)privateUserDefaults;
 
@@ -69,8 +67,6 @@
 
 - (id)persistedSecureObjectForKey:(NSString *)key;
 - (void)setPersistedSecureObject:(id)value forKey:(NSString *)key;
-
-- (void) resetMobileStatusBarAppearance;
 
 
 // Read data from user defaults. If key doesn't exist, valid is YES and the function mimics
