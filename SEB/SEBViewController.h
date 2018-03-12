@@ -106,6 +106,7 @@
     BOOL quitPasswordPlaceholder;
     BOOL showSettingsInApp;
     BOOL ASAMActiveChecked;
+    BOOL sebUIInitialized;
     NSString *currentStartURL;
     
     BOOL browserToolbarEnabled;
