@@ -146,7 +146,7 @@
         default:
             break;
     }
-    
+    [self refreshTableView:self];
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -187,15 +187,32 @@
 }
 
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    // Return the number of rows in the section.
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
     switch (section) {
         case 0:
             return nil;
             break;
             
         case 1:
-            return NSLocalizedString(@"Commands",nil);
+            return [tableView dequeueReusableCellWithIdentifier:@"SectionHeader"];
+            break;
+            
+        default:
+            return 0;
+            break;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    switch (section) {
+        case 0:
+            return 0;
+            break;
+            
+        case 1:
+            return 32;
             break;
             
         default:
@@ -468,5 +485,11 @@
     [self.tableView reloadData];
 }
 
+
+// Bugfix for iPhone X: Otherwise after the first rotation the table view section header is invisible...
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+{
+    [self.tableView reloadData];
+}
 
 @end

@@ -213,7 +213,6 @@
 - (IBAction) goBack;
 - (IBAction) goForward;
 - (IBAction) reload;
-- (void) quitExamConditionally;
 
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 - (void) activateReloadButtonsExamTab:(BOOL)examTab;
