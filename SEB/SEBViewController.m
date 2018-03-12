@@ -865,7 +865,7 @@ void run_on_ui_thread(dispatch_block_t block)
         [self.view addConstraints:constraints_H];
         [self.view addConstraints:constraints_V];
         
-        NSUInteger statusBarAppearance = [[NSUserDefaults standardUserDefaults] mobileStatusBarAppearance];
+        statusBarAppearance = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"];
         
         self.sebUIController.statusBarAppearance = statusBarAppearance;
         
@@ -1360,7 +1360,6 @@ void run_on_ui_thread(dispatch_block_t block)
     _quittingClientConfig = ![NSUserDefaults userDefaultsPrivate];
     // Switch to system's (persisted) UserDefaults
     [NSUserDefaults setUserDefaultsPrivate:NO];
-    [[NSUserDefaults standardUserDefaults] resetMobileStatusBarAppearance];
     
     [self restartExam:true];
 }
@@ -1882,14 +1881,14 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (BOOL) prefersStatusBarHidden
 {
-    return ([[NSUserDefaults standardUserDefaults] mobileStatusBarAppearance] == mobileStatusBarAppearanceNone);
+    return (statusBarAppearance == mobileStatusBarAppearanceNone);
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] == false) {
-        if ([preferences mobileStatusBarAppearance] == mobileStatusBarAppearanceLight) {
+        if (statusBarAppearance == mobileStatusBarAppearanceLight) {
             return UIStatusBarStyleLightContent;
         }
     }

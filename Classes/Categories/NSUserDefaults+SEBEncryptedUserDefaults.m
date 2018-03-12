@@ -65,8 +65,6 @@ static NSMutableDictionary *privateUserDefaults;
 static NSMutableDictionary *_cachedUserDefaults;
 static BOOL _usePrivateUserDefaults = NO;
 static NSNumber *_logLevel;
-static NSNumber *currentMobileStatusBarAppearance;
-
 
 
 + (NSMutableDictionary *)privateUserDefaults
@@ -128,30 +126,6 @@ static NSNumber *currentMobileStatusBarAppearance;
 - (NSNumber *)logLevel
 {
     return _logLevel;
-}
-
-
-- (mobileStatusBarAppearances) mobileStatusBarAppearance
-{
-    if (!currentMobileStatusBarAppearance) {
-        NSUInteger statusBarAppearance = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"];
-
-        AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-
-        if (NSProcessInfo.processInfo.operatingSystemVersion.majorVersion < 10 && appDelegate.openedURL) {
-            statusBarAppearance = mobileStatusBarAppearanceNone;
-        }
-        currentMobileStatusBarAppearance = [NSNumber numberWithUnsignedInteger:statusBarAppearance];
-        return statusBarAppearance;
-    }
-
-    return currentMobileStatusBarAppearance.unsignedIntegerValue;
-}
-
-
-- (void) resetMobileStatusBarAppearance
-{
-    currentMobileStatusBarAppearance = nil;
 }
 
 
@@ -724,8 +698,6 @@ static NSNumber *currentMobileStatusBarAppearance;
 // Write SEB default values to local preferences
 - (void) storeSEBDefaultSettings
 {
-    currentMobileStatusBarAppearance = nil;
-    
     // Get default settings
     NSDictionary *defaultSettings = [self sebDefaultSettings];
     
