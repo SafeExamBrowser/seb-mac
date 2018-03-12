@@ -788,7 +788,10 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) initSEB
 {
-    //_appDelegate.sebUIController = nil;
+    if (sebUIInitialized) {
+        _appDelegate.sebUIController = nil;
+        sebUIInitialized = true;
+    }
     run_on_ui_thread(^{
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         
