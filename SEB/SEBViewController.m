@@ -865,9 +865,7 @@ void run_on_ui_thread(dispatch_block_t block)
         [self.view addConstraints:constraints_H];
         [self.view addConstraints:constraints_V];
         
-        statusBarAppearance = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"];
-        
-        self.sebUIController.statusBarAppearance = statusBarAppearance;
+        statusBarAppearance = self.sebUIController.statusBarAppearance;
         
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] == false) {
             // Only draw background for status bar when it is enabled
