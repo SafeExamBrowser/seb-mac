@@ -790,6 +790,7 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     if (sebUIInitialized) {
         _appDelegate.sebUIController = nil;
+    } else {
         sebUIInitialized = true;
     }
     run_on_ui_thread(^{
@@ -866,7 +867,7 @@ void run_on_ui_thread(dispatch_block_t block)
         
         NSUInteger statusBarAppearance = [[NSUserDefaults standardUserDefaults] mobileStatusBarAppearance];
         
-        _sebUIController.statusBarAppearance = statusBarAppearance;
+        self.sebUIController.statusBarAppearance = statusBarAppearance;
         
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] == false) {
             // Only draw background for status bar when it is enabled
@@ -2122,7 +2123,7 @@ void run_on_ui_thread(dispatch_block_t block)
     toolbarBackButton.enabled = canGoBack;
     toolbarForwardButton.enabled = canGoForward;
 
-    [_sebUIController setCanGoBack:canGoBack canGoForward:canGoForward];
+    [self.sebUIController setCanGoBack:canGoBack canGoForward:canGoForward];
 }
 
 
@@ -2163,7 +2164,7 @@ void run_on_ui_thread(dispatch_block_t block)
         self.navigationItem.rightBarButtonItem = nil;
     }
     // Activate/Deactivate reload buttons in dock and slider
-    [_sebUIController activateReloadButtons:reloadEnabled];
+    [self.sebUIController activateReloadButtons:reloadEnabled];
 }
 
 
