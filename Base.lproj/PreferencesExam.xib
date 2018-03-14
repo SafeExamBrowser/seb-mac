@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsExamViewController">
@@ -19,7 +20,7 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1" userLabel="Exam Preferences">
-            <rect key="frame" x="0.0" y="0.0" width="650" height="520"/>
+            <rect key="frame" x="0.0" y="0.0" width="650" height="549"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <box autoresizesSubviews="NO" borderType="line" title="Restart exam button" translatesAutoresizingMaskIntoConstraints="NO" id="czI-08-Q8k">
@@ -38,9 +39,6 @@
                             </textField>
                             <textField toolTip="Full URL (starting with http:// or https://) of the page to open when the Restart exam button is pressed" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Rr-y4-nE8">
                                 <rect key="frame" x="13" y="124" width="588" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="588" id="rck-hM-PcS"/>
-                                </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="URL starting with http:// or https://" drawsBackground="YES" id="bTx-tu-6Av">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -75,9 +73,6 @@
                             </textField>
                             <textField toolTip="This text is displayed as the title of the password entering/confirming dialog window and tooltip for the restart exam button" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qei-df-hVI">
                                 <rect key="frame" x="13" y="65" width="588" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="588" id="ZZP-Uf-LnH"/>
-                                </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Restart Exam" drawsBackground="YES" id="sY9-Fu-u2Z">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -144,17 +139,13 @@
                     <font key="titleFont" metaFont="system"/>
                 </box>
                 <box autoresizesSubviews="NO" borderType="line" title="Browser Exam Key" translatesAutoresizingMaskIntoConstraints="NO" id="57Q-JV-oaf">
-                    <rect key="frame" x="17" y="349" width="616" height="151"/>
+                    <rect key="frame" x="17" y="373" width="616" height="156"/>
                     <view key="contentView" id="25R-Li-36g">
-                        <rect key="frame" x="1" y="1" width="614" height="132"/>
+                        <rect key="frame" x="1" y="1" width="614" height="137"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="14">
                                 <rect key="frame" x="13" y="74" width="588" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="588" id="gG8-II-QoC"/>
-                                    <constraint firstAttribute="height" constant="22" id="jdJ-nL-pyU"/>
-                                </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="15">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -189,11 +180,8 @@
                                 </textFieldCell>
                             </textField>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="3dP-gi-x4W">
-                                <rect key="frame" x="11" y="105" width="301" height="18"/>
+                                <rect key="frame" x="11" y="105" width="302" height="23"/>
                                 <string key="toolTip">When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system</string>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="14" id="M9d-XX-KC6"/>
-                                </constraints>
                                 <buttonCell key="cell" type="check" title="Use Browser Exam Key (send in HTTP header)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="gk0-kD-QIq">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -225,25 +213,13 @@
                     <font key="titleFont" metaFont="system"/>
                 </box>
                 <box autoresizesSubviews="NO" borderType="line" title="Link to quit SEB after exam" translatesAutoresizingMaskIntoConstraints="NO" id="26k-Q1-RaL">
-                    <rect key="frame" x="17" y="230" width="616" height="103"/>
+                    <rect key="frame" x="17" y="230" width="616" height="127"/>
                     <view key="contentView" id="Bon-Cy-DW3">
-                        <rect key="frame" x="1" y="1" width="614" height="84"/>
+                        <rect key="frame" x="1" y="1" width="614" height="108"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="440">
-                                <rect key="frame" x="11" y="14" width="592" height="29"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="29" id="uK5-Cd-Hzm"/>
-                                </constraints>
-                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="442">
-                                    <font key="font" metaFont="smallSystem"/>
-                                    <string key="title">Place this Quit Link to the 'feedback' page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password.</string>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <textField toolTip="If a Quit Link is entered, it works regardless of other quit settings in the General pane" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="688">
-                                <rect key="frame" x="13" y="51" width="588" height="22"/>
+                                <rect key="frame" x="13" y="75" width="588" height="22"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="URL starting with http:// or https://" drawsBackground="YES" id="689">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -260,16 +236,45 @@
                                     <outlet property="delegate" destination="-2" id="1029"/>
                                 </connections>
                             </textField>
+                            <button toolTip="If not selected, then SEB is quit immediately after a Quit Link is detected, without users having to confirm" translatesAutoresizingMaskIntoConstraints="NO" id="mWl-BQ-Udt">
+                                <rect key="frame" x="11" y="11" width="190" height="18"/>
+                                <buttonCell key="cell" type="check" title="Ask user to confirm quitting" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Ji2-gQ-cOh">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="restartExamPasswordProtected:" target="-2" id="v4w-DB-2Xd"/>
+                                    <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_quitURLConfirm" id="KbS-z0-hoq"/>
+                                </connections>
+                            </button>
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="440">
+                                <rect key="frame" x="11" y="38" width="592" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="29" id="uK5-Cd-Hzm"/>
+                                </constraints>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="442">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <string key="title">Place this Quit Link to the 'feedback' page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password.</string>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mWl-BQ-Udt" secondAttribute="trailing" constant="11" id="Bpo-KI-EMZ"/>
+                            <constraint firstItem="mWl-BQ-Udt" firstAttribute="top" secondItem="440" secondAttribute="bottom" constant="11" id="KDB-xA-DaQ"/>
+                            <constraint firstAttribute="bottom" secondItem="mWl-BQ-Udt" secondAttribute="bottom" constant="13" id="cu4-vG-XEY"/>
+                            <constraint firstItem="mWl-BQ-Udt" firstAttribute="leading" secondItem="Bon-Cy-DW3" secondAttribute="leading" constant="13" id="dwK-ic-Mjj"/>
+                            <constraint firstItem="440" firstAttribute="top" secondItem="688" secondAttribute="bottom" constant="8" id="g3y-1g-313"/>
+                            <constraint firstItem="688" firstAttribute="top" secondItem="Bon-Cy-DW3" secondAttribute="top" constant="11" id="jnd-2g-F5b"/>
+                        </constraints>
                     </view>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="440" secondAttribute="trailing" constant="11" id="3Ll-hc-RMA"/>
                         <constraint firstItem="440" firstAttribute="leading" secondItem="26k-Q1-RaL" secondAttribute="leading" constant="11" id="ADM-ht-qSD"/>
                         <constraint firstItem="688" firstAttribute="top" secondItem="26k-Q1-RaL" secondAttribute="top" constant="29" id="BAA-Sq-U9D"/>
-                        <constraint firstAttribute="bottom" secondItem="440" secondAttribute="bottom" constant="11" id="PW0-r4-sQc"/>
                         <constraint firstItem="688" firstAttribute="leading" secondItem="26k-Q1-RaL" secondAttribute="leading" constant="11" id="Wzp-cL-xk3"/>
                         <constraint firstAttribute="trailing" secondItem="688" secondAttribute="trailing" constant="11" id="hxf-So-TJy"/>
-                        <constraint firstItem="440" firstAttribute="top" secondItem="688" secondAttribute="bottom" constant="8" id="iIT-hx-PrW"/>
                     </constraints>
                     <font key="titleFont" metaFont="system"/>
                 </box>
@@ -280,14 +285,13 @@
                 <constraint firstItem="26k-Q1-RaL" firstAttribute="top" secondItem="57Q-JV-oaf" secondAttribute="bottom" constant="20" id="FVu-9s-KJ5"/>
                 <constraint firstItem="26k-Q1-RaL" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="N3J-CS-yEh"/>
                 <constraint firstAttribute="trailing" secondItem="czI-08-Q8k" secondAttribute="trailing" constant="20" id="ruI-x9-QmF"/>
-                <constraint firstItem="26k-Q1-RaL" firstAttribute="top" secondItem="1" secondAttribute="top" constant="187" id="wXx-6a-anZ"/>
                 <constraint firstAttribute="trailing" secondItem="57Q-JV-oaf" secondAttribute="trailing" constant="20" id="xRI-qy-fkv"/>
                 <constraint firstItem="57Q-JV-oaf" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" id="xsc-X4-PkJ"/>
                 <constraint firstItem="czI-08-Q8k" firstAttribute="top" secondItem="26k-Q1-RaL" secondAttribute="bottom" constant="20" id="yeN-9B-htr"/>
                 <constraint firstItem="57Q-JV-oaf" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="z8m-iy-5fY"/>
                 <constraint firstItem="czI-08-Q8k" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="zNt-7I-Ywp"/>
             </constraints>
-            <point key="canvasLocation" x="511" y="822"/>
+            <point key="canvasLocation" x="511" y="815"/>
         </customView>
         <userDefaultsController id="211" userLabel="SEB User Defaults Controller" customClass="SEBEncryptedUserDefaultsController"/>
         <userDefaultsController id="228" userLabel="SEB UI User Defaults Controller" customClass="SEBUIUserDefaultsController"/>

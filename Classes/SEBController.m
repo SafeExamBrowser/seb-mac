@@ -2390,11 +2390,11 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamURL"].length > 0)) {
             NSString *restartButtonToolTip = [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamText"];
             if (restartButtonToolTip.length == 0) {
-                restartButtonToolTip = NSLocalizedString(@"Restart Exam",nil);
+                restartButtonToolTip = NSLocalizedString(@"Back to Start",nil);
             }
             SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil
-                                                                          icon:[NSImage imageNamed:@"SEBRestartIcon"]
-                                                               highlightedIcon:[NSImage imageNamed:@"SEBRestartIconHighlighted"]
+                                                                          icon:[NSImage imageNamed:@"SEBSkipBackIcon"]
+                                                               highlightedIcon:[NSImage imageNamed:@"SEBSkipBackIconHighlighted"]
                                                                        toolTip:restartButtonToolTip
                                                                           menu:nil
                                                                         target:self

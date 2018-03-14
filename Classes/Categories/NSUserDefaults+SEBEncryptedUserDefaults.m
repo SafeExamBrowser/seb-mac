@@ -418,6 +418,8 @@ static NSNumber *_logLevel;
                                  @"",
                                  @"org_safeexambrowser_SEB_quitURL",
                                  @YES,
+                                 @"org_safeexambrowser_SEB_quitURLConfirm",
+                                 @YES,
                                  @"org_safeexambrowser_SEB_removeBrowserProfile",
                                  @NO,
                                  @"org_safeexambrowser_SEB_removeLocalStorage",
