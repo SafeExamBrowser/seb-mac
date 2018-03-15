@@ -34,6 +34,18 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SEBNavigationController : UINavigationController
+#import "AppDelegate.h"
+#import "SEBUIController.h"
+
+@class AppDelegate;
+@class SEBUIController;
+
+@interface SEBNavigationController : UINavigationController {
+    
+}
+
+@property (strong, nonatomic) AppDelegate *appDelegate;
+@property (strong, nonatomic) SEBUIController *sebUIController;
+
 
 @end

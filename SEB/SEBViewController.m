@@ -825,56 +825,58 @@ void run_on_ui_thread(dispatch_block_t block)
             [_statusBarView removeFromSuperview];
         }
         
-        _statusBarView = [UIView new];
-        [_statusBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [self.view addSubview:_statusBarView];
-        
-        NSDictionary *viewsDictionary = @{@"statusBarView" : _statusBarView,
-                                          @"containerView" : _containerView};
-        
-        _containerTopContraint.active = false;
-        NSArray *constraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[statusBarView]-0-|"
-                                                                         options: 0
-                                                                         metrics: nil
-                                                                           views: viewsDictionary];
-        NSArray *constraints_V;
-        if (@available(iOS 11.0, *)) {
-            NSLayoutConstraint *topConstraint   = [NSLayoutConstraint constraintWithItem:_statusBarView
-                                                                               attribute:NSLayoutAttributeTop
-                                                                               relatedBy:NSLayoutRelationEqual
-                                                                                  toItem:_containerView
-                                                                               attribute:NSLayoutAttributeTop
-                                                                              multiplier:1.0
-                                                                                constant:0];
-            
-            NSLayoutConstraint *bottomConstraint   = [NSLayoutConstraint constraintWithItem:_statusBarView
-                                                                                  attribute:NSLayoutAttributeBottom
-                                                                                  relatedBy:NSLayoutRelationEqual
-                                                                                     toItem:_containerView.safeAreaLayoutGuide
-                                                                                  attribute:NSLayoutAttributeTop
-                                                                                 multiplier:1.0
-                                                                                   constant:0];
-            
-            constraints_V = @[topConstraint, bottomConstraint];
-        } else {
-            constraints_V = [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-0-[statusBarView(==20)]-0-[containerView]"
-                                                                    options: 0
-                                                                    metrics: nil
-                                                                      views: viewsDictionary];
-        }
-        [self.view addConstraints:constraints_H];
-        [self.view addConstraints:constraints_V];
-        
         statusBarAppearance = self.sebUIController.statusBarAppearance;
         
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] == false) {
-            // Only draw background for status bar when it is enabled
+        if (statusBarAppearance != mobileStatusBarAppearanceNone) {
+            _statusBarView = [UIView new];
+            [_statusBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
+            [self.view addSubview:_statusBarView];
             
-            _statusBarView.backgroundColor = (statusBarAppearance == mobileStatusBarAppearanceLight ? [UIColor blackColor] : [UIColor whiteColor]);
-            _statusBarView.hidden = false;
+            NSDictionary *viewsDictionary = @{@"statusBarView" : _statusBarView,
+                                              @"containerView" : _containerView};
             
-        } else {
-            _statusBarView.hidden = true;
+            _containerTopContraint.active = false;
+            NSArray *constraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[statusBarView]-0-|"
+                                                                             options: 0
+                                                                             metrics: nil
+                                                                               views: viewsDictionary];
+            NSArray *constraints_V;
+            if (@available(iOS 11.0, *)) {
+                NSLayoutConstraint *topConstraint   = [NSLayoutConstraint constraintWithItem:_statusBarView
+                                                                                   attribute:NSLayoutAttributeTop
+                                                                                   relatedBy:NSLayoutRelationEqual
+                                                                                      toItem:_containerView
+                                                                                   attribute:NSLayoutAttributeTop
+                                                                                  multiplier:1.0
+                                                                                    constant:0];
+                
+                NSLayoutConstraint *bottomConstraint   = [NSLayoutConstraint constraintWithItem:_statusBarView
+                                                                                      attribute:NSLayoutAttributeBottom
+                                                                                      relatedBy:NSLayoutRelationEqual
+                                                                                         toItem:_containerView.safeAreaLayoutGuide
+                                                                                      attribute:NSLayoutAttributeTop
+                                                                                     multiplier:1.0
+                                                                                       constant:0];
+                
+                constraints_V = @[topConstraint, bottomConstraint];
+            } else {
+                constraints_V = [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-0-[statusBarView(==20)]-0-[containerView]"
+                                                                        options: 0
+                                                                        metrics: nil
+                                                                          views: viewsDictionary];
+            }
+            [self.view addConstraints:constraints_H];
+            [self.view addConstraints:constraints_V];
+            
+            if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] == false) {
+                // Only draw background for status bar when it is enabled
+                
+                _statusBarView.backgroundColor = (statusBarAppearance == mobileStatusBarAppearanceLight ? [UIColor blackColor] : [UIColor whiteColor]);
+                _statusBarView.hidden = false;
+                
+            } else {
+                _statusBarView.hidden = true;
+            }
         }
         
         [self setNeedsStatusBarAppearanceUpdate];
@@ -1882,15 +1884,31 @@ void run_on_ui_thread(dispatch_block_t block)
     return (statusBarAppearance == mobileStatusBarAppearanceNone);
 }
 
+- (BOOL)isRootViewStatusBarHidden {
+    return (statusBarAppearance == mobileStatusBarAppearanceNone);
+}
+
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] == false) {
+//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+//    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] == false) {
         if (statusBarAppearance == mobileStatusBarAppearanceLight) {
             return UIStatusBarStyleLightContent;
         }
-    }
+//    }
     return UIStatusBarStyleDefault;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    if (self.sideMenuController.isLeftViewVisible) {
+        return UIStatusBarAnimationFade;
+    }
+    else if (self.sideMenuController.isRightViewVisible) {
+        return UIStatusBarAnimationSlide;
+    }
+    else {
+        return UIStatusBarAnimationNone;
+    }
 }
 
 
