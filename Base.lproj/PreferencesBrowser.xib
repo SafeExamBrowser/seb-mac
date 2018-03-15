@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsBrowserViewController">
@@ -21,11 +22,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1" userLabel="Browser Preferences">
-            <rect key="frame" x="0.0" y="0.0" width="650" height="650"/>
+            <rect key="frame" x="0.0" y="0.0" width="650" height="700"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="84">
-                    <rect key="frame" x="18" y="613" width="614" height="17"/>
+                    <rect key="frame" x="18" y="663" width="614" height="17"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="biv-Ti-nzG"/>
                     </constraints>
@@ -36,7 +37,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="85">
-                    <rect key="frame" x="18" y="581" width="305" height="26"/>
+                    <rect key="frame" x="18" y="631" width="305" height="26"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="300" id="557"/>
                     </constraints>
@@ -60,7 +61,7 @@
                     </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="93">
-                    <rect key="frame" x="18" y="434" width="614" height="17"/>
+                    <rect key="frame" x="18" y="484" width="614" height="17"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Links in JavaScript/plug-ins ..." usesSingleLineMode="YES" id="100">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -68,7 +69,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton toolTip="USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="94">
-                    <rect key="frame" x="18" y="402" width="305" height="26"/>
+                    <rect key="frame" x="18" y="452" width="305" height="26"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="300" id="74c-aj-gJk"/>
                     </constraints>
@@ -92,7 +93,7 @@
                     </connections>
                 </popUpButton>
                 <button toolTip="Hyperlinks which direct to a different host than the one of the current main page will be ignored" translatesAutoresizingMaskIntoConstraints="NO" id="101">
-                    <rect key="frame" x="18" y="558" width="272" height="18"/>
+                    <rect key="frame" x="18" y="608" width="272" height="18"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="410"/>
                     </constraints>
@@ -106,7 +107,7 @@
                     </connections>
                 </button>
                 <box autoresizesSubviews="NO" borderType="line" title="New browser window size and position" translatesAutoresizingMaskIntoConstraints="NO" id="567">
-                    <rect key="frame" x="17" y="462" width="616" height="88"/>
+                    <rect key="frame" x="17" y="512" width="616" height="88"/>
                     <view key="contentView" id="sga-L4-DYG">
                         <rect key="frame" x="1" y="1" width="614" height="72"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -213,13 +214,13 @@
                     </constraints>
                 </box>
                 <box autoresizesSubviews="NO" borderType="line" title="Browser Security" translatesAutoresizingMaskIntoConstraints="NO" id="7nL-Z2-JAg">
-                    <rect key="frame" x="17" y="260" width="616" height="130"/>
+                    <rect key="frame" x="17" y="274" width="616" height="166"/>
                     <view key="contentView" id="guQ-Yx-amA">
-                        <rect key="frame" x="1" y="1" width="614" height="114"/>
+                        <rect key="frame" x="1" y="1" width="614" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button toolTip="Enables web plugins like Flash. For security reasons it's recommended to disable this option if plugin content is not used." translatesAutoresizingMaskIntoConstraints="NO" id="107">
-                                <rect key="frame" x="11" y="87" width="117" height="18"/>
+                            <button toolTip="Enables web plugins like Flash. For security reasons it's recommended to disable this option if plugin content is not used." verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="107">
+                                <rect key="frame" x="11" y="124" width="117" height="18"/>
                                 <buttonCell key="cell" type="check" title="Enable plug-ins" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="108">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -228,8 +229,8 @@
                                     <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enablePlugIns" id="652"/>
                                 </connections>
                             </button>
-                            <button toolTip="Enables Java applets" translatesAutoresizingMaskIntoConstraints="NO" id="168">
-                                <rect key="frame" x="11" y="67" width="94" height="18"/>
+                            <button toolTip="Enables Java applets" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="168">
+                                <rect key="frame" x="11" y="104" width="94" height="18"/>
                                 <buttonCell key="cell" type="check" title="Enable Java" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="169">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -238,8 +239,8 @@
                                     <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enableJava" id="207"/>
                                 </connections>
                             </button>
-                            <button toolTip="Enables JavaScript. Please note that most modern websites need JavaScript for full functionality." translatesAutoresizingMaskIntoConstraints="NO" id="171">
-                                <rect key="frame" x="320" y="87" width="284" height="18"/>
+                            <button toolTip="Enables JavaScript. Please note that most modern websites need JavaScript for full functionality." verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="171">
+                                <rect key="frame" x="320" y="124" width="284" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="280" id="4Qz-qE-Bhh"/>
                                 </constraints>
@@ -251,8 +252,8 @@
                                     <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enableJavaScript" id="206"/>
                                 </connections>
                             </button>
-                            <button toolTip="Disables pop-up windows (often advertisement) opened by JavaScript without an user action such as a button click" translatesAutoresizingMaskIntoConstraints="NO" id="176">
-                                <rect key="frame" x="320" y="67" width="284" height="18"/>
+                            <button toolTip="Disables pop-up windows (often advertisement) opened by JavaScript without an user action such as a button click" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="176">
+                                <rect key="frame" x="320" y="104" width="284" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="280" id="MIo-zU-b8X"/>
                                 </constraints>
@@ -264,10 +265,10 @@
                                     <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_blockPopUpWindows" id="208"/>
                                 </connections>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="180">
-                                <rect key="frame" x="11" y="41" width="197" height="18"/>
+                            <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="180">
+                                <rect key="frame" x="11" y="78" width="254" height="18"/>
                                 <string key="toolTip">Disabling browsing to previously visited pages (by cmd + Cursor left) may increase security, because browsing back might allow to leave an exam</string>
-                                <buttonCell key="cell" type="check" title="Allow browsing back/forward" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="181">
+                                <buttonCell key="cell" type="check" title="Allow navigating back/forward in exam" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="181">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -275,8 +276,47 @@
                                     <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_allowBrowsingBackForward" id="6v2-eF-cEt"/>
                                 </connections>
                             </button>
-                            <button toolTip="Remove XULRunner browser profile (containing caches and also local storage) when quitting SEB" translatesAutoresizingMaskIntoConstraints="NO" id="661">
-                                <rect key="frame" x="11" y="15" width="149" height="18"/>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="FwJ-dG-wCg">
+                                <rect key="frame" x="11" y="58" width="146" height="18"/>
+                                <string key="toolTip">Disabling browsing to previously visited pages (by cmd + Cursor left) may increase security, because browsing back might allow to leave an exam</string>
+                                <buttonCell key="cell" type="check" title="Allow reload in exam" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="1TN-dk-xIy">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserWindowAllowReload" id="eTp-KO-mHI"/>
+                                </connections>
+                            </button>
+                            <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="z2i-c3-hed">
+                                <rect key="frame" x="320" y="78" width="284" height="18"/>
+                                <string key="toolTip">Disabling browsing to previously visited pages (by cmd + Cursor left) may increase security, because browsing back might allow to leave an exam</string>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="280" id="bNY-xQ-8v5"/>
+                                </constraints>
+                                <buttonCell key="cell" type="check" title="Allow navigating in additional windows" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="9tX-IU-bN7">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowNavigation" id="VLk-Q7-nld"/>
+                                </connections>
+                            </button>
+                            <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="NhI-j9-FNc">
+                                <rect key="frame" x="320" y="38" width="284" height="18"/>
+                                <string key="toolTip">Disabling browsing to previously visited pages (by cmd + Cursor left) may increase security, because browsing back might allow to leave an exam</string>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="280" id="72C-i3-3s1"/>
+                                </constraints>
+                                <buttonCell key="cell" type="check" title="Allow reload warning in additional windows" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="8TJ-ch-PAj">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowShowReloadWarning" id="FCb-TF-ysJ"/>
+                                </connections>
+                            </button>
+                            <button toolTip="Remove XULRunner browser profile (containing caches and also local storage) when quitting SEB" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="661">
+                                <rect key="frame" x="11" y="12" width="149" height="18"/>
                                 <buttonCell key="cell" type="check" title="Remove profile (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="663">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -285,12 +325,9 @@
                                     <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_removeBrowserProfile" id="681"/>
                                 </connections>
                             </button>
-                            <button toolTip="User has to confirm reloading a web page by cmd-R or the reload button" translatesAutoresizingMaskIntoConstraints="NO" id="Du9-dQ-GIJ">
-                                <rect key="frame" x="320" y="41" width="284" height="18"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="280" id="wOg-7V-Xdl"/>
-                                </constraints>
-                                <buttonCell key="cell" type="check" title="Show reload warning" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="16K-h7-SCc">
+                            <button toolTip="User has to confirm reloading a web page by cmd-R or the reload button" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="Du9-dQ-GIJ">
+                                <rect key="frame" x="11" y="38" width="199" height="18"/>
+                                <buttonCell key="cell" type="check" title="Show reload warning in exam" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="16K-h7-SCc">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -299,7 +336,7 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="wFa-eR-NzK">
-                                <rect key="frame" x="320" y="15" width="284" height="18"/>
+                                <rect key="frame" x="320" y="12" width="284" height="18"/>
                                 <string key="toolTip">If your web application uses local storage, you have to be sure data is saved encrypted and removed when no longer needed as SEB doesn't remove local storage</string>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="280" id="Qct-mq-TYf"/>
@@ -312,44 +349,73 @@
                                     <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_removeLocalStorage" id="rEm-R6-sYb"/>
                                 </connections>
                             </button>
+                            <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="VER-Ja-0d8">
+                                <rect key="frame" x="320" y="58" width="284" height="18"/>
+                                <string key="toolTip">Disabling browsing to previously visited pages (by cmd + Cursor left) may increase security, because browsing back might allow to leave an exam</string>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="280" id="NZU-Fd-POy"/>
+                                </constraints>
+                                <buttonCell key="cell" type="check" title="Allow reload in additional windows" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="6r7-Lm-bnI">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowAllowReload" id="C5f-Ca-vfC"/>
+                                </connections>
+                            </button>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="NhI-j9-FNc" firstAttribute="top" secondItem="VER-Ja-0d8" secondAttribute="bottom" constant="6" symbolic="YES" id="2LV-8m-awg"/>
+                            <constraint firstItem="107" firstAttribute="top" secondItem="guQ-Yx-amA" secondAttribute="top" constant="10" id="6PX-rf-z6A"/>
+                            <constraint firstAttribute="trailing" secondItem="VER-Ja-0d8" secondAttribute="trailing" constant="12" id="6mv-I1-50P"/>
+                            <constraint firstItem="FwJ-dG-wCg" firstAttribute="leading" secondItem="180" secondAttribute="leading" id="BZd-xN-dD6"/>
+                            <constraint firstAttribute="bottom" secondItem="wFa-eR-NzK" secondAttribute="bottom" constant="14" id="J0m-z0-2Sh"/>
+                            <constraint firstItem="wFa-eR-NzK" firstAttribute="top" secondItem="NhI-j9-FNc" secondAttribute="bottom" constant="12" id="Ni6-RC-49C"/>
+                            <constraint firstItem="Du9-dQ-GIJ" firstAttribute="leading" secondItem="180" secondAttribute="leading" id="PlK-Xt-Go0"/>
+                            <constraint firstItem="z2i-c3-hed" firstAttribute="leading" secondItem="176" secondAttribute="leading" id="QBf-go-ThY"/>
+                            <constraint firstAttribute="bottom" secondItem="661" secondAttribute="bottom" constant="14" id="TgA-AS-QQR"/>
+                            <constraint firstItem="z2i-c3-hed" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="180" secondAttribute="trailing" constant="20" id="Tsm-2C-4ha"/>
+                            <constraint firstItem="FwJ-dG-wCg" firstAttribute="top" secondItem="180" secondAttribute="bottom" constant="6" symbolic="YES" id="XJc-13-ywB"/>
+                            <constraint firstItem="VER-Ja-0d8" firstAttribute="leading" secondItem="176" secondAttribute="leading" id="YUL-Eh-SYD"/>
+                            <constraint firstItem="VER-Ja-0d8" firstAttribute="top" secondItem="z2i-c3-hed" secondAttribute="bottom" constant="6" symbolic="YES" id="av2-vj-nYU"/>
+                            <constraint firstAttribute="trailing" secondItem="z2i-c3-hed" secondAttribute="trailing" constant="12" id="cUC-eA-2yU"/>
+                            <constraint firstItem="z2i-c3-hed" firstAttribute="top" secondItem="176" secondAttribute="bottom" constant="12" id="ciw-Vp-1r3"/>
+                            <constraint firstAttribute="trailing" secondItem="NhI-j9-FNc" secondAttribute="trailing" constant="12" id="dA2-6m-9j2"/>
+                            <constraint firstItem="661" firstAttribute="top" secondItem="Du9-dQ-GIJ" secondAttribute="bottom" constant="12" id="g8J-KM-tFe"/>
+                            <constraint firstItem="VER-Ja-0d8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FwJ-dG-wCg" secondAttribute="trailing" constant="20" id="n9p-ID-8Ah"/>
+                            <constraint firstItem="NhI-j9-FNc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Du9-dQ-GIJ" secondAttribute="trailing" constant="20" id="nSu-u5-ud6"/>
+                            <constraint firstItem="NhI-j9-FNc" firstAttribute="leading" secondItem="176" secondAttribute="leading" id="phE-bA-gMn"/>
+                            <constraint firstItem="171" firstAttribute="top" secondItem="guQ-Yx-amA" secondAttribute="top" constant="10" id="soJ-HG-wIw"/>
+                            <constraint firstItem="Du9-dQ-GIJ" firstAttribute="top" secondItem="FwJ-dG-wCg" secondAttribute="bottom" constant="6" symbolic="YES" id="zMX-9x-xgM"/>
+                        </constraints>
                     </view>
                     <constraints>
                         <constraint firstItem="168" firstAttribute="leading" secondItem="7nL-Z2-JAg" secondAttribute="leading" constant="11" id="0HD-oe-nw2"/>
-                        <constraint firstItem="Du9-dQ-GIJ" firstAttribute="top" secondItem="176" secondAttribute="bottom" constant="12" id="1YG-ag-euQ"/>
                         <constraint firstItem="180" firstAttribute="leading" secondItem="7nL-Z2-JAg" secondAttribute="leading" constant="11" id="Bjo-UP-Ucb"/>
-                        <constraint firstItem="Du9-dQ-GIJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="180" secondAttribute="trailing" constant="20" id="BlQ-mY-DGV"/>
-                        <constraint firstItem="176" firstAttribute="leading" secondItem="Du9-dQ-GIJ" secondAttribute="leading" id="Cbb-YE-8cA"/>
                         <constraint firstItem="176" firstAttribute="leading" secondItem="171" secondAttribute="leading" id="FTq-Vp-aCU"/>
                         <constraint firstAttribute="trailing" secondItem="176" secondAttribute="trailing" constant="10" id="Flx-Xi-FhX"/>
                         <constraint firstItem="168" firstAttribute="top" secondItem="107" secondAttribute="bottom" constant="6" symbolic="YES" id="H0c-rk-ACa"/>
                         <constraint firstItem="661" firstAttribute="leading" secondItem="7nL-Z2-JAg" secondAttribute="leading" constant="11" id="INE-jB-tdB"/>
-                        <constraint firstItem="171" firstAttribute="top" secondItem="7nL-Z2-JAg" secondAttribute="top" constant="26" id="Lwc-Xp-wIU"/>
-                        <constraint firstItem="107" firstAttribute="top" secondItem="7nL-Z2-JAg" secondAttribute="top" constant="26" id="M5K-HE-6uC"/>
                         <constraint firstItem="107" firstAttribute="leading" secondItem="7nL-Z2-JAg" secondAttribute="leading" constant="11" id="NnB-e7-vbD"/>
                         <constraint firstAttribute="trailing" secondItem="171" secondAttribute="trailing" constant="10" id="OZB-6k-nL1"/>
                         <constraint firstAttribute="trailing" secondItem="wFa-eR-NzK" secondAttribute="trailing" constant="10" id="bc2-1a-7Yt"/>
-                        <constraint firstAttribute="bottom" secondItem="661" secondAttribute="bottom" constant="14" id="bjt-S5-5R2"/>
-                        <constraint firstAttribute="bottom" secondItem="wFa-eR-NzK" secondAttribute="bottom" constant="14" id="cLp-9M-5DV"/>
                         <constraint firstItem="176" firstAttribute="leading" secondItem="wFa-eR-NzK" secondAttribute="leading" id="ei4-cO-Taf"/>
                         <constraint firstItem="wFa-eR-NzK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="661" secondAttribute="trailing" constant="20" id="gen-v7-ajk"/>
-                        <constraint firstAttribute="height" constant="126" id="gk3-er-8Tc"/>
                         <constraint firstItem="180" firstAttribute="top" secondItem="168" secondAttribute="bottom" constant="12" id="hhz-Pb-ieC"/>
                         <constraint firstItem="176" firstAttribute="top" secondItem="171" secondAttribute="bottom" constant="6" symbolic="YES" id="k5U-XL-UG3"/>
                         <constraint firstItem="171" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="107" secondAttribute="trailing" constant="20" id="s4H-rR-4XE"/>
-                        <constraint firstItem="wFa-eR-NzK" firstAttribute="top" secondItem="Du9-dQ-GIJ" secondAttribute="bottom" constant="12" id="tY4-7g-6pp"/>
-                        <constraint firstItem="661" firstAttribute="top" secondItem="180" secondAttribute="bottom" constant="12" id="yWB-tY-Og4"/>
+                        <constraint firstAttribute="height" constant="162" id="vo8-YO-Oed"/>
                         <constraint firstItem="176" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="168" secondAttribute="trailing" constant="20" id="ysA-BW-Q7x"/>
                     </constraints>
                 </box>
                 <box autoresizesSubviews="NO" borderType="line" title="User agent" translatesAutoresizingMaskIntoConstraints="NO" id="ckm-lX-Woj">
-                    <rect key="frame" x="17" y="67" width="616" height="182"/>
+                    <rect key="frame" x="17" y="62" width="616" height="201"/>
                     <view key="contentView" id="axo-2J-CZ8">
-                        <rect key="frame" x="1" y="1" width="614" height="166"/>
+                        <rect key="frame" x="1" y="1" width="614" height="185"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <popUpButton toolTip="USE WITH CARE: When 'open in same window' is selected, then some JavaScript/HTML5 features (like File API) might not work" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="UsO-tg-591">
-                                <rect key="frame" x="11" y="131" width="593" height="26"/>
+                                <rect key="frame" x="11" y="124" width="593" height="26"/>
                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="50h-rm-tb3">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
@@ -370,7 +436,7 @@
                                 </connections>
                             </popUpButton>
                             <tabView drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="WH0-5V-GCS">
-                                <rect key="frame" x="13" y="14" width="588" height="112"/>
+                                <rect key="frame" x="13" y="14" width="588" height="105"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="750" constant="112" id="rSZ-FD-lbj"/>
                                 </constraints>
@@ -648,7 +714,7 @@
                                                 <constraint firstItem="7tl-BN-q8i" firstAttribute="leading" secondItem="YKQ-wn-UQR" secondAttribute="leading" id="Fcz-A1-i10"/>
                                                 <constraint firstItem="twb-Ov-Zlx" firstAttribute="leading" secondItem="i2L-Fg-eTj" secondAttribute="trailing" constant="8" symbolic="YES" id="GJi-wq-aQI"/>
                                                 <constraint firstAttribute="trailing" secondItem="34u-Jt-GbJ" secondAttribute="trailing" id="HwC-Gj-rvA"/>
-                                                <constraint firstAttribute="bottom" secondItem="7tl-BN-q8i" secondAttribute="bottom" id="Svl-1d-Djn"/>
+                                                <constraint firstAttribute="bottom" secondItem="7tl-BN-q8i" secondAttribute="bottom" priority="250" id="Svl-1d-Djn"/>
                                                 <constraint firstItem="i2L-Fg-eTj" firstAttribute="leading" secondItem="YKQ-wn-UQR" secondAttribute="leading" id="X1e-Ma-Cwl"/>
                                                 <constraint firstItem="34u-Jt-GbJ" firstAttribute="top" secondItem="i2L-Fg-eTj" secondAttribute="bottom" constant="4" id="Ybg-fw-uJN"/>
                                                 <constraint firstItem="i2L-Fg-eTj" firstAttribute="top" secondItem="YKQ-wn-UQR" secondAttribute="top" id="cDL-b9-NKt"/>
@@ -667,16 +733,49 @@
                                     <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_browserUserAgentEnvironment" id="4fH-Ky-Giv"/>
                                 </connections>
                             </tabView>
+                            <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="p3T-fI-3bu">
+                                <rect key="frame" x="127" y="156" width="474" height="21"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="Suffix to be added to any user agent" id="VJ9-fx-YV7">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserUserAgent" id="0Q2-XI-8oS">
+                                        <dictionary key="options">
+                                            <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                            <bool key="NSValidatesImmediately" value="YES"/>
+                                            <string key="NSValueTransformerName">NSTextFieldNilToEmptyStringTransformer</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </textField>
+                            <textField horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uZt-GQ-bpe">
+                                <rect key="frame" x="9" y="159" width="112" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="User agent suffix:" id="0xK-SO-5d2">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="p3T-fI-3bu" firstAttribute="baseline" secondItem="uZt-GQ-bpe" secondAttribute="baseline" id="Hvd-b5-QeK"/>
+                            <constraint firstItem="UsO-tg-591" firstAttribute="top" secondItem="p3T-fI-3bu" secondAttribute="bottom" constant="8" id="JCx-BV-sKs"/>
+                            <constraint firstItem="uZt-GQ-bpe" firstAttribute="leading" secondItem="axo-2J-CZ8" secondAttribute="leading" constant="11" id="VIb-4d-y2V"/>
+                            <constraint firstAttribute="trailing" secondItem="p3T-fI-3bu" secondAttribute="trailing" constant="13" id="W7U-W0-Wta"/>
+                            <constraint firstItem="p3T-fI-3bu" firstAttribute="top" secondItem="axo-2J-CZ8" secondAttribute="top" constant="8" id="cii-b6-SGh"/>
+                            <constraint firstItem="p3T-fI-3bu" firstAttribute="leading" secondItem="uZt-GQ-bpe" secondAttribute="trailing" constant="8" symbolic="YES" id="gSU-cI-uml"/>
+                        </constraints>
                     </view>
                     <constraints>
+                        <constraint firstAttribute="height" constant="197" id="5q2-Nv-TIE"/>
                         <constraint firstAttribute="trailing" secondItem="WH0-5V-GCS" secondAttribute="trailing" constant="11" id="Cyb-7A-smy"/>
                         <constraint firstAttribute="bottom" secondItem="WH0-5V-GCS" secondAttribute="bottom" constant="11" id="GWe-lF-2nP"/>
                         <constraint firstItem="WH0-5V-GCS" firstAttribute="top" secondItem="UsO-tg-591" secondAttribute="bottom" constant="8" id="Pst-R9-pdT"/>
                         <constraint firstItem="WH0-5V-GCS" firstAttribute="leading" secondItem="ckm-lX-Woj" secondAttribute="leading" constant="11" id="UOD-cq-dxU"/>
                         <constraint firstAttribute="trailing" secondItem="UsO-tg-591" secondAttribute="trailing" constant="11" id="fbq-wD-MRd"/>
                         <constraint firstItem="UsO-tg-591" firstAttribute="leading" secondItem="ckm-lX-Woj" secondAttribute="leading" constant="11" id="jE6-vh-BQc"/>
-                        <constraint firstItem="UsO-tg-591" firstAttribute="top" secondItem="ckm-lX-Woj" secondAttribute="top" constant="26" id="nxS-Io-5kh"/>
                     </constraints>
                 </box>
                 <button toolTip="When the SEB browser is disabled, no browser window is openend. Use this option with specific third party applications allowed." translatesAutoresizingMaskIntoConstraints="NO" id="413">
@@ -726,9 +825,9 @@
                 <constraint firstItem="93" firstAttribute="top" secondItem="567" secondAttribute="bottom" constant="15" id="636"/>
                 <constraint firstItem="567" firstAttribute="top" secondItem="101" secondAttribute="bottom" constant="10" id="637"/>
                 <constraint firstItem="447" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="21" id="655"/>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="447" secondAttribute="bottom" constant="20" id="687"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="447" secondAttribute="bottom" constant="15" id="687"/>
                 <constraint firstItem="413" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="7li-U0-v6o"/>
-                <constraint firstItem="413" firstAttribute="top" secondItem="ckm-lX-Woj" secondAttribute="bottom" constant="20" id="CHj-AO-sj0"/>
+                <constraint firstItem="413" firstAttribute="top" secondItem="ckm-lX-Woj" secondAttribute="bottom" constant="15" id="CHj-AO-sj0"/>
                 <constraint firstAttribute="trailing" secondItem="93" secondAttribute="trailing" constant="20" symbolic="YES" id="GKK-Sk-LbH"/>
                 <constraint firstItem="7nL-Z2-JAg" firstAttribute="top" secondItem="94" secondAttribute="bottom" constant="15" id="IpC-6h-9gS"/>
                 <constraint firstItem="7nL-Z2-JAg" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="Olb-Uq-w5w"/>
