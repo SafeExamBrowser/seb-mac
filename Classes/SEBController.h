@@ -140,6 +140,7 @@
 @property(strong) NSTimer *windowWatchTimer;
 @property(strong) NSMutableArray *systemProcessPIDs;
 @property(strong) NSMutableArray *terminatedProcessesExecutableURLs;
+@property(strong) SEBDockItem *dockItemReload;
 
 
 - (void) closeAboutWindow;
@@ -170,6 +171,8 @@
 - (IBAction) openPreferences:(id)sender;
 - (IBAction) showAbout:(id)sender;
 - (IBAction) showHelp:(id)sender;
+
+- (void) reloadButtonEnabled:(BOOL)enabled;
 
 - (void) requestedRestart:(NSNotification *)notification;
 

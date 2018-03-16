@@ -906,6 +906,10 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
             [openWindowWebView setState:NSOffState];
         }
     }
+    // Update enabled property of reload button in Dock
+    [self.sebController reloadButtonEnabled:[[NSUserDefaults standardUserDefaults] secureBoolForKey:
+                                             (_activeBrowserWindow == _mainBrowserWindow ?
+                                             @"org_safeexambrowser_SEB_browserWindowAllowReload" : @"org_safeexambrowser_SEB_newBrowserWindowAllowReload")]];
 }
 
 

@@ -2404,14 +2404,14 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableSebBrowser"] &&
             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
-            SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil
+            _dockItemReload = [[SEBDockItem alloc] initWithTitle:nil
                                                                           icon:[NSImage imageNamed:@"SEBReloadIcon"]
                                                                highlightedIcon:[NSImage imageNamed:@"SEBReloadIconHighlighted"]
                                                                        toolTip:NSLocalizedString(@"Reload Current Page",nil)
                                                                           menu:nil
                                                                         target:self
                                                                         action:@selector(reloadButtonPressed)];
-            [rightDockItems addObject:dockItemShutDown];
+            [rightDockItems addObject:_dockItemReload];
         }
         
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTime"]) {
@@ -2525,6 +2525,12 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 - (void) reloadButtonPressed
 {
     [self.browserController reloadDockButtonPressed];
+}
+
+
+- (void) reloadButtonEnabled:(BOOL)enabled
+{
+//    _dockItemReloadButton.enabled = enabled;
 }
 
 
