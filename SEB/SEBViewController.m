@@ -157,8 +157,8 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+// Check if running on iOS 11.x earlier than 11.2.5
 - (BOOL) allowediOSVersion {
-    // Check if running on iOS 11.x earlier than 11.2.5
     NSUInteger currentOSMajorVersion = NSProcessInfo.processInfo.operatingSystemVersion.majorVersion;
     NSUInteger currentOSMinorVersion = NSProcessInfo.processInfo.operatingSystemVersion.minorVersion;
     NSUInteger currentOSPatchVersion = NSProcessInfo.processInfo.operatingSystemVersion.patchVersion;
@@ -1610,6 +1610,11 @@ void run_on_ui_thread(dispatch_block_t block)
 
     // Update kiosk flags according to current settings
     [self updateKioskSettingFlags];
+    
+    // Check if running on iOS 11.x earlier than 11.2.5
+    if (![self allowediOSVersion]) {
+        return;
+    }
     
     // Check if running on beta iOS
     NSUInteger allowBetaiOSVersion = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSBetaVersionNumber"];
