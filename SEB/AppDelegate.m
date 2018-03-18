@@ -55,6 +55,14 @@
 
 @synthesize persistentWebpages;
 
+void run_block_on_ui_thread(dispatch_block_t block)
+{
+    if ([NSThread isMainThread])
+        block();
+    else
+        dispatch_sync(dispatch_get_main_queue(), block);
+}
+
 - (SEBUIController *)sebUIController {
     if (!_sebUIController) {
         _sebUIController = [[SEBUIController alloc] init];
@@ -179,6 +187,9 @@
             _sebViewController.aboutSEBViewController = nil;
         }];
     }
+//    if (_sebViewController.alertController) {
+//        [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
+//    }
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -192,11 +203,13 @@
     [self populateRegistrationDomain];
     if (_sebViewController) {
         // If the main SEB view controller was already instantiated
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"allowEditingConfig"]) {
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"allowEditingConfig"];
-            [_sebViewController conditionallyShowSettingsModal];
-        } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"initiateResetConfig"]) {
-            [_sebViewController conditionallyResetSettings];
+        if ([_sebViewController allowediOSVersion]) {
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"allowEditingConfig"]) {
+                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"allowEditingConfig"];
+                [_sebViewController conditionallyShowSettingsModal];
+            } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"initiateResetConfig"]) {
+                [_sebViewController conditionallyResetSettings];
+            }
         }
     }
 }
