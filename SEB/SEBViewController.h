@@ -144,6 +144,7 @@
 
 @property (strong, nonatomic) UIAlertController *alertController;
 @property (strong, nonatomic) UIAlertController *inactiveAlertController;
+@property (strong, nonatomic) UIAlertController *allowediOSAlertController;
 
 @property (strong, nonatomic) UIView *coveringView;
 @property (strong, nonatomic) UIView *statusBarView;
@@ -181,6 +182,8 @@
 @property(readwrite, strong) NSDate *didBecomeActiveTime;
 @property(readwrite, strong) NSDate *didResumeExamTime;
 
+
+- (BOOL) allowediOSVersion;
 
 - (BOOL) handleShortcutItem:(UIApplicationShortcutItem *)shortcutItem;
 

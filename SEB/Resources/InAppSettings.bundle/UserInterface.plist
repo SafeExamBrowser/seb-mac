@@ -31,6 +31,34 @@
 			<false/>
 		</dict>
 		<dict>
+			<key>DefaultValue</key>
+			<integer>0</integer>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_mobileStatusBarAppearanceExtended</string>
+			<key>Title</key>
+			<string>iPhone X Status Bar</string>
+			<key>Titles</key>
+			<array>
+				<string>Inferred</string>
+				<string>White on Black</string>
+				<string>Black on White</string>
+				<string>None - Black</string>
+				<string>None - White</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<string>3</string>
+				<string>4</string>
+			</array>
+			<key>DisplaySortedByTitle</key>
+			<false/>
+		</dict>
+		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>

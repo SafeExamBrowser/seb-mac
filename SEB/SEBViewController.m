@@ -157,6 +157,33 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+- (BOOL) allowediOSVersion {
+    // Check if running on iOS 11.x earlier than 11.2.5
+    NSUInteger currentOSMajorVersion = NSProcessInfo.processInfo.operatingSystemVersion.majorVersion;
+    NSUInteger currentOSMinorVersion = NSProcessInfo.processInfo.operatingSystemVersion.minorVersion;
+    NSUInteger currentOSPatchVersion = NSProcessInfo.processInfo.operatingSystemVersion.patchVersion;
+    if (currentOSMajorVersion == 11 &&
+        currentOSMinorVersion <= 2 &&
+        currentOSPatchVersion < 5)
+    {
+        if (_alertController) {
+            if (_alertController == _allowediOSAlertController) {
+                return false;
+            }
+            [_alertController dismissViewControllerAnimated:NO completion:nil];
+        }
+        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Running on Current iOS Version Not Allowed", nil)
+                                                                message:NSLocalizedString(@"For security reasons SEB cannot run on an iOS 11 version earlier than iOS 11.2.5. Update to the current iOS version.", nil)
+                                                         preferredStyle:UIAlertControllerStyleAlert];
+        _allowediOSAlertController = _alertController;
+        [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
+        return false;
+    } else {
+        return true;
+    }
+}
+
+
 #pragma mark - View management delegate methods
 
 - (void)viewDidLoad
@@ -196,6 +223,7 @@ static NSMutableSet *browserWindowControllers;
                                                   usingBlock:^(NSNotification *note) {
                                                       [self readDefaultsValues];
                                                   }];
+    
     // Initialize UI and default UI/browser settings
     [self initSEB];
     
@@ -220,23 +248,24 @@ static NSMutableSet *browserWindowControllers;
 {
     [super viewDidAppear:animated];
     
-    // Check if we received new settings from an MDM server
-    //    [self readDefaultsValues];
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-
-    // Check if settings aren't initialized and initial config assistant should be started
-    if (!_initAssistantOpen && [preferences boolForKey:@"allowEditingConfig"]) {
-        [preferences setBool:NO forKey:@"allowEditingConfig"];
-        [self conditionallyShowSettingsModal];
-    } else if ([preferences boolForKey:@"initiateResetConfig"]) {
-        [self conditionallyResetSettings];
-    } else if (![[MyGlobals sharedMyGlobals] finishedInitializing]) {
-        [self conditionallyStartKioskMode];
-    }
-    
-    // Set flag that SEB is initialized: Now showing alerts is allowed
-    [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
-    
+    if ([self allowediOSVersion]) {
+        // Check if we received new settings from an MDM server
+        //    [self readDefaultsValues];
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        
+        // Check if settings aren't initialized and initial config assistant should be started
+        if (!_initAssistantOpen && [preferences boolForKey:@"allowEditingConfig"]) {
+            [preferences setBool:NO forKey:@"allowEditingConfig"];
+            [self conditionallyShowSettingsModal];
+        } else if ([preferences boolForKey:@"initiateResetConfig"]) {
+            [self conditionallyResetSettings];
+        } else if (![[MyGlobals sharedMyGlobals] finishedInitializing]) {
+            [self conditionallyStartKioskMode];
+        }
+        
+        // Set flag that SEB is initialized: Now showing alerts is allowed
+        [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
+    }    
 }
 
 
@@ -260,28 +289,35 @@ static NSMutableSet *browserWindowControllers;
         // Close settings first
         [self settingsViewControllerDidEnd:self.appSettingsViewController];
     } else {
-        // If there is a hashed admin password the user has to enter it before editing settings
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-
-        // Reset the setting for initiating the reset
-        [preferences setBool:NO forKey:@"initiateResetConfig"];
-
-        NSString *hashedAdminPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-        
-        if (hashedAdminPassword.length == 0) {
-            // There is no admin password: Immediately reset settings
-            [self resetSettings];
+        if (self.alertController) {
+            [self.alertController dismissViewControllerAnimated:NO completion:^{
+                self.alertController = nil;
+                [self conditionallyResetSettings];
+            }];
         } else {
-            // Allow up to 5 attempts for entering password
-            attempts = 5;
-            NSString *enterPasswordString = NSLocalizedString(@"You can only reset settings after entering the SEB administrator password:", nil);
+            // If there is a hashed admin password the user has to enter it before editing settings
+            NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
             
-            // Ask the user to enter the settings password and proceed to the callback method after this happend
-            [self.configFileController promptPasswordWithMessageText:enterPasswordString
-                                                               title:NSLocalizedString(@"Reset Settings",nil)
-                                                            callback:self
-                                                            selector:@selector(resetSettingsEnteredAdminPassword:)];
-            return;
+            // Reset the setting for initiating the reset
+            [preferences setBool:NO forKey:@"initiateResetConfig"];
+            
+            NSString *hashedAdminPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+            
+            if (hashedAdminPassword.length == 0) {
+                // There is no admin password: Immediately reset settings
+                [self resetSettings];
+            } else {
+                // Allow up to 5 attempts for entering password
+                attempts = 5;
+                NSString *enterPasswordString = NSLocalizedString(@"You can only reset settings after entering the SEB administrator password:", nil);
+                
+                // Ask the user to enter the settings password and proceed to the callback method after this happend
+                [self.configFileController promptPasswordWithMessageText:enterPasswordString
+                                                                   title:NSLocalizedString(@"Reset Settings",nil)
+                                                                callback:self
+                                                                selector:@selector(resetSettingsEnteredAdminPassword:)];
+                return;
+            }
         }
     }
 }
@@ -367,6 +403,9 @@ static NSMutableSet *browserWindowControllers;
         // Add scan QR code Home screen quick action
         [UIApplication sharedApplication].shortcutItems = [NSArray arrayWithObject:[ self scanQRCodeShortcutItem]];
 
+        if (_alertController) {
+            [_alertController dismissViewControllerAnimated:NO completion:nil];
+        }
         [self presentViewController:_assistantViewController animated:YES completion:^{
             _initAssistantOpen = true;
         }];
@@ -1577,7 +1616,8 @@ void run_on_ui_thread(dispatch_block_t block)
     NSUInteger currentOSMajorVersion = NSProcessInfo.processInfo.operatingSystemVersion.majorVersion;
     if (currentOSMajorVersion > currentStableMajoriOSVersion && //first check if we're running on a beta at all
         (allowBetaiOSVersion == iOSBetaVersionNone || //if no beta allowed, abort
-         allowBetaiOSVersion != currentOSMajorVersion)) { //if allowed, version has to match current iOS
+         allowBetaiOSVersion != currentOSMajorVersion))
+    { //if allowed, version has to match current iOS
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Running on New iOS Version Not Allowed", nil)
                                                                 message:NSLocalizedString(@"Currently it isn't allowed to run SEB on the iOS version installed on this device.", nil)
                                                          preferredStyle:UIAlertControllerStyleAlert];
@@ -1585,6 +1625,39 @@ void run_on_ui_thread(dispatch_block_t block)
         return;
     }
     
+    // Check if running on older iOS version than the one allowed in settings
+    NSUInteger allowiOSVersionMajor = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSVersionNumberMajor"];
+    NSUInteger allowiOSVersionMinor = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSVersionNumberMinor"];
+    NSUInteger allowiOSVersionPatch = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_allowiOSVersionNumberPatch"];
+    NSUInteger currentOSMinorVersion = NSProcessInfo.processInfo.operatingSystemVersion.minorVersion;
+    NSUInteger currentOSPatchVersion = NSProcessInfo.processInfo.operatingSystemVersion.patchVersion;
+    if (!(currentOSMajorVersion >= allowiOSVersionMajor &&
+          currentOSMinorVersion >= allowiOSVersionMinor &&
+          currentOSPatchVersion >= allowiOSVersionPatch))
+    {
+        NSString *allowediOSVersionMinorString = @"";
+        NSString *allowediOSVersionPatchString = @"";
+        if (allowiOSVersionPatch > 0 || allowiOSVersionMinor > 0) {
+            allowediOSVersionMinorString = [NSString stringWithFormat:@".%lu", (unsigned long)allowiOSVersionMinor];
+        }
+        if (allowiOSVersionPatch > 0) {
+            allowediOSVersionPatchString = [NSString stringWithFormat:@".%lu", (unsigned long)allowiOSVersionPatch];
+        }
+        NSString *alertMessageiOSVersion = [NSString stringWithFormat:@"%@%lu%@%@",
+                                            NSLocalizedString(@"Current settings don't allow to run on the iOS version installed on this device. Update to the current iOS version or use another device with at least iOS ", nil),
+                                            (unsigned long)allowiOSVersionMajor,
+                                            allowediOSVersionMinorString,
+                                            allowediOSVersionPatchString];
+        if (_alertController) {
+            [_alertController dismissViewControllerAnimated:NO completion:nil];
+        }
+        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Running on Current iOS Version Not Allowed", nil)
+                                                                message:alertMessageiOSVersion
+                                                         preferredStyle:UIAlertControllerStyleAlert];
+        [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
+        return;
+    }
+
     if (_secureMode) {
         // Clear Pasteboard
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
