@@ -76,45 +76,56 @@
 // and if it existed and was loaded, use it to re-configure SEB
 - (BOOL) reconfigureClientWithSebClientSettings
 {
+    // Try to read SEB client settings from /Library/Preferences/ directory,
+    // valid for all users on a Mac
+
+    if ([self reconfigureClientWithSebClientSettingsFromDomain:NSLocalDomainMask]) {
+        return YES;
+    }
+
+    // Try to read SEB client settings from ~Library/Preferences/ directory,
+    // valid for the current user
+    
+    if ([self reconfigureClientWithSebClientSettingsFromDomain:NSUserDomainMask]) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+
+- (BOOL) reconfigureClientWithSebClientSettingsFromDomain:(NSSearchPathDomainMask)domain
+{
     NSError *error;
-
-    NSURL *localLibraryDirectory = [[NSFileManager defaultManager] URLForDirectory:NSLibraryDirectory
-                                                                         inDomain:NSLocalDomainMask
-                                                                appropriateForURL:nil
-                                                                           create:NO
-                                                                            error:&error];
-
-    NSURL *preferencesDirectory = [[NSFileManager defaultManager] URLForDirectory:NSLibraryDirectory
-                                                                         inDomain:NSUserDomainMask
-                                                                appropriateForURL:nil
-                                                                           create:NO
-                                                                            error:&error];
-    if (preferencesDirectory) {
-        NSURL *sebClientSettingsFileURL = [preferencesDirectory URLByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/%@", SEBClientSettings]];
+    
+    NSURL *libraryDirectory = [[NSFileManager defaultManager] URLForDirectory:NSLibraryDirectory
+                                                                          inDomain:domain
+                                                                 appropriateForURL:nil
+                                                                            create:NO
+                                                                             error:&error];
+    
+    if (libraryDirectory) {
+        NSURL *sebClientSettingsFileURL = [libraryDirectory URLByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/%@", SEBClientSettings]];
         NSData *sebData = [NSData dataWithContentsOfURL:sebClientSettingsFileURL];
         if (sebData) {
-            DDLogInfo(@"Reconfiguring SEB with SebClientSettings.seb from Preferences directory");
+            NSString *preferencesFilePath = sebClientSettingsFileURL.absoluteString;
+            DDLogInfo(@"Reconfiguring SEB with file %@", preferencesFilePath);
             SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
             
             // Decrypt and store the .seb config file
             if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO forceConfiguringClient:YES suppressFileFormatError:NO] == storeDecryptedSEBSettingsResultSuccess) {
                 // if successfull continue with new settings
-                DDLogInfo(@"Reconfiguring SEB with SebClientSettings.seb was successful");
+                DDLogInfo(@"Reconfiguring SEB with file %@ was successful", preferencesFilePath);
                 // Delete the SebClientSettings.seb file from the Preferences directory
                 error = nil;
                 [[NSFileManager defaultManager] removeItemAtURL:sebClientSettingsFileURL error:&error];
-                DDLogInfo(@"Attempted to remove SebClientSettings.seb from Preferences directory, result: %@", error.description);
-//                // Restart SEB with new settings
-//                [[NSNotificationCenter defaultCenter]
-//                 postNotificationName:@"requestRestartNotification" object:self];
-
+                DDLogInfo(@"Attempted to remove file %@, result: %@", preferencesFilePath, error.description);
+                
                 return YES;
             }
         }
     }
-    return NO;
-}
-
+    return NO;}
 
 -(storeDecryptedSEBSettingsResult) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing
 {
