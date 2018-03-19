@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsApplicationsViewController">
@@ -29,7 +30,7 @@
                     <rect key="frame" x="20" y="213" width="610" height="284"/>
                     <clipView key="contentView" id="77c-4M-PEO">
                         <rect key="frame" x="1" y="0.0" width="608" height="283"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="2521" id="2519">
                                 <rect key="frame" x="0.0" y="0.0" width="608" height="260"/>
@@ -38,7 +39,7 @@
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn width="40" minWidth="18" maxWidth="1000" id="2523">
+                                    <tableColumn identifier="" width="40" minWidth="18" maxWidth="1000" id="2523">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Active">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -53,7 +54,7 @@
                                             <binding destination="1726" name="value" keyPath="arrangedObjects.active" id="2540"/>
                                         </connections>
                                     </tableColumn>
-                                    <tableColumn width="40" minWidth="10" maxWidth="3.4028234663852886e+38" id="2525">
+                                    <tableColumn identifier="" width="40" minWidth="10" maxWidth="3.4028234663852886e+38" id="2525">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Open">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -68,7 +69,7 @@
                                             <binding destination="1726" name="value" keyPath="arrangedObjects.autoOpen" id="2599"/>
                                         </connections>
                                     </tableColumn>
-                                    <tableColumn width="256" minWidth="40" maxWidth="1000" id="2524">
+                                    <tableColumn identifier="" width="256" minWidth="40" maxWidth="1000" id="2524">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Title">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -84,7 +85,7 @@
                                             <binding destination="1726" name="value" keyPath="arrangedObjects.title" id="2601"/>
                                         </connections>
                                     </tableColumn>
-                                    <tableColumn width="260" minWidth="10" maxWidth="3.4028234663852886e+38" id="2526">
+                                    <tableColumn identifier="" width="260" minWidth="10" maxWidth="3.4028234663852886e+38" id="2526">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="URL or File Name">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -103,7 +104,6 @@
                                 </tableColumns>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.25" horizontal="YES" id="2520">
                         <rect key="frame" x="1" y="268" width="608" height="15"/>
@@ -114,13 +114,13 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <tableHeaderView key="headerView" id="2521">
-                        <rect key="frame" x="0.0" y="0.0" width="610" height="23"/>
+                        <rect key="frame" x="0.0" y="0.0" width="608" height="23"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>
-                <box autoresizesSubviews="NO" title="Selected Resource" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="2435">
+                <box autoresizesSubviews="NO" borderType="line" title="Selected Resource" translatesAutoresizingMaskIntoConstraints="NO" id="2435">
                     <rect key="frame" x="17" y="16" width="616" height="160"/>
-                    <view key="contentView">
+                    <view key="contentView" id="zcz-8m-hbA">
                         <rect key="frame" x="1" y="1" width="614" height="144"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -172,7 +172,7 @@
                                     </binding>
                                 </connections>
                             </textField>
-                            <textField toolTip="Title of the resource which is displayed in the SEB dock/task bar" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2490">
+                            <textField toolTip="Title of the resource which is displayed in the SEB dock/taskbar" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2490">
                                 <rect key="frame" x="54" y="83" width="538" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="538" id="2695"/>
@@ -223,28 +223,26 @@
                         </subviews>
                     </view>
                     <constraints>
-                        <constraint firstItem="2490" firstAttribute="leading" secondItem="2489" secondAttribute="trailing" constant="8" symbolic="YES" id="2477"/>
-                        <constraint firstItem="2490" firstAttribute="baseline" secondItem="2489" secondAttribute="baseline" id="2478"/>
-                        <constraint firstItem="2489" firstAttribute="leading" secondItem="2435" secondAttribute="leading" constant="16" id="2485"/>
-                        <constraint firstItem="2493" firstAttribute="leading" secondItem="2435" secondAttribute="leading" constant="16" id="2487"/>
-                        <constraint firstItem="2493" firstAttribute="top" secondItem="2435" secondAttribute="top" constant="28" id="2605"/>
-                        <constraint firstItem="2490" firstAttribute="top" secondItem="2493" secondAttribute="bottom" constant="8" symbolic="YES" id="2610"/>
-                        <constraint firstItem="2612" firstAttribute="leading" secondItem="2611" secondAttribute="trailing" constant="8" symbolic="YES" id="2617"/>
-                        <constraint firstItem="2611" firstAttribute="baseline" secondItem="2612" secondAttribute="baseline" id="2619"/>
-                        <constraint firstItem="2611" firstAttribute="leading" secondItem="2489" secondAttribute="leading" id="2622"/>
-                        <constraint firstItem="2611" firstAttribute="leading" secondItem="2435" secondAttribute="leading" constant="16" id="2628"/>
-                        <constraint firstItem="2612" firstAttribute="width" secondItem="2490" secondAttribute="width" id="2631"/>
-                        <constraint firstItem="2632" firstAttribute="baseline" secondItem="2493" secondAttribute="baseline" id="2641"/>
-                        <constraint firstItem="2632" firstAttribute="top" secondItem="2493" secondAttribute="top" id="2642"/>
-                        <constraint firstItem="2632" firstAttribute="top" secondItem="2435" secondAttribute="top" constant="28" id="2654"/>
-                        <constraint firstItem="2632" firstAttribute="leading" secondItem="2435" secondAttribute="leading" constant="300" id="2681"/>
-                        <constraint firstItem="2612" firstAttribute="top" secondItem="2490" secondAttribute="bottom" constant="8" id="2685"/>
-                        <constraint firstItem="2612" firstAttribute="leading" secondItem="2490" secondAttribute="leading" id="2689"/>
-                        <constraint firstAttribute="trailing" secondItem="2490" secondAttribute="trailing" constant="20" id="2696"/>
-                        <constraint firstAttribute="trailing" secondItem="2612" secondAttribute="trailing" constant="20" id="2699"/>
+                        <constraint firstItem="2612" firstAttribute="top" secondItem="2490" secondAttribute="bottom" constant="8" id="4mO-gz-AQt"/>
+                        <constraint firstItem="2632" firstAttribute="baseline" secondItem="2493" secondAttribute="baseline" id="5g4-p0-4OW"/>
+                        <constraint firstItem="2632" firstAttribute="leading" secondItem="2435" secondAttribute="leading" constant="300" id="8Nr-t8-a3A"/>
+                        <constraint firstItem="2490" firstAttribute="top" secondItem="2493" secondAttribute="bottom" constant="8" symbolic="YES" id="8eb-bx-kYS"/>
+                        <constraint firstAttribute="trailing" secondItem="2490" secondAttribute="trailing" constant="20" id="9cq-lb-FFn"/>
+                        <constraint firstItem="2611" firstAttribute="leading" secondItem="2435" secondAttribute="leading" constant="16" id="E4x-sQ-P29"/>
+                        <constraint firstItem="2493" firstAttribute="leading" secondItem="2435" secondAttribute="leading" constant="16" id="GOt-no-PBE"/>
+                        <constraint firstItem="2611" firstAttribute="leading" secondItem="2489" secondAttribute="leading" id="LPz-Xt-O3q"/>
+                        <constraint firstItem="2611" firstAttribute="baseline" secondItem="2612" secondAttribute="baseline" id="OUq-KX-zS1"/>
+                        <constraint firstItem="2489" firstAttribute="leading" secondItem="2435" secondAttribute="leading" constant="16" id="PEs-4a-Rot"/>
+                        <constraint firstItem="2632" firstAttribute="top" secondItem="2493" secondAttribute="top" id="SkC-JK-tbT"/>
+                        <constraint firstItem="2490" firstAttribute="baseline" secondItem="2489" secondAttribute="baseline" id="Whw-hU-dFV"/>
+                        <constraint firstItem="2612" firstAttribute="leading" secondItem="2490" secondAttribute="leading" id="Xop-KA-2fT"/>
+                        <constraint firstItem="2612" firstAttribute="leading" secondItem="2611" secondAttribute="trailing" constant="8" symbolic="YES" id="Yqd-RC-PZf"/>
+                        <constraint firstAttribute="trailing" secondItem="2612" secondAttribute="trailing" constant="20" id="c8Y-FI-b14"/>
+                        <constraint firstItem="2632" firstAttribute="top" secondItem="2435" secondAttribute="top" constant="28" id="ebx-05-T4H"/>
+                        <constraint firstItem="2490" firstAttribute="leading" secondItem="2489" secondAttribute="trailing" constant="8" symbolic="YES" id="lDh-L1-ipt"/>
+                        <constraint firstItem="2612" firstAttribute="width" secondItem="2490" secondAttribute="width" id="vib-1y-6MQ"/>
+                        <constraint firstItem="2493" firstAttribute="top" secondItem="2435" secondAttribute="top" constant="28" id="y2n-33-K9P"/>
                     </constraints>
-                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
                 <button toolTip="Add a resource" translatesAutoresizingMaskIntoConstraints="NO" id="2437">
                     <rect key="frame" x="20" y="184" width="20" height="21"/>

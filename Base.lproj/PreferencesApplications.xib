@@ -62,7 +62,7 @@
                                         <rect key="frame" x="17" y="406" width="570" height="151"/>
                                         <clipView key="contentView" id="X70-IM-m39">
                                             <rect key="frame" x="1" y="0.0" width="568" height="150"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" autosaveName="" headerView="348" id="346">
                                                     <rect key="frame" x="0.0" y="0.0" width="568" height="127"/>
@@ -200,7 +200,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField toolTip="Application title which is displayed in the application chooser and SEB dock/task bar" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="645">
+                                                <textField toolTip="Application title which is displayed in the application chooser and SEB dock/taskbar" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="645">
                                                     <rect key="frame" x="259" y="317" width="297" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="297" id="828"/>
@@ -345,7 +345,7 @@
                                                     <rect key="frame" x="98" y="121" width="458" height="70"/>
                                                     <clipView key="contentView" id="UYw-pC-SvI">
                                                         <rect key="frame" x="1" y="1" width="456" height="68"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="736">
                                                                 <rect key="frame" x="0.0" y="0.0" width="456" height="68"/>
@@ -511,12 +511,12 @@
                                                         </binding>
                                                     </connections>
                                                 </button>
-                                                <button toolTip="Show icon of permitted application in dock/task bar (not possible when 'run in background' is enabled)" translatesAutoresizingMaskIntoConstraints="NO" id="3ET-Le-SL5">
-                                                    <rect key="frame" x="16" y="93" width="115" height="18"/>
+                                                <button toolTip="Show icon of permitted application in dock/taskbar (not possible when 'run in background' is enabled)" translatesAutoresizingMaskIntoConstraints="NO" id="3ET-Le-SL5">
+                                                    <rect key="frame" x="16" y="93" width="111" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="14" id="aLJ-BZ-5BG"/>
                                                     </constraints>
-                                                    <buttonCell key="cell" type="check" title="Icon in task bar" bezelStyle="regularSquare" imagePosition="left" inset="2" id="rR0-Mm-VzA">
+                                                    <buttonCell key="cell" type="check" title="Icon in taskbar" bezelStyle="regularSquare" imagePosition="left" inset="2" id="rR0-Mm-VzA">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
@@ -529,7 +529,7 @@
                                                         </binding>
                                                     </connections>
                                                 </button>
-                                                <button toolTip="Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the task bar" translatesAutoresizingMaskIntoConstraints="NO" id="956">
+                                                <button toolTip="Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the taskbar" translatesAutoresizingMaskIntoConstraints="NO" id="956">
                                                     <rect key="frame" x="16" y="53" width="194" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Allow running in background" bezelStyle="regularSquare" imagePosition="left" inset="2" id="957">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>

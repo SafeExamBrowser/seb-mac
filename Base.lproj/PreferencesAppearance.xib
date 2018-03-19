@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsAppearanceViewController">
@@ -219,7 +220,7 @@
                         <constraint firstItem="743" firstAttribute="leading" secondItem="Xr6-D9-xmk" secondAttribute="leading" constant="16" id="n0k-Rw-tf4"/>
                     </constraints>
                 </box>
-                <box autoresizesSubviews="NO" borderType="line" title="SEB dock/task bar" translatesAutoresizingMaskIntoConstraints="NO" id="Q3v-Xi-ylG">
+                <box autoresizesSubviews="NO" borderType="line" title="SEB dock/taskbar" translatesAutoresizingMaskIntoConstraints="NO" id="Q3v-Xi-ylG">
                     <rect key="frame" x="17" y="134" width="616" height="138"/>
                     <view key="contentView" id="cqS-Gs-8lG">
                         <rect key="frame" x="1" y="1" width="614" height="122"/>
@@ -298,7 +299,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Shows current keyboard layout and allows to change it" translatesAutoresizingMaskIntoConstraints="NO" id="cvI-1t-MPD">
-                                <rect key="frame" x="30" y="15" width="191" height="18"/>
+                                <rect key="frame" x="30" y="15" width="192" height="18"/>
                                 <buttonCell key="cell" type="check" title="Show keyboard layout (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="NVt-Gb-hG5">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -308,7 +309,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Allows to reconnect to WiFi networks which have previously been connected to" translatesAutoresizingMaskIntoConstraints="NO" id="NYh-TA-SfI">
-                                <rect key="frame" x="30" y="75" width="173" height="18"/>
+                                <rect key="frame" x="30" y="75" width="174" height="18"/>
                                 <buttonCell key="cell" type="check" title="Show Wi-Fi control (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="vAt-Tk-BEf">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>

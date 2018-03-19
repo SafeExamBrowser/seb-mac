@@ -1,4 +1,4 @@
-/* Class = "NSButton"; ibShadowedToolTip = "Show icon of permitted application in dock/task bar (not possible when 'run in background' is enabled)"; ObjectID = "3ET-Le-SL5"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Show icon of permitted application in dock/taskbar (not possible when 'run in background' is enabled)"; ObjectID = "3ET-Le-SL5"; */
 "3ET-Le-SL5.ibShadowedToolTip" = "Icon der erlaubten Applikation im Dock/Taskleiste anzeigen (nicht möglich, wenn 'Als Hintergrund-Prozess zulassen' aktiviert ist)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Decreases security of the kiosk mode by allowing the process switcher (Cmd+Tab). The blacked out background of SEB also doesn't cover some alerts and modal windows in this mode."; ObjectID = "5"; */
@@ -58,7 +58,7 @@
 /* Class = "NSTextFieldCell"; title = "Title"; ObjectID = "642"; */
 "642.title" = "Titel";
 
-/* Class = "NSTextField"; ibShadowedToolTip = "Application title which is displayed in the application chooser and SEB dock/task bar"; ObjectID = "645"; */
+/* Class = "NSTextField"; ibShadowedToolTip = "Application title which is displayed in the application chooser and SEB dock/taskbar"; ObjectID = "645"; */
 "645.ibShadowedToolTip" = "Name der Applikation, der im SEB-Dock und im Programmumschalter angezeigt wird";
 
 /* Class = "NSTextField"; ibShadowedToolTip = "Optional, should explain what kind of process this is, because this might not be obvious only from the executable's name"; ObjectID = "654"; */
@@ -103,7 +103,7 @@
 /* Class = "NSButtonCell"; title = "Autostart"; ObjectID = "950"; */
 "950.title" = "Autostart";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the task bar"; ObjectID = "956"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the taskbar"; ObjectID = "956"; */
 "956.ibShadowedToolTip" = "Die Applikation darf bereits laufen, wenn SEB gestartet wird. Ein entsprechender Prozess kann kein Icon im Dock/Taskleiste anzeigen";
 
 /* Class = "NSButtonCell"; title = "Allow running in background"; ObjectID = "957"; */
@@ -232,6 +232,6 @@
 /* Class = "NSButtonCell"; title = "Force quit (risk of data loss)"; ObjectID = "2246"; */
 "2246.title" = "Sofort beenden (Datenverlust möglich)";
 
-/* Class = "NSButtonCell"; title = "Icon in task bar"; ObjectID = "rR0-Mm-VzA"; */
+/* Class = "NSButtonCell"; title = "Icon in taskbar"; ObjectID = "rR0-Mm-VzA"; */
 "rR0-Mm-VzA.title" = "Icon in Dock/Taskleiste";
 

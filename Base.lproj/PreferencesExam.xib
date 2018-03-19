@@ -30,8 +30,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="QQD-LY-egj">
-                                <rect key="frame" x="11" y="102" width="513" height="14"/>
-                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Enter restart link or select &quot;Use Start URL&quot; to display the restart exam button in the SEB task bar." usesSingleLineMode="YES" id="bGJ-Qs-OiP">
+                                <rect key="frame" x="11" y="102" width="510" height="14"/>
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Enter restart link or select &quot;Use Start URL&quot; to display the restart exam button in the SEB taskbar." usesSingleLineMode="YES" id="bGJ-Qs-OiP">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

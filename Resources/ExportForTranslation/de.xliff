@@ -196,9 +196,9 @@
                 <note>Class = "NSButton"; ibShadowedToolTip = "Allows to reconnect to WiFi networks which have previously been connected to"; ObjectID = "NYh-TA-SfI";</note>
             </trans-unit>
             <trans-unit id="Q3v-Xi-ylG.title">
-                <source>SEB dock/task bar</source>
+                <source>SEB dock/taskbar</source>
                 <target>SEB Dock/Taskleiste</target>
-                <note>Class = "NSBox"; title = "SEB dock/task bar"; ObjectID = "Q3v-Xi-ylG";</note>
+                <note>Class = "NSBox"; title = "SEB dock/taskbar"; ObjectID = "Q3v-Xi-ylG";</note>
             </trans-unit>
             <trans-unit id="S0v-zb-D4L.ibShadowedToolTip">
                 <source>Text in browser windows can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar</source>
@@ -313,9 +313,9 @@
         </header>
         <body>
             <trans-unit id="3ET-Le-SL5.ibShadowedToolTip">
-                <source>Show icon of permitted application in dock/task bar (not possible when 'run in background' is enabled)</source>
+                <source>Show icon of permitted application in dock/taskbar (not possible when 'run in background' is enabled)</source>
                 <target>Icon der erlaubten Applikation im Dock/Taskleiste anzeigen (nicht möglich, wenn 'Als Hintergrund-Prozess zulassen' aktiviert ist)</target>
-                <note>Class = "NSButton"; ibShadowedToolTip = "Show icon of permitted application in dock/task bar (not possible when 'run in background' is enabled)"; ObjectID = "3ET-Le-SL5";</note>
+                <note>Class = "NSButton"; ibShadowedToolTip = "Show icon of permitted application in dock/taskbar (not possible when 'run in background' is enabled)"; ObjectID = "3ET-Le-SL5";</note>
             </trans-unit>
             <trans-unit id="5.ibShadowedToolTip">
                 <source>Decreases security of the kiosk mode by allowing the process switcher (Cmd+Tab). The blacked out background of SEB also doesn't cover some alerts and modal windows in this mode.</source>
@@ -413,9 +413,9 @@
                 <note>Class = "NSTextFieldCell"; title = "Title"; ObjectID = "642";</note>
             </trans-unit>
             <trans-unit id="645.ibShadowedToolTip">
-                <source>Application title which is displayed in the application chooser and SEB dock/task bar</source>
+                <source>Application title which is displayed in the application chooser and SEB dock/taskbar</source>
                 <target>Name der Applikation, der im SEB-Dock und im Programmumschalter angezeigt wird</target>
-                <note>Class = "NSTextField"; ibShadowedToolTip = "Application title which is displayed in the application chooser and SEB dock/task bar"; ObjectID = "645";</note>
+                <note>Class = "NSTextField"; ibShadowedToolTip = "Application title which is displayed in the application chooser and SEB dock/taskbar"; ObjectID = "645";</note>
             </trans-unit>
             <trans-unit id="654.ibShadowedToolTip">
                 <source>Optional, should explain what kind of process this is, because this might not be obvious only from the executable's name</source>
@@ -488,9 +488,9 @@
                 <note>Class = "NSButtonCell"; title = "Autostart"; ObjectID = "950";</note>
             </trans-unit>
             <trans-unit id="956.ibShadowedToolTip">
-                <source>Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the task bar</source>
+                <source>Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the taskbar</source>
                 <target>Die Applikation darf bereits laufen, wenn SEB gestartet wird. Ein entsprechender Prozess kann kein Icon im Dock/Taskleiste anzeigen</target>
-                <note>Class = "NSButton"; ibShadowedToolTip = "Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the task bar"; ObjectID = "956";</note>
+                <note>Class = "NSButton"; ibShadowedToolTip = "Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the taskbar"; ObjectID = "956";</note>
             </trans-unit>
             <trans-unit id="957.title">
                 <source>Allow running in background</source>
@@ -703,9 +703,9 @@
                 <note>Class = "NSButtonCell"; title = "Force quit (risk of data loss)"; ObjectID = "2246";</note>
             </trans-unit>
             <trans-unit id="rR0-Mm-VzA.title">
-                <source>Icon in task bar</source>
+                <source>Icon in taskbar</source>
                 <target>Icon in Dock/Taskleiste</target>
-                <note>Class = "NSButtonCell"; title = "Icon in task bar"; ObjectID = "rR0-Mm-VzA";</note>
+                <note>Class = "NSButtonCell"; title = "Icon in taskbar"; ObjectID = "rR0-Mm-VzA";</note>
             </trans-unit>
         </body>
     </file>
@@ -1383,9 +1383,9 @@
                 <note>Class = "NSButtonCell"; title = "Use Start URL (see General pane)"; ObjectID = "Rln-rP-DrR";</note>
             </trans-unit>
             <trans-unit id="bGJ-Qs-OiP.title">
-                <source>Enter restart link or select "Use Start URL" to display the restart exam button in the SEB task bar.</source>
+                <source>Enter restart link or select "Use Start URL" to display the restart exam button in the SEB taskbar.</source>
                 <target>Neustart-Link eingeben oder 'Start-URL benutzen' auswählen, um die Neustart-Taste im SEB-Dock anzuzeigen.</target>
-                <note>Class = "NSTextFieldCell"; title = "Enter restart link or select \"Use Start URL\" to display the restart exam button in the SEB task bar."; ObjectID = "bGJ-Qs-OiP";</note>
+                <note>Class = "NSTextFieldCell"; title = "Enter restart link or select \"Use Start URL\" to display the restart exam button in the SEB taskbar."; ObjectID = "bGJ-Qs-OiP";</note>
             </trans-unit>
             <trans-unit id="bTx-tu-6Av.placeholderString">
                 <source>URL starting with http:// or https://</source>
@@ -2088,9 +2088,9 @@
                 <note>Class = "NSButtonCell"; title = "Choose File..."; ObjectID = "2442";</note>
             </trans-unit>
             <trans-unit id="2490.ibShadowedToolTip">
-                <source>Title of the resource which is displayed in the SEB dock/task bar</source>
+                <source>Title of the resource which is displayed in the SEB dock/taskbar</source>
                 <target>Titel der Ressource, die im SEB-Dock angezeigt wird</target>
-                <note>Class = "NSTextField"; ibShadowedToolTip = "Title of the resource which is displayed in the SEB dock/task bar"; ObjectID = "2490";</note>
+                <note>Class = "NSTextField"; ibShadowedToolTip = "Title of the resource which is displayed in the SEB dock/taskbar"; ObjectID = "2490";</note>
             </trans-unit>
             <trans-unit id="2493.ibShadowedToolTip">
                 <source>This resource item is active</source>

@@ -37,7 +37,7 @@
 /* Class = "NSButtonCell"; title = "Use Start URL (see General pane)"; ObjectID = "Rln-rP-DrR"; */
 "Rln-rP-DrR.title" = "Start-URL verwenden (siehe Allgemein)";
 
-/* Class = "NSTextFieldCell"; title = "Enter restart link or select \"Use Start URL\" to display the restart exam button in the SEB task bar."; ObjectID = "bGJ-Qs-OiP"; */
+/* Class = "NSTextFieldCell"; title = "Enter restart link or select \"Use Start URL\" to display the restart exam button in the SEB taskbar."; ObjectID = "bGJ-Qs-OiP"; */
 "bGJ-Qs-OiP.title" = "Neustart-Link eingeben oder 'Start-URL benutzen' auswählen, um die Neustart-Taste im SEB-Dock anzuzeigen.";
 
 /* Class = "NSTextFieldCell"; placeholderString = "URL starting with http:// or https://"; ObjectID = "bTx-tu-6Av"; */

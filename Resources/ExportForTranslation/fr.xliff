@@ -425,8 +425,8 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "The SEB dock shows and switches between open browser windows, allowed resources and applications and can display additional controls"; ObjectID = "76";</note>
       </trans-unit>
       <trans-unit id="77.title">
-        <source>Show SEB dock/task bar</source>
-        <note>Class = "NSButtonCell"; title = "Show SEB dock/task bar"; ObjectID = "77";</note>
+        <source>Show SEB dock/taskbar</source>
+        <note>Class = "NSButtonCell"; title = "Show SEB dock/taskbar"; ObjectID = "77";</note>
       </trans-unit>
       <trans-unit id="371.ibShadowedToolTip">
         <source>Displays a toolbar on top of the browser window which can also be hidden by the user</source>
@@ -608,8 +608,8 @@
         <note>Class = "NSTextFieldCell"; title = "Title"; ObjectID = "642";</note>
       </trans-unit>
       <trans-unit id="645.ibShadowedToolTip">
-        <source>Application title which is displayed in the application chooser and SEB dock/task bar</source>
-        <note>Class = "NSTextField"; ibShadowedToolTip = "Application title which is displayed in the application chooser and SEB dock/task bar"; ObjectID = "645";</note>
+        <source>Application title which is displayed in the application chooser and SEB dock/taskbar</source>
+        <note>Class = "NSTextField"; ibShadowedToolTip = "Application title which is displayed in the application chooser and SEB dock/taskbar"; ObjectID = "645";</note>
       </trans-unit>
       <trans-unit id="654.ibShadowedToolTip">
         <source>Optional, should explain what kind of process this is, because this might not be obvious only from the executable's name.</source>
@@ -1410,8 +1410,8 @@
         <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Action when the filter rule expression matches (allow or block resource)"; ObjectID = "9du-EF-v3O";</note>
       </trans-unit>
       <trans-unit id="9hw-i2-YWH.ibShadowedToolTip">
-        <source>Application title which is displayed in the application chooser and SEB dock/task bar</source>
-        <note>Class = "NSTextField"; ibShadowedToolTip = "Application title which is displayed in the application chooser and SEB dock/task bar"; ObjectID = "9hw-i2-YWH";</note>
+        <source>Application title which is displayed in the application chooser and SEB dock/taskbar</source>
+        <note>Class = "NSTextField"; ibShadowedToolTip = "Application title which is displayed in the application chooser and SEB dock/taskbar"; ObjectID = "9hw-i2-YWH";</note>
       </trans-unit>
       <trans-unit id="27i-17-3S4.title">
         <source>:</source>
@@ -1745,8 +1745,8 @@
         <note>Class = "NSButtonCell"; title = "Choose File..."; ObjectID = "2442";</note>
       </trans-unit>
       <trans-unit id="2490.ibShadowedToolTip">
-        <source>Title of the resource which is displayed in the SEB dock/task bar</source>
-        <note>Class = "NSTextField"; ibShadowedToolTip = "Title of the resource which is displayed in the SEB dock/task bar"; ObjectID = "2490";</note>
+        <source>Title of the resource which is displayed in the SEB dock/taskbar</source>
+        <note>Class = "NSTextField"; ibShadowedToolTip = "Title of the resource which is displayed in the SEB dock/taskbar"; ObjectID = "2490";</note>
       </trans-unit>
       <trans-unit id="2493.ibShadowedToolTip">
         <source>This resource item is active</source>

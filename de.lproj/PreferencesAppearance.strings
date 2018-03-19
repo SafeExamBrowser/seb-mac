@@ -112,7 +112,7 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Allows to reconnect to WiFi networks which have previously been connected to"; ObjectID = "NYh-TA-SfI"; */
 "NYh-TA-SfI.ibShadowedToolTip" = "Erlaubt es, die Verbindung mit WLAN-Netzwerken wiederherzustellen";
 
-/* Class = "NSBox"; title = "SEB dock/task bar"; ObjectID = "Q3v-Xi-ylG"; */
+/* Class = "NSBox"; title = "SEB dock/taskbar"; ObjectID = "Q3v-Xi-ylG"; */
 "Q3v-Xi-ylG.title" = "SEB Dock/Taskleiste";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Text in browser windows can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar"; ObjectID = "S0v-zb-D4L"; */
