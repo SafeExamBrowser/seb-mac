@@ -84,6 +84,25 @@ void DisposeWindow (
     [browserWindow setCalculatedFrame];
     self.browserController.activeBrowserWindow = (SEBBrowserWindow *)self.window;
     _previousScreen = self.window.screen;
+    
+    NSString *keyAllowNavigation;
+    if (!self.browserController.mainBrowserWindow || browserWindow == self.browserController.mainBrowserWindow) {
+        [browserWindow.webView bind:@"maintainsBackForwardList"
+                  toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
+               withKeyPath:@"values.org_safeexambrowser_SEB_allowBrowsingBackForward"
+                   options:nil];
+        keyAllowNavigation = @"org_safeexambrowser_SEB_allowBrowsingBackForward";
+    } else {
+        [browserWindow.webView bind:@"maintainsBackForwardList"
+                  toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
+               withKeyPath:@"values.org_safeexambrowser_SEB_newBrowserWindowNavigation"
+                   options:nil];
+        keyAllowNavigation = @"org_safeexambrowser_SEB_newBrowserWindowNavigation";
+    }
+    
+    BOOL allowNavigation = [[NSUserDefaults standardUserDefaults] secureBoolForKey:keyAllowNavigation];
+    [self.backForwardButtons setHidden:!allowNavigation];
+    [self.toolbarReloadButton setHidden:!allowNavigation];
 }
 
 

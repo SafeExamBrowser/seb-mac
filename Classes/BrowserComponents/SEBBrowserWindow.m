@@ -163,19 +163,6 @@
     
     [self.webView setPreferences:webPrefs];
     
-    [self.webView bind:@"maintainsBackForwardList"
-          toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
-           withKeyPath:(self == self.browserController.mainBrowserWindow ?
-                        @"values.org_safeexambrowser_SEB_allowBrowsingBackForward" :
-                        @"values.org_safeexambrowser_SEB_newBrowserWindowAllowNavigation")
-           options:nil];
-    
-    NSSegmentedControl *backForwardButtons = [(SEBBrowserWindowController *)self.windowController backForwardButtons];
-    [backForwardButtons setHidden:[preferences secureBoolForKey:(self == self.browserController.mainBrowserWindow ?
-                                                                 @"org_safeexambrowser_SEB_allowBrowsingBackForward" :
-                                                                 @"org_safeexambrowser_SEB_newBrowserWindowAllowNavigation")]];
-
-    
     _allowDownloads = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"];
 
     // Display all MIME types the WebView can display as HTML

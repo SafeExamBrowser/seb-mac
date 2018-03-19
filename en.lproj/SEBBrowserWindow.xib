@@ -11,6 +11,7 @@
             <connections>
                 <outlet property="backForwardButtons" destination="173" id="lIt-Jq-0zg"/>
                 <outlet property="rootView" destination="4" id="0ei-JK-6lh"/>
+                <outlet property="toolbarReloadButton" destination="190" id="QQV-oy-lLZ"/>
                 <outlet property="webView" destination="5" id="7"/>
                 <outlet property="window" destination="3" id="10"/>
             </connections>
@@ -25,7 +26,7 @@
         <window title="Safe Exam Browser" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" visibleAtLaunch="NO" animationBehavior="default" id="3" userLabel="Browser Window" customClass="SEBBrowserWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="1024" height="768"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
             <value key="minSize" type="size" width="394" height="247"/>
             <view key="contentView" id="4">
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
@@ -67,7 +68,7 @@
                     <toolbarItem implicitItemIdentifier="3082AAA6-C29B-4778-98BC-31306EF71511" label="Zoom" paletteLabel="" id="ZLD-BY-T5K" userLabel="ZoomPage">
                         <nil key="toolTip"/>
                         <size key="minSize" width="51" height="25"/>
-                        <size key="maxSize" width="51" height="32"/>
+                        <size key="maxSize" width="54" height="32"/>
                         <segmentedControl key="view" verticalHuggingPriority="750" id="4DV-qc-FmI">
                             <rect key="frame" x="0.0" y="14" width="51" height="28"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -94,7 +95,7 @@
                     <toolbarItem implicitItemIdentifier="AB23B6BC-BAD9-48C6-889A-B71807EFB63D" label="Zoom" paletteLabel="" id="179" userLabel="ZoomText">
                         <nil key="toolTip"/>
                         <size key="minSize" width="51" height="25"/>
-                        <size key="maxSize" width="51" height="32"/>
+                        <size key="maxSize" width="54" height="32"/>
                         <segmentedControl key="view" verticalHuggingPriority="750" id="180">
                             <rect key="frame" x="0.0" y="14" width="51" height="25"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -161,7 +162,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="570" height="328"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
             <view key="contentView" id="52A-2p-iMa">
                 <rect key="frame" x="0.0" y="0.0" width="570" height="328"/>
                 <autoresizingMask key="autoresizingMask"/>

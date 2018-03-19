@@ -52,6 +52,7 @@
 @property (weak) IBOutlet NSView *rootView;
 @property (weak) IBOutlet SEBWebView *webView;
 @property (weak) IBOutlet NSSegmentedControl *backForwardButtons;
+@property (weak) IBOutlet NSButton *toolbarReloadButton;
 @property (weak) SEBOSXBrowserController *browserController;
 @property (strong) NSScreen *previousScreen;
 @property (strong) NSTimer *windowWatchTimer;
