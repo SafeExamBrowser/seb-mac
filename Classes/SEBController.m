@@ -2392,26 +2392,26 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             if (restartButtonToolTip.length == 0) {
                 restartButtonToolTip = NSLocalizedString(@"Back to Start",nil);
             }
-            SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil
+            SEBDockItem *dockItemSkipBack = [[SEBDockItem alloc] initWithTitle:nil
                                                                           icon:[NSImage imageNamed:@"SEBSkipBackIcon"]
                                                                highlightedIcon:[NSImage imageNamed:@"SEBSkipBackIconHighlighted"]
                                                                        toolTip:restartButtonToolTip
                                                                           menu:nil
                                                                         target:self
                                                                         action:@selector(restartButtonPressed)];
-            [rightDockItems addObject:dockItemShutDown];
+            [rightDockItems addObject:dockItemSkipBack];
         }
         
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableSebBrowser"] &&
             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
-            _dockItemReload = [[SEBDockItem alloc] initWithTitle:nil
+            SEBDockItem *dockItemReload = [[SEBDockItem alloc] initWithTitle:nil
                                                                           icon:[NSImage imageNamed:@"SEBReloadIcon"]
                                                                highlightedIcon:[NSImage imageNamed:@"SEBReloadIconHighlighted"]
                                                                        toolTip:NSLocalizedString(@"Reload Current Page",nil)
                                                                           menu:nil
                                                                         target:self
                                                                         action:@selector(reloadButtonPressed)];
-            [rightDockItems addObject:_dockItemReload];
+            [rightDockItems addObject:dockItemReload];
         }
         
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTime"]) {
@@ -2425,7 +2425,13 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         
 //        [self.dockController setCenterItems:[NSArray arrayWithObjects:dockItemSEB, dockItemShutDown, nil]];
         
-        [self.dockController setRightItems:rightDockItems];
+        NSArray *dockButtons = [self.dockController setRightItems:rightDockItems];
+        for (SEBDockItemButton *dockButton in dockButtons)
+        {
+            if (dockButton.action == @selector(reloadButtonPressed)) {
+                _dockButtonReload = dockButton;
+            }
+        }
         
         // Display the dock
         [self.dockController showDockOnScreen:_mainScreen];
@@ -2530,7 +2536,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 
 - (void) reloadButtonEnabled:(BOOL)enabled
 {
-//    _dockItemReloadButton.enabled = enabled;
+    _dockButtonReload.enabled = enabled;
 }
 
 

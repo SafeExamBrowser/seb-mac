@@ -90,13 +90,14 @@
 
 
 // Add dock items passed in array pinned to the left edge of the dock (from left to right)
-- (void) setLeftItems:(NSArray *)newLeftDockItems
+- (NSArray *) setLeftItems:(NSArray *)newLeftDockItems
 {
     DDLogDebug(@"[SEBDockController setLeftItems: %@]", newLeftDockItems);
     if (_leftDockItems) {
         _leftDockItems = nil;
     }
     
+    NSMutableArray *dockItemButtons = [NSMutableArray new];
     if (newLeftDockItems) {
         NSView *superview = [self.dockWindow contentView];
         _leftDockItems = newLeftDockItems;
@@ -119,6 +120,7 @@
                 [newDockItemButton setToolTip:dockItem.toolTip];
 
                 dockItemView = newDockItemButton;
+                [dockItemButtons addObject:newDockItemButton];
             } else {
                 if ([dockItem respondsToSelector:@selector(view)]) {
                     dockItemView = dockItem.view;
@@ -167,17 +169,19 @@
         // Save the last (= right most) left item
         self.rightMostLeftItemView = dockItemView;
     }
+    return [dockItemButtons copy];
 }
 
 
 // Add dock items passed in array pinned to the right edge of the left items dock area
-- (void) setCenterItems:(NSArray *)newCenterDockItems
+- (NSArray *) setCenterItems:(NSArray *)newCenterDockItems
 {
     DDLogDebug(@"[SEBDockController setCenterItems: %@]", newCenterDockItems);
     if (_centerDockItems) {
         _centerDockItems = nil;
     }
     
+    NSMutableArray *dockItemButtons = [NSMutableArray new];
     if (newCenterDockItems) {
         NSView *superview = [self.dockWindow contentView];
         _centerDockItems = newCenterDockItems;
@@ -199,6 +203,7 @@
                 }
                 [newDockItemButton setToolTip:dockItem.toolTip];
                 dockItemView = newDockItemButton;
+                [dockItemButtons addObject:newDockItemButton];
             } else {
                 if ([dockItem respondsToSelector:@selector(view)]) {
                     dockItemView = dockItem.view;
@@ -255,17 +260,19 @@
             }
         }
     }
+    return [dockItemButtons copy];
 }
 
 
 // Add dock items passed in array pinned to the right edge of the dock (from right to left)
-- (void) setRightItems:(NSArray *)newRightDockItems
+- (NSArray *) setRightItems:(NSArray *)newRightDockItems
 {
     DDLogDebug(@"[SEBDockController setRightItems: %@]", newRightDockItems);
     if (_rightDockItems) {
         _rightDockItems = nil;
     }
     
+    NSMutableArray *dockItemButtons = [NSMutableArray new];
     if (newRightDockItems) {
         NSView *superview = [self.dockWindow contentView];
         _rightDockItems = newRightDockItems;
@@ -284,13 +291,11 @@
                 if ([dockItem respondsToSelector:@selector(action)]) {
                     [newDockItemButton setTarget:dockItem.target];
                     [newDockItemButton setAction:dockItem.action];
-//                    [newDockItemButton setHighlighted:true];
                     [newDockItemButton setButtonType:NSMomentaryLightButton];
-//                    NSButtonCell *newDockItemButtonCell = newDockItemButton.cell;
-//                    newDockItemButtonCell.highlightsBy = NSCellLightsByContents;
                 }
                 [newDockItemButton setToolTip:dockItem.toolTip];
                 dockItemView = newDockItemButton;
+                [dockItemButtons addObject:newDockItemButton];
             } else {
                 if ([dockItem respondsToSelector:@selector(view)]) {
                     dockItemView = dockItem.view;
@@ -337,6 +342,7 @@
             }
         }
     }
+    return [dockItemButtons copy];
 }
 
 

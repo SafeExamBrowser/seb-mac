@@ -140,7 +140,7 @@
 @property(strong) NSTimer *windowWatchTimer;
 @property(strong) NSMutableArray *systemProcessPIDs;
 @property(strong) NSMutableArray *terminatedProcessesExecutableURLs;
-@property(strong) SEBDockItem *dockItemReload;
+@property(strong) SEBDockItemButton *dockButtonReload;
 
 
 - (void) closeAboutWindow;

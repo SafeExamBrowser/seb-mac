@@ -150,9 +150,9 @@
 @property (weak) NSArray *rightDockItems;
 @property (weak) NSView *rightMostLeftItemView;
 
-- (void) setLeftItems:(NSArray *)newLeftDockItems;
-- (void) setCenterItems:(NSArray *)newCenterDockItems;
-- (void) setRightItems:(NSArray *)newRightDockItems;
+- (NSArray *) setLeftItems:(NSArray *)newLeftDockItems;
+- (NSArray *) setCenterItems:(NSArray *)newCenterDockItems;
+- (NSArray *) setRightItems:(NSArray *)newRightDockItems;
 
 - (void) showDockOnScreen:(NSScreen *)screen;
 - (void) hideDock;
