@@ -353,7 +353,7 @@ Gw
                         <string key="toolTip">Zeigt zu Beginn die vollständige URL, kann editiert werden, um einen benutzerdefinierten URL-Filterausdruck zu erstellen. Das Wildcard-Zeichen * kann verwendet werden. Obenstehende Links können angeklickt werden, um die den Schemen entsprechenden URL-Teile in dieses Feld zu kopieren</string>
                         <clipView key="contentView" id="c8z-5s-Dgt">
                             <rect key="frame" x="1" y="1" width="529" height="117"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="panel" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" id="ES5-oW-j8Q">
                                     <rect key="frame" x="0.0" y="0.0" width="529" height="117"/>

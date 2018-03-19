@@ -290,6 +290,7 @@ static NSString __unused *userDefaultsMasala = @"Di𝈭l𝈖Ch𝈒ah𝉇t𝈁a�
 
 static NSString __unused *sebErrorDomain = @"org.safeexambrowser.SEBCryptor";
 
+static NSString __unused *SEBClientSettings = @"SebClientSettings.seb";
 static NSString __unused *SEBUserAgentDefaultSuffix = @"SEB";
 static NSString __unused *SEBUserAgentDefaultBrowserSuffix = @"Version/10.0.3 Safari";
 static NSString __unused *SEBUserAgentDefaultSafariVersion = @"601.1";

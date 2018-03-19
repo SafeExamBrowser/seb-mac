@@ -77,13 +77,20 @@
 - (BOOL) reconfigureClientWithSebClientSettings
 {
     NSError *error;
+
+    NSURL *localLibraryDirectory = [[NSFileManager defaultManager] URLForDirectory:NSLibraryDirectory
+                                                                         inDomain:NSLocalDomainMask
+                                                                appropriateForURL:nil
+                                                                           create:NO
+                                                                            error:&error];
+
     NSURL *preferencesDirectory = [[NSFileManager defaultManager] URLForDirectory:NSLibraryDirectory
                                                                          inDomain:NSUserDomainMask
                                                                 appropriateForURL:nil
                                                                            create:NO
                                                                             error:&error];
     if (preferencesDirectory) {
-        NSURL *sebClientSettingsFileURL = [preferencesDirectory URLByAppendingPathComponent:@"Preferences/SebClientSettings.seb"];
+        NSURL *sebClientSettingsFileURL = [preferencesDirectory URLByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/%@", SEBClientSettings]];
         NSData *sebData = [NSData dataWithContentsOfURL:sebClientSettingsFileURL];
         if (sebData) {
             DDLogInfo(@"Reconfiguring SEB with SebClientSettings.seb from Preferences directory");
@@ -97,9 +104,9 @@
                 error = nil;
                 [[NSFileManager defaultManager] removeItemAtURL:sebClientSettingsFileURL error:&error];
                 DDLogInfo(@"Attempted to remove SebClientSettings.seb from Preferences directory, result: %@", error.description);
-                // Restart SEB with new settings
-                [[NSNotificationCenter defaultCenter]
-                 postNotificationName:@"requestRestartNotification" object:self];
+//                // Restart SEB with new settings
+//                [[NSNotificationCenter defaultCenter]
+//                 postNotificationName:@"requestRestartNotification" object:self];
 
                 return YES;
             }
@@ -140,7 +147,12 @@
     }
     PreferencesController *prefsController = self.sebController.preferencesController;
 
-    sebPreferencesDict = [self decryptSEBSettings:sebData forEditing:forEditing sebFilePassword:&sebFilePassword passwordIsHashPtr:&passwordIsHash sebFileKeyRef:&sebFileKeyRef];
+    sebPreferencesDict = [self decryptSEBSettings:sebData
+                                       forEditing:forEditing
+                           forceConfiguringClient:forceConfiguringClient
+                                  sebFilePassword:&sebFilePassword
+                                passwordIsHashPtr:&passwordIsHash
+                                    sebFileKeyRef:&sebFileKeyRef];
     if (!sebPreferencesDict) return _storeDecryptedSEBSettingsResult; //Decryption didn't work, we abort
     
     // Reset SEB, close third party applications
@@ -281,7 +293,12 @@
 // The decrypting password the user entered and/or
 // certificate reference found in the .seb file is returned
 
--(NSDictionary *) decryptSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing sebFilePassword:(NSString **)sebFilePasswordPtr passwordIsHashPtr:(BOOL*)passwordIsHashPtr sebFileKeyRef:(SecKeyRef *)sebFileKeyRefPtr
+-(NSDictionary *) decryptSEBSettings:(NSData *)sebData
+                          forEditing:(BOOL)forEditing
+              forceConfiguringClient:(BOOL)forceConfiguringClient
+                     sebFilePassword:(NSString **)sebFilePasswordPtr
+                   passwordIsHashPtr:(BOOL*)passwordIsHashPtr
+                       sebFileKeyRef:(SecKeyRef *)sebFileKeyRefPtr
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
@@ -330,7 +347,7 @@
     
     // Prefix = pswd ("Password") ?
     
-    if ([prefixString isEqualToString:@"pswd"]) {
+    if ([prefixString isEqualToString:@"pswd"] && !forceConfiguringClient) {
         
         // Decrypt with password
         // if user enters the right one
@@ -396,6 +413,15 @@
             _storeDecryptedSEBSettingsResult = storeDecryptedSEBSettingsResultCanceled;
 
             return [self decryptDataWithPasswordForConfiguringClient:sebData forEditing:forEditing sebFilePassword:sebFilePasswordPtr passwordIsHashPtr:passwordIsHashPtr];
+            
+        } else if (forceConfiguringClient) {
+            
+            // If we are reconfiguring from a SebClientSettings.seb file saved in a Preferences directory
+            // while starting SEB, this file has to be saved for configuring client and therefore encrypted
+            // if not, we abort and return "failed"
+            
+            _storeDecryptedSEBSettingsResult = storeDecryptedSEBSettingsResultWrongFormat;
+            return nil;
             
         } else {
 

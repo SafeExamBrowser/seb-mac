@@ -288,6 +288,10 @@ bool insideMatrix();
         // and set flag for displaying alert to new users
         firstStart = [preferences setSEBDefaults];
 
+        // Check if there is a SebClientSettings.seb file saved in the preferences directory
+        SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+        [configFileManager reconfigureClientWithSebClientSettings];
+
         // Initialize file logger if it's enabled in settings
         [self initializeLogger];
         
@@ -739,8 +743,8 @@ bool insideMatrix();
     [self forceQuitWindowCheck];
     
     // Check if there is a SebClientSettings.seb file saved in the preferences directory
-    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-    if (![configFileManager reconfigureClientWithSebClientSettings] && [MyGlobals sharedMyGlobals].reconfiguredWhileStarting) {
+//    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
+    if (/*![configFileManager reconfigureClientWithSebClientSettings] && */[MyGlobals sharedMyGlobals].reconfiguredWhileStarting) {
         // Show alert that SEB was reconfigured
         if (!self.modalAlert) {
             self.modalAlert = [[NSAlert alloc] init];
