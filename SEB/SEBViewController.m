@@ -866,57 +866,53 @@ void run_on_ui_thread(dispatch_block_t block)
         
         statusBarAppearance = self.sebUIController.statusBarAppearance;
         
-        if (statusBarAppearance != mobileStatusBarAppearanceNone) {
-            _statusBarView = [UIView new];
-            [_statusBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
-            [self.view addSubview:_statusBarView];
-            
-            NSDictionary *viewsDictionary = @{@"statusBarView" : _statusBarView,
-                                              @"containerView" : _containerView};
-            
-            _containerTopContraint.active = false;
-            NSArray *constraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[statusBarView]-0-|"
-                                                                             options: 0
-                                                                             metrics: nil
-                                                                               views: viewsDictionary];
-            NSArray *constraints_V;
-            if (@available(iOS 11.0, *)) {
-                NSLayoutConstraint *topConstraint   = [NSLayoutConstraint constraintWithItem:_statusBarView
-                                                                                   attribute:NSLayoutAttributeTop
-                                                                                   relatedBy:NSLayoutRelationEqual
-                                                                                      toItem:_containerView
-                                                                                   attribute:NSLayoutAttributeTop
-                                                                                  multiplier:1.0
-                                                                                    constant:0];
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] == false) {
+            {
+                _statusBarView = [UIView new];
+                [_statusBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
+                [self.view addSubview:_statusBarView];
                 
-                NSLayoutConstraint *bottomConstraint   = [NSLayoutConstraint constraintWithItem:_statusBarView
-                                                                                      attribute:NSLayoutAttributeBottom
-                                                                                      relatedBy:NSLayoutRelationEqual
-                                                                                         toItem:_containerView.safeAreaLayoutGuide
-                                                                                      attribute:NSLayoutAttributeTop
-                                                                                     multiplier:1.0
-                                                                                       constant:0];
+                NSDictionary *viewsDictionary = @{@"statusBarView" : _statusBarView,
+                                                  @"containerView" : _containerView};
                 
-                constraints_V = @[topConstraint, bottomConstraint];
-            } else {
-                constraints_V = [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-0-[statusBarView(==20)]-0-[containerView]"
-                                                                        options: 0
-                                                                        metrics: nil
-                                                                          views: viewsDictionary];
+                _containerTopContraint.active = false;
+                NSArray *constraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[statusBarView]-0-|"
+                                                                                 options: 0
+                                                                                 metrics: nil
+                                                                                   views: viewsDictionary];
+                NSArray *constraints_V;
+                if (@available(iOS 11.0, *)) {
+                    NSLayoutConstraint *topConstraint   = [NSLayoutConstraint constraintWithItem:_statusBarView
+                                                                                       attribute:NSLayoutAttributeTop
+                                                                                       relatedBy:NSLayoutRelationEqual
+                                                                                          toItem:_containerView
+                                                                                       attribute:NSLayoutAttributeTop
+                                                                                      multiplier:1.0
+                                                                                        constant:0];
+                    
+                    NSLayoutConstraint *bottomConstraint   = [NSLayoutConstraint constraintWithItem:_statusBarView
+                                                                                          attribute:NSLayoutAttributeBottom
+                                                                                          relatedBy:NSLayoutRelationEqual
+                                                                                             toItem:_containerView.safeAreaLayoutGuide
+                                                                                          attribute:NSLayoutAttributeTop
+                                                                                         multiplier:1.0
+                                                                                           constant:0];
+                    
+                    constraints_V = @[topConstraint, bottomConstraint];
+                } else {
+                    constraints_V = [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-0-[statusBarView(==20)]-0-[containerView]"
+                                                                            options: 0
+                                                                            metrics: nil
+                                                                              views: viewsDictionary];
+                }
+                [self.view addConstraints:constraints_H];
+                [self.view addConstraints:constraints_V];
             }
-            [self.view addConstraints:constraints_H];
-            [self.view addConstraints:constraints_V];
-            
-            if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] == false) {
-                // Only draw background for status bar when it is enabled
-                
-                _statusBarView.backgroundColor = (statusBarAppearance == mobileStatusBarAppearanceLight ? [UIColor blackColor] : [UIColor whiteColor]);
-                _statusBarView.hidden = false;
-                
-            } else {
-                _statusBarView.hidden = true;
-            }
+            _statusBarView.backgroundColor = (statusBarAppearance == mobileStatusBarAppearanceLight ? [UIColor blackColor] : [UIColor whiteColor]);
+            _statusBarView.hidden = false;
         }
+
+        if (statusBarAppearance != mobileStatusBarAppearanceNone)
         
         [self setNeedsStatusBarAppearanceUpdate];
         
@@ -1645,14 +1641,20 @@ void run_on_ui_thread(dispatch_block_t block)
     {
         NSString *allowediOSVersionMinorString = @"";
         NSString *allowediOSVersionPatchString = @"";
-        if (allowiOSVersionPatch > 0 || allowiOSVersionMinor > 0) {
-            allowediOSVersionMinorString = [NSString stringWithFormat:@".%lu", (unsigned long)allowiOSVersionMinor];
-        }
-        if (allowiOSVersionPatch > 0) {
-            allowediOSVersionPatchString = [NSString stringWithFormat:@".%lu", (unsigned long)allowiOSVersionPatch];
+        // Test special case: iOS 11 - 11.2.2 is never allowed
+        if (allowiOSVersionMajor == 11 && allowiOSVersionMinor <= 2 && allowiOSVersionPatch < 5) {
+            allowediOSVersionMinorString = @".2";
+            allowediOSVersionPatchString = @".5";
+        } else {
+            if (allowiOSVersionPatch > 0 || allowiOSVersionMinor > 0) {
+                allowediOSVersionMinorString = [NSString stringWithFormat:@".%lu", (unsigned long)allowiOSVersionMinor];
+            }
+            if (allowiOSVersionPatch > 0) {
+                allowediOSVersionPatchString = [NSString stringWithFormat:@".%lu", (unsigned long)allowiOSVersionPatch];
+            }
         }
         NSString *alertMessageiOSVersion = [NSString stringWithFormat:@"%@%lu%@%@",
-                                            NSLocalizedString(@"Current settings don't allow to run on the iOS version installed on this device. Update to latest iOS version or use another device with at least iOS ", nil),
+                                            NSLocalizedString(@"SEB settings don't allow to run on the iOS version installed on this device. Update to latest iOS version or use another device with at least iOS ", nil),
                                             (unsigned long)allowiOSVersionMajor,
                                             allowediOSVersionMinorString,
                                             allowediOSVersionPatchString];
