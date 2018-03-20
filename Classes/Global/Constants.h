@@ -284,7 +284,11 @@ typedef NSUInteger SEBZoomModes;
 
 
 static NSString __unused *screenSharingAgent = @"ScreensharingAgent";
+static NSString __unused *screenSharingAgentBundleID = @"com.apple.screensharing.agent";
 static NSString __unused *AppleVNCAgent = @"AppleVNCServer";
+static NSString __unused *AppleVNCAgentBundleID = @"com.apple.AppleVNCServer";
+static NSString __unused *ARDAgent = @"ARDAgent";
+static NSString __unused *ARDAgentBundleID = @"com.apple.RemoteDesktopAgent";
 
 static NSString __unused *userDefaultsMasala = @"Di𝈭l𝈖Ch𝈒ah𝉇t𝈁a𝉈Hai1972";
 

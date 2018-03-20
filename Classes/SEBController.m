@@ -1079,7 +1079,8 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     // Check for activated screen sharing if settings demand it
     if (!allowScreenSharing &&
         ([allRunningProcesses containsObject:screenSharingAgent] ||
-        [allRunningProcesses containsObject:AppleVNCAgent])) {
+         [allRunningProcesses containsObject:AppleVNCAgent] ||
+         [allRunningProcesses containsObject:ARDAgent])) {
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"detectedScreenSharing" object:self];
     }
@@ -2124,7 +2125,10 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             
             // Check for activated screen sharing if settings demand it
             NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-            if ([launchedAppBundleID isEqualToString:@"com.apple.screensharing.agent"] && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"]) {
+            if (([launchedAppBundleID isEqualToString:screenSharingAgentBundleID] ||
+                 [launchedAppBundleID isEqualToString:AppleVNCAgentBundleID] ||
+                 [launchedAppBundleID isEqualToString:ARDAgentBundleID])
+                && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"]) {
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:@"detectedScreenSharing" object:self];
             }
