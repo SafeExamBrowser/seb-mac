@@ -56,6 +56,7 @@
 @property (nonatomic, strong) NSMutableArray *persistentWebpages;
 
 @property (readwrite) NSUInteger statusBarAppearance;
+@property (readwrite) BOOL showSettingsInApp;
 @property (nonatomic, strong) NSArray *leftSliderCommands;
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
