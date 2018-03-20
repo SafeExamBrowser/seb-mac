@@ -88,18 +88,18 @@
     dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     [newDockItems addObject:dockItem];
  
-    BOOL showSettingsInApp = false;
+    _showSettingsInApp = false;
     // If running with persisted (client) settings
     if (!NSUserDefaults.userDefaultsPrivate) {
         // Set the local flag for showing settings in-app, so this is also enabled
         // when opening temporary exam settings later
-        showSettingsInApp = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showSettingsInApp"];
+        _showSettingsInApp = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showSettingsInApp"];
     }
     
     /// Add right items
     
     // Add Edit Settings command if enabled
-    if (showSettingsInApp || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showSettingsInApp"]) {
+    if (_showSettingsInApp || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showSettingsInApp"]) {
         sliderIcon = [UIImage imageNamed:@"SEBSliderSettingsIcon"];
         sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Edit Settings",nil)
                                                             icon:sliderIcon
