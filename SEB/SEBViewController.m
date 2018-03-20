@@ -929,6 +929,13 @@ void run_on_ui_thread(dispatch_block_t block)
         // Reset settings view controller (so new settings are displayed)
         self.appSettingsViewController = nil;
         
+        // If running with persisted (client) settings
+        if (!NSUserDefaults.userDefaultsPrivate) {
+            // Set the local flag for showing settings in-app, so this is also enabled
+            // when opening temporary exam settings later
+            _appDelegate.showSettingsInApp = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showSettingsInApp"];
+        }
+        
         // Add scan QR code command/Home screen quick action/dock button
         // if SEB isn't running in exam mode (= no quit pw)
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowQRCodeConfig"] &&
