@@ -58,6 +58,8 @@
 @property (nonatomic, strong) NSArray *dockItems;
 
 @property (readwrite) NSUInteger statusBarAppearance;
+@property (readwrite) BOOL showSettingsInApp;
+
 
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 //- (void) activateReloadButtonsExamTab:(BOOL)examTab;

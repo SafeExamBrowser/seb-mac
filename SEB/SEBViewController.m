@@ -173,7 +173,7 @@ static NSMutableSet *browserWindowControllers;
             [_alertController dismissViewControllerAnimated:NO completion:nil];
         }
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Running on Current iOS Version Not Allowed", nil)
-                                                                message:NSLocalizedString(@"For security reasons SEB cannot run on an iOS 11 version earlier than iOS 11.2.5. Update to the current iOS version.", nil)
+                                                                message:NSLocalizedString(@"For security reasons SEB cannot run on an iOS 11 version prior to iOS 11.2.5. Update to the current iOS version.", nil)
                                                          preferredStyle:UIAlertControllerStyleAlert];
         _allowediOSAlertController = _alertController;
         [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
@@ -929,13 +929,6 @@ void run_on_ui_thread(dispatch_block_t block)
         // Reset settings view controller (so new settings are displayed)
         self.appSettingsViewController = nil;
         
-        // If running with persisted (client) settings
-        if (!NSUserDefaults.userDefaultsPrivate) {
-            // Set the local flag for showing settings in-app, so this is also enabled
-            // when opening temporary exam settings later
-            showSettingsInApp = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showSettingsInApp"];
-        }
-        
         // Add scan QR code command/Home screen quick action/dock button
         // if SEB isn't running in exam mode (= no quit pw)
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowQRCodeConfig"] &&
@@ -1606,11 +1599,6 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) conditionallyStartKioskMode
 {
-    _finishedStartingUp = true;
-
-    // Update kiosk flags according to current settings
-    [self updateKioskSettingFlags];
-    
     // Check if running on iOS 11.x earlier than 11.2.5
     if (![self allowediOSVersion]) {
         return;
@@ -1626,6 +1614,14 @@ void run_on_ui_thread(dispatch_block_t block)
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Running on New iOS Version Not Allowed", nil)
                                                                 message:NSLocalizedString(@"Currently it isn't allowed to run SEB on the iOS version installed on this device.", nil)
                                                          preferredStyle:UIAlertControllerStyleAlert];
+        if (NSUserDefaults.userDefaultsPrivate) {
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                     _alertController = nil;
+                                                                     [[NSNotificationCenter defaultCenter]
+                                                                      postNotificationName:@"requestQuit" object:self];
+                                                                 }]];
+        }
         [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
         return;
     }
@@ -1649,7 +1645,7 @@ void run_on_ui_thread(dispatch_block_t block)
             allowediOSVersionPatchString = [NSString stringWithFormat:@".%lu", (unsigned long)allowiOSVersionPatch];
         }
         NSString *alertMessageiOSVersion = [NSString stringWithFormat:@"%@%lu%@%@",
-                                            NSLocalizedString(@"Current settings don't allow to run on the iOS version installed on this device. Update to the current iOS version or use another device with at least iOS ", nil),
+                                            NSLocalizedString(@"Current settings don't allow to run on the iOS version installed on this device. Update to latest iOS version or use another device with at least iOS ", nil),
                                             (unsigned long)allowiOSVersionMajor,
                                             allowediOSVersionMinorString,
                                             allowediOSVersionPatchString];
@@ -1659,10 +1655,23 @@ void run_on_ui_thread(dispatch_block_t block)
         _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Running on Current iOS Version Not Allowed", nil)
                                                                 message:alertMessageiOSVersion
                                                          preferredStyle:UIAlertControllerStyleAlert];
+        if (NSUserDefaults.userDefaultsPrivate) {
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                     _alertController = nil;
+                                                                     [[NSNotificationCenter defaultCenter]
+                                                                      postNotificationName:@"requestQuit" object:self];
+                                                                 }]];
+        }
         [self.navigationController.visibleViewController presentViewController:_alertController animated:YES completion:nil];
         return;
     }
 
+    _finishedStartingUp = true;
+    
+    // Update kiosk flags according to current settings
+    [self updateKioskSettingFlags];
+    
     if (_secureMode) {
         // Clear Pasteboard
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
@@ -1759,7 +1768,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                          [self requestDisablingSAM];
                                                                      }]];
                 
-                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Quit", nil)
+                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                                      style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                                                                          _alertController = nil;
                                                                          [[NSNotificationCenter defaultCenter]
@@ -1856,7 +1865,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                              [self conditionallyStartKioskMode];
                                                          }]];
     
-    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Quit", nil)
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                                                              _alertController = nil;
                                                              _noSAMAlertDisplayed = false;
