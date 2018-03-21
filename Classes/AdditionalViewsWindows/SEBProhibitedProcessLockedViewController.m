@@ -52,4 +52,15 @@
     // Do view setup here.
 }
 
+
+- (NSString *)logStringForParameters
+{
+    if (self.overrideCheckForSpecificProcesses.state == true) {
+        return NSLocalizedString(@"Overriding security check is enabled!", nil);
+    } else {
+        return @"";
+    }
+}
+
+
 @end

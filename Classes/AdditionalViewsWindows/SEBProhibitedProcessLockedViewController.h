@@ -34,7 +34,7 @@
 
 #import "SEBLockedViewController.h"
 
-@interface SEBProhibitedProcessLockedViewController : SEBLockedViewController
+@interface SEBProhibitedProcessLockedViewController : SEBLockedViewController <SEBLockedViewControllerDelegate>
 
 @property (strong) IBOutlet NSButton *overrideCheckForSpecificProcesses;
 @property (strong) IBOutlet NSButton *overrideCheckForAllProcesses;

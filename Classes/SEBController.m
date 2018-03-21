@@ -2001,7 +2001,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 - (void) closeLockdownWindows
 {
     [NSApp endModalSession:lockdownModalSession];
-    _screenSharingCheckOverride = sebLockedViewController.overrideSecurityCheck.state;
+//    _screenSharingCheckOverride = sebLockedViewController.overrideSecurityCheck.state;
     [sebLockedViewController.view removeFromSuperview];
     [self closeCoveringWindows:self.lockdownWindows];
     self.lockdownWindows = nil;
@@ -3091,8 +3091,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     {
         // Set standard message string
         [sebLockedViewController setLockdownAlertMessage:nil];
-        sebLockedViewController.overrideSecurityCheck.state = false;
-        sebLockedViewController.overrideSecurityCheck.enabled = false;
+//        sebLockedViewController.overrideSecurityCheck.state = false;
+//        sebLockedViewController.overrideSecurityCheck.enabled = false;
 
         if (!sebLockedViewController.resignActiveLogString) {
             sebLockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
@@ -3139,7 +3139,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         if (!sebLockedViewController.resignActiveLogString) {
             sebLockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
         }
-        sebLockedViewController.overrideSecurityCheck.enabled = true;
+//        sebLockedViewController.overrideSecurityCheck.enabled = true;
 
         if (!_screenSharingDetected) {
             _screenSharingDetected = true;

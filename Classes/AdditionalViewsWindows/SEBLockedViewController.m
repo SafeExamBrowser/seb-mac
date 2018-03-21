@@ -79,9 +79,12 @@
         DDLogError(@"Lockdown alert: Correct password entered, closing lockdown windows");
         self.sebController.didResumeExamTime = [NSDate date];
         [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Correct password entered, closing lockdown windows", nil)] withTime:self.sebController.didResumeExamTime];
-        if (self.overrideSecurityCheck.state == true) {
-            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Overriding security check is enabled!", nil)] withTime:nil];
+
+        // Check for status of individual parameters
+        if ([_delegate respondsToSelector:@selector(logStringForParameters)]) {
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", [_delegate logStringForParameters]] withTime:nil];
         }
+                
         // Calculate time difference between session resigning active and closing lockdown alert
         NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         NSDateComponents *components = [calendar components:NSMinuteCalendarUnit | NSSecondCalendarUnit
@@ -96,6 +99,7 @@
 
         [self.sebController closeLockdownWindows];
         [self.sebController openInfoHUD:lockedTimeInfo];
+        
         return;
     }
     DDLogError(@"Lockdown alert: Wrong quit/restart password entered, asking to try again");
