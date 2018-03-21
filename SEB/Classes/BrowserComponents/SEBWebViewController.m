@@ -71,18 +71,13 @@
 // and bottom is above the tool bar (if SEB dock is enabled)
 - (void)adjustScrollPosition
 {
-//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-//    ;
-//
-////    CGFloat navBarHeight = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] != mobileStatusBarAppearanceNone ? self.statusbar.frame.size.height : 0;
-////    CGFloat navBarHeight = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] ? self.navigationController.navigationBar.frame.size.height : [UIApplication sharedApplication].statusBarFrame.size.height;
-//    CGFloat navBarHeight = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] ?
-//    32 : 0;
-//    navBarHeight += ([preferences mobileStatusBarAppearance] != mobileStatusBarAppearanceNone ? kStatusbarHeight : 0);
-//    CGFloat toolBarHeight = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"] ? self.navigationController.toolbar.frame.size.height : 0;
-//    [_sebWebView.scrollView setContentInset:UIEdgeInsetsMake(navBarHeight, 0, toolBarHeight, 0)];
-//    [_sebWebView.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(navBarHeight, 0, toolBarHeight, 0)];
-//    [_sebWebView.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
+    if (@available(iOS 11.0, *)) {
+        // Not necessary for iOS 11 thanks to SafeArea
+    } else {
+        [_sebWebView.scrollView setContentInset:UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0)];
+        [_sebWebView.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0)];
+        [_sebWebView.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
+    }
 }
 
 
@@ -186,14 +181,7 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    // Adjust scroll position so top of webpage is below the navigation bar
-//    CGFloat navBarHeight = self.navigationController.navigationBar.frame.size.height;
-//    CGFloat toolBarHeight = self.navigationController.toolbar.frame.size.height;
-//    [webView.scrollView setContentInset:UIEdgeInsetsMake(navBarHeight, 0, toolBarHeight, 0)];
-//    [webView.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(navBarHeight, 0, toolBarHeight, 0)];
-//    [webView.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
-    
+{    
     // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
     NSString *path = [[NSBundle mainBundle] pathForResource:@"ModifyPages" ofType:@"js"];
     jsCode = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
