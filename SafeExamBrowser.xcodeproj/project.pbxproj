@@ -84,8 +84,6 @@
 		69428CF8172F2E2500C87C58 /* ZoomTextOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CF2172F2E2500C87C58 /* ZoomTextOut.png */; };
 		69428CFA172F2E2500C87C58 /* ZoomTextOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CF3172F2E2500C87C58 /* ZoomTextOut@2x.png */; };
 		6943D0771655054600AB6B1D /* PrefsExamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6943D0751655054600AB6B1D /* PrefsExamViewController.m */; };
-		6947BAE82052AB7D0022B99E /* SEBProhibitedProcessLockedViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6947BAE62052AB7D0022B99E /* SEBProhibitedProcessLockedViewController.h */; };
-		6947BAE92052AB7D0022B99E /* SEBProhibitedProcessLockedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6947BAE72052AB7D0022B99E /* SEBProhibitedProcessLockedViewController.m */; };
 		6947D8981BB073EA00899A8A /* ZoomPageIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6947D8941BB073EA00899A8A /* ZoomPageIn.png */; };
 		6947D8991BB073EA00899A8A /* ZoomPageIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6947D8951BB073EA00899A8A /* ZoomPageIn@2x.png */; };
 		6947D89A1BB073EA00899A8A /* ZoomPageOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 6947D8961BB073EA00899A8A /* ZoomPageOut.png */; };
@@ -146,8 +144,6 @@
 		69A444001B14AAAC00577693 /* SEBRestartIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69A443FE1B14AAAC00577693 /* SEBRestartIcon.iconset */; };
 		69B2EB871A435E2000B5AE67 /* AboutSEB.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2EB851A435E2000B5AE67 /* AboutSEB.png */; };
 		69B2EB881A435E2000B5AE67 /* AboutSEB@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B2EB861A435E2000B5AE67 /* AboutSEB@2x.png */; };
-		69C1C7E0206299170072EF78 /* SEBOverridableLockedViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C1C7DE206299170072EF78 /* SEBOverridableLockedViewController.h */; };
-		69C1C7E1206299170072EF78 /* SEBOverridableLockedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C1C7DF206299170072EF78 /* SEBOverridableLockedViewController.m */; };
 		69C1FFA01D0820E20087A5A1 /* NSColorValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C1FF9E1D0820E20087A5A1 /* NSColorValueTransformer.h */; };
 		69C1FFA11D0820E30087A5A1 /* NSColorValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C1FF9F1D0820E20087A5A1 /* NSColorValueTransformer.m */; };
 		69C2280A1C767B0900F78634 /* aes.h in Headers */ = {isa = PBXBuildFile; fileRef = 69C2277D1C767B0900F78634 /* aes.h */; };
@@ -510,8 +506,6 @@
 		6946373E1498FEF000C896D0 /* WebKit+WebKitExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WebKit+WebKitExtensions.h"; sourceTree = "<group>"; };
 		6946373F1498FEF000C896D0 /* WebKit+WebKitExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WebKit+WebKitExtensions.m"; sourceTree = "<group>"; };
 		6947949C12B050AA00651933 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
-		6947BAE62052AB7D0022B99E /* SEBProhibitedProcessLockedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEBProhibitedProcessLockedViewController.h; sourceTree = "<group>"; };
-		6947BAE72052AB7D0022B99E /* SEBProhibitedProcessLockedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEBProhibitedProcessLockedViewController.m; sourceTree = "<group>"; };
 		6947D8941BB073EA00899A8A /* ZoomPageIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ZoomPageIn.png; path = Resources/Icons/ZoomPageIn.png; sourceTree = "<group>"; };
 		6947D8951BB073EA00899A8A /* ZoomPageIn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ZoomPageIn@2x.png"; path = "Resources/Icons/ZoomPageIn@2x.png"; sourceTree = "<group>"; };
 		6947D8961BB073EA00899A8A /* ZoomPageOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ZoomPageOut.png; path = Resources/Icons/ZoomPageOut.png; sourceTree = "<group>"; };
@@ -583,8 +577,6 @@
 		69A9A234136AF6E000840AE1 /* PrefsDownUploadsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsDownUploadsViewController.h; sourceTree = "<group>"; };
 		69B2EB851A435E2000B5AE67 /* AboutSEB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AboutSEB.png; path = Resources/Images/AboutSEB.png; sourceTree = "<group>"; };
 		69B2EB861A435E2000B5AE67 /* AboutSEB@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AboutSEB@2x.png"; path = "Resources/Images/AboutSEB@2x.png"; sourceTree = "<group>"; };
-		69C1C7DE206299170072EF78 /* SEBOverridableLockedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEBOverridableLockedViewController.h; sourceTree = "<group>"; };
-		69C1C7DF206299170072EF78 /* SEBOverridableLockedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEBOverridableLockedViewController.m; sourceTree = "<group>"; };
 		69C1FF9E1D0820E20087A5A1 /* NSColorValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSColorValueTransformer.h; sourceTree = "<group>"; };
 		69C1FF9F1D0820E20087A5A1 /* NSColorValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSColorValueTransformer.m; sourceTree = "<group>"; };
 		69C2277D1C767B0900F78634 /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
@@ -1184,10 +1176,6 @@
 				69EDAC1D1BBB476F00A3E6C4 /* SEBLockedViewController.m */,
 				6950F4711D89F9AB00CCB42A /* HUDPanel.h */,
 				6950F4721D89F9AB00CCB42A /* HUDPanel.m */,
-				6947BAE62052AB7D0022B99E /* SEBProhibitedProcessLockedViewController.h */,
-				6947BAE72052AB7D0022B99E /* SEBProhibitedProcessLockedViewController.m */,
-				69C1C7DE206299170072EF78 /* SEBOverridableLockedViewController.h */,
-				69C1C7DF206299170072EF78 /* SEBOverridableLockedViewController.m */,
 			);
 			name = "Additional Views+Windows";
 			path = Classes/AdditionalViewsWindows;
@@ -1640,7 +1628,6 @@
 				6949A4891D0EF5890040ABF1 /* CanonicalRequest.h in Headers */,
 				69DFAF2D19C468E700CBE69F /* RNCryptor.h in Headers */,
 				69C228491C767B0900F78634 /* x509_crt.h in Headers */,
-				6947BAE82052AB7D0022B99E /* SEBProhibitedProcessLockedViewController.h in Headers */,
 				69C228231C767B0900F78634 /* entropy.h in Headers */,
 				690BBEB619D30DF800F7C9C6 /* SEBDockView.h in Headers */,
 				69DFAF3919C468E700CBE69F /* RNCryptor+Private.h in Headers */,
@@ -1652,7 +1639,6 @@
 				6909E34E1A019F7A0086A741 /* DDDispatchQueueLogFormatter.h in Headers */,
 				69C2280E1C767B0900F78634 /* asn1write.h in Headers */,
 				69C2283E1C767B0900F78634 /* ssl.h in Headers */,
-				69C1C7E0206299170072EF78 /* SEBOverridableLockedViewController.h in Headers */,
 				69C2282B1C767B0900F78634 /* md4.h in Headers */,
 				69CE9C5D17326AB90011609B /* SEBConfigFileManager.h in Headers */,
 				69CE9C6317378B9A0011609B /* SEBTextField.h in Headers */,
@@ -1847,7 +1833,6 @@
 				69C228621C767B0900F78634 /* entropy.c in Sources */,
 				69C228761C767B0900F78634 /* pkcs5.c in Sources */,
 				69C228541C767B0900F78634 /* camellia.c in Sources */,
-				6947BAE92052AB7D0022B99E /* SEBProhibitedProcessLockedViewController.m in Sources */,
 				69F7B60A14F411FB00FD0761 /* main.m in Sources */,
 				69C2285D1C767B0900F78634 /* ecdh.c in Sources */,
 				69C228881C767B0900F78634 /* version.c in Sources */,
@@ -1912,7 +1897,6 @@
 				693F135315767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
 				695572E61D91EC46003C048A /* NSPasteboard+SaveRestore.m in Sources */,
 				693EB53E15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */,
-				69C1C7E1206299170072EF78 /* SEBOverridableLockedViewController.m in Sources */,
 				69C228911C767B0900F78634 /* xtea.c in Sources */,
 				699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */,
 				6943D0771655054600AB6B1D /* PrefsExamViewController.m in Sources */,

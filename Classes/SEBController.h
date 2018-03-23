@@ -117,8 +117,13 @@
 }
 
 @property(readwrite) BOOL allowSwitchToApplications;
+
 @property(readwrite) BOOL screenSharingDetected;
 @property(readwrite) BOOL screenSharingCheckOverride;
+@property(readwrite) BOOL processCheckOverride;
+@property(readwrite) BOOL siriCheckOverride;
+@property(readwrite) BOOL dictationCheckOverride;
+
 @property(readwrite) BOOL f3Pressed;
 @property(readwrite) BOOL startingUp;
 @property(readwrite) BOOL openingSettings;

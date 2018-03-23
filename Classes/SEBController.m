@@ -378,7 +378,7 @@ bool insideMatrix();
             [self.modalAlert setMessageText:NSLocalizedString(@"Screen Sharing Detected!", nil)];
             [self.modalAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@",
                                                  NSLocalizedString(@"You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.", nil),
-                                                 NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud.", nil)
+                                                 NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol.", nil)
                                                  ]];
             [self.modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
             [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
@@ -2001,7 +2001,21 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 - (void) closeLockdownWindows
 {
     [NSApp endModalSession:lockdownModalSession];
-//    _screenSharingCheckOverride = sebLockedViewController.overrideSecurityCheck.state;
+    
+    _screenSharingCheckOverride = sebLockedViewController.overrideCheckForScreenSharing.state;
+    sebLockedViewController.overrideCheckForScreenSharing.state = false;
+    sebLockedViewController.overrideCheckForScreenSharing.hidden = true;
+    
+    if (sebLockedViewController.overrideCheckForSpecifcProcesses.state) {
+        
+        sebLockedViewController.overrideCheckForSpecifcProcesses.state = false;
+        sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = true;
+    }
+    
+    _processCheckOverride = sebLockedViewController.overrideCheckForAllProcesses.state;
+    sebLockedViewController.overrideCheckForAllProcesses.state = false;
+    sebLockedViewController.overrideCheckForAllProcesses.hidden = true;
+    
     [sebLockedViewController.view removeFromSuperview];
     [self closeCoveringWindows:self.lockdownWindows];
     self.lockdownWindows = nil;
@@ -3089,11 +3103,10 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     if ([[notification name] isEqualToString:
          NSWorkspaceSessionDidResignActiveNotification])
     {
-        // Set standard message string
-        [sebLockedViewController setLockdownAlertMessage:nil];
-//        sebLockedViewController.overrideSecurityCheck.state = false;
-//        sebLockedViewController.overrideSecurityCheck.enabled = false;
-
+        // Set alert title and message strings
+        [sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"User Switch Locked SEB!", @"Lockdown alert title text for switching the user")
+                                               Message: NSLocalizedString(@"SEB is locked because it was attempted to switch the user. SEB can only be unlocked by entering the quit/restart password, which usually exam supervision/support knows.", @"Lockdown alert message text for switching the user")];
+        
         if (!sebLockedViewController.resignActiveLogString) {
             sebLockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
         }
@@ -3131,15 +3144,17 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
                 @"detectedScreenSharing"])
     {
         // Set custom alert message string
-        [sebLockedViewController setLockdownAlertMessage:[NSString stringWithFormat:@"%@\n\n%@",
-                                                          NSLocalizedString(@"Screen sharing detected. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows.", nil),
-                                                          NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud.", nil)
-                                                          ]];
+        [sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Screen Sharing Locked SEB!", @"Lockdown alert title text for screen sharing")
+                                               Message:[NSString stringWithFormat:@"%@\n\n%@",
+                                                        NSLocalizedString(@"Screen sharing detected. SEB can only be unlocked by entering the quit/restart password, which usually exam supervision/support knows.", nil),
+                                                        NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol.", nil)
+                                                        ]];
         
         if (!sebLockedViewController.resignActiveLogString) {
             sebLockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
         }
-//        sebLockedViewController.overrideSecurityCheck.enabled = true;
+        sebLockedViewController.overrideCheckForScreenSharing.state = false;
+        sebLockedViewController.overrideCheckForScreenSharing.hidden = false;
 
         if (!_screenSharingDetected) {
             _screenSharingDetected = true;

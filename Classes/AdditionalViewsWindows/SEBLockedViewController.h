@@ -32,42 +32,6 @@
 //  Contributor(s): ______________________________________.
 //
 
-/**
- * @protocol    SEBLockedViewControllerDelegate
- *
- * @brief       SEB locked view controllers confirming to the SEBLockedViewControllerDelegate
- *              protocol are setting an individual lock view and are controling parameters
- *              they provide.
- */
-@protocol SEBLockedViewControllerDelegate <NSObject>
-/**
- * @name        Item Attributes
- */
-@required
-/**
- * @brief       Delegate method to display an enter password dialog with the
- *              passed message text asynchronously, calling the callback
- *              method with the entered password when one was entered
- */
-//- (void) showEnterUsernamePasswordDialog:(NSString *)text
-//                                   title:(NSString *)title
-//                                username:(NSString *)username
-//                           modalDelegate:(id)modalDelegate
-//                          didEndSelector:(SEL)didEndSelector;
-/**
- * @brief       Delegate method to hide the previously displayed enter password dialog
- */
-//- (void) hideEnterUsernamePasswordDialog;
-
-@optional
-/**
- * @brief       Delegate method to check for status of individual parameters
- *              and return an appropriate log string
- */
-- (NSString *) logStringForParameters;
-
-@end
-
 
 #import <Cocoa/Cocoa.h>
 #import "SEBController.h"
@@ -77,12 +41,16 @@
 
 @interface SEBLockedViewController : NSViewController
 
-@property (weak) id delegate;
 @property (strong) SEBController *sebController;
 @property (strong) SEBKeychainManager *keychainManager;
 @property (readwrite, copy) NSAttributedString *resignActiveLogString;
 
-- (void)setLockdownAlertMessage:(NSString *)newAlertMessage;
+@property (strong) IBOutlet NSButton *overrideCheckForScreenSharing;
+@property (strong) IBOutlet NSButton *overrideCheckForSpecifcProcesses;
+@property (strong) IBOutlet NSButton *overrideCheckForAllProcesses;
+
+- (void)setLockdownAlertTitle:(NSString *)newAlertTitle
+                      Message:(NSString *)newAlertMessage;
 - (void)appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
 
 @end

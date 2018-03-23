@@ -36,6 +36,7 @@
 
 @interface SEBLockedViewController() {
     
+    __weak IBOutlet SEBTextField *alertTitle;
     __weak IBOutlet SEBTextField *alertMessage;
     __weak IBOutlet NSSecureTextField *lockedAlertPasswordField;
     __weak IBOutlet NSTextField *passwordWrongLabel;
@@ -48,13 +49,11 @@
 @implementation SEBLockedViewController
 
 
-- (void)setLockdownAlertMessage:(NSString *)newAlertMessage
+- (void)setLockdownAlertTitle:(NSString *)newAlertTitle
+                      Message:(NSString *)newAlertMessage
 {
-    if (newAlertMessage.length > 0) {
-        alertMessage.stringValue = newAlertMessage;
-    } else {
-        alertMessage.stringValue = NSLocalizedString(@"SEB is locked because it was attempted to switch the user. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows.", @"Default lockdown window alert text");
-    }
+    alertTitle.stringValue = newAlertTitle;
+    alertMessage.stringValue = newAlertMessage;
 }
 
 
@@ -66,7 +65,6 @@
     NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
  
     NSString *password = lockedAlertPasswordField.stringValue;
-//    DDLogDebug(@"Lockdown alert user entered password: %@, compare it with hashed quit password %@", password, hashedQuitPassword);
     
     if (!self.keychainManager) {
         self.keychainManager = [[SEBKeychainManager alloc] init];
@@ -79,12 +77,20 @@
         DDLogError(@"Lockdown alert: Correct password entered, closing lockdown windows");
         self.sebController.didResumeExamTime = [NSDate date];
         [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Correct password entered, closing lockdown windows", nil)] withTime:self.sebController.didResumeExamTime];
-
+        
         // Check for status of individual parameters
-        if ([_delegate respondsToSelector:@selector(logStringForParameters)]) {
-            [self appendErrorString:[NSString stringWithFormat:@"%@\n", [_delegate logStringForParameters]] withTime:nil];
+        if (self.overrideCheckForScreenSharing.state == true) {
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Override checking for screen sharing is enabled!", nil)] withTime:nil];
         }
-                
+        
+        if (self.overrideCheckForSpecifcProcesses.state == true) {
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Override checking for the processes listed above is enabled!", nil)] withTime:nil];
+        }
+        
+        if (self.overrideCheckForAllProcesses.state == true) {
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Override process security check completely is enabled!", nil)] withTime:nil];
+        }
+        
         // Calculate time difference between session resigning active and closing lockdown alert
         NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         NSDateComponents *components = [calendar components:NSMinuteCalendarUnit | NSSecondCalendarUnit

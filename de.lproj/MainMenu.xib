@@ -842,7 +842,7 @@ Gw
                 <outlet property="alertMessage" destination="N8L-96-Ced" id="baX-Wp-6Rz"/>
                 <outlet property="lockedAlertPasswordField" destination="E6M-vB-bca" id="0bI-FS-sC0"/>
                 <outlet property="logScrollView" destination="h7g-WL-v0B" id="py4-EN-Zox"/>
-                <outlet property="overrideSecurityCheck" destination="K9k-Bw-WrB" id="FN7-xr-r3V"/>
+                <outlet property="overrideCheckForScreenSharing" destination="K9k-Bw-WrB" id="FN7-xr-r3V"/>
                 <outlet property="passwordWrongLabel" destination="cZ9-xX-IzI" id="2Xz-pn-weo"/>
                 <outlet property="view" destination="Re1-C5-57e" id="bGA-Gx-ekw"/>
             </connections>
