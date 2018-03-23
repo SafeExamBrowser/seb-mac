@@ -3153,11 +3153,11 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         if (!sebLockedViewController.resignActiveLogString) {
             sebLockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
         }
-        sebLockedViewController.overrideCheckForScreenSharing.state = false;
-        sebLockedViewController.overrideCheckForScreenSharing.hidden = false;
 
         if (!_screenSharingDetected) {
             _screenSharingDetected = true;
+            sebLockedViewController.overrideCheckForScreenSharing.state = false;
+            sebLockedViewController.overrideCheckForScreenSharing.hidden = false;
             self.didResignActiveTime = [NSDate date];
             self.didBecomeActiveTime = [NSDate date];
             // Report screen sharing is still active every 3rd second
