@@ -120,9 +120,12 @@
 
 @property(readwrite) BOOL screenSharingDetected;
 @property(readwrite) BOOL screenSharingCheckOverride;
+@property(readwrite) BOOL processesDetected;
 @property(readwrite) BOOL processCheckOverride;
+@property(readwrite) BOOL siriDetected;
 @property(readwrite) BOOL siriCheckOverride;
 @property(readwrite) BOOL dictationCheckOverride;
+@property(readwrite) BOOL dictationDetected;
 
 @property(readwrite) BOOL f3Pressed;
 @property(readwrite) BOOL startingUp;
@@ -144,6 +147,7 @@
 @property(strong) NSDate *didResumeExamTime;
 @property(strong) NSTimer *windowWatchTimer;
 @property(strong) NSMutableArray *systemProcessPIDs;
+@property(strong) NSMutableArray *runningProhibitedProcesses;
 @property(strong) NSMutableArray *terminatedProcessesExecutableURLs;
 @property(strong) SEBDockItemButton *dockButtonReload;
 
