@@ -4,7 +4,7 @@
 /* Class = "NSButton"; ibShadowedToolTip = "When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system"; ObjectID = "3dP-gi-x4W"; */
 "3dP-gi-x4W.ibShadowedToolTip" = "Wenn angewählt, wird der Browser Exam Key an den Webserver gesendet, um den SEB-Client und seine Einstellungen gegenüber einem kompatiblen Prüfungssystem zu authentifizieren";
 
-/* Class = "NSButtonCell"; title = "Protect restart exam button with the quit/restart password"; ObjectID = "5SR-dU-gy3"; */
+/* Class = "NSButtonCell"; title = "Protect restart exam button with the quit/unlock password"; ObjectID = "5SR-dU-gy3"; */
 "5SR-dU-gy3.title" = "Neustart-Taste mittels des Neustart-/Beenden-Passworts schützen";
 
 /* Class = "NSButton"; ibShadowedToolTip = "SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB"; ObjectID = "20"; */
@@ -49,7 +49,7 @@
 /* Class = "NSButtonCell"; title = "Use Browser Exam Key (send in HTTP header)"; ObjectID = "gk0-kD-QIq"; */
 "gk0-kD-QIq.title" = "Browser Exam Key benutzen (im HTTP-Header senden)";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Require to enter the quit/restart password when the restart exam button is pressed"; ObjectID = "oJT-BY-ezv"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Require to enter the quit/unlock password when the restart exam button is pressed"; ObjectID = "oJT-BY-ezv"; */
 "oJT-BY-ezv.ibShadowedToolTip" = "Eingabe des Beenden-/Neustart-Passworts verlangen, wenn die Neustart-Taste gedrückt wird";
 
 /* Class = "NSTextFieldCell"; title = "Dialog title/tool tip text of the restart button (leave empty for localized standard text)"; ObjectID = "pdT-tX-Sdp"; */

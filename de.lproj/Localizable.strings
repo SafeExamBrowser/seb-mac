@@ -158,7 +158,7 @@
 "Enter quit password:" = "Beenden-Passwort eingeben:";
 
 /* No comment provided by engineer. */
-"Enter quit/restart password:" = "Beenden-/Neustart-Passwort eingeben:";
+"Enter quit/unlock password:" = "Beenden-/Neustart-Passwort eingeben:";
 
 /* No comment provided by engineer. */
 "Enter the SEB administrator password used in these settings:" = "Geben Sie das in diesen Einstellungen verwendete Administrator-Passwort ein:";
@@ -413,7 +413,7 @@
 "SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path." = "SEB ist so konfiguriert, dass nur eine zuvor heruntergelade Datei heraufgeladen werden kann. Laden Sie eine Datei herunter und wenn Sie diese in einer Drittapplikation bearbeiten, speichern Sie diese mit demselben Dateinamen im gleichen Verzeichnis.";
 
 /* Default lockdown window alert text */
-"SEB is locked because it was attempted to switch the user. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. SEB kann nur mittels des Neustarten-/Beenden-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
+"SEB is locked because it was attempted to switch the user. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. SEB kann nur mittels des Neustarten-/Beenden-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
 
 /* No comment provided by engineer. */
 "SEB only supports embedding TLS/SSL and CA certificates and using certificate pinning if running on macOS 10.9 or later versions. If you want to make sure that embedded certificates and certificate pinning work on all exam clients, then you should enforce the minimum macOS version 10.9 in the Security pane." = "SEB unterstützt das Einbetten von TLS/SSL- und CA-Zertifikaten und das Zertifikat-Pinning nur auf macOS 10.9 oder neuer. Wenn Sie sicherstellen wollen, dass eingebettete Zertifikate und das Zertifikat-Pinning auf allen Prüfungsclients funktionieren, dann sollten Sie die Verwendung von mindestens macOS 10.9 in den Sicherheits-Einstellungen erzwingen. ";
@@ -449,7 +449,7 @@
 "Screen Sharing Detected!" = "Bildschirmfreigabe detektiert!";
 
 /* No comment provided by engineer. */
-"Screen sharing detected. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil die Bildschirmfreigabe benutzt wurde. SEB kann nur mittels des Neustarten-/Beenden-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
+"Screen sharing detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil die Bildschirmfreigabe benutzt wurde. SEB kann nur mittels des Neustarten-/Beenden-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
 
 /* No comment provided by engineer. */
 "Screen sharing is still active" = "Bildschirmfreigabe ist immer noch aktiv";
@@ -602,7 +602,7 @@
 "Wrong password! Try again to enter the correct SEB administrator password from these settings:" = "Falsches Passwort! Bitte das korrrekte SEB Administrator-Passwort aus diesen Einstellungen eingeben:";
 
 /* No comment provided by engineer. */
-"Wrong quit/restart password." = "Falsches Beenden-/Neustart-Passwort";
+"Wrong quit/unlock password." = "Falsches Beenden-/Neustart-Passwort";
 
 /* No comment provided by engineer. */
 "You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off." = "Es ist nicht erlaubt, die Bildschirmfreigabe zu benutzen, während SEB läuft. Starten Sie SEB neu, nachdem Sie die Bildschirmfreigabe beendet haben.";

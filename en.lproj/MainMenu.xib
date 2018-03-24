@@ -1030,7 +1030,7 @@ DQ
                 </textField>
                 <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="267" translatesAutoresizingMaskIntoConstraints="NO" id="d45-bx-wxa" customClass="SEBTextField">
                     <rect key="frame" x="118" y="115" width="264" height="17"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Enter restart/quit password to unlock SEB:" id="toT-ZU-d4i">
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Enter quit/unlock password to unlock SEB:" id="toT-ZU-d4i">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

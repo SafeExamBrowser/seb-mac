@@ -1328,9 +1328,9 @@
                 <note>Class = "NSButton"; ibShadowedToolTip = "When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system"; ObjectID = "3dP-gi-x4W";</note>
             </trans-unit>
             <trans-unit id="5SR-dU-gy3.title">
-                <source>Protect restart exam button with the quit/restart password</source>
+                <source>Protect restart exam button with the quit/unlock password</source>
                 <target>Neustart-Taste mittels des Neustart-/Beenden-Passworts schützen</target>
-                <note>Class = "NSButtonCell"; title = "Protect restart exam button with the quit/restart password"; ObjectID = "5SR-dU-gy3";</note>
+                <note>Class = "NSButtonCell"; title = "Protect restart exam button with the quit/unlock password"; ObjectID = "5SR-dU-gy3";</note>
             </trans-unit>
             <trans-unit id="20.ibShadowedToolTip">
                 <source>SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB</source>
@@ -1403,9 +1403,9 @@
                 <note>Class = "NSButtonCell"; title = "Use Browser Exam Key (send in HTTP header)"; ObjectID = "gk0-kD-QIq";</note>
             </trans-unit>
             <trans-unit id="oJT-BY-ezv.ibShadowedToolTip">
-                <source>Require to enter the quit/restart password when the restart exam button is pressed</source>
+                <source>Require to enter the quit/unlock password when the restart exam button is pressed</source>
                 <target>Eingabe des Beenden-/Neustart-Passworts verlangen, wenn die Neustart-Taste gedrückt wird</target>
-                <note>Class = "NSButton"; ibShadowedToolTip = "Require to enter the quit/restart password when the restart exam button is pressed"; ObjectID = "oJT-BY-ezv";</note>
+                <note>Class = "NSButton"; ibShadowedToolTip = "Require to enter the quit/unlock password when the restart exam button is pressed"; ObjectID = "oJT-BY-ezv";</note>
             </trans-unit>
             <trans-unit id="pdT-tX-Sdp.title">
                 <source>Dialog title/tool tip text of the restart button (leave empty for localized standard text)</source>
@@ -1500,14 +1500,14 @@
                 <note>Class = "NSTextFieldCell"; title = "Start URL"; ObjectID = "106";</note>
             </trans-unit>
             <trans-unit id="107.title">
-                <source>Confirm quit/restart password</source>
+                <source>Confirm quit/unlock password</source>
                 <target>Beenden-Passwort bestätigen</target>
-                <note>Class = "NSTextFieldCell"; title = "Confirm quit/restart password"; ObjectID = "107";</note>
+                <note>Class = "NSTextFieldCell"; title = "Confirm quit/unlock password"; ObjectID = "107";</note>
             </trans-unit>
             <trans-unit id="109.title">
-                <source>Quit/restart password</source>
+                <source>quit/unlock password</source>
                 <target>Beenden-Passwort</target>
-                <note>Class = "NSTextFieldCell"; title = "Quit/restart password"; ObjectID = "109";</note>
+                <note>Class = "NSTextFieldCell"; title = "quit/unlock password"; ObjectID = "109";</note>
             </trans-unit>
             <trans-unit id="110.title">
                 <source>Confirm administrator password</source>
@@ -2833,8 +2833,8 @@
                 <target>Beenden-Passwort eingeben:</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
-            <trans-unit id="Enter quit/restart password:">
-                <source>Enter quit/restart password:</source>
+            <trans-unit id="Enter quit/unlock password:">
+                <source>Enter quit/unlock password:</source>
                 <target>Beenden-/Neustart-Passwort eingeben:</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
@@ -3269,8 +3269,8 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
                 <target>SEB ist so konfiguriert, dass nur eine zuvor heruntergelade Datei heraufgeladen werden kann. Laden Sie eine Datei herunter und wenn Sie diese in einer Drittapplikation bearbeiten, speichern Sie diese mit demselben Dateinamen im gleichen Verzeichnis.</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
-            <trans-unit id="SEB is locked because it was attempted to switch the user. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows.">
-                <source>SEB is locked because it was attempted to switch the user. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows.</source>
+            <trans-unit id="SEB is locked because it was attempted to switch the user. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.">
+                <source>SEB is locked because it was attempted to switch the user. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.</source>
                 <target>SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. SEB kann nur mittels des Neustarten-/Beenden-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
                 <note>Default lockdown window alert text</note>
             </trans-unit>
@@ -3328,8 +3328,8 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
                 <target>Bildschirmfreigabe detektiert!</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
-            <trans-unit id="Screen sharing detected. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows.">
-                <source>Screen sharing detected. SEB can only be unlocked by entering the restart/quit password, which usually exam supervision/support knows.</source>
+            <trans-unit id="Screen sharing detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.">
+                <source>Screen sharing detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.</source>
                 <target>SEB ist gesperrt, weil die Bildschirmfreigabe benutzt wurde. SEB kann nur mittels des Neustarten-/Beenden-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
@@ -3582,8 +3582,8 @@ Lokale Einstellungen zurücksetzen und weiterfahren?</target>
                 <target>Falsches Passwort! Bitte das korrrekte SEB Administrator-Passwort aus diesen Einstellungen eingeben:</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>
-            <trans-unit id="Wrong quit/restart password.">
-                <source>Wrong quit/restart password.</source>
+            <trans-unit id="Wrong quit/unlock password.">
+                <source>Wrong quit/unlock password.</source>
                 <target>Falsches Beenden-/Neustart-Passwort</target>
                 <note>No comment provided by engineer.</note>
             </trans-unit>

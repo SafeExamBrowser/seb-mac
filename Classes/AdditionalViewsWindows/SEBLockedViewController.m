@@ -60,7 +60,7 @@
 - (IBAction)passwordEntered:(id)sender {
     DDLogDebug(@"Lockdown alert: Covering window has frame %@ and window level %ld", CGRectCreateDictionaryRepresentation(self.view.superview.frame), self.view.window.level);
 
-    // Check if restarting is protected with the quit/restart password (and one is set)
+    // Check if restarting is protected with the quit/unlock password (and one is set)
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
  
@@ -108,7 +108,7 @@
         
         return;
     }
-    DDLogError(@"Lockdown alert: Wrong quit/restart password entered, asking to try again");
+    DDLogError(@"Lockdown alert: Wrong quit/unlock password entered, asking to try again");
     [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Wrong password entered!", nil)] withTime:[NSDate date]];
     [lockedAlertPasswordField setStringValue:@""];
     passwordWrongLabel.hidden = false;
