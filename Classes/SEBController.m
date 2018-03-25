@@ -329,6 +329,19 @@ bool insideMatrix();
 }
 
 
+- (void)showModalQuitAlertTitle:(NSString *)title text:(NSString *)text
+{
+    if (!self.modalAlert) {
+        self.modalAlert = [[NSAlert alloc] init];
+        [self.modalAlert setMessageText:title];
+        [self.modalAlert setInformativeText:text];
+        [self.modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+        [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
+        [self.modalAlert runModal];
+        self.modalAlert = nil;
+    }
+}
+
 - (void)awakeFromNib
 {
     self.systemManager = [[SEBSystemManager alloc] init];
@@ -367,28 +380,45 @@ bool insideMatrix();
     NSArray *allRunningProcesses = [self getProcessArray];
     DDLogInfo(@"There are %lu running BSD processes: \n%@", (unsigned long)allRunningProcesses.count, allRunningProcesses);
     // Check for activated screen sharing if settings demand it
-    if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"] &&
+    allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"];
+    allowSiri = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSiri"];
+    allowDictation = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictation"];
+
+    if (!allowScreenSharing &&
         ([allRunningProcesses containsObject:screenSharingAgent] ||
-         [allRunningProcesses containsObject:AppleVNCAgent]))
+         [allRunningProcesses containsObject:AppleVNCAgent] ||
+         [allRunningProcesses containsObject:ARDAgent]))
     {
         // Screen sharing is active
         DDLogError(@"Screen Sharing Detected, SEB will quit");
-        if (!self.modalAlert) {
-            self.modalAlert = [[NSAlert alloc] init];
-            [self.modalAlert setMessageText:NSLocalizedString(@"Screen Sharing Detected!", nil)];
-            [self.modalAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@",
-                                                 NSLocalizedString(@"You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.", nil),
-                                                 NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol.", nil)
-                                                 ]];
-            [self.modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
-            [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
-            [self.modalAlert runModal];
-            self.modalAlert = nil;
-        }
+        [self showModalQuitAlertTitle:NSLocalizedString(@"Screen Sharing Detected!", nil)
+                                 text:[NSString stringWithFormat:@"%@\n\n%@",
+                                       NSLocalizedString(@"You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.", nil),
+                                       NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol.", nil)]];
         quittingMyself = TRUE; //SEB is terminating itself
         [NSApp terminate: nil]; //quit SEB
     }
-
+    
+    if (!allowSiri && [allRunningProcesses containsObject:SiriService])
+    {
+        // Siri is active
+        DDLogError(@"Siri Detected, SEB will quit");
+        [self showModalQuitAlertTitle:NSLocalizedString(@"Siri Detected!", nil)
+                                 text:NSLocalizedString(@"You are not allowed to have Siri enabled while running SEB. Restart SEB after switching Siri off in System Preferences/Siri.", nil)];
+        quittingMyself = TRUE; //SEB is terminating itself
+        [NSApp terminate: nil]; //quit SEB
+    }
+    
+    if (!allowDictation && [allRunningProcesses containsObject:DictationProcess])
+    {
+        // Dictation is active
+        DDLogError(@"Dictation Detected, SEB will quit");
+        [self showModalQuitAlertTitle:NSLocalizedString(@"Dictation Detected!", nil)
+                                 text:NSLocalizedString(@"You are not allowed to have dictation enabled while running SEB. Restart SEB after switching dictation off in System Preferences/Keyboard/Dictation.", nil)];
+        quittingMyself = TRUE; //SEB is terminating itself
+        [NSApp terminate: nil]; //quit SEB
+    }
+    
     // Setup Notifications and Kiosk Mode
     
     // Add an observer for the notification that another application became active (SEB got inactive)
@@ -997,7 +1027,6 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         // Get SEB's PID
         NSRunningApplication *sebRunningApp = [NSRunningApplication currentApplication];
         sebPID = [sebRunningApp processIdentifier];
-        allowScreenSharing = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"];
         fishyWindowWasOpened = true;
 
     } else {
@@ -1090,7 +1119,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     // Get all running processes, including daemons
     NSArray *allRunningProcesses = [self getProcessArray];
     // Check for activated screen sharing if settings demand it
-    if (!allowScreenSharing &&
+    if (!allowScreenSharing && !_screenSharingCheckOverride &&
         ([allRunningProcesses containsObject:screenSharingAgent] ||
          [allRunningProcesses containsObject:AppleVNCAgent] ||
          [allRunningProcesses containsObject:ARDAgent])) {
@@ -1098,13 +1127,13 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
              postNotificationName:@"detectedScreenSharing" object:self];
         }
     // Check for activated Siri if settings demand it
-    if (!_startingUp && !allowSiri &&
+    if (!_startingUp && !allowSiri && !_siriCheckOverride &&
         [allRunningProcesses containsObject:SiriService]) {
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedSiri" object:self];
         }
     // Check for activated dictation if settings demand it
-    if (!_startingUp && !allowDictation &&
+    if (!_startingUp && !allowDictation && !_dictationCheckOverride &&
         [allRunningProcesses containsObject:DictationProcess]) {
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedDictation" object:self];
@@ -2029,26 +2058,35 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 {
     [NSApp endModalSession:lockdownModalSession];
     
-    _screenSharingCheckOverride = sebLockedViewController.overrideCheckForScreenSharing.state;
-    sebLockedViewController.overrideCheckForScreenSharing.state = false;
-    sebLockedViewController.overrideCheckForScreenSharing.hidden = true;
+    if (sebLockedViewController.overrideCheckForScreenSharing.state == true) {
+        _screenSharingCheckOverride = true;
+        sebLockedViewController.overrideCheckForScreenSharing.state = false;
+        sebLockedViewController.overrideCheckForScreenSharing.hidden = true;
+    }
+
+    if (sebLockedViewController.overrideCheckForSiri.state == true) {
+        _siriCheckOverride = true;
+        sebLockedViewController.overrideCheckForSiri.state = false;
+        sebLockedViewController.overrideCheckForSiri.hidden = true;
+    }
     
-    _siriCheckOverride = sebLockedViewController.overrideCheckForSiri.state;
-    sebLockedViewController.overrideCheckForSiri.state = false;
-    sebLockedViewController.overrideCheckForSiri.hidden = true;
+    if (sebLockedViewController.overrideCheckForDictation.state == true) {
+        _dictationCheckOverride = true;
+        sebLockedViewController.overrideCheckForDictation.state = false;
+        sebLockedViewController.overrideCheckForDictation.hidden = true;
+    }
     
-    _dictationCheckOverride = sebLockedViewController.overrideCheckForDictation.state;
-    sebLockedViewController.overrideCheckForDictation.state = false;
-    sebLockedViewController.overrideCheckForDictation.hidden = true;
-    
-    if (sebLockedViewController.overrideCheckForSpecifcProcesses.state) {
+    if (sebLockedViewController.overrideCheckForSpecifcProcesses.state == true) {
+        _processCheckSpecificOverride = true;
         sebLockedViewController.overrideCheckForSpecifcProcesses.state = false;
         sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = true;
     }
     
-    _processCheckOverride = sebLockedViewController.overrideCheckForAllProcesses.state;
-    sebLockedViewController.overrideCheckForAllProcesses.state = false;
-    sebLockedViewController.overrideCheckForAllProcesses.hidden = true;
+    if (sebLockedViewController.overrideCheckForAllProcesses.state == true) {
+        _processCheckAllOverride = true;
+        sebLockedViewController.overrideCheckForAllProcesses.state = false;
+        sebLockedViewController.overrideCheckForAllProcesses.hidden = true;
+    }
     
     [sebLockedViewController.view removeFromSuperview];
     [self closeCoveringWindows:self.lockdownWindows];
@@ -2170,16 +2208,6 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             launchedApplication = [userInfo objectForKey:NSWorkspaceApplicationKey];
             NSString *launchedAppBundleID = launchedApplication.bundleIdentifier;
             DDLogInfo(@"launched app localizedName: %@, bundleID: %@ executableURL: %@", [launchedApplication localizedName], launchedAppBundleID, [launchedApplication executableURL]);
-            
-            // Check for activated screen sharing if settings demand it
-            NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-            if (([launchedAppBundleID isEqualToString:screenSharingAgentBundleID] ||
-                 [launchedAppBundleID isEqualToString:AppleVNCAgentBundleID] ||
-                 [launchedAppBundleID isEqualToString:ARDAgentBundleID])
-                && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"]) {
-                [[NSNotificationCenter defaultCenter]
-                 postNotificationName:@"detectedScreenSharing" object:self];
-            }
         }
     }
 }
@@ -2210,7 +2238,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 - (NSInteger) killApplication:(NSRunningApplication *)application
 {
     NSInteger killSuccess = [application kill];
-    if (killSuccess != ERR_SUCCESS) {
+    if (killSuccess != ERR_SUCCESS && !_processCheckAllOverride) {
         [_runningProhibitedProcesses addObject:application];
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"detectedProhibitedProcess" object:self];
@@ -3209,6 +3237,10 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             // Add log string for screen sharing active
             [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing was activated", nil)] withTime:self.didResignActiveTime];
         } else {
+            if (!self.lockdownWindows) {
+                sebLockedViewController.overrideCheckForScreenSharing.hidden = false;
+                [self openLockdownWindows];
+            }
             // Add log string for screen sharing still active
             self.didBecomeActiveTime = [NSDate date];
             if (!screenSharingLogCounter--) {
@@ -3245,6 +3277,10 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             // Add log string for screen sharing active
             [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Siri was activated", nil)] withTime:self.didResignActiveTime];
         } else {
+            if (!self.lockdownWindows) {
+                sebLockedViewController.overrideCheckForSiri.hidden = false;
+                [self openLockdownWindows];
+            }
             // Add log string for screen sharing still active
             self.didBecomeActiveTime = [NSDate date];
             if (!siriLogCounter--) {
@@ -3281,6 +3317,10 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             // Add log string for screen sharing active
             [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Dictation was activated", nil)] withTime:self.didResignActiveTime];
         } else {
+            if (!self.lockdownWindows) {
+                sebLockedViewController.overrideCheckForDictation.hidden = false;
+                [self openLockdownWindows];
+            }
             // Add log string for screen sharing still active
             self.didBecomeActiveTime = [NSDate date];
             if (!dictationLogCounter--) {
@@ -3312,13 +3352,18 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             prohibitedProcessesLogCounter = logReportCounter;
             DDLogError(@"Prohibited processes detected!");
             
-            if (_processCheckOverride == false) {
+            if (_processCheckAllOverride == false) {
                 [self openLockdownWindows];
             }
             
             // Add log string for screen sharing active
             [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@: %@\n", NSLocalizedString(@"Prohibited processes detected", nil), _runningProhibitedProcesses] withTime:self.didResignActiveTime];
         } else {
+            if (!self.lockdownWindows) {
+                sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = false;
+                sebLockedViewController.overrideCheckForAllProcesses.hidden = false;
+                [self openLockdownWindows];
+            }
             // Add log string for screen sharing still active
             self.didBecomeActiveTime = [NSDate date];
             if (!prohibitedProcessesLogCounter--) {
@@ -3332,13 +3377,38 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 
 - (void) openInfoHUD:(NSString *)lockedTimeInfo
 {
+    informationHUDLabel.textColor = [NSColor whiteColor];
+    NSMutableString *informationText = [NSMutableString stringWithString:(lockedTimeInfo)];
+    
     if (_screenSharingCheckOverride) {
-        lockedTimeInfo = [NSString stringWithFormat:@"%@\n\nScreen sharing detection was disabled!", lockedTimeInfo];
         informationHUDLabel.textColor = [NSColor redColor];
-    } else {
-        informationHUDLabel.textColor = [NSColor whiteColor];
+        [informationText appendString:[NSString stringWithFormat:@"\n\n%@",
+                                       NSLocalizedString(@"Detecting screen sharing was disabled!", nil)]];
     }
-    [informationHUDLabel setStringValue:lockedTimeInfo];
+    
+    if (_siriCheckOverride) {
+        informationHUDLabel.textColor = [NSColor redColor];
+        [informationText appendString:[NSString stringWithFormat:@"\n\n%@",
+                                       NSLocalizedString(@"Detecting Siri was disabled!", nil)]];
+    }
+    
+    if (_dictationCheckOverride) {
+        informationHUDLabel.textColor = [NSColor redColor];
+        [informationText appendString:[NSString stringWithFormat:@"\n\n%@",
+                                       NSLocalizedString(@"Detecting dictation was disabled!", nil)]];
+    }
+    
+    if (_processCheckAllOverride) {
+        informationHUDLabel.textColor = [NSColor redColor];
+        [informationText appendString:[NSString stringWithFormat:@"\n\n%@",
+                                       NSLocalizedString(@"Detecting processes was completely disabled!", nil)]];
+    } else if (_processCheckSpecificOverride) {
+        informationHUDLabel.textColor = [NSColor redColor];
+        [informationText appendString:[NSString stringWithFormat:@"\n\n%@",
+                                       NSLocalizedString(@"Detecting specific processes was disabled!", nil)]];
+    }
+    
+    [informationHUDLabel setStringValue:[informationText copy]];
     NSArray *screens = [NSScreen screens];	// get all available screens
     NSScreen *mainScreen = screens[0];
     

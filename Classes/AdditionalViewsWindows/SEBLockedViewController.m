@@ -80,23 +80,23 @@
         
         // Check for status of individual parameters
         if (self.overrideCheckForScreenSharing.state == true) {
-            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Override checking for screen sharing is enabled!", nil)] withTime:nil];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting screen sharing was disabled!", nil)] withTime:nil];
         }
         
         if (self.overrideCheckForSiri.state == true) {
-            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Override checking for Siri is enabled!", nil)] withTime:nil];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting Siri was disabled!", nil)] withTime:nil];
         }
         
         if (self.overrideCheckForDictation.state == true) {
-            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Override checking for dictation is enabled!", nil)] withTime:nil];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting dictation was disabled!", nil)] withTime:nil];
         }
         
         if (self.overrideCheckForSpecifcProcesses.state == true) {
-            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Override checking for the processes listed above is enabled!", nil)] withTime:nil];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting the processes listed above was disabled!", nil)] withTime:nil];
         }
         
         if (self.overrideCheckForAllProcesses.state == true) {
-            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Override process security check completely is enabled!", nil)] withTime:nil];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting processes was completely disabled!", nil)] withTime:nil];
         }
         
         // Calculate time difference between session resigning active and closing lockdown alert

@@ -127,7 +127,8 @@
 @property(readwrite) BOOL screenSharingDetected;
 @property(readwrite) BOOL screenSharingCheckOverride;
 @property(readwrite) BOOL processesDetected;
-@property(readwrite) BOOL processCheckOverride;
+@property(readwrite) BOOL processCheckSpecificOverride;
+@property(readwrite) BOOL processCheckAllOverride;
 @property(readwrite) BOOL siriDetected;
 @property(readwrite) BOOL siriCheckOverride;
 @property(readwrite) BOOL dictationCheckOverride;
