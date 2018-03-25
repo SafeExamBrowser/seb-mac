@@ -83,6 +83,14 @@
             [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Override checking for screen sharing is enabled!", nil)] withTime:nil];
         }
         
+        if (self.overrideCheckForSiri.state == true) {
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Override checking for Siri is enabled!", nil)] withTime:nil];
+        }
+        
+        if (self.overrideCheckForDictation.state == true) {
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Override checking for dictation is enabled!", nil)] withTime:nil];
+        }
+        
         if (self.overrideCheckForSpecifcProcesses.state == true) {
             [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Override checking for the processes listed above is enabled!", nil)] withTime:nil];
         }

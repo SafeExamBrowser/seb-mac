@@ -111,7 +111,13 @@
     SEBMinMacOSVersion _enforceMinMacOSVersion;
     pid_t sebPID;
     BOOL allowScreenSharing;
+    BOOL allowSiri;
+    BOOL allowDictation;
+    #define logReportCounter 11
     NSUInteger screenSharingLogCounter;
+    NSUInteger siriLogCounter;
+    NSUInteger dictationLogCounter;
+    NSUInteger prohibitedProcessesLogCounter;
     NSModalSession lockdownModalSession;
     NSUInteger lastNumberRunningBSDProcesses;
 }

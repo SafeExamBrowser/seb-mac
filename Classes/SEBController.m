@@ -1086,7 +1086,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     if (fishyWindowWasOpened) {
         DDLogVerbose(@"Window list: %@", windowList);
     }
-    // Check if screen sharing was activated
+    // Check if not allowed/prohibited processes was activated
     // Get all running processes, including daemons
     NSArray *allRunningProcesses = [self getProcessArray];
     // Check for activated screen sharing if settings demand it
@@ -1094,9 +1094,21 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         ([allRunningProcesses containsObject:screenSharingAgent] ||
          [allRunningProcesses containsObject:AppleVNCAgent] ||
          [allRunningProcesses containsObject:ARDAgent])) {
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"detectedScreenSharing" object:self];
-    }
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"detectedScreenSharing" object:self];
+        }
+    // Check for activated Siri if settings demand it
+    if (!_startingUp && !allowSiri &&
+        [allRunningProcesses containsObject:SiriService]) {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"detectedSiri" object:self];
+        }
+    // Check for activated dictation if settings demand it
+    if (!_startingUp && !allowDictation &&
+        [allRunningProcesses containsObject:DictationProcess]) {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"detectedDictation" object:self];
+        }
 }
 
 
@@ -1191,9 +1203,11 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     
     BOOL allowDisplayMirroring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDisplayMirroring"];
     
-    // Also set flag for screen sharing
+    // Also set flags for screen sharing, Siri, dictation
     allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"];
-    
+    allowSiri = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSiri"];
+    allowDictation = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictation"];
+
     // Get list of all displays
     CGDisplayCount maxDisplays = 16;
     CGDirectDisplayID onlineDisplays[maxDisplays];
@@ -2019,8 +2033,15 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     sebLockedViewController.overrideCheckForScreenSharing.state = false;
     sebLockedViewController.overrideCheckForScreenSharing.hidden = true;
     
+    _siriCheckOverride = sebLockedViewController.overrideCheckForSiri.state;
+    sebLockedViewController.overrideCheckForSiri.state = false;
+    sebLockedViewController.overrideCheckForSiri.hidden = true;
+    
+    _dictationCheckOverride = sebLockedViewController.overrideCheckForDictation.state;
+    sebLockedViewController.overrideCheckForDictation.state = false;
+    sebLockedViewController.overrideCheckForDictation.hidden = true;
+    
     if (sebLockedViewController.overrideCheckForSpecifcProcesses.state) {
-        
         sebLockedViewController.overrideCheckForSpecifcProcesses.state = false;
         sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = true;
     }
@@ -3178,8 +3199,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
                                                             ]];
             
             // Report screen sharing is still active every 3rd second
-            #define sebScreenSharingLogCounter 11
-            screenSharingLogCounter = sebScreenSharingLogCounter;
+            screenSharingLogCounter = logReportCounter;
             DDLogError(@"Screen sharing was activated!");
             
             if (_screenSharingCheckOverride == false) {
@@ -3193,7 +3213,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             self.didBecomeActiveTime = [NSDate date];
             if (!screenSharingLogCounter--) {
                 [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing is still active", nil)] withTime:[NSDate date]];
-                screenSharingLogCounter = sebScreenSharingLogCounter;
+                screenSharingLogCounter = logReportCounter;
             }
         }
     }
@@ -3203,41 +3223,73 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     else if ([[notification name] isEqualToString:
               @"detectedSiri"])
     {
-        if (!_screenSharingDetected) {
-            _screenSharingDetected = true;
-            sebLockedViewController.overrideCheckForScreenSharing.state = false;
-            sebLockedViewController.overrideCheckForScreenSharing.hidden = false;
+        if (!_siriDetected) {
+            _siriDetected = true;
+            sebLockedViewController.overrideCheckForSiri.state = false;
+            sebLockedViewController.overrideCheckForSiri.hidden = false;
             self.didResignActiveTime = [NSDate date];
             self.didBecomeActiveTime = [NSDate date];
             
             // Set custom alert message string
-            [sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Siri Locked SEB!", @"Lockdown alert title text for screen sharing")
-                                                   Message:[NSString stringWithFormat:@"%@\n\n%@",
-                                                            NSLocalizedString(@"Screen sharing detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil),
-                                                            NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol.", nil)
-                                                            ]];
+            [sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Siri Locked SEB!", @"Lockdown alert title text for Siri")
+                                                   Message:NSLocalizedString(@"Siri activity detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
             
-            // Report screen sharing is still active every 3rd second
-#define sebScreenSharingLogCounter 11
-            screenSharingLogCounter = sebScreenSharingLogCounter;
+            // Report Siri is still active every 3rd second
+            siriLogCounter = logReportCounter;
             DDLogError(@"Screen sharing was activated!");
             
-            if (_screenSharingCheckOverride == false) {
+            if (_siriCheckOverride == false) {
                 [self openLockdownWindows];
             }
             
             // Add log string for screen sharing active
-            [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing was activated", nil)] withTime:self.didResignActiveTime];
+            [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Siri was activated", nil)] withTime:self.didResignActiveTime];
         } else {
             // Add log string for screen sharing still active
             self.didBecomeActiveTime = [NSDate date];
-            if (!screenSharingLogCounter--) {
-                [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing is still active", nil)] withTime:[NSDate date]];
-                screenSharingLogCounter = sebScreenSharingLogCounter;
+            if (!siriLogCounter--) {
+                [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Siri is still active", nil)] withTime:[NSDate date]];
+                siriLogCounter = logReportCounter;
             }
         }
     }
     
+    /// Handler called when dictation was detected
+    
+    else if ([[notification name] isEqualToString:
+              @"detectedDictation"])
+    {
+        if (!_dictationDetected) {
+            _dictationDetected = true;
+            sebLockedViewController.overrideCheckForDictation.state = false;
+            sebLockedViewController.overrideCheckForDictation.hidden = false;
+            self.didResignActiveTime = [NSDate date];
+            self.didBecomeActiveTime = [NSDate date];
+            
+            // Set custom alert message string
+            [sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Dictation Locked SEB!", @"Lockdown alert title text for Siri")
+                                                   Message:NSLocalizedString(@"Dictation activity detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
+            
+            // Report Siri is still active every 3rd second
+            dictationLogCounter = logReportCounter;
+            DDLogError(@"Dictation was activated!");
+            
+            if (_dictationCheckOverride == false) {
+                [self openLockdownWindows];
+            }
+            
+            // Add log string for screen sharing active
+            [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Dictation was activated", nil)] withTime:self.didResignActiveTime];
+        } else {
+            // Add log string for screen sharing still active
+            self.didBecomeActiveTime = [NSDate date];
+            if (!dictationLogCounter--) {
+                [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Dictation is still active", nil)] withTime:[NSDate date]];
+                dictationLogCounter = logReportCounter;
+            }
+        }
+    }
+
     /// Handler called when a prohibited process was detected
     
     else if ([[notification name] isEqualToString:
@@ -3257,8 +3309,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
                                                    Message:NSLocalizedString(@"SEB is locked because a process, which isn't allowed to run cannot be terminated. It's only possible to unlock SEB with the quit/unlock password, which usually exam supervision/support knows.", nil)];
             
             // Report processes are still active every 3rd second
-#define sebScreenSharingLogCounter 11
-            screenSharingLogCounter = sebScreenSharingLogCounter;
+            prohibitedProcessesLogCounter = logReportCounter;
             DDLogError(@"Prohibited processes detected!");
             
             if (_processCheckOverride == false) {
@@ -3270,9 +3321,9 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         } else {
             // Add log string for screen sharing still active
             self.didBecomeActiveTime = [NSDate date];
-            if (!screenSharingLogCounter--) {
+            if (!prohibitedProcessesLogCounter--) {
                 [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Prohibited processes still running", nil)] withTime:[NSDate date]];
-                screenSharingLogCounter = sebScreenSharingLogCounter;
+                prohibitedProcessesLogCounter = logReportCounter;
             }
         }
     }
@@ -3300,7 +3351,6 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     [informationHUD setLevel:NSModalPanelWindowLevel];
     DDLogDebug(@"Opening info HUD: %@", informationHUD);
     [informationHUD makeKeyAndOrderFront:nil];
-
 }
 
 

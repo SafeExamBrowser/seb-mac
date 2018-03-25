@@ -46,6 +46,8 @@
 @property (readwrite, copy) NSAttributedString *resignActiveLogString;
 
 @property (strong) IBOutlet NSButton *overrideCheckForScreenSharing;
+@property (strong) IBOutlet NSButton *overrideCheckForSiri;
+@property (strong) IBOutlet NSButton *overrideCheckForDictation;
 @property (strong) IBOutlet NSButton *overrideCheckForSpecifcProcesses;
 @property (strong) IBOutlet NSButton *overrideCheckForAllProcesses;
 
