@@ -43,5 +43,9 @@
     return YES;
 }
 
+- (BOOL) worksWhenModal
+{
+    return YES;
+}
 
 @end
