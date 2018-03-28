@@ -143,7 +143,7 @@
 @property(strong) NSMutableArray *lockdownWindows;
 @property(strong) NSMutableArray *inactiveScreenWindows;
 @property(strong) NSScreen *mainScreen;
-@property(strong) NSAlert *modalAlert;
+@property(strong, atomic) NSMutableArray *modalAlertWindows;
 @property(strong) IBOutlet NSSecureTextField *enterPassword;
 @property(strong) IBOutlet id preferencesController;
 @property(strong) IBOutlet SEBSystemManager *systemManager;
@@ -159,6 +159,8 @@
 @property(strong) SEBDockItemButton *dockButtonReload;
 
 
+- (NSAlert *) newAlert;
+- (void) removeAlertWindow:(NSWindow *)alertWindow;
 - (void) closeAboutWindow;
 - (void) closeDocument:(id)sender;
 - (void) coverScreens;

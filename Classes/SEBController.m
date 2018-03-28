@@ -127,7 +127,6 @@ bool insideMatrix();
     NSTextFieldNilToEmptyStringTransformer *textFieldNilToEmptyStringTransformer = [[NSTextFieldNilToEmptyStringTransformer alloc] init];
     [NSValueTransformer setValueTransformer:textFieldNilToEmptyStringTransformer
                                     forName:@"NSTextFieldNilToEmptyStringTransformer"];
-    
 }
 
 
@@ -138,20 +137,6 @@ bool insideMatrix();
         browserController.sebController = self;
     }
     return browserController;
-}
-
-
-- (NSAlert *) modalAlert
-{
-    return _modalAlert;
-}
-
-- (void) setModalAlert:(NSAlert *)modalAlert
-{
-    if (aboutWindow.isVisible) {
-        [self closeAboutWindow];
-    }
-    _modalAlert = modalAlert;
 }
 
 
@@ -184,15 +169,13 @@ bool insideMatrix();
             
             // Check if SEB is in exam mode = private UserDefauls are switched on
             if (NSUserDefaults.userDefaultsPrivate) {
-                if (!self.modalAlert) {
-                    self.modalAlert = [[NSAlert alloc] init];
-                    [self.modalAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
-                    [self.modalAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
-                    [self.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-                    [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
-                    [self.modalAlert runModal];
-                    self.modalAlert = nil;
-                }
+                NSAlert *modalAlert = [self newAlert];
+                [modalAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
+                [modalAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                [modalAlert setAlertStyle:NSCriticalAlertStyle];
+                [modalAlert runModal];
+                [self removeAlertWindow:modalAlert.window];
                 _openingSettings = false;
                 return YES;
             }
@@ -254,6 +237,7 @@ bool insideMatrix();
 - (id)init {
     self = [super init];
     if (self) {
+        _modalAlertWindows = [NSMutableArray new];
         _startingUp = true;
         // Initialize console loggers
 #ifdef DEBUG
@@ -329,17 +313,36 @@ bool insideMatrix();
 }
 
 
+- (NSAlert *) newAlert
+{
+    NSAlert *newAlert = [[NSAlert alloc] init];
+    DDLogDebug(@"Adding modal alert window %@", newAlert.window);
+    [_modalAlertWindows addObject:newAlert.window];
+    if (aboutWindow.isVisible) {
+        [self closeAboutWindow];
+    }
+    return newAlert;
+}
+
+
+- (void) removeAlertWindow:(NSWindow *)alertWindow
+{
+    DDLogDebug(@"All modal alert windows %@", _modalAlertWindows);
+    DDLogDebug(@"Removing modal alert window %@", alertWindow);
+    [_modalAlertWindows removeObject:alertWindow];
+    DDLogDebug(@"All modal alert windows after removing: %@", _modalAlertWindows);
+}
+
+
 - (void)showModalQuitAlertTitle:(NSString *)title text:(NSString *)text
 {
-    if (!self.modalAlert) {
-        self.modalAlert = [[NSAlert alloc] init];
-        [self.modalAlert setMessageText:title];
-        [self.modalAlert setInformativeText:text];
-        [self.modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
-        [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
-        [self.modalAlert runModal];
-        self.modalAlert = nil;
-    }
+        NSAlert *modalAlert = [self newAlert];
+        [modalAlert setMessageText:title];
+        [modalAlert setInformativeText:text];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+        [modalAlert setAlertStyle:NSCriticalAlertStyle];
+        [modalAlert runModal];
+        [self removeAlertWindow:modalAlert.window];
 }
 
 - (void)awakeFromNib
@@ -356,8 +359,6 @@ bool insideMatrix();
         [NSRunningApplication terminateAutomaticallyTerminableApplications];
     }
 
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    
     // Save the bundle ID of all currently running apps which are visible in a array
 	NSArray *runningApps = [[NSWorkspace sharedWorkspace] runningApplications];
     NSRunningApplication *iterApp;
@@ -376,49 +377,6 @@ bool insideMatrix();
         }
     }
 
-    // Get all running processes, including daemons
-    NSArray *allRunningProcesses = [self getProcessArray];
-    DDLogInfo(@"There are %lu running BSD processes: \n%@", (unsigned long)allRunningProcesses.count, allRunningProcesses);
-    // Check for activated screen sharing if settings demand it
-    allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"];
-    allowSiri = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSiri"];
-    allowDictation = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictation"];
-
-    if (!allowScreenSharing &&
-        ([allRunningProcesses containsObject:screenSharingAgent] ||
-         [allRunningProcesses containsObject:AppleVNCAgent] ||
-         [allRunningProcesses containsObject:ARDAgent]))
-    {
-        // Screen sharing is active
-        DDLogError(@"Screen Sharing Detected, SEB will quit");
-        [self showModalQuitAlertTitle:NSLocalizedString(@"Screen Sharing Detected!", nil)
-                                 text:[NSString stringWithFormat:@"%@\n\n%@",
-                                       NSLocalizedString(@"You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.", nil),
-                                       NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol.", nil)]];
-        quittingMyself = TRUE; //SEB is terminating itself
-        [NSApp terminate: nil]; //quit SEB
-    }
-    
-    if (!allowSiri && [allRunningProcesses containsObject:SiriService])
-    {
-        // Siri is active
-        DDLogError(@"Siri Detected, SEB will quit");
-        [self showModalQuitAlertTitle:NSLocalizedString(@"Siri Detected!", nil)
-                                 text:NSLocalizedString(@"You are not allowed to have Siri enabled while running SEB. Restart SEB after switching Siri off in System Preferences/Siri.", nil)];
-        quittingMyself = TRUE; //SEB is terminating itself
-        [NSApp terminate: nil]; //quit SEB
-    }
-    
-    if (!allowDictation && [allRunningProcesses containsObject:DictationProcess])
-    {
-        // Dictation is active
-        DDLogError(@"Dictation Detected, SEB will quit");
-        [self showModalQuitAlertTitle:NSLocalizedString(@"Dictation Detected!", nil)
-                                 text:NSLocalizedString(@"You are not allowed to have dictation enabled while running SEB. Restart SEB after switching dictation off in System Preferences/Keyboard/Dictation.", nil)];
-        quittingMyself = TRUE; //SEB is terminating itself
-        [NSApp terminate: nil]; //quit SEB
-    }
-    
     // Setup Notifications and Kiosk Mode
     
     // Add an observer for the notification that another application became active (SEB got inactive)
@@ -660,15 +618,13 @@ bool insideMatrix();
                 // Bit 31 is set: VMware Hypervisor running (?)
                 // or gestaltX86AdditionalFeatures values of VirtualBox detected
                 DDLogError(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine! gestaltX86AdditionalFeatures = %X", myAttrs);
-                if (!self.modalAlert) {
-                    self.modalAlert = [[NSAlert alloc] init];
-                    [self.modalAlert setMessageText:NSLocalizedString(@"Virtual Machine Detected!", nil)];
-                    [self.modalAlert setInformativeText:NSLocalizedString(@"You are not allowed to run SEB inside a virtual machine!", nil)];
-                    [self.modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
-                    [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
-                    [self.modalAlert runModal];
-                    self.modalAlert = nil;
-                }
+                    NSAlert *modalAlert = [self newAlert];
+                    [modalAlert setMessageText:NSLocalizedString(@"Virtual Machine Detected!", nil)];
+                    [modalAlert setInformativeText:NSLocalizedString(@"You are not allowed to run SEB inside a virtual machine!", nil)];
+                    [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+                    [modalAlert setAlertStyle:NSCriticalAlertStyle];
+                    [modalAlert runModal];
+                    [self removeAlertWindow:modalAlert.window];
                 quittingMyself = TRUE; //SEB is terminating itself
                 [NSApp terminate: nil]; //quit SEB
                 
@@ -747,6 +703,51 @@ bool insideMatrix();
     
     if (!_openingSettings)
     {
+        // Get all running processes, including daemons
+        NSArray *allRunningProcesses = [self getProcessArray];
+        DDLogInfo(@"There are %lu running BSD processes: \n%@", (unsigned long)allRunningProcesses.count, allRunningProcesses);
+        
+        // Check for activated screen sharing if settings demand it
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"];
+        allowSiri = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSiri"];
+        allowDictation = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictation"];
+        
+        if (!allowScreenSharing &&
+            ([allRunningProcesses containsObject:screenSharingAgent] ||
+             [allRunningProcesses containsObject:AppleVNCAgent] ||
+             [allRunningProcesses containsObject:ARDAgent]))
+        {
+            // Screen sharing is active
+            DDLogError(@"Screen Sharing Detected, SEB will quit");
+            [self showModalQuitAlertTitle:NSLocalizedString(@"Screen Sharing Detected!", nil)
+                                     text:[NSString stringWithFormat:@"%@\n\n%@",
+                                           NSLocalizedString(@"You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.", nil),
+                                           NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol.", nil)]];
+            quittingMyself = TRUE; //SEB is terminating itself
+            [NSApp terminate: nil]; //quit SEB
+        }
+        
+        if (!allowSiri && [allRunningProcesses containsObject:SiriService])
+        {
+            // Siri is active
+            DDLogError(@"Siri Detected, SEB will quit");
+            [self showModalQuitAlertTitle:NSLocalizedString(@"Siri Detected!", nil)
+                                     text:NSLocalizedString(@"You are not allowed to have Siri enabled while running SEB. Restart SEB after switching Siri off in System Preferences/Siri.", nil)];
+            quittingMyself = TRUE; //SEB is terminating itself
+            [NSApp terminate: nil]; //quit SEB
+        }
+        
+        if (!allowDictation && [allRunningProcesses containsObject:DictationProcess])
+        {
+            // Dictation is active
+            DDLogError(@"Dictation Detected, SEB will quit");
+            [self showModalQuitAlertTitle:NSLocalizedString(@"Dictation Detected!", nil)
+                                     text:NSLocalizedString(@"You are not allowed to have dictation enabled while running SEB. Restart SEB after switching dictation off in System Preferences/Keyboard/Dictation.", nil)];
+            quittingMyself = TRUE; //SEB is terminating itself
+            [NSApp terminate: nil]; //quit SEB
+        }
+        
         // SEB finished starting up, reset the flag for starting up
         _startingUp = false;
 
@@ -789,14 +790,13 @@ bool insideMatrix();
 //    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
     if (/*![configFileManager reconfigureClientWithSebClientSettings] && */[MyGlobals sharedMyGlobals].reconfiguredWhileStarting) {
         // Show alert that SEB was reconfigured
-        if (!self.modalAlert) {
-            self.modalAlert = [[NSAlert alloc] init];
-            [self.modalAlert setMessageText:NSLocalizedString(@"SEB Re-Configured", nil)];
-            [self.modalAlert setInformativeText:NSLocalizedString(@"New settings have been saved, they will be used when you start SEB next time again. Do you want to start working with SEB or quit for now?", nil)];
-            [self.modalAlert addButtonWithTitle:NSLocalizedString(@"Start", nil)];
-            [self.modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
-            NSInteger answer = [self.modalAlert runModal];
-            self.modalAlert = nil;
+            NSAlert *modalAlert = [self newAlert];
+            [modalAlert setMessageText:NSLocalizedString(@"SEB Re-Configured", nil)];
+            [modalAlert setInformativeText:NSLocalizedString(@"New settings have been saved, they will be used when you start SEB next time again. Do you want to start working with SEB or quit for now?", nil)];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"Start", nil)];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+            NSInteger answer = [modalAlert runModal];
+            [self removeAlertWindow:modalAlert.window];
             switch(answer)
             {
                 case NSAlertFirstButtonReturn:
@@ -811,9 +811,6 @@ bool insideMatrix();
                 }
                     
             }
-        } else {
-            [self performSelector:@selector(requestedQuit:) withObject: nil afterDelay: 3];
-        }
     }
     
     // Set flag that SEB is initialized: Now showing alerts is allowed
@@ -1490,15 +1487,13 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAppSwitcherCheck"]) {
             // Show alert that keys were hold while starting SEB
             DDLogError(@"Command key is pressed while restarting SEB, show dialog asking to release it.");
-            if (!self.modalAlert) {
-                self.modalAlert = [[NSAlert alloc] init];
-                [self.modalAlert setMessageText:NSLocalizedString(@"Holding Command Key Not Allowed!", nil)];
-                [self.modalAlert setInformativeText:NSLocalizedString(@"Holding the Command key down while restarting SEB is not allowed, release it to continue.", nil)];
-                [self.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-                [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
-                [self.modalAlert runModal];
-                self.modalAlert = nil;
-            }
+                NSAlert *modalAlert = [self newAlert];
+                [modalAlert setMessageText:NSLocalizedString(@"Holding Command Key Not Allowed!", nil)];
+                [modalAlert setInformativeText:NSLocalizedString(@"Holding the Command key down while restarting SEB is not allowed, release it to continue.", nil)];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                [modalAlert setAlertStyle:NSCriticalAlertStyle];
+                [modalAlert runModal];
+                [self removeAlertWindow:modalAlert.window];
         } else {
             DDLogWarn(@"Command key is pressed, but not forbidden in current settings");
         }
@@ -1513,16 +1508,15 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     while ([self forceQuitWindowOpen]) {
         // Show alert that the Force Quit window is open
         DDLogError(@"Force Quit window is open!");
-        if (!self.modalAlert) {
             DDLogError(@"Show error message and ask user to close it or quit SEB.");
-            self.modalAlert = [[NSAlert alloc] init];
-            [self.modalAlert setMessageText:NSLocalizedString(@"Close Force Quit Window", nil)];
-            [self.modalAlert setInformativeText:NSLocalizedString(@"SEB cannot run when the Force Quit window is open. Close the window or quit SEB.", nil)];
-            [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
-            [self.modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
-            [self.modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
-            NSInteger answer = [self.modalAlert runModal];
-            self.modalAlert = nil;
+            NSAlert *modalAlert = [self newAlert];
+            [modalAlert setMessageText:NSLocalizedString(@"Close Force Quit Window", nil)];
+            [modalAlert setInformativeText:NSLocalizedString(@"SEB cannot run when the Force Quit window is open. Close the window or quit SEB.", nil)];
+            [modalAlert setAlertStyle:NSCriticalAlertStyle];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+            NSInteger answer = [modalAlert runModal];
+            [self removeAlertWindow:modalAlert.window];
             switch(answer)
             {
                 case NSAlertFirstButtonReturn:
@@ -1537,11 +1531,6 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                     [NSApp terminate: nil]; //quit SEB
                 }
             }
-        } else {
-            DDLogError(@"Some modal alert is already displayed, quit SEB.");
-            quittingMyself = TRUE; //SEB is terminating itself
-            [NSApp terminate: nil]; //quit SEB
-        }
     }
 }
 
@@ -1566,14 +1555,16 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     DDLogError(@"Local SEB Settings Have Been Reset");
 
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-    if (!self.modalAlert) {
-        self.modalAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Local SEB Settings Have Been Reset", nil) defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:NSLocalizedString(@"Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.", nil)];
-        [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
-        [self.modalAlert runModal];
-        self.modalAlert = nil;
-        
-        DDLogInfo(@"Dismissed alert for local SEB settings have been reset");
-    }
+    NSAlert *modalAlert = [self newAlert];
+    
+    [modalAlert setMessageText:NSLocalizedString(@"Local SEB Settings Have Been Reset", nil)];
+    [modalAlert setInformativeText:NSLocalizedString(@"Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.", nil)];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [modalAlert setAlertStyle:NSCriticalAlertStyle];
+    [modalAlert runModal];
+    [self removeAlertWindow:modalAlert.window];
+
+    DDLogInfo(@"Dismissed alert for local SEB settings have been reset");
 }
 
 
@@ -2018,6 +2009,19 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 - (void) openLockdownWindows
 {
     if (!self.lockdownWindows) {
+        
+        /* //Move all modal alert windows above the lock screen windows
+        if (_modalAlertWindows.count) {
+            DDLogDebug(@"%lu modal window(s) displayed.", (unsigned long)_modalAlertWindows.count);
+            for (NSWindow *alertWindow in _modalAlertWindows)
+            {
+                DDLogDebug(@"Modal window %@ has level %lu", alertWindow, (unsigned long)alertWindow.level);
+                DDLogDebug(@"Setting level %lu", NSScreenSaverWindowLevel+1);
+                [alertWindow newSetLevel:NSScreenSaverWindowLevel+1];
+                DDLogDebug(@"New level of modal window %@: %lu", alertWindow, (unsigned long)alertWindow.level);
+            }
+        } */
+
         self.lockdownWindows = [self fillScreensWithCoveringWindows:coveringWindowLockdownAlert windowLevel:NSScreenSaverWindowLevel excludeMenuBar:false];
         NSWindow *coveringWindow = self.lockdownWindows[0];
         NSView *coveringView = coveringWindow.contentView;
@@ -2303,14 +2307,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     [self.browserController allBrowserWindowsChangeLevel:allowApps];
     
     // Change window level of a modal window (like an alert) if one is displayed
-    if (self.modalAlert) {
-        DDLogWarn(@"Modal window displayed");
-        if (allowApps) {
-            [self.modalAlert.window newSetLevel:NSModalPanelWindowLevel];
-        } else {
-            [self.modalAlert.window newSetLevel:NSMainMenuWindowLevel+6];
-        }
-    }
+    [self adjustModalAlertWindowLevels:allowAppsUserDefaultsSetting];
     
     // Change window level of the about window if it is displayed
     if (aboutWindow.isVisible) {
@@ -2370,14 +2367,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     }
     
     // Change window level of a modal window (like an alert) if one is displayed
-    if (self.modalAlert) {
-        DDLogWarn(@"Modal window displayed");
-        if (allowSwitchToThirdPartyApps) {
-            [self.modalAlert.window newSetLevel:NSModalPanelWindowLevel];
-        } else {
-            [self.modalAlert.window newSetLevel:NSMainMenuWindowLevel+6];
-        }
-    }
+    [self adjustModalAlertWindowLevels:allowSwitchToThirdPartyApps];
     
     // Change window level of the about window if it is displayed
     if (aboutWindow.isVisible) {
@@ -2386,6 +2376,23 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             [aboutWindow newSetLevel:NSModalPanelWindowLevel-1];
         } else {
             [aboutWindow newSetLevel:NSMainMenuWindowLevel+5];
+        }
+    }
+}
+
+
+// Change window level of a modal window (like an alert) if one is displayed
+- (void)adjustModalAlertWindowLevels:(BOOL)allowSwitchToThirdPartyApps
+{
+    if (_modalAlertWindows.count) {
+        DDLogWarn(@"Modal window(s) displayed");
+        for (NSWindow *alertWindow in _modalAlertWindows)
+        {
+            if (allowSwitchToThirdPartyApps) {
+                [alertWindow newSetLevel:NSModalPanelWindowLevel];
+            } else {
+                [alertWindow newSetLevel:NSMainMenuWindowLevel+6];
+            }
         }
     }
 }
@@ -2578,41 +2585,36 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             return;
         } else {
             // Wrong quit password was entered
-            if (!self.modalAlert) {
-                self.modalAlert = [NSAlert alertWithMessageText:restartExamText
-                                                    defaultButton:NSLocalizedString(@"OK", nil)
-                                                  alternateButton:nil
-                                                      otherButton:nil
-                                        informativeTextWithFormat:NSLocalizedString(@"Wrong quit/unlock password.", nil)];
-                [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
-                [self.modalAlert runModal];
-                self.modalAlert = nil;
-            }
+            NSAlert *modalAlert = [self newAlert];
+            [modalAlert setMessageText:restartExamText];
+            [modalAlert setInformativeText:NSLocalizedString(@"Wrong quit/unlock password.", nil)];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [modalAlert setAlertStyle:NSCriticalAlertStyle];
+            [modalAlert runModal];
+            [self removeAlertWindow:modalAlert.window];
             return;
         }
     }
     
     // If no quit password is required, then confirm quitting
-    if (!self.modalAlert) {
-        self.modalAlert = [[NSAlert alloc] init];
-        [self.modalAlert setMessageText:restartExamText];
-        [self.modalAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@",
-                                      NSLocalizedString(@"Are you sure?", nil),
-                                      NSLocalizedString(@"(This function doesn't log you out if you are logged in on a website)", nil)
-                                      ]];
-        [self.modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-        [self.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-        [self.modalAlert setAlertStyle:NSWarningAlertStyle];
-        NSInteger answer = [self.modalAlert runModal];
-        self.modalAlert = nil;
-        switch(answer)
+    NSAlert *modalAlert = [self newAlert];
+    [modalAlert setMessageText:restartExamText];
+    [modalAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@",
+                                         NSLocalizedString(@"Are you sure?", nil),
+                                         NSLocalizedString(@"(This function doesn't log you out if you are logged in on a website)", nil)
+                                         ]];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [modalAlert setAlertStyle:NSWarningAlertStyle];
+    NSInteger answer = [modalAlert runModal];
+    [self removeAlertWindow:modalAlert.window];
+    switch(answer)
+    {
+        case NSAlertFirstButtonReturn:
+            return; //Cancel: don't restart exam
+        default:
         {
-            case NSAlertFirstButtonReturn:
-                return; //Cancel: don't restart exam
-            default:
-            {
-                [self.browserController restartDockButtonPressed];
-            }
+            [self.browserController restartDockButtonPressed];
         }
     }
 }
@@ -2649,13 +2651,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     
     // If the dialog needs to be shown application modal
     if (!window) {
-        if (!self.modalAlert) {
-            // block opening other modal alerts while the password dialog is open
-            self.modalAlert = [NSAlert new];
-        } else {
-            DDLogError(@"%s cannot open password dialog (modally) because another modal dialog is open", __FUNCTION__);
-            return SEBEnterPasswordCancel;
-        }
+        // block opening other modal alerts while the password dialog is open
+        [_modalAlertWindows addObject:enterPasswordDialogWindow];
     }
     
     // Add the alert title string to the dialog text if the alert will be presented as sheet on a window
@@ -2683,7 +2680,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     // Dialog is up here.
     [NSApp endSheet: enterPasswordDialogWindow];
     [enterPasswordDialogWindow orderOut: self];
-    self.modalAlert = nil;
+    [self removeAlertWindow:enterPasswordDialogWindow];
     
     return returnCode;
 }
@@ -2733,15 +2730,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     
     // If the dialog needs to be shown application modal
     if (!window) {
-        if (!self.modalAlert) {
-            // block opening other modal alerts while the password dialog is open
-            self.modalAlert = [NSAlert new];
-        } else {
-            DDLogError(@"%s cannot open password dialog (modally) because another modal dialog is open", __FUNCTION__);
-            IMP imp = [senderModalDelegate methodForSelector:senderDidEndSelector];
-            void (*func)(id, SEL, NSString*, NSString*, NSInteger) = (void *)imp;
-            func(senderModalDelegate, senderDidEndSelector, @"", @"", SEBEnterPasswordAborted);
-        }
+        // Add password dialog to open modal alerts
+        [_modalAlertWindows addObject:enterPasswordDialogWindow];
     }
     
     [NSApp beginSheet: enterUsernamePasswordDialogWindow
@@ -2754,7 +2744,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 
 - (IBAction) okEnterUsernamePassword: (id)sender {
     [NSApp endSheet:enterUsernamePasswordDialogWindow returnCode:SEBEnterPasswordOK];
-    self.modalAlert = nil;
+    [self removeAlertWindow:enterPasswordDialogWindow];
 }
 
 
@@ -2762,7 +2752,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     [NSApp endSheet:enterUsernamePasswordDialogWindow returnCode:SEBEnterPasswordCancel];
     // Reset the username field (password is always reset whenever the dialog is displayed)
     [usernameTextField setStringValue:@""];
-    self.modalAlert = nil;
+    [self removeAlertWindow:enterPasswordDialogWindow];
 }
 
 
@@ -2771,7 +2761,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     [NSApp endSheet:enterUsernamePasswordDialogWindow returnCode:SEBEnterPasswordAborted];
     // Reset the user name field (password is always reset whenever the dialog is displayed)
     [usernameTextField setStringValue:@""];
-    self.modalAlert = nil;
+    [self removeAlertWindow:enterPasswordDialogWindow];
 }
 
 
@@ -2780,7 +2770,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     DDLogDebug(@"sheetDidEnd with return code: %ld", (long)returnCode);
     
     [sheet orderOut: self];
-    self.modalAlert = nil;
+    [self removeAlertWindow:enterPasswordDialogWindow];
 
     IMP imp = [senderModalDelegate methodForSelector:senderDidEndSelector];
     void (*func)(id, SEL, NSString*, NSString*, NSInteger) = (void *)imp;
@@ -2807,45 +2797,37 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
                 [NSApp terminate: nil]; //quit SEB
             } else {
                 // Wrong quit password was entered
-                if (!self.modalAlert) {
-                    self.modalAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Wrong Quit Password", nil)
-                                                        defaultButton:NSLocalizedString(@"OK", nil)
-                                                      alternateButton:nil
-                                                          otherButton:nil
-                                            informativeTextWithFormat:NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit SEB.", nil)];
-                    [self.modalAlert setAlertStyle:NSWarningAlertStyle];
-                    [self.modalAlert runModal];
-                    self.modalAlert = nil;
-                }
+                NSAlert *modalAlert = [self newAlert];
+                [modalAlert setMessageText:NSLocalizedString(@"Wrong Quit Password", nil)];
+                [modalAlert setInformativeText:NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit SEB.", nil)];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                [modalAlert setAlertStyle:NSWarningAlertStyle];
+                [modalAlert runModal];
+                [self removeAlertWindow:modalAlert.window];
             }
         } else {
         // if no quit password is required, then confirm quitting
-            if (!self.modalAlert) {
-                self.modalAlert = [[NSAlert alloc] init];
-                [self.modalAlert setMessageText:NSLocalizedString(@"Quit Safe Exam Browser",nil)];
-                [self.modalAlert setInformativeText:NSLocalizedString(@"Are you sure you want to quit SEB?", nil)];
-                [self.modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-                [self.modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
-                [self.modalAlert setAlertStyle:NSWarningAlertStyle];
-                NSInteger answer = [self.modalAlert runModal];
-                self.modalAlert = nil;
-                switch(answer)
+            NSAlert *modalAlert = [self newAlert];
+            [modalAlert setMessageText:NSLocalizedString(@"Quit Safe Exam Browser",nil)];
+            [modalAlert setInformativeText:NSLocalizedString(@"Are you sure you want to quit SEB?", nil)];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+            [modalAlert setAlertStyle:NSWarningAlertStyle];
+            NSInteger answer = [modalAlert runModal];
+            [self removeAlertWindow:modalAlert.window];
+            switch(answer)
+            {
+                case NSAlertFirstButtonReturn:
+                    return; //Cancel: don't quit
+                default:
                 {
-                    case NSAlertFirstButtonReturn:
-                        return; //Cancel: don't quit
-                    default:
-                    {
-                        if ([self.preferencesController preferencesAreOpen]) {
-                            [self.preferencesController quitSEB:self];
-                        } else {
-                            quittingMyself = TRUE; //SEB is terminating itself
-                            [NSApp terminate: nil]; //quit SEB
-                        }
+                    if ([self.preferencesController preferencesAreOpen]) {
+                        [self.preferencesController quitSEB:self];
+                    } else {
+                        quittingMyself = TRUE; //SEB is terminating itself
+                        [NSApp terminate: nil]; //quit SEB
                     }
                 }
-            } else {
-                quittingMyself = TRUE; //SEB is terminating itself
-                [NSApp terminate: nil]; //quit SEB
             }
         }
     } 
@@ -2856,15 +2838,13 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (lockdownWindows.count == 0 && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"]) {
         if (floor(NSAppKitVersionNumber) == NSAppKitVersionNumber10_7) {
-            if (!self.modalAlert) {
-                self.modalAlert = [[NSAlert alloc] init];
-                [self.modalAlert setMessageText:NSLocalizedString(@"Preferences Window Not Available on OS X 10.7", nil)];
-                [self.modalAlert setInformativeText:NSLocalizedString(@"On OS X 10.7 SEB can only be used as an exam client. Run SEB on OS X 10.8 or higher to create a .seb configuration file to configure this SEB client as well.", nil)];
-                [self.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-                [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
-                [self.modalAlert runModal];
-                self.modalAlert = nil;
-            }
+            NSAlert *modalAlert = [self newAlert];
+            [modalAlert setMessageText:NSLocalizedString(@"Preferences Window Not Available on OS X 10.7", nil)];
+            [modalAlert setInformativeText:NSLocalizedString(@"On OS X 10.7 SEB can only be used as an exam client. Run SEB on OS X 10.8 or higher to create a .seb configuration file to configure this SEB client as well.", nil)];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [modalAlert setAlertStyle:NSCriticalAlertStyle];
+            [modalAlert runModal];
+            [self removeAlertWindow:modalAlert.window];
             return;
         }
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
@@ -2879,15 +2859,13 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
                 if ([hashedAdminPW caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] != NSOrderedSame) {
                     //if hash of entered password is not equal to the one in preferences
                     // Wrong admin password was entered
-                    if (!self.modalAlert) {
-                        self.modalAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"Wrong Admin Password", nil)
-                                                            defaultButton:NSLocalizedString(@"OK", nil)
-                                                          alternateButton:nil                                                      otherButton:nil
-                                                informativeTextWithFormat:NSLocalizedString(@"If you don't enter the correct SEB administrator password, then you cannot open preferences.", nil)];
-                        [self.modalAlert setAlertStyle:NSWarningAlertStyle];
-                        [self.modalAlert runModal];
-                        self.modalAlert = nil;
-                    }
+                    NSAlert *modalAlert = [self newAlert];
+                    [modalAlert setMessageText:NSLocalizedString(@"Wrong Admin Password", nil)];
+                    [modalAlert setInformativeText:NSLocalizedString(@"If you don't enter the correct SEB administrator password, then you cannot open preferences.", nil)];
+                    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                    [modalAlert setAlertStyle:NSWarningAlertStyle];
+                    [modalAlert runModal];
+                    [self removeAlertWindow:modalAlert.window];
                     return;
                 }
             }
@@ -2964,27 +2942,25 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 - (void)requestedQuitWPwd:(NSNotification *)notification
 {
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-    if (!self.modalAlert) {
-        self.modalAlert = [[NSAlert alloc] init];
-        [self.modalAlert setMessageText:NSLocalizedString(@"Quit Safe Exam Browser",nil)];
-        [self.modalAlert setInformativeText:NSLocalizedString(@"Are you sure you want to quit SEB?", nil)];
-        [self.modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-        [self.modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
-        [self.modalAlert setAlertStyle:NSWarningAlertStyle];
-        NSInteger answer = [self.modalAlert runModal];
-        self.modalAlert = nil;
-        switch(answer)
+    NSAlert *modalAlert = [self newAlert];
+    [modalAlert setMessageText:NSLocalizedString(@"Quit Safe Exam Browser",nil)];
+    [modalAlert setInformativeText:NSLocalizedString(@"Are you sure you want to quit SEB?", nil)];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+    [modalAlert setAlertStyle:NSWarningAlertStyle];
+    NSInteger answer = [modalAlert runModal];
+    [self removeAlertWindow:modalAlert.window];
+    switch(answer)
+    {
+        case NSAlertFirstButtonReturn:
+            return; //Cancel: don't quit
+        default:
         {
-            case NSAlertFirstButtonReturn:
-                return; //Cancel: don't quit
-            default:
-            {
-                if ([self.preferencesController preferencesAreOpen]) {
-                    [self.preferencesController quitSEB:self];
-                } else {
-                    quittingMyself = TRUE; //SEB is terminating itself
-                    [NSApp terminate: nil]; //quit SEB
-                }
+            if ([self.preferencesController preferencesAreOpen]) {
+                [self.preferencesController quitSEB:self];
+            } else {
+                quittingMyself = TRUE; //SEB is terminating itself
+                [NSApp terminate: nil]; //quit SEB
             }
         }
     }
@@ -3440,15 +3416,13 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 - (void) applicationWillTerminate:(NSNotification *)aNotification
 {
     if (_enforceMinMacOSVersion != SEBMinMacOSVersionSupported) {
-        if (!self.modalAlert) {
-            self.modalAlert = [[NSAlert alloc] init];
-            [self.modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Not Running Minimal macOS Version!", nil)]];
-            [self.modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Current SEB settings require at least %@, but your system is older. SEB will quit!", nil), [[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_minMacOSVersions][_enforceMinMacOSVersion]]];
-            [self.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-            [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
-            [self.modalAlert runModal];
-            self.modalAlert = nil;
-        }
+        NSAlert *modalAlert = [self newAlert];
+        [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Not Running Minimal macOS Version!", nil)]];
+        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Current SEB settings require at least %@, but your system is older. SEB will quit!", nil), [[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_minMacOSVersions][_enforceMinMacOSVersion]]];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [modalAlert setAlertStyle:NSCriticalAlertStyle];
+        [modalAlert runModal];
+        [self removeAlertWindow:modalAlert.window];
     } else if (_forceAppFolder) {
         // Show alert that SEB is not placed in Applications folder
         NSString *applicationsDirectoryName = @"Applications";
@@ -3467,26 +3441,22 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
                 localizedApplicationDirectoryName = applicationsDirectoryName;
             }
         }
-        if (!self.modalAlert) {
-            self.modalAlert = [[NSAlert alloc] init];
-            [self.modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"SEB Not in %@ Folder!", nil), localizedApplicationDirectoryName]];
-            [self.modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"SEB has to be placed in the %@ folder in order for all features to work correctly. Move the 'Safe Exam Browser' app to your %@ folder and make sure that you don't have any other versions of SEB installed on your system. SEB will quit now.", nil), localizedApplicationDirectoryName, localizedAndInternalApplicationDirectoryName]];
-            [self.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-            [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
-            [self.modalAlert runModal];
-            self.modalAlert = nil;
-        }
+        NSAlert *modalAlert = [self newAlert];
+        [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"SEB Not in %@ Folder!", nil), localizedApplicationDirectoryName]];
+        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"SEB has to be placed in the %@ folder in order for all features to work correctly. Move the 'Safe Exam Browser' app to your %@ folder and make sure that you don't have any other versions of SEB installed on your system. SEB will quit now.", nil), localizedApplicationDirectoryName, localizedAndInternalApplicationDirectoryName]];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [modalAlert setAlertStyle:NSCriticalAlertStyle];
+        [modalAlert runModal];
+        [self removeAlertWindow:modalAlert.window];
     } else if (_cmdKeyDown) {
         // Show alert that keys were hold while starting SEB
-        if (!self.modalAlert) {
-            self.modalAlert = [[NSAlert alloc] init];
-            [self.modalAlert setMessageText:NSLocalizedString(@"Holding Command Key Not Allowed!", nil)];
-            [self.modalAlert setInformativeText:NSLocalizedString(@"Holding the Command key down while starting SEB is not allowed. Restart SEB without holding any keys.", nil)];
-            [self.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-            [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
-            [self.modalAlert runModal];
-            self.modalAlert = nil;
-        }
+        NSAlert *modalAlert = [self newAlert];
+        [modalAlert setMessageText:NSLocalizedString(@"Holding Command Key Not Allowed!", nil)];
+        [modalAlert setInformativeText:NSLocalizedString(@"Holding the Command key down while starting SEB is not allowed. Restart SEB without holding any keys.", nil)];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [modalAlert setAlertStyle:NSCriticalAlertStyle];
+        [modalAlert runModal];
+        [self removeAlertWindow:modalAlert.window];
     }
     
     BOOL success = [self.systemManager restoreSC];
