@@ -818,6 +818,108 @@ bool insideMatrix();
 }
 
 
+- (void)presentPreferencesCorruptedError
+{
+    DDLogError(@"Local SEB Settings Have Been Reset");
+    
+    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+    NSAlert *modalAlert = [self newAlert];
+    
+    [modalAlert setMessageText:NSLocalizedString(@"Local SEB Settings Have Been Reset", nil)];
+    [modalAlert setInformativeText:NSLocalizedString(@"Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.", nil)];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [modalAlert setAlertStyle:NSCriticalAlertStyle];
+    [modalAlert runModal];
+    [self removeAlertWindow:modalAlert.window];
+    
+    DDLogInfo(@"Dismissed alert for local SEB settings have been reset");
+}
+
+
+// Initializes a temporary logger unconditionally with the Debug log level
+// and the standard log file path, so SEB can log startup events before
+// settings are initialized
+- (void) initializeTemporaryLogger
+{
+    DDLogFileManagerDefault* logFileManager = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:nil];
+    _myLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
+    _myLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
+    _myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
+    [DDLog addLogger:_myLogger];
+    
+    DDLogError(@"---------- STARTING UP SEB - INITIALIZE SETTINGS -------------");
+    DDLogError(@"(log after start up is finished may continue in another file, according to current settings)");
+    NSString *localHostname = (NSString *)CFBridgingRelease(SCDynamicStoreCopyLocalHostName(NULL));
+    NSString *computerName = (NSString *)CFBridgingRelease(SCDynamicStoreCopyComputerName(NULL, NULL));
+    NSString *userName = NSUserName();
+    NSString *fullUserName = NSFullUserName();
+    NSString *displayName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleDisplayName"];
+    NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
+    NSString *buildNumber = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
+    NSString *bundleID = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"];
+    NSString *bundleExecutable = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleExecutable"];
+    DDLogError(@"%@ Version %@ (Build %@)", displayName, versionString, buildNumber);
+    DDLogError(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
+    
+    DDLogInfo(@"Local hostname: %@", localHostname);
+    DDLogInfo(@"Computer name: %@", computerName);
+    DDLogInfo(@"User name: %@", userName);
+    DDLogInfo(@"Full user name: %@", fullUserName);
+}
+
+
+- (void) initializeLogger
+{
+    // Initialize file logger if logging enabled
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableLogging"] == NO) {
+        [DDLog removeLogger:_myLogger];
+    } else {
+        //Set log directory
+        NSString *logPath = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
+        [DDLog removeLogger:_myLogger];
+        if (logPath.length == 0) {
+            // No log directory indicated: We use the standard one
+            logPath = nil;
+        } else {
+            logPath = [logPath stringByExpandingTildeInPath];
+            // Add subdirectory with the name of the computer
+        }
+        DDLogFileManagerDefault* logFileManager = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:logPath];
+        _myLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
+        _myLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
+        _myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
+        [DDLog addLogger:_myLogger];
+        
+        DDLogError(@"---------- INITIALIZING SEB - STARTING SESSION -------------");
+        NSString *localHostname = (NSString *)CFBridgingRelease(SCDynamicStoreCopyLocalHostName(NULL));
+        NSString *computerName = (NSString *)CFBridgingRelease(SCDynamicStoreCopyComputerName(NULL, NULL));
+        NSString *userName = NSUserName();
+        NSString *fullUserName = NSFullUserName();
+        
+        // To Do: Find out domain of the current host address
+        // This has to be processed asynchronously with GCD
+        //        NSHost *host;
+        //        host = [NSHost currentHost];
+        
+        NSString *displayName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleDisplayName"];
+        NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
+        NSString *buildNumber = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
+        NSString *bundleID = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"];
+        NSString *bundleExecutable = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleExecutable"];
+        DDLogError(@"%@ Version %@ (Build %@)", displayName, versionString, buildNumber);
+        DDLogError(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
+        
+        DDLogInfo(@"Local hostname: %@", localHostname);
+        DDLogInfo(@"Computer name: %@", computerName);
+        DDLogInfo(@"User name: %@", userName);
+        DDLogInfo(@"Full user name: %@", fullUserName);
+    }
+}
+
+
+#pragma mark Process Monitoring
+
 - (NSArray *) getProcessArray {
     NSMutableArray *ProcList = [[NSMutableArray alloc] init];
     
@@ -978,6 +1080,8 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     return err;
 }
 
+
+#pragma mark Window/Panel Monitoring
 
 // Start the windows watcher if it's not yet running
 - (void)startWindowWatcher
@@ -1222,6 +1326,8 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 }
 
 
+#pragma mark Monitoring of Prohibited System Functions
+
 // Switch off display mirroring if it isn't allowed in settings
 - (void)conditionallyTerminateDisplayMirroring
 {
@@ -1395,6 +1501,56 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 }
 
 
+// Clear Pasteboard, but save the current content in case it is a NSString
+- (void)clearPasteboardSavingCurrentString
+{
+    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
+    //NSArray *classes = [[NSArray alloc] initWithObjects:[NSString class], [NSAttributedString class], nil];
+    NSArray *classes = [[NSArray alloc] initWithObjects:[NSString class], nil];
+    NSDictionary *options = [NSDictionary dictionary];
+    NSArray *copiedItems = [pasteboard readObjectsForClasses:classes options:options];
+    if ((copiedItems != nil) && [copiedItems count]) {
+        // if there is a NSSting in the pasteboard, save it for later use
+        //[[MyGlobals sharedMyGlobals] setPasteboardString:[copiedItems objectAtIndex:0]];
+        [[MyGlobals sharedMyGlobals] setValue:[copiedItems objectAtIndex:0] forKey:@"pasteboardString"];
+        DDLogDebug(@"String saved from pasteboard");
+    } else {
+        [[MyGlobals sharedMyGlobals] setValue:@"" forKey:@"pasteboardString"];
+    }
+#ifdef DEBUG
+    //    NSString *stringFromPasteboard = [[MyGlobals sharedMyGlobals] valueForKey:@"pasteboardString"];
+    //    DDLogDebug(@"Saved string from Pasteboard: %@", stringFromPasteboard);
+#endif
+    //NSInteger changeCount = [pasteboard clearContents];
+    [pasteboard clearContents];
+}
+
+
+// Clear Pasteboard when quitting/restarting SEB,
+// If selected in Preferences, then the current Browser Exam Key is copied to the pasteboard instead
+- (void)clearPasteboardCopyingBrowserExamKey
+{
+    // Clear Pasteboard
+    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
+    [pasteboard clearContents];
+    
+    // Write Browser Exam Key to clipboard if enabled in prefs
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting"]) {
+        NSData *browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
+        unsigned char hashedChars[32];
+        [browserExamKey getBytes:hashedChars length:32];
+        NSMutableString* browserExamKeyString = [[NSMutableString alloc] init];
+        for (int i = 0 ; i < 32 ; ++i) {
+            [browserExamKeyString appendFormat: @"%02x", hashedChars[i]];
+        }
+        [pasteboard writeObjects:[NSArray arrayWithObject:browserExamKeyString]];
+    }
+}
+
+
+#pragma mark Checks for System Environment
+
 // Check if running on minimal allowed macOS version or a newer version
 - (void)checkMinMacOSVersion
 {
@@ -1550,107 +1706,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 }
 
 
-- (void)presentPreferencesCorruptedError
-{
-    DDLogError(@"Local SEB Settings Have Been Reset");
-
-    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-    NSAlert *modalAlert = [self newAlert];
-    
-    [modalAlert setMessageText:NSLocalizedString(@"Local SEB Settings Have Been Reset", nil)];
-    [modalAlert setInformativeText:NSLocalizedString(@"Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.", nil)];
-    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-    [modalAlert setAlertStyle:NSCriticalAlertStyle];
-    [modalAlert runModal];
-    [self removeAlertWindow:modalAlert.window];
-
-    DDLogInfo(@"Dismissed alert for local SEB settings have been reset");
-}
-
-
-// Initializes a temporary logger unconditionally with the Debug log level
-// and the standard log file path, so SEB can log startup events before
-// settings are initialized
-- (void) initializeTemporaryLogger
-{
-    DDLogFileManagerDefault* logFileManager = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:nil];
-    _myLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
-    _myLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
-    _myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
-    [DDLog addLogger:_myLogger];
-    
-    DDLogError(@"---------- STARTING UP SEB - INITIALIZE SETTINGS -------------");
-    DDLogError(@"(log after start up is finished may continue in another file, according to current settings)");
-    NSString *localHostname = (NSString *)CFBridgingRelease(SCDynamicStoreCopyLocalHostName(NULL));
-    NSString *computerName = (NSString *)CFBridgingRelease(SCDynamicStoreCopyComputerName(NULL, NULL));
-    NSString *userName = NSUserName();
-    NSString *fullUserName = NSFullUserName();
-    NSString *displayName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleDisplayName"];
-    NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
-    NSString *buildNumber = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
-    NSString *bundleID = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"];
-    NSString *bundleExecutable = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleExecutable"];
-    DDLogError(@"%@ Version %@ (Build %@)", displayName, versionString, buildNumber);
-    DDLogError(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
-    
-    DDLogInfo(@"Local hostname: %@", localHostname);
-    DDLogInfo(@"Computer name: %@", computerName);
-    DDLogInfo(@"User name: %@", userName);
-    DDLogInfo(@"Full user name: %@", fullUserName);
-}
-
-
-- (void) initializeLogger
-{
-    // Initialize file logger if logging enabled
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableLogging"] == NO) {
-        [DDLog removeLogger:_myLogger];
-    } else {
-        //Set log directory
-        NSString *logPath = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
-        [DDLog removeLogger:_myLogger];
-        if (logPath.length == 0) {
-            // No log directory indicated: We use the standard one
-            logPath = nil;
-        } else {
-            logPath = [logPath stringByExpandingTildeInPath];
-            // Add subdirectory with the name of the computer
-        }
-        DDLogFileManagerDefault* logFileManager = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:logPath];
-        _myLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
-        _myLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
-        _myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
-        [DDLog addLogger:_myLogger];
-        
-        DDLogError(@"---------- INITIALIZING SEB - STARTING SESSION -------------");
-        NSString *localHostname = (NSString *)CFBridgingRelease(SCDynamicStoreCopyLocalHostName(NULL));
-        NSString *computerName = (NSString *)CFBridgingRelease(SCDynamicStoreCopyComputerName(NULL, NULL));
-        NSString *userName = NSUserName();
-        NSString *fullUserName = NSFullUserName();
-        
-        // To Do: Find out domain of the current host address
-        // This has to be processed asynchronously with GCD
-        //        NSHost *host;
-        //        host = [NSHost currentHost];
-        
-        NSString *displayName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleDisplayName"];
-        NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
-        NSString *buildNumber = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
-        NSString *bundleID = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"];
-        NSString *bundleExecutable = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleExecutable"];
-        DDLogError(@"%@ Version %@ (Build %@)", displayName, versionString, buildNumber);
-        DDLogError(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
-
-        DDLogInfo(@"Local hostname: %@", localHostname);
-        DDLogInfo(@"Computer name: %@", computerName);
-        DDLogInfo(@"User name: %@", userName);
-        DDLogInfo(@"Full user name: %@", fullUserName);
-    }
-}
-
-
-#pragma mark Methods
+#pragma mark System Lock Down Functionalities
 
 // Method executed when hotkeys are pressed
 OSStatus MyHotKeyHandler(EventHandlerCallRef nextHandler,EventRef theEvent,
@@ -1763,8 +1819,6 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     DDLogInfo(@"Attempting to close about window %@", aboutWindow);
     [aboutWindow orderOut:self];
 }
-
-
 
 
 // Open background windows on all available screens to prevent Finder becoming active when clicking on the desktop background
@@ -2114,6 +2168,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 }
 
 
+#pragma mark Managing Other Running Applications
+
 - (void) startTask {
 	// Start third party application from within SEB
 	
@@ -2257,6 +2313,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 }
 
 
+#pragma mark Kiosk Mode
+
 // Method which sets the setting flag for elevating window levels according to the
 // setting key allowSwitchToApplications
 - (void) setElevateWindowLevels
@@ -2398,53 +2456,49 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 }
 
 
-// Clear Pasteboard, but save the current content in case it is a NSString
-- (void)clearPasteboardSavingCurrentString
+- (void)requestedReinforceKioskMode:(NSNotification *)notification
 {
-    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
-    //NSArray *classes = [[NSArray alloc] initWithObjects:[NSString class], [NSAttributedString class], nil];
-    NSArray *classes = [[NSArray alloc] initWithObjects:[NSString class], nil];
-    NSDictionary *options = [NSDictionary dictionary];
-    NSArray *copiedItems = [pasteboard readObjectsForClasses:classes options:options];
-    if ((copiedItems != nil) && [copiedItems count]) {
-        // if there is a NSSting in the pasteboard, save it for later use
-        //[[MyGlobals sharedMyGlobals] setPasteboardString:[copiedItems objectAtIndex:0]];
-        [[MyGlobals sharedMyGlobals] setValue:[copiedItems objectAtIndex:0] forKey:@"pasteboardString"];
-        DDLogDebug(@"String saved from pasteboard");
-    } else {
-        [[MyGlobals sharedMyGlobals] setValue:@"" forKey:@"pasteboardString"];
-    }
-#ifdef DEBUG
-    //    NSString *stringFromPasteboard = [[MyGlobals sharedMyGlobals] valueForKey:@"pasteboardString"];
-    //    DDLogDebug(@"Saved string from Pasteboard: %@", stringFromPasteboard);
-#endif
-    //NSInteger changeCount = [pasteboard clearContents];
-    [pasteboard clearContents];
+    [self reinforceKioskMode];
 }
 
-
-// Clear Pasteboard when quitting/restarting SEB,
-// If selected in Preferences, then the current Browser Exam Key is copied to the pasteboard instead
-- (void)clearPasteboardCopyingBrowserExamKey
+- (void)reinforceKioskMode
 {
-    // Clear Pasteboard
-    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
-    [pasteboard clearContents];
-    
-    // Write Browser Exam Key to clipboard if enabled in prefs
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting"]) {
-        NSData *browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
-        unsigned char hashedChars[32];
-        [browserExamKey getBytes:hashedChars length:32];
-        NSMutableString* browserExamKeyString = [[NSMutableString alloc] init];
-        for (int i = 0 ; i < 32 ; ++i) {
-            [browserExamKeyString appendFormat: @"%02x", hashedChars[i]];
+    if (![self.preferencesController preferencesAreOpen]) {
+        DDLogDebug(@"Reinforcing the kiosk mode was requested");
+        // Switch the strict kiosk mode temporary off
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
+        [self switchKioskModeAppsAllowed:YES overrideShowMenuBar:NO];
+        
+        // Close the black background covering windows
+        [self closeCapWindows];
+        
+        // Reopen the covering Windows and reset the windows elevation levels
+        DDLogDebug(@"requestedReinforceKioskMode: Reopening cap windows.");
+        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+        if (self.browserController.mainBrowserWindow.isVisible) {
+            [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
         }
-        [pasteboard writeObjects:[NSArray arrayWithObject:browserExamKeyString]];
+        
+        // Open new covering background windows on all currently available screens
+        [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
+        [self coverScreens];
+        
+        // Switch the proper kiosk mode on again
+        [self setElevateWindowLevels];
+        
+        //            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+        
+        BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
+        [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
+        
+        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+        [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
     }
 }
 
+
+#pragma mark Setup Main User Interface
 
 // Set up and display SEB Dock
 - (void) openSEBDock
@@ -2834,6 +2888,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 }
 
 
+#pragma mark Open/Close Preferences
+
 - (IBAction) openPreferences:(id)sender {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (lockdownWindows.count == 0 && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"]) {
@@ -3052,48 +3108,6 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 - (void)documentController:(NSDocumentController *)docController  didCloseAll: (BOOL)didCloseAll contextInfo:(void *)contextInfo
 {
     DDLogDebug(@"documentController: %@ didCloseAll: %hhd contextInfo: %@", docController, didCloseAll, contextInfo);
-}
-
-
-- (void)requestedReinforceKioskMode:(NSNotification *)notification
-{
-    [self reinforceKioskMode];
-}
-
-- (void)reinforceKioskMode
-{
-    if (![self.preferencesController preferencesAreOpen]) {
-        DDLogDebug(@"Reinforcing the kiosk mode was requested");
-        // Switch the strict kiosk mode temporary off
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
-        [self switchKioskModeAppsAllowed:YES overrideShowMenuBar:NO];
-        
-        // Close the black background covering windows
-        [self closeCapWindows];
-        
-        // Reopen the covering Windows and reset the windows elevation levels
-        DDLogDebug(@"requestedReinforceKioskMode: Reopening cap windows.");
-        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-        if (self.browserController.mainBrowserWindow.isVisible) {
-            [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
-        }
-        
-        // Open new covering background windows on all currently available screens
-        [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
-        [self coverScreens];
-        
-        // Switch the proper kiosk mode on again
-        [self setElevateWindowLevels];
-        
-//            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-        
-        BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
-        [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
-        
-        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-        [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
-    }
 }
 
 
