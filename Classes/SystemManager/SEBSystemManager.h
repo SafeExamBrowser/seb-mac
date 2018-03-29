@@ -40,6 +40,12 @@
     NSString *scTempPath;
 }
 
+// Cache current settings for Siri and dictation
+- (void) cacheCurrentSystemSettings;
+
+// Restore cached settings for Siri and dictation
+- (void) restoreSystemSettings;
+
 - (void) preventSC;
 - (BOOL) restoreSC;
 - (void) adjustSC;

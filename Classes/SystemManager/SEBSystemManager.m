@@ -44,6 +44,36 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 @implementation SEBSystemManager
 
 
+// Cache current settings for Siri and dictation
+- (void) cacheCurrentSystemSettings
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    // Cache current system preferences setting for Siri
+    BOOL siriEnabled = [[preferences valueForDefaultsDomain:SiriDefaultsDomain key:SiriDefaultsKey] boolValue];
+    [preferences setSecureBool:siriEnabled forKey:cachedSiriSettingKey];
+    
+    // Cache current system preferences setting for dictation
+    BOOL dictationEnabled = [[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue];
+    [preferences setSecureBool:dictationEnabled forKey:cachedDictationSettingKey];
+}
+
+
+// Restore cached settings for Siri and dictation
+- (void) restoreSystemSettings
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    // Restore setting for Siri before SEB was running to system preferences
+    BOOL siriEnabled = [preferences secureBoolForKey:cachedSiriSettingKey];
+    [preferences setValue:[NSNumber numberWithBool:siriEnabled] forKey:SiriDefaultsKey forDefaultsDomain:SiriDefaultsDomain];
+    
+    // Restore setting for dictation before SEB was running to system preferences
+    BOOL dictationEnabled = [preferences secureBoolForKey:cachedDictationSettingKey];
+    [preferences setValue:[NSNumber numberWithBool:dictationEnabled] forKey:DictationDefaultsKey forDefaultsDomain:DictationDefaultsDomain];
+}
+
+
 - (void) preventSC
 {
     // On OS X 10.10 and later it's not necessary to redirect and delete screenshots,

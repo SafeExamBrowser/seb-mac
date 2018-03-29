@@ -239,6 +239,8 @@ bool insideMatrix();
     if (self) {
         _modalAlertWindows = [NSMutableArray new];
         _startingUp = true;
+        self.systemManager = [[SEBSystemManager alloc] init];
+
         // Initialize console loggers
 #ifdef DEBUG
         // We show log messages only in Console.app and the Xcode console in debug mode
@@ -299,7 +301,7 @@ bool insideMatrix();
         [self conditionallyTerminateDisplayMirroring];
         
         // Cache current settings for Siri and dictation
-        
+        [_systemManager cacheCurrentSystemSettings];
         
         // Switch off Siri and dictation if not allowed in settings
         [self conditionallyDisableSpeechInput];
@@ -353,8 +355,6 @@ bool insideMatrix();
 
 - (void)awakeFromNib
 {
-    self.systemManager = [[SEBSystemManager alloc] init];
-    
     [self.systemManager preventSC];
     
     // Flag initializing
@@ -1494,36 +1494,6 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     // Move all browser windows to the previous main screen (if they aren't on it already)
     DDLogInfo(@"Move all browser windows to new main screen %@.", mainScreen);
     [self.browserController moveAllBrowserWindowsToScreen:mainScreen];
-}
-
-
-// Cache current settings for Siri and dictation
-- (void)cacheCurrentSystemSettings
-{
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    
-    // Cache current system preferences setting for Siri
-    BOOL siriEnabled = [[preferences valueForDefaultsDomain:SiriDefaultsDomain key:SiriDefaultsKey] boolValue];
-    [preferences setSecureBool:siriEnabled forKey:cachedSiriSettingKey];
-
-    // Cache current system preferences setting for dictation
-    BOOL dictationEnabled = [[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue];
-    [preferences setSecureBool:dictationEnabled forKey:cachedDictationSettingKey];
-}
-
-
-// Restore cached settings for Siri and dictation
-- (void)restoreSystemSettings
-{
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-
-    // Restore setting for Siri before SEB was running to system preferences
-    BOOL siriEnabled = [preferences secureBoolForKey:cachedSiriSettingKey];
-    [preferences setValue:[NSNumber numberWithBool:siriEnabled] forKey:SiriDefaultsKey forDefaultsDomain:SiriDefaultsDomain];
-
-    // Restore setting for dictation before SEB was running to system preferences
-    BOOL dictationEnabled = [preferences secureBoolForKey:cachedDictationSettingKey];
-    [preferences setValue:[NSNumber numberWithBool:dictationEnabled] forKey:DictationDefaultsKey forDefaultsDomain:DictationDefaultsDomain];
 }
 
 
@@ -3539,6 +3509,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     DDLogDebug(@"Success of restoring SC: %hhd", success);
     
     [self stopWindowWatcher];
+    
+    [_systemManager restoreSystemSettings];
     
     // Restart terminated apps
     DDLogInfo(@"These processes were terminated by SEB during this session: %@", _terminatedProcessesExecutableURLs);
