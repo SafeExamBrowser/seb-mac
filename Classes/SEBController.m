@@ -423,7 +423,26 @@ bool insideMatrix();
 												 name:NSApplicationDidBecomeActiveNotification 
                                                object:NSApp];
 
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"];
+    allowSiri = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSiri"];
+    allowDictation = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictation"];
     
+    // If settings demand it, switch off dictation
+    if (allowDictation !=
+        [[preferences valueForDefaultsDomain:@"com.apple.speech.recognition.AppleSpeechRecognition.prefs" key:@"DictationIMMasterDictationEnabled"] boolValue]) {
+        [preferences setValue:[NSNumber numberWithBool:allowDictation] forKey:@"DictationIMMasterDictationEnabled" forDefaultsDomain:@"com.apple.speech.recognition.AppleSpeechRecognition.prefs"];
+        //        [NSRunningApplication killApplicationWithBundleIdentifier:@"com.apple.speech.recognition.DictationPreferencePane.remoteservice"];
+        //        [NSRunningApplication killApplicationWithBundleIdentifier:@"com.apple.inputmethod.ironwood"];
+    }
+    
+    // If settings demand it, switch off Siri
+    if (allowSiri !=
+        [[preferences valueForDefaultsDomain:@"com.apple.assistant.support" key:@"Assistant Enabled"] boolValue]) {
+        [preferences setValue:[NSNumber numberWithBool:allowSiri] forKey:@"Assistant Enabled" forDefaultsDomain:@"com.apple.assistant.support"];
+    }
+    
+
     // Hide all other applications
     [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
                                                     withObject:NULL waitUntilDone:NO];
@@ -706,13 +725,13 @@ bool insideMatrix();
         // Get all running processes, including daemons
         NSArray *allRunningProcesses = [self getProcessArray];
         DDLogInfo(@"There are %lu running BSD processes: \n%@", (unsigned long)allRunningProcesses.count, allRunningProcesses);
-        
+
         // Check for activated screen sharing if settings demand it
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"];
         allowSiri = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSiri"];
         allowDictation = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictation"];
-        
+
         if (!allowScreenSharing &&
             ([allRunningProcesses containsObject:screenSharingAgent] ||
              [allRunningProcesses containsObject:AppleVNCAgent] ||
@@ -727,8 +746,10 @@ bool insideMatrix();
             quittingMyself = TRUE; //SEB is terminating itself
             [NSApp terminate: nil]; //quit SEB
         }
-        
-        if (!allowSiri && [allRunningProcesses containsObject:SiriService])
+
+        if (!allowSiri &&
+            [allRunningProcesses containsObject:SiriService] &&
+            [[preferences valueForDefaultsDomain:@"com.apple.assistant.support" key:@"Assistant Enabled"] boolValue])
         {
             // Siri is active
             DDLogError(@"Siri Detected, SEB will quit");
@@ -737,8 +758,10 @@ bool insideMatrix();
             quittingMyself = TRUE; //SEB is terminating itself
             [NSApp terminate: nil]; //quit SEB
         }
-        
-        if (!allowDictation && [allRunningProcesses containsObject:DictationProcess])
+
+        if (!allowDictation &&
+            [allRunningProcesses containsObject:DictationProcess] &&
+            [[preferences valueForDefaultsDomain:@"com.apple.speech.recognition.AppleSpeechRecognition.prefs" key:@"DictationIMMasterDictationEnabled"] boolValue])
         {
             // Dictation is active
             DDLogError(@"Dictation Detected, SEB will quit");
@@ -747,14 +770,14 @@ bool insideMatrix();
             quittingMyself = TRUE; //SEB is terminating itself
             [NSApp terminate: nil]; //quit SEB
         }
-        
+
         // SEB finished starting up, reset the flag for starting up
         _startingUp = false;
 
         // Set up SEB Browser
-        
+
         self.browserController.reinforceKioskModeRequested = YES;
-        
+
         // Open the main browser window
         DDLogDebug(@"%s openMainBrowserWindow", __FUNCTION__);
         [self.browserController openMainBrowserWindow];
@@ -786,9 +809,7 @@ bool insideMatrix();
     // Check if the Force Quit window is open
     [self forceQuitWindowCheck];
     
-    // Check if there is a SebClientSettings.seb file saved in the preferences directory
-//    SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
-    if (/*![configFileManager reconfigureClientWithSebClientSettings] && */[MyGlobals sharedMyGlobals].reconfiguredWhileStarting) {
+    if ([MyGlobals sharedMyGlobals].reconfiguredWhileStarting) {
         // Show alert that SEB was reconfigured
             NSAlert *modalAlert = [self newAlert];
             [modalAlert setMessageText:NSLocalizedString(@"SEB Re-Configured", nil)];
@@ -1228,13 +1249,16 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
              postNotificationName:@"detectedScreenSharing" object:self];
         }
     // Check for activated Siri if settings demand it
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (!_startingUp && !allowSiri && !_siriCheckOverride &&
+        [[preferences valueForDefaultsDomain:@"com.apple.assistant.support" key:@"Assistant Enabled"] boolValue] &&
         [allRunningProcesses containsObject:SiriService]) {
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedSiri" object:self];
         }
     // Check for activated dictation if settings demand it
     if (!_startingUp && !allowDictation && !_dictationCheckOverride &&
+        [[preferences valueForDefaultsDomain:@"com.apple.speech.recognition.AppleSpeechRecognition.prefs" key:@"DictationIMMasterDictationEnabled"] boolValue] &&
         [allRunningProcesses containsObject:DictationProcess]) {
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedDictation" object:self];

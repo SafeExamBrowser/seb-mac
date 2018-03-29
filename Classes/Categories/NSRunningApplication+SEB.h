@@ -35,6 +35,8 @@
 
 @interface NSRunningApplication (SEB)
 
++ (BOOL)killApplicationWithBundleIdentifier:(NSString *)bundleID;
+
 - (NSInteger)kill;
 
 @end

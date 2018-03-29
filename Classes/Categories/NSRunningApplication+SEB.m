@@ -38,6 +38,20 @@
 @implementation NSRunningApplication (SEB)
 
 
++ (BOOL)killApplicationWithBundleIdentifier:(NSString *)bundleID
+{
+    NSArray *runningApplicationInstances = [NSRunningApplication runningApplicationsWithBundleIdentifier:bundleID];
+    BOOL success = false;
+    if (runningApplicationInstances.count != 0) {
+        for (NSRunningApplication *runningApplication in runningApplicationInstances) {
+            DDLogWarn(@"Terminating %@", bundleID);
+            success = success || [runningApplication kill] == ERR_SUCCESS;
+        }
+    }
+    return success;
+}
+
+
 - (NSInteger)kill
 {
     return (NSInteger)kill([self processIdentifier], 9);
