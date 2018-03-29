@@ -297,6 +297,9 @@ bool insideMatrix();
         
         // Switch off display mirroring and find main active screen according to settings
         [self conditionallyTerminateDisplayMirroring];
+        
+        // Switch off Siri and dictation if not allowed in settings
+        [self conditionallyDisableSpeechInput];
     }
     return self;
 }
@@ -422,26 +425,6 @@ bool insideMatrix();
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SEBgotActive:)
 												 name:NSApplicationDidBecomeActiveNotification 
                                                object:NSApp];
-
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"];
-    allowSiri = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSiri"];
-    allowDictation = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictation"];
-    
-    // If settings demand it, switch off dictation
-    if (allowDictation !=
-        [[preferences valueForDefaultsDomain:@"com.apple.speech.recognition.AppleSpeechRecognition.prefs" key:@"DictationIMMasterDictationEnabled"] boolValue]) {
-        [preferences setValue:[NSNumber numberWithBool:allowDictation] forKey:@"DictationIMMasterDictationEnabled" forDefaultsDomain:@"com.apple.speech.recognition.AppleSpeechRecognition.prefs"];
-        //        [NSRunningApplication killApplicationWithBundleIdentifier:@"com.apple.speech.recognition.DictationPreferencePane.remoteservice"];
-        //        [NSRunningApplication killApplicationWithBundleIdentifier:@"com.apple.inputmethod.ironwood"];
-    }
-    
-    // If settings demand it, switch off Siri
-    if (allowSiri !=
-        [[preferences valueForDefaultsDomain:@"com.apple.assistant.support" key:@"Assistant Enabled"] boolValue]) {
-        [preferences setValue:[NSNumber numberWithBool:allowSiri] forKey:@"Assistant Enabled" forDefaultsDomain:@"com.apple.assistant.support"];
-    }
-    
 
     // Hide all other applications
     [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
@@ -1359,10 +1342,8 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     
     BOOL allowDisplayMirroring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDisplayMirroring"];
     
-    // Also set flags for screen sharing, Siri, dictation
+    // Also set flags for screen sharing
     allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"];
-    allowSiri = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSiri"];
-    allowDictation = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictation"];
 
     // Get list of all displays
     CGDisplayCount maxDisplays = 16;
@@ -1510,6 +1491,27 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     // Move all browser windows to the previous main screen (if they aren't on it already)
     DDLogInfo(@"Move all browser windows to new main screen %@.", mainScreen);
     [self.browserController moveAllBrowserWindowsToScreen:mainScreen];
+}
+
+
+// Switch off Siri and dictation if not allowed in settings
+- (void)conditionallyDisableSpeechInput
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    allowSiri = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSiri"];
+    allowDictation = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictation"];
+    
+    // If settings demand it, switch off dictation
+    if (allowDictation !=
+        [[preferences valueForDefaultsDomain:@"com.apple.speech.recognition.AppleSpeechRecognition.prefs" key:@"DictationIMMasterDictationEnabled"] boolValue]) {
+        [preferences setValue:[NSNumber numberWithBool:allowDictation] forKey:@"DictationIMMasterDictationEnabled" forDefaultsDomain:@"com.apple.speech.recognition.AppleSpeechRecognition.prefs"];
+    }
+    
+    // If settings demand it, switch off Siri
+    if (allowSiri !=
+        [[preferences valueForDefaultsDomain:@"com.apple.assistant.support" key:@"Assistant Enabled"] boolValue]) {
+        [preferences setValue:[NSNumber numberWithBool:allowSiri] forKey:@"Assistant Enabled" forDefaultsDomain:@"com.apple.assistant.support"];
+    }
 }
 
 
@@ -3061,6 +3063,9 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     // Switch off display mirroring if it isn't allowed in settings
     [self conditionallyTerminateDisplayMirroring];
     
+    // Switch off Siri and dictation if not allowed in settings
+    [self conditionallyDisableSpeechInput];
+
     // Clear Pasteboard
     [self clearPasteboardSavingCurrentString];
     
