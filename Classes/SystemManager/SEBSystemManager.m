@@ -36,6 +36,7 @@
 #import "SEBSystemManager.h"
 #import "SEBCryptor.h"
 #import "RNCryptor.h"
+#import "NSRunningApplication+SEB.h"
 #include <SystemConfiguration/SystemConfiguration.h>
 
 Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
@@ -43,140 +44,150 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 @implementation SEBSystemManager
 
 
-- (NSString *) preventSC
+- (void) preventSC
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-
-    /// Check if there is a redirected sc location persistantly stored
-    /// What only happends when it couldn't be reset last time SEB has run
-    
-    scTempPath = [self getStoredNewSCLocation];
-    if (scTempPath.length > 0) {
+    // On OS X 10.10 and later it's not necessary to redirect and delete screenshots,
+    // as NSWindowSharingType = NSWindowSharingNone works correctly
+    if (floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_10) {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         
-        /// There is a redirected location saved
-        DDLogWarn(@"There was a persistantly saved redirected screencapture location (%@). Looks like SEB didn't quit properly when running last time.", scTempPath);
+        /// Check if there is a redirected sc location persistantly stored
+        /// What only happends when it couldn't be reset last time SEB has run
         
-        // Delete the last directory
-        if ([self removeTempDirectory:scTempPath]) {
-            DDLogDebug(@"Removing persitantly saved redirected screencapture directory %@ worked.", scTempPath);
-        }
-        // Reset the redirected location
-        [preferences setSecureString:@"" forKey:@"newDestination"];
-        // Get the original location
-        scLocation = [preferences secureStringForKey:@"currentDestination"];
-        if (scLocation.length == 0) {
-            // in case it wasn't saved properly, we reset to the OS X default sc location
-            scLocation = [@"~/Desktop" stringByExpandingTildeInPath];
-            DDLogWarn(@"The persistantly saved original screencapture location wasn't found, it has been reset to the macOS default location %@", scLocation);
-        }
-    } else {
-        
-        /// No redirected location was persistantly saved
-        
-        // Get current screencapture location
-        scLocation = [self getCurrentSCLocation];
-        DDLogDebug(@"Current screencapture location: %@", scLocation);
-    }
-    
-    // Check if screenshots should be blocked in current settings
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
-        
-        /// Block screenshots
-        
-        // Store current (= original) location persistantly
-        [preferences setSecureString:scLocation forKey:@"currentDestination"];
-        
-        // Create a new random directory name
-        NSData *randomData = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
-        unsigned char hashedChars[32];
-        [randomData getBytes:hashedChars length:32];
-        NSMutableString *randomHexString = [NSMutableString stringWithString:@"."];
-        for (int i = 0 ; i < 32 ; ++i) {
-            [randomHexString appendFormat: @"%02x", hashedChars[i]];
-        }
-        
-        // Create the folder
-        scTempPath = [randomHexString copy];
-        NSString *scFullPath = [NSTemporaryDirectory() stringByAppendingPathComponent:randomHexString];
-        BOOL isDir;
-        NSFileManager *fileManager= [NSFileManager defaultManager];
-        if(![fileManager fileExistsAtPath:scFullPath isDirectory:&isDir]) {
-            if(![fileManager createDirectoryAtPath:scFullPath withIntermediateDirectories:YES attributes:nil error:NULL]) {
-                DDLogError(@"Error: Creating folder failed %@", scFullPath);
-                // As a fallback just use the temp directory
-                scFullPath = NSTemporaryDirectory();
+        scTempPath = [self getStoredNewSCLocation];
+        if (scTempPath.length > 0) {
+            
+            /// There is a redirected location saved
+            DDLogWarn(@"There was a persistantly saved redirected screencapture location (%@). Looks like SEB didn't quit properly when running last time.", scTempPath);
+            
+            // Delete the last directory
+            if ([self removeTempDirectory:scTempPath]) {
+                DDLogDebug(@"Removing persitantly saved redirected screencapture directory %@ worked.", scTempPath);
             }
-        }
-        
-        // Execute the redirect script
-        if ([self executeSCAppleScript:scFullPath]) {
-            DDLogDebug(@"sc redirect script didn't report an error");
-        }
-        
-        // Get and verify the new location
-        NSString *location = [self getCurrentSCLocation];
-        if ([scFullPath isEqualToString:location]) {
-            DDLogDebug(@"Changed sc location successfully to: %@", location);
+            // Reset the redirected location
+            [preferences setSecureString:@"" forKey:@"newDestination"];
+            // Get the original location
+            scLocation = [preferences secureStringForKey:@"currentDestination"];
+            if (scLocation.length == 0) {
+                // in case it wasn't saved properly, we reset to the OS X default sc location
+                scLocation = [@"~/Desktop" stringByExpandingTildeInPath];
+                DDLogWarn(@"The persistantly saved original screencapture location wasn't found, it has been reset to the macOS default location %@", scLocation);
+            }
         } else {
-            DDLogDebug(@"Failed changing sc location, location is: %@", location);
-            // If the sc location wasn't changed, we save an empty string to indicate this
-            scTempPath = @"";
+            
+            /// No redirected location was persistantly saved
+            
+            // Get current screencapture location
+            scLocation = [self getCurrentSCLocation];
+            DDLogDebug(@"Current screencapture location: %@", scLocation);
         }
-        // Store scTempPath persistantly
-        [preferences setSecureString:scTempPath forKey:@"newDestination"];
-        return location;
         
-    } else {
-        
-        /// Blocking screenshots not active
-        
-        scLocation = nil;
-        
-        return scLocation;
+        // Check if screenshots should be blocked in current settings
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
+            
+            /// Block screenshots
+            
+            // Store current (= original) location persistantly
+            [preferences setSecureString:scLocation forKey:@"currentDestination"];
+            
+            // Create a new random directory name
+            NSData *randomData = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
+            unsigned char hashedChars[32];
+            [randomData getBytes:hashedChars length:32];
+            NSMutableString *randomHexString = [NSMutableString stringWithString:@"."];
+            for (int i = 0 ; i < 32 ; ++i) {
+                [randomHexString appendFormat: @"%02x", hashedChars[i]];
+            }
+            
+            // Create the folder
+            scTempPath = [randomHexString copy];
+            NSString *scFullPath = [NSTemporaryDirectory() stringByAppendingPathComponent:randomHexString];
+            BOOL isDir;
+            NSFileManager *fileManager= [NSFileManager defaultManager];
+            if(![fileManager fileExistsAtPath:scFullPath isDirectory:&isDir]) {
+                if(![fileManager createDirectoryAtPath:scFullPath withIntermediateDirectories:YES attributes:nil error:NULL]) {
+                    DDLogError(@"Error: Creating folder failed %@", scFullPath);
+                    // As a fallback just use the temp directory
+                    scFullPath = NSTemporaryDirectory();
+                }
+            }
+            
+            // Execute the redirect script
+            if ([self executeSCAppleScript:scFullPath]) {
+                DDLogDebug(@"sc redirect script didn't report an error");
+            }
+            
+            // Get and verify the new location
+            NSString *location = [self getCurrentSCLocation];
+            if ([scFullPath isEqualToString:location]) {
+                DDLogDebug(@"Changed sc location successfully to: %@", location);
+            } else {
+                DDLogDebug(@"Failed changing sc location, location is: %@", location);
+                // If the sc location wasn't changed, we save an empty string to indicate this
+                scTempPath = @"";
+            }
+            // Store scTempPath persistantly
+            [preferences setSecureString:scTempPath forKey:@"newDestination"];
+            return;
+            
+        } else {
+            
+            /// Blocking screenshots not active
+            
+            scLocation = nil;
+            
+            return;
+        }
     }
 }
 
 
 - (BOOL) restoreSC
 {
-    // Check if screenshots were blocked in the previously active settings
-    if (scLocation.length > 0) {
-
-        /// Unblock screenshots
-        
-        // Check if the saved path really exists
-        BOOL isDir;
-        NSFileManager *fileManager= [NSFileManager defaultManager];
-        if(![fileManager fileExistsAtPath:scLocation isDirectory:&isDir]) {
-            // No, the directory for storing screenshots doesn't exist
-            // probably something went wrong sometimes ago (SEB crashed in a bad moment)
-            // so restore the screen capture path to the OS X standard (user's desktop)
-            scLocation = [@"~/Desktop" stringByExpandingTildeInPath];
+    // On OS X 10.10 and later it's not necessary to redirect and delete screenshots,
+    // as NSWindowSharingType = NSWindowSharingNone works correctly
+    if (floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_10) {
+        // Check if screenshots were blocked in the previously active settings
+        if (scLocation.length > 0) {
+            
+            /// Unblock screenshots
+            
+            // Check if the saved path really exists
+            BOOL isDir;
+            NSFileManager *fileManager= [NSFileManager defaultManager];
+            if(![fileManager fileExistsAtPath:scLocation isDirectory:&isDir]) {
+                // No, the directory for storing screenshots doesn't exist
+                // probably something went wrong sometimes ago (SEB crashed in a bad moment)
+                // so restore the screen capture path to the OS X standard (user's desktop)
+                scLocation = [@"~/Desktop" stringByExpandingTildeInPath];
+            }
+            
+            // Restore original SC path
+            if ([self executeSCAppleScript:scLocation]) {
+                DDLogDebug(@"sc restore original value (%@) script didn't report an error", scLocation);
+            }
+            // Get and verify the new location
+            NSString *location = [self getCurrentSCLocation];
+            if ([scLocation isEqualToString:location]) {
+                DDLogDebug(@"Restored sc location successfully to: %@", location);
+            } else {
+                DDLogDebug(@"Failed restoring sc location! Location is: %@", location);
+            }
+            // Remove temporary directory
+            if ([self removeTempDirectory:scTempPath]) {
+                NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+                [preferences setSecureString:@"" forKey:@"newDestination"];
+                DDLogDebug(@"Removed redirected temp sc location %@ successfully.", scTempPath);
+                return YES;
+            } else {
+                DDLogDebug(@"Failed removing redirected temp sc location %@", scTempPath);
+                return NO;
+            }
         }
-        
-        // Restore original SC path
-        if ([self executeSCAppleScript:scLocation]) {
-            DDLogDebug(@"sc restore original value (%@) script didn't report an error", scLocation);
-        }
-        // Get and verify the new location
-        NSString *location = [self getCurrentSCLocation];
-        if ([scLocation isEqualToString:location]) {
-            DDLogDebug(@"Restored sc location successfully to: %@", location);
-        } else {
-            DDLogDebug(@"Failed restoring sc location! Location is: %@", location);
-        }
-        // Remove temporary directory
-        if ([self removeTempDirectory:scTempPath]) {
-            NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-            [preferences setSecureString:@"" forKey:@"newDestination"];
-            DDLogDebug(@"Removed redirected temp sc location %@ successfully.", scTempPath);
-            return YES;
-        } else {
-            DDLogDebug(@"Failed removing redirected temp sc location %@", scTempPath);
-            return NO;
-        }
+        return YES;
+    } else {
+        return YES;
     }
-    return YES;
 }
 
 
@@ -261,14 +272,36 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 
 - (BOOL) executeSCAppleScript:(NSString *)location
 {
-    NSString *appleScriptSource = [NSString stringWithFormat:@"do shell script \"defaults write com.apple.screencapture location %@ && killall SystemUIServer\"", location];
-    NSAppleScript* appleScript = [[NSAppleScript alloc] initWithSource:appleScriptSource];
+    [self setValue:location forKey:@"location" inDefaultsDomain:@"com.apple.screencapture"];
     
-    NSDictionary* errorDict;
-    NSAppleEventDescriptor* returnDescriptor = NULL;
-    returnDescriptor = [appleScript executeAndReturnError: &errorDict];
-    DDLogDebug(@"%s returnDescriptor: %@", __FUNCTION__, returnDescriptor);
-    return errorDict == nil;
+    NSArray *runningSystemDaemonInstances = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.systemuiserver"];
+    if (runningSystemDaemonInstances.count != 0) {
+        for (NSRunningApplication *runningSystemDaemon in runningSystemDaemonInstances) {
+            DDLogWarn(@"Terminating SystemUIServer %@", runningSystemDaemon);
+            [runningSystemDaemon kill];
+        }
+    }
+    return true;
+}
+
+
+- (void) setValue:(id)value forKey:(NSString *)key inDefaultsDomain:(NSString *)defaultsDomain
+{
+    CFStringRef appID = (__bridge CFStringRef)(defaultsDomain);
+    CFStringRef keyRef = (__bridge CFStringRef)(key);
+    CFPropertyListRef valueRef = (__bridge CFPropertyListRef)(value);
+    
+    // Set up the preference.
+    CFPreferencesSetValue(keyRef,
+                          valueRef,
+                          appID,
+                          kCFPreferencesCurrentUser,
+                          kCFPreferencesAnyHost);
+    
+    // Write out the preference data.
+    CFPreferencesSynchronize(appID,
+                             kCFPreferencesCurrentUser,
+                             kCFPreferencesAnyHost);
 }
 
 

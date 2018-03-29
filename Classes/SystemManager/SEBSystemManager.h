@@ -40,7 +40,7 @@
     NSString *scTempPath;
 }
 
-- (NSString *) preventSC;
+- (void) preventSC;
 - (BOOL) restoreSC;
 - (void) adjustSC;
 
