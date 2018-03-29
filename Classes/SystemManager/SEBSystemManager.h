@@ -44,6 +44,7 @@
 - (BOOL) restoreSC;
 - (void) adjustSC;
 
+
 - (BOOL) checkHTTPSProxySetting;
 
 @end

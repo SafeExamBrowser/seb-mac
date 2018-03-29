@@ -131,6 +131,37 @@ static NSNumber *_logLevel;
 }
 
 
+// Get value from another application’s preferences
+- (id) valueForDefaultsDomain:(NSString *)domain key:(NSString *)key
+{
+    NSUserDefaults *appUserDefaults = [[NSUserDefaults alloc] init];
+    [appUserDefaults addSuiteNamed:domain];
+    NSDictionary *prefsDict = [appUserDefaults dictionaryRepresentation];
+    return [prefsDict valueForKey:key];
+}
+
+
+// Store value to another application’s preferences
+- (void) setValue:(id)value forKey:(NSString *)key forDefaultsDomain:(NSString *)defaultsDomain
+{
+    CFStringRef appID = (__bridge CFStringRef)(defaultsDomain);
+    CFStringRef keyRef = (__bridge CFStringRef)(key);
+    CFPropertyListRef valueRef = (__bridge CFPropertyListRef)(value);
+    
+    // Set up the preference.
+    CFPreferencesSetValue(keyRef,
+                          valueRef,
+                          appID,
+                          kCFPreferencesCurrentUser,
+                          kCFPreferencesAnyHost);
+    
+    // Write out the preference data.
+    CFPreferencesSynchronize(appID,
+                             kCFPreferencesCurrentUser,
+                             kCFPreferencesAnyHost);
+}
+
+
 - (NSDictionary *)sebDefaultSettings
 {
     NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys:

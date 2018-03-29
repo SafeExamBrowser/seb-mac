@@ -225,17 +225,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 - (NSString *) getCurrentSCLocation
 {
     // Get current screencapture location
-    return (NSString *)[self valueForDefaultsDomain:@"com.apple.screencapture" key:@"location"];
-}
-
-
-// Get current screencapture location
-- (id) valueForDefaultsDomain:(NSString *)domain key:(NSString *)key
-{
-    NSUserDefaults *appUserDefaults = [[NSUserDefaults alloc] init];
-    [appUserDefaults addSuiteNamed:domain];
-    NSDictionary *prefsDict = [appUserDefaults dictionaryRepresentation];
-    return [prefsDict valueForKey:key];
+    return (NSString *)[[NSUserDefaults standardUserDefaults] valueForDefaultsDomain:@"com.apple.screencapture" key:@"location"];
 }
 
 
@@ -272,7 +262,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 
 - (BOOL) executeSCAppleScript:(NSString *)location
 {
-    [self setValue:location forKey:@"location" inDefaultsDomain:@"com.apple.screencapture"];
+    [[NSUserDefaults standardUserDefaults] setValue:location forKey:@"location" forDefaultsDomain:@"com.apple.screencapture"];
     
     NSArray *runningSystemDaemonInstances = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.systemuiserver"];
     if (runningSystemDaemonInstances.count != 0) {
@@ -282,26 +272,6 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         }
     }
     return true;
-}
-
-
-- (void) setValue:(id)value forKey:(NSString *)key inDefaultsDomain:(NSString *)defaultsDomain
-{
-    CFStringRef appID = (__bridge CFStringRef)(defaultsDomain);
-    CFStringRef keyRef = (__bridge CFStringRef)(key);
-    CFPropertyListRef valueRef = (__bridge CFPropertyListRef)(value);
-    
-    // Set up the preference.
-    CFPreferencesSetValue(keyRef,
-                          valueRef,
-                          appID,
-                          kCFPreferencesCurrentUser,
-                          kCFPreferencesAnyHost);
-    
-    // Write out the preference data.
-    CFPreferencesSynchronize(appID,
-                             kCFPreferencesCurrentUser,
-                             kCFPreferencesAnyHost);
 }
 
 

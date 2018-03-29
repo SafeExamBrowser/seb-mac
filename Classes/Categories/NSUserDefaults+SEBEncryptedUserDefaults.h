@@ -94,6 +94,12 @@
 // Convert property list object to secure data
 - (NSData *)secureDataForObject:(id)value andKey:(NSString *)key;
 
+// Get value from another application’s preferences
+- (id) valueForDefaultsDomain:(NSString *)domain key:(NSString *)key;
+
+// Store value to another application’s preferences
+- (void) setValue:(id)value forKey:(NSString *)key forDefaultsDomain:(NSString *)defaultsDomain;
+
 // Get SEB's default settings key/values
 - (NSDictionary *)sebDefaultSettings;
 
