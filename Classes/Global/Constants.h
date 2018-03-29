@@ -290,7 +290,13 @@ static NSString __unused *AppleVNCAgentBundleID = @"com.apple.AppleVNCServer";
 static NSString __unused *ARDAgent = @"ARDAgent";
 static NSString __unused *ARDAgentBundleID = @"com.apple.RemoteDesktopAgent";
 static NSString __unused *SiriService = @"SiriNCService";
+static NSString __unused *SiriDefaultsDomain = @"com.apple.assistant.support";
+static NSString __unused *SiriDefaultsKey = @"Assistant Enabled";
+static NSString __unused *cachedSiriSettingKey = @"cachedSiriSettingKey";
 static NSString __unused *DictationProcess = @"DictationIM";
+static NSString __unused *DictationDefaultsDomain = @"com.apple.speech.recognition.AppleSpeechRecognition.prefs";
+static NSString __unused *DictationDefaultsKey = @"DictationIMMasterDictationEnabled";
+static NSString __unused *cachedDictationSettingKey = @"cachedDictationSettingKey";
 
 static NSString __unused *userDefaultsMasala = @"Di𝈭l𝈖Ch𝈒ah𝉇t𝈁a𝉈Hai1972";
 

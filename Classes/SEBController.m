@@ -298,6 +298,9 @@ bool insideMatrix();
         // Switch off display mirroring and find main active screen according to settings
         [self conditionallyTerminateDisplayMirroring];
         
+        // Cache current settings for Siri and dictation
+        
+        
         // Switch off Siri and dictation if not allowed in settings
         [self conditionallyDisableSpeechInput];
     }
@@ -732,7 +735,7 @@ bool insideMatrix();
 
         if (!allowSiri &&
             [allRunningProcesses containsObject:SiriService] &&
-            [[preferences valueForDefaultsDomain:@"com.apple.assistant.support" key:@"Assistant Enabled"] boolValue])
+            [[preferences valueForDefaultsDomain:SiriDefaultsDomain key:SiriDefaultsKey] boolValue])
         {
             // Siri is active
             DDLogError(@"Siri Detected, SEB will quit");
@@ -744,7 +747,7 @@ bool insideMatrix();
 
         if (!allowDictation &&
             [allRunningProcesses containsObject:DictationProcess] &&
-            [[preferences valueForDefaultsDomain:@"com.apple.speech.recognition.AppleSpeechRecognition.prefs" key:@"DictationIMMasterDictationEnabled"] boolValue])
+            [[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue])
         {
             // Dictation is active
             DDLogError(@"Dictation Detected, SEB will quit");
@@ -1234,14 +1237,14 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     // Check for activated Siri if settings demand it
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (!_startingUp && !allowSiri && !_siriCheckOverride &&
-        [[preferences valueForDefaultsDomain:@"com.apple.assistant.support" key:@"Assistant Enabled"] boolValue] &&
+        [[preferences valueForDefaultsDomain:SiriDefaultsDomain key:SiriDefaultsKey] boolValue] &&
         [allRunningProcesses containsObject:SiriService]) {
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedSiri" object:self];
         }
     // Check for activated dictation if settings demand it
     if (!_startingUp && !allowDictation && !_dictationCheckOverride &&
-        [[preferences valueForDefaultsDomain:@"com.apple.speech.recognition.AppleSpeechRecognition.prefs" key:@"DictationIMMasterDictationEnabled"] boolValue] &&
+        [[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue] &&
         [allRunningProcesses containsObject:DictationProcess]) {
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedDictation" object:self];
@@ -1494,6 +1497,36 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 }
 
 
+// Cache current settings for Siri and dictation
+- (void)cacheCurrentSystemSettings
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    // Cache current system preferences setting for Siri
+    BOOL siriEnabled = [[preferences valueForDefaultsDomain:SiriDefaultsDomain key:SiriDefaultsKey] boolValue];
+    [preferences setSecureBool:siriEnabled forKey:cachedSiriSettingKey];
+
+    // Cache current system preferences setting for dictation
+    BOOL dictationEnabled = [[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue];
+    [preferences setSecureBool:dictationEnabled forKey:cachedDictationSettingKey];
+}
+
+
+// Restore cached settings for Siri and dictation
+- (void)restoreSystemSettings
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    // Restore setting for Siri before SEB was running to system preferences
+    BOOL siriEnabled = [preferences secureBoolForKey:cachedSiriSettingKey];
+    [preferences setValue:[NSNumber numberWithBool:siriEnabled] forKey:SiriDefaultsKey forDefaultsDomain:SiriDefaultsDomain];
+
+    // Restore setting for dictation before SEB was running to system preferences
+    BOOL dictationEnabled = [preferences secureBoolForKey:cachedDictationSettingKey];
+    [preferences setValue:[NSNumber numberWithBool:dictationEnabled] forKey:DictationDefaultsKey forDefaultsDomain:DictationDefaultsDomain];
+}
+
+
 // Switch off Siri and dictation if not allowed in settings
 - (void)conditionallyDisableSpeechInput
 {
@@ -1503,14 +1536,14 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     
     // If settings demand it, switch off dictation
     if (allowDictation !=
-        [[preferences valueForDefaultsDomain:@"com.apple.speech.recognition.AppleSpeechRecognition.prefs" key:@"DictationIMMasterDictationEnabled"] boolValue]) {
-        [preferences setValue:[NSNumber numberWithBool:allowDictation] forKey:@"DictationIMMasterDictationEnabled" forDefaultsDomain:@"com.apple.speech.recognition.AppleSpeechRecognition.prefs"];
+        [[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue]) {
+        [preferences setValue:[NSNumber numberWithBool:allowDictation] forKey:DictationDefaultsKey forDefaultsDomain:DictationDefaultsDomain];
     }
     
     // If settings demand it, switch off Siri
     if (allowSiri !=
-        [[preferences valueForDefaultsDomain:@"com.apple.assistant.support" key:@"Assistant Enabled"] boolValue]) {
-        [preferences setValue:[NSNumber numberWithBool:allowSiri] forKey:@"Assistant Enabled" forDefaultsDomain:@"com.apple.assistant.support"];
+        [[preferences valueForDefaultsDomain:SiriDefaultsDomain key:SiriDefaultsKey] boolValue]) {
+        [preferences setValue:[NSNumber numberWithBool:allowSiri] forKey:SiriDefaultsKey forDefaultsDomain:SiriDefaultsDomain];
     }
 }
 
