@@ -795,6 +795,26 @@ bool insideMatrix();
     // Check if the Force Quit window is open
     [self forceQuitWindowCheck];
     
+    //        uint32_t autoActivationSetting = CTFontManagerGetAutoActivationSetting((__bridge CFStringRef)@"com.apple.WebKit");
+    //        CTFontManagerSetAutoActivationSetting((__bridge CFStringRef)@"com.apple.WebKit", kCTFontManagerAutoActivationEnabled);
+    //        autoActivationSetting = CTFontManagerGetAutoActivationSetting((__bridge CFStringRef)@"com.apple.WebKit");
+    
+//    uint32_t autoActivationSetting = CTFontManagerGetAutoActivationSetting((__bridge CFStringRef)[[NSBundle mainBundle] bundleIdentifier]);
+//    CTFontManagerSetAutoActivationSetting((__bridge CFStringRef)[[NSBundle mainBundle] bundleIdentifier], kCTFontManagerAutoActivationEnabled);
+//    autoActivationSetting = CTFontManagerGetAutoActivationSetting((__bridge CFStringRef)[[NSBundle mainBundle] bundleIdentifier]);
+//
+//    NSFontManager *fontManager = [NSFontManager sharedFontManager];
+//    NSArray *availableFonts = [fontManager availableFonts];
+//    NSArray *availableFontFamilies = [fontManager availableFontFamilies];
+//    DDLogDebug(@"Available fonts: %@", availableFonts);
+//    DDLogDebug(@"Available font families: %@", availableFontFamilies);
+//    CTFontRef newFont = CTFontCreateWithNameAndOptions((__bridge CFStringRef)@"STHeiti", 12.0, nil, kCTFontOptionsDefault); //("Osaka" as CFString, 12.0, nil, CTFontOptions.preventAutoActivation)
+//    availableFonts = [fontManager availableFonts];
+//    availableFontFamilies = [fontManager availableFontFamilies];
+//    DDLogDebug(@"New font: %@", newFont);
+//    DDLogDebug(@"Available fonts: %@", availableFonts);
+//    DDLogDebug(@"Available font families: %@", availableFontFamilies);
+    
     if ([MyGlobals sharedMyGlobals].reconfiguredWhileStarting) {
         // Show alert that SEB was reconfigured
             NSAlert *modalAlert = [self newAlert];
@@ -1283,9 +1303,10 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 #endif
     }
 
-    NSURL * executableURL = [NSURL URLWithString:[NSString stringWithCString:pathbuf encoding:NSUTF8StringEncoding]];
+    NSString *executablePath = [NSString stringWithCString:pathbuf encoding:NSUTF8StringEncoding];
+    NSURL * executableURL = [NSURL fileURLWithPath:executablePath isDirectory:NO];
 
-    DDLogDebug(@"Evaluating code signature of %@", executableURL);
+    DDLogDebug(@"Evaluating code signature of %@", executablePath);
     
     OSStatus status;
     
@@ -1330,7 +1351,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     CFRelease(ref);
     CFRelease(req);
     
-    DDLogDebug(@"Code signature of %@ was checked and it positively identifies macOS system software.", executableURL);
+    DDLogDebug(@"Code signature of %@ was checked and it positively identifies macOS system software.", executablePath);
     
     return true;
 }
