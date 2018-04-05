@@ -54,6 +54,7 @@
     NSString *downloadPath;
     NSURL *downloadURL;
     NSString *lastUsername;
+    NSString *quitURLTrimmed;
     
 }
 

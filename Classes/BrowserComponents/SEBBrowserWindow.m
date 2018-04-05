@@ -165,6 +165,8 @@
     
     _allowDownloads = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"];
 
+    quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+    
     // Display all MIME types the WebView can display as HTML
     NSArray* MIMETypes = [WebView MIMETypesShownAsHTML];
     NSUInteger i, count = [MIMETypes count];
@@ -1204,6 +1206,24 @@ willPerformClientRedirectToURL:(NSURL *)URL
 // Invoked before a request is initiated for a resource and returns a possibly modified request
 - (NSURLRequest *)webView:(SEBWebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource
 {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *absoluteRequestURL = [[request URL] absoluteString];
+    
+    // Trim a possible trailing slash "/"
+    NSString *absoluteRequestURLTrimmed = [absoluteRequestURL stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+
+    // Check if quit URL has been clicked (regardless of current URL Filter)
+    if ([absoluteRequestURLTrimmed isEqualTo:quitURLTrimmed]) {
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"requestQuitWPwdNotification" object:self];
+        } else {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"requestQuitNotification" object:self];
+        }
+        return request;
+    }
+    
     //// If enabled, filter content
     SEBURLFilter *URLFilter = [SEBURLFilter sharedSEBURLFilter];
     if (URLFilter.enableURLFilter && URLFilter.enableContentFilter) {
@@ -1219,7 +1239,6 @@ willPerformClientRedirectToURL:(NSURL *)URL
         }
     }
     NSString *fragment = [[request URL] fragment];
-    NSString *absoluteRequestURL = [[request URL] absoluteString];
     NSString *requestURLStrippedFragment;
     if (fragment.length) {
         // if there is a fragment
@@ -1231,7 +1250,6 @@ willPerformClientRedirectToURL:(NSURL *)URL
     NSDictionary *headerFields;
     headerFields = [request allHTTPHeaderFields];
     DDLogVerbose(@"All HTTP header fields: %@", headerFields);
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"]) {
         
         NSMutableURLRequest *modifiedRequest = [request mutableCopy];
@@ -1490,13 +1508,15 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         }
         
         // Check if quit URL has been clicked (regardless of current URL Filter)
-        if ([[[request URL] absoluteString] isEqualTo:[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"]]) {
+        NSString *absoluteRequestURLTrimmed = [request.URL.absoluteString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+        
+        if ([absoluteRequestURLTrimmed isEqualTo:quitURLTrimmed]) {
             if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:@"requestQuitWPwdNotification" object:self];
             } else {
                 [[NSNotificationCenter defaultCenter]
-                 postNotificationName:@"requestQuit" object:self];
+                 postNotificationName:@"requestQuitNotification" object:self];
             }
             [listener ignore];
             return;
