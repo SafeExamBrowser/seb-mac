@@ -856,7 +856,7 @@
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
         
         // Preset "SebClientSettings.seb" as default file name
-        currentConfigFileURL = [NSURL URLWithString:@"SebClientSettings.seb"];
+        currentConfigFileURL = [NSURL fileURLWithPath:@"SebClientSettings.seb" isDirectory:NO];
     } else {
         
         /// Private settings are active
@@ -1305,7 +1305,7 @@
         // Release preferences window so bindings get synchronized properly with the new loaded values
         [self releasePreferencesWindow];
         
-        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:@"SebClientSettings.seb"]];
+        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL fileURLWithPath:@"SebClientSettings.seb" isDirectory:NO]];
         
         // Get key/values from local shared client UserDefaults
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
