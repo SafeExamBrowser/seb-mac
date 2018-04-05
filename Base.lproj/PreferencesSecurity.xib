@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -133,9 +133,10 @@
                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_forceAppFolderInstall" id="pLR-2h-wnH"/>
                                         </connections>
                                     </button>
-                                    <button toolTip="If disabled, the user has to switch off Siri (in System Preferences) before being allowed to proceed to the exam" translatesAutoresizingMaskIntoConstraints="NO" id="FJP-p9-xw7">
-                                        <rect key="frame" x="15" y="249" width="164" height="18"/>
-                                        <buttonCell key="cell" type="check" title="Allow Siri to be enabled" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="3JA-FW-lAf">
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="FJP-p9-xw7">
+                                        <rect key="frame" x="15" y="249" width="119" height="18"/>
+                                        <string key="toolTip">If enabled, Siri can be used by tapping the menu bar icon, Touch Bar icon or shortcut set in System Preferences/Siri (default: hold command space). The Siri window won't be displayed though</string>
+                                        <buttonCell key="cell" type="check" title="Allow to use Siri" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="3JA-FW-lAf">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -143,9 +144,9 @@
                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowSiri" id="1Bf-Q1-F6V"/>
                                         </connections>
                                     </button>
-                                    <button toolTip="If disabled, the user has to switch off dictation (in System Preferences) before being allowed to proceed to the exam" translatesAutoresizingMaskIntoConstraints="NO" id="vh3-YR-Pun">
-                                        <rect key="frame" x="15" y="229" width="198" height="18"/>
-                                        <buttonCell key="cell" type="check" title="Allow dictation to be enabled" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="O4R-7z-oLy">
+                                    <button toolTip="If enabled, dictation can be invoked with the shortcut set in System Preferences/Keyboard/Dictation (default: press fn twice)" translatesAutoresizingMaskIntoConstraints="NO" id="vh3-YR-Pun">
+                                        <rect key="frame" x="15" y="229" width="152" height="18"/>
+                                        <buttonCell key="cell" type="check" title="Allow to use dictation" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="O4R-7z-oLy">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
