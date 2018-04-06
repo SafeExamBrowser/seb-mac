@@ -1110,22 +1110,41 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 
 #pragma mark Window/Panel Monitoring
 
+dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispatch_queue_t queue, dispatch_block_t block)
+{
+    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+    if (timer)
+    {
+        dispatch_source_set_timer(timer, dispatch_walltime(NULL, 0), interval, leeway);
+        dispatch_source_set_event_handler(timer, block);
+        dispatch_resume(timer);
+    }
+    return timer;
+}
+
 // Start the windows watcher if it's not yet running
 - (void)startWindowWatcher
 {
     DDLogDebug(@"%s", __FUNCTION__);
     
     if (!_windowWatchTimer) {
-        NSDate *dateNextMinute = [NSDate date];
-        
-        _windowWatchTimer = [[NSTimer alloc] initWithFireDate: dateNextMinute
-                                                     interval: 0.25
-                                                       target: self
-                                                     selector:@selector(forceTerminatePanelApps)
-                                                     userInfo:nil repeats:YES];
-        
-        NSRunLoop *currentRunLoop = [NSRunLoop currentRunLoop];
-        [currentRunLoop addTimer:_windowWatchTimer forMode: NSRunLoopCommonModes];
+//        NSDate *dateNextMinute = [NSDate date];
+//
+//        _windowWatchTimer = [[NSTimer alloc] initWithFireDate: dateNextMinute
+//                                                     interval: 0.25
+//                                                       target: self
+//                                                     selector:@selector(forceTerminatePanelApps)
+//                                                     userInfo:nil repeats:YES];
+//
+//        NSRunLoop *currentRunLoop = [NSRunLoop loop currentRunLoop];
+//        [currentRunLoop addTimer:_windowWatchTimer forMode: NSRunLoopCommonModes];
+
+        _windowWatchTimer = CreateDispatchTimer(0.25 * NSEC_PER_SEC, (0.25 * NSEC_PER_SEC) / 10, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            // Repeating task
+            [self forceTerminatePanelApps];
+        });
+
+
     }
 }
 
@@ -1136,8 +1155,9 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     DDLogDebug(@"%s", __FUNCTION__);
     
     if (_windowWatchTimer) {
-        [_windowWatchTimer invalidate];
-        _windowWatchTimer = nil;
+        dispatch_source_cancel(_windowWatchTimer);
+//        [_windowWatchTimer invalidate];
+        _windowWatchTimer = 0;
     }
 }
 
@@ -1243,6 +1263,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     if (fishyWindowWasOpened) {
         DDLogVerbose(@"Window list: %@", windowList);
     }
+    
     // Check if not allowed/prohibited processes was activated
     // Get all running processes, including daemons
     NSArray *allRunningProcesses = [self getProcessArray];
@@ -1254,6 +1275,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedScreenSharing" object:self];
         }
+    
     // Check for activated Siri if settings demand it
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (!_startingUp && !allowSiri && !_siriCheckOverride &&
@@ -1262,6 +1284,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedSiri" object:self];
         }
+    
     // Check for activated dictation if settings demand it
     if (!_startingUp && !allowDictation && !_dictationCheckOverride &&
         [[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue] &&
@@ -1269,6 +1292,25 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedDictation" object:self];
         }
+    
+    // Check for font download process
+    if ([allRunningProcesses containsObject:@"com.apple.FontRegistryUIAgent"]) {
+        if (!_allowSwitchToApplications && !fontRegistryUIAgentDisplayed) {
+            fontRegistryUIAgentDisplayed = true;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                DDLogDebug(@"Lowering window levels for user to be able to answer the font download dialog.");
+                [self changeWindowLevels:YES];
+            });
+        }
+    } else {
+        if (fontRegistryUIAgentDisplayed) {
+            fontRegistryUIAgentDisplayed = false;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                DDLogDebug(@"Changing window levels back after user answered the font download dialog.");
+                [self changeWindowLevels:NO];
+            });
+        }
+    }
 }
 
 
@@ -2395,11 +2437,17 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 	// Switch the kiosk mode to either only browser windows or also third party apps allowed:
     // Change presentation options and windows levels without closing/reopening cap background and browser foreground windows
     [self startKioskModeThirdPartyAppsAllowed:allowApps overrideShowMenuBar:overrideShowMenuBar];
-    
+    [self changeWindowLevels:allowApps];
+}
+
+
+// Change window levels without closing/reopening cap background and browser foreground windows
+- (void) changeWindowLevels:(BOOL)allowApps
+{
     // Change window level of cap windows
     CapWindow *capWindow;
     BOOL allowAppsUserDefaultsSetting = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
-
+    
     for (capWindow in self.capWindows) {
         if (allowApps) {
             [capWindow newSetLevel:NSNormalWindowLevel];

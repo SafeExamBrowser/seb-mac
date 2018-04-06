@@ -113,6 +113,7 @@
     BOOL allowScreenSharing;
     BOOL allowSiri;
     BOOL allowDictation;
+    BOOL fontRegistryUIAgentDisplayed;
     #define logReportCounter 11
     NSUInteger screenSharingLogCounter;
     NSUInteger siriLogCounter;
@@ -152,7 +153,8 @@
 @property(strong) NSDate *didResignActiveTime;
 @property(strong) NSDate *didBecomeActiveTime;
 @property(strong) NSDate *didResumeExamTime;
-@property(strong) NSTimer *windowWatchTimer;
+//@property(strong) NSTimer *windowWatchTimer;
+@property(readwrite) dispatch_source_t windowWatchTimer;
 @property(strong) NSMutableArray *systemProcessPIDs;
 @property(strong) NSMutableArray *runningProhibitedProcesses;
 @property(strong) NSMutableArray *terminatedProcessesExecutableURLs;
