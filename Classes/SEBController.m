@@ -1294,21 +1294,38 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
         }
     
     // Check for font download process
-    if ([allRunningProcesses containsObject:@"com.apple.FontRegistryUIAgent"]) {
-        if (!_allowSwitchToApplications && !fontRegistryUIAgentDisplayed) {
+    if ([allRunningProcesses containsObject:fontRegistryUIAgent]) {
+        if (/*!_allowSwitchToApplications && */ !fontRegistryUIAgentDisplayed) {
             fontRegistryUIAgentDisplayed = true;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                DDLogDebug(@"Lowering window levels for user to be able to answer the font download dialog.");
-                [self changeWindowLevels:YES];
-            });
+            
+//            NSArray *runningApplicationInstances = [NSRunningApplication runningApplicationsWithBundleIdentifier:fontRegistryUIAgentBundleID];
+//            BOOL success = false;
+//            if (runningApplicationInstances.count != 0) {
+//                for (NSRunningApplication *runningApplication in runningApplicationInstances) {
+//                    DDLogWarn(@"Stopping %@", fontRegistryUIAgentBundleID);
+//
+//                    success = success || kill([runningApplication processIdentifier], SIGABRT) == ERR_SUCCESS;
+//
+//                }
+//                DDLogDebug(@"Aborting process success: %hhd", success);
+//            }
+
+            CGEventRef e = CGEventCreateKeyboardEvent (NULL, (CGKeyCode)36, true);
+            CGEventPost(kCGSessionEventTap, e);
+            CFRelease(e);
+            
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                DDLogDebug(@"Lowering window levels for user to be able to answer the font download dialog.");
+//                [self changeWindowLevels:YES];
+//            });
         }
     } else {
         if (fontRegistryUIAgentDisplayed) {
             fontRegistryUIAgentDisplayed = false;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                DDLogDebug(@"Changing window levels back after user answered the font download dialog.");
-                [self changeWindowLevels:NO];
-            });
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                DDLogDebug(@"Changing window levels back after user answered the font download dialog.");
+//                [self changeWindowLevels:NO];
+//            });
         }
     }
 }
