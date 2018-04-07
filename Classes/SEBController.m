@@ -1191,6 +1191,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
         NSString *windowNumber = [window objectForKey:@"kCGWindowNumber" ];
 #endif
 
+        // Close the Notification Center panel in case switching to applications is allowed
         if (_allowSwitchToApplications && [windowName isEqualToString:@"NotificationTableWindow"] && ![_preferencesController preferencesAreOpen]) {
             // If switching to applications is allowed and the Notification Center was opened
             DDLogWarn(@"Notification Center panel was openend (owning process name: %@", windowOwner);
@@ -1199,6 +1200,12 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
             [notificationCenter forceTerminate];
             continue;
         }
+        
+        // Check for the web font download dialog
+        if ([windowOwner isEqualToString:fontRegistryUIAgent]) {
+            DDLogWarn(@"%@ opened dialog to ask user if a font used on the current webpage should be downloaded or skiped", fontRegistryUIAgent);
+        }
+        
         NSString *windowLevelString = [window objectForKey:@"kCGWindowLayer" ];
         NSInteger windowLevel = windowLevelString.integerValue;
         if (windowLevel >= NSMainMenuWindowLevel+2) {
@@ -1295,37 +1302,17 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     
     // Check for font download process
     if ([allRunningProcesses containsObject:fontRegistryUIAgent]) {
-        if (/*!_allowSwitchToApplications && */ !fontRegistryUIAgentDisplayed) {
+        if (!_allowSwitchToApplications && !fontRegistryUIAgentDisplayed) {
             fontRegistryUIAgentDisplayed = true;
-            
-//            NSArray *runningApplicationInstances = [NSRunningApplication runningApplicationsWithBundleIdentifier:fontRegistryUIAgentBundleID];
-//            BOOL success = false;
-//            if (runningApplicationInstances.count != 0) {
-//                for (NSRunningApplication *runningApplication in runningApplicationInstances) {
-//                    DDLogWarn(@"Stopping %@", fontRegistryUIAgentBundleID);
-//
-//                    success = success || kill([runningApplication processIdentifier], SIGABRT) == ERR_SUCCESS;
-//
-//                }
-//                DDLogDebug(@"Aborting process success: %hhd", success);
-//            }
-
-            CGEventRef e = CGEventCreateKeyboardEvent (NULL, (CGKeyCode)36, true);
-            CGEventPost(kCGSessionEventTap, e);
-            CFRelease(e);
-            
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                DDLogDebug(@"Lowering window levels for user to be able to answer the font download dialog.");
-//                [self changeWindowLevels:YES];
-//            });
+            DDLogWarn(@"%@ is running, and most likely opened dialog to ask user if a font used on the current webpage should be downloaded or skipped. SEB is sending an Event Tap for the key Return (Carriage Return) to close that dialog (invoke default button Skip)", fontRegistryUIAgent);
+            CGEventRef event = CGEventCreateKeyboardEvent (NULL, (CGKeyCode)36, true);
+            CGEventPost(kCGSessionEventTap, event);
+            CFRelease(event);
         }
     } else {
         if (fontRegistryUIAgentDisplayed) {
             fontRegistryUIAgentDisplayed = false;
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                DDLogDebug(@"Changing window levels back after user answered the font download dialog.");
-//                [self changeWindowLevels:NO];
-//            });
+            DDLogWarn(@"%@ stopped running", fontRegistryUIAgent);
         }
     }
 }
