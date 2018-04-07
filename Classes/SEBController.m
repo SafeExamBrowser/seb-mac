@@ -1201,11 +1201,6 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
             continue;
         }
         
-        // Check for the web font download dialog
-        if ([windowOwner isEqualToString:fontRegistryUIAgent]) {
-            DDLogWarn(@"%@ opened dialog to ask user if a font used on the current webpage should be downloaded or skiped", fontRegistryUIAgent);
-        }
-        
         NSString *windowLevelString = [window objectForKey:@"kCGWindowLayer" ];
         NSInteger windowLevel = windowLevelString.integerValue;
         if (windowLevel >= NSMainMenuWindowLevel+2) {
