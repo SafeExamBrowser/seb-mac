@@ -3236,7 +3236,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     // Open new browser window containing WebView and show it
     SEBWebView *newWebView = [self.browserController openAndShowWebView];
     // Load manual page URL in new browser window
-    NSString *urlText = @"http://www.safeexambrowser.org/macosx";
+    NSString *urlText = SEBHelpPage;
 	[[newWebView mainFrame] loadRequest:
      [NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];
 }

@@ -502,7 +502,7 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_showTaskBar",
                                  @YES,
                                  @"org_safeexambrowser_SEB_showTime",
-                                 @"http://www.safeexambrowser.org/start",
+                                 SEBStartPage,
                                  @"org_safeexambrowser_SEB_startURL",
                                  [NSNumber numberWithLong:40],
                                  @"org_safeexambrowser_SEB_taskBarHeight",

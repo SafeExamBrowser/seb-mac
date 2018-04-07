@@ -1465,9 +1465,9 @@
                 <note>Class = "NSButton"; ibShadowedToolTip = "Displays information about Safe Exam Browser – SEB"; ObjectID = "94";</note>
             </trans-unit>
             <trans-unit id="95.ibShadowedToolTip">
-                <source>Displays the SEB online manual at www.safeexambrowser.org/macosx</source>
-                <target>Zeigt das Online-Manual unter www.safeexambrowser.org/macosx an</target>
-                <note>Class = "NSButton"; ibShadowedToolTip = "Displays the SEB online manual at www.safeexambrowser.org/macosx"; ObjectID = "95";</note>
+                <source>Displays the SEB online manual at safeexambrowser.org/macosx</source>
+                <target>Zeigt das Online-Manual unter safeexambrowser.org/macosx an</target>
+                <note>Class = "NSButton"; ibShadowedToolTip = "Displays the SEB online manual at safeexambrowser.org/macosx"; ObjectID = "95";</note>
             </trans-unit>
             <trans-unit id="97.title">
                 <source>About</source>
