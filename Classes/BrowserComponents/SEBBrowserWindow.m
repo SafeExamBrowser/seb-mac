@@ -1531,9 +1531,17 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
                 //// URL is not allowed
                 
                 // If the learning mode is active, display according sheet and ask user if he wants to allow this URL
+                // but only if we're dealing with a request in the main frame of the web page
+                if (frame != self.webView.mainFrame) {
+                    // Don't load the request
+                    [listener ignore];
+                    return;
+                }
                 // Show alert for URL is not allowed as sheet on the WebView's window
                 if (![self showURLFilterAlertSheetForWindow:self
-                                                forRequest:request forContentFilter:NO filterResponse:filterActionResponse]) {
+                                                 forRequest:request
+                                           forContentFilter:NO
+                                             filterResponse:filterActionResponse]) {
                     /// User didn't allow the URL
                     
                     // Check if the link was opened by a script and
