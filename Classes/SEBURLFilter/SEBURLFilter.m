@@ -261,7 +261,7 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     }
     
     // Check if URL starts with "about:" and ignore such URLs
-    if ([URLToFilter.scheme isEqualToString:@"about:"]) {
+    if ([URLToFilter.scheme isEqualToString:@"about"]) {
         return URLFilterActionAllow;
     }
     
