@@ -260,6 +260,11 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
         return URLFilterActionBlock;
     }
     
+    // Check if URL starts with "about:" and ignore such URLs
+    if ([URLToFilter.scheme isEqualToString:@"about:"]) {
+        return URLFilterActionAllow;
+    }
+    
     /// Apply permitted filter expressions
     
     for (expression in self.permittedList) {
