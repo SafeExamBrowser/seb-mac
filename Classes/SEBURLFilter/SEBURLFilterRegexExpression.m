@@ -192,7 +192,14 @@
     
     /// Query
     if (_query) {
-        [expressionString appendFormat:@"\\?%@", [self stringForRegexFilter:_query]];
+        // Check for special case Query = "?." which means no query string is allowed
+        if ([[self stringForRegexFilter:_query] isEqualToString:@"."]) {
+            [expressionString appendFormat:@"[^\\?]"];
+        } else {
+            [expressionString appendFormat:@"\\?%@", [self stringForRegexFilter:_query]];
+        }
+    } else {
+        [expressionString appendFormat:@"(()|(\\?.*?))"];
     }
     
     /// Fragment
