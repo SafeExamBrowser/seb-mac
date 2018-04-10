@@ -55,6 +55,8 @@
 
 + (NSRegularExpression *) regexForPathFilterString:(NSString *)filterString error:(NSError **)error;
 
++ (NSRegularExpression *) regexForQueryFilterString:(NSString *)filterString error:(NSError **)error;
+
 - (NSString *) string;
 
 

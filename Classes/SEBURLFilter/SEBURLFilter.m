@@ -352,10 +352,17 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
         }
     
     filterComponent = filterExpression.query;
-    if (filterComponent &&
-        ![self regexFilterExpression:filterComponent hasMatchesInString:URLToFilter.query]) {
+    if (filterComponent) {
+        // If there's a query filter component, then we need to even filter empty URL query strings
+        // as the filter might either allow some specific queries or no query at all ("?." query filter)
+        NSString *queryString = URLToFilter.query;
+        if (!queryString) {
+            queryString = @"";
+        }
+        if (![self regexFilterExpression:filterComponent hasMatchesInString:queryString]) {
             return NO;
         }
+    }
     
     filterComponent = filterExpression.fragment;
     if (filterComponent &&

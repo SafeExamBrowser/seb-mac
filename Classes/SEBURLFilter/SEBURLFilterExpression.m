@@ -103,7 +103,6 @@
 
 - (NSString *) string
 {
-    //    NSURL *newURL;
     NSMutableString *expressionString = [NSMutableString new];
     if (_scheme.length > 0) {
         if (_host.length > 0) {
@@ -133,10 +132,6 @@
         } else {
             [expressionString appendFormat:@"/%@", _path];
         }
-        
-//        if (![_path hasSuffix:@"/"]) {
-//            [expressionString appendString:@"/"];
-//        }
     }
     if (_query.length > 0) {
         [expressionString appendFormat:@"?%@", _query];

@@ -48,7 +48,7 @@
     filterExpression.host = [self regexForHostFilterString:URLFromString.host error:error];
     filterExpression.port = URLFromString.port;
     filterExpression.path = [self regexForPathFilterString:URLFromString.path error:error];
-    filterExpression.query = [self regexForFilterString:URLFromString.query error:error];
+    filterExpression.query = [self regexForQueryFilterString:URLFromString.query error:error];
     filterExpression.fragment = [self regexForFilterString:URLFromString.fragment error:error];
     
     return filterExpression;
@@ -123,6 +123,26 @@
             // Add regex command characters for matching at start and end of a line (part)
             regexString = [NSString stringWithFormat:@"^((%@)|(%@))$", regexString, regexStringDir];
 
+            NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexString options:NSRegularExpressionCaseInsensitive | NSRegularExpressionAnchorsMatchLines error:error];
+            return regex;
+        } else {
+            return [self regexForFilterString:filterString error:error];
+        }
+    }
+}
+
+
++ (NSRegularExpression *) regexForQueryFilterString:(NSString *)filterString error:(NSError **)error
+{
+    if (filterString.length == 0) {
+        
+        return nil;
+        
+    } else {
+        if ([filterString isEqualToString:@"."]) {
+            // Add regex command characters for matching at start and end of a line (part) and
+            // regex for no string allowed
+            NSString *regexString = @"^$";
             NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexString options:NSRegularExpressionCaseInsensitive | NSRegularExpressionAnchorsMatchLines error:error];
             return regex;
         } else {
