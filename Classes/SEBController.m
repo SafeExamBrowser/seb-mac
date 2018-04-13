@@ -1584,9 +1584,11 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
 {
     NSArray *runningAirPlayAgents = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.AirPlayUIAgent"];
     if (runningAirPlayAgents.count != 0) {
+        NSInteger killSuccess;
         for (NSRunningApplication *airPlayAgent in runningAirPlayAgents) {
             DDLogWarn(@"Terminating AirPlayUIAgent %@", airPlayAgent);
-            [self killApplication:airPlayAgent];
+            killSuccess = [airPlayAgent kill];
+            DDLogWarn(@"Success of terminating AirPlayUIAgent: %ld", (long)killSuccess);
         }
     }
 }
