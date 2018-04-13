@@ -186,6 +186,8 @@
     NSString *hostPort = @"";
     if (_host) {
         hostPort = [self stringForRegexFilter:_host];
+    } else {
+        hostPort = @".*?";
     }
     
     /// Port
