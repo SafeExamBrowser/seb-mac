@@ -75,6 +75,9 @@
 @property (strong) NSArray *privatePasteboardItems;
 @property(strong) NSTimer *panelWatchTimer;
 
+
+- (NSScreen *) mainScreen;
+
 - (void) resetBrowser;
 
 // Save the default user agent of the installed WebKit version

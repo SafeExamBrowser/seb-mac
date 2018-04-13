@@ -81,7 +81,7 @@ void DisposeWindow (
     // Set the reference to the browser controller in the browser window instance
     browserWindow.browserController = _browserController;
 
-    [browserWindow setCalculatedFrame];
+    [browserWindow setCalculatedFrameOnScreen:[_browserController mainScreen]];
     self.browserController.activeBrowserWindow = (SEBBrowserWindow *)self.window;
     _previousScreen = self.window.screen;
     

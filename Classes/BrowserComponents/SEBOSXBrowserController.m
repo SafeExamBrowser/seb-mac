@@ -78,6 +78,11 @@
 }
 
 
+- (NSScreen *) mainScreen
+{
+    return _sebController.mainScreen;
+}
+
 - (void) resetBrowser
 {
     // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
