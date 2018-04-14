@@ -96,8 +96,8 @@ bool insideMatrix(void);
 
 @implementation SEBController
 
-@synthesize f3Pressed;    //create getter and setter for F3 key pressed flag
-@synthesize quittingMyself;    //create getter and setter for flag that SEB is quitting itself
+@synthesize f3Pressed;	//create getter and setter for F3 key pressed flag
+@synthesize quittingMyself;	//create getter and setter for flag that SEB is quitting itself
 @synthesize webView;
 @synthesize capWindows;
 @synthesize lockdownWindows;
@@ -358,7 +358,7 @@ bool insideMatrix(void);
     [self.systemManager preventSC];
     
     // Flag initializing
-    quittingMyself = FALSE; //flag to know if quit application was called externally
+	quittingMyself = FALSE; //flag to know if quit application was called externally
 
     // Terminate invisibly running applications
     if ([NSRunningApplication respondsToSelector:@selector(terminateAutomaticallyTerminableApplications)]) {
@@ -366,7 +366,7 @@ bool insideMatrix(void);
     }
 
     // Save the bundle ID of all currently running apps which are visible in a array
-    NSArray *runningApps = [[NSWorkspace sharedWorkspace] runningApplications];
+	NSArray *runningApps = [[NSWorkspace sharedWorkspace] runningApplications];
     NSRunningApplication *iterApp;
     visibleApps = [NSMutableArray array]; //array for storing bundleIDs of visible apps
 
@@ -386,47 +386,47 @@ bool insideMatrix(void);
     // Setup Notifications and Kiosk Mode
     
     // Add an observer for the notification that another application became active (SEB got inactive)
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(regainActiveStatus:) 
-                                                 name:NSApplicationDidResignActiveNotification 
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(regainActiveStatus:) 
+												 name:NSApplicationDidResignActiveNotification 
                                                object:NSApp];
-    
+	
 //#ifndef DEBUG
     // Add an observer for the notification that another application was unhidden by the finder
-    NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
-    [[workspace notificationCenter] addObserver:self
+	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+	[[workspace notificationCenter] addObserver:self
                                        selector:@selector(regainActiveStatus:)
                                            name:NSWorkspaceDidActivateApplicationNotification
                                          object:nil];
-    
+	
     // Add an observer for the notification that another application was unhidden by the finder
-    [[workspace notificationCenter] addObserver:self
+	[[workspace notificationCenter] addObserver:self
                                        selector:@selector(regainActiveStatus:)
                                            name:NSWorkspaceDidUnhideApplicationNotification
                                          object:nil];
-    
+	
     // Add an observer for the notification that another application was unhidden by the finder
-//    [[workspace notificationCenter] addObserver:self
+//	[[workspace notificationCenter] addObserver:self
 //                                       selector:@selector(regainActiveStatus:)
 //                                           name:NSWorkspaceWillLaunchApplicationNotification
 //                                         object:nil];
-//    
+//	
     // Add an observer for the notification that another application was launched
-    [[workspace notificationCenter] addObserver:self
+	[[workspace notificationCenter] addObserver:self
                                        selector:@selector(appLaunch:)
                                            name:NSWorkspaceDidLaunchApplicationNotification
                                          object:nil];
-    
+	
     // Add an observer for the notification that another application was unhidden by the finder
-    [[workspace notificationCenter] addObserver:self
+	[[workspace notificationCenter] addObserver:self
                                        selector:@selector(spaceSwitch:)
                                            name:NSWorkspaceActiveSpaceDidChangeNotification
                                          object:nil];
-    
+	
 //#endif
     // Add an observer for the notification that SEB became active
     // With third party apps and Flash fullscreen it can happen that SEB looses its 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SEBgotActive:)
-                                                 name:NSApplicationDidBecomeActiveNotification 
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SEBgotActive:)
+												 name:NSApplicationDidBecomeActiveNotification 
                                                object:NSApp];
 
     // Hide all other applications
@@ -434,7 +434,7 @@ bool insideMatrix(void);
                                                     withObject:NULL waitUntilDone:NO];
     
     // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
-    [self coverScreens];
+	[self coverScreens];
 
     // Check if running on minimal macOS version
     [self checkMinMacOSVersion];
@@ -460,10 +460,10 @@ bool insideMatrix(void);
 //    [self coverScreens];
     
     // Add an observer for changes of the Presentation Options
-    [NSApp addObserver:self
-            forKeyPath:@"currentSystemPresentationOptions"
-               options:NSKeyValueObservingOptionNew
-               context:NULL];
+	[NSApp addObserver:self
+			forKeyPath:@"currentSystemPresentationOptions"
+			   options:NSKeyValueObservingOptionNew
+			   context:NULL];
     
     sebInstance = [NSRunningApplication currentApplication];
     
@@ -483,21 +483,21 @@ bool insideMatrix(void);
                                              selector:@selector(changeMainScreen:)
                                                  name:@"mainScreenChanged" object:nil];
     
-    // Add an observer for the request to conditionally exit SEB
+	// Add an observer for the request to conditionally exit SEB
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(exitSEB:)
                                                  name:@"requestExitNotification" object:nil];
-    
+	
     // Add an observer for the request to conditionally quit SEB with asking quit password
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(requestedQuitWPwd:)
                                                  name:@"requestQuitWPwdNotification" object:nil];
-    
+	
     // Add an observer for the request to reload start URL
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(requestedRestart:)
                                                  name:@"requestRestartNotification" object:nil];
-    
+	
     // Add an observer for the request to reinforce the kiosk mode
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(performAfterStartActions:)
@@ -517,12 +517,12 @@ bool insideMatrix(void);
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(requestedShowAbout:)
                                                  name:@"requestShowAboutNotification" object:nil];
-    
+	
     // Add an observer for the request to close about panel
     [[NSNotificationCenter defaultCenter] addObserver:aboutWindow
                                              selector:@selector(closeAboutWindow:)
                                                  name:@"requestCloseAboutWindowNotification" object:nil];
-    
+	
     // Add an observer for the request to show help
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(requestedShowHelp:)
@@ -565,39 +565,39 @@ bool insideMatrix(void);
 // Prevent display sleep
 #ifndef DEBUG
     IOPMAssertionCreateWithName(
-        kIOPMAssertionTypeNoDisplaySleep,                                           
-        kIOPMAssertionLevelOn, 
-        CFSTR("Safe Exam Browser Kiosk Mode"), 
-        &assertionID1); 
+		kIOPMAssertionTypeNoDisplaySleep,										   
+		kIOPMAssertionLevelOn, 
+		CFSTR("Safe Exam Browser Kiosk Mode"), 
+		&assertionID1); 
 #else
     IOReturn success = IOPMAssertionCreateWithName(
-                                                   kIOPMAssertionTypeNoDisplaySleep,                                           
+                                                   kIOPMAssertionTypeNoDisplaySleep,										   
                                                    kIOPMAssertionLevelOn, 
                                                    CFSTR("Safe Exam Browser Kiosk Mode"), 
                                                    &assertionID1);
-    if (success == kIOReturnSuccess) {
-        DDLogDebug(@"Display sleep is switched off now.");
-    }
-#endif        
-    
-/*    // Prevent idle sleep
-    success = IOPMAssertionCreateWithName(
-        kIOPMAssertionTypeNoIdleSleep, 
-        kIOPMAssertionLevelOn, 
-        CFSTR("Safe Exam Browser Kiosk Mode"), 
-        &assertionID2); 
+	if (success == kIOReturnSuccess) {
+		DDLogDebug(@"Display sleep is switched off now.");
+	}
+#endif		
+	
+/*	// Prevent idle sleep
+	success = IOPMAssertionCreateWithName(
+		kIOPMAssertionTypeNoIdleSleep, 
+		kIOPMAssertionLevelOn, 
+		CFSTR("Safe Exam Browser Kiosk Mode"), 
+		&assertionID2); 
 #ifdef DEBUG
-    if (success == kIOReturnSuccess) {
-        DDLogDebug(@"Idle sleep is switched off now.");
-    }
-#endif        
-*/    
-    // Installing I/O Kit sleep/wake notification to cancel sleep
-    
-    IONotificationPortRef notifyPortRef; // notification port allocated by IORegisterForSystemPower
+	if (success == kIOReturnSuccess) {
+		DDLogDebug(@"Idle sleep is switched off now.");
+	}
+#endif		
+*/	
+	// Installing I/O Kit sleep/wake notification to cancel sleep
+	
+	IONotificationPortRef notifyPortRef; // notification port allocated by IORegisterForSystemPower
     io_object_t notifierObject; // notifier object, used to deregister later
     void* refCon = NULL; // this parameter is passed to the callback
-    
+	
     // register to receive system sleep notifications
 
     root_port = IORegisterForSystemPower( refCon, &notifyPortRef, MySleepCallBack, &notifierObject );
@@ -605,15 +605,15 @@ bool insideMatrix(void);
     {
         DDLogError(@"IORegisterForSystemPower failed");
     } else {
-        // add the notification port to the application runloop
-        CFRunLoopAddSource( CFRunLoopGetCurrent(),
-                       IONotificationPortGetRunLoopSource(notifyPortRef), kCFRunLoopCommonModes ); 
-    }
+	    // add the notification port to the application runloop
+		CFRunLoopAddSource( CFRunLoopGetCurrent(),
+					   IONotificationPortGetRunLoopSource(notifyPortRef), kCFRunLoopCommonModes ); 
+	}
 
-    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowVirtualMachine"]) {
+	if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowVirtualMachine"]) {
         // Check if SEB is running inside a virtual machine
-        SInt32        myAttrs;
-        OSErr        myErr = noErr;
+        SInt32		myAttrs;
+        OSErr		myErr = noErr;
         
         // Get details for the present operating environment
         // by calling Gestalt (Userland equivalent to CPUID)
@@ -650,26 +650,26 @@ bool insideMatrix(void);
     [self clearPasteboardSavingCurrentString];
 
 // Handling of Hotkeys for Preferences-Window
-    
-    // Register Carbon event handlers for the required hotkeys
-    f3Pressed = FALSE; //Initialize flag for first hotkey
-    EventHotKeyRef gMyHotKeyRef;
-    EventHotKeyID gMyHotKeyID;
-    EventTypeSpec eventType;
-    eventType.eventClass=kEventClassKeyboard;
-    eventType.eventKind=kEventHotKeyPressed;
-    InstallApplicationEventHandler((void*)MyHotKeyHandler, 1, &eventType, (__bridge void*)(SEBController*)self, NULL);
+	
+	// Register Carbon event handlers for the required hotkeys
+	f3Pressed = FALSE; //Initialize flag for first hotkey
+	EventHotKeyRef gMyHotKeyRef;
+	EventHotKeyID gMyHotKeyID;
+	EventTypeSpec eventType;
+	eventType.eventClass=kEventClassKeyboard;
+	eventType.eventKind=kEventHotKeyPressed;
+	InstallApplicationEventHandler((void*)MyHotKeyHandler, 1, &eventType, (__bridge void*)(SEBController*)self, NULL);
     //Pass pointer to flag for F3 key to the event handler
-    // Register F3 as a hotkey
-    gMyHotKeyID.signature='htk1';
-    gMyHotKeyID.id=1;
-    RegisterEventHotKey(99, 0, gMyHotKeyID,
-                        GetApplicationEventTarget(), 0, &gMyHotKeyRef);
-    // Register F6 as a hotkey
-    gMyHotKeyID.signature='htk2';
-    gMyHotKeyID.id=2;
-    RegisterEventHotKey(97, 0, gMyHotKeyID,
-                        GetApplicationEventTarget(), 0, &gMyHotKeyRef);
+	// Register F3 as a hotkey
+	gMyHotKeyID.signature='htk1';
+	gMyHotKeyID.id=1;
+	RegisterEventHotKey(99, 0, gMyHotKeyID,
+						GetApplicationEventTarget(), 0, &gMyHotKeyRef);
+	// Register F6 as a hotkey
+	gMyHotKeyID.signature='htk2';
+	gMyHotKeyID.id=2;
+	RegisterEventHotKey(97, 0, gMyHotKeyID,
+						GetApplicationEventTarget(), 0, &gMyHotKeyRef);
     
 
     // Show the About SEB Window
@@ -842,6 +842,24 @@ bool insideMatrix(void);
     
     // Set flag that SEB is initialized: Now showing alerts is allowed
     [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
+}
+
+
+- (void)presentPreferencesCorruptedError
+{
+    DDLogError(@"Local SEB Settings Have Been Reset");
+    
+    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+    NSAlert *modalAlert = [self newAlert];
+    
+    [modalAlert setMessageText:NSLocalizedString(@"Local SEB Settings Have Been Reset", nil)];
+    [modalAlert setInformativeText:NSLocalizedString(@"Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.", nil)];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [modalAlert setAlertStyle:NSCriticalAlertStyle];
+    [modalAlert runModal];
+    [self removeAlertWindow:modalAlert.window];
+    
+    DDLogInfo(@"Dismissed alert for local SEB settings have been reset");
 }
 
 
@@ -1478,7 +1496,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     }
 
     NSScreen *mainScreen = nil;
-    NSMutableArray *screens = [NSScreen screens].mutableCopy;    // get all available screens
+    NSMutableArray *screens = [NSScreen screens].mutableCopy;	// get all available screens
     
     // Check if the the built-in display should be the main display according to settings
     if (useBuiltin) {
@@ -1781,49 +1799,31 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
 }
 
 
-- (void)presentPreferencesCorruptedError
-{
-    DDLogError(@"Local SEB Settings Have Been Reset");
-    
-    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-    NSAlert *modalAlert = [self newAlert];
-    
-    [modalAlert setMessageText:NSLocalizedString(@"Local SEB Settings Have Been Reset", nil)];
-    [modalAlert setInformativeText:NSLocalizedString(@"Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.", nil)];
-    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-    [modalAlert setAlertStyle:NSCriticalAlertStyle];
-    [modalAlert runModal];
-    [self removeAlertWindow:modalAlert.window];
-    
-    DDLogInfo(@"Dismissed alert for local SEB settings have been reset");
-}
-
-
-#pragma mark Methods
+#pragma mark System Lock Down Functionalities
 
 // Method executed when hotkeys are pressed
 OSStatus MyHotKeyHandler(EventHandlerCallRef nextHandler,EventRef theEvent,
-                          id userData)
+						  id userData)
 {
-    EventHotKeyID hkCom;
-    GetEventParameter(theEvent,kEventParamDirectObject,typeEventHotKeyID,NULL,
-                      sizeof(hkCom),NULL,&hkCom);
-    int l = hkCom.id;
-    id self = userData;
-    
-    switch (l) {
-        case 1: //F3 pressed
-            [self setF3Pressed:TRUE];    //F3 was pressed
-            
-            break;
-        case 2: //F6 pressed
-            if ([self f3Pressed]) {    //if F3 got pressed before
-                [self setF3Pressed:FALSE];
-                [self openPreferences:self]; //show preferences window
-            }
-            break;
-    }
-    return noErr;
+	EventHotKeyID hkCom;
+	GetEventParameter(theEvent,kEventParamDirectObject,typeEventHotKeyID,NULL,
+					  sizeof(hkCom),NULL,&hkCom);
+	int l = hkCom.id;
+	id self = userData;
+	
+	switch (l) {
+		case 1: //F3 pressed
+			[self setF3Pressed:TRUE];	//F3 was pressed
+			
+			break;
+		case 2: //F6 pressed
+			if ([self f3Pressed]) {	//if F3 got pressed before
+				[self setF3Pressed:FALSE];
+				[self openPreferences:self]; //show preferences window
+			}
+			break;
+	}
+	return noErr;
 }
 
 
@@ -1831,65 +1831,65 @@ OSStatus MyHotKeyHandler(EventHandlerCallRef nextHandler,EventRef theEvent,
 void MySleepCallBack( void * refCon, io_service_t service, natural_t messageType, void * messageArgument )
 {
     DDLogDebug(@"messageType %08lx, arg %08lx\n",
-           (long unsigned int)messageType,
-           (long unsigned int)messageArgument );
-    
+		   (long unsigned int)messageType,
+		   (long unsigned int)messageArgument );
+	
     switch ( messageType )
     {
-            
+			
         case kIOMessageCanSystemSleep:
             /* Idle sleep is about to kick in. This message will not be sent for forced sleep.
-             Applications have a chance to prevent sleep by calling IOCancelPowerChange.
-             Most applications should not prevent idle sleep.
-             
-             Power Management waits up to 30 seconds for you to either allow or deny idle sleep.
-             If you don't acknowledge this power change by calling either IOAllowPowerChange
-             or IOCancelPowerChange, the system will wait 30 seconds then go to sleep.
-             */
-            
+			 Applications have a chance to prevent sleep by calling IOCancelPowerChange.
+			 Most applications should not prevent idle sleep.
+			 
+			 Power Management waits up to 30 seconds for you to either allow or deny idle sleep.
+			 If you don't acknowledge this power change by calling either IOAllowPowerChange
+			 or IOCancelPowerChange, the system will wait 30 seconds then go to sleep.
+			 */
+			
             // cancel idle sleep
             DDLogDebug(@"kIOMessageCanSystemSleep: IOCancelPowerChange");
             IOCancelPowerChange( root_port, (long)messageArgument );
             // uncomment to allow idle sleep
             //IOAllowPowerChange( root_port, (long)messageArgument );
             break;
-            
+			
         case kIOMessageSystemWillSleep:
             /* The system WILL go to sleep. If you do not call IOAllowPowerChange or
-             IOCancelPowerChange to acknowledge this message, sleep will be
-             delayed by 30 seconds.
-             
-             NOTE: If you call IOCancelPowerChange to deny sleep it returns kIOReturnSuccess,
-             however the system WILL still go to sleep. 
-             */
-            
-            //IOCancelPowerChange( root_port, (long)messageArgument );
-            //IOAllowPowerChange( root_port, (long)messageArgument );
+			 IOCancelPowerChange to acknowledge this message, sleep will be
+			 delayed by 30 seconds.
+			 
+			 NOTE: If you call IOCancelPowerChange to deny sleep it returns kIOReturnSuccess,
+			 however the system WILL still go to sleep. 
+			 */
+			
+			//IOCancelPowerChange( root_port, (long)messageArgument );
+			//IOAllowPowerChange( root_port, (long)messageArgument );
             break;
-            
+			
         case kIOMessageSystemWillPowerOn:
             //System has started the wake up process...
             break;
-            
+			
         case kIOMessageSystemHasPoweredOn:
             //System has finished waking up...
-            break;
-            
+			break;
+			
         default:
             break;
-            
+			
     }
 }
 
 
 bool insideMatrix(){
-    unsigned char mem[4] = {0,0,0,0};
-    //__asm ("str mem");
-    if ( (mem[0]==0x00) && (mem[1]==0x40))
-        return true; //printf("INSIDE MATRIX!!\n");
-    else
-        return false; //printf("OUTSIDE MATRIX!!\n");
-    return false;
+	unsigned char mem[4] = {0,0,0,0};
+	//__asm ("str mem");
+	if ( (mem[0]==0x00) && (mem[1]==0x40))
+		return true; //printf("INSIDE MATRIX!!\n");
+	else
+		return false; //printf("OUTSIDE MATRIX!!\n");
+	return false;
 }
 
 
@@ -1929,7 +1929,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     
     NSArray *backgroundCoveringWindows = [self fillScreensWithCoveringWindows:coveringWindowBackground windowLevel:windowLevel excludeMenuBar:excludeMenuBar];
     if (!self.capWindows) {
-        self.capWindows = [NSMutableArray arrayWithArray:backgroundCoveringWindows];    // array for storing our cap (covering) background windows
+        self.capWindows = [NSMutableArray arrayWithArray:backgroundCoveringWindows];	// array for storing our cap (covering) background windows
     } else {
         [self.capWindows removeAllObjects];
         [self.capWindows addObjectsFromArray:backgroundCoveringWindows];
@@ -1938,8 +1938,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 
                            
 - (NSMutableArray *) fillScreensWithCoveringWindows:(coveringWindowKind)coveringWindowKind windowLevel:(NSUInteger)windowLevel excludeMenuBar:(BOOL)excludeMenuBar {
-    NSMutableArray *coveringWindows = [NSMutableArray new];    // array for storing our cap (covering)  windows
-    NSArray *screens = [NSScreen screens];    // get all available screens
+    NSMutableArray *coveringWindows = [NSMutableArray new];	// array for storing our cap (covering)  windows
+    NSArray *screens = [NSScreen screens];	// get all available screens
     NSScreen *iterScreen;
 
     for (iterScreen in screens)
@@ -2251,12 +2251,12 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 - (void) closeCoveringWindows:(NSMutableArray *)windows
 {
     // Close the covering windows
-    NSUInteger windowIndex;
-    NSUInteger windowCount = [windows count];
+	NSUInteger windowIndex;
+	NSUInteger windowCount = [windows count];
     for (windowIndex = 0; windowIndex < windowCount; windowIndex++ )
     {
-        [(NSWindow *)[windows objectAtIndex:windowIndex] close];
-    }
+		[(NSWindow *)[windows objectAtIndex:windowIndex] close];
+	}
     [windows removeAllObjects];
 }
 
@@ -2264,36 +2264,36 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 #pragma mark Managing Other Running Applications
 
 - (void) startTask {
-    // Start third party application from within SEB
-    
-    // Path to Excel
-    NSString *pathToTask=@"/Applications/Preview.app/Contents/MacOS/Preview";
-    
-    // Parameter and path to XUL-SEB Application
-    NSArray *taskArguments=[NSArray arrayWithObjects:@"", nil];
-    
-    // Allocate and initialize a new NSTask
+	// Start third party application from within SEB
+	
+	// Path to Excel
+	NSString *pathToTask=@"/Applications/Preview.app/Contents/MacOS/Preview";
+	
+	// Parameter and path to XUL-SEB Application
+	NSArray *taskArguments=[NSArray arrayWithObjects:@"", nil];
+	
+	// Allocate and initialize a new NSTask
     NSTask *task=[[NSTask alloc] init];
-    
-    // Tell the NSTask what the path is to the binary it should launch
+	
+	// Tell the NSTask what the path is to the binary it should launch
     [task setLaunchPath:pathToTask];
     
     // The argument that we pass to XULRunner (in the form of an array) is the path to the SEB-XUL-App
     [task setArguments:taskArguments];
-        
-    // Launch the process asynchronously
-    @try {
-        [task launch];
-    }
-    @catch (NSException * e) {
-        DDLogError(@"Error.  Make sure you have a valid path and arguments.");
-        
-    }
+    	
+	// Launch the process asynchronously
+	@try {
+		[task launch];
+	}
+	@catch (NSException * e) {
+		DDLogError(@"Error.  Make sure you have a valid path and arguments.");
+		
+	}
 }
 
 
 - (void) regainActiveStatus: (id)sender {
-    // hide all other applications if not in debug build setting
+	// hide all other applications if not in debug build setting
     // Check if the app is listed in prohibited processes
 #ifdef DEBUG
     DDLogInfo(@"Notification:  %@", [sender name]);
@@ -2315,10 +2315,10 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         }
 //    }
     // Load preferences from the system's user defaults database
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
+	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+	BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
     if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen]) {
-        // if switching to ThirdPartyApps not allowed
+		// if switching to ThirdPartyApps not allowed
         DDLogDebug(@"Regain active status after %@", [sender name]);
 #ifndef DEBUG
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
@@ -2423,7 +2423,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 
 
 - (void) startKioskMode {
-    // Switch to kiosk mode by setting the proper presentation options
+	// Switch to kiosk mode by setting the proper presentation options
     // Load preferences from the system's user defaults database
 //    [self startKioskModeThirdPartyAppsAllowed:YES];
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -2435,7 +2435,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 
 
 - (void) switchKioskModeAppsAllowed:(BOOL)allowApps overrideShowMenuBar:(BOOL)overrideShowMenuBar {
-    // Switch the kiosk mode to either only browser windows or also third party apps allowed:
+	// Switch the kiosk mode to either only browser windows or also third party apps allowed:
     // Change presentation options and windows levels without closing/reopening cap background and browser foreground windows
     [self startKioskModeThirdPartyAppsAllowed:allowApps overrideShowMenuBar:overrideShowMenuBar];
     [self changeWindowLevels:allowApps];
@@ -2932,21 +2932,21 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 
 
 - (IBAction) exitSEB:(id)sender {
-    // Load quitting preferences from the system's user defaults database
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+	// Load quitting preferences from the system's user defaults database
+	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+	NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"] == YES) {
-        // if quitting SEB is allowed
-        
+		// if quitting SEB is allowed
+		
         if (![hashedQuitPassword isEqualToString:@""]) {
-            // if quit password is set, then restrict quitting
+			// if quit password is set, then restrict quitting
             if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit password:",nil)  modalForWindow:self.browserController.mainBrowserWindow windowTitle:@""] == SEBEnterPasswordCancel) return;
             NSString *password = [self.enterPassword stringValue];
-            
+			
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
             if ([hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
-                // if the correct quit password was entered
-                quittingMyself = TRUE; //SEB is terminating itself
+				// if the correct quit password was entered
+				quittingMyself = TRUE; //SEB is terminating itself
                 [NSApp terminate: nil]; //quit SEB
             } else {
                 // Wrong quit password was entered
@@ -3221,8 +3221,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 - (IBAction)showAbout:(id)sender
 {
     [aboutWindow setStyleMask:NSBorderlessWindowMask];
-    [aboutWindow center];
-    //[aboutWindow orderFront:self];
+	[aboutWindow center];
+	//[aboutWindow orderFront:self];
     //[aboutWindow setLevel:NSMainMenuWindowLevel];
     [[NSApplication sharedApplication] runModalForWindow:aboutWindow];
 }
@@ -3239,7 +3239,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     SEBWebView *newWebView = [self.browserController openAndShowWebView];
     // Load manual page URL in new browser window
     NSString *urlText = SEBHelpPage;
-    [[newWebView mainFrame] loadRequest:
+	[[newWebView mainFrame] loadRequest:
      [NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];
 }
 
@@ -3501,7 +3501,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     }
     
     [informationHUDLabel setStringValue:[informationText copy]];
-    NSArray *screens = [NSScreen screens];    // get all available screens
+    NSArray *screens = [NSScreen screens];	// get all available screens
     NSScreen *mainScreen = screens[0];
     
     NSPoint topLeftPoint;
@@ -3520,11 +3520,11 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 
 // Called when SEB should be terminated
 - (NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender {
-    if (quittingMyself) {
-        return NSTerminateNow; //SEB wants to quit, ok, so it should happen
-    } else { //SEB should be terminated externally(!)
-        return NSTerminateCancel; //this we can't allow, sorry...
-    }
+	if (quittingMyself) {
+		return NSTerminateNow; //SEB wants to quit, ok, so it should happen
+	} else { //SEB should be terminated externally(!)
+		return NSTerminateCancel; //this we can't allow, sorry...
+	}
 }
 
 
@@ -3632,19 +3632,19 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     }
     [self clearPasteboardCopyingBrowserExamKey];
     
-    // Clear the current Browser Exam Key
+	// Clear the current Browser Exam Key
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_currentData"];
 
-    // Clear the browser cache in ~/Library/Caches/org.safeexambrowser.SEB.Safe-Exam-Browser/
-    NSURLCache *cache = [NSURLCache sharedURLCache];
-    [cache removeAllCachedResponses];
+	// Clear the browser cache in ~/Library/Caches/org.safeexambrowser.SEB.Safe-Exam-Browser/
+	NSURLCache *cache = [NSURLCache sharedURLCache];
+	[cache removeAllCachedResponses];
     
-    // Allow display and system to sleep again
-    //IOReturn success = IOPMAssertionRelease(assertionID1);
-    IOPMAssertionRelease(assertionID1);
-    /*// Allow system to sleep again
-    success = IOPMAssertionRelease(assertionID2);*/
+	// Allow display and system to sleep again
+	//IOReturn success = IOPMAssertionRelease(assertionID1);
+	IOPMAssertionRelease(assertionID1);
+	/*// Allow system to sleep again
+	success = IOPMAssertionRelease(assertionID2);*/
     DDLogError(@"---------- EXITING SEB - ENDING SESSION -------------");
 }
 
@@ -3656,14 +3656,14 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 }
 
 /*- (void)windowDidResignKey:(NSNotification *)notification {
-    [NSApp activateIgnoringOtherApps: YES];
-    [self.browserController.browserWindow 
-     makeKeyAndOrderFront:self];
-    #ifdef DEBUG
-    DDLogDebug(@"[self.browserController.browserWindow makeKeyAndOrderFront]");
-    NSBeep();
-    #endif
-    
+	[NSApp activateIgnoringOtherApps: YES];
+	[self.browserController.browserWindow 
+	 makeKeyAndOrderFront:self];
+	#ifdef DEBUG
+	DDLogDebug(@"[self.browserController.browserWindow makeKeyAndOrderFront]");
+	NSBeep();
+	#endif
+	
 }
 */
 
@@ -3672,7 +3672,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 // Called when "isActive" propery of [NSRunningApplication currentApplication] changes
 
 - (void) observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:id
+					  ofObject:id
                         change:(NSDictionary *)change
                        context:(void *)context
 {
@@ -3685,7 +3685,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             return;
         }
 
-        // Current Presentation Options changed, so make SEB active and reset them
+		// Current Presentation Options changed, so make SEB active and reset them
         // Load preferences from the system's user defaults database
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
