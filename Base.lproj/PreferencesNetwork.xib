@@ -395,7 +395,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="63j-33-Jdu">
-                                                    <rect key="frame" x="11" y="134" width="389" height="17"/>
+                                                    <rect key="frame" x="11" y="134" width="390" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="17" id="iuH-05-SfK"/>
                                                     </constraints>

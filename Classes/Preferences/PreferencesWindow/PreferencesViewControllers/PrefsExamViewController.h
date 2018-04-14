@@ -41,7 +41,7 @@
     IBOutlet NSTextField *examKeyTextField;
     IBOutlet NSTextField *configKeyTextField;
     __weak IBOutlet NSButton *copyBEKToClipboard;
-	IBOutlet NSTextField *quitURL;
+    IBOutlet NSTextField *quitURL;
     __weak IBOutlet NSTextField *restartExamURLTextField;
 
     IBOutlet NSObjectController *controller;
