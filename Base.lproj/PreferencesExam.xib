@@ -9,9 +9,10 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsExamViewController">
             <connections>
+                <outlet property="configKeyTextField" destination="Vag-ov-ItE" id="I7Q-ne-NdL"/>
                 <outlet property="controller" destination="560" id="562"/>
                 <outlet property="copyBEKToClipboard" destination="20" id="nVf-ou-tvn"/>
-                <outlet property="examKey" destination="14" id="210"/>
+                <outlet property="examKeyTextField" destination="14" id="210"/>
                 <outlet property="quitURL" destination="688" id="1033"/>
                 <outlet property="restartExamURLTextField" destination="2Rr-y4-nE8" id="bOd-pD-Q8p"/>
                 <outlet property="view" destination="1" id="2"/>
@@ -23,7 +24,7 @@
             <rect key="frame" x="0.0" y="0.0" width="650" height="549"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <box autoresizesSubviews="NO" borderType="line" title="Restart exam button" translatesAutoresizingMaskIntoConstraints="NO" id="czI-08-Q8k">
+                <box autoresizesSubviews="NO" verticalHuggingPriority="750" borderType="line" title="Restart exam button" translatesAutoresizingMaskIntoConstraints="NO" id="czI-08-Q8k">
                     <rect key="frame" x="17" y="16" width="616" height="198"/>
                     <view key="contentView" id="LLt-mf-jhD">
                         <rect key="frame" x="1" y="1" width="614" height="179"/>
@@ -45,7 +46,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <action selector="generateBrowserExamKey:" target="-2" id="VTm-Oo-6qz"/>
+                                    <action selector="generateKeys:" target="-2" id="VTm-Oo-6qz"/>
                                     <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_restartExamURL" id="b5R-hF-LwF">
                                         <dictionary key="options">
                                             <bool key="NSContinuouslyUpdatesValue" value="YES"/>
@@ -79,7 +80,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <action selector="generateBrowserExamKey:" target="-2" id="QUs-iy-yvv"/>
+                                    <action selector="generateKeys:" target="-2" id="QUs-iy-yvv"/>
                                     <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_restartExamText" id="1iF-CY-mCC">
                                         <dictionary key="options">
                                             <bool key="NSContinuouslyUpdatesValue" value="YES"/>
@@ -96,7 +97,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="restartExamPasswordProtected:" target="-2" id="Znf-Ar-PBb"/>
+                                    <action selector="generateKeys:" target="-2" id="Znf-Ar-PBb"/>
                                     <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_restartExamPasswordProtected" id="SdW-dA-oJt"/>
                                 </connections>
                             </button>
@@ -107,7 +108,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="restartExamUseStartURL:" target="-2" id="pKj-u6-3x1"/>
+                                    <action selector="generateKeys:" target="-2" id="pKj-u6-3x1"/>
                                     <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_restartExamUseStartURL" id="g9n-vv-NdM"/>
                                 </connections>
                             </button>
@@ -156,11 +157,8 @@
                                 </connections>
                             </textField>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="20">
-                                <rect key="frame" x="31" y="13" width="314" height="18"/>
+                                <rect key="frame" x="289" y="167" width="314" height="18"/>
                                 <string key="toolTip">SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB</string>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="12" id="aQ7-cr-7uB"/>
-                                </constraints>
                                 <buttonCell key="cell" type="check" title="Copy Browser Exam Key to clipboard when quitting SEB" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="21">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
@@ -171,10 +169,10 @@
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="32">
-                                <rect key="frame" x="11" y="38" width="592" height="28"/>
+                                <rect key="frame" x="11" y="111" width="592" height="28"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="33">
                                     <font key="font" metaFont="smallSystem"/>
-                                    <string key="title">Copy this key (which depends on your SEB configuration) to the according field in your quiz settings in the exam system having support for SEB 2.0 or later built in.</string>
+                                    <string key="title">Copy this key (which depends on your SEB configuration and the code signature of the SEB app) to the according field in your quiz settings in the exam system having support for SEB 2.0 or later built in.</string>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -187,27 +185,74 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="useBrowserExamKey:" target="-2" id="o1S-k5-Q8b"/>
+                                    <action selector="generateKeys:" target="-2" id="o1S-k5-Q8b"/>
                                     <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="l9a-kt-cqh"/>
                                 </connections>
                             </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ohm-vb-HPc">
+                                <rect key="frame" x="11" y="167" width="116" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Browser Exam Key" id="iVS-rH-hVZ">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vag-ov-ItE">
+                                <rect key="frame" x="13" y="60" width="588" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="588" id="47I-ok-kSA"/>
+                                    <constraint firstAttribute="height" constant="22" id="mCN-dD-gmB"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="mKG-6W-fqf">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="211" name="enabled" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="9oy-rL-DKw"/>
+                                </connections>
+                            </textField>
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ptt-EJ-rsQ">
+                                <rect key="frame" x="11" y="12" width="565" height="42"/>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="K70-6q-gBR">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <string key="title">Copy this key (which depends on your SEB configuration) to the according field in your quiz settings in the exam system having support for SEB for macOS 2.1.3 or later built in. The Config Key might be automatically generated by your exam system (see its documentation).</string>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LZ0-8d-pGk">
+                                <rect key="frame" x="11" y="84" width="70" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Config Key" id="EOJ-6z-4oM">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="20" secondAttribute="bottom" constant="16" id="Gvu-JN-w8d"/>
+                            <constraint firstItem="14" firstAttribute="top" secondItem="Ohm-vb-HPc" secondAttribute="bottom" constant="2" id="2Hs-3M-Svw"/>
+                            <constraint firstItem="20" firstAttribute="trailing" secondItem="14" secondAttribute="trailing" id="7Ai-f7-11s"/>
+                            <constraint firstItem="Ohm-vb-HPc" firstAttribute="top" secondItem="3dP-gi-x4W" secondAttribute="bottom" constant="10" id="DQ5-D8-s83"/>
+                            <constraint firstItem="LZ0-8d-pGk" firstAttribute="leading" secondItem="Vag-ov-ItE" secondAttribute="leading" id="Jah-th-YSl"/>
+                            <constraint firstItem="Vag-ov-ItE" firstAttribute="leading" secondItem="ptt-EJ-rsQ" secondAttribute="leading" id="Jcp-uY-fv1"/>
+                            <constraint firstItem="LZ0-8d-pGk" firstAttribute="top" secondItem="32" secondAttribute="bottom" constant="10" id="Pbe-3p-MPR"/>
                             <constraint firstItem="3dP-gi-x4W" firstAttribute="top" secondItem="25R-Li-36g" secondAttribute="top" constant="11" id="Px3-CR-eU3"/>
-                            <constraint firstItem="14" firstAttribute="top" secondItem="3dP-gi-x4W" secondAttribute="bottom" constant="11" id="YeQ-nn-8J9"/>
+                            <constraint firstItem="Vag-ov-ItE" firstAttribute="top" secondItem="LZ0-8d-pGk" secondAttribute="bottom" constant="2" id="U7y-T1-1dF"/>
+                            <constraint firstItem="32" firstAttribute="top" secondItem="14" secondAttribute="bottom" constant="4" id="Uyy-nk-mMs"/>
+                            <constraint firstItem="20" firstAttribute="trailing" secondItem="14" secondAttribute="trailing" id="dbY-Dd-ea9"/>
                             <constraint firstItem="3dP-gi-x4W" firstAttribute="leading" secondItem="25R-Li-36g" secondAttribute="leading" constant="13" id="gk1-6U-Dyc"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3dP-gi-x4W" secondAttribute="trailing" constant="11" id="iqc-ld-yDO"/>
+                            <constraint firstItem="Ohm-vb-HPc" firstAttribute="leading" secondItem="3dP-gi-x4W" secondAttribute="leading" id="pEn-s8-LfN"/>
+                            <constraint firstItem="20" firstAttribute="centerY" secondItem="Ohm-vb-HPc" secondAttribute="centerY" id="tOU-9X-RMC"/>
+                            <constraint firstItem="32" firstAttribute="leading" secondItem="LZ0-8d-pGk" secondAttribute="leading" id="u0x-xZ-Apj"/>
+                            <constraint firstItem="ptt-EJ-rsQ" firstAttribute="top" secondItem="Vag-ov-ItE" secondAttribute="bottom" constant="6" id="ymf-sw-8AP"/>
                         </constraints>
                     </view>
                     <constraints>
-                        <constraint firstItem="20" firstAttribute="top" secondItem="32" secondAttribute="bottom" constant="10" id="2PV-oe-qy7"/>
-                        <constraint firstItem="32" firstAttribute="top" secondItem="14" secondAttribute="bottom" constant="8" id="7oI-ZV-vnb"/>
                         <constraint firstItem="14" firstAttribute="leading" secondItem="57Q-JV-oaf" secondAttribute="leading" constant="11" id="GPF-rq-yuN"/>
                         <constraint firstAttribute="trailing" secondItem="32" secondAttribute="trailing" constant="11" id="WD8-oD-c7x"/>
                         <constraint firstAttribute="trailing" secondItem="14" secondAttribute="trailing" constant="11" id="aeg-uf-Fq2"/>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="20" secondAttribute="trailing" constant="11" id="cVU-sE-DOO"/>
-                        <constraint firstItem="20" firstAttribute="leading" secondItem="57Q-JV-oaf" secondAttribute="leading" constant="32" id="och-KK-EmP"/>
                         <constraint firstItem="32" firstAttribute="leading" secondItem="57Q-JV-oaf" secondAttribute="leading" constant="11" id="x9E-AL-pqa"/>
                     </constraints>
                     <font key="titleFont" metaFont="system"/>
@@ -226,7 +271,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <action selector="generateBrowserExamKey:" target="-2" id="NcY-v5-XrC"/>
+                                    <action selector="generateKeys:" target="-2" id="NcY-v5-XrC"/>
                                     <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_quitURL" id="Ymc-lh-u1g">
                                         <dictionary key="options">
                                             <bool key="NSContinuouslyUpdatesValue" value="YES"/>
@@ -286,7 +331,7 @@
                 <constraint firstItem="26k-Q1-RaL" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="N3J-CS-yEh"/>
                 <constraint firstAttribute="trailing" secondItem="czI-08-Q8k" secondAttribute="trailing" constant="20" id="ruI-x9-QmF"/>
                 <constraint firstAttribute="trailing" secondItem="57Q-JV-oaf" secondAttribute="trailing" constant="20" id="xRI-qy-fkv"/>
-                <constraint firstItem="57Q-JV-oaf" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" id="xsc-X4-PkJ"/>
+                <constraint firstItem="57Q-JV-oaf" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" symbolic="YES" id="xsc-X4-PkJ"/>
                 <constraint firstItem="czI-08-Q8k" firstAttribute="top" secondItem="26k-Q1-RaL" secondAttribute="bottom" constant="20" id="yeN-9B-htr"/>
                 <constraint firstItem="57Q-JV-oaf" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="z8m-iy-5fY"/>
                 <constraint firstItem="czI-08-Q8k" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="zNt-7I-Ywp"/>

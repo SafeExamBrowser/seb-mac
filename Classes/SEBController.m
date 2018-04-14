@@ -92,7 +92,7 @@ io_connect_t  root_port; // a reference to the Root Power Domain IOService
 
 OSStatus MyHotKeyHandler(EventHandlerCallRef nextHandler,EventRef theEvent,id sender);
 void MySleepCallBack(void * refCon, io_service_t service, natural_t messageType, void * messageArgument);
-bool insideMatrix();
+bool insideMatrix(void);
 
 @implementation SEBController
 

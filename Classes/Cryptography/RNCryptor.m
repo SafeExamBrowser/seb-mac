@@ -28,6 +28,8 @@
 #import "RNCryptor+Private.h"
 #import <Security/SecRandom.h>
 #import <fcntl.h>
+//int SecRandomCopyBytes(SecRandomRef __nullable rnd, size_t count, void *bytes)
+//__attribute__ ((warn_unused_result))
 
 extern int SecRandomCopyBytes(SecRandomRef rnd, size_t count, void *bytes) __attribute__((weak_import));
 extern int
@@ -333,6 +335,7 @@ RN_CCKeyDerivationPBKDF( CCPBKDFAlgorithm algorithm, const char *password, size_
  *
  * @APPLE_LICENSE_HEADER_END@
  */
+/*
 static int RN_SecRandomCopyBytes(void *rnd, size_t count, uint8_t *bytes) {
   static int kSecRandomFD;
   static dispatch_once_t onceToken;
@@ -358,6 +361,7 @@ static int RN_SecRandomCopyBytes(void *rnd, size_t count, uint8_t *bytes) {
 
 	return 0;
 }
+ */
 /* End code dervied from SecFramework.c */
 
 + (NSData *)randomDataOfLength:(size_t)length
@@ -365,12 +369,12 @@ static int RN_SecRandomCopyBytes(void *rnd, size_t count, uint8_t *bytes) {
   NSMutableData *data = [NSMutableData dataWithLength:length];
 
   int result;
-  if (SecRandomCopyBytes != NULL) {
+    if (&SecRandomCopyBytes != NULL) {
     result = SecRandomCopyBytes(NULL, length, data.mutableBytes);
   }
-  else {
-    result = RN_SecRandomCopyBytes(NULL, length, data.mutableBytes);
-  }
+//  else {
+//    result = RN_SecRandomCopyBytes(NULL, length, data.mutableBytes);
+//  }
   NSAssert(result == 0, @"Unable to generate random bytes: %d", errno);
 
   return data;

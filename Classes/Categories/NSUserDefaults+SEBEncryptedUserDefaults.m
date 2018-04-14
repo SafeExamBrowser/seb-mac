@@ -235,11 +235,10 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_browserWindowAllowReload",
                                  [NSNumber numberWithLong:manuallyWithFileRequester],
                                  @"org_safeexambrowser_SEB_chooseFileToUploadPolicy",
+                                 [NSData data],
+                                 @"org_safeexambrowser_SEB_configKeySalt",
                                  @YES,
                                  @"org_safeexambrowser_SEB_createNewDesktop",
-//                                 [NSData data], // public key hash of cryptoIdentity selected/used for encryption 
-//                                 @"org_safeexambrowser_SEB_cryptoIdentity",
-                                 //@"~/Downloads",
                                  @YES,
                                  @"org_safeexambrowser_SEB_downloadAndOpenSebConfig",
                                  [NSHomeDirectory() stringByAppendingPathComponent: @"Downloads"],
@@ -268,8 +267,6 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_enableSebBrowser",
                                  @false,
                                  @"org_safeexambrowser_SEB_enableTouchExit",
-                                 [NSArray array],
-                                 @"org_safeexambrowser_SEB_examConfigKeyContainedKeys",
                                  [NSData data],
                                  @"org_safeexambrowser_SEB_examKeySalt",
                                  [NSNumber numberWithLong:2],
@@ -530,6 +527,8 @@ static NSNumber *_logLevel;
                                  @"org_safeexambrowser_SEB_zoomMode",
                                  [NSNumber numberWithLong:0],
                                  @"org_safeexambrowser_browserUserAgentEnvironment",
+                                 [NSDictionary dictionary],
+                                 @"org_safeexambrowser_configKeyContainedKeys",
                                  @NO,
                                  @"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting",
                                  @YES,
@@ -971,7 +970,6 @@ static NSNumber *_logLevel;
             }
             
         }
-        //[[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults];
     }
     if ([key isEqualToString:@"org_safeexambrowser_SEB_logLevel"]) {
         _logLevel = value;
