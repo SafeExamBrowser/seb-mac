@@ -1318,9 +1318,9 @@
         </header>
         <body>
             <trans-unit id="2Rr-y4-nE8.ibShadowedToolTip">
-                <source>Full URL (starting with http:// or https://) of the page to open when the Restart exam button is pressed</source>
-                <target>Komplette URL (beginnend mit http:// oder https://) der Seite, die durch die Neustart-Taste geöffnet werden soll</target>
-                <note>Class = "NSTextField"; ibShadowedToolTip = "Full URL (starting with http:// or https://) of the page to open when the Restart exam button is pressed"; ObjectID = "2Rr-y4-nE8";</note>
+                <source>Full URL (starting with http:// or https://) of the page to open when the Back to Start Button is pressed</source>
+                <target>Komplette URL (beginnend mit http:// oder https://) der Seite, die durch die "Zurück zum Start"-Taste geöffnet werden soll</target>
+                <note>Class = "NSTextField"; ibShadowedToolTip = "Full URL (starting with http:// or https://) of the page to open when the Back to Start Button is pressed"; ObjectID = "2Rr-y4-nE8";</note>
             </trans-unit>
             <trans-unit id="3dP-gi-x4W.ibShadowedToolTip">
                 <source>When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system</source>
@@ -1328,9 +1328,9 @@
                 <note>Class = "NSButton"; ibShadowedToolTip = "When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system"; ObjectID = "3dP-gi-x4W";</note>
             </trans-unit>
             <trans-unit id="5SR-dU-gy3.title">
-                <source>Protect restart exam button with the quit/unlock password</source>
-                <target>Neustart-Taste mittels des Neustart-/Beenden-Passworts schützen</target>
-                <note>Class = "NSButtonCell"; title = "Protect restart exam button with the quit/unlock password"; ObjectID = "5SR-dU-gy3";</note>
+                <source>Protect Back to Start Button with the quit/unlock password</source>
+                <target>"Zurück zum Start"-Taste mittels des Neustart-/Beenden-Passworts schützen</target>
+                <note>Class = "NSButtonCell"; title = "Protect Back to Start Button with the quit/unlock password"; ObjectID = "5SR-dU-gy3";</note>
             </trans-unit>
             <trans-unit id="20.ibShadowedToolTip">
                 <source>SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB</source>
@@ -1373,9 +1373,9 @@
                 <note>Class = "NSTextFieldCell"; placeholderString = "URL starting with http:// or https://"; ObjectID = "689";</note>
             </trans-unit>
             <trans-unit id="Qei-df-hVI.ibShadowedToolTip">
-                <source>This text is displayed as the title of the password entering/confirming dialog window and tooltip for the restart exam button</source>
-                <target>Dieser Text wird als Titel des Passwort-/Bestätigungs-Dialogs und als Tooltip für die Neustart-Taste angezeigt</target>
-                <note>Class = "NSTextField"; ibShadowedToolTip = "This text is displayed as the title of the password entering/confirming dialog window and tooltip for the restart exam button"; ObjectID = "Qei-df-hVI";</note>
+                <source>This text is displayed as the title of the password entering/confirming dialog window and tooltip for the Back to Start Button</source>
+                <target>Dieser Text wird als Titel des Passwort-/Bestätigungs-Dialogs und als Tooltip für die "Zurück zum Start"-Taste angezeigt</target>
+                <note>Class = "NSTextField"; ibShadowedToolTip = "This text is displayed as the title of the password entering/confirming dialog window and tooltip for the Back to Start Button"; ObjectID = "Qei-df-hVI";</note>
             </trans-unit>
             <trans-unit id="Rln-rP-DrR.title">
                 <source>Use Start URL (see General pane)</source>
@@ -1383,9 +1383,9 @@
                 <note>Class = "NSButtonCell"; title = "Use Start URL (see General pane)"; ObjectID = "Rln-rP-DrR";</note>
             </trans-unit>
             <trans-unit id="bGJ-Qs-OiP.title">
-                <source>Enter restart link or select "Use Start URL" to display the restart exam button in the SEB taskbar.</source>
-                <target>Neustart-Link eingeben oder 'Start-URL benutzen' auswählen, um die Neustart-Taste im SEB-Dock anzuzeigen.</target>
-                <note>Class = "NSTextFieldCell"; title = "Enter restart link or select \"Use Start URL\" to display the restart exam button in the SEB taskbar."; ObjectID = "bGJ-Qs-OiP";</note>
+                <source>Enter restart link or select "Use Start URL" to display the Back to Start Button in the SEB taskbar.</source>
+                <target>Neustart-Link eingeben oder 'Start-URL benutzen' auswählen, um die "Zurück zum Start"-Taste im SEB-Dock anzuzeigen.</target>
+                <note>Class = "NSTextFieldCell"; title = "Enter restart link or select \"Use Start URL\" to display the Back to Start Button in the SEB taskbar."; ObjectID = "bGJ-Qs-OiP";</note>
             </trans-unit>
             <trans-unit id="bTx-tu-6Av.placeholderString">
                 <source>URL starting with http:// or https://</source>
@@ -1393,9 +1393,9 @@
                 <note>Class = "NSTextFieldCell"; placeholderString = "URL starting with http:// or https://"; ObjectID = "bTx-tu-6Av";</note>
             </trans-unit>
             <trans-unit id="czI-08-Q8k.title">
-                <source>Restart exam button</source>
-                <target>Neustart-Taste</target>
-                <note>Class = "NSBox"; title = "Restart exam button"; ObjectID = "czI-08-Q8k";</note>
+                <source>Back to Start Button</source>
+                <target>"Zurück zum Start"-Taste</target>
+                <note>Class = "NSBox"; title = "Back to Start Button"; ObjectID = "czI-08-Q8k";</note>
             </trans-unit>
             <trans-unit id="gk0-kD-QIq.title">
                 <source>Use Browser Exam Key (send in HTTP header)</source>
@@ -1403,13 +1403,13 @@
                 <note>Class = "NSButtonCell"; title = "Use Browser Exam Key (send in HTTP header)"; ObjectID = "gk0-kD-QIq";</note>
             </trans-unit>
             <trans-unit id="oJT-BY-ezv.ibShadowedToolTip">
-                <source>Require to enter the quit/unlock password when the restart exam button is pressed</source>
-                <target>Eingabe des Beenden-/Neustart-Passworts verlangen, wenn die Neustart-Taste gedrückt wird</target>
-                <note>Class = "NSButton"; ibShadowedToolTip = "Require to enter the quit/unlock password when the restart exam button is pressed"; ObjectID = "oJT-BY-ezv";</note>
+                <source>Require to enter the quit/unlock password when the Back to Start Button is pressed</source>
+                <target>Eingabe des Beenden-/Neustart-Passworts verlangen, wenn die "Zurück zum Start"-Taste gedrückt wird</target>
+                <note>Class = "NSButton"; ibShadowedToolTip = "Require to enter the quit/unlock password when the Back to Start Button is pressed"; ObjectID = "oJT-BY-ezv";</note>
             </trans-unit>
             <trans-unit id="pdT-tX-Sdp.title">
                 <source>Dialog title/tool tip text of the restart button (leave empty for localized standard text)</source>
-                <target>Dialogtitel/Tooltip für Neustart-Taste (leer lassen für lokalisierten Standardtext).</target>
+                <target>Dialogtitel/Tooltip für "Zurück zum Start"-Taste (leer lassen für lokalisierten Standardtext).</target>
                 <note>Class = "NSTextFieldCell"; title = "Dialog title/tool tip text of the restart button (leave empty for localized standard text)"; ObjectID = "pdT-tX-Sdp";</note>
             </trans-unit>
             <trans-unit id="sY9-Fu-u2Z.placeholderString">
@@ -1418,9 +1418,9 @@
                 <note>Class = "NSTextFieldCell"; placeholderString = "Restart Exam"; ObjectID = "sY9-Fu-u2Z";</note>
             </trans-unit>
             <trans-unit id="ujx-Tz-w75.ibShadowedToolTip">
-                <source>The restart exam button reloads the exam's Start URL</source>
-                <target>Die Neustart-Taste öffnet erneut die Start-URL der Prüfung</target>
-                <note>Class = "NSButton"; ibShadowedToolTip = "The restart exam button reloads the exam's Start URL"; ObjectID = "ujx-Tz-w75";</note>
+                <source>The Back to Start Button reloads the exam's Start URL</source>
+                <target>Die "Zurück zum Start"-Taste öffnet erneut die Start-URL der Prüfung</target>
+                <note>Class = "NSButton"; ibShadowedToolTip = "The Back to Start Button reloads the exam's Start URL"; ObjectID = "ujx-Tz-w75";</note>
             </trans-unit>
         </body>
     </file>
@@ -1435,9 +1435,9 @@
                 <note>Class = "NSSecureTextField"; ibShadowedToolTip = "Retype the administrator password"; ObjectID = "78";</note>
             </trans-unit>
             <trans-unit id="79.ibShadowedToolTip">
-                <source>This password is prompted when users try to quit SEB and when the restart exam button is pressed. Not prompted when using a quit link</source>
+                <source>This password is prompted when users try to quit SEB and when the Back to Start Button is pressed. Not prompted when using a quit link</source>
                 <target>Dieses Passwort wird abgefragt, wenn Benutzer SEB mittels Cmd-Q (Befehl-Q), Fenster-Schliessen- und Beenden-Taste beenden wollen. Das Passwort wird nicht abgefragt, wenn ein Quit-Link verwendet wird.</target>
-                <note>Class = "NSSecureTextField"; ibShadowedToolTip = "This password is prompted when users try to quit SEB and when the restart exam button is pressed. Not prompted when using a quit link"; ObjectID = "79";</note>
+                <note>Class = "NSSecureTextField"; ibShadowedToolTip = "This password is prompted when users try to quit SEB and when the Back to Start Button is pressed. Not prompted when using a quit link"; ObjectID = "79";</note>
             </trans-unit>
             <trans-unit id="83.ibShadowedToolTip">
                 <source>Retype the quit password</source>
