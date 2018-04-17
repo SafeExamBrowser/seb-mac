@@ -45,7 +45,7 @@
 #include "CGSPrivate.h"
 
 
-WindowRef FrontWindow();
+WindowRef FrontWindow(void);
 void DisposeWindow (
                     WindowRef window
                     );

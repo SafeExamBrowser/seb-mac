@@ -224,24 +224,26 @@
 
 - (void) setPartsForExpression:(NSString *)expression
 {
-    SEBURLFilterExpression *expressionURL;
-    BOOL selectionRegex = [[filterArrayController valueForKeyPath:@"selection.regex"] boolValue];
-    if (selectionRegex == NO) {
-        expressionURL = [SEBURLFilterExpression filterExpressionWithString:expression];
-    }
-    scheme.stringValue = expressionURL.scheme ? expressionURL.scheme : @"";
-    user.stringValue = expressionURL.user ? expressionURL.user : @"";
-    password.stringValue = expressionURL.password ? expressionURL.password : @"";
-    host.stringValue = expressionURL.host ? expressionURL.host : @"";
-//    port.stringValue = expressionURL.port ? expressionURL.port.stringValue : @"";
-    self.expressionPort = expressionURL.port ? expressionURL.port.stringValue : @"";
-    NSString *trimmedExpressionPath = [expressionURL.path stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
-    path.stringValue = trimmedExpressionPath ? trimmedExpressionPath : @"";
-    query.stringValue = expressionURL.query ? expressionURL.query : @"";
-    fragment.stringValue = expressionURL.fragment ? expressionURL.fragment : @"";
-    
-    // Update filter rules
-    [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        SEBURLFilterExpression *expressionURL;
+        BOOL selectionRegex = [[filterArrayController valueForKeyPath:@"selection.regex"] boolValue];
+        if (selectionRegex == NO) {
+            expressionURL = [SEBURLFilterExpression filterExpressionWithString:expression];
+        }
+        scheme.stringValue = expressionURL.scheme ? expressionURL.scheme : @"";
+        user.stringValue = expressionURL.user ? expressionURL.user : @"";
+        password.stringValue = expressionURL.password ? expressionURL.password : @"";
+        host.stringValue = expressionURL.host ? expressionURL.host : @"";
+        //    port.stringValue = expressionURL.port ? expressionURL.port.stringValue : @"";
+        self.expressionPort = expressionURL.port ? expressionURL.port.stringValue : @"";
+        NSString *trimmedExpressionPath = [expressionURL.path stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+        path.stringValue = trimmedExpressionPath ? trimmedExpressionPath : @"";
+        query.stringValue = expressionURL.query ? expressionURL.query : @"";
+        fragment.stringValue = expressionURL.fragment ? expressionURL.fragment : @"";
+        
+        // Update filter rules
+        [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
+    });
 }
 
 
@@ -255,7 +257,14 @@
     NSString *trimmedQuery = [query.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" /?#"]];
     NSString *trimmedFragment = [fragment.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" /?#"]];
     
-    return [[SEBURLFilterExpression alloc] initWithScheme:trimmedScheme user:trimmedUser password:trimmedPassword host:trimmedHost port:@([self.expressionPort intValue]) path:trimmedPath query:trimmedQuery fragment:trimmedFragment];
+    return [[SEBURLFilterExpression alloc] initWithScheme:trimmedScheme
+                                                     user:trimmedUser
+                                                 password:trimmedPassword
+                                                     host:trimmedHost
+                                                     port:@([self.expressionPort intValue])
+                                                     path:trimmedPath
+                                                    query:trimmedQuery
+                                                 fragment:trimmedFragment];
 }
 
 

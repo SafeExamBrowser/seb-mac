@@ -38,9 +38,10 @@
 #import "MBPreferencesController.h"
 
 @interface PrefsExamViewController : NSViewController <MBPreferencesModule, NSTextFieldDelegate> {
-    IBOutlet NSTextField *examKey;
+    IBOutlet NSTextField *examKeyTextField;
+    IBOutlet NSTextField *configKeyTextField;
     __weak IBOutlet NSButton *copyBEKToClipboard;
-	IBOutlet NSTextField *quitURL;
+    IBOutlet NSTextField *quitURL;
     __weak IBOutlet NSTextField *restartExamURLTextField;
 
     IBOutlet NSObjectController *controller;
@@ -48,10 +49,10 @@
     @private
 }
 
-@property (strong, nonatomic) IBOutlet NSTextField *examKey;
+@property (strong, nonatomic) IBOutlet NSTextField *examKeyTextField;
 
 - (BOOL) usingPrivateDefaults;
-- (IBAction) generateBrowserExamKey:(id)sender;
+- (IBAction) generateKeys:(id)sender;
 - (IBAction) restartExamUseStartURL:(NSButton *)sender;
 - (IBAction) restartExamPasswordProtected:(id)sender;
 - (void) displayBrowserExamKey;

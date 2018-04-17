@@ -92,7 +92,7 @@ io_connect_t  root_port; // a reference to the Root Power Domain IOService
 
 OSStatus MyHotKeyHandler(EventHandlerCallRef nextHandler,EventRef theEvent,id sender);
 void MySleepCallBack(void * refCon, io_service_t service, natural_t messageType, void * messageArgument);
-bool insideMatrix();
+bool insideMatrix(void);
 
 @implementation SEBController
 
@@ -544,23 +544,23 @@ bool insideMatrix();
                                                  name:@"preferencesClosedRestartSEB" object:nil];
     // Add an observer for the notification that a screen sharing session become active
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(switchHandler:)
+                                             selector:@selector(lockSEB:)
                                                  name:@"detectedScreenSharing" object:nil];
     // Add an observer for the notification that a screen sharing session become active
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(switchHandler:)
+                                             selector:@selector(lockSEB:)
                                                  name:@"detectedSiri" object:nil];
     // Add an observer for the notification that a screen sharing session become active
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(switchHandler:)
+                                             selector:@selector(lockSEB:)
                                                  name:@"detectedDictation" object:nil];
     // Add an observer for the notification that a screen sharing session become active
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(switchHandler:)
+                                             selector:@selector(lockSEB:)
                                                  name:@"detectedProhibitedProcess" object:nil];
     _runningProhibitedProcesses = [NSMutableArray new];
     _terminatedProcessesExecutableURLs = [NSMutableArray new];
-    [self forceTerminatePanelApps];
+    [self windowWatcher];
 
 // Prevent display sleep
 #ifndef DEBUG
@@ -683,13 +683,13 @@ bool insideMatrix();
 
     [[[NSWorkspace sharedWorkspace] notificationCenter]
      addObserver:self
-     selector:@selector(switchHandler:)
+     selector:@selector(lockSEB:)
      name:NSWorkspaceSessionDidBecomeActiveNotification
      object:nil];
     
     [[[NSWorkspace sharedWorkspace] notificationCenter]
      addObserver:self
-     selector:@selector(switchHandler:)
+     selector:@selector(lockSEB:)
      name:NSWorkspaceSessionDidResignActiveNotification
      object:nil];
 
@@ -704,8 +704,9 @@ bool insideMatrix();
         CGEventTapEnable(leftMouseEventTap, true);
     }
 
+    [self startProcessWatcher];
     [self startWindowWatcher];
-    
+
     if (!_openingSettings)
     {
         // Get all running processes, including daemons
@@ -1122,29 +1123,48 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     return timer;
 }
 
+
+// Start the process watcher if it's not yet running
+- (void)startProcessWatcher
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+    
+    if (!_processWatchTimer) {
+        _processWatchTimer = CreateDispatchTimer(0.25 * NSEC_PER_SEC, (0.25 * NSEC_PER_SEC) / 10, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self processWatcher];
+        });
+    }
+}
+
+
+// Start the process watcher if it's not yet running
+- (void)stopProcessWatcher
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+    
+    if (_processWatchTimer) {
+        dispatch_source_cancel(_processWatchTimer);
+        _processWatchTimer = 0;
+    }
+}
+
+
 // Start the windows watcher if it's not yet running
 - (void)startWindowWatcher
 {
     DDLogDebug(@"%s", __FUNCTION__);
     
     if (!_windowWatchTimer) {
-//        NSDate *dateNextMinute = [NSDate date];
-//
-//        _windowWatchTimer = [[NSTimer alloc] initWithFireDate: dateNextMinute
-//                                                     interval: 0.25
-//                                                       target: self
-//                                                     selector:@selector(forceTerminatePanelApps)
-//                                                     userInfo:nil repeats:YES];
-//
-//        NSRunLoop *currentRunLoop = [NSRunLoop loop currentRunLoop];
-//        [currentRunLoop addTimer:_windowWatchTimer forMode: NSRunLoopCommonModes];
-
-        _windowWatchTimer = CreateDispatchTimer(0.25 * NSEC_PER_SEC, (0.25 * NSEC_PER_SEC) / 10, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            // Repeating task
-            [self forceTerminatePanelApps];
-        });
-
-
+        NSDate *dateNextMinute = [NSDate date];
+        
+        _windowWatchTimer = [[NSTimer alloc] initWithFireDate: dateNextMinute
+                                                     interval: 0.25
+                                                       target: self
+                                                     selector:@selector(windowWatcher)
+                                                     userInfo:nil repeats:YES];
+        
+        NSRunLoop *currentRunLoop = [NSRunLoop currentRunLoop];
+        [currentRunLoop addTimer:_windowWatchTimer forMode: NSRunLoopCommonModes];
     }
 }
 
@@ -1155,15 +1175,51 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     DDLogDebug(@"%s", __FUNCTION__);
     
     if (_windowWatchTimer) {
-        dispatch_source_cancel(_windowWatchTimer);
-//        [_windowWatchTimer invalidate];
-        _windowWatchTimer = 0;
+        [_windowWatchTimer invalidate];
+        _windowWatchTimer = nil;
     }
 }
 
 
-- (void)forceTerminatePanelApps
+-(void)processWatcher
 {
+    if (checkingRunningProcesses) {
+        DDLogDebug(@"Check for prohibited processes still ongoing, return");
+        return;
+    }
+    checkingRunningProcesses = true;
+    
+    // Check if not allowed/prohibited processes was activated
+    // Get all running processes, including daemons
+    NSArray *allRunningProcesses = [self getProcessArray];
+    self.runningProcesses = allRunningProcesses;
+    
+    // Check for font download process
+    if ([allRunningProcesses containsObject:fontRegistryUIAgent]) {
+        if (!_allowSwitchToApplications && !fontRegistryUIAgentDisplayed) {
+            fontRegistryUIAgentDisplayed = true;
+            DDLogWarn(@"%@ is running, and most likely opened dialog to ask user if a font used on the current webpage should be downloaded or skipped. SEB is sending an Event Tap for the key Return (Carriage Return) to close that dialog (invoke default button Skip)", fontRegistryUIAgent);
+            CGEventRef event = CGEventCreateKeyboardEvent (NULL, (CGKeyCode)36, true);
+            CGEventPost(kCGSessionEventTap, event);
+            CFRelease(event);
+        }
+    } else {
+        if (fontRegistryUIAgentDisplayed) {
+            fontRegistryUIAgentDisplayed = false;
+            DDLogWarn(@"%@ stopped running", fontRegistryUIAgent);
+        }
+    }
+    checkingRunningProcesses = false;
+}
+
+- (void)windowWatcher
+{
+    if (checkingForWindows) {
+        DDLogDebug(@"Check for prohibited windows still ongoing, return");
+        return;
+    }
+    checkingForWindows = true;
+    
     CGWindowListOption options;
     BOOL firstScan = false;
     BOOL fishyWindowWasOpened = false;
@@ -1181,7 +1237,6 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
         // otherwise only those which are visible (on screen)
         options = kCGWindowListOptionOnScreenOnly; // | kCGWindowListExcludeDesktopElements
     }
-    
     
     NSArray *windowList = CFBridgingRelease(CGWindowListCopyWindowInfo(options, kCGNullWindowID));
     for (NSDictionary *window in windowList) {
@@ -1268,7 +1323,8 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     
     // Check if not allowed/prohibited processes was activated
     // Get all running processes, including daemons
-    NSArray *allRunningProcesses = [self getProcessArray];
+    NSArray *allRunningProcesses = [self.runningProcesses copy];
+    
     // Check for activated screen sharing if settings demand it
     if (!allowScreenSharing && !_screenSharingCheckOverride &&
         ([allRunningProcesses containsObject:screenSharingAgent] ||
@@ -1281,35 +1337,21 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     // Check for activated Siri if settings demand it
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (!_startingUp && !allowSiri && !_siriCheckOverride &&
-        [[preferences valueForDefaultsDomain:SiriDefaultsDomain key:SiriDefaultsKey] boolValue] &&
-        [allRunningProcesses containsObject:SiriService]) {
+        [allRunningProcesses containsObject:SiriService] &&
+        [[preferences valueForDefaultsDomain:SiriDefaultsDomain key:SiriDefaultsKey] boolValue]) {
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedSiri" object:self];
         }
     
     // Check for activated dictation if settings demand it
     if (!_startingUp && !allowDictation && !_dictationCheckOverride &&
-        [[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue] &&
-        [allRunningProcesses containsObject:DictationProcess]) {
+        [allRunningProcesses containsObject:DictationProcess] &&
+        [[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue]) {
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedDictation" object:self];
         }
     
-    // Check for font download process
-    if ([allRunningProcesses containsObject:fontRegistryUIAgent]) {
-        if (!_allowSwitchToApplications && !fontRegistryUIAgentDisplayed) {
-            fontRegistryUIAgentDisplayed = true;
-            DDLogWarn(@"%@ is running, and most likely opened dialog to ask user if a font used on the current webpage should be downloaded or skipped. SEB is sending an Event Tap for the key Return (Carriage Return) to close that dialog (invoke default button Skip)", fontRegistryUIAgent);
-            CGEventRef event = CGEventCreateKeyboardEvent (NULL, (CGKeyCode)36, true);
-            CGEventPost(kCGSessionEventTap, event);
-            CFRelease(event);
-        }
-    } else {
-        if (fontRegistryUIAgentDisplayed) {
-            fontRegistryUIAgentDisplayed = false;
-            DDLogWarn(@"%@ stopped running", fontRegistryUIAgent);
-        }
-    }
+    checkingForWindows = false;
 }
 
 
@@ -3257,8 +3299,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 }
 
 
-/// Handler called when user switch happens
-- (void) switchHandler:(NSNotification*) notification
+/// Handler called when SEB needs to be locked
+- (void) lockSEB:(NSNotification*) notification
 {
     if (!sebLockedViewController.resignActiveLogString) {
         sebLockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
@@ -3300,9 +3342,9 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     }
     
     /// Handler called when screen sharing was detected
-
+    
     else if ([[notification name] isEqualToString:
-                @"detectedScreenSharing"])
+              @"detectedScreenSharing"])
     {
         if (!_screenSharingDetected) {
             _screenSharingDetected = true;
@@ -3310,7 +3352,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             sebLockedViewController.overrideCheckForScreenSharing.hidden = false;
             self.didResignActiveTime = [NSDate date];
             self.didBecomeActiveTime = [NSDate date];
-
+            
             // Set custom alert message string
             [sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Screen Sharing Locked SEB!", @"Lockdown alert title text for screen sharing")
                                                    Message:[NSString stringWithFormat:@"%@\n\n%@",
@@ -3421,7 +3463,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             }
         }
     }
-
+    
     /// Handler called when a prohibited process was detected
     
     else if ([[notification name] isEqualToString:
@@ -3469,6 +3511,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 
 - (void) openInfoHUD:(NSString *)lockedTimeInfo
 {
+    informationHUDLabel.font = [NSFont boldSystemFontOfSize:[NSFont systemFontSize]];
     informationHUDLabel.textColor = [NSColor whiteColor];
     NSMutableString *informationText = [NSMutableString stringWithString:(lockedTimeInfo)];
     
@@ -3579,7 +3622,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     DDLogDebug(@"Success of restoring SC: %hhd", success);
     
     [self stopWindowWatcher];
-    
+    [self stopProcessWatcher];
+
     [_systemManager restoreSystemSettings];
     
     // Restart terminated apps
