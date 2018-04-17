@@ -12,7 +12,8 @@
 
 + (NSDictionary *)defaultSettings
 {
-    return  @{@"rootSettings" : [NSDictionary dictionaryWithObjectsAndKeys:
+    return  @{@"rootSettings" :
+                  [NSDictionary dictionaryWithObjectsAndKeys:
                           
              [NSArray array],
              @"additionalResources",
@@ -20,21 +21,24 @@
              @NO,
              @"allowBrowsingBackForward",
              
-             @NO,
-             @"allowDisplayMirroring",
-             
+                   @NO,
+                   @"allowDictation",
+
              @NO,
              @"allowDictionaryLookup",
              
-             @NO,
-             @"allowDownUploads",
-             
+                   @NO,
+                   @"allowDisplayMirroring",
+
              @YES,
              @"allowedDisplayBuiltin",
              
              [NSNumber numberWithLong:1],
              @"allowedDisplaysMaxNumber",
              
+                   @NO,
+                   @"allowDownUploads",
+                   
              @NO,
              @"allowFlashFullscreen",
              
@@ -50,6 +54,9 @@
              @NO,
              @"allowScreenSharing",
              
+                   @NO,
+                   @"allowSiri",
+                   
              @NO,
              @"allowSpellCheck",
              
@@ -59,7 +66,10 @@
              @YES,
              @"allowUserSwitching",
              
-             @NO,
+                   @NO,
+                   @"allowVideoCapture",
+
+                   @NO,
              @"allowVirtualMachine",
              
              @NO,
@@ -77,7 +87,13 @@
              @NO,
              @"browserScreenKeyboard",
              
-             [NSNumber numberWithLong:browserUserAgentModeMacDefault],
+                   @YES,
+                   @"SEB_browserURLSalt",
+
+                   @"",
+                   @"browserUserAgent",
+
+                   [NSNumber numberWithLong:browserUserAgentModeMacDefault],
              @"browserUserAgentMac",
              
              @"",
@@ -98,20 +114,20 @@
              [NSNumber numberWithLong:browserViewModeWindow],
              @"browserViewMode",
 
-             @NO,
+             @YES,
              @"browserWindowAllowReload",
              
              [NSNumber numberWithLong:manuallyWithFileRequester],
              @"chooseFileToUploadPolicy",
 
+                   [NSDictionary dictionary],
+                   @"configKeyContainedKeys",
+                   
              [NSData data],
              @"configKeySalt",
 
              @YES,
              @"createNewDesktop",
-             
-             [NSDictionary dictionary],
-             @"configKeyContainedKeys",
              
              @YES,
              @"downloadAndOpenSebConfig",
@@ -119,7 +135,7 @@
              [NSHomeDirectory() stringByAppendingPathComponent: @"Downloads"],
              @"downloadDirectoryOSX",
              
-             @"Desktop",
+             @"Downloads",
              @"downloadDirectoryWin",
              
              @NO,
@@ -179,7 +195,7 @@
              @YES,
              @"hookKeys",
              
-             @NO,
+             @YES,
              @"enableEsc",
              
              @NO,
@@ -308,7 +324,10 @@
              @YES,
              @"monitorProcesses",
              
-             @NO,
+                   @YES,
+                   @"newBrowserWindowAllowReload",
+
+                   @NO,
              @"newBrowserWindowByLinkBlockForeign",
              
              @"100%",
@@ -329,7 +348,13 @@
              [NSNumber numberWithLong:openInNewWindow],
              @"newBrowserWindowByScriptPolicy",
              
-             @NO,
+                   @YES,
+                   @"newBrowserWindowNavigation",
+                   
+                   @NO,
+                   @"newBrowserWindowShowReloadWarning",
+
+                   @NO,
              @"openDownloads",
              
              [NSNumber numberWithLong:oskBehaviorAutoShow],
@@ -353,7 +378,7 @@
              @"",
              @"quitURL",
              
-             @YES,
+             @NO,
              @"removeBrowserProfile",
              
              @NO,
@@ -407,7 +432,7 @@
              @YES,
              @"showTime",
              
-             @"http://www.safeexambrowser.org/start",
+             SEBStartPage,
              @"startURL",
              
              [NSNumber numberWithLong:40],
