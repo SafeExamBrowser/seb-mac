@@ -121,6 +121,8 @@
     NSUInteger prohibitedProcessesLogCounter;
     NSModalSession lockdownModalSession;
     NSUInteger lastNumberRunningBSDProcesses;
+    BOOL checkingRunningProcesses;
+    BOOL checkingForWindows;
 }
 
 @property(readwrite) BOOL allowSwitchToApplications;
@@ -139,6 +141,7 @@
 @property(readwrite) BOOL startingUp;
 @property(readwrite) BOOL openingSettings;
 @property(readwrite) BOOL quittingMyself;
+
 @property(weak) SEBWebView *webView;
 @property(strong) NSMutableArray *capWindows;
 @property(strong) NSMutableArray *lockdownWindows;
@@ -153,11 +156,15 @@
 @property(strong) NSDate *didResignActiveTime;
 @property(strong) NSDate *didBecomeActiveTime;
 @property(strong) NSDate *didResumeExamTime;
-//@property(strong) NSTimer *windowWatchTimer;
-@property(readwrite) dispatch_source_t windowWatchTimer;
-@property(strong) NSMutableArray *systemProcessPIDs;
-@property(strong) NSMutableArray *runningProhibitedProcesses;
-@property(strong) NSMutableArray *terminatedProcessesExecutableURLs;
+
+@property(strong, nonatomic) NSTimer *windowWatchTimer;
+@property(readwrite, nonatomic) dispatch_source_t processWatchTimer;
+@property(strong, atomic) NSArray *runningProcesses;
+
+@property(strong, nonatomic) NSMutableArray *systemProcessPIDs;
+@property(strong, nonatomic) NSMutableArray *runningProhibitedProcesses;
+@property(strong, nonatomic) NSMutableArray *terminatedProcessesExecutableURLs;
+
 @property(strong) SEBDockItemButton *dockButtonReload;
 
 
@@ -173,7 +180,9 @@
 - (void) SEBgotActive:(id)sender;
 - (void) startKioskMode;
 
-- (NSInteger) showEnterPasswordDialog:(NSString *)text modalForWindow:(NSWindow *)window windowTitle:(NSString *)title;
+- (NSInteger) showEnterPasswordDialog:(NSString *)text
+                       modalForWindow:(NSWindow *)window
+                          windowTitle:(NSString *)title;
 - (IBAction) okEnterPassword: (id)sender;
 - (IBAction) cancelEnterPassword: (id)sender;
 

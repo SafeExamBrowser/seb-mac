@@ -945,7 +945,7 @@
 - (NSArray *)webView:(SEBWebView *)sender contextMenuItemsForElement:(NSDictionary *)element 
     defaultMenuItems:(NSArray *)defaultMenuItems {
     // disable right-click context menu
-    return NO;
+    return [NSArray array];
 }
 
 
@@ -1254,31 +1254,59 @@ willPerformClientRedirectToURL:(NSURL *)URL
         
         NSMutableURLRequest *modifiedRequest = [request mutableCopy];
         
+        // Browser Exam Key
+        
         NSData *browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
+#ifdef DEBUG
+        DDLogVerbose(@"Current Browser Exam Key: %@", browserExamKey);
+#endif
         unsigned char hashedChars[32];
         [browserExamKey getBytes:hashedChars length:32];
-
-        DDLogVerbose(@"Current Browser Exam Key: %@", browserExamKey);
         
-        NSMutableString* browserExamKeyString = [[NSMutableString alloc] init];
-        [browserExamKeyString setString:requestURLStrippedFragment];
+        NSMutableString* browserExamKeyString = [[NSMutableString alloc] initWithString:requestURLStrippedFragment];
         for (NSUInteger i = 0 ; i < 32 ; ++i) {
             [browserExamKeyString appendFormat: @"%02x", hashedChars[i]];
         }
-        
+#ifdef DEBUG
         DDLogVerbose(@"Current request URL + Browser Exam Key: %@", browserExamKeyString);
-        
+#endif
         const char *urlString = [browserExamKeyString UTF8String];
-        
         CC_SHA256(urlString,
                   (uint)strlen(urlString),
                   hashedChars);
 
-        NSMutableString* hashedString = [[NSMutableString alloc] init];
+        NSMutableString* hashedString = [[NSMutableString alloc] initWithCapacity:32];
         for (NSUInteger i = 0 ; i < 32 ; ++i) {
             [hashedString appendFormat: @"%02x", hashedChars[i]];
         }
         [modifiedRequest setValue:hashedString forHTTPHeaderField:@"X-SafeExamBrowser-RequestHash"];
+
+        // Config Key
+        
+        NSData *configKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
+        [configKey getBytes:hashedChars length:32];
+        
+#ifdef DEBUG
+        DDLogVerbose(@"Current Config Key: %@", configKey);
+#endif
+        
+        NSMutableString* configKeyString = [[NSMutableString alloc] initWithString:requestURLStrippedFragment];
+        for (NSUInteger i = 0 ; i < 32 ; ++i) {
+            [configKeyString appendFormat: @"%02x", hashedChars[i]];
+        }
+#ifdef DEBUG
+        DDLogVerbose(@"Current request URL + Config Key: %@", configKeyString);
+#endif
+        urlString = [configKeyString UTF8String];
+        CC_SHA256(urlString,
+                  (uint)strlen(urlString),
+                  hashedChars);
+        
+        NSMutableString* hashedConfigKeyString = [[NSMutableString alloc] initWithCapacity:32];
+        for (NSUInteger i = 0 ; i < 32 ; ++i) {
+            [hashedConfigKeyString appendFormat: @"%02x", hashedChars[i]];
+        }
+        [modifiedRequest setValue:hashedConfigKeyString forHTTPHeaderField:@"X-SafeExamBrowser-ConfigKeyHash"];
 
         headerFields = [modifiedRequest allHTTPHeaderFields];
         DDLogVerbose(@"All HTTP header fields in modified request: %@", headerFields);

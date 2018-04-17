@@ -423,7 +423,7 @@
         }
     }
     
-    NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+    NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
     NSArray *sortDescriptors = [NSArray arrayWithObject:sortByName];
     NSArray *sortedCertificates = [[NSArray arrayWithArray:certificates] sortedArrayUsingDescriptors:sortDescriptors];
         

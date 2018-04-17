@@ -109,6 +109,8 @@
 		695BE5F519EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 695BE5F319EC3FED00CA2BB4 /* SEBDockItemMenu.m */; };
 		695C5CAD16CB210E008FC401 /* ExamIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAB16CB210E008FC401 /* ExamIcon.png */; };
 		695C5CB016CB210E008FC401 /* ExamIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAC16CB210E008FC401 /* ExamIcon@2x.png */; };
+		695E02FA1F4B15A4004C7611 /* SEBSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 695E02F81F4B15A4004C7611 /* SEBSettings.h */; };
+		695E02FB1F4B15A4004C7611 /* SEBSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 695E02F91F4B15A4004C7611 /* SEBSettings.m */; };
 		69623A2C1A26180E00ED451C /* WebStorageManagerPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 69623A2B1A26180E00ED451C /* WebStorageManagerPrivate.h */; };
 		69623A2E1A26184900ED451C /* WebPreferencesPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 69623A2D1A26184900ED451C /* WebPreferencesPrivate.h */; };
 		69627F901A1A46D000E9F2A8 /* NSURL+SEBURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 69627F8E1A1A46CF00E9F2A8 /* NSURL+SEBURL.h */; };
@@ -533,6 +535,8 @@
 		695BE5F319EC3FED00CA2BB4 /* SEBDockItemMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockItemMenu.m; path = Classes/SEBDock/SEBDockItemMenu.m; sourceTree = "<group>"; };
 		695C5CAB16CB210E008FC401 /* ExamIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ExamIcon.png; path = Resources/Icons/ExamIcon.png; sourceTree = "<group>"; };
 		695C5CAC16CB210E008FC401 /* ExamIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ExamIcon@2x.png"; path = "Resources/Icons/ExamIcon@2x.png"; sourceTree = "<group>"; };
+		695E02F81F4B15A4004C7611 /* SEBSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBSettings.h; sourceTree = "<group>"; };
+		695E02F91F4B15A4004C7611 /* SEBSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBSettings.m; sourceTree = "<group>"; };
 		69623A2B1A26180E00ED451C /* WebStorageManagerPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebStorageManagerPrivate.h; sourceTree = "<group>"; };
 		69623A2D1A26184900ED451C /* WebPreferencesPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebPreferencesPrivate.h; sourceTree = "<group>"; };
 		69627F8E1A1A46CF00E9F2A8 /* NSURL+SEBURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+SEBURL.h"; sourceTree = "<group>"; };
@@ -1186,6 +1190,8 @@
 			children = (
 				69CE9C5B17326AB90011609B /* SEBConfigFileManager.h */,
 				69CE9C5C17326AB90011609B /* SEBConfigFileManager.m */,
+				695E02F81F4B15A4004C7611 /* SEBSettings.h */,
+				695E02F91F4B15A4004C7611 /* SEBSettings.m */,
 			);
 			name = "Config Files";
 			path = Classes/ConfigFiles;
@@ -1546,6 +1552,7 @@
 				6950F4731D89F9AB00CCB42A /* HUDPanel.h in Headers */,
 				69C228141C767B0900F78634 /* ccm.h in Headers */,
 				69C228281C767B0900F78634 /* hmac_drbg.h in Headers */,
+				695E02FA1F4B15A4004C7611 /* SEBSettings.h in Headers */,
 				69C2281A1C767B0900F78634 /* config.h in Headers */,
 				69F9110016CA5C720041EA38 /* PrefsNetworkViewController.h in Headers */,
 				699282E319D0430A00270E86 /* CapWindowController.h in Headers */,
@@ -1700,7 +1707,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0900;
 				TargetAttributes = {
 					69F7B5FA14F411FB00FD0761 = {
 						DevelopmentTeam = 6F38DNSC7X;
@@ -1975,6 +1982,7 @@
 				69C1FFA11D0820E30087A5A1 /* NSColorValueTransformer.m in Sources */,
 				6949A4881D0EF5890040ABF1 /* CacheStoragePolicy.m in Sources */,
 				69C2286A1C767B0900F78634 /* md4.c in Sources */,
+				695E02FB1F4B15A4004C7611 /* SEBSettings.m in Sources */,
 				69C2285B1C767B0900F78634 /* des.c in Sources */,
 				69C228521C767B0900F78634 /* bignum.c in Sources */,
 				69DE764817FC2A9300EE5958 /* PrefsResourcesViewController.m in Sources */,
@@ -2214,12 +2222,18 @@
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -2254,12 +2268,18 @@
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
