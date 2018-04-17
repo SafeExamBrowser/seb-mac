@@ -295,6 +295,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
+                                    <action selector="generateKeys:" target="-2" id="tfd-r0-K5J"/>
                                     <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_quitURLConfirm" id="KbS-z0-hoq"/>
                                 </connections>
                             </button>
