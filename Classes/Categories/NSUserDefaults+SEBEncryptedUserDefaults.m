@@ -134,10 +134,10 @@ static NSNumber *_logLevel;
 // Get value from another application’s preferences
 - (id) valueForDefaultsDomain:(NSString *)domain key:(NSString *)key
 {
-    NSUserDefaults *appUserDefaults = [[NSUserDefaults alloc] init];
-    [appUserDefaults addSuiteNamed:domain];
-    NSDictionary *prefsDict = [appUserDefaults dictionaryRepresentation];
-    return [prefsDict valueForKey:key];
+    [self addSuiteNamed:domain];
+    id value = [self valueForKey:key];
+    [self removeSuiteNamed:domain];
+    return value;
 }
 
 
