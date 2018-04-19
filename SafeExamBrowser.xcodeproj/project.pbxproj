@@ -105,6 +105,8 @@
 		695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */; };
 		695572E51D91EC46003C048A /* NSPasteboard+SaveRestore.h in Headers */ = {isa = PBXBuildFile; fileRef = 695572E31D91EC45003C048A /* NSPasteboard+SaveRestore.h */; };
 		695572E61D91EC46003C048A /* NSPasteboard+SaveRestore.m in Sources */ = {isa = PBXBuildFile; fileRef = 695572E41D91EC45003C048A /* NSPasteboard+SaveRestore.m */; };
+		6956D3512089232C00298E65 /* SEBLockedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6956D34F2089232B00298E65 /* SEBLockedViewController.m */; };
+		6956D3522089232C00298E65 /* SEBLockedViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6956D3502089232C00298E65 /* SEBLockedViewController.h */; };
 		695BE5F419EC3FED00CA2BB4 /* SEBDockItemMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 695BE5F219EC3FED00CA2BB4 /* SEBDockItemMenu.h */; };
 		695BE5F519EC3FED00CA2BB4 /* SEBDockItemMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 695BE5F319EC3FED00CA2BB4 /* SEBDockItemMenu.m */; };
 		695C5CAD16CB210E008FC401 /* ExamIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C5CAB16CB210E008FC401 /* ExamIcon.png */; };
@@ -319,8 +321,8 @@
 		69EA170319FA77A0001E0C51 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69EA170119FA77A0001E0C51 /* Localizable.strings */; };
 		69EC2A3D1BD63B4800790AF7 /* WebViewInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 69EC2A3C1BD63B4800790AF7 /* WebViewInternal.h */; };
 		69EC2A3F1BD6C4FF00790AF7 /* WebPluginDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 69EC2A3E1BD6C4FF00790AF7 /* WebPluginDatabase.h */; };
-		69EDAC1E1BBB476F00A3E6C4 /* SEBLockedViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69EDAC1C1BBB476F00A3E6C4 /* SEBLockedViewController.h */; };
-		69EDAC1F1BBB476F00A3E6C4 /* SEBLockedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69EDAC1D1BBB476F00A3E6C4 /* SEBLockedViewController.m */; };
+		69EDAC1E1BBB476F00A3E6C4 /* SEBOSXLockedViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69EDAC1C1BBB476F00A3E6C4 /* SEBOSXLockedViewController.h */; };
+		69EDAC1F1BBB476F00A3E6C4 /* SEBOSXLockedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69EDAC1D1BBB476F00A3E6C4 /* SEBOSXLockedViewController.m */; };
 		69EFA36A16CB121200E967B4 /* DownUploadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EFA36816CB121200E967B4 /* DownUploadIcon.png */; };
 		69EFA36D16CB121200E967B4 /* DownUploadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EFA36916CB121200E967B4 /* DownUploadIcon@2x.png */; };
 		69F0A3391AD40237008A3553 /* SEBURLProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F0A3371AD40237008A3553 /* SEBURLProtocol.h */; };
@@ -529,6 +531,8 @@
 		695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsSecurityViewController.m; sourceTree = "<group>"; };
 		695572E31D91EC45003C048A /* NSPasteboard+SaveRestore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPasteboard+SaveRestore.h"; sourceTree = "<group>"; };
 		695572E41D91EC45003C048A /* NSPasteboard+SaveRestore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPasteboard+SaveRestore.m"; sourceTree = "<group>"; };
+		6956D34F2089232B00298E65 /* SEBLockedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBLockedViewController.m; sourceTree = "<group>"; };
+		6956D3502089232C00298E65 /* SEBLockedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBLockedViewController.h; sourceTree = "<group>"; };
 		695AE31319FE634300F8C6A5 /* de.xliff */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = de.xliff; sourceTree = "<group>"; };
 		695AE31419FE634300F8C6A5 /* fr.xliff */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fr.xliff; sourceTree = "<group>"; };
 		695BE5F219EC3FED00CA2BB4 /* SEBDockItemMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockItemMenu.h; path = Classes/SEBDock/SEBDockItemMenu.h; sourceTree = "<group>"; };
@@ -769,8 +773,8 @@
 		69E9EA311DB1A2D500C949FE /* NSRunningApplication+SEB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRunningApplication+SEB.m"; sourceTree = "<group>"; };
 		69EC2A3C1BD63B4800790AF7 /* WebViewInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewInternal.h; sourceTree = "<group>"; };
 		69EC2A3E1BD6C4FF00790AF7 /* WebPluginDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebPluginDatabase.h; sourceTree = "<group>"; };
-		69EDAC1C1BBB476F00A3E6C4 /* SEBLockedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBLockedViewController.h; sourceTree = "<group>"; };
-		69EDAC1D1BBB476F00A3E6C4 /* SEBLockedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBLockedViewController.m; sourceTree = "<group>"; };
+		69EDAC1C1BBB476F00A3E6C4 /* SEBOSXLockedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBOSXLockedViewController.h; sourceTree = "<group>"; };
+		69EDAC1D1BBB476F00A3E6C4 /* SEBOSXLockedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBOSXLockedViewController.m; sourceTree = "<group>"; };
 		69EFA36816CB121200E967B4 /* DownUploadIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DownUploadIcon.png; path = Resources/Icons/DownUploadIcon.png; sourceTree = "<group>"; };
 		69EFA36916CB121200E967B4 /* DownUploadIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "DownUploadIcon@2x.png"; path = "Resources/Icons/DownUploadIcon@2x.png"; sourceTree = "<group>"; };
 		69F0A32C1AD3FFDA008A3553 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreferencesGeneral.xib; sourceTree = "<group>"; };
@@ -1176,8 +1180,10 @@
 				699731C318C8D6ED0069FE35 /* CapWindow.m */,
 				699282E119D0430A00270E86 /* CapWindowController.h */,
 				699282E219D0430A00270E86 /* CapWindowController.m */,
-				69EDAC1C1BBB476F00A3E6C4 /* SEBLockedViewController.h */,
-				69EDAC1D1BBB476F00A3E6C4 /* SEBLockedViewController.m */,
+				69EDAC1C1BBB476F00A3E6C4 /* SEBOSXLockedViewController.h */,
+				69EDAC1D1BBB476F00A3E6C4 /* SEBOSXLockedViewController.m */,
+				6956D3502089232C00298E65 /* SEBLockedViewController.h */,
+				6956D34F2089232B00298E65 /* SEBLockedViewController.m */,
 				6950F4711D89F9AB00CCB42A /* HUDPanel.h */,
 				6950F4721D89F9AB00CCB42A /* HUDPanel.m */,
 			);
@@ -1540,6 +1546,7 @@
 				69C228991C7B64DF00F78634 /* SEBCertServices.h in Headers */,
 				6913E5C41A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.h in Headers */,
 				69C228431C767B0900F78634 /* ssl_ticket.h in Headers */,
+				6956D3522089232C00298E65 /* SEBLockedViewController.h in Headers */,
 				69C228361C767B0900F78634 /* pkcs12.h in Headers */,
 				6941A6621BDB8DED0050BF1E /* SEBDockItemTime.h in Headers */,
 				69C228251C767B0900F78634 /* error.h in Headers */,
@@ -1664,7 +1671,7 @@
 				69C2280C1C767B0900F78634 /* arc4.h in Headers */,
 				69627F901A1A46D000E9F2A8 /* NSURL+SEBURL.h in Headers */,
 				6949A4871D0EF5890040ABF1 /* CacheStoragePolicy.h in Headers */,
-				69EDAC1E1BBB476F00A3E6C4 /* SEBLockedViewController.h in Headers */,
+				69EDAC1E1BBB476F00A3E6C4 /* SEBOSXLockedViewController.h in Headers */,
 				69C2283B1C767B0900F78634 /* sha1.h in Headers */,
 				695BE5F419EC3FED00CA2BB4 /* SEBDockItemMenu.h in Headers */,
 				69C228241C767B0900F78634 /* entropy_poll.h in Headers */,
@@ -1927,6 +1934,7 @@
 				69DFAF2E19C468E700CBE69F /* RNCryptor.m in Sources */,
 				69C228901C767B0900F78634 /* x509write_csr.c in Sources */,
 				69C228821C767B0900F78634 /* ssl_cookie.c in Sources */,
+				6956D3512089232C00298E65 /* SEBLockedViewController.m in Sources */,
 				69DFAF3419C468E700CBE69F /* RNEncryptor.m in Sources */,
 				69C228831C767B0900F78634 /* ssl_srv.c in Sources */,
 				69263A9F1A2E0765006F1E31 /* SEBWebView.m in Sources */,
@@ -1974,7 +1982,7 @@
 				69C228631C767B0900F78634 /* entropy_poll.c in Sources */,
 				6949A48A1D0EF5890040ABF1 /* CanonicalRequest.m in Sources */,
 				69C2288A1C767B0900F78634 /* x509.c in Sources */,
-				69EDAC1F1BBB476F00A3E6C4 /* SEBLockedViewController.m in Sources */,
+				69EDAC1F1BBB476F00A3E6C4 /* SEBOSXLockedViewController.m in Sources */,
 				69C228721C767B0900F78634 /* pk.c in Sources */,
 				69C228601C767B0900F78634 /* ecp.c in Sources */,
 				69C228871C767B0900F78634 /* timing.c in Sources */,

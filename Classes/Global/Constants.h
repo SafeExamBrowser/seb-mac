@@ -82,6 +82,15 @@ typedef NSUInteger browserWindowPositionings;
 
 
 enum {
+    browserWindowShowURLNever                   = 0,
+    browserWindowShowURLOnlyLoadError           = 1,
+    browserWindowShowURLBeforeTitle             = 2,
+    browserWindowShowURLAlways                  = 3
+};
+typedef NSUInteger browserWindowShowURLPolicies;
+
+
+enum {
     coveringWindowBackground                    = 0,
     coveringWindowLockdownAlert                 = 1
 };

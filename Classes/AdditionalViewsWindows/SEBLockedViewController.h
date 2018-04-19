@@ -1,14 +1,14 @@
 //
-//  SEBLockedView.h
+//  SEBLockedViewController.h
 //  SafeExamBrowser
 //
-//  Created by Daniel R. Schneider on 30/09/15.
+//  Created by Daniel R. Schneider on 03/12/15.
 //  Copyright (c) 2010-2018 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider,
-//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
+//  Project concept: Thomas Piendl, Daniel R. Schneider, 
+//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
@@ -32,27 +32,166 @@
 //  Contributor(s): ______________________________________.
 //
 
-
-#import <Cocoa/Cocoa.h>
-#import "SEBController.h"
+#import <Foundation/Foundation.h>
+#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "SEBKeychainManager.h"
+#include <Security/Security.h>
+#import <CommonCrypto/CommonDigest.h>
 
-@class SEBController;
+/**
+ * @protocol    SEBLockedViewUIDelegate
+ *
+ * @brief       All SEBLockedView UI controller must conform to the SEBConfigUIDelegate
+ *              protocol.
+ */
+@protocol SEBLockedViewUIDelegate <NSObject>
+/**
+ * @name		Item Attributes
+ */
+@required
+/**
+ * @brief       Scroll to the bottom of the locked view scroll view.
+ * @details
+ */
+- (void) scrollToBottom;
 
-@interface SEBLockedViewController : NSViewController
+/**
+ * @brief       Get password string for unlocking SEB again.
+ * @details
+ */
+- (NSString *) lockedAlertPassword;
 
-@property (strong) SEBController *sebController;
-@property (strong) SEBKeychainManager *keychainManager;
+/**
+ * @brief       Set string in the password field for unlocking SEB again.
+ * @details
+ */
+- (void) setLockedAlertPassword:(NSString *)password;
+
+/**
+ * @brief       Hide or show label indicating wrong password was entered.
+ * @details
+ */
+- (void) setPasswordWrongLabelHidden:(BOOL)hidden;
+
+/**
+ * @brief       Time when exam was resumed.
+ * @details
+ */
 @property (readwrite, copy) NSAttributedString *resignActiveLogString;
 
-@property (strong) IBOutlet NSButton *overrideCheckForScreenSharing;
-@property (strong) IBOutlet NSButton *overrideCheckForSiri;
-@property (strong) IBOutlet NSButton *overrideCheckForDictation;
-@property (strong) IBOutlet NSButton *overrideCheckForSpecifcProcesses;
-@property (strong) IBOutlet NSButton *overrideCheckForAllProcesses;
+@optional
 
-- (void)setLockdownAlertTitle:(NSString *)newAlertTitle
-                      Message:(NSString *)newAlertMessage;
-- (void)appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
+/**
+ * @brief       Open lockdown windows to block access to the exam
+.
+ * @details
+ */
+//- (void) openLockdownWindows;
+
+/**
+ * @brief       Close lockdown windows and allow to access the exam again.
+ * @details
+ */
+- (void) closeLockdownWindows;
+
+@end
+
+
+/**
+ * @protocol    SEBLockedViewControllerDelegate
+ *
+ * @brief       All SEBLockedView root controller must conform to 
+ *              the SEBLockedViewControllerDelegate protocol.
+ */
+@protocol SEBLockedViewControllerDelegate <NSObject>
+/**
+ * @name		Item Attributes
+ */
+@required
+/**
+ * @brief       Return time when active state/Guided Access was
+ *              interrupted.
+ * @details
+ */
+@property (strong, readwrite) NSDate *didResignActiveTime;
+
+/**
+ * @brief       Return time when active state/Guided Access was activated again.
+ * @details
+ */
+@property (strong, readwrite) NSDate *didBecomeActiveTime;
+
+/**
+ * @brief       Time when exam was resumed.
+ * @details
+ */
+@property (strong, readwrite) NSDate *didResumeExamTime;
+
+/**
+ * @brief       Hide or show the label indicating that the password was entered wrong.
+ * @details
+ */
+- (void) correctPasswordEntered;
+
+@optional
+
+/**
+ * @brief       Indicates if the exam is running.
+ * @details
+ */
+@property(readwrite) BOOL examRunning;
+
+/**
+ * @brief       Indicates if the exam is running.
+ * @details
+ */
+@property(readwrite) BOOL sebLocked;
+
+/**
+ * @brief       Indicates that the correct quit/restart password was entered and
+ *              lockdown windows can be closed now.
+ * @details
+ */
+@property(readwrite) BOOL unlockPasswordEntered;
+
+/**
+ * @brief       Hide or show label indicating wrong password was entered.
+ * @details
+ */
+- (void) openInfoHUD:(NSString *)lockedTimeInfo;
+
+/**
+ * @brief       Open lockdown windows to block access to the exam.
+ .
+ * @details
+ */
+//- (void) openLockdownWindows;
+
+/**
+ * @brief       Close lockdown windows and allow to access the exam again.
+ * @details
+ */
+- (void) closeLockdownWindows;
+
+@end
+
+
+@interface SEBLockedViewController : NSObject
+
+@property (nonatomic, strong) id< SEBLockedViewUIDelegate > UIDelegate;
+@property (nonatomic, strong) id< SEBLockedViewControllerDelegate > controllerDelegate;
+
+@property (strong) SEBKeychainManager *keychainManager;
+
+@property (strong) NSDictionary *boldFontAttributes;
+
+- (void) didOpenLockdownWindows;
+- (void) passwordEntered:(id)sender;
+- (BOOL) shouldOpenLockdownWindows;
+- (void) closeLockdownWindows;
+- (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
+
+- (void) addLockedExam:(NSString *)examURLString;
+- (void) removeLockedExam:(NSString *)examURLString;
 
 @end
