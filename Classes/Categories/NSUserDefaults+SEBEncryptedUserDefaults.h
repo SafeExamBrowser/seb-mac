@@ -66,6 +66,10 @@
 + (BOOL)userDefaultsPrivate;
 
 
+- (id)persistedSecureObjectForKey:(NSString *)key;
+- (void)setPersistedSecureObject:(id)value forKey:(NSString *)key;
+
+
 // Read data from user defaults. If key doesn't exist, valid is YES and the function mimics
 // the return behavior of the respective non-secure method.
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -443,7 +443,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="340" y="419" width="550" height="300"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" id="860" customClass="AboutView">
                 <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -599,7 +599,7 @@ Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AA
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="109"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="vWC-gd-xPh">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="109"/>
@@ -749,7 +749,7 @@ Gw
                     <rect key="frame" x="20" y="110" width="460" height="282"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="UQl-yY-TGx">
                         <rect key="frame" x="1" y="1" width="458" height="280"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textView editable="NO" drawsBackground="NO" importsGraphics="NO" verticallyResizable="YES" findStyle="bar" allowsNonContiguousLayout="YES" id="FId-0c-znr">
                                 <rect key="frame" x="0.0" y="0.0" width="458" height="280"/>
@@ -837,7 +837,7 @@ Gw
             </constraints>
             <point key="canvasLocation" x="440" y="933.5"/>
         </customView>
-        <viewController id="agr-W5-n2K" userLabel="SEB Locked View Controller" customClass="SEBLockedViewController">
+        <viewController id="agr-W5-n2K" userLabel="SEB Locked View Controller" customClass="SEBOSXLockedViewController">
             <connections>
                 <outlet property="alertMessage" destination="N8L-96-Ced" id="baX-Wp-6Rz"/>
                 <outlet property="lockedAlertPasswordField" destination="E6M-vB-bca" id="0bI-FS-sC0"/>
@@ -851,7 +851,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" nonactivatingPanel="YES" HUD="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="274" width="500" height="45"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" id="94S-Ha-RmY">
                 <rect key="frame" x="0.0" y="0.0" width="500" height="45"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -912,7 +912,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="158"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="cFG-Qx-89n">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="158"/>

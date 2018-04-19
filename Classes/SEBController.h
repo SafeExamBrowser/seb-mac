@@ -43,7 +43,7 @@
 #import "CapView.h"
 #import "CapWindow.h"
 #import "CapWindowController.h"
-#import "SEBLockedViewController.h"
+#import "SEBOSXLockedViewController.h"
 
 #import "AboutWindow.h"
 #import "SEBOSXBrowserController.h"
@@ -64,7 +64,7 @@
 @class SEBSystemManager;
 @class SEBDockController;
 @class SEBOSXBrowserController;
-@class SEBLockedViewController;
+@class SEBOSXLockedViewController;
 
 
 @interface SEBController : NSObject <NSApplicationDelegate> {
@@ -81,7 +81,7 @@
     IBOutlet NSMenuItem *configMenu;
     IBOutlet NSMenu *settingsMenu;
     IBOutlet NSView *passwordView;
-    IBOutlet SEBLockedViewController *sebLockedViewController;
+    IBOutlet SEBOSXLockedViewController *sebLockedViewController;
     IBOutlet NSPanel *informationHUD;
     IBOutlet NSTextField *informationHUDLabel;
     __weak IBOutlet NSView *inactiveScreenCoverLabel;
