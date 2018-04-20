@@ -81,7 +81,6 @@
     IBOutlet NSMenuItem *configMenu;
     IBOutlet NSMenu *settingsMenu;
     IBOutlet NSView *passwordView;
-    IBOutlet SEBOSXLockedViewController *sebLockedViewController;
     IBOutlet NSPanel *informationHUD;
     IBOutlet NSTextField *informationHUDLabel;
     __weak IBOutlet NSView *inactiveScreenCoverLabel;
@@ -113,6 +112,7 @@
     BOOL allowScreenSharing;
     BOOL allowSiri;
     BOOL allowDictation;
+    NSString *currentExamStartURL;
     BOOL fontRegistryUIAgentDisplayed;
     #define logReportCounter 11
     NSUInteger screenSharingLogCounter;
@@ -152,7 +152,8 @@
 @property(strong) IBOutlet id preferencesController;
 @property(strong) IBOutlet SEBSystemManager *systemManager;
 @property(strong) SEBDockController *dockController;
-@property(nonatomic, retain) SEBOSXBrowserController *browserController;
+@property(strong, nonatomic) SEBOSXBrowserController *browserController;
+@property(strong) IBOutlet SEBOSXLockedViewController *sebLockedViewController;
 @property(strong) NSDate *didResignActiveTime;
 @property(strong) NSDate *didBecomeActiveTime;
 @property(strong) NSDate *didResumeExamTime;

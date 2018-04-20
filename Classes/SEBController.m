@@ -767,6 +767,15 @@ bool insideMatrix(void);
 
         // Open the main browser window
         DDLogDebug(@"%s openMainBrowserWindow", __FUNCTION__);
+        
+        // Persist start URL of a "secure" exam
+        if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
+            currentExamStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+            [self.sebLockedViewController addLockedExam:currentExamStartURL];
+        } else {
+            currentExamStartURL = nil;
+        }
+        
         [self.browserController openMainBrowserWindow];
     }
     
@@ -2217,29 +2226,29 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         [coveringView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
         [coveringView setTranslatesAutoresizingMaskIntoConstraints:true];
         
-        sebLockedViewController.sebController = self;
+        _sebLockedViewController.sebController = self;
         
-        [coveringView addSubview:sebLockedViewController.view];
+        [coveringView addSubview:_sebLockedViewController.view];
         
-        DDLogVerbose(@"Frame of superview: %f, %f", sebLockedViewController.view.superview.frame.size.width, sebLockedViewController.view.superview.frame.size.height);
+        DDLogVerbose(@"Frame of superview: %f, %f", _sebLockedViewController.view.superview.frame.size.width, _sebLockedViewController.view.superview.frame.size.height);
         NSMutableArray *constraints = [NSMutableArray new];
-        [constraints addObject:[NSLayoutConstraint constraintWithItem:sebLockedViewController.view
+        [constraints addObject:[NSLayoutConstraint constraintWithItem:_sebLockedViewController.view
                                                             attribute:NSLayoutAttributeCenterX
                                                             relatedBy:NSLayoutRelationEqual
-                                                               toItem:sebLockedViewController.view.superview
+                                                               toItem:_sebLockedViewController.view.superview
                                                             attribute:NSLayoutAttributeCenterX
                                                            multiplier:1.0
                                                              constant:0.0]];
         
-        [constraints addObject:[NSLayoutConstraint constraintWithItem:sebLockedViewController.view
+        [constraints addObject:[NSLayoutConstraint constraintWithItem:_sebLockedViewController.view
                                                             attribute:NSLayoutAttributeCenterY
                                                             relatedBy:NSLayoutRelationEqual
-                                                               toItem:sebLockedViewController.view.superview
+                                                               toItem:_sebLockedViewController.view.superview
                                                             attribute:NSLayoutAttributeCenterY
                                                            multiplier:1.0
                                                              constant:0.0]];
         
-        [sebLockedViewController.view.superview addConstraints:constraints];
+        [_sebLockedViewController.view.superview addConstraints:constraints];
         
         lockdownModalSession = [NSApp beginModalSessionForWindow:coveringWindow];
         [NSApp runModalSession:lockdownModalSession];
@@ -2251,37 +2260,37 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 {
     [NSApp endModalSession:lockdownModalSession];
     
-    if (sebLockedViewController.overrideCheckForScreenSharing.state == true) {
+    if (_sebLockedViewController.overrideCheckForScreenSharing.state == true) {
         _screenSharingCheckOverride = true;
-        sebLockedViewController.overrideCheckForScreenSharing.state = false;
-        sebLockedViewController.overrideCheckForScreenSharing.hidden = true;
+        _sebLockedViewController.overrideCheckForScreenSharing.state = false;
+        _sebLockedViewController.overrideCheckForScreenSharing.hidden = true;
     }
 
-    if (sebLockedViewController.overrideCheckForSiri.state == true) {
+    if (_sebLockedViewController.overrideCheckForSiri.state == true) {
         _siriCheckOverride = true;
-        sebLockedViewController.overrideCheckForSiri.state = false;
-        sebLockedViewController.overrideCheckForSiri.hidden = true;
+        _sebLockedViewController.overrideCheckForSiri.state = false;
+        _sebLockedViewController.overrideCheckForSiri.hidden = true;
     }
     
-    if (sebLockedViewController.overrideCheckForDictation.state == true) {
+    if (_sebLockedViewController.overrideCheckForDictation.state == true) {
         _dictationCheckOverride = true;
-        sebLockedViewController.overrideCheckForDictation.state = false;
-        sebLockedViewController.overrideCheckForDictation.hidden = true;
+        _sebLockedViewController.overrideCheckForDictation.state = false;
+        _sebLockedViewController.overrideCheckForDictation.hidden = true;
     }
     
-    if (sebLockedViewController.overrideCheckForSpecifcProcesses.state == true) {
+    if (_sebLockedViewController.overrideCheckForSpecifcProcesses.state == true) {
         _processCheckSpecificOverride = true;
-        sebLockedViewController.overrideCheckForSpecifcProcesses.state = false;
-        sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = true;
+        _sebLockedViewController.overrideCheckForSpecifcProcesses.state = false;
+        _sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = true;
     }
     
-    if (sebLockedViewController.overrideCheckForAllProcesses.state == true) {
+    if (_sebLockedViewController.overrideCheckForAllProcesses.state == true) {
         _processCheckAllOverride = true;
-        sebLockedViewController.overrideCheckForAllProcesses.state = false;
-        sebLockedViewController.overrideCheckForAllProcesses.hidden = true;
+        _sebLockedViewController.overrideCheckForAllProcesses.state = false;
+        _sebLockedViewController.overrideCheckForAllProcesses.hidden = true;
     }
     
-    [sebLockedViewController.view removeFromSuperview];
+    [_sebLockedViewController.view removeFromSuperview];
     [self closeCoveringWindows:self.lockdownWindows];
     self.lockdownWindows = nil;
     if (_screenSharingCheckOverride == false) {
@@ -3175,6 +3184,12 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 {
     DDLogError(@"---------- RESTARTING SEB SESSION -------------");
 
+    // If this was a secured exam, we remove it from the list of running exams,
+    // otherwise it would be locked next time it is started again
+    if (currentExamStartURL) {
+        [self.sebLockedViewController removeLockedExam:currentExamStartURL];
+    }
+    
     // Switch off display mirroring if it isn't allowed in settings
     [self conditionallyTerminateDisplayMirroring];
     
@@ -3229,6 +3244,15 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 
     // Reopen main browser window and load start URL
     DDLogDebug(@"%s re-openMainBrowserWindow", __FUNCTION__);
+    
+    // Persist start URL of a "secure" exam
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
+        currentExamStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+        [self.sebLockedViewController addLockedExam:currentExamStartURL];
+    } else {
+        currentExamStartURL = nil;
+    }
     [self.browserController openMainBrowserWindow];
 
     // Adjust screen locking
@@ -3302,15 +3326,15 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 /// Handler called when SEB needs to be locked
 - (void) lockSEB:(NSNotification*) notification
 {
-    if (!sebLockedViewController.resignActiveLogString) {
-        sebLockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
+    if (!_sebLockedViewController.resignActiveLogString) {
+        _sebLockedViewController.resignActiveLogString = [[NSAttributedString alloc] initWithString:@""];
     }
     
     if ([[notification name] isEqualToString:
          NSWorkspaceSessionDidResignActiveNotification])
     {
         // Set alert title and message strings
-        [sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"User Switch Locked SEB!", @"Lockdown alert title text for switching the user")
+        [_sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"User Switch Locked SEB!", @"Lockdown alert title text for switching the user")
                                                Message: NSLocalizedString(@"SEB is locked because it was attempted to switch the user. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", @"Lockdown alert message text for switching the user")];
         
         self.didResignActiveTime = [NSDate date];
@@ -3318,7 +3342,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         [self openLockdownWindows];
         
         // Add log string for resign active
-        [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"User switch / switch to login window detected", nil)] withTime:self.didResignActiveTime];
+        [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"User switch / switch to login window detected", nil)] withTime:self.didResignActiveTime];
         
     }
     else if ([[notification name] isEqualToString:
@@ -3330,7 +3354,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         
         // Add log string for becoming active
         self.didBecomeActiveTime = [NSDate date];
-        [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Switched back after user switch / login window", nil)] withTime:self.didBecomeActiveTime];
+        [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Switched back after user switch / login window", nil)] withTime:self.didBecomeActiveTime];
         
         // Calculate time difference between session resigning active and becoming active again
         NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
@@ -3338,7 +3362,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
                                                    fromDate:self.didResignActiveTime
                                                      toDate:self.didBecomeActiveTime
                                                     options:false];
-        [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"  SEB session was inactive for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:nil];
+        [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"  SEB session was inactive for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:nil];
     }
     
     /// Handler called when screen sharing was detected
@@ -3348,13 +3372,13 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     {
         if (!_screenSharingDetected) {
             _screenSharingDetected = true;
-            sebLockedViewController.overrideCheckForScreenSharing.state = false;
-            sebLockedViewController.overrideCheckForScreenSharing.hidden = false;
+            _sebLockedViewController.overrideCheckForScreenSharing.state = false;
+            _sebLockedViewController.overrideCheckForScreenSharing.hidden = false;
             self.didResignActiveTime = [NSDate date];
             self.didBecomeActiveTime = [NSDate date];
             
             // Set custom alert message string
-            [sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Screen Sharing Locked SEB!", @"Lockdown alert title text for screen sharing")
+            [_sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Screen Sharing Locked SEB!", @"Lockdown alert title text for screen sharing")
                                                    Message:[NSString stringWithFormat:@"%@\n\n%@",
                                                             NSLocalizedString(@"Screen sharing detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil),
                                                             NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol.", nil)
@@ -3369,16 +3393,16 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             }
             
             // Add log string for screen sharing active
-            [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing was activated", nil)] withTime:self.didResignActiveTime];
+            [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing was activated", nil)] withTime:self.didResignActiveTime];
         } else {
             if (!self.lockdownWindows) {
-                sebLockedViewController.overrideCheckForScreenSharing.hidden = false;
+                _sebLockedViewController.overrideCheckForScreenSharing.hidden = false;
                 [self openLockdownWindows];
             }
             // Add log string for screen sharing still active
             self.didBecomeActiveTime = [NSDate date];
             if (!screenSharingLogCounter--) {
-                [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing is still active", nil)] withTime:[NSDate date]];
+                [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen sharing is still active", nil)] withTime:[NSDate date]];
                 screenSharingLogCounter = logReportCounter;
             }
         }
@@ -3391,13 +3415,13 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     {
         if (!_siriDetected) {
             _siriDetected = true;
-            sebLockedViewController.overrideCheckForSiri.state = false;
-            sebLockedViewController.overrideCheckForSiri.hidden = false;
+            _sebLockedViewController.overrideCheckForSiri.state = false;
+            _sebLockedViewController.overrideCheckForSiri.hidden = false;
             self.didResignActiveTime = [NSDate date];
             self.didBecomeActiveTime = [NSDate date];
             
             // Set custom alert message string
-            [sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Siri Locked SEB!", @"Lockdown alert title text for Siri")
+            [_sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Siri Locked SEB!", @"Lockdown alert title text for Siri")
                                                    Message:NSLocalizedString(@"Siri activity detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
             
             // Report Siri is still active every 3rd second
@@ -3409,16 +3433,16 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             }
             
             // Add log string for screen sharing active
-            [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Siri was activated", nil)] withTime:self.didResignActiveTime];
+            [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Siri was activated", nil)] withTime:self.didResignActiveTime];
         } else {
             if (!self.lockdownWindows) {
-                sebLockedViewController.overrideCheckForSiri.hidden = false;
+                _sebLockedViewController.overrideCheckForSiri.hidden = false;
                 [self openLockdownWindows];
             }
             // Add log string for screen sharing still active
             self.didBecomeActiveTime = [NSDate date];
             if (!siriLogCounter--) {
-                [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Siri is still active", nil)] withTime:[NSDate date]];
+                [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Siri is still active", nil)] withTime:[NSDate date]];
                 siriLogCounter = logReportCounter;
             }
         }
@@ -3431,13 +3455,13 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     {
         if (!_dictationDetected) {
             _dictationDetected = true;
-            sebLockedViewController.overrideCheckForDictation.state = false;
-            sebLockedViewController.overrideCheckForDictation.hidden = false;
+            _sebLockedViewController.overrideCheckForDictation.state = false;
+            _sebLockedViewController.overrideCheckForDictation.hidden = false;
             self.didResignActiveTime = [NSDate date];
             self.didBecomeActiveTime = [NSDate date];
             
             // Set custom alert message string
-            [sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Dictation Locked SEB!", @"Lockdown alert title text for Siri")
+            [_sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Dictation Locked SEB!", @"Lockdown alert title text for Siri")
                                                    Message:NSLocalizedString(@"Dictation activity detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
             
             // Report Siri is still active every 3rd second
@@ -3449,16 +3473,16 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             }
             
             // Add log string for screen sharing active
-            [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Dictation was activated", nil)] withTime:self.didResignActiveTime];
+            [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Dictation was activated", nil)] withTime:self.didResignActiveTime];
         } else {
             if (!self.lockdownWindows) {
-                sebLockedViewController.overrideCheckForDictation.hidden = false;
+                _sebLockedViewController.overrideCheckForDictation.hidden = false;
                 [self openLockdownWindows];
             }
             // Add log string for screen sharing still active
             self.didBecomeActiveTime = [NSDate date];
             if (!dictationLogCounter--) {
-                [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Dictation is still active", nil)] withTime:[NSDate date]];
+                [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Dictation is still active", nil)] withTime:[NSDate date]];
                 dictationLogCounter = logReportCounter;
             }
         }
@@ -3471,15 +3495,15 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     {
         if (!_processesDetected) {
             _processesDetected = true;
-            sebLockedViewController.overrideCheckForSpecifcProcesses.state = false;
-            sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = false;
-            sebLockedViewController.overrideCheckForAllProcesses.state = false;
-            sebLockedViewController.overrideCheckForAllProcesses.hidden = false;
+            _sebLockedViewController.overrideCheckForSpecifcProcesses.state = false;
+            _sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = false;
+            _sebLockedViewController.overrideCheckForAllProcesses.state = false;
+            _sebLockedViewController.overrideCheckForAllProcesses.hidden = false;
             self.didResignActiveTime = [NSDate date];
             self.didBecomeActiveTime = [NSDate date];
             
             // Set custom alert message string
-            [sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Prohibited Process Locked SEB!", @"Lockdown alert title text for prohibited process")
+            [_sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Prohibited Process Locked SEB!", @"Lockdown alert title text for prohibited process")
                                                    Message:NSLocalizedString(@"SEB is locked because a process, which isn't allowed to run cannot be terminated. It's only possible to unlock SEB with the quit/unlock password, which usually exam supervision/support knows.", nil)];
             
             // Report processes are still active every 3rd second
@@ -3491,17 +3515,17 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             }
             
             // Add log string for screen sharing active
-            [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@: %@\n", NSLocalizedString(@"Prohibited processes detected", nil), _runningProhibitedProcesses] withTime:self.didResignActiveTime];
+            [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@: %@\n", NSLocalizedString(@"Prohibited processes detected", nil), _runningProhibitedProcesses] withTime:self.didResignActiveTime];
         } else {
             if (!self.lockdownWindows) {
-                sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = false;
-                sebLockedViewController.overrideCheckForAllProcesses.hidden = false;
+                _sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = false;
+                _sebLockedViewController.overrideCheckForAllProcesses.hidden = false;
                 [self openLockdownWindows];
             }
             // Add log string for screen sharing still active
             self.didBecomeActiveTime = [NSDate date];
             if (!prohibitedProcessesLogCounter--) {
-                [sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Prohibited processes still running", nil)] withTime:[NSDate date]];
+                [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Prohibited processes still running", nil)] withTime:[NSDate date]];
                 prohibitedProcessesLogCounter = logReportCounter;
             }
         }
@@ -3625,6 +3649,12 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     [self stopProcessWatcher];
 
     [_systemManager restoreSystemSettings];
+    
+    // If this was a secured exam, we remove it from the list of running exams,
+    // otherwise it would be locked next time it is started again
+    if (currentExamStartURL) {
+        [self.sebLockedViewController removeLockedExam:currentExamStartURL];
+    }
     
     // Restart terminated apps
     DDLogInfo(@"These processes were terminated by SEB during this session: %@", _terminatedProcessesExecutableURLs);

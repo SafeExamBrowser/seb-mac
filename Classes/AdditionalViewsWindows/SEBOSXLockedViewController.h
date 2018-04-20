@@ -36,13 +36,17 @@
 #import <Cocoa/Cocoa.h>
 #import "SEBController.h"
 #import "SEBKeychainManager.h"
+#import "SEBLockedViewController.h"
 
 @class SEBController;
+@class SEBLockedViewController;
 
-@interface SEBOSXLockedViewController : NSViewController
+@interface SEBOSXLockedViewController : NSViewController <SEBLockedViewUIDelegate>
 
-@property (strong) SEBController *sebController;
 @property (strong) SEBKeychainManager *keychainManager;
+@property (strong) SEBLockedViewController *lockedViewController;
+@property (strong) id< SEBLockedViewControllerDelegate > controllerDelegate;
+@property (strong) SEBController *sebController;
 @property (readwrite, copy) NSAttributedString *resignActiveLogString;
 
 @property (strong) IBOutlet NSButton *overrideCheckForScreenSharing;
@@ -54,5 +58,8 @@
 - (void)setLockdownAlertTitle:(NSString *)newAlertTitle
                       Message:(NSString *)newAlertMessage;
 - (void)appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
+
+- (void) addLockedExam:(NSString *)examURLString;
+- (void) removeLockedExam:(NSString *)examURLString;
 
 @end
