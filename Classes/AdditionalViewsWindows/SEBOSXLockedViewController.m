@@ -49,6 +49,29 @@
 @implementation SEBOSXLockedViewController
 
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.lockedViewController = [[SEBLockedViewController alloc] init];
+    self.lockedViewController.UIDelegate = self;
+    self.lockedViewController.controllerDelegate = self.controllerDelegate;
+    
+    self.lockedViewController.boldFontAttributes = @{NSFontAttributeName:[NSFont boldSystemFontOfSize:[NSFont systemFontSize]]};
+}
+
+
+- (void) addLockedExam:(NSString *)examURLString
+{
+    [self.lockedViewController addLockedExam:examURLString];
+}
+
+- (void) removeLockedExam:(NSString *)examURLString;
+{
+    [self.lockedViewController removeLockedExam:examURLString];
+}
+
+
 - (void)setLockdownAlertTitle:(NSString *)newAlertTitle
                       Message:(NSString *)newAlertMessage
 {
@@ -156,5 +179,21 @@
 
     [[logScrollView documentView] scrollPoint:newScrollOrigin];
 }
+
+
+- (NSString *)lockedAlertPassword {
+    return lockedAlertPasswordField.stringValue;
+}
+
+
+- (void)setLockedAlertPassword:(NSString *)password {
+    lockedAlertPasswordField.stringValue = password;
+}
+
+
+- (void)setPasswordWrongLabelHidden:(BOOL)hidden {
+    passwordWrongLabel.hidden = hidden;
+}
+
 
 @end
