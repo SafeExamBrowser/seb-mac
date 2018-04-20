@@ -72,7 +72,7 @@
 - (void)adjustScrollPosition
 {
     if (@available(iOS 11.0, *)) {
-        // Not necessary for iOS 11 thanks to SafeArea
+        // Not necessary for iOS 11 thanks to Safe Area
     } else {
         [_sebWebView.scrollView setContentInset:UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0)];
         [_sebWebView.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0)];
