@@ -2204,6 +2204,24 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 }
 
 
+#pragma mark - Lockdown windows
+
+- (void) conditionallyOpenLockdownWindows
+{
+    if ([_sebLockedViewController shouldOpenLockdownWindows]) {
+        if ([[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
+            [self openLockdownWindows];
+            
+            // Add log string for entering a locked exam
+            [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", nil)] withTime:[NSDate date]];
+        } else {
+            // Add log string for entering a previously locked exam
+            [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.", nil)] withTime:[NSDate date]];
+        }
+    }
+}
+
+
 - (void) openLockdownWindows
 {
     if (!self.lockdownWindows) {

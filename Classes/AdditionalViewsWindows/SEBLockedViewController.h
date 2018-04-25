@@ -38,6 +38,7 @@
 #include <Security/Security.h>
 #import <CommonCrypto/CommonDigest.h>
 
+
 /**
  * @protocol    SEBLockedViewUIDelegate
  *
@@ -142,20 +143,20 @@
 @property(readwrite) BOOL examRunning;
 
 /**
- * @brief       Indicates if the exam is running.
+ * @brief       Indicates if SEB is locked..
  * @details
  */
 @property(readwrite) BOOL sebLocked;
 
 /**
- * @brief       Indicates that the correct quit/restart password was entered and
+ * @brief       Indicates that the correct quit/unlock password was entered and
  *              lockdown windows can be closed now.
  * @details
  */
 @property(readwrite) BOOL unlockPasswordEntered;
 
 /**
- * @brief       Hide or show label indicating wrong password was entered.
+ * @brief       
  * @details
  */
 - (void) openInfoHUD:(NSString *)lockedTimeInfo;
@@ -185,13 +186,13 @@
 
 @property (strong) NSDictionary *boldFontAttributes;
 
-- (void) didOpenLockdownWindows;
-- (void) passwordEntered:(id)sender;
-- (BOOL) shouldOpenLockdownWindows;
-- (void) closeLockdownWindows;
-- (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
-
 - (void) addLockedExam:(NSString *)examURLString;
 - (void) removeLockedExam:(NSString *)examURLString;
+
+- (BOOL) shouldOpenLockdownWindows;
+- (void) didOpenLockdownWindows;
+- (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
+- (void) passwordEntered:(id)sender;
+- (void) closeLockdownWindows;
 
 @end
