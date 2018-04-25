@@ -285,6 +285,8 @@
 // Set up SEB Browser and open the main window
 - (void) openMainBrowserWindow {
     
+    [self.sebController conditionallyOpenLockdownWindows];
+    
     // Save current WebKit Cookie Policy
      NSHTTPCookieAcceptPolicy cookiePolicy = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookieAcceptPolicy];
      if (cookiePolicy == NSHTTPCookieAcceptPolicyAlways) DDLogInfo(@"NSHTTPCookieAcceptPolicyAlways");

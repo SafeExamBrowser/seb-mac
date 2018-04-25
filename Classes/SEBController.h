@@ -43,6 +43,7 @@
 #import "CapView.h"
 #import "CapWindow.h"
 #import "CapWindowController.h"
+#import "SEBLockedViewController.h"
 #import "SEBOSXLockedViewController.h"
 
 #import "AboutWindow.h"
@@ -67,7 +68,7 @@
 @class SEBOSXLockedViewController;
 
 
-@interface SEBController : NSObject <NSApplicationDelegate> {
+@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate> {
 	
     NSArray *runningAppsWhileTerminating;
     NSMutableArray *visibleApps;
@@ -208,6 +209,7 @@
 
 - (BOOL) applicationShouldOpenUntitledFile:(NSApplication *)sender;
 
+- (void) conditionallyOpenLockdownWindows;
 - (void) closeLockdownWindows;
 - (void) openInfoHUD:(NSString *)lockedTimeInfo;
 

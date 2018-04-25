@@ -72,6 +72,24 @@
 }
 
 
+- (BOOL) shouldOpenLockdownWindows {
+    return [self.lockedViewController shouldOpenLockdownWindows];
+}
+
+- (void) didOpenLockdownWindows {
+    [self.lockedViewController didOpenLockdownWindows];
+}
+
+- (void) shouldCloseLockdownWindows {
+    [self.lockedViewController closeLockdownWindows];
+}
+
+
+- (void)appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime {
+    [self.lockedViewController appendErrorString:errorString withTime:errorTime];
+}
+
+
 - (void)setLockdownAlertTitle:(NSString *)newAlertTitle
                       Message:(NSString *)newAlertMessage
 {
@@ -146,24 +164,26 @@
 }
 
 
-- (void)appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime {
-    NSMutableAttributedString *logString = [self.resignActiveLogString mutableCopy];
-    if (errorTime) {
-        NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
-        [timeFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss "];
-        NSString *theTime = [timeFormat stringFromDate:errorTime];
-        NSAttributedString *attributedTimeString = [[NSAttributedString alloc] initWithString:theTime];
-        [logString appendAttributedString:attributedTimeString];
-    }
-    NSMutableAttributedString *attributedErrorString = [[NSMutableAttributedString alloc] initWithString:errorString];
-    [attributedErrorString setAttributes:@{NSFontAttributeName:[NSFont boldSystemFontOfSize:[NSFont systemFontSize]]} range:NSMakeRange(0, attributedErrorString.length)];
-    [logString appendAttributedString:attributedErrorString];
-    
-    [self setResignActiveLogString:[logString copy]];
-    
-    [self scrollToBottom];
-}
+//- (void)appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime {
+//    NSMutableAttributedString *logString = [self.resignActiveLogString mutableCopy];
+//    if (errorTime) {
+//        NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
+//        [timeFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss "];
+//        NSString *theTime = [timeFormat stringFromDate:errorTime];
+//        NSAttributedString *attributedTimeString = [[NSAttributedString alloc] initWithString:theTime];
+//        [logString appendAttributedString:attributedTimeString];
+//    }
+//    NSMutableAttributedString *attributedErrorString = [[NSMutableAttributedString alloc] initWithString:errorString];
+//    [attributedErrorString setAttributes:@{NSFontAttributeName:[NSFont boldSystemFontOfSize:[NSFont systemFontSize]]} range:NSMakeRange(0, attributedErrorString.length)];
+//    [logString appendAttributedString:attributedErrorString];
+//
+//    [self setResignActiveLogString:[logString copy]];
+//
+//    [self scrollToBottom];
+//}
 
+
+#pragma mark Delegates
 
 - (void)scrollToBottom
 {
