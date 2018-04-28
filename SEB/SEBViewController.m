@@ -1915,19 +1915,6 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void) correctPasswordEntered
-{
-    // If (new) setting don't require a kiosk mode or
-    // kiosk mode is already switched on, close lockdown window
-    if (!_secureMode || (_secureMode && UIAccessibilityIsGuidedAccessEnabled() == true)) {
-        [_lockedViewController shouldCloseLockdownWindows];
-    } else {
-        // If necessary show the dialog to start SAM again
-        [self showRestartSingleAppMode];
-    }
-}
-
-
 #pragma mark - Lockdown windows
 
 - (void) conditionallyOpenLockdownWindows
@@ -1973,6 +1960,19 @@ void run_on_ui_thread(dispatch_block_t block)
     _sebLocked = true;
     
     [_lockedViewController didOpenLockdownWindows];
+}
+
+
+- (void) correctPasswordEntered
+{
+    // If (new) setting don't require a kiosk mode or
+    // kiosk mode is already switched on, close lockdown window
+    if (!_secureMode || (_secureMode && UIAccessibilityIsGuidedAccessEnabled() == true)) {
+        [_lockedViewController shouldCloseLockdownWindows];
+    } else {
+        // If necessary show the dialog to start SAM again
+        [self showRestartSingleAppMode];
+    }
 }
 
 
