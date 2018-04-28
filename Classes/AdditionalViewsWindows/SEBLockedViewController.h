@@ -90,10 +90,11 @@
 //- (void) openLockdownWindows;
 
 /**
- * @brief       Close lockdown windows and allow to access the exam again.
+ * @brief       Let UI delegate read state of platform specific checkboxes
+ *              before lockdown windows will be closed.
  * @details
  */
-- (void) closeLockdownWindows;
+- (void) lockdownWindowsWillClose;
 
 @end
 
@@ -129,7 +130,7 @@
 @property (strong, readwrite) NSDate *didResumeExamTime;
 
 /**
- * @brief       Hide or show the label indicating that the password was entered wrong.
+ * @brief       Callback executed when the correct password was entered.
  * @details
  */
 - (void) correctPasswordEntered;
@@ -186,13 +187,15 @@
 
 @property (strong) NSDictionary *boldFontAttributes;
 
+/// Manage locking SEB if it is attempted to resume an unfinished exam
 - (void) addLockedExam:(NSString *)examURLString;
 - (void) removeLockedExam:(NSString *)examURLString;
-
 - (BOOL) shouldOpenLockdownWindows;
 - (void) didOpenLockdownWindows;
+
+/// Lockview business logic
 - (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
-- (void) passwordEntered:(id)sender;
+- (void) passwordEntered;
 - (void) closeLockdownWindows;
 
 @end
