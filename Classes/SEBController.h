@@ -210,6 +210,7 @@
 - (BOOL) applicationShouldOpenUntitledFile:(NSApplication *)sender;
 
 - (void) conditionallyOpenLockdownWindows;
+- (void) correctPasswordEntered;
 - (void) closeLockdownWindows;
 - (void) openInfoHUD:(NSString *)lockedTimeInfo;
 
