@@ -90,9 +90,9 @@
                                     <outlet property="delegate" destination="-2" id="hlp-Xq-oZ2"/>
                                 </connections>
                             </textField>
-                            <button toolTip="Require to enter the quit/unlock password when the Back to Start button is pressed" translatesAutoresizingMaskIntoConstraints="NO" id="oJT-BY-ezv">
-                                <rect key="frame" x="11" y="12" width="378" height="18"/>
-                                <buttonCell key="cell" type="check" title="Protect Back to Start Button with the quit/unlock password" bezelStyle="regularSquare" imagePosition="left" inset="2" id="5SR-dU-gy3">
+                            <button toolTip="Require to enter the Quit/Unlock password when the Back to Start button is pressed" translatesAutoresizingMaskIntoConstraints="NO" id="oJT-BY-ezv">
+                                <rect key="frame" x="11" y="12" width="382" height="18"/>
+                                <buttonCell key="cell" type="check" title="Protect Back to Start Button with the Quit/Unlock password" bezelStyle="regularSquare" imagePosition="left" inset="2" id="5SR-dU-gy3">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>

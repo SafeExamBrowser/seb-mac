@@ -234,7 +234,12 @@
             [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Correct password entered", nil)]
                            withTime:[NSDate date]];
             
-            self.controllerDelegate.unlockPasswordEntered = true;
+            if ([self.controllerDelegate respondsToSelector:@selector(unlockPasswordEntered)]) {
+                self.controllerDelegate.unlockPasswordEntered = true;
+            }
+#ifdef DEBUG
+            DDLogInfo(@"%s, [self.controllerDelegate (%@) correctPasswordEntered]", __FUNCTION__, self.controllerDelegate);
+#endif
             [self.controllerDelegate correctPasswordEntered];
             return;
         }
@@ -261,13 +266,15 @@
     
     DDLogError(@"Lockdown alert: Closing lockdown windows");
     NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second];
-    DDLogError(@"Lockdown alert: %@", lockedTimeInfo);
-    [self appendErrorString:[NSString stringWithFormat:@"  %@\n", lockedTimeInfo]
-                   withTime:nil];
     
     if ([self.UIDelegate respondsToSelector:@selector(lockdownWindowsWillClose)]) {
         [self.UIDelegate lockdownWindowsWillClose];
     }
+
+    DDLogError(@"Lockdown alert: %@", lockedTimeInfo);
+    [self appendErrorString:[NSString stringWithFormat:@"  %@\n", lockedTimeInfo]
+                   withTime:nil];
+    
     if ([self.controllerDelegate respondsToSelector:@selector(closeLockdownWindows)]) {
         [self.controllerDelegate closeLockdownWindows];
     }

@@ -41,11 +41,12 @@
 @class SEBController;
 @class SEBLockedViewController;
 
-@interface SEBOSXLockedViewController : NSViewController <SEBLockedViewUIDelegate>
+@interface SEBOSXLockedViewController : NSViewController <SEBLockedViewUIDelegate> {
+    SEBController *_sebController;
+}
 
 @property (strong) SEBKeychainManager *keychainManager;
 @property (strong) SEBLockedViewController *lockedViewController;
-@property (strong) id< SEBLockedViewControllerDelegate > controllerDelegate;
 @property (strong) SEBController *sebController;
 @property (readwrite, copy) NSAttributedString *resignActiveLogString;
 
@@ -64,5 +65,6 @@
 
 - (BOOL) shouldOpenLockdownWindows;
 - (void) didOpenLockdownWindows;
+- (void) shouldCloseLockdownWindows;
 
 @end

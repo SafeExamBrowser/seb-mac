@@ -150,7 +150,7 @@
 @property(readwrite) BOOL sebLocked;
 
 /**
- * @brief       Indicates that the correct quit/unlock password was entered and
+ * @brief       Indicates that the correct Quit/Unlock password was entered and
  *              lockdown windows can be closed now.
  * @details
  */

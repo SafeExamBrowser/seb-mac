@@ -55,11 +55,20 @@
     
     self.lockedViewController = [[SEBLockedViewController alloc] init];
     self.lockedViewController.UIDelegate = self;
-    self.lockedViewController.controllerDelegate = self.controllerDelegate;
     
     self.lockedViewController.boldFontAttributes = @{NSFontAttributeName:[NSFont boldSystemFontOfSize:[NSFont systemFontSize]]};
 }
 
+- (SEBController *)sebController
+{
+    return _sebController;
+}
+
+- (void)setSebController:(SEBController *)sebController
+{
+    _sebController = sebController;
+    self.lockedViewController.controllerDelegate = sebController;
+}
 
 // Manage locking SEB if it is attempted to resume an unfinished exam
 
@@ -82,6 +91,12 @@
     [self.lockedViewController didOpenLockdownWindows];
 }
 
+- (void) shouldCloseLockdownWindows {
+#ifdef DEBUG
+    DDLogInfo(@"%s, self.lockedViewController %@", __FUNCTION__, self.lockedViewController);
+#endif
+    [self.lockedViewController closeLockdownWindows];
+}
 
 /// Forward calls to lockview business logic
 
