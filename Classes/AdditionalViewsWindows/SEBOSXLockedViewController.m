@@ -63,6 +63,11 @@
 }
 
 
+- (IBAction)passwordEntered:(id)sender {
+    [self.lockedViewController passwordEntered:sender];
+}
+
+
 - (void)scrollToBottom
 {
     NSPoint newScrollOrigin;
@@ -76,11 +81,6 @@
     DDLogDebug(@"Log scroll view frame: %@, y coordinate to scroll to: %f", CGRectCreateDictionaryRepresentation([[logScrollView documentView] frame]), newScrollOrigin.y);
     
     [[logScrollView documentView] scrollPoint:newScrollOrigin];
-}
-
-
-- (IBAction)passwordEntered:(id)sender {
-    [self.lockedViewController passwordEntered:sender];
 }
 
 

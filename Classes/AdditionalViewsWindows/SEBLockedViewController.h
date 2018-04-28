@@ -128,7 +128,7 @@
 @property (strong, readwrite) NSDate *didResumeExamTime;
 
 /**
- * @brief       Hide or show the label indicating that the password was entered wrong.
+ * @brief       Callback executed when the correct password was entered.
  * @details
  */
 - (void) correctPasswordEntered;
@@ -185,13 +185,15 @@
 
 @property (strong) NSDictionary *boldFontAttributes;
 
-- (void) didOpenLockdownWindows;
-- (void) passwordEntered:(id)sender;
-- (BOOL) shouldOpenLockdownWindows;
-- (void) closeLockdownWindows;
-- (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
-
+/// Manage locking SEB if it is attempted to resume an unfinished exam
 - (void) addLockedExam:(NSString *)examURLString;
 - (void) removeLockedExam:(NSString *)examURLString;
+- (BOOL) shouldOpenLockdownWindows;
+- (void) didOpenLockdownWindows;
+
+/// Lockview business logic
+- (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
+- (void) passwordEntered:(id)sender;
+- (void) closeLockdownWindows;
 
 @end

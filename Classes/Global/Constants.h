@@ -357,6 +357,8 @@ static NSString __unused *userDefaultsMasala = @"Di𝈭l𝈖Ch𝈒ah𝉇t𝈁a�
 // Error numbers for SEB error domains
 static NSString __unused *sebErrorDomain = @"org.safeexambrowser.SEB";
 
+static NSString __unused *SEBStartPage = @"https://safeexambrowser.org/start";
+
 static NSString __unused *SEBUserAgentDefaultSuffix = @"SEB";
 static NSString __unused *SEBUserAgentDefaultBrowserSuffix = @"Safari";
 static NSString __unused *SEBUserAgentDefaultSafariVersion = @"604.5.6";
