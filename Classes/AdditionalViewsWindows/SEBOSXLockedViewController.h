@@ -64,6 +64,5 @@
 
 - (BOOL) shouldOpenLockdownWindows;
 - (void) didOpenLockdownWindows;
-- (void) shouldCloseLockdownWindows;
 
 @end

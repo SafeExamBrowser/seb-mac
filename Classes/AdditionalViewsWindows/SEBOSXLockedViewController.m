@@ -61,6 +61,8 @@
 }
 
 
+// Manage locking SEB if it is attempted to resume an unfinished exam
+
 - (void) addLockedExam:(NSString *)examURLString
 {
     [self.lockedViewController addLockedExam:examURLString];
@@ -80,15 +82,21 @@
     [self.lockedViewController didOpenLockdownWindows];
 }
 
-- (void) shouldCloseLockdownWindows {
-    [self.lockedViewController closeLockdownWindows];
-}
 
+/// Forward calls to lockview business logic
 
 - (void)appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime {
     [self.lockedViewController appendErrorString:errorString withTime:errorTime];
 }
 
+
+- (IBAction)passwordEntered:(id)sender {
+    DDLogDebug(@"Lockdown alert: Covering window has frame %@ and window level %ld", CGRectCreateDictionaryRepresentation(self.view.superview.frame), self.view.window.level);
+    [self.lockedViewController passwordEntered];
+}
+
+
+/// Platform specific setup for lockview
 
 - (void)setLockdownAlertTitle:(NSString *)newAlertTitle
                       Message:(NSString *)newAlertMessage
@@ -96,91 +104,6 @@
     alertTitle.stringValue = newAlertTitle;
     alertMessage.stringValue = newAlertMessage;
 }
-
-
-- (IBAction)passwordEntered:(id)sender {
-    DDLogDebug(@"Lockdown alert: Covering window has frame %@ and window level %ld", CGRectCreateDictionaryRepresentation(self.view.superview.frame), self.view.window.level);
-
-    // Check if restarting is protected with the quit/unlock password (and one is set)
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
- 
-    NSString *password = lockedAlertPasswordField.stringValue;
-    
-    if (!self.keychainManager) {
-        self.keychainManager = [[SEBKeychainManager alloc] init];
-    }
-    if (hashedQuitPassword.length == 0 || [hashedQuitPassword caseInsensitiveCompare:[self.keychainManager generateSHAHashString:password]] == NSOrderedSame) {
-        [lockedAlertPasswordField setStringValue:@""];
-        [passwordWrongLabel setHidden:true];
-
-        // Add log information about closing lockdown alert
-        DDLogError(@"Lockdown alert: Correct password entered, closing lockdown windows");
-        self.sebController.didResumeExamTime = [NSDate date];
-        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Correct password entered, closing lockdown windows", nil)] withTime:self.sebController.didResumeExamTime];
-        
-        // Check for status of individual parameters
-        if (self.overrideCheckForScreenSharing.state == true) {
-            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting screen sharing was disabled!", nil)] withTime:nil];
-        }
-        
-        if (self.overrideCheckForSiri.state == true) {
-            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting Siri was disabled!", nil)] withTime:nil];
-        }
-        
-        if (self.overrideCheckForDictation.state == true) {
-            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting dictation was disabled!", nil)] withTime:nil];
-        }
-        
-        if (self.overrideCheckForSpecifcProcesses.state == true) {
-            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting the processes listed above was disabled!", nil)] withTime:nil];
-        }
-        
-        if (self.overrideCheckForAllProcesses.state == true) {
-            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting processes was completely disabled!", nil)] withTime:nil];
-        }
-        
-        // Calculate time difference between session resigning active and closing lockdown alert
-        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        NSDateComponents *components = [calendar components:NSMinuteCalendarUnit | NSSecondCalendarUnit
-                                                   fromDate:self.sebController.didResignActiveTime
-                                                     toDate:self.sebController.didResumeExamTime
-                                                    options:false];
-        
-        DDLogError(@"Lockdown alert: Correct password entered, closing lockdown windows");
-        NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second];
-        DDLogError(@"Lockdown alert: %@", lockedTimeInfo);
-        [self appendErrorString:[NSString stringWithFormat:@"  %@\n", lockedTimeInfo] withTime:nil];
-
-        [self.sebController closeLockdownWindows];
-        [self.sebController openInfoHUD:lockedTimeInfo];
-        
-        return;
-    }
-    DDLogError(@"Lockdown alert: Wrong quit/unlock password entered, asking to try again");
-    [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Wrong password entered!", nil)] withTime:[NSDate date]];
-    [lockedAlertPasswordField setStringValue:@""];
-    passwordWrongLabel.hidden = false;
-}
-
-
-//- (void)appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime {
-//    NSMutableAttributedString *logString = [self.resignActiveLogString mutableCopy];
-//    if (errorTime) {
-//        NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
-//        [timeFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss "];
-//        NSString *theTime = [timeFormat stringFromDate:errorTime];
-//        NSAttributedString *attributedTimeString = [[NSAttributedString alloc] initWithString:theTime];
-//        [logString appendAttributedString:attributedTimeString];
-//    }
-//    NSMutableAttributedString *attributedErrorString = [[NSMutableAttributedString alloc] initWithString:errorString];
-//    [attributedErrorString setAttributes:@{NSFontAttributeName:[NSFont boldSystemFontOfSize:[NSFont systemFontSize]]} range:NSMakeRange(0, attributedErrorString.length)];
-//    [logString appendAttributedString:attributedErrorString];
-//
-//    [self setResignActiveLogString:[logString copy]];
-//
-//    [self scrollToBottom];
-//}
 
 
 #pragma mark Delegates
@@ -215,5 +138,28 @@
     passwordWrongLabel.hidden = hidden;
 }
 
+- (void) lockdownWindowsWillClose;
+{
+    // Check for status of individual parameters
+    if (self.overrideCheckForScreenSharing.state == true) {
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting screen sharing was disabled!", nil)] withTime:nil];
+    }
+    
+    if (self.overrideCheckForSiri.state == true) {
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting Siri was disabled!", nil)] withTime:nil];
+    }
+    
+    if (self.overrideCheckForDictation.state == true) {
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting dictation was disabled!", nil)] withTime:nil];
+    }
+    
+    if (self.overrideCheckForSpecifcProcesses.state == true) {
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting the processes listed above was disabled!", nil)] withTime:nil];
+    }
+    
+    if (self.overrideCheckForAllProcesses.state == true) {
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting processes was completely disabled!", nil)] withTime:nil];
+    }
+}
 
 @end
