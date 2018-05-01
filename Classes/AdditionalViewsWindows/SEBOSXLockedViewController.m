@@ -87,10 +87,6 @@
     return [self.lockedViewController shouldOpenLockdownWindows];
 }
 
-- (void) didOpenLockdownWindows {
-    [self.lockedViewController didOpenLockdownWindows];
-}
-
 - (void) shouldCloseLockdownWindows {
 #ifdef DEBUG
     DDLogInfo(@"%s, self.lockedViewController %@", __FUNCTION__, self.lockedViewController);

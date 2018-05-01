@@ -285,7 +285,7 @@
 // Set up SEB Browser and open the main window
 - (void) openMainBrowserWindow {
     
-    [self.sebController conditionallyOpenLockdownWindows];
+    [self.sebController conditionallyLockExam];
     
     // Save current WebKit Cookie Policy
      NSHTTPCookieAcceptPolicy cookiePolicy = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookieAcceptPolicy];

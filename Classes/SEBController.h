@@ -128,6 +128,7 @@
 
 @property(readwrite) BOOL allowSwitchToApplications;
 
+@property(readwrite) BOOL reOpenedExamDetected;
 @property(readwrite) BOOL screenSharingDetected;
 @property(readwrite) BOOL screenSharingCheckOverride;
 @property(readwrite) BOOL processesDetected;
@@ -209,7 +210,7 @@
 
 - (BOOL) applicationShouldOpenUntitledFile:(NSApplication *)sender;
 
-- (void) conditionallyOpenLockdownWindows;
+- (void) conditionallyLockExam;
 - (void) correctPasswordEntered;
 - (void) closeLockdownWindows;
 - (void) openInfoHUD:(NSString *)lockedTimeInfo;
