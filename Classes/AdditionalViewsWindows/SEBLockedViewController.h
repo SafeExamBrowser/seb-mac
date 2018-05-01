@@ -191,7 +191,6 @@
 - (void) addLockedExam:(NSString *)examURLString;
 - (void) removeLockedExam:(NSString *)examURLString;
 - (BOOL) shouldOpenLockdownWindows;
-- (void) didOpenLockdownWindows;
 
 /// Lockview business logic
 - (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
