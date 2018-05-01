@@ -2220,7 +2220,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     {
         // Set alert title and message strings
         [_sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"User Switch Locked SEB!", @"Lockdown alert title text for switching the user")
-                                                Message: NSLocalizedString(@"SEB is locked because it was attempted to switch the user. SEB can only be unlocked by entering the Quit/Unlock password, which usually exam supervision/support knows.", @"Lockdown alert message text for switching the user")];
+                                                Message: NSLocalizedString(@"SEB is locked because it was attempted to switch the user. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", @"Lockdown alert message text for switching the user")];
         
         self.didResignActiveTime = [NSDate date];
         DDLogError(@"SessionDidResignActive: User switch / switch to login window detected!");
@@ -2258,7 +2258,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 
         [_sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Re-Opening Locked Exam!", @"Lockdown alert title text for re-opening a locked exam")
                                                 Message:[NSString stringWithFormat:@"%@\n\n%@",
-                                                         NSLocalizedString(@"This exam was interrupted before and not finished properly. SEB can only be unlocked by entering the Quit/Unlock password, which usually exam supervision/support knows.", nil),
+                                                         NSLocalizedString(@"This exam was interrupted before and not finished properly. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil),
                                                          NSLocalizedString(@"To avoid that SEB locks an exam, you have to always use a quit/unlock link after the exam was submitted or the quit button. Never restart your Mac while SEB is still running.", nil)
                                                          ]];
 
@@ -2281,7 +2281,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             // Set custom alert message string
             [_sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Screen Sharing Locked SEB!", @"Lockdown alert title text for screen sharing")
                                                     Message:[NSString stringWithFormat:@"%@\n\n%@",
-                                                             NSLocalizedString(@"Screen sharing detected. SEB can only be unlocked by entering the Quit/Unlock password, which usually exam supervision/support knows.", nil),
+                                                             NSLocalizedString(@"Screen sharing detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil),
                                                              NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol.", nil)
                                                              ]];
             
@@ -2320,7 +2320,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             
             // Set custom alert message string
             [_sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Siri Locked SEB!", @"Lockdown alert title text for Siri")
-                                                    Message:NSLocalizedString(@"Siri activity detected. SEB can only be unlocked by entering the Quit/Unlock password, which usually exam supervision/support knows.", nil)];
+                                                    Message:NSLocalizedString(@"Siri activity detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
             
             // Report Siri is still active every 3rd second
             siriLogCounter = logReportCounter;
@@ -2357,7 +2357,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             
             // Set custom alert message string
             [_sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Dictation Locked SEB!", @"Lockdown alert title text for Siri")
-                                                    Message:NSLocalizedString(@"Dictation activity detected. SEB can only be unlocked by entering the Quit/Unlock password, which usually exam supervision/support knows.", nil)];
+                                                    Message:NSLocalizedString(@"Dictation activity detected. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
             
             // Report dictation is still active every 3rd second
             dictationLogCounter = logReportCounter;
@@ -2396,7 +2396,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             
             // Set custom alert message string
             [_sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Prohibited Process Locked SEB!", @"Lockdown alert title text for prohibited process")
-                                                    Message:NSLocalizedString(@"SEB is locked because a process, which isn't allowed to run cannot be terminated. It's only possible to unlock SEB with the Quit/Unlock password, which usually exam supervision/support knows.", nil)];
+                                                    Message:NSLocalizedString(@"SEB is locked because a process, which isn't allowed to run cannot be terminated. It's only possible to unlock SEB with the quit/unlock password, which usually exam supervision/support knows.", nil)];
             
             // Report processes are still active every 3rd second
             prohibitedProcessesLogCounter = logReportCounter;
@@ -3068,14 +3068,14 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         restartExamText = NSLocalizedString(@"Back to Start",nil);
     }
 
-    // Check if restarting is protected with the Quit/Unlock password (and one is set)
+    // Check if restarting is protected with the quit/unlock password (and one is set)
     NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamPasswordProtected"] && ![hashedQuitPassword isEqualToString:@""]) {
-        // if Quit/Unlock password is set, then restrict quitting
+        // if quit/unlock password is set, then restrict quitting
         NSMutableParagraphStyle *textParagraph = [[NSMutableParagraphStyle alloc] init];
         textParagraph.lineSpacing = 5.0;
-        NSMutableAttributedString *dialogText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Enter Quit/Unlock password:",nil)] attributes:@{NSFontAttributeName:[NSFont systemFontOfSize:NSFont.systemFontSize], NSParagraphStyleAttributeName:textParagraph}].mutableCopy;
+        NSMutableAttributedString *dialogText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Enter quit/unlock password:",nil)] attributes:@{NSFontAttributeName:[NSFont systemFontOfSize:NSFont.systemFontSize], NSParagraphStyleAttributeName:textParagraph}].mutableCopy;
         
         NSAttributedString *information = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"(This function doesn't log you out if you are logged in on a website)", nil) attributes:@{NSFontAttributeName:[NSFont systemFontOfSize:NSFont.smallSystemFontSize]}];
         [dialogText appendAttributedString:information];
@@ -3089,14 +3089,14 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         
         SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
         if ([hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
-            // if the correct Quit/Unlock password was entered, restart the exam
+            // if the correct quit/unlock password was entered, restart the exam
             [self.browserController restartDockButtonPressed];
             return;
         } else {
             // Wrong quit password was entered
             NSAlert *modalAlert = [self newAlert];
             [modalAlert setMessageText:restartExamText];
-            [modalAlert setInformativeText:NSLocalizedString(@"Wrong Quit/Unlock password.", nil)];
+            [modalAlert setInformativeText:NSLocalizedString(@"Wrong quit/unlock password.", nil)];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
             [modalAlert setAlertStyle:NSCriticalAlertStyle];
             [modalAlert runModal];
