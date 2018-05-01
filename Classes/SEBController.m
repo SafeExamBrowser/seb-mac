@@ -562,6 +562,11 @@ bool insideMatrix(void);
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(lockSEB:)
                                                  name:@"detectedProhibitedProcess" object:nil];
+    // Add an observer for the notification that a previously interrupted exam was re-opened
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(lockSEB:)
+                                                 name:@"detectedSIGSTOP" object:nil];
+
     _runningProhibitedProcesses = [NSMutableArray new];
     _terminatedProcessesExecutableURLs = [NSMutableArray new];
     [self windowWatcher];
@@ -1202,6 +1207,17 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     }
     checkingRunningProcesses = true;
     
+    if ([lastTimeProcessCheck timeIntervalSinceNow] < -2) {
+        DDLogError(@"Detected SIGSTOP! SEB was stopped for %f seconds", [lastTimeProcessCheck timeIntervalSinceNow]);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (!_SIGSTOPDetected) {
+                _SIGSTOPDetected = true;
+                [[NSNotificationCenter defaultCenter]
+                 postNotificationName:@"detectedSIGSTOP" object:self];
+            }
+        });
+    }
+    
     // Check if not allowed/prohibited processes was activated
     // Get all running processes, including daemons
     NSArray *allRunningProcesses = [self getProcessArray];
@@ -1222,6 +1238,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
             DDLogWarn(@"%@ stopped running", fontRegistryUIAgent);
         }
     }
+    lastTimeProcessCheck = [NSDate date];
     checkingRunningProcesses = false;
 }
 
@@ -2421,6 +2438,29 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             }
         }
     }
+    
+    /// Handler called when a SIGSTOP was detected
+    
+    else if ([[notification name] isEqualToString:
+              @"detectedSIGSTOP"])
+    {
+//        _reOpenedExamDetected = true;
+        
+        [_sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"SEB Process Was Stopped!", @"Lockdown alert title text for SEB process was stopped")
+                                                Message:NSLocalizedString(@"The SEB process was interrupted, which can indicate cheating. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
+        
+        // Add log string for trying to re-open a locked exam
+        // Calculate time difference between session resigning active and becoming active again
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *components = [calendar components:NSMinuteCalendarUnit | NSSecondCalendarUnit
+                                                   fromDate:lastTimeProcessCheck
+                                                     toDate:self.didBecomeActiveTime
+                                                    options:false];
+        [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"SEB process was stopped for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:self.didBecomeActiveTime];
+        
+        [self openLockdownWindows];
+    }
+    
 }
 
 
@@ -2497,9 +2537,6 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 #ifdef DEBUG
     DDLogInfo(@"%s, _sebLockedViewController %@", __FUNCTION__, _sebLockedViewController);
 #endif
-//    if (_reOpenedExamDetected) {
-//        [_sebLockedViewController removeLockedExam:[[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_startURL"]];
-//    }
     [_sebLockedViewController shouldCloseLockdownWindows];
 }
 
@@ -2544,6 +2581,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     if (_screenSharingCheckOverride == false) {
         _screenSharingDetected = false;
     }
+    lastTimeProcessCheck = [NSDate date];
+    _SIGSTOPDetected = false;
 }
 
 

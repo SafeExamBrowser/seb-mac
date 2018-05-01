@@ -124,6 +124,7 @@
     NSUInteger lastNumberRunningBSDProcesses;
     BOOL checkingRunningProcesses;
     BOOL checkingForWindows;
+    NSDate *lastTimeProcessCheck;
 }
 
 @property(readwrite) BOOL allowSwitchToApplications;
@@ -138,6 +139,7 @@
 @property(readwrite) BOOL siriCheckOverride;
 @property(readwrite) BOOL dictationCheckOverride;
 @property(readwrite) BOOL dictationDetected;
+@property(readwrite) BOOL SIGSTOPDetected;
 
 @property(readwrite) BOOL f3Pressed;
 @property(readwrite) BOOL startingUp;
