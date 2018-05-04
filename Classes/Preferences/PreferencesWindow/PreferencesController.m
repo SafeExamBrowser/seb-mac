@@ -77,8 +77,6 @@
 {
     restartSEB = NO;
     
-    self.configFileManager = [[SEBConfigFileManager alloc] init];
-
     // Add an observer for the notification to display the preferences window again
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showPreferencesWindow:)
@@ -89,9 +87,7 @@
                                              selector:@selector(switchToConfigFilePane:)
                                                  name:@"switchToConfigFilePane" object:nil];
     
-    [self initPreferencesWindow];
 }
-
 
 - (void)initPreferencesWindow
 {
@@ -100,6 +96,8 @@
         // Don't init
         return;
     }
+    
+    self.configFileManager = [[SEBConfigFileManager alloc] init];
     
     // Save current settings
     self.refreshingPreferences = NO;
@@ -117,17 +115,31 @@
     // Set settings credentials in the Config File prefs pane
     [self setConfigFileCredentials];
     
-	PrefsAppearanceViewController *appearance = [[PrefsAppearanceViewController alloc] initWithNibName:@"PreferencesAppearance" bundle:nil];
-	PrefsBrowserViewController *browser = [[PrefsBrowserViewController alloc] initWithNibName:@"PreferencesBrowser" bundle:nil];
-	PrefsDownUploadsViewController *downuploads = [[PrefsDownUploadsViewController alloc] initWithNibName:@"PreferencesDownUploads" bundle:nil];
+	PrefsAppearanceViewController *appearance = [[PrefsAppearanceViewController alloc]
+                                                 initWithNibName:@"PreferencesAppearance" bundle:nil];
+	PrefsBrowserViewController *browser = [[PrefsBrowserViewController alloc]
+                                           initWithNibName:@"PreferencesBrowser" bundle:nil];
+	PrefsDownUploadsViewController *downuploads = [[PrefsDownUploadsViewController alloc]
+                                                   initWithNibName:@"PreferencesDownUploads" bundle:nil];
 	self.examVC = [[PrefsExamViewController alloc] initWithNibName:@"PreferencesExam" bundle:nil];
-	PrefsApplicationsViewController *applications = [[PrefsApplicationsViewController alloc] initWithNibName:@"PreferencesApplications" bundle:nil];
+	PrefsApplicationsViewController *applications = [[PrefsApplicationsViewController alloc]
+                                                     initWithNibName:@"PreferencesApplications" bundle:nil];
 //	PrefsResourcesViewController *resources = [[PrefsResourcesViewController alloc] initWithNibName:@"PreferencesResources" bundle:nil];
-	PrefsNetworkViewController *network = [[PrefsNetworkViewController alloc] initWithNibName:@"PreferencesNetwork" bundle:nil];
-    network.preferencesController = self;
-	PrefsSecurityViewController *security = [[PrefsSecurityViewController alloc] initWithNibName:@"PreferencesSecurity" bundle:nil];
-//    [[MBPreferencesController sharedController] setModules:[NSArray arrayWithObjects:self.generalVC, self.configFileVC, appearance, browser, downuploads, self.examVC, applications, resources, network, security, nil]];
-    [[MBPreferencesController sharedController] setModules:[NSArray arrayWithObjects:self.generalVC, self.configFileVC, appearance, browser, downuploads, self.examVC, applications, network, security, nil]];
+	self.networkVC = [[PrefsNetworkViewController alloc] initWithNibName:@"PreferencesNetwork" bundle:nil];
+    self.networkVC.preferencesController = self;
+	PrefsSecurityViewController *security = [[PrefsSecurityViewController alloc]
+                                             initWithNibName:@"PreferencesSecurity" bundle:nil];
+    [[MBPreferencesController sharedController] setModules:[NSArray arrayWithObjects:
+                                                            self.generalVC,
+                                                            self.configFileVC,
+                                                            appearance,
+                                                            browser,
+                                                            downuploads,
+                                                            self.examVC,
+                                                            applications,
+                                                            self.networkVC,
+                                                            security,
+                                                            nil]];
     // Set self as the window delegate to be able to post a notification when preferences window is closing
     // will be overridden when the general pane is displayed (loaded from nib)
     if (![[MBPreferencesController sharedController].window delegate]) {
@@ -137,9 +149,13 @@
 }
 
 
-// Public method called to open the preferences Window
+// Public method called to open the preferences window
 - (void)openPreferencesWindow
 {
+    if (![[MBPreferencesController sharedController] modules]) {
+        [self initPreferencesWindow];
+    }
+
     // Store current settings (before the probably get edited)
     [self storeCurrentSettings];
     
@@ -151,7 +167,13 @@
 // Method called to programmatically close the preferences window
 - (void) closePreferencesWindow
 {
-    [[MBPreferencesController sharedController].window orderOut:self];
+//    [[MBPreferencesController sharedController].window orderOut:self];
+    self.generalVC = nil;
+    self.configFileVC = nil;
+    self.examVC = nil;
+    [self.networkVC removeObservers];
+    self.networkVC = nil;
+    [[MBPreferencesController sharedController] unloadNibs];
 }
 
 
@@ -194,14 +216,17 @@
 // Executed to decide if window should close
 - (BOOL)windowShouldClose:(id)sender
 {
+    BOOL shouldClose = true;
     // If Preferences are being closed and we're not just refreshing the preferences window
     if (!self.refreshingPreferences) {
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         [self.sebController.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
-        return [self conditionallyClosePreferencesWindowAskToApply:YES];
-    } else {
-        return YES;
+        shouldClose = [self conditionallyClosePreferencesWindowAskToApply:YES];
     }
+    if (shouldClose) {
+        [self closePreferencesWindow];
+    }
+    return shouldClose;
 }
 
 

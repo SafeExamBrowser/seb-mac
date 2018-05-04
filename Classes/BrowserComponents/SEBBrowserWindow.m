@@ -516,7 +516,10 @@
 
 #pragma mark URL Filter Teaching Mode Alert
 
-- (BOOL) showURLFilterAlertSheetForWindow:(NSWindow *)window forRequest:(NSURLRequest *)request forContentFilter:(BOOL)contentFilter filterResponse:(URLFilterRuleActions)filterResponse
+- (BOOL) showURLFilterAlertSheetForWindow:(NSWindow *)window
+                               forRequest:(NSURLRequest *)request
+                         forContentFilter:(BOOL)contentFilter
+                           filterResponse:(URLFilterRuleActions)filterResponse
 {
     if (!window.attachedSheet) {
         SEBWebView *creatingWebView = [self.webView creatingWebView];

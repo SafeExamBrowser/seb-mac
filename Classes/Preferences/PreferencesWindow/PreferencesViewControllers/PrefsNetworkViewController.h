@@ -45,7 +45,7 @@
     IBOutlet NSTabViewItem *urlFilterTab;
     IBOutlet NSMatrix *URLFilterMessageControl;
     
-	IBOutlet NSTableColumn *groupRowTableColumn;
+	__weak IBOutlet NSTableColumn *groupRowTableColumn;
 
     // Filter Section
     IBOutlet NSButton *URLFilterEnableContentFilterButton;
@@ -77,7 +77,7 @@
 
 @property (weak, nonatomic) PreferencesController *preferencesController;
 
-@property(strong) NSTableColumn *groupRowTableColumn;
+@property(weak) NSTableColumn *groupRowTableColumn;
 
 @property (strong, nonatomic) NSMutableArray *SSLCertificatesNames;
 @property (strong, nonatomic) NSArray *SSLCertificates;
@@ -98,6 +98,8 @@
 
 - (NSString *)identifier;
 - (NSImage *)image;
+
+- (void) removeObservers;
 
 // Filter Section
 - (IBAction) updateExpressionFromParts:(NSTextField *)sender;

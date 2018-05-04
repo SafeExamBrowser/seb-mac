@@ -2444,8 +2444,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     else if ([[notification name] isEqualToString:
               @"detectedSIGSTOP"])
     {
-//        _reOpenedExamDetected = true;
-        
+#ifndef DEBUG
+
         [_sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"SEB Process Was Stopped!", @"Lockdown alert title text for SEB process was stopped")
                                                 Message:NSLocalizedString(@"The SEB process was interrupted, which can indicate cheating. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
         
@@ -2459,6 +2459,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"SEB process was stopped for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:self.didBecomeActiveTime];
         
         [self openLockdownWindows];
+#endif
     }
     
 }
