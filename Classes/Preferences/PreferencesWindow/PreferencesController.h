@@ -53,6 +53,7 @@
 @class PrefsGeneralViewController;
 @class PrefsConfigFileViewController;
 @class PrefsExamViewController;
+@class PrefsNetworkViewController;
 
 
 @interface PreferencesController : NSObject <NSWindowDelegate> {
@@ -75,6 +76,7 @@
 @property (strong, nonatomic) PrefsGeneralViewController *generalVC;
 @property (strong, nonatomic) PrefsConfigFileViewController *configFileVC;
 @property (strong, nonatomic) PrefsExamViewController *examVC;
+@property (strong, nonatomic) PrefsNetworkViewController *networkVC;
 
 // Write-only properties
 @property (nonatomic) NSString *currentConfigPassword;

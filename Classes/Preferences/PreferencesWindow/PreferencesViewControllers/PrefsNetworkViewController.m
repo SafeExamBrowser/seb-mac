@@ -76,13 +76,14 @@
                                                  name:@"filterExpressionAdded" object:nil];
 }
 
--(void)dealloc {
+- (void) removeObservers {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    filterTableView = nil;
 }
 
 
 // Delegate called before the Network settings preferences pane will be displayed
-- (void)willBeDisplayed {
+- (void) willBeDisplayed {
 //    // Remove URL filter tab
 //    [networkTabView removeTabViewItem:urlFilterTab];
     
@@ -164,7 +165,7 @@
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
     // Set URL filter expression parts if an expression is selected
-    if ([filterArrayController selectedObjects].count) {
+    if (_preferencesController.preferencesAreOpen && [filterArrayController selectedObjects].count) {
         NSString *currentlySelectedExpression = [filterArrayController valueForKeyPath:@"selection.expression"];
         [self setPartsForExpression:currentlySelectedExpression];
     }
@@ -226,7 +227,13 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         SEBURLFilterExpression *expressionURL;
-        BOOL selectionRegex = [[filterArrayController valueForKeyPath:@"selection.regex"] boolValue];
+        BOOL selectionRegex;
+        id selectionRegexValue = [filterArrayController valueForKeyPath:@"selection.regex"];
+        if ([selectionRegexValue respondsToSelector:@selector(boolValue)]) {
+            selectionRegex = [selectionRegexValue boolValue];
+        } else {
+            return;
+        }
         if (selectionRegex == NO) {
             expressionURL = [SEBURLFilterExpression filterExpressionWithString:expression];
         }

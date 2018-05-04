@@ -395,7 +395,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="63j-33-Jdu">
-                                                    <rect key="frame" x="11" y="134" width="390" height="17"/>
+                                                    <rect key="frame" x="11" y="134" width="389" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="17" id="iuH-05-SfK"/>
                                                     </constraints>
@@ -853,7 +853,7 @@
                                         <rect key="frame" x="17" y="39" width="570" height="423"/>
                                         <clipView key="contentView" id="bNG-6J-vDW">
                                             <rect key="frame" x="1" y="0.0" width="568" height="422"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="" rowHeight="14" headerView="1834" id="1832" userLabel="Certificates Table View">
                                                     <rect key="frame" x="0.0" y="0.0" width="568" height="399"/>
@@ -1039,7 +1039,7 @@
                                         <rect key="frame" x="17" y="412" width="240" height="135"/>
                                         <clipView key="contentView" id="QXl-Cs-ddI">
                                             <rect key="frame" x="1" y="1" width="238" height="133"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="806">
                                                     <rect key="frame" x="0.0" y="0.0" width="238" height="133"/>
@@ -2030,7 +2030,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="163" y="199" width="610" height="573"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
             <view key="contentView" id="Oww-cu-u71">
                 <rect key="frame" x="0.0" y="0.0" width="610" height="573"/>
                 <autoresizingMask key="autoresizingMask"/>
