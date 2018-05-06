@@ -1207,7 +1207,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     }
     checkingRunningProcesses = true;
     
-    if ([lastTimeProcessCheck timeIntervalSinceNow] < -2) {
+    if ([lastTimeProcessCheck timeIntervalSinceNow] < -1) {
         DDLogError(@"Detected SIGSTOP! SEB was stopped for %f seconds", [lastTimeProcessCheck timeIntervalSinceNow]);
         dispatch_async(dispatch_get_main_queue(), ^{
             if (!_SIGSTOPDetected) {
@@ -1245,7 +1245,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
 - (void)windowWatcher
 {
     if (checkingForWindows) {
-        DDLogDebug(@"Check for prohibited windows still ongoing, return");
+        DDLogDebug(@"Check for prohibited windows still ongoing, returning");
         return;
     }
     checkingForWindows = true;
