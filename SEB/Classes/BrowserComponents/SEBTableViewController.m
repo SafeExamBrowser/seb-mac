@@ -123,29 +123,14 @@
         safeAreaInsets = self.view.safeAreaInsets;
     }
     
+    _SEBTitleLabel.textColor = [UIColor whiteColor];
     NSUInteger statusBarAppearance = _appDelegate.sebUIController.statusBarAppearance;
-    switch (statusBarAppearance) {
-        case mobileStatusBarAppearanceNone:
-            self.view.backgroundColor = [UIColor darkGrayColor];
-            _StatusBarBackgroundView.backgroundColor = [UIColor darkGrayColor];
-            _SEBTitleLabel.textColor = [UIColor whiteColor];
-            break;
-            
-        case mobileStatusBarAppearanceLight:
-            self.view.backgroundColor = [UIColor blackColor];
-            _StatusBarBackgroundView.backgroundColor = [UIColor blackColor];
-            _SEBTitleLabel.textColor = [UIColor whiteColor];
-            break;
-            
-        case mobileStatusBarAppearanceDark:
-            self.view.backgroundColor = [UIColor darkGrayColor];
-            _StatusBarBackgroundView.backgroundColor = [UIColor darkGrayColor];
-            _SEBTitleLabel.textColor = [UIColor whiteColor];
-            break;
-            
-        default:
-            break;
+    if (statusBarAppearance == mobileStatusBarAppearanceLight || statusBarAppearance == mobileStatusBarAppearanceExtendedLight) {
+        _StatusBarBackgroundView.backgroundColor = [UIColor blackColor];
+    } else {
+        _StatusBarBackgroundView.backgroundColor = [UIColor darkGrayColor];
     }
+    
     [self refreshTableView:self];
 }
 

@@ -34,7 +34,7 @@
 #import "SEBWebViewController.h"
 #import "UIWebView+SEBWebView.h"
 #import "Constants.h"
-
+#import "AppDelegate.h"
 
 @interface SEBWebViewController () {
 
@@ -56,7 +56,7 @@
         _sebWebView = [[UIWebView alloc] initWithFrame:webFrame];
     }
     
-    _sebWebView.backgroundColor = ([[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"] == mobileStatusBarAppearanceLight ? [UIColor blackColor] : [UIColor whiteColor]);
+    _sebWebView.backgroundColor = ([(AppDelegate*)[[UIApplication sharedApplication] delegate] sebUIController].statusBarAppearance == (mobileStatusBarAppearanceLight | mobileStatusBarAppearanceExtendedLight) ? [UIColor blackColor] : [UIColor whiteColor]);
     
     _sebWebView.scalesPageToFit = YES;
     _sebWebView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);

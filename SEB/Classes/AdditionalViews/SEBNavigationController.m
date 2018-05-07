@@ -63,7 +63,10 @@
 
 - (BOOL) prefersStatusBarHidden
 {
-    return (self.sebUIController.statusBarAppearance == mobileStatusBarAppearanceNone);
+    NSUInteger statusBarAppearance = self.sebUIController.statusBarAppearance;
+    return (statusBarAppearance == mobileStatusBarAppearanceNone |
+            statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark |
+            statusBarAppearance == mobileStatusBarAppearanceExtendedNoneLight);
 }
 
 
@@ -74,7 +77,10 @@
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-    if (self.sebUIController.statusBarAppearance == mobileStatusBarAppearanceLight) {
+    NSUInteger statusBarAppearance = self.sebUIController.statusBarAppearance;
+    if (!self.sebUIController.browserToolbarEnabled &&
+        (statusBarAppearance == mobileStatusBarAppearanceLight ||
+        statusBarAppearance == mobileStatusBarAppearanceExtendedNoneLight)) {
         return UIStatusBarStyleLightContent;
     } else {
         return UIStatusBarStyleDefault;

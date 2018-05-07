@@ -59,8 +59,27 @@
     SEBSliderItem *sliderCommandItem;
     UIImage *sliderIcon;
 
+    _browserToolbarEnabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"];
+    
     /// Get status bar style from settings
-    _statusBarAppearance = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"];
+    // Check if we need to customize the status bar, because running on a device
+    // like iPhone X
+    if (@available(iOS 11.0, *)) {
+        UIWindow *window = UIApplication.sharedApplication.keyWindow;
+        if (window.safeAreaInsets.bottom != 0)
+        {
+            _statusBarAppearance = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearanceExtended"];
+            if (_statusBarAppearance != mobileStatusBarAppearanceExtendedInferred) {
+                _statusBarAppearance = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"];
+            }
+        } else {
+            // No iPhone X like device, use regular status bar setting
+            _statusBarAppearance = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"];
+        }
+    } else {
+        // No iOS 11 = no iPhone X like device, use regular status bar setting
+        _statusBarAppearance = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearance"];
+    }
     // In iOS 9 we have to disable the status bar when SEB was started up by another
     // app, as the "back to" this app link in the status bar isn't blocked in AAC
     if (NSProcessInfo.processInfo.operatingSystemVersion.majorVersion < 10 && _appDelegate.openedURL) {
