@@ -1071,11 +1071,9 @@ void run_on_ui_thread(dispatch_block_t block)
         }
         
         // Show navigation bar if browser toolbar is enabled in settings and populate it with enabled controls
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"]) {
-            browserToolbarEnabled = true;
+        if (_sebUIController.browserToolbarEnabled) {
             [self.navigationController setNavigationBarHidden:NO];
         } else {
-            browserToolbarEnabled = false;
             [self.navigationController setNavigationBarHidden:YES];
         }
     });
@@ -2264,7 +2262,7 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) activateReloadButtons:(BOOL)reloadEnabled
 {
     if (reloadEnabled)  {
-        if (browserToolbarEnabled) {
+        if (_sebUIController.browserToolbarEnabled) {
             // Add reload button to navigation bar
             toolbarReloadButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBToolbarReloadIcon"]
                                                                    style:UIBarButtonItemStylePlain
