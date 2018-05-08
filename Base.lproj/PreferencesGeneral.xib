@@ -124,10 +124,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="85">
-                    <rect key="frame" x="18" y="304" width="96" height="17"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="92" id="337"/>
-                    </constraints>
+                    <rect key="frame" x="51" y="304" width="63" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Start URL" id="106">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -291,10 +288,9 @@
                     </connections>
                 </button>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="194">
-                    <rect key="frame" x="268" y="279" width="362" height="21"/>
+                    <rect key="frame" x="483" y="279" width="147" height="21"/>
                     <string key="toolTip">SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field.</string>
                     <constraints>
-                        <constraint firstAttribute="width" constant="362" id="352"/>
                         <constraint firstAttribute="height" constant="21" id="410"/>
                     </constraints>
                     <buttonCell key="cell" type="recessed" title="Paste from saved clipboard" bezelStyle="recessed" alignment="right" state="on" imageScaling="proportionallyDown" inset="2" id="195">
@@ -307,6 +303,9 @@
                 </button>
                 <textField toolTip="Full URL (starting with http:// or https://) of the page to open when SEB is started." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="255">
                     <rect key="frame" x="120" y="301" width="510" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="510" id="qcf-It-h9X"/>
+                    </constraints>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="URL starting with http:// or https://" drawsBackground="YES" id="256">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -343,7 +342,7 @@
                 <constraint firstAttribute="trailing" secondItem="83" secondAttribute="trailing" constant="20" symbolic="YES" id="276"/>
                 <constraint firstItem="90" firstAttribute="leading" secondItem="79" secondAttribute="leading" id="277"/>
                 <constraint firstItem="83" firstAttribute="leading" secondItem="79" secondAttribute="leading" id="278"/>
-                <constraint firstItem="85" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="279"/>
+                <constraint firstItem="85" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1" secondAttribute="leading" constant="20" id="279"/>
                 <constraint firstItem="78" firstAttribute="leading" secondItem="90" secondAttribute="leading" id="281"/>
                 <constraint firstItem="92" firstAttribute="top" secondItem="90" secondAttribute="bottom" constant="8" symbolic="YES" id="282"/>
                 <constraint firstAttribute="trailing" secondItem="78" secondAttribute="trailing" constant="20" symbolic="YES" id="283"/>
@@ -375,7 +374,7 @@
                 <constraint firstItem="194" firstAttribute="trailing" secondItem="255" secondAttribute="trailing" id="349"/>
                 <constraint firstAttribute="trailing" secondItem="255" secondAttribute="trailing" constant="20" symbolic="YES" id="350"/>
                 <constraint firstItem="80" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="354"/>
-                <constraint firstAttribute="trailing" secondItem="93" secondAttribute="trailing" constant="20" id="355"/>
+                <constraint firstAttribute="trailing" secondItem="93" secondAttribute="trailing" constant="20" symbolic="YES" id="355"/>
                 <constraint firstItem="95" firstAttribute="leading" secondItem="94" secondAttribute="trailing" constant="12" symbolic="YES" id="360"/>
                 <constraint firstItem="150" firstAttribute="width" secondItem="94" secondAttribute="width" id="378"/>
                 <constraint firstItem="150" firstAttribute="width" secondItem="88" secondAttribute="width" id="379"/>
@@ -389,9 +388,13 @@
                 <constraint firstAttribute="trailing" secondItem="412" secondAttribute="trailing" constant="19" id="X84-cd-aDD"/>
                 <constraint firstItem="82" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="21" id="aei-YS-aug"/>
                 <constraint firstItem="79" firstAttribute="top" secondItem="412" secondAttribute="bottom" constant="8" id="guJ-hU-cRU"/>
+                <constraint firstItem="194" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="llI-Z4-oun"/>
                 <constraint firstItem="81" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="sY6-OW-Tww"/>
                 <constraint firstAttribute="centerX" secondItem="88" secondAttribute="centerX" id="tf3-rT-gRj"/>
+                <constraint firstItem="88" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="95" secondAttribute="trailing" constant="12" symbolic="YES" id="uZ4-I0-S8e"/>
+                <constraint firstItem="150" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="88" secondAttribute="trailing" constant="12" symbolic="YES" id="vgc-gu-xKx"/>
             </constraints>
+            <point key="canvasLocation" x="117" y="168.5"/>
         </customView>
         <objectController id="115">
             <declaredKeys>

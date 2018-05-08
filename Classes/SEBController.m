@@ -1218,7 +1218,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
         });
     }
     
-    // Check if not allowed/prohibited processes was activated
+    // Check if not allowed/prohibited processes were activated
     // Get all running processes, including daemons
     NSArray *allRunningProcesses = [self getProcessArray];
     self.runningProcesses = allRunningProcesses;
