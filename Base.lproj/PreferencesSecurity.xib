@@ -402,7 +402,7 @@
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
                                                     <connections>
-                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_insideSebEnableEnableNetworkConnectionSelector" id="nz1-gK-VOn"/>
+                                                        <binding destination="110" name="value" keyPath="values.insideSebEnableNetworkConnectionSelector" id="awI-aE-CIT"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
