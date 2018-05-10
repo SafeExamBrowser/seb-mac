@@ -317,13 +317,13 @@
                                         </textFieldCell>
                                     </textField>
                                     <box autoresizesSubviews="NO" verticalHuggingPriority="500" borderType="line" title="While running SEB" translatesAutoresizingMaskIntoConstraints="NO" id="dYr-I9-VL8">
-                                        <rect key="frame" x="13" y="86" width="283" height="241"/>
+                                        <rect key="frame" x="13" y="60" width="283" height="267"/>
                                         <view key="contentView" id="nih-s0-yee">
-                                            <rect key="frame" x="1" y="1" width="281" height="225"/>
+                                            <rect key="frame" x="1" y="1" width="281" height="251"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="V4D-Fb-Kmw">
-                                                    <rect key="frame" x="16" y="198" width="140" height="18"/>
+                                                    <rect key="frame" x="16" y="224" width="140" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable Switch User" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="rm8-cp-dzk">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -333,7 +333,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9pf-GF-fho">
-                                                    <rect key="frame" x="16" y="172" width="183" height="18"/>
+                                                    <rect key="frame" x="16" y="198" width="183" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable Lock this computer" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="n9V-3H-mM5">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -343,7 +343,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hen-ae-pBM">
-                                                    <rect key="frame" x="16" y="146" width="186" height="18"/>
+                                                    <rect key="frame" x="16" y="172" width="186" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable Change a password" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Rgp-1k-Eaw">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -353,7 +353,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MNx-PR-dde">
-                                                    <rect key="frame" x="16" y="120" width="185" height="18"/>
+                                                    <rect key="frame" x="16" y="146" width="185" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable Start Task Manager" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="uiU-JQ-4Yc">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -363,7 +363,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GqG-hZ-nUG">
-                                                    <rect key="frame" x="16" y="94" width="110" height="18"/>
+                                                    <rect key="frame" x="16" y="120" width="110" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable Log off" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="LTi-lL-sOs">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -373,7 +373,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zzE-IO-a4g">
-                                                    <rect key="frame" x="16" y="68" width="131" height="18"/>
+                                                    <rect key="frame" x="16" y="94" width="131" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable Shut down" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Ouk-wE-FFP">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -383,7 +383,7 @@
                                                     </connections>
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="smt-W3-qyD">
-                                                    <rect key="frame" x="16" y="42" width="158" height="18"/>
+                                                    <rect key="frame" x="16" y="68" width="158" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable Ease of Access" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="AtG-6Z-aRN">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -402,7 +402,32 @@
                                                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_insideSebEnableVmWareClientShade" id="BCq-ut-3oy"/>
                                                     </connections>
                                                 </button>
+                                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Esl-Tl-Quf">
+                                                    <rect key="frame" x="16" y="42" width="239" height="18"/>
+                                                    <buttonCell key="cell" type="check" title="Enable network connection selector" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="cYs-RO-IZD">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_insideSebEnableVmWareClientShade" id="O2c-pe-ZCS"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zzE-IO-a4g" secondAttribute="trailing" constant="20" symbolic="YES" id="12o-v3-2u5"/>
+                                                <constraint firstItem="w1d-t7-rBY" firstAttribute="top" secondItem="Esl-Tl-Quf" secondAttribute="bottom" constant="12" id="42x-uT-33r"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9pf-GF-fho" secondAttribute="trailing" constant="20" symbolic="YES" id="8bR-x3-ckf"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Esl-Tl-Quf" secondAttribute="trailing" constant="20" symbolic="YES" id="MG3-vu-OG4"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="MNx-PR-dde" secondAttribute="trailing" constant="20" symbolic="YES" id="OIz-8n-TeT"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hen-ae-pBM" secondAttribute="trailing" constant="20" symbolic="YES" id="OYa-mT-Ifk"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="w1d-t7-rBY" secondAttribute="trailing" constant="20" symbolic="YES" id="Rt8-wu-meh"/>
+                                                <constraint firstItem="Esl-Tl-Quf" firstAttribute="leading" secondItem="smt-W3-qyD" secondAttribute="leading" id="Wnp-g9-4tV"/>
+                                                <constraint firstItem="Esl-Tl-Quf" firstAttribute="top" secondItem="smt-W3-qyD" secondAttribute="bottom" constant="12" id="ZCL-8M-eaB"/>
+                                                <constraint firstItem="w1d-t7-rBY" firstAttribute="leading" secondItem="Esl-Tl-Quf" secondAttribute="leading" id="dWt-08-mPI"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="V4D-Fb-Kmw" secondAttribute="trailing" constant="20" symbolic="YES" id="hb8-5m-KvJ"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="smt-W3-qyD" secondAttribute="trailing" constant="20" symbolic="YES" id="oIt-uF-4w1"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="GqG-hZ-nUG" secondAttribute="trailing" constant="20" symbolic="YES" id="tGm-Oi-EO8"/>
+                                            </constraints>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="hen-ae-pBM" firstAttribute="leading" secondItem="9pf-GF-fho" secondAttribute="leading" id="0SS-Qx-mdB"/>
@@ -411,12 +436,10 @@
                                             <constraint firstItem="MNx-PR-dde" firstAttribute="top" secondItem="hen-ae-pBM" secondAttribute="bottom" constant="12" id="8y5-DI-60J"/>
                                             <constraint firstItem="V4D-Fb-Kmw" firstAttribute="leading" secondItem="9pf-GF-fho" secondAttribute="leading" id="Fhk-Sh-t7C"/>
                                             <constraint firstItem="zzE-IO-a4g" firstAttribute="leading" secondItem="smt-W3-qyD" secondAttribute="leading" id="KSy-gu-qMk"/>
-                                            <constraint firstItem="smt-W3-qyD" firstAttribute="leading" secondItem="w1d-t7-rBY" secondAttribute="leading" id="N6u-07-sgX"/>
                                             <constraint firstItem="V4D-Fb-Kmw" firstAttribute="leading" secondItem="dYr-I9-VL8" secondAttribute="leading" constant="16" id="SLC-V2-yWR"/>
                                             <constraint firstItem="zzE-IO-a4g" firstAttribute="top" secondItem="GqG-hZ-nUG" secondAttribute="bottom" constant="12" id="Z4h-TK-eFx"/>
                                             <constraint firstAttribute="bottom" secondItem="w1d-t7-rBY" secondAttribute="bottom" constant="15" id="c0U-Ae-xdt"/>
                                             <constraint firstItem="smt-W3-qyD" firstAttribute="top" secondItem="zzE-IO-a4g" secondAttribute="bottom" constant="12" id="cTY-Ay-g0G"/>
-                                            <constraint firstItem="w1d-t7-rBY" firstAttribute="top" secondItem="smt-W3-qyD" secondAttribute="bottom" constant="12" id="eiv-cP-6y1"/>
                                             <constraint firstItem="zzE-IO-a4g" firstAttribute="leading" secondItem="GqG-hZ-nUG" secondAttribute="leading" id="iPG-Tx-4Md"/>
                                             <constraint firstItem="GqG-hZ-nUG" firstAttribute="top" secondItem="MNx-PR-dde" secondAttribute="bottom" constant="12" id="ljx-sn-d5W"/>
                                             <constraint firstItem="hen-ae-pBM" firstAttribute="top" secondItem="9pf-GF-fho" secondAttribute="bottom" constant="12" id="qJg-8l-bm0"/>
