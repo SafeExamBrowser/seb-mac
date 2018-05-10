@@ -62,7 +62,7 @@
                         </binding>
                     </connections>
                 </button>
-                <button toolTip="Open a settings file for editing" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1046">
+                <button toolTip="Open a settings file for editing" horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1046">
                     <rect key="frame" x="14" y="79" width="200" height="32"/>
                     <buttonCell key="cell" type="push" title="Open Settings..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1047">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -130,7 +130,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="68">
-                    <rect key="frame" x="18" y="276" width="615" height="17"/>
+                    <rect key="frame" x="18" y="276" width="373" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Choose identity to be used for encrypting SEB settings file ..." id="75">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -138,7 +138,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="69">
-                    <rect key="frame" x="16" y="251" width="617" height="22"/>
+                    <rect key="frame" x="17" y="251" width="616" height="22"/>
                     <string key="toolTip">Identities (X.509 certificates with RSA public key and associated private key) in your default keychain which can be used for encrypting and decrypting. Export the chosen identity (in Keychain Access utility) and install it on your SEB clients.</string>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="70">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -151,7 +151,7 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <secureTextField toolTip="Retype the settings password" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="110">
-                    <rect key="frame" x="380" y="172" width="250" height="22"/>
+                    <rect key="frame" x="330" y="172" width="300" height="22"/>
                     <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="119">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -170,7 +170,7 @@
                     </connections>
                 </secureTextField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="111">
-                    <rect key="frame" x="258" y="205" width="116" height="17"/>
+                    <rect key="frame" x="208" y="205" width="116" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Settings password" id="118">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -178,7 +178,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="112">
-                    <rect key="frame" x="207" y="175" width="167" height="17"/>
+                    <rect key="frame" x="157" y="175" width="167" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Confirm settings password" id="117">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -186,7 +186,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="113">
-                    <rect key="frame" x="378" y="152" width="207" height="17"/>
+                    <rect key="frame" x="328" y="152" width="207" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Please enter correct confirm password" id="116">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" red="0.72156864399999998" green="0.2588235438" blue="0.1764705926" alpha="1" colorSpace="deviceRGB"/>
@@ -201,7 +201,10 @@
                     </connections>
                 </textField>
                 <secureTextField toolTip="Password to decrypt the settings file, prompted when SEB reads these settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="114">
-                    <rect key="frame" x="380" y="202" width="250" height="22"/>
+                    <rect key="frame" x="330" y="202" width="300" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="300" id="Fvm-Ma-06X"/>
+                    </constraints>
                     <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="115">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -220,7 +223,7 @@
                     </connections>
                 </secureTextField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="173">
-                    <rect key="frame" x="18" y="232" width="614" height="14"/>
+                    <rect key="frame" x="18" y="232" width="308" height="14"/>
                     <string key="toolTip">If used on unmanaged (student) computers, using a password is recomended, on managed computers (no administrator access by users/students) a cryptographic identity might be more convenient.</string>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Use either a cryptographic identity or a password or both." id="174">
                         <font key="font" metaFont="smallSystem"/>
@@ -229,7 +232,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="237">
-                    <rect key="frame" x="18" y="383" width="614" height="17"/>
+                    <rect key="frame" x="18" y="383" width="166" height="17"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Use SEB settings file for ..." usesSingleLineMode="YES" id="239">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -237,7 +240,7 @@
                     </textFieldCell>
                 </textField>
                 <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="249">
-                    <rect key="frame" x="20" y="335" width="460" height="40"/>
+                    <rect key="frame" x="20" y="335" width="610" height="40"/>
                     <string key="toolTip">A saved settings file will either start the exam using these settings (temporarily) or change the local settings of a SEB client (permanently)</string>
                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     <size key="cellSize" width="460" height="18"/>
@@ -266,7 +269,7 @@
                     </connections>
                 </matrix>
                 <button toolTip="Usually disable preferences window on exam clients besides for debugging purposes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="259">
-                    <rect key="frame" x="20" y="311" width="612" height="18"/>
+                    <rect key="frame" x="20" y="311" width="285" height="18"/>
                     <buttonCell key="cell" type="check" title="Allow to open preferences window on client" bezelStyle="regularSquare" imagePosition="left" inset="2" id="260">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -312,69 +315,76 @@
             </subviews>
             <constraints>
                 <constraint firstItem="114" firstAttribute="top" secondItem="173" secondAttribute="bottom" constant="8" symbolic="YES" id="0lg-lg-znu"/>
+                <constraint firstItem="259" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="22" id="248-jI-F6g"/>
                 <constraint firstItem="114" firstAttribute="leading" secondItem="110" secondAttribute="leading" id="2PK-CB-F1X"/>
-                <constraint firstAttribute="trailing" secondItem="237" secondAttribute="trailing" constant="20" symbolic="YES" id="3Yt-ty-LD0"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="237" secondAttribute="trailing" constant="20" symbolic="YES" id="3Yt-ty-LD0"/>
                 <constraint firstItem="1137" firstAttribute="trailing" secondItem="1060" secondAttribute="trailing" id="5FQ-Fd-vy9"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="68" secondAttribute="trailing" constant="20" symbolic="YES" id="60y-f8-UDv"/>
                 <constraint firstItem="1046" firstAttribute="leading" secondItem="3" secondAttribute="leading" id="7jx-cr-mtH"/>
                 <constraint firstItem="1119" firstAttribute="top" secondItem="112" secondAttribute="bottom" constant="45" id="8UC-Li-IjI"/>
-                <constraint firstItem="259" firstAttribute="centerX" secondItem="68" secondAttribute="centerX" id="8do-Um-fHV"/>
+                <constraint firstItem="1046" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="8vd-r1-TP9"/>
                 <constraint firstItem="1072" firstAttribute="baseline" secondItem="1165" secondAttribute="baseline" id="8yU-Lg-GIo"/>
-                <constraint firstItem="237" firstAttribute="leading" secondItem="249" secondAttribute="leading" id="9Kf-QK-0AH"/>
                 <constraint firstItem="1072" firstAttribute="trailing" secondItem="1137" secondAttribute="trailing" id="9bt-QB-Hqa"/>
                 <constraint firstItem="1189" firstAttribute="leading" secondItem="1165" secondAttribute="leading" id="Abl-0e-cbu"/>
+                <constraint firstAttribute="trailing" secondItem="249" secondAttribute="trailing" constant="20" symbolic="YES" id="BKA-59-ZyD"/>
                 <constraint firstAttribute="trailing" secondItem="1189" secondAttribute="trailing" constant="75" id="Bet-co-GgH"/>
-                <constraint firstItem="173" firstAttribute="leading" secondItem="1172" secondAttribute="leading" id="CvQ-QK-GRB"/>
+                <constraint firstItem="1189" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1119" secondAttribute="trailing" constant="23" id="Bk6-Xr-6BK"/>
+                <constraint firstAttribute="trailing" secondItem="69" secondAttribute="trailing" constant="20" symbolic="YES" id="Bu1-k4-U3w"/>
                 <constraint firstItem="110" firstAttribute="leading" secondItem="112" secondAttribute="trailing" constant="8" symbolic="YES" id="E7F-qw-HZN"/>
-                <constraint firstItem="1172" firstAttribute="leading" secondItem="1046" secondAttribute="leading" id="EJM-hD-Nkc"/>
                 <constraint firstItem="1165" firstAttribute="trailing" secondItem="1157" secondAttribute="trailing" id="EM4-0a-rgo"/>
-                <constraint firstItem="173" firstAttribute="trailing" secondItem="114" secondAttribute="trailing" id="GcM-Be-lXr"/>
                 <constraint firstItem="1172" firstAttribute="baseline" secondItem="1119" secondAttribute="firstBaseline" id="Gfa-qN-ORP"/>
                 <constraint firstItem="1072" firstAttribute="leading" secondItem="1046" secondAttribute="trailing" constant="23" id="GrY-XI-SEw"/>
                 <constraint firstItem="1119" firstAttribute="leading" secondItem="1072" secondAttribute="leading" id="HMp-gC-v42"/>
+                <constraint firstItem="111" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="HOk-3v-a8H"/>
                 <constraint firstItem="1046" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" id="KF0-kT-qW4"/>
                 <constraint firstItem="1165" firstAttribute="leading" secondItem="1157" secondAttribute="leading" id="Kz8-n6-FMj"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="259" secondAttribute="trailing" constant="20" symbolic="YES" id="Lgy-OI-3yw"/>
                 <constraint firstItem="110" firstAttribute="leading" secondItem="113" secondAttribute="leading" id="MRk-Am-5PC"/>
                 <constraint firstItem="113" firstAttribute="top" secondItem="110" secondAttribute="bottom" constant="3" id="Mn6-OW-ofu"/>
                 <constraint firstItem="173" firstAttribute="top" secondItem="69" secondAttribute="bottom" constant="8" symbolic="YES" id="NXh-1B-xpw"/>
+                <constraint firstItem="1119" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1172" secondAttribute="trailing" constant="23" id="O20-5Q-r7Q"/>
                 <constraint firstItem="1157" firstAttribute="leading" secondItem="1292" secondAttribute="leading" id="OfD-pe-kOq"/>
                 <constraint firstItem="3" firstAttribute="top" secondItem="1046" secondAttribute="bottom" constant="12" symbolic="YES" id="PZa-mh-V0Z"/>
-                <constraint firstAttribute="trailing" secondItem="113" secondAttribute="trailing" constant="67" id="QUk-Yo-nca"/>
-                <constraint firstItem="68" firstAttribute="leading" secondItem="173" secondAttribute="leading" id="SI4-VJ-Ivr"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="113" secondAttribute="trailing" constant="20" symbolic="YES" id="QUk-Yo-nca"/>
                 <constraint firstItem="237" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="Sr7-9R-eD8"/>
-                <constraint firstItem="173" firstAttribute="centerX" secondItem="1072" secondAttribute="centerX" id="TAY-Vk-Gr6"/>
                 <constraint firstItem="69" firstAttribute="top" secondItem="68" secondAttribute="bottom" constant="4" id="Tn6-4V-EFW"/>
                 <constraint firstItem="1106" firstAttribute="top" secondItem="3" secondAttribute="bottom" constant="12" symbolic="YES" id="Tsq-P5-7jJ"/>
                 <constraint firstItem="1157" firstAttribute="trailing" secondItem="1292" secondAttribute="trailing" id="Ues-tO-XRe"/>
+                <constraint firstItem="68" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="VdG-EY-izb"/>
                 <constraint firstItem="1106" firstAttribute="baseline" secondItem="1060" secondAttribute="baseline" id="Wjt-2r-UUd"/>
-                <constraint firstItem="68" firstAttribute="centerX" secondItem="173" secondAttribute="centerX" id="YDL-hQ-PbV"/>
+                <constraint firstItem="249" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="XnA-nF-9g7"/>
                 <constraint firstItem="1060" firstAttribute="baseline" secondItem="1292" secondAttribute="baseline" id="a9Q-Qd-Gda"/>
                 <constraint firstItem="237" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" symbolic="YES" id="ak5-Te-5SS"/>
                 <constraint firstItem="3" firstAttribute="baseline" secondItem="1137" secondAttribute="baseline" id="anT-Hz-5gs"/>
+                <constraint firstAttribute="trailing" secondItem="110" secondAttribute="trailing" constant="20" symbolic="YES" id="auu-CJ-3Lh"/>
                 <constraint firstItem="1072" firstAttribute="leading" secondItem="1137" secondAttribute="leading" id="bfL-RX-Et9"/>
-                <constraint firstItem="69" firstAttribute="centerX" secondItem="173" secondAttribute="centerX" id="e1m-Aa-2qb"/>
                 <constraint firstItem="1165" firstAttribute="leading" secondItem="1072" secondAttribute="trailing" constant="23" id="f2g-DF-53F"/>
                 <constraint firstItem="1172" firstAttribute="baseline" secondItem="1119" secondAttribute="baseline" id="f2g-TX-B0a"/>
+                <constraint firstAttribute="trailing" secondItem="114" secondAttribute="trailing" constant="20" symbolic="YES" id="fQb-ax-VH7"/>
                 <constraint firstItem="114" firstAttribute="leading" secondItem="111" secondAttribute="trailing" constant="8" symbolic="YES" id="fih-mD-OX7"/>
                 <constraint firstItem="3" firstAttribute="trailing" secondItem="1106" secondAttribute="trailing" id="gCM-L4-bNj"/>
                 <constraint firstItem="111" firstAttribute="baseline" secondItem="114" secondAttribute="baseline" id="gGt-cl-Rwp"/>
-                <constraint firstItem="249" firstAttribute="leading" secondItem="68" secondAttribute="leading" id="gqe-Np-lUT"/>
                 <constraint firstItem="112" firstAttribute="baseline" secondItem="110" secondAttribute="baseline" id="hgV-bD-5oB"/>
                 <constraint firstItem="1119" firstAttribute="baseline" secondItem="1189" secondAttribute="firstBaseline" id="ji7-A6-uDf"/>
                 <constraint firstItem="249" firstAttribute="top" secondItem="237" secondAttribute="bottom" constant="8" symbolic="YES" id="kAE-9i-ibh"/>
-                <constraint firstItem="69" firstAttribute="trailing" secondItem="173" secondAttribute="trailing" id="m3q-et-2rp"/>
+                <constraint firstItem="68" firstAttribute="top" secondItem="259" secondAttribute="bottom" constant="20" id="m5B-O3-5BB"/>
                 <constraint firstItem="3" firstAttribute="leading" secondItem="1106" secondAttribute="leading" id="nA7-Hy-vnk"/>
-                <constraint firstItem="110" firstAttribute="trailing" secondItem="1165" secondAttribute="trailing" id="nD6-Fc-nLW"/>
-                <constraint firstItem="114" firstAttribute="trailing" secondItem="110" secondAttribute="trailing" id="pTg-9o-Cv3"/>
+                <constraint firstItem="1072" firstAttribute="width" secondItem="1046" secondAttribute="width" id="nS9-5w-ylT"/>
+                <constraint firstItem="173" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="oQP-mW-WmX"/>
+                <constraint firstItem="69" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="pPi-4u-adn"/>
                 <constraint firstItem="1046" firstAttribute="top" secondItem="1172" secondAttribute="bottom" constant="9" id="qXm-jg-3gp"/>
+                <constraint firstAttribute="trailing" secondItem="1165" secondAttribute="trailing" constant="20" symbolic="YES" id="s8U-QG-4lc"/>
                 <constraint firstItem="1046" firstAttribute="baseline" secondItem="1072" secondAttribute="baseline" id="sZ1-CJ-lJQ"/>
                 <constraint firstItem="110" firstAttribute="top" secondItem="114" secondAttribute="bottom" constant="8" id="tEb-on-vst"/>
+                <constraint firstItem="1172" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="tRb-VG-QGI"/>
                 <constraint firstItem="1189" firstAttribute="top" secondItem="113" secondAttribute="bottom" constant="22" id="tZJ-yY-MQ2"/>
+                <constraint firstItem="1165" firstAttribute="width" secondItem="1046" secondAttribute="width" id="uOZ-7U-Ltg"/>
                 <constraint firstItem="1137" firstAttribute="baseline" secondItem="1157" secondAttribute="baseline" id="vYd-hs-59x"/>
                 <constraint firstItem="259" firstAttribute="top" secondItem="249" secondAttribute="bottom" constant="8" symbolic="YES" id="vrx-UI-Q2O"/>
-                <constraint firstItem="259" firstAttribute="trailing" secondItem="69" secondAttribute="trailing" id="xC8-RL-QGb"/>
-                <constraint firstItem="237" firstAttribute="trailing" secondItem="259" secondAttribute="trailing" id="xi9-6h-jad"/>
+                <constraint firstItem="112" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="xv4-dT-0yk"/>
                 <constraint firstAttribute="bottom" secondItem="1106" secondAttribute="bottom" constant="20" symbolic="YES" id="zYq-md-q9H"/>
                 <constraint firstItem="1137" firstAttribute="leading" secondItem="1060" secondAttribute="leading" id="zim-Xj-Rmm"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="173" secondAttribute="trailing" constant="20" symbolic="YES" id="zqs-10-Kga"/>
             </constraints>
             <point key="canvasLocation" x="673" y="453"/>
         </customView>

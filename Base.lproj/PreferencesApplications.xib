@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -62,7 +62,7 @@
                                         <rect key="frame" x="17" y="406" width="570" height="151"/>
                                         <clipView key="contentView" id="X70-IM-m39">
                                             <rect key="frame" x="1" y="0.0" width="568" height="150"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" autosaveName="" headerView="348" id="346">
                                                     <rect key="frame" x="0.0" y="0.0" width="568" height="127"/>
@@ -345,7 +345,7 @@
                                                     <rect key="frame" x="98" y="121" width="458" height="70"/>
                                                     <clipView key="contentView" id="UYw-pC-SvI">
                                                         <rect key="frame" x="1" y="1" width="456" height="68"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="736">
                                                                 <rect key="frame" x="0.0" y="0.0" width="456" height="68"/>
@@ -1218,14 +1218,14 @@
                     </tabViewItems>
                 </tabView>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="299">
-                    <rect key="frame" x="18" y="664" width="171" height="18"/>
-                    <string key="toolTip">SEB monitors which processes/applications are running during an exam. Those which are not permitted are hiddden, those which are prohibited will be closed.</string>
-                    <buttonCell key="cell" type="check" title="Monitor processes (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="301">
+                    <rect key="frame" x="18" y="664" width="226" height="18"/>
+                    <string key="toolTip">SEB will attempt to quit processes/applications which are not permitted to run during an exam and require to terminate those which are prohibited</string>
+                    <buttonCell key="cell" type="check" title="Require to quit running processes" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="301">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_monitorProcesses" id="2127">
+                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_terminateProcesses" id="71e-yS-J4v">
                             <dictionary key="options">
                                 <bool key="NSConditionallySetsEnabled" value="NO"/>
                             </dictionary>
