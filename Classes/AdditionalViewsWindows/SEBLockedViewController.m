@@ -187,7 +187,7 @@
 
 
 - (void) passwordEntered {
-    // Check if restarting is protected with the quit/restart password (and one is set)
+    // Check if restarting is protected with the quit/unlock password (and one is set)
     if (!closingLockdownWindowsInProgress) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
@@ -218,7 +218,7 @@
             [self.controllerDelegate correctPasswordEntered];
             return;
         }
-        DDLogError(@"Lockdown alert: Wrong quit/restart password entered, asking to try again");
+        DDLogError(@"Lockdown alert: Wrong quit/unlock password entered, asking to try again");
         [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Wrong password entered!", nil)]
                        withTime:[NSDate date]];
         [self.UIDelegate setLockedAlertPassword:@""];

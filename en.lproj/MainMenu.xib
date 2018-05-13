@@ -1053,7 +1053,7 @@ DQ
                     </constraints>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" allowsEditingTextAttributes="YES" id="xDQ-P3-KpK">
                         <font key="font" size="13" name=".HelveticaNeueDeskInterface-Bold"/>
-                        <string key="title">SEB is locked because a process, which isn't allow to run cannot be terminated. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.</string>
+                        <string key="title">SEB is locked because a process, which isn't allow to run cannot be terminated. It's only possible to unlock SEB with the quit/unlock password, which usually exam supervision/support knows.</string>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -1062,7 +1062,7 @@ DQ
                     <rect key="frame" x="20" y="176" width="460" height="380"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="5ua-AF-4aq">
                         <rect key="frame" x="1" y="1" width="458" height="378"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textView editable="NO" drawsBackground="NO" importsGraphics="NO" verticallyResizable="YES" findStyle="bar" allowsNonContiguousLayout="YES" id="zks-rs-f3E">
                                 <rect key="frame" x="0.0" y="0.0" width="458" height="378"/>

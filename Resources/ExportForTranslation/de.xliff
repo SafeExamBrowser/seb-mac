@@ -1008,10 +1008,6 @@
         <target>Benutzerdefiniert</target>
         <note>Class = "NSButtonCell"; title = "Custom"; ObjectID = "YE5-tr-HaY";</note>
       </trans-unit>
-      <trans-unit id="YMc-Kb-9O0.title">
-        <source>Radio</source>
-        <note>Class = "NSButtonCell"; title = "Radio"; ObjectID = "YMc-Kb-9O0";</note>
-      </trans-unit>
       <trans-unit id="Z3B-Za-z4X.ibShadowedToolTip">
         <source>Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)</source>
         <target>Standardzeichenkette auf diesem Mac (hängt von der der installierten Safari-/WebKit-Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)</target>
@@ -1022,18 +1018,10 @@
         <target>Webapplikationen dürfen auf das Mikrofon zugreifen (mittels HTML5 APIs)</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Allow web applications to access microphone (using HMTL 5 APIs)"; ObjectID = "aND-Ot-lHG";</note>
       </trans-unit>
-      <trans-unit id="aZZ-Qg-4Cz.title">
-        <source>Radio</source>
-        <note>Class = "NSButtonCell"; title = "Radio"; ObjectID = "aZZ-Qg-4Cz";</note>
-      </trans-unit>
       <trans-unit id="al8-58-HPQ.title">
         <source>Touch default:</source>
         <target>Touch-Standard:</target>
         <note>Class = "NSButtonCell"; title = "Touch default:"; ObjectID = "al8-58-HPQ";</note>
-      </trans-unit>
-      <trans-unit id="cM3-iz-gU7.title">
-        <source>Radio</source>
-        <note>Class = "NSButtonCell"; title = "Radio"; ObjectID = "cM3-iz-gU7";</note>
       </trans-unit>
       <trans-unit id="ckm-lX-Woj.title">
         <source>User agent</source>
@@ -2029,10 +2017,6 @@
         <source>Selected Action</source>
         <target>Ausgewählte Regel</target>
         <note>Class = "NSBox"; title = "Selected Action"; ObjectID = "GZd-2h-HIq";</note>
-      </trans-unit>
-      <trans-unit id="JDn-xc-JVJ.title">
-        <source>Text Cell</source>
-        <note>Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "JDn-xc-JVJ";</note>
       </trans-unit>
       <trans-unit id="PJT-Mq-ijG.ibShadowedToolTip">
         <source>Helps to create filter rules for URLs or embedded content elements that should be allowed or blocked</source>
@@ -3984,10 +3968,6 @@
         <target>SEB darf ohne Service laufen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="and">
-        <source>and</source>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="block">
         <source>block</source>
         <target>blockieren</target>
@@ -4036,10 +4016,6 @@
         <target>werden im selben Fenster geöffnet</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="or">
-        <source>or</source>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="quit">
         <source>quit</source>
         <target>Beenden</target>
@@ -4048,10 +4024,6 @@
       <trans-unit id="settings">
         <source>settings</source>
         <target>Einstellungen</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="skip">
-        <source>skip</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="untitled">
@@ -4641,9 +4613,9 @@
         <note>Class = "NSTextFieldCell"; title = "Enter quit/unlock password to unlock SEB:"; ObjectID = "toT-ZU-d4i";</note>
       </trans-unit>
       <trans-unit id="xDQ-P3-KpK.title">
-        <source>SEB is locked because a process, which isn't allow to run cannot be terminated. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows.</source>
+        <source>SEB is locked because a process, which isn't allow to run cannot be terminated. It's only possible to unlock SEB with the quit/unlock password, which usually exam supervision/support knows.</source>
         <target>SEB ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. SEB kann nur mittels des Beenden/Entsperren-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
-        <note>Class = "NSTextFieldCell"; title = "SEB is locked because a process, which isn't allow to run cannot be terminated. It's only possible to unlock SEB with the restart/quit password, which usually exam supervision/support knows."; ObjectID = "xDQ-P3-KpK";</note>
+        <note>Class = "NSTextFieldCell"; title = "SEB is locked because a process, which isn't allow to run cannot be terminated. It's only possible to unlock SEB with the quit/unlock password, which usually exam supervision/support knows."; ObjectID = "xDQ-P3-KpK";</note>
       </trans-unit>
       <trans-unit id="ztz-q9-fV1.title">
         <source>Configure Client</source>
