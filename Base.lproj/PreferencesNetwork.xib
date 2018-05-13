@@ -102,7 +102,7 @@
                                         <rect key="frame" x="17" y="275" width="570" height="319"/>
                                         <clipView key="contentView" id="QXl-iW-Uh6">
                                             <rect key="frame" x="1" y="0.0" width="568" height="318"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="" headerView="TDX-aF-oMF" id="1EV-b8-djc">
                                                     <rect key="frame" x="0.0" y="0.0" width="568" height="295"/>
@@ -660,6 +660,9 @@
                                                     </connections>
                                                 </textField>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="63j-33-Jdu" secondAttribute="trailing" constant="11" id="OIL-8Y-LAZ"/>
+                                            </constraints>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="qXx-hw-dUi" firstAttribute="leading" secondItem="GZd-2h-HIq" secondAttribute="leading" constant="11" id="0YR-LL-ULh"/>
@@ -853,7 +856,7 @@
                                         <rect key="frame" x="17" y="39" width="570" height="423"/>
                                         <clipView key="contentView" id="bNG-6J-vDW">
                                             <rect key="frame" x="1" y="0.0" width="568" height="422"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="" rowHeight="14" headerView="1834" id="1832" userLabel="Certificates Table View">
                                                     <rect key="frame" x="0.0" y="0.0" width="568" height="399"/>
@@ -1005,6 +1008,7 @@
                                     <constraint firstItem="1863" firstAttribute="top" secondItem="1831" secondAttribute="bottom" constant="8" symbolic="YES" id="1873"/>
                                     <constraint firstAttribute="bottom" secondItem="1863" secondAttribute="bottom" constant="10" id="1874"/>
                                     <constraint firstAttribute="trailing" secondItem="oMT-Yl-qL1" secondAttribute="trailing" constant="17" id="300-os-V5c"/>
+                                    <constraint firstItem="oMT-Yl-qL1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1863" secondAttribute="trailing" constant="20" id="A28-1a-gYQ"/>
                                     <constraint firstItem="1831" firstAttribute="top" secondItem="UIS-5m-9TC" secondAttribute="bottom" constant="14" id="E8V-Sm-0cJ"/>
                                     <constraint firstItem="E6i-Is-hu5" firstAttribute="leading" secondItem="1813" secondAttribute="leading" id="Fx6-DE-rfq"/>
                                     <constraint firstAttribute="trailing" secondItem="UIS-5m-9TC" secondAttribute="trailing" constant="17" id="H4a-B8-pwe"/>
@@ -1039,7 +1043,7 @@
                                         <rect key="frame" x="17" y="412" width="240" height="135"/>
                                         <clipView key="contentView" id="QXl-Cs-ddI">
                                             <rect key="frame" x="1" y="1" width="238" height="133"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="806">
                                                     <rect key="frame" x="0.0" y="0.0" width="238" height="133"/>
@@ -1174,6 +1178,7 @@
                                                         <constraint firstItem="1176" firstAttribute="bottom" secondItem="823" secondAttribute="bottom" id="1192"/>
                                                         <constraint firstItem="1176" firstAttribute="trailing" secondItem="1160" secondAttribute="trailing" id="1yz-SL-yi2"/>
                                                         <constraint firstItem="1156" firstAttribute="leading" secondItem="854" secondAttribute="leading" id="GCe-Gl-S8x"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="854" secondAttribute="trailing" id="HBv-Tm-rdw"/>
                                                         <constraint firstItem="1168" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="823" secondAttribute="leading" constant="20" symbolic="YES" id="RU8-Pq-gOX"/>
                                                     </constraints>
                                                 </view>
@@ -1185,7 +1190,7 @@
                                                     <subviews>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1214">
                                                             <rect key="frame" x="1" y="143" width="112" height="17"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Web Proxy Server" id="1215">
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Web Proxy Server" usesSingleLineMode="YES" id="1215">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1233,7 +1238,7 @@
                                                         </textField>
                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="1240">
                                                             <rect key="frame" x="-2" y="87" width="212" height="18"/>
-                                                            <buttonCell key="cell" type="check" title="Proxy server requires password" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1241">
+                                                            <buttonCell key="cell" type="check" title="Proxy server requires password" bezelStyle="regularSquare" imagePosition="left" lineBreakMode="truncatingTail" inset="2" id="1241">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
@@ -1257,7 +1262,7 @@
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1258">
                                                             <rect key="frame" x="32" y="59" width="70" height="17"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Username:" id="1259">
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Username:" usesSingleLineMode="YES" id="1259">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1265,7 +1270,7 @@
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1284">
                                                             <rect key="frame" x="36" y="27" width="66" height="17"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Password:" id="1285">
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Password:" usesSingleLineMode="YES" id="1285">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1306,6 +1311,11 @@
                                                         <constraint firstItem="1284" firstAttribute="baseline" secondItem="1278" secondAttribute="baseline" id="1289"/>
                                                         <constraint firstItem="1278" firstAttribute="leading" secondItem="1284" secondAttribute="trailing" constant="12" id="1290"/>
                                                         <constraint firstItem="1214" firstAttribute="leading" secondItem="1195" secondAttribute="leading" constant="3" id="1295"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1214" secondAttribute="trailing" id="31g-D3-fS9"/>
+                                                        <constraint firstItem="1284" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1195" secondAttribute="leading" id="EGQ-Gd-V10"/>
+                                                        <constraint firstItem="1226" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1232" secondAttribute="trailing" constant="2" id="Hys-Ee-ajG"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1240" secondAttribute="trailing" id="amg-qH-DPX"/>
+                                                        <constraint firstItem="1258" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1195" secondAttribute="leading" id="pob-Zj-8ot"/>
                                                     </constraints>
                                                 </view>
                                             </tabViewItem>
@@ -1316,7 +1326,7 @@
                                                     <subviews>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1516">
                                                             <rect key="frame" x="1" y="143" width="158" height="17"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Secure Web Proxy Server" id="1536">
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Secure Web Proxy Server" usesSingleLineMode="YES" id="1536">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1364,7 +1374,7 @@
                                                         </textField>
                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="1520">
                                                             <rect key="frame" x="-2" y="87" width="212" height="18"/>
-                                                            <buttonCell key="cell" type="check" title="Proxy server requires password" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1530">
+                                                            <buttonCell key="cell" type="check" title="Proxy server requires password" bezelStyle="regularSquare" imagePosition="left" lineBreakMode="truncatingTail" inset="2" id="1530">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
@@ -1388,7 +1398,7 @@
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1522">
                                                             <rect key="frame" x="32" y="59" width="70" height="17"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Username:" id="1527">
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Username:" usesSingleLineMode="YES" id="1527">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1396,7 +1406,7 @@
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1523">
                                                             <rect key="frame" x="36" y="27" width="66" height="17"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Password:" id="1526">
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Password:" usesSingleLineMode="YES" id="1526">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1437,10 +1447,11 @@
                                                         <constraint firstItem="1517" firstAttribute="leading" secondItem="1197" secondAttribute="leading" id="1554"/>
                                                         <constraint firstItem="1523" firstAttribute="baseline" secondItem="1524" secondAttribute="baseline" id="1555"/>
                                                         <constraint firstItem="1516" firstAttribute="top" secondItem="1197" secondAttribute="top" id="1556"/>
-                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1516" secondAttribute="trailing" constant="20" symbolic="YES" id="4Uf-7A-210"/>
-                                                        <constraint firstItem="1523" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1197" secondAttribute="leading" constant="20" symbolic="YES" id="K1w-gH-rgG"/>
-                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1520" secondAttribute="trailing" constant="20" symbolic="YES" id="O1j-x5-tjU"/>
-                                                        <constraint firstItem="1522" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1197" secondAttribute="leading" constant="20" symbolic="YES" id="cue-Sv-D1y"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1516" secondAttribute="trailing" id="4Uf-7A-210"/>
+                                                        <constraint firstItem="1523" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1197" secondAttribute="leading" id="K1w-gH-rgG"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1520" secondAttribute="trailing" id="O1j-x5-tjU"/>
+                                                        <constraint firstItem="1522" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1197" secondAttribute="leading" id="cue-Sv-D1y"/>
+                                                        <constraint firstItem="1518" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1519" secondAttribute="trailing" constant="2" id="erh-yL-rGj"/>
                                                     </constraints>
                                                 </view>
                                             </tabViewItem>
@@ -1451,7 +1462,7 @@
                                                     <subviews>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1557">
                                                             <rect key="frame" x="1" y="143" width="109" height="17"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="FTP Proxy Server" id="1577">
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="FTP Proxy Server" usesSingleLineMode="YES" id="1577">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1499,7 +1510,7 @@
                                                         </textField>
                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="1561">
                                                             <rect key="frame" x="-2" y="87" width="212" height="18"/>
-                                                            <buttonCell key="cell" type="check" title="Proxy server requires password" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1571">
+                                                            <buttonCell key="cell" type="check" title="Proxy server requires password" bezelStyle="regularSquare" imagePosition="left" lineBreakMode="truncatingTail" inset="2" id="1571">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
@@ -1523,7 +1534,7 @@
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1563">
                                                             <rect key="frame" x="32" y="59" width="70" height="17"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Username:" id="1568">
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Username:" usesSingleLineMode="YES" id="1568">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1531,7 +1542,7 @@
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1564">
                                                             <rect key="frame" x="36" y="27" width="66" height="17"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Password:" id="1567">
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Password:" usesSingleLineMode="YES" id="1567">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1572,6 +1583,11 @@
                                                         <constraint firstItem="1565" firstAttribute="trailing" secondItem="1199" secondAttribute="trailing" id="1595"/>
                                                         <constraint firstItem="1557" firstAttribute="leading" secondItem="1199" secondAttribute="leading" constant="3" id="1596"/>
                                                         <constraint firstItem="1557" firstAttribute="top" secondItem="1199" secondAttribute="top" id="1597"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1557" secondAttribute="trailing" id="3Jr-q6-03Y"/>
+                                                        <constraint firstItem="1564" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1199" secondAttribute="leading" id="L6W-xT-ms1"/>
+                                                        <constraint firstItem="1559" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1560" secondAttribute="trailing" constant="2" id="R1g-xG-aSJ"/>
+                                                        <constraint firstItem="1563" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1199" secondAttribute="leading" id="RUI-ah-utr"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1561" secondAttribute="trailing" id="rIP-MO-IlI"/>
                                                     </constraints>
                                                 </view>
                                             </tabViewItem>
@@ -1582,7 +1598,7 @@
                                                     <subviews>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1598">
                                                             <rect key="frame" x="1" y="143" width="129" height="17"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="SOCKS Proxy Server" id="1618">
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="SOCKS Proxy Server" usesSingleLineMode="YES" id="1618">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1630,7 +1646,7 @@
                                                         </textField>
                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="1602">
                                                             <rect key="frame" x="-2" y="87" width="212" height="18"/>
-                                                            <buttonCell key="cell" type="check" title="Proxy server requires password" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1612">
+                                                            <buttonCell key="cell" type="check" title="Proxy server requires password" bezelStyle="regularSquare" imagePosition="left" lineBreakMode="truncatingTail" inset="2" id="1612">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
@@ -1654,7 +1670,7 @@
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1604">
                                                             <rect key="frame" x="32" y="59" width="70" height="17"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Username:" id="1609">
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Username:" usesSingleLineMode="YES" id="1609">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1662,7 +1678,7 @@
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1605">
                                                             <rect key="frame" x="36" y="27" width="66" height="17"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Password:" id="1608">
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Password:" usesSingleLineMode="YES" id="1608">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1703,7 +1719,11 @@
                                                         <constraint firstItem="1599" firstAttribute="baseline" secondItem="1601" secondAttribute="baseline" id="1636"/>
                                                         <constraint firstItem="1603" firstAttribute="trailing" secondItem="1201" secondAttribute="trailing" id="1637"/>
                                                         <constraint firstItem="1598" firstAttribute="top" secondItem="1201" secondAttribute="top" id="1638"/>
-                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1598" secondAttribute="trailing" constant="17" id="V1f-9I-S9m"/>
+                                                        <constraint firstItem="1605" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1201" secondAttribute="leading" id="QNs-LG-MkC"/>
+                                                        <constraint firstItem="1604" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1201" secondAttribute="leading" id="R10-Kc-syh"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1598" secondAttribute="trailing" id="V1f-9I-S9m"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1602" secondAttribute="trailing" id="WCs-P4-mDv"/>
+                                                        <constraint firstItem="1600" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1601" secondAttribute="trailing" constant="2" id="n3W-Rc-jaD"/>
                                                     </constraints>
                                                 </view>
                                             </tabViewItem>
@@ -1714,7 +1734,7 @@
                                                     <subviews>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1639">
                                                             <rect key="frame" x="1" y="143" width="147" height="17"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Streaming Proxy Server" id="1659">
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Streaming Proxy Server" usesSingleLineMode="YES" id="1659">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1762,7 +1782,7 @@
                                                         </textField>
                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="1643">
                                                             <rect key="frame" x="-2" y="87" width="212" height="18"/>
-                                                            <buttonCell key="cell" type="check" title="Proxy server requires password" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1653">
+                                                            <buttonCell key="cell" type="check" title="Proxy server requires password" bezelStyle="regularSquare" imagePosition="left" lineBreakMode="truncatingTail" inset="2" id="1653">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
@@ -1786,7 +1806,7 @@
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1645">
                                                             <rect key="frame" x="32" y="59" width="70" height="17"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Username:" id="1650">
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Username:" usesSingleLineMode="YES" id="1650">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1794,7 +1814,7 @@
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1646">
                                                             <rect key="frame" x="36" y="27" width="66" height="17"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Password:" id="1649">
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Password:" usesSingleLineMode="YES" id="1649">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1836,6 +1856,10 @@
                                                         <constraint firstItem="1647" firstAttribute="top" secondItem="1644" secondAttribute="bottom" constant="10" symbolic="YES" id="1678"/>
                                                         <constraint firstItem="1639" firstAttribute="top" secondItem="1203" secondAttribute="top" id="1679"/>
                                                         <constraint firstItem="1641" firstAttribute="leading" secondItem="1642" secondAttribute="trailing" constant="5" id="Eeu-ON-lyp"/>
+                                                        <constraint firstItem="1646" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1203" secondAttribute="leading" id="FXC-pG-wS3"/>
+                                                        <constraint firstItem="1645" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1203" secondAttribute="leading" id="Yqw-Ks-qXQ"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1643" secondAttribute="trailing" id="oL9-OA-h3E"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1639" secondAttribute="trailing" id="xVN-49-Jcl"/>
                                                         <constraint firstItem="1642" firstAttribute="leading" secondItem="1640" secondAttribute="trailing" constant="3" id="yh1-7I-uij"/>
                                                     </constraints>
                                                 </view>
@@ -1943,6 +1967,7 @@
                                     <constraint firstAttribute="trailing" secondItem="1037" secondAttribute="trailing" constant="17" id="1961"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1088" secondAttribute="trailing" constant="17" id="6fh-Ad-Qh5"/>
                                     <constraint firstItem="820" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="768" secondAttribute="trailing" constant="20" id="E1w-4w-iQT"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1058" secondAttribute="trailing" constant="20" id="bOm-zs-Dwn"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1063" secondAttribute="trailing" constant="17" id="hSq-ju-djr"/>
                                 </constraints>
                             </view>

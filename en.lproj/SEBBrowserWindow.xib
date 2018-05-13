@@ -51,7 +51,7 @@
                         <size key="minSize" width="51" height="25"/>
                         <size key="maxSize" width="104" height="32"/>
                         <segmentedControl key="view" verticalHuggingPriority="750" id="173">
-                            <rect key="frame" x="0.0" y="14" width="51" height="25"/>
+                            <rect key="frame" x="0.0" y="14" width="55" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="174">
                                 <font key="font" metaFont="system"/>

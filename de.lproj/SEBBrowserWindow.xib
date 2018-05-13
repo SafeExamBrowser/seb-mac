@@ -45,7 +45,7 @@
                         <size key="minSize" width="51" height="25"/>
                         <size key="maxSize" width="104" height="32"/>
                         <segmentedControl key="view" verticalHuggingPriority="750" id="173">
-                            <rect key="frame" x="0.0" y="14" width="51" height="25"/>
+                            <rect key="frame" x="0.0" y="14" width="55" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="174">
                                 <font key="font" metaFont="system"/>
@@ -160,7 +160,7 @@
         <window title="Ressource nicht erlaubt" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" id="5ay-Fd-lF5" userLabel="URLNotAllowedAlert">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
-            <rect key="contentRect" x="340" y="419" width="571" height="328"/>
+            <rect key="contentRect" x="340" y="419" width="579" height="328"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="52A-2p-iMa">
                 <rect key="frame" x="0.0" y="0.0" width="579" height="328"/>
@@ -360,7 +360,7 @@ Gw
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <size key="minSize" width="537" height="117"/>
-                                    <size key="maxSize" width="537" height="10000000"/>
+                                    <size key="maxSize" width="539" height="10000000"/>
                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <connections>
                                         <outlet property="delegate" destination="3" id="1Rf-sl-Y1O"/>
