@@ -1217,7 +1217,7 @@
                         </tabViewItem>
                     </tabViewItems>
                 </tabView>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="299">
+                <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="299">
                     <rect key="frame" x="18" y="664" width="226" height="18"/>
                     <string key="toolTip">SEB will attempt to quit processes/applications which are not permitted to run during an exam and require to terminate those which are prohibited</string>
                     <buttonCell key="cell" type="check" title="Require to quit running processes" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="301">

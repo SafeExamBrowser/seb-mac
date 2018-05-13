@@ -86,13 +86,13 @@
                 </textField>
                 <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="82">
                     <rect key="frame" x="19" y="118" width="355" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Beenden-Passwort" id="109">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Beenden/Entsperren-Passwort" id="109">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <secureTextField toolTip="Beenden-Passwort wiederholen" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="83">
+                <secureTextField toolTip="Beenden/Entsperren-Passwort wiederholen" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="83">
                     <rect key="frame" x="380" y="86" width="250" height="22"/>
                     <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="108">
                         <font key="font" metaFont="system"/>
@@ -117,7 +117,7 @@
                 </secureTextField>
                 <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="84">
                     <rect key="frame" x="19" y="88" width="355" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Beenden-Passwort bestätigen" id="107">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Beenden/Entsperren-Passwort bestätigen" id="107">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -194,8 +194,9 @@
                         </binding>
                     </connections>
                 </textField>
-                <button toolTip="SEB ignoriert die Beenden-Tastenkombination und kann manuell nur durch Eingeben des Beenden-Passworts verlassen werden" translatesAutoresizingMaskIntoConstraints="NO" id="412">
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="412">
                     <rect key="frame" x="19" y="144" width="614" height="18"/>
+                    <string key="toolTip">SEB ignoriert die Beenden-Tastenkombination und kann manuell nur durch Eingeben des Beenden/Entsperren-Passworts verlassen werden</string>
                     <buttonCell key="cell" type="check" title="Beenden-Tastenkombination ignorieren (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="413">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>

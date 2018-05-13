@@ -353,7 +353,7 @@
       </trans-unit>
       <trans-unit id="301.title">
         <source>Require to quit running processes</source>
-        <target>Prozesse überwachen (Win)</target>
+        <target>Laufende Prozesse müssen beendet werden</target>
         <note>Class = "NSButtonCell"; title = "Require to quit running processes"; ObjectID = "301";</note>
       </trans-unit>
       <trans-unit id="351.headerCell.title">
@@ -950,7 +950,7 @@
       </trans-unit>
       <trans-unit id="FfE-2h-C1L.title">
         <source>Custom user agent string (SEB appends its version number automatically). Default string depends on installed SEB for Windows version and therefore can differ on exam clients.</source>
-        <target>Benutzerdefinierte User Agent Zeichenkette (SEB hängt seine Versionsnummer automatisch an). Die Standardzeichenkette hängt von der der installierten SEB für Windows Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein.</target>
+        <target>Benutzerdefinierte User Agent Zeichenkette (SEB hängt seine Versionsnummer automatisch an). Die Standardzeichenkette hängt von der der installierten SEB für Windows Version ab.</target>
         <note>Class = "NSTextFieldCell"; title = "Custom user agent string (SEB appends its version number automatically). Default string depends on installed SEB for Windows version and therefore can differ on exam clients."; ObjectID = "FfE-2h-C1L";</note>
       </trans-unit>
       <trans-unit id="FwJ-dG-wCg.ibShadowedToolTip">
@@ -1421,7 +1421,7 @@
       </trans-unit>
       <trans-unit id="443.title">
         <source>Place this Quit Link to the 'feedback' page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password.</source>
-        <target>Dieser Beenden-Link sollte auf der 'Feedback'-Seite plaziert werden, die nach Abgabe einer Prüfung angezeigt wird. Anklicken des Links beendet SEB, ohne dass ein Beenden-Passwort eingegeben werden müsste.</target>
+        <target>Dieser Beenden-Link sollte auf der 'Feedback'-Seite plaziert werden, die nach Abgabe einer Prüfung angezeigt wird. Anklicken des Links beendet SEB, ohne dass ein Beenden/Entsperren-Passwort eingegeben werden müsste.</target>
         <note>Class = "NSTextFieldCell"; title = "Place this Quit Link to the 'feedback' page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password."; ObjectID = "443";</note>
       </trans-unit>
       <trans-unit id="688.ibShadowedToolTip">
@@ -1528,7 +1528,7 @@
       </trans-unit>
       <trans-unit id="83.ibShadowedToolTip">
         <source>Retype the quit password</source>
-        <target>Beenden-Passwort wiederholen</target>
+        <target>Beenden/Entsperren-Passwort wiederholen</target>
         <note>Class = "NSSecureTextField"; ibShadowedToolTip = "Retype the quit password"; ObjectID = "83";</note>
       </trans-unit>
       <trans-unit id="88.ibShadowedToolTip">
@@ -1638,7 +1638,7 @@
       </trans-unit>
       <trans-unit id="412.ibShadowedToolTip">
         <source>SEB ignores the exit keys and can only be quit manually by entering the quit password</source>
-        <target>SEB ignoriert die Beenden-Tastenkombination und kann manuell nur durch Eingeben des Beenden-Passworts verlassen werden</target>
+        <target>SEB ignoriert die Beenden-Tastenkombination und kann manuell nur durch Eingeben des Beenden/Entsperren-Passworts verlassen werden</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "SEB ignores the exit keys and can only be quit manually by entering the quit password"; ObjectID = "412";</note>
       </trans-unit>
       <trans-unit id="413.title">
@@ -3015,7 +3015,7 @@
       </trans-unit>
       <trans-unit id="Enter quit password:">
         <source>Enter quit password:</source>
-        <target>Beenden-Passwort eingeben:</target>
+        <target>Beenden/Entsperren-Passwort eingeben:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Enter quit/unlock password:">
@@ -3085,7 +3085,7 @@
       </trans-unit>
       <trans-unit id="FirstTimeUserNotice">
         <source>FirstTimeUserNotice</source>
-        <target>Bitte benutzen Sie die Fenster-Schliessen-Taste oder Cmd-Q (Befehlstaste-Q) um SEB zu beenden und (fn-)F3-F6 um die Einstellungen zu öffnen.\n\nDieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-URL eingeben. Sie sollten dort ausserdem ein Beenden-Passwort und ein Administrator-Passwort festlegen, um das Beenden von SEB und den Zugang zu den Einstellungen einzuschränken.</target>
+        <target>Bitte benutzen Sie die Fenster-Schliessen-Taste oder Cmd-Q (Befehlstaste-Q) um SEB zu beenden und (fn-)F3-F6 um die Einstellungen zu öffnen.\n\nDieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-URL eingeben. Sie sollten dort ausserdem ein Beenden/Entsperren-Passwort und ein Administrator-Passwort festlegen, um das Beenden von SEB und den Zugang zu den Einstellungen einzuschränken.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="General">
@@ -3130,7 +3130,7 @@
       </trans-unit>
       <trans-unit id="If you don't enter the correct quit password, then you cannot quit SEB.">
         <source>If you don't enter the correct quit password, then you cannot quit SEB.</source>
-        <target>Wenn Sie das korrekte Beenden-Passwort nicht eingeben, können Sie SEB nicht beenden.</target>
+        <target>Wenn Sie das korrekte Beenden/Entsperren-Passwort nicht eingeben, können Sie SEB nicht beenden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="If you don't enter the right administrator password from these settings you cannot open them.">
@@ -3870,7 +3870,7 @@
       </trans-unit>
       <trans-unit id="Wrong Quit Password">
         <source>Wrong Quit Password</source>
-        <target>Falsches Beenden-Passwort</target>
+        <target>Falsches Beenden/Entsperren-Passwort</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Wrong password entered!">
