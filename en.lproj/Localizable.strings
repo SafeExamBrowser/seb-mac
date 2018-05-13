@@ -22,9 +22,6 @@
 /* No comment provided by engineer. */
 "allow to use SEB without service" = "allow to use SEB without service";
 
-/* No comment provided by engineer. */
-"and" = "and";
-
 /* Title of 'Appearance' preference pane */
 "Appearance" = "Appearance";
 
@@ -257,9 +254,6 @@
 "Opening Preferences Disabled" = "Opening Preferences Disabled";
 
 /* No comment provided by engineer. */
-"or" = "or";
-
-/* No comment provided by engineer. */
 "OS X" = "OS X";
 
 /* No comment provided by engineer. */
@@ -336,9 +330,6 @@
 
 /* No comment provided by engineer. */
 "Settings have been saved, use this file to start an exam with SEB." = "Settings have been saved, use this file to start an exam with SEB.";
-
-/* No comment provided by engineer. */
-"skip" = "skip";
 
 /* No comment provided by engineer. */
 "SOCKS Proxy" = "SOCKS Proxy";

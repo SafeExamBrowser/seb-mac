@@ -102,7 +102,7 @@
                                         <rect key="frame" x="17" y="275" width="570" height="319"/>
                                         <clipView key="contentView" id="QXl-iW-Uh6">
                                             <rect key="frame" x="1" y="0.0" width="568" height="318"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="" headerView="TDX-aF-oMF" id="1EV-b8-djc">
                                                     <rect key="frame" x="0.0" y="0.0" width="568" height="295"/>
@@ -2030,7 +2030,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="163" y="199" width="610" height="573"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="Oww-cu-u71">
                 <rect key="frame" x="0.0" y="0.0" width="610" height="573"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -2039,7 +2039,7 @@
                         <rect key="frame" x="20" y="105" width="570" height="423"/>
                         <clipView key="contentView" id="ilD-CP-EQ7">
                             <rect key="frame" x="1" y="0.0" width="568" height="422"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="14" headerView="l7P-hn-H1h" id="zFX-aq-BQc">
                                     <rect key="frame" x="0.0" y="0.0" width="568" height="399"/>
@@ -2075,7 +2075,7 @@
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </tableHeaderCell>
-                                            <textFieldCell key="dataCell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="JDn-xc-JVJ">
+                                            <textFieldCell key="dataCell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" id="JDn-xc-JVJ">
                                                 <dateFormatter key="formatter" dateStyle="medium" timeStyle="short" id="r1z-sH-6Df"/>
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
