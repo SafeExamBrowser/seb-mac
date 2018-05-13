@@ -473,6 +473,8 @@
 		6921294116F91C6600AFC3B0 /* BoolValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoolValueTransformer.m; sourceTree = "<group>"; };
 		6921294516F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IsEmptyCollectionValueTransformer.h; sourceTree = "<group>"; };
 		6921294616F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IsEmptyCollectionValueTransformer.m; sourceTree = "<group>"; };
+		6922211F20A893A500721E2B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SEBBrowserWindow.strings; sourceTree = "<group>"; };
+		6922212120A893A500721E2B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		69263A9C1A2E0765006F1E31 /* SEBWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBWebView.h; path = Classes/BrowserComponents/SEBWebView.h; sourceTree = "<group>"; };
 		69263A9D1A2E0765006F1E31 /* SEBWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBWebView.m; path = Classes/BrowserComponents/SEBWebView.m; sourceTree = "<group>"; };
 		692891B012ACEBDC00EEE7C9 /* SEBBrowserWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBBrowserWindow.h; path = Classes/BrowserComponents/SEBBrowserWindow.h; sourceTree = "<group>"; };
@@ -1140,6 +1142,8 @@
 		69428C96172E5FBA00C87C58 /* User Interface */ = {
 			isa = PBXGroup;
 			children = (
+				6922212020A893A500721E2B /* MainMenu.strings */,
+				6922211E20A893A500721E2B /* SEBBrowserWindow.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				6929228D19FD9F1B00B57347 /* SEBBrowserWindow.xib */,
 				69FC9057136C9A00009B55CB /* PreferencesGeneral.xib */,
@@ -2020,6 +2024,22 @@
 				693F09911BEE18C000DFCD8B /* en */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		6922211E20A893A500721E2B /* SEBBrowserWindow.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6922211F20A893A500721E2B /* de */,
+			);
+			name = SEBBrowserWindow.strings;
+			sourceTree = "<group>";
+		};
+		6922212020A893A500721E2B /* MainMenu.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6922212120A893A500721E2B /* de */,
+			);
+			name = MainMenu.strings;
 			sourceTree = "<group>";
 		};
 		6929228D19FD9F1B00B57347 /* SEBBrowserWindow.xib */ = {
