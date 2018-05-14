@@ -9,6 +9,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsSecurityViewController">
             <connections>
+                <outlet property="allowUserAppFolderInstallButton" destination="KKV-0r-AMe" id="SAx-VW-RgK"/>
                 <outlet property="chooseLogDirectoryControl" destination="32" id="PAj-RI-Adi"/>
                 <outlet property="chooseLogLevelControl" destination="sAF-ok-Vxz" id="gv7-Mj-Yj2"/>
                 <outlet property="kioskMode" destination="kBz-Xz-wNK" id="9SP-SX-zJf"/>
@@ -121,12 +122,13 @@
                                         </connections>
                                     </button>
                                     <button toolTip="SEB enforces to be installed in an Applications folder (/Applications or ~/Applications)" translatesAutoresizingMaskIntoConstraints="NO" id="Gly-dr-m3X">
-                                        <rect key="frame" x="15" y="269" width="257" height="18"/>
-                                        <buttonCell key="cell" type="check" title="Force installation in Applications folder" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0Ey-3L-Lb6">
+                                        <rect key="frame" x="15" y="269" width="261" height="18"/>
+                                        <buttonCell key="cell" type="check" title="Force installation in /Applications folder" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0Ey-3L-Lb6">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
+                                            <action selector="setEnableAllowUserAppFolderInstall:" target="-2" id="EiC-1h-ed2"/>
                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_forceAppFolderInstall" id="pLR-2h-wnH"/>
                                         </connections>
                                     </button>
@@ -197,12 +199,28 @@
                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowedDisplayBuiltin" id="IIZ-BN-xhg"/>
                                         </connections>
                                     </button>
+                                    <button toolTip="SEB can also be installed in the Applications folder of the current user (~/Applications)" translatesAutoresizingMaskIntoConstraints="NO" id="KKV-0r-AMe">
+                                        <rect key="frame" x="364" y="267" width="222" height="18"/>
+                                        <buttonCell key="cell" type="check" title="Allow also user's ~/Applications folder" bezelStyle="regularSquare" imagePosition="left" alignment="right" state="on" inset="2" id="sUj-TY-bKw">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="smallSystem"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_forceAppFolderInstall" id="PzN-p4-hol">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">BoolValueTransformer</string>
+                                                </dictionary>
+                                            </binding>
+                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowUserAppFolderInstall" id="rbc-TJ-Vz2"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="FJP-p9-xw7" firstAttribute="leading" secondItem="a9Y-jJ-E1h" secondAttribute="leading" id="0mM-3l-KZk"/>
                                     <constraint firstItem="MYN-Xy-8h5" firstAttribute="baseline" secondItem="7SN-Be-oCc" secondAttribute="baseline" id="4pk-qg-TPC"/>
                                     <constraint firstItem="Gly-dr-m3X" firstAttribute="leading" secondItem="a9Y-jJ-E1h" secondAttribute="leading" id="5RT-c7-Db4"/>
                                     <constraint firstItem="vh3-YR-Pun" firstAttribute="top" secondItem="FJP-p9-xw7" secondAttribute="bottom" constant="6" symbolic="YES" id="5iY-12-mkd"/>
+                                    <constraint firstAttribute="trailing" secondItem="KKV-0r-AMe" secondAttribute="trailing" constant="20" symbolic="YES" id="6pG-4I-dZ0"/>
                                     <constraint firstItem="ZZ6-sG-BWw" firstAttribute="leading" secondItem="BKE-3M-dWN" secondAttribute="trailing" constant="8" symbolic="YES" id="CP5-aS-Vlh"/>
                                     <constraint firstAttribute="trailing" secondItem="btE-nf-WWC" secondAttribute="trailing" constant="16" id="Cx6-Ym-u4C"/>
                                     <constraint firstAttribute="trailing" secondItem="MYN-Xy-8h5" secondAttribute="trailing" constant="16" id="DZO-2t-skf"/>
@@ -211,6 +229,7 @@
                                     <constraint firstItem="oq3-9u-BrJ" firstAttribute="leading" secondItem="Gly-dr-m3X" secondAttribute="leading" id="GUy-Hk-mEX"/>
                                     <constraint firstItem="BKE-3M-dWN" firstAttribute="baseline" secondItem="ZZ6-sG-BWw" secondAttribute="baseline" id="HpS-UR-eVI"/>
                                     <constraint firstItem="FJP-p9-xw7" firstAttribute="top" secondItem="Gly-dr-m3X" secondAttribute="bottom" constant="6" symbolic="YES" id="ILp-wT-FEm"/>
+                                    <constraint firstItem="KKV-0r-AMe" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Gly-dr-m3X" secondAttribute="trailing" constant="8" symbolic="YES" id="KRP-P5-uXf"/>
                                     <constraint firstItem="btE-nf-WWC" firstAttribute="top" secondItem="BKE-3M-dWN" secondAttribute="bottom" constant="6" id="MOF-M6-5g9"/>
                                     <constraint firstItem="a9Y-jJ-E1h" firstAttribute="top" secondItem="MYN-Xy-8h5" secondAttribute="bottom" constant="14" id="Rft-9y-ZJx"/>
                                     <constraint firstItem="vh3-YR-Pun" firstAttribute="leading" secondItem="a9Y-jJ-E1h" secondAttribute="leading" id="YUw-X9-YKm"/>
@@ -223,7 +242,7 @@
                                     <constraint firstItem="MYN-Xy-8h5" firstAttribute="leading" secondItem="7SN-Be-oCc" secondAttribute="trailing" constant="8" id="l7F-GO-xTQ"/>
                                     <constraint firstItem="MYN-Xy-8h5" firstAttribute="leading" secondItem="ot5-GZ-LBL" secondAttribute="trailing" constant="-316" id="n1g-Gv-5bg"/>
                                     <constraint firstItem="ZZ6-sG-BWw" firstAttribute="leading" secondItem="ot5-GZ-LBL" secondAttribute="trailing" priority="750" constant="-74" id="occ-Zv-M3h"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Gly-dr-m3X" secondAttribute="trailing" constant="20" id="rHH-EX-Zpt"/>
+                                    <constraint firstItem="KKV-0r-AMe" firstAttribute="baseline" secondItem="Gly-dr-m3X" secondAttribute="baseline" id="pa6-7X-7GA"/>
                                     <constraint firstItem="BKE-3M-dWN" firstAttribute="top" secondItem="oq3-9u-BrJ" secondAttribute="bottom" constant="4" id="rzb-f3-AEO"/>
                                     <constraint firstItem="oq3-9u-BrJ" firstAttribute="top" secondItem="vh3-YR-Pun" secondAttribute="bottom" constant="6" symbolic="YES" id="tHD-i5-a0d"/>
                                     <constraint firstAttribute="trailing" secondItem="oq3-9u-BrJ" secondAttribute="trailing" constant="16" id="yW4-Gh-uy6"/>

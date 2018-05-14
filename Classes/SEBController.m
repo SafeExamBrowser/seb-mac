@@ -312,8 +312,17 @@ bool insideMatrix(void);
 
 - (BOOL) isInApplicationsFolder:(NSString *)path
 {
-    // Check all the normal Application directories
-    NSArray *applicationDirs = NSSearchPathForDirectoriesInDomains(NSApplicationDirectory, NSAllDomainsMask, YES);
+    NSArray *applicationDirs;
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowUserAppFolderInstall"]) {
+        // Allow also user's ~/Applications directories
+        applicationDirs = NSSearchPathForDirectoriesInDomains(NSApplicationDirectory,
+                                                              NSLocalDomainMask | NSUserDomainMask,
+                                                              YES);
+    } else {
+        applicationDirs = NSSearchPathForDirectoriesInDomains(NSApplicationDirectory,
+                                                              NSLocalDomainMask,
+                                                              YES);
+    }
     for (NSString *appDir in applicationDirs) {
         if ([path hasPrefix:appDir]) return YES;
     }

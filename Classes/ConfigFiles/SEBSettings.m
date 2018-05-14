@@ -62,6 +62,9 @@
                    
                    @NO,
                    @"allowSwitchToApplications",
+
+                   @NO,
+                   @"allowUserAppFolderInstall",
                    
                    @YES,
                    @"allowUserSwitching",
