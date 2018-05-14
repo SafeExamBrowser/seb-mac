@@ -562,7 +562,7 @@
                                                 <popUpButton toolTip="Indicates on which operating system the permitted process runs. macOS is currently not supported" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1314">
                                                     <rect key="frame" x="43" y="254" width="80" height="26"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="75" id="yd6-Ea-gPd"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="75" id="yd6-Ea-gPd"/>
                                                     </constraints>
                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1319" id="1315">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -623,6 +623,12 @@
                                                     </buttonCell>
                                                 </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="982" secondAttribute="trailing" constant="20" symbolic="YES" id="07c-Ey-2MR"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="956" secondAttribute="trailing" constant="20" symbolic="YES" id="FS3-QW-zRx"/>
+                                                <constraint firstItem="1183" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2244" secondAttribute="trailing" constant="8" symbolic="YES" id="KLo-V7-Oyh"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="948" secondAttribute="trailing" constant="20" symbolic="YES" id="Uov-WJ-Lku"/>
+                                            </constraints>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="653" firstAttribute="leading" secondItem="405" secondAttribute="leading" constant="16" id="1Bw-82-zsY"/>
@@ -771,7 +777,7 @@
                                         <rect key="frame" x="17" y="226" width="570" height="360"/>
                                         <clipView key="contentView" id="dAi-vy-Xqu">
                                             <rect key="frame" x="1" y="0.0" width="568" height="359"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" autosaveName="" headerView="1926" id="1924">
                                                     <rect key="frame" x="0.0" y="0.0" width="568" height="336"/>
@@ -1078,7 +1084,7 @@
                                                 <popUpButton toolTip="Indicates on which operating system the prohibited process runs. macOS is currently not supported." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1900">
                                                     <rect key="frame" x="43" y="73" width="80" height="26"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="75" id="ooY-Jz-CeW"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="75" id="ooY-Jz-CeW"/>
                                                     </constraints>
                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1905" id="1901">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>

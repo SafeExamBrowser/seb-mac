@@ -68,24 +68,24 @@
                         <outlet property="nextKeyView" destination="83" id="oG5-Jb-wLO"/>
                     </connections>
                 </secureTextField>
-                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="80">
-                    <rect key="frame" x="18" y="244" width="356" height="17"/>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="80">
+                    <rect key="frame" x="18" y="245" width="356" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Administrator-Passwort" id="111">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="81">
-                    <rect key="frame" x="18" y="214" width="356" height="17"/>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="81">
+                    <rect key="frame" x="18" y="215" width="356" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Administrator-Passwort bestätigen" id="110">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="82">
-                    <rect key="frame" x="19" y="118" width="355" height="17"/>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="82">
+                    <rect key="frame" x="19" y="119" width="355" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Beenden/Entsperren-Passwort" id="109">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -115,8 +115,8 @@
                         </binding>
                     </connections>
                 </secureTextField>
-                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="84">
-                    <rect key="frame" x="19" y="88" width="355" height="17"/>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="84">
+                    <rect key="frame" x="19" y="89" width="355" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Beenden/Entsperren-Passwort bestätigen" id="107">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -126,7 +126,7 @@
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="85">
                     <rect key="frame" x="18" y="304" width="96" height="17"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="92" id="337"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="92" id="337"/>
                     </constraints>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Start-URL" id="106">
                         <font key="font" metaFont="system"/>
@@ -293,10 +293,10 @@
                     </connections>
                 </button>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="194">
-                    <rect key="frame" x="268" y="279" width="362" height="21"/>
+                    <rect key="frame" x="393" y="279" width="237" height="21"/>
                     <string key="toolTip">SEB speichert den Inhalt der Zwischenablage (sofern es sich um einen Text handelt) beim Aufstarten, bevor diese gelöscht wird. Mittels dieses Links wird der gesicherte Text in das Start-URL-Feld eingefügt.</string>
                     <constraints>
-                        <constraint firstAttribute="width" constant="362" id="352"/>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="362" id="352"/>
                         <constraint firstAttribute="height" constant="21" id="410"/>
                     </constraints>
                     <buttonCell key="cell" type="recessed" title="Einfügen aus gespeicherter Zwischenablage" bezelStyle="recessed" alignment="right" state="on" imageScaling="proportionallyDown" inset="2" id="195">
@@ -386,6 +386,9 @@
                 <constraint firstItem="94" firstAttribute="top" secondItem="95" secondAttribute="top" id="409"/>
                 <constraint firstAttribute="bottom" secondItem="94" secondAttribute="bottom" constant="20" symbolic="YES" id="411"/>
                 <constraint firstItem="84" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="21" id="0ef-Vr-MbA"/>
+                <constraint firstItem="88" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="95" secondAttribute="trailing" constant="20" id="5TA-kd-uMP"/>
+                <constraint firstItem="150" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="88" secondAttribute="trailing" constant="20" id="7g4-T9-o6t"/>
+                <constraint firstItem="194" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="255" secondAttribute="leading" id="AFL-st-oFR"/>
                 <constraint firstItem="412" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="21" id="JdV-rP-Sv7"/>
                 <constraint firstItem="412" firstAttribute="top" secondItem="92" secondAttribute="bottom" constant="10" id="QgY-kU-Dls"/>
                 <constraint firstAttribute="trailing" secondItem="412" secondAttribute="trailing" constant="19" id="X84-cd-aDD"/>
