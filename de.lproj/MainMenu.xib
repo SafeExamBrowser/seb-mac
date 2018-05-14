@@ -782,12 +782,12 @@ Gw
                     </scroller>
                 </scrollView>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="saq-WU-u0D">
-                    <rect key="frame" x="443" y="130" width="22" height="20"/>
+                    <rect key="frame" x="443" y="130" width="18" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="7My-ZY-uZS"/>
-                        <constraint firstAttribute="width" constant="22" id="k7i-7N-vWO"/>
+                        <constraint firstAttribute="width" constant="18" id="k7i-7N-vWO"/>
                     </constraints>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSGoRightTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="UCd-sc-sOC">
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSGoRightTemplate" imagePosition="only" alignment="center" imageScaling="axesIndependently" inset="2" id="UCd-sc-sOC">
                         <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                         <connections>
