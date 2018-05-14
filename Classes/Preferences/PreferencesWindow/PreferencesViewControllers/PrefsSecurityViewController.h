@@ -42,6 +42,7 @@
     IBOutlet NSPopUpButton *chooseLogLevelControl;
     IBOutlet NSPopUpButton *chooseLogDirectoryControl;
     IBOutlet NSButton *selectStandardDirectoryButton;
+    IBOutlet NSButton *allowUserAppFolderInstallButton;
     IBOutlet NSMenuItem *logDirectory;
     IBOutlet NSMatrix *kioskMode;
     __weak IBOutlet NSComboBox *maxNumberDisplays;
