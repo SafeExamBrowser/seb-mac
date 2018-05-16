@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+richtline<?xml version="1.0" encoding="UTF-8" standalone="yes"?><xliff richtline="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Base.lproj/PreferencesAppearance.xib" source-language="en" datatype="plaintext" target-language="de">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="9.3" build-num="9E145"/>
@@ -36,7 +36,7 @@
       </trans-unit>
       <trans-unit id="9oR-jn-THC.title">
         <source>Allow spell checking</source>
-        <target>Rechtschreibeprüfung zulassen</target>
+        <target>Rechtschreibprüfung zulassen</target>
         <note>Class = "NSButtonCell"; title = "Allow spell checking"; ObjectID = "9oR-jn-THC";</note>
       </trans-unit>
       <trans-unit id="13.ibShadowedToolTip">
@@ -70,9 +70,9 @@
         <note>Class = "NSButtonCell"; title = "Enable browser window toolbar"; ObjectID = "372";</note>
       </trans-unit>
       <trans-unit id="383.ibShadowedToolTip">
-        <source>Hide browser window toolbar by default. It can be unhiden using  the View menu or Alt-Command-T.</source>
+        <source>Hide browser window toolbar by default. It can be unhidden using  the View menu or Alt-Command-T.</source>
         <target>Browserfenster-Symbolleiste standardmässig ausblenden. Sie kann mittels Darstellung-Menü oder den Tasten Alt-Cmd-T (Wahl-Befehl-T) angezeigt werden.</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Hide browser window toolbar by default. It can be unhiden using  the View menu or Alt-Command-T."; ObjectID = "383";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Hide browser window toolbar by default. It can be unhidden using  the View menu or Alt-Command-T."; ObjectID = "383";</note>
       </trans-unit>
       <trans-unit id="384.title">
         <source>Hide toolbar as default</source>
@@ -755,7 +755,7 @@
       </trans-unit>
       <trans-unit id="16K-h7-SCc.title">
         <source>Show reload warning in exam</source>
-        <target>Reload-Warnung in Prüfung</target>
+        <target>Neuladen-Warnung in Prüfung</target>
         <note>Class = "NSButtonCell"; title = "Show reload warning in exam"; ObjectID = "16K-h7-SCc";</note>
       </trans-unit>
       <trans-unit id="29c-3t-HLf.title">
@@ -839,9 +839,9 @@
         <note>Class = "NSButtonCell"; title = "Allow navigating back/forward in exam"; ObjectID = "181";</note>
       </trans-unit>
       <trans-unit id="413.ibShadowedToolTip">
-        <source>When the SEB browser is disabled, no browser window is openend. Use this option with specific third party applications allowed.</source>
+        <source>When the SEB browser is disabled, no browser window is opened. Use this option with specific third party applications allowed.</source>
         <target>Wenn der SEB-Browser deaktiviert ist, wird kein Browserfenster geöffnet. Diese Option kann verwendet werden, wenn Drittapplikationen zugelassen sind.</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "When the SEB browser is disabled, no browser window is openend. Use this option with specific third party applications allowed."; ObjectID = "413";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "When the SEB browser is disabled, no browser window is opened. Use this option with specific third party applications allowed."; ObjectID = "413";</note>
       </trans-unit>
       <trans-unit id="415.title">
         <source>Use SEB without browser window (Win)</source>
@@ -1141,9 +1141,9 @@
         <note>Class = "NSTextFieldCell"; title = "Settings password"; ObjectID = "118";</note>
       </trans-unit>
       <trans-unit id="173.ibShadowedToolTip">
-        <source>If used on unmanaged (student) computers, using a password is recomended, on managed computers (no administrator access by users/students) a cryptographic identity might be more convenient.</source>
+        <source>If used on unmanaged (student) computers, using a password is recommended, on managed computers (no administrator access by users/students) a cryptographic identity might be more convenient.</source>
         <target>Auf nicht verwalteten (studentischen) Rechnern wird ein Passwort empfohlen, auf verwalteten (Benutzer haben keinen Administrator-Zugang) kann eine Krypto-Identität praktischer sein</target>
-        <note>Class = "NSTextField"; ibShadowedToolTip = "If used on unmanaged (student) computers, using a password is recomended, on managed computers (no administrator access by users/students) a cryptographic identity might be more convenient."; ObjectID = "173";</note>
+        <note>Class = "NSTextField"; ibShadowedToolTip = "If used on unmanaged (student) computers, using a password is recommended, on managed computers (no administrator access by users/students) a cryptographic identity might be more convenient."; ObjectID = "173";</note>
       </trans-unit>
       <trans-unit id="174.title">
         <source>Use either a cryptographic identity or a password or both.</source>
@@ -1333,9 +1333,9 @@
         <note>Class = "NSButtonCell"; title = "Open files after downloading"; ObjectID = "39";</note>
       </trans-unit>
       <trans-unit id="76.ibShadowedToolTip">
-        <source>PDF files will not be displayed by SEB but downloaded and openend (if 'Open files after downloading' is active!) by the application set in Finder (usually Preview or Adobe Acrobat).</source>
-        <target>PDF-Dateien werden nicht von SEB angezeigt, sondern heruntergeladen und geöffnet (wenn 'Dateien nach dem Laden öffnen' aktiviert ist) und zwar mit der im Finder eingestellten Applikation (üblicherweise Vorschau oder Adobe Acrobat)</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "PDF files will not be displayed by SEB but downloaded and openend (if 'Open files after downloading' is active!) by the application set in Finder (usually Preview or Adobe Acrobat)."; ObjectID = "76";</note>
+        <source>PDF files will not be displayed by SEB but downloaded and opened (if 'Open files after downloading' is active!) by the application set in Finder (usually Preview or Adobe Acrobat).</source>
+        <target>PDF-Dateien werden nicht von SEB angezeigt, sondern heruntergeladenen und geöffnet (wenn 'Dateien nach dem Laden öffnen' aktiviert ist) und zwar mit der im Finder eingestellten Applikation (üblicherweise Vorschau oder Adobe Acrobat)</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "PDF files will not be displayed by SEB but downloaded and opened (if 'Open files after downloading' is active!) by the application set in Finder (usually Preview or Adobe Acrobat)."; ObjectID = "76";</note>
       </trans-unit>
       <trans-unit id="77.title">
         <source>Download and open PDF files instead of displaying them inline</source>
@@ -1344,7 +1344,7 @@
       </trans-unit>
       <trans-unit id="93.ibShadowedToolTip">
         <source>SEB can let users choose the file to upload or automatically use the same file which was downloaded before. If not found, a file requester or an error is presented depending on this setting.</source>
-        <target>SEB kann Benutzer die Upload-Datei manuell auswählen lassen oder automatisch dieselbe Datei auswählen, die zuvor heruntergeladen wurde. Wenn die Datei nicht gefunden wurde, wird ein Dateidialog oder eine Fehlermeldung angezeigt. Falls zuvor mehrere Dateien heruntergeladen wurden, zeigt SEB diese nacheinander an, beginnend mit der zuletzt geladenen</target>
+        <target>SEB kann Benutzer die Upload-Datei manuell auswählen lassen oder automatisch dieselbe Datei auswählen, die zuvor heruntergeladenen wurde. Wenn die Datei nicht gefunden wurde, wird ein Dateidialog oder eine Fehlermeldung angezeigt. Falls zuvor mehrere Dateien heruntergeladenen wurden, zeigt SEB diese nacheinander an, beginnend mit der zuletzt geladenen</target>
         <note>Class = "NSPopUpButton"; ibShadowedToolTip = "SEB can let users choose the file to upload or automatically use the same file which was downloaded before. If not found, a file requester or an error is presented depending on this setting."; ObjectID = "93";</note>
       </trans-unit>
       <trans-unit id="100.title">
@@ -1421,7 +1421,7 @@
       </trans-unit>
       <trans-unit id="443.title">
         <source>Place this Quit Link to the 'feedback' page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password.</source>
-        <target>Dieser Beenden-Link sollte auf der 'Feedback'-Seite plaziert werden, die nach Abgabe einer Prüfung angezeigt wird. Anklicken des Links beendet SEB, ohne dass ein Beenden/Entsperren-Passwort eingegeben werden müsste.</target>
+        <target>Dieser Beenden-Link sollte auf der 'Feedback'-Seite platziert werden, die nach Abgabe einer Prüfung angezeigt wird. Anklicken des Links beendet SEB, ohne dass ein Beenden/Entsperren-Passwort eingegeben werden müsste.</target>
         <note>Class = "NSTextFieldCell"; title = "Place this Quit Link to the 'feedback' page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password."; ObjectID = "443";</note>
       </trans-unit>
       <trans-unit id="688.ibShadowedToolTip">
@@ -2039,9 +2039,9 @@
         <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Identities (X.509 certificates with RSA public key and associated private key) from the default keychain which can be used for encrypting (see Config File pane) and decrypting SEB config files. Embedded identities in config files saved for configuring clients will be imported into the Keychain of exam clients."; ObjectID = "UIS-5m-9TC";</note>
       </trans-unit>
       <trans-unit id="VV0-Zp-Taw.title">
-        <source>Choose certificate to embedd:</source>
+        <source>Choose certificate to embed:</source>
         <target>Einzubettendes Zertifikat auswählen:</target>
-        <note>Class = "NSTextFieldCell"; title = "Choose certificate to embedd:"; ObjectID = "VV0-Zp-Taw";</note>
+        <note>Class = "NSTextFieldCell"; title = "Choose certificate to embed:"; ObjectID = "VV0-Zp-Taw";</note>
       </trans-unit>
       <trans-unit id="Wrm-JO-cYX.title">
         <source>Advanced…</source>
@@ -2309,7 +2309,7 @@
       </trans-unit>
       <trans-unit id="93.ibShadowedToolTip">
         <source>Policy that applies when an exam client doesn't have the SEB Service installed or running</source>
-        <target>Richtline, die angewendet wird, wenn der SEB-Hintergrundservice auf einem Prüfungs-Client nicht installiert ist (wird nur unter Windows verwendet)</target>
+        <target>Richtlinie, die angewendet wird, wenn der SEB-Hintergrundservice auf einem Prüfungs-Client nicht installiert ist (wird nur unter Windows verwendet)</target>
         <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Policy that applies when an exam client doesn't have the SEB Service installed or running"; ObjectID = "93";</note>
       </trans-unit>
       <trans-unit id="100.title">
@@ -2705,7 +2705,7 @@
       </trans-unit>
       <trans-unit id="%@ was downloaded.">
         <source>%@ was downloaded.</source>
-        <target>%@ wurde heruntergeladen.</target>
+        <target>%@ wurde heruntergeladenen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="(This function doesn't log you out if you are logged in on a website)">
@@ -3045,7 +3045,7 @@
       </trans-unit>
       <trans-unit id="Error Decrypting Settings">
         <source>Error Decrypting Settings</source>
-        <target>Fehler beim Entschüsseln der Einstellungen</target>
+        <target>Fehler beim Entschlüsseln der Einstellungen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Error Encrypting Settings">
@@ -3170,7 +3170,7 @@
       </trans-unit>
       <trans-unit id="Loaded settings are empty and cannot be used.">
         <source>Loaded settings are empty and cannot be used.</source>
-        <target>Geladene Konfigurationdatei ist leer und kann nicht benutzt werden.</target>
+        <target>Geladene Konfigurationsdatei ist leer und kann nicht benutzt werden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Loading New SEB Settings Not Allowed!">
@@ -3488,8 +3488,8 @@
         <target>SEB muss im Verzeichnis '%1$@' installiert werden. Bewegen Sie die 'Safe Exam Browser' App in Ihr Verzeichnis %2$@ und stellen Sie sicher, dass Sie keine anderen Versionen von SEB auf Ihrem System installiert haben. SEB wird jetzt beendet.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.">
-        <source>SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.</source>
+      <trans-unit id="SEB is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam and quit SEB before starting another exam.">
+        <source>SEB is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam and quit SEB before starting another exam.</source>
         <target>SEB läuft bereits im Prüfungsmodus und es ist nicht erlaubt, diesen durch den Start einer anderen Prüfung zu unterbrechen. Beenden Sie die Prüfung und starten Sie SEB neu.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
@@ -3500,7 +3500,7 @@
       </trans-unit>
       <trans-unit id="SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.">
         <source>SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.</source>
-        <target>SEB ist so konfiguriert, dass nur eine zuvor heruntergelade Datei heraufgeladen werden kann. Laden Sie eine Datei herunter und wenn Sie diese in einer Drittapplikation bearbeiten, speichern Sie diese mit demselben Dateinamen im gleichen Verzeichnis.</target>
+        <target>SEB ist so konfiguriert, dass nur eine zuvor heruntergeladene Datei heraufgeladen werden kann. Laden Sie eine Datei herunter und wenn Sie diese in einer Drittapplikation bearbeiten, speichern Sie diese mit demselben Dateinamen im gleichen Verzeichnis.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SEB is locked because a process, which isn't allowed to run cannot be terminated. It's only possible to unlock SEB with the quit/unlock password, which usually exam supervision/support knows.">
@@ -3530,7 +3530,7 @@
       </trans-unit>
       <trans-unit id="SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.">
         <source>SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.</source>
-        <target>SEB wird die zuvor heruntergeladene Datei heraufladen. Wenn also eine Datei heruntergeladen und in einer Drittapplikation bearbeitet wird, muss diese mit demselben Dateinamen im selben Verzeichnis wieder gespeichert werden.</target>
+        <target>SEB wird die zuvor heruntergeladenene Datei heraufladen. Wenn also eine Datei heruntergeladenen und in einer Drittapplikation bearbeitet wird, muss diese mit demselben Dateinamen im selben Verzeichnis wieder gespeichert werden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SOCKS Proxy">
@@ -3865,7 +3865,7 @@
       </trans-unit>
       <trans-unit id="Wrong Password! Try again to enter the correct current SEB administrator password:">
         <source>Wrong Password! Try again to enter the correct current SEB administrator password:</source>
-        <target>Falsches Passwort! Bitte das korrrekte SEB Administrator-Passwort eingeben:</target>
+        <target>Falsches Passwort! Bitte das korrekte SEB Administrator-Passwort eingeben:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Wrong Password! Try again to enter the correct password used to encrypt these settings:">
@@ -3875,7 +3875,7 @@
       </trans-unit>
       <trans-unit id="Wrong Password! Try again to enter the correct password:">
         <source>Wrong Password! Try again to enter the correct password:</source>
-        <target>Falsches Passwort! Bitte das korrrekte Passwort eingeben:</target>
+        <target>Falsches Passwort! Bitte das korrekte Passwort eingeben:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Wrong Quit Password">
@@ -3890,7 +3890,7 @@
       </trans-unit>
       <trans-unit id="Wrong password! Try again to enter the correct SEB administrator password from these settings:">
         <source>Wrong password! Try again to enter the correct SEB administrator password from these settings:</source>
-        <target>Falsches Passwort! Bitte das korrrekte SEB Administrator-Passwort aus diesen Einstellungen eingeben:</target>
+        <target>Falsches Passwort! Bitte das korrekte SEB Administrator-Passwort aus diesen Einstellungen eingeben:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Wrong quit/unlock password.">
@@ -3985,12 +3985,12 @@
       </trans-unit>
       <trans-unit id="by attempting to upload same file downloaded before">
         <source>by attempting to upload same file downloaded before</source>
-        <target>versuchen, die zuvor heruntergeladene Datei auszuwählen</target>
+        <target>versuchen, die zuvor heruntergeladenene Datei auszuwählen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="by only allowing to upload the same file downloaded before">
         <source>by only allowing to upload the same file downloaded before</source>
-        <target>nur zuvor heruntergeladene Datei zulassen</target>
+        <target>nur zuvor heruntergeladenene Datei zulassen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="get generally blocked">
