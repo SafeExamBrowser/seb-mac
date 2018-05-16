@@ -121,7 +121,7 @@
                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableAppSwitcherCheck" id="iS6-fQ-xk6"/>
                                         </connections>
                                     </button>
-                                    <button toolTip="SEB enforces to be installed in an Applications folder (/Applications or ~/Applications)" translatesAutoresizingMaskIntoConstraints="NO" id="Gly-dr-m3X">
+                                    <button toolTip="SEB enforces to be installed in the Applications folder (/Applications)" translatesAutoresizingMaskIntoConstraints="NO" id="Gly-dr-m3X">
                                         <rect key="frame" x="15" y="269" width="261" height="18"/>
                                         <buttonCell key="cell" type="check" title="Force installation in /Applications folder" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0Ey-3L-Lb6">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -206,12 +206,12 @@
                                             <font key="font" metaFont="smallSystem"/>
                                         </buttonCell>
                                         <connections>
+                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowUserAppFolderInstall" id="rbc-TJ-Vz2"/>
                                             <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_forceAppFolderInstall" id="PzN-p4-hol">
                                                 <dictionary key="options">
                                                     <string key="NSValueTransformerName">BoolValueTransformer</string>
                                                 </dictionary>
                                             </binding>
-                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowUserAppFolderInstall" id="rbc-TJ-Vz2"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -555,7 +555,7 @@
                                                 </button>
                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="P88-5S-xeR">
                                                     <rect key="frame" x="16" y="16" width="165" height="18"/>
-                                                    <string key="toolTip">Corresponds to 'Allow browsing back/forward' in Browser pane. Disabling browsing to previously visited pages may increase security, because browsing back might allow to leave an exam</string>
+                                                    <string key="toolTip">Corresponds to 'Allow navigating back/forward in exam' in Browser pane. Disabling browsing to previously visited pages may increase security, because browsing back might allow to leave an exam</string>
                                                     <buttonCell key="cell" type="check" title="Enable Alt-Mousewheel" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="IWf-Eq-wzJ">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
