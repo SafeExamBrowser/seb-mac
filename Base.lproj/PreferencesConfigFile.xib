@@ -224,7 +224,7 @@
                 </secureTextField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="173">
                     <rect key="frame" x="18" y="246" width="308" height="14"/>
-                    <string key="toolTip">If used on unmanaged (student) computers, using a password is recomended, on managed computers (no administrator access by users/students) a cryptographic identity might be more convenient.</string>
+                    <string key="toolTip">If used on unmanaged (student) computers, using a password is recommended, on managed computers (no administrator access by users/students) a cryptographic identity might be more convenient.</string>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="cUz-TI-gUQ"/>
                     </constraints>

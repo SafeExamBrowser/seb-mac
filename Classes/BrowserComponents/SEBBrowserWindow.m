@@ -1583,7 +1583,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
                         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
                             // Don't load the request
                             //                    [listener ignore];
-                            // we have to close the new browser window which already has been openend by WebKit
+                            // we have to close the new browser window which already has been opened by WebKit
                             // Get the document for my web view
                             DDLogDebug(@"Originating browser window %@", sender);
                             // Close document and therefore also window
@@ -1723,7 +1723,7 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         SEBWebView *creatingWebView = [self.webView creatingWebView];
         if (creatingWebView) {
             if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByScriptPolicy"] == openInNewWindow) {
-                // we have to close the new browser window which already has been openend by WebKit
+                // we have to close the new browser window which already has been opened by WebKit
                 // Get the document for my web view
                 DDLogDebug(@"Originating browser window %@", sender);
                 // Close document and therefore also window

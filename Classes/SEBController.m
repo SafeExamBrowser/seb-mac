@@ -171,7 +171,7 @@ bool insideMatrix(void);
             if (NSUserDefaults.userDefaultsPrivate) {
                 NSAlert *modalAlert = [self newAlert];
                 [modalAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
-                [modalAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
+                [modalAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
                 [modalAlert setAlertStyle:NSCriticalAlertStyle];
                 [modalAlert runModal];
@@ -1288,7 +1288,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
         // Close the Notification Center panel in case switching to applications is allowed
         if (_allowSwitchToApplications && [windowName isEqualToString:@"NotificationTableWindow"] && ![_preferencesController preferencesAreOpen]) {
             // If switching to applications is allowed and the Notification Center was opened
-            DDLogWarn(@"Notification Center panel was openend (owning process name: %@", windowOwner);
+            DDLogWarn(@"Notification Center panel was opened (owning process name: %@", windowOwner);
             
             NSRunningApplication *notificationCenter = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.notificationcenterui"][0];
             [notificationCenter forceTerminate];
@@ -1307,7 +1307,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
                     // running legit Apple executables
                     NSRunningApplication *appWithPanel = [NSRunningApplication runningApplicationWithProcessIdentifier:windowOwnerPID];
                     NSString *appWithPanelBundleID = appWithPanel.bundleIdentifier;
-                    DDLogWarn(@"Application %@ with bundle ID %@ has openend a window with level %@", windowOwner, appWithPanelBundleID, windowLevelString);
+                    DDLogWarn(@"Application %@ with bundle ID %@ has opened a window with level %@", windowOwner, appWithPanelBundleID, windowLevelString);
 #ifdef DEBUG
                     CGSConnection connection = _CGSDefaultConnection();
                     int workspace;

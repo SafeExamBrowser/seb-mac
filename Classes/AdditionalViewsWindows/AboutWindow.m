@@ -60,7 +60,7 @@
 
 
 // Overriding this method to return NO prevents that the Preferences Window 
-// looses key state when the About Window is openend
+// looses key state when the About Window is opened
 - (BOOL)canBecomeKeyWindow {
     return NO;
 }
