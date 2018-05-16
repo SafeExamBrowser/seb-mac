@@ -790,7 +790,7 @@
                         <constraint firstItem="UsO-tg-591" firstAttribute="leading" secondItem="ckm-lX-Woj" secondAttribute="leading" constant="11" id="jE6-vh-BQc"/>
                     </constraints>
                 </box>
-                <button toolTip="When the SEB browser is disabled, no browser window is openend. Use this option with specific third party applications allowed." translatesAutoresizingMaskIntoConstraints="NO" id="413">
+                <button toolTip="When the SEB browser is disabled, no browser window is opened. Use this option with specific third party applications allowed." translatesAutoresizingMaskIntoConstraints="NO" id="413">
                     <rect key="frame" x="17" y="31" width="615" height="18"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="12" id="638"/>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -467,7 +467,7 @@
                                     <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableBrowserWindowToolbar" id="382"/>
                                 </connections>
                             </button>
-                            <button toolTip="Hide browser window toolbar by default. It can be unhiden using  the View menu or Alt-Command-T." translatesAutoresizingMaskIntoConstraints="NO" id="383">
+                            <button toolTip="Hide browser window toolbar by default. It can be unhidden using  the View menu or Alt-Command-T." translatesAutoresizingMaskIntoConstraints="NO" id="383">
                                 <rect key="frame" x="30" y="15" width="160" height="18"/>
                                 <buttonCell key="cell" type="check" title="Hide toolbar as default" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="384">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>

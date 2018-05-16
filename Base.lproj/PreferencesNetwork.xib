@@ -102,7 +102,7 @@
                                         <rect key="frame" x="17" y="275" width="570" height="319"/>
                                         <clipView key="contentView" id="QXl-iW-Uh6">
                                             <rect key="frame" x="1" y="0.0" width="568" height="318"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="" headerView="TDX-aF-oMF" id="1EV-b8-djc">
                                                     <rect key="frame" x="0.0" y="0.0" width="568" height="295"/>
@@ -856,7 +856,7 @@
                                         <rect key="frame" x="17" y="39" width="570" height="423"/>
                                         <clipView key="contentView" id="bNG-6J-vDW">
                                             <rect key="frame" x="1" y="0.0" width="568" height="422"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="" rowHeight="14" headerView="1834" id="1832" userLabel="Certificates Table View">
                                                     <rect key="frame" x="0.0" y="0.0" width="568" height="399"/>
@@ -1043,7 +1043,7 @@
                                         <rect key="frame" x="17" y="412" width="240" height="135"/>
                                         <clipView key="contentView" id="QXl-Cs-ddI">
                                             <rect key="frame" x="1" y="1" width="238" height="133"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="806">
                                                     <rect key="frame" x="0.0" y="0.0" width="238" height="133"/>
@@ -2064,7 +2064,7 @@
                         <rect key="frame" x="20" y="105" width="570" height="423"/>
                         <clipView key="contentView" id="ilD-CP-EQ7">
                             <rect key="frame" x="1" y="0.0" width="568" height="422"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="14" headerView="l7P-hn-H1h" id="zFX-aq-BQc">
                                     <rect key="frame" x="0.0" y="0.0" width="568" height="399"/>
@@ -2143,8 +2143,8 @@
                         </tableHeaderView>
                     </scrollView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qiQ-yv-KyL">
-                        <rect key="frame" x="18" y="536" width="189" height="17"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Choose certificate to embedd:" id="VV0-Zp-Taw">
+                        <rect key="frame" x="18" y="536" width="181" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Choose certificate to embed:" id="VV0-Zp-Taw">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

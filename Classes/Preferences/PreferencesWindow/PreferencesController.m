@@ -899,7 +899,7 @@
     if (encryptedSebData) {
         NSURL *prefsFileURL;
         if (!saveAs && [currentConfigFileURL isFileURL]) {
-            // "Save": Rewrite the file openend before
+            // "Save": Rewrite the file opened before
             NSError *error;
             if (![encryptedSebData writeToURL:currentConfigFileURL options:NSDataWritingAtomic error:&error]) {
                 // If the prefs file couldn't be saved

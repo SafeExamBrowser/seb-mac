@@ -150,7 +150,7 @@
     _suppressFileFormatError = suppressFileFormatError;
     
     // In editing mode we can get a saved existing config file password
-    // (used when reverting to last saved/openend settings)
+    // (used when reverting to last saved/opened settings)
     if (forEditing) {
         sebFilePassword = _currentConfigPassword;
         passwordIsHash = _currentConfigPasswordIsHash;
@@ -570,7 +570,7 @@
     
     // Ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
     decryptedSebData = [decryptedSebData gzipInflate];
-    // Check if the openend reconfiguring seb file has the same admin password inside as the current one
+    // Check if the opened reconfiguring seb file has the same admin password inside as the current one
     // Get the preferences dictionary
     sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:decryptedSebData error:&error];
     if (error) {
@@ -587,7 +587,7 @@
     if ([hashedAdminPassword caseInsensitiveCompare:sebFileHashedAdminPassword] != NSOrderedSame) {
         //No: The admin password inside the .seb file wasn't the same as the current one
         if (forEditing) {
-            // If the file is openend for editing (and not to reconfigure SEB)
+            // If the file is opened for editing (and not to reconfigure SEB)
             // we have to ask the user for the admin password inside the file
             if (![self askForPasswordAndCompareToHashedPassword:sebFileHashedAdminPassword]) {
                 // If the user didn't enter the right password we abort

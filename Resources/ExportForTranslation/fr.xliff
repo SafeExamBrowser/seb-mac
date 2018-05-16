@@ -437,8 +437,8 @@
         <note>Class = "NSButtonCell"; title = "Enable browser window toolbar"; ObjectID = "372";</note>
       </trans-unit>
       <trans-unit id="383.ibShadowedToolTip">
-        <source>Hide browser window toolbar by default. It can be unhiden using  the View menu or Alt-Command-T.</source>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Hide browser window toolbar by default. It can be unhiden using  the View menu or Alt-Command-T."; ObjectID = "383";</note>
+        <source>Hide browser window toolbar by default. It can be unhidden using  the View menu or Alt-Command-T.</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Hide browser window toolbar by default. It can be unhidden using  the View menu or Alt-Command-T."; ObjectID = "383";</note>
       </trans-unit>
       <trans-unit id="384.title">
         <source>Hide toolbar as default</source>
@@ -919,8 +919,8 @@
         <note>Class = "NSButtonCell"; title = "Allow navigating back/forward in exam"; ObjectID = "181";</note>
       </trans-unit>
       <trans-unit id="413.ibShadowedToolTip">
-        <source>When the SEB browser is disabled, no browser window is openend. Use this option with specific third party applications allowed.</source>
-        <note>Class = "NSButton"; ibShadowedToolTip = "When the SEB browser is disabled, no browser window is openend. Use this option with specific third party applications allowed."; ObjectID = "413";</note>
+        <source>When the SEB browser is disabled, no browser window is opened. Use this option with specific third party applications allowed.</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "When the SEB browser is disabled, no browser window is opened. Use this option with specific third party applications allowed."; ObjectID = "413";</note>
       </trans-unit>
       <trans-unit id="415.title">
         <source>Use SEB without browser window</source>
@@ -1046,8 +1046,8 @@
         <note>Class = "NSTextFieldCell"; title = "Settings password"; ObjectID = "118";</note>
       </trans-unit>
       <trans-unit id="173.ibShadowedToolTip">
-        <source>If used on unmanaged (student) computers, using a password is recomended, on managed computers (no administrator access by users/students) a cryptographic identity might be more convenient.</source>
-        <note>Class = "NSTextField"; ibShadowedToolTip = "If used on unmanaged (student) computers, using a password is recomended, on managed computers (no administrator access by users/students) a cryptographic identity might be more convenient."; ObjectID = "173";</note>
+        <source>If used on unmanaged (student) computers, using a password is recommended, on managed computers (no administrator access by users/students) a cryptographic identity might be more convenient.</source>
+        <note>Class = "NSTextField"; ibShadowedToolTip = "If used on unmanaged (student) computers, using a password is recommended, on managed computers (no administrator access by users/students) a cryptographic identity might be more convenient."; ObjectID = "173";</note>
       </trans-unit>
       <trans-unit id="174.title">
         <source>Use either a cryptographic identity or a password or both.</source>
@@ -1201,8 +1201,8 @@
         <note>Class = "NSButtonCell"; title = "Open files after downloading"; ObjectID = "39";</note>
       </trans-unit>
       <trans-unit id="76.ibShadowedToolTip">
-        <source>PDF files will not be displayed by SEB but downloaded and openend (if 'Open files after downloading' is active!) by the application set in Finder (usually Preview or Adobe Acrobat).</source>
-        <note>Class = "NSButton"; ibShadowedToolTip = "PDF files will not be displayed by SEB but downloaded and openend (if 'Open files after downloading' is active!) by the application set in Finder (usually Preview or Adobe Acrobat)."; ObjectID = "76";</note>
+        <source>PDF files will not be displayed by SEB but downloaded and opened (if 'Open files after downloading' is active!) by the application set in Finder (usually Preview or Adobe Acrobat).</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "PDF files will not be displayed by SEB but downloaded and opened (if 'Open files after downloading' is active!) by the application set in Finder (usually Preview or Adobe Acrobat)."; ObjectID = "76";</note>
       </trans-unit>
       <trans-unit id="77.title">
         <source>Download and open PDF files instead of displaying them inline</source>
@@ -2597,8 +2597,8 @@
         <source>SEB has to be placed in the %1$@ folder for all features working correctly. Move the 'Safe Exam Browser' app to your %2$@ folder and make sure that you don't have any other versions of SEB installed on your system. SEB will quit now.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.">
-        <source>SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.</source>
+      <trans-unit id="SEB is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam and quit SEB before starting another exam.">
+        <source>SEB is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam and quit SEB before starting another exam.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.">
