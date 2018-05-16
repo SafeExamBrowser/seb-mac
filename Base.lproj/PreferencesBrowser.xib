@@ -270,9 +270,8 @@
                                     <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_allowBrowsingBackForward" id="6v2-eF-cEt"/>
                                 </connections>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="FwJ-dG-wCg">
+                            <button toolTip="Reload can be disabled completely for the exam with this setting, because it might break some offlne caching functionalities" translatesAutoresizingMaskIntoConstraints="NO" id="FwJ-dG-wCg">
                                 <rect key="frame" x="11" y="58" width="146" height="18"/>
-                                <string key="toolTip">Disabling browsing to previously visited pages (by cmd + Cursor left) may increase security, because browsing back might allow to leave an exam</string>
                                 <buttonCell key="cell" type="check" title="Allow reload in exam" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="1TN-dk-xIy">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
