@@ -915,8 +915,8 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Disabling browsing to previously visited pages (by cmd + Cursor left) may increase security, because browsing back might allow to leave an exam"; ObjectID = "180";</note>
       </trans-unit>
       <trans-unit id="181.title">
-        <source>Allow browsing back/forward</source>
-        <note>Class = "NSButtonCell"; title = "Allow browsing back/forward"; ObjectID = "181";</note>
+        <source>Allow navigating back/forward in exam</source>
+        <note>Class = "NSButtonCell"; title = "Allow navigating back/forward in exam"; ObjectID = "181";</note>
       </trans-unit>
       <trans-unit id="413.ibShadowedToolTip">
         <source>When the SEB browser is disabled, no browser window is openend. Use this option with specific third party applications allowed.</source>
@@ -1904,8 +1904,8 @@
         <note>Class = "NSButtonCell"; title = "Enable Print Screen"; ObjectID = "GQb-uN-fJO";</note>
       </trans-unit>
       <trans-unit id="Gly-dr-m3X.ibShadowedToolTip">
-        <source>SEB enforces to be installed in an Applications folder (/Applications or ~/Applications)</source>
-        <note>Class = "NSButton"; ibShadowedToolTip = "SEB enforces to be installed in an Applications folder (/Applications or ~/Applications)"; ObjectID = "Gly-dr-m3X";</note>
+        <source>SEB enforces to be installed in the Applications folder (/Applications)</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "SEB enforces to be installed in the Applications folder (/Applications)"; ObjectID = "Gly-dr-m3X";</note>
       </trans-unit>
       <trans-unit id="IWf-Eq-wzJ.title">
         <source>Enable Alt-Mousewheel</source>

@@ -755,7 +755,7 @@
       </trans-unit>
       <trans-unit id="16K-h7-SCc.title">
         <source>Show reload warning in exam</source>
-        <target>Reload-Warnung anzeigen</target>
+        <target>Reload-Warnung in Prüfung</target>
         <note>Class = "NSButtonCell"; title = "Show reload warning in exam"; ObjectID = "16K-h7-SCc";</note>
       </trans-unit>
       <trans-unit id="29c-3t-HLf.title">
@@ -835,7 +835,7 @@
       </trans-unit>
       <trans-unit id="181.title">
         <source>Allow navigating back/forward in exam</source>
-        <target>Vorwärts-/Rückwärts-Surfen erlauben</target>
+        <target>Seiten-Navigation in Prüfung</target>
         <note>Class = "NSButtonCell"; title = "Allow navigating back/forward in exam"; ObjectID = "181";</note>
       </trans-unit>
       <trans-unit id="413.ibShadowedToolTip">
@@ -990,7 +990,7 @@
       </trans-unit>
       <trans-unit id="X0g-7e-XAl.title">
         <source>Custom user agent string (SEB appends its version number automatically). Default string depends on installed Safari/WebKit version and therefore can differ on exam clients.</source>
-        <target>Benutzerdefinierte User Agent Zeichenkette (SEB hängt seine Versionsnummer automatisch an). Die Standardzeichenkette hängt von der der installierten Safari-/WebKit-Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein.</target>
+        <target>Benutzerdefinierte User Agent Zeichenkette (SEB hängt seine Versionsnummer automatisch an). Die Standardzeichenkette hängt von der der installierten Safari-/WebKit-Version ab.</target>
         <note>Class = "NSTextFieldCell"; title = "Custom user agent string (SEB appends its version number automatically). Default string depends on installed Safari/WebKit version and therefore can differ on exam clients."; ObjectID = "X0g-7e-XAl";</note>
       </trans-unit>
       <trans-unit id="XDW-SF-gll.title">
@@ -2238,9 +2238,9 @@
     </header>
     <body>
       <trans-unit id="0Ey-3L-Lb6.title">
-        <source>Force installation in Applications folder</source>
+        <source>Force installation in /Applications folder</source>
         <target>SEB im Programmverzeichnis erzwingen</target>
-        <note>Class = "NSButtonCell"; title = "Force installation in Applications folder"; ObjectID = "0Ey-3L-Lb6";</note>
+        <note>Class = "NSButtonCell"; title = "Force installation in /Applications folder"; ObjectID = "0Ey-3L-Lb6";</note>
       </trans-unit>
       <trans-unit id="0ob-OM-tPV.title">
         <source>Enable F11</source>
@@ -2378,9 +2378,9 @@
         <note>Class = "NSButtonCell"; title = "Enable Print Screen"; ObjectID = "GQb-uN-fJO";</note>
       </trans-unit>
       <trans-unit id="Gly-dr-m3X.ibShadowedToolTip">
-        <source>SEB enforces to be installed in an Applications folder (/Applications or ~/Applications)</source>
-        <target>SEB verlangt, in einem Programmverzeichnis installiert zu werden (/Programme oder ~/Applications)</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "SEB enforces to be installed in an Applications folder (/Applications or ~/Applications)"; ObjectID = "Gly-dr-m3X";</note>
+        <source>SEB enforces to be installed in the Applications folder (/Applications)</source>
+        <target>SEB verlangt, im Programmverzeichnis installiert zu werden (/Programme)</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "SEB enforces to be installed in the Applications folder (/Applications)"; ObjectID = "Gly-dr-m3X";</note>
       </trans-unit>
       <trans-unit id="IWf-Eq-wzJ.title">
         <source>Enable Alt-Mousewheel</source>
@@ -2396,6 +2396,11 @@
         <source>Disable app switcher when starting</source>
         <target>Programmumschalter während Start verbieten</target>
         <note>Class = "NSButtonCell"; title = "Disable app switcher when starting"; ObjectID = "JRL-fG-lI3";</note>
+      </trans-unit>
+      <trans-unit id="KKV-0r-AMe.ibShadowedToolTip">
+        <source>SEB can also be installed in the Applications folder of the current user (~/Applications)</source>
+        <target>SEB darf auch im Verzeichnis Programme des aktuellen Benutzers installiert sein (~/Programme)</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "SEB can also be installed in the Applications folder of the current user (~/Applications)"; ObjectID = "KKV-0r-AMe";</note>
       </trans-unit>
       <trans-unit id="KbI-Yu-DVk.title">
         <source>None (for debugging only)</source>
@@ -2433,9 +2438,9 @@
         <note>Class = "NSButtonCell"; title = "Enable Shut down"; ObjectID = "Ouk-wE-FFP";</note>
       </trans-unit>
       <trans-unit id="P88-5S-xeR.ibShadowedToolTip">
-        <source>Corresponds to 'Allow browsing back/forward' in Browser pane. Disabling browsing to previously visited pages may increase security, because browsing back might allow to leave an exam</source>
-        <target>Entspricht 'Vorwärts-/Rückwärts-Surfen erlauben' im Browser-Tab. Ausschalten der Funktion, auf bereits besuchte Seiten zurückzukehren verhindert, eine Prüfung zu verlassen, indem man auf eine Startseite ausserhalb des Prüfungs-Servers zurückkehrt</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Corresponds to 'Allow browsing back/forward' in Browser pane. Disabling browsing to previously visited pages may increase security, because browsing back might allow to leave an exam"; ObjectID = "P88-5S-xeR";</note>
+        <source>Corresponds to 'Allow navigating back/forward in exam' in Browser pane. Disabling browsing to previously visited pages may increase security, because browsing back might allow to leave an exam</source>
+        <target>Entspricht 'Seiten-Navigation in Prüfung' im Browser-Tab. Ausschalten der Funktion, auf bereits besuchte Seiten zurückzukehren verhindert, eine Prüfung zu verlassen, indem man auf eine Startseite ausserhalb des Prüfungs-Servers zurückkehrt</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Corresponds to 'Allow navigating back/forward in exam' in Browser pane. Disabling browsing to previously visited pages may increase security, because browsing back might allow to leave an exam"; ObjectID = "P88-5S-xeR";</note>
       </trans-unit>
       <trans-unit id="PH3-Cb-12g.ibShadowedToolTip">
         <source>Allows macOS screen sharing to be used</source>
@@ -2621,6 +2626,11 @@
         <source>Enable Switch User</source>
         <target>Benutzerwechsel erlauben</target>
         <note>Class = "NSButtonCell"; title = "Enable Switch User"; ObjectID = "rm8-cp-dzk";</note>
+      </trans-unit>
+      <trans-unit id="sUj-TY-bKw.title">
+        <source>Allow also user's ~/Applications folder</source>
+        <target>Verzeichnis ~/Programme erlauben</target>
+        <note>Class = "NSButtonCell"; title = "Allow also user's ~/Applications folder"; ObjectID = "sUj-TY-bKw";</note>
       </trans-unit>
       <trans-unit id="ufj-NR-s2G.title">
         <source>Enable Alt-Tab</source>
