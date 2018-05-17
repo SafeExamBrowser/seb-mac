@@ -1022,8 +1022,8 @@ DQ
                         <action selector="passwordEntered:" target="agr-W5-n2K" id="A9P-Tm-0Rt"/>
                     </connections>
                 </secureTextField>
-                <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="5Ez-0g-525" customClass="SEBTextField">
-                    <rect key="frame" x="92" y="628" width="317" height="25"/>
+                <textField horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="5Ez-0g-525" customClass="SEBTextField">
+                    <rect key="frame" x="18" y="628" width="464" height="25"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Prohibited Process Locked SEB!" id="9V8-Fs-9oi">
                         <font key="font" size="20" name="HelveticaNeue-Bold"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1046,8 +1046,8 @@ DQ
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="5sW-Md-KnP" customClass="SEBTextField">
-                    <rect key="frame" x="30" y="564" width="441" height="56"/>
+                <textField horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="5sW-Md-KnP" customClass="SEBTextField">
+                    <rect key="frame" x="18" y="564" width="464" height="56"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="56" id="ejj-7G-oh9"/>
                     </constraints>
@@ -1163,26 +1163,24 @@ DQ
                 <constraint firstItem="62k-M2-j1C" firstAttribute="leading" secondItem="K91-6e-rl1" secondAttribute="leading" id="LqD-38-tOb"/>
                 <constraint firstItem="SZz-tz-Eao" firstAttribute="leading" secondItem="opR-sj-lUP" secondAttribute="leading" constant="20" id="Q1s-8z-TXu"/>
                 <constraint firstItem="5gu-rS-ItL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="opR-sj-lUP" secondAttribute="leading" constant="20" id="Rgu-R6-Dh2"/>
-                <constraint firstItem="5Ez-0g-525" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="opR-sj-lUP" secondAttribute="leading" priority="250" constant="20" id="T4b-fZ-Ehf"/>
+                <constraint firstItem="5Ez-0g-525" firstAttribute="leading" secondItem="opR-sj-lUP" secondAttribute="leading" constant="20" id="T4b-fZ-Ehf"/>
                 <constraint firstItem="K91-6e-rl1" firstAttribute="centerX" secondItem="opR-sj-lUP" secondAttribute="centerX" id="XbJ-0R-HKL"/>
                 <constraint firstItem="uLX-fM-8i5" firstAttribute="top" secondItem="2hk-Dl-Z63" secondAttribute="bottom" constant="6" id="Y7A-mS-Ypd"/>
                 <constraint firstItem="SZz-tz-Eao" firstAttribute="top" secondItem="5sW-Md-KnP" secondAttribute="bottom" constant="8" id="YZ6-CN-txg"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5sW-Md-KnP" secondAttribute="trailing" constant="20" id="b6m-9x-lgP"/>
+                <constraint firstAttribute="trailing" secondItem="5sW-Md-KnP" secondAttribute="trailing" constant="20" id="b6m-9x-lgP"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="62k-M2-j1C" secondAttribute="trailing" constant="20" id="csJ-PD-DUG"/>
-                <constraint firstItem="5sW-Md-KnP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="opR-sj-lUP" secondAttribute="leading" constant="20" id="d8u-8m-PzJ"/>
+                <constraint firstItem="5sW-Md-KnP" firstAttribute="leading" secondItem="opR-sj-lUP" secondAttribute="leading" constant="20" id="d8u-8m-PzJ"/>
                 <constraint firstItem="d45-bx-wxa" firstAttribute="top" secondItem="SZz-tz-Eao" secondAttribute="bottom" constant="8" id="fy1-SU-WbQ"/>
                 <constraint firstItem="oDg-Su-CdJ" firstAttribute="leading" secondItem="K91-6e-rl1" secondAttribute="trailing" constant="8" id="gN0-9C-ndO"/>
                 <constraint firstAttribute="bottom" secondItem="62k-M2-j1C" secondAttribute="bottom" constant="12" id="i1k-IC-hgu"/>
-                <constraint firstItem="5Ez-0g-525" firstAttribute="centerX" secondItem="opR-sj-lUP" secondAttribute="centerX" id="iZU-FZ-EEW"/>
                 <constraint firstItem="2hk-Dl-Z63" firstAttribute="leading" secondItem="K91-6e-rl1" secondAttribute="leading" id="iiF-hv-gY2"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5Ez-0g-525" secondAttribute="trailing" priority="250" constant="20" id="isT-4f-tYS"/>
+                <constraint firstAttribute="trailing" secondItem="5Ez-0g-525" secondAttribute="trailing" constant="20" id="isT-4f-tYS"/>
                 <constraint firstItem="5Ez-0g-525" firstAttribute="top" secondItem="opR-sj-lUP" secondAttribute="top" constant="12" id="lTN-7V-P4C"/>
                 <constraint firstItem="yt2-Rs-d1G" firstAttribute="leading" secondItem="K91-6e-rl1" secondAttribute="leading" id="rLO-W8-01m"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uLX-fM-8i5" secondAttribute="trailing" constant="20" id="s5y-yV-Axg"/>
                 <constraint firstItem="5gu-rS-ItL" firstAttribute="centerX" secondItem="opR-sj-lUP" secondAttribute="centerX" id="u19-NV-DVx"/>
                 <constraint firstItem="uLX-fM-8i5" firstAttribute="leading" secondItem="K91-6e-rl1" secondAttribute="leading" id="uqZ-vg-JC8"/>
                 <constraint firstItem="5gu-rS-ItL" firstAttribute="top" secondItem="K91-6e-rl1" secondAttribute="bottom" id="van-DS-kQe"/>
-                <constraint firstItem="5sW-Md-KnP" firstAttribute="centerX" secondItem="opR-sj-lUP" secondAttribute="centerX" id="viF-3g-Wf9"/>
                 <constraint firstItem="2hk-Dl-Z63" firstAttribute="top" secondItem="yt2-Rs-d1G" secondAttribute="bottom" constant="6" id="xHe-IU-mnq"/>
                 <constraint firstItem="62k-M2-j1C" firstAttribute="top" secondItem="uLX-fM-8i5" secondAttribute="bottom" constant="6" id="xkb-Xf-t11"/>
                 <constraint firstItem="yt2-Rs-d1G" firstAttribute="top" secondItem="2n3-Tk-TFb" secondAttribute="bottom" constant="6" id="y7R-RW-Uuq"/>
