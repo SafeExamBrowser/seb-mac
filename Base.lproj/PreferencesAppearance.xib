@@ -104,7 +104,7 @@
                             <popUpButton toolTip="Position browser window on the left, right or centered" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="599">
                                 <rect key="frame" x="492" y="35" width="107" height="26"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="102" id="708"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="102" id="708"/>
                                 </constraints>
                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="604" id="600">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -136,6 +136,10 @@
                                 </textFieldCell>
                             </textField>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="597" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FTd-Yu-Btn" secondAttribute="leading" constant="20" symbolic="YES" id="EZu-G3-rTG"/>
+                            <constraint firstItem="723" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FTd-Yu-Btn" secondAttribute="leading" constant="20" symbolic="YES" id="pS2-gf-GfR"/>
+                        </constraints>
                     </view>
                     <constraints>
                         <constraint firstItem="723" firstAttribute="baseline" secondItem="594" secondAttribute="baseline" id="3WF-Bo-Kqw"/>
@@ -210,6 +214,9 @@
                                 </connections>
                             </matrix>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="743" secondAttribute="trailing" constant="20" symbolic="YES" id="m5R-gq-d12"/>
+                        </constraints>
                     </view>
                     <constraints>
                         <constraint firstItem="8IN-wN-3ta" firstAttribute="leading" secondItem="Xr6-D9-xmk" secondAttribute="leading" constant="30" id="4wR-IZ-wJA"/>
@@ -251,9 +258,8 @@
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RFK-qQ-lel">
-                                <rect key="frame" x="314" y="95" width="239" height="18"/>
+                                <rect key="frame" x="476" y="95" width="77" height="18"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="235" id="FH9-UN-CKI"/>
                                     <constraint firstAttribute="height" constant="18" id="MQ9-I9-ll4"/>
                                 </constraints>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Dock height" usesSingleLineMode="YES" id="3KI-5c-L1K">
@@ -319,6 +325,12 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="VqV-Zw-hin" secondAttribute="trailing" constant="20" symbolic="YES" id="2ii-FN-Lrv"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cvI-1t-MPD" secondAttribute="trailing" constant="20" symbolic="YES" id="6Zj-OM-CR9"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="NYh-TA-SfI" secondAttribute="trailing" constant="20" symbolic="YES" id="cGa-aS-BF7"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="E2T-SZ-Z6U" secondAttribute="trailing" constant="20" symbolic="YES" id="iSw-HU-qqG"/>
+                        </constraints>
                     </view>
                     <constraints>
                         <constraint firstItem="E2T-SZ-Z6U" firstAttribute="top" secondItem="NYh-TA-SfI" secondAttribute="bottom" constant="6" id="185-PN-szP"/>
@@ -386,6 +398,10 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="baa-Wm-1db" secondAttribute="trailing" constant="20" symbolic="YES" id="lgO-te-QAz"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="S0v-zb-D4L" secondAttribute="trailing" constant="20" symbolic="YES" id="tW6-bq-nhA"/>
+                        </constraints>
                     </view>
                     <constraints>
                         <constraint firstItem="S0v-zb-D4L" firstAttribute="top" secondItem="baa-Wm-1db" secondAttribute="bottom" constant="6" id="0nM-xd-qaR"/>
@@ -450,7 +466,7 @@
                         <constraint firstItem="yCR-0v-z7a" firstAttribute="top" secondItem="eGR-0O-pYN" secondAttribute="top" constant="24" id="xlV-Xu-830"/>
                     </constraints>
                 </box>
-                <box autoresizesSubviews="NO" borderType="line" title="Mac specific" translatesAutoresizingMaskIntoConstraints="NO" id="d5d-zh-qxU">
+                <box autoresizesSubviews="NO" borderType="line" title="Browser Window Toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="d5d-zh-qxU">
                     <rect key="frame" x="17" y="283" width="616" height="78"/>
                     <view key="contentView" id="DNm-GU-yko">
                         <rect key="frame" x="1" y="1" width="614" height="62"/>
@@ -491,10 +507,7 @@
                                 </connections>
                             </button>
                             <button toolTip="Show the macOS menu bar to allow accessing settings like Wi-Fi" translatesAutoresizingMaskIntoConstraints="NO" id="13">
-                                <rect key="frame" x="315" y="35" width="288" height="18"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="284" id="2eJ-zP-ZBt"/>
-                                </constraints>
+                                <rect key="frame" x="315" y="35" width="116" height="18"/>
                                 <buttonCell key="cell" type="check" title="Show menu bar" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="14">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -504,6 +517,10 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="13" firstAttribute="leading" secondItem="DNm-GU-yko" secondAttribute="trailing" constant="-297" id="DYt-Ng-Z3d"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="383" secondAttribute="trailing" constant="20" symbolic="YES" id="c8T-H8-U9Y"/>
+                        </constraints>
                     </view>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="383" secondAttribute="bottom" constant="14" id="0Lh-J2-jce"/>
@@ -511,7 +528,7 @@
                         <constraint firstItem="371" firstAttribute="baseline" secondItem="13" secondAttribute="baseline" id="Pti-Vz-N69"/>
                         <constraint firstItem="13" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="371" secondAttribute="trailing" constant="20" id="RkR-tR-SII"/>
                         <constraint firstItem="371" firstAttribute="top" secondItem="d5d-zh-qxU" secondAttribute="top" constant="26" id="Toa-8A-uGe"/>
-                        <constraint firstAttribute="trailing" secondItem="13" secondAttribute="trailing" constant="11" id="fu2-hS-a4m"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="13" secondAttribute="trailing" constant="11" id="fu2-hS-a4m"/>
                         <constraint firstItem="383" firstAttribute="leading" secondItem="d5d-zh-qxU" secondAttribute="leading" constant="30" id="gnh-2z-EWs"/>
                         <constraint firstItem="371" firstAttribute="leading" secondItem="d5d-zh-qxU" secondAttribute="leading" constant="11" id="ry6-Dq-hJI"/>
                         <constraint firstItem="383" firstAttribute="top" secondItem="371" secondAttribute="bottom" constant="6" id="wHm-oJ-X84"/>
@@ -579,7 +596,7 @@
                     </view>
                     <constraints>
                         <constraint firstItem="w24-FI-jsH" firstAttribute="leading" secondItem="gKH-Yr-UT7" secondAttribute="leading" constant="16" id="2dX-KB-sIM"/>
-                        <constraint firstAttribute="trailing" secondItem="w24-FI-jsH" secondAttribute="trailing" constant="16" id="9Pc-A9-FRP"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="w24-FI-jsH" secondAttribute="trailing" constant="16" id="9Pc-A9-FRP"/>
                         <constraint firstAttribute="bottom" secondItem="w24-FI-jsH" secondAttribute="bottom" constant="32" id="JH8-pY-4Qz"/>
                         <constraint firstItem="w24-FI-jsH" firstAttribute="top" secondItem="gKH-Yr-UT7" secondAttribute="top" constant="25" id="XOm-ri-jm3"/>
                         <constraint firstAttribute="width" constant="295" id="zyK-mF-1KF"/>

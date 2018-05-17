@@ -691,7 +691,7 @@ Gw
         <customView verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="Re1-C5-57e" userLabel="SEB Locked View">
             <rect key="frame" x="0.0" y="0.0" width="500" height="687"/>
             <subviews>
-                <secureTextField canDrawConcurrently="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E6M-vB-bca">
+                <secureTextField canDrawConcurrently="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E6M-vB-bca">
                     <rect key="frame" x="65" y="129" width="370" height="22"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="370" id="QBc-XF-qdA"/>
@@ -708,9 +708,9 @@ Gw
                         <action selector="passwordEntered:" target="agr-W5-n2K" id="77E-Dv-cCw"/>
                     </connections>
                 </secureTextField>
-                <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="165" translatesAutoresizingMaskIntoConstraints="NO" id="i1K-9z-xtU" customClass="SEBTextField">
-                    <rect key="frame" x="165" y="650" width="169" height="25"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="SEB ist gesperrt!" id="h8S-7a-w0u">
+                <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="460" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i1K-9z-xtU" customClass="SEBTextField">
+                    <rect key="frame" x="18" y="650" width="464" height="25"/>
+                    <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="SEB ist gesperrt!" id="h8S-7a-w0u">
                         <font key="font" size="20" name="HelveticaNeue-Bold"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -750,7 +750,7 @@ Gw
                         <rect key="frame" x="1" y="1" width="458" height="356"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView editable="NO" drawsBackground="NO" importsGraphics="NO" verticallyResizable="YES" findStyle="bar" allowsNonContiguousLayout="YES" id="FId-0c-znr">
+                            <textView editable="NO" drawsBackground="NO" importsGraphics="NO" verticallyResizable="YES" findStyle="bar" allowsCharacterPickerTouchBarItem="NO" allowsNonContiguousLayout="YES" textCompletion="NO" id="FId-0c-znr">
                                 <rect key="frame" x="0.0" y="0.0" width="458" height="356"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -832,7 +832,7 @@ Gw
                 </button>
             </subviews>
             <constraints>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="i1K-9z-xtU" secondAttribute="trailing" constant="20" id="0Rc-5r-2V5"/>
+                <constraint firstAttribute="trailing" secondItem="i1K-9z-xtU" secondAttribute="trailing" constant="20" id="0Rc-5r-2V5"/>
                 <constraint firstItem="S2F-q7-GY3" firstAttribute="leading" secondItem="K9k-Bw-WrB" secondAttribute="leading" id="0SK-sT-DKb"/>
                 <constraint firstItem="rDJ-35-BLL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Re1-C5-57e" secondAttribute="leading" constant="20" id="39Q-nd-LvR"/>
                 <constraint firstItem="E6M-vB-bca" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Re1-C5-57e" secondAttribute="leading" constant="20" id="3AB-uT-8r3"/>
@@ -852,12 +852,11 @@ Gw
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="saq-WU-u0D" secondAttribute="trailing" constant="20" symbolic="YES" id="OpY-Jm-E0S"/>
                 <constraint firstItem="i1K-9z-xtU" firstAttribute="top" secondItem="Re1-C5-57e" secondAttribute="top" constant="12" id="Oz4-js-tTF"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1dF-z8-Vg9" secondAttribute="trailing" constant="20" id="R0f-F6-q2h"/>
-                <constraint firstItem="i1K-9z-xtU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Re1-C5-57e" secondAttribute="leading" constant="20" id="YQu-jV-jMe"/>
+                <constraint firstItem="i1K-9z-xtU" firstAttribute="leading" secondItem="Re1-C5-57e" secondAttribute="leading" constant="20" id="YQu-jV-jMe"/>
                 <constraint firstItem="h7g-WL-v0B" firstAttribute="leading" secondItem="Re1-C5-57e" secondAttribute="leading" constant="20" id="YkC-oj-Y9x"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rDJ-35-BLL" secondAttribute="trailing" constant="20" id="aG8-qH-QKH"/>
                 <constraint firstItem="cZ9-xX-IzI" firstAttribute="centerX" secondItem="Re1-C5-57e" secondAttribute="centerX" id="bTV-Bl-QOr"/>
                 <constraint firstItem="1dF-z8-Vg9" firstAttribute="leading" secondItem="K9k-Bw-WrB" secondAttribute="leading" id="bwQ-lu-B2q"/>
-                <constraint firstItem="i1K-9z-xtU" firstAttribute="centerX" secondItem="Re1-C5-57e" secondAttribute="centerX" id="d1X-LG-EW5"/>
                 <constraint firstItem="oM0-rS-KHT" firstAttribute="leading" secondItem="K9k-Bw-WrB" secondAttribute="leading" id="dfN-0b-6gD"/>
                 <constraint firstItem="E6M-vB-bca" firstAttribute="top" secondItem="rDJ-35-BLL" secondAttribute="bottom" constant="8" id="f0O-BW-n15"/>
                 <constraint firstItem="N8L-96-Ced" firstAttribute="top" secondItem="i1K-9z-xtU" secondAttribute="bottom" constant="8" id="fhp-cs-DJX"/>

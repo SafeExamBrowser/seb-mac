@@ -102,7 +102,7 @@
                                         <rect key="frame" x="17" y="275" width="570" height="319"/>
                                         <clipView key="contentView" id="QXl-iW-Uh6">
                                             <rect key="frame" x="1" y="0.0" width="568" height="318"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="" headerView="TDX-aF-oMF" id="1EV-b8-djc">
                                                     <rect key="frame" x="0.0" y="0.0" width="568" height="295"/>
