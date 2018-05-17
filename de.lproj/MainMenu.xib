@@ -795,36 +795,36 @@ Gw
                         </connections>
                     </buttonCell>
                 </button>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="K9k-Bw-WrB">
-                    <rect key="frame" x="128" y="81" width="243" height="18"/>
+                <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="K9k-Bw-WrB">
+                    <rect key="frame" x="62" y="81" width="243" height="18"/>
                     <buttonCell key="cell" type="check" title="Check für Bildschirmfreigabe deaktivieren" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="K35-KX-kQR">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
                 </button>
                 <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1dF-z8-Vg9">
-                    <rect key="frame" x="128" y="9" width="276" height="18"/>
+                    <rect key="frame" x="62" y="9" width="276" height="18"/>
                     <buttonCell key="cell" type="check" title="Check für verbotene Prozesse ganz deaktivieren" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="g7t-Wt-5qh">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
                 </button>
                 <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Fg-Sy-fGW">
-                    <rect key="frame" x="128" y="27" width="269" height="18"/>
+                    <rect key="frame" x="62" y="27" width="269" height="18"/>
                     <buttonCell key="cell" type="check" title="Check für oben gelistete Prozesse deaktivieren" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="e0z-AQ-dCp">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
                 </button>
                 <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="S2F-q7-GY3">
-                    <rect key="frame" x="128" y="63" width="161" height="18"/>
+                    <rect key="frame" x="62" y="63" width="161" height="18"/>
                     <buttonCell key="cell" type="check" title="Check für Siri deaktivieren" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="Heg-Vv-67d">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
                 </button>
                 <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oM0-rS-KHT">
-                    <rect key="frame" x="128" y="45" width="191" height="18"/>
+                    <rect key="frame" x="62" y="45" width="191" height="18"/>
                     <buttonCell key="cell" type="check" title="Check für Diktieren deaktivieren" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="bYS-hb-eeB">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
@@ -842,7 +842,6 @@ Gw
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9Fg-Sy-fGW" secondAttribute="trailing" constant="20" id="CwC-on-Vt7"/>
                 <constraint firstItem="rDJ-35-BLL" firstAttribute="centerX" secondItem="Re1-C5-57e" secondAttribute="centerX" id="EgM-Ju-crd"/>
                 <constraint firstItem="E6M-vB-bca" firstAttribute="centerX" secondItem="Re1-C5-57e" secondAttribute="centerX" id="EtL-nQ-EHo"/>
-                <constraint firstItem="K9k-Bw-WrB" firstAttribute="centerX" secondItem="Re1-C5-57e" secondAttribute="centerX" id="FGX-e4-fbv"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="K9k-Bw-WrB" secondAttribute="trailing" constant="20" id="G3Y-Qa-j27"/>
                 <constraint firstItem="S2F-q7-GY3" firstAttribute="top" secondItem="K9k-Bw-WrB" secondAttribute="bottom" constant="6" id="JA2-pk-Y9k"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="S2F-q7-GY3" secondAttribute="trailing" constant="20" id="KXc-3e-D0W"/>
@@ -857,6 +856,7 @@ Gw
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rDJ-35-BLL" secondAttribute="trailing" constant="20" id="aG8-qH-QKH"/>
                 <constraint firstItem="cZ9-xX-IzI" firstAttribute="centerX" secondItem="Re1-C5-57e" secondAttribute="centerX" id="bTV-Bl-QOr"/>
                 <constraint firstItem="1dF-z8-Vg9" firstAttribute="leading" secondItem="K9k-Bw-WrB" secondAttribute="leading" id="bwQ-lu-B2q"/>
+                <constraint firstItem="K9k-Bw-WrB" firstAttribute="leading" secondItem="E6M-vB-bca" secondAttribute="leading" id="czx-xl-xm4"/>
                 <constraint firstItem="oM0-rS-KHT" firstAttribute="leading" secondItem="K9k-Bw-WrB" secondAttribute="leading" id="dfN-0b-6gD"/>
                 <constraint firstItem="E6M-vB-bca" firstAttribute="top" secondItem="rDJ-35-BLL" secondAttribute="bottom" constant="8" id="f0O-BW-n15"/>
                 <constraint firstItem="N8L-96-Ced" firstAttribute="top" secondItem="i1K-9z-xtU" secondAttribute="bottom" constant="8" id="fhp-cs-DJX"/>
@@ -865,7 +865,6 @@ Gw
                 <constraint firstItem="cZ9-xX-IzI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Re1-C5-57e" secondAttribute="leading" constant="20" id="iDN-W5-Sl7"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cZ9-xX-IzI" secondAttribute="trailing" constant="20" id="ip3-Yj-pf5"/>
                 <constraint firstItem="oM0-rS-KHT" firstAttribute="top" secondItem="S2F-q7-GY3" secondAttribute="bottom" constant="6" id="lf8-ig-xoE"/>
-                <constraint firstItem="K9k-Bw-WrB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Re1-C5-57e" secondAttribute="leading" constant="20" id="p7Z-5K-O70"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="oM0-rS-KHT" secondAttribute="trailing" constant="20" id="pKL-lE-3KY"/>
                 <constraint firstItem="saq-WU-u0D" firstAttribute="centerY" secondItem="E6M-vB-bca" secondAttribute="centerY" id="rjI-YY-BR9"/>
                 <constraint firstAttribute="bottom" secondItem="1dF-z8-Vg9" secondAttribute="bottom" constant="12" id="sXu-ut-IM1"/>
