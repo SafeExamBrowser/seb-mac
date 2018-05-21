@@ -113,6 +113,23 @@
     //self.navigationItem.rightBarButtonItem = item;
 }
 
+// Get statusbar appearance depending on device type (traditional or iPhone X like)
+- (NSUInteger)statusBarAppearance {
+    NSUInteger statusBarAppearance = _appDelegate.sebUIController.statusBarAppearance;
+    if (@available(iOS 11.0, *)) {
+        // Check if running on a device like iPhone X
+        UIWindow *window = UIApplication.sharedApplication.keyWindow;
+        if (window.safeAreaInsets.bottom != 0)
+        {
+            NSUInteger statusBarAppearanceExtended = _appDelegate.sebUIController.statusBarAppearanceExtended;
+            if (statusBarAppearanceExtended != mobileStatusBarAppearanceExtendedInferred) {
+                statusBarAppearance = statusBarAppearanceExtended;
+            }
+        }
+    }
+    return statusBarAppearance;
+}
+
 - (void)initSliderViewAppearance
 {
     _webpagesArray = [_appDelegate.persistentWebpages mutableCopy];
@@ -124,8 +141,9 @@
     }
     
     _SEBTitleLabel.textColor = [UIColor whiteColor];
-    NSUInteger statusBarAppearance = _appDelegate.sebUIController.statusBarAppearance;
-    if (statusBarAppearance == mobileStatusBarAppearanceLight || statusBarAppearance == mobileStatusBarAppearanceExtendedLight) {
+    NSUInteger statusBarAppearance = [self statusBarAppearance];
+    if (statusBarAppearance == mobileStatusBarAppearanceLight ||
+        statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) {
         _StatusBarBackgroundView.backgroundColor = [UIColor blackColor];
     } else {
         _StatusBarBackgroundView.backgroundColor = [UIColor darkGrayColor];

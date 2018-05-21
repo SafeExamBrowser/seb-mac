@@ -882,6 +882,17 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                                    views: viewsDictionary];
                 NSArray *constraints_V;
                 if (@available(iOS 11.0, *)) {
+                    
+                    // Check if running on a device like iPhone X
+                    UIWindow *window = UIApplication.sharedApplication.keyWindow;
+                    if (window.safeAreaInsets.bottom != 0)
+                    {
+                        NSUInteger statusBarAppearanceExtended = self.sebUIController.statusBarAppearanceExtended;
+                        if (statusBarAppearanceExtended != mobileStatusBarAppearanceExtendedInferred) {
+                            statusBarAppearance = statusBarAppearanceExtended;
+                        }
+                    }
+                    
                     NSLayoutConstraint *topConstraint   = [NSLayoutConstraint constraintWithItem:_statusBarView
                                                                                        attribute:NSLayoutAttributeTop
                                                                                        relatedBy:NSLayoutRelationEqual
@@ -908,7 +919,9 @@ void run_on_ui_thread(dispatch_block_t block)
                 [self.view addConstraints:constraints_H];
                 [self.view addConstraints:constraints_V];
             }
-            _statusBarView.backgroundColor = (statusBarAppearance == mobileStatusBarAppearanceLight ? [UIColor blackColor] : [UIColor whiteColor]);
+            _statusBarView.backgroundColor = ((statusBarAppearance == mobileStatusBarAppearanceLight ||
+                                               statusBarAppearance == mobileStatusBarAppearanceExtendedNoneLight) ?
+                                              [UIColor blackColor] : [UIColor whiteColor]);
             _statusBarView.hidden = false;
         }
 
