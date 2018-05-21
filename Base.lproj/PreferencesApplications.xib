@@ -765,6 +765,7 @@
                                     <constraint firstAttribute="trailing" secondItem="345" secondAttribute="trailing" constant="17" id="QV6-Kd-Cak"/>
                                     <constraint firstItem="405" firstAttribute="leading" secondItem="243" secondAttribute="leading" constant="17" id="TIn-qt-fXR"/>
                                     <constraint firstAttribute="trailing" secondItem="405" secondAttribute="trailing" constant="17" id="WSq-cj-MAB"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1600" secondAttribute="trailing" constant="20" symbolic="YES" id="el4-cF-Nth"/>
                                 </constraints>
                             </view>
                         </tabViewItem>
@@ -1218,6 +1219,8 @@
                                     <constraint firstAttribute="bottom" secondItem="1840" secondAttribute="bottom" constant="9" id="2303"/>
                                     <constraint firstItem="1840" firstAttribute="top" secondItem="1843" secondAttribute="bottom" constant="8" symbolic="YES" id="2307"/>
                                     <constraint firstItem="1840" firstAttribute="top" secondItem="1842" secondAttribute="bottom" constant="8" symbolic="YES" id="2309"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1841" secondAttribute="trailing" constant="20" symbolic="YES" id="bX9-Ea-MXa"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1844" secondAttribute="trailing" constant="20" symbolic="YES" id="lcK-vg-2Bx"/>
                                 </constraints>
                             </view>
                         </tabViewItem>

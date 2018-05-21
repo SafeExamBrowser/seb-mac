@@ -1421,7 +1421,7 @@ richtline<?xml version="1.0" encoding="UTF-8" standalone="yes"?><xliff richtline
       </trans-unit>
       <trans-unit id="443.title">
         <source>Place this Quit Link to the 'feedback' page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password.</source>
-        <target>Dieser Beenden-Link sollte auf der 'Feedback'-Seite platziert werden, die nach Abgabe einer Prüfung angezeigt wird. Anklicken des Links beendet SEB, ohne dass ein Beenden/Entsperren-Passwort eingegeben werden müsste.</target>
+        <target>Beenden-Link auf der 'Feedback'-Seite platzieren, die nach Abgabe einer Prüfung angezeigt wird. Anklicken des Links beendet SEB, ohne dass ein Beenden/Entsperren-Passwort eingegeben werden müsste.</target>
         <note>Class = "NSTextFieldCell"; title = "Place this Quit Link to the 'feedback' page displayed after an exam was successfully finished. Clicking that link will quit SEB without having to enter the quit password."; ObjectID = "443";</note>
       </trans-unit>
       <trans-unit id="688.ibShadowedToolTip">
@@ -1461,7 +1461,7 @@ richtline<?xml version="1.0" encoding="UTF-8" standalone="yes"?><xliff richtline
       </trans-unit>
       <trans-unit id="bGJ-Qs-OiP.title">
         <source>Enter custom URL or select "Use Start URL" to display the Back to Start Button in the SEB dock/taskbar.</source>
-        <target>Benutzerdefinierte Adresse eingeben oder 'Start-URL benutzen' auswählen, um die 'Zurück zum Start'-Taste im SEB-Dock anzuzeigen</target>
+        <target>URL eingeben oder 'Start-URL benutzen' auswählen, um 'Zurück zum Start'-Taste im SEB-Dock anzuzeigen</target>
         <note>Class = "NSTextFieldCell"; title = "Enter custom URL or select \"Use Start URL\" to display the Back to Start Button in the SEB dock/taskbar."; ObjectID = "bGJ-Qs-OiP";</note>
       </trans-unit>
       <trans-unit id="bTx-tu-6Av.placeholderString">
