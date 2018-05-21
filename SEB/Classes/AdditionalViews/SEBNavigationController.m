@@ -59,11 +59,29 @@
 }
 
 
+// Get statusbar appearance depending on device type (traditional or iPhone X like)
+- (NSUInteger)statusBarAppearance {
+    NSUInteger statusBarAppearance = self.sebUIController.statusBarAppearance;
+    if (@available(iOS 11.0, *)) {
+        // Check if running on a device like iPhone X
+        UIWindow *window = UIApplication.sharedApplication.keyWindow;
+        if (window.safeAreaInsets.bottom != 0)
+        {
+            NSUInteger statusBarAppearanceExtended = self.sebUIController.statusBarAppearanceExtended;
+            if (statusBarAppearanceExtended != mobileStatusBarAppearanceExtendedInferred) {
+                statusBarAppearance = statusBarAppearanceExtended;
+            }
+        }
+    }
+    return statusBarAppearance;
+}
+
+
 #pragma mark - Status bar appearance
 
 - (BOOL) prefersStatusBarHidden
 {
-    NSUInteger statusBarAppearance = self.sebUIController.statusBarAppearance;
+    NSUInteger statusBarAppearance = [self statusBarAppearance];
     return (statusBarAppearance == mobileStatusBarAppearanceNone |
             statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark |
             statusBarAppearance == mobileStatusBarAppearanceExtendedNoneLight);
@@ -77,10 +95,10 @@
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-    NSUInteger statusBarAppearance = self.sebUIController.statusBarAppearance;
+    NSUInteger statusBarAppearance = [self statusBarAppearance];
     if (!self.sebUIController.browserToolbarEnabled &&
         (statusBarAppearance == mobileStatusBarAppearanceLight ||
-        statusBarAppearance == mobileStatusBarAppearanceExtendedNoneLight)) {
+        statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark)) {
         return UIStatusBarStyleLightContent;
     } else {
         return UIStatusBarStyleDefault;

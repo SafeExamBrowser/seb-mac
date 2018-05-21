@@ -58,6 +58,7 @@
 @property (nonatomic, strong) NSArray *dockItems;
 
 @property (readwrite) NSUInteger statusBarAppearance;
+@property (readwrite) NSUInteger statusBarAppearanceExtended;
 @property (readwrite) BOOL browserToolbarEnabled;
 
 

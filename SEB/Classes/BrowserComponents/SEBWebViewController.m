@@ -48,6 +48,25 @@
 @implementation SEBWebViewController
 
 
+// Get statusbar appearance depending on device type (traditional or iPhone X like)
+- (NSUInteger)statusBarAppearance {
+    SEBUIController *sebUIController = [(AppDelegate*)[[UIApplication sharedApplication] delegate] sebUIController];
+    NSUInteger statusBarAppearance = sebUIController.statusBarAppearance;
+    if (@available(iOS 11.0, *)) {
+        // Check if running on a device like iPhone X
+        UIWindow *window = UIApplication.sharedApplication.keyWindow;
+        if (window.safeAreaInsets.bottom != 0)
+        {
+            NSUInteger statusBarAppearanceExtended = sebUIController.statusBarAppearanceExtended;
+            if (statusBarAppearanceExtended != mobileStatusBarAppearanceExtendedInferred) {
+                statusBarAppearance = statusBarAppearanceExtended;
+            }
+        }
+    }
+    return statusBarAppearance;
+}
+
+
 - (void)loadView
 {
     // Create a webview to fit underneath the navigation view (=fill the whole screen).
@@ -56,7 +75,9 @@
         _sebWebView = [[UIWebView alloc] initWithFrame:webFrame];
     }
     
-    _sebWebView.backgroundColor = ([(AppDelegate*)[[UIApplication sharedApplication] delegate] sebUIController].statusBarAppearance == (mobileStatusBarAppearanceLight | mobileStatusBarAppearanceExtendedLight) ? [UIColor blackColor] : [UIColor whiteColor]);
+    NSUInteger statusBarAppearance = [self statusBarAppearance];
+    _sebWebView.backgroundColor = (statusBarAppearance == mobileStatusBarAppearanceLight ||
+                                   statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ? [UIColor blackColor] : [UIColor whiteColor];
     
     _sebWebView.scalesPageToFit = YES;
     _sebWebView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
