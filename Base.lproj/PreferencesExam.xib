@@ -184,6 +184,9 @@
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="3dP-gi-x4W">
                                 <rect key="frame" x="11" y="187" width="328" height="22"/>
                                 <string key="toolTip">When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system</string>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="Edr-p2-rSu"/>
+                                </constraints>
                                 <buttonCell key="cell" type="check" title="Use Browser &amp; Config Keys (send in HTTP header)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="gk0-kD-QIq">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
