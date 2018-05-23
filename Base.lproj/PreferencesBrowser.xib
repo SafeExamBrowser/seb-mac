@@ -743,6 +743,9 @@
                             </tabView>
                             <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3T-fI-3bu">
                                 <rect key="frame" x="127" y="155" width="474" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="rJb-eb-Akk"/>
+                                </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="Suffix to be added to any user agent" drawsBackground="YES" id="VJ9-fx-YV7">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -758,7 +761,7 @@
                                     </binding>
                                 </connections>
                             </textField>
-                            <textField horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uZt-GQ-bpe">
+                            <textField horizontalHuggingPriority="1000" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="uZt-GQ-bpe">
                                 <rect key="frame" x="9" y="158" width="112" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="User agent suffix:" id="0xK-SO-5d2">
                                     <font key="font" metaFont="system"/>
