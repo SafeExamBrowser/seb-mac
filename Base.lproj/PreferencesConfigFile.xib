@@ -151,7 +151,7 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <secureTextField toolTip="Retype the settings password" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="110">
-                    <rect key="frame" x="332" y="172" width="300" height="22"/>
+                    <rect key="frame" x="332" y="169" width="300" height="22"/>
                     <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="119">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -170,7 +170,7 @@
                     </connections>
                 </secureTextField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="111">
-                    <rect key="frame" x="210" y="205" width="116" height="17"/>
+                    <rect key="frame" x="210" y="202" width="116" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Settings password" id="118">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -178,7 +178,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="112">
-                    <rect key="frame" x="159" y="175" width="167" height="17"/>
+                    <rect key="frame" x="159" y="172" width="167" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Confirm settings password" id="117">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -186,7 +186,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="113">
-                    <rect key="frame" x="330" y="152" width="207" height="17"/>
+                    <rect key="frame" x="330" y="152" width="207" height="14"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Please enter correct confirm password" id="116">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" red="0.72156864399999998" green="0.2588235438" blue="0.1764705926" alpha="1" colorSpace="deviceRGB"/>
@@ -201,7 +201,7 @@
                     </connections>
                 </textField>
                 <secureTextField toolTip="Password to decrypt the settings file, prompted when SEB reads these settings" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="114">
-                    <rect key="frame" x="332" y="202" width="300" height="22"/>
+                    <rect key="frame" x="332" y="199" width="300" height="22"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="300" id="Fvm-Ma-06X"/>
                     </constraints>
@@ -325,7 +325,6 @@
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="68" secondAttribute="trailing" constant="20" symbolic="YES" id="60y-f8-UDv"/>
                 <constraint firstItem="1060" firstAttribute="top" secondItem="1137" secondAttribute="bottom" constant="12" id="6lG-pv-Rbi"/>
                 <constraint firstItem="1046" firstAttribute="leading" secondItem="3" secondAttribute="leading" id="7jx-cr-mtH"/>
-                <constraint firstItem="1119" firstAttribute="top" secondItem="112" secondAttribute="bottom" constant="45" id="8UC-Li-IjI"/>
                 <constraint firstItem="1046" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="8vd-r1-TP9"/>
                 <constraint firstItem="1072" firstAttribute="baseline" secondItem="1165" secondAttribute="baseline" id="8yU-Lg-GIo"/>
                 <constraint firstItem="1072" firstAttribute="trailing" secondItem="1137" secondAttribute="trailing" id="9bt-QB-Hqa"/>
@@ -336,6 +335,7 @@
                 <constraint firstAttribute="trailing" secondItem="69" secondAttribute="trailing" constant="20" symbolic="YES" id="Bu1-k4-U3w"/>
                 <constraint firstItem="110" firstAttribute="leading" secondItem="112" secondAttribute="trailing" constant="8" symbolic="YES" id="E7F-qw-HZN"/>
                 <constraint firstItem="1165" firstAttribute="trailing" secondItem="1157" secondAttribute="trailing" id="EM4-0a-rgo"/>
+                <constraint firstItem="114" firstAttribute="top" secondItem="69" secondAttribute="bottom" constant="47" id="GMi-gQ-bjP"/>
                 <constraint firstItem="1172" firstAttribute="baseline" secondItem="1119" secondAttribute="firstBaseline" id="Gfa-qN-ORP"/>
                 <constraint firstItem="1072" firstAttribute="leading" secondItem="1046" secondAttribute="trailing" constant="23" id="GrY-XI-SEw"/>
                 <constraint firstItem="1119" firstAttribute="leading" secondItem="1072" secondAttribute="leading" id="HMp-gC-v42"/>

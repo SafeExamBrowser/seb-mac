@@ -741,11 +741,8 @@
                                     <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_browserUserAgentEnvironment" id="4fH-Ky-Giv"/>
                                 </connections>
                             </tabView>
-                            <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3T-fI-3bu">
+                            <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3T-fI-3bu">
                                 <rect key="frame" x="127" y="155" width="474" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" priority="750" constant="474" id="JhT-4z-NOV"/>
-                                </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="Suffix to be added to any user agent" drawsBackground="YES" id="VJ9-fx-YV7">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -778,6 +775,7 @@
                             <constraint firstAttribute="trailing" secondItem="p3T-fI-3bu" secondAttribute="trailing" constant="13" id="W7U-W0-Wta"/>
                             <constraint firstItem="p3T-fI-3bu" firstAttribute="top" secondItem="axo-2J-CZ8" secondAttribute="top" constant="8" id="cii-b6-SGh"/>
                             <constraint firstItem="p3T-fI-3bu" firstAttribute="leading" secondItem="uZt-GQ-bpe" secondAttribute="trailing" constant="8" symbolic="YES" id="gSU-cI-uml"/>
+                            <constraint firstItem="UsO-tg-591" firstAttribute="top" secondItem="uZt-GQ-bpe" secondAttribute="bottom" constant="11" id="oqF-60-htd"/>
                         </constraints>
                     </view>
                     <constraints>
