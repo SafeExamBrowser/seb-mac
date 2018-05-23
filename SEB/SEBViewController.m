@@ -920,14 +920,14 @@ void run_on_ui_thread(dispatch_block_t block)
                 [self.view addConstraints:constraints_V];
             }
             _statusBarView.backgroundColor = ((statusBarAppearance == mobileStatusBarAppearanceLight ||
-                                               statusBarAppearance == mobileStatusBarAppearanceExtendedNoneLight) ?
+                                               statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ?
                                               [UIColor blackColor] : [UIColor whiteColor]);
             _statusBarView.hidden = false;
         }
 
-        if (statusBarAppearance != mobileStatusBarAppearanceNone)
-        
-        [self setNeedsStatusBarAppearanceUpdate];
+        if (statusBarAppearance != mobileStatusBarAppearanceNone) {
+            [self setNeedsStatusBarAppearanceUpdate];
+        }
         
         //// Initialize SEB Dock, commands section in the slider view and
         //// 3D Touch Home screen quick actions

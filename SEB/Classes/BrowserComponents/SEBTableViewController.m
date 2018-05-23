@@ -145,8 +145,10 @@
     if (statusBarAppearance == mobileStatusBarAppearanceLight ||
         statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) {
         _StatusBarBackgroundView.backgroundColor = [UIColor blackColor];
+        self.view.backgroundColor = [UIColor blackColor];
     } else {
         _StatusBarBackgroundView.backgroundColor = [UIColor darkGrayColor];
+        self.view.backgroundColor = [UIColor darkGrayColor];
     }
     
     [self refreshTableView:self];
