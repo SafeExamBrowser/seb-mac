@@ -2457,7 +2457,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 
         [_sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"SEB Process Was Stopped!", @"Lockdown alert title text for SEB process was stopped")
                                                 Message:NSLocalizedString(@"The SEB process was interrupted, which can indicate cheating. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
-        
+        self.didResignActiveTime = lastTimeProcessCheck;
         // Add log string for trying to re-open a locked exam
         // Calculate time difference between session resigning active and becoming active again
         NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
