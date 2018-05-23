@@ -38,6 +38,7 @@
     
     __weak IBOutlet SEBTextField *alertTitle;
     __weak IBOutlet SEBTextField *alertMessage;
+    __unsafe_unretained IBOutlet NSTextView *logTextView;
     __weak IBOutlet NSSecureTextField *lockedAlertPasswordField;
     __weak IBOutlet NSTextField *passwordWrongLabel;
     __weak IBOutlet NSScrollView *logScrollView;

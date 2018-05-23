@@ -100,6 +100,8 @@
 		694B08A416B14ABF00E4997C /* SEBCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 694B08A216B14ABF00E4997C /* SEBCryptor.m */; };
 		6950F4731D89F9AB00CCB42A /* HUDPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = 6950F4711D89F9AB00CCB42A /* HUDPanel.h */; };
 		6950F4741D89F9AB00CCB42A /* HUDPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6950F4721D89F9AB00CCB42A /* HUDPanel.m */; };
+		695147AE20B5CC70000BDFBF /* SEBTextViewNonEditing.h in Headers */ = {isa = PBXBuildFile; fileRef = 695147AC20B5CC70000BDFBF /* SEBTextViewNonEditing.h */; };
+		695147AF20B5CC70000BDFBF /* SEBTextViewNonEditing.m in Sources */ = {isa = PBXBuildFile; fileRef = 695147AD20B5CC70000BDFBF /* SEBTextViewNonEditing.m */; };
 		69519F041DB95E4700159E5B /* CGSPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 69519F031DB95E4700159E5B /* CGSPrivate.h */; };
 		695283DD16CDB54C0055AF6F /* PrefsSecurityViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */; };
 		695283DE16CDB54C0055AF6F /* PrefsSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */; };
@@ -528,6 +530,8 @@
 		694B08A216B14ABF00E4997C /* SEBCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBCryptor.m; sourceTree = "<group>"; };
 		6950F4711D89F9AB00CCB42A /* HUDPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUDPanel.h; sourceTree = "<group>"; };
 		6950F4721D89F9AB00CCB42A /* HUDPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUDPanel.m; sourceTree = "<group>"; };
+		695147AC20B5CC70000BDFBF /* SEBTextViewNonEditing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEBTextViewNonEditing.h; sourceTree = "<group>"; };
+		695147AD20B5CC70000BDFBF /* SEBTextViewNonEditing.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEBTextViewNonEditing.m; sourceTree = "<group>"; };
 		69519F031DB95E4700159E5B /* CGSPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGSPrivate.h; sourceTree = "<group>"; };
 		695283DB16CDB54C0055AF6F /* PrefsSecurityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsSecurityViewController.h; sourceTree = "<group>"; };
 		695283DC16CDB54C0055AF6F /* PrefsSecurityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsSecurityViewController.m; sourceTree = "<group>"; };
@@ -1260,6 +1264,8 @@
 				69E9EA311DB1A2D500C949FE /* NSRunningApplication+SEB.m */,
 				69A23AB51DB500C700110243 /* NSScreen+SEBScreen.h */,
 				69A23AB61DB500C700110243 /* NSScreen+SEBScreen.m */,
+				695147AC20B5CC70000BDFBF /* SEBTextViewNonEditing.h */,
+				695147AD20B5CC70000BDFBF /* SEBTextViewNonEditing.m */,
 			);
 			name = Categories;
 			path = Classes/Categories;
@@ -1587,6 +1593,7 @@
 				69DE764717FC2A9300EE5958 /* PrefsResourcesViewController.h in Headers */,
 				69C228221C767B0900F78634 /* ecp.h in Headers */,
 				69C2281F1C767B0900F78634 /* ecdh.h in Headers */,
+				695147AE20B5CC70000BDFBF /* SEBTextViewNonEditing.h in Headers */,
 				69C228481C767B0900F78634 /* x509_crl.h in Headers */,
 				69C228321C767B0900F78634 /* pem.h in Headers */,
 				69F5BDA11CFB4098006FBF81 /* SEBWebViewController.h in Headers */,
@@ -2001,6 +2008,7 @@
 				69C228611C767B0900F78634 /* ecp_curves.c in Sources */,
 				6901331C19B371CB0050574D /* PreferencesWindow.m in Sources */,
 				6906F3C71A3FA60C0011CF93 /* NSString+KKDomain.m in Sources */,
+				695147AF20B5CC70000BDFBF /* SEBTextViewNonEditing.m in Sources */,
 				69C2284D1C767B0900F78634 /* aesni.c in Sources */,
 				69C228671C767B0900F78634 /* hmac_drbg.c in Sources */,
 			);
