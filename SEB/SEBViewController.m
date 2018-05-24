@@ -866,69 +866,67 @@ void run_on_ui_thread(dispatch_block_t block)
         
         statusBarAppearance = self.sebUIController.statusBarAppearance;
         
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] == false) {
-            {
-                _statusBarView = [UIView new];
-                [_statusBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
-                [self.view addSubview:_statusBarView];
+        if (self.sebUIController.browserToolbarEnabled == false) {
+            _statusBarView = [UIView new];
+            [_statusBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
+            [self.view addSubview:_statusBarView];
+            
+            NSDictionary *viewsDictionary = @{@"statusBarView" : _statusBarView,
+                                              @"containerView" : _containerView};
+            
+            _containerTopContraint.active = false;
+            NSArray *constraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[statusBarView]-0-|"
+                                                                             options: 0
+                                                                             metrics: nil
+                                                                               views: viewsDictionary];
+            NSArray *constraints_V;
+            if (@available(iOS 11.0, *)) {
                 
-                NSDictionary *viewsDictionary = @{@"statusBarView" : _statusBarView,
-                                                  @"containerView" : _containerView};
-                
-                _containerTopContraint.active = false;
-                NSArray *constraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[statusBarView]-0-|"
-                                                                                 options: 0
-                                                                                 metrics: nil
-                                                                                   views: viewsDictionary];
-                NSArray *constraints_V;
-                if (@available(iOS 11.0, *)) {
-                    
-                    // Check if running on a device like iPhone X
-                    UIWindow *window = UIApplication.sharedApplication.keyWindow;
-                    if (window.safeAreaInsets.bottom != 0)
-                    {
-                        NSUInteger statusBarAppearanceExtended = self.sebUIController.statusBarAppearanceExtended;
-                        if (statusBarAppearanceExtended != mobileStatusBarAppearanceExtendedInferred) {
-                            statusBarAppearance = statusBarAppearanceExtended;
-                        }
+                // Check if running on a device like iPhone X
+                UIWindow *window = UIApplication.sharedApplication.keyWindow;
+                if (window.safeAreaInsets.bottom != 0)
+                {
+                    NSUInteger statusBarAppearanceExtended = self.sebUIController.statusBarAppearanceExtended;
+                    if (statusBarAppearanceExtended != mobileStatusBarAppearanceExtendedInferred) {
+                        statusBarAppearance = statusBarAppearanceExtended;
                     }
-                    
-                    NSLayoutConstraint *topConstraint   = [NSLayoutConstraint constraintWithItem:_statusBarView
-                                                                                       attribute:NSLayoutAttributeTop
-                                                                                       relatedBy:NSLayoutRelationEqual
-                                                                                          toItem:_containerView
-                                                                                       attribute:NSLayoutAttributeTop
-                                                                                      multiplier:1.0
-                                                                                        constant:0];
-                    
-                    NSLayoutConstraint *bottomConstraint   = [NSLayoutConstraint constraintWithItem:_statusBarView
-                                                                                          attribute:NSLayoutAttributeBottom
-                                                                                          relatedBy:NSLayoutRelationEqual
-                                                                                             toItem:_containerView.safeAreaLayoutGuide
-                                                                                          attribute:NSLayoutAttributeTop
-                                                                                         multiplier:1.0
-                                                                                           constant:0];
-                    
-                    constraints_V = @[topConstraint, bottomConstraint];
-                } else {
-                    constraints_V = [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-0-[statusBarView(==20)]-0-[containerView]"
-                                                                            options: 0
-                                                                            metrics: nil
-                                                                              views: viewsDictionary];
                 }
-                [self.view addConstraints:constraints_H];
-                [self.view addConstraints:constraints_V];
+                
+                NSLayoutConstraint *topConstraint   = [NSLayoutConstraint constraintWithItem:_statusBarView
+                                                                                   attribute:NSLayoutAttributeTop
+                                                                                   relatedBy:NSLayoutRelationEqual
+                                                                                      toItem:_containerView
+                                                                                   attribute:NSLayoutAttributeTop
+                                                                                  multiplier:1.0
+                                                                                    constant:0];
+                
+                NSLayoutConstraint *bottomConstraint   = [NSLayoutConstraint constraintWithItem:_statusBarView
+                                                                                      attribute:NSLayoutAttributeBottom
+                                                                                      relatedBy:NSLayoutRelationEqual
+                                                                                         toItem:_containerView.safeAreaLayoutGuide
+                                                                                      attribute:NSLayoutAttributeTop
+                                                                                     multiplier:1.0
+                                                                                       constant:0];
+                
+                constraints_V = @[topConstraint, bottomConstraint];
+            } else {
+                constraints_V = [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-0-[statusBarView(==20)]-0-[containerView]"
+                                                                        options: 0
+                                                                        metrics: nil
+                                                                          views: viewsDictionary];
             }
+            
+            [self.view addConstraints:constraints_H];
+            [self.view addConstraints:constraints_V];
+            
             _statusBarView.backgroundColor = ((statusBarAppearance == mobileStatusBarAppearanceLight ||
                                                statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ?
                                               [UIColor blackColor] : [UIColor whiteColor]);
             _statusBarView.hidden = false;
         }
-
-        if (statusBarAppearance != mobileStatusBarAppearanceNone) {
-            [self setNeedsStatusBarAppearanceUpdate];
-        }
         
+        [self setNeedsStatusBarAppearanceUpdate];
+
         //// Initialize SEB Dock, commands section in the slider view and
         //// 3D Touch Home screen quick actions
         
@@ -968,10 +966,7 @@ void run_on_ui_thread(dispatch_block_t block)
             if (@available(iOS 11.0, *)) {
                 UIWindow *window = UIApplication.sharedApplication.keyWindow;
                 CGFloat bottomPadding = window.safeAreaInsets.bottom;
-                if (bottomPadding != 0 &&
-                    ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] &&
-                    (statusBarAppearance == mobileStatusBarAppearanceLight ||
-                     statusBarAppearance == mobileStatusBarAppearanceDark)) {
+                if (bottomPadding != 0 && !self.sebUIController.browserToolbarEnabled) {
 
                         [self.navigationController.toolbar setBackgroundImage:[UIImage new] forToolbarPosition:UIBarPositionBottom barMetrics:UIBarMetricsDefault];
                         [self.navigationController.toolbar setShadowImage:[UIImage new] forToolbarPosition:UIBarPositionBottom];
@@ -1065,7 +1060,9 @@ void run_on_ui_thread(dispatch_block_t block)
                         
                         [self.view addConstraints:bottomBackgroundViewConstraints_H];
                         
-                        _bottomBackgroundView.backgroundColor = (statusBarAppearance == mobileStatusBarAppearanceLight ? [UIColor blackColor] : [UIColor whiteColor]);
+                        _bottomBackgroundView.backgroundColor = ((statusBarAppearance == mobileStatusBarAppearanceLight ||
+                                                                  statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark)
+                                                                 ? [UIColor blackColor] : [UIColor whiteColor]);
                         _bottomBackgroundView.hidden = false;
                         
                         CGFloat bottomPadding = window.safeAreaInsets.bottom;
@@ -1075,6 +1072,8 @@ void run_on_ui_thread(dispatch_block_t block)
                         
                     } else {
                         _toolBarHeightConstraint = nil;
+                        [self.navigationController.toolbar setBackgroundImage:nil forToolbarPosition:UIBarPositionBottom barMetrics:UIBarMetricsDefault];
+                        [self.navigationController.toolbar setShadowImage:nil forToolbarPosition:UIBarPositionBottom];
                     }
             }
             
@@ -1084,7 +1083,7 @@ void run_on_ui_thread(dispatch_block_t block)
         }
         
         // Show navigation bar if browser toolbar is enabled in settings and populate it with enabled controls
-        if (_sebUIController.browserToolbarEnabled) {
+        if (self.sebUIController.browserToolbarEnabled) {
             [self.navigationController setNavigationBarHidden:NO];
         } else {
             [self.navigationController setNavigationBarHidden:YES];
@@ -2000,12 +1999,9 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-//    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] == false) {
-        if (statusBarAppearance == mobileStatusBarAppearanceLight) {
-            return UIStatusBarStyleLightContent;
-        }
-//    }
+    if (statusBarAppearance == mobileStatusBarAppearanceLight) {
+        return UIStatusBarStyleLightContent;
+    }
     return UIStatusBarStyleDefault;
 }
 
@@ -2275,7 +2271,7 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) activateReloadButtons:(BOOL)reloadEnabled
 {
     if (reloadEnabled)  {
-        if (_sebUIController.browserToolbarEnabled) {
+        if (self.sebUIController.browserToolbarEnabled) {
             // Add reload button to navigation bar
             toolbarReloadButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBToolbarReloadIcon"]
                                                                    style:UIBarButtonItemStylePlain
