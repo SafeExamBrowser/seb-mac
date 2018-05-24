@@ -41,22 +41,25 @@
 @implementation SEBWebViewController
 
 - (void)viewDidAppear {
+    
     [super viewDidAppear];
-    // Do view setup here.
-   
-    NSPressureConfiguration* pressureConfiguration;
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictionaryLookup"]) {
-        pressureConfiguration = [[NSPressureConfiguration alloc]
-                                 initWithPressureBehavior:NSPressureBehaviorPrimaryDefault];
-    } else {
-        pressureConfiguration = [[NSPressureConfiguration alloc]
-                                 initWithPressureBehavior:NSPressureBehaviorPrimaryClick];
-    }
 
-    for (NSView *subview in [self.view subviews]) {
-        if ([subview respondsToSelector:@selector(setPressureConfiguration:)]) {
-            subview.pressureConfiguration = pressureConfiguration;
+    if (@available(macOS 10.10.3, *)) {
+        
+        NSPressureConfiguration* pressureConfiguration;
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictionaryLookup"]) {
+            pressureConfiguration = [[NSPressureConfiguration alloc]
+                                     initWithPressureBehavior:NSPressureBehaviorPrimaryDefault];
+        } else {
+            pressureConfiguration = [[NSPressureConfiguration alloc]
+                                     initWithPressureBehavior:NSPressureBehaviorPrimaryClick];
+        }
+        
+        for (NSView *subview in [self.view subviews]) {
+            if ([subview respondsToSelector:@selector(setPressureConfiguration:)]) {
+                subview.pressureConfiguration = pressureConfiguration;
+            }
         }
     }
 }
