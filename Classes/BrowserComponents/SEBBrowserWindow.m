@@ -479,7 +479,9 @@
         NSView *HUDBackground = [[NSView alloc] initWithFrame:backgroundRect];
         HUDBackground.wantsLayer = true;
         HUDBackground.layer.cornerRadius = MIN(horizontalPadding, verticalPadding);
-        HUDBackground.layer.backgroundColor = [NSColor lightGrayColor].CGColor;
+        if (@available(macOS 10.8, *)) {
+            HUDBackground.layer.backgroundColor = [NSColor lightGrayColor].CGColor;
+        }
         
         [HUDBackground addSubview:_filterMessageHolder];
         [_filterMessageHolder setFrameOrigin:NSMakePoint(horizontalPadding, verticalPadding)];
