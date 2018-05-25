@@ -135,11 +135,6 @@
     _webpagesArray = [_appDelegate.persistentWebpages mutableCopy];
     _commandItems = _appDelegate.sebUIController.leftSliderCommands;
     
-    UIEdgeInsets safeAreaInsets;
-    if (@available(iOS 11.0, *)) {
-        safeAreaInsets = self.view.safeAreaInsets;
-    }
-    
     _SEBTitleLabel.textColor = [UIColor whiteColor];
     NSUInteger statusBarAppearance = [self statusBarAppearance];
     if (statusBarAppearance == mobileStatusBarAppearanceLight ||

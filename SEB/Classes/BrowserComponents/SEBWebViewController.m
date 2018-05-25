@@ -94,6 +94,13 @@
 {
     if (@available(iOS 11.0, *)) {
         // Not necessary for iOS 11 thanks to Safe Area
+//        CGFloat leftSafeAreaInset = self.view.safeAreaInsets.left;
+//        if (leftSafeAreaInset != 0) {
+//            UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, -leftSafeAreaInset, self.additionalSafeAreaInsets.bottom, 0);
+//            [_sebWebView.scrollView setContentInset:newSafeArea];
+//            [_sebWebView.scrollView setScrollIndicatorInsets:newSafeArea];
+//            [_sebWebView.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
+//        }
     } else {
         [_sebWebView.scrollView setContentInset:UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0)];
         [_sebWebView.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0)];
@@ -160,6 +167,7 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [_browserTabViewController setLoading:NO];
 }
+
 
 #pragma mark -
 #pragma mark Controller interface
