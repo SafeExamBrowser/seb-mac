@@ -196,6 +196,8 @@ static NSMutableSet *browserWindowControllers;
     _browserTabViewController = self.childViewControllers[0];
     _browserTabViewController.sebViewController = self;
     
+    self.sideMenuController.delegate = self;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(singleAppModeStatusChanged)
                                                  name:UIAccessibilityGuidedAccessStatusDidChangeNotification object:nil];
@@ -274,8 +276,59 @@ static NSMutableSet *browserWindowControllers;
     [super traitCollectionDidChange: previousTraitCollection];
 
     if (_toolBarHeightConstraint) {
-        CGFloat toolBarHeight = self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 32 : 54;
+        CGFloat toolBarHeight = self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 36 : 46;
         _toolBarHeightConstraint.constant = toolBarHeight;
+
+        if (@available(iOS 11.0, *)) {
+            if (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
+                UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, 0, 2, 0);
+                self.additionalSafeAreaInsets = newSafeArea;
+            } else {
+                UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, 0, -4, 0);
+                self.additionalSafeAreaInsets = newSafeArea;
+            }
+        }
+    }
+    
+    if (@available(iOS 11.0, *)) {
+        // Check if running on a device like iPhone X
+        UIEdgeInsets newSafeArea = UIEdgeInsetsZero;
+        self.parentViewController.additionalSafeAreaInsets = newSafeArea;
+        [self viewSafeAreaInsetsDidChange];
+    }
+
+    [self changeLeftSafeAreaInset];
+}
+
+
+#pragma mark -
+#pragma mark Animate safe area for left slider menu
+
+- (void)willShowLeftView:(nonnull UIView *)leftView sideMenuController:(nonnull LGSideMenuController *)sideMenuController;
+{
+    [self changeLeftSafeAreaInset];
+}
+
+
+- (void)didHideLeftView:(nonnull UIView *)leftView sideMenuController:(nonnull LGSideMenuController *)sideMenuController;
+{
+    if (@available(iOS 11.0, *)) {
+        // Check if running on a device like iPhone X
+        UIEdgeInsets newSafeArea = UIEdgeInsetsZero;
+        self.parentViewController.additionalSafeAreaInsets = newSafeArea;
+        [self viewSafeAreaInsetsDidChange];
+    }
+}
+
+
+- (void)changeLeftSafeAreaInset
+{
+    if (@available(iOS 11.0, *)) {
+        // Check if running on a device like iPhone X
+        CGFloat leftSafeAreaInset = self.view.safeAreaInsets.left;
+        UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, -leftSafeAreaInset, 0, 0);
+        self.parentViewController.additionalSafeAreaInsets = newSafeArea;
+        [self viewSafeAreaInsetsDidChange];
     }
 }
 
@@ -956,7 +1009,7 @@ void run_on_ui_thread(dispatch_block_t block)
             [UIApplication sharedApplication].shortcutItems = nil;
         }
         
-        /// If dock is enabled, register items to the tool bar
+        /// If dock is enabled, register items to the toolbar
         
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
             [self.navigationController setToolbarHidden:NO];
@@ -967,114 +1020,127 @@ void run_on_ui_thread(dispatch_block_t block)
                 UIWindow *window = UIApplication.sharedApplication.keyWindow;
                 CGFloat bottomPadding = window.safeAreaInsets.bottom;
                 if (bottomPadding != 0 && !self.sebUIController.browserToolbarEnabled) {
-
-                        [self.navigationController.toolbar setBackgroundImage:[UIImage new] forToolbarPosition:UIBarPositionBottom barMetrics:UIBarMetricsDefault];
-                        [self.navigationController.toolbar setShadowImage:[UIImage new] forToolbarPosition:UIBarPositionBottom];
-                        self.navigationController.toolbar.translucent = YES;
-                        
-                        _toolBarView = [UIView new];
-                        [_toolBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
-                        [self.view addSubview:_toolBarView];
-                        
-                        _bottomBackgroundView = [UIView new];
-                        [_bottomBackgroundView setTranslatesAutoresizingMaskIntoConstraints:NO];
-                        [self.view addSubview:_bottomBackgroundView];
-                        
-                        NSDictionary *viewsDictionary = @{@"toolBarView" : _toolBarView,
-                                                          @"bottomBackgroundView" : _bottomBackgroundView,
-                                                          @"containerView" : _containerView};
-                        
-                        NSMutableArray *constraints_H = [NSMutableArray new];
-                        
-                        [constraints_H addObject:[NSLayoutConstraint constraintWithItem:_toolBarView
-                                                                              attribute:NSLayoutAttributeLeading
-                                                                              relatedBy:NSLayoutRelationEqual
-                                                                                 toItem:_containerView.safeAreaLayoutGuide
-                                                                              attribute:NSLayoutAttributeLeading
-                                                                             multiplier:1.0
-                                                                               constant:0]];
-                        
-                        [constraints_H addObject:[NSLayoutConstraint constraintWithItem:_toolBarView
-                                                                              attribute:NSLayoutAttributeTrailing
-                                                                              relatedBy:NSLayoutRelationEqual
-                                                                                 toItem:_containerView.safeAreaLayoutGuide
-                                                                              attribute:NSLayoutAttributeTrailing
-                                                                             multiplier:1.0
-                                                                               constant:0]];
-                        
-                        NSMutableArray *constraints_V = [NSMutableArray new];
-                        
-                        CGFloat toolBarHeight = self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 32 : 54;
-                        _toolBarHeightConstraint = [NSLayoutConstraint constraintWithItem:_toolBarView
-                                                                                attribute:NSLayoutAttributeHeight
-                                                                                relatedBy:NSLayoutRelationEqual
-                                                                                   toItem:nil
-                                                                                attribute:NSLayoutAttributeNotAnAttribute
-                                                                               multiplier:1.0
-                                                                                 constant:toolBarHeight];
-                        [constraints_V addObject: _toolBarHeightConstraint];
-                        
-                        [constraints_V addObject:[NSLayoutConstraint constraintWithItem:_toolBarView
-                                                                              attribute:NSLayoutAttributeTop
-                                                                              relatedBy:NSLayoutRelationEqual
-                                                                                 toItem:_containerView.safeAreaLayoutGuide
-                                                                              attribute:NSLayoutAttributeBottom
-                                                                             multiplier:1.0
-                                                                               constant:0]];
-                        
-                        [constraints_V addObject:[NSLayoutConstraint constraintWithItem:_toolBarView
-                                                                              attribute:NSLayoutAttributeBottom
-                                                                              relatedBy:NSLayoutRelationEqual
-                                                                                 toItem:_bottomBackgroundView
-                                                                              attribute:NSLayoutAttributeTop
-                                                                             multiplier:1.0
-                                                                               constant:0]];
-                        
-                        [constraints_V addObject:[NSLayoutConstraint constraintWithItem:_bottomBackgroundView
-                                                                              attribute:NSLayoutAttributeBottom
-                                                                              relatedBy:NSLayoutRelationEqual
-                                                                                 toItem:_containerView
-                                                                              attribute:NSLayoutAttributeBottom
-                                                                             multiplier:1.0
-                                                                               constant:0]];
-                        
-                        [NSLayoutConstraint activateConstraints:constraints_H];
-                        [NSLayoutConstraint activateConstraints:[constraints_V copy]];
-                        
-                        if (!UIAccessibilityIsReduceTransparencyEnabled()) {
-                            _toolBarView.backgroundColor = [UIColor clearColor];
-                            UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
-                            UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-                            blurEffectView.frame = _toolBarView.bounds;
-                            blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-                            [_toolBarView addSubview:blurEffectView];
-                        } else {
-                            _toolBarView.backgroundColor = [UIColor lightGrayColor];
-                        }
-                        _toolBarView.hidden = false;
-                        
-                        NSArray *bottomBackgroundViewConstraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[bottomBackgroundView]-0-|"
-                                                                                                             options: 0
-                                                                                                             metrics: nil
-                                                                                                               views: viewsDictionary];
-                        
-                        [self.view addConstraints:bottomBackgroundViewConstraints_H];
-                        
-                        _bottomBackgroundView.backgroundColor = ((statusBarAppearance == mobileStatusBarAppearanceLight ||
-                                                                  statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark)
-                                                                 ? [UIColor blackColor] : [UIColor whiteColor]);
-                        _bottomBackgroundView.hidden = false;
-                        
-                        CGFloat bottomPadding = window.safeAreaInsets.bottom;
-                        CGFloat bottomMargin = window.layoutMargins.bottom;
-                        CGFloat bottomInset = self.view.superview.safeAreaInsets.bottom;
-                        NSLog(@"%f, %f, %f, ", bottomPadding, bottomMargin, bottomInset);
-                        
+                    
+                    [self.navigationController.toolbar setBackgroundImage:[UIImage new] forToolbarPosition:UIBarPositionBottom barMetrics:UIBarMetricsDefault];
+                    [self.navigationController.toolbar setShadowImage:[UIImage new] forToolbarPosition:UIBarPositionBottom];
+                    self.navigationController.toolbar.translucent = YES;
+                    
+                    _toolBarView = [UIView new];
+                    [_toolBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
+                    [self.view addSubview:_toolBarView];
+                    
+                    _bottomBackgroundView = [UIView new];
+                    [_bottomBackgroundView setTranslatesAutoresizingMaskIntoConstraints:NO];
+                    [self.view addSubview:_bottomBackgroundView];
+                    
+                    NSDictionary *viewsDictionary = @{@"toolBarView" : _toolBarView,
+                                                      @"bottomBackgroundView" : _bottomBackgroundView,
+                                                      @"containerView" : _containerView};
+                    
+                    NSMutableArray *constraints_H = [NSMutableArray new];
+                    
+                    // dock/toolbar leading constraint to safe area guide of superview
+                    [constraints_H addObject:[NSLayoutConstraint constraintWithItem:_toolBarView
+                                                                          attribute:NSLayoutAttributeLeading
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:_containerView.safeAreaLayoutGuide
+                                                                          attribute:NSLayoutAttributeLeading
+                                                                         multiplier:1.0
+                                                                           constant:0]];
+                    
+                    // dock/toolbar trailling constraint to safe area guide of superview
+                    [constraints_H addObject:[NSLayoutConstraint constraintWithItem:_toolBarView
+                                                                          attribute:NSLayoutAttributeTrailing
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:_containerView.safeAreaLayoutGuide
+                                                                          attribute:NSLayoutAttributeTrailing
+                                                                         multiplier:1.0
+                                                                           constant:0]];
+                    
+                    NSMutableArray *constraints_V = [NSMutableArray new];
+                    
+                    // dock/toolbar height constraint depends on vertical size class (less heigh on iPhones in landscape)
+                    if (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
+                        UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, 0, 2, 0);
+                        self.additionalSafeAreaInsets = newSafeArea;
                     } else {
-                        _toolBarHeightConstraint = nil;
-                        [self.navigationController.toolbar setBackgroundImage:nil forToolbarPosition:UIBarPositionBottom barMetrics:UIBarMetricsDefault];
-                        [self.navigationController.toolbar setShadowImage:nil forToolbarPosition:UIBarPositionBottom];
+                        UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, 0, -4, 0);
+                        self.additionalSafeAreaInsets = newSafeArea;
                     }
+                    CGFloat toolBarHeight = self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 36 : 46;
+                    _toolBarHeightConstraint = [NSLayoutConstraint constraintWithItem:_toolBarView
+                                                                            attribute:NSLayoutAttributeHeight
+                                                                            relatedBy:NSLayoutRelationEqual
+                                                                               toItem:nil
+                                                                            attribute:NSLayoutAttributeNotAnAttribute
+                                                                           multiplier:1.0
+                                                                             constant:toolBarHeight];
+                    [constraints_V addObject: _toolBarHeightConstraint];
+                    
+                    // dock/toolbar top constraint to safe area guide bottom of superview
+                    [constraints_V addObject:[NSLayoutConstraint constraintWithItem:_toolBarView
+                                                                          attribute:NSLayoutAttributeTop
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:_containerView.safeAreaLayoutGuide
+                                                                          attribute:NSLayoutAttributeBottom
+                                                                         multiplier:1.0
+                                                                           constant:0]];
+                    
+                    // dock/toolbar bottom constraint to background view top
+                    [constraints_V addObject:[NSLayoutConstraint constraintWithItem:_toolBarView
+                                                                          attribute:NSLayoutAttributeBottom
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:_bottomBackgroundView
+                                                                          attribute:NSLayoutAttributeTop
+                                                                         multiplier:1.0
+                                                                           constant:0]];
+                    
+                    // background view bottom constraint to superview bottom
+                    [constraints_V addObject:[NSLayoutConstraint constraintWithItem:_bottomBackgroundView
+                                                                          attribute:NSLayoutAttributeBottom
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:_containerView
+                                                                          attribute:NSLayoutAttributeBottom
+                                                                         multiplier:1.0
+                                                                           constant:0]];
+                    
+                    [NSLayoutConstraint activateConstraints:constraints_H];
+                    [NSLayoutConstraint activateConstraints:[constraints_V copy]];
+                    
+                    if (!UIAccessibilityIsReduceTransparencyEnabled()) {
+                        _toolBarView.backgroundColor = [UIColor clearColor];
+                        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
+                        UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+                        blurEffectView.frame = _toolBarView.bounds;
+                        blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+                        [_toolBarView addSubview:blurEffectView];
+                    } else {
+                        _toolBarView.backgroundColor = [UIColor lightGrayColor];
+                    }
+                    _toolBarView.hidden = false;
+                    
+                    NSArray *bottomBackgroundViewConstraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[bottomBackgroundView]-0-|"
+                                                                                                         options: 0
+                                                                                                         metrics: nil
+                                                                                                           views: viewsDictionary];
+                    
+                    [self.view addConstraints:bottomBackgroundViewConstraints_H];
+                    
+                    _bottomBackgroundView.backgroundColor = ((statusBarAppearance == mobileStatusBarAppearanceLight ||
+                                                              statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark)
+                                                             ? [UIColor blackColor] : [UIColor whiteColor]);
+                    _bottomBackgroundView.hidden = false;
+                    
+                    CGFloat bottomPadding = window.safeAreaInsets.bottom;
+                    CGFloat bottomMargin = window.layoutMargins.bottom;
+                    CGFloat bottomInset = self.view.superview.safeAreaInsets.bottom;
+                    NSLog(@"%f, %f, %f, ", bottomPadding, bottomMargin, bottomInset);
+                    
+                } else {
+                    _toolBarHeightConstraint = nil;
+                    [self.navigationController.toolbar setBackgroundImage:nil forToolbarPosition:UIBarPositionBottom barMetrics:UIBarMetricsDefault];
+                    [self.navigationController.toolbar setShadowImage:nil forToolbarPosition:UIBarPositionBottom];
+                }
             }
             
             [self setToolbarItems:self.sebUIController.dockItems];
@@ -2056,7 +2122,8 @@ void run_on_ui_thread(dispatch_block_t block)
 
 #pragma mark - SEB Dock and left slider button handler
 
--(void)leftDrawerButtonPress:(id)sender{
+-(void)leftDrawerButtonPress:(id)sender
+{
     [self.sideMenuController showLeftViewAnimated];
 }
 

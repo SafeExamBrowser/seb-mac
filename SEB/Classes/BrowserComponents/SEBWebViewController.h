@@ -33,9 +33,11 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
-#import "UIViewController+MMDrawerController.h"
 
 #import "SEBBrowserTabViewController.h"
+
+#import "LGSideMenuController.h"
+#import "UIViewController+LGSideMenuController.h"
 
 @class SEBBrowserTabViewController;
 

@@ -40,7 +40,7 @@
 @class SEBActionUITableViewCell;
 @class AppDelegate;
 
-@interface SEBTableViewController : UIViewController  <UITableViewDelegate, UITableViewDataSource, SEBActionUITableViewCellDelegate, LGSideMenuDelegate>
+@interface SEBTableViewController : UIViewController  <UITableViewDelegate, UITableViewDataSource, SEBActionUITableViewCellDelegate>
 
 @property (strong, nonatomic) AppDelegate *appDelegate;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;

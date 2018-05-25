@@ -94,7 +94,7 @@
 @class AboutSEBiOSViewController;
 
 
-@interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate>
+@interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate>
 {
     NSURL *currentConfigPath;
     UIBarButtonItem *leftButton;
