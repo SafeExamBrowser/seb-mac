@@ -147,11 +147,13 @@
 
 @property (strong, nonatomic) UIView *coveringView;
 @property (strong, nonatomic) UIView *statusBarView;
+@property (strong, nonatomic) UIView *navigationBarView;
 @property (strong, nonatomic) UIView *toolBarView;
 @property (strong, nonatomic) UIView *bottomBackgroundView;
 @property (strong, nonatomic) NSArray *dockItems;
 
 @property (strong, nonatomic) NSLayoutConstraint *toolBarHeightConstraint;
+@property (strong, nonatomic) NSLayoutConstraint *navigationBarHeightConstraint;
 
 @property(readwrite) BOOL quittingClientConfig;
 @property(readwrite) BOOL secureMode;

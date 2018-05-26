@@ -269,6 +269,23 @@
 }
 
 
+// Get statusbar appearance depending on device type (traditional or iPhone X like)
+- (NSUInteger)statusBarAppearanceForDevice {
+    NSUInteger deviceStatusBarAppearance = _statusBarAppearance;
+    if (@available(iOS 11.0, *)) {
+        // Check if running on a device like iPhone X
+        UIWindow *window = UIApplication.sharedApplication.keyWindow;
+        if (window.safeAreaInsets.bottom != 0)
+        {
+            if (_statusBarAppearanceExtended != mobileStatusBarAppearanceExtendedInferred) {
+                deviceStatusBarAppearance = _statusBarAppearanceExtended;
+            }
+        }
+    }
+    return deviceStatusBarAppearance;
+}
+
+
 - (NSString *)backToStartText
 {
     NSString *backToStartText = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_restartExamText"];

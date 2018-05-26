@@ -62,8 +62,11 @@
 @property (readwrite) BOOL browserToolbarEnabled;
 
 
+// Get statusbar appearance depending on device type (traditional or iPhone X like)
+- (NSUInteger)statusBarAppearanceForDevice;
+
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
-//- (void) activateReloadButtonsExamTab:(BOOL)examTab;
+
 - (void) activateReloadButtons:(BOOL)reloadEnabled; 
 
 @end
