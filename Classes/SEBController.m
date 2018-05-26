@@ -766,7 +766,8 @@ bool insideMatrix(void);
 
         if (!allowDictation &&
             [allRunningProcesses containsObject:DictationProcess] &&
-            [[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue])
+            ([[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue] ||
+             [[preferences valueForDefaultsDomain:AppleDictationDefaultsDomain key:AppleDictationDefaultsKey] integerValue] != 0))
         {
             // Dictation is active
             DDLogError(@"Dictation Detected, SEB will quit");
@@ -1385,7 +1386,8 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     // Check for activated dictation if settings demand it
     if (!_startingUp && !allowDictation && !_dictationCheckOverride &&
         [allRunningProcesses containsObject:DictationProcess] &&
-        [[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue]) {
+        ([[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue] ||
+         [[preferences valueForDefaultsDomain:AppleDictationDefaultsDomain key:AppleDictationDefaultsKey] integerValue] != 0)) {
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedDictation" object:self];
         }
