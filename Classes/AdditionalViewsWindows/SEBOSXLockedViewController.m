@@ -50,16 +50,6 @@
 @implementation SEBOSXLockedViewController
 
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    self.lockedViewController = [[SEBLockedViewController alloc] init];
-    self.lockedViewController.UIDelegate = self;
-    
-    self.lockedViewController.boldFontAttributes = @{NSFontAttributeName:[NSFont boldSystemFontOfSize:[NSFont systemFontSize]]};
-}
-
 - (SEBController *)sebController
 {
     return _sebController;
@@ -70,6 +60,18 @@
     _sebController = sebController;
     self.lockedViewController.controllerDelegate = sebController;
 }
+
+
+- (SEBLockedViewController*)lockedViewController
+{
+    if (!_lockedViewController) {
+        _lockedViewController = [[SEBLockedViewController alloc] init];
+        _lockedViewController.UIDelegate = self;
+        _lockedViewController.boldFontAttributes = @{NSFontAttributeName:[NSFont boldSystemFontOfSize:[NSFont systemFontSize]]};
+    }
+    return _lockedViewController;
+}
+
 
 // Manage locking SEB if it is attempted to resume an unfinished exam
 
@@ -103,7 +105,10 @@
 
 
 - (IBAction)passwordEntered:(id)sender {
-    DDLogDebug(@"Lockdown alert: Covering window has frame %@ and window level %ld", CGRectCreateDictionaryRepresentation(self.view.superview.frame), self.view.window.level);
+    DDLogDebug(@"Password entered in lock view alert");
+    DDLogDebug(@"Lockdown alert: Covering window has frame %@ and window level %ld",
+               (NSDictionary *)CFBridgingRelease(CGRectCreateDictionaryRepresentation(self.view.superview.frame)),
+               self.view.window.level);
     [self.lockedViewController passwordEntered];
 }
 
@@ -130,7 +135,9 @@
     } else {
         newScrollOrigin = NSMakePoint(0.0,0.0);
     }
-    DDLogDebug(@"Log scroll view frame: %@, y coordinate to scroll to: %f", CGRectCreateDictionaryRepresentation([[logScrollView documentView] frame]), newScrollOrigin.y);
+    DDLogDebug(@"Log scroll view frame: %@, y coordinate to scroll to: %f",
+               (NSDictionary *)CFBridgingRelease(CGRectCreateDictionaryRepresentation([[logScrollView documentView] frame])),
+               newScrollOrigin.y);
 
     [[logScrollView documentView] scrollPoint:newScrollOrigin];
 }

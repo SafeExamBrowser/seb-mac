@@ -807,7 +807,7 @@ Gw
                                     </allowedInputSourceLocales>
                                 </secureTextFieldCell>
                             </secureTextField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WPU-Uw-nFp">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" preferredMaxLayoutWidth="62" translatesAutoresizingMaskIntoConstraints="NO" id="WPU-Uw-nFp">
                                 <rect key="frame" x="18" y="46" width="66" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Password:" id="XL9-tP-eEk">
                                     <font key="font" metaFont="system"/>
@@ -815,7 +815,7 @@ Gw
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mNH-qP-q3l">
+                            <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="302" translatesAutoresizingMaskIntoConstraints="NO" id="mNH-qP-q3l">
                                 <rect key="frame" x="90" y="73" width="302" height="22"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="aal-ls-xSb">
                                     <font key="font" metaFont="system"/>
@@ -823,7 +823,7 @@ Gw
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7iw-YD-is5">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" preferredMaxLayoutWidth="40" translatesAutoresizingMaskIntoConstraints="NO" id="7iw-YD-is5">
                                 <rect key="frame" x="40" y="76" width="44" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Name:" id="BaL-l1-4iZ">
                                     <font key="font" metaFont="system"/>
@@ -1003,10 +1003,10 @@ DQ
             </constraints>
             <point key="canvasLocation" x="1006" y="709"/>
         </customView>
-        <customView translatesAutoresizingMaskIntoConstraints="NO" id="opR-sj-lUP" userLabel="SEB Locked View">
+        <customView verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="opR-sj-lUP" userLabel="SEB Locked View">
             <rect key="frame" x="0.0" y="0.0" width="500" height="665"/>
             <subviews>
-                <secureTextField canDrawConcurrently="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="K91-6e-rl1">
+                <secureTextField canDrawConcurrently="YES" verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="370" translatesAutoresizingMaskIntoConstraints="NO" id="K91-6e-rl1">
                     <rect key="frame" x="65" y="121" width="370" height="22"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="370" id="PWR-5S-MX2"/>
@@ -1023,7 +1023,7 @@ DQ
                         <action selector="passwordEntered:" target="agr-W5-n2K" id="A9P-Tm-0Rt"/>
                     </connections>
                 </secureTextField>
-                <textField horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="460" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ez-0g-525" customClass="SEBTextField">
+                <textField horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" verifyAmbiguity="off" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="5Ez-0g-525" customClass="SEBTextField">
                     <rect key="frame" x="18" y="628" width="464" height="25"/>
                     <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="Prohibited Process Locked SEB!" id="9V8-Fs-9oi">
                         <font key="font" size="20" name="HelveticaNeue-Bold"/>
@@ -1031,7 +1031,7 @@ DQ
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="267" translatesAutoresizingMaskIntoConstraints="NO" id="d45-bx-wxa" customClass="SEBTextField">
+                <textField verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="267" translatesAutoresizingMaskIntoConstraints="NO" id="d45-bx-wxa" customClass="SEBTextField">
                     <rect key="frame" x="118" y="151" width="264" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Enter quit/unlock password to unlock SEB:" id="toT-ZU-d4i">
                         <font key="font" metaFont="system"/>
@@ -1039,7 +1039,7 @@ DQ
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField hidden="YES" verticalHuggingPriority="750" preferredMaxLayoutWidth="201" translatesAutoresizingMaskIntoConstraints="NO" id="5gu-rS-ItL">
+                <textField hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="201" translatesAutoresizingMaskIntoConstraints="NO" id="5gu-rS-ItL">
                     <rect key="frame" x="147" y="104" width="205" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Please enter correct password!" id="2XV-dZ-8rd">
                         <font key="font" size="13" name=".HelveticaNeueDeskInterface-Bold"/>
@@ -1047,7 +1047,7 @@ DQ
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="460" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5sW-Md-KnP" customClass="SEBTextField">
+                <textField horizontalCompressionResistancePriority="250" verifyAmbiguity="off" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="5sW-Md-KnP" customClass="SEBTextField">
                     <rect key="frame" x="18" y="564" width="464" height="56"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="56" id="ejj-7G-oh9"/>
@@ -1059,13 +1059,13 @@ DQ
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <scrollView borderType="line" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZz-tz-Eao">
+                <scrollView verifyAmbiguity="off" borderType="line" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZz-tz-Eao">
                     <rect key="frame" x="20" y="176" width="460" height="380"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="5ua-AF-4aq">
                         <rect key="frame" x="1" y="1" width="458" height="378"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView editable="NO" selectable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" id="zks-rs-f3E" customClass="SEBTextViewNonEditing">
+                            <textView editable="NO" selectable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" id="zks-rs-f3E" customClass="SEBTextViewNonEditing">
                                 <rect key="frame" x="0.0" y="0.0" width="458" height="378"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1096,7 +1096,7 @@ DQ
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="oDg-Su-CdJ">
+                <button verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="oDg-Su-CdJ">
                     <rect key="frame" x="443" y="122" width="18" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="9uG-2i-dG9"/>
@@ -1110,35 +1110,35 @@ DQ
                         <action selector="passwordEntered:" target="agr-W5-n2K" id="S2V-hx-Lhj"/>
                     </connections>
                 </button>
-                <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="62k-M2-j1C">
+                <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="62k-M2-j1C">
                     <rect key="frame" x="62" y="9" width="253" height="18"/>
                     <buttonCell key="cell" type="check" title="Override process security check completely" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="UPO-LF-2DU">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
                 </button>
-                <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uLX-fM-8i5">
+                <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="uLX-fM-8i5">
                     <rect key="frame" x="62" y="27" width="280" height="18"/>
                     <buttonCell key="cell" type="check" title="Override checking for the processes listed above" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="9TK-SC-OtA">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
                 </button>
-                <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yt2-Rs-d1G">
+                <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="yt2-Rs-d1G">
                     <rect key="frame" x="62" y="63" width="156" height="18"/>
                     <buttonCell key="cell" type="check" title="Override checking for Siri" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="H1g-uS-wch">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
                 </button>
-                <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2n3-Tk-TFb">
+                <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="2n3-Tk-TFb">
                     <rect key="frame" x="62" y="81" width="217" height="18"/>
                     <buttonCell key="cell" type="check" title="Override checking for screen sharing" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="bsl-EU-pHD">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
                 </button>
-                <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2hk-Dl-Z63">
+                <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="2hk-Dl-Z63">
                     <rect key="frame" x="62" y="45" width="185" height="18"/>
                     <buttonCell key="cell" type="check" title="Override checking for dictation" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="7xF-1g-PGT">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
