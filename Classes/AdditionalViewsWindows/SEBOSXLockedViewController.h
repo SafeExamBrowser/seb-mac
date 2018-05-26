@@ -45,9 +45,9 @@
     SEBController *_sebController;
 }
 
-@property (strong) SEBKeychainManager *keychainManager;
-@property (strong) SEBLockedViewController *lockedViewController;
-@property (strong) SEBController *sebController;
+@property (strong, nonatomic) SEBKeychainManager *keychainManager;
+@property (strong, nonatomic) SEBLockedViewController *lockedViewController;
+@property (strong, nonatomic) SEBController *sebController;
 @property (readwrite, copy) NSAttributedString *resignActiveLogString;
 
 @property (strong) IBOutlet NSButton *overrideCheckForScreenSharing;

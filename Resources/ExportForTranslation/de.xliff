@@ -3703,9 +3703,9 @@ richtline<?xml version="1.0" encoding="UTF-8" standalone="yes"?><xliff richtline
         <target>Wechsel zurück nach Benutzerwechsel / Anmeldefenster</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="The SEB process was interrupted, which can indicate cheating. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.">
-        <source>The SEB process was interrupted, which can indicate cheating. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.</source>
-        <target>Der SEB-Prozess wurde unterbrochen, was auf einen Betrugsversuch hindeuten könnte. SEB kann nur mittels des Beenden/Entsperren-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
+      <trans-unit id="The SEB process was interrupted, which can indicate manipulation. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.">
+        <source>The SEB process was interrupted, which can indicate manipulation. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.</source>
+        <target>Der SEB-Prozess wurde unterbrochen, was auf eine Manipulation hindeuten könnte. SEB kann nur mittels des Beenden/Entsperren-Passworts entsperrt werden, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="The identity needed to decrypt settings has not been found in the keychain!">
