@@ -2045,7 +2045,9 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             // Reduce size of covering background windows to not cover the menu bar
             rect.size.height -= 22;
         }
-        DDLogDebug(@"Opening %@ covering window with frame %@ and window level %ld", coveringWindowKind == coveringWindowBackground ? @"background" : @"lockdown alert", CGRectCreateDictionaryRepresentation(rect), windowLevel);
+        DDLogDebug(@"Opening %@ covering window with frame %@ and window level %ld",
+                   coveringWindowKind == coveringWindowBackground ? @"background" : @"lockdown alert",
+                   (NSDictionary *)CFBridgingRelease(CGRectCreateDictionaryRepresentation(rect)), windowLevel);
         id window;
         id capview;
         NSColor *windowColor;
@@ -2137,7 +2139,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     rect.origin.x = 0;
     rect.origin.y = 0;
 
-    DDLogDebug(@"Opening inactive screen covering window with frame %@ ", CGRectCreateDictionaryRepresentation(rect));
+    DDLogDebug(@"Opening inactive screen covering window with frame %@ ",
+               (NSDictionary *)CFBridgingRelease(CGRectCreateDictionaryRepresentation(rect)));
     
     CapWindow *window = [[CapWindow alloc] initWithContentRect:rect styleMask:styleMask backing: NSBackingStoreBuffered defer:NO screen:screen];
     NSView *capview = [[NSView alloc] initWithFrame:rect];
@@ -2456,7 +2459,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 #ifndef DEBUG
 
         [_sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"SEB Process Was Stopped!", @"Lockdown alert title text for SEB process was stopped")
-                                                Message:NSLocalizedString(@"The SEB process was interrupted, which can indicate cheating. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
+                                                Message:NSLocalizedString(@"The SEB process was interrupted, which can indicate manipulation. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
         self.didResignActiveTime = lastTimeProcessCheck;
         // Add log string for trying to re-open a locked exam
         // Calculate time difference between session resigning active and becoming active again
@@ -2494,19 +2497,11 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     if (!self.lockdownWindows) {
         self.didResignActiveTime = [NSDate date];
 
-        /* //Move all modal alert windows above the lock screen windows
-        if (_modalAlertWindows.count) {
-            DDLogDebug(@"%lu modal window(s) displayed.", (unsigned long)_modalAlertWindows.count);
-            for (NSWindow *alertWindow in _modalAlertWindows)
-            {
-                DDLogDebug(@"Modal window %@ has level %lu", alertWindow, (unsigned long)alertWindow.level);
-                DDLogDebug(@"Setting level %lu", NSScreenSaverWindowLevel+1);
-                [alertWindow newSetLevel:NSScreenSaverWindowLevel+1];
-                DDLogDebug(@"New level of modal window %@: %lu", alertWindow, (unsigned long)alertWindow.level);
-            }
-        } */
+        DDLogError(@"Locking SEB with red frontmost covering windows");
 
-        self.lockdownWindows = [self fillScreensWithCoveringWindows:coveringWindowLockdownAlert windowLevel:NSScreenSaverWindowLevel excludeMenuBar:false];
+        self.lockdownWindows = [self fillScreensWithCoveringWindows:coveringWindowLockdownAlert
+                                                        windowLevel:NSScreenSaverWindowLevel
+                                                     excludeMenuBar:false];
         NSWindow *coveringWindow = self.lockdownWindows[0];
         NSView *coveringView = coveringWindow.contentView;
         [coveringView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
@@ -2553,6 +2548,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 
 - (void) closeLockdownWindows
 {
+    DDLogError(@"Unlocking SEB, removing red frontmost covering windows");
+
     [NSApp endModalSession:lockdownModalSession];
     
     if (_sebLockedViewController.overrideCheckForScreenSharing.state == true) {

@@ -280,7 +280,9 @@ void DisposeWindow (
     }
     
 #ifdef DEBUG
-    DDLogDebug(@"Window is on %lu inactive screen(s) and has frame %@", (unsigned long)intersectingScreens.count, CGRectCreateDictionaryRepresentation(actualWindowFrame));
+    DDLogDebug(@"Window is on %lu inactive screen(s) and has frame %@",
+               (unsigned long)intersectingScreens.count,
+               (NSDictionary *)CFBridgingRelease(CGRectCreateDictionaryRepresentation(actualWindowFrame)));
 #endif
 
     // Cover currently intersected inactive screens and
@@ -322,7 +324,8 @@ void DisposeWindow (
         if (movingWindowBack) {
             NSRect recalculatedFrame = NSMakeRect(newFrame.origin.x, newFrame.origin.y, self.window.frame.size.width, newFrame.size.height);
             [self.window setFrame:recalculatedFrame display:YES animate:YES];
-            DDLogDebug(@"Moved browser window back to previous screen, frame: %@", CGRectCreateDictionaryRepresentation(recalculatedFrame));
+            DDLogDebug(@"Moved browser window back to previous screen, frame: %@",
+                       (NSDictionary *)CFBridgingRelease(CGRectCreateDictionaryRepresentation(recalculatedFrame)));
             
         } else {
             NSRect oldWindowFrame = self.window.frame;
@@ -342,7 +345,8 @@ void DisposeWindow (
             }
             
             [self.window setFrame:newWindowFrame display:YES animate:YES];
-            DDLogDebug(@"Adjusted window frame for new screen to: %@", CGRectCreateDictionaryRepresentation(newWindowFrame));
+            DDLogDebug(@"Adjusted window frame for new screen to: %@",
+                       (NSDictionary *)CFBridgingRelease(CGRectCreateDictionaryRepresentation(newWindowFrame)));
         }
         
         // If this is the main browser window, check if it's still on the same screen as when the dock was opened
