@@ -275,6 +275,11 @@ static NSMutableSet *browserWindowControllers;
 {
     [super traitCollectionDidChange: previousTraitCollection];
 
+    if (_navigationBarHeightConstraint) {
+        CGFloat navigationBarHeight = self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 30 : 46;
+        _navigationBarHeightConstraint.constant = navigationBarHeight;
+    }
+    
     if (_toolBarHeightConstraint) {
         CGFloat toolBarHeight = self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 36 : 46;
         _toolBarHeightConstraint.constant = toolBarHeight;
@@ -917,67 +922,144 @@ void run_on_ui_thread(dispatch_block_t block)
             [_statusBarView removeFromSuperview];
         }
         
-        statusBarAppearance = self.sebUIController.statusBarAppearance;
+        statusBarAppearance = [self.sebUIController statusBarAppearanceForDevice];
         
         if (self.sebUIController.browserToolbarEnabled == false) {
-            _statusBarView = [UIView new];
-            [_statusBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
-            [self.view addSubview:_statusBarView];
+        }
+        _statusBarView = [UIView new];
+        [_statusBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.view addSubview:_statusBarView];
+        
+        NSDictionary *viewsDictionary = @{@"statusBarView" : _statusBarView,
+                                          @"containerView" : _containerView};
+        
+        _containerTopContraint.active = false;
+        NSMutableArray *constraints_H = [NSMutableArray arrayWithArray:
+                                         [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[statusBarView]-0-|"
+                                                                                 options: 0
+                                                                                 metrics: nil
+                                                                                   views: viewsDictionary]];
+        NSMutableArray *constraints_V = [NSMutableArray new];
+        
+        // browser tool bar top constraint to safe area guide bottom of superview
+        [constraints_V addObject:[NSLayoutConstraint constraintWithItem:_statusBarView
+                                                              attribute:NSLayoutAttributeTop
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:_containerView
+                                                              attribute:NSLayoutAttributeTop
+                                                             multiplier:1.0
+                                                               constant:0]];
+        
+        if (@available(iOS 11.0, *)) {
             
-            NSDictionary *viewsDictionary = @{@"statusBarView" : _statusBarView,
-                                              @"containerView" : _containerView};
-            
-            _containerTopContraint.active = false;
-            NSArray *constraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[statusBarView]-0-|"
-                                                                             options: 0
-                                                                             metrics: nil
-                                                                               views: viewsDictionary];
-            NSArray *constraints_V;
-            if (@available(iOS 11.0, *)) {
+            // Check if we need to customize the navigation bar, when browser toolbar is enabled and
+            // running on a device like iPhone X
+            UIWindow *window = UIApplication.sharedApplication.keyWindow;
+            CGFloat bottomPadding = window.safeAreaInsets.bottom;
+            if (bottomPadding != 0 && self.sebUIController.browserToolbarEnabled) {
                 
-                // Check if running on a device like iPhone X
-                UIWindow *window = UIApplication.sharedApplication.keyWindow;
-                if (window.safeAreaInsets.bottom != 0)
-                {
-                    NSUInteger statusBarAppearanceExtended = self.sebUIController.statusBarAppearanceExtended;
-                    if (statusBarAppearanceExtended != mobileStatusBarAppearanceExtendedInferred) {
-                        statusBarAppearance = statusBarAppearanceExtended;
-                    }
+                [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+                [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+                self.navigationController.navigationBar.translucent = YES;
+                
+                _navigationBarView = [UIView new];
+                [_navigationBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
+                [self.view addSubview:_navigationBarView];
+                
+                viewsDictionary = @{@"navigationBarView" : _navigationBarView,
+                                    @"statusBarView" : _statusBarView,
+                                    @"containerView" : _containerView};
+                
+                // dock/toolbar leading constraint to safe area guide of superview
+                [constraints_H addObject:[NSLayoutConstraint constraintWithItem:_navigationBarView
+                                                                      attribute:NSLayoutAttributeLeading
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:_containerView.safeAreaLayoutGuide
+                                                                      attribute:NSLayoutAttributeLeading
+                                                                     multiplier:1.0
+                                                                       constant:0]];
+                
+                // dock/toolbar trailling constraint to safe area guide of superview
+                [constraints_H addObject:[NSLayoutConstraint constraintWithItem:_navigationBarView
+                                                                      attribute:NSLayoutAttributeTrailing
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:_containerView.safeAreaLayoutGuide
+                                                                      attribute:NSLayoutAttributeTrailing
+                                                                     multiplier:1.0
+                                                                       constant:0]];
+                
+                
+                // dock/toolbar height constraint depends on vertical size class (less high on iPhones in landscape)
+                CGFloat navigationBarHeight = self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 30 : 46;
+                _navigationBarHeightConstraint = [NSLayoutConstraint constraintWithItem:_navigationBarView
+                                                                        attribute:NSLayoutAttributeHeight
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                           toItem:nil
+                                                                        attribute:NSLayoutAttributeNotAnAttribute
+                                                                       multiplier:1.0
+                                                                         constant:navigationBarHeight];
+                [constraints_V addObject: _navigationBarHeightConstraint];
+                
+                
+                // dock/toolbar bottom constraint to background view top
+                [constraints_V addObject:[NSLayoutConstraint constraintWithItem:_statusBarView
+                                                                      attribute:NSLayoutAttributeBottom
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:_navigationBarView
+                                                                      attribute:NSLayoutAttributeTop
+                                                                     multiplier:1.0
+                                                                       constant:0]];
+                
+                 // browser tool bar top constraint to safe area guide bottom of superview
+                [constraints_V addObject:[NSLayoutConstraint constraintWithItem:_navigationBarView
+                                                                      attribute:NSLayoutAttributeBottom
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:_containerView.safeAreaLayoutGuide
+                                                                      attribute:NSLayoutAttributeTop
+                                                                     multiplier:1.0
+                                                                       constant:0]];
+                
+                [NSLayoutConstraint activateConstraints:constraints_H];
+                [NSLayoutConstraint activateConstraints:[constraints_V copy]];
+                
+                if (!UIAccessibilityIsReduceTransparencyEnabled()) {
+                    _navigationBarView.backgroundColor = [UIColor clearColor];
+                    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
+                    UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+                    blurEffectView.frame = _navigationBarView.bounds;
+                    blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+                    [_navigationBarView addSubview:blurEffectView];
+                } else {
+                    _navigationBarView.backgroundColor = [UIColor lightGrayColor];
                 }
+                _navigationBarView.hidden = false;
                 
-                NSLayoutConstraint *topConstraint   = [NSLayoutConstraint constraintWithItem:_statusBarView
-                                                                                   attribute:NSLayoutAttributeTop
-                                                                                   relatedBy:NSLayoutRelationEqual
-                                                                                      toItem:_containerView
-                                                                                   attribute:NSLayoutAttributeTop
-                                                                                  multiplier:1.0
-                                                                                    constant:0];
-                
-                NSLayoutConstraint *bottomConstraint   = [NSLayoutConstraint constraintWithItem:_statusBarView
-                                                                                      attribute:NSLayoutAttributeBottom
-                                                                                      relatedBy:NSLayoutRelationEqual
-                                                                                         toItem:_containerView.safeAreaLayoutGuide
-                                                                                      attribute:NSLayoutAttributeTop
-                                                                                     multiplier:1.0
-                                                                                       constant:0];
-                
-                constraints_V = @[topConstraint, bottomConstraint];
             } else {
-                constraints_V = [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-0-[statusBarView(==20)]-0-[containerView]"
-                                                                        options: 0
-                                                                        metrics: nil
-                                                                          views: viewsDictionary];
+                [constraints_V addObject:[NSLayoutConstraint constraintWithItem:_statusBarView
+                                                                      attribute:NSLayoutAttributeBottom
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:_containerView.safeAreaLayoutGuide
+                                                                      attribute:NSLayoutAttributeTop
+                                                                     multiplier:1.0
+                                                                       constant:0]];
             }
+                        
             
-            [self.view addConstraints:constraints_H];
-            [self.view addConstraints:constraints_V];
-            
-            _statusBarView.backgroundColor = ((statusBarAppearance == mobileStatusBarAppearanceLight ||
-                                               statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ?
-                                              [UIColor blackColor] : [UIColor whiteColor]);
-            _statusBarView.hidden = false;
+        } else {
+            [constraints_V addObject:[NSLayoutConstraint constraintsWithVisualFormat: @"V:|-0-[statusBarView(==20)]-0-[containerView]"
+                                                                    options: 0
+                                                                    metrics: nil
+                                                                      views: viewsDictionary]];
         }
         
+        [self.view addConstraints:constraints_H];
+        [self.view addConstraints:constraints_V];
+        
+        _statusBarView.backgroundColor = ((statusBarAppearance == mobileStatusBarAppearanceLight ||
+                                           statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ?
+                                          [UIColor blackColor] : [UIColor whiteColor]);
+        _statusBarView.hidden = false;
+
         [self setNeedsStatusBarAppearanceUpdate];
 
         //// Initialize SEB Dock, commands section in the slider view and
@@ -1019,7 +1101,7 @@ void run_on_ui_thread(dispatch_block_t block)
             if (@available(iOS 11.0, *)) {
                 UIWindow *window = UIApplication.sharedApplication.keyWindow;
                 CGFloat bottomPadding = window.safeAreaInsets.bottom;
-                if (bottomPadding != 0 && !self.sebUIController.browserToolbarEnabled) {
+                if (bottomPadding != 0) {
                     
                     [self.navigationController.toolbar setBackgroundImage:[UIImage new] forToolbarPosition:UIBarPositionBottom barMetrics:UIBarMetricsDefault];
                     [self.navigationController.toolbar setShadowImage:[UIImage new] forToolbarPosition:UIBarPositionBottom];
@@ -1059,7 +1141,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     
                     NSMutableArray *constraints_V = [NSMutableArray new];
                     
-                    // dock/toolbar height constraint depends on vertical size class (less heigh on iPhones in landscape)
+                    // dock/toolbar height constraint depends on vertical size class (less high on iPhones in landscape)
                     if (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
                         UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, 0, 2, 0);
                         self.additionalSafeAreaInsets = newSafeArea;
@@ -1136,10 +1218,10 @@ void run_on_ui_thread(dispatch_block_t block)
                     CGFloat bottomInset = self.view.superview.safeAreaInsets.bottom;
                     NSLog(@"%f, %f, %f, ", bottomPadding, bottomMargin, bottomInset);
                     
-                } else {
-                    _toolBarHeightConstraint = nil;
-                    [self.navigationController.toolbar setBackgroundImage:nil forToolbarPosition:UIBarPositionBottom barMetrics:UIBarMetricsDefault];
-                    [self.navigationController.toolbar setShadowImage:nil forToolbarPosition:UIBarPositionBottom];
+//                } else {
+//                    _toolBarHeightConstraint = nil;
+//                    [self.navigationController.toolbar setBackgroundImage:nil forToolbarPosition:UIBarPositionBottom barMetrics:UIBarMetricsDefault];
+//                    [self.navigationController.toolbar setShadowImage:nil forToolbarPosition:UIBarPositionBottom];
                 }
             }
             

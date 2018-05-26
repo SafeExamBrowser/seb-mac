@@ -115,19 +115,7 @@
 
 // Get statusbar appearance depending on device type (traditional or iPhone X like)
 - (NSUInteger)statusBarAppearance {
-    NSUInteger statusBarAppearance = _appDelegate.sebUIController.statusBarAppearance;
-    if (@available(iOS 11.0, *)) {
-        // Check if running on a device like iPhone X
-        UIWindow *window = UIApplication.sharedApplication.keyWindow;
-        if (window.safeAreaInsets.bottom != 0)
-        {
-            NSUInteger statusBarAppearanceExtended = _appDelegate.sebUIController.statusBarAppearanceExtended;
-            if (statusBarAppearanceExtended != mobileStatusBarAppearanceExtendedInferred) {
-                statusBarAppearance = statusBarAppearanceExtended;
-            }
-        }
-    }
-    return statusBarAppearance;
+    return [_appDelegate.sebUIController statusBarAppearanceForDevice];
 }
 
 - (void)initSliderViewAppearance
