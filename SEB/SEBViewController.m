@@ -271,15 +271,20 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    if (_navigationBarHeightConstraint) {
+        CGFloat navigationBarHeight = newCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 32 : 46;
+        _navigationBarHeightConstraint.constant = navigationBarHeight;
+    }
+    [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
+}
+
+
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
 {
     [super traitCollectionDidChange: previousTraitCollection];
 
-    if (_navigationBarHeightConstraint) {
-        CGFloat navigationBarHeight = self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 30 : 46;
-        _navigationBarHeightConstraint.constant = navigationBarHeight;
-    }
-    
     if (_toolBarHeightConstraint) {
         CGFloat toolBarHeight = self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 36 : 46;
         _toolBarHeightConstraint.constant = toolBarHeight;
@@ -292,17 +297,16 @@ static NSMutableSet *browserWindowControllers;
                 UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, 0, -4, 0);
                 self.additionalSafeAreaInsets = newSafeArea;
             }
+            [self viewSafeAreaInsetsDidChange];
         }
     }
-    
-    if (@available(iOS 11.0, *)) {
-        // Check if running on a device like iPhone X
-        UIEdgeInsets newSafeArea = UIEdgeInsetsZero;
-        self.parentViewController.additionalSafeAreaInsets = newSafeArea;
-        [self viewSafeAreaInsetsDidChange];
-    }
+   
+//    if (@available(iOS 11.0, *)) {
+//        UIEdgeInsets newSafeArea = UIEdgeInsetsZero;
+//        self.parentViewController.additionalSafeAreaInsets = newSafeArea;
+//        [self viewSafeAreaInsetsDidChange];
+//    }
 
-    [self changeLeftSafeAreaInset];
 }
 
 
@@ -311,9 +315,18 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)willShowLeftView:(nonnull UIView *)leftView sideMenuController:(nonnull LGSideMenuController *)sideMenuController;
 {
-    [self changeLeftSafeAreaInset];
+//    [self changeLeftSafeAreaInset];
 }
 
+//-(void)didShowLeftView:(UIView *)leftView sideMenuController:(LGSideMenuController *)sideMenuController
+//{
+//    [self changeLeftSafeAreaInset];
+//}
+
+- (void)showAnimationsForLeftView:(nonnull UIView *)leftView sideMenuController:(nonnull LGSideMenuController *)sideMenuController duration:(NSTimeInterval)duration;
+{
+    [self changeLeftSafeAreaInset];
+}
 
 - (void)didHideLeftView:(nonnull UIView *)leftView sideMenuController:(nonnull LGSideMenuController *)sideMenuController;
 {
@@ -924,16 +937,21 @@ void run_on_ui_thread(dispatch_block_t block)
         
         statusBarAppearance = [self.sebUIController statusBarAppearanceForDevice];
         
-        if (self.sebUIController.browserToolbarEnabled == false) {
-        }
         _statusBarView = [UIView new];
         [_statusBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
         [self.view addSubview:_statusBarView];
         
-        NSDictionary *viewsDictionary = @{@"statusBarView" : _statusBarView,
+        if (_navigationBarView) {
+            [_navigationBarView removeFromSuperview];
+        }
+        _navigationBarView = [UIView new];
+        [_navigationBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.view addSubview:_navigationBarView];
+        
+        NSDictionary *viewsDictionary = @{@"navigationBarView" : _navigationBarView,
+                                          @"statusBarView" : _statusBarView,
                                           @"containerView" : _containerView};
         
-        _containerTopContraint.active = false;
         NSMutableArray *constraints_H = [NSMutableArray arrayWithArray:
                                          [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[statusBarView]-0-|"
                                                                                  options: 0
@@ -962,15 +980,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 [self.navigationController.navigationBar setShadowImage:[UIImage new]];
                 self.navigationController.navigationBar.translucent = YES;
                 
-                _navigationBarView = [UIView new];
-                [_navigationBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
-                [self.view addSubview:_navigationBarView];
-                
-                viewsDictionary = @{@"navigationBarView" : _navigationBarView,
-                                    @"statusBarView" : _statusBarView,
-                                    @"containerView" : _containerView};
-                
-                // dock/toolbar leading constraint to safe area guide of superview
+                // browser toolbar (NavigationBar) leading constraint to safe area guide of superview
                 [constraints_H addObject:[NSLayoutConstraint constraintWithItem:_navigationBarView
                                                                       attribute:NSLayoutAttributeLeading
                                                                       relatedBy:NSLayoutRelationEqual
@@ -979,7 +989,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                      multiplier:1.0
                                                                        constant:0]];
                 
-                // dock/toolbar trailling constraint to safe area guide of superview
+                // browser toolbar (NavigationBar)  trailling constraint to safe area guide of superview
                 [constraints_H addObject:[NSLayoutConstraint constraintWithItem:_navigationBarView
                                                                       attribute:NSLayoutAttributeTrailing
                                                                       relatedBy:NSLayoutRelationEqual
@@ -989,8 +999,8 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                        constant:0]];
                 
                 
-                // dock/toolbar height constraint depends on vertical size class (less high on iPhones in landscape)
-                CGFloat navigationBarHeight = self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 30 : 46;
+                // browser toolbar (NavigationBar)  height constraint depends on vertical size class (less high on iPhones in landscape)
+                CGFloat navigationBarHeight = self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 32 : 46;
                 _navigationBarHeightConstraint = [NSLayoutConstraint constraintWithItem:_navigationBarView
                                                                         attribute:NSLayoutAttributeHeight
                                                                         relatedBy:NSLayoutRelationEqual
@@ -1020,7 +1030,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                        constant:0]];
                 
                 [NSLayoutConstraint activateConstraints:constraints_H];
-                [NSLayoutConstraint activateConstraints:[constraints_V copy]];
+                [NSLayoutConstraint activateConstraints:constraints_V];
                 
                 if (!UIAccessibilityIsReduceTransparencyEnabled()) {
                     _navigationBarView.backgroundColor = [UIColor clearColor];
@@ -1186,8 +1196,10 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                          multiplier:1.0
                                                                            constant:0]];
                     
-                    [NSLayoutConstraint activateConstraints:constraints_H];
-                    [NSLayoutConstraint activateConstraints:[constraints_V copy]];
+                    [self.view addConstraints:constraints_H];
+                    [self.view addConstraints:constraints_V];
+//                    [NSLayoutConstraint activateConstraints:constraints_H];
+//                    [NSLayoutConstraint activateConstraints:constraints_V];
                     
                     if (!UIAccessibilityIsReduceTransparencyEnabled()) {
                         _toolBarView.backgroundColor = [UIColor clearColor];
