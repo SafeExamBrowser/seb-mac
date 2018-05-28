@@ -3396,10 +3396,10 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 - (IBAction) openPreferences:(id)sender {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (lockdownWindows.count == 0 && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"]) {
-        if (floor(NSAppKitVersionNumber) == NSAppKitVersionNumber10_7) {
+        if (floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_9) {
             NSAlert *modalAlert = [self newAlert];
-            [modalAlert setMessageText:NSLocalizedString(@"Preferences Window Not Available on OS X 10.7", nil)];
-            [modalAlert setInformativeText:NSLocalizedString(@"On OS X 10.7 SEB can only be used as an exam client. Run SEB on OS X 10.8 or higher to create a .seb configuration file to configure this SEB client as well.", nil)];
+            [modalAlert setMessageText:NSLocalizedString(@"Preferences Window Not Available on macOS 10.7/10.8", nil)];
+            [modalAlert setInformativeText:NSLocalizedString(@"On macOS 10.7 and 10.8 SEB can only be used as an exam client. Run SEB on macOS 10.9 or higher to create a .seb configuration file to configure this SEB client as well.", nil)];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
             [modalAlert setAlertStyle:NSCriticalAlertStyle];
             [modalAlert runModal];
