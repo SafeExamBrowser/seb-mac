@@ -652,8 +652,8 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Remove an argument"; ObjectID = "866";</note>
       </trans-unit>
       <trans-unit id="887.ibShadowedToolTip">
-        <source>Identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title</source>
-        <note>Class = "NSTextField"; ibShadowedToolTip = "Identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title"; ObjectID = "887";</note>
+        <source>Identifier of the process in reverse domain notation (macOS) or a (sub) string of its main window title</source>
+        <note>Class = "NSTextField"; ibShadowedToolTip = "Identifier of the process in reverse domain notation (macOS) or a (sub) string of its main window title"; ObjectID = "887";</note>
       </trans-unit>
       <trans-unit id="897.title">
         <source>Identifier</source>
@@ -752,8 +752,8 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "The prohibited process has to run under the currently logged in user (not system users). Use it instead of indicating the user."; ObjectID = "1856";</note>
       </trans-unit>
       <trans-unit id="1859.ibShadowedToolTip">
-        <source>Identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title</source>
-        <note>Class = "NSTextField"; ibShadowedToolTip = "Identifier of the process in reverse domain notation (OS X) or a (sub) string of its main window title"; ObjectID = "1859";</note>
+        <source>Identifier of the process in reverse domain notation (macOS) or a (sub) string of its main window title</source>
+        <note>Class = "NSTextField"; ibShadowedToolTip = "Identifier of the process in reverse domain notation (macOS) or a (sub) string of its main window title"; ObjectID = "1859";</note>
       </trans-unit>
       <trans-unit id="1893.ibShadowedToolTip">
         <source>Process name, usually the file name of the executable</source>
