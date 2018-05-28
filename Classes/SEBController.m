@@ -1843,7 +1843,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
             DDLogError(@"Show error message and ask user to close it or quit SEB.");
             NSAlert *modalAlert = [self newAlert];
             [modalAlert setMessageText:NSLocalizedString(@"Close Force Quit Window", nil)];
-            [modalAlert setInformativeText:NSLocalizedString(@"SEB cannot run when the Force Quit window is open. Close the window or quit SEB.", nil)];
+            [modalAlert setInformativeText:NSLocalizedString(@"SEB cannot run when the Force Quit window is open. Close the window or quit SEB. If the window isn't open and this alert is displayed anyways, restart your Mac.", nil)];
             [modalAlert setAlertStyle:NSCriticalAlertStyle];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];

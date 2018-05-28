@@ -3478,9 +3478,9 @@ richtline<?xml version="1.0" encoding="UTF-8" standalone="yes"?><xliff richtline
         <target>SEB neu konfiguriert</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="SEB cannot run when the Force Quit window is open. Close the window or quit SEB.">
-        <source>SEB cannot run when the Force Quit window is open. Close the window or quit SEB.</source>
-        <target>SEB kann nicht gestartet werden, wenn das Fenster 'Programme sofort beenden' geöffnet ist. Dieses Fenster schliessen oder SEB beenden.</target>
+      <trans-unit id="SEB cannot run when the Force Quit window is open. Close the window or quit SEB. If the window isn't open and this alert is displayed anyways, restart your Mac.">
+        <source>SEB cannot run when the Force Quit window is open. Close the window or quit SEB. If the window isn't open and this alert is displayed anyways, restart your Mac.</source>
+        <target>SEB kann nicht gestartet werden, wenn das Fenster 'Programme sofort beenden' geöffnet ist. Dieses Fenster schliessen oder SEB beenden. Falls die Fehlermeldung weiterhin angezeigt wird, starten Sie Ihren Mac neu.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SEB has to be placed in the %@ folder in order for all features to work correctly. Move the 'Safe Exam Browser' app to your %@ folder and make sure that you don't have any other versions of SEB installed on your system. SEB will quit now.">
