@@ -89,7 +89,7 @@
                           }
                       };
                       
-                      if (self.window.styleMask == NSBorderlessWindowMask) {
+                      if (self.window.styleMask == NSBorderlessWindowMask || floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_9) {
                           [self.browserController.sebController.modalAlertWindows addObject:newAlert];
                           NSModalResponse answer = [newAlert runModal];
                           [self.browserController.sebController removeAlertWindow:newAlert.window];
