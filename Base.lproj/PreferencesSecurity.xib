@@ -154,7 +154,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="If not selected, SEB prevents to mirror the main display to another (for example an AirPlay Display)" translatesAutoresizingMaskIntoConstraints="NO" id="oq3-9u-BrJ">
-                                        <rect key="frame" x="15" y="209" width="575" height="18"/>
+                                        <rect key="frame" x="15" y="189" width="575" height="18"/>
                                         <buttonCell key="cell" type="check" title="Allow display mirroring (affects also AirPlay Display)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="hwg-eH-cMm">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -164,7 +164,7 @@
                                         </connections>
                                     </button>
                                     <comboBox toolTip="If more displays are connected, these are blanked with an orange full screen window" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZZ6-sG-BWw">
-                                        <rect key="frame" x="530" y="186" width="60" height="26"/>
+                                        <rect key="frame" x="530" y="166" width="60" height="26"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="57" id="AAT-5S-sGW"/>
                                         </constraints>
@@ -182,7 +182,7 @@
                                         </connections>
                                     </comboBox>
                                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BKE-3M-dWN">
-                                        <rect key="frame" x="225" y="190" width="299" height="17"/>
+                                        <rect key="frame" x="225" y="170" width="299" height="17"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="maximum allowed number of connected displays" id="hpd-SM-vcA">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -190,7 +190,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <button toolTip="Use the built-in display (if available) when only one display is allowed or when switching off display mirroring" translatesAutoresizingMaskIntoConstraints="NO" id="btE-nf-WWC">
-                                        <rect key="frame" x="466" y="169" width="124" height="18"/>
+                                        <rect key="frame" x="466" y="149" width="124" height="18"/>
                                         <buttonCell key="cell" type="check" title="Use built-in display" bezelStyle="regularSquare" imagePosition="right" alignment="right" controlSize="small" inset="2" id="gma-Qm-KEF">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
@@ -214,6 +214,17 @@
                                             </binding>
                                         </connections>
                                     </button>
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="FHY-jc-rXS">
+                                        <rect key="frame" x="15" y="209" width="259" height="18"/>
+                                        <string key="toolTip">SEB displays a lock screen (requiring to enter the quit/unlock password) if it detects that its process was stopped, which can indicate manipulation</string>
+                                        <buttonCell key="cell" type="check" title="Detect when SEB process was stopped" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="WA3-Fp-0nb">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_detectStoppedProcess" id="bpw-F9-JPy"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="FJP-p9-xw7" firstAttribute="leading" secondItem="a9Y-jJ-E1h" secondAttribute="leading" id="0mM-3l-KZk"/>
@@ -231,10 +242,13 @@
                                     <constraint firstItem="FJP-p9-xw7" firstAttribute="top" secondItem="Gly-dr-m3X" secondAttribute="bottom" constant="6" symbolic="YES" id="ILp-wT-FEm"/>
                                     <constraint firstItem="KKV-0r-AMe" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Gly-dr-m3X" secondAttribute="trailing" constant="8" symbolic="YES" id="KRP-P5-uXf"/>
                                     <constraint firstItem="btE-nf-WWC" firstAttribute="top" secondItem="BKE-3M-dWN" secondAttribute="bottom" constant="6" id="MOF-M6-5g9"/>
+                                    <constraint firstItem="oq3-9u-BrJ" firstAttribute="top" secondItem="FHY-jc-rXS" secondAttribute="bottom" constant="6" symbolic="YES" id="Q1T-9O-iMb"/>
                                     <constraint firstItem="a9Y-jJ-E1h" firstAttribute="top" secondItem="MYN-Xy-8h5" secondAttribute="bottom" constant="14" id="Rft-9y-ZJx"/>
+                                    <constraint firstItem="FHY-jc-rXS" firstAttribute="leading" secondItem="a9Y-jJ-E1h" secondAttribute="leading" id="Rjo-Vz-TvC"/>
                                     <constraint firstItem="vh3-YR-Pun" firstAttribute="leading" secondItem="a9Y-jJ-E1h" secondAttribute="leading" id="YUw-X9-YKm"/>
                                     <constraint firstItem="a9Y-jJ-E1h" firstAttribute="leading" secondItem="ot5-GZ-LBL" secondAttribute="leading" constant="17" id="ZKN-j7-oFL"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="FJP-p9-xw7" secondAttribute="trailing" constant="20" id="ZW2-Yi-fR5"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="FHY-jc-rXS" secondAttribute="trailing" constant="20" symbolic="YES" id="a56-BW-RDl"/>
                                     <constraint firstItem="Gly-dr-m3X" firstAttribute="top" secondItem="a9Y-jJ-E1h" secondAttribute="bottom" constant="6" symbolic="YES" id="d3j-hs-g8l"/>
                                     <constraint firstItem="7SN-Be-oCc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ot5-GZ-LBL" secondAttribute="leading" constant="16" id="dIo-2D-YgX"/>
                                     <constraint firstItem="btE-nf-WWC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ot5-GZ-LBL" secondAttribute="leading" constant="20" symbolic="YES" id="eTd-F7-ouC"/>
@@ -244,8 +258,8 @@
                                     <constraint firstItem="ZZ6-sG-BWw" firstAttribute="leading" secondItem="ot5-GZ-LBL" secondAttribute="trailing" priority="750" constant="-74" id="occ-Zv-M3h"/>
                                     <constraint firstItem="KKV-0r-AMe" firstAttribute="baseline" secondItem="Gly-dr-m3X" secondAttribute="baseline" id="pa6-7X-7GA"/>
                                     <constraint firstItem="BKE-3M-dWN" firstAttribute="top" secondItem="oq3-9u-BrJ" secondAttribute="bottom" constant="4" id="rzb-f3-AEO"/>
-                                    <constraint firstItem="oq3-9u-BrJ" firstAttribute="top" secondItem="vh3-YR-Pun" secondAttribute="bottom" constant="6" symbolic="YES" id="tHD-i5-a0d"/>
                                     <constraint firstAttribute="trailing" secondItem="oq3-9u-BrJ" secondAttribute="trailing" constant="16" id="yW4-Gh-uy6"/>
+                                    <constraint firstItem="FHY-jc-rXS" firstAttribute="top" secondItem="vh3-YR-Pun" secondAttribute="bottom" constant="6" symbolic="YES" id="zXw-XT-4Al"/>
                                     <constraint firstItem="BKE-3M-dWN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ot5-GZ-LBL" secondAttribute="leading" constant="20" symbolic="YES" id="zYr-k8-5fs"/>
                                 </constraints>
                             </view>

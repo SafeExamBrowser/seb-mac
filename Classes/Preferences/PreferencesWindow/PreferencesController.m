@@ -91,8 +91,8 @@
 
 - (void)initPreferencesWindow
 {
-    // Check if running on OS X 10.7
-    if (floor(NSAppKitVersionNumber) == NSAppKitVersionNumber10_7) {
+    // Check if running on macOS 10.7/10.8
+    if (floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_9) {
         // Don't init
         return;
     }
