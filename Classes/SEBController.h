@@ -113,6 +113,7 @@
     BOOL allowScreenSharing;
     BOOL allowSiri;
     BOOL allowDictation;
+    BOOL detectSIGSTOP;
     NSString *currentExamStartURL;
     BOOL fontRegistryUIAgentDisplayed;
     #define logReportCounter 11

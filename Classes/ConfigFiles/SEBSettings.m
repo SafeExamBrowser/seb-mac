@@ -133,6 +133,9 @@
                    @"createNewDesktop",
                    
                    @YES,
+                   @"detectStoppedProcess",
+                   
+                   @YES,
                    @"downloadAndOpenSebConfig",
                    
                    [NSHomeDirectory() stringByAppendingPathComponent: @"Downloads"],
