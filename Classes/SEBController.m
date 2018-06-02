@@ -1217,12 +1217,13 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     }
     checkingRunningProcesses = true;
     
-    if (detectSIGSTOP && -[lastTimeProcessCheck timeIntervalSinceNow] > 3) {
-        DDLogError(@"Detected SIGSTOP! SEB was stopped for %f seconds", -[lastTimeProcessCheck timeIntervalSinceNow]);
+    NSDate *timeProcessCheckBeforeSIGSTOP = lastTimeProcessCheck;
+    if (detectSIGSTOP && -[timeProcessCheckBeforeSIGSTOP timeIntervalSinceNow] > 3) {
+        DDLogError(@"Detected SIGSTOP! SEB was stopped for %f seconds", -[timeProcessCheckBeforeSIGSTOP timeIntervalSinceNow]);
         dispatch_async(dispatch_get_main_queue(), ^{
             if (!_SIGSTOPDetected) {
                 _SIGSTOPDetected = true;
-                self.didResignActiveTime = lastTimeProcessCheck;
+                self.didResignActiveTime = timeProcessCheckBeforeSIGSTOP;
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:@"detectedSIGSTOP" object:self];
             }
