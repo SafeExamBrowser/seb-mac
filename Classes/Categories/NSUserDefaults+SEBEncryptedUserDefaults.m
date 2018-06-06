@@ -444,10 +444,9 @@ static NSNumber *_logLevel;
         //    NSString *bundleId = [bundleInfo objectForKey: @"CFBundleIdentifier"];
         
         // Include UserDefaults from NSRegistrationDomain and application domain
-        NSUserDefaults *appUserDefaults = [[NSUserDefaults alloc] init];
-        [appUserDefaults addSuiteNamed:@"NSRegistrationDomain"];
+        [self addSuiteNamed:@"NSRegistrationDomain"];
         //    [appUserDefaults addSuiteNamed: bundleId];
-        prefsDict = [appUserDefaults dictionaryRepresentation];
+        prefsDict = [self dictionaryRepresentation];
         return prefsDict;
     }
 }
