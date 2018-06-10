@@ -167,7 +167,8 @@ typedef NSUInteger iOSBetaVersion;
 enum {
     iOSVersion9                                 = 9,
     iOSVersion10                                = 10,
-    iOSVersion11                                = 11
+    iOSVersion11                                = 11,
+    iOSVersion12                                = 12
 };
 typedef NSUInteger iOSVersion;
 
