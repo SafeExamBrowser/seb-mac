@@ -1,8 +1,8 @@
 //
-//  SEBSettings.h
-//  SafeExamBrowser
+//  SEBEncapsulatedSettings.h
+//  Safe Exam Browser
 //
-//  Created by Daniel R. Schneider on 21.08.17.
+//  Created by Daniel R. Schneider on 14.06.18.
 //  Copyright (c) 2010-2018 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
@@ -32,11 +32,19 @@
 //  Contributor(s): ______________________________________.
 //
 
-
 #import <Foundation/Foundation.h>
 
-@interface SEBSettings : NSDictionary
+@interface SEBEncapsulatedSettings : NSObject
 
-+ (NSDictionary *)defaultSettings;
+@property BOOL userDefaultsPrivate;
+@property NSDictionary *settings;
+@property NSURL *configURL;
+@property NSData *browserExamKey;
+@property NSData *configKey;
+@property NSDictionary *configKeyContainedKeys;
+
+- (SEBEncapsulatedSettings*)initWithCurrentSettings;
+- (void)restoreSettings;
+
 
 @end

@@ -421,9 +421,6 @@ static NSNumber *_logLevel;
     // Update Exam Settings Key
     [_cachedUserDefaults removeAllObjects];
     [[SEBCryptor sharedSEBCryptor] updateExamSettingsKey:_cachedUserDefaults];
-
-//    prefsDict = [self getSEBUserDefaultsDomains];
-//    DDLogVerbose(@"SEB UserDefaults domains after resetSEBUserDefaults: %@", prefsDict);
 }
 
 
@@ -439,13 +436,8 @@ static NSNumber *_logLevel;
         [preferences synchronize];
         NSDictionary *prefsDict;
         
-        //    // Get CFBundleIdentifier of the application
-        //    NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
-        //    NSString *bundleId = [bundleInfo objectForKey: @"CFBundleIdentifier"];
-        
-        // Include UserDefaults from NSRegistrationDomain and application domain
+        // Include UserDefaults from NSRegistrationDomain (which contains application domain)
         [self addSuiteNamed:@"NSRegistrationDomain"];
-        //    [appUserDefaults addSuiteNamed: bundleId];
         prefsDict = [self dictionaryRepresentation];
         return prefsDict;
     }

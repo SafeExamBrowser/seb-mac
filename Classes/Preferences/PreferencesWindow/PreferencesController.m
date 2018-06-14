@@ -156,7 +156,7 @@
         [self initPreferencesWindow];
     }
 
-    // Store current settings (before the probably get edited)
+    // Store current settings (before they probably get edited)
     [self storeCurrentSettings];
     
     [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
@@ -237,6 +237,7 @@
 //        self.sebController.browserController.reinforceKioskModeRequested = YES;
         // Post a notification that the preferences window closes
         if (restartSEB) {
+            restartSEB = NO;
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"preferencesClosedRestartSEB" object:self];
         } else {
@@ -262,6 +263,7 @@
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSData *oldBrowserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
+    NSData *oldConfigKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
 
     // If private settings are active, check if those current settings have unsaved changes
     if (NSUserDefaults.userDefaultsPrivate && [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO]) {
@@ -371,33 +373,14 @@
 // Stores current settings in memory (before editing them)
 - (void) storeCurrentSettings
 {
-    // Store key/values from local or private UserDefaults
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    _settingsBeforeEditing = [preferences dictionaryRepresentationSEB];
-    // Store current flag for private/local client settings
-    _userDefaultsPrivateBeforeEditing = NSUserDefaults.userDefaultsPrivate;
-    // Store current config URL
-    _configURLBeforeEditing = [[MyGlobals sharedMyGlobals] currentConfigURL];
-    // Store current Browser Exam Key
-    _browserExamKeyBeforeEditing = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
+    settingsBeforeEditing = [[SEBEncapsulatedSettings alloc] initWithCurrentSettings];
 }
 
 
 // Restores settings which were stored in memory before editing
 - (void) restoreStoredSettings
 {
-    // If config mode changed (private/local client settings), then switch to the mode active before
-    if (_userDefaultsPrivateBeforeEditing != NSUserDefaults.userDefaultsPrivate) {
-        [NSUserDefaults setUserDefaultsPrivate:_userDefaultsPrivateBeforeEditing];
-    }
-    // Store all .seb (only the ones with prefix "org_safeexambrowser_SEB_"!) settings from before editing back into UserDefaults
-    [self.configFileManager storeIntoUserDefaults:_settingsBeforeEditing];
-    // Store exam key before editing into UserDefaults
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    [preferences setSecureObject:_browserExamKeyBeforeEditing forKey:@"org_safeexambrowser_currentData"];
-
-    // Set the original settings title in the preferences window
-    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:_configURLBeforeEditing];
+    [settingsBeforeEditing restoreSettings];
 }
 
 
@@ -405,7 +388,7 @@
 - (BOOL) settingsChanged
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    return ![_browserExamKeyBeforeEditing isEqualToData:[preferences secureObjectForKey:@"org_safeexambrowser_currentData"]];
+    return ![settingsBeforeEditing.browserExamKey isEqualToData:[preferences secureObjectForKey:@"org_safeexambrowser_currentData"]];
 }
 
 
@@ -612,7 +595,8 @@
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSData *oldBrowserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
-    
+    NSData *oldConfigKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
+
     BOOL browserExamKeyChanged = [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
     
     // If private settings are active, check if those current settings have unsaved changes
@@ -693,12 +677,9 @@
         }
     }
     
-    //Close prefs window with "order out", which doesn't trigger windowWillClose
+    //Close prefs window
+    restartSEB = YES;
     [self closePreferencesWindow];
-    
-    // Post a notification that the preferences window was closed and SEB should be restarted
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"preferencesClosedRestartSEB" object:self];
 }
 
 
@@ -713,7 +694,8 @@
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSData *oldBrowserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
-    
+    NSData *oldConfigKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
+
     BOOL browserExamKeyChanged = [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
     
     /// If private settings are active, check if those current settings have unsaved changes
@@ -866,11 +848,9 @@
     sebConfigPurposes configPurpose = [self.configFileVC getSelectedConfigPurpose];
     NSURL *currentConfigFileURL;
     
-    // Save current Browser Exam Key and its salt for the case saving fails
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSData *oldBrowserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
-    NSData *oldBrowserExamKeySalt = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_examKeySalt"];
-    
+    // Save current settings including Browser Exam and Config Key and their salt values for the case saving fails
+    SEBEncapsulatedSettings *oldSettings = [[SEBEncapsulatedSettings alloc] initWithCurrentSettings];
+
     /// Check if local client or private settings (UserDefauls) are active
     ///
     if (!NSUserDefaults.userDefaultsPrivate) {
@@ -910,8 +890,7 @@
                 [newAlert setAlertStyle:NSCriticalAlertStyle];
                 [newAlert runModal];
 
-                [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
-                [preferences setSecureObject:oldBrowserExamKeySalt forKey:@"org_safeexambrowser_SEB_examKeySalt"];
+                [oldSettings restoreSettings];
                 return NO;
             } else {
                 if (fileURLUpdate) {
@@ -949,8 +928,7 @@
                     [newAlert setAlertStyle:NSCriticalAlertStyle];
                     [newAlert runModal];
 
-                    [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
-                    [preferences setSecureObject:oldBrowserExamKeySalt forKey:@"org_safeexambrowser_SEB_examKeySalt"];
+                    [oldSettings restoreSettings];
                     
                 } else {
                     // Prefs got successfully written to file
@@ -976,8 +954,7 @@
                 }
             } else {
                 // Saving settings was canceled
-                [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
-                [preferences setSecureObject:oldBrowserExamKeySalt forKey:@"org_safeexambrowser_SEB_examKeySalt"];
+                [oldSettings restoreSettings];
                 return NO;
             }
         }
@@ -1030,8 +1007,7 @@
         return YES;
     }
     // This is only executed when there would be an error encrypting the SEB settings
-    [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
-    [preferences setSecureObject:oldBrowserExamKeySalt forKey:@"org_safeexambrowser_SEB_examKeySalt"];
+    [oldSettings restoreSettings];
     return NO;
 }
 
@@ -1247,7 +1223,7 @@
     } else {
         // If using local client settings
         DDLogInfo(@"Reverting local client settings to settings before editing");
-        [self.configFileManager storeIntoUserDefaults:_settingsBeforeEditing];
+        [settingsBeforeEditing restoreSettings];
     }
 }
 
@@ -1424,8 +1400,6 @@
     if ([self conditionallyClosePreferencesWindowAskToApply:NO]) {
         // Close preferences window manually (as windowShouldClose: won't be called)
         [self closePreferencesWindow];
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"preferencesClosedRestartSEB" object:self];
     }
 }
 
