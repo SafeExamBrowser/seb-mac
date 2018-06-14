@@ -130,6 +130,8 @@
 		696EB10516CAAFF600707B0F /* ApplicationsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696EB10116CAAFF600707B0F /* ApplicationsIcon@2x.png */; };
 		696F28E815751ED600780DA8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696F28E715751ED600780DA8 /* Security.framework */; };
 		697E5AB31D2ABCF500BA3730 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 697E5AB21D2ABCF400BA3730 /* Images.xcassets */; };
+		6982F78D20D22A090061201A /* SEBEncapsulatedSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 6982F78B20D22A090061201A /* SEBEncapsulatedSettings.h */; };
+		6982F78E20D22A090061201A /* SEBEncapsulatedSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 6982F78C20D22A090061201A /* SEBEncapsulatedSettings.m */; };
 		6986652E16DAE184009C0226 /* SEBWindowSizeValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */; };
 		6986652F16DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */; };
 		6992499216C3B18B00DF6B53 /* PrefsConfigFileViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6992499016C3B18B00DF6B53 /* PrefsConfigFileViewController.h */; };
@@ -560,6 +562,8 @@
 		697DF7F21BEDE37800F5B313 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		697DF7F31BEDE5EA00F5B313 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/SEBBrowserWindow.xib; sourceTree = "<group>"; };
 		697E5AB21D2ABCF400BA3730 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Safe Exam Browser/Images.xcassets"; sourceTree = "<group>"; };
+		6982F78B20D22A090061201A /* SEBEncapsulatedSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEBEncapsulatedSettings.h; sourceTree = "<group>"; };
+		6982F78C20D22A090061201A /* SEBEncapsulatedSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEBEncapsulatedSettings.m; sourceTree = "<group>"; };
 		6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBWindowSizeValueTransformer.h; sourceTree = "<group>"; };
 		6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBWindowSizeValueTransformer.m; sourceTree = "<group>"; };
 		6991A78F14471F5A00F9149D /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SynthesizeSingleton.h; path = Classes/Global/SynthesizeSingleton.h; sourceTree = "<group>"; };
@@ -1206,6 +1210,8 @@
 				69CE9C5C17326AB90011609B /* SEBConfigFileManager.m */,
 				695E02F81F4B15A4004C7611 /* SEBSettings.h */,
 				695E02F91F4B15A4004C7611 /* SEBSettings.m */,
+				6982F78B20D22A090061201A /* SEBEncapsulatedSettings.h */,
+				6982F78C20D22A090061201A /* SEBEncapsulatedSettings.m */,
 			);
 			name = "Config Files";
 			path = Classes/ConfigFiles;
@@ -1623,6 +1629,7 @@
 				69DFAF3319C468E700CBE69F /* RNEncryptor.h in Headers */,
 				69EC2A3D1BD63B4800790AF7 /* WebViewInternal.h in Headers */,
 				69C228181C767B0900F78634 /* cipher_internal.h in Headers */,
+				6982F78D20D22A090061201A /* SEBEncapsulatedSettings.h in Headers */,
 				69DFAF3A19C468E700CBE69F /* RNCryptor OS X-Prefix.pch in Headers */,
 				69C2280B1C767B0900F78634 /* aesni.h in Headers */,
 				6906F3C21A3FA5EE0011CF93 /* NSURL+KKDomain.h in Headers */,
@@ -1884,6 +1891,7 @@
 				69C2286D1C767B0900F78634 /* memory_buffer_alloc.c in Sources */,
 				69F7B61514F411FB00FD0761 /* MyGlobals.m in Sources */,
 				6917744B1A2776FB0039CC39 /* SEBURLFilterRegexExpression.m in Sources */,
+				6982F78E20D22A090061201A /* SEBEncapsulatedSettings.m in Sources */,
 				690BBEB719D30DF800F7C9C6 /* SEBDockView.m in Sources */,
 				6909E34B1A019F7A0086A741 /* DDTTYLogger.m in Sources */,
 				69F7B61614F411FB00FD0761 /* PrefsBrowserViewController.m in Sources */,

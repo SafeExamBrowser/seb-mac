@@ -47,6 +47,7 @@
 #import "PrefsResourcesViewController.h"
 #import "PrefsNetworkViewController.h"
 #import "PrefsSecurityViewController.h"
+#import "SEBEncapsulatedSettings.h"
 
 @class SEBController;
 @class SEBConfigFileManager;
@@ -61,10 +62,7 @@
     IBOutlet NSMenu *settingsMenu;
     
 @private
-    NSDictionary *_settingsBeforeEditing;
-    NSURL *_configURLBeforeEditing;
-    BOOL _userDefaultsPrivateBeforeEditing;
-    NSData *_browserExamKeyBeforeEditing;
+    SEBEncapsulatedSettings *settingsBeforeEditing;
     BOOL restartSEB;
 }
 
