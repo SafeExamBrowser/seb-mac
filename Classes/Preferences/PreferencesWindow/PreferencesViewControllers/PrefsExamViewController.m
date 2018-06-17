@@ -73,16 +73,7 @@
 
 // Delegate called before the Exam settings preferences pane will be displayed
 - (void)willBeDisplayed {
-    // Check if current settings have unsaved changes
-    if (NSUserDefaults.userDefaultsPrivate && [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:!NSUserDefaults.userDefaultsPrivate
-                                                        updateSalt:NO]) {
-        // There are unsaved changes and private UserDefaults are active
-        [self displayMessageKeyChanged];
-    } else {
-        // There are no unsaved changes or local client settings are active
-        [self displayBrowserExamKey];
-        [self displayConfigKey];
-    }
+    [self displayMessageOrReGenerateKey];
 }
 
 - (void)willBeHidden {
@@ -96,7 +87,7 @@
 
 // Action to set the enabled property of dependent buttons
 // This is necessary because bindings don't work with private user defaults
-- (IBAction) useBrowserExamKey:(NSButton *)sender
+- (IBAction)useBrowserExamKey:(NSButton *)sender
 {
     examKeyTextField.enabled = [sender state];
     configKeyTextField.enabled = [sender state];
@@ -105,7 +96,7 @@
 }
 
 
-- (IBAction) generateKeys:(id)sender {
+- (IBAction)generateKeys:(id)sender {
     [self displayMessageOrReGenerateKey];
 }
 
@@ -119,6 +110,13 @@
 #pragma mark -
 #pragma mark Methods to recalculate and display new keys/message for key changed
 
+
+- (void) displayUpdatedKeys
+{
+    [self displayMessageOrReGenerateKey];
+}
+
+
 - (void)displayMessageOrReGenerateKey
 {
     if (NSUserDefaults.userDefaultsPrivate) {
@@ -127,13 +125,16 @@
             // Yes: Display message instead of Browser Exam Key
             [self displayMessageKeyChanged];
         } else {
-            // No, there are no unsaved changes: Display the key again
+            // No, there are no unsaved changes: Display the current keys
             [self displayBrowserExamKey];
             [self displayConfigKey];
         }
     } else {
         // Local client settings are active: Re-generate key
-        [self generateKeys:self];
+        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+        // Display updated keys
+        [self displayBrowserExamKey];
+        [self displayConfigKey];
     }
 }
 
