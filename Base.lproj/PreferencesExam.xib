@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -74,7 +74,7 @@
                             </textField>
                             <textField toolTip="This text is displayed as the title of the password entering/confirming dialog window and tooltip for the Back to Start Button" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qei-df-hVI">
                                 <rect key="frame" x="13" y="65" width="588" height="22"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Restart Exam" drawsBackground="YES" id="sY9-Fu-u2Z">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Back to Start" drawsBackground="YES" id="sY9-Fu-u2Z">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -108,7 +108,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="generateKeys:" target="-2" id="pKj-u6-3x1"/>
+                                    <action selector="restartExamUseStartURL:" target="-2" id="uDl-9k-Mbe"/>
                                     <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_restartExamUseStartURL" id="g9n-vv-NdM"/>
                                 </connections>
                             </button>
@@ -192,7 +192,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="generateKeys:" target="-2" id="o1S-k5-Q8b"/>
+                                    <action selector="useBrowserExamKey:" target="-2" id="mSF-yh-OO5"/>
                                     <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="l9a-kt-cqh"/>
                                 </connections>
                             </button>
