@@ -52,8 +52,8 @@
 @property (strong, nonatomic) IBOutlet NSTextField *examKeyTextField;
 
 - (BOOL) usingPrivateDefaults;
+- (void) displayUpdatedKeys;
 - (IBAction) generateKeys:(id)sender;
 - (IBAction) restartExamUseStartURL:(NSButton *)sender;
-- (void) displayBrowserExamKey;
 
 @end

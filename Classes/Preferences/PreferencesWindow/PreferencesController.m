@@ -262,8 +262,7 @@
     [self.generalVC windowWillClose:[NSNotification notificationWithName:NSWindowWillCloseNotification object:nil]];
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSData *oldBrowserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
-    NSData *oldConfigKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
+    SEBEncapsulatedSettings *oldSettings = [[SEBEncapsulatedSettings alloc] initWithCurrentSettings];
 
     // If private settings are active, check if those current settings have unsaved changes
     if (NSUserDefaults.userDefaultsPrivate && [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO]) {
@@ -276,8 +275,8 @@
             {
                 // Save the current settings data first (this also updates the Browser Exam Key)
                 if (![self savePrefsAs:NO fileURLUpdate:NO]) {
-                    // Saving failed: Abort closing the prefs window, restore old Browser Exam Key
-                    [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
+                    // Saving failed: Abort closing the prefs window, restore possibly changed setting keys
+                    [oldSettings restoreSettings];
                     return NO;
                 }
                 break;
@@ -286,7 +285,8 @@
             case SEBUnsavedSettingsAnswerCancel:
             {
                 // Cancel: Don't close preferences, restore old Browser Exam Key
-                [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
+                // Saving failed: Abort closing the prefs window, restore possibly changed setting keys
+                [oldSettings restoreSettings];
                 return NO;
             }
         }
@@ -316,8 +316,8 @@
                     
                 case SEBApplySettingsAnswerCancel:
                 {
-                    // Cancel: Don't close preferences, restore old Browser Exam Key
-                    [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
+                    // Cancel: Abort closing the prefs window, restore possibly changed setting keys
+                    [oldSettings restoreSettings];
                     return NO;
                 }
             }
@@ -347,8 +347,8 @@
                     
                 case SEBDisabledPreferencesAnswerCancel:
                 {
-                    // Cancel: Don't apply new settings, don't close prefs, restore old Browser Exam Key
-                    [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
+                    // Cancel: Abort closing the prefs window, restore possibly changed setting keys
+                    [oldSettings restoreSettings];
                     return NO;
                 }
             }
@@ -594,8 +594,7 @@
     }
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSData *oldBrowserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
-    NSData *oldConfigKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
+    SEBEncapsulatedSettings *oldSettings = [[SEBEncapsulatedSettings alloc] initWithCurrentSettings];
 
     BOOL browserExamKeyChanged = [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
     
@@ -610,8 +609,9 @@
             {
                 // Save the current settings data first (this also updates the Browser Exam Key)
                 if (![self savePrefsAs:NO fileURLUpdate:NO]) {
-                    // Saving failed: Abort restarting, restore old Browser Exam Key
-                    [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
+                    // Saving failed: Saving failed: Abort closing the prefs window, restore possibly changed setting keys
+                    [oldSettings restoreSettings];
+
                     return;
                 }
                 break;
@@ -619,8 +619,9 @@
                 
             case SEBUnsavedSettingsAnswerCancel:
             {
-                // Cancel: Don't restart, restore old Browser Exam Key
-                [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
+                // Cancel: Don't restart, restore possibly changed setting keys
+                [oldSettings restoreSettings];
+
                 return;
             }
         }
@@ -640,8 +641,9 @@
                 
             case SEBApplySettingsAnswerCancel:
             {
-                // Cancel: Don't restart, restore old Browser Exam Key
-                [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
+                // Cancel: Don't restart, restore possibly changed setting keys
+                [oldSettings restoreSettings];
+
                 return;
             }
         }
@@ -670,8 +672,9 @@
                 
             case SEBDisabledPreferencesAnswerCancel:
             {
-                // Cancel: Don't apply new settings, don't restart, restore old Browser Exam Key
-                [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
+                // Cancel: Don't apply new settings, don't restart, restore possibly changed setting keys
+                [oldSettings restoreSettings];
+
                 return;
             }
         }
@@ -693,8 +696,7 @@
     }
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSData *oldBrowserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
-    NSData *oldConfigKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
+    SEBEncapsulatedSettings *oldSettings = [[SEBEncapsulatedSettings alloc] initWithCurrentSettings];
 
     BOOL browserExamKeyChanged = [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
     
@@ -709,8 +711,9 @@
             {
                 // Save the current settings data first (this also updates the Browser Exam Key if saving is successful)
                 if (![self savePrefsAs:NO fileURLUpdate:NO]) {
-                    // Saving failed: Abort quitting, restore old Browser Exam Key
-                    [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
+                    // Saving failed: Abort quitting, restore possibly changed setting keys
+                    [oldSettings restoreSettings];
+
                     return;
                 }
                 break;
@@ -718,8 +721,9 @@
                 
             case SEBUnsavedSettingsAnswerCancel:
             {
-                // Cancel: Don't quit, restore old Browser Exam Key
-                [preferences setSecureObject:oldBrowserExamKey forKey:@"org_safeexambrowser_currentData"];
+                // Cancel: Don't quit, restore possibly changed setting keys
+                [oldSettings restoreSettings];
+
                 return;
             }
         }
@@ -958,7 +962,7 @@
                 return NO;
             }
         }
-        [self.examVC displayBrowserExamKey];
+        [self.examVC displayUpdatedKeys];
 
         // When Save As with local user defaults we ask if the saved file should be edited further
         if (saveAs && !NSUserDefaults.userDefaultsPrivate) {
