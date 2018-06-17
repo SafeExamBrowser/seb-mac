@@ -54,7 +54,6 @@
 - (BOOL) usingPrivateDefaults;
 - (IBAction) generateKeys:(id)sender;
 - (IBAction) restartExamUseStartURL:(NSButton *)sender;
-- (IBAction) restartExamPasswordProtected:(id)sender;
 - (void) displayBrowserExamKey;
 
 @end
