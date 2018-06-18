@@ -467,21 +467,10 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
                                                               containedKeysPtr:&containedKeysMutable
                                                                        jsonPtr:&jsonString];
 
-    // Get current salt for Config Key
-    NSData *HMACKey = [sourceDictionary objectForKey:@"configKeySalt"];
-    // If there was no salt yet, then we generate it
-    if ([HMACKey isEqualToData:[NSData data]]) {
-        HMACKey = [self generateConfigKeySalt];
-        NSMutableDictionary *processedDictionaryMutable = [processedDictionary mutableCopy];
-        [processedDictionaryMutable setObject:HMACKey forKey:@"configKeySalt"];
-        processedDictionary = [processedDictionaryMutable copy];
-        DDLogInfo(@"Generated Config Key salt as there was none defined yet.");
-    }
-    
     *configKeyContainedKeys = [containedKeysMutable copy];
     
     // Convert preferences dictionary to JSON and generate the Config Key hash
-    *configKeyRef = [self checksumForJSONString:[jsonString copy] withSalt:HMACKey];
+    *configKeyRef = [self checksumForJSONString:[jsonString copy] withSalt:[NSData data]];
     
     return processedDictionary;
 }
