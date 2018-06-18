@@ -866,6 +866,7 @@
         
         // Preset "SebClientSettings.seb" as default file name
         currentConfigFileURL = [NSURL fileURLWithPath:@"SebClientSettings.seb" isDirectory:NO];
+        
     } else {
         
         /// Private settings are active
@@ -933,6 +934,7 @@
                     [newAlert runModal];
 
                     [oldSettings restoreSettings];
+                    return NO;
                     
                 } else {
                     // Prefs got successfully written to file
@@ -1009,10 +1011,12 @@
             }
         }
         return YES;
+        
+    } else {
+        // This is only executed when there would be an error encrypting the SEB settings
+        [oldSettings restoreSettings];
+        return NO;
     }
-    // This is only executed when there would be an error encrypting the SEB settings
-    [oldSettings restoreSettings];
-    return NO;
 }
 
 
