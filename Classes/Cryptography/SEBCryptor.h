@@ -39,6 +39,7 @@
     
     @private
     NSData *_currentKey;
+    dispatch_queue_t lockQueue;
 }
 
 //@property (nonatomic, readwrite, strong) NSData *HMACKey;
