@@ -199,9 +199,19 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 // Returns true if the checksum actually changed
 - (BOOL)updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt
 {
-    NSData *newChecksum;
-    return [self updateEncryptedUserDefaults:updateUserDefaults updateSalt:generateNewSalt newChecksum:&newChecksum];
+    if (!lockQueue) {
+        lockQueue = dispatch_queue_create("org.safeexambrowser.cryptorqueue", NULL);
+    }
+    __block BOOL encryptedUserDefaultsChanged;
+    
+    dispatch_sync(lockQueue, ^{
+        NSData *newChecksum;
+        encryptedUserDefaultsChanged = [self updateEncryptedUserDefaults:updateUserDefaults updateSalt:generateNewSalt newChecksum:&newChecksum];
+    });
+    
+    return encryptedUserDefaultsChanged;
 }
+
 
 - (BOOL)updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt newChecksum:(NSData **)newChecksumPtr
 {
