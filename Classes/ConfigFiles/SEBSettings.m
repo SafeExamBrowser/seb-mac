@@ -252,40 +252,40 @@
                    @NO,
                    @"enableStartMenu",
                    
-                   @NO,
+                   @YES,
                    @"enableF1",
                    
-                   @NO,
+                   @YES,
                    @"enableF2",
                    
-                   @NO,
+                   @YES,
                    @"enableF3",
                    
-                   @NO,
+                   @YES,
                    @"enableF4",
                    
                    @YES,
                    @"enableF5",
                    
-                   @NO,
+                   @YES,
                    @"enableF6",
                    
-                   @NO,
+                   @YES,
                    @"enableF7",
                    
-                   @NO,
+                   @YES,
                    @"enableF8",
                    
-                   @NO,
+                   @YES,
                    @"enableF9",
                    
-                   @NO,
+                   @YES,
                    @"enableF10",
                    
-                   @NO,
+                   @YES,
                    @"enableF11",
                    
-                   @NO,
+                   @YES,
                    @"enableF12",
                    
                    @YES,
