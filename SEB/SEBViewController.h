@@ -154,6 +154,9 @@
 
 @property (strong, nonatomic) NSLayoutConstraint *toolBarHeightConstraint;
 @property (strong, nonatomic) NSLayoutConstraint *navigationBarHeightConstraint;
+@property (strong, nonatomic) NSLayoutConstraint *navigationBarBottomConstraint;
+@property (strong, nonatomic) NSLayoutConstraint *navigationBarLeftConstraintToSafeArea;
+@property (strong, nonatomic) NSLayoutConstraint *navigationBarLeftConstraintToSuperView;
 
 @property(readwrite) BOOL quittingClientConfig;
 @property(readwrite) BOOL secureMode;

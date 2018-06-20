@@ -271,19 +271,22 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
-{
-    if (_navigationBarHeightConstraint) {
-        CGFloat navigationBarHeight = newCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 32 : 46;
-        _navigationBarHeightConstraint.constant = navigationBarHeight;
-    }
-    [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
-}
-
-
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
 {
     [super traitCollectionDidChange: previousTraitCollection];
+
+    if (_navigationBarHeightConstraint) {
+        CGFloat navigationBarHeight = self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 32 : 46;
+        CGFloat navigationBarOffset = self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 0 : 12;
+        
+        _navigationBarHeightConstraint.constant = navigationBarHeight;
+        
+        if (self.sideMenuController.isLeftViewVisible) {
+            _navigationBarBottomConstraint.constant = navigationBarOffset;
+        } else {
+            _navigationBarBottomConstraint.constant = 0;
+        }
+    }
 
     if (_toolBarHeightConstraint) {
         CGFloat toolBarHeight = self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 36 : 46;
@@ -300,13 +303,6 @@ static NSMutableSet *browserWindowControllers;
             [self viewSafeAreaInsetsDidChange];
         }
     }
-   
-//    if (@available(iOS 11.0, *)) {
-//        UIEdgeInsets newSafeArea = UIEdgeInsetsZero;
-//        self.parentViewController.additionalSafeAreaInsets = newSafeArea;
-//        [self viewSafeAreaInsetsDidChange];
-//    }
-
 }
 
 
@@ -981,14 +977,15 @@ void run_on_ui_thread(dispatch_block_t block)
                 self.navigationController.navigationBar.translucent = YES;
                 
                 // browser toolbar (NavigationBar) leading constraint to safe area guide of superview
-                [constraints_H addObject:[NSLayoutConstraint constraintWithItem:_navigationBarView
+                _navigationBarLeftConstraintToSafeArea = [NSLayoutConstraint constraintWithItem:_navigationBarView
                                                                       attribute:NSLayoutAttributeLeading
                                                                       relatedBy:NSLayoutRelationEqual
                                                                          toItem:_containerView.safeAreaLayoutGuide
                                                                       attribute:NSLayoutAttributeLeading
                                                                      multiplier:1.0
-                                                                       constant:0]];
-                
+                                                                       constant:0];
+                [constraints_H addObject: _navigationBarLeftConstraintToSafeArea];
+
                 // browser toolbar (NavigationBar)  trailling constraint to safe area guide of superview
                 [constraints_H addObject:[NSLayoutConstraint constraintWithItem:_navigationBarView
                                                                       attribute:NSLayoutAttributeTrailing
@@ -1010,7 +1007,6 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                          constant:navigationBarHeight];
                 [constraints_V addObject: _navigationBarHeightConstraint];
                 
-                
                 // dock/toolbar bottom constraint to background view top
                 [constraints_V addObject:[NSLayoutConstraint constraintWithItem:_statusBarView
                                                                       attribute:NSLayoutAttributeBottom
@@ -1021,13 +1017,14 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                        constant:0]];
                 
                  // browser tool bar top constraint to safe area guide bottom of superview
-                [constraints_V addObject:[NSLayoutConstraint constraintWithItem:_navigationBarView
+                _navigationBarBottomConstraint = [NSLayoutConstraint constraintWithItem:_navigationBarView
                                                                       attribute:NSLayoutAttributeBottom
                                                                       relatedBy:NSLayoutRelationEqual
                                                                          toItem:_containerView.safeAreaLayoutGuide
                                                                       attribute:NSLayoutAttributeTop
                                                                      multiplier:1.0
-                                                                       constant:0]];
+                                                                       constant:0];
+                [constraints_V addObject: _navigationBarBottomConstraint];
                 
                 [NSLayoutConstraint activateConstraints:constraints_H];
                 [NSLayoutConstraint activateConstraints:constraints_V];
