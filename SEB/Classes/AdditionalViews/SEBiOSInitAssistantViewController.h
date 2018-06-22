@@ -43,6 +43,7 @@
 
 @interface SEBiOSInitAssistantViewController : UIViewController <SEBInitAssistantDelegate, SEBConfigURLManagerDelegate> {
     
+    __weak IBOutlet UIScrollView *scrollView;
     __weak IBOutlet UITextField *configURLField;
     __weak IBOutlet UIActivityIndicatorView *loadingConfig;
     __weak IBOutlet UILabel *noConfigURLFoundLabel;
