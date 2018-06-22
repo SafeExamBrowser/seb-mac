@@ -609,6 +609,7 @@
                                             <constraint firstItem="ZPF-r1-tk6" firstAttribute="leading" secondItem="dvS-YS-Rz4" secondAttribute="leading" constant="20" id="TOn-z0-6rZ"/>
                                             <constraint firstItem="1bF-7Z-Q9L" firstAttribute="leading" secondItem="dvS-YS-Rz4" secondAttribute="leading" constant="20" id="VaN-t0-KoK"/>
                                             <constraint firstItem="Noz-c0-4pb" firstAttribute="leading" secondItem="dvS-YS-Rz4" secondAttribute="leading" constant="32" id="Vl8-oL-6Q8"/>
+                                            <constraint firstItem="Wmj-TM-U1f" firstAttribute="top" relation="greaterThanOrEqual" secondItem="dvS-YS-Rz4" secondAttribute="top" constant="15" id="YQg-B2-wVN"/>
                                             <constraint firstItem="7o6-KW-3Qp" firstAttribute="centerY" secondItem="6pO-9x-gSg" secondAttribute="centerY" id="a08-Vh-Stn"/>
                                             <constraint firstItem="Wmj-TM-U1f" firstAttribute="leading" secondItem="dvS-YS-Rz4" secondAttribute="leading" constant="20" id="a0U-dD-CYr"/>
                                             <constraint firstItem="9il-ut-H8z" firstAttribute="trailing" secondItem="7o6-KW-3Qp" secondAttribute="trailing" id="cLo-Kt-NoU"/>
@@ -671,6 +672,7 @@
                         <outlet property="loadingConfig" destination="fIn-8J-8FZ" id="Pyr-ve-A0U"/>
                         <outlet property="noConfigQRCodeFoundLabel" destination="fem-Ic-Pih" id="oh9-gt-NO8"/>
                         <outlet property="noConfigURLFoundLabel" destination="9il-ut-H8z" id="cD9-rU-0E5"/>
+                        <outlet property="scrollView" destination="ltZ-M4-c8e" id="GGj-C1-NXz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="agb-Z3-6wR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -686,7 +688,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQa-Q9-gCh">
-                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="778"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tMF-sG-E2Z">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="116"/>
@@ -779,10 +781,10 @@
                                 <viewLayoutGuide key="safeArea" id="rjk-by-7ZV"/>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="HML-YJ-N2F" firstAttribute="bottom" secondItem="nQa-Q9-gCh" secondAttribute="bottom" id="2wh-sN-4p9"/>
-                            <constraint firstItem="nQa-Q9-gCh" firstAttribute="top" secondItem="TRi-6W-cpL" secondAttribute="top" constant="44" id="QQA-Tf-Pbq"/>
+                            <constraint firstItem="nQa-Q9-gCh" firstAttribute="top" secondItem="TRi-6W-cpL" secondAttribute="top" id="QQA-Tf-Pbq"/>
                             <constraint firstItem="HML-YJ-N2F" firstAttribute="trailing" secondItem="nQa-Q9-gCh" secondAttribute="trailing" id="dVf-An-b4z"/>
                             <constraint firstItem="tMF-sG-E2Z" firstAttribute="width" secondItem="TRi-6W-cpL" secondAttribute="width" id="eDm-Iz-3h2"/>
                             <constraint firstItem="nQa-Q9-gCh" firstAttribute="leading" secondItem="HML-YJ-N2F" secondAttribute="leading" id="o2k-bG-IrH"/>

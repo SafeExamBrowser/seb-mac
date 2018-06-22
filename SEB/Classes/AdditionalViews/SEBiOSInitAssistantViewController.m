@@ -63,11 +63,10 @@
     [configURLField addTarget:configURLField
                   action:@selector(resignFirstResponder)
         forControlEvents:UIControlEventEditingDidEndOnExit];
-}
-
-
-- (void)viewDidLayoutSubviews
-{
+    
+    if (@available(iOS 11.0, *)) {
+        scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    };
 }
 
 
