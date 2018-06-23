@@ -690,11 +690,11 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQa-Q9-gCh">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="778"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tMF-sG-E2Z">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="116"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tMF-sG-E2Z" userLabel="Content View">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="135"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6PK-IY-rk8">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6PK-IY-rk8" userLabel="SEB Header View">
+                                                <rect key="frame" x="0.0" y="19" width="375" height="76"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SEBAppIcon_256.png" translatesAutoresizingMaskIntoConstraints="NO" id="Xbh-jE-19H">
                                                         <rect key="frame" x="8" y="8" width="80" height="80"/>
@@ -754,7 +754,7 @@
                                                 <viewLayoutGuide key="safeArea" id="jrG-PF-62a"/>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RLL-cr-aYF" userLabel="Copyright Text">
-                                                <rect key="frame" x="15" y="96" width="345" height="0.0"/>
+                                                <rect key="frame" x="15" y="115" width="345" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -765,11 +765,13 @@
                                             <constraint firstItem="6PK-IY-rk8" firstAttribute="leading" secondItem="tMF-sG-E2Z" secondAttribute="leading" id="1Jv-Wd-H4I"/>
                                             <constraint firstAttribute="trailing" secondItem="RLL-cr-aYF" secondAttribute="trailing" constant="15" id="2Gp-Wu-ilA"/>
                                             <constraint firstAttribute="trailing" secondItem="6PK-IY-rk8" secondAttribute="trailing" id="Hmd-wa-0Wf"/>
-                                            <constraint firstItem="6PK-IY-rk8" firstAttribute="top" secondItem="tMF-sG-E2Z" secondAttribute="top" id="ic9-0x-10S"/>
+                                            <constraint firstItem="6PK-IY-rk8" firstAttribute="top" relation="greaterThanOrEqual" secondItem="tMF-sG-E2Z" secondAttribute="top" id="ced-rc-cfT"/>
+                                            <constraint firstItem="6PK-IY-rk8" firstAttribute="top" secondItem="ZPX-ue-C0r" secondAttribute="top" constant="-25" id="ic9-0x-10S"/>
                                             <constraint firstItem="RLL-cr-aYF" firstAttribute="leading" secondItem="tMF-sG-E2Z" secondAttribute="leading" constant="15" id="pZZ-Er-eCm"/>
                                             <constraint firstItem="RLL-cr-aYF" firstAttribute="top" secondItem="6PK-IY-rk8" secondAttribute="bottom" constant="20" id="sb5-Nw-kdR"/>
                                             <constraint firstAttribute="bottom" secondItem="RLL-cr-aYF" secondAttribute="bottom" constant="20" id="vY0-p9-DFb"/>
                                         </constraints>
+                                        <viewLayoutGuide key="safeArea" id="ZPX-ue-C0r"/>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -794,6 +796,7 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="copyrightLabel" destination="RLL-cr-aYF" id="QNe-Vg-rTw"/>
+                        <outlet property="scrollView" destination="nQa-Q9-gCh" id="lCq-kD-rM8"/>
                         <outlet property="versionLabel" destination="C6t-3t-DKh" id="HZO-4A-peS"/>
                     </connections>
                 </viewController>
