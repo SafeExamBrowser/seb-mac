@@ -58,6 +58,10 @@
     SEBAboutController *aboutController = [SEBAboutController new];
     versionLabel.text = [aboutController version];
     copyrightLabel.text = [aboutController copyright];
+    
+    if (@available(iOS 11.0, *)) {
+        scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    };
 }
 
 
