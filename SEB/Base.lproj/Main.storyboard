@@ -788,7 +788,7 @@
                             <constraint firstItem="HML-YJ-N2F" firstAttribute="bottom" secondItem="nQa-Q9-gCh" secondAttribute="bottom" id="2wh-sN-4p9"/>
                             <constraint firstItem="nQa-Q9-gCh" firstAttribute="top" secondItem="TRi-6W-cpL" secondAttribute="top" id="QQA-Tf-Pbq"/>
                             <constraint firstItem="HML-YJ-N2F" firstAttribute="trailing" secondItem="nQa-Q9-gCh" secondAttribute="trailing" id="dVf-An-b4z"/>
-                            <constraint firstItem="tMF-sG-E2Z" firstAttribute="width" secondItem="TRi-6W-cpL" secondAttribute="width" id="eDm-Iz-3h2"/>
+                            <constraint firstItem="tMF-sG-E2Z" firstAttribute="width" secondItem="nQa-Q9-gCh" secondAttribute="width" id="eDm-Iz-3h2"/>
                             <constraint firstItem="nQa-Q9-gCh" firstAttribute="leading" secondItem="HML-YJ-N2F" secondAttribute="leading" id="o2k-bG-IrH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HML-YJ-N2F"/>
