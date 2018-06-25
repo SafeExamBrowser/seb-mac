@@ -167,6 +167,14 @@ bool insideMatrix(void);
             
             /// Open settings file for exam/reconfiguring client
             
+            // Check if any alerts are open in SEB, abort opening if yes
+            if (_modalAlertWindows.count) {
+                DDLogError(@"%lu Modal window(s) displayed, aborting before opening new settings.", (unsigned long)_modalAlertWindows.count);
+                _openingSettings = false;
+                // We have to return YES anyways, because otherwise the system displays an error message
+                return YES;
+            }
+            
             // Check if SEB is in exam mode = private UserDefauls are switched on
             if (NSUserDefaults.userDefaultsPrivate) {
                 NSAlert *modalAlert = [self newAlert];
@@ -220,6 +228,12 @@ bool insideMatrix(void);
 
 - (void)handleGetURLEvent:(NSAppleEventDescriptor*)event withReplyEvent:(NSAppleEventDescriptor*)replyEvent
 {
+    // Check if any alerts are open in SEB, abort opening if yes
+    if (_modalAlertWindows.count) {
+        DDLogError(@"%lu Modal window(s) displayed, aborting before opening new settings.", (unsigned long)_modalAlertWindows.count);
+        return;
+    }
+
     NSString *urlString = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
     NSURL *url = [NSURL URLWithString:urlString];
     if (url && !_openingSettings) {
