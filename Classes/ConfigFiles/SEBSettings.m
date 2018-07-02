@@ -144,6 +144,9 @@
                    @YES,
                    @"browserWindowAllowReload",
                    
+                   [NSNumber numberWithLong:browserWindowShowURLBeforeTitle],
+                   @"browserWindowShowURL",
+
                    [NSNumber numberWithLong:manuallyWithFileRequester],
                    @"chooseFileToUploadPolicy",
                    
