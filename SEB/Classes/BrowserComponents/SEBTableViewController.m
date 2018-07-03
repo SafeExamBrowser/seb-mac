@@ -477,6 +477,8 @@
 // Bugfix for iPhone X: Otherwise after the first rotation the table view section header is invisible...
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
 {
+    [super traitCollectionDidChange:previousTraitCollection];
+    
     [self.tableView reloadData];
 }
 
