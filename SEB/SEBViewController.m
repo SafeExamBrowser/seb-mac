@@ -275,6 +275,8 @@ static NSMutableSet *browserWindowControllers;
 {
     [super traitCollectionDidChange: previousTraitCollection];
 
+    _bottomBackgroundView.hidden = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact);
+
     if (_navigationBarHeightConstraint) {
         CGFloat navigationBarHeight = self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 32 : 46;
         CGFloat navigationBarOffset = self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 0 : 12;
@@ -1032,7 +1034,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 [NSLayoutConstraint activateConstraints:constraints_V];
                 
                 if (!UIAccessibilityIsReduceTransparencyEnabled()) {
-                    [self addBlurEffectToBarView:_navigationBarView];
+                    [self addBlurEffectStyle:UIBlurEffectStyleRegular toBarView:_navigationBarView backgroundTint:YES];
 
                 } else {
                     _navigationBarView.backgroundColor = [UIColor lightGrayColor];
@@ -1069,11 +1071,17 @@ void run_on_ui_thread(dispatch_block_t block)
         [self.view addConstraints:constraints_H];
         [self.view addConstraints:constraints_V];
         
-        _statusBarView.backgroundColor = ((statusBarAppearance == mobileStatusBarAppearanceLight ||
-                                           statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ?
-                                          [UIColor blackColor] : [UIColor whiteColor]);
+        if (statusBarAppearance == mobileStatusBarAppearanceLight ||
+            statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) {
+            _statusBarView.backgroundColor = [UIColor blackColor];
+            [self addBlurEffectStyle:UIBlurEffectStyleDark toBarView:_statusBarView backgroundTint:NO];
+        } else {
+            _statusBarView.backgroundColor = [UIColor whiteColor];
+            [self addBlurEffectStyle:UIBlurEffectStyleExtraLight toBarView:_statusBarView backgroundTint:NO];
+        }
         _statusBarView.hidden = false;
 
+        
         [self setNeedsStatusBarAppearanceUpdate];
 
         //// Initialize SEB Dock, commands section in the slider view and
@@ -1121,14 +1129,21 @@ void run_on_ui_thread(dispatch_block_t block)
                     [self.navigationController.toolbar setShadowImage:[UIImage new] forToolbarPosition:UIBarPositionBottom];
                     self.navigationController.toolbar.translucent = YES;
                     
+                    if (_bottomBackgroundView) {
+                        [_bottomBackgroundView removeFromSuperview];
+                    }
+                    _bottomBackgroundView = [UIView new];
+                    [_bottomBackgroundView setTranslatesAutoresizingMaskIntoConstraints:NO];
+                    [self.view addSubview:_bottomBackgroundView];
+
+                    if (_toolBarView) {
+                        [_toolBarView removeFromSuperview];
+                    }
                     _toolBarView = [UIView new];
                     [_toolBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
                     [self.view addSubview:_toolBarView];
                     
-                    _bottomBackgroundView = [UIView new];
-                    [_bottomBackgroundView setTranslatesAutoresizingMaskIntoConstraints:NO];
-                    [self.view addSubview:_bottomBackgroundView];
-                    
+
                     NSDictionary *viewsDictionary = @{@"toolBarView" : _toolBarView,
                                                       @"bottomBackgroundView" : _bottomBackgroundView,
                                                       @"containerView" : _containerView};
@@ -1202,12 +1217,10 @@ void run_on_ui_thread(dispatch_block_t block)
                     
                     [self.view addConstraints:constraints_H];
                     [self.view addConstraints:constraints_V];
-//                    [NSLayoutConstraint activateConstraints:constraints_H];
-//                    [NSLayoutConstraint activateConstraints:constraints_V];
                     
                     if (!UIAccessibilityIsReduceTransparencyEnabled()) {
-                        [self addBlurEffectToBarView:_toolBarView];
-
+                        [self addBlurEffectStyle:UIBlurEffectStyleRegular toBarView:_toolBarView backgroundTint:YES];
+                        
                     } else {
                         _toolBarView.backgroundColor = [UIColor lightGrayColor];
                     }
@@ -1217,23 +1230,25 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                                                          options: 0
                                                                                                          metrics: nil
                                                                                                            views: viewsDictionary];
-                    
+
                     [self.view addConstraints:bottomBackgroundViewConstraints_H];
                     
-                    _bottomBackgroundView.backgroundColor = ((statusBarAppearance == mobileStatusBarAppearanceLight ||
-                                                              statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark)
-                                                             ? [UIColor blackColor] : [UIColor whiteColor]);
-                    _bottomBackgroundView.hidden = false;
+                    if (statusBarAppearance == mobileStatusBarAppearanceLight ||
+                        statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) {
+//                        _bottomBackgroundView.backgroundColor = [UIColor blackColor];
+                        [self addBlurEffectStyle:UIBlurEffectStyleDark toBarView:_bottomBackgroundView backgroundTint:NO];
+                    } else {
+//                        _bottomBackgroundView.backgroundColor = [UIColor whiteColor];
+                        [self addBlurEffectStyle:UIBlurEffectStyleExtraLight toBarView:_bottomBackgroundView backgroundTint:NO];
+                    }
+                    if (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
+                    }
+                    _bottomBackgroundView.hidden = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact);
                     
                     CGFloat bottomPadding = window.safeAreaInsets.bottom;
                     CGFloat bottomMargin = window.layoutMargins.bottom;
                     CGFloat bottomInset = self.view.superview.safeAreaInsets.bottom;
                     NSLog(@"%f, %f, %f, ", bottomPadding, bottomMargin, bottomInset);
-                    
-//                } else {
-//                    _toolBarHeightConstraint = nil;
-//                    [self.navigationController.toolbar setBackgroundImage:nil forToolbarPosition:UIBarPositionBottom barMetrics:UIBarMetricsDefault];
-//                    [self.navigationController.toolbar setShadowImage:nil forToolbarPosition:UIBarPositionBottom];
                 }
             }
             
@@ -1252,14 +1267,23 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void) addBlurEffectToBarView: (UIView *)barView
+- (void) addBlurEffectStyle: (UIBlurEffectStyle)style toBarView: (UIView *)barView backgroundTint: (BOOL)backgroundTint
 {
     barView.backgroundColor = [UIColor clearColor];
-    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
+    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:style];
     UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
     blurEffectView.frame = barView.bounds;
     blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [barView addSubview:blurEffectView];
+    
+    if (backgroundTint) {
+        UIView *backgroundTintView = [UIView new];
+        backgroundTintView.frame = barView.bounds;
+        backgroundTintView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        backgroundTintView.backgroundColor = [UIColor lightGrayColor];
+        backgroundTintView.alpha = 0.5;
+        [barView addSubview:backgroundTintView];
+    }
 }
 
 
