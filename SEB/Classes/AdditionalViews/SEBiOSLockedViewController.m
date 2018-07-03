@@ -83,8 +83,10 @@
 }
 
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
 {
+    [super traitCollectionDidChange:previousTraitCollection];
+    
     [self scrollToBottom];
 }
 

@@ -327,10 +327,11 @@ static NSMutableSet *browserWindowControllers;
 - (void)didHideLeftView:(nonnull UIView *)leftView sideMenuController:(nonnull LGSideMenuController *)sideMenuController;
 {
     if (@available(iOS 11.0, *)) {
-        // Check if running on a device like iPhone X
-        UIEdgeInsets newSafeArea = UIEdgeInsetsZero;
-        self.parentViewController.additionalSafeAreaInsets = newSafeArea;
-        [self viewSafeAreaInsetsDidChange];
+        if (_navigationBarHeightConstraint || _toolBarHeightConstraint) {
+            UIEdgeInsets newSafeArea = UIEdgeInsetsZero;
+            self.parentViewController.additionalSafeAreaInsets = newSafeArea;
+            [self viewSafeAreaInsetsDidChange];
+        }
     }
 }
 
@@ -338,11 +339,12 @@ static NSMutableSet *browserWindowControllers;
 - (void)changeLeftSafeAreaInset
 {
     if (@available(iOS 11.0, *)) {
-        // Check if running on a device like iPhone X
-        CGFloat leftSafeAreaInset = self.view.safeAreaInsets.left;
-        UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, -leftSafeAreaInset, 0, 0);
-        self.parentViewController.additionalSafeAreaInsets = newSafeArea;
-        [self viewSafeAreaInsetsDidChange];
+        if (_navigationBarHeightConstraint || _toolBarHeightConstraint) {
+            CGFloat leftSafeAreaInset = self.view.safeAreaInsets.left;
+            UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, -leftSafeAreaInset, 0, 0);
+            self.parentViewController.additionalSafeAreaInsets = newSafeArea;
+            [self viewSafeAreaInsetsDidChange];
+        }
     }
 }
 
@@ -1030,27 +1032,32 @@ void run_on_ui_thread(dispatch_block_t block)
                 [NSLayoutConstraint activateConstraints:constraints_V];
                 
                 if (!UIAccessibilityIsReduceTransparencyEnabled()) {
-                    _navigationBarView.backgroundColor = [UIColor clearColor];
-                    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
-                    UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-                    blurEffectView.frame = _navigationBarView.bounds;
-                    blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-                    [_navigationBarView addSubview:blurEffectView];
+                    [self addBlurEffectToBarView:_navigationBarView];
+
                 } else {
                     _navigationBarView.backgroundColor = [UIColor lightGrayColor];
                 }
                 _navigationBarView.hidden = false;
                 
             } else {
-                [constraints_V addObject:[NSLayoutConstraint constraintWithItem:_statusBarView
-                                                                      attribute:NSLayoutAttributeBottom
-                                                                      relatedBy:NSLayoutRelationEqual
-                                                                         toItem:_containerView.safeAreaLayoutGuide
-                                                                      attribute:NSLayoutAttributeTop
-                                                                     multiplier:1.0
-                                                                       constant:0]];
+                if (self.sebUIController.browserToolbarEnabled) {
+                    [constraints_V addObject:[NSLayoutConstraint constraintWithItem:_statusBarView
+                                                                          attribute:NSLayoutAttributeHeight
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:nil
+                                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                                         multiplier:1.0
+                                                                           constant:0]];
+                } else {
+                    [constraints_V addObject:[NSLayoutConstraint constraintWithItem:_statusBarView
+                                                                          attribute:NSLayoutAttributeBottom
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:_containerView.safeAreaLayoutGuide
+                                                                          attribute:NSLayoutAttributeTop
+                                                                         multiplier:1.0
+                                                                           constant:0]];
+                }
             }
-                        
             
         } else {
             [constraints_V addObject:[NSLayoutConstraint constraintsWithVisualFormat: @"V:|-0-[statusBarView(==20)]-0-[containerView]"
@@ -1199,12 +1206,8 @@ void run_on_ui_thread(dispatch_block_t block)
 //                    [NSLayoutConstraint activateConstraints:constraints_V];
                     
                     if (!UIAccessibilityIsReduceTransparencyEnabled()) {
-                        _toolBarView.backgroundColor = [UIColor clearColor];
-                        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
-                        UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-                        blurEffectView.frame = _toolBarView.bounds;
-                        blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-                        [_toolBarView addSubview:blurEffectView];
+                        [self addBlurEffectToBarView:_toolBarView];
+
                     } else {
                         _toolBarView.backgroundColor = [UIColor lightGrayColor];
                     }
@@ -1246,6 +1249,17 @@ void run_on_ui_thread(dispatch_block_t block)
             [self.navigationController setNavigationBarHidden:YES];
         }
     });
+}
+
+
+- (void) addBlurEffectToBarView: (UIView *)barView
+{
+    barView.backgroundColor = [UIColor clearColor];
+    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
+    UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+    blurEffectView.frame = barView.bounds;
+    blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [barView addSubview:blurEffectView];
 }
 
 
