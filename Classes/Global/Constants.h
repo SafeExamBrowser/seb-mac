@@ -192,6 +192,14 @@ typedef NSUInteger mobileStatusBarAppearancesExtended;
 
 
 enum {
+    SEBBackgroundTintStyleNone                  = 0,
+    SEBBackgroundTintStyleLight                 = 1,
+    SEBBackgroundTintStyleDark                  = 2
+};
+typedef NSUInteger SEBBackgroundTintStyle;
+
+
+enum {
     getGenerallyBlocked                         = 0,
     openInSameWindow                            = 1,
     openInNewWindow                             = 2
