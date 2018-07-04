@@ -173,6 +173,7 @@
 
 @property(strong) SEBDockItemButton *dockButtonReload;
 
+- (void) didOpenSettings;
 
 - (NSAlert *) newAlert;
 - (void) removeAlertWindow:(NSWindow *)alertWindow;
