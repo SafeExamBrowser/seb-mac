@@ -498,6 +498,33 @@ static NSNumber *_logLevel;
 }
 
 
+- (BOOL)persistedSecureBoolForKey:(NSString *)key
+{
+    BOOL usingPrivateUserDefaults = NSUserDefaults.userDefaultsPrivate;
+    if (usingPrivateUserDefaults) {
+        [NSUserDefaults setUserDefaultsPrivate:false];
+    }
+    BOOL persistedBool = [self secureBoolForKey:key];
+    if (usingPrivateUserDefaults) {
+        [NSUserDefaults setUserDefaultsPrivate:true];
+    }
+    return persistedBool;
+}
+
+
+- (void)setPersistedSecureBool:(BOOL)boolValue forKey:(NSString *)key
+{
+    BOOL usingPrivateUserDefaults = NSUserDefaults.userDefaultsPrivate;
+    if (usingPrivateUserDefaults) {
+        [NSUserDefaults setUserDefaultsPrivate:false];
+    }
+    [self setSecureBool:boolValue forKey:key];
+    if (usingPrivateUserDefaults) {
+        [NSUserDefaults setUserDefaultsPrivate:true];
+    }
+}
+
+
 #pragma mark -
 #pragma mark Read accessors
 

@@ -46,9 +46,9 @@
 // Restore cached settings for Siri and dictation
 - (void) restoreSystemSettings;
 
-- (void) preventSC;
-- (BOOL) restoreSC;
-- (void) adjustSC;
+- (void) preventScreenCapture;
+- (BOOL) restoreScreenCapture;
+- (void) adjustScreenCapture;
 
 
 - (BOOL) checkHTTPSProxySetting;
