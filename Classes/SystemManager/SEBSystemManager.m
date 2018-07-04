@@ -51,11 +51,11 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
     
     // Cache current system preferences setting for Siri
     BOOL siriEnabled = [[preferences valueForDefaultsDomain:SiriDefaultsDomain key:SiriDefaultsKey] boolValue];
-    [preferences setSecureBool:siriEnabled forKey:cachedSiriSettingKey];
+    [preferences setPersistedSecureBool:siriEnabled forKey:cachedSiriSettingKey];
     
     // Cache current system preferences setting for dictation
     BOOL dictationEnabled = [[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue];
-    [preferences setSecureBool:dictationEnabled forKey:cachedDictationSettingKey];
+    [preferences setPersistedSecureBool:dictationEnabled forKey:cachedDictationSettingKey];
 }
 
 
@@ -65,16 +65,16 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
     // Restore setting for Siri before SEB was running to system preferences
-    BOOL siriEnabled = [preferences secureBoolForKey:cachedSiriSettingKey];
+    BOOL siriEnabled = [preferences persistedSecureBoolForKey:cachedSiriSettingKey];
     [preferences setValue:[NSNumber numberWithBool:siriEnabled] forKey:SiriDefaultsKey forDefaultsDomain:SiriDefaultsDomain];
     
     // Restore setting for dictation before SEB was running to system preferences
-    BOOL dictationEnabled = [preferences secureBoolForKey:cachedDictationSettingKey];
+    BOOL dictationEnabled = [preferences persistedSecureBoolForKey:cachedDictationSettingKey];
     [preferences setValue:[NSNumber numberWithBool:dictationEnabled] forKey:DictationDefaultsKey forDefaultsDomain:DictationDefaultsDomain];
 }
 
 
-- (void) preventSC
+- (void) preventScreenCapture
 {
     // On OS X 10.10 and later it's not necessary to redirect and delete screenshots,
     // as NSWindowSharingType = NSWindowSharingNone works correctly
@@ -84,7 +84,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         /// Check if there is a redirected sc location persistantly stored
         /// What only happends when it couldn't be reset last time SEB has run
         
-        scTempPath = [self getStoredNewSCLocation];
+        scTempPath = [self getStoredNewScreenCaptureLocation];
         if (scTempPath.length > 0) {
             
             /// There is a redirected location saved
@@ -108,7 +108,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
             /// No redirected location was persistantly saved
             
             // Get current screencapture location
-            scLocation = [self getCurrentSCLocation];
+            scLocation = [self getCurrentScreenCaptureLocation];
             DDLogDebug(@"Current screencapture location: %@", scLocation);
         }
         
@@ -143,12 +143,12 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
             }
             
             // Execute the redirect script
-            if ([self executeSCAppleScript:scFullPath]) {
+            if ([self changeScreenCaptureLocation:scFullPath]) {
                 DDLogDebug(@"sc redirect script didn't report an error");
             }
             
             // Get and verify the new location
-            NSString *location = [self getCurrentSCLocation];
+            NSString *location = [self getCurrentScreenCaptureLocation];
             if ([scFullPath isEqualToString:location]) {
                 DDLogDebug(@"Changed sc location successfully to: %@", location);
             } else {
@@ -172,7 +172,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 }
 
 
-- (BOOL) restoreSC
+- (BOOL) restoreScreenCapture
 {
     // On OS X 10.10 and later it's not necessary to redirect and delete screenshots,
     // as NSWindowSharingType = NSWindowSharingNone works correctly
@@ -193,11 +193,11 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
             }
             
             // Restore original SC path
-            if ([self executeSCAppleScript:scLocation]) {
+            if ([self changeScreenCaptureLocation:scLocation]) {
                 DDLogDebug(@"sc restore original value (%@) script didn't report an error", scLocation);
             }
             // Get and verify the new location
-            NSString *location = [self getCurrentSCLocation];
+            NSString *location = [self getCurrentScreenCaptureLocation];
             if ([scLocation isEqualToString:location]) {
                 DDLogDebug(@"Restored sc location successfully to: %@", location);
             } else {
@@ -221,7 +221,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 }
 
 
-- (void) adjustSC
+- (void) adjustScreenCapture
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
@@ -234,8 +234,8 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         // Check if screenshots are allowed in current settings
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == YES) {
             // Yes, screenshots are no longer blocked: restore SC and switch to non-blocking
-            [self restoreSC];
-            [self preventSC];
+            [self restoreScreenCapture];
+            [self preventScreenCapture];
         } // otherwise leave blocking active and don't do nothing
 
     } else {
@@ -245,14 +245,14 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         // Check if screenshots are allowed in current settings
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] == NO) {
             // No, screenshots are blocked in new settings: activate blocking
-            [self preventSC];
+            [self preventScreenCapture];
         } // otherwise leave blocking inactive and don't do nothing
     }
 }
 
 
 // Get current screencapture location
-- (NSString *) getCurrentSCLocation
+- (NSString *) getCurrentScreenCaptureLocation
 {
     // Get current screencapture location
     return (NSString *)[[NSUserDefaults standardUserDefaults] valueForDefaultsDomain:@"com.apple.screencapture" key:@"location"];
@@ -260,7 +260,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 
 
 // Get stored redirected screencapture location
-- (NSString *) getStoredNewSCLocation
+- (NSString *) getStoredNewScreenCaptureLocation
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *storedSCPath = [preferences secureStringForKey:@"newDestination"];
@@ -290,7 +290,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 }
 
 
-- (BOOL) executeSCAppleScript:(NSString *)location
+- (BOOL) changeScreenCaptureLocation:(NSString *)location
 {
     [[NSUserDefaults standardUserDefaults] setValue:location forKey:@"location" forDefaultsDomain:@"com.apple.screencapture"];
     
