@@ -275,15 +275,23 @@ static NSMutableSet *browserWindowControllers;
 {
     [super traitCollectionDidChange: previousTraitCollection];
 
-    _bottomBackgroundView.hidden = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact);
+    BOOL sideSafeAreaInsets = false;
+    
+    if (@available(iOS 11.0, *)) {
+        UIWindow *window = UIApplication.sharedApplication.keyWindow;
+        CGFloat leftPadding = window.safeAreaInsets.left;
+        sideSafeAreaInsets = leftPadding != 0;
+    }
+    
+    _bottomBackgroundView.hidden = sideSafeAreaInsets;
 
     if (_navigationBarHeightConstraint) {
-        CGFloat navigationBarHeight = self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 32 : 46;
-        CGFloat navigationBarOffset = self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 0 : 12;
+        CGFloat navigationBarHeight = sideSafeAreaInsets ? 32 : 46;
+        CGFloat navigationBarOffset = sideSafeAreaInsets ? 0 : 12;
         
         _navigationBarHeightConstraint.constant = navigationBarHeight;
         
-        if (self.sideMenuController.isLeftViewVisible) {
+        if (self.prefersStatusBarHidden) {
             _navigationBarBottomConstraint.constant = navigationBarOffset;
         } else {
             _navigationBarBottomConstraint.constant = 0;
@@ -968,6 +976,9 @@ void run_on_ui_thread(dispatch_block_t block)
                                                              multiplier:1.0
                                                                constant:0]];
         
+        SEBBackgroundTintStyle backgroundTintStyle = (statusBarAppearance == mobileStatusBarAppearanceLight |
+                                                      statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ? SEBBackgroundTintStyleDark : SEBBackgroundTintStyleLight;
+
         if (@available(iOS 11.0, *)) {
             
             // Check if we need to customize the navigation bar, when browser toolbar is enabled and
@@ -1034,7 +1045,9 @@ void run_on_ui_thread(dispatch_block_t block)
                 [NSLayoutConstraint activateConstraints:constraints_V];
                 
                 if (!UIAccessibilityIsReduceTransparencyEnabled()) {
-                    [self addBlurEffectStyle:UIBlurEffectStyleRegular toBarView:_navigationBarView backgroundTint:YES];
+                    [self addBlurEffectStyle:UIBlurEffectStyleRegular
+                                   toBarView:_navigationBarView
+                         backgroundTintStyle:backgroundTintStyle];
 
                 } else {
                     _navigationBarView.backgroundColor = [UIColor lightGrayColor];
@@ -1071,16 +1084,16 @@ void run_on_ui_thread(dispatch_block_t block)
         [self.view addConstraints:constraints_H];
         [self.view addConstraints:constraints_V];
         
-        if (statusBarAppearance == mobileStatusBarAppearanceLight ||
-            statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) {
-            _statusBarView.backgroundColor = [UIColor blackColor];
-            [self addBlurEffectStyle:UIBlurEffectStyleDark toBarView:_statusBarView backgroundTint:NO];
+        if (backgroundTintStyle == SEBBackgroundTintStyleDark) {
+            [self addBlurEffectStyle:UIBlurEffectStyleDark
+                           toBarView:_statusBarView
+                 backgroundTintStyle:SEBBackgroundTintStyleNone];
         } else {
-            _statusBarView.backgroundColor = [UIColor whiteColor];
-            [self addBlurEffectStyle:UIBlurEffectStyleExtraLight toBarView:_statusBarView backgroundTint:NO];
+            [self addBlurEffectStyle:UIBlurEffectStyleExtraLight
+                           toBarView:_statusBarView
+                 backgroundTintStyle:SEBBackgroundTintStyleNone];
         }
         _statusBarView.hidden = false;
-
         
         [self setNeedsStatusBarAppearanceUpdate];
 
@@ -1219,7 +1232,9 @@ void run_on_ui_thread(dispatch_block_t block)
                     [self.view addConstraints:constraints_V];
                     
                     if (!UIAccessibilityIsReduceTransparencyEnabled()) {
-                        [self addBlurEffectStyle:UIBlurEffectStyleRegular toBarView:_toolBarView backgroundTint:YES];
+                        [self addBlurEffectStyle:UIBlurEffectStyleRegular
+                                       toBarView:_toolBarView
+                             backgroundTintStyle:backgroundTintStyle];
                         
                     } else {
                         _toolBarView.backgroundColor = [UIColor lightGrayColor];
@@ -1233,13 +1248,14 @@ void run_on_ui_thread(dispatch_block_t block)
 
                     [self.view addConstraints:bottomBackgroundViewConstraints_H];
                     
-                    if (statusBarAppearance == mobileStatusBarAppearanceLight ||
-                        statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) {
-//                        _bottomBackgroundView.backgroundColor = [UIColor blackColor];
-                        [self addBlurEffectStyle:UIBlurEffectStyleDark toBarView:_bottomBackgroundView backgroundTint:NO];
+                    if (backgroundTintStyle == SEBBackgroundTintStyleDark) {
+                        [self addBlurEffectStyle:UIBlurEffectStyleDark
+                                       toBarView:_bottomBackgroundView
+                             backgroundTintStyle:SEBBackgroundTintStyleNone];
                     } else {
-//                        _bottomBackgroundView.backgroundColor = [UIColor whiteColor];
-                        [self addBlurEffectStyle:UIBlurEffectStyleExtraLight toBarView:_bottomBackgroundView backgroundTint:NO];
+                        [self addBlurEffectStyle:UIBlurEffectStyleExtraLight
+                                       toBarView:_bottomBackgroundView
+                             backgroundTintStyle:SEBBackgroundTintStyleNone];
                     }
                     if (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
                     }
@@ -1267,7 +1283,9 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void) addBlurEffectStyle: (UIBlurEffectStyle)style toBarView: (UIView *)barView backgroundTint: (BOOL)backgroundTint
+- (void) addBlurEffectStyle: (UIBlurEffectStyle)style
+                  toBarView: (UIView *)barView
+             backgroundTintStyle: (SEBBackgroundTintStyle)backgroundTintStyle
 {
     barView.backgroundColor = [UIColor clearColor];
     UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:style];
@@ -1276,12 +1294,12 @@ void run_on_ui_thread(dispatch_block_t block)
     blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [barView addSubview:blurEffectView];
     
-    if (backgroundTint) {
+    if (backgroundTintStyle != SEBBackgroundTintStyleNone) {
         UIView *backgroundTintView = [UIView new];
         backgroundTintView.frame = barView.bounds;
         backgroundTintView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         backgroundTintView.backgroundColor = [UIColor lightGrayColor];
-        backgroundTintView.alpha = 0.5;
+        backgroundTintView.alpha = (backgroundTintStyle == SEBBackgroundTintStyleLight ? 0.5 : 0.75);
         [barView addSubview:backgroundTintView];
     }
 }
@@ -2185,16 +2203,19 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (BOOL) prefersStatusBarHidden
 {
-    return (statusBarAppearance == mobileStatusBarAppearanceNone);
+    return (statusBarAppearance == mobileStatusBarAppearanceNone ||
+            statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark ||
+            statusBarAppearance == mobileStatusBarAppearanceExtendedNoneLight);
 }
 
 - (BOOL)isRootViewStatusBarHidden {
-    return (statusBarAppearance == mobileStatusBarAppearanceNone);
+    return self.prefersStatusBarHidden; //(statusBarAppearance == mobileStatusBarAppearanceNone);
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-    if (statusBarAppearance == mobileStatusBarAppearanceLight) {
+    if (statusBarAppearance == mobileStatusBarAppearanceLight ||
+        statusBarAppearance == mobileStatusBarAppearanceExtendedLight) {
         return UIStatusBarStyleLightContent;
     }
     return UIStatusBarStyleDefault;
