@@ -291,7 +291,7 @@ static NSMutableSet *browserWindowControllers;
         
         _navigationBarHeightConstraint.constant = navigationBarHeight;
         
-        if (self.prefersStatusBarHidden) {
+        if (self.sideMenuController.isLeftViewVisible || self.prefersStatusBarHidden) {
             _navigationBarBottomConstraint.constant = navigationBarOffset;
         } else {
             _navigationBarBottomConstraint.constant = 0;
