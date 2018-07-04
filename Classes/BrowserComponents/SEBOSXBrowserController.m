@@ -511,6 +511,7 @@
 // usually with a link using the seb(s):// protocols
 - (void) openConfigFromSEBURL:(NSURL *)url
 {
+    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     // Check first if opening SEB config files is allowed in settings and if no other settings are currently being opened
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] && !_temporaryWebView) {
@@ -552,6 +553,7 @@
             }
         }
     } else {
+        DDLogDebug(@"%s aborted, downloading and opening settings not allowed or temporary webview already open: %@", __FUNCTION__, _temporaryWebView);
         _sebController.openingSettings = false;
     }
 }
@@ -561,6 +563,8 @@
 // This allows the user to authenticate if the link target is stored on a secured server
 - (void) openTempWindowForDownloadingConfigFromURL:(NSURL *)url
 {
+    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
+
     // Create a new WebView
     NSString *tempWindowTitle = NSLocalizedString(@"Opening SEB Config", @"Title of a temporary browser window for opening a SEB link");
     _temporaryBrowserWindowDocument = [self openBrowserWindowDocument];
@@ -608,6 +612,8 @@
 
 // Called by the browser webview delegate if loading the config URL failed
 - (void) openingConfigURLFailed {
+    DDLogDebug(@"%s", __FUNCTION__);
+    
     // Close the temporary browser window if it was opened
     if (_temporaryWebView) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -632,7 +638,8 @@
 // This method is called by the browser webview delegate if the file to download has a .seb extension
 - (void) downloadSEBConfigFileFromURL:(NSURL *)url
 {
-    
+    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
+
     // OS X 10.9 and newer: Use modern NSURLSession for downloading .seb files which also allows handling
     // basic/digest/NTLM authentication without having to open a temporary webview
     if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
@@ -663,6 +670,8 @@
 
 - (void) didDownloadData:(NSData *)sebFileData response:(NSURLResponse *)response error:(NSError *)error URL:(NSURL *)url
 {
+    DDLogDebug(@"%s URL: %@, error: %@", __FUNCTION__, url, error);
+
     if (error) {
         if (error.code == NSURLErrorCancelled) {
             // Only  close temp browser window if this wasn't a direct download attempt
@@ -728,6 +737,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     if ([authenticationMethod isEqual:NSURLAuthenticationMethodHTTPBasic] ||
         [authenticationMethod isEqual:NSURLAuthenticationMethodHTTPDigest] ||
         [authenticationMethod isEqual:NSURLAuthenticationMethodNTLM]) {
+        DDLogInfo(@"URLSession didReceive HTTPBasic/HTTPDigest/NTLM challenge");
         // If we have credentials from a previous login to the server we're on, try these first
         // but not when the credentials are from a failed username/password attempt
         if (_enteredCredential &&!_pendingChallengeCompletionHandler) {
@@ -772,6 +782,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
             }
         }
     } else {
+        DDLogInfo(@"URLSession didReceive other challenge (default handling)");
         completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, NULL);
     }
 }
@@ -816,6 +827,8 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 // Called when downloading the config file failed
 - (void) downloadingSEBConfigFailed:(NSError *)error
 {
+    DDLogError(@"%s error: %@", __FUNCTION__, error);
+    
     // Only show the download error and close temp browser window if this wasn't a direct download attempt
     if (!_directConfigDownloadAttempted) {
         
@@ -836,6 +849,8 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 // Called when SEB successfully downloaded the config file
 - (void) openDownloadedSEBConfigData:(NSData *)sebFileData fromURL:(NSURL *)url
 {
+    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
+
     // Close the temporary browser window
     [self closeWebView:_temporaryWebView];
     
@@ -852,17 +867,15 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     _pendingChallengeCompletionHandler = nil;
 
     if (storingConfigResult == storeDecryptedSEBSettingsResultSuccess) {
+        DDLogInfo(@"Storing downloaded SEB config data was successful");
+
         // Reset the direct download flag for the case this was a successful direct download
         _directConfigDownloadAttempted = false;
-        // Also reset the flag for SEB starting up
-        _sebController.startingUp = false;
-        _sebController.openingSettings = false;
-        // Post a notification that it was requested to restart SEB with changed settings
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"requestRestartNotification" object:self];
+        [_sebController didOpenSettings];
         
     } else {
         /// Decrypting new settings wasn't successfull:
+        DDLogInfo(@"Decrypting downloaded SEB config data failed or data needs to be downloaded in a temporary WebView after the user performs web-based authentication.");
 
         // We have to restore the path to the old settings
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
@@ -870,9 +883,11 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         // Was this an attempt to download the config directly and the downloaded data was corrupted?
         if (_directConfigDownloadAttempted && storingConfigResult == storeDecryptedSEBSettingsResultWrongFormat) {
             // We try to download the config in a temporary WebView
+            DDLogInfo(@"Trying to download the config in a temporary WebView");
             [self openConfigFromSEBURL:url];
         } else {
             // The download failed definitely or was canceled by the user:
+            DDLogError(@"Decrypting downloaded SEB config data failed!");
 
             // Reset the direct download flag for the case this was a successful direct download
             _directConfigDownloadAttempted = false;

@@ -160,6 +160,9 @@ bool insideMatrix(void);
         [DDLog addLogger:[DDTTYLogger sharedInstance]];
 #endif
         
+        // Initialize a temporary logger unconditionally with the Debug log level
+        // and the standard log file path, so SEB can log startup events before
+        // settings are initialized
         [self initializeTemporaryLogger];
         
         [[MyGlobals sharedMyGlobals] setPreferencesReset:NO];
@@ -181,7 +184,6 @@ bool insideMatrix(void);
         
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         
-        //[[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         // Set default preferences for the case there are no user prefs yet
         // and set flag for displaying alert to new users
         firstStart = [preferences setSEBDefaults];
@@ -190,7 +192,8 @@ bool insideMatrix(void);
         SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
         [configFileManager reconfigureClientWithSebClientSettings];
         
-        // Initialize file logger if it's enabled in settings
+        // Initialize file logger if it's enabled in client (!) settings,
+        // from this point on settings for log level and directory are considered
         [self initializeLogger];
         
         // Get default WebKit browser User Agent and create
@@ -200,23 +203,13 @@ bool insideMatrix(void);
         [self.browserController createSEBUserAgentFromDefaultAgent:defaultUserAgent];
         DDLogError(@"Default browser user agent string: %@", [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"]);
         
-        // Update URL filter flags and rules
-        [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
-        // Update URL filter ignore rules
-        [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
+        // Cache current settings for Siri and dictation
+        [_systemManager cacheCurrentSystemSettings];
         
         // Regardless if switching to third party applications is allowed in current settings,
         // we need to first open the background cover windows with standard window levels
         [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
-        
-        // Switch off display mirroring and find main active screen according to settings
-        [self conditionallyTerminateDisplayMirroring];
-        
-        // Cache current settings for Siri and dictation
-        [_systemManager cacheCurrentSystemSettings];
-        
-        // Switch off Siri and dictation if not allowed in settings
-        [self conditionallyDisableSpeechInput];
+
     }
     return self;
 }
@@ -227,8 +220,6 @@ bool insideMatrix(void);
 - (void)awakeFromNib
 {
     DDLogDebug(@"%s", __FUNCTION__);
-    
-    [self.systemManager preventSC];
     
     // Flag initializing
     quittingMyself = FALSE; //flag to know if quit application was called externally
@@ -243,8 +234,7 @@ bool insideMatrix(void);
     NSRunningApplication *iterApp;
     visibleApps = [NSMutableArray array]; //array for storing bundleIDs of visible apps
     
-    for (iterApp in runningApps)
-    {
+    for (iterApp in runningApps) {
         BOOL isHidden = [iterApp isHidden];
         NSString *appBundleID = [iterApp valueForKey:@"bundleIdentifier"];
         DDLogInfo(@"Running app: %@, bundle ID: %@", iterApp.localizedName, appBundleID);
@@ -256,7 +246,16 @@ bool insideMatrix(void);
         }
     }
     
-    // Setup Notifications and Kiosk Mode
+    /// First kiosk mode setup which doesn't depend on settings
+    
+    // Hide all other applications
+    [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
+                                                    withObject:NULL waitUntilDone:NO];
+    
+    // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
+    [self coverScreens];
+    
+    /// Setup Notifications
     
     // Add an observer for the notification that another application became active (SEB got inactive)
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(regainActiveStatus:)
@@ -301,36 +300,6 @@ bool insideMatrix(void);
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SEBgotActive:)
                                                  name:NSApplicationDidBecomeActiveNotification
                                                object:NSApp];
-    
-    // Hide all other applications
-    [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
-                                                    withObject:NULL waitUntilDone:NO];
-    
-    // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
-    [self coverScreens];
-    
-    // Check if running on minimal macOS version
-    [self checkMinMacOSVersion];
-    
-    // Check if launched SEB is placed ("installed") in an Applications folder
-    [self installedInApplicationsFolder];
-    
-    // Check for command key being held down
-    [self appSwitcherCheck];
-    
-    // Switch to kiosk mode by setting the proper presentation options
-    [self startKioskMode];
-    
-    // Set up and open SEB Dock
-    [self openSEBDock];
-    self.browserController.dockController = self.dockController;
-    
-    // Hide all other applications
-    [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
-                                                    withObject:NULL waitUntilDone:NO];
-    
-    //    // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
-    //    [self coverScreens];
     
     // Add an observer for changes of the Presentation Options
     [NSApp addObserver:self
@@ -440,10 +409,6 @@ bool insideMatrix(void);
                                              selector:@selector(lockSEB:)
                                                  name:@"detectedSIGSTOP" object:nil];
     
-    _runningProhibitedProcesses = [NSMutableArray new];
-    _terminatedProcessesExecutableURLs = [NSMutableArray new];
-    [self windowWatcher];
-    
     // Prevent display sleep
 #ifndef DEBUG
     IOPMAssertionCreateWithName(
@@ -492,45 +457,6 @@ bool insideMatrix(void);
                            IONotificationPortGetRunLoopSource(notifyPortRef), kCFRunLoopCommonModes );
     }
     
-    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowVirtualMachine"]) {
-        // Check if SEB is running inside a virtual machine
-        SInt32        myAttrs;
-        OSErr        myErr = noErr;
-        
-        // Get details for the present operating environment
-        // by calling Gestalt (Userland equivalent to CPUID)
-        myErr = Gestalt(gestaltX86AdditionalFeatures, &myAttrs);
-        if (myErr == noErr) {
-            if ((myAttrs & (1UL << 31)) | (myAttrs == 0x209)) {
-                // Bit 31 is set: VMware Hypervisor running (?)
-                // or gestaltX86AdditionalFeatures values of VirtualBox detected
-                DDLogError(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine! gestaltX86AdditionalFeatures = %X", myAttrs);
-                NSAlert *modalAlert = [self newAlert];
-                [modalAlert setMessageText:NSLocalizedString(@"Virtual Machine Detected!", nil)];
-                [modalAlert setInformativeText:NSLocalizedString(@"You are not allowed to run SEB inside a virtual machine!", nil)];
-                [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
-                [modalAlert setAlertStyle:NSCriticalAlertStyle];
-                [modalAlert runModal];
-                [self removeAlertWindow:modalAlert.window];
-                quittingMyself = TRUE; //SEB is terminating itself
-                [NSApp terminate: nil]; //quit SEB
-                
-            } else {
-                DDLogInfo(@"SEB is running on a native system (no VM) gestaltX86AdditionalFeatures = %X", myAttrs);
-            }
-        }
-        
-        bool    virtualMachine = false;
-        // STR or SIDT code?
-        virtualMachine = insideMatrix();
-        if (virtualMachine) {
-            DDLogError(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine (Test2)!");
-        }
-    }
-    
-    
-    [self clearPasteboardSavingCurrentString];
-    
     // Handling of Hotkeys for Preferences-Window
     
     // Register Carbon event handlers for the required hotkeys
@@ -552,7 +478,6 @@ bool insideMatrix(void);
     gMyHotKeyID.id=2;
     RegisterEventHotKey(97, 0, gMyHotKeyID,
                         GetApplicationEventTarget(), 0, &gMyHotKeyRef);
-    
     
     // Show the About SEB Window
     [aboutWindow showAboutWindowForSeconds:2];
@@ -587,59 +512,6 @@ bool insideMatrix(void);
         
         CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, kCFRunLoopCommonModes);
         CGEventTapEnable(leftMouseEventTap, true);
-    }
-    
-    [self startProcessWatcher];
-    [self startWindowWatcher];
-    
-    // Get all running processes, including daemons
-    NSArray *allRunningProcesses = [self getProcessArray];
-    DDLogInfo(@"There are %lu running BSD processes: \n%@", (unsigned long)allRunningProcesses.count, allRunningProcesses);
-    
-    // Check for activated screen sharing if settings demand it
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"];
-    allowSiri = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSiri"];
-    allowDictation = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictation"];
-    
-    if (!allowScreenSharing &&
-        ([allRunningProcesses containsObject:screenSharingAgent] ||
-         [allRunningProcesses containsObject:AppleVNCAgent] ||
-         [allRunningProcesses containsObject:ARDAgent]))
-    {
-        // Screen sharing is active
-        DDLogError(@"Screen Sharing Detected, SEB will quit");
-        [self showModalQuitAlertTitle:NSLocalizedString(@"Screen Sharing Detected!", nil)
-                                 text:[NSString stringWithFormat:@"%@\n\n%@",
-                                       NSLocalizedString(@"You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.", nil),
-                                       NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol.", nil)]];
-        quittingMyself = TRUE; //SEB is terminating itself
-        [NSApp terminate: nil]; //quit SEB
-    }
-    
-    if (!allowSiri &&
-        [allRunningProcesses containsObject:SiriService] &&
-        [[preferences valueForDefaultsDomain:SiriDefaultsDomain key:SiriDefaultsKey] boolValue])
-    {
-        // Siri is active
-        DDLogError(@"Siri Detected, SEB will quit");
-        [self showModalQuitAlertTitle:NSLocalizedString(@"Siri Detected!", nil)
-                                 text:NSLocalizedString(@"You are not allowed to have Siri enabled while running SEB. Restart SEB after switching Siri off in System Preferences/Siri.", nil)];
-        quittingMyself = TRUE; //SEB is terminating itself
-        [NSApp terminate: nil]; //quit SEB
-    }
-    
-    if (!allowDictation &&
-        [allRunningProcesses containsObject:DictationProcess] &&
-        ([[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue] ||
-         [[preferences valueForDefaultsDomain:AppleDictationDefaultsDomain key:AppleDictationDefaultsKey] integerValue] != 0))
-    {
-        // Dictation is active
-        DDLogError(@"Dictation Detected, SEB will quit");
-        [self showModalQuitAlertTitle:NSLocalizedString(@"Dictation Detected!", nil)
-                                 text:NSLocalizedString(@"You are not allowed to have dictation enabled while running SEB. Restart SEB after switching dictation off in System Preferences/Keyboard/Dictation.", nil)];
-        quittingMyself = TRUE; //SEB is terminating itself
-        [NSApp terminate: nil]; //quit SEB
     }
 }
 
@@ -713,20 +585,10 @@ bool insideMatrix(void);
             
             // Decrypt and store the .seb config file
             if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO] == storeDecryptedSEBSettingsResultSuccess) {
-                // if successfull start/restart with new settings
                 
-                if (_startingUp) {
-                    // If SEB was just started (by opening a config file)
-                    // SEB finished starting up, reset the flag for starting up
-                    _startingUp = false;
-                    _openingSettings = false;
+                // If successfull start/restart with new settings
+                [self didOpenSettings];
 
-                } else {
-                    // SEB is being reconfigured by opening a config file
-                    _openingSettings = false;
-                    
-                    [self requestedRestart:nil];
-                }
             } else {
                 // If SEB was just started (by opening a config file)
                 if (_startingUp) {
@@ -746,14 +608,70 @@ bool insideMatrix(void);
 }
 
 
+- (void)handleGetURLEvent:(NSAppleEventDescriptor*)event withReplyEvent:(NSAppleEventDescriptor*)replyEvent
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+    
+    // Check if any alerts are open in SEB, abort opening if yes
+    if (_modalAlertWindows.count) {
+        DDLogError(@"%lu Modal window(s) displayed, aborting before opening new settings.", (unsigned long)_modalAlertWindows.count);
+        return;
+    }
+    
+    NSString *urlString = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
+    NSURL *url = [NSURL URLWithString:urlString];
+    if (url && !_openingSettings) {
+        // If we have any URL, we try to download and open (conditionally) a .seb file
+        // hopefully linked by this URL (also supporting redirections and authentification)
+        _openingSettings = true;
+        DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", urlString);
+        [self.browserController openConfigFromSEBURL:url];
+    }
+}
+
+
+- (void)didOpenSettings
+{
+    if (_startingUp) {
+        // If SEB was just started (by opening a config file)
+        _openingSettings = false;
+        [self didFinishLaunchingWithSettings];
+        
+    } else {
+        // SEB is being reconfigured by opening a config file
+        _openingSettings = false;
+        
+        [self requestedRestart:nil];
+    }
+}
+
+
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
     DDLogDebug(@"%s", __FUNCTION__);
 
+    [self didFinishLaunchingWithSettings];
+}
+
+
+- (void)didFinishLaunchingWithSettings
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+    
     if (!_openingSettings)
     {
-        // SEB finished starting up, reset the flag for starting up
-        _startingUp = false;
+        // Check for command key being held down
+        [self appSwitcherCheck];
+        
+        // Block screen shots
+        [self.systemManager preventScreenCapture];
+        
+        // Initialize SEB according to client settings
+        [self conditionallyInitSEB];
+        
+        // Start system monitoring and prevent to start SEB if specific
+        // system features are activated
+        [self startSystemMonitoring];
         
         // Set up SEB Browser
         
@@ -772,30 +690,156 @@ bool insideMatrix(void);
         } else {
             currentExamStartURL = nil;
         }
+        
+        // SEB finished starting up, reset the flag for starting up
+        _startingUp = false;
     }
     [self performSelector:@selector(performAfterStartActions:) withObject: nil afterDelay: 2];
 }
 
 
-- (void)handleGetURLEvent:(NSAppleEventDescriptor*)event withReplyEvent:(NSAppleEventDescriptor*)replyEvent
+#pragma mark - Initialization depending on client or opened settings
+
+- (void) conditionallyInitSEB
 {
-    DDLogDebug(@"%s", __FUNCTION__);
+    /// Early kiosk mode setup (as these actions might take some time)
+    
+    // Switch off display mirroring and find main active screen according to settings
+    [self conditionallyTerminateDisplayMirroring];
+    
+    // Switch off Siri and dictation if not allowed in settings
+    [self conditionallyDisableSpeechInput];
+    
+    
+    /// Update URL filter flags and rules
+    [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
+    // Update URL filter ignore rules
+    [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
+    
+    
+    /// Kiosk mode checks
+    
+    // Check if running on minimal macOS version
+    [self checkMinMacOSVersion];
+    
+    // Check if launched SEB is placed ("installed") in an Applications folder
+    [self installedInApplicationsFolder];
+    
+    // Switch to kiosk mode by setting the proper presentation options
+    [self startKioskMode];
+    
+    // Clear pasteboard and save current string for pasting start URL in Preferences Window
+    [self clearPasteboardSavingCurrentString];
 
-    // Check if any alerts are open in SEB, abort opening if yes
-    if (_modalAlertWindows.count) {
-        DDLogError(@"%lu Modal window(s) displayed, aborting before opening new settings.", (unsigned long)_modalAlertWindows.count);
-        return;
-    }
+    // Check if the Force Quit window is open
+    [self forceQuitWindowCheck];
+    
+    // Set up and open SEB Dock
+    [self openSEBDock];
+    self.browserController.dockController = self.dockController;
+    
+    // Hide all other applications
+    [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
+                                                    withObject:NULL waitUntilDone:NO];
 
-    NSString *urlString = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
-    NSURL *url = [NSURL URLWithString:urlString];
-    if (url && !_openingSettings) {
-        // If we have any URL, we try to download and open (conditionally) a .seb file
-        // hopefully linked by this URL (also supporting redirections and authentification)
-        _openingSettings = true;
-        DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", urlString);
-        [self.browserController openConfigFromSEBURL:url];
+    // Run watchdog event for windows and events which need to be observed
+    // on the main (UI!) thread once, to initialize
+    _runningProhibitedProcesses = [NSMutableArray new];
+    _terminatedProcessesExecutableURLs = [NSMutableArray new];
+    [self windowWatcher];
+   
+    if (![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowVirtualMachine"]) {
+        // Check if SEB is running inside a virtual machine
+        SInt32        myAttrs;
+        OSErr        myErr = noErr;
+        
+        // Get details for the present operating environment
+        // by calling Gestalt (Userland equivalent to CPUID)
+        myErr = Gestalt(gestaltX86AdditionalFeatures, &myAttrs);
+        if (myErr == noErr) {
+            if ((myAttrs & (1UL << 31)) | (myAttrs == 0x209)) {
+                // Bit 31 is set: VMware Hypervisor running (?)
+                // or gestaltX86AdditionalFeatures values of VirtualBox detected
+                DDLogError(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine! gestaltX86AdditionalFeatures = %X", myAttrs);
+                NSAlert *modalAlert = [self newAlert];
+                [modalAlert setMessageText:NSLocalizedString(@"Virtual Machine Detected!", nil)];
+                [modalAlert setInformativeText:NSLocalizedString(@"You are not allowed to run SEB inside a virtual machine!", nil)];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+                [modalAlert setAlertStyle:NSCriticalAlertStyle];
+                [modalAlert runModal];
+                [self removeAlertWindow:modalAlert.window];
+                quittingMyself = TRUE; //SEB is terminating itself
+                [NSApp terminate: nil]; //quit SEB
+                
+            } else {
+                DDLogInfo(@"SEB is running on a native system (no VM) gestaltX86AdditionalFeatures = %X", myAttrs);
+            }
+        }
+        
+        bool    virtualMachine = false;
+        // STR or SIDT code?
+        virtualMachine = insideMatrix();
+        if (virtualMachine) {
+            DDLogError(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine (Test2)!");
+        }
     }
+}
+
+
+- (void) startSystemMonitoring
+{
+    // Get all running processes, including daemons
+    NSArray *allRunningProcesses = [self getProcessArray];
+    DDLogInfo(@"There are %lu running BSD processes: \n%@", (unsigned long)allRunningProcesses.count, allRunningProcesses);
+    
+    // Check for activated screen sharing if settings demand it
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"];
+    allowSiri = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSiri"];
+    allowDictation = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictation"];
+    
+    if (!allowScreenSharing &&
+        ([allRunningProcesses containsObject:screenSharingAgent] ||
+         [allRunningProcesses containsObject:AppleVNCAgent] ||
+         [allRunningProcesses containsObject:ARDAgent]))
+    {
+        // Screen sharing is active
+        DDLogError(@"Screen Sharing Detected, SEB will quit");
+        [self showModalQuitAlertTitle:NSLocalizedString(@"Screen Sharing Detected!", nil)
+                                 text:[NSString stringWithFormat:@"%@\n\n%@",
+                                       NSLocalizedString(@"You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.", nil),
+                                       NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol.", nil)]];
+        quittingMyself = TRUE; //SEB is terminating itself
+        [NSApp terminate: nil]; //quit SEB
+    }
+    
+    if (!allowSiri &&
+        [allRunningProcesses containsObject:SiriService] &&
+        [[preferences valueForDefaultsDomain:SiriDefaultsDomain key:SiriDefaultsKey] boolValue])
+    {
+        // Siri is active
+        DDLogError(@"Siri Detected, SEB will quit");
+        [self showModalQuitAlertTitle:NSLocalizedString(@"Siri Detected!", nil)
+                                 text:NSLocalizedString(@"You are not allowed to have Siri enabled while running SEB. Restart SEB after switching Siri off in System Preferences/Siri.", nil)];
+        quittingMyself = TRUE; //SEB is terminating itself
+        [NSApp terminate: nil]; //quit SEB
+    }
+    
+    if (!allowDictation &&
+        [allRunningProcesses containsObject:DictationProcess] &&
+        ([[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue] ||
+         [[preferences valueForDefaultsDomain:AppleDictationDefaultsDomain key:AppleDictationDefaultsKey] integerValue] != 0))
+    {
+        // Dictation is active
+        DDLogError(@"Dictation Detected, SEB will quit");
+        [self showModalQuitAlertTitle:NSLocalizedString(@"Dictation Detected!", nil)
+                                 text:NSLocalizedString(@"You are not allowed to have dictation enabled while running SEB. Restart SEB after switching dictation off in System Preferences/Keyboard/Dictation.", nil)];
+        quittingMyself = TRUE; //SEB is terminating itself
+        [NSApp terminate: nil]; //quit SEB
+    }
+    
+    [self startProcessWatcher];
+    [self startWindowWatcher];
 }
 
 
@@ -3552,58 +3596,31 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         [self.sebLockedViewController removeLockedExam:currentExamStartURL];
     }
     
-    // Switch off display mirroring if it isn't allowed in settings
-    [self conditionallyTerminateDisplayMirroring];
-    
-    // Switch off Siri and dictation if not allowed in settings
-    [self conditionallyDisableSpeechInput];
-
-    // Clear Pasteboard
-    [self clearPasteboardSavingCurrentString];
-    
     // Clear private pasteboard
     self.browserController.privatePasteboardItems = [NSArray array];
     
-    // Check if running on minimal macOS version
-    [self checkMinMacOSVersion];
-    
-    // Check if launched SEB is placed ("installed") in an Applications folder
-    [self installedInApplicationsFolder];
-    
     // Adjust screen shot blocking
-    [self.systemManager adjustSC];
-
+    [self.systemManager adjustScreenCapture];
+    
     // Close all browser windows (documents)
     [[NSDocumentController sharedDocumentController] closeAllDocumentsWithDelegate:self
                                                                didCloseAllSelector:@selector(documentController:didCloseAll:contextInfo:)
                                                                        contextInfo: nil];
+    // Reset SEB Browser
+    [self.browserController resetBrowser];
+    
     // Re-Initialize file logger if logging enabled
     [self initializeLogger];
-    
-    // Update URL filter flags and rules
-    [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
-    // Update URL filter ignore rules
-    [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
     
     // Check for command key being held down
     while ([self commandKeyPressed]) {
         DDLogError(@"Command key was pressed and forbidden, retest");
     }
     
-    // Set kiosk/presentation mode in case it changed
     [self setElevateWindowLevels];
-    [self startKioskMode];
-    
-    // Check if the Force Quit window is open
-    [self forceQuitWindowCheck];
-    
-    // Reset SEB Browser
-    [self.browserController resetBrowser];
-    
-    // Reopen SEB Dock
-    [self openSEBDock];
-    self.browserController.dockController = self.dockController;
 
+    [self conditionallyInitSEB];
+    
     // Reopen main browser window and load start URL
     DDLogDebug(@"%s re-openMainBrowserWindow", __FUNCTION__);
     
@@ -3622,17 +3639,17 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     [self adjustScreenLocking:self];
     
     // ToDo: Opening of additional resources (but not only here, also when starting SEB)
-//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-//    NSArray *additionalResources = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_additionalResources"];
-//    for (NSDictionary *resource in additionalResources) {
-//        if ([resource valueForKey:@"active"] == [NSNumber numberWithBool:YES]) {
-//            NSString *resourceURL = [resource valueForKey:@"URL"];
-//            NSString *resourceTitle = [resource valueForKey:@"title"];
-//            if ([resource valueForKey:@"autoOpen"] == [NSNumber numberWithBool:YES]) {
-//                [self openResourceWithURL:resourceURL andTitle:resourceTitle];
-//            }
-//        }
-//    }
+    //    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    //    NSArray *additionalResources = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_additionalResources"];
+    //    for (NSDictionary *resource in additionalResources) {
+    //        if ([resource valueForKey:@"active"] == [NSNumber numberWithBool:YES]) {
+    //            NSString *resourceURL = [resource valueForKey:@"URL"];
+    //            NSString *resourceTitle = [resource valueForKey:@"title"];
+    //            if ([resource valueForKey:@"autoOpen"] == [NSNumber numberWithBool:YES]) {
+    //                [self openResourceWithURL:resourceURL andTitle:resourceTitle];
+    //            }
+    //        }
+    //    }
 }
 
 
@@ -3802,7 +3819,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         [self removeAlertWindow:modalAlert.window];
     }
     
-    BOOL success = [self.systemManager restoreSC];
+    BOOL success = [self.systemManager restoreScreenCapture];
     DDLogDebug(@"Success of restoring SC: %hhd", success);
     
     [self stopWindowWatcher];
