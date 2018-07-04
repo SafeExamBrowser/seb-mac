@@ -587,7 +587,12 @@ bool insideMatrix(void);
             if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO] == storeDecryptedSEBSettingsResultSuccess) {
                 
                 // If successfull start/restart with new settings
-                [self didOpenSettings];
+                _openingSettings = false;
+                
+                if (!_startingUp) {
+                    // SEB is being reconfigured by opening a config file
+                    [self requestedRestart:nil];
+                }
 
             } else {
                 // If SEB was just started (by opening a config file)
@@ -632,15 +637,14 @@ bool insideMatrix(void);
 
 - (void)didOpenSettings
 {
+    _openingSettings = false;
+
     if (_startingUp) {
         // If SEB was just started (by opening a config file)
-        _openingSettings = false;
         [self didFinishLaunchingWithSettings];
         
     } else {
         // SEB is being reconfigured by opening a config file
-        _openingSettings = false;
-        
         [self requestedRestart:nil];
     }
 }
