@@ -635,10 +635,20 @@ bool insideMatrix(void);
 }
 
 
+- (void)applicationDidFinishLaunching:(NSNotification *)notification
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+
+    [self didFinishLaunchingWithSettings];
+}
+
+
+#pragma mark - Methods called after starting up by opening settings successfully
+
 - (void)didOpenSettings
 {
     _openingSettings = false;
-
+    
     if (_startingUp) {
         // If SEB was just started (by opening a config file)
         [self didFinishLaunchingWithSettings];
@@ -647,14 +657,6 @@ bool insideMatrix(void);
         // SEB is being reconfigured by opening a config file
         [self requestedRestart:nil];
     }
-}
-
-
-- (void)applicationDidFinishLaunching:(NSNotification *)notification
-{
-    DDLogDebug(@"%s", __FUNCTION__);
-
-    [self didFinishLaunchingWithSettings];
 }
 
 
