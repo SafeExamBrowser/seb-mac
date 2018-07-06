@@ -113,7 +113,10 @@
             SEBConfigFileManager *configFileManager = [[SEBConfigFileManager alloc] init];
             
             // Decrypt and store the .seb config file
-            if ([configFileManager storeDecryptedSEBSettings:sebData forEditing:NO forceConfiguringClient:YES suppressFileFormatError:NO] == storeDecryptedSEBSettingsResultSuccess) {
+            if ([configFileManager storeDecryptedSEBSettings:sebData
+                                                  forEditing:NO
+                                      forceConfiguringClient:YES
+                                     suppressFileFormatError:NO] == storeDecryptedSEBSettingsResultSuccess) {
                 // if successfull continue with new settings
                 DDLogInfo(@"Reconfiguring SEB with file %@ was successful", preferencesFilePath);
                 // Delete the SebClientSettings.seb file from the Preferences directory
@@ -125,22 +128,32 @@
             }
         }
     }
-    return NO;}
+    return NO;
+}
 
--(storeDecryptedSEBSettingsResult) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing
+-(storeDecryptedSEBSettingsResult) storeDecryptedSEBSettings:(NSData *)sebData
+                                                  forEditing:(BOOL)forEditing
 {
-    return [self storeDecryptedSEBSettings:sebData forEditing:forEditing forceConfiguringClient:NO suppressFileFormatError:NO];
+    return [self storeDecryptedSEBSettings:sebData
+                                forEditing:forEditing
+                    forceConfiguringClient:NO
+                   suppressFileFormatError:NO];
 }
 
 
--(storeDecryptedSEBSettingsResult) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing suppressFileFormatError:(BOOL)suppressFileFormatError
+-(storeDecryptedSEBSettingsResult) storeDecryptedSEBSettings:(NSData *)sebData
+                                                  forEditing:(BOOL)forEditing
+                                     suppressFileFormatError:(BOOL)suppressFileFormatError
 {
     return [self storeDecryptedSEBSettings:sebData forEditing:forEditing forceConfiguringClient:NO suppressFileFormatError:suppressFileFormatError];
 }
 
 
 // Decrypt, parse and use new SEB settings
--(storeDecryptedSEBSettingsResult) storeDecryptedSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing forceConfiguringClient:(BOOL)forceConfiguringClient suppressFileFormatError:(BOOL)suppressFileFormatError
+-(storeDecryptedSEBSettingsResult) storeDecryptedSEBSettings:(NSData *)sebData
+                                                  forEditing:(BOOL)forEditing
+                                      forceConfiguringClient:(BOOL)forceConfiguringClient
+                                     suppressFileFormatError:(BOOL)suppressFileFormatError
 {
     NSDictionary *sebPreferencesDict;
     NSString *sebFilePassword = nil;

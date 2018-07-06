@@ -197,7 +197,8 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 // and the checksum changed (means some setting changed), then
 // the exam key salt random value is re-generated
 // Returns true if the checksum actually changed
-- (BOOL)updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt
+- (BOOL)updateEncryptedUserDefaults:(BOOL)updateUserDefaults
+                         updateSalt:(BOOL)generateNewSalt
 {
     if (!lockQueue) {
         lockQueue = dispatch_queue_create("org.safeexambrowser.cryptorqueue", NULL);
@@ -206,22 +207,31 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     
     dispatch_sync(lockQueue, ^{
         NSData *newChecksum;
-        encryptedUserDefaultsChanged = [self updateEncryptedUserDefaults:updateUserDefaults updateSalt:generateNewSalt newChecksum:&newChecksum];
+        encryptedUserDefaultsChanged = [self updateEncryptedUserDefaults:updateUserDefaults
+                                                              updateSalt:generateNewSalt
+                                                             newChecksum:&newChecksum];
     });
     
     return encryptedUserDefaultsChanged;
 }
 
 
-- (BOOL)updateEncryptedUserDefaults:(BOOL)updateUserDefaults updateSalt:(BOOL)generateNewSalt newChecksum:(NSData **)newChecksumPtr
+- (BOOL)updateEncryptedUserDefaults:(BOOL)updateUserDefaults
+                         updateSalt:(BOOL)generateNewSalt
+                        newChecksum:(NSData **)newChecksumPtr
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
-    if (generateNewSalt) {
-        // Force generating a new Config Key Salt
-        [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_SEB_configKeySalt"];
+    // Only calculate Config Key when UserDefaults should actually be updated
+    // Otherwise this method is only used to check if settings changed,
+    // then we can save time as the Config Key isn't relevant in this case
+    if (updateUserDefaults) {
+        if (generateNewSalt) {
+            // Force generating a new Config Key Salt
+            [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_SEB_configKeySalt"];
+        }
+        [self updateConfigKey];
     }
-    [self updateConfigKey];
     
     // Get current salt for exam key
     NSData *HMACKey = [preferences secureDataForKey:@"org_safeexambrowser_SEB_examKeySalt"];
@@ -245,7 +255,9 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         id defaultValue = [defaultSettings objectForKey:key];
         Class valueClass = [value superclass];
         Class defaultValueClass = [defaultValue superclass];
-        if (!value || (valueClass && defaultValueClass && !([defaultValue isKindOfClass:valueClass] || [value isKindOfClass:defaultValueClass]))) {
+        if (!value || (valueClass && defaultValueClass &&
+                       !([defaultValue isKindOfClass:valueClass] ||
+                         [value isKindOfClass:defaultValueClass]))) {
             // Class of local preferences value is different than the one from the default value
             // If yes, then cancel reading .seb file and create error object
             DDLogError(@"%s Value for key %@ is not having the correct class!", __FUNCTION__, key);
@@ -444,7 +456,8 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     if (!configKeyContainedKeys) {
         configKeyContainedKeys = [NSDictionary dictionary];
     }
-    if (configKeyContainedKeys && [configKeyContainedKeys superclass] != [NSDictionary class] && [configKeyContainedKeys superclass] != [NSMutableDictionary class]) {
+    if (configKeyContainedKeys && [configKeyContainedKeys superclass] != [NSDictionary class] &&
+        [configKeyContainedKeys superclass] != [NSMutableDictionary class]) {
         // Class of local preferences value is different than the one from the default value
         // If yes, then cancel reading .seb file and create error object
         DDLogError(@"%s Value for key configKeyContainedKeys is not having the correct NSDictionary class!", __FUNCTION__);
@@ -496,7 +509,10 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     }
     
     // Get all dictionary keys alphabetically sorted
-    NSArray *configKeysAlphabetically = [[sourceDictionary allKeys] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]]];
+    NSArray *configKeysAlphabetically = [[sourceDictionary allKeys] sortedArrayUsingDescriptors:@[[NSSortDescriptor
+                                                                                                   sortDescriptorWithKey:@"description"
+                                                                                                   ascending:YES
+                                                                                                   selector:@selector(localizedCaseInsensitiveCompare:)]]];
     NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:configKeysAlphabetically.count];
     
     // Get default settings
