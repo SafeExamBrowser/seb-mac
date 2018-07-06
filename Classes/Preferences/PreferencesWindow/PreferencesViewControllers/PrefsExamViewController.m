@@ -119,20 +119,28 @@
 
 - (void)displayMessageOrReGenerateKey
 {
+    BOOL settingsChanged = [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO];
     if (NSUserDefaults.userDefaultsPrivate) {
         // Private UserDefaults are active: Check if there are unsaved changes
-        if ([[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:NO updateSalt:NO]) {
+        if (settingsChanged) {
             // Yes: Display message instead of Browser Exam Key
             [self displayMessageKeyChanged];
         } else {
-            // No, there are no unsaved changes: Display the current keys
+            // No, there are no unsaved changes: Display current keys
             [self displayBrowserExamKey];
             [self displayConfigKey];
         }
     } else {
-        // Local client settings are active: Re-generate key
-        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-        // Display updated keys
+        // Local client settings are active: If settings changed, re-generate keys
+        if (settingsChanged) {
+            // Also reset (it will be re-generated) the dictionary containing all keys which
+            // were used to calculate the Config Key. When a config is changed, all keys of
+            // the current SEB version should be used to re-calculate the Config Key
+            [[NSUserDefaults standardUserDefaults] setSecureObject:[NSDictionary dictionary]
+                                                            forKey:@"org_safeexambrowser_configKeyContainedKeys"];
+            [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+        }
+        // Display updated or current keys
         [self displayBrowserExamKey];
         [self displayConfigKey];
     }
