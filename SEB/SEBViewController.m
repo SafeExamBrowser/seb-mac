@@ -291,7 +291,7 @@ static NSMutableSet *browserWindowControllers;
         
         _navigationBarHeightConstraint.constant = navigationBarHeight;
         
-        if (self.sideMenuController.isLeftViewVisible || self.prefersStatusBarHidden) {
+        if (self.sideMenuController.leftViewShowing || (_finishedStartingUp && self.prefersStatusBarHidden)) {
             _navigationBarBottomConstraint.constant = navigationBarOffset;
         } else {
             _navigationBarBottomConstraint.constant = 0;
@@ -976,15 +976,16 @@ void run_on_ui_thread(dispatch_block_t block)
                                                              multiplier:1.0
                                                                constant:0]];
         
-        SEBBackgroundTintStyle backgroundTintStyle = (statusBarAppearance == mobileStatusBarAppearanceLight |
+        SEBBackgroundTintStyle backgroundTintStyle = (statusBarAppearance == mobileStatusBarAppearanceNone | statusBarAppearance == mobileStatusBarAppearanceLight | 
                                                       statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ? SEBBackgroundTintStyleDark : SEBBackgroundTintStyleLight;
-
+        CGFloat bottomPadding = 0;
+        
         if (@available(iOS 11.0, *)) {
             
             // Check if we need to customize the navigation bar, when browser toolbar is enabled and
             // running on a device like iPhone X
             UIWindow *window = UIApplication.sharedApplication.keyWindow;
-            CGFloat bottomPadding = window.safeAreaInsets.bottom;
+            bottomPadding = window.safeAreaInsets.bottom;
             if (bottomPadding != 0 && self.sebUIController.browserToolbarEnabled) {
                 
                 [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
@@ -1084,14 +1085,18 @@ void run_on_ui_thread(dispatch_block_t block)
         [self.view addConstraints:constraints_H];
         [self.view addConstraints:constraints_V];
         
-        if (backgroundTintStyle == SEBBackgroundTintStyleDark) {
-            [self addBlurEffectStyle:UIBlurEffectStyleDark
-                           toBarView:_statusBarView
-                 backgroundTintStyle:SEBBackgroundTintStyleNone];
+        if (bottomPadding == 0 || UIAccessibilityIsReduceTransparencyEnabled()) {
+            _statusBarView.backgroundColor = backgroundTintStyle == SEBBackgroundTintStyleDark ? [UIColor blackColor] : [UIColor whiteColor];
         } else {
-            [self addBlurEffectStyle:UIBlurEffectStyleExtraLight
-                           toBarView:_statusBarView
-                 backgroundTintStyle:SEBBackgroundTintStyleNone];
+            if (backgroundTintStyle == SEBBackgroundTintStyleDark) {
+                [self addBlurEffectStyle:UIBlurEffectStyleDark
+                               toBarView:_statusBarView
+                     backgroundTintStyle:SEBBackgroundTintStyleNone];
+            } else {
+                [self addBlurEffectStyle:UIBlurEffectStyleExtraLight
+                               toBarView:_statusBarView
+                     backgroundTintStyle:SEBBackgroundTintStyleNone];
+            }
         }
         _statusBarView.hidden = false;
         
@@ -1135,7 +1140,7 @@ void run_on_ui_thread(dispatch_block_t block)
             // like iPhone X
             if (@available(iOS 11.0, *)) {
                 UIWindow *window = UIApplication.sharedApplication.keyWindow;
-                CGFloat bottomPadding = window.safeAreaInsets.bottom;
+                bottomPadding = window.safeAreaInsets.bottom;
                 if (bottomPadding != 0) {
                     
                     [self.navigationController.toolbar setBackgroundImage:[UIImage new] forToolbarPosition:UIBarPositionBottom barMetrics:UIBarMetricsDefault];
@@ -1248,23 +1253,34 @@ void run_on_ui_thread(dispatch_block_t block)
 
                     [self.view addConstraints:bottomBackgroundViewConstraints_H];
                     
-                    if (backgroundTintStyle == SEBBackgroundTintStyleDark) {
-                        [self addBlurEffectStyle:UIBlurEffectStyleDark
-                                       toBarView:_bottomBackgroundView
-                             backgroundTintStyle:SEBBackgroundTintStyleNone];
+                    if (UIAccessibilityIsReduceTransparencyEnabled()) {
+                        _bottomBackgroundView.backgroundColor = backgroundTintStyle == SEBBackgroundTintStyleDark ? [UIColor blackColor] : [UIColor whiteColor];
                     } else {
-                        [self addBlurEffectStyle:UIBlurEffectStyleExtraLight
-                                       toBarView:_bottomBackgroundView
-                             backgroundTintStyle:SEBBackgroundTintStyleNone];
+                        if (backgroundTintStyle == SEBBackgroundTintStyleDark) {
+                            [self addBlurEffectStyle:UIBlurEffectStyleDark
+                                           toBarView:_bottomBackgroundView
+                                 backgroundTintStyle:SEBBackgroundTintStyleNone];
+                        } else {
+                            [self addBlurEffectStyle:UIBlurEffectStyleExtraLight
+                                           toBarView:_bottomBackgroundView
+                                 backgroundTintStyle:SEBBackgroundTintStyleNone];
+                        }
                     }
-                    if (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
-                    }
-                    _bottomBackgroundView.hidden = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact);
+                    BOOL sideSafeAreaInsets = false;
                     
+                    if (@available(iOS 11.0, *)) {
+                        UIWindow *window = UIApplication.sharedApplication.keyWindow;
+                        CGFloat leftPadding = window.safeAreaInsets.left;
+                        sideSafeAreaInsets = leftPadding != 0;
+                    }
+                    
+                    _bottomBackgroundView.hidden = sideSafeAreaInsets;
+#ifdef DEBUG
                     CGFloat bottomPadding = window.safeAreaInsets.bottom;
                     CGFloat bottomMargin = window.layoutMargins.bottom;
                     CGFloat bottomInset = self.view.superview.safeAreaInsets.bottom;
                     NSLog(@"%f, %f, %f, ", bottomPadding, bottomMargin, bottomInset);
+#endif
                 }
             }
             
@@ -2206,31 +2222,6 @@ void run_on_ui_thread(dispatch_block_t block)
     return (statusBarAppearance == mobileStatusBarAppearanceNone ||
             statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark ||
             statusBarAppearance == mobileStatusBarAppearanceExtendedNoneLight);
-}
-
-- (BOOL)isRootViewStatusBarHidden {
-    return self.prefersStatusBarHidden; //(statusBarAppearance == mobileStatusBarAppearanceNone);
-}
-
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    if (statusBarAppearance == mobileStatusBarAppearanceLight ||
-        statusBarAppearance == mobileStatusBarAppearanceExtendedLight) {
-        return UIStatusBarStyleLightContent;
-    }
-    return UIStatusBarStyleDefault;
-}
-
-- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
-    if (self.sideMenuController.isLeftViewVisible) {
-        return UIStatusBarAnimationFade;
-    }
-    else if (self.sideMenuController.isRightViewVisible) {
-        return UIStatusBarAnimationSlide;
-    }
-    else {
-        return UIStatusBarAnimationNone;
-    }
 }
 
 
