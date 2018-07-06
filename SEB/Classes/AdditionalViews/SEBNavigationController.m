@@ -84,9 +84,8 @@
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     NSUInteger statusBarAppearance = [self statusBarAppearance];
-    if (!self.sebUIController.browserToolbarEnabled &&
-        (statusBarAppearance == mobileStatusBarAppearanceLight ||
-        statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark)) {
+    if (statusBarAppearance == mobileStatusBarAppearanceLight ||
+        statusBarAppearance == mobileStatusBarAppearanceExtendedLight) {
         return UIStatusBarStyleLightContent;
     } else {
         return UIStatusBarStyleDefault;

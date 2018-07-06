@@ -64,7 +64,7 @@
     }
     
     NSUInteger statusBarAppearance = [self statusBarAppearance];
-    _sebWebView.backgroundColor = (statusBarAppearance == mobileStatusBarAppearanceLight ||
+    _sebWebView.backgroundColor = (statusBarAppearance == mobileStatusBarAppearanceNone || statusBarAppearance == mobileStatusBarAppearanceLight ||
                                    statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ? [UIColor blackColor] : [UIColor whiteColor];
     
     _sebWebView.scalesPageToFit = YES;
