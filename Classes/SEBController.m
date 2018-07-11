@@ -3582,7 +3582,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 {
     [self performAfterPreferencesClosedActions];
     
-    [self requestedRestart:nil];
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"requestRestartNotification" object:self];
 
     // Reinforce kiosk mode after a delay, so eventually visible fullscreen apps get hidden again
     [self performSelector:@selector(requestedReinforceKioskMode:) withObject: nil afterDelay: 1];
@@ -3641,6 +3642,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     [self.systemManager adjustScreenCapture];
     
     // Close all browser windows (documents)
+    self.browserController.mainBrowserWindow = nil;
     [[NSDocumentController sharedDocumentController] closeAllDocumentsWithDelegate:self
                                                                didCloseAllSelector:@selector(documentController:didCloseAll:contextInfo:)
                                                                        contextInfo: nil];
