@@ -2098,7 +2098,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     if (!allowSwitchToThirdPartyApps) {
         windowLevel = NSMainMenuWindowLevel+2;
     } else {
-        windowLevel = NSNormalWindowLevel;
+        windowLevel = NSNormalWindowLevel-1;
     }
 
     BOOL excludeMenuBar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
@@ -3002,7 +3002,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     
     for (capWindow in self.capWindows) {
         if (allowApps) {
-            [capWindow newSetLevel:NSNormalWindowLevel];
+            [capWindow newSetLevel:NSNormalWindowLevel-1];
             if (allowAppsUserDefaultsSetting) {
                 capWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
             }
