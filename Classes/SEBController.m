@@ -252,9 +252,6 @@ bool insideMatrix(void);
     [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
                                                     withObject:NULL waitUntilDone:NO];
     
-    // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
-    [self coverScreens];
-    
     /// Setup Notifications
     
     // Add an observer for the notification that another application became active (SEB got inactive)
@@ -409,11 +406,6 @@ bool insideMatrix(void);
                                              selector:@selector(lockSEB:)
                                                  name:@"detectedSIGSTOP" object:nil];
     
-    // Add a observer for notification that a file was opened
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(openFileNotification)
-                                                 name:@"openedConfigFile" object:nil];
-
     // Prevent display sleep
 #ifndef DEBUG
     IOPMAssertionCreateWithName(
@@ -573,26 +565,21 @@ bool insideMatrix(void);
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
     DDLogDebug(@"%s", __FUNCTION__);
-    
-    if (_openingSettings && _openingSettingsFilename) {
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"openedConfigFile" object:self];
-        return;
-    }
 
+    // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
+    [self coverScreens];
+
+    if (_openingSettings && _openingSettingsFilename) {
+        DDLogDebug(@"%s Open file: %@", __FUNCTION__, _openingSettingsFilename);
+        [self openFile:_openingSettingsFilename];
+        _openingSettingsFilename = nil;
+    }
+    
     [self didFinishLaunchingWithSettings];
 }
 
 
 #pragma mark - Open settings file
-
-- (void)openFileNotification
-{
-    DDLogDebug(@"%s Open file: %@", __FUNCTION__, _openingSettingsFilename);
-    [self openFile:_openingSettingsFilename];
-    [self didFinishLaunchingWithSettings];
-}
-
 
 - (void)openFile:(NSString *)filename
 {
@@ -2098,7 +2085,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     if (!allowSwitchToThirdPartyApps) {
         windowLevel = NSMainMenuWindowLevel+2;
     } else {
-        windowLevel = NSNormalWindowLevel-1;
+        windowLevel = NSNormalWindowLevel;
     }
 
     BOOL excludeMenuBar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
@@ -3002,7 +2989,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     
     for (capWindow in self.capWindows) {
         if (allowApps) {
-            [capWindow newSetLevel:NSNormalWindowLevel-1];
+            [capWindow newSetLevel:NSNormalWindowLevel];
             if (allowAppsUserDefaultsSetting) {
                 capWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
             }
@@ -3561,13 +3548,12 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
     [self coverScreens];
     
-    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-    [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
-    
+    // Change window level of all open browser windows
+    [self.browserController allBrowserWindowsChangeLevel:YES];
+
     // Switch the kiosk mode on again
     [self setElevateWindowLevels];
     
-//    [self startKioskMode];
     BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
     [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
 
