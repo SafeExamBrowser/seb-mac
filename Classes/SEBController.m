@@ -3285,7 +3285,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
         if ([hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
             // if the correct quit/unlock password was entered, restart the exam
-            [self.browserController restartDockButtonPressed];
+            [self.browserController backToStartCommand];
             return;
         } else {
             // Wrong quit password was entered
@@ -3318,7 +3318,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
             return; //Cancel: don't restart exam
         default:
         {
-            [self.browserController restartDockButtonPressed];
+            [self.browserController backToStartCommand];
         }
     }
 }
@@ -3326,7 +3326,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 
 - (void) reloadButtonPressed
 {
-    [self.browserController reloadDockButtonPressed];
+    [self.browserController reloadCommand];
 }
 
 
@@ -3642,10 +3642,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     [self.systemManager adjustScreenCapture];
     
     // Close all browser windows (documents)
-    self.browserController.mainBrowserWindow = nil;
-    [[NSDocumentController sharedDocumentController] closeAllDocumentsWithDelegate:self
-                                                               didCloseAllSelector:@selector(documentController:didCloseAll:contextInfo:)
-                                                                       contextInfo: nil];
+    [self.browserController closeAllBrowserWindows];
+
     // Reset SEB Browser
     [self.browserController resetBrowser];
     
@@ -3690,12 +3688,6 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     //            }
     //        }
     //    }
-}
-
-
-- (void)documentController:(NSDocumentController *)docController  didCloseAll: (BOOL)didCloseAll contextInfo:(void *)contextInfo
-{
-    DDLogDebug(@"documentController: %@ didCloseAll: %hhd contextInfo: %@", docController, didCloseAll, contextInfo);
 }
 
 
