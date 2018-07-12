@@ -3806,6 +3806,10 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 // Called just before SEB will be terminated
 - (void) applicationWillTerminate:(NSNotification *)aNotification
 {
+    if (self.browserController) {
+        [self.browserController closeAllBrowserWindows];
+    }
+    
     if (_enforceMinMacOSVersion != SEBMinMacOSVersionSupported) {
         NSAlert *modalAlert = [self newAlert];
         [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Not Running Minimal macOS Version!", nil)]];
