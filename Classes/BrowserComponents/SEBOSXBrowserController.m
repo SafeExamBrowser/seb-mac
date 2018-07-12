@@ -436,6 +436,7 @@
     for (openWindowDocument in openWindowDocuments) {
         NSWindow *browserWindow = openWindowDocument.mainWindowController.window;
         [self setLevelForBrowserWindow:browserWindow elevateLevels:!allowApps];
+        [browserWindow orderFront:self];
     }
     // If the main browser window is displayed fullscreen and switching to apps is allowed,
     // we make the window stationary, so that it isn't scaled down from Exposé
