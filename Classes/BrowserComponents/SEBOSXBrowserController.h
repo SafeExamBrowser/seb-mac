@@ -93,6 +93,8 @@
 - (void) adjustMainBrowserWindow;
 - (void) moveAllBrowserWindowsToScreen:(NSScreen *)screen;
 - (void) allBrowserWindowsChangeLevel:(BOOL)allowApps;
+- (void) closeAllBrowserWindows;
+- (void) closeAllAdditionalBrowserWindows;
 
 - (void) openURLString:(NSString *)urlText withSEBUserAgentInWebView:(SEBWebView *)webView;
 - (void) openResourceWithURL:(NSString *)URL andTitle:(NSString *)title;
@@ -105,8 +107,8 @@
 - (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView;
 - (void) setStateForWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView;
 
-- (void) restartDockButtonPressed;
-- (void) reloadDockButtonPressed;
+- (void) backToStartCommand;
+- (void) reloadCommand;
 
 - (void) showEnterUsernamePasswordDialog:(NSString *)text
                           modalForWindow:(NSWindow *)window

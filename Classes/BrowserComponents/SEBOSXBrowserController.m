@@ -993,6 +993,23 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 }
 
 
+// Close all browser windows (including the main browser window)
+- (void) closeAllBrowserWindows
+{
+    // Close all browser windows (documents)
+    self.mainBrowserWindow = nil;
+    [[NSDocumentController sharedDocumentController] closeAllDocumentsWithDelegate:self
+                                                               didCloseAllSelector:@selector(documentController:didCloseAll:contextInfo:)
+                                                                       contextInfo: nil];
+}
+
+
+- (void)documentController:(NSDocumentController *)docController  didCloseAll: (BOOL)didCloseAll contextInfo:(void *)contextInfo
+{
+    DDLogDebug(@"documentController: %@ didCloseAll: %hhd contextInfo: %@", docController, didCloseAll, contextInfo);
+}
+
+
 // Close all additional browser windows (except the main browser window)
 - (void) closeAllAdditionalBrowserWindows
 {
@@ -1076,7 +1093,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 }
 
 
-- (void) reloadDockButtonPressed
+- (void) reloadCommand
 {
     DDLogInfo(@"Reloading current browser window: %@", self.activeBrowserWindow);
     [self.activeBrowserWindow.webView reload:self.activeBrowserWindow];
