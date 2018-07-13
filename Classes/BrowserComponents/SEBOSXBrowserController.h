@@ -57,11 +57,19 @@
 @property (weak) SEBController *sebController;
 @property (strong) SEBBrowserController *browserController;
 @property (weak) SEBWebView *mainWebView;
-@property (weak) SEBBrowserWindowDocument *temporaryBrowserWindowDocument;
+@property (strong) SEBBrowserWindowDocument *temporaryBrowserWindowDocument;
 @property (weak) SEBWebView *temporaryWebView;
 @property (strong) SEBBrowserWindow *mainBrowserWindow;
+
+#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_8
 @property (weak) SEBBrowserWindow *activeBrowserWindow;
 @property (weak) SEBDockController *dockController;
+#else
+ // weak properties not supported on Mac OS X 10.7
+@property (assign) SEBBrowserWindow *activeBrowserWindow;
+@property (assign) SEBDockController *dockController;
+#endif
+
 @property (strong) NSString *currentMainHost;
 @property (strong) NSMutableArray *openBrowserWindowsWebViews;
 @property (strong) SEBDockItemMenu *openBrowserWindowsWebViewsMenu;
