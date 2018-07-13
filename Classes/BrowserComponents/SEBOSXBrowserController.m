@@ -1069,7 +1069,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 
 #pragma mark SEB Dock Buttons Action Methods
 
-- (void) restartDockButtonPressed
+- (void) backToStartCommand
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
