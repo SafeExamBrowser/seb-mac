@@ -90,7 +90,7 @@
                       };
                       
                       if (self.window.styleMask == NSBorderlessWindowMask || floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_9) {
-                          [self.browserController.sebController.modalAlertWindows addObject:newAlert];
+                          [self.browserController.sebController.modalAlertWindows addObject:newAlert.window];
                           NSModalResponse answer = [newAlert runModal];
                           [self.browserController.sebController removeAlertWindow:newAlert.window];
                           conditionalReload(answer);
