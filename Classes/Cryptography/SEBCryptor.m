@@ -363,7 +363,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 
 - (NSData *)checksumForJSONString:(NSString *)jsonString withSalt:(NSData *)salt
 {
-    DDLogDebug(@"JSON for Config Key: %@", jsonString);
+    DDLogVerbose(@"JSON for Config Key: %@", jsonString);
     NSData *serializedPrefs = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     NSData *HMACData;
