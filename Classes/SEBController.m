@@ -718,8 +718,9 @@ bool insideMatrix(void);
         
         // SEB finished starting up, reset the flag for starting up
         _startingUp = false;
+
+        [self performSelector:@selector(performAfterStartActions:) withObject: nil afterDelay: 2];
     }
-    [self performSelector:@selector(performAfterStartActions:) withObject: nil afterDelay: 2];
 }
 
 
