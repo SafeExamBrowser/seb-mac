@@ -48,7 +48,7 @@
                    @NO,
                    @"allowBrowsingBackForward",
                    
-                   @NO,
+                   @YES,
                    @"allowDictation",
                    
                    @NO,
