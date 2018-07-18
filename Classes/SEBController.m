@@ -854,7 +854,7 @@ bool insideMatrix(void);
     if (!allowDictation &&
         [allRunningProcesses containsObject:DictationProcess] &&
         ([[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue] ||
-         [[preferences valueForDefaultsDomain:AppleDictationDefaultsDomain key:AppleDictationDefaultsKey] integerValue] != 0))
+         [[preferences valueForDefaultsDomain:RemoteDictationDefaultsDomain key:RemoteDictationDefaultsKey] boolValue]))
     {
         // Dictation is active
         DDLogError(@"Dictation Detected, SEB will quit");
@@ -1445,7 +1445,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     if (!_startingUp && !allowDictation && !_dictationCheckOverride &&
         [allRunningProcesses containsObject:DictationProcess] &&
         ([[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue] ||
-         [[preferences valueForDefaultsDomain:AppleDictationDefaultsDomain key:AppleDictationDefaultsKey] integerValue] != 0)) {
+         [[preferences valueForDefaultsDomain:RemoteDictationDefaultsDomain key:RemoteDictationDefaultsKey] boolValue])) {
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedDictation" object:self];
         }
@@ -1712,7 +1712,8 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     
     // If settings demand it, switch off dictation
     if (allowDictation !=
-        [[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue]) {
+        ([[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue] |
+         [[preferences valueForDefaultsDomain:RemoteDictationDefaultsDomain key:RemoteDictationDefaultsKey] boolValue])) {
         [preferences setValue:[NSNumber numberWithBool:allowDictation] forKey:DictationDefaultsKey forDefaultsDomain:DictationDefaultsDomain];
     }
     

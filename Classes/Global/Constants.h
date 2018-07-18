@@ -310,6 +310,9 @@ static NSString __unused *DictationDefaultsKey = @"DictationIMMasterDictationEna
 static NSString __unused *AppleDictationDefaultsDomain = @"com.apple.HIToolbox";
 static NSString __unused *AppleDictationDefaultsKey = @"AppleDictationAutoEnable";
 static NSString __unused *cachedDictationSettingKey = @"cachedDictationSettingKey";
+static NSString __unused *cachedRemoteDictationSettingKey = @"cachedRemoteDictationSettingKey";
+static NSString __unused *RemoteDictationDefaultsDomain = @"com.apple.assistant.support";
+static NSString __unused *RemoteDictationDefaultsKey = @"Dictation Enabled";
 
 static NSString __unused *userDefaultsMasala = @"Di𝈭l𝈖Ch𝈒ah𝉇t𝈁a𝉈Hai1972";
 

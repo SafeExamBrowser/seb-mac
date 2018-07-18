@@ -50,12 +50,19 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
     // Cache current system preferences setting for Siri
-    BOOL siriEnabled = [[preferences valueForDefaultsDomain:SiriDefaultsDomain key:SiriDefaultsKey] boolValue];
+    BOOL siriEnabled = [[preferences valueForDefaultsDomain:SiriDefaultsDomain
+                                                        key:SiriDefaultsKey] boolValue];
     [preferences setPersistedSecureBool:siriEnabled forKey:cachedSiriSettingKey];
     
     // Cache current system preferences setting for dictation
-    BOOL dictationEnabled = [[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue];
+    BOOL dictationEnabled = [[preferences valueForDefaultsDomain:DictationDefaultsDomain
+                                                             key:DictationDefaultsKey] boolValue];
     [preferences setPersistedSecureBool:dictationEnabled forKey:cachedDictationSettingKey];
+    
+    // Cache current system preferences setting for remote (server based) dictation
+    BOOL remoteDictationEnabled = [[preferences valueForDefaultsDomain:RemoteDictationDefaultsDomain
+                                                                   key:RemoteDictationDefaultsKey] boolValue];
+    [preferences setPersistedSecureBool:remoteDictationEnabled forKey:cachedRemoteDictationSettingKey];
 }
 
 
@@ -66,11 +73,21 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
     
     // Restore setting for Siri before SEB was running to system preferences
     BOOL siriEnabled = [preferences persistedSecureBoolForKey:cachedSiriSettingKey];
-    [preferences setValue:[NSNumber numberWithBool:siriEnabled] forKey:SiriDefaultsKey forDefaultsDomain:SiriDefaultsDomain];
+    [preferences setValue:[NSNumber numberWithBool:siriEnabled]
+                   forKey:SiriDefaultsKey
+        forDefaultsDomain:SiriDefaultsDomain];
     
     // Restore setting for dictation before SEB was running to system preferences
     BOOL dictationEnabled = [preferences persistedSecureBoolForKey:cachedDictationSettingKey];
-    [preferences setValue:[NSNumber numberWithBool:dictationEnabled] forKey:DictationDefaultsKey forDefaultsDomain:DictationDefaultsDomain];
+    [preferences setValue:[NSNumber numberWithBool:dictationEnabled]
+                   forKey:DictationDefaultsKey
+        forDefaultsDomain:DictationDefaultsDomain];
+    
+    // Restore setting for remote (server based) dictation before SEB was running to system preferences
+    BOOL remoteDictationEnabled = [preferences persistedSecureBoolForKey:cachedRemoteDictationSettingKey];
+    [preferences setValue:[NSNumber numberWithBool:remoteDictationEnabled]
+                   forKey:RemoteDictationDefaultsKey
+        forDefaultsDomain:RemoteDictationDefaultsDomain];
 }
 
 
