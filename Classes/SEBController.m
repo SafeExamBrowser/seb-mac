@@ -1713,14 +1713,33 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     // If settings demand it, switch off dictation
     if (allowDictation !=
         ([[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue] |
-         [[preferences valueForDefaultsDomain:RemoteDictationDefaultsDomain key:RemoteDictationDefaultsKey] boolValue])) {
-        [preferences setValue:[NSNumber numberWithBool:allowDictation] forKey:DictationDefaultsKey forDefaultsDomain:DictationDefaultsDomain];
+         [[preferences valueForDefaultsDomain:RemoteDictationDefaultsDomain key:RemoteDictationDefaultsKey] boolValue]))
+    {
+        // We set the master system setting for dictation
+        // to the SEB setting value (allow/disallow)
+        [preferences setValue:[NSNumber numberWithBool:allowDictation]
+                       forKey:DictationDefaultsKey
+            forDefaultsDomain:DictationDefaultsDomain];
+        
+        // If dictation isn't allowed in SEB settings, we switch off
+        // remote dictation (running on Apple's servers)
+        // We don't change the setting for remote dictation in case
+        // SEB settings allow dictation, as the user needs to confirm
+        // that audio data is sent to Apple (using system settings
+        // before starting SEB)!
+        if (allowDictation == NO) {
+            [preferences setValue:[NSNumber numberWithBool:NO]
+                           forKey:RemoteDictationDefaultsKey
+                forDefaultsDomain:RemoteDictationDefaultsDomain];
+        }
     }
-    
+
     // If settings demand it, switch off Siri
     if (allowSiri !=
         [[preferences valueForDefaultsDomain:SiriDefaultsDomain key:SiriDefaultsKey] boolValue]) {
-        [preferences setValue:[NSNumber numberWithBool:allowSiri] forKey:SiriDefaultsKey forDefaultsDomain:SiriDefaultsDomain];
+        [preferences setValue:[NSNumber numberWithBool:allowSiri]
+                       forKey:SiriDefaultsKey
+            forDefaultsDomain:SiriDefaultsDomain];
     }
 }
 
@@ -2413,7 +2432,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         NSDateComponents *components = [calendar components:NSMinuteCalendarUnit | NSSecondCalendarUnit
                                                    fromDate:self.didResignActiveTime
                                                      toDate:self.didBecomeActiveTime
-                                                    options:false];
+                                                    options:NSCalendarWrapComponents];
         [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"  SEB session was inactive for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:nil];
     }
     
@@ -2605,7 +2624,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         NSDateComponents *components = [calendar components:NSMinuteCalendarUnit | NSSecondCalendarUnit
                                                    fromDate:self.didResignActiveTime
                                                      toDate:self.didBecomeActiveTime
-                                                    options:false];
+                                                    options:NSCalendarWrapComponents];
         [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"SEB process was stopped for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:self.didBecomeActiveTime];
         
         [self openLockdownWindows];
@@ -2785,7 +2804,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
                                        NSLocalizedString(@"Detecting specific processes was disabled!", nil)]];
     }
     
-    [informationHUDLabel setStringValue:[informationText copy]];
+    NSString *informationTextFinal = [informationText copy];
+    [informationHUDLabel setStringValue:informationTextFinal];
     NSArray *screens = [NSScreen screens];    // get all available screens
     NSScreen *mainScreen = screens[0];
     
@@ -2796,7 +2816,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
     
     informationHUD.becomesKeyOnlyIfNeeded = YES;
     [informationHUD setLevel:NSModalPanelWindowLevel];
-    DDLogDebug(@"Opening info HUD: %@", informationHUD);
+    DDLogDebug(@"Opening info HUD: %@", informationTextFinal);
     [informationHUD makeKeyAndOrderFront:nil];
 }
 
