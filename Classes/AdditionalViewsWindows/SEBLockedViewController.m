@@ -245,7 +245,7 @@
     NSDateComponents *components = [calendar components:NSCalendarUnitMinute | NSCalendarUnitSecond
                                                fromDate:self.controllerDelegate.didResignActiveTime
                                                  toDate:self.controllerDelegate.didResumeExamTime
-                                                options:false];
+                                                options:NSCalendarWrapComponents];
     
     DDLogError(@"Lockdown alert: Closing lockdown windows");
     NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second];
