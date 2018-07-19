@@ -126,6 +126,7 @@
     BOOL checkingRunningProcesses;
     BOOL checkingForWindows;
     NSDate *lastTimeProcessCheck;
+    NSDate *timeProcessCheckBeforeSIGSTOP;
 }
 
 @property(readwrite) BOOL allowSwitchToApplications;
@@ -160,6 +161,7 @@
 @property(strong) SEBDockController *dockController;
 @property(strong, nonatomic) SEBOSXBrowserController *browserController;
 @property(strong) IBOutlet SEBOSXLockedViewController *sebLockedViewController;
+@property(strong) NSDate *didLockSEBTime;
 @property(strong) NSDate *didResignActiveTime;
 @property(strong) NSDate *didBecomeActiveTime;
 @property(strong) NSDate *didResumeExamTime;

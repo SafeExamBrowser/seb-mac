@@ -86,8 +86,8 @@
 }
 
 
-- (BOOL) shouldOpenLockdownWindows {
-    return [self.lockedViewController shouldOpenLockdownWindows];
+- (BOOL) isStartingLockedExam {
+    return [self.lockedViewController isStartingLockedExam];
 }
 
 - (void) shouldCloseLockdownWindows {
