@@ -1273,13 +1273,13 @@ dispatch_source_t CreateDispatchTimer(uint64_t interval, uint64_t leeway, dispat
     }
     checkingRunningProcesses = true;
     
-    NSDate *timeProcessCheckBeforeSIGSTOP = lastTimeProcessCheck;
-    if (detectSIGSTOP && -[timeProcessCheckBeforeSIGSTOP timeIntervalSinceNow] > 3) {
-        DDLogError(@"Detected SIGSTOP! SEB was stopped for %f seconds", -[timeProcessCheckBeforeSIGSTOP timeIntervalSinceNow]);
+    NSDate *lastTimeProcessCheckBeforeSIGSTOP = lastTimeProcessCheck;
+    if (detectSIGSTOP && -[lastTimeProcessCheckBeforeSIGSTOP timeIntervalSinceNow] > 3) {
+        DDLogError(@"Detected SIGSTOP! SEB was stopped for %f seconds", -[lastTimeProcessCheckBeforeSIGSTOP timeIntervalSinceNow]);
         dispatch_async(dispatch_get_main_queue(), ^{
             if (!_SIGSTOPDetected) {
                 _SIGSTOPDetected = true;
-                self.didResignActiveTime = timeProcessCheckBeforeSIGSTOP;
+                timeProcessCheckBeforeSIGSTOP = lastTimeProcessCheckBeforeSIGSTOP;
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:@"detectedSIGSTOP" object:self];
             }
@@ -2308,8 +2308,11 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         // Check if lockdown windows are open and adjust those too
         if (self.lockdownWindows.count > 0) {
             DDLogDebug(@"Adjusting lockdown windows");
+            NSDate *originalDidLockSEBTime = self.didLockSEBTime;
             [self closeLockdownWindows];
             [self openLockdownWindows];
+            self.didLockSEBTime = originalDidLockSEBTime;
+            DDLogDebug(@"Adjusting screen locking: didLockSEBTime %@, didBecomeActiveTime %@", self.didLockSEBTime, self.didBecomeActiveTime);
         }
         
         // Close the covering windows
@@ -2402,14 +2405,17 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 {
     self.didBecomeActiveTime = [NSDate date];
 
+    /// Handler called when SEB resigns active state (by user switch / switch to login window)
+    
     if ([[notification name] isEqualToString:
          NSWorkspaceSessionDidResignActiveNotification])
     {
+        self.didResignActiveTime = [NSDate date];
+
         // Set alert title and message strings
         [_sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"User Switch Locked SEB!", @"Lockdown alert title text for switching the user")
                                                 Message: NSLocalizedString(@"SEB is locked because it was attempted to switch the user. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", @"Lockdown alert message text for switching the user")];
         
-        self.didResignActiveTime = [NSDate date];
         DDLogError(@"SessionDidResignActive: User switch / switch to login window detected!");
         [self openLockdownWindows];
         
@@ -2417,6 +2423,9 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"User switch / switch to login window detected", nil)] withTime:self.didResignActiveTime];
         
     }
+
+    /// Handler called when SEB becomes active again (after user switch / switch to login window)
+    
     else if ([[notification name] isEqualToString:
               NSWorkspaceSessionDidBecomeActiveNotification])
     {
@@ -2428,12 +2437,14 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
         [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Switched back after user switch / login window", nil)] withTime:self.didBecomeActiveTime];
         
         // Calculate time difference between session resigning active and becoming active again
-        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        NSDateComponents *components = [calendar components:NSMinuteCalendarUnit | NSSecondCalendarUnit
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        NSDateComponents *components = [calendar components:NSCalendarUnitMinute | NSCalendarUnitSecond
                                                    fromDate:self.didResignActiveTime
                                                      toDate:self.didBecomeActiveTime
                                                     options:NSCalendarWrapComponents];
-        [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"  SEB session was inactive for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:nil];
+        NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"  SEB session was inactive for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second];
+        DDLogError(@"SessionDidBecomeActive: %@, didLockSEBTime %@, didBecomeActiveTime %@", lockedTimeInfo, self.didLockSEBTime, self.didBecomeActiveTime);
+        [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", lockedTimeInfo] withTime:nil];
     }
     
     /// Handler called when attempting to re-open an exam which was interrupted before
@@ -2620,14 +2631,17 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
                                                 Message:NSLocalizedString(@"The SEB process was interrupted, which can indicate manipulation. SEB can only be unlocked by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
         // Add log string for trying to re-open a locked exam
         // Calculate time difference between session resigning active and becoming active again
-        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        NSDateComponents *components = [calendar components:NSMinuteCalendarUnit | NSSecondCalendarUnit
-                                                   fromDate:self.didResignActiveTime
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        NSDateComponents *components = [calendar components:NSCalendarUnitMinute | NSCalendarUnitSecond
+                                                   fromDate:timeProcessCheckBeforeSIGSTOP
                                                      toDate:self.didBecomeActiveTime
                                                     options:NSCalendarWrapComponents];
         [_sebLockedViewController appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"SEB process was stopped for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:self.didBecomeActiveTime];
         
-        [self openLockdownWindows];
+        if (!self.lockdownWindows) {
+            [self openLockdownWindows];
+            self.didLockSEBTime = timeProcessCheckBeforeSIGSTOP;
+        }
 #endif
     }
     
@@ -2636,7 +2650,7 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 
 - (void) conditionallyLockExam
 {
-    if ([_sebLockedViewController shouldOpenLockdownWindows]) {
+    if ([_sebLockedViewController isStartingLockedExam]) {
         if ([[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedReOpeningExam" object:self];
@@ -2652,7 +2666,8 @@ CGEventRef leftMouseTapCallback(CGEventTapProxy aProxy, CGEventType aType, CGEve
 - (void) openLockdownWindows
 {
     if (!self.lockdownWindows) {
-        self.didResignActiveTime = [NSDate date];
+        self.didLockSEBTime = [NSDate date];
+        DDLogDebug(@"openLockdownWindows: didLockSEBTime %@, didBecomeActiveTime %@", self.didLockSEBTime, self.didBecomeActiveTime);
 
         DDLogError(@"Locking SEB with red frontmost covering windows");
 

@@ -92,9 +92,9 @@
 }
 
 
-- (BOOL) shouldOpenLockdownWindows
+- (BOOL) isStartingLockedExam
 {
-    BOOL shouldOpenLockdownWindows = false;
+    BOOL isStartingLockedExam = false;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *startURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
     NSMutableArray *lockedExams = [NSMutableArray arrayWithArray:[preferences persistedSecureObjectForKey:@"org_safeexambrowser_additionalResources"]];
@@ -104,9 +104,9 @@
             [lockedExams removeAllObjects];
         }
         DDLogError(@"Attempting to start an exam %@ which is on the list %@ of previously interrupted and not properly finished exams.", startURL, lockedExams);
-        shouldOpenLockdownWindows = true;
+        isStartingLockedExam = true;
     }
-    return shouldOpenLockdownWindows;
+    return isStartingLockedExam;
 }
 
 
@@ -243,7 +243,7 @@
     // Calculate time difference between session resigning active and closing lockdown alert
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *components = [calendar components:NSCalendarUnitMinute | NSCalendarUnitSecond
-                                               fromDate:self.controllerDelegate.didResignActiveTime
+                                               fromDate:self.controllerDelegate.didLockSEBTime
                                                  toDate:self.controllerDelegate.didResumeExamTime
                                                 options:NSCalendarWrapComponents];
     

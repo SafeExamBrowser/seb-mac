@@ -63,7 +63,7 @@
 - (void) addLockedExam:(NSString *)examURLString;
 - (void) removeLockedExam:(NSString *)examURLString;
 
-- (BOOL) shouldOpenLockdownWindows;
+- (BOOL) isStartingLockedExam;
 - (void) shouldCloseLockdownWindows;
 
 @end
