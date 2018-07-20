@@ -32,7 +32,7 @@
 				<string>seb</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>sebConfigIcon</string>
+			<string>SEBDocumentIcon</string>
 			<key>CFBundleTypeName</key>
 			<string>SEBSettings</string>
 			<key>CFBundleTypeRole</key>
@@ -41,9 +41,12 @@
 			<array>
 				<string>org.safeexambrowser.seb</string>
 			</array>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
 			<key>NSDocumentClass</key>
 			<string></string>
 		</dict>
+		<dict/>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
@@ -56,7 +59,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.1.3GM6</string>
+	<string>2.1.3</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -87,7 +90,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>29DF</string>
+	<string>29E4</string>
 	<key>ClickToFlashOptOut</key>
 	<true/>
 	<key>LSApplicationCategoryType</key>
@@ -115,7 +118,7 @@
 			<key>UTTypeDescription</key>
 			<string>Safe Exam Browser Configuration</string>
 			<key>UTTypeIconFile</key>
-			<string>SEBDocumentIcon.icns</string>
+			<string>SEBDocumentIcon</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.safeexambrowser.seb</string>
 			<key>UTTypeTagSpecification</key>
