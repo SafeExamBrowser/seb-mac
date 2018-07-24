@@ -144,7 +144,7 @@
                    @YES,
                    @"browserWindowAllowReload",
                    
-                   [NSNumber numberWithLong:browserWindowShowURLBeforeTitle],
+                   [NSNumber numberWithLong:browserWindowShowURLNever],
                    @"browserWindowShowURL",
 
                    [NSNumber numberWithLong:manuallyWithFileRequester],
