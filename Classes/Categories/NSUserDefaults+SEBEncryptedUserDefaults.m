@@ -135,9 +135,12 @@ static NSNumber *_logLevel;
 // Get value from another application’s preferences
 - (id) valueForDefaultsDomain:(NSString *)domain key:(NSString *)key
 {
-    [self addSuiteNamed:domain];
     id value = [self valueForKey:key];
-    [self removeSuiteNamed:domain];
+    if (!value) {
+        DDLogDebug(@"%s addSuiteNamed: %@", __FUNCTION__, domain);
+        [self addSuiteNamed:domain];
+        value = [self valueForKey:key];
+    }
     return value;
 }
 
