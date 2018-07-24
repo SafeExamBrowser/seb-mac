@@ -262,6 +262,10 @@
         
         if (webViewToClose == _temporaryWebView) {
             _temporaryWebView = nil;
+            // If this is a temporary browser window used for opening a seb(s) link on a server
+            // requiring authentication, we might need to quit (if SEB was just started)
+            // or reset the opening settings flag which prevents opening URLs concurrently
+            [self openingConfigURLRoleBack];
         }
     }
 }
@@ -622,15 +626,11 @@
             [self closeWebView:_temporaryWebView];
         });
     }
-    // If SEB was just started (by opening a seb(s) link)
-    if (_sebController.startingUp) {
-        // we quit, as decrypting the config wasn't successful
-        _sebController.quittingMyself = TRUE; // SEB is terminating itself
-        [NSApp terminate: nil]; // Quit SEB
-    }
+    
+    [self openingConfigURLRoleBack];
+
     // Also reset the flag for SEB starting up
     _sebController.startingUp = false;
-    _sebController.openingSettings = false;
 }
 
 
@@ -681,12 +681,7 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self closeWebView:_temporaryWebView];
                 });
-                // If SEB was just started (by opening a seb(s) link)
-                if (_sebController.startingUp) {
-                    // we quit, as decrypting the config wasn't successful
-                    _sebController.quittingMyself = TRUE; // SEB is terminating itself
-                    [NSApp terminate: nil]; // Quit SEB
-                }
+                [self openingConfigURLRoleBack];
 
             } else {
                 _directConfigDownloadAttempted = false;
@@ -774,12 +769,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                 // inform the user that the user name and password
                 // in the preferences are incorrect
                 
-                // If SEB was just started (by opening a seb(s) link)
-                if (_sebController.startingUp) {
-                    // we quit, as decrypting the config wasn't successful
-                    _sebController.quittingMyself = TRUE; // SEB is terminating itself
-                    [NSApp terminate: nil]; // Quit SEB
-                }
+                [self openingConfigURLRoleBack];
             }
         }
     } else {
@@ -815,12 +805,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
             _enteredCredential = nil;
             _pendingChallengeCompletionHandler = nil;
         }
-        // If SEB was just started (by opening a seb(s) link)
-        if (_sebController.startingUp) {
-            // we quit, as decrypting the config wasn't successful
-            _sebController.quittingMyself = TRUE; // SEB is terminating itself
-            [NSApp terminate: nil]; // Quit SEB
-        }
+        [self openingConfigURLRoleBack];
     }
 }
 
@@ -837,12 +822,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         [self closeWebView:_temporaryWebView];
         // Show the load error
         [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
-        // If SEB was just started (by opening a seb(s) link)
-        if (_sebController.startingUp) {
-            // we quit, as decrypting the config wasn't successful
-            _sebController.quittingMyself = TRUE; // SEB is terminating itself
-            [NSApp terminate: nil]; // Quit SEB
-        }
+        [self openingConfigURLRoleBack];
     }
 }
 
@@ -893,15 +873,22 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
             // Reset the direct download flag for the case this was a successful direct download
             _directConfigDownloadAttempted = false;
             
-            // If SEB was just started (by opening a seb(s) link)
-            if (_sebController.startingUp) {
-                // we quit, as decrypting the config wasn't successful
-                _sebController.quittingMyself = TRUE; // SEB is terminating itself
-                [NSApp terminate: nil]; // Quit SEB
-            }
-            _sebController.openingSettings = false;
+            [self openingConfigURLRoleBack];
         }
     }
+}
+
+
+- (void) openingConfigURLRoleBack
+{
+    // If SEB was just started (by opening a seb(s) link)
+    if (_sebController.startingUp) {
+        // we quit, as decrypting the config wasn't successful
+        _sebController.quittingMyself = TRUE; // SEB is terminating itself
+        [NSApp terminate: nil]; // Quit SEB
+    }
+    // Reset the opening settings flag which prevents opening URLs concurrently
+    _sebController.openingSettings = false;
 }
 
 
