@@ -973,16 +973,15 @@ initiatedByFrame:(WebFrame *)frame {
     [self makeKeyAndOrderFront:self];
 
     NSAlert *modalAlert = [self.browserController.sebController newAlert];
-    NSInteger alertResultButton = NSCancelButton;
     DDLogInfo(@"%s: %@", __FUNCTION__, message);
     [modalAlert setMessageText:pageTitle];
     [modalAlert setInformativeText:message];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     [modalAlert setAlertStyle:NSInformationalAlertStyle];
-    alertResultButton = [modalAlert runModal];
+    NSModalResponse alertResultButton = [modalAlert runModal];
     [self.browserController.sebController removeAlertWindow:modalAlert.window];
-    return alertResultButton;
+    return alertResultButton == NSAlertFirstButtonReturn;
 }
 
 
