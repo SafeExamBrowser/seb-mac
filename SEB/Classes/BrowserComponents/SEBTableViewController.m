@@ -74,11 +74,16 @@
                                              selector:@selector(refreshTableView:)
                                                  name:@"refreshSlider" object:nil];
     
-    // Add an observer for refreshing the table view
+    // Add an observer for the left slider will be displayed
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(initSliderViewAppearance)
                                                  name:@"LGSideMenuWillShowLeftViewNotification" object:nil];
     
+    // Add an observer for the left slider will be hidden by swipe gesture
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sliderWillCloseByGesture)
+                                                 name:@"LGSideMenuWillHideLeftViewWithGestureNotification" object:nil];
+
      // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -97,6 +102,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -113,10 +119,12 @@
     //self.navigationItem.rightBarButtonItem = item;
 }
 
+
 // Get statusbar appearance depending on device type (traditional or iPhone X like)
 - (NSUInteger)statusBarAppearance {
     return [_appDelegate.sebUIController statusBarAppearanceForDevice];
 }
+
 
 - (void)initSliderViewAppearance
 {
@@ -124,6 +132,7 @@
     _commandItems = _appDelegate.sebUIController.leftSliderCommands;
     
     _SEBTitleLabel.textColor = [UIColor whiteColor];
+    _SEBTitleLabel.hidden = NO;
     NSUInteger statusBarAppearance = [self statusBarAppearance];
     if (statusBarAppearance == mobileStatusBarAppearanceLight ||
         statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) {
@@ -136,6 +145,15 @@
     
     [self refreshTableView:self];
 }
+
+
+- (void)sliderWillCloseByGesture
+{
+    if (![_appDelegate.sebUIController extendedDisplay]) {
+        _SEBTitleLabel.hidden = YES;
+    }
+}
+
 
 - (BOOL)prefersStatusBarHidden {
     return YES;
@@ -155,6 +173,7 @@
     // Return the number of sections.
     return 1 + (_commandItems.count > 0);
 }
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

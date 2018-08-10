@@ -334,6 +334,18 @@ static NSMutableSet *browserWindowControllers;
     [self changeLeftSafeAreaInset];
 }
 
+
+- (void)willHideLeftView:(nonnull UIView *)leftView sideMenuController:(nonnull LGSideMenuController *)sideMenuController;
+{
+    //    [self changeLeftSafeAreaInset];
+}
+
+
+-(void)willHideLeftViewWithGesture:(UIView *)leftView sideMenuController:(LGSideMenuController *)sideMenuController
+{
+}
+
+
 - (void)didHideLeftView:(nonnull UIView *)leftView sideMenuController:(nonnull LGSideMenuController *)sideMenuController;
 {
     if (@available(iOS 11.0, *)) {

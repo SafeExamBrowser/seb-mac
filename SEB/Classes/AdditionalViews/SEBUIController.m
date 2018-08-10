@@ -269,6 +269,17 @@
 }
 
 
+// Check if running on a device like iPhone X
+- (BOOL)extendedDisplay {
+    BOOL extendedDisplay = NO;
+    if (@available(iOS 11.0, *)) {
+        UIWindow *window = UIApplication.sharedApplication.keyWindow;
+        extendedDisplay = window.safeAreaInsets.bottom != 0;
+    }
+    return extendedDisplay;
+}
+
+
 // Get statusbar appearance depending on device type (traditional or iPhone X like)
 - (NSUInteger)statusBarAppearanceForDevice {
     NSUInteger deviceStatusBarAppearance = _statusBarAppearance;

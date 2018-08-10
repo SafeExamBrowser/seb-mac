@@ -62,6 +62,9 @@
 @property (readwrite) BOOL browserToolbarEnabled;
 
 
+// Check if running on a device like iPhone X
+- (BOOL)extendedDisplay;
+
 // Get statusbar appearance depending on device type (traditional or iPhone X like)
 - (NSUInteger)statusBarAppearanceForDevice;
 
