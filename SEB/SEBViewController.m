@@ -321,13 +321,14 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)willShowLeftView:(nonnull UIView *)leftView sideMenuController:(nonnull LGSideMenuController *)sideMenuController;
 {
-//    [self changeLeftSafeAreaInset];
 }
 
-//-(void)didShowLeftView:(UIView *)leftView sideMenuController:(LGSideMenuController *)sideMenuController
-//{
-//    [self changeLeftSafeAreaInset];
-//}
+
+-(void)didShowLeftView:(UIView *)leftView sideMenuController:(LGSideMenuController *)sideMenuController
+{
+    
+}
+
 
 - (void)showAnimationsForLeftView:(nonnull UIView *)leftView sideMenuController:(nonnull LGSideMenuController *)sideMenuController duration:(NSTimeInterval)duration;
 {
@@ -336,17 +337,6 @@ static NSMutableSet *browserWindowControllers;
 
 
 - (void)willHideLeftView:(nonnull UIView *)leftView sideMenuController:(nonnull LGSideMenuController *)sideMenuController;
-{
-    //    [self changeLeftSafeAreaInset];
-}
-
-
--(void)willHideLeftViewWithGesture:(UIView *)leftView sideMenuController:(LGSideMenuController *)sideMenuController
-{
-}
-
-
-- (void)didHideLeftView:(nonnull UIView *)leftView sideMenuController:(nonnull LGSideMenuController *)sideMenuController;
 {
     if (@available(iOS 11.0, *)) {
         if (_navigationBarHeightConstraint || _toolBarHeightConstraint) {
@@ -358,12 +348,22 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+-(void)willHideLeftViewWithGesture:(UIView *)leftView sideMenuController:(LGSideMenuController *)sideMenuController
+{
+}
+
+
+- (void)didHideLeftView:(nonnull UIView *)leftView sideMenuController:(nonnull LGSideMenuController *)sideMenuController;
+{
+}
+
+
 - (void)changeLeftSafeAreaInset
 {
     if (@available(iOS 11.0, *)) {
         if (_navigationBarHeightConstraint || _toolBarHeightConstraint) {
             CGFloat leftSafeAreaInset = self.view.safeAreaInsets.left;
-            UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, -leftSafeAreaInset, 0, 0);
+            UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, -leftSafeAreaInset, 0, leftSafeAreaInset);
             self.parentViewController.additionalSafeAreaInsets = newSafeArea;
             [self viewSafeAreaInsetsDidChange];
         }
