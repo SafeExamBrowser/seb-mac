@@ -34,8 +34,8 @@
 #import <UIKit/UIKit.h>
 #import "SEBActionUITableViewCell.h"
 #import "AppDelegate.h"
-//#import "LGSideMenuController.h"
-//#import "UIViewController+LGSideMenuController.h"
+#import "LGSideMenuController.h"
+#import "UIViewController+LGSideMenuController.h"
 
 @class SEBActionUITableViewCell;
 @class AppDelegate;
