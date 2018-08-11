@@ -128,22 +128,24 @@
 
 - (void)initSliderViewAppearance
 {
-    _webpagesArray = [_appDelegate.persistentWebpages mutableCopy];
-    _commandItems = _appDelegate.sebUIController.leftSliderCommands;
-    
-    _SEBTitleLabel.textColor = [UIColor whiteColor];
-    _SEBTitleLabel.hidden = NO;
-    NSUInteger statusBarAppearance = [self statusBarAppearance];
-    if (statusBarAppearance == mobileStatusBarAppearanceLight ||
-        statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) {
-        _StatusBarBackgroundView.backgroundColor = [UIColor blackColor];
-        self.view.backgroundColor = [UIColor blackColor];
-    } else {
-        _StatusBarBackgroundView.backgroundColor = [UIColor darkGrayColor];
-        self.view.backgroundColor = [UIColor darkGrayColor];
+    if (!self.sideMenuController.isLeftViewShowing) {
+        _webpagesArray = [_appDelegate.persistentWebpages mutableCopy];
+        _commandItems = _appDelegate.sebUIController.leftSliderCommands;
+        
+        _SEBTitleLabel.textColor = [UIColor whiteColor];
+        _SEBTitleLabel.hidden = NO;
+        NSUInteger statusBarAppearance = [self statusBarAppearance];
+        if (statusBarAppearance == mobileStatusBarAppearanceLight ||
+            statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) {
+            _StatusBarBackgroundView.backgroundColor = [UIColor blackColor];
+            self.view.backgroundColor = [UIColor blackColor];
+        } else {
+            _StatusBarBackgroundView.backgroundColor = [UIColor darkGrayColor];
+            self.view.backgroundColor = [UIColor darkGrayColor];
+        }
+        
+        [self refreshTableView:self];
     }
-    
-    [self refreshTableView:self];
 }
 
 
