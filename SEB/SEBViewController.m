@@ -1088,7 +1088,7 @@ void run_on_ui_thread(dispatch_block_t block)
             }
             
         } else {
-            [constraints_V addObject:[NSLayoutConstraint constraintsWithVisualFormat: @"V:|-0-[statusBarView(==20)]-0-[containerView]"
+            [constraints_V addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat: @"V:[statusBarView(==20)]"
                                                                     options: 0
                                                                     metrics: nil
                                                                       views: viewsDictionary]];
