@@ -135,7 +135,8 @@
         _SEBTitleLabel.textColor = [UIColor whiteColor];
         _SEBTitleLabel.hidden = NO;
         NSUInteger statusBarAppearance = [self statusBarAppearance];
-        if (statusBarAppearance == mobileStatusBarAppearanceLight ||
+        if (statusBarAppearance == mobileStatusBarAppearanceNone ||
+            statusBarAppearance == mobileStatusBarAppearanceLight ||
             statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) {
             _StatusBarBackgroundView.backgroundColor = [UIColor blackColor];
             self.view.backgroundColor = [UIColor blackColor];
