@@ -84,8 +84,10 @@
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     NSUInteger statusBarAppearance = [self statusBarAppearance];
-    if (statusBarAppearance == mobileStatusBarAppearanceLight ||
-        statusBarAppearance == mobileStatusBarAppearanceExtendedLight) {
+    // Also consider if browser toolbar is enabled (then use always dark text statusbar)
+    if (!self.sebUIController.browserToolbarEnabled &&
+        (statusBarAppearance == mobileStatusBarAppearanceLight ||
+        statusBarAppearance == mobileStatusBarAppearanceExtendedLight)) {
         return UIStatusBarStyleLightContent;
     } else {
         return UIStatusBarStyleDefault;
