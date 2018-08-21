@@ -71,7 +71,12 @@
 }
 
 
-#pragma mark Delegates
+//- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+//{
+//    [super traitCollectionDidChange: previousTraitCollection];
+//    
+//    [_sebViewController traitCollectionDidChange:previousTraitCollection];
+//}
 
 
 -(IBAction) closeAbout
@@ -81,8 +86,6 @@
         _sebViewController.aboutSEBViewController = nil;
     }];
 }
-
-
 
 
 @end
